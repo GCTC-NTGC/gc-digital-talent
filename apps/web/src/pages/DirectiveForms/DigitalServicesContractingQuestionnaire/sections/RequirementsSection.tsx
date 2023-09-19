@@ -126,6 +126,14 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
     }
     if (!isHasPersonnelRequirementsNo) {
       resetDirtyField("qualificationRequirement");
+      resetDirtyField("requirementAccessToSecure");
+      resetDirtyField("requirementScreeningLevels");
+      resetDirtyField("requirementScreeningLevelOther");
+      resetDirtyField("requirementWorkLanguages");
+      resetDirtyField("requirementWorkLanguageOther");
+      resetDirtyField("requirementWorkLocations");
+      resetDirtyField("requirementWorkLocationGcSpecific");
+      resetDirtyField("requirementWorkLocationOffsiteSpecific");
     }
   }, [
     resetField,
@@ -212,121 +220,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             />
           }
         />
-        <RadioGroup
-          legend={labels.requirementAccessToSecure}
-          id="requirementAccessToSecure"
-          name="requirementAccessToSecure"
-          idPrefix="requirementAccessToSecure"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNo(option.value)),
-            };
-          })}
-        />
-        <Checklist
-          idPrefix="requirementScreeningLevels"
-          id="requirementScreeningLevels"
-          name="requirementScreeningLevels"
-          legend={labels.requirementScreeningLevels}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(
-            PersonnelScreeningLevel,
-            personnelScreeningLevelSortOrder,
-          ).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(
-                getPersonnelScreeningLevel(option.value),
-              ),
-            };
-          })}
-        />
-        {doesRequirementScreeningLevelsIncludeOther ? (
-          <Input
-            id="requirementScreeningLevelOther"
-            name="requirementScreeningLevelOther"
-            type="text"
-            label={labels.requirementScreeningLevelOther}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        ) : null}
-        <Checklist
-          idPrefix="requirementWorkLanguages"
-          id="requirementWorkLanguages"
-          name="requirementWorkLanguages"
-          legend={labels.requirementWorkLanguages}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(
-            PersonnelLanguage,
-            personnelLanguageSortOrder,
-          ).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getPersonnelLanguage(option.value)),
-            };
-          })}
-        />
-        {doesRequirementWorkLanguagesIncludeOther ? (
-          <Input
-            id="requirementWorkLanguageOther"
-            name="requirementWorkLanguageOther"
-            type="text"
-            label={labels.requirementWorkLanguageOther}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        ) : null}
-        <Checklist
-          idPrefix="requirementWorkLocations"
-          id="requirementWorkLocations"
-          name="requirementWorkLocations"
-          legend={labels.requirementWorkLocations}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(
-            PersonnelWorkLocation,
-            personnelWorkLocationSortOrder,
-          ).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getPersonnelWorkLocation(option.value)),
-            };
-          })}
-        />
-        {doesRequirementWorkLocationsIncludeGc ? (
-          <Input
-            id="requirementWorkLocationGcSpecific"
-            name="requirementWorkLocationGcSpecific"
-            type="text"
-            label={labels.requirementWorkLocationGcSpecific}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        ) : null}
-        {doesRequirementWorkLocationsIncludeOffsiteSpecific ? (
-          <Input
-            id="requirementWorkLocationOffsiteSpecific"
-            name="requirementWorkLocationOffsiteSpecific"
-            type="text"
-            label={labels.requirementWorkLocationOffsiteSpecific}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        ) : null}
         <SignPost
           title={intl.formatMessage({
             defaultMessage: "Other requirements",
@@ -404,19 +297,138 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           <PersonnelRequirementsSection skills={skills} />
         )}
         {isHasPersonnelRequirementsNo && (
-          <TextArea
-            id="qualificationRequirement"
-            name="qualificationRequirement"
-            label={labels.qualificationRequirement}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            context={intl.formatMessage({
-              defaultMessage:
-                "List the specific skill, education, or experience that are required to perform the work required.",
-              id: "rtzp80",
-              description:
-                "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
-            })}
-          />
+          <>
+            <TextArea
+              id="qualificationRequirement"
+              name="qualificationRequirement"
+              label={labels.qualificationRequirement}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "List the specific skill, education, or experience that are required to perform the work required.",
+                id: "rtzp80",
+                description:
+                  "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_",
+              })}
+            />
+            <RadioGroup
+              legend={labels.requirementAccessToSecure}
+              id="requirementAccessToSecure"
+              name="requirementAccessToSecure"
+              idPrefix="requirementAccessToSecure"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(getYesNo(option.value)),
+                };
+              })}
+            />
+            <Checklist
+              idPrefix="requirementScreeningLevels"
+              id="requirementScreeningLevels"
+              name="requirementScreeningLevels"
+              legend={labels.requirementScreeningLevels}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                PersonnelScreeningLevel,
+                personnelScreeningLevelSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getPersonnelScreeningLevel(option.value),
+                  ),
+                };
+              })}
+            />
+            {doesRequirementScreeningLevelsIncludeOther ? (
+              <Input
+                id="requirementScreeningLevelOther"
+                name="requirementScreeningLevelOther"
+                type="text"
+                label={labels.requirementScreeningLevelOther}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+            <Checklist
+              idPrefix="requirementWorkLanguages"
+              id="requirementWorkLanguages"
+              name="requirementWorkLanguages"
+              legend={labels.requirementWorkLanguages}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                PersonnelLanguage,
+                personnelLanguageSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(getPersonnelLanguage(option.value)),
+                };
+              })}
+            />
+            {doesRequirementWorkLanguagesIncludeOther ? (
+              <Input
+                id="requirementWorkLanguageOther"
+                name="requirementWorkLanguageOther"
+                type="text"
+                label={labels.requirementWorkLanguageOther}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+            <Checklist
+              idPrefix="requirementWorkLocations"
+              id="requirementWorkLocations"
+              name="requirementWorkLocations"
+              legend={labels.requirementWorkLocations}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                PersonnelWorkLocation,
+                personnelWorkLocationSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getPersonnelWorkLocation(option.value),
+                  ),
+                };
+              })}
+            />
+            {doesRequirementWorkLocationsIncludeGc ? (
+              <Input
+                id="requirementWorkLocationGcSpecific"
+                name="requirementWorkLocationGcSpecific"
+                type="text"
+                label={labels.requirementWorkLocationGcSpecific}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+            {doesRequirementWorkLocationsIncludeOffsiteSpecific ? (
+              <Input
+                id="requirementWorkLocationOffsiteSpecific"
+                name="requirementWorkLocationOffsiteSpecific"
+                type="text"
+                label={labels.requirementWorkLocationOffsiteSpecific}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+          </>
         )}
       </div>
     </TableOfContents.Section>

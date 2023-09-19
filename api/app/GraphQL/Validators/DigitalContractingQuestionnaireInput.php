@@ -37,6 +37,13 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'methodOfSupply' => [
                 new ScalarConsistentWithDetail(DirectiveFormsApiEnums::CONTRACT_SUPPLY_METHOD_OTHER, 'methodOfSupplyOther'),
             ],
+            'requirementOthers' => [
+                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),
+            ],
+            'personnelRequirements' => [
+                'requiredIf:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
+                'prohibited_unless:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
+            ],
             'requirementScreeningLevels' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'requirementScreeningLevelOther'),
             ],
@@ -46,13 +53,6 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'requirementWorkLocations' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_GC_PREMISES, 'requirementWorkLocationGcSpecific'),
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, 'requirementWorkLocationOffsiteSpecific'),
-            ],
-            'requirementOthers' => [
-                new ArrayConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_OTHER_REQUIREMENT_OTHER, 'requirementOtherOther'),
-            ],
-            'personnelRequirements' => [
-                'requiredIf:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
-                'prohibited_unless:hasPersonnelRequirements,'.DirectiveFormsApiEnums::YESNOUNSURE_YES,
             ],
             'operationsConsiderations' => [
                 new ArrayConsistentWithDetail(DirectiveFormsApiEnums::OPERATIONS_CONSIDERATION_OTHER, 'operationsConsiderationsOther'),

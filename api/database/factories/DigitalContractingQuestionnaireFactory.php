@@ -78,31 +78,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'solicitation_procedure' => $this->faker->randomElement(DirectiveFormsApiEnums::contractSolicitationProcedures()),
             'subject_to_trade_agreement' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
             'work_requirement_description' => $this->faker->paragraph(),
-            'requirement_access_to_secure' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure()),
-            'requirement_screening_levels' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelScreeningLevels(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelScreeningLevels()))
-            ),
-            'requirement_screening_level_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, $attributes['requirement_screening_levels']) ? $this->faker->word() : null;
-            },
-            'requirement_work_languages' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelLanguages(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelLanguages()))
-            ),
-            'requirement_work_language_other' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, $attributes['requirement_work_languages']) ? $this->faker->word() : null;
-            },
-            'requirement_work_locations' => $this->faker->randomElements(
-                DirectiveFormsApiEnums::personnelWorkLocations(),
-                $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelWorkLocations()))
-            ),
-            'requirement_work_location_gc_specific' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_GC_PREMISES, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
-            },
-            'requirement_work_location_offsite_specific' => function (array $attributes) {
-                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
-            },
             'requirement_others' => $this->faker->randomElements(
                 DirectiveFormsApiEnums::personnelOtherRequirements(),
                 $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelOtherRequirements()))
@@ -112,12 +87,48 @@ class DigitalContractingQuestionnaireFactory extends Factory
             },
             'has_personnel_requirements' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             // personnel_requirements added in configure method
-            'qualification_requirement' => $this->faker->paragraph(),
-
             'qualification_requirement' => function (array $attributes) {
-                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO ? $this->faker->word() : null;
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO ? $this->faker->paragraph() : null;
             },
-
+            'requirement_access_to_secure' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO
+                    ? $this->faker->randomElement(DirectiveFormsApiEnums::yesNoUnsure())
+                    : null;
+            },
+            'requirement_screening_levels' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO
+                    ? $this->faker->randomElements(
+                        DirectiveFormsApiEnums::personnelScreeningLevels(),
+                        $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelScreeningLevels()))
+                    )
+                    : [];
+            },
+            'requirement_screening_level_other' => function (array $attributes) {
+                return in_array(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, $attributes['requirement_screening_levels']) ? $this->faker->word() : null;
+            },
+            'requirement_work_languages' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO
+                    ? $this->faker->randomElements(
+                        DirectiveFormsApiEnums::personnelLanguages(),
+                        $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelLanguages())))
+                : [];
+            },
+            'requirement_work_language_other' => function (array $attributes) {
+                return in_array(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, $attributes['requirement_work_languages']) ? $this->faker->word() : null;
+            },
+            'requirement_work_locations' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === DirectiveFormsApiEnums::YESNO_NO
+                    ? $this->faker->randomElements(
+                        DirectiveFormsApiEnums::personnelWorkLocations(),
+                        $this->faker->numberBetween(1, count(DirectiveFormsApiEnums::personnelWorkLocations())))
+                : [];
+            },
+            'requirement_work_location_gc_specific' => function (array $attributes) {
+                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_GC_PREMISES, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+            },
+            'requirement_work_location_offsite_specific' => function (array $attributes) {
+                return in_array(DirectiveFormsApiEnums::PERSONNEL_WORK_LOCATION_OFFSITE_SPECIFIC, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+            },
             'is_technological_change' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_impact_on_your_department' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(DirectiveFormsApiEnums::yesNo()),

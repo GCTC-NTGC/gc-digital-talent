@@ -199,6 +199,14 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "subject_to_trade_agreement")
   workRequirementDescription: String
     @rename(attribute: "work_requirement_description")
+  requirementOthers: [PersonnelOtherRequirement!]
+    @rename(attribute: "requirement_others")
+  requirementOtherOther: String @rename(attribute: "requirement_other_other")
+  hasPersonnelRequirements: YesNo
+    @rename(attribute: "has_personnel_requirements")
+  personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
+  qualificationRequirement: String
+    @rename(attribute: "qualification_requirement")
   requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
@@ -215,14 +223,6 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "requirement_work_location_gc_specific")
   requirementWorkLocationOffsiteSpecific: String
     @rename(attribute: "requirement_work_location_offsite_specific")
-  requirementOthers: [PersonnelOtherRequirement!]
-    @rename(attribute: "requirement_others")
-  requirementOtherOther: String @rename(attribute: "requirement_other_other")
-  hasPersonnelRequirements: YesNo
-    @rename(attribute: "has_personnel_requirements")
-  personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
-  qualificationRequirement: String
-    @rename(attribute: "qualification_requirement")
   isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
@@ -361,6 +361,14 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "subject_to_trade_agreement")
   workRequirementDescription: String
     @rename(attribute: "work_requirement_description")
+  requirementOthers: [PersonnelOtherRequirement!]
+    @rename(attribute: "requirement_others")
+  requirementOtherOther: String @rename(attribute: "requirement_other_other")
+  hasPersonnelRequirements: YesNo
+    @rename(attribute: "has_personnel_requirements")
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
+  qualificationRequirement: String
+    @rename(attribute: "qualification_requirement")
   requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
@@ -377,14 +385,6 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "requirement_work_location_gc_specific")
   requirementWorkLocationOffsiteSpecific: String
     @rename(attribute: "requirement_work_location_offsite_specific")
-  requirementOthers: [PersonnelOtherRequirement!]
-    @rename(attribute: "requirement_others")
-  requirementOtherOther: String @rename(attribute: "requirement_other_other")
-  hasPersonnelRequirements: YesNo
-    @rename(attribute: "has_personnel_requirements")
-  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
-  qualificationRequirement: String
-    @rename(attribute: "qualification_requirement")
   isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")

@@ -289,8 +289,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     }),
     requirementWorkLanguages: intl.formatMessage({
       defaultMessage:
-        "Select the language in which the work will be performed and delivered in.",
-      id: "NMdcCC",
+        "Select the language which the work will be performed and delivered in.",
+      id: "yGyjXK",
       description:
         "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_",
     }),

@@ -98,23 +98,6 @@ export const WithValues: Story = {
 
       // requirements section
       workRequirementDescription: "Super important requirements.",
-      requirementAccessToSecure: YesNo.Yes,
-      requirementScreeningLevels: [
-        PersonnelScreeningLevel.TopSecret,
-        PersonnelScreeningLevel.Other,
-      ],
-      requirementScreeningLevelOther: "Ultra-High Security",
-      requirementWorkLanguages: [
-        PersonnelLanguage.BilingualAdvanced,
-        PersonnelLanguage.Other,
-      ],
-      requirementWorkLanguageOther: "Klingon",
-      requirementWorkLocations: [
-        PersonnelWorkLocation.GcPremises,
-        PersonnelWorkLocation.OffsiteSpecific,
-      ],
-      requirementWorkLocationGcSpecific: "The Town",
-      requirementWorkLocationOffsiteSpecific: "The City",
       hasOtherRequirements: YesNo.Yes,
       requirementOthers: [
         PersonnelOtherRequirement.OvertimeShortNotice,
@@ -161,6 +144,23 @@ export const WithValues: Story = {
         },
       ],
       qualificationRequirement: "Super special qualifications",
+      requirementAccessToSecure: YesNo.Yes,
+      requirementScreeningLevels: [
+        PersonnelScreeningLevel.TopSecret,
+        PersonnelScreeningLevel.Other,
+      ],
+      requirementScreeningLevelOther: "Ultra-High Security",
+      requirementWorkLanguages: [
+        PersonnelLanguage.BilingualAdvanced,
+        PersonnelLanguage.Other,
+      ],
+      requirementWorkLanguageOther: "Klingon",
+      requirementWorkLocations: [
+        PersonnelWorkLocation.GcPremises,
+        PersonnelWorkLocation.OffsiteSpecific,
+      ],
+      requirementWorkLocationGcSpecific: "The Town",
+      requirementWorkLocationOffsiteSpecific: "The City",
 
       // technological change section
       isTechnologicalChange: YesNo.Yes,

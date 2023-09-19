@@ -18,8 +18,10 @@ import {
   SkillLevel,
   YesNo,
   YesNoUnsure,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { emptyToNull } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import { OTHER_ID, stringToEnum } from "../util";
 
@@ -40,103 +42,142 @@ export function isSkillRequirementFormValues(
   );
 }
 
+function parseFormStringField(field: Maybe<string>): string | null {
+  return emptyToNull(field);
+}
+
+function parseFormIntField(field: Maybe<string>): number | null {
+  if (field === null || field === undefined) {
+    return null;
+  }
+  const parsedInt = parseInt(field, 10);
+  if (Number.isInteger(parsedInt)) {
+    return parsedInt;
+  }
+  defaultLogger.error(`Failed to parse ${field} to number`);
+  return null;
+}
+
+function parseFormEnumField<T extends object>(
+  typeObject: T,
+  field: Maybe<string>,
+): ReturnType<typeof stringToEnum> | null {
+  if (field === null || field === undefined) {
+    return null;
+  }
+  return stringToEnum(typeObject, field);
+}
+
+function parseFormEnumArrayField<T extends object>(
+  typeObject: T,
+  field: Maybe<Array<string>>,
+): Array<ReturnType<typeof stringToEnum>> | null {
+  if (field === null || field === undefined) {
+    return null;
+  }
+  return field.map((item) => parseFormEnumField(typeObject, item));
+}
+
 export type PersonnelRequirementFormValues = {
-  resourceType: string;
-  skillRequirements: Array<SkillRequirementFormValues>;
-  language: string;
-  languageOther: string;
-  security: string;
-  securityOther: string;
-  telework: string;
-  quantity: string;
+  resourceType: Maybe<string>;
+  skillRequirements: Maybe<Array<SkillRequirementFormValues>>;
+  language: Maybe<string>;
+  languageOther: Maybe<string>;
+  security: Maybe<string>;
+  securityOther: Maybe<string>;
+  telework: Maybe<string>;
+  quantity: Maybe<string>;
 };
 
 // backing object for questionnaire form
 export type FormValues = {
   // preamble section
-  readPreamble: boolean | null | undefined;
+  readPreamble: Maybe<boolean>;
 
   // general information section
-  department: string;
-  departmentOther: string;
-  branchOther: string;
-  businessOwnerName: string;
-  businessOwnerJobTitle: string;
-  businessOwnerEmail: string;
-  financialAuthorityName: string;
-  financialAuthorityJobTitle: string;
-  financialAuthorityEmail: string;
-  isAuthorityInvolved: string;
-  authoritiesInvolved: Array<string>;
-  authorityInvolvedOther: string;
-  contractBehalfOfGc: string;
-  contractServiceOfGc: string;
-  contractForDigitalInitiative: string;
-  digitalInitiativeName: string;
-  digitalInitiativePlanSubmitted: string;
-  digitalInitiativePlanUpdated: string;
-  digitalInitiativePlanComplemented: string;
+  department: Maybe<string>;
+  departmentOther: Maybe<string>;
+  branchOther: Maybe<string>;
+  businessOwnerName: Maybe<string>;
+  businessOwnerJobTitle: Maybe<string>;
+  businessOwnerEmail: Maybe<string>;
+  financialAuthorityName: Maybe<string>;
+  financialAuthorityJobTitle: Maybe<string>;
+  financialAuthorityEmail: Maybe<string>;
+  isAuthorityInvolved: Maybe<string>;
+  authoritiesInvolved: Maybe<Array<string>>;
+  authorityInvolvedOther: Maybe<string>;
+  contractBehalfOfGc: Maybe<string>;
+  contractServiceOfGc: Maybe<string>;
+  contractForDigitalInitiative: Maybe<string>;
+  digitalInitiativeName: Maybe<string>;
+  digitalInitiativePlanSubmitted: Maybe<string>;
+  digitalInitiativePlanUpdated: Maybe<string>;
+  digitalInitiativePlanComplemented: Maybe<string>;
 
   // scope of contract section
-  contractTitle: string;
-  contractStartDate: string;
-  contractEndDate: string;
-  contractExtendable: string;
-  contractAmendable: string;
-  contractMultiyear: string;
-  contractValue: string;
-  contractFtes: string;
-  contractResourcesStartTimeframe: string;
-  commodityType: string;
-  commodityTypeOther: string;
-  instrumentType: string;
-  instrumentTypeOther: string;
-  methodOfSupply: string;
-  methodOfSupplyOther: string;
-  solicitationProcedure: string;
-  subjectToTradeAgreement: string;
+  contractTitle: Maybe<string>;
+  contractStartDate: Maybe<string>;
+  contractEndDate: Maybe<string>;
+  contractExtendable: Maybe<string>;
+  contractAmendable: Maybe<string>;
+  contractMultiyear: Maybe<string>;
+  contractValue: Maybe<string>;
+  contractFtes: Maybe<string>;
+  contractResourcesStartTimeframe: Maybe<string>;
+  commodityType: Maybe<string>;
+  commodityTypeOther: Maybe<string>;
+  instrumentType: Maybe<string>;
+  instrumentTypeOther: Maybe<string>;
+  methodOfSupply: Maybe<string>;
+  methodOfSupplyOther: Maybe<string>;
+  solicitationProcedure: Maybe<string>;
+  subjectToTradeAgreement: Maybe<string>;
 
   // requirements section
-  workRequirementDescription: string;
-  requirementAccessToSecure: string;
-  requirementScreeningLevels: Array<string>;
-  requirementScreeningLevelOther: string;
-  requirementWorkLanguages: Array<string>;
-  requirementWorkLanguageOther: string;
-  requirementWorkLocations: Array<string>;
-  requirementWorkLocationGcSpecific: string;
-  requirementWorkLocationOffsiteSpecific: string;
-  hasOtherRequirements: string;
-  requirementOthers: Array<string>;
-  requirementOtherOther: string;
+  workRequirementDescription: Maybe<string>;
+  hasOtherRequirements: Maybe<string>;
+  requirementOthers: Maybe<Array<string>>;
+  requirementOtherOther: Maybe<string>;
 
   // personnel requirements section
-  hasPersonnelRequirements: string;
-  personnelRequirements: Array<PersonnelRequirementFormValues> | null;
-  qualificationRequirement: string;
+  hasPersonnelRequirements: Maybe<string>;
+  personnelRequirements:
+    | Array<PersonnelRequirementFormValues>
+    | null
+    | undefined;
+  qualificationRequirement: Maybe<string>;
+  requirementAccessToSecure: Maybe<string>;
+  requirementScreeningLevels: Maybe<Array<string>>;
+  requirementScreeningLevelOther: Maybe<string>;
+  requirementWorkLanguages: Maybe<Array<string>>;
+  requirementWorkLanguageOther: Maybe<string>;
+  requirementWorkLocations: Maybe<Array<string>>;
+  requirementWorkLocationGcSpecific: Maybe<string>;
+  requirementWorkLocationOffsiteSpecific: Maybe<string>;
 
   // technological change section
-  isTechnologicalChange: string;
-  hasImpactOnYourDepartment: string;
-  hasImmediateImpactOnOtherDepartments: string;
-  hasFutureImpactOnOtherDepartments: string;
+  isTechnologicalChange: Maybe<string>;
+  hasImpactOnYourDepartment: Maybe<string>;
+  hasImmediateImpactOnOtherDepartments: Maybe<string>;
+  hasFutureImpactOnOtherDepartments: Maybe<string>;
 
   // operations considerations section
-  hasOperationsConsiderations: string;
-  operationsConsiderations: Array<string>;
-  operationsConsiderationsOther: string;
+  hasOperationsConsiderations: Maybe<string>;
+  operationsConsiderations: Maybe<Array<string>>;
+  operationsConsiderationsOther: Maybe<string>;
 
   // Talent sourcing decision section
-  contractingRationalePrimary: string;
-  contractingRationalePrimaryOther: string;
-  contractingRationalesSecondary: Array<string>;
-  contractingRationalesSecondaryOther: string;
-  ocioConfirmedTalentShortage: string;
-  talentSearchTrackingNumber: string;
-  ongoingNeedForKnowledge: string;
-  knowledgeTransferInContract: string;
-  employeesHaveAccessToKnowledge: string;
-  ocioEngagedForTraining: string;
+  contractingRationalePrimary: Maybe<string>;
+  contractingRationalePrimaryOther: Maybe<string>;
+  contractingRationalesSecondary: Maybe<Array<string>>;
+  contractingRationalesSecondaryOther: Maybe<string>;
+  ocioConfirmedTalentShortage: Maybe<string>;
+  talentSearchTrackingNumber: Maybe<string>;
+  ongoingNeedForKnowledge: Maybe<string>;
+  knowledgeTransferInContract: Maybe<string>;
+  employeesHaveAccessToKnowledge: Maybe<string>;
+  ocioEngagedForTraining: Maybe<string>;
 };
 
 export function convertFormValuesToApiInput(
@@ -152,115 +193,116 @@ export function convertFormValuesToApiInput(
             connect: formValues.department,
           }
         : null,
-    departmentOther: emptyToNull(formValues.departmentOther),
-    branchOther: emptyToNull(formValues.branchOther),
-    businessOwnerName: emptyToNull(formValues.businessOwnerName),
-    businessOwnerJobTitle: emptyToNull(formValues.businessOwnerJobTitle),
-    businessOwnerEmail: emptyToNull(formValues.businessOwnerEmail),
-    financialAuthorityName: emptyToNull(formValues.financialAuthorityName),
-    financialAuthorityJobTitle: emptyToNull(
+    departmentOther: parseFormStringField(formValues.departmentOther),
+    branchOther: parseFormStringField(formValues.branchOther),
+    businessOwnerName: parseFormStringField(formValues.businessOwnerName),
+    businessOwnerJobTitle: parseFormStringField(
+      formValues.businessOwnerJobTitle,
+    ),
+    businessOwnerEmail: parseFormStringField(formValues.businessOwnerEmail),
+    financialAuthorityName: parseFormStringField(
+      formValues.financialAuthorityName,
+    ),
+    financialAuthorityJobTitle: parseFormStringField(
       formValues.financialAuthorityJobTitle,
     ),
-    financialAuthorityEmail: emptyToNull(formValues.financialAuthorityEmail),
-    // otherAuthoritiesInvolved not sent to api
-    authoritiesInvolved: formValues.authoritiesInvolved?.map((a) =>
-      stringToEnum(ContractAuthority, a),
+    financialAuthorityEmail: parseFormStringField(
+      formValues.financialAuthorityEmail,
     ),
-    authorityInvolvedOther: emptyToNull(formValues.authorityInvolvedOther),
-    contractBehalfOfGc: stringToEnum(
+    // otherAuthoritiesInvolved not sent to api
+    authoritiesInvolved: parseFormEnumArrayField(
+      ContractAuthority,
+      formValues.authoritiesInvolved,
+    ),
+    authorityInvolvedOther: parseFormStringField(
+      formValues.authorityInvolvedOther,
+    ),
+    contractBehalfOfGc: parseFormEnumField(
       YesNoUnsure,
       formValues.contractBehalfOfGc,
     ),
-    contractServiceOfGc: stringToEnum(
+    contractServiceOfGc: parseFormEnumField(
       YesNoUnsure,
       formValues.contractServiceOfGc,
     ),
-    contractForDigitalInitiative: stringToEnum(
+    contractForDigitalInitiative: parseFormEnumField(
       YesNoUnsure,
       formValues.contractForDigitalInitiative,
     ),
-    digitalInitiativeName: emptyToNull(formValues.digitalInitiativeName),
-    digitalInitiativePlanSubmitted: stringToEnum(
+    digitalInitiativeName: parseFormStringField(
+      formValues.digitalInitiativeName,
+    ),
+    digitalInitiativePlanSubmitted: parseFormEnumField(
       YesNoUnsure,
       formValues.digitalInitiativePlanSubmitted,
     ),
-    digitalInitiativePlanUpdated: stringToEnum(
+    digitalInitiativePlanUpdated: parseFormEnumField(
       YesNoUnsure,
       formValues.digitalInitiativePlanUpdated,
     ),
-    digitalInitiativePlanComplemented: stringToEnum(
+    digitalInitiativePlanComplemented: parseFormEnumField(
       YesNoUnsure,
       formValues.digitalInitiativePlanComplemented,
     ),
 
     // scope of contract
-    contractTitle: emptyToNull(formValues.contractTitle),
-    contractStartDate: emptyToNull(formValues.contractStartDate),
-    contractEndDate: emptyToNull(formValues.contractEndDate),
-    contractExtendable: stringToEnum(YesNo, formValues.contractExtendable),
-    contractAmendable: stringToEnum(YesNo, formValues.contractAmendable),
-    contractMultiyear: stringToEnum(YesNo, formValues.contractMultiyear),
-    contractValue: stringToEnum(ContractValueRange, formValues.contractValue),
-    contractFtes: stringToEnum(ContractFteRange, formValues.contractFtes),
-    contractResourcesStartTimeframe: stringToEnum(
+    contractTitle: parseFormStringField(formValues.contractTitle),
+    contractStartDate: parseFormStringField(formValues.contractStartDate),
+    contractEndDate: parseFormStringField(formValues.contractEndDate),
+    contractExtendable: parseFormEnumField(
+      YesNo,
+      formValues.contractExtendable,
+    ),
+    contractAmendable: parseFormEnumField(YesNo, formValues.contractAmendable),
+    contractMultiyear: parseFormEnumField(YesNo, formValues.contractMultiyear),
+    contractValue: parseFormEnumField(
+      ContractValueRange,
+      formValues.contractValue,
+    ),
+    contractFtes: parseFormEnumField(ContractFteRange, formValues.contractFtes),
+    contractResourcesStartTimeframe: parseFormEnumField(
       ContractStartTimeframe,
       formValues.contractResourcesStartTimeframe,
     ),
-    commodityType: stringToEnum(ContractCommodity, formValues.commodityType),
-    commodityTypeOther: emptyToNull(formValues.commodityTypeOther),
-    instrumentType: stringToEnum(ContractInstrument, formValues.instrumentType),
-    instrumentTypeOther: emptyToNull(formValues.instrumentTypeOther),
-    methodOfSupply: stringToEnum(
+    commodityType: parseFormEnumField(
+      ContractCommodity,
+      formValues.commodityType,
+    ),
+    commodityTypeOther: parseFormStringField(formValues.commodityTypeOther),
+    instrumentType: parseFormEnumField(
+      ContractInstrument,
+      formValues.instrumentType,
+    ),
+    instrumentTypeOther: parseFormStringField(formValues.instrumentTypeOther),
+    methodOfSupply: parseFormEnumField(
       ContractSupplyMethod,
       formValues.methodOfSupply,
     ),
-    methodOfSupplyOther: emptyToNull(formValues.methodOfSupplyOther),
-    solicitationProcedure: stringToEnum(
+    methodOfSupplyOther: parseFormStringField(formValues.methodOfSupplyOther),
+    solicitationProcedure: parseFormEnumField(
       ContractSolicitationProcedure,
       formValues.solicitationProcedure,
     ),
-    subjectToTradeAgreement: stringToEnum(
+    subjectToTradeAgreement: parseFormEnumField(
       YesNoUnsure,
       formValues.subjectToTradeAgreement,
     ),
 
     // Requirements section
-    workRequirementDescription: emptyToNull(
+    workRequirementDescription: parseFormStringField(
       formValues.workRequirementDescription,
     ),
-    requirementAccessToSecure: stringToEnum(
-      YesNo,
-      formValues.requirementAccessToSecure,
-    ),
-    requirementScreeningLevels: formValues.requirementScreeningLevels?.map(
-      (a) => stringToEnum(PersonnelScreeningLevel, a),
-    ),
-    requirementScreeningLevelOther: emptyToNull(
-      formValues.requirementScreeningLevelOther,
-    ),
-    requirementWorkLanguages: formValues.requirementWorkLanguages?.map((a) =>
-      stringToEnum(PersonnelLanguage, a),
-    ),
-    requirementWorkLanguageOther: emptyToNull(
-      formValues.requirementWorkLanguageOther,
-    ),
-    requirementWorkLocations: formValues.requirementWorkLocations?.map((a) =>
-      stringToEnum(PersonnelWorkLocation, a),
-    ),
-    requirementWorkLocationGcSpecific: emptyToNull(
-      formValues.requirementWorkLocationGcSpecific,
-    ),
-    requirementWorkLocationOffsiteSpecific: emptyToNull(
-      formValues.requirementWorkLocationOffsiteSpecific,
-    ),
     // hasOtherRequirements not sent to API
-    requirementOthers: formValues.requirementOthers?.map((a) =>
-      stringToEnum(PersonnelOtherRequirement, a),
+    requirementOthers: parseFormEnumArrayField(
+      PersonnelOtherRequirement,
+      formValues.requirementOthers,
     ),
-    requirementOtherOther: emptyToNull(formValues.requirementOtherOther),
+    requirementOtherOther: parseFormStringField(
+      formValues.requirementOtherOther,
+    ),
 
     // Personnel requirements section
-    hasPersonnelRequirements: stringToEnum(
+    hasPersonnelRequirements: parseFormEnumField(
       YesNo,
       formValues.hasPersonnelRequirements,
     ),
@@ -271,100 +313,139 @@ export function convertFormValuesToApiInput(
               return {
                 resourceType: personnelRequirement.resourceType,
                 skillRequirements: {
-                  create: personnelRequirement.skillRequirements.map(
+                  create: personnelRequirement.skillRequirements?.map(
                     (skillRequirement) => {
                       return {
                         skill: {
                           connect: skillRequirement.skillId,
                         },
-                        level: stringToEnum(SkillLevel, skillRequirement.level),
+                        level: parseFormEnumField(
+                          SkillLevel,
+                          skillRequirement.level,
+                        ),
                       };
                     },
                   ),
                 },
-                language: stringToEnum(
+                language: parseFormEnumField(
                   PersonnelLanguage,
                   personnelRequirement.language,
                 ),
-                languageOther: emptyToNull(personnelRequirement.languageOther),
-                security: stringToEnum(
+                languageOther: parseFormStringField(
+                  personnelRequirement.languageOther,
+                ),
+                security: parseFormEnumField(
                   PersonnelScreeningLevel,
                   personnelRequirement.security,
                 ),
-                securityOther: emptyToNull(personnelRequirement.securityOther),
-                telework: stringToEnum(
+                securityOther: parseFormStringField(
+                  personnelRequirement.securityOther,
+                ),
+                telework: parseFormEnumField(
                   PersonnelTeleworkOption,
                   personnelRequirement.telework,
                 ),
-                quantity: parseInt(personnelRequirement.quantity, 10) ?? null,
+                quantity: parseFormIntField(personnelRequirement.quantity),
               };
             },
           ),
         }
       : undefined,
-    qualificationRequirement: emptyToNull(formValues.qualificationRequirement),
+    qualificationRequirement: parseFormStringField(
+      formValues.qualificationRequirement,
+    ),
+    requirementAccessToSecure: parseFormEnumField(
+      YesNo,
+      formValues.requirementAccessToSecure,
+    ),
+    requirementScreeningLevels: parseFormEnumArrayField(
+      PersonnelScreeningLevel,
+      formValues.requirementScreeningLevels,
+    ),
+    requirementScreeningLevelOther: parseFormStringField(
+      formValues.requirementScreeningLevelOther,
+    ),
+    requirementWorkLanguages: parseFormEnumArrayField(
+      PersonnelLanguage,
+      formValues.requirementWorkLanguages,
+    ),
+    requirementWorkLanguageOther: parseFormStringField(
+      formValues.requirementWorkLanguageOther,
+    ),
+    requirementWorkLocations: parseFormEnumArrayField(
+      PersonnelWorkLocation,
+      formValues.requirementWorkLocations,
+    ),
+    requirementWorkLocationGcSpecific: parseFormStringField(
+      formValues.requirementWorkLocationGcSpecific,
+    ),
+    requirementWorkLocationOffsiteSpecific: parseFormStringField(
+      formValues.requirementWorkLocationOffsiteSpecific,
+    ),
 
     // Technological change section
-    isTechnologicalChange: stringToEnum(
+    isTechnologicalChange: parseFormEnumField(
       YesNo,
       formValues.isTechnologicalChange,
     ),
-    hasImpactOnYourDepartment: stringToEnum(
+    hasImpactOnYourDepartment: parseFormEnumField(
       YesNo,
       formValues.hasImpactOnYourDepartment,
     ),
-    hasImmediateImpactOnOtherDepartments: stringToEnum(
+    hasImmediateImpactOnOtherDepartments: parseFormEnumField(
       YesNo,
       formValues.hasImmediateImpactOnOtherDepartments,
     ),
-    hasFutureImpactOnOtherDepartments: stringToEnum(
+    hasFutureImpactOnOtherDepartments: parseFormEnumField(
       YesNo,
       formValues.hasFutureImpactOnOtherDepartments,
     ),
 
     // Operations considerations section
     // hasOperationsConsiderations not sent to api
-    operationsConsiderations: formValues.operationsConsiderations?.map((a) =>
-      stringToEnum(OperationsConsideration, a),
+    operationsConsiderations: parseFormEnumArrayField(
+      OperationsConsideration,
+      formValues.operationsConsiderations,
     ),
-    operationsConsiderationsOther: emptyToNull(
+    operationsConsiderationsOther: parseFormStringField(
       formValues.operationsConsiderationsOther,
     ),
 
     // Talent sourcing decision section
-    contractingRationalePrimary: stringToEnum(
+    contractingRationalePrimary: parseFormEnumField(
       ContractingRationale,
       formValues.contractingRationalePrimary,
     ),
-    contractingRationalePrimaryOther: emptyToNull(
+    contractingRationalePrimaryOther: parseFormStringField(
       formValues.contractingRationalePrimaryOther,
     ),
-    contractingRationalesSecondary:
-      formValues.contractingRationalesSecondary?.map((a) =>
-        stringToEnum(ContractingRationale, a),
-      ),
-    contractingRationalesSecondaryOther: emptyToNull(
+    contractingRationalesSecondary: parseFormEnumArrayField(
+      ContractingRationale,
+      formValues.contractingRationalesSecondary,
+    ),
+    contractingRationalesSecondaryOther: parseFormStringField(
       formValues.contractingRationalesSecondaryOther,
     ),
-    ocioConfirmedTalentShortage: formValues.ocioConfirmedTalentShortage
-      ? stringToEnum(YesNo, formValues.ocioConfirmedTalentShortage)
-      : null,
-    talentSearchTrackingNumber: emptyToNull(
+    ocioConfirmedTalentShortage: parseFormEnumField(
+      YesNo,
+      formValues.ocioConfirmedTalentShortage,
+    ),
+    talentSearchTrackingNumber: parseFormStringField(
       formValues.talentSearchTrackingNumber,
     ),
-    ongoingNeedForKnowledge: stringToEnum(
+    ongoingNeedForKnowledge: parseFormEnumField(
       YesNo,
       formValues.ongoingNeedForKnowledge,
     ),
-    knowledgeTransferInContract: stringToEnum(
+    knowledgeTransferInContract: parseFormEnumField(
       YesNo,
       formValues.knowledgeTransferInContract,
     ),
-    employeesHaveAccessToKnowledge: stringToEnum(
+    employeesHaveAccessToKnowledge: parseFormEnumField(
       YesNo,
       formValues.employeesHaveAccessToKnowledge,
     ),
-    ocioEngagedForTraining: stringToEnum(
+    ocioEngagedForTraining: parseFormEnumField(
       YesNo,
       formValues.ocioEngagedForTraining,
     ),
