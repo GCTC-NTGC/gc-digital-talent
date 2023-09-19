@@ -498,8 +498,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             />
             <StatusItem
               title={intl.formatMessage({
-                defaultMessage: "Skill to improve",
-                id: "2A1UT9",
+                defaultMessage: "Skills to improve",
+                id: "FvbONe",
                 description: "Title for skills to improve showcase section",
               })}
               status={skillsToImproveStatus}
