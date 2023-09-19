@@ -244,16 +244,17 @@ const Fieldset = ({
 export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
-  addText: React.ReactNode;
+  addText?: React.ReactNode;
   /** Additional props to style the add button */
   addButtonProps?: Omit<
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
   /** Callback function when the add button is clicked */
-  onAdd: () => void;
+  onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
+  customButton?: React.ReactNode;
 }
 
 const Root = ({
@@ -262,6 +263,7 @@ const Root = ({
   addButtonProps,
   children,
   showAdd = true,
+  customButton,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
@@ -285,7 +287,7 @@ const Root = ({
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
       {children}
-      {showAdd && (
+      {showAdd && !customButton ? (
         <Button
           id={addId}
           icon={PlusCircleIcon}
@@ -315,6 +317,8 @@ const Root = ({
         >
           {addText}
         </Button>
+      ) : (
+        customButton
       )}
     </div>
   );

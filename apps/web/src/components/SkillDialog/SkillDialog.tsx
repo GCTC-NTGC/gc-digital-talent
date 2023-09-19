@@ -35,7 +35,9 @@ interface SkillDialogProps {
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType;
+    disabled?: boolean;
   };
+  noToast?: boolean;
   // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
 }
@@ -48,6 +50,8 @@ const SkillDialog = ({
   trigger,
   inLibrary,
   defaultOpen = false,
+  noToast = false,
+  ...rest
 }: SkillDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
@@ -84,7 +88,8 @@ const SkillDialog = ({
       await onSave(values).then(() => {
         setIsOpen(false);
         reset();
-        toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
+        if (!noToast)
+          toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
       });
   };
 
@@ -98,6 +103,7 @@ const SkillDialog = ({
   const triggerProps = {
     children: trigger?.label || triggerMessage,
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
+    disabled: trigger?.disabled,
   };
 
   React.useEffect(() => {
@@ -111,7 +117,7 @@ const SkillDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
-        <Button {...triggerProps} color="secondary" />
+        <Button {...triggerProps} {...rest} color="secondary" />
       </Dialog.Trigger>
       <Dialog.Content data-h2-position="base(absolute)">
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
