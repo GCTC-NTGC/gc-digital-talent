@@ -41,17 +41,19 @@ const PersonalInformation = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues, user))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage:
-              "Personal and contact information updated successfully!",
-            id: "J+MAUg",
-            description:
-              "Message displayed when a user successfully updates their personal and contact information.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Personal and contact information updated successfully!",
+              id: "J+MAUg",
+              description:
+                "Message displayed when a user successfully updates their personal and contact information.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
