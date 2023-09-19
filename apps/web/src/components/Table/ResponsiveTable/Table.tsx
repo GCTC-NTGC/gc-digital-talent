@@ -168,7 +168,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       {showHeader && (
         <span
           data-h2-display="base(inline) l-tablet(none)"
-          data-h2-font-weight="base(800)"
+          data-h2-font-weight="base(700)"
         >
           {header}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}
