@@ -2,6 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Models\ApplicantFilter;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -19,7 +24,6 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -91,10 +95,10 @@ class DatabaseSeeder extends Seeder
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
             if ($faker->boolean(75)) {
-                $applicantUserSkill->skill_level = $faker->randomElement(ApiEnums::skillLevels());
+                $applicantUserSkill->skill_level = $faker->randomElement(SkillLevel::cases())->name;
             }
             if ($faker->boolean(75)) {
-                $applicantUserSkill->when_skill_used = $faker->randomElement(ApiEnums::whenSkillUsed());
+                $applicantUserSkill->when_skill_used = $faker->randomElement(WhenSkillUsed::cases())->name;
             }
             $applicantUserSkill->save();
         }
@@ -149,13 +153,13 @@ class DatabaseSeeder extends Seeder
             $educationRequirementOption = $poolCandidate->education_requirement_option;
             $user = $poolCandidate->user;
 
-            if ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            if ($educationRequirementOption === EducationRequirementOption::EDUCATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $user->id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($educationRequirementOption === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            } elseif ($educationRequirementOption === EducationRequirementOption::APPLIED_WORK->name) {
                 //Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $user->id,
@@ -234,8 +238,8 @@ class DatabaseSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $publishingGroups = [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+            PublishingGroup::IT_JOBS->name,
+            PublishingGroup::IT_JOBS_ONGOING->name,
         ];
         $dates = [
             'FAR_PAST' => Carbon::create(1992, 10, 24),
@@ -257,7 +261,7 @@ class DatabaseSeeder extends Seeder
                         'closing_date' => $date,
                         'publishing_group' => $publishingGroup,
                         'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                        'stream' => $faker->randomElement(ApiEnums::poolStreams()),
+                        'stream' => $faker->randomElement(PoolStream::cases())->name,
                         'team_id' => $testTeamId,
                     ]);
                 }

@@ -25,11 +25,6 @@ type LocalizedString {
   fr: String
 }
 
-enum Language {
-  EN @enum(value: "en")
-  FR @enum(value: "fr")
-}
-
 type User {
   id: ID!
   sub: String
@@ -161,76 +156,6 @@ type User {
   notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
-enum ProvinceOrTerritory {
-  BRITISH_COLUMBIA
-  ALBERTA
-  SASKATCHEWAN
-  MANITOBA
-  ONTARIO
-  QUEBEC
-  NEW_BRUNSWICK
-  NOVA_SCOTIA
-  PRINCE_EDWARD_ISLAND
-  NEWFOUNDLAND_AND_LABRADOR
-  YUKON
-  NORTHWEST_TERRITORIES
-  NUNAVUT
-}
-
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
-}
-
-enum EvaluatedLanguageAbility {
-  X
-  A
-  B
-  C
-  E
-  P
-}
-
-enum EstimatedLanguageAbility {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum GovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-}
-
-enum CitizenshipStatus {
-  CITIZEN
-  PERMANENT_RESIDENT
-  OTHER
-}
-
-enum ArmedForcesStatus {
-  VETERAN
-  MEMBER
-  NON_CAF
-}
-
-enum PositionDuration {
-  TEMPORARY
-  PERMANENT
-}
-
-enum IndigenousCommunity {
-  STATUS_FIRST_NATIONS
-  NON_STATUS_FIRST_NATIONS
-  INUIT
-  METIS
-  OTHER
-  LEGACY_IS_INDIGENOUS
-}
-
 interface Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")
@@ -300,85 +225,6 @@ type Pool {
   isComplete: Boolean
 }
 
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-}
-
-enum PoolStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-  ARCHIVED
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
-}
-
-enum SecurityStatus {
-  RELIABILITY
-  SECRET
-  TOP_SECRET
-}
-
-enum PoolLanguage {
-  ENGLISH
-  FRENCH
-  VARIOUS
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-}
-
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  IT_JOBS_ONGOING
-  EXECUTIVE_JOBS
-  OTHER
-}
-
-enum ApplicationStep {
-  WELCOME
-  SELF_DECLARATION
-  REVIEW_YOUR_PROFILE
-  REVIEW_YOUR_RESUME # this is the career timeline.
-  EDUCATION_REQUIREMENTS
-  SKILL_REQUIREMENTS
-  SCREENING_QUESTIONS
-  REVIEW_AND_SUBMIT
-}
-
-enum EducationRequirementOption {
-  APPLIED_WORK
-  EDUCATION
-}
-
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
@@ -423,47 +269,6 @@ type PoolCandidateWithSkillCount {
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
-enum LanguageAbility {
-  ENGLISH
-  FRENCH
-  BILINGUAL
-}
-
-enum WorkRegion {
-  TELEWORK
-  NATIONAL_CAPITAL
-  ATLANTIC
-  QUEBEC
-  ONTARIO
-  PRAIRIE
-  BRITISH_COLUMBIA
-  NORTH
-}
-
-"""
-e.g. Overtime as Required, Shift Work, Travel as Required, etc.
-"""
-enum OperationalRequirement {
-  SHIFT_WORK
-  ON_CALL
-  TRAVEL
-  TRANSPORT_EQUIPMENT
-  DRIVERS_LICENSE
-  OVERTIME_SCHEDULED
-  OVERTIME_SHORT_NOTICE
-  OVERTIME_OCCASIONAL
-  OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
-}
-
 type Classification {
   id: ID!
   name: LocalizedString
@@ -472,15 +277,6 @@ type Classification {
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
-}
-
-enum GenericJobTitleKey {
-  TECHNICIAN_IT01
-  ANALYST_IT02
-  TEAM_LEADER_IT03
-  TECHNICAL_ADVISOR_IT03
-  SENIOR_ADVISOR_IT04
-  MANAGER_IT04
 }
 
 type GenericJobTitle {
@@ -527,18 +323,6 @@ type RoleAssignment {
   role: Role @belongsTo
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-}
-
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
 }
 
 # equity selections goes with the pool/applicant filters and not user model
@@ -613,11 +397,6 @@ type PoolCandidateSearchRequest {
     @rename(attribute: "position_type")
 }
 
-enum SkillCategory {
-  TECHNICAL
-  BEHAVIOURAL
-}
-
 type SkillFamily {
   id: ID!
   key: KeyString!
@@ -662,55 +441,9 @@ type UserSkill {
   workExperiences: [WorkExperience!] @hasMany
 }
 
-enum SkillLevel {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-  LEAD
-}
-
-enum WhenSkillUsed {
-  CURRENT
-  PAST
-}
-
 type SkillKeywords {
   en: [String!]
   fr: [String!]
-}
-
-enum AwardedTo {
-  ME
-  MY_TEAM
-  MY_PROJECT
-  MY_ORGANIZATION
-}
-enum AwardedScope {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  SUB_ORGANIZATIONAL
-}
-
-enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
-enum EducationStatus {
-  SUCCESS_CREDENTIAL
-  SUCCESS_NO_CREDENTIAL
-  IN_PROGRESS
-  AUDITED
-  DID_NOT_COMPLETE
 }
 
 interface Experience {
@@ -816,18 +549,6 @@ input KeyFilterInput {
 
 input IdInput {
   id: ID!
-}
-
-enum CandidateExpiryFilter {
-  ACTIVE
-  EXPIRED
-  ALL
-}
-
-enum CandidateSuspendedFilter {
-  ACTIVE
-  SUSPENDED
-  ALL
 }
 
 input UserPoolFilterInput {

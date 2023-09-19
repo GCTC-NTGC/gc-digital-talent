@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\DirectiveForms\PersonnelSkillExpertiseLevel;
 use App\Models\DigitalContractingPersonnelSkill;
-use Database\Helpers\DirectiveFormsApiEnums;
 use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class DigitalContractingPersonnelSkillFactory extends Factory
     public function definition(): array
     {
         return [
-            'level' => $this->faker->randomElement(DirectiveFormsApiEnums::personnelSkillExpertiseLevels()),
+            'level' => $this->faker->randomElement(PersonnelSkillExpertiseLevel::cases())->name,
         ];
     }
 

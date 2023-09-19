@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\PoolStatus;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -104,7 +104,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_PUBLISHED,
+                    'status' => PoolStatus::PUBLISHED->name,
                 ],
             ],
         ]);
@@ -122,7 +122,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_CLOSED,
+                    'status' => PoolStatus::CLOSED->name,
                 ],
             ],
         ]);
@@ -140,7 +140,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_DRAFT,
+                    'status' => PoolStatus::DRAFT->name,
                 ],
             ],
         ]);
@@ -158,7 +158,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_DRAFT,
+                    'status' => PoolStatus::DRAFT->name,
                 ],
             ],
         ]);
@@ -176,7 +176,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_ARCHIVED,
+                    'status' => PoolStatus::ARCHIVED->name,
                 ],
             ],
         ]);
@@ -212,7 +212,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_PUBLISHED,
+                    'status' => PoolStatus::PUBLISHED->name,
                 ],
             ],
         ]);
@@ -230,7 +230,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_CLOSED,
+                    'status' => PoolStatus::CLOSED->name,
                 ],
             ],
         ]);
@@ -491,7 +491,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => ApiEnums::POOL_IS_ARCHIVED]);
+            ->assertJsonFragment(['status' => PoolStatus::ARCHIVED->name]);
     }
 
     public function testCantArchiveActive(): void
@@ -531,7 +531,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => ApiEnums::POOL_IS_CLOSED]);
+            ->assertJsonFragment(['status' => PoolStatus::CLOSED->name]);
     }
 
     public function testCantUnarchiveClosed(): void

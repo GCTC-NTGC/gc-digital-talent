@@ -2,9 +2,11 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\PoolLanguage;
+use App\Enums\PublishingGroup;
+use App\Enums\SecurityStatus;
 use App\Rules\SkillNotDeleted;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -51,12 +53,12 @@ final class PoolIsCompleteValidator extends Validator
                 new SkillNotDeleted,
             ],
             // Other requirements
-            'advertisement_language' => ['required', Rule::in(ApiEnums::poolLanguages())],
-            'security_clearance' => ['required', Rule::in(ApiEnums::poolSecurity())],
+            'advertisement_language' => ['required', Rule::in(array_column(PoolLanguage::cases(), 'name'))],
+            'security_clearance' => ['required', Rule::in(array_column(SecurityStatus::cases(), 'name'))],
             'is_remote' => ['required', 'boolean'],
             'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
             'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
-            'publishing_group' => ['required', Rule::in(ApiEnums::publishingGroups())],
+            'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
         ];
     }
 
