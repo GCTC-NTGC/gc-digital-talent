@@ -7,11 +7,6 @@ on:
     branches: [main]
   pull_request:
 
-env:
-  DB_HOST: localhost
-  DB_USERNAME: postgres
-  DB_PASSWORD: abc
-
 jobs:
   phpunit:
     runs-on: ubuntu-22.04
@@ -22,7 +17,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.15
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password1234
@@ -33,10 +28,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Enable pgcrypto extension
-        run: |
-          PGPASSWORD=password1234 psql -U postgres -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }} -d gctalent -tc "CREATE EXTENSION pgcrypto;"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
