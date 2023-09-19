@@ -145,10 +145,6 @@ const Multi = ({
           } else {
             addSelectedItem(selectedItem);
           }
-          // handleInputChanged();
-          break;
-        case useCombobox.stateChangeTypes.InputBlur:
-          handleInputChanged();
           break;
         default:
           break;
