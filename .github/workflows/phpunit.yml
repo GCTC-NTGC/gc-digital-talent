@@ -31,7 +31,7 @@ jobs:
 
       - name: Enable pgcrypto extension
         run: |
-          PGPASSWORD=password1234 psql -U postgres -tc "CREATE EXTENSION 'pgcrypto';"
+          PGPASSWORD=password1234 psql -U postgres -h 127.0.0.1 -p ${{ job.services.postgres.ports[5432] }} -d gctalent -tc "CREATE EXTENSION pgcrypto;"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
