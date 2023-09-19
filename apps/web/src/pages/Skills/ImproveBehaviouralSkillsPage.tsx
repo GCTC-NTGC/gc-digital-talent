@@ -63,7 +63,8 @@ const ImproveBehaviouralSkills = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Skill Showcase",
-        id: "tE/sSE",
+        id: "r4R1KZ",
+        description: "Title for the skill showcase page",
       }),
       url: paths.skillShowcase(),
     },
@@ -85,15 +86,15 @@ const ImproveBehaviouralSkills = ({
   const pageDescription = intl.formatMessage({
     defaultMessage:
       "Help managers understand your potential behavioural skill learning opportunities.",
-    description: "Page description for the skill library page",
-    id: "URfTSo",
+    description: "Page description for the improve behavioural skills page",
+    id: "EBE5Gv",
   });
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
       "Help managers understand where you’d like to improve behavioural skills. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren’t already in your library will be added for you automatically. ",
-    description: "Page description for the skill library page",
-    id: "nGCy4d",
+    description: "Page blurb for the improve behavioural skills page",
+    id: "Lh58A2",
   });
 
   const pageInfo = {
@@ -120,9 +121,9 @@ const ImproveBehaviouralSkills = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully updated improve behavioural skills",
-              id: "tU1vns",
+              id: "B6SS7l",
               description:
-                "Success message displayed after adding experience to profile",
+                "Success message displayed after updating improve behavioural skills",
             }),
           );
           navigate(returnPath);
@@ -132,9 +133,9 @@ const ImproveBehaviouralSkills = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating improve behavioural skills failed",
-            id: "l+sfx2",
+            id: "O53DAg",
             description:
-              "Message displayed to user after experience fails to be created.",
+              "Message displayed to user after improve behavioural skills fails to update",
           }),
         );
       });

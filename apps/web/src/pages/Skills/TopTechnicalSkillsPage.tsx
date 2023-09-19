@@ -63,7 +63,8 @@ const TopTechnicalSkills = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Skill Showcase",
-        id: "tE/sSE",
+        id: "r4R1KZ",
+        description: "Title for the skill showcase page",
       }),
       url: paths.skillShowcase(),
     },
@@ -85,15 +86,15 @@ const TopTechnicalSkills = ({
   const pageDescription = intl.formatMessage({
     defaultMessage:
       "Highlight up to 10 technical skills that showcase your strengths.",
-    description: "Page description for the skill library page",
-    id: "Y3tqb0",
+    description: "Page description for the top technical skills page",
+    id: "1XRfYd",
   });
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
       "Show managers the 10 technical skills that best represent your expertise and skill set. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren’t already in your library will be added for you automatically.",
-    description: "Page description for the skill library page",
-    id: "jKVBT0",
+    description: "Page description for the top technical skills page",
+    id: "lsAWvl",
   });
 
   const pageInfo = {
@@ -120,9 +121,9 @@ const TopTechnicalSkills = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully updated top technical skills",
-              id: "k1TpzD",
+              id: "iqmE+5",
               description:
-                "Success message displayed after adding experience to profile",
+                "Success message displayed after updating top technical skills",
             }),
           );
           navigate(returnPath);
@@ -132,9 +133,9 @@ const TopTechnicalSkills = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating top technical skills failed",
-            id: "RsJ+xJ",
+            id: "D1+SmE",
             description:
-              "Message displayed to user after experience fails to be created.",
+              "Message displayed to user after top technical skills fails to update",
           }),
         );
       });

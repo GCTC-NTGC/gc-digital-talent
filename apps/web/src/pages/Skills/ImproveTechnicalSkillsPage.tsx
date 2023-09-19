@@ -63,7 +63,8 @@ const ImproveTechnicalSkills = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Skill Showcase",
-        id: "tE/sSE",
+        id: "r4R1KZ",
+        description: "Title for the skill showcase page",
       }),
       url: paths.skillShowcase(),
     },
@@ -85,15 +86,15 @@ const ImproveTechnicalSkills = ({
   const pageDescription = intl.formatMessage({
     defaultMessage:
       "Help managers understand your potential technical skill learning opportunities.",
-    description: "Page description for the skill library page",
-    id: "vrWkia",
+    description: "Page description for the improve technical skills page",
+    id: "2f1kN5",
   });
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
       "Help managers understand which technical skills you’d be interested in training for. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren’t already in your library will be added for you automatically.",
-    description: "Page description for the skill library page",
-    id: "1+hG6y",
+    description: "Page blurb for the improve technical skills page",
+    id: "c33dU4",
   });
 
   const pageInfo = {
@@ -120,9 +121,9 @@ const ImproveTechnicalSkills = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully updated improve technical skills",
-              id: "/j+sDR",
+              id: "z5f+GT",
               description:
-                "Success message displayed after adding experience to profile",
+                "Success message displayed after updating improve technical skills",
             }),
           );
           navigate(returnPath);
@@ -132,9 +133,9 @@ const ImproveTechnicalSkills = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating improve technical skills failed",
-            id: "cJZoIN",
+            id: "dpvwTf",
             description:
-              "Message displayed to user after experience fails to be created.",
+              "Message displayed to user after improve technical skills fails to update",
           }),
         );
       });

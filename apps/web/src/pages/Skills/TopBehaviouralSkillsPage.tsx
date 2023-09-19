@@ -63,7 +63,8 @@ const TopBehaviouralSkills = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Skill Showcase",
-        id: "tE/sSE",
+        id: "r4R1KZ",
+        description: "Title for the skill showcase page",
       }),
       url: paths.skillShowcase(),
     },
@@ -85,15 +86,15 @@ const TopBehaviouralSkills = ({
   const pageDescription = intl.formatMessage({
     defaultMessage:
       "Highlight up to 5 behavioural skills that showcase your strengths.",
-    description: "Page description for the skill library page",
-    id: "KzDQyU",
+    description: "Page description for the top behavioural skills page",
+    id: "Zzh9Xs",
   });
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
       "Show managers the 5 strongest behavioural skills that make you an awesome member of the team. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren’t already in your library will be added for you automatically.",
-    description: "Page description for the skill library page",
-    id: "zVpO3d",
+    description: "Page blurb for the top behavioural skills page",
+    id: "ewcgIi",
   });
 
   const pageInfo = {
@@ -120,9 +121,9 @@ const TopBehaviouralSkills = ({
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully updated top behavioural skills",
-              id: "56EnCw",
+              id: "GfjNqa",
               description:
-                "Success message displayed after adding experience to profile",
+                "Success message displayed after updating top behavioural skills",
             }),
           );
           navigate(returnPath);
@@ -132,9 +133,9 @@ const TopBehaviouralSkills = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating top behavioural skills failed",
-            id: "uAlbL+",
+            id: "+dmNpa",
             description:
-              "Message displayed to user after experience fails to be created.",
+              "Message displayed to user after top behavioural skills fails to update",
           }),
         );
       });
