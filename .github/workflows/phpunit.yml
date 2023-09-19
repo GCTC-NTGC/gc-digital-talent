@@ -7,6 +7,11 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  DB_HOST: localhost
+  DB_USERNAME: postgres
+  DB_PASSWORD: abc
+
 jobs:
   phpunit:
     runs-on: ubuntu-22.04
