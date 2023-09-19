@@ -92,6 +92,7 @@ export const Loading = Template.bind({});
 Loading.args = {
   ...defaultArgs,
   fetching: true,
+  options: [],
 };
 
 export const APIDriven = Template.bind({});
