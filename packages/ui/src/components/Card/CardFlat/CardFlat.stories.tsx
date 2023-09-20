@@ -11,47 +11,76 @@ export default {
 
 const Template: Story = () => {
   faker.seed(0);
+
+  const Cards = (
+    <div>
+      <CardFlat
+        title="Primary"
+        color="primary"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Secondary"
+        color="secondary"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Tertiary"
+        color="tertiary"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Quaternary"
+        color="quaternary"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Quinary"
+        color="quinary"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+      <CardFlat
+        title="Black"
+        color="black"
+        links={[{ href: "#", label: "With link", mode: "inline" }]}
+      >
+        <p>{faker.lorem.sentences(1)}</p>
+      </CardFlat>
+    </div>
+  );
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(repeat(4, minmax(0, 1fr)))"
-      data-h2-gap="base(x2)"
-    >
-      <CardFlat title="Primary" color="primary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat title="Secondary" color="secondary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat title="Tertiary" color="tertiary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat title="Quaternary" color="quaternary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat title="Quinary" color="quinary">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat title="Black" color="black">
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat
-        title="Link"
-        color="primary"
-        links={[{ href: "#", label: "With link" }]}
+    <div>
+      <div
+        data-h2-display="base(grid) base:children[>div>div>div](grid)"
+        data-h2-grid-template-columns="base(1fr) base:children[>div>div>div](repeat(6, minmax(0, 1fr)))"
+        data-h2-height="base:children[>div>div>div](100%)"
+        data-h2-padding="base:children[>div>div>div](x2)"
+        data-h2-gap="base:children[>div>div>div](x1)"
+        data-h2-background-color="base:children[>div>div>div](background)"
       >
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
-      <CardFlat
-        title="Two Links"
-        color="primary"
-        links={[
-          { href: "#", label: "With link", mode: "solid" },
-          { href: "#", label: "Second link", mode: "inline" },
-        ]}
-      >
-        <p>{faker.lorem.sentences(1)}</p>
-      </CardFlat>
+        <div data-h2="light">
+          <div>{Cards}</div>
+        </div>
+        <div data-h2="dark">
+          <div>{Cards}</div>
+        </div>
+        <div data-h2="iap light">
+          <div>{Cards}</div>
+        </div>
+        <div data-h2="iap dark">
+          <div>{Cards}</div>
+        </div>
+      </div>
     </div>
   );
 };

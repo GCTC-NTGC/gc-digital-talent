@@ -45,12 +45,12 @@ const colorMap = {
   },
   black: {
     "data-h2-background-color":
-      "base(gray.darkest) base:dark(foreground.darker)",
-    "data-h2-color": "base(white)",
+      "base(gray.darkest) base:dark(foreground.shade)",
+    "data-h2-color": "base:all(white)",
   },
   white: {
-    "data-h2-background-color": "base(foreground)",
-    "data-h2-color": "base(black)",
+    "data-h2-background-color": "base(foreground) base:dark(foreground.tint)",
+    "data-h2-color": "base:all(black)",
   },
 };
 

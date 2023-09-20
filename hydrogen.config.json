@@ -179,7 +179,20 @@
           "key": "foreground",
           "default": {
             "color": "#FFFFFF",
-            "modifiers": []
+            "modifiers": [
+              {
+                "key": "tint",
+                "color": "#A3A5B1"
+              },
+              {
+                "key": "shade",
+                "color": "#232632"
+              },
+              {
+                "key": "darker",
+                "color": "#808080"
+              }
+            ]
           },
           "dark": {
             "color": "#494D61",
