@@ -43,10 +43,6 @@
     "defaultMessage": "Fermée",
     "description": "Closed pool advertisement status"
   },
-  "/hW2c1": {
-    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
-    "description": "Message showing number of all available options inh combobox menu"
-  },
   "/hsnPJ": {
     "defaultMessage": "Travailler des heures supplémentaires régulièrement",
     "description": "The operational requirement described as regular overtime. (short-form for limited space)"
@@ -405,13 +401,13 @@
     "defaultMessage": "Ébauche",
     "description": "The pool candidate's status is Draft."
   },
+  "FYrmhH": {
+    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
+    "description": "Message showing number of all available options in combobox menu"
+  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
-  },
-  "FsRA9v": {
-    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
-    "description": "Message showing number of matching items from all available options inh combobox menu"
   },
   "FvV+QW": {
     "defaultMessage": "Renseignements gouvernementaux",
@@ -520,6 +516,10 @@
   "KC/sxi": {
     "defaultMessage": "Ce champ est obligatoire.",
     "description": "Error message that this field must filled for the form to be valid."
+  },
+  "KGX4bI": {
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+    "description": "Message showing number of matching items from all available options in combobox menu"
   },
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
@@ -715,10 +715,6 @@
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
-  },
-  "SkGrYA": {
-    "defaultMessage": "{count, plural, =0 {0 options disponibles} =1 {1 option disponible} other {# options disponibles}}",
-    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "Srs7a4": {
     "defaultMessage": "Passer au contenu principal",
