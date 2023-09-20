@@ -110,7 +110,7 @@ const UpdateSkillShowcase = ({
   const methods = useForm<FormValues>({
     defaultValues: initialSkills,
   });
-  const { control, watch } = methods;
+  const { control, watch, formState } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "userSkills",
@@ -396,6 +396,7 @@ const UpdateSkillShowcase = ({
                         })}
                         color="primary"
                         mode="solid"
+                        disabled={formState.isSubmitting}
                       />
                       <Button
                         type="button"
