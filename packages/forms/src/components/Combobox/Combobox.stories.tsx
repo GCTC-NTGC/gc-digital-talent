@@ -122,6 +122,7 @@ export const Required = Template.bind({});
 Required.args = {
   ...defaultArgs,
   rules: { required: "This field is required" },
+  context: "This field should error if nothing is selected.",
 };
 
 export const DefaultValue = Template.bind({});
