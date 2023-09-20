@@ -167,6 +167,7 @@ const Actions = ({
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) l-tablet(row)"
+      data-h2-align-items="base(center) l-tablet(flex-start)"
       data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
       data-h2-padding="base(x1)"
       data-h2-background-color="base(black)"
@@ -202,45 +203,64 @@ const Actions = ({
                 )}
               </span>
             </Section>
-            <Bullet data-h2-display="base(block)" />
-            <Button onClick={onClear} color="white" mode="inline">
-              {intl.formatMessage({
-                defaultMessage: "Clear<hidden> row selection</hidden>",
-                id: "VHG9Gm",
-                description: "Button text to deselect all table rows",
-              })}
-            </Button>
-            {download?.selection && (
-              <>
-                <Bullet />
-                <DownloadCsv
-                  {...download.selection.csv}
-                  {...actionButtonStyles}
-                >
-                  {download.selection.label ||
-                    intl.formatMessage({
-                      defaultMessage: "Download CSV",
-                      id: "mxOuYK",
-                      description:
-                        "Text label for button to download a csv file of items in a table.",
-                    })}
-                </DownloadCsv>
-              </>
-            )}
-            {print?.onPrint && (
-              <>
-                <Bullet />
-                <Button onClick={print.onPrint} {...actionButtonStyles}>
-                  {print.label ||
-                    intl.formatMessage({
-                      defaultMessage: "Print selection",
-                      id: "KrrW7D",
-                      description:
-                        "Text label for button to print items in a table.",
-                    })}
-                </Button>
-              </>
-            )}
+            <span data-h2-display="base(none) l-tablet(block)">
+              <Bullet data-h2-display="base(none) l-tablet(block)" />
+            </span>
+            <span
+              data-h2-position="base(relative)"
+              data-h2-align-items="base(center)"
+            >
+              <Button
+                data-h2-font-weight="base(400)"
+                data-h2-position="base(relative)"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                onClick={onClear}
+                color="white"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Clear<hidden> row selection</hidden>",
+                  id: "VHG9Gm",
+                  description: "Button text to deselect all table rows",
+                })}
+              </Button>
+            </span>
+            <span>
+              {download?.selection && (
+                <>
+                  <Bullet />
+                  <DownloadCsv
+                    {...download.selection.csv}
+                    {...actionButtonStyles}
+                  >
+                    {download.selection.label ||
+                      intl.formatMessage({
+                        defaultMessage: "Download CSV",
+                        id: "mxOuYK",
+                        description:
+                          "Text label for button to download a csv file of items in a table.",
+                      })}
+                  </DownloadCsv>
+                </>
+              )}
+            </span>
+            <span>
+              {print?.onPrint && (
+                <>
+                  <Bullet />
+                  <Button onClick={print.onPrint} {...actionButtonStyles}>
+                    {print.label ||
+                      intl.formatMessage({
+                        defaultMessage: "Print selection",
+                        id: "KrrW7D",
+                        description:
+                          "Text label for button to print items in a table.",
+                      })}
+                  </Button>
+                </>
+              )}
+            </span>
           </Section>
         )}
       </Column>
