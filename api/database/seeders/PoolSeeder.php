@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Seeder;
 
 class PoolSeeder extends Seeder
@@ -28,7 +30,7 @@ class PoolSeeder extends Seeder
                 'team_id' => Team::where('name', 'digital-community-management')->first()->id,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
             ],
             [
                 'name' => [
@@ -39,7 +41,7 @@ class PoolSeeder extends Seeder
                 'team_id' => Team::where('name', 'digital-community-management')->first()->id,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => ApiEnums::PUBLISHING_GROUP_IAP,
+                'publishing_group' => PublishingGroup::IAP->name,
             ],
         ];
 
@@ -54,8 +56,8 @@ class PoolSeeder extends Seeder
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->first()['id'];
                     $createdPool->classifications()->sync([$classificationIT01Id]);
-                    $createdPool->stream = ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES;
-                    $createdPool->advertisement_language = ApiEnums::POOL_VARIOUS;
+                    $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
+                    $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
                     $createdPool->save();
                 }
             } else {

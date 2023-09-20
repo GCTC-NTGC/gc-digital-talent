@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\PoolStatus;
+use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Pool
@@ -129,20 +131,38 @@ class Pool extends Model
     {
         // override if no publish date
         if (is_null($this->published_at)) {
-            return ApiEnums::POOL_IS_DRAFT;
+            return PoolStatus::DRAFT->name;
         }
 
         if (Carbon::now()->gte($this->archived_at)) {
-            return ApiEnums::POOL_IS_ARCHIVED;
+            return PoolStatus::ARCHIVED->name;
         }
         if (Carbon::now()->gte($this->closing_date)) {
-            return ApiEnums::POOL_IS_CLOSED;
+            return PoolStatus::CLOSED->name;
         }
         if (Carbon::now()->gte($this->published_at)) {
-            return ApiEnums::POOL_IS_PUBLISHED;
+            return PoolStatus::PUBLISHED->name;
         }
 
-        return ApiEnums::POOL_IS_DRAFT;
+        return PoolStatus::DRAFT->name;
+    }
+
+    // is the pool considered "complete", filled out entirely by the pool operator
+    public function getIsCompleteAttribute()
+    {
+        $pool = $this->load(['classifications', 'essentialSkills']);
+
+        $poolCompleteValidation = new PoolIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $poolCompleteValidation->rules(),
+            $poolCompleteValidation->messages()
+        );
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)

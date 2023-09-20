@@ -2,12 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Enums\LanguageAbility;
+use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
@@ -385,7 +387,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
-                    'status' => ApiEnums::POOL_CANDIDATE_SEARCH_STATUS_NEW,
+                    'status' => PoolCandidateSearchStatus::NEW->name,
                     'department' => [
                         'id' => $request->department_id,
                     ],
@@ -415,7 +417,7 @@ class ApplicantFilterTest extends TestCase
                     'en' => 'Test Pool EN',
                     'fr' => 'Test Pool FR',
                 ],
-                'stream' => ApiEnums::POOL_STREAM_BUSINESS_ADVISORY_SERVICES,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             ]);
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
@@ -427,11 +429,11 @@ class ApplicantFilterTest extends TestCase
         $candidate = $candidates->random();
         $filterLanguage = null; // run through fields and assign the enum for the first one that is true
         if ($candidate->looking_for_english) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            $filterLanguage = LanguageAbility::ENGLISH->name;
         } elseif ($candidate->looking_for_french) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            $filterLanguage = LanguageAbility::FRENCH->name;
         } elseif ($candidate->looking_for_bilingual) {
-            $filterLanguage = ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            $filterLanguage = LanguageAbility::BILINGUAL->name;
         }
         $filter = ApplicantFilter::factory()->create(
             [

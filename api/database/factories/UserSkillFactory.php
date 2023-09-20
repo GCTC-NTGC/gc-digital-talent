@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserSkillFactory extends Factory
@@ -27,8 +28,8 @@ class UserSkillFactory extends Factory
         return [
             'user_id' => User::factory(),
             'skill_id' => Skill::factory(),
-            'skill_level' => $this->faker->randomElement(ApiEnums::skillLevels()),
-            'when_skill_used' => $this->faker->randomElement(ApiEnums::whenSkillUsed()),
+            'skill_level' => $this->faker->randomElement(SkillLevel::cases())->name,
+            'when_skill_used' => $this->faker->randomElement(WhenSkillUsed::cases())->name,
             'top_skills_rank' => $this->faker->boolean(25) ? $this->faker->randomDigitNotZero() : null,
             'improve_skills_rank' => $this->faker->boolean(25) ? $this->faker->randomDigitNotZero() : null,
         ];

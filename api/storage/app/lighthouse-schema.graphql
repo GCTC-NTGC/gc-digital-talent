@@ -42,6 +42,8 @@ type Query {
   roles: [Role]!
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
+  departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
+  departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -138,6 +140,9 @@ type Mutation {
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
+  createDepartmentSpecificRecruitmentProcessForm(departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
+  updateDepartmentSpecificRecruitmentProcessForm(id: UUID!, departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!): DepartmentSpecificRecruitmentProcessForm
+  deleteDepartmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -164,11 +169,6 @@ scalar UUID
 type LocalizedString {
   en: String
   fr: String
-}
-
-enum Language {
-  EN
-  FR
 }
 
 type User {
@@ -238,76 +238,6 @@ type User {
   notifications: [Notification!]
 }
 
-enum ProvinceOrTerritory {
-  BRITISH_COLUMBIA
-  ALBERTA
-  SASKATCHEWAN
-  MANITOBA
-  ONTARIO
-  QUEBEC
-  NEW_BRUNSWICK
-  NOVA_SCOTIA
-  PRINCE_EDWARD_ISLAND
-  NEWFOUNDLAND_AND_LABRADOR
-  YUKON
-  NORTHWEST_TERRITORIES
-  NUNAVUT
-}
-
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
-}
-
-enum EvaluatedLanguageAbility {
-  X
-  A
-  B
-  C
-  E
-  P
-}
-
-enum EstimatedLanguageAbility {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum GovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-}
-
-enum CitizenshipStatus {
-  CITIZEN
-  PERMANENT_RESIDENT
-  OTHER
-}
-
-enum ArmedForcesStatus {
-  VETERAN
-  MEMBER
-  NON_CAF
-}
-
-enum PositionDuration {
-  TEMPORARY
-  PERMANENT
-}
-
-enum IndigenousCommunity {
-  STATUS_FIRST_NATIONS
-  NON_STATUS_FIRST_NATIONS
-  INUIT
-  METIS
-  OTHER
-  LEGACY_IS_INDIGENOUS
-}
-
 interface Notification {
   id: ID!
   readAt: DateTime
@@ -368,85 +298,7 @@ type Pool {
   closingDate: DateTime
   publishedAt: DateTime
   archivedAt: DateTime
-}
-
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-}
-
-enum PoolStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-  ARCHIVED
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
-}
-
-enum SecurityStatus {
-  RELIABILITY
-  SECRET
-  TOP_SECRET
-}
-
-enum PoolLanguage {
-  ENGLISH
-  FRENCH
-  VARIOUS
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-}
-
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  IT_JOBS_ONGOING
-  EXECUTIVE_JOBS
-  OTHER
-}
-
-enum ApplicationStep {
-  WELCOME
-  SELF_DECLARATION
-  REVIEW_YOUR_PROFILE
-  REVIEW_YOUR_RESUME
-  EDUCATION_REQUIREMENTS
-  SKILL_REQUIREMENTS
-  SCREENING_QUESTIONS
-  REVIEW_AND_SUBMIT
-}
-
-enum EducationRequirementOption {
-  APPLIED_WORK
-  EDUCATION
+  isComplete: Boolean
 }
 
 type ScreeningQuestionResponse {
@@ -483,45 +335,6 @@ type PoolCandidateWithSkillCount {
   skillCount: Int
 }
 
-enum LanguageAbility {
-  ENGLISH
-  FRENCH
-  BILINGUAL
-}
-
-enum WorkRegion {
-  TELEWORK
-  NATIONAL_CAPITAL
-  ATLANTIC
-  QUEBEC
-  ONTARIO
-  PRAIRIE
-  BRITISH_COLUMBIA
-  NORTH
-}
-
-"e.g. Overtime as Required, Shift Work, Travel as Required, etc."
-enum OperationalRequirement {
-  SHIFT_WORK
-  ON_CALL
-  TRAVEL
-  TRANSPORT_EQUIPMENT
-  DRIVERS_LICENSE
-  OVERTIME_SCHEDULED
-  OVERTIME_SHORT_NOTICE
-  OVERTIME_OCCASIONAL
-  OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
-}
-
 type Classification {
   id: ID!
   name: LocalizedString
@@ -530,15 +343,6 @@ type Classification {
   minSalary: Int
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
-}
-
-enum GenericJobTitleKey {
-  TECHNICIAN_IT01
-  ANALYST_IT02
-  TEAM_LEADER_IT03
-  TECHNICAL_ADVISOR_IT03
-  SENIOR_ADVISOR_IT04
-  MANAGER_IT04
 }
 
 type GenericJobTitle {
@@ -580,18 +384,6 @@ type RoleAssignment {
   role: Role
   team: Team
   user: UserPublicProfile
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-}
-
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
 }
 
 type EquitySelections {
@@ -652,11 +444,6 @@ type PoolCandidateSearchRequest {
   positionType: PoolCandidateSearchPositionType
 }
 
-enum SkillCategory {
-  TECHNICAL
-  BEHAVIOURAL
-}
-
 type SkillFamily {
   id: ID!
   key: KeyString!
@@ -692,57 +479,9 @@ type UserSkill {
   workExperiences: [WorkExperience!]
 }
 
-enum SkillLevel {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-  LEAD
-}
-
-enum WhenSkillUsed {
-  CURRENT
-  PAST
-}
-
 type SkillKeywords {
   en: [String!]
   fr: [String!]
-}
-
-enum AwardedTo {
-  ME
-  MY_TEAM
-  MY_PROJECT
-  MY_ORGANIZATION
-}
-
-enum AwardedScope {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  SUB_ORGANIZATIONAL
-}
-
-enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
-
-enum EducationStatus {
-  SUCCESS_CREDENTIAL
-  SUCCESS_NO_CREDENTIAL
-  IN_PROGRESS
-  AUDITED
-  DID_NOT_COMPLETE
 }
 
 interface Experience {
@@ -840,18 +579,6 @@ input KeyFilterInput {
 
 input IdInput {
   id: ID!
-}
-
-enum CandidateExpiryFilter {
-  ACTIVE
-  EXPIRED
-  ALL
-}
-
-enum CandidateSuspendedFilter {
-  ACTIVE
-  SUSPENDED
-  ALL
 }
 
 input UserPoolFilterInput {
@@ -1428,137 +1155,6 @@ input UpdateApplicationInput {
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 }
 
-enum ContractAuthority {
-  HR
-  PROCUREMENT
-  FINANCE
-  LABOUR_RELATIONS
-  OTHER
-}
-
-enum YesNo {
-  YES
-  NO
-}
-
-enum YesNoUnsure {
-  YES
-  NO
-  I_DONT_KNOW
-}
-
-enum ContractValueRange {
-  FROM_0_TO_10K
-  FROM_10K_TO_25K
-  FROM_25K_TO_50K
-  FROM_50K_TO_1M
-  FROM_1M_TO_2500K
-  FROM_2500K_TO_5M
-  FROM_5M_TO_10M
-  FROM_10M_TO_15M
-  FROM_15M_TO_25M
-  GREATER_THAN_25M
-}
-
-enum ContractStartTimeframe {
-  FROM_0_TO_3M
-  FROM_3M_TO_6M
-  FROM_6M_TO_1Y
-  FROM_1Y_TO_2Y
-  UNKNOWN
-  VARIABLE
-}
-
-enum ContractCommodity {
-  TELECOM_SERVICES
-  SUPPORT_SERVICES
-  OTHER
-}
-
-enum ContractInstrument {
-  SUPPLY_ARRANGEMENT
-  STANDING_OFFER
-  CONTRACT
-  AMENDMENT
-}
-
-enum ContractSupplyMethod {
-  NOT_APPLICABLE
-  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TEMPORARY_HELP
-  OTHER
-}
-
-enum ContractSolicitationProcedure {
-  ADVANCE_CONTRACT_AWARD_NOTICE
-  COMPETITIVE
-  NON_COMPETITIVE
-}
-
-enum PersonnelScreeningLevel {
-  RELIABILITY
-  ENHANCED_RELIABILITY
-  SECRET
-  TOP_SECRET
-  OTHER
-}
-
-enum PersonnelLanguage {
-  ENGLISH_ONLY
-  FRENCH_ONLY
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-  OTHER
-}
-
-enum PersonnelWorkLocation {
-  GC_PREMISES
-  OFFSITE_SPECIFIC
-  OFFSITE_ANY
-}
-
-enum PersonnelOtherRequirement {
-  SHIFT_WORK
-  ON_CALL_24_7
-  OVERTIME_SHORT_NOTICE
-  AS_NEEDED
-  OTHER
-}
-
-enum PersonnelSkillExpertiseLevel {
-  BEGINNER
-  INTERMEDIATE
-  EXPERT
-  LEAD
-}
-
-enum PersonnelTeleworkOption {
-  FULL_TIME
-  PART_TIME
-  NO
-}
-
-enum OperationsConsideration {
-  FINANCE_VEHICLE_NOT_USABLE
-  FUNDING_SECURED_COST_RECOVERY_BASIS
-  UNABLE_CREATE_NEW_INDETERMINATE
-  UNABLE_CREATE_NEW_TERM
-  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
-  STAFFING_FREEZE
-  OTHER
-}
-
-enum ContractingRationale {
-  SHORTAGE_OF_TALENT
-  TIMING_REQUIREMENTS
-  HR_SITUATION
-  FINANCIAL_SITUATION
-  REQUIRES_INDEPENDENT
-  INTELLECTUAL_PROPERTY_FACTORS
-  OTHER
-}
-
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
@@ -1754,6 +1350,67 @@ input DigitalContractingQuestionnaireInput {
   knowledgeTransferInContract: YesNo
   employeesHaveAccessToKnowledge: YesNo
   ocioEngagedForTraining: YesNo
+}
+
+type DepartmentSpecificRecruitmentProcessPosition {
+  id: UUID!
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+type DepartmentSpecificRecruitmentProcessForm {
+  id: UUID!
+  department: Department
+  departmentOther: String
+  recruitmentProcessLeadName: String
+  recruitmentProcessLeadJobTitle: String
+  recruitmentProcessLeadEmail: String
+  postingDate: Date
+  positions: [DepartmentSpecificRecruitmentProcessPosition!]
+  advertisementType: AdvertisementType
+  advertisingPlatforms: [AdvertisingPlatform!]
+  advertisingPlatformsOther: String
+  jobAdvertisementLink: String
+}
+
+input CreateDepartmentSpecificRecruitmentProcessPositionInput {
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+input UpdateDepartmentSpecificRecruitmentProcessPositionInput {
+  id: UUID!
+  classificationGroup: String
+  classificationLevel: String
+  jobTitle: String
+  employmentTypes: [PositionEmploymentType!]
+  employmentTypesOther: String
+}
+
+input DepartmentSpecificRecruitmentProcessPositionBelongsToMany {
+  create: [CreateDepartmentSpecificRecruitmentProcessPositionInput!]
+  update: [UpdateDepartmentSpecificRecruitmentProcessPositionInput!]
+  delete: [UUID!]
+}
+
+input DepartmentSpecificRecruitmentProcessFormInput {
+  department: DepartmentBelongsTo
+  departmentOther: String
+  recruitmentProcessLeadName: String
+  recruitmentProcessLeadJobTitle: String
+  recruitmentProcessLeadEmail: String
+  postingDate: Date
+  positions: DepartmentSpecificRecruitmentProcessPositionBelongsToMany
+  advertisementType: AdvertisementType
+  advertisingPlatforms: [AdvertisingPlatform!]
+  advertisingPlatformsOther: String
+  jobAdvertisementLink: String
 }
 
 "Information about pagination using a fully featured paginator."
@@ -1986,3 +1643,436 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum Language {
+  EN
+  FR
+}
+
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
+}
+
+enum GovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+}
+
+enum BilingualEvaluation {
+  COMPLETED_ENGLISH
+  COMPLETED_FRENCH
+  NOT_COMPLETED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+}
+
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CitizenshipStatus {
+  PERMANENT_RESIDENT
+  CITIZEN
+  OTHER
+}
+
+enum ArmedForcesStatus {
+  VETERAN
+  MEMBER
+  NON_CAF
+}
+
+enum PositionDuration {
+  TEMPORARY
+  PERMANENT
+}
+
+enum IndigenousCommunity {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
+}
+
+enum PoolStream {
+  ACCESS_INFORMATION_PRIVACY
+  BUSINESS_ADVISORY_SERVICES
+  DATABASE_MANAGEMENT
+  ENTERPRISE_ARCHITECTURE
+  INFRASTRUCTURE_OPERATIONS
+  PLANNING_AND_REPORTING
+  PROJECT_PORTFOLIO_MANAGEMENT
+  SECURITY
+  SOFTWARE_SOLUTIONS
+  INFORMATION_DATA_FUNCTIONS
+}
+
+enum PoolStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  ARCHIVED
+}
+
+enum PoolCandidateStatus {
+  DRAFT
+  DRAFT_EXPIRED
+  NEW_APPLICATION
+  APPLICATION_REVIEW
+  SCREENED_IN
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_NOT_INTERESTED
+  SCREENED_OUT_NOT_RESPONSIVE
+  UNDER_ASSESSMENT
+  SCREENED_OUT_ASSESSMENT
+  QUALIFIED_AVAILABLE
+  QUALIFIED_UNAVAILABLE
+  QUALIFIED_WITHDREW
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
+  EXPIRED
+  REMOVED
+}
+
+enum SecurityStatus {
+  RELIABILITY
+  SECRET
+  TOP_SECRET
+}
+
+enum PoolLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+}
+
+enum PublishingGroup {
+  IAP
+  IT_JOBS
+  IT_JOBS_ONGOING
+  EXECUTIVE_JOBS
+  OTHER
+}
+
+enum ApplicationStep {
+  WELCOME
+  SELF_DECLARATION
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
+}
+
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
+}
+
+enum LanguageAbility {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
+enum WorkRegion {
+  TELEWORK
+  NATIONAL_CAPITAL
+  ATLANTIC
+  QUEBEC
+  ONTARIO
+  PRAIRIE
+  BRITISH_COLUMBIA
+  NORTH
+}
+
+enum OperationalRequirement {
+  SHIFT_WORK
+  ON_CALL
+  TRAVEL
+  TRANSPORT_EQUIPMENT
+  DRIVERS_LICENSE
+  OVERTIME_SCHEDULED
+  OVERTIME_SHORT_NOTICE
+  OVERTIME_OCCASIONAL
+  OVERTIME_REGULAR
+}
+
+enum SalaryRange {
+  _50_59K
+  _60_69K
+  _70_79K
+  _80_89K
+  _90_99K
+  _100K_PLUS
+}
+
+enum GenericJobTitleKey {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
+}
+
+enum PoolCandidateSearchStatus {
+  NEW
+  IN_PROGRESS
+  WAITING
+  DONE
+}
+
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum SkillCategory {
+  TECHNICAL
+  BEHAVIOURAL
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  LEAD
+}
+
+enum WhenSkillUsed {
+  CURRENT
+  PAST
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+
+enum EducationStatus {
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
+}
+
+enum CandidateExpiryFilter {
+  ACTIVE
+  EXPIRED
+  ALL
+}
+
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
+}
+
+enum AdvertisementType {
+  INTERNAL
+  EXTERNAL
+}
+
+enum AdvertisingPlatform {
+  GCJOBS
+  GCCONNEX
+  GCXCHNAGE
+  GC_COLLAB
+  FACEBOOK
+  LINKEDIN
+  OTHER
+}
+
+enum ContractAuthority {
+  HR
+  PROCUREMENT
+  FINANCE
+  LABOUR_RELATIONS
+  OTHER
+}
+
+enum YesNo {
+  YES
+  NO
+}
+
+enum YesNoUnsure {
+  YES
+  NO
+  I_DONT_KNOW
+}
+
+enum ContractValueRange {
+  FROM_0_TO_10K
+  FROM_10K_TO_25K
+  FROM_25K_TO_50K
+  FROM_50K_TO_1M
+  FROM_1M_TO_2500K
+  FROM_2500K_TO_5M
+  FROM_5M_TO_10M
+  FROM_10M_TO_15M
+  FROM_15M_TO_25M
+  GREATER_THAN_25M
+}
+
+enum ContractStartTimeframe {
+  FROM_0_TO_3M
+  FROM_3M_TO_6M
+  FROM_6M_TO_1Y
+  FROM_1Y_TO_2Y
+  UNKNOWN
+  VARIABLE
+}
+
+enum ContractCommodity {
+  TELECOM_SERVICES
+  SUPPORT_SERVICES
+  OTHER
+}
+
+enum ContractInstrument {
+  SUPPLY_ARRANGEMENT
+  STANDING_OFFER
+  CONTRACT
+  AMENDMENT
+}
+
+enum ContractSupplyMethod {
+  NOT_APPLICABLE
+  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TEMPORARY_HELP
+  OTHER
+}
+
+enum ContractSolicitationProcedure {
+  ADVANCE_CONTRACT_AWARD_NOTICE
+  COMPETITIVE
+  NON_COMPETITIVE
+}
+
+enum PersonnelScreeningLevel {
+  RELIABILITY
+  ENHANCED_RELIABILITY
+  SECRET
+  TOP_SECRET
+  OTHER
+}
+
+enum PersonnelLanguage {
+  ENGLISH_ONLY
+  FRENCH_ONLY
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+  OTHER
+}
+
+enum PersonnelWorkLocation {
+  GC_PREMISES
+  OFFSITE_SPECIFIC
+  OFFSITE_ANY
+}
+
+enum PositionEmploymentType {
+  INDETERMINATE
+  TERM
+  LATERAL_DEPLOYMENT
+  SECONDMENT
+  ASSIGNMENT
+  OTHER
+}
+
+enum PersonnelOtherRequirement {
+  SHIFT_WORK
+  ON_CALL_24_7
+  OVERTIME_SHORT_NOTICE
+  AS_NEEDED
+  OTHER
+}
+
+enum PersonnelSkillExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum PersonnelTeleworkOption {
+  FULL_TIME
+  PART_TIME
+  NO
+}
+
+enum OperationsConsideration {
+  FINANCE_VEHICLE_NOT_USABLE
+  FUNDING_SECURED_COST_RECOVERY_BASIS
+  UNABLE_CREATE_NEW_INDETERMINATE
+  UNABLE_CREATE_NEW_TERM
+  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
+  STAFFING_FREEZE
+  OTHER
+}
+
+enum ContractingRationale {
+  SHORTAGE_OF_TALENT
+  TIMING_REQUIREMENTS
+  HR_SITUATION
+  FINANCIAL_SITUATION
+  REQUIRES_INDEPENDENT
+  INTELLECTUAL_PROPERTY_FACTORS
+  OTHER
+}
