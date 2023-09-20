@@ -9,6 +9,7 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu/NavMenu";
@@ -25,6 +26,7 @@ import MaintenanceBanner from "./MaintenanceBanner";
 
 const Layout = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   useLayoutTheme("default");
 
@@ -117,7 +119,7 @@ const Layout = () => {
 
   return (
     <>
-      <Favicon project="digital-talent" />
+      <Favicon locale={locale} project="digital-talent" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "GC Digital Talent",
