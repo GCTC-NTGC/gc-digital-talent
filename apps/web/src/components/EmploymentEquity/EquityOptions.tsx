@@ -90,16 +90,18 @@ const EquityOptions = ({
   const handleOptionSave = (key: EquityKeys, value: boolean) => {
     const handler = value ? onAdd : onRemove;
     handler(key)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage:
-              "Diversity, equity and inclusion information updated successfully!",
-            id: "SUUqzt",
-            description:
-              "Message displayed when a user successfully updates their diversity, equity and inclusion information.",
-          }),
-        );
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Diversity, equity and inclusion information updated successfully!",
+              id: "SUUqzt",
+              description:
+                "Message displayed when a user successfully updates their diversity, equity and inclusion information.",
+            }),
+          );
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
