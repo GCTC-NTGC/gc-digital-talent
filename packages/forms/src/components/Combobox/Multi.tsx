@@ -106,6 +106,7 @@ const Multi = ({
         case useMultipleSelection.stateChangeTypes.DropdownKeyDownBackspace:
         case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
         case useMultipleSelection.stateChangeTypes.FunctionAddSelectedItem:
+        case useMultipleSelection.stateChangeTypes.FunctionReset:
           onSelectedChange(newSelectedItems ?? null);
           if (!activeIndex || activeIndex < 0) {
             inputRef.current?.focus();
@@ -185,7 +186,11 @@ const Multi = ({
       <Field.Label {...getLabelProps()} required={isRequired}>
         {label}
       </Field.Label>
-      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
+      <div
+        className="combo"
+        data-h2-position="base(relative)"
+        data-h2-width="base(100%)"
+      >
         <Input.Wrapper>
           <Input.Search />
           <input
