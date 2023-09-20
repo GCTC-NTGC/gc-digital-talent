@@ -91,6 +91,7 @@ const Column = (props: DivHTMLProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column) l-tablet(row)"
+    data-h2-align-items="base(flex-start) l-tablet(center)"
     data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
     {...props}
   />
