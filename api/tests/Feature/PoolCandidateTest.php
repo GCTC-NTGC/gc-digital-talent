@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
@@ -68,14 +69,14 @@ class PoolCandidateTest extends TestCase
         // 1
         // not submitted, expiry date in the future DRAFT
         $candidateOne = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'submitted_at' => null,
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
         ]);
         // set status to EXPIRED manually despite not being submitted
         // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
-        $candidateOne->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+        $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateOne->save();
 
         // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
@@ -92,13 +93,13 @@ class PoolCandidateTest extends TestCase
         // 2
         // not submitted, expiry date in the past, DRAFT EXPIRED
         $candidateTwo = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
             'submitted_at' => null,
             'expiry_date' => config('constants.past_date'),
             'pool_id' => $this->pool->id,
         ]);
         // set status to EXPIRED manually despite not being submitted
-        $candidateTwo->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_EXPIRED;
+        $candidateTwo->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateTwo->save();
 
         // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
@@ -115,7 +116,7 @@ class PoolCandidateTest extends TestCase
         // 3
         // expired and submitted applicant that has a PLACED status
         $candidateThree = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
             'pool_id' => $this->pool->id,
@@ -127,7 +128,7 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL,
+                        'status' => PoolCandidateStatus::PLACED_CASUAL->name,
                     ],
                 ],
             ]);
@@ -135,7 +136,7 @@ class PoolCandidateTest extends TestCase
         // 4
         // expired and submitted applicant that lacks a PLACED status
         $candidateFour = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_UNDER_ASSESSMENT,
+            'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
             'pool_id' => $this->pool->id,
@@ -155,7 +156,7 @@ class PoolCandidateTest extends TestCase
         // 5
         // unexpired and submitted
         $candidateFive = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
@@ -167,7 +168,7 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION,
+                        'status' => PoolCandidateStatus::NEW_APPLICATION->name,
                     ],
                 ],
             ]);
@@ -175,7 +176,7 @@ class PoolCandidateTest extends TestCase
         // 6
         // unexpired and submitted
         $candidateSix = PoolCandidate::factory()->create([
-            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+            'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
@@ -187,7 +188,7 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => ApiEnums::CANDIDATE_STATUS_APPLICATION_REVIEW,
+                        'status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
                     ],
                 ],
             ]);

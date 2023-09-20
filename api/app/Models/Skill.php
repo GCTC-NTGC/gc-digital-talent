@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Database\Helpers\ApiEnums;
+use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -76,11 +76,11 @@ class Skill extends Model
 
     public static function scopeTechnical(Builder $query)
     {
-        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
+        return $query->where('category', '=', SkillCategory::TECHNICAL->name);
     }
 
     public static function scopeBehavioural(Builder $query)
     {
-        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
+        return $query->where('category', '=', SkillCategory::BEHAVIOURAL->name);
     }
 }

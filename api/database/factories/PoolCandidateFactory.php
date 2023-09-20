@@ -2,13 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApplicationStep;
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolCandidateStatus;
 use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
 use App\Models\WorkExperience;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -32,8 +34,8 @@ class PoolCandidateFactory extends Factory
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
-                $this->faker->randomElement([ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL]) :
-                ApiEnums::candidateStatuses()[array_rand((ApiEnums::candidateStatuses()))],
+                $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
+                $this->faker->randomElement(PoolCandidateStatus::cases())->name,
             'user_id' => User::factory(),
             'pool_id' => Pool::factory()->published(),
             'notes' => $this->faker->paragraphs(3, true),
@@ -41,11 +43,11 @@ class PoolCandidateFactory extends Factory
             'suspended_at' => null,
             'signature' => null,
             'submitted_steps' => array_slice(
-                ApiEnums::applicationSteps(),
+                array_column(ApplicationStep::cases(), 'name'),
                 0,
-                $this->faker->numberBetween(0, count(ApiEnums::applicationSteps()) - 1)
+                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 1)
             ),
-            'education_requirement_option' => ApiEnums::poolCandidateCriteria()[array_rand(ApiEnums::poolCandidateCriteria())],
+            'education_requirement_option' => $this->faker->randomElement(EducationRequirementOption::cases())->name,
         ];
     }
 
@@ -58,7 +60,7 @@ class PoolCandidateFactory extends Factory
             $candidateId = $poolCandidate->id;
             $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
             $candidateStatus = $results[0]->pool_candidate_status;
-            if ($candidateStatus != 'DRAFT' && $candidateStatus != 'DRAFT_EXPIRED') {
+            if ($candidateStatus != PoolCandidateStatus::DRAFT->name && $candidateStatus != PoolCandidateStatus::DRAFT_EXPIRED->name) {
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $poolCandidate->update([
@@ -79,13 +81,13 @@ class PoolCandidateFactory extends Factory
                 }
             }
 
-            if ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_EDUCATION) {
+            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($poolCandidate->education_requirement_option === ApiEnums::EDUCATION_REQUIREMENT_OPTION_APPLIED_WORK) {
+            } elseif ($poolCandidate->education_requirement_option === EducationRequirementOption::APPLIED_WORK->name) {
                 //Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
@@ -104,9 +106,9 @@ class PoolCandidateFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'submitted_steps' => ApiEnums::applicationSteps(),
+                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
         });
     }
@@ -120,10 +122,10 @@ class PoolCandidateFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE,
+                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
                 'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
-                'submitted_steps' => ApiEnums::applicationSteps(),
+                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
         });
     }

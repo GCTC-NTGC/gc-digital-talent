@@ -25,6 +25,7 @@ import {
   tryFindMessageDescriptor,
   uiMessages,
   formMessages,
+  richTextMessages,
 } from "./messages";
 import {
   getEmploymentEquityGroup,
@@ -35,7 +36,6 @@ import {
   getCitizenshipStatusesAdmin,
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
-  getEducationRequirement,
   getEducationRequirementOption,
   EmploymentDuration,
   getEmploymentDuration,
@@ -98,6 +98,7 @@ export {
   navigationMessages,
   uiMessages,
   formMessages,
+  richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
   LocaleProvider,
@@ -115,7 +116,6 @@ export {
   getCitizenshipStatusesAdmin,
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
-  getEducationRequirement,
   getEducationRequirementOption,
   EmploymentDuration,
   getEmploymentDuration,

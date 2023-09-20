@@ -2,10 +2,11 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ApplicationStep;
+use App\Enums\PoolCandidateStatus;
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -33,8 +34,12 @@ final class SubmitApplication
         // add signature and submission, as well as update the set expiry date and status, update([]) not used due to not working correctly
         $dateNow = Carbon::now();
         $application->submitted_at = $dateNow;
-        $application->pool_candidate_status = ApiEnums::CANDIDATE_STATUS_NEW_APPLICATION;
-        $application->setInsertSubmittedStepAttribute(ApiEnums::APPLICATION_STEP_REVIEW_AND_SUBMIT);
+        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $application->setInsertSubmittedStepAttribute(ApplicationStep::REVIEW_AND_SUBMIT->name);
+
+        // need to save application before setting application snapshot since fields have yet to be saved to the database.
+        $application->save();
+
         $application->setApplicationSnapshot();
 
         $application->save();

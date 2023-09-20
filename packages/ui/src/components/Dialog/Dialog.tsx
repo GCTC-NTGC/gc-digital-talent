@@ -226,6 +226,7 @@ const Dialog = {
   Header,
   Body,
   Footer,
+  Portal: DialogPrimitive.Portal,
 };
 
 export default Dialog;
