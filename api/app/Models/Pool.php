@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
@@ -113,12 +114,16 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
+        return $this->belongsToMany(Skill::class, 'pools_skills')
+            ->withTrashed() // pool-skills always fetches soft-deleted skill models
+            ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
+        return $this->belongsToMany(Skill::class, 'pools_skills')
+            ->withTrashed()
+            ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
     public function screeningQuestions(): HasMany
