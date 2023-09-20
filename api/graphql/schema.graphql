@@ -641,7 +641,7 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000)
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @can(ability: "viewAny")
   applicant(id: UUID! @eq): User
@@ -707,7 +707,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "withSkillCount"]
+      scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
     @guard
