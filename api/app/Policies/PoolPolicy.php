@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
+use App\Enums\PoolStatus;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
@@ -33,7 +33,7 @@ class PoolPolicy
     public function view(?User $user, Pool $pool)
     {
         // Anyone (even unauthenticated) can see published pools.
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
+        if ($pool->getStatusAttribute() !== PoolStatus::DRAFT->name) {
             return true;
         }
 
@@ -121,7 +121,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $pool->getStatusAttribute() === ApiEnums::POOL_IS_DRAFT
+        return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
             && $user->isAbleTo('update-team-draftPool', $pool->team);
     }
 
@@ -133,7 +133,7 @@ class PoolPolicy
     public function publish(User $user, Pool $pool)
     {
         // The status must be DRAFT to be able to publish it.
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
+        if ($pool->getStatusAttribute() !== PoolStatus::DRAFT->name) {
             return Response::deny('Pool has already been published.');
         }
 
@@ -177,7 +177,7 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         $pool->loadMissing('team');
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_DRAFT) {
+        if ($pool->getStatusAttribute() !== PoolStatus::DRAFT->name) {
             return Response::deny("You cannot delete a Pool once it's been published.");
         }
 

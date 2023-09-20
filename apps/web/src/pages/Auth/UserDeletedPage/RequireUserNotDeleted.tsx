@@ -2,6 +2,7 @@ import React from "react";
 
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -19,7 +20,7 @@ const RequireUserNotDeleted = ({ children }: RequireUserNotDeletedProps) => {
   const { deleted, isLoaded: authorizationLoaded } = useAuthorization();
   const paths = useRoutes();
   const deletedPage = paths.userDeleted();
-
+  const logger = useLogger();
   React.useEffect(() => {
     /**
      * Check the following then redirect to deleted user page
@@ -28,9 +29,10 @@ const RequireUserNotDeleted = ({ children }: RequireUserNotDeletedProps) => {
      *  - User has been deleted
      */
     if (loggedIn && authorizationLoaded && deleted) {
+      logger.debug("Redirecting to deleted page from RequireUserNotDeleted");
       logout(deletedPage);
     }
-  }, [loggedIn, authorizationLoaded, deleted, logout, deletedPage]);
+  }, [loggedIn, authorizationLoaded, deleted, logout, deletedPage, logger]);
 
   /**
    * Show the loading spinner
