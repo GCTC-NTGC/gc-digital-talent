@@ -192,8 +192,8 @@ const UpdateSkillShowcase = ({
   };
 
   const canAdd = fields.length < pageInfo.maxSkillCount;
-  const getSkill = (userSkillId: string | undefined) =>
-    skills.find((skill) => skill.id === userSkillId);
+  const getSkill = (skillId: string | undefined) =>
+    skills.find((skill) => skill.id === skillId);
   return (
     <>
       <SEO title={pageInfo.title} description={pageInfo.description} />
@@ -311,7 +311,7 @@ const UpdateSkillShowcase = ({
                               >
                                 <span>
                                   {getLocalizedName(
-                                    getSkill(item.skill)?.name,
+                                    getSkill(item.skill)?.name ?? undefined,
                                     intl,
                                   )}
                                 </span>
@@ -338,7 +338,8 @@ const UpdateSkillShowcase = ({
                             <div>
                               <p>
                                 {getLocalizedName(
-                                  getSkill(item.skill)?.description,
+                                  getSkill(item.skill)?.description ??
+                                    undefined,
                                   intl,
                                 )}
                               </p>
