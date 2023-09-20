@@ -175,9 +175,6 @@
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
     "description": "The operational requirement described as regular overtime."
   },
-  "4dx4ju": {
-    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
-  },
   "4i9X6i": {
     "defaultMessage": "En cours",
     "description": "In Progress selection for education status input"
@@ -612,9 +609,6 @@
   "OaB49n": {
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
-  },
-  "OujTbA": {
-    "defaultMessage": "Diplôme postsecondaire requis"
   },
   "P1ajBo": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
