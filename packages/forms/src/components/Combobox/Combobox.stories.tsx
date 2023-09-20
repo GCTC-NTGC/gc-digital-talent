@@ -140,3 +140,20 @@ MultiDefault.args = {
     .arrayElements(skills, 10)
     .map((skill) => skill.value),
 };
+
+export const MultiMinMax = Template.bind({});
+MultiMinMax.args = {
+  ...defaultMultiArgs,
+  context: "Select between 1 and 3 items.",
+  defaultValue: [],
+  rules: {
+    min: {
+      value: 1,
+      message: "Select at least 1 skill",
+    },
+    max: {
+      value: 3,
+      message: "Select 3 or fewer skills",
+    },
+  },
+};

@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
+import isArray from "lodash/isArray";
+import omit from "lodash/omit";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -10,7 +12,12 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
-import { getMultiDefaultValue, getSingleDefaultValue } from "./utils";
+import {
+  getErrorMessage,
+  getMinMaxValue,
+  getMultiDefaultValue,
+  getSingleDefaultValue,
+} from "./utils";
 import { BaseProps } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
@@ -93,12 +100,42 @@ const Combobox = ({
     toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
   };
 
+  const isMoreThanMin = (value: string | string[]) => {
+    if (!rules.min || !value || !isArray(value)) {
+      return true;
+    }
+
+    const minValue = getMinMaxValue(rules.min);
+
+    return value.length >= minValue || getErrorMessage(rules.min);
+  };
+
+  const isLessThanMax = (value: string | string[]) => {
+    if (!rules.max || !value || !isArray(value)) {
+      return true;
+    }
+
+    const maxValue = getMinMaxValue(rules.max);
+
+    return value.length <= maxValue || getErrorMessage(rules.max);
+  };
+
   return (
     <Field.Wrapper>
       <Controller
         control={control}
         name={name}
-        rules={rules}
+        rules={
+          !isMulti
+            ? rules
+            : {
+                ...omit(rules, "min", "max"),
+                validate: {
+                  isMoreThanMin,
+                  isLessThanMax,
+                },
+              }
+        }
         render={() =>
           isMulti ? (
             <Multi
