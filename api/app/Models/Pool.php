@@ -126,6 +126,26 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
+    public function setEssentialPoolSkills($skills)
+    {
+        $skillArrayToSync = [];
+        foreach ($skills as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::ESSENTIAL->name];
+        }
+
+        $this->essentialSkills()->sync($skillArrayToSync);
+    }
+
+    public function setNonessentialPoolSkills($skills)
+    {
+        $skillArrayToSync = [];
+        foreach ($skills as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::NONESSENTIAL->name];
+        }
+
+        $this->nonessentialSkills()->sync($skillArrayToSync);
+    }
+
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);
