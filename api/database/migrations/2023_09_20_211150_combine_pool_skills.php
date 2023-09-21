@@ -25,6 +25,7 @@ return new class extends Migration
 
         // fill the new table with pool-skill rows using the prior two tables
         $essentialPoolSkills = DB::table('pools_essential_skills')->get();
+        $essentialPoolSkillsIds = $essentialPoolSkills->pluck('skill_id')->toArray();
         foreach ($essentialPoolSkills as $instance) {
             DB::table('pools_skills')->insert([
                 'skill_id' => $instance->skill_id,
@@ -32,7 +33,9 @@ return new class extends Migration
                 'type' => 'ESSENTIAL',
             ]);
         }
-        $nonessentialPoolSkills = DB::table('pools_nonessential_skills')->get();
+        $nonessentialPoolSkills = DB::table('pools_nonessential_skills')
+            ->whereNotIn('skill_id', $essentialPoolSkillsIds) // do not have repeat pool-skill entities with different type
+            ->get();
         foreach ($nonessentialPoolSkills as $instance) {
             DB::table('pools_skills')->insert([
                 'skill_id' => $instance->skill_id,
