@@ -15,12 +15,12 @@
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
     "axe-core": "^4.8.0",
-    "cy-verify-downloads": "^0.1.17",
+    "cy-verify-downloads": "^0.2.0",
     "cypress": "^13.2.0",
     "cypress-axe": "^1.5.0",
     "cypress-multi-reporters": "^1.6.3",
     "cypress-terminal-report": "^5.3.3",
-    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "prettier": "^2.8.8",
     "tsconfig": "*",
     "typescript": "4.9.5"
