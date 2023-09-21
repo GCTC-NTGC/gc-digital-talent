@@ -33,7 +33,7 @@
     "@heroicons/react": "2.0.18",
     "@tiptap/extension-character-count": "^2.1.8",
     "@tiptap/extension-link": "^2.1.8",
-    "@tiptap/html": "^2.1.8",
+    "@tiptap/html": "^2.1.11",
     "@tiptap/react": "^2.1.8",
     "@tiptap/starter-kit": "^2.1.8",
     "date-fns": "^2.30.0",
