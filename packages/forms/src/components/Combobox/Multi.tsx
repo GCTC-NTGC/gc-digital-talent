@@ -68,7 +68,7 @@ const Multi = ({
     // Reverse the keyboard navigation (we place our chips after the input, not before)
     keyNavigationPrevious: "ArrowRight",
     keyNavigationNext: "ArrowLeft",
-    stateReducer({ activeIndex }, { type, changes: newChanges }) {
+    stateReducer({ activeIndex }, { type, changes: newChanges, selectedItem }) {
       let changes = newChanges;
       switch (type) {
         case useMultipleSelection.stateChangeTypes
@@ -93,13 +93,36 @@ const Multi = ({
             activeIndex: 0,
           };
           break;
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
+        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
+          if (activeIndex < 0) {
+            break;
+          }
+
+          let newActiveIndex = activeIndex - 1;
+
+          if (selectedItems.length === 1) {
+            newActiveIndex = -1;
+          } else if (activeIndex === selectedItems.length - 1) {
+            newActiveIndex = selectedItems.length - 2;
+          }
+
+          changes = {
+            selectedItems: [
+              ...selectedItems.slice(0, activeIndex),
+              ...selectedItems.slice(activeIndex + 1),
+            ],
+            ...{ activeIndex: newActiveIndex },
+          };
+
+          break;
         default:
           break;
       }
 
       return changes;
     },
-    onStateChange({ activeIndex, selectedItems: newSelectedItems, type }) {
+    onStateChange({ selectedItems: newSelectedItems, type }) {
       switch (type) {
         case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
         case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
@@ -108,9 +131,6 @@ const Multi = ({
         case useMultipleSelection.stateChangeTypes.FunctionAddSelectedItem:
         case useMultipleSelection.stateChangeTypes.FunctionReset:
           onSelectedChange(newSelectedItems ?? null);
-          if (!activeIndex || activeIndex < 0) {
-            inputRef.current?.focus();
-          }
           break;
         default:
           break;

@@ -123,7 +123,12 @@ const Single = ({
           {fetching || !items.length ? (
             <Menu.Empty fetching={fetching} />
           ) : null}
-          <Menu.List {...getMenuProps()}>
+          <Menu.List
+            {...getMenuProps()}
+            {...(!isOpen && {
+              "data-h2-display": "base(none)",
+            })}
+          >
             {items.map((item, index) => (
               <Menu.Item
                 // eslint-disable-next-line react/no-array-index-key
