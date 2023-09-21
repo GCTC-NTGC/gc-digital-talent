@@ -1107,8 +1107,8 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
-  setEssentialPoolSkills: SyncEssentialPoolSkills
-  setNonessentialPoolSkills: SyncNonessentialPoolSkills
+  essentialSkills: SyncEssentialPoolSkills
+  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput

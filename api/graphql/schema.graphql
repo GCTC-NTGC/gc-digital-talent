@@ -1348,8 +1348,8 @@ input UpdatePoolInput {
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Essential skills and Asset skills
-  setEssentialPoolSkills: SyncEssentialPoolSkills @spread
-  setNonessentialPoolSkills: SyncNonessentialPoolSkills @spread
+  essentialSkills: SyncEssentialPoolSkills @spread
+  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
