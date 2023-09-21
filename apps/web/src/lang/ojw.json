@@ -335,14 +335,6 @@
     "defaultMessage": "Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": " Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "Owe izhichigewin aapichi go niwiiji’igon niwaabandaan <b>niigaan ji-ani-minoseg</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Izhaan ge-onji-gikendaman",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Endaawin",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Hay’aa, gigii-wanibidoon ge-gii-izhaasiwanban.",
