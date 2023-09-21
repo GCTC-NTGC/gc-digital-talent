@@ -621,7 +621,7 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
-        $newPool->essentialSkills()->sync($essentialSkills);
+        $newPool->setEssentialPoolSkills($essentialSkills->pluck('id'));
 
         // create an experience with no skills, then attach it to the user
         AwardExperience::factory()->create([
