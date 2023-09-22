@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,7 @@ return new class extends Migration
     {
         // create the combined table
         Schema::create('pool_skill', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('skill_id');
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id');
