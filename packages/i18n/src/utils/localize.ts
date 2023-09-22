@@ -70,7 +70,7 @@ export const getLocalizedName = (
     description: "displayed when localized string not available",
   });
 
-  if (!name) {
+  if (!name || !name[locale]) {
     return notAvailable;
   }
 

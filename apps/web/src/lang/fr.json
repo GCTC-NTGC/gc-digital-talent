@@ -79,6 +79,10 @@
     "defaultMessage": "Créer une nouvelle demande de talent",
     "description": "Link text to start a new talent request"
   },
+  "+dmNpa": {
+    "defaultMessage": "Erreur : échec de la mise à jour des principales compétences comportementales",
+    "description": "Message displayed to user after top behavioural skills fails to update"
+  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -585,6 +589,10 @@
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
   },
+  "1XRfYd": {
+    "defaultMessage": "Mettez en valeur jusqu’à 10 compétences techniques qui mettent en valeur vos points forts.",
+    "description": "Page description for the top technical skills page"
+  },
   "1XaX86": {
     "defaultMessage": "Créer<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the create department page link."
@@ -743,6 +751,10 @@
   "2ekC5r": {
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
+  },
+  "2f1kN5": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences techniques.",
+    "description": "Page description for the improve technical skills page"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -1279,6 +1291,10 @@
     "defaultMessage": "À venir à l’automne 2023",
     "description": "Text displayed for soon to come data talent data portal"
   },
+  "6+TjHb": {
+    "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
+    "description": "Page title for the improve behavioural skills page"
+  },
   "66MUMB": {
     "defaultMessage": "Enregistrer les autres exigences",
     "description": "Text on a button to save the pool other requirements"
@@ -1306,6 +1322,10 @@
   "6G1ESr": {
     "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'infrastructure operations' IT work stream"
+  },
+  "6IitrN": {
+    "defaultMessage": "Vos cinq principales compétences comportementales",
+    "description": "Page title for the top behavioural skills page"
   },
   "6JL/mL": {
     "defaultMessage": "Annuler",
@@ -1855,6 +1875,9 @@
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no required technical skills"
   },
+  "AIb8zR": {
+    "defaultMessage": "Cinq compétences techniques que vous aimeriez perfectionner"
+  },
   "AKQeBC": {
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -2006,6 +2029,10 @@
   "B164SZ": {
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
+  },
+  "B6SS7l": {
+    "defaultMessage": "Mise à jour réussie de l’amélioration des compétences comportementales",
+    "description": "Success message displayed after updating improve behavioural skills"
   },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
@@ -2339,6 +2366,10 @@
     "defaultMessage": "Compétences techniques facultatives",
     "description": "Title for optional technical skills section of a pool advertisement"
   },
+  "D1+SmE": {
+    "defaultMessage": "Erreur : échec de la mise à jour des principales compétences techniques",
+    "description": "Message displayed to user after top technical skills fails to update"
+  },
   "D2HsoO": {
     "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
     "description": "Title for the what to expect section of a pool advertisement"
@@ -2518,6 +2549,10 @@
   "EB70Il": {
     "defaultMessage": "Cette section vous permet de présenter les compétences dans lesquelles vous êtes le plus fort. Vous pouvez spécifier jusqu’à 5 compétences comportementales et jusqu’à 10 compétences techniques pour vous aider à créer une image complète de vos talents. Les compétences que vous présentez ici aident les recruteurs potentiels à mieux comprendre vos points forts et la manière dont vous pourriez répondre aux besoins de leur équipe",
     "description": "Description of the top skills section and how to use it."
+  },
+  "EBE5Gv": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
+    "description": "Page description for the improve behavioural skills page"
   },
   "EBmWyo": {
     "defaultMessage": "Accueil",
@@ -2878,6 +2913,10 @@
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
   },
+  "GfjNqa": {
+    "defaultMessage": "Mise à jour réussie des principales compétences comportementales",
+    "description": "Success message displayed after updating top behavioural skills"
+  },
   "GhszAa": {
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
@@ -3202,6 +3241,10 @@
   "J3Ud6R": {
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
+  },
+  "J8Nltm": {
+    "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence \"{skillName}\" dans le cadre de cette expérience",
+    "description": "Heading for a single skill on an experience."
   },
   "J8kIar": {
     "defaultMessage": "Recruter et gérer des employés en TI au gouvernement du Canada.",
@@ -3541,6 +3584,10 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultativement bénéfiques pour le rôle, et leur démonstration pourrait vous être bénéfique lorsqu’elles sont envisagées.",
     "description": "Instructions on  optional skills for a pool advertisement"
   },
+  "Lb3ppn": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve technical skills page"
+  },
   "LbtstO": {
     "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
     "description": "Text for fourth sign up -> create step."
@@ -3857,6 +3904,10 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
+  "O53DAg": {
+    "defaultMessage": "Erreur : échec de la mise à jour de l’amélioration des compétences comportementales",
+    "description": "Message displayed to user after improve behavioural skills fails to update"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
@@ -3931,6 +3982,10 @@
   "OXyqf7": {
     "defaultMessage": "Mise en valeur des compétences showcase",
     "description": "applicant dashboard card title for skill showcase"
+  },
+  "OY6KVG": {
+    "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
+    "description": "Page blurb for the top behavioural skills page"
   },
   "OYjVy4": {
     "defaultMessage": "Nous avons tous des réalisations et des expériences diverses qui façonnent nos carrières et nos compétences. Ne communiquez que ce que vous seriez prêt à partager avec un collègue de travail. Sur cette plateforme, vous pouvez ajouter les éléments suivants à votre parcours professionnel :",
@@ -4576,6 +4631,10 @@
     "defaultMessage": "État d'expiration",
     "description": "Expiry status"
   },
+  "TQt+3L": {
+    "defaultMessage": "Enregistrer et retourner",
+    "description": "Text on a button to save the skill order and return to skill showcase"
+  },
   "TREL4U": {
     "defaultMessage": "Courriel",
     "description": "Title displayed for the teams table email column."
@@ -4767,6 +4826,10 @@
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
+  },
+  "Un9x5Z": {
+    "defaultMessage": "Vous avez des modifications non enregistrées. N’oubliez pas d’enregistrer! ",
+    "description": "Message displayed when items have been moved and not saved"
   },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
@@ -5100,6 +5163,9 @@
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
     "description": "Link text for security clearance information"
   },
+  "WlNgZ3": {
+    "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer"
+  },
   "Wmuizf": {
     "defaultMessage": "Langue préférée pour l'entretien parlé :",
     "description": "Display text for the preferred spoken interview language field on users"
@@ -5248,6 +5314,9 @@
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
   },
+  "XmYbWb": {
+    "defaultMessage": "Cinq principales compétences comportementales"
+  },
   "Xmtw0V": {
     "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
     "description": "Label displayed does have priority entitlement option"
@@ -5283,6 +5352,10 @@
   "Xvvcsg": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label for not represented community"
+  },
+  "XzGOuV": {
+    "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
+    "description": "Label for skill dialog trigger on skills showcase section."
   },
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
@@ -5579,6 +5652,10 @@
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
     "description": "Blurb before additional comments textarea in the request form."
   },
+  "Zzh9Xs": {
+    "defaultMessage": "Mettez en valeur jusqu’à cinq compétences comportementales qui mettent en valeur vos points forts.",
+    "description": "Page description for the top behavioural skills page"
+  },
   "a+bWz1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill form description (French) field."
@@ -5637,6 +5714,10 @@
   "aGaaPi": {
     "defaultMessage": "Femme",
     "description": "CSV Header, Woman column"
+  },
+  "aIMh6f": {
+    "defaultMessage": "Cinq compétences techniques que vous aimeriez perfectionner",
+    "description": "Page title for the improve technical skills page"
   },
   "aK5Oop": {
     "defaultMessage": "« Réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
@@ -5908,6 +5989,10 @@
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
   },
+  "cEalcz": {
+    "defaultMessage": "Vous n’avez pas encore ajouté aucun élément.",
+    "description": "Message that appears when there are no skills on showcase"
+  },
   "cEeW3m": {
     "defaultMessage": "Emplacement (français) : {locationFr}",
     "description": "Pool advertisement location requirement, French"
@@ -6084,6 +6169,10 @@
     "defaultMessage": "Nom complet",
     "description": "Label for full name input in the request form"
   },
+  "dSfDu1": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve behavioural skills page"
+  },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
@@ -6168,6 +6257,10 @@
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
   },
+  "dpvwTf": {
+    "defaultMessage": "Erreur : échec de la mise à jour de l’amélioration des compétences techniques",
+    "description": "Message displayed to user after improve technical skills fails to update"
+  },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
@@ -6195,6 +6288,10 @@
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
+  },
+  "e0QYLO": {
+    "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
+    "description": "Page description for the top technical skills page"
   },
   "e1KnGs": {
     "defaultMessage": "Que puis-je faire si mes codes d’authentification ne sont plus acceptés?",
@@ -6990,6 +7087,10 @@
     "defaultMessage": "Maintenance de la plateforme",
     "description": "Heading for platform dashboard links"
   },
+  "iqmE+5": {
+    "defaultMessage": "Mise à jour réussie des principales compétences techniques",
+    "description": "Success message displayed after updating top technical skills"
+  },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
@@ -7321,6 +7422,10 @@
     "defaultMessage": "Nous vous contacterons si votre candidature correspond aux critères définis par les occasions d’emploi En attendant, consultez les ressources suivantes pour en savoir sur la suite des événements.",
     "description": "Description of review process and next steps for the applicant."
   },
+  "lFFnfX": {
+    "defaultMessage": "Supprimer un élément pour en ajouter un autre ({numOfSkills}/{maxSkills})",
+    "description": "Label for disabled dialog trigger on skills showcase section."
+  },
   "lFrPv1": {
     "defaultMessage": "Créer une compétence",
     "description": "Heading displayed above the Create Skill form."
@@ -7488,6 +7593,10 @@
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
+  },
+  "mR8ccV": {
+    "defaultMessage": "Vous pouvez ajouter des éléments en utilisant le bouton \"Ajouter un nouvel élément\" fourni.",
+    "description": "Instructions on how to add a skill to showcase when there are none"
   },
   "mRNmrR": {
     "defaultMessage": "Courriel du gouvernement",
@@ -7702,7 +7811,7 @@
     "description": "Descriptive text explaining the work preferences section of the application profile"
   },
   "njJCTd": {
-    "defaultMessage": "Sélectionné",
+    "defaultMessage": "Éliminé à la présélection",
     "description": "Status for an application that has been screened out of eligibility"
   },
   "nmImtK": {
@@ -8091,6 +8200,10 @@
   "r2gD/4": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
+  },
+  "r4R1KZ": {
+    "defaultMessage": "Vitrine de compétences",
+    "description": "Title for the skill showcase page"
   },
   "r6DZ71": {
     "defaultMessage": "Annuler",
@@ -8519,6 +8632,10 @@
     "defaultMessage": "Inactif",
     "description": "Status message if the application is suspended"
   },
+  "u5z9bK": {
+    "defaultMessage": "Vos 10 principales compétences techniques",
+    "description": "Page title for the top technical skills page"
+  },
   "u6GmEz": {
     "defaultMessage": "Portail du gestionnaire de portail",
     "description": "Title for the pool manager login link."
@@ -8639,6 +8756,9 @@
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
   },
+  "v1Ya0+": {
+    "defaultMessage": "10 principales compétences techniques"
+  },
   "v6boy9": {
     "defaultMessage": "Expérience ou études minimales",
     "description": "Title for minimum experience or education section of a pool advertisement"
@@ -8690,6 +8810,10 @@
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
+  },
+  "vMBiMV": {
+    "defaultMessage": "Mise à jour réussie de la compétence",
+    "description": "Message displayed when a user updates a skill"
   },
   "vNFHWp": {
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
@@ -9146,6 +9270,10 @@
   "z3QvIv": {
     "defaultMessage": "Outres compétences",
     "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "z5f+GT": {
+    "defaultMessage": "Mise à jour réussie de l’amélioration des compétences techniques",
+    "description": "Success message displayed after updating improve technical skills"
   },
   "z7FpHz": {
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",

@@ -175,9 +175,6 @@
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
     "description": "The operational requirement described as regular overtime."
   },
-  "4dx4ju": {
-    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
-  },
   "4i9X6i": {
     "defaultMessage": "En cours",
     "description": "In Progress selection for education status input"
@@ -409,6 +406,10 @@
     "defaultMessage": "Ébauche",
     "description": "The pool candidate's status is Draft."
   },
+  "FYrmhH": {
+    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
+    "description": "Message showing number of all available options in combobox menu"
+  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
@@ -521,6 +522,10 @@
     "defaultMessage": "Ce champ est obligatoire.",
     "description": "Error message that this field must filled for the form to be valid."
   },
+  "KGX4bI": {
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+    "description": "Message showing number of matching items from all available options in combobox menu"
+  },
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
@@ -613,8 +618,9 @@
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
   },
-  "OujTbA": {
-    "defaultMessage": "Diplôme postsecondaire requis"
+  "Ot5z0u": {
+    "defaultMessage": "Menu des options de bascule",
+    "description": "Button text to toggle the combobox menu"
   },
   "P1ajBo": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
@@ -640,6 +646,10 @@
     "defaultMessage": "Éliminé à la présélection – non réactif",
     "description": "The pool candidate's status is Screened Out because no longer responding"
   },
+  "QRXLf/": {
+    "defaultMessage": "Chargement des résultats...",
+    "description": "Message to display when a search is currently loading results."
+  },
   "QVdubF": {
     "defaultMessage": "Membre",
     "description": "user is a CAF member"
@@ -651,6 +661,10 @@
   "QhRU19": {
     "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "QnlRv0": {
+    "defaultMessage": "Effacer toutes les sélections",
+    "description": "Button text to clear the current selected items in a multi-select combobox"
   },
   "QrKbH+": {
     "defaultMessage": "Durée",
@@ -1019,6 +1033,10 @@
   "dxjUnU": {
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
+  },
+  "eBNZxB": {
+    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "eGg734": {
     "defaultMessage": "Autre",

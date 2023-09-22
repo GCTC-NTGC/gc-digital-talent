@@ -1,9 +1,11 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 
+type Locale = "en" | "fr";
 type Project = "digital-talent" | "iap" | "admin";
 
 interface FaviconProps {
+  locale: Locale;
   project: Project;
 }
 
@@ -13,7 +15,7 @@ const colourMap = new Map<Project, string>([
   ["admin", "#fff"],
 ]);
 
-const Favicon = ({ project }: FaviconProps) => {
+const Favicon = ({ locale, project }: FaviconProps) => {
   const colour = colourMap.get(project);
   return (
     <Helmet>
@@ -34,7 +36,7 @@ const Favicon = ({ project }: FaviconProps) => {
         sizes="16x16"
         href={`/images/${project}/favicon-16x16.png`}
       />
-      <link rel="manifest" href={`/${project}.webmanifest`} />
+      <link rel="manifest" href={`/${project}-${locale}.webmanifest`} />
       <link
         rel="mask-icon"
         href={`/images/${project}/safari-pinned-tab.svg`}

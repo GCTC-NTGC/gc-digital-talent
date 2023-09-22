@@ -141,11 +141,6 @@ type User {
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
-    )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
@@ -641,7 +636,7 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000)
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @can(ability: "viewAny")
   applicant(id: UUID! @eq): User
@@ -707,7 +702,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "withSkillCount"]
+      scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
     @guard

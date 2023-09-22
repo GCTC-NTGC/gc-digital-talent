@@ -1,78 +1,77 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FieldError, useFormContext } from "react-hook-form";
-import { Combobox as ComboboxPrimitive } from "@headlessui/react";
-import debounce from "lodash/debounce";
-import orderBy from "lodash/orderBy";
+import { Controller, FieldError, useFormContext } from "react-hook-form";
+import isArray from "lodash/isArray";
+import omit from "lodash/omit";
 
-import { Scalars } from "@gc-digital-talent/graphql";
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import Field from "../Field";
-import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import Actions from "./Actions";
-import NoOptions from "./NoOptions";
-import "./combobox.css";
-
-export interface Option {
-  /** The data used on form submission  */
-  value: string;
-  /** Text to display in the list of options */
-  label: React.ReactNode;
-}
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import { CommonInputProps, HTMLInputProps } from "../../types";
+import {
+  getErrorMessage,
+  getMinMaxValue,
+  getMultiDefaultValue,
+  getSingleDefaultValue,
+} from "./utils";
+import { BaseProps } from "./types";
+import Single from "./Single";
+import Multi from "./Multi";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
     /** Array of available options */
-    options: Option[];
-    /** Optional: Set if the options are being fetched */
-    fetching?: boolean;
+    options: BaseProps["options"];
     /** Optional: Callback ran when the user types in the input */
     onSearch?: (term: string) => void;
     /** Optional: Control the options through external search (API, etc.) */
-    isExternalSearch?: boolean;
+    isExternalSearch?: BaseProps["isExternalSearch"];
     /** Button text to clear the current text from the input (optional) */
-    clearLabel?: string;
+    clearLabel?: BaseProps["clearLabel"];
+    /** Button text to toggle the options menu (optional) */
+    toggleLabel?: BaseProps["toggleLabel"];
+    /** Optional: Set if the options are being fetched */
+    fetching?: BaseProps["fetching"];
+    /** Optional: Total number available options (use for API driven where options is not the total length) */
+    total?: BaseProps["total"];
+    /** Optional: Accept multiple values (must be array type in form values) */
+    isMulti?: boolean;
   };
 
 const Combobox = ({
   id,
   label,
   clearLabel,
+  toggleLabel,
   name,
   context,
+  options,
   rules = {},
   readOnly,
+  total,
   trackUnsaved = true,
   onSearch,
   fetching = false,
   isExternalSearch = false,
-  options,
-  ...rest
+  isMulti = false,
 }: ComboboxProps) => {
   const intl = useIntl();
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [selectedOption, setSelectedOption] = React.useState<
-    Scalars["ID"] | null
-  >(null);
-  const [query, setQuery] = React.useState<string>("");
   const {
+    control,
     setValue,
-    resetField,
-    register,
-    formState: { errors },
+    formState: { errors, defaultValues },
   } = useFormContext();
-  const inputProps = register(name, rules);
   const baseStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
+  const defaultValue = defaultValues && defaultValues[name];
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -82,179 +81,90 @@ const Combobox = ({
     },
   });
 
-  const filteredOptions = React.useMemo(() => {
-    if (query === "" || isExternalSearch) {
-      return options;
-    }
-
-    return orderBy(
-      options.filter((option) =>
-        option.label
-          ?.toLocaleString()
-          .toLowerCase()
-          .includes(query.toLowerCase()),
-      ),
-      (o) => o?.label?.toLocaleString().toLowerCase(),
-      "asc",
-    );
-  }, [query, isExternalSearch, options]);
-
-  const noOptions = fetching || filteredOptions.length === 0;
-
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const {
-        target: { value },
-      } = e;
-      setQuery(value);
-      if (onSearch) {
-        onSearch(value);
-      }
-    },
-    [onSearch],
-  );
-
-  const debouncedChangeHandler = React.useMemo(
-    () => debounce(handleChange, 300),
-    [handleChange],
-  );
-
-  React.useEffect(() => {
-    return () => {
-      debouncedChangeHandler.cancel();
-    };
-  }, [debouncedChangeHandler]);
-
-  const handleClear = () => {
-    setSelectedOption(null);
-    setQuery("");
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+  const inputProps: HTMLInputProps = {
+    ...baseStyles,
+    ...stateStyles,
+    readOnly,
+    "aria-describedby": ariaDescribedBy,
   };
 
-  // This does not play well with react-hook-form so
-  // we need to manually set the value here
-  React.useEffect(() => {
-    if (selectedOption !== "") {
-      setValue(name, selectedOption);
-    } else {
-      resetField(name);
-    }
-  }, [selectedOption, setValue, resetField, name]);
+  const sharedProps: BaseProps = {
+    options,
+    label,
+    isRequired,
+    inputProps,
+    fetching,
+    isExternalSearch,
+    total: total || options.length,
+    clearLabel: clearLabel || intl.formatMessage(formMessages.resetCombobox),
+    toggleLabel: toggleLabel || intl.formatMessage(formMessages.toggleCombobox),
+  };
 
-  const getDisplayValue = (value: Scalars["ID"]): string => {
-    if (value) {
-      const selected = options.find((option) => option.value === value);
-      if (selected) {
-        return `${selected.label}`;
-      }
+  const isMoreThanMin = (value: string | string[]) => {
+    if (!rules.min || !value || !isArray(value)) {
+      return true;
     }
 
-    return ``;
+    const minValue = getMinMaxValue(rules.min);
+
+    return value.length >= minValue || getErrorMessage(rules.min);
+  };
+
+  const isLessThanMax = (value: string | string[]) => {
+    if (!rules.max || !value || !isArray(value)) {
+      return true;
+    }
+
+    const maxValue = getMinMaxValue(rules.max);
+
+    return value.length <= maxValue || getErrorMessage(rules.max);
   };
 
   return (
-    <ComboboxPrimitive
-      as="div"
-      value={selectedOption}
-      onChange={setSelectedOption}
-      name={name}
-      data-h2-position="base(relative)"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      nullable
-    >
-      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
-        <ComboboxPrimitive.Label as={Field.Label} required={isRequired}>
-          {label}
-        </ComboboxPrimitive.Label>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-grow="base(1)"
-          data-h2-width="base(100%)"
-          data-h2-position="base(relative)"
-          data-h2-margin="base(x.125, 0)"
-        >
-          <ComboboxPrimitive.Input
-            aria-describedby={ariaDescribedBy}
-            aria-required={rules.required ? "true" : undefined}
-            aria-invalid={error ? "true" : "false"}
-            autoComplete="off"
-            onChange={debouncedChangeHandler}
-            onBlur={inputProps.onBlur}
-            displayValue={getDisplayValue}
-            ref={inputRef}
-            {...baseStyles}
-            {...stateStyles}
-            data-h2-width="base(100%)"
-            {...(readOnly
-              ? {
-                  readOnly: true,
-                  "data-h2-background-color": "base(background.dark)",
-                }
-              : {})}
-            {...rest}
-          />
-          <Actions
-            showClear={!!selectedOption || query !== ""}
-            onClear={handleClear}
-            fetching={fetching}
-            clearLabel={
-              clearLabel || intl.formatMessage(formMessages.resetCombobox)
-            }
-          />
-        </div>
-        <ComboboxPrimitive.Options
-          data-h2-background-color="base(white)"
-          data-h2-shadow="base(l)"
-          data-h2-max-height="base(18rem)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(100%, 0, auto, 0)"
-          data-h2-overflow="base(visible auto)"
-          data-h2-z-index="base(99)"
-          {...baseStyles}
-          as={noOptions ? "div" : "ul"}
-        >
-          {noOptions ? (
-            <NoOptions fetching={fetching} />
+    <Field.Wrapper>
+      <Controller
+        control={control}
+        name={name}
+        rules={
+          !isMulti
+            ? rules
+            : {
+                ...omit(rules, "min", "max"),
+                validate: {
+                  isMoreThanMin,
+                  isLessThanMax,
+                },
+              }
+        }
+        render={() =>
+          isMulti ? (
+            <Multi
+              onInputChange={onSearch}
+              onSelectedChange={(items) => {
+                setValue(
+                  name,
+                  items?.map((item) => item.value),
+                );
+              }}
+              value={getMultiDefaultValue(options, defaultValue)}
+              {...sharedProps}
+            />
           ) : (
-            filteredOptions.map((option) => (
-              <ComboboxPrimitive.Option
-                key={option.value}
-                value={option.value}
-                as={React.Fragment}
-              >
-                {({ active }) => (
-                  <li
-                    data-h2-cursor="base(pointer)"
-                    data-h2-radius="base(input)"
-                    data-h2-padding="base(x.25, x.5)"
-                    data-h2-display="base(flex)"
-                    data-h2-align-items="base(center)"
-                    data-h2-gap="base(0, x.25)"
-                    {...(active
-                      ? {
-                          "data-h2-background-color": "base(gray.light)",
-                        }
-                      : {
-                          "data-h2-background-color": "base(white)",
-                        })}
-                  >
-                    <span>{option.label}</span>
-                  </li>
-                )}
-              </ComboboxPrimitive.Option>
-            ))
-          )}
-        </ComboboxPrimitive.Options>
-      </div>
+            <Single
+              onInputChange={onSearch}
+              onSelectedChange={(item) => setValue(name, item?.value)}
+              value={getSingleDefaultValue(options, defaultValue)}
+              {...sharedProps}
+            />
+          )
+        }
+      />
       <Field.Descriptions
         ids={descriptionIds}
         error={error}
         context={context}
       />
-    </ComboboxPrimitive>
+    </Field.Wrapper>
   );
 };
 

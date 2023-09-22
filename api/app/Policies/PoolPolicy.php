@@ -27,7 +27,6 @@ class PoolPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(?User $user, Pool $pool)
@@ -56,7 +55,6 @@ class PoolPolicy
     /**
      * Determine whether the user can view all published pools.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAnyPublished(?User $user)

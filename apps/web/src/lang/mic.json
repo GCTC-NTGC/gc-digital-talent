@@ -335,14 +335,6 @@
     "defaultMessage": "Suwa’te’n kiskuk wjit poqjilukwatn ki’l IT career wutawti.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": "Meskeyi, mu we’jituwek ta’n teluwek wi’katikn ninen kwilmek wjit koqowey. ",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "“Wula program na kisi piluwa’toq mimajuwaqn wjit wen kutey ni’n aqq ni’n nemitu wjit <b>atelk eliaq me’ elmiaq wutawti</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Ikanteske’n wjit elien ikant",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Wikuwow",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Oops, teltek kutey  ki’l kisi ika’tu’n wula wi’katikn ki’l ewikasik ta’n teluwek mu sama’tasin tujiw ankaptasin.",
