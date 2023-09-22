@@ -322,13 +322,19 @@ export const PoolPoster = ({
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
                 data-h2-margin="base(0, 0, x1, 0)"
+                data-h2-flex-wrap="base(wrap)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading data-h2-margin="base(0)">
                     {sections.summary.title}
                   </TableOfContents.Heading>
                 </div>
-                <div data-h2-flex-shrink="base(0)">{applyBtn}</div>
+                <div
+                  data-h2-flex-shrink="base(0)"
+                  data-h2-margin-top="base(x.75) p-tablet(0)"
+                >
+                  {applyBtn}
+                </div>
               </div>
               <Accordion.Root mode="simple" type="single" collapsible>
                 <Accordion.Item value="when">
