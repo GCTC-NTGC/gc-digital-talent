@@ -1,7 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { useArgs } from "@storybook/client-api";
 
 import {
   fakeClassifications,
