@@ -58,9 +58,9 @@ const SpecialNoteSection = ({
   const handleSave = (formValues: FormValues) => {
     onSave({
       specialNote: {
-        en: formValues.specialNoteEn,
-        fr: formValues.specialNoteFr,
-      },
+        en: formValues.hasSpecialNote ? formValues.specialNoteEn : "",
+        fr: formValues.hasSpecialNote ? formValues.specialNoteFr : "",
+      }, // Save data if confirmation box (hasSpecialNote) is selected
     });
     methods.reset(formValues, {
       keepDirty: false,
