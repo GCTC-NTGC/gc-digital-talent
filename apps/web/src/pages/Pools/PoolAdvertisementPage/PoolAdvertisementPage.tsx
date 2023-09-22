@@ -450,11 +450,7 @@ export const PoolPoster = ({
             {showSpecialNote && (
               <TableOfContents.Section id={sections.specialNote.id}>
                 <div>
-                  <Alert.Root
-                    type="info"
-                    data-h2-shadow="base(none)"
-                    data-h2-margin="base(0, -x1, 0, -x1)"
-                  >
+                  <Alert.Root type="info" data-h2-shadow="base(none)">
                     <Alert.Title>
                       {intl.formatMessage({
                         defaultMessage: "Special note for this process",
