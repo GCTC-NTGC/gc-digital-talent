@@ -1,9 +1,8 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
-import { Color } from "../../types";
+import { ButtonLinkMode, Color } from "../../types";
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
 
@@ -13,7 +12,7 @@ export default {
   component: Button,
   title: "Components/Button",
   args: {
-    label: "Button Label",
+    label: "Button label",
   },
   argTypes: {
     label: {
@@ -37,140 +36,79 @@ const colors: Array<Color> = [
   "tertiary",
   "quaternary",
   "quinary",
+  "success",
+  "warning",
+  "error",
+  "black",
+  "white",
 ];
-const stoplight: Array<Color> = ["success", "warning", "error"];
-const black: Array<Color> = ["black"];
-const white: Array<Color> = ["white"];
 
-const Template: Story = (args) => {
-  const { label, ...rest } = args;
+const modes: Array<ButtonLinkMode> = ["solid", "text", "inline", "cta"];
+
+const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
+
+const Template: Story = () => {
   return (
     <div>
-      <div data-h2-display="base(flex)">
-        <div data-h2-padding="base(x1)" data-h2-background="base(background)">
-          {colors.map((color) => (
-            <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-              <Button color={color} {...rest}>
-                {label}
-              </Button>
-            </p>
-          ))}
-        </div>
-        <div data-h2-padding="base(x1)" data-h2-background="base(background)">
-          {stoplight.map((color) => (
-            <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-              <Button color={color} {...rest}>
-                {label}
-              </Button>
-            </p>
-          ))}
-          <Button disabled {...rest}>
-            Disabled
-          </Button>
-        </div>
-        <div data-h2-padding="base(x1)" data-h2-background="base(background)">
-          {black.map((color) => (
-            <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-              <Button color={color} {...rest}>
-                {label}
-              </Button>
-            </p>
-          ))}
-        </div>
-        <div data-h2-padding="base(x1)" data-h2-background="base(black)">
-          {white.map((color) => (
-            <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-              <Button color={color} {...rest}>
-                {label}
-              </Button>
-            </p>
-          ))}
-        </div>
-      </div>
-      <div data-h2="dark">
-        <div data-h2-display="base(flex)">
-          <div data-h2-padding="base(x1)" data-h2-background="base(background)">
+      <div
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(1fr 1fr 1fr 1fr)"
+        data-h2-text-align="base(center)"
+      >
+        {themes.map((theme) => (
+          <div key="" data-h2={theme}>
             {colors.map((color) => (
-              <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-                <Button color={color} {...rest}>
-                  {label}
-                </Button>
-              </p>
+              <>
+                {modes.map((mode) => (
+                  <>
+                    <div
+                      key=""
+                      {...(color === "white" && {
+                        "data-h2-background-color": "base(black)",
+                      })}
+                      {...(color !== "white" && {
+                        "data-h2-background-color": "base(background)",
+                      })}
+                      data-h2-padding="base(x2 x2 x1 x2)"
+                    >
+                      <Button
+                        mode={mode}
+                        color={color}
+                        icon={InformationCircleIcon}
+                        counter={99}
+                      >
+                        Example label
+                      </Button>
+                    </div>
+                    <div
+                      key=""
+                      {...(color === "white" && {
+                        "data-h2-background-color": "base(black)",
+                      })}
+                      {...(color !== "white" && {
+                        "data-h2-background-color": "base(background)",
+                      })}
+                      data-h2-padding="base(x1 x2 x2 x2)"
+                    >
+                      <Button
+                        mode={mode}
+                        color={color}
+                        icon={InformationCircleIcon}
+                        counter={99}
+                        disabled
+                      >
+                        Example label
+                      </Button>
+                    </div>
+                  </>
+                ))}
+              </>
             ))}
           </div>
-          <div data-h2-padding="base(x1)" data-h2-background="base(background)">
-            {stoplight.map((color) => (
-              <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-                <Button color={color} {...rest}>
-                  {label}
-                </Button>
-              </p>
-            ))}
-            <Button disabled {...rest}>
-              Disabled
-            </Button>
-          </div>
-          <div data-h2-padding="base(x1)" data-h2-background="base(background)">
-            {black.map((color) => (
-              <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-                <Button color={color} {...rest}>
-                  {label}
-                </Button>
-              </p>
-            ))}
-          </div>
-          <div data-h2-padding="base(x1)" data-h2-background="base(black)">
-            {white.map((color) => (
-              <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-                <Button color={color} {...rest}>
-                  {label}
-                </Button>
-              </p>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
 };
 
-const TemplateButton: Story = (args) => {
-  const { label, ...rest } = args;
-
-  return <Button {...rest}>{label}</Button>;
-};
-
-export const Default = TemplateButton.bind({});
-
-export const SolidButton = Template.bind({});
-SolidButton.args = {
-  mode: "solid",
-  onClick: action("Button clicked"),
-};
-
-export const InlineButton = Template.bind({});
-InlineButton.args = {
-  mode: "inline",
-  onClick: action("Button clicked"),
-};
-
-export const CallToActionButton = Template.bind({});
-CallToActionButton.args = {
-  mode: "cta",
-  icon: InformationCircleIcon,
-  onClick: action("Button clicked"),
-};
-
-export const BlockButton = TemplateButton.bind({});
-BlockButton.args = {
-  mode: "solid",
-  block: true,
-  onClick: action("Button clicked"),
-};
-
-export const IconButton = Template.bind({});
-IconButton.args = {
-  mode: "solid",
-  icon: InformationCircleIcon,
-  onClick: action("Button clicked"),
-};
+export const Default = Template.bind({});

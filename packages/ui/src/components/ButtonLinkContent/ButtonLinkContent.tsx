@@ -1,16 +1,20 @@
 import React from "react";
+import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
+import { useIntl } from "react-intl";
+
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { ButtonLinkMode, IconType } from "../../types";
-import IconWrapper from "./IconWrapper";
-import TextWrapper from "./TextWrapper";
+import Counter from "../Button/Counter";
 
 interface IconTextProps
   extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
   > {
   mode: ButtonLinkMode;
   icon?: IconType;
+  counter?: number;
   utilityIcon?: IconType;
   newTab?: boolean;
 }
@@ -18,42 +22,92 @@ interface IconTextProps
 const ButtonLinkContent = ({
   children,
   icon,
+  counter,
   utilityIcon,
   mode,
   newTab = false,
   ...rest
 }: IconTextProps) => {
+  const intl = useIntl();
   if (!newTab && !icon && !utilityIcon) return <span>{children}</span>;
   const Icon = icon;
   const UtilityIcon = utilityIcon;
 
+  if (mode === "cta") {
+    return (
+      <>
+        <div
+          data-h2-display="base:children[>*](inline-block)"
+          data-h2-padding="base(calc(x.5 - 3px))"
+        >
+          {Icon && (
+            <Icon
+              data-h2-width="base(x1)"
+              data-h2-vertical-align="base(middle)"
+            />
+          )}
+        </div>
+        <div
+          data-h2-display="base:children[>*](inline-block)"
+          data-h2-padding="base(calc(x.5 - 3px) calc(x1 - 3px))"
+          data-h2-vertical-align="base:children[>*](middle)"
+          {...rest}
+        >
+          <span
+            data-h2-font-size="base(body)"
+            data-h2-font-weight="base(700)"
+            data-h2-text-decoration="base(underline)"
+          >
+            {children}
+          </span>
+          {UtilityIcon && (
+            <UtilityIcon
+              data-h2-width="base(x1)"
+              data-h2-margin-left="base(x.25)"
+            />
+          )}
+          {newTab && (
+            <ArrowTopRightOnSquareIcon
+              aria-label={intl.formatMessage(uiMessages.newTab)}
+              data-h2-width="base(x1)"
+              data-h2-margin-left="base(x.25)"
+            />
+          )}
+          {counter && <Counter count={counter} />}
+        </div>
+      </>
+    );
+  }
   return (
-    <span
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      {...(mode === "cta"
-        ? {
-            "data-h2-width": "base:children[svg](var(--h2-font-size-h5))",
-          }
-        : {
-            "data-h2-width": "base:children[svg](1rem)",
-          })}
+    <div
+      data-h2-display="base:children[>*](inline-block)"
+      data-h2-vertical-align="base:children[>*](middle)"
       {...rest}
     >
       {Icon && (
-        <IconWrapper mode={mode}>
-          <Icon
-            {...(mode !== "cta" && {
-              "data-h2-margin": "base(0 x.25 0 0)",
-            })}
-          />
-        </IconWrapper>
+        <Icon data-h2-margin-right="base(x.25)" data-h2-width="base(x1)" />
       )}
-      <TextWrapper mode={mode} newTab={newTab}>
+      <span
+        data-h2-font-size="base(body)"
+        data-h2-text-decoration="base(underline)"
+      >
         {children}
-      </TextWrapper>
-      {UtilityIcon && <UtilityIcon data-h2-margin="base(0 0 0 x.25)" />}
-    </span>
+      </span>
+      {UtilityIcon && (
+        <UtilityIcon
+          data-h2-width="base(x1)"
+          data-h2-margin-left="base(x.25)"
+        />
+      )}
+      {newTab && (
+        <ArrowTopRightOnSquareIcon
+          aria-label={intl.formatMessage(uiMessages.newTab)}
+          data-h2-width="base(x1)"
+          data-h2-margin-left="base(x.25)"
+        />
+      )}
+      {counter && <Counter count={counter} />}
+    </div>
   );
 };
 

@@ -1,7 +1,14 @@
 import React from "react";
 import { CSVLink } from "react-csv";
 
-import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
+import getBaseStyle from "../../hooks/Button/getButtonBaseStyle";
+import getBackgroundColor from "../../hooks/Button/getButtonBackgroundColor";
+import getBorderColor from "../../hooks/Button/getButtonBorderColor";
+import getDisplay from "../../hooks/Button/getButtonDisplay";
+import getFontColor from "../../hooks/Button/getButtonFontColor";
+import getFontWeight from "../../hooks/Button/getButtonFontWeight";
+import getShadow from "../../hooks/Button/getButtonShadow";
 import type { LinkProps } from "./Link";
 
 interface CsvHeader {
@@ -10,7 +17,7 @@ interface CsvHeader {
 }
 
 export interface DownloadCsvProps
-  extends Pick<LinkProps, "color" | "mode" | "block" | "type"> {
+  extends Pick<LinkProps, "color" | "mode" | "block" | "type" | "icon"> {
   headers: CsvHeader[];
   data: Record<string, string>[];
   fileName: string;
@@ -20,29 +27,32 @@ export interface DownloadCsvProps
 const DownloadCsv = ({
   color = "primary",
   mode = "solid",
-  block,
+  block = false,
+  icon,
   headers,
   data,
   fileName,
   children,
   ...rest
 }: DownloadCsvProps) => {
-  const styles = useCommonButtonLinkStyles({
-    color,
-    mode,
-    block,
-  });
-
   return (
     <CSVLink
-      {...styles}
+      {...getBaseStyle({ mode })}
+      {...getBackgroundColor({ mode, color })}
+      {...getBorderColor({ mode, color })}
+      {...getDisplay({ mode, block })}
+      {...getFontColor({ mode, color })}
+      {...getFontWeight({ mode })}
+      {...getShadow({ mode })}
       {...rest}
       target="_blank"
       headers={headers}
       data={data}
       filename={fileName}
     >
-      {children}
+      <ButtonLinkContent mode={mode} icon={icon}>
+        {children}
+      </ButtonLinkContent>
     </CSVLink>
   );
 };

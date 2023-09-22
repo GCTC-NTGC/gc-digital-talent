@@ -3,15 +3,18 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { useIntl } from "react-intl";
-import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 
-import { uiMessages } from "@gc-digital-talent/i18n";
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
-import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import getBaseStyle from "../../hooks/Button/getButtonBaseStyle";
+import getBackgroundColor from "../../hooks/Button/getButtonBackgroundColor";
+import getBorderColor from "../../hooks/Button/getButtonBorderColor";
+import getDisplay from "../../hooks/Button/getButtonDisplay";
+import getFontColor from "../../hooks/Button/getButtonFontColor";
+import getFontWeight from "../../hooks/Button/getButtonFontWeight";
+import getShadow from "../../hooks/Button/getButtonShadow";
 
 export type LinkProps = ButtonLinkProps &
   Omit<RouterLinkProps, "to"> &
@@ -49,14 +52,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const intl = useIntl();
     const url = sanitizeUrl(href);
-    const styles = useCommonButtonLinkStyles({
-      mode,
-      color,
-      block,
-      disabled,
-    });
 
     const commonProps = {
       ...(newTab
@@ -65,7 +61,13 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
             rel: "noopener noreferrer",
           }
         : {}),
-      ...styles,
+      ...getBaseStyle({ mode }),
+      ...getBackgroundColor({ mode, color, disabled }),
+      ...getBorderColor({ mode, color, disabled }),
+      ...getDisplay({ mode, block }),
+      ...getFontColor({ mode, color, disabled }),
+      ...getFontWeight({ mode }),
+      ...getShadow({ mode, disabled }),
       ...rest,
     };
 
@@ -77,12 +79,6 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
         newTab={newTab}
       >
         {children}
-        {newTab && (
-          <ArrowTopRightOnSquareIcon
-            aria-label={intl.formatMessage(uiMessages.newTab)}
-            data-h2-margin="base(0 0 0 x.25)"
-          />
-        )}
       </ButtonLinkContent>
     );
 

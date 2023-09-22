@@ -4,11 +4,11 @@ export type Color =
   | "tertiary"
   | "quaternary"
   | "quinary"
-  | "white"
-  | "black"
   | "success"
   | "warning"
-  | "error";
+  | "error"
+  | "black"
+  | "white";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -33,4 +33,5 @@ export type ButtonLinkProps = {
   mode?: ButtonLinkMode;
   icon?: IconType;
   utilityIcon?: IconType;
+  counter?: number;
 } & HydrogenAttributes;
