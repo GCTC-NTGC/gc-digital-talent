@@ -1855,6 +1855,10 @@
     "defaultMessage": "Emplacement précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
+  "A2ycww": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Default Skip to main content message."
+  },
   "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."

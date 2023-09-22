@@ -726,10 +726,6 @@
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
   },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
-  },
   "Ss95s5": {
     "defaultMessage": "Alerte de réussite :",
     "description": "Descriptor for a success alert"
