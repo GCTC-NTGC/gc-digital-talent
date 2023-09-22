@@ -24,8 +24,10 @@ const DeleteProcessDialog = ({
     description: "Title to delete a process",
   });
 
-  const handleDelete = () => {
-    onDelete().then(() => setIsOpen(false));
+  const handleDelete = async () => {
+    await onDelete().then(() => {
+      setIsOpen(false);
+    });
   };
 
   return (

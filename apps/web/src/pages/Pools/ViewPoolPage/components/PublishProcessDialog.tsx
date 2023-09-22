@@ -46,8 +46,10 @@ const PublishProcessDialog = ({
     });
   }
 
-  const handlePublish = () => {
-    onPublish().then(() => setIsOpen(false));
+  const handlePublish = async () => {
+    await onPublish().then(() => {
+      setIsOpen(false);
+    });
   };
 
   return (

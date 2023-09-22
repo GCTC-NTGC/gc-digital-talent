@@ -24,8 +24,10 @@ const ArchiveProcessDialog = ({
     description: "Title to archive a process",
   });
 
-  const handleArchive = () => {
-    onArchive().then(() => setIsOpen(false));
+  const handleArchive = async () => {
+    await onArchive().then(() => {
+      setIsOpen(false);
+    });
   };
 
   return (

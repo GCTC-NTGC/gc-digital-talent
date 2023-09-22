@@ -157,8 +157,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const deletePool = (id: string) => {
-    executeDeleteMutation({ id })
+  const deletePool = async (id: string) => {
+    await executeDeleteMutation({ id })
       .then((result) => {
         if (result.data?.deletePool) {
           navigateBack();
@@ -190,8 +190,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const archivePool = (id: string) => {
-    executeArchiveMutation({ id })
+  const archivePool = async (id: string) => {
+    await executeArchiveMutation({ id })
       .then((result) => {
         if (result.data?.archivePool) {
           navigateBack();
@@ -224,8 +224,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const duplicatePool = (id: string, teamId: string) => {
-    executeDuplicateMutation({ id, teamId })
+  const duplicatePool = async (id: string, teamId: string) => {
+    await executeDuplicateMutation({ id, teamId })
       .then((result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(
@@ -258,8 +258,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const unarchivePool = (id: string) => {
-    executeUnarchiveMutation({ id })
+  const unarchivePool = async (id: string) => {
+    await executeUnarchiveMutation({ id })
       .then((result) => {
         if (result.data?.unarchivePool) {
           toast.success(

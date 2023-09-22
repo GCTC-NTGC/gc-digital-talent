@@ -24,8 +24,10 @@ const UnarchiveProcessDialog = ({
     description: "Title to un-archive a process",
   });
 
-  const handleUnarchive = () => {
-    onUnarchive().then(() => setIsOpen(false));
+  const handleUnarchive = async () => {
+    await onUnarchive().then(() => {
+      setIsOpen(false);
+    });
   };
 
   return (

@@ -41,14 +41,29 @@ import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ExtendProcessDialog from "./components/ExtendProcessDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
 
-interface ViewPoolProps {
+export interface ViewPoolProps {
   pool: Pool;
+  isFetching: boolean;
+  onPublish: () => Promise<void>;
+  onDelete: () => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onArchive: () => Promise<void>;
+  onDuplicate: () => Promise<void>;
+  onUnarchive: () => Promise<void>;
 }
 
-export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
+export const ViewPool = ({
+  pool,
+  isFetching,
+  onPublish,
+  onDelete,
+  onExtend,
+  onArchive,
+  onDuplicate,
+  onUnarchive,
+}: ViewPoolProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { isFetching, mutations } = usePoolMutations();
   const { roleAssignments } = useAuthorization();
   const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
@@ -320,41 +335,31 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 <ExtendProcessDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
-                  onExtend={async (newClosingDate: string) => {
-                    return mutations.extend(pool.id, newClosingDate);
-                  }}
+                  onExtend={onExtend}
                 />
               )}
               {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
                 <DuplicateProcessDialog
                   {...commonDialogProps}
-                  onDuplicate={async () => {
-                    return mutations.duplicate(pool.id, pool?.team?.id || "");
-                  }}
+                  onDuplicate={onDuplicate}
                 />
               )}
               {pool.status === PoolStatus.Closed && (
                 <ArchiveProcessDialog
                   {...commonDialogProps}
-                  onArchive={async () => {
-                    return mutations.archive(pool.id);
-                  }}
+                  onArchive={onArchive}
                 />
               )}
               {pool.status === PoolStatus.Archived && (
                 <UnarchiveProcessDialog
                   {...commonDialogProps}
-                  onUnarchive={async () => {
-                    mutations.unarchive(pool.id);
-                  }}
+                  onUnarchive={onUnarchive}
                 />
               )}
               {pool.status === PoolStatus.Draft && (
                 <DeleteProcessDialog
                   {...commonDialogProps}
-                  onDelete={async () => {
-                    return mutations.delete(pool.id);
-                  }}
+                  onDelete={onDelete}
                 />
               )}
               {pool.status === PoolStatus.Draft &&
@@ -362,9 +367,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                   <PublishProcessDialog
                     {...commonDialogProps}
                     closingDate={pool.closingDate}
-                    onPublish={async () => {
-                      return mutations.publish(pool.id);
-                    }}
+                    onPublish={onPublish}
                   />
                 )}
             </ProcessCard.Footer>
@@ -383,6 +386,7 @@ const ViewPoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { poolId } = useParams<RouteParams>();
+  const { isFetching, mutations } = usePoolMutations();
   const [{ data, fetching, error }] = useGetProcessInfoQuery({
     variables: { id: poolId || "" },
   });
@@ -413,8 +417,29 @@ const ViewPoolPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
-        {data?.pool ? (
-          <ViewPool pool={data.pool} />
+        {poolId && data?.pool ? (
+          <ViewPool
+            pool={data.pool}
+            isFetching={isFetching}
+            onExtend={async (newClosingDate: string) => {
+              return mutations.extend(poolId, newClosingDate);
+            }}
+            onDuplicate={async () => {
+              return mutations.duplicate(poolId, data?.pool?.team?.id || "");
+            }}
+            onArchive={async () => {
+              return mutations.archive(poolId);
+            }}
+            onUnarchive={async () => {
+              return mutations.unarchive(poolId);
+            }}
+            onDelete={async () => {
+              return mutations.delete(poolId);
+            }}
+            onPublish={async () => {
+              return mutations.publish(poolId);
+            }}
+          />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

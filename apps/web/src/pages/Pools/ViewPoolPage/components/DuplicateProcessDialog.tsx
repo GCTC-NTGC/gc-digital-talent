@@ -23,8 +23,10 @@ const DuplicateProcessDialog = ({
     description: "Title to duplicate a process",
   });
 
-  const handleDuplicate = () => {
-    onDuplicate().then(() => setIsOpen(false));
+  const handleDuplicate = async () => {
+    await onDuplicate().then(() => {
+      setIsOpen(false);
+    });
   };
 
   return (
