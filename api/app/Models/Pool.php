@@ -114,20 +114,20 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_skills')
+        return $this->belongsToMany(Skill::class, 'pool_skill')
             ->withTrashed() // pool-skills always fetches soft-deleted skill models
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_skills')
+        return $this->belongsToMany(Skill::class, 'pool_skill')
             ->withTrashed()
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
     /**
-     * Sync the essential skills in pools_skills
+     * Sync the essential skills in pool_skill
      *
      * @param $skills - array of skill ids
      * @return void
@@ -143,7 +143,7 @@ class Pool extends Model
     }
 
     /**
-     * Sync the nonessential skills in pools_skills
+     * Sync the nonessential skills in pool_skill
      *
      * @param $skills - array of skill ids
      * @return void

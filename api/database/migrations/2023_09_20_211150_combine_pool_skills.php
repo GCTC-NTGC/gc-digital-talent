@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // create the combined table
-        Schema::create('pools_skills', function (Blueprint $table) {
+        Schema::create('pool_skill', function (Blueprint $table) {
             $table->uuid('skill_id');
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id');
@@ -27,7 +27,7 @@ return new class extends Migration
         $essentialPoolSkills = DB::table('pools_essential_skills')->get();
         $essentialPoolSkillsIds = $essentialPoolSkills->pluck('skill_id')->toArray();
         foreach ($essentialPoolSkills as $instance) {
-            DB::table('pools_skills')->insert([
+            DB::table('pool_skill')->insert([
                 'skill_id' => $instance->skill_id,
                 'pool_id' => $instance->pool_id,
                 'type' => 'ESSENTIAL',
@@ -37,7 +37,7 @@ return new class extends Migration
             ->whereNotIn('skill_id', $essentialPoolSkillsIds) // do not have repeat pool-skill entities with different type
             ->get();
         foreach ($nonessentialPoolSkills as $instance) {
-            DB::table('pools_skills')->insert([
+            DB::table('pool_skill')->insert([
                 'skill_id' => $instance->skill_id,
                 'pool_id' => $instance->pool_id,
                 'type' => 'NONESSENTIAL',
@@ -73,14 +73,14 @@ return new class extends Migration
         });
 
         // fill the two tables using the combined one
-        $essentialPoolSkills = DB::table('pools_skills')->where('type', 'ESSENTIAL')->get();
+        $essentialPoolSkills = DB::table('pool_skill')->where('type', 'ESSENTIAL')->get();
         foreach ($essentialPoolSkills as $instance) {
             DB::table('pools_essential_skills')->insert([
                 'skill_id' => $instance->skill_id,
                 'pool_id' => $instance->pool_id,
             ]);
         }
-        $nonessentialPoolSkills = DB::table('pools_skills')->where('type', 'NONESSENTIAL')->get();
+        $nonessentialPoolSkills = DB::table('pool_skill')->where('type', 'NONESSENTIAL')->get();
         foreach ($nonessentialPoolSkills as $instance) {
             DB::table('pools_nonessential_skills')->insert([
                 'skill_id' => $instance->skill_id,
@@ -89,6 +89,6 @@ return new class extends Migration
         }
 
         // drop the combined table
-        Schema::dropIfExists('pools_skills');
+        Schema::dropIfExists('pool_skill');
     }
 };
