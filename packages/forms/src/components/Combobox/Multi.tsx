@@ -68,8 +68,9 @@ const Multi = ({
     // Reverse the keyboard navigation (we place our chips after the input, not before)
     keyNavigationPrevious: "ArrowRight",
     keyNavigationNext: "ArrowLeft",
-    stateReducer({ activeIndex }, { type, changes: newChanges, selectedItem }) {
+    stateReducer({ activeIndex }, { type, changes: newChanges }) {
       let changes = newChanges;
+      let newActiveIndex: number;
       switch (type) {
         case useMultipleSelection.stateChangeTypes
           .SelectedItemKeyDownNavigationNext:
@@ -99,7 +100,7 @@ const Multi = ({
             break;
           }
 
-          let newActiveIndex = activeIndex - 1;
+          newActiveIndex = activeIndex - 1;
 
           if (selectedItems.length === 1) {
             newActiveIndex = -1;
