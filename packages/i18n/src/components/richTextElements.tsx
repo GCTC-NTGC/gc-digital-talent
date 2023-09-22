@@ -121,6 +121,7 @@ export default {
   heavyPrimary,
   primary,
   red,
+  heavyRed,
   warning,
   heavyWarning,
   gray,

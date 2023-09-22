@@ -16,6 +16,7 @@ import {
   Pool,
   PoolStatus,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,10 +25,20 @@ import adminMessages from "~/messages/adminMessages";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
 import {
   getAdvertisementStatus,
+  getFullPoolTitleHtml,
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
 import { PoolCompleteness } from "~/types/pool";
+import { checkRole } from "~/utils/teamUtils";
+
+import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
+import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
+import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
+import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
+import DeleteProcessDialog from "./components/DeleteProcessDialog";
+import ExtendProcessDialog from "./components/ExtendProcessDialog";
+import PublishProcessDialog from "./components/PublishProcessDialog";
 
 interface ViewPoolProps {
   pool: Pool;
@@ -36,6 +47,8 @@ interface ViewPoolProps {
 export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { roleAssignments } = useAuthorization();
+  const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = "incomplete" as PoolCompleteness;
@@ -51,6 +64,35 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
       intl,
     });
   }
+
+  const handleDuplicate = () => {
+    console.log("Duplicate!");
+  };
+
+  const handleArchive = () => {
+    console.log("Archive!");
+  };
+
+  const handleUnarchive = () => {
+    console.log("Un-archive!");
+  };
+
+  const handleDelete = () => {
+    console.log("Delete!");
+  };
+
+  const handlePublish = () => {
+    console.log("Publish!");
+  };
+
+  const handleExtend = async (newClosingDate: Pool["closingDate"]) => {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        console.log(newClosingDate);
+        resolve();
+      }, 1000);
+    });
+  };
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Process information",
@@ -290,6 +332,52 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 )}
               </p>
             )}
+            <ProcessCard.Footer>
+              {pool.status === PoolStatus.Draft && (
+                <SubmitForPublishingDialog />
+              )}
+              {[PoolStatus.Closed, PoolStatus.Published].includes(
+                pool.status ?? PoolStatus.Draft,
+              ) && (
+                <ExtendProcessDialog
+                  closingDate={pool.closingDate}
+                  poolName={poolName}
+                  onExtend={handleExtend}
+                />
+              )}
+              {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
+                <DuplicateProcessDialog
+                  poolName={poolName}
+                  onDuplicate={handleDuplicate}
+                />
+              )}
+              {pool.status === PoolStatus.Closed && (
+                <ArchiveProcessDialog
+                  poolName={poolName}
+                  onArchive={handleArchive}
+                />
+              )}
+              {pool.status === PoolStatus.Archived && (
+                <UnarchiveProcessDialog
+                  poolName={poolName}
+                  onUnarchive={handleUnarchive}
+                />
+              )}
+              {pool.status === PoolStatus.Draft && (
+                <DeleteProcessDialog
+                  poolName={poolName}
+                  onDelete={handleDelete}
+                />
+              )}
+              {pool.status === PoolStatus.Draft &&
+                checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+                  <PublishProcessDialog
+                    closingDate={pool.closingDate}
+                    poolName={poolName}
+                    onPublish={handlePublish}
+                  />
+                )}
+            </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>
       </div>

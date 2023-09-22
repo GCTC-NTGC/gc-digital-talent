@@ -1,0 +1,134 @@
+import React from "react";
+import { useIntl } from "react-intl";
+
+import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Pool } from "@gc-digital-talent/graphql";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+type PublishProcessDialogProps = {
+  poolName: React.ReactNode;
+  closingDate: Pool["closingDate"];
+  onPublish: () => void;
+};
+
+const PublishProcessDialog = ({
+  poolName,
+  closingDate,
+  onPublish,
+}: PublishProcessDialogProps) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const intl = useIntl();
+
+  const title = intl.formatMessage({
+    defaultMessage: "Publish advertisement",
+    id: "YyT0ua",
+    description: "Title to publish a process' advertisement",
+  });
+
+  let closingStringLocal;
+  let closingStringPacific;
+  if (closingDate) {
+    const closingDateObject = parseDateTimeUtc(closingDate);
+    closingStringLocal = relativeClosingDate({
+      closingDate: closingDateObject,
+      intl,
+    });
+    closingStringPacific = relativeClosingDate({
+      closingDate: closingDateObject,
+      intl,
+      timeZone: "Canada/Pacific",
+    });
+  }
+
+  return (
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger>
+        <Button color="primary" mode="inline">
+          {title}
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header>{title}</Dialog.Header>
+        <Dialog.Body>
+          <p data-h2-margin-bottom="base(x1)">
+            {intl.formatMessage(
+              {
+                id: "FDZh4D",
+                defaultMessage:
+                  "You are about to publish the advertisement for this process: {poolName}",
+                description: "Text to confirm the process to be published",
+              },
+              {
+                poolName,
+              },
+            )}
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "This will make your advertisement available to applicants to submit applications.",
+              id: "bok2jV",
+              description: "Second paragraph for publish process dialog",
+            })}
+          </p>
+          <p data-h2-margin="base(x1, 0)">
+            {intl.formatMessage({
+              defaultMessage: "This process is set to automatically close on:",
+              id: "o4EnIo",
+              description: "Third paragraph for publish process dialog",
+            })}
+          </p>
+          <ul>
+            <li>
+              <strong>
+                {intl.formatMessage({
+                  defaultMessage: "Closing Date",
+                  id: "K+roYh",
+                  description:
+                    "Closing Date field label for publish pool dialog",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+              </strong>
+              {closingStringLocal}
+            </li>
+            {closingStringPacific &&
+              closingStringPacific !== closingStringLocal && (
+                <li>
+                  <strong>
+                    {intl.formatMessage({
+                      defaultMessage: "Closing Date (Pacific time zone)",
+                      id: "hGlM9B",
+                      description:
+                        "Closing Date field label for publish pool dialog in the Pacific time zone",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                  </strong>
+                  {closingStringPacific}
+                </li>
+              )}
+          </ul>
+          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+            <Button mode="solid" color="secondary" onClick={onPublish}>
+              {title}
+            </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage({
+                  defaultMessage: "Cancel and go back",
+                  id: "tiF/jI",
+                  description: "Close dialog button",
+                })}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
+  );
+};
+
+export default PublishProcessDialog;
