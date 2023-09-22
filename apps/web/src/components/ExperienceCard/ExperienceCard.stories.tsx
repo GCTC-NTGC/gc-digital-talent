@@ -1,9 +1,15 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 
-import { experienceGenerators } from "@gc-digital-talent/fake-data";
+import {
+  experienceGenerators,
+  getStaticSkills,
+} from "@gc-digital-talent/fake-data";
 
 import ExperienceCard from "./ExperienceCard";
+
+faker.seed(0);
 
 export default {
   component: ExperienceCard,
@@ -45,4 +51,21 @@ NoSkillsExperienceCard.args = {
     ...experienceGenerators.workExperiences()[0],
     skills: [],
   },
+};
+
+const experienceSkill = faker.helpers.arrayElement(getStaticSkills());
+export const SingleSkillExperienceCard = Template.bind({});
+SingleSkillExperienceCard.args = {
+  experience: {
+    ...experienceGenerators.workExperiences()[0],
+    skills: [
+      {
+        ...experienceSkill,
+        experienceSkillRecord: {
+          details: faker.lorem.paragraph(),
+        },
+      },
+    ],
+  },
+  showSkills: experienceSkill,
 };

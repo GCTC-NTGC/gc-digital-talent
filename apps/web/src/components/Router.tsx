@@ -650,6 +650,38 @@ const SkillShowcasePage = React.lazy(() =>
       ),
   ),
 );
+const TopBehaviouralSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsTopBehaviouralSkillsPage" */ "../pages/Skills/TopBehaviouralSkillsPage"
+      ),
+  ),
+);
+const TopTechnicalSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsTopTechnicalSkillsPage" */ "../pages/Skills/TopTechnicalSkillsPage"
+      ),
+  ),
+);
+const ImproveBehaviouralSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsImproveBehaviouralSkillsPage" */ "../pages/Skills/ImproveBehaviouralSkillsPage"
+      ),
+  ),
+);
+const ImproveTechnicalSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsImproveTechnicalSkillsPage" */ "../pages/Skills/ImproveTechnicalSkillsPage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -840,6 +872,50 @@ const createRoute = (
                                   loginPath={loginPath}
                                 >
                                   <SkillShowcasePage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "top-5-behavioural-skills",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <TopBehaviouralSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "top-10-technical-skills",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <TopTechnicalSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "3-behavioural-skills-to-improve",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ImproveBehaviouralSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "5-technical-skills-to-train",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ImproveTechnicalSkillsPage />
                                 </RequireAuth>
                               ) : null,
                             },
