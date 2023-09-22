@@ -620,8 +620,6 @@ class PoolApplicationTest extends TestCase
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
-        $essentialSkills = Skill::inRandomOrder()->limit(5)->get();
-        $newPool->setEssentialPoolSkills($essentialSkills->pluck('id'));
 
         // create an experience with no skills, then attach it to the user
         AwardExperience::factory()->create([
@@ -654,7 +652,7 @@ class PoolApplicationTest extends TestCase
         $secondExperience = AwardExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
         ]);
-        $secondExperience->syncSkills($essentialSkills);
+        $secondExperience->syncSkills($newPool->essentialSkills);
 
         // assert user can now submit application as the essential skill is present
         $this->actingAs($this->applicantUser, 'api')
