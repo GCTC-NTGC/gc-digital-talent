@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Validator;
  * @property array $your_impact
  * @property array $what_to_expect
  * @property array $advertisement_location
+ * @property array $special_note
  * @property string $security_clearance
  * @property string $advertisement_language
  * @property string $stream
@@ -57,6 +58,7 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'what_to_expect' => 'array',
+        'special_note' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
@@ -80,6 +82,7 @@ class Pool extends Model
         'your_impact',
         'what_to_expect',
         'advertisement_location',
+        'special_note',
         'publishing_group',
         'process_number',
         'operational_requirements',
