@@ -4,13 +4,15 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 
-type DeleteProcessDialogProps = {
-  poolName: React.ReactNode;
-  onDelete: () => void;
+import { ProcessDialogProps } from "./types";
+
+type DeleteProcessDialogProps = ProcessDialogProps & {
+  onDelete: () => Promise<void>;
 };
 
 const DeleteProcessDialog = ({
   poolName,
+  isFetching,
   onDelete,
 }: DeleteProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -21,6 +23,10 @@ const DeleteProcessDialog = ({
     id: "nZj1Gb",
     description: "Title to delete a process",
   });
+
+  const handleDelete = () => {
+    onDelete().then(() => setIsOpen(false));
+  };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -67,8 +73,9 @@ const DeleteProcessDialog = ({
             <Button
               mode="solid"
               color="error"
-              onClick={onDelete}
+              onClick={handleDelete}
               icon={TrashIcon}
+              disabled={isFetching}
             >
               {title}
             </Button>

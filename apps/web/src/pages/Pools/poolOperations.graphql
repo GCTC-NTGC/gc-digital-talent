@@ -191,5 +191,9 @@ query GetProcessInfo($id: UUID!) {
         id
       }
     }
+    team {
+      id
+      name
+    }
   }
 }

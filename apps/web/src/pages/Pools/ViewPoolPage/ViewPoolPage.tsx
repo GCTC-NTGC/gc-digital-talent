@@ -31,6 +31,7 @@ import {
 } from "~/utils/poolUtils";
 import { PoolCompleteness } from "~/types/pool";
 import { checkRole } from "~/utils/teamUtils";
+import usePoolMutations from "~/hooks/usePoolMutations";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -47,6 +48,7 @@ interface ViewPoolProps {
 export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { isFetching, mutations } = usePoolMutations();
   const { roleAssignments } = useAuthorization();
   const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
@@ -65,33 +67,9 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
     });
   }
 
-  const handleDuplicate = () => {
-    console.log("Duplicate!");
-  };
-
-  const handleArchive = () => {
-    console.log("Archive!");
-  };
-
-  const handleUnarchive = () => {
-    console.log("Un-archive!");
-  };
-
-  const handleDelete = () => {
-    console.log("Delete!");
-  };
-
-  const handlePublish = () => {
-    console.log("Publish!");
-  };
-
-  const handleExtend = async (newClosingDate: Pool["closingDate"]) => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        console.log(newClosingDate);
-        resolve();
-      }, 1000);
-    });
+  const commonDialogProps = {
+    poolName,
+    isFetching,
   };
 
   const pageTitle = intl.formatMessage({
@@ -340,41 +318,53 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
                 pool.status ?? PoolStatus.Draft,
               ) && (
                 <ExtendProcessDialog
+                  {...commonDialogProps}
                   closingDate={pool.closingDate}
-                  poolName={poolName}
-                  onExtend={handleExtend}
+                  onExtend={async (newClosingDate: string) => {
+                    return mutations.extend(pool.id, newClosingDate);
+                  }}
                 />
               )}
               {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
                 <DuplicateProcessDialog
-                  poolName={poolName}
-                  onDuplicate={handleDuplicate}
+                  {...commonDialogProps}
+                  onDuplicate={async () => {
+                    return mutations.duplicate(pool.id, pool?.team?.id || "");
+                  }}
                 />
               )}
               {pool.status === PoolStatus.Closed && (
                 <ArchiveProcessDialog
-                  poolName={poolName}
-                  onArchive={handleArchive}
+                  {...commonDialogProps}
+                  onArchive={async () => {
+                    return mutations.archive(pool.id);
+                  }}
                 />
               )}
               {pool.status === PoolStatus.Archived && (
                 <UnarchiveProcessDialog
-                  poolName={poolName}
-                  onUnarchive={handleUnarchive}
+                  {...commonDialogProps}
+                  onUnarchive={async () => {
+                    mutations.unarchive(pool.id);
+                  }}
                 />
               )}
               {pool.status === PoolStatus.Draft && (
                 <DeleteProcessDialog
-                  poolName={poolName}
-                  onDelete={handleDelete}
+                  {...commonDialogProps}
+                  onDelete={async () => {
+                    return mutations.delete(pool.id);
+                  }}
                 />
               )}
               {pool.status === PoolStatus.Draft &&
                 checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
                   <PublishProcessDialog
+                    {...commonDialogProps}
                     closingDate={pool.closingDate}
-                    poolName={poolName}
-                    onPublish={handlePublish}
+                    onPublish={async () => {
+                      return mutations.publish(pool.id);
+                    }}
                   />
                 )}
             </ProcessCard.Footer>

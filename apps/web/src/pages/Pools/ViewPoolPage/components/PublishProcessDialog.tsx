@@ -9,15 +9,17 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-type PublishProcessDialogProps = {
-  poolName: React.ReactNode;
+import { ProcessDialogProps } from "./types";
+
+type PublishProcessDialogProps = ProcessDialogProps & {
   closingDate: Pool["closingDate"];
-  onPublish: () => void;
+  onPublish: () => Promise<void>;
 };
 
 const PublishProcessDialog = ({
   poolName,
   closingDate,
+  isFetching,
   onPublish,
 }: PublishProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -43,6 +45,10 @@ const PublishProcessDialog = ({
       timeZone: "Canada/Pacific",
     });
   }
+
+  const handlePublish = () => {
+    onPublish().then(() => setIsOpen(false));
+  };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -112,7 +118,12 @@ const PublishProcessDialog = ({
               )}
           </ul>
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Button mode="solid" color="secondary" onClick={onPublish}>
+            <Button
+              mode="solid"
+              color="secondary"
+              onClick={handlePublish}
+              disabled={isFetching}
+            >
               {title}
             </Button>
             <Dialog.Close>

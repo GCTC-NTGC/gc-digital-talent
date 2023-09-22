@@ -4,13 +4,15 @@ import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 
-type UnarchiveProcessDialogProps = {
-  poolName: React.ReactNode;
-  onUnarchive: () => void;
+import { ProcessDialogProps } from "./types";
+
+type UnarchiveProcessDialogProps = ProcessDialogProps & {
+  onUnarchive: () => Promise<void>;
 };
 
 const UnarchiveProcessDialog = ({
   poolName,
+  isFetching,
   onUnarchive,
 }: UnarchiveProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -21,6 +23,10 @@ const UnarchiveProcessDialog = ({
     id: "c060kv",
     description: "Title to un-archive a process",
   });
+
+  const handleUnarchive = () => {
+    onUnarchive().then(() => setIsOpen(false));
+  };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -66,8 +72,9 @@ const UnarchiveProcessDialog = ({
             <Button
               mode="solid"
               color="error"
-              onClick={onUnarchive}
+              onClick={handleUnarchive}
               icon={ArchiveBoxIcon}
+              disabled={isFetching}
             >
               {title}
             </Button>

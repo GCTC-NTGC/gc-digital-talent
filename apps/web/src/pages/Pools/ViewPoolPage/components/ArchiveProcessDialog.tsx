@@ -4,13 +4,15 @@ import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 
-type ArchiveProcessDialogProps = {
-  poolName: React.ReactNode;
-  onArchive: () => void;
+import { ProcessDialogProps } from "./types";
+
+type ArchiveProcessDialogProps = ProcessDialogProps & {
+  onArchive: () => Promise<void>;
 };
 
 const ArchiveProcessDialog = ({
   poolName,
+  isFetching,
   onArchive,
 }: ArchiveProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -21,6 +23,10 @@ const ArchiveProcessDialog = ({
     id: "mVeDxD",
     description: "Title to archive a process",
   });
+
+  const handleArchive = () => {
+    onArchive().then(() => setIsOpen(false));
+  };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -67,8 +73,9 @@ const ArchiveProcessDialog = ({
             <Button
               mode="solid"
               color="error"
-              onClick={onArchive}
+              onClick={handleArchive}
               icon={ArchiveBoxIcon}
+              disabled={isFetching}
             >
               {title}
             </Button>

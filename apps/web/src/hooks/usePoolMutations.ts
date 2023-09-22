@@ -17,12 +17,12 @@ import {
   Scalars,
 } from "~/api/generated";
 
-const useMutations = () => {
+const usePoolMutations = (returnPath?: string) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
 
-  const navigateBack = () => navigate(paths.poolTable());
+  const navigateBack = () => navigate(returnPath ?? paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
     useUpdatePoolMutation();
@@ -300,4 +300,4 @@ const useMutations = () => {
   };
 };
 
-export default useMutations;
+export default usePoolMutations;

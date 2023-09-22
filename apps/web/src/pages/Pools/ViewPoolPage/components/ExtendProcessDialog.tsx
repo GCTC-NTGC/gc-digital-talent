@@ -11,12 +11,13 @@ import {
 import { DateInput } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
+import { ProcessDialogProps } from "./types";
+
 type FormValues = {
   expiryEndDate?: Pool["closingDate"];
 };
 
-type ExtendProcessDialogProps = {
-  poolName: React.ReactNode;
+type ExtendProcessDialogProps = ProcessDialogProps & {
   closingDate?: Pool["closingDate"];
   onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
 };
@@ -131,11 +132,7 @@ const ExtendProcessDialog = ({
                 >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Duplicate and view new process",
-                        id: "RZIivj",
-                        description: "Button text to duplicate a process",
-                      })}
+                    : title}
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">

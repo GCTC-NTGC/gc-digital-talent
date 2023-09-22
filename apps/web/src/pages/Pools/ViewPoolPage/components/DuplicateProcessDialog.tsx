@@ -3,13 +3,15 @@ import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 
-type DuplicateProcessDialogProps = {
-  poolName: React.ReactNode;
-  onDuplicate: () => void;
+import { ProcessDialogProps } from "./types";
+
+type DuplicateProcessDialogProps = ProcessDialogProps & {
+  onDuplicate: () => Promise<void>;
 };
 
 const DuplicateProcessDialog = ({
   poolName,
+  isFetching,
   onDuplicate,
 }: DuplicateProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -20,6 +22,10 @@ const DuplicateProcessDialog = ({
     id: "NUjAy0",
     description: "Title to duplicate a process",
   });
+
+  const handleDuplicate = () => {
+    onDuplicate().then(() => setIsOpen(false));
+  };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -64,7 +70,12 @@ const DuplicateProcessDialog = ({
           </p>
 
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Button mode="solid" color="secondary" onClick={onDuplicate}>
+            <Button
+              mode="solid"
+              color="secondary"
+              onClick={handleDuplicate}
+              disabled={isFetching}
+            >
               {intl.formatMessage({
                 defaultMessage: "Duplicate and view new process",
                 id: "RZIivj",
