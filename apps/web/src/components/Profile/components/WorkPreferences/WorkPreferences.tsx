@@ -48,16 +48,18 @@ const WorkPreferences = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work preferences updated successfully!",
-            id: "bt0WcN",
-            description:
-              "Message displayed when a user successfully updates their work preferences.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Work preferences updated successfully!",
+              id: "bt0WcN",
+              description:
+                "Message displayed when a user successfully updates their work preferences.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));

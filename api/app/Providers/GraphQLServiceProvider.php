@@ -10,6 +10,8 @@ use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\DirectiveForms\AdvertisementType;
+use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
 use App\Enums\DirectiveForms\ContractingRationale;
@@ -25,6 +27,7 @@ use App\Enums\DirectiveForms\PersonnelScreeningLevel;
 use App\Enums\DirectiveForms\PersonnelSkillExpertiseLevel;
 use App\Enums\DirectiveForms\PersonnelTeleworkOption;
 use App\Enums\DirectiveForms\PersonnelWorkLocation;
+use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Enums\DirectiveForms\YesNo;
 use App\Enums\DirectiveForms\YesNoUnsure;
 use App\Enums\EducationRequirementOption;
@@ -377,6 +380,24 @@ class GraphQLServiceProvider extends ServiceProvider
          * Directive forms
          */
         $typeRegistry->registerLazy(
+            'AdvertisementType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AdvertisementType',
+                    'values' => array_column(AdvertisementType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AdvertisingPlatform',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AdvertisingPlatform',
+                    'values' => array_column(AdvertisingPlatform::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
             'ContractAuthority',
             static function (): EnumType {
                 return new EnumType([
@@ -481,6 +502,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PersonnelWorkLocation',
                     'values' => array_column(PersonnelWorkLocation::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PositionEmploymentType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PositionEmploymentType',
+                    'values' => array_column(PositionEmploymentType::cases(), 'name'),
                 ]);
             }
         );

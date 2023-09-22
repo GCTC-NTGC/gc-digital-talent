@@ -35,6 +35,22 @@ fragment application on PoolCandidate {
   }
 }
 
+fragment userSkill on UserSkill {
+  id
+  user {
+    id
+  }
+  skill {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+  }
+}
+
 query ApplicantInformation {
   me {
     id
@@ -161,6 +177,21 @@ query ApplicantInformation {
     }
     poolCandidates {
       ...application
+    }
+    userSkills {
+      ...userSkill
+    }
+    topTechnicalSkillsRanking {
+      ...userSkill
+    }
+    topBehaviouralSkillsRanking {
+      ...userSkill
+    }
+    improveTechnicalSkillsRanking {
+      ...userSkill
+    }
+    improveBehaviouralSkillsRanking {
+      ...userSkill
     }
   }
 }

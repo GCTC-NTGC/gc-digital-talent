@@ -684,10 +684,6 @@
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
   },
-  "2A1UT9": {
-    "defaultMessage": "Compétence à améliorer",
-    "description": "Title for skills to improve showcase section"
-  },
   "2Ckihd": {
     "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
     "description": "The number of skills found within the skill picker."
@@ -2746,6 +2742,10 @@
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "FvbONe": {
+    "defaultMessage": "Compétences à améliorer",
+    "description": "Title for skills to improve showcase section"
   },
   "G/MFLe": {
     "defaultMessage": "Annonce du bassin",
@@ -7702,7 +7702,7 @@
     "description": "Descriptive text explaining the work preferences section of the application profile"
   },
   "njJCTd": {
-    "defaultMessage": "Sélectionné",
+    "defaultMessage": "Éliminé à la présélection",
     "description": "Status for an application that has been screened out of eligibility"
   },
   "nmImtK": {

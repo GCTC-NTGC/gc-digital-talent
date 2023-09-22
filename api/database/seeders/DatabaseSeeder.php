@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
+        $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(TeamSeederLocal::class);
@@ -54,6 +55,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
         $this->call(DigitalContractingQuestionnaireSeeder::class);
+        $this->call(DepartmentSpecificRecruitmentProcessFormSeeder::class);
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
