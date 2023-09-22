@@ -52,6 +52,34 @@ const red = (text: React.ReactNode) => (
 );
 
 /**
+ * Wraps text in tags to make it red and bold
+ * @param text  text to wrap
+ */
+const heavyRed = (text: React.ReactNode) => (
+  <span data-h2-color="base(error.dark)" data-h2-font-weight="base(700)">
+    {text}
+  </span>
+);
+
+/**
+ * Wraps text in tags to make it yellow
+ * @param text  text to wrap
+ */
+const warning = (text: React.ReactNode) => (
+  <span data-h2-color="base(warning.dark)">{text}</span>
+);
+
+/**
+ * Wraps text in tags to make it yellow bold
+ * @param text  text to wrap
+ */
+const heavyWarning = (text: React.ReactNode) => (
+  <span data-h2-color="base(warning.dark)" data-h2-font-weight="base(700)">
+    {text}
+  </span>
+);
+
+/**
  * Wraps text in tags to make it gray
  * @param text  text to wrap
  */
@@ -93,6 +121,8 @@ export default {
   heavyPrimary,
   primary,
   red,
+  warning,
+  heavyWarning,
   gray,
   underline,
   emphasize,

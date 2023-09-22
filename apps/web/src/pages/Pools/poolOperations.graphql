@@ -160,3 +160,26 @@ query allTeams {
     }
   }
 }
+
+query GetProcessInfo($id: UUID!) {
+  pool(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+    publishedAt
+    isComplete
+    status
+    closingDate
+    poolCandidates {
+      id
+      pool {
+        id
+      }
+      user {
+        id
+      }
+    }
+  }
+}
