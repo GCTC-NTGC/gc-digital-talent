@@ -199,6 +199,7 @@ type Pool {
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
+  specialNote: LocalizedString @rename(attribute: "special_note")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1334,6 +1335,8 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  # Special note
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
   # Essential skills and Asset skills
   essentialSkills: SkillBelongsToMany
   nonessentialSkills: SkillBelongsToMany
