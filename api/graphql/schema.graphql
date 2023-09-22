@@ -141,11 +141,6 @@ type User {
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
-    )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
