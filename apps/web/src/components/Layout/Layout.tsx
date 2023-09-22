@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
-import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+import { MenuLink } from "@gc-digital-talent/ui";
 import {
   useAuthentication,
   useAuthorization,
@@ -23,6 +23,7 @@ import authMessages from "~/messages/authMessages";
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import MaintenanceBanner from "./MaintenanceBanner";
+import SkipLink from "./SkipLink";
 
 const Layout = () => {
   const intl = useIntl();
