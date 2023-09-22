@@ -92,8 +92,8 @@ const formMessages = defineMessages({
   },
   itemsSelectedCombobox: {
     defaultMessage:
-      "{count, plural, =0 {No options selected} =1 {1 option selected} other {# options selected}}",
-    id: "SkGrYA",
+      "{count, plural, =0 {0 options selected} =1 {1 option selected} other {# options selected}}",
+    id: "eBNZxB",
     description:
       "Message displayed telling user how many items they have selected in a multi-select combobox",
   },

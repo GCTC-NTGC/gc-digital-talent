@@ -1034,6 +1034,10 @@
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
   },
+  "eBNZxB": {
+    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
+  },
   "eGg734": {
     "defaultMessage": "Autre",
     "description": "Other selection for education type input"
