@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isArray from "lodash/isArray";
+import isBoolean from "lodash/isBoolean";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 
 import {
@@ -37,7 +38,7 @@ import EditLink from "./EditLink";
 interface ExperienceCardProps {
   experience: AnyExperience;
   headingLevel?: HeadingRank;
-  showSkills?: boolean | Array<Skill>;
+  showSkills?: boolean | Skill | Array<Skill>;
   showEdit?: boolean;
   editParam?: string;
   // If the edit button is a button, pass the onClick function
@@ -68,6 +69,10 @@ const ExperienceCard = ({
         showSkills.some((showSkill) => showSkill.id === skill.id),
       )
     : experience.skills;
+  const singleSkill =
+    !isBoolean(showSkills) && !isArray(showSkills) && "id" in showSkills
+      ? experience.skills?.find((skill) => skill.id === showSkills.id)
+      : false;
 
   const skillCount = skills?.length;
 
@@ -159,6 +164,31 @@ const ExperienceCard = ({
           </>
         )}
       </p>
+      {singleSkill && singleSkill.experienceSkillRecord?.details && (
+        <>
+          <Heading
+            level={contentHeadingLevel}
+            size="h6"
+            data-h2-font-size="base(copy)"
+            data-h2-margin="base(x1 0 x.5 0)"
+          >
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  'How you applied "{skillName}" in this experience',
+                id: "J8Nltm",
+                description: "Heading for a single skill on an experience.",
+              },
+              {
+                skillName: getLocalizedName(singleSkill.name, intl),
+              },
+            )}
+          </Heading>
+          <p data-h2-margin-bottom="base(x1)">
+            {singleSkill.experienceSkillRecord.details}
+          </p>
+        </>
+      )}
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
           <Button
@@ -270,7 +300,7 @@ const ExperienceCard = ({
             {experience.details ??
               intl.formatMessage(commonMessages.notAvailable)}
           </ContentSection>
-          {showSkills && (
+          {showSkills && !singleSkill && (
             <>
               <Separator
                 orientation="horizontal"
