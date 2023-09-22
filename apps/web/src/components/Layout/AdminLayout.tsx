@@ -10,6 +10,7 @@ import {
   SkipLink,
   SideMenuContentWrapper,
 } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
@@ -50,6 +51,7 @@ const OpenMenuButton = React.forwardRef<
 
 const AdminLayout = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const isSmallScreen = useIsSmallScreen();
   useLayoutTheme("admin");
 
@@ -66,7 +68,7 @@ const AdminLayout = () => {
 
   return (
     <>
-      <Favicon project="admin" />
+      <Favicon locale={locale} project="admin" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",
