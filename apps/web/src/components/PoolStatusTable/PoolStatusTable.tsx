@@ -1,12 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import isEmpty from "lodash/isEmpty";
 import isPast from "date-fns/isPast";
 
 import { Link, Well } from "@gc-digital-talent/ui";
 import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -26,7 +26,9 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  if (isEmpty(user.poolCandidates)) {
+  const poolCandidatesArray = user.poolCandidates?.filter(notEmpty);
+
+  if (!poolCandidatesArray || poolCandidatesArray.length === 0) {
     return (
       <Well>
         {intl.formatMessage({
@@ -38,6 +40,46 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       </Well>
     );
   }
+
+  const sortOrder = [
+    PoolCandidateStatus.PlacedIndeterminate,
+    PoolCandidateStatus.PlacedTerm,
+    PoolCandidateStatus.PlacedCasual,
+    PoolCandidateStatus.QualifiedAvailable,
+    PoolCandidateStatus.QualifiedUnavailable,
+    PoolCandidateStatus.QualifiedWithdrew,
+    PoolCandidateStatus.UnderAssessment,
+    PoolCandidateStatus.ScreenedIn,
+    PoolCandidateStatus.ScreenedOutAssessment,
+    PoolCandidateStatus.ScreenedOutNotInterested,
+    PoolCandidateStatus.ScreenedOutNotResponsive,
+    PoolCandidateStatus.ScreenedOutApplication,
+    PoolCandidateStatus.ApplicationReview,
+    PoolCandidateStatus.NewApplication,
+    PoolCandidateStatus.Removed,
+    PoolCandidateStatus.Draft,
+    PoolCandidateStatus.DraftExpired,
+    PoolCandidateStatus.Expired,
+  ];
+
+  // reuse logic of enumToOptions and fit it to the types involved
+  poolCandidatesArray.sort((a, b) => {
+    const aPosition = sortOrder.indexOf(
+      a.status ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
+    );
+    const bPosition = sortOrder.indexOf(
+      b.status ?? PoolCandidateStatus.Expired,
+    );
+    if (aPosition >= 0 && bPosition >= 0)
+      return (
+        sortOrder.indexOf(a.status ?? PoolCandidateStatus.Expired) -
+        sortOrder.indexOf(b.status ?? PoolCandidateStatus.Expired)
+      );
+    if (aPosition >= 0 && bPosition < 0) return -1;
+    if (aPosition < 0 && bPosition >= 0) return 1;
+    return 0;
+  });
+
   return (
     <table data-h2-text-align="base(center)">
       <thead>
@@ -79,7 +121,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         </tr>
       </thead>
       <tbody>
-        {user.poolCandidates?.map((candidate) => {
+        {poolCandidatesArray.map((candidate) => {
           if (candidate) {
             return (
               <tr key={candidate.id}>
