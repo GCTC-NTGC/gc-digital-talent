@@ -27,13 +27,17 @@ return new class extends Migration
 
         // fill the new table with pool-skill rows using the prior two tables
         $essentialPoolSkills = DB::table('pools_essential_skills')->get();
+        $arrayEssentialSkillsToInsert = [];
         foreach ($essentialPoolSkills as $instance) {
-            DB::table('pool_skill')->insert([
-                'skill_id' => $instance->skill_id,
-                'pool_id' => $instance->pool_id,
-                'type' => 'ESSENTIAL',
-            ]);
+            array_push($arrayEssentialSkillsToInsert,
+                [
+                    'skill_id' => $instance->skill_id,
+                    'pool_id' => $instance->pool_id,
+                    'type' => 'ESSENTIAL',
+                ]
+            );
         }
+        DB::table('pool_skill')->insert($arrayEssentialSkillsToInsert);
         $nonessentialPoolSkills = DB::table('pools_nonessential_skills')->get();
         // must not have duplication, pool-skill combo as essential as well as nonessential
         $filteredNonessential = $nonessentialPoolSkills->reject(function ($value) use ($essentialPoolSkills) {
@@ -46,13 +50,17 @@ return new class extends Migration
                 }
             }
         });
+        $arrayNonessentialSkillsToInsert = [];
         foreach ($filteredNonessential as $instance) {
-            DB::table('pool_skill')->insert([
-                'skill_id' => $instance->skill_id,
-                'pool_id' => $instance->pool_id,
-                'type' => 'NONESSENTIAL',
-            ]);
+            array_push($arrayNonessentialSkillsToInsert,
+                [
+                    'skill_id' => $instance->skill_id,
+                    'pool_id' => $instance->pool_id,
+                    'type' => 'NONESSENTIAL',
+                ]
+            );
         }
+        DB::table('pool_skill')->insert($arrayNonessentialSkillsToInsert);
 
         // drop the two tables
         Schema::dropIfExists('pools_essential_skills');
@@ -84,20 +92,27 @@ return new class extends Migration
 
         // fill the two tables using the combined one
         $essentialPoolSkills = DB::table('pool_skill')->where('type', 'ESSENTIAL')->get();
+        $arrayEssentialSkillsToInsert = [];
         foreach ($essentialPoolSkills as $instance) {
-            DB::table('pools_essential_skills')->insert([
-                'skill_id' => $instance->skill_id,
-                'pool_id' => $instance->pool_id,
-            ]);
+            array_push($arrayEssentialSkillsToInsert,
+                [
+                    'skill_id' => $instance->skill_id,
+                    'pool_id' => $instance->pool_id,
+                ]
+            );
         }
+        DB::table('pools_essential_skills')->insert($arrayEssentialSkillsToInsert);
         $nonessentialPoolSkills = DB::table('pool_skill')->where('type', 'NONESSENTIAL')->get();
+        $arrayNonessentialSkillsToInsert = [];
         foreach ($nonessentialPoolSkills as $instance) {
-            DB::table('pools_nonessential_skills')->insert([
-                'skill_id' => $instance->skill_id,
-                'pool_id' => $instance->pool_id,
-            ]);
+            array_push($arrayNonessentialSkillsToInsert,
+                [
+                    'skill_id' => $instance->skill_id,
+                    'pool_id' => $instance->pool_id,
+                ]
+            );
         }
-
+        DB::table('pools_nonessential_skills')->insert($arrayNonessentialSkillsToInsert);
         // drop the combined table
         Schema::dropIfExists('pool_skill');
     }
