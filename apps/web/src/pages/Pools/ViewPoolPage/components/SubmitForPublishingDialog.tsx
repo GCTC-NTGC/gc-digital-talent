@@ -1,9 +1,27 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { Maybe } from "@gc-digital-talent/graphql";
 
-const SubmitForPublishingDialog = () => {
+const contactLink = (chunks: React.ReactNode) => (
+  <Link
+    color="secondary"
+    external
+    href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca"
+  >
+    {chunks}
+  </Link>
+);
+
+interface SubmitForPublishingDialogProps {
+  isReadyToPublish: Maybe<boolean>;
+}
+
+const SubmitForPublishingDialog = ({
+  isReadyToPublish,
+}: SubmitForPublishingDialogProps) => {
   const intl = useIntl();
 
   const dialogTitle = intl.formatMessage({
@@ -11,6 +29,28 @@ const SubmitForPublishingDialog = () => {
     id: "I5q1n6",
     description: "Title for dialog to submit a process for publishing",
   });
+
+  if (!isReadyToPublish) {
+    return (
+      <Button
+        mode="inline"
+        color="primary"
+        onClick={() => {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage:
+                "Please complete all advertisement information before publishing.",
+              id: "QzU2SL",
+              description:
+                "Error message displayed when user attempts to publish an incomplete advertisement",
+            }),
+          );
+        }}
+      >
+        {dialogTitle}
+      </Button>
+    );
+  }
 
   return (
     <Dialog.Root>
@@ -32,13 +72,16 @@ const SubmitForPublishingDialog = () => {
             })}
           </p>
           <p data-h2-margin="base(x1 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "If you are ready to publish this advertisement please <a>get in touch with an administrator</a>.",
-              id: "EqUTLs",
-              description:
-                "Instructions on how to submit a process for publishing",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "If you are ready to publish this advertisement please <a>get in touch with an administrator</a>.",
+                id: "EqUTLs",
+                description:
+                  "Instructions on how to submit a process for publishing",
+              },
+              { a: contactLink },
+            )}
           </p>
           <p data-h2-margin="base(x1 0)">
             {intl.formatMessage({

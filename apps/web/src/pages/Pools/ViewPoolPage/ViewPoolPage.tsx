@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useParams } from "react-router-dom";
@@ -69,8 +70,10 @@ export const ViewPool = ({
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = "incomplete" as PoolCompleteness;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
+  const isAdmin = checkRole([ROLE_NAME.PlatformAdmin], roleAssignments);
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -97,6 +100,17 @@ export const ViewPool = ({
     defaultMessage: "Manage and view information about your process. ",
     id: "pM43Xu",
     description: "Subtitle for the individual pool page",
+  });
+
+  /** TO DO: Replace this message and link with
+   * appropriate values once assessment plan feature
+   * has been developed (#7916)
+   */
+  const comingSoon = intl.formatMessage({
+    defaultMessage: "Coming soon",
+    id: "d45Ihy",
+    description:
+      "MEssage displayed when a feature is in development and not ready yet",
   });
 
   return (
@@ -198,10 +212,10 @@ export const ViewPool = ({
               <Pill
                 bold
                 mode="outline"
-                color={assessmentBadge.color}
+                color="black"
                 data-h2-flex-shrink="base(0)"
               >
-                {intl.formatMessage(assessmentBadge.label)}
+                {comingSoon}
               </Pill>
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
@@ -214,8 +228,9 @@ export const ViewPool = ({
               })}
             </p>
             <ProcessCard.Footer>
-              <Link mode="inline" color="secondary" href="/">
-                {assessmentStatus === "submitted"
+              <Link mode="inline" color="secondary" href="#">
+                {comingSoon}
+                {/* {assessmentStatus === "submitted"
                   ? intl.formatMessage({
                       defaultMessage: "View assessment plan",
                       id: "1X7JVN",
@@ -227,7 +242,7 @@ export const ViewPool = ({
                       id: "Q3adCp",
                       description:
                         "Link text to edit a specific pool assessment",
-                    })}
+                    })} */}
               </Link>
             </ProcessCard.Footer>
           </ProcessCard.Root>
@@ -326,8 +341,8 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
-              {pool.status === PoolStatus.Draft && (
-                <SubmitForPublishingDialog />
+              {!isAdmin && pool.status === PoolStatus.Draft && (
+                <SubmitForPublishingDialog isReadyToPublish={pool.isComplete} />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
