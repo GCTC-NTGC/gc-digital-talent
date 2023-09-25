@@ -232,13 +232,15 @@ describe("Pools", () => {
     cy.wait("@gqlgetEditPoolDataQuery");
 
     const title = "New test pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
-      `${title} EN`,
-    );
+    cy.findByRole("textbox", { name: /specific title \(english\)/i })
+      .clear();
+    cy.findByRole("textbox", { name: /specific title \(english\)/i })
+      .type(`${title} EN`);
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i }).type(
-      `${title} FR`,
-    );
+    cy.findByRole("textbox", { name: /specific title \(french\)/i })
+      .clear();
+    cy.findByRole("textbox", { name: /specific title \(french\)/i })
+      .type(`${title} FR`);
 
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
