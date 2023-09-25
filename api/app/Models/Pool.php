@@ -116,6 +116,7 @@ class Pool extends Model
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
             ->withTrashed() // pool-skills always fetches soft-deleted skill models
+            ->withTimestamps()
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
@@ -123,6 +124,7 @@ class Pool extends Model
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
             ->withTrashed()
+            ->withTimestamps()
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
