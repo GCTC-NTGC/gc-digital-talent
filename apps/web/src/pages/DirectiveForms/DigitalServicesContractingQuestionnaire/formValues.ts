@@ -299,51 +299,52 @@ export function convertFormValuesToApiInput(
       YesNo,
       formValues.hasPersonnelRequirements,
     ),
-    personnelRequirements: formValues.personnelRequirements
-      ? {
-          create: formValues.personnelRequirements.map(
-            (personnelRequirement) => {
-              return {
-                resourceType: personnelRequirement.resourceType,
-                skillRequirements: {
-                  create: personnelRequirement.skillRequirements?.map(
-                    (skillRequirement) => {
-                      return {
-                        skill: {
-                          connect: skillRequirement.skillId,
-                        },
-                        level: parseFormEnumField(
-                          SkillLevel,
-                          skillRequirement.level,
-                        ),
-                      };
-                    },
+    personnelRequirements:
+      formValues.hasPersonnelRequirements === YesNo.Yes
+        ? {
+            create: formValues.personnelRequirements?.map(
+              (personnelRequirement) => {
+                return {
+                  resourceType: personnelRequirement.resourceType,
+                  skillRequirements: {
+                    create: personnelRequirement.skillRequirements?.map(
+                      (skillRequirement) => {
+                        return {
+                          skill: {
+                            connect: skillRequirement.skillId,
+                          },
+                          level: parseFormEnumField(
+                            SkillLevel,
+                            skillRequirement.level,
+                          ),
+                        };
+                      },
+                    ),
+                  },
+                  language: parseFormEnumField(
+                    PersonnelLanguage,
+                    personnelRequirement.language,
                   ),
-                },
-                language: parseFormEnumField(
-                  PersonnelLanguage,
-                  personnelRequirement.language,
-                ),
-                languageOther: parseFormStringField(
-                  personnelRequirement.languageOther,
-                ),
-                security: parseFormEnumField(
-                  PersonnelScreeningLevel,
-                  personnelRequirement.security,
-                ),
-                securityOther: parseFormStringField(
-                  personnelRequirement.securityOther,
-                ),
-                telework: parseFormEnumField(
-                  PersonnelTeleworkOption,
-                  personnelRequirement.telework,
-                ),
-                quantity: parseFormIntField(personnelRequirement.quantity),
-              };
-            },
-          ),
-        }
-      : undefined,
+                  languageOther: parseFormStringField(
+                    personnelRequirement.languageOther,
+                  ),
+                  security: parseFormEnumField(
+                    PersonnelScreeningLevel,
+                    personnelRequirement.security,
+                  ),
+                  securityOther: parseFormStringField(
+                    personnelRequirement.securityOther,
+                  ),
+                  telework: parseFormEnumField(
+                    PersonnelTeleworkOption,
+                    personnelRequirement.telework,
+                  ),
+                  quantity: parseFormIntField(personnelRequirement.quantity),
+                };
+              },
+            ),
+          }
+        : undefined,
     qualificationRequirement: parseFormStringField(
       formValues.qualificationRequirement,
     ),

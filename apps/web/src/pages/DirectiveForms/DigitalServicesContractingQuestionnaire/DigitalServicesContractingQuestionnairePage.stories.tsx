@@ -47,15 +47,15 @@ type Story = StoryObj<typeof DigitalServicesContractingQuestionnaire>;
 
 export const Empty: Story = {};
 
-export const WithValues: Story = {
+// This story has specific personnel requirements and skips most optional questions
+export const WithSpecificPersonnel: Story = {
   args: {
     defaultValues: {
       // preamble section
       readPreamble: true,
 
       // general information section
-      department: "OTHER",
-      departmentOther: "Some other department",
+      department: mockDepartments[0].id,
       branchOther: "Some other branch",
       businessOwnerName: "Mr. Business Owner",
       businessOwnerJobTitle: "Owner of Business",
@@ -63,19 +63,10 @@ export const WithValues: Story = {
       financialAuthorityName: "Ms. Financial Authority",
       financialAuthorityJobTitle: "Authority of Finance",
       financialAuthorityEmail: "financial.authority@example.org",
-      isAuthorityInvolved: YesNo.Yes,
-      authoritiesInvolved: [
-        ContractAuthority.Procurement,
-        ContractAuthority.Other,
-      ],
-      authorityInvolvedOther: "Some other authority",
+      isAuthorityInvolved: YesNo.No,
       contractBehalfOfGc: YesNoUnsure.Yes,
       contractServiceOfGc: YesNoUnsure.Yes,
-      contractForDigitalInitiative: YesNoUnsure.Yes,
-      digitalInitiativeName: "Amazing Digital Stuff",
-      digitalInitiativePlanSubmitted: YesNoUnsure.Yes,
-      digitalInitiativePlanUpdated: YesNoUnsure.Yes,
-      digitalInitiativePlanComplemented: YesNoUnsure.Yes,
+      contractForDigitalInitiative: YesNoUnsure.No,
 
       // scope of contract section
       contractTitle: "Super Contract",
@@ -87,23 +78,15 @@ export const WithValues: Story = {
       contractValue: ContractValueRange.From_50KTo_1M,
       contractFtes: ContractFteRange.From_11To_30,
       contractResourcesStartTimeframe: ContractStartTimeframe.Unknown,
-      commodityType: ContractCommodity.Other,
-      commodityTypeOther: "Some other commodity",
-      instrumentType: ContractInstrument.Other,
-      instrumentTypeOther: "Some other instrument",
-      methodOfSupply: ContractSupplyMethod.Other,
-      methodOfSupplyOther: "Some other supply method",
+      commodityType: ContractCommodity.SupportServices,
+      instrumentType: ContractInstrument.Contract,
+      methodOfSupply:
+        ContractSupplyMethod.TaskBasedInformaticsProfessionalServices,
       solicitationProcedure: ContractSolicitationProcedure.Competitive,
       subjectToTradeAgreement: YesNoUnsure.IDontKnow,
 
       // requirements section
       workRequirementDescription: "Super important requirements.",
-      hasOtherRequirements: YesNo.Yes,
-      requirementOthers: [
-        PersonnelOtherRequirement.OvertimeShortNotice,
-        PersonnelOtherRequirement.Other,
-      ],
-      requirementOtherOther: "Chess master",
 
       // personnel requirements section
       hasPersonnelRequirements: YesNo.Yes,
@@ -143,6 +126,63 @@ export const WithValues: Story = {
           quantity: "7",
         },
       ],
+
+      hasOtherRequirements: YesNo.No,
+
+      // technological change section
+      isTechnologicalChange: YesNo.Yes,
+      hasImpactOnYourDepartment: YesNo.Yes,
+      hasImmediateImpactOnOtherDepartments: YesNo.Yes,
+      hasFutureImpactOnOtherDepartments: YesNo.Yes,
+
+      // operations considerations section
+      hasOperationsConsiderations: YesNo.No,
+
+      // Talent sourcing decision section
+      contractingRationalePrimary: ContractingRationale.ShortageOfTalent,
+      contractingRationalesSecondary: [
+        ContractingRationale.RequiresIndependent,
+        ContractingRationale.HrSituation,
+      ],
+      ocioConfirmedTalentShortage: YesNo.Yes,
+      talentSearchTrackingNumber: "00000000-0000-0000-0000-000000000000",
+      ongoingNeedForKnowledge: YesNo.Yes,
+      knowledgeTransferInContract: YesNo.Yes,
+      employeesHaveAccessToKnowledge: YesNo.Yes,
+      ocioEngagedForTraining: YesNo.Yes,
+    },
+  },
+};
+
+// This story does not have specific personnel requirements and fills in most optional questions
+export const WithGeneralPersonnel: Story = {
+  args: {
+    defaultValues: {
+      ...WithSpecificPersonnel.args?.defaultValues,
+      department: "OTHER",
+      departmentOther: "Some other department",
+      isAuthorityInvolved: YesNo.Yes,
+      authoritiesInvolved: [
+        ContractAuthority.Procurement,
+        ContractAuthority.Other,
+      ],
+      authorityInvolvedOther: "Some other authority",
+      contractForDigitalInitiative: YesNoUnsure.Yes,
+      digitalInitiativeName: "Amazing Digital Stuff",
+      digitalInitiativePlanSubmitted: YesNoUnsure.Yes,
+      digitalInitiativePlanUpdated: YesNoUnsure.Yes,
+      digitalInitiativePlanComplemented: YesNoUnsure.Yes,
+      commodityType: ContractCommodity.Other,
+      commodityTypeOther: "Some other commodity",
+      instrumentType: ContractInstrument.Other,
+      instrumentTypeOther: "Some other instrument",
+      methodOfSupply: ContractSupplyMethod.Other,
+      methodOfSupplyOther: "Some other supply method",
+
+      // requirements section
+      hasPersonnelRequirements: YesNo.No,
+      personnelRequirements: undefined,
+
       qualificationRequirement: "Super special qualifications",
       requirementAccessToSecure: YesNo.Yes,
       requirementScreeningLevels: [
@@ -162,11 +202,12 @@ export const WithValues: Story = {
       requirementWorkLocationGcSpecific: "The Town",
       requirementWorkLocationOffsiteSpecific: "The City",
 
-      // technological change section
-      isTechnologicalChange: YesNo.Yes,
-      hasImpactOnYourDepartment: YesNo.Yes,
-      hasImmediateImpactOnOtherDepartments: YesNo.Yes,
-      hasFutureImpactOnOtherDepartments: YesNo.Yes,
+      hasOtherRequirements: YesNo.Yes,
+      requirementOthers: [
+        PersonnelOtherRequirement.OvertimeShortNotice,
+        PersonnelOtherRequirement.Other,
+      ],
+      requirementOtherOther: "Chess master",
 
       // operations considerations section
       hasOperationsConsiderations: YesNo.Yes,
@@ -177,19 +218,13 @@ export const WithValues: Story = {
       operationsConsiderationsOther: "Some other consideration",
 
       // Talent sourcing decision section
-      contractingRationalePrimary: ContractingRationale.ShortageOfTalent,
-      contractingRationalePrimaryOther: "",
+      contractingRationalePrimary: ContractingRationale.Other,
+      contractingRationalePrimaryOther: "Some other primary rationale",
       contractingRationalesSecondary: [
         ContractingRationale.TimingRequirements,
         ContractingRationale.Other,
       ],
-      contractingRationalesSecondaryOther: "Some other rationale",
-      ocioConfirmedTalentShortage: YesNo.Yes,
-      talentSearchTrackingNumber: "00000000-0000-0000-0000-000000000000",
-      ongoingNeedForKnowledge: YesNo.Yes,
-      knowledgeTransferInContract: YesNo.Yes,
-      employeesHaveAccessToKnowledge: YesNo.Yes,
-      ocioEngagedForTraining: YesNo.Yes,
+      contractingRationalesSecondaryOther: "Some other secondary rationale",
     },
   },
 };
