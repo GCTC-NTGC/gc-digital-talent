@@ -76,6 +76,7 @@ return [
         'teamMembers' => 'teamMembers',
         'role' => 'role',
         'directiveForm' => 'directiveForm',
+        'poolOperatorRole' => 'poolOperatorRole'
     ],
 
     /*
@@ -375,6 +376,10 @@ return [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle',
         ],
+        'assign-any-poolOperatorRole' => [
+            'en' => 'Assign any user the Pool Operator role for any team',
+            'fr' => 'Attribuer le rôle Opérateur de bassin à n\'importe quel utilisateur (pour n\'importe quel équipe)',
+        ],
 
         'create-any-directiveForm' => [
             'en' => 'Create any directive form',
@@ -464,6 +469,18 @@ return [
             'description' => [
                 'en' => 'Responsible for responding to all talent requests, regardless of Team/Department. This requires viewing all published pools, and the applicants who have been qualified within them.',
                 'fr' => 'Responsable de la réponse à toutes les demandes de talents, quelle que soit l\'équipe ou le département. Pour cela, il faut consulter tous les bassins publiés et les candidats qui ont été qualifiés dedans.',
+            ],
+            'is_team_based' => false,
+        ],
+
+        'community_manager' => [
+            'display_name' => [
+                'en' => 'Community Manager',
+                'fr' => 'Gestionnaire de communauté'
+            ],
+            'description' => [
+                'en' => 'Publishes pools, creates teams, and adds Pool Operators to teams.',
+                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.'
             ],
             'is_team_based' => false,
         ],
@@ -619,6 +636,24 @@ return [
             ],
         ],
 
+        'community_manager' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'pool' => [
+                'any' => ['view', 'publish'],
+            ],
+            'teamMembers' => [
+                'any' => ['view'],
+            ],
+            'team' => [
+                'any' => ['view', 'create', 'update', 'delete'],
+            ],
+            'poolOperatorRole' => [
+                'any' => ['assign']
+            ]
+        ],
+
         'platform_admin' => [
             'classification' => [
                 'any' => ['create', 'update', 'delete'],
@@ -651,7 +686,7 @@ return [
                 'any' => ['view'],
             ],
             'team' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['view', 'create', 'update', 'delete'],
             ],
             'role' => [
                 'any' => ['view', 'assign'],
