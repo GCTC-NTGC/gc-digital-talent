@@ -1308,6 +1308,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setNonessentialPoolSkills")
+}
+
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1328,8 +1336,8 @@ input UpdatePoolInput {
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Essential skills and Asset skills
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  essentialSkills: SyncEssentialPoolSkills @spread
+  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")

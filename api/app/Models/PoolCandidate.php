@@ -535,8 +535,8 @@ class PoolCandidate extends Model
             'essentialSkills',
             'nonessentialSkills',
         ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
+        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
         $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
 
         $profile = new UserResource($user);
@@ -740,8 +740,8 @@ class PoolCandidate extends Model
             'essentialSkills',
             'nonessentialSkills',
         ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
+        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
         $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
 
         // filter out any non-applicable PoolCandidate models attached to User

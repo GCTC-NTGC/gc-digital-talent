@@ -1088,6 +1088,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID]
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID]
+}
+
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1097,8 +1105,8 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  essentialSkills: SyncEssentialPoolSkills
+  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput

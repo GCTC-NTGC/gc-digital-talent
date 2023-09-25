@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
@@ -113,12 +114,50 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed() // pool-skills always fetches soft-deleted skill models
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed()
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
+    }
+
+    /**
+     * Sync the essential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setEssentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::ESSENTIAL->name];
+        }
+
+        $this->essentialSkills()->sync($skillArrayToSync);
+    }
+
+    /**
+     * Sync the nonessential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setNonessentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::NONESSENTIAL->name];
+        }
+
+        $this->nonessentialSkills()->sync($skillArrayToSync);
     }
 
     public function screeningQuestions(): HasMany
