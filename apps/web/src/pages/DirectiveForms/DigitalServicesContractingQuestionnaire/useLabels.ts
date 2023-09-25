@@ -319,25 +319,6 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
       description:
         "Label for _offsite specific work locations_ fieldset in the _digital services contracting questionnaire_",
     }),
-    hasOtherRequirements: intl.formatMessage({
-      defaultMessage:
-        "Are there other requirements (e.g., shift work, on-call 24/7, as and when needed, overtime, etc.) for this contract?",
-      id: "Y9N3Fw",
-      description:
-        "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_",
-    }),
-    requirementOthers: intl.formatMessage({
-      defaultMessage: "Select all the other requirements that apply.",
-      id: "52MYM4",
-      description:
-        "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_",
-    }),
-    requirementOtherOther: intl.formatMessage({
-      defaultMessage: "Please specify the other requirement",
-      id: "guIFRq",
-      description:
-        "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_",
-    }),
     hasPersonnelRequirements: intl.formatMessage({
       defaultMessage: "Does the contract have specific personnel requirements?",
       id: "uK+4La",
@@ -393,6 +374,26 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
       id: "5yv4Ko",
       description:
         "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_",
+    }),
+
+    hasOtherRequirements: intl.formatMessage({
+      defaultMessage:
+        "Are there other requirements (e.g., shift work, on-call 24/7, as and when needed, overtime, etc.) for this contract?",
+      id: "Y9N3Fw",
+      description:
+        "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_",
+    }),
+    requirementOthers: intl.formatMessage({
+      defaultMessage: "Select all the other requirements that apply.",
+      id: "52MYM4",
+      description:
+        "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_",
+    }),
+    requirementOtherOther: intl.formatMessage({
+      defaultMessage: "Please specify the other requirement",
+      id: "guIFRq",
+      description:
+        "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_",
     }),
 
     // Technological change section

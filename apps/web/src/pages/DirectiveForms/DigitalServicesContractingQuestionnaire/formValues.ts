@@ -136,9 +136,6 @@ export type FormValues = {
 
   // requirements section
   workRequirementDescription: Maybe<string>;
-  hasOtherRequirements: Maybe<string>;
-  requirementOthers: Maybe<Array<string>>;
-  requirementOtherOther: Maybe<string>;
 
   // personnel requirements section
   hasPersonnelRequirements: Maybe<string>;
@@ -155,6 +152,10 @@ export type FormValues = {
   requirementWorkLocations: Maybe<Array<string>>;
   requirementWorkLocationGcSpecific: Maybe<string>;
   requirementWorkLocationOffsiteSpecific: Maybe<string>;
+
+  hasOtherRequirements: Maybe<string>;
+  requirementOthers: Maybe<Array<string>>;
+  requirementOtherOther: Maybe<string>;
 
   // technological change section
   isTechnologicalChange: Maybe<string>;
@@ -292,14 +293,6 @@ export function convertFormValuesToApiInput(
     workRequirementDescription: parseFormStringField(
       formValues.workRequirementDescription,
     ),
-    // hasOtherRequirements not sent to API
-    requirementOthers: parseFormEnumArrayField(
-      PersonnelOtherRequirement,
-      formValues.requirementOthers,
-    ),
-    requirementOtherOther: parseFormStringField(
-      formValues.requirementOtherOther,
-    ),
 
     // Personnel requirements section
     hasPersonnelRequirements: parseFormEnumField(
@@ -381,6 +374,15 @@ export function convertFormValuesToApiInput(
     ),
     requirementWorkLocationOffsiteSpecific: parseFormStringField(
       formValues.requirementWorkLocationOffsiteSpecific,
+    ),
+
+    // hasOtherRequirements not sent to API
+    requirementOthers: parseFormEnumArrayField(
+      PersonnelOtherRequirement,
+      formValues.requirementOthers,
+    ),
+    requirementOtherOther: parseFormStringField(
+      formValues.requirementOtherOther,
     ),
 
     // Technological change section

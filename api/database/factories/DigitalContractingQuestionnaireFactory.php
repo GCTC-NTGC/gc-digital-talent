@@ -93,13 +93,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'solicitation_procedure' => $this->faker->randomElement(ContractSolicitationProcedure::cases())->name,
             'subject_to_trade_agreement' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'work_requirement_description' => $this->faker->paragraph(),
-            'requirement_others' => $this->faker->randomElements(
-                array_column(PersonnelOtherRequirement::cases(), 'name'),
-                $this->faker->numberBetween(1, count(PersonnelOtherRequirement::cases()))
-            ),
-            'requirement_other_other' => function (array $attributes) {
-                return in_array(PersonnelOtherRequirement::OTHER->name, $attributes['requirement_others']) ? $this->faker->word() : null;
-            },
             'has_personnel_requirements' => $this->faker->randomElement(YesNo::cases())->name,
             // personnel_requirements added in configure method
             'qualification_requirement' => function (array $attributes) {
@@ -143,6 +136,13 @@ class DigitalContractingQuestionnaireFactory extends Factory
             },
             'requirement_work_location_offsite_specific' => function (array $attributes) {
                 return in_array(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+            },
+            'requirement_others' => $this->faker->randomElements(
+                array_column(PersonnelOtherRequirement::cases(), 'name'),
+                $this->faker->numberBetween(1, count(PersonnelOtherRequirement::cases()))
+            ),
+            'requirement_other_other' => function (array $attributes) {
+                return in_array(PersonnelOtherRequirement::OTHER->name, $attributes['requirement_others']) ? $this->faker->word() : null;
             },
             'is_technological_change' => $this->faker->randomElement(YesNo::cases())->name,
             'has_impact_on_your_department' => $this->faker->randomElement(YesNo::cases())->name,

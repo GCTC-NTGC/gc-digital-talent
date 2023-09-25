@@ -89,6 +89,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'solicitationProcedure' => 'ADVANCE_CONTRACT_AWARD_NOTICE',
             'subjectToTradeAgreement' => 'YES',
             'workRequirementDescription' => 'work_requirement_description',
+            'hasPersonnelRequirements' => 'YES',
+            'qualificationRequirement' => 'qualification_requirement',
             'requirementAccessToSecure' => 'YES',
             'requirementScreeningLevels' => ['RELIABILITY', 'OTHER'],
             'requirementScreeningLevelOther' => 'requirement_screening_level_other',
@@ -99,8 +101,6 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'requirementWorkLocationOffsiteSpecific' => 'requirement_work_location_offsite_specific',
             'requirementOthers' => ['SHIFT_WORK', 'OTHER'],
             'requirementOtherOther' => 'requirement_other_other',
-            'hasPersonnelRequirements' => 'YES',
-            'qualificationRequirement' => 'qualification_requirement',
             'isTechnologicalChange' => 'YES',
             'hasImpactOnYourDepartment' => 'YES',
             'hasImmediateImpactOnOtherDepartments' => 'YES',
@@ -219,8 +219,6 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         }
                         qualificationRequirement
                         requirementAccessToSecure
-                        requirementOtherOther
-                        requirementOthers
                         requirementScreeningLevelOther
                         requirementScreeningLevels
                         requirementWorkLanguageOther
@@ -228,6 +226,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         requirementWorkLocationGcSpecific
                         requirementWorkLocationOffsiteSpecific
                         requirementWorkLocations
+                        requirementOthers
+                        requirementOtherOther
                         solicitationProcedure
                         subjectToTradeAgreement
                         talentSearchTrackingNumber

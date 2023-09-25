@@ -47,9 +47,6 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'methodOfSupply' => [
                 new ScalarConsistentWithDetail(ContractSupplyMethod::OTHER->name, 'methodOfSupplyOther'),
             ],
-            'requirementOthers' => [
-                new ArrayConsistentWithDetail(PersonnelOtherRequirement::OTHER->name, 'requirementOtherOther'),
-            ],
             'personnelRequirements' => [
                 'requiredIf:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
                 'prohibited_unless:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
@@ -63,6 +60,9 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'requirementWorkLocations' => [
                 new ArrayConsistentWithDetail(PersonnelWorkLocation::GC_PREMISES->name, 'requirementWorkLocationGcSpecific'),
                 new ArrayConsistentWithDetail(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, 'requirementWorkLocationOffsiteSpecific'),
+            ],
+            'requirementOthers' => [
+                new ArrayConsistentWithDetail(PersonnelOtherRequirement::OTHER->name, 'requirementOtherOther'),
             ],
             'operationsConsiderations' => [
                 new ArrayConsistentWithDetail(OperationsConsideration::OTHER->name, 'operationsConsiderationsOther'),

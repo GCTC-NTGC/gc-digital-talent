@@ -220,64 +220,6 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             />
           }
         />
-        <SignPost
-          title={intl.formatMessage({
-            defaultMessage: "Other requirements",
-            id: "e+xir3",
-            description:
-              "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_",
-          })}
-        />
-        <RadioGroup
-          legend={labels.hasOtherRequirements}
-          id="hasOtherRequirements"
-          name="hasOtherRequirements"
-          idPrefix="hasOtherRequirements"
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
-            return {
-              value: option.value as string,
-              label: intl.formatMessage(getYesNo(option.value)),
-            };
-          })}
-        />
-        {hasOtherRequirementsIsYes ? (
-          <>
-            <Checklist
-              idPrefix="requirementOthers"
-              id="requirementOthers"
-              name="requirementOthers"
-              legend={labels.requirementOthers}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              items={enumToOptions(
-                PersonnelOtherRequirement,
-                personnelOtherRequirementSortOrder,
-              ).map((option) => {
-                return {
-                  value: option.value as string,
-                  label: intl.formatMessage(
-                    getPersonnelOtherRequirement(option.value),
-                  ),
-                };
-              })}
-            />
-            {doesPersonnelOtherRequirementIncludeOther ? (
-              <Input
-                id="requirementOtherOther"
-                name="requirementOtherOther"
-                type="text"
-                label={labels.requirementOtherOther}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            ) : null}
-          </>
-        ) : null}
         <RadioGroup
           legend={labels.hasPersonnelRequirements}
           id="hasPersonnelRequirements"
@@ -430,6 +372,64 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
             ) : null}
           </>
         )}
+        <SignPost
+          title={intl.formatMessage({
+            defaultMessage: "Other requirements",
+            id: "e+xir3",
+            description:
+              "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_",
+          })}
+        />
+        <RadioGroup
+          legend={labels.hasOtherRequirements}
+          id="hasOtherRequirements"
+          name="hasOtherRequirements"
+          idPrefix="hasOtherRequirements"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={enumToOptions(YesNo, yesNoSortOrder).map((option) => {
+            return {
+              value: option.value as string,
+              label: intl.formatMessage(getYesNo(option.value)),
+            };
+          })}
+        />
+        {hasOtherRequirementsIsYes ? (
+          <>
+            <Checklist
+              idPrefix="requirementOthers"
+              id="requirementOthers"
+              name="requirementOthers"
+              legend={labels.requirementOthers}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(
+                PersonnelOtherRequirement,
+                personnelOtherRequirementSortOrder,
+              ).map((option) => {
+                return {
+                  value: option.value as string,
+                  label: intl.formatMessage(
+                    getPersonnelOtherRequirement(option.value),
+                  ),
+                };
+              })}
+            />
+            {doesPersonnelOtherRequirementIncludeOther ? (
+              <Input
+                id="requirementOtherOther"
+                name="requirementOtherOther"
+                type="text"
+                label={labels.requirementOtherOther}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            ) : null}
+          </>
+        ) : null}
       </div>
     </TableOfContents.Section>
   );
