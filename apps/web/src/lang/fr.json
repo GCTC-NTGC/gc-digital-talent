@@ -2941,6 +2941,10 @@
     "defaultMessage": "Postulez d’ici le :",
     "description": "Label for the pool expiry date"
   },
+  "GplLic": {
+    "defaultMessage": "Identifiant",
+    "description": "Title for unique ID of a resource"
+  },
   "Gr3BwB": {
     "defaultMessage": "Équité en matière d’emploi"
   },
