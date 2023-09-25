@@ -231,22 +231,24 @@ describe("Pools", () => {
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
-    // Set a process number
-    const processNumber = "process 123";
-    cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
+    const title = "New test pool";
+    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
+      `${title} EN`,
+    );
+
+    cy.findByRole("textbox", { name: /specific title \(french\)/i }).type(
+      `${title} FR`,
+    );
 
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findByRole("link", { name: /pool information/i }).click();
+    cy.findByRole("link", { name: /process information/i }).click();
 
     // Confirm process number has new value
-    cy.findByRole("textbox", { name: /process number/i }).should(
-      "have.value",
-      processNumber,
-    );
+    cy.findByRole("heading", { name: /new test pool/i });
   });
 
   /**
@@ -261,7 +263,7 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /show 10/i }).click();
     cy.get("[role=menuitemradio]").contains(/50/i).click();
 
-    cy.findAllByRole("link", { name: /edit test pool en/i })
+    cy.findAllByRole("link", { name: /edit new test pool en/i })
       .first()
       .click();
 
