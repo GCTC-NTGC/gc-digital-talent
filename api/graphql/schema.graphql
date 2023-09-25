@@ -605,6 +605,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream] @scope
   fullName: String @scope
   email: String @scope
+  id: ID @scope
   jobTitle: String @scope
   additionalComments: String @scope
   adminNotes: String @scope

@@ -192,6 +192,7 @@ const SearchRequestsTableApi = ({
     return {
       // search bar
       generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+      id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
       fullName:
         searchType === "fullName" && !!searchBarTerm
           ? searchBarTerm
@@ -439,6 +440,10 @@ const SearchRequestsTableApi = ({
           {
             label: intl.formatMessage(adminMessages.manager),
             value: "fullName",
+          },
+          {
+            label: intl.formatMessage(adminMessages.id),
+            value: "id",
           },
           {
             label: intl.formatMessage(adminMessages.email),
