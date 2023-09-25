@@ -35,7 +35,6 @@ interface SkillDialogProps {
   trigger?: {
     label?: React.ReactNode;
     icon?: IconType | null;
-    block?: ButtonProps["block"];
     mode?: ButtonProps["mode"];
   };
   // initial state (like when editing)
@@ -114,7 +113,6 @@ const SkillDialog = ({
   const triggerProps = {
     children: trigger?.label || triggerMessage,
     icon: derivedIcon,
-    block: trigger?.block,
     mode: trigger?.mode,
   };
 
