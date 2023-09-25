@@ -131,13 +131,13 @@ class Pool extends Model
     /**
      * Sync the essential skills in pool_skill
      *
-     * @param $skills - array of skill ids
+     * @param $skillIds - array of skill ids
      * @return void
      */
-    public function setEssentialPoolSkills($skills)
+    public function setEssentialPoolSkills($skillIds)
     {
         $skillArrayToSync = [];
-        foreach ($skills as $skill) {
+        foreach ($skillIds as $skill) {
             $skillArrayToSync[$skill] = ['type' => PoolSkillType::ESSENTIAL->name];
         }
 
@@ -147,13 +147,13 @@ class Pool extends Model
     /**
      * Sync the nonessential skills in pool_skill
      *
-     * @param $skills - array of skill ids
+     * @param $skillIds - array of skill ids
      * @return void
      */
-    public function setNonessentialPoolSkills($skills)
+    public function setNonessentialPoolSkills($skillIds)
     {
         $skillArrayToSync = [];
-        foreach ($skills as $skill) {
+        foreach ($skillIds as $skill) {
             $skillArrayToSync[$skill] = ['type' => PoolSkillType::NONESSENTIAL->name];
         }
 
