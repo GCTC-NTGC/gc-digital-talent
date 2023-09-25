@@ -49,7 +49,7 @@ const RepeaterWrapper = ({
       [inputProps.name]: "",
     };
     append(addedValue);
-    repeaterProps.onAdd();
+    if (repeaterProps.onAdd) repeaterProps.onAdd();
   };
 
   const handleRemove = (index: number) => {

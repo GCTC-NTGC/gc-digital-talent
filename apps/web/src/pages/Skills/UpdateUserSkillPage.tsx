@@ -554,7 +554,7 @@ export const UpdateUserSkillForm = ({
                       experience={experience}
                       headingLevel="h3"
                       showEdit
-                      showSkills={false}
+                      showSkills={skill}
                       onEditClick={() => {
                         setCurrentExperience(experience);
                         setFormDialogOpen(true);

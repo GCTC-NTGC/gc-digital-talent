@@ -23,6 +23,12 @@ const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
   const applicantUrl = path.join(baseUrl, "applicant");
+  const showcase = path.join(
+    applicantUrl,
+    "profile-and-applications",
+    "skills",
+    "showcase",
+  );
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
 
   const createExperienceUrl = (userId: string) =>
@@ -281,10 +287,15 @@ const getRoutes = (lang: Locales) => {
 
     skillLibrary: () =>
       path.join(applicantUrl, "profile-and-applications", "skills"),
-    skillShowcase: () =>
-      path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
+    skillShowcase: () => path.join(showcase),
     editUserSkill: (skillId: string) =>
       path.join(applicantUrl, "profile-and-applications", "skills", skillId),
+    topBehaviouralSkills: () => path.join(showcase, "top-5-behavioural-skills"),
+    topTechnicalSkills: () => path.join(showcase, "top-10-technical-skills"),
+    improveBehaviouralSkills: () =>
+      path.join(showcase, "3-behavioural-skills-to-improve"),
+    improveTechnicalSkills: () =>
+      path.join(showcase, "5-technical-skills-to-train"),
 
     // Directive on digital talent
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),

@@ -95,14 +95,6 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange]
-    @rename(attribute: "expected_salary")
-    @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
-  expectedClassifications: [Classification]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedClassifications is deprecated. Remove in #6226."
-    )
   wouldAcceptTemporary: Boolean
     @rename(attribute: "would_accept_temporary")
     @deprecated(
@@ -141,11 +133,6 @@ type User {
     ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
-    )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
@@ -610,6 +597,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream] @scope
   fullName: String @scope
   email: String @scope
+  id: ID @scope
   jobTitle: String @scope
   additionalComments: String @scope
   adminNotes: String @scope
@@ -641,7 +629,7 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000)
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @can(ability: "viewAny")
   applicant(id: UUID! @eq): User
@@ -707,7 +695,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "withSkillCount"]
+      scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
     @guard

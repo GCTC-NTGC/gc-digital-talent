@@ -50,16 +50,18 @@ const GovernmentInformation = ({
       user.id,
       formValuesToSubmitData(formValues, classifications),
     )
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Government information updated successfully!",
-            id: "dVc2uY",
-            description:
-              "Message displayed when a user successfully updates their government employee information.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Government information updated successfully!",
+              id: "dVc2uY",
+              description:
+                "Message displayed when a user successfully updates their government employee information.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));

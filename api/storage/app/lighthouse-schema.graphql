@@ -213,8 +213,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
-  expectedClassifications: [Classification] @deprecated(reason: "expectedClassifications is deprecated. Remove in #6226.")
   wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
@@ -231,7 +229,6 @@ type User {
   improveBehaviouralSkillsRanking: [UserSkill]
   pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645.")
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
   unreadNotifications: [Notification!]
@@ -636,6 +633,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream]
   fullName: String
   email: String
+  id: ID
   jobTitle: String
   additionalComments: String
   adminNotes: String

@@ -358,8 +358,6 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Return applicants with PoolCandidates in any of the given pools.
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
-     *
-     * @param  array  $poolIds
      */
     public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {

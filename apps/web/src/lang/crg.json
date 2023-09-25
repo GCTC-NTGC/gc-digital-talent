@@ -335,14 +335,6 @@
     "defaultMessage": "Natouta anoush chi-mawchistayin toon IT nouvrazh.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": " Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "Ooma paminikaywin kwaysh<softHyphen></softHyphen>koochina<softHyphen></softHyphen>koohtaw nipimaw<softHyphen></softHyphen>tishiwin la shawns kaw-ayawyawn pi niwawpastaen <b>nawut pleu boon li tawn ki vyaen</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Shawpouhtay ishi li promyee mawachistowina",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Keewee",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Yow, ayshinakwun etakoushineeyn daw la paezh namoo kipakitinikawin chi-wawpastmaen.",
