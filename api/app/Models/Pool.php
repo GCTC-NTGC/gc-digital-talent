@@ -128,6 +128,16 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
+    public function poolSkills(): HasMany
+    {
+        return $this->hasMany(PoolSkill::class);
+    }
+
+    public function assessmentSteps(): HasMany
+    {
+        return $this->hasMany(AssessmentStep::class);
+    }
+
     /**
      * Sync the essential skills in pool_skill
      *
