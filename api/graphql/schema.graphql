@@ -210,8 +210,10 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
-  assessmentSteps: [AssessmentStep] @hasMany
-  poolSkills: [PoolSkill] @hasMany
+  assessmentSteps: [AssessmentStep]
+    @hasMany
+    @canOnParent(ability: "viewAssessments")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
 }
 
 type ScreeningQuestionResponse {
@@ -1684,12 +1686,15 @@ type Mutation {
   createAssessmentStep(
     poolId: UUID! @rename(attribute: "pool_id")
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @create
+  ): AssessmentStep @create @guard @can(ability: "create", injectArgs: true)
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update
-  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep @delete
+  ): AssessmentStep @update @guard @can(ability: "update")
+  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
+    @delete
+    @guard
+    @can(ability: "update")
 }
 
 #import directiveForms.graphql
