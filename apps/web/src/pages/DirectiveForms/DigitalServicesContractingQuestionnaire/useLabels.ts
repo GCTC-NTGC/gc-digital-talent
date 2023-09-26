@@ -398,8 +398,9 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
 
     // Technological change section
     isTechnologicalChange: intl.formatMessage({
-      defaultMessage: 'Select "yes" if any of the above apply.',
-      id: "uoegw6",
+      defaultMessage:
+        'Select "yes" if any of the listed technological change factors apply.',
+      id: "AinG8I",
       description:
         "Label for _is technological change_ field in the _digital services contracting questionnaire_",
     }),
@@ -428,8 +429,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
     // Operations considerations
     hasOperationsConsiderations: intl.formatMessage({
       defaultMessage:
-        "Do any of the following factors have influence on the decision to contract?",
-      id: "7UGwQj",
+        "Do any of the listed operational factors influence the decision to contract?",
+      id: "NDkViv",
       description:
         "Label for _has operations considerations_ fieldset in the _digital services contracting questionnaire_",
     }),
@@ -455,8 +456,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _primary contracting rationale_ fieldset in the _digital services contracting questionnaire_",
     }),
     contractingRationalePrimaryOther: intl.formatMessage({
-      defaultMessage: "Other rationale",
-      id: "N9dBBh",
+      defaultMessage: "Please specify the other primary rationale",
+      id: "VYzixZ",
       description:
         "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_",
     }),
@@ -486,8 +487,8 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
         "Label for _secondary contracting rationales_ fieldset in the _digital services contracting questionnaire_",
     }),
     contractingRationalesSecondaryOther: intl.formatMessage({
-      defaultMessage: "Please specify the rationale",
-      id: "LGaq9d",
+      defaultMessage: "Please specify the other secondary rationale",
+      id: "8ownC2",
       description:
         "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_",
     }),

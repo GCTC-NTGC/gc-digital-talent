@@ -1,7 +1,4 @@
-import { PoolCandidateStatus } from "@gc-digital-talent/web/src/api/generated";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { createAndPublishPool } from "../../support/poolHelpers";
-import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 import { GetDigitalContractingQuestionnaireDocument } from "@gc-digital-talent/web/src/api/generated";
 
@@ -17,7 +14,7 @@ describe("Directive Forms Tests", () => {
     });
   });
 
-  it("can submit a form with specific personnel requirements", () => {
+  it("can submit a digital services contracting questionnaire with specific personnel requirements", () => {
     cy.loginByRole("admin");
     cy.visit(
       "/en/directive-on-digital-talent/digital-services-contracting-questionnaire",
@@ -272,7 +269,7 @@ describe("Directive Forms Tests", () => {
       cy.findByRole("radio", { name: "Yes" }).click();
     });
     cy.findByRole("group", {
-      name: /Select all the other requirements that apply/i, // TODO: poor input label
+      name: /Select all the other requirements that apply/i,
     }).within(() => {
       cy.findByRole("checkbox", { name: "Other" }).click();
     });
@@ -282,7 +279,7 @@ describe("Directive Forms Tests", () => {
 
     //technological change
     cy.findByRole("group", {
-      name: /if any of the above apply/i, // TODO: poor input label
+      name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
       cy.findByRole("radio", { name: "Yes" }).click();
     });
@@ -304,7 +301,7 @@ describe("Directive Forms Tests", () => {
 
     // operations considerations
     cy.findByRole("group", {
-      name: /influence on the decision to contract/i, // TODO: poor input label
+      name: /Do any of the listed operational factors influence the decision to contract/i,
     }).within(() => {
       cy.findByRole("radio", { name: "Yes" }).click();
     });
@@ -325,19 +322,17 @@ describe("Directive Forms Tests", () => {
         name: "Other",
       }).click();
     });
-    cy.findByRole("textbox", { name: /Other rationale/i }).type(
-      // TODO: poor input label
-      "Other rationale",
-    );
+    cy.findByRole("textbox", {
+      name: /specify the other primary rationale/i,
+    }).type("specify the other primary rationale");
     cy.findByRole("group", {
       name: /secondary rationales/i,
     }).within(() => {
       cy.findByRole("checkbox", { name: "Other" }).click();
     });
-    cy.findByRole("textbox", { name: /Please specify the rationale/i }).type(
-      // TODO: poor input label
-      "Please specify the rationale",
-    );
+    cy.findByRole("textbox", {
+      name: /Please specify the other secondary rationale/i,
+    }).type("Please specify the other secondary rationale");
 
     // knowledge transfer
     cy.findByRole("group", {
@@ -458,9 +453,11 @@ describe("Directive Forms Tests", () => {
             operationsConsiderations: ["OTHER"],
             operationsConsiderationsOther: "Please specify the factor",
             contractingRationalePrimary: "OTHER",
-            contractingRationalePrimaryOther: "Other rationale",
+            contractingRationalePrimaryOther:
+              "specify the other primary rationale",
             contractingRationalesSecondary: ["OTHER"],
-            contractingRationalesSecondaryOther: "Please specify the rationale",
+            contractingRationalesSecondaryOther:
+              "Please specify the other secondary rationale",
             ocioConfirmedTalentShortage: null,
             talentSearchTrackingNumber: null,
             ongoingNeedForKnowledge: "YES",
@@ -473,7 +470,7 @@ describe("Directive Forms Tests", () => {
     });
   });
 
-  it("can submit a form with general personnel requirements", () => {
+  it("can submit a digital services contracting with general personnel requirements", () => {
     cy.loginByRole("admin");
     cy.visit(
       "/en/directive-on-digital-talent/digital-services-contracting-questionnaire",
@@ -669,7 +666,7 @@ describe("Directive Forms Tests", () => {
 
     //technological change
     cy.findByRole("group", {
-      name: /if any of the above apply/i, // TODO: poor input label
+      name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
       cy.findByRole("radio", { name: "No" }).click();
     });
@@ -691,7 +688,7 @@ describe("Directive Forms Tests", () => {
 
     // operations considerations
     cy.findByRole("group", {
-      name: /influence on the decision to contract/i, // TODO: poor input label
+      name: /Do any of the listed operational factors influence the decision to contract/i,
     }).within(() => {
       cy.findByRole("radio", { name: "No" }).click();
     });
