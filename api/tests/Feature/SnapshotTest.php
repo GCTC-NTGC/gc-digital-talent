@@ -124,8 +124,8 @@ class SnapshotTest extends TestCase
             'essentialSkills',
             'nonessentialSkills',
         ])->findOrFail($poolCandidate->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('id')->toArray();
+        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
+        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
         $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
 
         // find the skill ids for skills that exist but are not in $poolSkillIds

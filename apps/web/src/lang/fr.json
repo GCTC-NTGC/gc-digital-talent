@@ -39,6 +39,10 @@
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
   },
+  "+PCQ8p": {
+    "defaultMessage": "Consultez l’application {title}",
+    "description": "Link text to view a specific application of a candidate"
+  },
   "+PLUZ8": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
@@ -1855,6 +1859,10 @@
     "defaultMessage": "Emplacement précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
+  "A2ycww": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Default Skip to main content message."
+  },
   "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
@@ -2936,6 +2944,10 @@
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
     "description": "Label for the pool expiry date"
+  },
+  "GplLic": {
+    "defaultMessage": "Identifiant",
+    "description": "Title for unique ID of a resource"
   },
   "Gr3BwB": {
     "defaultMessage": "Équité en matière d’emploi"
@@ -5996,6 +6008,10 @@
   "cEeW3m": {
     "defaultMessage": "Emplacement (français) : {locationFr}",
     "description": "Pool advertisement location requirement, French"
+  },
+  "cF8idC": {
+    "defaultMessage": "Candidature",
+    "description": "Label for the application link column"
   },
   "cIqhQK": {
     "defaultMessage": "Il n'y a aucun élément à afficher.",

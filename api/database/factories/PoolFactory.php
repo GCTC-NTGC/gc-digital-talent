@@ -65,8 +65,8 @@ class PoolFactory extends Factory
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
             $pool->classifications()->saveMany($classifications);
-            $pool->essentialSkills()->saveMany($skills->slice(0, 5));
-            $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));
+            $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
+            $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
 
             ScreeningQuestion::factory()
                 ->count(3)
