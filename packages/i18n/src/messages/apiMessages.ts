@@ -124,6 +124,20 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "kg28xx",
       description: "Error message that Your Impact in French must be filled",
     },
+    EnglishSpecialNoteRequired: {
+      defaultMessage:
+        "You are missing a required field: English - Special note for this process",
+      id: "S2BTqm",
+      description:
+        "Error message that Special note for this process in English must be filled",
+    },
+    FrenchSpecialNoteRequired: {
+      defaultMessage:
+        "You are missing a required field: French - Special note for this process",
+      id: "NQhU3F",
+      description:
+        "Error message that Special note for this process in French must be filled",
+    },
     EssentialSkillRequired: {
       defaultMessage: "You must have at least one Essential Skill.",
       id: "Mco0Km",
