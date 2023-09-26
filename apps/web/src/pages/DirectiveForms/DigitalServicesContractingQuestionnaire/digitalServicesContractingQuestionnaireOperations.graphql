@@ -1,4 +1,4 @@
-query digitalServicesContractingQuestionnairePageData {
+query DigitalServicesContractingQuestionnairePageData {
   departments {
     id
     name {
@@ -37,12 +37,104 @@ query digitalServicesContractingQuestionnairePageData {
   }
 }
 
-mutation createDigitalContractingQuestionnaire(
+mutation CreateDigitalContractingQuestionnaire(
   $questionnaire: DigitalContractingQuestionnaireInput!
 ) {
   createDigitalContractingQuestionnaire(
     digitalContractingQuestionnaire: $questionnaire
   ) {
     id
+  }
+}
+
+query GetDigitalContractingQuestionnaire($id: UUID!) {
+  digitalContractingQuestionnaire(id: $id) {
+    department {
+      name {
+        en
+        fr
+      }
+    }
+    departmentOther
+    branchOther
+    businessOwnerName
+    businessOwnerJobTitle
+    businessOwnerEmail
+    financialAuthorityName
+    financialAuthorityJobTitle
+    financialAuthorityEmail
+    authoritiesInvolved
+    authorityInvolvedOther
+    contractBehalfOfGc
+    contractServiceOfGc
+    contractForDigitalInitiative
+    digitalInitiativeName
+    digitalInitiativePlanSubmitted
+    digitalInitiativePlanUpdated
+    digitalInitiativePlanComplemented
+    contractTitle
+    contractStartDate
+    contractEndDate
+    contractExtendable
+    contractAmendable
+    contractMultiyear
+    contractValue
+    contractFtes
+    contractResourcesStartTimeframe
+    commodityType
+    commodityTypeOther
+    instrumentType
+    instrumentTypeOther
+    methodOfSupply
+    methodOfSupplyOther
+    solicitationProcedure
+    subjectToTradeAgreement
+    workRequirementDescription
+    hasPersonnelRequirements
+    personnelRequirements {
+      resourceType
+      skillRequirements {
+        skill {
+          name {
+            en
+            fr
+          }
+        }
+        level
+      }
+      language
+      languageOther
+      security
+      securityOther
+      telework
+      quantity
+    }
+    qualificationRequirement
+    requirementAccessToSecure
+    requirementScreeningLevels
+    requirementScreeningLevelOther
+    requirementWorkLanguages
+    requirementWorkLanguageOther
+    requirementWorkLocations
+    requirementWorkLocationGcSpecific
+    requirementWorkLocationOffsiteSpecific
+    requirementOthers
+    requirementOtherOther
+    isTechnologicalChange
+    hasImpactOnYourDepartment
+    hasImmediateImpactOnOtherDepartments
+    hasFutureImpactOnOtherDepartments
+    operationsConsiderations
+    operationsConsiderationsOther
+    contractingRationalePrimary
+    contractingRationalePrimaryOther
+    contractingRationalesSecondary
+    contractingRationalesSecondaryOther
+    ocioConfirmedTalentShortage
+    talentSearchTrackingNumber
+    ongoingNeedForKnowledge
+    knowledgeTransferInContract
+    employeesHaveAccessToKnowledge
+    ocioEngagedForTraining
   }
 }
