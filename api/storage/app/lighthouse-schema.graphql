@@ -1209,8 +1209,6 @@ type DigitalContractingQuestionnaire {
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
-  requirementOthers: [PersonnelOtherRequirement!]
-  requirementOtherOther: String
   hasPersonnelRequirements: YesNo
   personnelRequirements: [DigitalContractingPersonnelRequirement!]
   qualificationRequirement: String
@@ -1222,6 +1220,8 @@ type DigitalContractingQuestionnaire {
   requirementWorkLocations: [PersonnelWorkLocation!]
   requirementWorkLocationGcSpecific: String
   requirementWorkLocationOffsiteSpecific: String
+  requirementOthers: [PersonnelOtherRequirement!]
+  requirementOtherOther: String
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -1323,8 +1323,6 @@ input DigitalContractingQuestionnaireInput {
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
-  requirementOthers: [PersonnelOtherRequirement!]
-  requirementOtherOther: String
   hasPersonnelRequirements: YesNo
   personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
@@ -1336,6 +1334,8 @@ input DigitalContractingQuestionnaireInput {
   requirementWorkLocations: [PersonnelWorkLocation!]
   requirementWorkLocationGcSpecific: String
   requirementWorkLocationOffsiteSpecific: String
+  requirementOthers: [PersonnelOtherRequirement!]
+  requirementOtherOther: String
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
