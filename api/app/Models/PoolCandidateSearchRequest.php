@@ -64,6 +64,15 @@ class PoolCandidateSearchRequest extends Model
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    public static function scopeId(Builder $query, ?string $id)
+    {
+        if ($id) {
+            $query->where('id', 'ilike', "%{$id}%");
+        }
+
+        return $query;
+    }
+
     /**
      * Scopes/filters
      */
@@ -174,6 +183,9 @@ class PoolCandidateSearchRequest extends Model
         if ($search) {
             $query->where(function ($query) use ($search) {
                 self::scopeFullName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeId($query, $search);
+                });
                 $query->orWhere(function ($query) use ($search) {
                     self::scopeEmail($query, $search);
                 });

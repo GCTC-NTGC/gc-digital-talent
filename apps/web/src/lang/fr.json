@@ -27,6 +27,10 @@
     "defaultMessage": "Dans quel ministère ou organisme les apprentis travailleront-ils?",
     "description": "Learn more dialog question nine heading"
   },
+  "+JMvBQ": {
+    "defaultMessage": "Anglais – Note spéciale pour ce processus",
+    "description": "Label for the English - Special note for this process textarea on edit pool page."
+  },
   "+JnQX+": {
     "defaultMessage": "Ces quatre groupes sont <strong>les femmes, les Autochtones, les personnes handicapées,</strong> et <strong>les membres des minorités visibles</strong>.",
     "description": "Second paragraph for employment equity information."
@@ -38,6 +42,10 @@
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
+  },
+  "+PCQ8p": {
+    "defaultMessage": "Consultez l’application {title}",
+    "description": "Link text to view a specific application of a candidate"
   },
   "+PLUZ8": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
@@ -444,6 +452,10 @@
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
     "description": "Page title for the edit skill page."
+  },
+  "0W2yCR": {
+    "defaultMessage": "Note spéciale en anglaise pour le texte de ce processus",
+    "description": "Title for English pool advertisement special note for this process"
   },
   "0WIPpI": {
     "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
@@ -1114,6 +1126,10 @@
   "4yBTfg": {
     "defaultMessage": "<heavyPrimary>Ébauche</heavyPrimary>",
     "description": "Status name of a pool in DRAFT status"
+  },
+  "4yFgQW": {
+    "defaultMessage": "Note spéciale pour ce processus",
+    "description": "Title for the special note for this process section of a pool advertisement"
   },
   "51B5l9": {
     "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
@@ -1855,6 +1871,10 @@
     "defaultMessage": "Emplacement précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
+  "A2ycww": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Default Skip to main content message."
+  },
   "A9Urm+": {
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
@@ -2077,6 +2097,10 @@
   "BLg0f4": {
     "defaultMessage": "Contact et hébergement",
     "description": "Title for the contact and accommodation section of a pool advertisement"
+  },
+  "BMJeFv": {
+    "defaultMessage": "J’ai besoin d’une note spéciale. J’ai relu l’aperçu de mon offre d’emploi et je confirme que cette information n’est pas couverte ailleurs dans l’offre d’emploi",
+    "description": "Checkbox selection that confirms need for a special note on edit page."
   },
   "BNEY8G": {
     "defaultMessage": "Date d'expiration",
@@ -2937,6 +2961,10 @@
     "defaultMessage": "Postulez d’ici le :",
     "description": "Label for the pool expiry date"
   },
+  "GplLic": {
+    "defaultMessage": "Identifiant",
+    "description": "Title for unique ID of a resource"
+  },
   "Gr3BwB": {
     "defaultMessage": "Équité en matière d’emploi"
   },
@@ -3257,6 +3285,10 @@
   "JBRqD9": {
     "defaultMessage": "Postes en anglais",
     "description": "Message for the english positions option"
+  },
+  "JBavNE": {
+    "defaultMessage": "Confirmation du besoin d’une note spéciale ",
+    "description": "Label for input confirmation of need for special note on edit pool."
   },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
@@ -3995,6 +4027,10 @@
     "defaultMessage": "Options des compétences techniques",
     "description": "Heading for optional technical skills section"
   },
+  "OZisnP": {
+    "defaultMessage": "La plupart des offres d’emploi n’exigent pas une note spéciale. La présente section est réservée aux circonstances spéciales seulement. Des exemples de cette note spéciale comprennent le fait d’identifier si un processus peut servir pour embaucher ou si le processus est limité à l’application de la part d’un certain groupe d’équité en matière d’emploi.",
+    "description": "Helper message for filling in the edit pool special note section"
+  },
   "OaF7ls": {
     "defaultMessage": "Supprimer un utilisateur",
     "description": "Heading for section to delete a user"
@@ -4502,6 +4538,10 @@
   "SGcina": {
     "defaultMessage": "Masquer la définition<hidden> pour {skillName}</hidden>",
     "description": "Text displayed when skill block is open."
+  },
+  "SH3WsZ": {
+    "defaultMessage": "Sauvegarder la note spéciale",
+    "description": "Text on a button to save the pool special note"
   },
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
@@ -5445,6 +5485,10 @@
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
   },
+  "YcMhCm": {
+    "defaultMessage": "Français – Note spéciale pour ce processus",
+    "description": "Label for the French - Special note for this process textarea in the edit pool page."
+  },
   "YexsZi": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet :",
     "description": "Lead in text for the delete user form."
@@ -5997,6 +6041,10 @@
     "defaultMessage": "Emplacement (français) : {locationFr}",
     "description": "Pool advertisement location requirement, French"
   },
+  "cF8idC": {
+    "defaultMessage": "Candidature",
+    "description": "Label for the application link column"
+  },
   "cIqhQK": {
     "defaultMessage": "Il n'y a aucun élément à afficher.",
     "description": "Message when there is no data to display in a table"
@@ -6048,6 +6096,10 @@
   "cag7TH": {
     "defaultMessage": "Question {number} (FR)",
     "description": "Heading for displaying a screening question French"
+  },
+  "cbwWa0": {
+    "defaultMessage": "Note spéciale pour ce processus",
+    "description": "Heading for a special note in pool advertisement."
   },
   "ccBhi2": {
     "defaultMessage": "Trouvez des talents",
@@ -9223,9 +9275,17 @@
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
   },
+  "ycmN2m": {
+    "defaultMessage": "Note spéciale en français pour le texte de ce processus",
+    "description": "Title for French pool advertisement special note for this process"
+  },
   "ydjXm7": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous prévoyez une initiative numérique nouvelle ou élargie qui ajoutera 10 postes équivalents temps plein ou plus à votre ministère. Nous voulons veiller à ce que des talents pleinement qualifiés et prêts à être embauchés soient disponibles lorsque vous en avez besoin.",
     "description": "Description for the forward talent plan form"
+  },
+  "ye0xFe": {
+    "defaultMessage": "Note spéciale pour ce processus",
+    "description": "Sub title for the special note section"
   },
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",

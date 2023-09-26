@@ -65,8 +65,8 @@ class PoolFactory extends Factory
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
             $pool->classifications()->saveMany($classifications);
-            $pool->essentialSkills()->saveMany($skills->slice(0, 5));
-            $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));
+            $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
+            $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
 
             ScreeningQuestion::factory()
                 ->count(3)
@@ -97,6 +97,7 @@ class PoolFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             $isRemote = $this->faker->boolean();
+            $hasSpecialNote = $this->faker->boolean();
 
             return [
                 // published in the past, closes in the future
@@ -109,6 +110,7 @@ class PoolFactory extends Factory
                 'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
                 'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
+                'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $isRemote,
                 'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'process_number' => $this->faker->word(),

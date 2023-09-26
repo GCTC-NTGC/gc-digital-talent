@@ -213,8 +213,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
-  expectedClassifications: [Classification] @deprecated(reason: "expectedClassifications is deprecated. Remove in #6226.")
   wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
@@ -281,6 +279,7 @@ type Pool {
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
+  specialNote: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -635,6 +634,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream]
   fullName: String
   email: String
+  id: ID
   jobTitle: String
   additionalComments: String
   adminNotes: String
@@ -1089,6 +1089,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID]
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID]
+}
+
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1098,8 +1106,9 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  specialNote: LocalizedStringInput
+  essentialSkills: SyncEssentialPoolSkills
+  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput

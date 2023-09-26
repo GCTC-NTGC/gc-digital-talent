@@ -590,6 +590,10 @@
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
   },
+  "NQhU3F": {
+    "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in French must be filled"
+  },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
@@ -714,6 +718,10 @@
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."
   },
+  "S2BTqm": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in English must be filled"
+  },
   "S2zQmD": {
     "defaultMessage": "En attente (voir les notes)",
     "description": "The status is blocked and you can refer to notes field for more information."
@@ -725,10 +733,6 @@
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
-  },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
   },
   "Ss95s5": {
     "defaultMessage": "Alerte de réussite :",

@@ -5,11 +5,7 @@ import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
-import {
-  Button,
-  SkipLink,
-  SideMenuContentWrapper,
-} from "@gc-digital-talent/ui";
+import { Button, SideMenuContentWrapper } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
 
 import Footer from "~/components/Footer/Footer";
@@ -19,6 +15,7 @@ import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 import MaintenanceBanner from "./MaintenanceBanner";
+import SkipLink from "./SkipLink";
 
 interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
   show: boolean;
