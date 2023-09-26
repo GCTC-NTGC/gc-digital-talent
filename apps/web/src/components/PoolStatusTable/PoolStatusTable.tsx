@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import isPast from "date-fns/isPast";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import { getPoolCandidateStatus, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getPoolCandidateStatus,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -193,7 +197,9 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                       },
                       {
                         title: intl.formatMessage(
-                          getPoolStream(candidate.pool.stream ?? ""),
+                          candidate.pool.stream
+                            ? getPoolStream(candidate.pool.stream)
+                            : commonMessages.notAvailable,
                         ),
                       },
                     )}
