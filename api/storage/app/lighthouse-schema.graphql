@@ -1113,6 +1113,32 @@ input UpdatePoolInput {
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany
+  assessmentSteps: UpdateAssessmentsHasMany
+}
+
+input UpdateAssessmentsHasMany {
+  create: [CreateAssessmentsInput!]
+  update: [UpdateAssessmentsInput!]
+  delete: [UUID!]
+}
+
+input CreateAssessmentsInput {
+  type: String
+  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input UpdateAssessmentsInput {
+  id: ID!
+  type: String
+  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput {

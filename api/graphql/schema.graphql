@@ -1345,6 +1345,32 @@ input UpdatePoolInput {
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
+  assessmentSteps: UpdateAssessmentsHasMany
+}
+
+input UpdateAssessmentsHasMany {
+  create: [CreateAssessmentsInput!]
+  update: [UpdateAssessmentsInput!]
+  delete: [UUID!]
+}
+
+input CreateAssessmentsInput {
+  type: String
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input UpdateAssessmentsInput {
+  id: ID!
+  type: String
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput

@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class PoolSkill
  *
  * @property string $id
+ * @property string $pool_id
+ * @property string $skill_id
+ * @property string $type
  */
 class PoolSkill extends Model
 {
