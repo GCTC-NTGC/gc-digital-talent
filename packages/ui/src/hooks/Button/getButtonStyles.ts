@@ -1,5 +1,4 @@
 import { ButtonLinkMode, Color } from "../../types";
-
 import getBaseStyle from "./getButtonBaseStyle";
 import getBackgroundColor from "./getButtonBackgroundColor";
 import getBorderColor from "./getButtonBorderColor";
