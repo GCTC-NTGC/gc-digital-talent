@@ -1,12 +1,15 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
+import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 
 import {
   NotFound,
   Pending,
   Link,
   TableOfContents,
+  Heading,
+  Pill,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -98,6 +101,19 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Advertisement information",
+    id: "rwQPZE",
+    description: "Page title for process' advertisement information page",
+  });
+
+  const pageSubtitle = intl.formatMessage({
+    defaultMessage:
+      "Define the recruitment's information and requirements such as classification, impact, and skill requirement's among others.",
+    id: "JJ7dh2",
+    description: "Description of a process' advertisement",
+  });
 
   const sectionMetadata = {
     poolName: {
@@ -192,14 +208,24 @@ export const EditPoolForm = ({
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Edit pool",
-          id: "dc5TeX",
-          description: "Page title for the edit pool page",
-        })}
-      />
+      <SEO title={pageTitle} description={pageSubtitle} />
       <div data-h2-container="base(left, large, 0)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(flex-start) p-tablet(flex-end)"
+          data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-gap="base(x1)"
+        >
+          <Heading
+            level="h2"
+            Icon={RocketLaunchIcon}
+            color="primary"
+            data-h2-margin-top="base(0)"
+          >
+            {pageTitle}
+          </Heading>
+        </div>
+        <p data-h2-margin="base(x1 0)">{pageSubtitle}</p>
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List>
@@ -267,18 +293,12 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
-            <Link
-              href={paths.poolView(pool.id)}
-              color="secondary"
-              mode="solid"
-              data-h2-margin="base(x2, 0, 0, 0)"
-              data-h2-text-align="base(center)"
-            >
+            <Link mode="solid" href={paths.poolView(pool.id)} color="secondary">
               {intl.formatMessage({
-                defaultMessage: "Back to pool dashboard",
-                id: "v6qX/r",
+                defaultMessage: "Back to process information",
+                id: "wCvkgI",
                 description:
-                  "Text on a link to navigate back to the pool dashboard page",
+                  "Text on a link to navigate back to the process information page",
               })}
             </Link>
           </TableOfContents.Navigation>

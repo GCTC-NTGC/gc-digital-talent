@@ -211,9 +211,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
       {
         icon: Cog8ToothIcon,
         title: intl.formatMessage({
-          defaultMessage: "Edit pool",
-          id: "l7Wu86",
-          description: "Title for the edit pool page",
+          defaultMessage: "Advertisement information",
+          id: "rwQPZE",
+          description: "Page title for process' advertisement information page",
         }),
         link: {
           url: paths.poolUpdate(pool.id),
