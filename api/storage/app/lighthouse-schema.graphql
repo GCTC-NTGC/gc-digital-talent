@@ -137,6 +137,9 @@ type Mutation {
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: UUID!): UserSkill
+  createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  deleteAssessmentStep(id: UUID!): AssessmentStep
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -296,6 +299,8 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+  poolSkills: [PoolSkill]
 }
 
 type ScreeningQuestionResponse {
@@ -303,6 +308,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion
   poolCandidate: PoolCandidate
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool
+  type: String
+  sortOrder: Int
+  title: LocalizedString
+  poolSkills: [PoolSkill]
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool
+  skill: Skill
+  assessmentSteps: [AssessmentStep]
 }
 
 type PoolCandidate {
@@ -1113,24 +1135,9 @@ input UpdatePoolInput {
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany
-  assessmentSteps: UpdateAssessmentsHasMany
 }
 
-input UpdateAssessmentsHasMany {
-  create: [CreateAssessmentsInput!]
-  update: [UpdateAssessmentsInput!]
-  delete: [UUID!]
-}
-
-input CreateAssessmentsInput {
-  type: String
-  sortOrder: Int
-  title: LocalizedStringInput
-  poolSkills: PoolSkillBelongsToMany
-}
-
-input UpdateAssessmentsInput {
-  id: ID!
+input AssessmentStepInput {
   type: String
   sortOrder: Int
   title: LocalizedStringInput
@@ -1749,6 +1756,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum PoolSkillType {
+  ESSENTIAL
+  NONESSENTIAL
 }
 
 enum PoolStream {

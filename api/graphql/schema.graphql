@@ -210,6 +210,8 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep] @hasMany
+  poolSkills: [PoolSkill] @hasMany
 }
 
 type ScreeningQuestionResponse {
@@ -217,6 +219,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion @belongsTo
   poolCandidate: PoolCandidate @belongsTo
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool @belongsTo
+  type: String
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedString
+  poolSkills: [PoolSkill] @belongsToMany
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool @belongsTo
+  skill: Skill @belongsTo
+  assessmentSteps: [AssessmentStep] @belongsToMany
 }
 
 type PoolCandidate {
@@ -1345,24 +1364,9 @@ input UpdatePoolInput {
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
-  assessmentSteps: UpdateAssessmentsHasMany
 }
 
-input UpdateAssessmentsHasMany {
-  create: [CreateAssessmentsInput!]
-  update: [UpdateAssessmentsInput!]
-  delete: [UUID!]
-}
-
-input CreateAssessmentsInput {
-  type: String
-  sortOrder: Int @rename(attribute: "sort_order")
-  title: LocalizedStringInput
-  poolSkills: PoolSkillBelongsToMany
-}
-
-input UpdateAssessmentsInput {
-  id: ID!
+input AssessmentStepInput {
   type: String
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedStringInput
@@ -1675,6 +1679,17 @@ type Mutation {
   deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
+
+  # Assessment mutations
+  createAssessmentStep(
+    poolId: UUID! @rename(attribute: "pool_id")
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @create
+  updateAssessmentStep(
+    id: UUID!
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @update
+  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep @delete
 }
 
 #import directiveForms.graphql

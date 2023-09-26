@@ -45,6 +45,7 @@ use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
@@ -156,6 +157,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'IndigenousCommunity',
                     'values' => array_column(IndigenousCommunity::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolSkillType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolSkillType',
+                    'values' => array_column(PoolSkillType::cases(), 'name'),
                 ]);
             }
         );
