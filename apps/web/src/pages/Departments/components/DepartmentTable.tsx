@@ -1,19 +1,17 @@
 import React, { useMemo } from "react";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import Table, {
-  ColumnsOf,
-  tableEditButtonAccessor,
-  Cell,
-} from "~/components/Table/ClientManagedTable";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import tableEditButtonAccessor from "~/components/Table/EditButton";
 
-type DepartmentCell = Cell<Department>;
+const columnHelper = createColumnHelper<Department>();
 
 interface DepartmentTableProps {
   departments: Array<Department>;
@@ -27,60 +25,73 @@ export const DepartmentTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const columns = useMemo<ColumnsOf<Department>>(
-    () => [
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Department #",
-          id: "QOvS1b",
-          description:
-            "Title displayed for the Department table Department # column.",
-        }),
-        accessor: "departmentNumber",
+  const columns = [
+    columnHelper.accessor("departmentNumber", {
+      id: "departmentNumber",
+      filterFn: "equals",
+      header: intl.formatMessage({
+        defaultMessage: "Department #",
+        id: "QOvS1b",
+        description:
+          "Title displayed for the Department table Department # column.",
+      }),
+    }),
+    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
+      id: "name",
+      header: intl.formatMessage({
+        defaultMessage: "Name",
+        id: "2wmzS1",
+        description: "Title displayed for the Department table Name column.",
+      }),
+    }),
+    columnHelper.display({
+      id: "edit",
+      header: intl.formatMessage({
+        defaultMessage: "Edit",
+        id: "D753gS",
+        description:
+          "Title displayed for the Classification table Edit column.",
+      }),
+      meta: {
+        hideMobileHeader: true,
       },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "2wmzS1",
-          description: "Title displayed for the Department table Name column.",
-        }),
-        accessor: (d) => d.name?.[locale],
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          id: "hTfHUv",
-          description: "Title displayed for the Department table Edit column.",
-        }),
-        id: "edit",
-        accessor: (d) => `Edit ${d.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: department } }: DepartmentCell) =>
-          tableEditButtonAccessor(
-            department.id,
-            paths.departmentTable(),
-            department.name?.[locale],
-          ),
-      },
-    ],
-    [paths, intl, locale],
-  );
+      cell: ({ row: { original: department } }) =>
+        tableEditButtonAccessor(
+          department.id,
+          paths.departmentTable(),
+          department.name?.[locale],
+        ),
+    }),
+  ] as ColumnDef<Department>[];
 
-  const data = useMemo(() => departments.filter(notEmpty), [departments]);
+  const data = departments.filter(notEmpty);
 
   return (
-    <Table
+    <Table<Department>
       data={data}
+      caption={title}
       columns={columns}
-      addBtn={{
-        path: paths.departmentCreate(),
+      sort={{
+        internal: true,
+      }}
+      search={{
+        internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Create Department",
-          id: "ZbpbD6",
-          description: "Heading displayed above the Create Department form.",
+          defaultMessage: "Search departments",
+          id: "bUyxJi",
+          description: "Label for the departments table search input",
         }),
       }}
-      title={title}
+      add={{
+        linkProps: {
+          href: paths.departmentCreate(),
+          label: intl.formatMessage({
+            defaultMessage: "Create Department",
+            id: "ZbpbD6",
+            description: "Heading displayed above the Create Department form.",
+          }),
+        },
+      }}
     />
   );
 };
