@@ -61,14 +61,17 @@ export function localeRedirect(locale: Locales) {
 export const getLocalizedName = (
   name: Maybe<LocalizedString>,
   intl: IntlShape,
+  emptyNotFound: boolean = false,
 ): string => {
   const locale = getLocale(intl);
 
-  const notAvailable = intl.formatMessage({
-    defaultMessage: "N/A",
-    id: "UCGAzS",
-    description: "displayed when localized string not available",
-  });
+  const notAvailable = emptyNotFound
+    ? ""
+    : intl.formatMessage({
+        defaultMessage: "N/A",
+        id: "UCGAzS",
+        description: "displayed when localized string not available",
+      });
 
   if (!name || !name[locale]) {
     return notAvailable;
