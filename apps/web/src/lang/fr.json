@@ -2937,8 +2937,8 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
   },
-  "GnmmgR": {
-    "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 3 à 5 jours ouvrables qui suivent.",
+  "GaX7sd": {
+    "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 5 à 10 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
   },
   "Gp+70V": {
@@ -7015,8 +7015,8 @@
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
     "description": "Introduction text for selecting employment equity groups"
   },
-  "iKpxPY": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+  "i2LB7R": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
   "iMAe2n": {
