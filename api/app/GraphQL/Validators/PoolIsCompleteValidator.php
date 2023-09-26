@@ -81,8 +81,8 @@ final class PoolIsCompleteValidator extends Validator
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',
             'your_impact.fr.required' => 'FrenchYourImpactRequired',
-            'special_note.en.required' => 'EnglishYourImpactRequired',
-            'special_note.fr.required' => 'FrenchYourImpactRequired',
+            'special_note.en.required' => 'EnglishSpecialNoteRequired',
+            'special_note.fr.required' => 'EnglishSpecialNoteRequired',
         ];
     }
 }
