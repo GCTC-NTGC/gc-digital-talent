@@ -69,6 +69,11 @@ export const DepartmentTable = ({
       sort={{
         internal: true,
       }}
+      pagination={{
+        internal: true,
+        total: data.length,
+        pageSizes: [10, 20, 50],
+      }}
       search={{
         internal: true,
         label: intl.formatMessage({
