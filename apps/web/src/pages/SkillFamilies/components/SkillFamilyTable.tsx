@@ -9,7 +9,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableEditButtonAccessor from "~/components/Table/EditButton";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<SkillFamily>();
@@ -65,7 +65,7 @@ export const SkillFamilyTable = ({
         hideMobileHeader: true,
       },
       cell: ({ row: { original: skillFamily } }) =>
-        tableEditButtonAccessor(
+        cells.edit(
           skillFamily.id,
           paths.skillFamilyTable(),
           getLocalizedName(skillFamily.name, intl),

@@ -4483,10 +4483,6 @@
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
     "description": "Default team for pool"
   },
-  "S8ra2P": {
-    "defaultMessage": "Actions",
-    "description": "Title displayed for the role table actions column"
-  },
   "S9lNLG": {
     "defaultMessage": "Modifiez vos options d'informations linguistiques",
     "description": "Link text to edit language information on profile."
@@ -5234,10 +5230,6 @@
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
   },
-  "X4nVv/": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the skill table Edit column."
-  },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on an Experience form for end date input"
@@ -5527,10 +5519,6 @@
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
-  },
-  "Z6o8ym": {
-    "defaultMessage": "Identité",
-    "description": "Title displayed on the Skill table ID column."
   },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",

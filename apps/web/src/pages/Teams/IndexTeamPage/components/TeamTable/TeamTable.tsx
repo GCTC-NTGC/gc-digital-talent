@@ -13,7 +13,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableActionsCell from "~/components/Table/ActionButtons";
+import cells from "~/components/Table/cells";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -52,7 +52,7 @@ export const TeamTable = ({
         hideMobileHeader: true,
       },
       cell: ({ row: { original: team } }) =>
-        tableActionsCell({
+        cells.actions({
           id: team.id,
           label: getLocalizedName(team.displayName, intl),
           editPathFunc: paths.teamUpdate,

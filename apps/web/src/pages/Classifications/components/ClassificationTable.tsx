@@ -14,7 +14,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableEditButtonAccessor from "~/components/Table/EditButton";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<Classification>();
@@ -95,7 +95,7 @@ export const ClassificationTable = ({
         hideMobileHeader: true,
       },
       cell: ({ row: { original: classification } }) =>
-        tableEditButtonAccessor(
+        cells.edit(
           classification.id,
           paths.classificationTable(),
           `${getLocalizedName(classification.name, intl, true)} ${

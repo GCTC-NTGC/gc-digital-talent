@@ -17,7 +17,7 @@ import { unpackMaybes } from "@gc-digital-talent/forms";
 import useRoutes from "~/hooks/useRoutes";
 import { Pool, useAllPoolsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableEditButtonAccessor from "~/components/Table/EditButton";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
 import {
@@ -166,7 +166,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         hideMobileHeader: true,
       },
       cell: ({ row: { original: pool } }) =>
-        tableEditButtonAccessor(
+        cells.edit(
           pool.id,
           paths.poolTable(),
           getLocalizedName(pool.name, intl),

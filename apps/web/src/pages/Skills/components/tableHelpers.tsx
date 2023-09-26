@@ -8,11 +8,7 @@ import {
   SkillCategory,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
-import {
-  Locales,
-  getLocalizedName,
-  getSkillCategory,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
 

@@ -9,7 +9,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableEditButtonAccessor from "~/components/Table/EditButton";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<Department>();
@@ -51,7 +51,7 @@ export const DepartmentTable = ({
         hideMobileHeader: true,
       },
       cell: ({ row: { original: department } }) =>
-        tableEditButtonAccessor(
+        cells.edit(
           department.id,
           paths.departmentTable(),
           getLocalizedName(department.name, intl, true),

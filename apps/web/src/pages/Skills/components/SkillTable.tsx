@@ -10,7 +10,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { Skill, useAllSkillsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import tableEditButtonAccessor from "~/components/Table/EditButton";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
 import {
@@ -89,7 +89,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         hideMobileHeader: true,
       },
       cell: ({ row: { original: skill } }) =>
-        tableEditButtonAccessor(
+        cells.edit(
           skill.id,
           paths.skillTable(),
           getLocalizedName(skill.name, intl),
