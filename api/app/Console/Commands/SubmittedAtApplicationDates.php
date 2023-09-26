@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Console\Command;
 
 class SubmittedAtApplicationDates extends Command
@@ -32,7 +32,7 @@ class SubmittedAtApplicationDates extends Command
     {
         $dateNow = Carbon::now();
 
-        PoolCandidate::whereNotIn('pool_candidate_status', [ApiEnums::CANDIDATE_STATUS_DRAFT, ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED])
+        PoolCandidate::whereNotIn('pool_candidate_status', [PoolCandidateStatus::DRAFT->name, PoolCandidateStatus::DRAFT_EXPIRED->name])
             ->where('submitted_at', null)
             ->update(['submitted_at' => $dateNow]);
 

@@ -49,16 +49,18 @@ const LanguageProfile = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Language profile updated successfully!",
-            id: "43VEQA",
-            description:
-              "Message displayed when a user successfully updates their language profile.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Language profile updated successfully!",
+              id: "43VEQA",
+              description:
+                "Message displayed when a user successfully updates their language profile.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));

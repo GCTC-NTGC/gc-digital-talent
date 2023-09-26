@@ -36,13 +36,11 @@ import Heading, {
 import Link, {
   DownloadCsv,
   ScrollToLink,
-  SkipLink,
   MenuLink,
   type DownloadCsvProps,
   type LinkProps,
   type ScrollToLinkProps,
   type ScrollLinkClickFunc,
-  type SkipLinkProps,
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
@@ -103,7 +101,6 @@ export type {
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
-  SkipLinkProps,
   MenuLinkProps,
   LoadingProps,
   PendingProps,
@@ -149,7 +146,6 @@ export {
   Link,
   DownloadCsv,
   ScrollToLink,
-  SkipLink,
   MenuLink,
   Loading,
   Pending,

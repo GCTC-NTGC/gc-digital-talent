@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PoolStatus;
 use App\Models\Pool;
-use Database\Helpers\ApiEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class UnarchivePool
@@ -16,7 +16,7 @@ final class UnarchivePool
     public function __invoke($_, array $args)
     {
         $pool = Pool::find($args['id']);
-        if ($pool->getStatusAttribute() !== ApiEnums::POOL_IS_ARCHIVED) {
+        if ($pool->getStatusAttribute() !== PoolStatus::ARCHIVED->name) {
             throw ValidationException::withMessages(['You cannot un-archive a pool unless it is in the archived status.']);
         }
         $pool->update(['archived_at' => null]);

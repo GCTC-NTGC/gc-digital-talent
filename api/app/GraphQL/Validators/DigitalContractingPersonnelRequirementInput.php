@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\DirectiveForms\PersonnelLanguage;
+use App\Enums\DirectiveForms\PersonnelScreeningLevel;
 use App\Rules\ScalarConsistentWithDetail;
-use Database\Helpers\DirectiveFormsApiEnums;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class DigitalContractingPersonnelRequirementInput extends Validator
@@ -17,10 +18,10 @@ final class DigitalContractingPersonnelRequirementInput extends Validator
     {
         return [
             'language' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_LANGUAGE_OTHER, 'languageOther'),
+                new ScalarConsistentWithDetail(PersonnelLanguage::OTHER->name, 'languageOther'),
             ],
             'security' => [
-                new ScalarConsistentWithDetail(DirectiveFormsApiEnums::PERSONNEL_SCREENING_LEVEL_OTHER, 'securityOther'),
+                new ScalarConsistentWithDetail(PersonnelScreeningLevel::OTHER->name, 'securityOther'),
             ],
             'quantity' => [
                 'integer',

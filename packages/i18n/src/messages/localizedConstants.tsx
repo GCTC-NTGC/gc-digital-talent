@@ -274,26 +274,6 @@ export const getArmedForcesStatusesProfile = (
     `Invalid status '${armedForcesId}'`,
   );
 
-const educationRequirements = defineMessages({
-  hasDiploma: {
-    defaultMessage: "Required diploma from post-secondary institution",
-    id: "OujTbA",
-  },
-  doesNotHaveDiploma: {
-    defaultMessage: "Can accept a combination of work experience and education",
-    id: "4dx4ju",
-  },
-});
-
-export const getEducationRequirement = (
-  educationRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    educationRequirements,
-    educationRequirementId,
-    `Invalid Education Requirement '${educationRequirementId}'`,
-  );
-
 const educationRequirementOptions = defineMessages({
   [EducationRequirementOption.AppliedWork]: {
     defaultMessage: "Applied work experience",

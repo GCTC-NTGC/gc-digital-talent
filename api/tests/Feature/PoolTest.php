@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\PoolStatus;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -104,7 +104,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_PUBLISHED,
+                    'status' => PoolStatus::PUBLISHED->name,
                 ],
             ],
         ]);
@@ -122,7 +122,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_CLOSED,
+                    'status' => PoolStatus::CLOSED->name,
                 ],
             ],
         ]);
@@ -140,7 +140,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_DRAFT,
+                    'status' => PoolStatus::DRAFT->name,
                 ],
             ],
         ]);
@@ -158,7 +158,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_DRAFT,
+                    'status' => PoolStatus::DRAFT->name,
                 ],
             ],
         ]);
@@ -176,7 +176,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_ARCHIVED,
+                    'status' => PoolStatus::ARCHIVED->name,
                 ],
             ],
         ]);
@@ -212,7 +212,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_PUBLISHED,
+                    'status' => PoolStatus::PUBLISHED->name,
                 ],
             ],
         ]);
@@ -230,7 +230,7 @@ class PoolTest extends TestCase
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => ApiEnums::POOL_IS_CLOSED,
+                    'status' => PoolStatus::CLOSED->name,
                 ],
             ],
         ]);
@@ -491,7 +491,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => ApiEnums::POOL_IS_ARCHIVED]);
+            ->assertJsonFragment(['status' => PoolStatus::ARCHIVED->name]);
     }
 
     public function testCantArchiveActive(): void
@@ -531,7 +531,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => ApiEnums::POOL_IS_CLOSED]);
+            ->assertJsonFragment(['status' => PoolStatus::CLOSED->name]);
     }
 
     public function testCantUnarchiveClosed(): void
@@ -565,7 +565,7 @@ class PoolTest extends TestCase
         $pool->classifications()->sync([$classification->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
-        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -583,7 +583,7 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('EssentialSkillsContainsDeleted');
 
-        $pool->essentialSkills()->sync([$skill1->id]);
+        $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -607,7 +607,7 @@ class PoolTest extends TestCase
         $pool = Pool::factory()->published()->closed()->create(['team_id' => $this->team->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
-        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot reopen due to soft deleted essential skill $skill2
         $this->actingAs($this->poolOperator, 'api')->graphQL(
@@ -626,7 +626,7 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('CannotReopenUsingDeletedSkill');
 
-        $pool->essentialSkills()->sync([$skill1->id]);
+        $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can reopen now with the deleted skill gone
         $this->actingAs($this->poolOperator, 'api')->graphQL(
@@ -668,5 +668,56 @@ class PoolTest extends TestCase
             Pool::scopeCurrentlyActive($query);
         }))->get();
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
+    }
+
+    public function testPoolIsCompleteAccessor(): void
+    {
+        $queryPool =
+        /** @lang GraphQL */
+        '
+            query pool($id: UUID!){
+                pool(id :$id) {
+                    isComplete
+                }
+            }
+        ';
+        Classification::factory()->create();
+        Skill::factory()->create();
+
+        $completePool = Pool::factory()->published()->create([
+            'closing_date' => config('constants.far_future_date'),
+        ]);
+        $incompletePool = Pool::factory()->create([
+            'closing_date' => null,
+        ]);
+        $clearedRelationsPool = Pool::factory()->create();
+        $clearedRelationsPool->essentialSkills()->sync([]);
+        $clearedRelationsPool->classifications()->sync([]);
+
+        // test complete pool is marked as true, the others marked as false
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => true]);
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $incompletePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $clearedRelationsPool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
     }
 }

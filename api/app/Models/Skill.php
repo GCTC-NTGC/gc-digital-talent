@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Database\Helpers\ApiEnums;
+use App\Enums\PoolSkillType;
+use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -61,12 +62,12 @@ class Skill extends Model
 
     public function poolsEssentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
+        return $this->belongsToMany(Pool::class, 'pool_skill')->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function poolsNonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Pool::class, 'pools_nonessential_skills');
+        return $this->belongsToMany(Pool::class, 'pool_skill')->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
     public function getDetailsAttribute()
@@ -76,11 +77,11 @@ class Skill extends Model
 
     public static function scopeTechnical(Builder $query)
     {
-        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_TECHNICAL);
+        return $query->where('category', '=', SkillCategory::TECHNICAL->name);
     }
 
     public static function scopeBehavioural(Builder $query)
     {
-        return $query->where('category', '=', ApiEnums::SKILL_CATEGORY_BEHAVIOURAL);
+        return $query->where('category', '=', SkillCategory::BEHAVIOURAL->name);
     }
 }

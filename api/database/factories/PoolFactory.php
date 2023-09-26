@@ -2,13 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolLanguage;
+use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
+use App\Enums\SecurityStatus;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -61,8 +65,8 @@ class PoolFactory extends Factory
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
             $pool->classifications()->saveMany($classifications);
-            $pool->essentialSkills()->saveMany($skills->slice(0, 5));
-            $pool->nonessentialSkills()->saveMany($skills->slice(5, 5));
+            $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
+            $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
 
             ScreeningQuestion::factory()
                 ->count(3)
@@ -98,17 +102,17 @@ class PoolFactory extends Factory
                 // published in the past, closes in the future
                 'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
 
-                'operational_requirements' => $this->faker->randomElements(ApiEnums::operationalRequirements(), 2),
+                'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'security_clearance' => $this->faker->randomElement(ApiEnums::poolSecurity()),
-                'advertisement_language' => $this->faker->randomElement(ApiEnums::poolLanguages()),
+                'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
+                'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'is_remote' => $isRemote,
-                'stream' => $this->faker->randomElement(ApiEnums::poolStreams()),
+                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'process_number' => $this->faker->word(),
-                'publishing_group' => $this->faker->randomElement(ApiEnums::publishingGroups()),
+                'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
             ];
         });
     }
@@ -152,8 +156,8 @@ class PoolFactory extends Factory
         return $this->state(function () {
             return [
                 'publishing_group' => $this->faker->randomElement([
-                    ApiEnums::PUBLISHING_GROUP_IT_JOBS,
-                    ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
+                    PublishingGroup::IT_JOBS->name,
+                    PublishingGroup::IT_JOBS_ONGOING->name,
                 ]),
             ];
         });

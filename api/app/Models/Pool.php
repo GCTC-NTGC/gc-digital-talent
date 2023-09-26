@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\PoolSkillType;
+use App\Enums\PoolStatus;
+use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Pool
@@ -111,12 +114,50 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed() // pool-skills always fetches soft-deleted skill models
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed()
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
+    }
+
+    /**
+     * Sync the essential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setEssentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::ESSENTIAL->name];
+        }
+
+        $this->essentialSkills()->sync($skillArrayToSync);
+    }
+
+    /**
+     * Sync the nonessential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setNonessentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::NONESSENTIAL->name];
+        }
+
+        $this->nonessentialSkills()->sync($skillArrayToSync);
     }
 
     public function screeningQuestions(): HasMany
@@ -129,20 +170,38 @@ class Pool extends Model
     {
         // override if no publish date
         if (is_null($this->published_at)) {
-            return ApiEnums::POOL_IS_DRAFT;
+            return PoolStatus::DRAFT->name;
         }
 
         if (Carbon::now()->gte($this->archived_at)) {
-            return ApiEnums::POOL_IS_ARCHIVED;
+            return PoolStatus::ARCHIVED->name;
         }
         if (Carbon::now()->gte($this->closing_date)) {
-            return ApiEnums::POOL_IS_CLOSED;
+            return PoolStatus::CLOSED->name;
         }
         if (Carbon::now()->gte($this->published_at)) {
-            return ApiEnums::POOL_IS_PUBLISHED;
+            return PoolStatus::PUBLISHED->name;
         }
 
-        return ApiEnums::POOL_IS_DRAFT;
+        return PoolStatus::DRAFT->name;
+    }
+
+    // is the pool considered "complete", filled out entirely by the pool operator
+    public function getIsCompleteAttribute()
+    {
+        $pool = $this->load(['classifications', 'essentialSkills']);
+
+        $poolCompleteValidation = new PoolIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $poolCompleteValidation->rules(),
+            $poolCompleteValidation->messages()
+        );
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)

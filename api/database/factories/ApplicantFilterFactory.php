@@ -2,11 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PoolStream;
+use App\Enums\PositionDuration;
+use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ApplicantFilterFactory extends Factory
@@ -31,14 +35,14 @@ class ApplicantFilterFactory extends Factory
             'is_indigenous' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
             'is_woman' => $this->faker->boolean(),
-            'position_duration' => $this->faker->boolean() ? null : [ApiEnums::POSITION_DURATION_TEMPORARY], // null or request TEMPORARY
-            'language_ability' => $this->faker->randomElement(ApiEnums::languageAbilities()),
+            'position_duration' => $this->faker->boolean() ? null : [PositionDuration::TEMPORARY->name], // null or request TEMPORARY
+            'language_ability' => $this->faker->randomElement(array_column(LanguageAbility::cases(), 'name')),
             'location_preferences' => $this->faker->randomElements(
-                ApiEnums::workRegions(),
+                array_column(WorkRegion::cases(), 'name'),
                 $this->faker->numberBetween(1, 3)
             ),
             'operational_requirements' => $this->faker->optional->randomElements(
-                ApiEnums::operationalRequirements(),
+                array_column(OperationalRequirement::cases(), 'name'),
                 $this->faker->numberBetween(1, 4)
             ),
         ];
@@ -88,7 +92,7 @@ class ApplicantFilterFactory extends Factory
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
             $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
-                ApiEnums::poolStreams(),
+                array_column(PoolStream::cases(), 'name'),
             ) : [$pools[0]->stream];
             $filter->qualified_streams = $stream;
             $filter->save();

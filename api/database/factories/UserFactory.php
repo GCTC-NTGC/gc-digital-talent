@@ -2,6 +2,17 @@
 
 namespace Database\Factories;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\BilingualEvaluation;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\IndigenousCommunity;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
+use App\Enums\PositionDuration;
+use App\Enums\ProvinceOrTerritory;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
@@ -11,7 +22,6 @@ use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
-use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -30,15 +40,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $evaluatedLanguageAbility = [
-            'X',
-            'A',
-            'B',
-            'C',
-            'E',
-            'P',
-        ];
-
         $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
@@ -59,47 +60,31 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
-            'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
-            'preferred_language_for_interview' => $this->faker->randomElement(['en', 'fr']),
-            'preferred_language_for_exam' => $this->faker->randomElement(['en', 'fr']),
-            'current_province' => $this->faker->randomElement([
-                'BRITISH_COLUMBIA',
-                'ALBERTA',
-                'SASKATCHEWAN',
-                'MANITOBA',
-                'ONTARIO',
-                'QUEBEC',
-                'NEW_BRUNSWICK',
-                'NOVA_SCOTIA',
-                'PRINCE_EDWARD_ISLAND',
-                'NEWFOUNDLAND_AND_LABRADOR',
-                'YUKON',
-                'NORTHWEST_TERRITORIES',
-                'NUNAVUT',
-            ]),
+            'preferred_lang' => $this->faker->randomElement(Language::cases())->value,
+            'preferred_language_for_interview' => $this->faker->randomElement(Language::cases())->value,
+            'preferred_language_for_exam' => $this->faker->randomElement(Language::cases())->value,
+            'current_province' => $this->faker->randomElement(ProvinceOrTerritory::cases())->name,
             'current_city' => $this->faker->city(),
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
             'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                'COMPLETED_ENGLISH',
-                'COMPLETED_FRENCH',
-            ]) : 'NOT_COMPLETED',
+                BilingualEvaluation::COMPLETED_ENGLISH->name,
+                BilingualEvaluation::COMPLETED_FRENCH->name,
+            ]) : BilingualEvaluation::NOT_COMPLETED->name,
 
-            'comprehension_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'written_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'verbal_level' => $hasBeenEvaluated ? $this->faker->randomElement(
-                $evaluatedLanguageAbility
-            ) : null,
-            'estimated_language_ability' => $hasBeenEvaluated ? null : $this->faker->randomElement([
-                'BEGINNER',
-                'INTERMEDIATE',
-                'ADVANCED',
-            ]),
+            'comprehension_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'written_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'verbal_level' => $hasBeenEvaluated ?
+                $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
+                : null,
+            'estimated_language_ability' => $hasBeenEvaluated ?
+                null
+                : $this->faker->randomElement(EstimatedLanguageAbility::cases())->name,
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
@@ -122,16 +107,16 @@ class UserFactory extends Factory
             ),
             'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
             'position_duration' => $this->faker->boolean() ?
-                [ApiEnums::POSITION_DURATION_PERMANENT, ApiEnums::POSITION_DURATION_TEMPORARY]
-                : [ApiEnums::POSITION_DURATION_PERMANENT], // always accepting PERMANENT
-            'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
-            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(ApiEnums::govEmployeeTypes()) : null,
-            'citizenship' => $this->faker->randomElement(ApiEnums::citizenshipStatuses()),
-            'armed_forces_status' => $this->faker->randomElement(ApiEnums::armedForcesStatuses()),
+                array_column(PositionDuration::cases(), 'name')
+                : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
+            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
+            'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
+            'armed_forces_status' => $this->faker->randomElement(ArmedForcesStatus::cases())->name,
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
-            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(ApiEnums::indigenousCommunities())] : [],
+            'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
             // mirroring migration where isIndigenous = false maps to []
         ];
     }
@@ -196,7 +181,7 @@ class UserFactory extends Factory
             return [
                 'is_gov_employee' => true,
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
-                'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
+                'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'department' => $randomDepartment ? $randomDepartment->id : null,
 
             ];

@@ -2,8 +2,14 @@
 
 namespace App\Models;
 
+use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateSuspendedFilter;
+use App\Enums\IndigenousCommunity;
+use App\Enums\LanguageAbility;
+use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
+use App\Enums\PublishingGroup;
 use Carbon\Carbon;
-use Database\Helpers\ApiEnums;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
@@ -311,10 +317,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                         return function ($query) use ($filter) {
                             $query->where('pool_candidates.pool_id', $filter['poolId']);
                             $query->where(function ($query) use ($filter) {
-                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                                if (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == CandidateExpiryFilter::ACTIVE->name) {
                                     $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                                         ->orWhereNull('expiry_date');
-                                } elseif (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                                } elseif (array_key_exists('expiryStatus', $filter) && $filter['expiryStatus'] == CandidateExpiryFilter::EXPIRED->name) {
                                     $query->whereDate('expiry_date', '<', date('Y-m-d'));
                                 }
                             });
@@ -322,10 +328,10 @@ class User extends Model implements Authenticatable, LaratrustUser
                                 $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
                             }
                             $query->where(function ($query) use ($filter) {
-                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE) {
+                                if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::ACTIVE->name) {
                                     $query->where('suspended_at', '>=', Carbon::now())
                                         ->orWhereNull('suspended_at');
-                                } elseif (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == ApiEnums::CANDIDATE_SUSPENDED_FILTER_SUSPENDED) {
+                                } elseif (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::SUSPENDED->name) {
                                     $query->where('suspended_at', '<', Carbon::now());
                                 }
                             });
@@ -352,8 +358,6 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Return applicants with PoolCandidates in any of the given pools.
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
-     *
-     * @param  array  $poolIds
      */
     public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
@@ -364,9 +368,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         foreach ($poolIds as $index => $poolId) {
             $poolFilters[$index] = [
                 'poolId' => $poolId,
-                'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-                'statuses' => [ApiEnums::CANDIDATE_STATUS_QUALIFIED_AVAILABLE, ApiEnums::CANDIDATE_STATUS_PLACED_CASUAL],
-                'suspendedStatus' => ApiEnums::CANDIDATE_SUSPENDED_FILTER_ACTIVE,
+                'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
+                'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
+                'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
 
@@ -381,13 +385,13 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         // $languageAbility comes from enum LanguageAbility
         // filtering on fields looking_for_<english/french/bilingual>
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH) {
+        if ($languageAbility == LanguageAbility::ENGLISH->name) {
             $query->where('looking_for_english', true);
         }
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+        if ($languageAbility == LanguageAbility::FRENCH->name) {
             $query->where('looking_for_french', true);
         }
-        if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_BILINGUAL) {
+        if ($languageAbility == LanguageAbility::BILINGUAL->name) {
             $query->where('looking_for_bilingual', true);
         }
 
@@ -536,8 +540,8 @@ class User extends Model implements Authenticatable, LaratrustUser
     public static function scopeInITPublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS_ONGOING,
-            ApiEnums::PUBLISHING_GROUP_IT_JOBS,
+            PublishingGroup::IT_JOBS_ONGOING->name,
+            PublishingGroup::IT_JOBS->name,
         ]);
 
         return $query;
@@ -593,7 +597,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->orWhereJsonContains('indigenous_communities', ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS);
+                    $query->orWhereJsonContains('indigenous_communities', IndigenousCommunity::LEGACY_IS_INDIGENOUS->name);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
@@ -682,7 +686,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         $positionDuration = $this->position_duration;
 
-        if ($positionDuration && in_array(ApiEnums::POSITION_DURATION_TEMPORARY, $positionDuration)) {
+        if ($positionDuration && in_array(PositionDuration::TEMPORARY->name, $positionDuration)) {
             return true;
         }
 
@@ -698,7 +702,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         $indigenousCommunities = $this->indigenous_communities;
 
-        if ($indigenousCommunities && in_array(ApiEnums::INDIGENOUS_LEGACY_IS_INDIGENOUS, $indigenousCommunities)) {
+        if ($indigenousCommunities && in_array(IndigenousCommunity::LEGACY_IS_INDIGENOUS->name, $indigenousCommunities)) {
             return true;
         }
 
@@ -723,18 +727,18 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         // only english case
         if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
-            return ApiEnums::LANGUAGE_ABILITY_ENGLISH;
+            return LanguageAbility::ENGLISH->name;
         }
 
         // only french case
         if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
-            return ApiEnums::LANGUAGE_ABILITY_FRENCH;
+            return LanguageAbility::FRENCH->name;
         }
 
         // bilingual case just depends on the one field being true
         // or ignore the field if english and french are both true
         if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-            return ApiEnums::LANGUAGE_ABILITY_BILINGUAL;
+            return LanguageAbility::BILINGUAL->name;
         }
 
         // in all other cases the field stays null, so cases where all fields tested are false/null for instance
