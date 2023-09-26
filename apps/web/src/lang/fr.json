@@ -533,6 +533,10 @@
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
   },
+  "147mtW": {
+    "defaultMessage": "Chercher les équipes",
+    "description": "Label for the teams table search input"
+  },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
@@ -1290,6 +1294,10 @@
   "5r8Ka2": {
     "defaultMessage": "Tout le tableau",
     "description": "Text in table search form column dropdown when no column is selected."
+  },
+  "5tmTP/": {
+    "defaultMessage": "Chercher les classifications",
+    "description": "Label for the classifications table search input"
   },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
@@ -5500,9 +5508,17 @@
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
   },
+  "Yy27PD": {
+    "defaultMessage": "Chercher les membres de l’équipe",
+    "description": "Label for the team members table search input"
+  },
   "YyHN1i": {
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
+  },
+  "Z+JxTc": {
+    "defaultMessage": "Chercher les rôles fondés sur l’équipe",
+    "description": "Label for the team roles table search input"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -5877,6 +5893,10 @@
     "defaultMessage": "Réussite",
     "description": "Breadcrumb link text for the application success page"
   },
+  "bUyxJi": {
+    "defaultMessage": "Chercher les ministères",
+    "description": "Label for the departments table search input"
+  },
   "bVRixs": {
     "defaultMessage": "Niveau",
     "description": "Label displayed on the classification form level field."
@@ -6028,6 +6048,10 @@
   "cVszq/": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
     "description": "Sentence before signature space on the add indigenous identity dialog"
+  },
+  "cWqtEU": {
+    "defaultMessage": "Chercher les compétences",
+    "description": "Label for the skills table search input"
   },
   "cYq1Dp": {
     "defaultMessage": "Les apprentis qui participent au programme disent que ça « change une vie », que ça représente « une occasion d’avoir une meilleure vie grâce à la technologie » et qu’« il n’y a aucun obstacle à la réussite de ce programme ».",
@@ -8030,6 +8054,10 @@
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
   },
+  "paTLlJ": {
+    "defaultMessage": "Chercher les rôles",
+    "description": "Label for the roles table search input"
+  },
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
@@ -8149,6 +8177,10 @@
   "qZd17O": {
     "defaultMessage": " Créer une compétence",
     "description": "Title displayed on the create a skill form."
+  },
+  "qb6pT2": {
+    "defaultMessage": "Chercher les bassins",
+    "description": "Label for the pools table search input"
   },
   "qeD2p/": {
     "defaultMessage": "Titre du prix",
@@ -9182,6 +9214,10 @@
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
+  },
+  "yXwlJw": {
+    "defaultMessage": "Chercher les familles de compétences",
+    "description": "Label for the skill families table search input"
   },
   "yYDzYE": {
     "defaultMessage": "Fermez le bassin maintenant",

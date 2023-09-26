@@ -153,8 +153,8 @@ const TeamRoleTable = ({
         search={{
           internal: true,
           label: intl.formatMessage({
-            defaultMessage: "Search team roles",
-            id: "4I65dI",
+            defaultMessage: "Search team based roles",
+            id: "Z+JxTc",
             description: "Label for the team roles table search input",
           }),
         }}
