@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+import React from "react";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import {
@@ -12,16 +13,10 @@ import {
   Classification,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import Table, {
-  ColumnsOf,
-  tableEditButtonAccessor,
-  Cell,
-} from "~/components/Table/ClientManagedTable";
-import { FromArray } from "~/types/utility";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import tableEditButtonAccessor from "~/components/Table/EditButton";
 
-type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
-
-type ClassificationCell = Cell<Classification>;
+const columnHelper = createColumnHelper<Classification>();
 
 interface ClassificationTableProps {
   classifications: GetClassificationsQuery["classifications"];
@@ -35,102 +30,129 @@ export const ClassificationTable = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const columns = useMemo<ColumnsOf<Data>>(
-    () => [
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "ID",
-          id: "VqyL+/",
-          description: "Title displayed on the Classification table ID column.",
-        }),
-        accessor: "id",
+  const columns = [
+    columnHelper.accessor("id", {
+      id: "id",
+      enableColumnFilter: false,
+      header: intl.formatMessage({
+        defaultMessage: "ID",
+        id: "VqyL+/",
+        description: "Title displayed on the Classification table ID column.",
+      }),
+    }),
+    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
+      id: "name",
+      enableColumnFilter: true,
+      enableSorting: true,
+      meta: {
+        isRowTitle: true,
       },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "HUCIzc",
-          description:
-            "Title displayed for the Classification table Name column.",
-        }),
-        accessor: (d) => d.name?.[locale],
+      header: intl.formatMessage({
+        defaultMessage: "Name",
+        id: "HUCIzc",
+        description:
+          "Title displayed for the Classification table Name column.",
+      }),
+    }),
+    columnHelper.accessor("group", {
+      id: "group",
+      enableColumnFilter: false,
+      enableSorting: true,
+      header: intl.formatMessage({
+        defaultMessage: "Group",
+        id: "aS4Lty",
+        description:
+          "Title displayed for the Classification table Group column.",
+      }),
+    }),
+    columnHelper.accessor("level", {
+      id: "level",
+      enableColumnFilter: false,
+      enableSorting: true,
+      header: intl.formatMessage({
+        defaultMessage: "Level",
+        id: "yZqUAU",
+        description:
+          "Title displayed for the Classification table Level column.",
+      }),
+    }),
+    columnHelper.accessor("minSalary", {
+      id: "minSalary",
+      enableColumnFilter: false,
+      enableSorting: true,
+      header: intl.formatMessage({
+        defaultMessage: "Minimum Salary",
+        id: "9c/MAZ",
+        description:
+          "Title displayed for the Classification table Minimum Salary column.",
+      }),
+    }),
+    columnHelper.accessor("maxSalary", {
+      id: "maxSalary",
+      enableColumnFilter: false,
+      enableSorting: true,
+      header: intl.formatMessage({
+        defaultMessage: "Maximum Salary",
+        id: "Ke0TPJ",
+        description:
+          "Title displayed for the Classification table Maximum Salary column.",
+      }),
+    }),
+    columnHelper.display({
+      id: "edit",
+      header: intl.formatMessage({
+        defaultMessage: "Edit",
+        id: "D753gS",
+        description:
+          "Title displayed for the Classification table Edit column.",
+      }),
+      meta: {
+        hideMobileHeader: true,
       },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Group",
-          id: "aS4Lty",
-          description:
-            "Title displayed for the Classification table Group column.",
-        }),
-        accessor: "group",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Level",
-          id: "yZqUAU",
-          description:
-            "Title displayed for the Classification table Level column.",
-        }),
-        accessor: "level",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Minimum Salary",
-          id: "9c/MAZ",
-          description:
-            "Title displayed for the Classification table Minimum Salary column.",
-        }),
-        accessor: "minSalary",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Maximum Salary",
-          id: "Ke0TPJ",
-          description:
-            "Title displayed for the Classification table Maximum Salary column.",
-        }),
-        accessor: "maxSalary",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          id: "D753gS",
-          description:
-            "Title displayed for the Classification table Edit column.",
-        }),
-        id: "edit",
-        accessor: (d) => `Edit ${d.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: classification } }: ClassificationCell) =>
-          tableEditButtonAccessor(
-            classification.id,
-            paths.classificationTable(),
-            `${classification.name?.[locale]} ${classification.group}-0${classification.level}`,
-          ), // callback extracted to separate function to stabilize memoized component
-      },
-    ],
-    [intl, locale, paths],
-  );
+      cell: ({ row: { original: classification } }) =>
+        tableEditButtonAccessor(
+          classification.id,
+          paths.classificationTable(),
+          `${classification.name?.[locale]} ${classification.group}-0${classification.level}`,
+        ),
+    }),
+  ] as ColumnDef<Classification>[];
 
-  const memoizedData = useMemo(
-    () => classifications.filter(notEmpty),
-    [classifications],
-  );
+  const data = classifications.filter(notEmpty);
 
   return (
-    <Table
-      data={memoizedData}
+    <Table<Classification>
+      caption={title}
+      data={data}
       columns={columns}
-      hiddenCols={["id", "minSalary", "maxSalary"]}
-      addBtn={{
-        path: paths.classificationCreate(),
+      hiddenColumnIds={["id", "minSalary", "maxSalary"]}
+      pagination={{
+        internal: true,
+        total: data.length,
+        pageSizes: [10, 20, 50],
+      }}
+      sort={{
+        internal: true,
+      }}
+      search={{
+        internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Create Classification",
-          id: "DexZJJ",
-          description:
-            "Heading displayed above the Create Classification form.",
+          defaultMessage: "Search classifications",
+          id: "5tmTP/",
+          description: "Label for the classifications table search input",
         }),
       }}
-      title={title}
+      add={{
+        linkProps: {
+          href: paths.classificationCreate(),
+          label: intl.formatMessage({
+            defaultMessage: "Create Classification",
+            id: "DexZJJ",
+            description:
+              "Heading displayed above the Create Classification form.",
+          }),
+        },
+      }}
     />
   );
 };
