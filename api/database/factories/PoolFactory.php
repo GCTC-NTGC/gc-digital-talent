@@ -7,6 +7,7 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
+use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
@@ -160,6 +161,19 @@ class PoolFactory extends Factory
                     PublishingGroup::IT_JOBS_ONGOING->name,
                 ]),
             ];
+        });
+    }
+
+    /** Add assessment steps to the pool
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withAssessments()
+    {
+        return $this->afterCreating(function (Pool $pool) {
+            AssessmentStep::factory()
+                ->count(3)
+                ->create(['pool_id' => $pool->id]);
         });
     }
 }
