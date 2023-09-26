@@ -60,12 +60,7 @@ export const SkillFamilyTable = ({
     ),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "D753gS",
-        description:
-          "Title displayed for the Classification table Edit column.",
-      }),
+      header: intl.formatMessage(adminMessages.edit),
       meta: {
         hideMobileHeader: true,
       },

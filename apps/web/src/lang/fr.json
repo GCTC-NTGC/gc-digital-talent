@@ -2390,10 +2390,6 @@
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
     "description": "Text for first sign up -> mfa step."
   },
-  "D753gS": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Classification table Edit column."
-  },
   "D8Pgbs": {
     "defaultMessage": "Créer une classification",
     "description": "Title displayed on the create a classification form."
@@ -5039,10 +5035,6 @@
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
   },
-  "VqyL+/": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Classification table ID column."
-  },
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
     "description": "Subject line for contact email to start a recruitment process"
@@ -5631,10 +5623,6 @@
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
-  },
-  "ZobKCk": {
-    "defaultMessage": "Identité",
-    "description": "Title displayed on the Skill Family table ID column."
   },
   "ZqZc8Z": {
     "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
@@ -6885,10 +6873,6 @@
     "defaultMessage": "Nous tentons de répondre aux demandes de renseignements dans un délai de cinq jours ouvrables.",
     "description": "Disclaimer for support email response time"
   },
-  "hTfHUv": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Department table Edit column."
-  },
   "hV2hKJ": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Field label before government employment group and level"
@@ -7378,10 +7362,6 @@
   "kspVvy": {
     "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez <mailLink>communiquer avec nous</mailLink> et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions.",
     "description": "Second paragraph about who the program is for"
-  },
-  "kt5dPm": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Pool table Unique Identifier column."
   },
   "kukr/B": {
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
@@ -8253,10 +8233,6 @@
     "defaultMessage": "Votre incidence",
     "description": "Title for pool advertisement impact section"
   },
-  "rJ36SS": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Skill Family table Edit column."
-  },
   "rJqCuH": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill form description (English) field."
@@ -8600,10 +8576,6 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
-  },
-  "tpzt/B": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Pool table Edit column."
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
@@ -9230,6 +9202,10 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
+  },
+  "yZoSaY": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for a tables Edit column."
   },
   "yZqUAU": {
     "defaultMessage": "Niveau",

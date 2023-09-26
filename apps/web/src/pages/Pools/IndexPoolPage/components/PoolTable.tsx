@@ -18,6 +18,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { Pool, useAllPoolsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableEditButtonAccessor from "~/components/Table/EditButton";
+import adminMessages from "~/messages/adminMessages";
 
 import {
   classificationAccessor,
@@ -48,12 +49,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     columnHelper.accessor("id", {
       id: "id",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Id",
-        id: "kt5dPm",
-        description:
-          "Title displayed on the Pool table Unique Identifier column.",
-      }),
+      header: intl.formatMessage(adminMessages.id),
     }),
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
@@ -129,7 +125,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) => getLocalizedName(row.team?.displayName, intl),
+      (row) => getLocalizedName(row.team?.displayName, intl, true),
       {
         id: "team",
         header: intl.formatMessage({
@@ -165,12 +161,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "D753gS",
-        description:
-          "Title displayed for the Classification table Edit column.",
-      }),
+      header: intl.formatMessage(adminMessages.edit),
       meta: {
         hideMobileHeader: true,
       },

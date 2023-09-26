@@ -1,15 +1,16 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableEditButtonAccessor from "~/components/Table/EditButton";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<Department>();
 
@@ -23,7 +24,6 @@ export const DepartmentTable = ({
   title,
 }: DepartmentTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
   const columns = [
     columnHelper.accessor("departmentNumber", {
@@ -46,12 +46,7 @@ export const DepartmentTable = ({
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "D753gS",
-        description:
-          "Title displayed for the Classification table Edit column.",
-      }),
+      header: intl.formatMessage(adminMessages.edit),
       meta: {
         hideMobileHeader: true,
       },
@@ -59,7 +54,7 @@ export const DepartmentTable = ({
         tableEditButtonAccessor(
           department.id,
           paths.departmentTable(),
-          department.name?.[locale],
+          getLocalizedName(department.name, intl, true),
         ),
     }),
   ] as ColumnDef<Department>[];

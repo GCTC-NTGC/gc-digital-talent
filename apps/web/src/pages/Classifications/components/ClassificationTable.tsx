@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import {
@@ -15,6 +15,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableEditButtonAccessor from "~/components/Table/EditButton";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<Classification>();
 
@@ -28,22 +29,15 @@ export const ClassificationTable = ({
   title,
 }: ClassificationTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "ID",
-        id: "VqyL+/",
-        description: "Title displayed on the Classification table ID column.",
-      }),
+      header: intl.formatMessage(adminMessages.id),
     }),
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
-      enableColumnFilter: true,
-      enableSorting: true,
       meta: {
         isRowTitle: true,
       },
@@ -57,7 +51,6 @@ export const ClassificationTable = ({
     columnHelper.accessor("group", {
       id: "group",
       enableColumnFilter: false,
-      enableSorting: true,
       header: intl.formatMessage({
         defaultMessage: "Group",
         id: "aS4Lty",
@@ -68,7 +61,6 @@ export const ClassificationTable = ({
     columnHelper.accessor("level", {
       id: "level",
       enableColumnFilter: false,
-      enableSorting: true,
       header: intl.formatMessage({
         defaultMessage: "Level",
         id: "yZqUAU",
@@ -79,7 +71,6 @@ export const ClassificationTable = ({
     columnHelper.accessor("minSalary", {
       id: "minSalary",
       enableColumnFilter: false,
-      enableSorting: true,
       header: intl.formatMessage({
         defaultMessage: "Minimum Salary",
         id: "9c/MAZ",
@@ -90,7 +81,6 @@ export const ClassificationTable = ({
     columnHelper.accessor("maxSalary", {
       id: "maxSalary",
       enableColumnFilter: false,
-      enableSorting: true,
       header: intl.formatMessage({
         defaultMessage: "Maximum Salary",
         id: "Ke0TPJ",
@@ -100,12 +90,7 @@ export const ClassificationTable = ({
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage({
-        defaultMessage: "Edit",
-        id: "D753gS",
-        description:
-          "Title displayed for the Classification table Edit column.",
-      }),
+      header: intl.formatMessage(adminMessages.edit),
       meta: {
         hideMobileHeader: true,
       },
@@ -113,7 +98,9 @@ export const ClassificationTable = ({
         tableEditButtonAccessor(
           classification.id,
           paths.classificationTable(),
-          `${classification.name?.[locale]} ${classification.group}-0${classification.level}`,
+          `${getLocalizedName(classification.name, intl, true)} ${
+            classification.group
+          }-0${classification.level}`,
         ),
     }),
   ] as ColumnDef<Classification>[];
