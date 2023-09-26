@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import isPast from "date-fns/isPast";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import { getPoolCandidateStatus } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getPoolCandidateStatus,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -87,7 +91,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
           data-h2-background-color="base(gray.dark)"
           data-h2-color="base(white)"
         >
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+          <th data-h2-padding="base(x.25)" data-h2-width="base(25%)">
             {intl.formatMessage({
               defaultMessage: "Pool",
               id: "icYqDt",
@@ -95,7 +99,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                 "Title of the 'Pool' column for the table on view-user page",
             })}
           </th>
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+          <th data-h2-padding="base(x.25)" data-h2-width="base(25%)">
             {intl.formatMessage({
               defaultMessage: "Status",
               id: "sUx3ZS",
@@ -103,14 +107,21 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                 "Title of the 'Status' column for the table on view-user page",
             })}
           </th>
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+          <th data-h2-padding="base(x.25)" data-h2-width="base(25%)">
             {intl.formatMessage({
               defaultMessage: "Availability",
               id: "mevv+t",
               description: "Availability label",
             })}
           </th>
-          <th data-h2-padding="base(x.25, 0)" data-h2-width="base(25%)">
+          <th data-h2-padding="base(x.25)" data-h2-width="base(25%)">
+            {intl.formatMessage({
+              defaultMessage: "Application",
+              id: "cF8idC",
+              description: "Label for the application link column",
+            })}
+          </th>
+          <th data-h2-padding="base(x.25)" data-h2-width="base(25%)">
             {intl.formatMessage({
               defaultMessage: "Expiry date",
               id: "STDYoR",
@@ -127,7 +138,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
               <tr key={candidate.id}>
                 <td
                   data-h2-background-color="base(gray.light)"
-                  data-h2-padding="base(x.25, 0)"
+                  data-h2-padding="base(x.25)"
                 >
                   {candidate.pool ? (
                     <Link
@@ -142,7 +153,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                 </td>
                 <td
                   data-h2-background-color="base(gray.light)"
-                  data-h2-padding="base(x.25, 0)"
+                  data-h2-padding="base(x.25)"
                 >
                   {intl.formatMessage(
                     getPoolCandidateStatus(candidate.status as string),
@@ -156,7 +167,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                 </td>
                 <td
                   data-h2-background-color="base(gray.light)"
-                  data-h2-padding="base(x.25, 0)"
+                  data-h2-padding="base(x.25)"
                 >
                   {isSuspended(candidate.suspendedAt)
                     ? intl.formatMessage({
@@ -173,9 +184,32 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
                       })}
                 </td>
                 <td
+                  data-h2-background-color="base(gray.light)"
+                  data-h2-padding="base(x.25)"
+                >
+                  <Link href={paths.poolCandidateApplication(candidate.id)}>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage: "View {title} application",
+                        id: "+PCQ8p",
+                        description:
+                          "Link text to view a specific application of a candidate",
+                      },
+                      {
+                        title: intl.formatMessage(
+                          candidate.pool.stream
+                            ? getPoolStream(candidate.pool.stream)
+                            : commonMessages.notAvailable,
+                        ),
+                      },
+                    )}
+                  </Link>
+                </td>
+                <td
                   data-h2-text-decoration="base(underline)"
                   data-h2-background-color="base(gray.light)"
-                  data-h2-padding="base(x.25, 0)"
+                  data-h2-padding="base(x.25)"
+                  data-h2-white-space="base(nowrap)"
                 >
                   <ChangeDateDialog selectedCandidate={candidate} user={user} />
                 </td>
