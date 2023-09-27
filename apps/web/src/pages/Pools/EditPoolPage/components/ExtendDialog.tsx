@@ -4,7 +4,11 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { DateInput } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import {
   convertDateTimeZone,
   strToFormDate,
@@ -116,11 +120,7 @@ const ExtendDialog = ({
                 <div style={{ flexGrow: 2 } /* push other div to the right */}>
                   <Dialog.Close>
                     <Button color="secondary">
-                      {intl.formatMessage({
-                        defaultMessage: "Cancel and go back",
-                        id: "tiF/jI",
-                        description: "Close dialog button",
-                      })}
+                      {intl.formatMessage(formMessages.cancelGoBack)}
                     </Button>
                   </Dialog.Close>
                 </div>

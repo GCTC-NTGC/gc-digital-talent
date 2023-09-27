@@ -6209,10 +6209,6 @@
     "defaultMessage": "Courriel",
     "description": "Title for email"
   },
-  "dJxNRU": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Label displayed on cancel button for new pool form."
-  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -6536,10 +6532,6 @@
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
-  },
-  "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Text to cancel changes to a form"
   },
   "fNYEBT": {
     "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
@@ -8616,10 +8608,6 @@
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
     "description": "List item two, things designers consider for accessibility"
-  },
-  "tiF/jI": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Close dialog button"
   },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
