@@ -29,10 +29,10 @@ class AssessmentStepPolicy
             return Response::deny('Cannot find pool.');
         }
 
-        $pool = Pool::find($poolId)->loadMissing('team');
+        $pool = Pool::with('team')->find($poolId);
 
         return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-        && $user->isAbleTo('update-team-poolAssessments', $pool->team);
+        && $user->isAbleTo('update-team-draftPool', $pool->team);
     }
 
     /**
@@ -44,9 +44,9 @@ class AssessmentStepPolicy
     {
         $assessmentStep->loadMissing('pool');
         $poolId = $assessmentStep->pool->id;
-        $pool = Pool::find($poolId)->loadMissing('team');
+        $pool = Pool::with('team')->find($poolId);
 
         return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-        && $user->isAbleTo('update-team-poolAssessments', $pool->team);
+        && $user->isAbleTo('update-team-draftPool', $pool->team);
     }
 }

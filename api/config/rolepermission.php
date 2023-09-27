@@ -76,7 +76,6 @@ return [
         'teamMembers' => 'teamMembers',
         'role' => 'role',
         'directiveForm' => 'directiveForm',
-        'poolAssessments' => 'poolAssessments',
     ],
 
     /*
@@ -393,15 +392,6 @@ return [
             'en' => 'Delete any directive form',
             'fr' => 'Supprimer tout formulaire de directive',
         ],
-
-        'view-any-poolAssessments' => [
-            'en' => 'view assessment EN',
-            'fr' => 'view assessment FR',
-        ],
-        'update-team-poolAssessments' => [
-            'en' => 'update assessment EN',
-            'fr' => 'update assessment FR',
-        ],
     ],
 
     /*
@@ -612,9 +602,6 @@ return [
             'user' => [
                 'team' => ['view'],
             ],
-            'poolAssessments' => [
-                'team' => ['update'],
-            ],
         ],
 
         'request_responder' => [
@@ -628,9 +615,6 @@ return [
                 'any' => ['view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['view'],
-            ],
-            'poolAssessments' => [
                 'any' => ['view'],
             ],
         ],
@@ -674,9 +658,6 @@ return [
             ],
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
-            ],
-            'poolAssessments' => [
-                'any' => ['view'],
             ],
         ],
     ],
