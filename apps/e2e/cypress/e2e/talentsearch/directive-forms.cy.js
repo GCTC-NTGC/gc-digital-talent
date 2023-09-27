@@ -222,11 +222,8 @@ describe("Directive Forms Tests", () => {
       }).then((dropdown) => {
         cy.wrap(dropdown).select(1); // All families
       });
-      // TODO: yuck, this selection is awful
-      cy.findAllByRole("combobox", { name: /Skill/i }).then((dropdowns) => {
-        cy.wrap(dropdowns[2]).type(
-          "Ability to Learn Quickly{downArrow}{enter}",
-        );
+      cy.findByRole("combobox", { name: "Skill*" }).then((combobox) => {
+        cy.wrap(combobox).type("Ability to Learn Quickly{downArrow}{enter}");
       });
       cy.findByRole("group", {
         name: /Current experience in skill/i,
