@@ -211,7 +211,10 @@ export const EditPoolForm = ({
         <p data-h2-margin="base(x1 0)">{pageSubtitle}</p>
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.List data-h2-list-style-type="base(none)">
+            <TableOfContents.List
+              data-h2-padding-left="base(x.5)"
+              data-h2-list-style-type="base(none)"
+            >
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem
@@ -265,13 +268,6 @@ export const EditPoolForm = ({
                 />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={sectionMetadata.screeningQuestions.id}
-                >
-                  {sectionMetadata.screeningQuestions.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
                 <StatusItem
                   asListItem
                   title={sectionMetadata.specialNote.title}
@@ -285,6 +281,14 @@ export const EditPoolForm = ({
                   title={sectionMetadata.whatToExpect.title}
                   status={whatToExpectError(pool) ? "error" : "success"}
                   scrollTo={sectionMetadata.whatToExpect.id}
+                />
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.screeningQuestions.title}
+                  status="success"
+                  scrollTo={sectionMetadata.screeningQuestions.id}
                 />
               </TableOfContents.ListItem>
             </TableOfContents.List>
@@ -353,12 +357,6 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-
-              <ScreeningQuestions
-                pool={pool}
-                sectionMetadata={sectionMetadata.screeningQuestions}
-                onSave={onSave}
-              />
               <TableOfContents.Section id={sectionMetadata.specialNote.id}>
                 <SpecialNoteSection
                   pool={pool}
@@ -373,6 +371,11 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
+              <ScreeningQuestions
+                pool={pool}
+                sectionMetadata={sectionMetadata.screeningQuestions}
+                onSave={onSave}
+              />
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
