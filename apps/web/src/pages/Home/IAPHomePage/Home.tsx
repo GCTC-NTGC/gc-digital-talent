@@ -199,16 +199,21 @@ export const Home = ({ latestPool }: HomeProps) => {
                       data-h2-position="base(absolute)"
                       data-h2-location="base(auto, auto, -x3, -x5.5)"
                     />
-                    {/* TODO */}
-                    <div
+                    <img
+                      src={womanSmiling}
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Indigenous woman wearing a jean jacket which contains several different pins.",
+                        id: "cErFoy",
+                        description:
+                          "Indigenous Apprenticeship woman smiling image text alternative",
+                      })}
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="p-tablet(100%)"
                       data-h2-width="p-tablet(100%)"
                       data-h2-position="base(relative)"
                       style={{
-                        backgroundImage: `url('${womanSmiling}')`,
-                        backgroundPosition: "center",
-                        backgroundSize: "cover",
+                        objectFit: "cover",
                       }}
                     />
                     <img
@@ -298,16 +303,20 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-location="base(-x2, -x12, auto, auto)"
                     data-h2-opacity="base(20%)"
                   />
-                  {/* TODO */}
-                  <div
+                  <img
+                    src={manOnComputer}
+                    alt={intl.formatMessage({
+                      defaultMessage: "Indigenous man working at a computer.",
+                      id: "XDgkwV",
+                      description:
+                        "Indigenous Apprenticeship man on computer image text alternative",
+                    })}
                     data-h2-min-height="base(60vh) p-tablet(initial)"
                     data-h2-height="p-tablet(100%)"
                     data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage: `url('${manOnComputer}')`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
+                      objectFit: "cover",
                     }}
                   />
                   <img
@@ -394,16 +403,21 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-color="base(secondary)"
                     data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                   />
-                  {/* TODO */}
-                  <div
+                  <img
+                    src={applicant}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Indigenous woman smiling, wearing a brown sweater and glasses.",
+                      id: "X6+rc1",
+                      description:
+                        "Indigenous Apprenticeship applicant image text alternative",
+                    })}
                     data-h2-min-height="base(60vh) p-tablet(initial)"
                     data-h2-height="p-tablet(100%)"
                     data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                     style={{
-                      backgroundImage: `url('${applicant}')`,
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
+                      objectFit: "cover",
                     }}
                   />
                   <img
@@ -521,13 +535,17 @@ export const Home = ({ latestPool }: HomeProps) => {
           <div>
             <div data-h2-shadow="base(l)" data-h2-flex-grid="base(stretch, 0)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of3) l-tablet(1of2) desktop(4of7)">
-                {/* TODO */}
-                <div
+                <img
+                  src={lowerBack}
+                  alt={intl.formatMessage({
+                    defaultMessage: "Male Traditional dancer in regalia.",
+                    id: "9VPBwR",
+                    description:
+                      "Indigenous Apprenticeship lower back image text alternative",
+                  })}
                   data-h2-height="base(40vh) p-tablet(100%)"
                   style={{
-                    backgroundImage: `url(${lowerBack})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    objectFit: "cover",
                   }}
                 />
               </div>
