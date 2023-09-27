@@ -6209,10 +6209,6 @@
     "defaultMessage": "Courriel",
     "description": "Title for email"
   },
-  "dJxNRU": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Label displayed on cancel button for new pool form."
-  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -8616,10 +8612,6 @@
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
     "description": "List item two, things designers consider for accessibility"
-  },
-  "tiF/jI": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Close dialog button"
   },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",

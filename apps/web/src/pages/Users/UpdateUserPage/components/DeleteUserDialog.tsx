@@ -138,11 +138,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
               <Dialog.Footer>
                 <Dialog.Close>
                   <Button color="secondary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "tiF/jI",
-                      description: "Close dialog button",
-                    })}
+                    {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
