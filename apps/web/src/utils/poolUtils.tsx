@@ -251,3 +251,17 @@ export function getClassificationGroup(pool: Maybe<Pool>): string {
   const classification = pool?.classifications ? pool.classifications[0] : null;
   return classification?.group ? classification.group : "";
 }
+
+export function getClassificationName(
+  { group, level, name }: Classification,
+  intl: IntlShape,
+) {
+  const groupLevelStr = `${group}-0${level}`;
+
+  if (!name) {
+    return groupLevelStr;
+  }
+
+  const nameStr = getLocalizedName(name, intl);
+  return `${groupLevelStr} (${nameStr})`;
+}

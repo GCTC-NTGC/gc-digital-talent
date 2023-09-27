@@ -9,12 +9,12 @@ import {
   Link,
   TableOfContents,
   Heading,
-  Pill,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import {
   Pool,
   Scalars,
@@ -26,9 +26,10 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 
+import { hasEmptyRequiredFields as poolNameError } from "../../../validators/process/classification";
 import PoolNameSection, {
   type PoolNameSubmitData,
-} from "./components/PoolNameSection";
+} from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
   type ClosingDateSubmitData,
 } from "./components/ClosingDateSection";
@@ -76,7 +77,7 @@ export interface EditPoolFormProps {
   pool: Pool;
   classifications: Array<Classification>;
   skills: Array<Skill>;
-  onSave: (submitData: PoolSubmitData) => void;
+  onSave: (submitData: PoolSubmitData) => Promise<void>;
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
@@ -228,11 +229,14 @@ export const EditPoolForm = ({
         <p data-h2-margin="base(x1 0)">{pageSubtitle}</p>
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
-            <TableOfContents.List>
+            <TableOfContents.List data-h2-list-style-type="base(none)">
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.poolName.id}>
-                  {sectionMetadata.poolName.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.poolName.title}
+                  status={poolNameError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.poolName.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
