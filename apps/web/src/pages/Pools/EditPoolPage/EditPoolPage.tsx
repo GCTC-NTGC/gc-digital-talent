@@ -31,6 +31,8 @@ import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as whatToExpectError } from "~/validators/process/whatToExpect";
+import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import { hasAllEmptyFields as nonEssentialSkillsError } from "~/validators/process/nonEssentialSkills";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -64,6 +66,8 @@ import WhatToExpectSection, {
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
+import { EditPoolSectionMetadata } from "../../../types/pool";
+import { SectionKey } from "./types";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
@@ -106,17 +110,25 @@ export const EditPoolForm = ({
     description: "Description of a process' advertisement",
   });
 
-  const sectionMetadata = {
+  const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     poolName: {
       id: "pool-name",
+      hasError: poolNameError(pool),
       title: intl.formatMessage({
         defaultMessage: "Pool name and target classification",
         id: "jdoFE6",
         description: "Sub title for pool name and classification",
       }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Pool name and classification",
+        id: "RA8rGj",
+        description:
+          "Short version of the title for pool name and classification",
+      }),
     },
     closingDate: {
       id: "closing-date",
+      hasError: closingDateError(pool),
       title: intl.formatMessage({
         defaultMessage: "Closing date",
         id: "I8jlr2",
@@ -125,6 +137,7 @@ export const EditPoolForm = ({
     },
     yourImpact: {
       id: "your-impact",
+      hasError: yourImpactError(pool),
       title: intl.formatMessage({
         defaultMessage: "Your impact",
         id: "ry3jFR",
@@ -133,6 +146,7 @@ export const EditPoolForm = ({
     },
     workTasks: {
       id: "work-tasks",
+      hasError: keyTasksError(pool),
       title: intl.formatMessage({
         defaultMessage: "Work tasks",
         id: "GXw2um",
@@ -141,22 +155,37 @@ export const EditPoolForm = ({
     },
     essentialSkills: {
       id: "essential-skills",
+      hasError: essentialSkillsError(pool),
       title: intl.formatMessage({
         defaultMessage: "Essential skills (Need to have)",
         id: "LccTZJ",
         description: "Sub title for the pool essential skills",
       }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Essential skills",
+        id: "edRoF3",
+        description:
+          "Shorter version of the title for the pool essential skills",
+      }),
     },
     assetSkills: {
       id: "asset-skills",
+      hasError: false, // Optional section
       title: intl.formatMessage({
         defaultMessage: "Asset skills (Nice to have skills)",
         id: "N0ySd0",
         description: "Sub title for the pool essential skills",
       }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Asset skills",
+        id: "m/Ch5y",
+        description:
+          "Shorter version of the title  for the pool essential skills",
+      }),
     },
     otherRequirements: {
       id: "other-requirements",
+      hasError: otherRequirementsError(pool),
       title: intl.formatMessage({
         defaultMessage: "Other requirements",
         id: "Fm4Muz",
@@ -165,6 +194,7 @@ export const EditPoolForm = ({
     },
     screeningQuestions: {
       id: "screening-questions",
+      hasError: false, // Optional
       title: intl.formatMessage({
         defaultMessage: "Screening questions",
         id: "c+QwbR",
@@ -173,18 +203,32 @@ export const EditPoolForm = ({
     },
     whatToExpect: {
       id: "what-to-expect",
+      hasError: whatToExpectError(pool),
       title: intl.formatMessage({
         defaultMessage: "What to expect after you apply",
         id: "QdSYpe",
         description: "Sub title for the what to expect section",
       }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "After you apply",
+        id: "Al6x8w",
+        description:
+          "Shorter version of the title for the what to expect section",
+      }),
     },
     specialNote: {
       id: "special-note",
+      hasError: false, // Optional
       title: intl.formatMessage({
         defaultMessage: "Special note for this process",
         id: "ye0xFe",
         description: "Sub title for the special note section",
+      }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Special note",
+        id: "loQ7wy",
+        description:
+          "Shorter version of the title for the special note section",
       }),
     },
   };
@@ -215,82 +259,16 @@ export const EditPoolForm = ({
               data-h2-padding-left="base(x.5)"
               data-h2-list-style-type="base(none)"
             >
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.poolName.title}
-                  status={poolNameError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.poolName.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.closingDate.title}
-                  status={closingDateError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.closingDate.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.yourImpact.title}
-                  status={yourImpactError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.yourImpact.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.workTasks.title}
-                  status={keyTasksError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.workTasks.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={sectionMetadata.essentialSkills.id}
-                >
-                  {sectionMetadata.essentialSkills.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.assetSkills.id}>
-                  {sectionMetadata.assetSkills.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.otherRequirements.title}
-                  status={otherRequirementsError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.otherRequirements.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.specialNote.title}
-                  status="success"
-                  scrollTo={sectionMetadata.specialNote.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.whatToExpect.title}
-                  status={whatToExpectError(pool) ? "error" : "success"}
-                  scrollTo={sectionMetadata.whatToExpect.id}
-                />
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <StatusItem
-                  asListItem
-                  title={sectionMetadata.screeningQuestions.title}
-                  status="success"
-                  scrollTo={sectionMetadata.screeningQuestions.id}
-                />
-              </TableOfContents.ListItem>
+              {Object.values(sectionMetadata).map((meta) => (
+                <TableOfContents.ListItem key={meta.id}>
+                  <StatusItem
+                    asListItem
+                    title={meta.shortTitle ?? meta.title}
+                    status={meta.hasError ? "error" : "success"}
+                    scrollTo={meta.id}
+                  />
+                </TableOfContents.ListItem>
+              ))}
             </TableOfContents.List>
             <Link mode="solid" href={paths.poolView(pool.id)} color="secondary">
               {intl.formatMessage({

@@ -14,3 +14,15 @@ export type SectionProps<T> = {
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: T) => Promise<void>;
 };
+
+export type SectionKey =
+  | "poolName"
+  | "closingDate"
+  | "yourImpact"
+  | "workTasks"
+  | "essentialSkills"
+  | "assetSkills"
+  | "otherRequirements"
+  | "screeningQuestions"
+  | "whatToExpect"
+  | "specialNote";
