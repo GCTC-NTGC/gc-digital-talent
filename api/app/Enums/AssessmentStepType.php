@@ -13,4 +13,5 @@ enum AssessmentStepType
     case INTERVIEW_FOLLOWUP;
     case REFERENCE_CHECK;
     case ADDITIONAL_ASSESSMENT;
+    case APPLICATION_SCREENING;
 }
