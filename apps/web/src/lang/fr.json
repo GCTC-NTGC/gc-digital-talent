@@ -7159,6 +7159,10 @@
     "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
   },
+  "ilZlfH": {
+    "defaultMessage": "{count, plural, =0 {0 applicants au total} =1 {1 applicant au total} other {# applicants au total}}",
+    "description": "The number of applicants to a specific process"
+  },
   "inxVq8": {
     "defaultMessage": "Vous êtes sur le point de supprimer le nom d'utilisateur suivant de la plateforme :",
     "description": "Lead in text for the delete user form."
