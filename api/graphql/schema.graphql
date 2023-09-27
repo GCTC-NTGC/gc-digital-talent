@@ -1690,11 +1690,11 @@ type Mutation {
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update @guard @can(ability: "update")
+  ): AssessmentStep @update @guard @can(ability: "update", find: "id")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard
-    @can(ability: "update")
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql
