@@ -6533,10 +6533,6 @@
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
   },
-  "fMcKtJ": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Text to cancel changes to a form"
-  },
   "fNYEBT": {
     "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
     "description": "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions"
