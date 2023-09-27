@@ -4,14 +4,18 @@ export function hasAllEmptyFields({
   language,
   securityClearance,
   location,
+  isRemote,
 }: Pool): boolean {
-  return !!(!language && !securityClearance && !location);
+  const hasLocation = isRemote || (location?.en && location.fr);
+  return !!(!language && !securityClearance && !hasLocation);
 }
 
 export function hasEmptyRequiredFields({
   language,
   securityClearance,
   location,
+  isRemote,
 }: Pool): boolean {
-  return !!(!language || !securityClearance || !location);
+  const hasLocation = isRemote || location?.en || location?.fr;
+  return !!(!language || !securityClearance || !hasLocation);
 }

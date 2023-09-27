@@ -56,6 +56,21 @@ const messages = defineMessages({
     id: "MotQKq",
     description: "Label for a process' French work tasks",
   },
+  languageRequirement: {
+    defaultMessage: "Language requirement",
+    id: "9LgnbB",
+    description: "Label for a process' language requirement",
+  },
+  securityRequirement: {
+    defaultMessage: "Security requirement",
+    id: "vgrRuU",
+    description: "Label for a process' security clearance requirement",
+  },
+  location: {
+    defaultMessage: "Location",
+    id: "7VCuZQ",
+    description: "Label for a process' location requirement",
+  },
 });
 
 export default messages;

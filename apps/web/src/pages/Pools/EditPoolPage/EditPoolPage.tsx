@@ -29,6 +29,7 @@ import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/cl
 import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
+import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -44,7 +45,7 @@ import WorkTasksSection, {
 } from "./components/WorkTasksSection/WorkTasksSection";
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
-} from "./components/OtherRequirementsSection";
+} from "./components/OtherRequirementsSection/OtherRequirementsSection";
 import StatusSection from "./components/StatusSection";
 import EssentialSkillsSection, {
   type EssentialSkillsSubmitData,
@@ -278,11 +279,12 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={sectionMetadata.otherRequirements.id}
-                >
-                  {sectionMetadata.otherRequirements.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.otherRequirements.title}
+                  status={otherRequirementsError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.otherRequirements.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
@@ -365,11 +367,16 @@ export const EditPoolForm = ({
                 sectionMetadata={sectionMetadata.assetSkills}
                 onSave={onSave}
               />
-              <OtherRequirementsSection
-                pool={pool}
-                sectionMetadata={sectionMetadata.otherRequirements}
-                onSave={onSave}
-              />
+              <TableOfContents.Section
+                id={sectionMetadata.otherRequirements.id}
+              >
+                <OtherRequirementsSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.otherRequirements}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+
               <ScreeningQuestions
                 pool={pool}
                 sectionMetadata={sectionMetadata.screeningQuestions}
