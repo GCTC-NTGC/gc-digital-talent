@@ -22,6 +22,7 @@ export type SectionKey =
   | "workTasks"
   | "essentialSkills"
   | "assetSkills"
+  | "educationRequirements"
   | "otherRequirements"
   | "screeningQuestions"
   | "whatToExpect"

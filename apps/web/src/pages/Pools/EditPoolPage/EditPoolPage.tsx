@@ -54,6 +54,7 @@ import EssentialSkillsSection, {
 import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
+import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import ScreeningQuestions, {
   type ScreeningQuestionsSubmitData,
 } from "./components/ScreeningQuestions";
@@ -180,6 +181,15 @@ export const EditPoolForm = ({
         id: "m/Ch5y",
         description:
           "Shorter version of the title  for the pool essential skills",
+      }),
+    },
+    educationRequirements: {
+      id: "education-requirements",
+      hasError: false, // Optional section
+      title: intl.formatMessage({
+        defaultMessage: "Education requirements",
+        id: "mWJOIX",
+        description: "Sub title for the process' education requirements",
       }),
     },
     otherRequirements: {
@@ -313,18 +323,31 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-              <EssentialSkillsSection
-                pool={pool}
-                skills={skills}
-                sectionMetadata={sectionMetadata.essentialSkills}
-                onSave={onSave}
-              />
-              <AssetSkillsSection
-                pool={pool}
-                skills={skills}
-                sectionMetadata={sectionMetadata.assetSkills}
-                onSave={onSave}
-              />
+              <TableOfContents.Section id={sectionMetadata.essentialSkills.id}>
+                <EssentialSkillsSection
+                  pool={pool}
+                  skills={skills}
+                  sectionMetadata={sectionMetadata.essentialSkills}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.assetSkills.id}>
+                <AssetSkillsSection
+                  pool={pool}
+                  skills={skills}
+                  sectionMetadata={sectionMetadata.assetSkills}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={sectionMetadata.educationRequirements.id}
+              >
+                <EducationRequirementsSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.educationRequirements}
+                  changeTargetId={sectionMetadata.poolName.id}
+                />
+              </TableOfContents.Section>
               <TableOfContents.Section
                 id={sectionMetadata.otherRequirements.id}
               >

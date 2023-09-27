@@ -53,7 +53,7 @@ const EssentialSkillsSection = ({
   });
 
   return (
-    <div>
+    <>
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -70,7 +70,7 @@ const EssentialSkillsSection = ({
         onSave={handleSave}
         disableAdd={formDisabled}
       />
-    </div>
+    </>
   );
 };
 

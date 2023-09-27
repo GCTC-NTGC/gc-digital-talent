@@ -50,7 +50,7 @@ const AssetSkillsSection = ({
   });
 
   return (
-    <div>
+    <>
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
@@ -67,7 +67,7 @@ const AssetSkillsSection = ({
         onSave={handleSave}
         disableAdd={formDisabled}
       />
-    </div>
+    </>
   );
 };
 
