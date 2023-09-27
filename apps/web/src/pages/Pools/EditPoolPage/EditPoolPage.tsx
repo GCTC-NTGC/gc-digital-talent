@@ -56,12 +56,12 @@ import AssetSkillsSection, {
 import ScreeningQuestions, {
   type ScreeningQuestionsSubmitData,
 } from "./components/ScreeningQuestions";
+import SpecialNoteSection, {
+  SpecialNoteSubmitData,
+} from "./components/SpecialNoteSection/SpecialNoteSection";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
-import SpecialNoteSection, {
-  SpecialNoteSubmitData,
-} from "./components/SpecialNoteSection";
 import EditPoolContext from "./components/EditPoolContext";
 import useMutations from "./hooks/useMutations";
 
@@ -272,9 +272,12 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.specialNote.id}>
-                  {sectionMetadata.specialNote.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.specialNote.title}
+                  status="success"
+                  scrollTo={sectionMetadata.specialNote.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <StatusItem
@@ -356,11 +359,13 @@ export const EditPoolForm = ({
                 sectionMetadata={sectionMetadata.screeningQuestions}
                 onSave={onSave}
               />
-              <SpecialNoteSection
-                pool={pool}
-                sectionMetadata={sectionMetadata.specialNote}
-                onSave={onSave}
-              />
+              <TableOfContents.Section id={sectionMetadata.specialNote.id}>
+                <SpecialNoteSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.specialNote}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
               <TableOfContents.Section id={sectionMetadata.whatToExpect.id}>
                 <WhatToExpectSection
                   pool={pool}

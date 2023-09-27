@@ -81,6 +81,16 @@ const messages = defineMessages({
     id: "XOeFdu",
     description: "Label for a process' French what to expect after applying",
   },
+  specialNoteEn: {
+    defaultMessage: "Special note (English)",
+    id: "1/yO7f",
+    description: "Label for a process' English special note",
+  },
+  specialNoteFr: {
+    defaultMessage: "Special note (French)",
+    id: "g7RC9u",
+    description: "Label for a process' French special note",
+  },
 });
 
 export default messages;
