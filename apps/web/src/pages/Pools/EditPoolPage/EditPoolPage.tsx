@@ -32,7 +32,6 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as whatToExpectError } from "~/validators/process/whatToExpect";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
-import { hasAllEmptyFields as nonEssentialSkillsError } from "~/validators/process/nonEssentialSkills";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -262,7 +261,7 @@ export const EditPoolForm = ({
               {Object.values(sectionMetadata).map((meta) => (
                 <TableOfContents.ListItem key={meta.id}>
                   <StatusItem
-                    asListItem
+                    asListItem={false}
                     title={meta.shortTitle ?? meta.title}
                     status={meta.hasError ? "error" : "success"}
                     scrollTo={meta.id}

@@ -1,38 +1,20 @@
 import * as React from "react";
-import { useState } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
-import { TableOfContents, Chip, Chips } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Submit } from "@gc-digital-talent/forms";
+import { ToggleSection } from "@gc-digital-talent/ui";
 
-import {
-  PoolStatus,
-  Pool,
-  Scalars,
-  Skill,
-  UpdatePoolInput,
-} from "~/api/generated";
-import { EditPoolSectionMetadata } from "~/types/pool";
-import SkillPicker from "~/components/SkillPicker";
+import { PoolStatus, Skill, UpdatePoolInput } from "~/api/generated";
+import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
-import { useEditPoolContext } from "./EditPoolContext";
+import SkillTable from "./SkillTable";
+import { SectionProps } from "../types";
 
 export type AssetSkillsSubmitData = Pick<UpdatePoolInput, "nonessentialSkills">;
-
-type FormValues = {
-  currentAssetSkills: {
-    id: Scalars["ID"];
-  }[];
-};
-
-interface AssetSkillsSectionProps {
-  pool: Pool;
+type AssetSkillsSectionProps = SectionProps<AssetSkillsSubmitData> & {
   skills: Array<Skill>;
-  sectionMetadata: EditPoolSectionMetadata;
-  onSave: (submitData: AssetSkillsSubmitData) => void;
-}
+};
 
 const AssetSkillsSection = ({
   pool,
@@ -41,106 +23,51 @@ const AssetSkillsSection = ({
   onSave,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
-  const { isSubmitting } = useEditPoolContext();
+  const emptyRequired = hasEmptyRequiredFields(pool);
+  const { icon } = useToggleSectionInfo({
+    isNull: emptyRequired,
+    emptyRequired,
+    fallbackIcon: AcademicCapIcon,
+  });
   const defaultSkills = pool.nonessentialSkills ? pool.nonessentialSkills : [];
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      currentAssetSkills: defaultSkills.map(({ id }) => ({ id })),
-    },
-  });
-  const { fields } = useFieldArray({
-    name: "currentAssetSkills",
-    control: methods.control,
-  });
 
-  const [selectedSkills, setSelectedSkills] =
-    useState<Array<Skill>>(defaultSkills);
-
-  const handleChangeSelectedSkills = (changedSelectedSkills: Array<Skill>) => {
-    methods.setValue(
-      "currentAssetSkills",
-      changedSelectedSkills.map(({ id }) => ({ id })),
-      { shouldDirty: true, shouldTouch: true },
-    );
-    setSelectedSkills(changedSelectedSkills);
-  };
-
-  const handleSave = () => {
+  const handleSave = async (ids: string[]) => {
     onSave({
       nonessentialSkills: {
-        sync: selectedSkills.map((skill) => skill.id),
+        sync: ids,
       },
     });
-    methods.reset(
-      { currentAssetSkills: selectedSkills.map(({ id }) => ({ id })) },
-      {
-        keepDirty: false,
-      },
-    );
   };
 
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
+  const subtitle = intl.formatMessage({
+    defaultMessage:
+      "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
+    id: "AdRTuc",
+    description: "Describes selecting asset skills for a process.",
+  });
+
   return (
-    <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
+    <div>
+      <ToggleSection.Header
+        Icon={icon.icon}
+        color={icon.color}
+        level="h3"
+        size="h5"
+      >
         {sectionMetadata.title}
-      </TableOfContents.Heading>
-      {!formDisabled ? (
-        <>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Select skills that will improve the chances of quality matches with managers. These can typically be learned on the job and are not necessary to be accepted into the pool.",
-              id: "xGjm2A",
-              description:
-                "Helper message for filling in the pool asset skills",
-            })}
-          </p>
-          <SkillPicker
-            selectedSkills={selectedSkills}
-            skills={skills}
-            onUpdateSelectedSkills={handleChangeSelectedSkills}
-            headingLevel="h3"
-            skillType="asset"
-          />
-          <FormProvider {...methods}>
-            {fields.map((field, index) => (
-              <input
-                key={field.id}
-                type="hidden"
-                {...methods.register(`currentAssetSkills.${index}.id`)}
-              />
-            ))}
-            <p data-h2-margin="base(x1, 0)">
-              <Submit
-                text={intl.formatMessage({
-                  defaultMessage: "Save asset skills",
-                  id: "j4G/wv",
-                  description: "Text on a button to save the pool asset skills",
-                })}
-                color="tertiary"
-                mode="solid"
-                isSubmitting={isSubmitting}
-                onClick={methods.handleSubmit(handleSave)}
-              />
-            </p>
-          </FormProvider>
-        </>
-      ) : (
-        <Chips>
-          {selectedSkills.map((skill) => (
-            <Chip
-              key={skill.id}
-              label={getLocalizedName(skill.name, intl)}
-              color="primary"
-              mode="outline"
-            />
-          ))}
-        </Chips>
-      )}
-    </TableOfContents.Section>
+      </ToggleSection.Header>
+      <p data-h2-margin="base(x1 0)">{subtitle}</p>
+      <SkillTable
+        caption={sectionMetadata.title}
+        data={defaultSkills}
+        allSkills={skills}
+        onSave={handleSave}
+        disableAdd={formDisabled}
+      />
+    </div>
   );
 };
 
