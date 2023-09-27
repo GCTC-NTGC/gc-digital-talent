@@ -495,7 +495,6 @@ export const Home = ({ latestPool }: HomeProps) => {
         </div>
       </div>
       {/* Testimonial section */}
-      {/* TODO */}
       <div
         data-h2-layer="base(1, relative)"
         data-h2-margin="p-tablet(x2, 0, 0, 0)"
@@ -505,6 +504,13 @@ export const Home = ({ latestPool }: HomeProps) => {
           backgroundSize: "cover",
           backgroundPosition: "right 10% center",
         }}
+        role="img"
+        aria-label={intl.formatMessage({
+          defaultMessage: "Talking stick.",
+          id: "smmTTq",
+          description:
+            "Indigenous Apprenticeship quote background image text alternative",
+        })}
       >
         <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
@@ -522,7 +528,6 @@ export const Home = ({ latestPool }: HomeProps) => {
         </div>
       </div>
       {/* Application call to action section */}
-      {/* TODO */}
       <div
         data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
         style={{
@@ -530,6 +535,12 @@ export const Home = ({ latestPool }: HomeProps) => {
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
+        role="img"
+        aria-label={intl.formatMessage({
+          defaultMessage: "Traditional Métis sash",
+          id: "g6Atld",
+          description: "Indigenous Apprenticeship sash image text alternative",
+        })}
       >
         <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
           <div>
