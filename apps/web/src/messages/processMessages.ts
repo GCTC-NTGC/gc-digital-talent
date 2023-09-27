@@ -31,6 +31,31 @@ const messages = defineMessages({
     id: "ysKXVP",
     description: "Label for a process' publishing group",
   },
+  closingDate: {
+    defaultMessage: "Closing date",
+    id: "CQxGrS",
+    description: "Label for a process' closing date",
+  },
+  yourImpactEn: {
+    defaultMessage: "Your impact (English)",
+    id: "pmCge3",
+    description: "Label for a process' English impact",
+  },
+  yourImpactFr: {
+    defaultMessage: "Your impact (French)",
+    id: "uMU2Yg",
+    description: "Label for a process' French impact",
+  },
+  keyTasksEn: {
+    defaultMessage: "Work tasks (English)",
+    id: "0k6j4V",
+    description: "Label for a process' English work tasks",
+  },
+  keyTasksFr: {
+    defaultMessage: "Work tasks (French)",
+    id: "MotQKq",
+    description: "Label for a process' French work tasks",
+  },
 });
 
 export default messages;

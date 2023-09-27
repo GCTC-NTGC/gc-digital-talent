@@ -3,73 +3,33 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
-import { ToggleSection, Well } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getLocalizedName,
-  getPoolStream,
-  getPublishingGroup,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import {
-  Input,
-  Select,
-  Submit,
-  Option,
-  enumToOptions,
-} from "@gc-digital-talent/forms";
+import { ToggleSection } from "@gc-digital-talent/ui";
+import { getPublishingGroup, uiMessages } from "@gc-digital-talent/i18n";
+import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
-import {
-  PoolStatus,
-  Classification,
-  LocalizedString,
-  Maybe,
-  Pool,
-  PoolStream,
-  Scalars,
-  UpdatePoolInput,
-} from "~/api/generated";
+import { PoolStatus, Classification, Maybe } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/process/classification";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { EditPoolSectionMetadata } from "~/types/pool";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
+import {
+  FormValues,
+  PoolNameSubmitData,
+  dataToFormValues,
+  formValuesToSubmitData,
+  getClassificationOptions,
+  getStreamOptions,
+} from "./utils";
+import { SectionProps } from "../../types";
 
-type FormValues = {
-  classification?: Classification["id"];
-  stream?: PoolStream;
-  specificTitleEn?: LocalizedString["en"];
-  specificTitleFr?: LocalizedString["fr"];
-  processNumber?: string;
-  publishingGroup: Maybe<PublishingGroup>;
-};
-
-export type PoolNameSubmitData = Pick<
-  UpdatePoolInput,
-  "classifications" | "name"
->;
-
-interface PoolNameSectionProps {
-  pool: Pool;
+type PoolNameSectionProps = SectionProps<PoolNameSubmitData> & {
   classifications: Array<Maybe<Classification>>;
-  sectionMetadata: EditPoolSectionMetadata;
-  onSave: (submitData: PoolNameSubmitData) => Promise<void>;
-}
-
-const firstId = (
-  collection: Maybe<Maybe<Classification>[]>,
-): Scalars["ID"] | undefined => {
-  if (!collection) return undefined;
-
-  if (collection.length < 1) return undefined;
-
-  return collection[0]?.id;
 };
 
 const PoolNameSection = ({
@@ -88,37 +48,13 @@ const PoolNameSection = ({
     fallbackIcon: TagIcon,
   });
 
-  const dataToFormValues = (initialData: Pool): FormValues => ({
-    classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
-    stream: initialData.stream ?? undefined,
-    specificTitleEn: initialData.name?.en ?? "",
-    specificTitleFr: initialData.name?.fr ?? "",
-    processNumber: initialData.processNumber ?? "",
-    publishingGroup: initialData.publishingGroup,
-  });
-
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit } = methods;
 
   const handleSave = async (formValues: FormValues) => {
-    const data = {
-      classifications: {
-        sync: formValues.classification ? [formValues.classification] : [],
-      },
-      stream: formValues.stream ? formValues.stream : undefined,
-      name: {
-        en: formValues.specificTitleEn,
-        fr: formValues.specificTitleFr,
-      },
-      processNumber: formValues.processNumber ? formValues.processNumber : null,
-      publishingGroup: formValues.publishingGroup
-        ? formValues.publishingGroup
-        : undefined, // can't be set to null, assume not updating if empty
-    };
-
-    await onSave(data).then(() => {
+    await onSave(formValuesToSubmitData(formValues)).then(() => {
       methods.reset(formValues, {
         keepDirty: false,
       });
@@ -126,35 +62,19 @@ const PoolNameSection = ({
     });
   };
 
-  const classificationOptions: Option[] = classifications
-    .filter(notEmpty)
-    .map(({ id, group, level, name }) => ({
-      value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
-
-  const streamOptions: Option[] = enumToOptions(PoolStream).map(
-    ({ value }) => ({
-      value,
-      label: intl.formatMessage(getPoolStream(value)),
-    }),
-  );
-
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:
       "Select the classification intended for this recruitment process.",
-    id: "fvZfiB",
-    description:
-      "Describes what the selecting a target classification for a process.",
+    id: "7BMnFp",
+    description: "Describes selecting a target classification for a process.",
   });
 
   return (
     <ToggleSection.Root
-      id={sectionMetadata.id}
+      id={`${sectionMetadata.id}-form`}
       open={isEditing}
       onOpenChange={setIsEditing}
     >
@@ -172,19 +92,6 @@ const PoolNameSection = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
-      {pool && emptyRequired && (
-        <Well color="error">
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "You are missing required pool name and target classification information.",
-              id: "+pZkyc",
-              description:
-                "Error message displayed when a users pool name and target classification is incomplete",
-            })}
-          </p>
-        </Well>
-      )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -218,7 +125,7 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={classificationOptions}
+                  options={getClassificationOptions(classifications, intl)}
                   disabled={formDisabled}
                 />
                 <Select
@@ -236,7 +143,7 @@ const PoolNameSection = ({
                     description:
                       "Placeholder displayed on the pool form classification field.",
                   })}
-                  options={streamOptions}
+                  options={getStreamOptions(intl)}
                   disabled={formDisabled}
                 />
                 <Input
@@ -330,3 +237,4 @@ const PoolNameSection = ({
 };
 
 export default PoolNameSection;
+export type { PoolNameSubmitData };

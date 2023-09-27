@@ -25,20 +25,23 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
+import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
+import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
+import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 
-import { hasEmptyRequiredFields as poolNameError } from "../../../validators/process/classification";
 import PoolNameSection, {
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
   type ClosingDateSubmitData,
-} from "./components/ClosingDateSection";
+} from "./components/ClosingDateSection/ClosingDateSection";
 import YourImpactSection, {
   type YourImpactSubmitData,
-} from "./components/YourImpactSection";
+} from "./components/YourImpactSection/YourImpactSection";
 import WorkTasksSection, {
   type WorkTasksSubmitData,
-} from "./components/WorkTasksSection";
+} from "./components/WorkTasksSection/WorkTasksSection";
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
 } from "./components/OtherRequirementsSection";
@@ -239,19 +242,28 @@ export const EditPoolForm = ({
                 />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.closingDate.id}>
-                  {sectionMetadata.closingDate.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.closingDate.title}
+                  status={closingDateError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.closingDate.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.yourImpact.id}>
-                  {sectionMetadata.yourImpact.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.yourImpact.title}
+                  status={yourImpactError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.yourImpact.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.workTasks.id}>
-                  {sectionMetadata.workTasks.title}
-                </TableOfContents.AnchorLink>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.workTasks.title}
+                  status={keyTasksError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.workTasks.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink
@@ -307,70 +319,84 @@ export const EditPoolForm = ({
             </Link>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <PoolNameSection
-              pool={pool}
-              classifications={classifications}
-              sectionMetadata={sectionMetadata.poolName}
-              onSave={onSave}
-            />
-            <ClosingDateSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.closingDate}
-              onSave={onSave}
-            />
-            <YourImpactSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.yourImpact}
-              onSave={onSave}
-            />
-            <WorkTasksSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.workTasks}
-              onSave={onSave}
-            />
-            <EssentialSkillsSection
-              pool={pool}
-              skills={skills}
-              sectionMetadata={sectionMetadata.essentialSkills}
-              onSave={onSave}
-            />
-            <AssetSkillsSection
-              pool={pool}
-              skills={skills}
-              sectionMetadata={sectionMetadata.assetSkills}
-              onSave={onSave}
-            />
-            <OtherRequirementsSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.otherRequirements}
-              onSave={onSave}
-            />
-            <ScreeningQuestions
-              pool={pool}
-              sectionMetadata={sectionMetadata.screeningQuestions}
-              onSave={onSave}
-            />
-            <WhatToExpectSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.whatToExpect}
-              onSave={onSave}
-            />
-            <SpecialNoteSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.specialNote}
-              onSave={onSave}
-            />
-            <StatusSection
-              pool={pool}
-              sectionMetadata={sectionMetadata.status}
-              onPublish={onPublish}
-              onDelete={onDelete}
-              onClose={onClose}
-              onExtend={onExtend}
-              onArchive={onArchive}
-              onDuplicate={onDuplicate}
-              onUnarchive={onUnarchive}
-            />
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x2 0)"
+            >
+              <TableOfContents.Section id={sectionMetadata.poolName.id}>
+                <PoolNameSection
+                  pool={pool}
+                  classifications={classifications}
+                  sectionMetadata={sectionMetadata.poolName}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.closingDate.id}>
+                <ClosingDateSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.closingDate}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.yourImpact.id}>
+                <YourImpactSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.yourImpact}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.workTasks.id}>
+                <WorkTasksSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.workTasks}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <EssentialSkillsSection
+                pool={pool}
+                skills={skills}
+                sectionMetadata={sectionMetadata.essentialSkills}
+                onSave={onSave}
+              />
+              <AssetSkillsSection
+                pool={pool}
+                skills={skills}
+                sectionMetadata={sectionMetadata.assetSkills}
+                onSave={onSave}
+              />
+              <OtherRequirementsSection
+                pool={pool}
+                sectionMetadata={sectionMetadata.otherRequirements}
+                onSave={onSave}
+              />
+              <ScreeningQuestions
+                pool={pool}
+                sectionMetadata={sectionMetadata.screeningQuestions}
+                onSave={onSave}
+              />
+              <WhatToExpectSection
+                pool={pool}
+                sectionMetadata={sectionMetadata.whatToExpect}
+                onSave={onSave}
+              />
+              <SpecialNoteSection
+                pool={pool}
+                sectionMetadata={sectionMetadata.specialNote}
+                onSave={onSave}
+              />
+              <StatusSection
+                pool={pool}
+                sectionMetadata={sectionMetadata.status}
+                onPublish={onPublish}
+                onDelete={onDelete}
+                onClose={onClose}
+                onExtend={onExtend}
+                onArchive={onArchive}
+                onDuplicate={onDuplicate}
+                onUnarchive={onUnarchive}
+              />
+            </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
