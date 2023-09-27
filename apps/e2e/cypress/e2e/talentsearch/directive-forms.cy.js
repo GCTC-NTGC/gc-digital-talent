@@ -10,7 +10,7 @@ describe("Directive Forms Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "GetDigitalContractingQuestionnaire");
-      aliasMutation(req, "createDigitalContractingQuestionnaire");
+      aliasMutation(req, "CreateDigitalContractingQuestionnaire");
     });
   });
 
@@ -358,7 +358,7 @@ describe("Directive Forms Tests", () => {
 
     cy.findByRole("button", { name: "Submit" }).click();
 
-    cy.wait("@gqlcreateDigitalContractingQuestionnaireMutation")
+    cy.wait("@gqlCreateDigitalContractingQuestionnaireMutation")
       .its("response.body.data.createDigitalContractingQuestionnaire.id")
       .as("questionnaireId");
 
@@ -739,7 +739,7 @@ describe("Directive Forms Tests", () => {
 
     cy.findByRole("button", { name: "Submit" }).click();
 
-    cy.wait("@gqlcreateDigitalContractingQuestionnaireMutation")
+    cy.wait("@gqlCreateDigitalContractingQuestionnaireMutation")
       .its("response.body.data.createDigitalContractingQuestionnaire.id")
       .as("questionnaireId");
 
