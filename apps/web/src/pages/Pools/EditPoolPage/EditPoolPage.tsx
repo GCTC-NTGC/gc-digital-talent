@@ -47,7 +47,6 @@ import WorkTasksSection, {
 import OtherRequirementsSection, {
   type OtherRequirementsSubmitData,
 } from "./components/OtherRequirementsSection/OtherRequirementsSection";
-import StatusSection from "./components/StatusSection";
 import EssentialSkillsSection, {
   type EssentialSkillsSubmitData,
 } from "./components/EssentialSkillsSection";
@@ -83,13 +82,6 @@ export interface EditPoolFormProps {
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
-  onPublish: () => void;
-  onDelete: () => void;
-  onClose: () => void;
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
-  onArchive: () => void;
-  onDuplicate: () => void;
-  onUnarchive: () => void;
 }
 
 export const EditPoolForm = ({
@@ -97,13 +89,6 @@ export const EditPoolForm = ({
   classifications,
   skills,
   onSave,
-  onPublish,
-  onDelete,
-  onDuplicate,
-  onClose,
-  onExtend,
-  onArchive,
-  onUnarchive,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -200,14 +185,6 @@ export const EditPoolForm = ({
         defaultMessage: "Special note for this process",
         id: "ye0xFe",
         description: "Sub title for the special note section",
-      }),
-    },
-    status: {
-      id: "status",
-      title: intl.formatMessage({
-        defaultMessage: "Advertisement status",
-        id: "xkxwfP",
-        description: "Sub title for the pool advertisement status",
       }),
     },
   };
@@ -307,11 +284,6 @@ export const EditPoolForm = ({
                   scrollTo={sectionMetadata.whatToExpect.id}
                 />
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
-                  {sectionMetadata.status.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
             <Link mode="solid" href={paths.poolView(pool.id)} color="secondary">
               {intl.formatMessage({
@@ -396,18 +368,6 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-
-              <StatusSection
-                pool={pool}
-                sectionMetadata={sectionMetadata.status}
-                onPublish={onPublish}
-                onDelete={onDelete}
-                onClose={onClose}
-                onExtend={onExtend}
-                onArchive={onArchive}
-                onDuplicate={onDuplicate}
-                onUnarchive={onUnarchive}
-              />
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -488,15 +448,6 @@ export const EditPoolPage = () => {
               classifications={data.classifications.filter(notEmpty)}
               skills={data.skills.filter(notEmpty)}
               onSave={(saveData) => mutations.update(poolId, saveData)}
-              onPublish={() => mutations.publish(poolId)}
-              onDelete={() => mutations.delete(poolId)}
-              onDuplicate={() =>
-                mutations.duplicate(poolId, data.pool?.team?.id || "")
-              }
-              onClose={() => mutations.close(poolId)}
-              onExtend={(closingDate) => mutations.extend(poolId, closingDate)}
-              onArchive={() => mutations.archive(poolId)}
-              onUnarchive={() => mutations.unarchive(poolId)}
             />
           </EditPoolContext.Provider>
         ) : (
