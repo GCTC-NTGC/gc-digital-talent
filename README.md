@@ -29,6 +29,7 @@ We do several types of testing: (internal documentation linked when available)
   - **PHPUnit** (PHP)
 - _visual regression_ testing
   - **Storybook** (ReactJS components)
+    - Check the [example component directory](apps/web/src/components/Example/) for more examples.
 - _end-to-end_ testing with **Cypress** (full app in-browser)
   - See [`apps/e2e/cypress/README.md`](/apps/e2e/cypress/README.md): custom commands, usage tips, plugins, etc.
 - security checks (aka _security regression_ testing)

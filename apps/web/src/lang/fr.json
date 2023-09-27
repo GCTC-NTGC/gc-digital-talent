@@ -103,6 +103,10 @@
     "defaultMessage": "Prix",
     "description": "Title for award section"
   },
+  "+jIT2i": {
+    "defaultMessage": "Exemple",
+    "description": "Title for the example component"
+  },
   "+lSoN3": {
     "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience au cours de votre parcours professionnel.",
     "description": "Message that appears when a required skill has no experiences linked to it"

@@ -37,7 +37,9 @@ const staticDocumentsRule = {
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../src/**/*.mdx",
     "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/**/src/**/*.mdx",
   ],
   addons: [
     "@storybook/addon-a11y",
