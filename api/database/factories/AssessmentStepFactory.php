@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,7 +27,7 @@ class AssessmentStepFactory extends Factory
 
         return [
             'pool_id' => Pool::factory(),
-            'type' => 'TODO',
+            'type' => $this->faker->randomElement(AssessmentStepType::cases())->name,
             'sort_order' => $this->faker->numberBetween(1, 10),
             'title' => ['en' => $title.' EN?', 'fr' => $title.' FR?'],
         ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolSkill;
@@ -100,7 +101,7 @@ class AssessmentStepTest extends TestCase
                 [
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
-                        'type' => 'abc',
+                        'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
                         'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
@@ -110,7 +111,7 @@ class AssessmentStepTest extends TestCase
                 ]
             )
             ->assertJsonFragment([
-                'type' => 'abc',
+                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
                 'title' => [
                     'en' => 'en',
                     'fr' => 'fr',
@@ -123,7 +124,10 @@ class AssessmentStepTest extends TestCase
     public function testUpdatingAssessmentStep(): void
     {
         $assessment = AssessmentStep::factory()->create(
-            ['pool_id' => $this->pool->id]
+            [
+                'pool_id' => $this->pool->id,
+                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
+            ]
         );
 
         $this->actingAs($this->teamUser, 'api')
@@ -132,7 +136,7 @@ class AssessmentStepTest extends TestCase
                 [
                     'id' => $assessment->id,
                     'assessmentStep' => [
-                        'type' => 'abc',
+                        'type' => AssessmentStepType::PSC_EXAM->name,
                         'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
@@ -143,7 +147,7 @@ class AssessmentStepTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $assessment->id,
-                'type' => 'abc',
+                'type' => AssessmentStepType::PSC_EXAM->name,
                 'title' => [
                     'en' => 'en',
                     'fr' => 'fr',
@@ -192,7 +196,7 @@ class AssessmentStepTest extends TestCase
                 [
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
-                        'type' => 'abc',
+                        'type' => AssessmentStepType::PSC_EXAM->name,
                         'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',

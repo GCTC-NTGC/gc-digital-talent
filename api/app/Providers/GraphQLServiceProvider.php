@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
 use App\Enums\BilingualEvaluation;
@@ -566,6 +567,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'ContractingRationale',
                     'values' => array_column(ContractingRationale::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentStepType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentStepType',
+                    'values' => array_column(AssessmentStepType::cases(), 'name'),
                 ]);
             }
         );

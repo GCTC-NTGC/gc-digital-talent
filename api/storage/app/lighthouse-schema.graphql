@@ -313,7 +313,7 @@ type ScreeningQuestionResponse {
 type AssessmentStep {
   id: ID!
   pool: Pool
-  type: String
+  type: AssessmentStepType
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
@@ -1138,7 +1138,7 @@ input UpdatePoolInput {
 }
 
 input AssessmentStepInput {
-  type: String
+  type: AssessmentStepType
   sortOrder: Int
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
@@ -2119,4 +2119,16 @@ enum ContractingRationale {
   REQUIRES_INDEPENDENT
   INTELLECTUAL_PROPERTY_FACTORS
   OTHER
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  ADDITIONAL_ASSESSMENT
 }
