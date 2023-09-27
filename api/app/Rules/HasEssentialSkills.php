@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Models\ExperienceSkill;
 use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
@@ -41,11 +42,12 @@ class HasEssentialSkills implements Rule
             return true;
         }
 
-        $userSkillIds = $this->collectExperiencesSkillIds($value);
+        $experienceSkills = $this->collectExperiencesSkills($value);
 
-        $passes = $poolEssentialSkillIds->every(function ($poolEssentialSkillIds) use ($userSkillIds) {
-            return $userSkillIds->contains($poolEssentialSkillIds);
+        $passes = $poolEssentialSkillIds->every(function ($poolEssentialSkillIds) use ($experienceSkills) {
+            return $experienceSkills->firstWhere('userSkill.skill_id', $poolEssentialSkillIds);
         });
+
 
         return $passes;
     }
@@ -61,14 +63,21 @@ class HasEssentialSkills implements Rule
     }
 
     /**
-     * Collect all Experiences
+     * Collect all ExperiencesSkills
      */
-    private function collectExperiencesSkillIds($userId)
+    private function collectExperiencesSkills($userId)
     {
-        $user = User::with([
+        $userSkillIds = User::with([
             'userSkills',
-        ])->findOrFail($userId);
+        ])
+            ->findOrFail($userId)
+            ->userSkills()
+            ->pluck('id');
 
-        return $user->userSkills()->pluck('skill_id');
+        $experienceSkills = ExperienceSkill::whereHas('userSkill', function ($query) use ($userSkillIds) {
+            $query->whereIn('id', $userSkillIds);
+        })->with('userSkill')->get();
+
+        return $experienceSkills;
     }
 }
