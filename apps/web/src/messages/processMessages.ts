@@ -71,6 +71,16 @@ const messages = defineMessages({
     id: "7VCuZQ",
     description: "Label for a process' location requirement",
   },
+  whatToExpectEn: {
+    defaultMessage: "What to expect (English)",
+    id: "lNZ/UI",
+    description: "Label for a process' English what to expect after applying",
+  },
+  whatToExpectFr: {
+    defaultMessage: "What to expect (French)",
+    id: "XOeFdu",
+    description: "Label for a process' French what to expect after applying",
+  },
 });
 
 export default messages;

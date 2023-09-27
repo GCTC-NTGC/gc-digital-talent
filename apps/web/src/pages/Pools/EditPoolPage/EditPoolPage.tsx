@@ -30,6 +30,7 @@ import { hasEmptyRequiredFields as closingDateError } from "~/validators/process
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
+import { hasEmptyRequiredFields as whatToExpectError } from "~/validators/process/whatToExpect";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -58,7 +59,7 @@ import ScreeningQuestions, {
 } from "./components/ScreeningQuestions";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
-} from "./components/WhatToExpectSection";
+} from "./components/WhatToExpectSection/WhatToExpectSection";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection";
@@ -294,16 +295,17 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={sectionMetadata.whatToExpect.id}
-                >
-                  {sectionMetadata.whatToExpect.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.specialNote.id}>
                   {sectionMetadata.specialNote.title}
                 </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <StatusItem
+                  asListItem
+                  title={sectionMetadata.whatToExpect.title}
+                  status={whatToExpectError(pool) ? "error" : "success"}
+                  scrollTo={sectionMetadata.whatToExpect.id}
+                />
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
@@ -382,16 +384,19 @@ export const EditPoolForm = ({
                 sectionMetadata={sectionMetadata.screeningQuestions}
                 onSave={onSave}
               />
-              <WhatToExpectSection
-                pool={pool}
-                sectionMetadata={sectionMetadata.whatToExpect}
-                onSave={onSave}
-              />
               <SpecialNoteSection
                 pool={pool}
                 sectionMetadata={sectionMetadata.specialNote}
                 onSave={onSave}
               />
+              <TableOfContents.Section id={sectionMetadata.whatToExpect.id}>
+                <WhatToExpectSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.whatToExpect}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+
               <StatusSection
                 pool={pool}
                 sectionMetadata={sectionMetadata.status}
