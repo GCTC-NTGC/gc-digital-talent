@@ -201,13 +201,19 @@ export const EditPoolForm = ({
         description: "Sub title for the pool other requirements",
       }),
     },
-    screeningQuestions: {
-      id: "screening-questions",
+    specialNote: {
+      id: "special-note",
       hasError: false, // Optional
       title: intl.formatMessage({
-        defaultMessage: "Screening questions",
-        id: "c+QwbR",
-        description: "Subtitle for the pool screening questions",
+        defaultMessage: "Special note for this process",
+        id: "ye0xFe",
+        description: "Sub title for the special note section",
+      }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Special note",
+        id: "loQ7wy",
+        description:
+          "Shorter version of the title for the special note section",
       }),
     },
     whatToExpect: {
@@ -225,19 +231,13 @@ export const EditPoolForm = ({
           "Shorter version of the title for the what to expect section",
       }),
     },
-    specialNote: {
-      id: "special-note",
+    screeningQuestions: {
+      id: "screening-questions",
       hasError: false, // Optional
       title: intl.formatMessage({
-        defaultMessage: "Special note for this process",
-        id: "ye0xFe",
-        description: "Sub title for the special note section",
-      }),
-      shortTitle: intl.formatMessage({
-        defaultMessage: "Special note",
-        id: "loQ7wy",
-        description:
-          "Shorter version of the title for the special note section",
+        defaultMessage: "Screening questions",
+        id: "c+QwbR",
+        description: "Subtitle for the pool screening questions",
       }),
     },
   };
