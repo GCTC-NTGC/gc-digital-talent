@@ -1,13 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
-
 export interface SkipLinkProps {
   href?: string;
+  children?: React.ReactNode;
 }
 
-const SkipLink = ({ href = "#main" }: SkipLinkProps) => {
+const SkipLink = ({ href = "#main", children }: SkipLinkProps) => {
   const intl = useIntl();
 
   return (
@@ -25,7 +24,12 @@ const SkipLink = ({ href = "#main" }: SkipLinkProps) => {
       data-h2-width="base:focus-visible(auto)"
       data-h2-z-index="base:focus-visible(9999)"
     >
-      {intl.formatMessage(navigationMessages.skipLink)}
+      {children ||
+        intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          id: "A2ycww",
+          description: "Default Skip to main content message.",
+        })}
     </a>
   );
 };

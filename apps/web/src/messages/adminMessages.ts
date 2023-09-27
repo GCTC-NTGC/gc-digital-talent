@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
+  id: {
+    defaultMessage: "Id",
+    id: "GplLic",
+    description: "Title for unique ID of a resource",
+  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",

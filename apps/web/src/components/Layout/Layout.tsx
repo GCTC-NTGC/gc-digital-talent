@@ -2,13 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
-import { MenuLink, SkipLink } from "@gc-digital-talent/ui";
+import { MenuLink } from "@gc-digital-talent/ui";
 import {
   useAuthentication,
   useAuthorization,
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu/NavMenu";
@@ -22,9 +23,11 @@ import authMessages from "~/messages/authMessages";
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import MaintenanceBanner from "./MaintenanceBanner";
+import SkipLink from "./SkipLink";
 
 const Layout = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const paths = useRoutes();
   useLayoutTheme("default");
 
@@ -117,7 +120,7 @@ const Layout = () => {
 
   return (
     <>
-      <Favicon project="digital-talent" />
+      <Favicon locale={locale} project="digital-talent" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "GC Digital Talent",

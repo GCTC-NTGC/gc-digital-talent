@@ -17,6 +17,7 @@ import {
   Pill,
   Link,
   StandardAccordionHeader,
+  Alert,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -100,6 +101,7 @@ export const PoolPoster = ({
   }
   const fullTitle = getFullPoolTitleLabel(intl, pool);
 
+  const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
 
@@ -154,6 +156,15 @@ export const PoolPoster = ({
         defaultMessage: "About the opportunity",
         id: "WDsKjD",
         description: "Title for a summary of a pool advertisement",
+      }),
+    },
+    specialNote: {
+      id: "special-note-section",
+      title: intl.formatMessage({
+        defaultMessage: "Special note for this process",
+        id: "4yFgQW",
+        description:
+          "Title for the special note for this process section of a pool advertisement",
       }),
     },
     impactTasks: {
@@ -251,6 +262,13 @@ export const PoolPoster = ({
                   {sections.summary.linkText}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              {showSpecialNote && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.specialNote.id}>
+                    {sections.specialNote.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               {showImpactTasks && (
                 <TableOfContents.ListItem>
                   <TableOfContents.AnchorLink id={sections.impactTasks.id}>
@@ -304,13 +322,19 @@ export const PoolPoster = ({
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
                 data-h2-margin="base(0, 0, x1, 0)"
+                data-h2-flex-wrap="base(wrap)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading data-h2-margin="base(0)">
                     {sections.summary.title}
                   </TableOfContents.Heading>
                 </div>
-                <div data-h2-flex-shrink="base(0)">{applyBtn}</div>
+                <div
+                  data-h2-flex-shrink="base(0)"
+                  data-h2-margin-top="base(x.75) p-tablet(0)"
+                >
+                  {applyBtn}
+                </div>
               </div>
               <Accordion.Root mode="simple" type="single" collapsible>
                 <Accordion.Item value="when">
@@ -423,6 +447,23 @@ export const PoolPoster = ({
                 />
               </div>
             </TableOfContents.Section>
+            {showSpecialNote && (
+              <TableOfContents.Section id={sections.specialNote.id}>
+                <div>
+                  <Alert.Root type="info" data-h2-shadow="base(none)">
+                    <Alert.Title>
+                      {intl.formatMessage({
+                        defaultMessage: "Special note for this process",
+                        id: "cbwWa0",
+                        description:
+                          "Heading for a special note in pool advertisement.",
+                      })}
+                    </Alert.Title>
+                    <p>{getLocalizedName(pool.specialNote, intl)}</p>
+                  </Alert.Root>
+                </div>
+              </TableOfContents.Section>
+            )}
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
                 <TableOfContents.Heading>

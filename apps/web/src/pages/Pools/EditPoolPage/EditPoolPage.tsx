@@ -52,6 +52,9 @@ import ScreeningQuestions, {
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection";
+import SpecialNoteSection, {
+  SpecialNoteSubmitData,
+} from "./components/SpecialNoteSection";
 import EditPoolContext from "./components/EditPoolContext";
 
 export type PoolSubmitData =
@@ -63,6 +66,7 @@ export type PoolSubmitData =
   | WorkTasksSubmitData
   | YourImpactSubmitData
   | WhatToExpectSubmitData
+  | SpecialNoteSubmitData
   | ScreeningQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -168,6 +172,14 @@ export const EditPoolForm = ({
         description: "Sub title for the what to expect section",
       }),
     },
+    specialNote: {
+      id: "special-note",
+      title: intl.formatMessage({
+        defaultMessage: "Special note for this process",
+        id: "ye0xFe",
+        description: "Sub title for the special note section",
+      }),
+    },
     status: {
       id: "status",
       title: intl.formatMessage({
@@ -245,6 +257,11 @@ export const EditPoolForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sectionMetadata.specialNote.id}>
+                  {sectionMetadata.specialNote.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sectionMetadata.status.id}>
                   {sectionMetadata.status.title}
                 </TableOfContents.AnchorLink>
@@ -312,6 +329,11 @@ export const EditPoolForm = ({
             <WhatToExpectSection
               pool={pool}
               sectionMetadata={sectionMetadata.whatToExpect}
+              onSave={onSave}
+            />
+            <SpecialNoteSection
+              pool={pool}
+              sectionMetadata={sectionMetadata.specialNote}
               onSave={onSave}
             />
             <StatusSection
