@@ -11,12 +11,12 @@ import {
   getLocalizedName,
   getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Pool, useAllPoolsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
@@ -24,7 +24,6 @@ import {
   classificationAccessor,
   classificationSortFn,
   classificationsCell,
-  dateCell,
   emailLinkAccessor,
   fullNameCell,
   ownerEmailAccessor,
@@ -173,31 +172,29 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         ),
     }),
     columnHelper.accessor(
-      ({ createdDate }) =>
-        createdDate ? parseDateTimeUtc(createdDate).valueOf() : null,
+      ({ createdDate }) => accessors.date(createdDate, intl),
       {
         id: "createdDate",
         enableColumnFilter: false,
+        sortingFn: "datetime",
         header: intl.formatMessage({
           defaultMessage: "Created",
           id: "zAqJMe",
           description: "Title displayed on the Pool table Date Created column",
         }),
-        cell: ({ row: { original: pool } }) => dateCell(pool.createdDate, intl),
       },
     ),
     columnHelper.accessor(
-      ({ updatedDate }) =>
-        updatedDate ? parseDateTimeUtc(updatedDate).valueOf() : null,
+      ({ updatedDate }) => accessors.date(updatedDate, intl),
       {
         id: "updatedDate",
         enableColumnFilter: false,
+        sortingFn: "datetime",
         header: intl.formatMessage({
           defaultMessage: "Updated",
           id: "R2sSy9",
           description: "Title displayed for the User table Date Updated column",
         }),
-        cell: ({ row: { original: pool } }) => dateCell(pool.updatedDate, intl),
       },
     ),
   ] as ColumnDef<Pool>[];

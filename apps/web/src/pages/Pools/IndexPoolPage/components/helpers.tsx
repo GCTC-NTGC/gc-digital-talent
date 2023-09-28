@@ -71,18 +71,6 @@ export function viewTeamLinkCell(
   ) : null;
 }
 
-export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
-  return date ? (
-    <span>
-      {formatDate({
-        date: parseDateTimeUtc(date),
-        formatString: "PPP p",
-        intl,
-      })}
-    </span>
-  ) : null;
-}
-
 export function fullNameCell(pool: Pool, intl: IntlShape) {
   return (
     <span>
