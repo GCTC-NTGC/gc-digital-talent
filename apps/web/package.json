@@ -45,7 +45,7 @@
     "@gc-digital-talent/toast": "*",
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "^2.0.18",
-    "@tanstack/react-table": "^8.9.7",
+    "@tanstack/react-table": "^8.10.3",
     "@microsoft/applicationinsights-react-js": "^17.0.0",
     "@microsoft/applicationinsights-web": "^3.0.2",
     "date-fns": "^2.30.0",
