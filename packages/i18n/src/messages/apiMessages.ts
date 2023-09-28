@@ -199,10 +199,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Message displayed when user attempts to apply to a pool with an incomplete profile",
     },
     MISSING_ESSENTIAL_SKILLS: {
-      defaultMessage: "Missing essential skills",
-      id: "H8eisr",
+      defaultMessage:
+        "Please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it.",
+      id: "lXgeJr",
       description:
-        "Message displayed when user attempts to apply to a pool without an essential skill",
+        "Message displayed when user attempts to apply to a pool without connecting all essential skills.",
     },
     MISSING_LANGUAGE_REQUIREMENTS: {
       defaultMessage: "There is a missing language requirement",

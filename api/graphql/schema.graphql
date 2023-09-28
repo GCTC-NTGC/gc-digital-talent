@@ -1394,6 +1394,11 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+
+  # Used to validate essential skills
+  applicationId: ID
+    @rename(attribute: "id")
+    @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
 type Mutation {

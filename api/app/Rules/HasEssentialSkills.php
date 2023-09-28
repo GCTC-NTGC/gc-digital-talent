@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Models\ExperienceSkill;
-use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use Database\Helpers\ApiEnums;
@@ -11,6 +11,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class HasEssentialSkills implements Rule
 {
+    private $application;
     private $pool;
 
     /**
@@ -18,9 +19,9 @@ class HasEssentialSkills implements Rule
      *
      * @return void
      */
-    public function __construct(Pool $pool)
+    public function __construct(PoolCandidate $application)
     {
-        $this->pool = $pool;
+        $this->application = $application;
     }
 
     /**
@@ -32,6 +33,8 @@ class HasEssentialSkills implements Rule
      */
     public function passes($attribute, $value)
     {
+        $this->application = PoolCandidate::findOrFail($value) ?? $this->application;
+        $this->pool = $this->application->pool;
 
         $poolEssentialSkillIds = $this->pool
             ->essentialSkills()->where(function ($query) {
@@ -42,7 +45,7 @@ class HasEssentialSkills implements Rule
             return true;
         }
 
-        $experienceSkills = $this->collectExperiencesSkills($value);
+        $experienceSkills = $this->collectExperiencesSkills($this->application->user_id);
 
         $passes = $poolEssentialSkillIds->every(function ($poolEssentialSkillIds) use ($experienceSkills) {
             return $experienceSkills->firstWhere('userSkill.skill_id', $poolEssentialSkillIds);

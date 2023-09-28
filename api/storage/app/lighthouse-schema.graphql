@@ -1159,6 +1159,7 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  applicationId: ID
 }
 
 type DigitalContractingPersonnelSkill {
