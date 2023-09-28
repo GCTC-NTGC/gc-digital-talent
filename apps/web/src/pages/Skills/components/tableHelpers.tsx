@@ -25,11 +25,14 @@ export function skillFamiliesCell(
   skillFamilies: Maybe<Maybe<SkillFamily>[]>,
   intl: IntlShape,
 ) {
-  const families = skillFamilies?.filter(notEmpty).map((family) => (
-    <Pill color="primary" mode="outline" key={family?.key}>
-      {getLocalizedName(family.name, intl)}
-    </Pill>
-  ));
+  const families = skillFamilies
+    ?.filter(notEmpty)
+    .sort()
+    .map((family) => (
+      <Pill color="primary" mode="outline" key={family?.key}>
+        {getLocalizedName(family.name, intl)}
+      </Pill>
+    ));
 
   return families ? <span>{families}</span> : null;
 }
