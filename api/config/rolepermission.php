@@ -643,6 +643,9 @@ return [
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
+            'userSub' => [
+                'any' => ['update']
+            ],
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
