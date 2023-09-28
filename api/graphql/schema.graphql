@@ -1633,8 +1633,7 @@ type Mutation {
     @can(ability: "delete", find: "id")
 
   # Notifications
-  markNotificationAsRead(id: UUID!): Notification
-
+  markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
