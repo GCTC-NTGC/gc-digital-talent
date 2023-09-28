@@ -35,7 +35,7 @@
     "@tiptap/extension-link": "^2.1.8",
     "@tiptap/html": "^2.1.11",
     "@tiptap/react": "^2.1.11",
-    "@tiptap/starter-kit": "^2.1.8",
+    "@tiptap/starter-kit": "^2.1.11",
     "date-fns": "^2.30.0",
     "downshift": "^8.1.0",
     "framer-motion": "^10.16.4",
