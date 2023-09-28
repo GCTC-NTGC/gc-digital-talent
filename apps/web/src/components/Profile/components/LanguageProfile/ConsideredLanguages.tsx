@@ -2,30 +2,17 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import {
-  RadioGroup,
-  Select,
-  enumToOptions,
-  FieldLabels,
-} from "@gc-digital-talent/forms";
+import { RadioGroup, Select, FieldLabels } from "@gc-digital-talent/forms";
 import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 
-import { BilingualEvaluation, EvaluatedLanguageAbility } from "~/api/generated";
+import { BilingualEvaluation } from "~/api/generated";
 
 import {
   getBilingualEvaluationItems,
   getEstimatedAbilityOptions,
+  getEvaluatedAbilityOptions,
 } from "./utils";
-
-const EvaluatedAbilityItemsSortOrder = [
-  EvaluatedLanguageAbility.X,
-  EvaluatedLanguageAbility.A,
-  EvaluatedLanguageAbility.B,
-  EvaluatedLanguageAbility.C,
-  EvaluatedLanguageAbility.E,
-  EvaluatedLanguageAbility.P,
-];
 
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
@@ -83,13 +70,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     languageEvaluationPageLink,
   );
 
-  const evaluatedAbilityItems = enumToOptions(
-    EvaluatedLanguageAbility,
-    EvaluatedAbilityItemsSortOrder,
-  ).map(({ value }) => ({
-    value,
-    label: value,
-  }));
+  const evaluatedAbilityItems = getEvaluatedAbilityOptions(intl);
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
@@ -175,6 +156,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
             <Select
               id="writtenLevel"
@@ -190,6 +172,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
             <Select
               id="verbalLevel"
@@ -205,6 +188,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
           </div>
         </>

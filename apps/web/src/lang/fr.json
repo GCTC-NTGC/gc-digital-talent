@@ -2218,6 +2218,10 @@
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
     "description": "Description on how to use behavioural skills"
   },
+  "P3J65b": {
+    "defaultMessage": "Non évalué",
+    "description": "The not assessed language ability option"
+  },
   "C6YPk3": {
     "defaultMessage": "Postulez maintenant",
     "description": "Title for the apply button section of a pool advertisement"

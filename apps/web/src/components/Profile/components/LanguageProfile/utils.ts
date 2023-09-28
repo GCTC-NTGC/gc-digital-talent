@@ -2,7 +2,11 @@ import { IntlShape } from "react-intl";
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
-import { BilingualEvaluation, EstimatedLanguageAbility } from "~/api/generated";
+import {
+  BilingualEvaluation,
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+} from "~/api/generated";
 
 import { FormValues, PartialUser } from "./types";
 
@@ -117,6 +121,41 @@ export const getConsideredLangItems = (intl: IntlShape) => [
       defaultMessage: "Bilingual positions (English and French)",
       id: "Mu+1pI",
       description: "Message for the bilingual positions option",
+    }),
+  },
+];
+
+export const getEvaluatedAbilityOptions = (intl: IntlShape) => [
+  {
+    value: EvaluatedLanguageAbility.X,
+    label: EvaluatedLanguageAbility.X,
+  },
+  {
+    value: EvaluatedLanguageAbility.A,
+    label: EvaluatedLanguageAbility.A,
+  },
+  {
+    value: EvaluatedLanguageAbility.B,
+    label: EvaluatedLanguageAbility.B,
+  },
+  {
+    value: EvaluatedLanguageAbility.C,
+    label: EvaluatedLanguageAbility.C,
+  },
+  {
+    value: EvaluatedLanguageAbility.E,
+    label: EvaluatedLanguageAbility.E,
+  },
+  {
+    value: EvaluatedLanguageAbility.P,
+    label: EvaluatedLanguageAbility.P,
+  },
+  {
+    value: EvaluatedLanguageAbility.NotAssessed,
+    label: intl.formatMessage({
+      defaultMessage: "Not assessed",
+      id: "P3J65b",
+      description: "The not assessed language ability option",
     }),
   },
 ];
