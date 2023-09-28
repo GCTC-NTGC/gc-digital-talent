@@ -119,7 +119,7 @@ const SkillDialog = ({
       <Dialog.Trigger>
         <Button {...triggerProps} {...rest} color="secondary" />
       </Dialog.Trigger>
-      <Dialog.Content data-h2-position="base(absolute)">
+      <Dialog.Content>
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
