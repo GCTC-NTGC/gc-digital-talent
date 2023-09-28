@@ -51,13 +51,13 @@ const Template: Story = () => {
         data-h2-text-align="base(center)"
       >
         {themes.map((theme) => (
-          <div key="" data-h2={theme}>
+          <div key={theme} data-h2={theme}>
             {colors.map((color) => (
               <>
                 {modes.map((mode) => (
                   <>
                     <div
-                      key=""
+                      key={`${theme}-${mode}`}
                       {...(color === "white" && {
                         "data-h2-background-color": "base(black)",
                       })}

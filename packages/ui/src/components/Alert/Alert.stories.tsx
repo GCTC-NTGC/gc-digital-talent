@@ -26,7 +26,7 @@ const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
   ...args
 }) => {
   const Alerts = types.map((type) => (
-    <div key="">
+    <div key={type}>
       <React.Fragment key={type}>
         <Alert.Root {...args} type={type}>
           <Alert.Title>
