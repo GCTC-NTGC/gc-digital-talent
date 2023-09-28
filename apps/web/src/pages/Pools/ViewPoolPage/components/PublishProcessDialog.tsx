@@ -27,8 +27,8 @@ const PublishProcessDialog = ({
 
   const title = intl.formatMessage({
     defaultMessage: "Publish advertisement",
-    id: "YyT0ua",
-    description: "Title to publish a process' advertisement",
+    id: "1Q/4Yb",
+    description: "Title to publish an advertisement of a process",
   });
 
   let closingStringLocal;

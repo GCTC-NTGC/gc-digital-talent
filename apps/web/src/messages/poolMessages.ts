@@ -7,7 +7,7 @@ const messages = defineMessages({
     description:
       "Simplified status label for a complete process advertisement or assessment",
   },
-  inComplete: {
+  incomplete: {
     defaultMessage: "Incomplete",
     id: "xle+7f",
     description:

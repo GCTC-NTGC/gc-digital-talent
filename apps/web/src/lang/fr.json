@@ -206,6 +206,10 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
+  "/IMv2G": {
+    "defaultMessage": "Prochainement",
+    "description": "Message displayed when a feature is in development and not ready yet"
+  },
   "/ImWz4": {
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Null selection for form."
@@ -568,6 +572,10 @@
   "1PVIbX": {
     "defaultMessage": "Je consens à travailler dans...",
     "description": "Legend for work regions check list in work preferences form"
+  },
+  "1Q/4Yb": {
+    "defaultMessage": "Publier une annonce",
+    "description": "Title to publish an advertisement of a process"
   },
   "1Qw7ZV": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
@@ -1384,7 +1392,7 @@
     "description": "Title for the accessibility feedback section"
   },
   "6c5+AE": {
-    "defaultMessage": "Ce processus est  <heavyPrimary>ouvert </heavyPrimary> et accepte les candidatures jusqu'au <heavyPrimary>{closingDate}</heavyPrimary>.",
+    "defaultMessage": "Ce processus est <heavyPrimary>ouvert</heavyPrimary> et accepte les candidatures jusqu'au <heavyPrimary>{closingDate}</heavyPrimary>.",
     "description": "Message displayed to admins when a process is published"
   },
   "6cFJ2w": {
@@ -2631,7 +2639,7 @@
     "description": "Sixth of the Frequently Asked Questions for sign up"
   },
   "EqUTLs": {
-    "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez  <a>contacter un administrateur</a>.",
+    "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
   },
   "Ewa83p": {
@@ -3193,10 +3201,6 @@
   "IWJ/Qi": {
     "defaultMessage": "Veuillez nous faire part de prix et de reconnaissances en particulier que vous avez reçus en raison du fait que vous avez été au-delà de votre devoir.",
     "description": "Description for award experience section"
-  },
-  "IWWSkL": {
-    "defaultMessage": "Traiter l’information",
-    "description": "Page title for the individual pool page"
   },
   "Ibt1fL": {
     "defaultMessage": "Ajouter une nouvelle adhésion",
@@ -4419,10 +4423,6 @@
     "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
     "description": "Definition of behavioural skills"
   },
-  "R5sGKY": {
-    "defaultMessage": "Traiter l’information",
-    "description": "Title for the pool info page"
-  },
   "R75HsV": {
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
     "description": "Describing the purpose of the skill filters on the Search page."
@@ -5028,7 +5028,7 @@
     "description": "Title for the experience and skills section of a pool advertisement"
   },
   "VYzAZy": {
-    "defaultMessage": "Ce processus est à l'étape d’ébauche <heavyWarning> </heavyWarning> et n'a pas encore été annoncé.",
+    "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
     "description": "Message displayed to admins when a process is in draft mode"
   },
   "VaVo2t": {
@@ -5307,7 +5307,7 @@
     "description": "Title displayed on the create a department form."
   },
   "XBfpuW": {
-    "defaultMessage": "Ouvrir",
+    "defaultMessage": "Ouvert",
     "description": "Simplified status label for a published process"
   },
   "XCYYdk": {
@@ -5579,10 +5579,6 @@
   "YyHN1i": {
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
-  },
-  "YyT0ua": {
-    "defaultMessage": "Publier une annonce",
-    "description": "Title to publish a process' advertisement"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -6185,10 +6181,6 @@
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
   },
-  "d45Ihy": {
-    "defaultMessage": "Prochainement",
-    "description": "MEssage displayed when a feature is in development and not ready yet"
-  },
   "d4r7rO": {
     "defaultMessage": "Afficher ou masquer les colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
@@ -6612,10 +6604,6 @@
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
-  },
-  "faS0+E": {
-    "defaultMessage": "Traiter l’état",
-    "description": "Title for card for actions related to changing a process' status"
   },
   "faWz84": {
     "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
@@ -7594,10 +7582,6 @@
     "defaultMessage": "Que puis-je faire si j'ai supprimé l'application ou changé de téléphone et que je n'ai plus les codes de récupération?",
     "description": "First of the Frequently Asked Questions for logging in"
   },
-  "m+M6WO": {
-    "defaultMessage": "L'équipe des talents numériques du GC examinera et publiera votre annonce.",
-    "description": "Description of what happens after a process is submitted for publishing"
-  },
   "m0JFE/": {
     "defaultMessage": "Code",
     "description": "Title for the application’s profile snapshot."
@@ -7742,6 +7726,10 @@
     "defaultMessage": "Trouver une compétence",
     "description": "Button text to open the skill dialog"
   },
+  "mbASCD": {
+    "defaultMessage": "L'équipe des Talents numériques du GC examinera et publiera votre annonce.",
+    "description": "Description of what happens after a process is submitted for publishing"
+  },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
     "description": "Availability label"
@@ -7869,10 +7857,6 @@
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
-  },
-  "nKCUhO": {
-    "defaultMessage": "Ce processus  <heavyRed>s’est fermé le </heavyRed> <heavyRed>{closingDate}</heavyRed> and is no longer accepting applications.",
-    "description": "Message displayed to admins when a process is closed or archived"
   },
   "nMYWzb": {
     "defaultMessage": "Exigence linguistique",

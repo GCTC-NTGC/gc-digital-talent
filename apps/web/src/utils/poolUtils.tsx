@@ -282,7 +282,7 @@ type StatusBadge = {
 
 const defaultCompleteness: StatusBadge = {
   color: "error",
-  label: poolMessages.inComplete,
+  label: poolMessages.incomplete,
 };
 
 const poolCompletenessMap = new Map<PoolCompleteness, StatusBadge>([

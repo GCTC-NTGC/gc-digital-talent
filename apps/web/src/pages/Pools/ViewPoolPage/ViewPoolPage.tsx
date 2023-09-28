@@ -108,9 +108,9 @@ export const ViewPool = ({
    */
   const comingSoon = intl.formatMessage({
     defaultMessage: "Coming soon",
-    id: "d45Ihy",
+    id: "/IMv2G",
     description:
-      "MEssage displayed when a feature is in development and not ready yet",
+      "Message displayed when a feature is in development and not ready yet",
   });
 
   return (
@@ -251,9 +251,9 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0 0 x1 0)">
                 {intl.formatMessage({
                   defaultMessage: "Process status",
-                  id: "faS0+E",
+                  id: "KJDxM1",
                   description:
-                    "Title for card for actions related to changing a process' status",
+                    "Title for card for actions related to changing the status of a process",
                 })}
               </Heading>
               <Pill

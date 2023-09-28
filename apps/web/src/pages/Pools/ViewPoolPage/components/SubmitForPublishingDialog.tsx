@@ -86,8 +86,8 @@ const SubmitForPublishingDialog = ({
           <p data-h2-margin="base(x1 0)">
             {intl.formatMessage({
               defaultMessage:
-                "The GC Digital talent team will review and publish your advertisement.",
-              id: "m+M6WO",
+                "The GC Digital Talent team will review and publish your advertisement.",
+              id: "mbASCD",
               description:
                 "Description of what happens after a process is submitted for publishing",
             })}
