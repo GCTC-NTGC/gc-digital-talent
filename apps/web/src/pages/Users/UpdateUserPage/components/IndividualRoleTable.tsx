@@ -88,6 +88,9 @@ const IndividualRoleTable = ({
             description: "Label for the roles table search input",
           }),
         }}
+        sort={{
+          internal: true,
+        }}
         add={{
           component: (
             <AddIndividualRoleDialog

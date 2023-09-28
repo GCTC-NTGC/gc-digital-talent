@@ -158,6 +158,9 @@ const TeamRoleTable = ({
             description: "Label for the team roles table search input",
           }),
         }}
+        sort={{
+          internal: true,
+        }}
         add={{
           component: (
             <AddTeamRoleDialog
