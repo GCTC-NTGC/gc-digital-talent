@@ -1075,10 +1075,6 @@
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a department form name (English) field."
   },
-  "4dWeWs": {
-    "defaultMessage": "guillemets de fermeture",
-    "description": "Indigenous Apprenticeship open quote text alternative"
-  },
   "4f5qcw": {
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
@@ -2141,10 +2137,6 @@
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
-  },
-  "BYhh2I": {
-    "defaultMessage": "guillemets d’ouverture",
-    "description": "Indigenous Apprenticeship open quote text alternative"
   },
   "BYxqL/": {
     "defaultMessage": "Parcours professionnel et recrutements",
@@ -6725,10 +6717,6 @@
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
   },
-  "g6Atld": {
-    "defaultMessage": "Ceinture traditionnelle Métis.",
-    "description": "Indigenous Apprenticeship sash image text alternative"
-  },
   "g7HWuc": {
     "defaultMessage": "Collectivité des gestionnaires.",
     "description": "Heading for the Managers community page"
@@ -8560,10 +8548,6 @@
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
-  },
-  "smmTTq": {
-    "defaultMessage": "bâton de parole.",
-    "description": "Indigenous Apprenticeship quote background image text alternative"
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
