@@ -1345,6 +1345,11 @@ input RolesInput
   team: ID
 }
 
+input TeamRolesInput
+  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
+  roles: [ID!]
+}
+
 input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
@@ -1386,6 +1391,17 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+}
+
+input TeamRoleHasMany {
+  attach: TeamRolesInput
+  detach: TeamRolesInput
+  sync: TeamRolesInput
+}
+
+input AssignUsersToTeamInput {
+  users: [UUID!]!
+  roleAssignments: TeamRoleHasMany!
 }
 
 type Mutation {
@@ -1620,6 +1636,10 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
+  assignUsersToTeam(
+    id: UUID!
+    assignments: AssignUsersToTeamInput! @spread
+  ): Team @guard @can(ability: "assignTeamMembers", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification
