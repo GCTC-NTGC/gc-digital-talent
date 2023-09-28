@@ -73,7 +73,7 @@ class UserPolicy
             }
         }
         if ($injected && isset($injected['sub'])) {
-            if (! $user->isAbleTo('assign-any-userSub')) {
+            if (! $user->isAbleTo('update-any-userSub')) {
                 return false;
             }
         }
