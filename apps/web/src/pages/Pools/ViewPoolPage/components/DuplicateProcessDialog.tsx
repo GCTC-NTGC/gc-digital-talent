@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
@@ -86,11 +87,7 @@ const DuplicateProcessDialog = ({
             </Button>
             <Dialog.Close>
               <Button color="warning" mode="inline">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel and go back",
-                  id: "tiF/jI",
-                  description: "Close dialog button",
-                })}
+                {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>

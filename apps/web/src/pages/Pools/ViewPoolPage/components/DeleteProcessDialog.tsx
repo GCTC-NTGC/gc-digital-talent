@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
@@ -65,11 +66,7 @@ const DeleteProcessDialog = ({
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
             <Dialog.Close>
               <Button color="secondary" mode="inline">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel and go back",
-                  id: "tiF/jI",
-                  description: "Close dialog button",
-                })}
+                {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
             <Button

@@ -9,7 +9,11 @@ import {
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
 import { DateInput } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 
 import { ProcessDialogProps } from "./types";
 
@@ -136,11 +140,7 @@ const ExtendProcessDialog = ({
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "tiF/jI",
-                      description: "Close dialog button",
-                    })}
+                    {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
               </Dialog.Footer>
