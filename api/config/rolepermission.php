@@ -76,7 +76,7 @@ return [
         'teamMembers' => 'teamMembers',
         'role' => 'role',
         'directiveForm' => 'directiveForm',
-        'poolOperatorRole' => 'poolOperatorRole'
+        'teamRole' => 'teamRole'
     ],
 
     /*
@@ -376,9 +376,9 @@ return [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle',
         ],
-        'assign-any-poolOperatorRole' => [
-            'en' => 'Assign any user the Pool Operator role for any team',
-            'fr' => 'Attribuer le rôle Opérateur de bassin à n\'importe quel utilisateur (pour n\'importe quel équipe)',
+        'assign-any-teamRole' => [
+            'en' => 'Assign any user to any team, with any role.',
+            'fr' => 'Affecter n\'importe quel utilisateur à n\'importe quelle équipe, avec n\'importe quel rôle.',
         ],
 
         'create-any-directiveForm' => [
@@ -649,7 +649,7 @@ return [
             'team' => [
                 'any' => ['view', 'create', 'update', 'delete'],
             ],
-            'poolOperatorRole' => [
+            'teamRole' => [
                 'any' => ['assign']
             ]
         ],
