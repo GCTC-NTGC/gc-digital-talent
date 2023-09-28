@@ -504,13 +504,6 @@ export const Home = ({ latestPool }: HomeProps) => {
           backgroundSize: "cover",
           backgroundPosition: "right 10% center",
         }}
-        role="img"
-        aria-label={intl.formatMessage({
-          defaultMessage: "Talking stick.",
-          id: "smmTTq",
-          description:
-            "Indigenous Apprenticeship quote background image text alternative",
-        })}
       >
         <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
           <Heading
@@ -535,12 +528,6 @@ export const Home = ({ latestPool }: HomeProps) => {
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
-        role="img"
-        aria-label={intl.formatMessage({
-          defaultMessage: "Traditional Métis sash",
-          id: "g6Atld",
-          description: "Indigenous Apprenticeship sash image text alternative",
-        })}
       >
         <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
           <div>
