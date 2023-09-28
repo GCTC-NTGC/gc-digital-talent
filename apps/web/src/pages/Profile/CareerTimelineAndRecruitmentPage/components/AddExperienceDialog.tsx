@@ -9,6 +9,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
 import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
@@ -237,11 +238,7 @@ const AddExperienceDialog = ({
           <Dialog.Footer>
             <Dialog.Close>
               <Button color="primary" icon={ArrowLeftIcon}>
-                {intl.formatMessage({
-                  defaultMessage: "Cancel and go back",
-                  id: "tiF/jI",
-                  description: "Close dialog button",
-                })}
+                {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>
