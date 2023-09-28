@@ -3202,6 +3202,10 @@
     "defaultMessage": "Veuillez nous faire part de prix et de reconnaissances en particulier que vous avez reçus en raison du fait que vous avez été au-delà de votre devoir.",
     "description": "Description for award experience section"
   },
+  "IWWSkL": {
+    "defaultMessage": "Information sur le processus",
+    "description": "Page title for the individual pool page"
+  },
   "Ibt1fL": {
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
@@ -3437,6 +3441,10 @@
   "KIWVbp": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the teams table team column."
+  },
+  "KJDxM1": {
+    "defaultMessage": "État du processus",
+    "description": "Title for card for actions related to changing the status of a process"
   },
   "KQvWvD": {
     "defaultMessage": "Supprimé"
@@ -4422,6 +4430,10 @@
   "R4Z9FQ": {
     "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
     "description": "Definition of behavioural skills"
+  },
+  "R5sGKY": {
+    "defaultMessage": "Information sur le processus",
+    "description": "Title for the pool info page"
   },
   "R75HsV": {
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
@@ -7857,6 +7869,10 @@
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
+  },
+  "nKCUhO": {
+    "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",
+    "description": "Message displayed to admins when a process is closed or archived"
   },
   "nMYWzb": {
     "defaultMessage": "Exigence linguistique",
