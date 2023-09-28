@@ -2,7 +2,7 @@ import React from "react";
 import { CSVLink } from "react-csv";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
-import getButtonStyle from "../../hooks/Button/getButtonStyles";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 import type { LinkProps } from "./Link";
 
 interface CsvHeader {
@@ -31,7 +31,7 @@ const DownloadCsv = ({
 }: DownloadCsvProps) => {
   return (
     <CSVLink
-      {...getButtonStyle({ mode, color, block })}
+      {...getButtonStyles({ mode, color, block })}
       {...rest}
       target="_blank"
       headers={headers}

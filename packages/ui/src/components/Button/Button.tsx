@@ -2,7 +2,7 @@ import React from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
-import getButtonStyle from "../../hooks/Button/getButtonStyles";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 
 export type ButtonProps = ButtonLinkProps &
   React.DetailedHTMLProps<
@@ -35,7 +35,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={disabled}
-        {...getButtonStyle({ mode, color, block, disabled })}
+        {...getButtonStyles({ mode, color, block, disabled })}
         {...rest}
       >
         <ButtonLinkContent

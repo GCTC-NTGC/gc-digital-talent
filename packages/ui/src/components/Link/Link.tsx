@@ -8,7 +8,7 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
-import getButtonStyle from "../../hooks/Button/getButtonStyles";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 
 export type LinkProps = ButtonLinkProps &
   Omit<RouterLinkProps, "to"> &
@@ -55,7 +55,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
             rel: "noopener noreferrer",
           }
         : {}),
-      ...getButtonStyle({ mode, color, block, disabled }),
+      ...getButtonStyles({ mode, color, block, disabled }),
       ...rest,
     };
 
