@@ -72,7 +72,6 @@ const SkillDialog = ({
   });
 
   const {
-    getValues,
     trigger: formTrigger,
     reset,
     watch,
@@ -123,7 +122,7 @@ const SkillDialog = ({
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
-            <form>
+            <form onSubmit={methods.handleSubmit(handleAddSkill)}>
               <SkillSelection
                 {...{ showCategory, skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
@@ -140,7 +139,7 @@ const SkillDialog = ({
                   type="button"
                   color="secondary"
                   disabled={isSubmitting}
-                  onClick={() => handleAddSkill(getValues())}
+                  onClick={() => methods.handleSubmit(handleAddSkill)()}
                 >
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
