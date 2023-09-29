@@ -234,53 +234,62 @@ const Actions = ({
                 })}
               </Button>
             </span>
-            <span
-              data-h2-align-items="base(center) l-tablet(flex-start)"
-              data-h2-gap="base(0 x.25)"
-            >
-              {download?.selection && (
-                <>
-                  <span aria-hidden data-h2-display="base(none)">
-                    &bull;
-                  </span>
-                  <span
-                    data-h2-position="base(relative)"
-                    data-h2-align-items="base(center) l-tablet(flex-start)"
-                    data-h2-padding="base(x.25)"
+
+            {download?.selection && (
+              <span
+                data-h2-align-items="base(center) l-tablet(flex-start)"
+                data-h2-gap="base(0 x.25)"
+              >
+                <span
+                  aria-hidden
+                  data-h2-display="base(none) l-tablet(inline-block)"
+                >
+                  &bull;
+                </span>
+                <span
+                  data-h2-position="base(relative)"
+                  data-h2-align-items="base(center) l-tablet(flex-start)"
+                  data-h2-padding="base(x.25)"
+                >
+                  <DownloadCsv
+                    data-h2-font-weight="base(400)"
+                    {...download.selection.csv}
+                    {...actionButtonStyles}
                   >
-                    <DownloadCsv
-                      data-h2-font-weight="base(400)"
-                      {...download.selection.csv}
-                      {...actionButtonStyles}
-                    >
-                      {download.selection.label ||
-                        intl.formatMessage({
-                          defaultMessage: "Download CSV",
-                          id: "mxOuYK",
-                          description:
-                            "Text label for button to download a csv file of items in a table.",
-                        })}
-                    </DownloadCsv>
-                  </span>
-                </>
-              )}
-            </span>
-            <span>
-              {print?.onPrint && (
-                <>
-                  <Bullet />
-                  <Button onClick={print.onPrint} {...actionButtonStyles}>
-                    {print.label ||
+                    {download.selection.label ||
                       intl.formatMessage({
-                        defaultMessage: "Print selection",
-                        id: "KrrW7D",
+                        defaultMessage: "Download CSV",
+                        id: "mxOuYK",
                         description:
-                          "Text label for button to print items in a table.",
+                          "Text label for button to download a csv file of items in a table.",
                       })}
-                  </Button>
-                </>
-              )}
-            </span>
+                  </DownloadCsv>
+                </span>
+              </span>
+            )}
+
+            {print?.onPrint && (
+              <span
+                data-h2-align-items="base(center) l-tablet(flex-start)"
+                data-h2-gap="base(0 x.25)"
+              >
+                <span
+                  aria-hidden
+                  data-h2-display="base(none) l-tablet(inline-block)"
+                >
+                  &bull;
+                </span>
+                <Button onClick={print.onPrint} {...actionButtonStyles}>
+                  {print.label ||
+                    intl.formatMessage({
+                      defaultMessage: "Print selection",
+                      id: "KrrW7D",
+                      description:
+                        "Text label for button to print items in a table.",
+                    })}
+                </Button>
+              </span>
+            )}
           </Section>
         )}
       </Column>
