@@ -232,6 +232,7 @@ describe("Pools", () => {
     cy.wait("@gqlgetEditPoolDataQuery");
 
     // Set a process number
+    cy.findByRole("textbox", { name: /edit pool name/i }).click();
     const processNumber = "process 123";
     cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
 
@@ -251,8 +252,10 @@ describe("Pools", () => {
 
   /**
    * Delete the Pool
+   *
+   * Note: Skipping until #8004 is in
    */
-  it("should delete the pool", () => {
+  it.skip("should delete the pool", () => {
     loginAndGoToPoolsPage();
 
     cy.wait("@gqlallPoolsQuery");
