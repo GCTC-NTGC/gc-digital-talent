@@ -61,9 +61,6 @@ export const SkillFamilyTable = ({
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(adminMessages.edit),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: skillFamily } }) =>
         cells.edit(
           skillFamily.id,

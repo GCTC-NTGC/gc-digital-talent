@@ -35,9 +35,6 @@ const IndividualRoleTable = ({
         id: "OxeGLu",
         description: "Title displayed for the team table actions column",
       }),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: role } }) =>
         actionCell(role, user, onUpdateUser),
     }),

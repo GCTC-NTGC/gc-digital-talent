@@ -87,9 +87,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         id: "EdUZaX",
         description: "Header for the View Candidates column of the Pools table",
       }),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: pool } }) =>
         poolCandidatesViewCell(paths.poolCandidateTable(pool.id), intl, pool),
     }),
@@ -161,9 +158,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(adminMessages.edit),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: pool } }) =>
         cells.edit(
           pool.id,

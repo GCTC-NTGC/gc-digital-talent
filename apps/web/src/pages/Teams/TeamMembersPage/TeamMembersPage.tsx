@@ -58,9 +58,6 @@ const TeamMembers = ({
         id: "OxeGLu",
         description: "Title displayed for the team table actions column",
       }),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: member } }) => actionCell(member, team, roles),
     }),
     columnHelper.accessor(

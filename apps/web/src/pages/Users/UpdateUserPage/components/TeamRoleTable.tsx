@@ -63,9 +63,6 @@ const TeamRoleTable = ({
         id: "OxeGLu",
         description: "Title displayed for the team table actions column",
       }),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: teamAssignment } }) =>
         teamActionCell(teamAssignment, user, handleEditRoles, availableRoles),
     }),

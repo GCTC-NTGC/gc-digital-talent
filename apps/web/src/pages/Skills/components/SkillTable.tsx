@@ -85,9 +85,6 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(adminMessages.edit),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: skill } }) =>
         cells.edit(
           skill.id,

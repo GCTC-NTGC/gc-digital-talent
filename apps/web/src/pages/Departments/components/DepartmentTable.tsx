@@ -47,9 +47,6 @@ export const DepartmentTable = ({
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(adminMessages.edit),
-      meta: {
-        hideMobileHeader: true,
-      },
       cell: ({ row: { original: department } }) =>
         cells.edit(
           department.id,
