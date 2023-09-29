@@ -6,11 +6,9 @@ import {
   LocalizedString,
   Maybe,
   Pool,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
