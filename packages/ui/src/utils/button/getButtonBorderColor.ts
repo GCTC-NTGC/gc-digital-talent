@@ -13,6 +13,13 @@ type ButtonBorderColor = (
 const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
   if (mode === "solid") {
     if (disabled) {
+      if (color === "white") {
+        return {
+          "data-h2-border-color": `
+            base(gray.lighter)
+            base:focus-visible:all(focus)`,
+        };
+      }
       return {
         "data-h2-border-color": `
           base(gray.darker)

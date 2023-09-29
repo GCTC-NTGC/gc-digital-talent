@@ -11,6 +11,16 @@ type ButtonFontColor = (args: ButtonFontInterface) => Record<string, string>;
 const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
   if (mode === "solid") {
     if (disabled) {
+      if (color === "white") {
+        return {
+          "data-h2-color": `
+            base(gray.lighter)
+            base:focus-visible:all(black)
+
+            base:children[.counter](gray.darkest)
+            base:focus-visible:children[.counter](focus)`,
+        };
+      }
       return {
         "data-h2-color": `
           base(gray.darker)
@@ -231,7 +241,9 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(tertiary.darker)
+          base:dark(tertiary.lightest)
           base:hover(tertiary.darkest)
+          base:dark:hover(black)
           base:all:focus-visible(black)
 
           base:iap:dark(tertiary.lightest)

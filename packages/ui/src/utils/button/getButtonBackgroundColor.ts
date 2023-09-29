@@ -17,6 +17,16 @@ const getBackgroundColor: ButtonBackgroundColor = ({
 }) => {
   if (mode === "solid") {
     if (disabled) {
+      if (color === "white") {
+        return {
+          "data-h2-background-color": `
+            base(gray.darkest)
+            base:focus-visible:all(focus)
+
+            base:children[.counter](gray.lighter)
+            base:all:focus-visible:children[.counter](black)`,
+        };
+      }
       return {
         "data-h2-background-color": `
           base(gray.lightest)
@@ -245,7 +255,9 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:focus-visible(focus)
 
           base:children[.counter](tertiary.darker)
+          base:dark:children[.counter](tertiary.lightest)
           base:hover:children[.counter](tertiary.darkest)
+          base:dark:hover:children[.counter](black)
           base:all:focus-visible:children[.counter](black)
 
           base:iap:dark:children[.counter](tertiary.lightest)
