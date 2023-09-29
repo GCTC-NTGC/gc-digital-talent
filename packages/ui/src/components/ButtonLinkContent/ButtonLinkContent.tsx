@@ -37,8 +37,10 @@ const ButtonLinkContent = ({
     return (
       <>
         <div
-          data-h2-display="base:children[>*](inline-block)"
+          data-h2-display="base(flex) base:children[>*](inline-block)"
           data-h2-padding="base(calc(x.5 - 3px))"
+          data-h2-align-self="base(stretch)"
+          data-h2-align-items="base(center)"
         >
           {Icon && (
             <Icon

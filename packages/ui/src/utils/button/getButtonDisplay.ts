@@ -10,7 +10,8 @@ type ButtonDisplay = (args: ButtonDisplayInterface) => Record<string, string>;
 const getDisplay: ButtonDisplay = ({ mode, block }) => {
   if (mode === "cta") {
     return {
-      "data-h2-display": "base(inline-flex)",
+      "data-h2-display":
+        "base(inline-flex) base:children[>div:first-child](flex)",
     };
   }
   if (block) {
