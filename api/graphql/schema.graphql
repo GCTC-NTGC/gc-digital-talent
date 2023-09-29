@@ -1370,6 +1370,10 @@ input UpdatePoolInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
+    @rules(
+      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
+    )
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany

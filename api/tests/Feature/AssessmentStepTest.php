@@ -237,4 +237,42 @@ class AssessmentStepTest extends TestCase
         assertEquals(0, count(PoolSkill::first()->assessmentSteps));
         assertEquals(0, count($this->pool->assessmentSteps));
     }
+
+    // test that you cannot add screening or application related assessment steps
+    public function testAssessmentStepTypeValidation(): void
+    {
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentStep,
+                [
+                    'poolId' => $this->pool->id,
+                    'assessmentStep' => [
+                        'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+                        'sortOrder' => 1,
+                        'title' => [
+                            'en' => 'en',
+                            'fr' => 'fr',
+                        ],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
+
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentStep,
+                [
+                    'poolId' => $this->pool->id,
+                    'assessmentStep' => [
+                        'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                        'sortOrder' => 1,
+                        'title' => [
+                            'en' => 'en',
+                            'fr' => 'fr',
+                        ],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
+    }
 }
