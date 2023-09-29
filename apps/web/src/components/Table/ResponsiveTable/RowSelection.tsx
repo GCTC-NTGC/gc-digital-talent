@@ -173,6 +173,7 @@ const Actions = ({
       data-h2-background-color="base(black)"
       data-h2-color="base(white)"
       data-h2-position="base(relative)"
+      data-h2-justify-content="base(space-between)"
     >
       <Column>
         {isLoading ? (
@@ -182,7 +183,14 @@ const Actions = ({
             data-h2-location="base(auto, auto, auto, auto)"
           />
         ) : (
-          <Section>
+          <Section
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-align-items="base(center)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+            data-h2-font-size="base(caption)"
+          >
             <Section>
               <CheckCircleIcon
                 data-h2-width="base(1em)"
@@ -226,22 +234,34 @@ const Actions = ({
                 })}
               </Button>
             </span>
-            <span>
+            <span
+              data-h2-align-items="base(center) l-tablet(flex-start)"
+              data-h2-gap="base(0 x.25)"
+            >
               {download?.selection && (
                 <>
-                  <Bullet />
-                  <DownloadCsv
-                    {...download.selection.csv}
-                    {...actionButtonStyles}
+                  <span aria-hidden data-h2-display="base(none)">
+                    &bull;
+                  </span>
+                  <span
+                    data-h2-position="base(relative)"
+                    data-h2-align-items="base(center) l-tablet(flex-start)"
+                    data-h2-padding="base(x.25)"
                   >
-                    {download.selection.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        id: "mxOuYK",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                  </DownloadCsv>
+                    <DownloadCsv
+                      data-h2-font-weight="base(400)"
+                      {...download.selection.csv}
+                      {...actionButtonStyles}
+                    >
+                      {download.selection.label ||
+                        intl.formatMessage({
+                          defaultMessage: "Download CSV",
+                          id: "mxOuYK",
+                          description:
+                            "Text label for button to download a csv file of items in a table.",
+                        })}
+                    </DownloadCsv>
+                  </span>
                 </>
               )}
             </span>
