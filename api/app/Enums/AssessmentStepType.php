@@ -2,9 +2,12 @@
 
 namespace App\Enums;
 
+use GraphQL\Type\Definition\Description;
+
 enum AssessmentStepType
 {
     case SCREENING_QUESTIONS_AT_APPLICATION;
+    #[Description(description: 'Automatically controlled depending on the existence of screening questions on a pool.')]
     case TECHNICAL_EXAM_AT_SITE;
     case TECHNICAL_EXAM_AT_HOME;
     case PSC_EXAM;
@@ -12,6 +15,7 @@ enum AssessmentStepType
     case INTERVIEW_INDIVIDUAL;
     case INTERVIEW_FOLLOWUP;
     case REFERENCE_CHECK;
-    case ADDITIONAL_ASSESSMENT;
     case APPLICATION_SCREENING;
+    #[Description(description: 'Every pool has this step automatically upon creation.')]
+    case ADDITIONAL_ASSESSMENT;
 }
