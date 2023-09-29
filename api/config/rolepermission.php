@@ -644,7 +644,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'userSub' => [
-                'any' => ['update']
+                'any' => ['update'],
             ],
             'userBasicInfo' => [
                 'any' => ['view'],
