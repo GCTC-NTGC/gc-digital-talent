@@ -147,6 +147,7 @@ const TeamRoleTable = ({
         caption={pageTitle}
         data={data}
         columns={columns}
+        urlSync={false}
         search={{
           internal: true,
           label: intl.formatMessage({
