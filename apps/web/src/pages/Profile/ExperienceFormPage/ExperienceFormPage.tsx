@@ -468,11 +468,7 @@ export const ExperienceForm = ({
                       })}
                     </Button>
                     <Link mode="inline" href={returnPath}>
-                      {intl.formatMessage({
-                        defaultMessage: "Cancel and go back",
-                        id: "fMcKtJ",
-                        description: "Text to cancel changes to a form",
-                      })}
+                      {intl.formatMessage(formMessages.cancelGoBack)}
                     </Link>
                   </div>
                 )}

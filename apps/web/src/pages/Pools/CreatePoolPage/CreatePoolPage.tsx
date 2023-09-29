@@ -6,7 +6,11 @@ import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
 
@@ -192,11 +196,7 @@ export const CreatePoolForm = ({
 
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <Link href={paths.poolTable()} mode="solid" color="primary">
-          {intl.formatMessage({
-            defaultMessage: "Cancel and go back",
-            id: "dJxNRU",
-            description: "Label displayed on cancel button for new pool form.",
-          })}
+          {intl.formatMessage(formMessages.cancelGoBack)}
         </Link>
       </div>
     </section>
