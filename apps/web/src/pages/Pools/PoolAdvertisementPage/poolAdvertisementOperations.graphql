@@ -51,6 +51,10 @@ query getPool($id: UUID!) {
       en
       fr
     }
+    specialNote {
+      en
+      fr
+    }
     essentialSkills {
       id
       key
