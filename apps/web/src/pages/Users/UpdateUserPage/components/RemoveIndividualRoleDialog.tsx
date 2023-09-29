@@ -5,6 +5,7 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  formMessages,
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
@@ -109,11 +110,7 @@ const RemoveIndividualRoleDialog = ({
           <Dialog.Footer>
             <Dialog.Close>
               <Button color="secondary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel and go back",
-                  id: "tiF/jI",
-                  description: "Close dialog button",
-                })}
+                {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
             <Button
