@@ -2,7 +2,6 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import {
-  LocalizedString,
   Maybe,
   Skill,
   SkillCategory,
