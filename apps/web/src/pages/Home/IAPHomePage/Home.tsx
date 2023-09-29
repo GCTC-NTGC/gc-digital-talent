@@ -531,8 +531,13 @@ export const Home = ({ latestPool }: HomeProps) => {
       >
         <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
           <div>
-            <div data-h2-shadow="base(l)" data-h2-flex-grid="base(stretch, 0)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of3) l-tablet(1of2) desktop(4of7)">
+            <div
+              data-h2-shadow="base(l)"
+              data-h2-display="base(grid)"
+              data-h2-grid-template-rows="base(1fr 1fr) p-tablet(1fr)"
+              data-h2-grid-template-columns="base(1fr) p-tablet(1fr 2fr) l-tablet(1fr 1fr) desktop(4fr 3fr)"
+            >
+              <div data-h2-position="base(relative)">
                 <img
                   src={lowerBack}
                   alt={intl.formatMessage({
@@ -541,13 +546,17 @@ export const Home = ({ latestPool }: HomeProps) => {
                     description:
                       "Indigenous Apprenticeship lower back image text alternative",
                   })}
-                  data-h2-height="base(40vh) p-tablet(100%)"
                   style={{
+                    position: "absolute",
+                    inset: "0",
                     objectFit: "cover",
+                    objectPosition: "center",
+                    height: "100%",
+                    width: "100%",
                   }}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(2of3) l-tablet(1of2) desktop(3of7)">
+              <div>
                 <div
                   data-h2-height="base(100%)"
                   data-h2-background-color="base(secondary.light)"
