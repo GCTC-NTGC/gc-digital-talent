@@ -6,7 +6,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { Select } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -196,11 +196,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             mode="inline"
             href={paths.applicationCareerTimeline(applicationId)}
           >
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back",
-              id: "fMcKtJ",
-              description: "Text to cancel changes to a form",
-            })}
+            {intl.formatMessage(formMessages.cancelGoBack)}
           </Link>
         </div>
       </form>

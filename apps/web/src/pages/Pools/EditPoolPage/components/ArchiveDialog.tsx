@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
@@ -22,11 +22,7 @@ const ArchiveDialog = ({
       <>
         <Dialog.Close>
           <Button color="secondary" mode="inline">
-            {intl.formatMessage({
-              defaultMessage: "Cancel and go back",
-              id: "tiF/jI",
-              description: "Close dialog button",
-            })}
+            {intl.formatMessage(formMessages.cancelGoBack)}
           </Button>
         </Dialog.Close>
 

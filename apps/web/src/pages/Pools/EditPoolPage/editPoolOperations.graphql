@@ -40,6 +40,10 @@ query getEditPoolData($poolId: UUID!) {
       en
       fr
     }
+    specialNote {
+      en
+      fr
+    }
     essentialSkills {
       id
       key
