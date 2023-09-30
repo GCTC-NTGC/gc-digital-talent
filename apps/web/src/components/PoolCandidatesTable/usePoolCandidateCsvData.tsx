@@ -14,6 +14,7 @@ import {
   getLocale,
   getEducationRequirementOption,
   getLocalizedName,
+  getEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -466,9 +467,17 @@ const usePoolCandidateCsvData = (
                 getBilingualEvaluation(user.bilingualEvaluation),
               )
             : "",
-          comprehensionLevel: user.comprehensionLevel || "",
-          writtenLevel: user.writtenLevel || "",
-          verbalLevel: user.verbalLevel || "",
+          comprehensionLevel: user.comprehensionLevel
+            ? intl.formatMessage(
+                getEvaluatedLanguageAbility(user.comprehensionLevel),
+              )
+            : "",
+          writtenLevel: user.writtenLevel
+            ? intl.formatMessage(getEvaluatedLanguageAbility(user.writtenLevel))
+            : "",
+          verbalLevel: user.verbalLevel
+            ? intl.formatMessage(getEvaluatedLanguageAbility(user.verbalLevel))
+            : "",
           estimatedLanguageAbility: user.estimatedLanguageAbility
             ? intl.formatMessage(
                 getLanguageProficiency(user.estimatedLanguageAbility),

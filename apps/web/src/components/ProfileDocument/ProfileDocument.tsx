@@ -11,6 +11,7 @@ import {
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
+  getEvaluatedLanguageAbility,
   getIndigenousCommunity,
   getLanguage,
   getLanguageProficiency,
@@ -421,13 +422,29 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {insertBetween(", ", [
+                            {[
                               result.comprehensionLevel
-                                ? result.comprehensionLevel
+                                ? intl.formatMessage(
+                                    getEvaluatedLanguageAbility(
+                                      result.comprehensionLevel,
+                                    ),
+                                  )
                                 : "",
-                              result.writtenLevel ? result.writtenLevel : "",
-                              result.verbalLevel ? result.verbalLevel : "",
-                            ]).join("")}
+                              result.writtenLevel
+                                ? intl.formatMessage(
+                                    getEvaluatedLanguageAbility(
+                                      result.writtenLevel,
+                                    ),
+                                  )
+                                : "",
+                              result.verbalLevel
+                                ? intl.formatMessage(
+                                    getEvaluatedLanguageAbility(
+                                      result.verbalLevel,
+                                    ),
+                                  )
+                                : "",
+                            ].join(", ")}
                           </p>
                         )}
                         {result.bilingualEvaluation ===

@@ -258,6 +258,10 @@
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
   },
+  "7TuiE1": {
+    "defaultMessage": "A",
+    "description": "The evaluated language ability level of A"
+  },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
@@ -542,6 +546,10 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
+  "L8TMtk": {
+    "defaultMessage": "Non évalué",
+    "description": "The evaluated language ability level for un-assessed"
+  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -561,6 +569,10 @@
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
+  },
+  "MUjjf9": {
+    "defaultMessage": "B",
+    "description": "The evaluated language ability level of B"
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -685,6 +697,10 @@
   "R0pQGQ": {
     "defaultMessage": "Chef d'équipe",
     "description": "The position type is a team lead."
+  },
+  "R6XtnR": {
+    "defaultMessage": "X",
+    "description": "The evaluated language ability level of X"
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -1042,6 +1058,10 @@
     "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
+  "eC8w2e": {
+    "defaultMessage": "P",
+    "description": "The evaluated language ability level of P"
+  },
   "eGg734": {
     "defaultMessage": "Autre",
     "description": "Other selection for education type input"
@@ -1205,6 +1225,10 @@
   "lDeaXK": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
+  },
+  "lOFpV2": {
+    "defaultMessage": "E",
+    "description": "The evaluated language ability level of E"
   },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
@@ -1392,6 +1416,10 @@
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
+  },
+  "s16Ns7": {
+    "defaultMessage": "C",
+    "description": "The evaluated language ability level of C"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",

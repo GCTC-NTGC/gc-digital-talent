@@ -2,17 +2,36 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { RadioGroup, Select, FieldLabels } from "@gc-digital-talent/forms";
-import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
+import {
+  RadioGroup,
+  Select,
+  FieldLabels,
+  enumToOptions,
+} from "@gc-digital-talent/forms";
+import {
+  errorMessages,
+  getEvaluatedLanguageAbility,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 
-import { BilingualEvaluation } from "~/api/generated";
+import { BilingualEvaluation, EvaluatedLanguageAbility } from "~/api/generated";
 
 import {
   getBilingualEvaluationItems,
   getEstimatedAbilityOptions,
   getEvaluatedAbilityOptions,
 } from "./utils";
+
+const EvaluatedAbilityItemsSortOrder = [
+  EvaluatedLanguageAbility.X,
+  EvaluatedLanguageAbility.A,
+  EvaluatedLanguageAbility.B,
+  EvaluatedLanguageAbility.C,
+  EvaluatedLanguageAbility.E,
+  EvaluatedLanguageAbility.P,
+  EvaluatedLanguageAbility.NotAssessed,
+];
 
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
@@ -70,7 +89,15 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     languageEvaluationPageLink,
   );
 
-  const evaluatedAbilityItems = getEvaluatedAbilityOptions(intl);
+  const evaluatedAbilityItems = enumToOptions(
+    EvaluatedLanguageAbility,
+    EvaluatedAbilityItemsSortOrder,
+  ).map(({ value }) => ({
+    value,
+    label: intl.formatMessage(getEvaluatedLanguageAbility(value)),
+  }));
+
+  // const evaluatedAbilityItems = getEvaluatedAbilityOptions(intl);
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 

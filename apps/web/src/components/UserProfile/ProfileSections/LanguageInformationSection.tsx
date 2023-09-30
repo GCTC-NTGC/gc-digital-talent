@@ -5,6 +5,7 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import {
   getBilingualEvaluation,
   getLanguageProficiency,
+  getEvaluatedLanguageAbility,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 
@@ -159,7 +160,23 @@ const LanguageInformationSection = ({
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">
-                {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+                {[
+                  comprehensionLevel
+                    ? intl.formatMessage(
+                        getEvaluatedLanguageAbility(comprehensionLevel),
+                      )
+                    : "",
+                  writtenLevel
+                    ? intl.formatMessage(
+                        getEvaluatedLanguageAbility(writtenLevel),
+                      )
+                    : "",
+                  verbalLevel
+                    ? intl.formatMessage(
+                        getEvaluatedLanguageAbility(verbalLevel),
+                      )
+                    : "",
+                ].join(", ")}
               </span>
             </p>
           </div>

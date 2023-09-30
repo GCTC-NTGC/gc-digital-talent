@@ -4,8 +4,10 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getBilingualEvaluation,
+  getEvaluatedLanguageAbility,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
+import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { BilingualEvaluation } from "~/api/generated";
 
@@ -110,7 +112,21 @@ const Display = ({
           })}
         >
           {comprehensionLevel || writtenLevel || verbalLevel
-            ? `${comprehensionLevel}, ${writtenLevel}, ${verbalLevel}`
+            ? [
+                comprehensionLevel
+                  ? intl.formatMessage(
+                      getEvaluatedLanguageAbility(comprehensionLevel),
+                    )
+                  : "",
+                writtenLevel
+                  ? intl.formatMessage(
+                      getEvaluatedLanguageAbility(writtenLevel),
+                    )
+                  : "",
+                verbalLevel
+                  ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
+                  : "",
+              ].join(", ")
             : notProvided}
         </FieldDisplay>
       )}
