@@ -5,7 +5,7 @@ import { Link } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 
-interface TableEditButtonProps {
+interface EditLinkProps {
   /** Id of the object in the table. */
   id: string;
   /** The current url root. */
@@ -14,11 +14,11 @@ interface TableEditButtonProps {
   label?: Maybe<string>;
 }
 
-function TableEditButton({
+function EditLink({
   id,
   editUrlRoot,
   label,
-}: TableEditButtonProps): React.ReactElement {
+}: EditLinkProps): React.ReactElement {
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
   return (
@@ -46,12 +46,4 @@ function TableEditButton({
   );
 }
 
-function tableEditButtonAccessor(
-  id: string,
-  editUrlRoot: string,
-  label?: Maybe<string>,
-) {
-  return <TableEditButton id={id} editUrlRoot={editUrlRoot} label={label} />;
-}
-
-export default tableEditButtonAccessor;
+export default EditLink;
