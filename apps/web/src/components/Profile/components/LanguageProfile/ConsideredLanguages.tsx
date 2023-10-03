@@ -20,7 +20,6 @@ import { BilingualEvaluation, EvaluatedLanguageAbility } from "~/api/generated";
 import {
   getBilingualEvaluationItems,
   getEstimatedAbilityOptions,
-  getEvaluatedAbilityOptions,
 } from "./utils";
 
 const EvaluatedAbilityItemsSortOrder = [

@@ -7,7 +7,6 @@ import {
   getEvaluatedLanguageAbility,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
-import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { BilingualEvaluation } from "~/api/generated";
 
