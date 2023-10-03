@@ -5,7 +5,6 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import {
   getBilingualEvaluation,
   getLanguageProficiency,
-  getEvaluatedLanguageAbility,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 
@@ -15,6 +14,7 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/languageInformation";
 import { wrapAbbr } from "~/utils/nameUtils";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 const LanguageInformationSection = ({
   user,
@@ -160,23 +160,12 @@ const LanguageInformationSection = ({
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
               <span data-h2-font-weight="base(700)">
-                {[
-                  comprehensionLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(comprehensionLevel),
-                      )
-                    : "",
-                  writtenLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(writtenLevel),
-                      )
-                    : "",
-                  verbalLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(verbalLevel),
-                      )
-                    : "",
-                ].join(", ")}
+                {getEvaluatedLanguageLevels(
+                  intl,
+                  comprehensionLevel,
+                  writtenLevel,
+                  verbalLevel,
+                )}
               </span>
             </p>
           </div>

@@ -4,11 +4,11 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getBilingualEvaluation,
-  getEvaluatedLanguageAbility,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
 
 import { BilingualEvaluation } from "~/api/generated";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
@@ -111,21 +111,12 @@ const Display = ({
           })}
         >
           {comprehensionLevel || writtenLevel || verbalLevel
-            ? [
-                comprehensionLevel
-                  ? intl.formatMessage(
-                      getEvaluatedLanguageAbility(comprehensionLevel),
-                    )
-                  : "",
-                writtenLevel
-                  ? intl.formatMessage(
-                      getEvaluatedLanguageAbility(writtenLevel),
-                    )
-                  : "",
-                verbalLevel
-                  ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
-                  : "",
-              ].join(", ")
+            ? getEvaluatedLanguageLevels(
+                intl,
+                comprehensionLevel,
+                writtenLevel,
+                verbalLevel,
+              )
             : notProvided}
         </FieldDisplay>
       )}

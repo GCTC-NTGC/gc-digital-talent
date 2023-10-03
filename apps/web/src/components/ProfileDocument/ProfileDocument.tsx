@@ -11,7 +11,6 @@ import {
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getEvaluatedLanguageAbility,
   getIndigenousCommunity,
   getLanguage,
   getLanguageProficiency,
@@ -36,6 +35,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
@@ -422,29 +422,12 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 "Second language level (reading, writing, oral interaction) label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {[
-                              result.comprehensionLevel
-                                ? intl.formatMessage(
-                                    getEvaluatedLanguageAbility(
-                                      result.comprehensionLevel,
-                                    ),
-                                  )
-                                : "",
-                              result.writtenLevel
-                                ? intl.formatMessage(
-                                    getEvaluatedLanguageAbility(
-                                      result.writtenLevel,
-                                    ),
-                                  )
-                                : "",
-                              result.verbalLevel
-                                ? intl.formatMessage(
-                                    getEvaluatedLanguageAbility(
-                                      result.verbalLevel,
-                                    ),
-                                  )
-                                : "",
-                            ].join(", ")}
+                            {getEvaluatedLanguageLevels(
+                              intl,
+                              result.comprehensionLevel,
+                              result.writtenLevel,
+                              result.verbalLevel,
+                            )}
                           </p>
                         )}
                         {result.bilingualEvaluation ===
