@@ -12,6 +12,7 @@ use Illuminate\Contracts\Validation\Rule;
 class HasEssentialSkills implements Rule
 {
     private $application;
+
     private $pool;
 
     /**
@@ -50,7 +51,6 @@ class HasEssentialSkills implements Rule
         $passes = $poolEssentialSkillIds->every(function ($poolEssentialSkillIds) use ($experienceSkills) {
             return $experienceSkills->firstWhere('userSkill.skill_id', $poolEssentialSkillIds);
         });
-
 
         return $passes;
     }
