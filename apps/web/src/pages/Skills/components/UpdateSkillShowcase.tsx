@@ -113,7 +113,7 @@ const UpdateSkillShowcase = ({
     defaultValues: initialSkills,
   });
   const { control, watch, formState } = methods;
-  const { remove, move, append, fields } = useFieldArray({
+  const { remove, move, fields } = useFieldArray({
     control,
     name: "userSkills",
   });
@@ -164,13 +164,6 @@ const UpdateSkillShowcase = ({
         },
       })
         .then((res) => {
-          append(
-            {
-              skill: res.data?.updateUserSkill?.skill.id,
-              skillLevel: res.data?.updateUserSkill?.skillLevel ?? undefined,
-            },
-            { shouldFocus: false },
-          );
           handleSuccess();
           if (res.data?.updateUserSkill?.skill.id) {
             // having claimed a user skill in the modal and the mutation successful, update the ranking
@@ -191,13 +184,6 @@ const UpdateSkillShowcase = ({
         },
       })
         .then((res) => {
-          append(
-            {
-              skill: res.data?.createUserSkill?.skill.id,
-              skillLevel: res.data?.createUserSkill?.skillLevel ?? undefined,
-            },
-            { shouldFocus: false },
-          );
           handleSuccess();
           if (res.data?.createUserSkill?.skill.id) {
             onAddition(
