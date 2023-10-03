@@ -201,13 +201,12 @@ class PoolPolicy
      */
     public function viewAssessments(User $user, Pool $pool)
     {
-        // request responder or platform admin view all
-        if ($user->hasRole('request_responder') || $user->hasRole('platform_admin')) {
+        if ($user->isAbleTo('view-any-pool')) {
             return true;
         }
-        // pool operator check
+
         $pool->loadMissing('team');
 
-        return $user->hasRole('pool_operator', $pool->team);
+        return $user->isAbleTo('view-team-pool', $pool->team);
     }
 }
