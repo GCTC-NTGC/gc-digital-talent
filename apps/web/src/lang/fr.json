@@ -9489,10 +9489,6 @@
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
   },
-  "tiF/jI": {
-    "defaultMessage": "Annuler et revenir en arrière",
-    "description": "Close dialog button"
-  },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
@@ -9508,10 +9504,6 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
-  },
-  "tpzt/B": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Pool table Edit column."
   },
   "ttIQ0Q": {
     "defaultMessage": "Nom",
