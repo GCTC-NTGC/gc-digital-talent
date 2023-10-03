@@ -54,6 +54,7 @@ const Template: Story = () => {
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="base(1fr 1fr 1fr 1fr)"
         data-h2-text-align="base(center)"
+        data-h2-color="base(red)"
       >
         {themes.map((theme) => (
           <div key={theme} data-h2={theme}>

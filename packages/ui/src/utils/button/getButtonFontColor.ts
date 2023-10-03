@@ -370,6 +370,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "primary") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -388,6 +389,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "secondary") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -406,6 +408,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "tertiary") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -424,6 +427,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "quaternary") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -442,6 +446,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "quinary") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -460,6 +465,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "success") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -471,6 +477,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "warning") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
@@ -482,6 +489,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "error") {
       return {
         "data-h2-color": `
+          base:all:children[>span:first-child](black)
           base:dark:hover:children[>span:first-child](black)
           base:dark:focus-visible:children[>span:first-child](white)
 
