@@ -23,7 +23,6 @@ class HasEssentialSkills implements Rule
     public function __construct(PoolCandidate $application)
     {
         $this->application = $application;
-        $this->pool = $this->application->pool;
     }
 
     /**
@@ -36,6 +35,7 @@ class HasEssentialSkills implements Rule
     public function passes($attribute, $value)
     {
         $this->application = PoolCandidate::find($value) ?? $this->application;
+        $this->pool = $this->application->pool;
 
         $poolEssentialSkillIds = $this->pool
             ->essentialSkills()->where(function ($query) {
