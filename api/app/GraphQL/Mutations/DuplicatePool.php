@@ -26,8 +26,8 @@ final class DuplicatePool
         $newPool->save();
 
         $newPool->classifications()->sync($pool->classifications->pluck('id'));
-        $newPool->essentialSkills()->sync($pool->essentialSkills->pluck('id'));
-        $newPool->nonessentialSkills()->sync($pool->nonessentialSkills->pluck('id'));
+        $newPool->setEssentialPoolSkills($pool->essentialSkills->pluck('id'));
+        $newPool->setNonessentialPoolSkills($pool->nonessentialSkills->pluck('id'));
 
         foreach ($pool->screeningQuestions as $screeningQuestion) {
             $newQuestion = $screeningQuestion->replicate();

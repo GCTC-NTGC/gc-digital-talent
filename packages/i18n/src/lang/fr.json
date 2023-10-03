@@ -598,6 +598,10 @@
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
   },
+  "NQhU3F": {
+    "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in French must be filled"
+  },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
@@ -721,6 +725,10 @@
   "Rwh/Ld": {
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."
+  },
+  "S2BTqm": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in English must be filled"
   },
   "S2zQmD": {
     "defaultMessage": "En attente (voir les notes)",

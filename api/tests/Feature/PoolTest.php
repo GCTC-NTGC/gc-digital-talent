@@ -565,7 +565,7 @@ class PoolTest extends TestCase
         $pool->classifications()->sync([$classification->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
-        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -583,7 +583,7 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('EssentialSkillsContainsDeleted');
 
-        $pool->essentialSkills()->sync([$skill1->id]);
+        $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -607,7 +607,7 @@ class PoolTest extends TestCase
         $pool = Pool::factory()->published()->closed()->create(['team_id' => $this->team->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
-        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot reopen due to soft deleted essential skill $skill2
         $this->actingAs($this->poolOperator, 'api')->graphQL(
@@ -626,7 +626,7 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('CannotReopenUsingDeletedSkill');
 
-        $pool->essentialSkills()->sync([$skill1->id]);
+        $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can reopen now with the deleted skill gone
         $this->actingAs($this->poolOperator, 'api')->graphQL(

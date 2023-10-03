@@ -6,7 +6,11 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -138,11 +142,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
               <Dialog.Footer>
                 <Dialog.Close>
                   <Button color="secondary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel and go back",
-                      id: "tiF/jI",
-                      description: "Close dialog button",
-                    })}
+                    {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
