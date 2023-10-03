@@ -1172,7 +1172,7 @@
     "description": "Subtitle for the application review page."
   },
   "4l+jIq": {
-    "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link> Talents numériques du GC</link>  pour obtenir de plus amples renseignements.",
+    "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
     "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
   "4liNMy": {
@@ -2475,7 +2475,7 @@
     "description": "Descriptive text explaining the government information section of the application profile"
   },
   "CRnoE8": {
-    "defaultMessage": "Cacher les exemples de  \"contrats de services numériques\" où cette exigence s’applique",
+    "defaultMessage": "Cacher les exemples de \"contrats de services numériques\" où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
   "CSg8cH": {
@@ -5044,7 +5044,7 @@
     "description": "Label displayed on the pool candidate application form expiry date field."
   },
   "Su8FEn": {
-    "defaultMessage": "Un  <link>plan en lien avec talents pour l’initiative numérique</link>  a-t-il été soumis précédemment pour cette initiative?",
+    "defaultMessage": "Un <link>plan en lien avec talents pour l’initiative numérique</link> a-t-il été soumis précédemment pour cette initiative?",
     "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "Swde4t": {
@@ -5388,7 +5388,7 @@
     "description": "list a number of community experiences"
   },
   "V7ld7D": {
-    "defaultMessage": "Remplir le  <hidden>{formName} </hidden>formulaire",
+    "defaultMessage": "Remplir le <hidden>{formName} </hidden>formulaire",
     "description": "Link text for a form page"
   },
   "V8v+/g": {
@@ -6618,7 +6618,7 @@
     "description": "The award title is issued by some group"
   },
   "cLwQgK": {
-    "defaultMessage": "Développer un  <link>ensemble de produits génériques en matière de RH</link> (accessibles uniquement sur le réseau du GC), tels que des descriptions d’emploi normalisées, pour la collectivité du numérique",
+    "defaultMessage": "Développer un <link>ensemble de produits génériques en matière de RH</link> (accessibles uniquement sur le réseau du GC), tels que des descriptions d’emploi normalisées, pour la collectivité du numérique",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "cMsRgt": {
@@ -7602,7 +7602,7 @@
     "description": "Learn more dialog question ten paragraph one"
   },
   "heME90": {
-    "defaultMessage": "Si  “{choice}”  est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une  <link>Réserve de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
+    "defaultMessage": "Si “{choice}”  est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>Réserve de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
     "description": "introduction paragraph 1 to needing more information about the talent search"
   },
   "hfI9v3": {
@@ -10024,7 +10024,7 @@
     "description": "Pluralization for zero or multiple experiences"
   },
   "xPaVvi": {
-    "defaultMessage": "Comme l’indiquent les<link> Procédures obligatoires sur les talents numériques</link>,  il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
+    "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
     "description": "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "xQfIcL": {
@@ -10088,7 +10088,7 @@
     "description": "Description of the executive community"
   },
   "xoT1eU": {
-    "defaultMessage": "Toutes les questions de ce questionnaire sont marquées comme obligatoires (<red>*</red>)  sauf indication contraire. Une copie de votre demande vous sera envoyée par courriel une fois qu’elle sera terminée.",
+    "defaultMessage": "Toutes les questions de ce questionnaire sont marquées comme obligatoires (<red>*</red>) sauf indication contraire. Une copie de votre demande vous sera envoyée par courriel une fois qu’elle sera terminée.",
     "description": "Paragraph two of the _instructions_ section of the _digital services contracting questionnaire_"
   },
   "xp1dWY": {
@@ -10168,7 +10168,7 @@
     "description": "Summary for the feature about finding executive jobs"
   },
   "yGW8Y5": {
-    "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une  <link>réserve de talents coordonnée par le BDPI</link>  qui pourraient répondre au besoin dans le délai imparti?",
+    "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une <link>réserve de talents coordonnée par le BDPI</link> qui pourraient répondre au besoin dans le délai imparti?",
     "description": "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_"
   },
   "yGlG9e": {
