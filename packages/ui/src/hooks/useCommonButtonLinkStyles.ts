@@ -772,6 +772,7 @@ const getDisplay = (block?: boolean): StyleRecord => {
         "data-h2-display": "base(flex)",
         "data-h2-justify-content": "base(center)",
         "data-h2-width": "base(100%)",
+        "data-h2-text-align": "base(center)",
       }
     : { "data-h2-display": "base(inline-flex)" };
 };
@@ -829,7 +830,6 @@ const useCommonButtonLinkStyles: UseCommonButtonLinkStyles = ({
     "data-h2-align-items": "base(center)",
     "data-h2-outline-offset": "base(4px)",
     "data-h2-radius": "base(s)",
-    "data-h2-text-align": "base(center)",
     "data-h2-text-decoration": "base(underline) base:hover(none)",
     "data-h2-transition": "base(all ease 50ms) base:children[*](all ease 50ms)",
     ...getFontSize(mode),
