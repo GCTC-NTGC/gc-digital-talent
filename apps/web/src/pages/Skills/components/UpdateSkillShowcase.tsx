@@ -18,7 +18,7 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
-import { Repeater, Submit } from "@gc-digital-talent/forms";
+import { Repeater, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import {
   getBehaviouralSkillLevel,
   getLocalizedName,
@@ -90,6 +90,7 @@ interface UpdateSkillShowcaseProps {
     returnPath: string;
   };
   handleSubmit: SubmitHandler<FormValues>;
+  onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
 }
 
 const UpdateSkillShowcase = ({
@@ -100,6 +101,7 @@ const UpdateSkillShowcase = ({
   crumbs,
   pageInfo,
   handleSubmit,
+  onAddition,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -147,6 +149,10 @@ const UpdateSkillShowcase = ({
         .length > 0 ||
       watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
         .length > 0;
+    const existingSkillsRanking = initialSkills.userSkills.map(
+      (userSkill) => userSkill.skill,
+    );
+    const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -166,6 +172,13 @@ const UpdateSkillShowcase = ({
             { shouldFocus: false },
           );
           handleSuccess();
+          if (res.data?.updateUserSkill?.skill.id) {
+            // having claimed a user skill in the modal and the mutation successful, update the ranking
+            onAddition(
+              existingSkillsRankingFiltered,
+              res.data.updateUserSkill.skill.id,
+            );
+          }
         })
         .catch(() => handleError());
     } else {
@@ -186,6 +199,12 @@ const UpdateSkillShowcase = ({
             { shouldFocus: false },
           );
           handleSuccess();
+          if (res.data?.createUserSkill?.skill.id) {
+            onAddition(
+              existingSkillsRankingFiltered,
+              res.data.createUserSkill.skill.id,
+            );
+          }
         })
         .catch(() => handleError());
     }
