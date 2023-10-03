@@ -191,6 +191,7 @@ type Pool {
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
+  specialNote: LocalizedString @rename(attribute: "special_note")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1335,6 +1336,8 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  # Special note
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
   # Essential skills and Asset skills
   essentialSkills: SyncEssentialPoolSkills @spread
   nonessentialSkills: SyncNonessentialPoolSkills @spread
@@ -1630,8 +1633,7 @@ type Mutation {
     @can(ability: "delete", find: "id")
 
   # Notifications
-  markNotificationAsRead(id: UUID!): Notification
-
+  markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")

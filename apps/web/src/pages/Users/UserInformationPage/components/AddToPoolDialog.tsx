@@ -6,7 +6,11 @@ import zipWith from "lodash/zipWith";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
@@ -242,11 +246,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                 <Dialog.Close>
                   <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage({
-                        defaultMessage: "Cancel and go back",
-                        id: "tiF/jI",
-                        description: "Close dialog button",
-                      })}
+                      {intl.formatMessage(formMessages.cancelGoBack)}
                     </span>
                   </Button>
                 </Dialog.Close>

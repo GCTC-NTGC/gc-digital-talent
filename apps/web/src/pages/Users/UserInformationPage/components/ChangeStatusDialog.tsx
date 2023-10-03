@@ -13,6 +13,7 @@ import {
 import {
   commonMessages,
   errorMessages,
+  formMessages,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -291,11 +292,7 @@ const ChangeStatusDialog = ({
                 <Dialog.Close>
                   <Button type="button" color="secondary">
                     <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage({
-                        defaultMessage: "Cancel and go back",
-                        id: "tiF/jI",
-                        description: "Close dialog button",
-                      })}
+                      {intl.formatMessage(formMessages.cancelGoBack)}
                     </span>
                   </Button>
                 </Dialog.Close>
