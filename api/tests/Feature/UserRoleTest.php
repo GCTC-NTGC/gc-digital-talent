@@ -420,7 +420,7 @@ class UserRoleTest extends TestCase
             )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    // Create an applicant user.  Assert that they cannot perform and roles-and-teams mutation.
+    // Create an applicant user. Assert that they cannot perform and roles-and-teams mutation.
     public function testApplicantCannotMutateRolesAndTeams()
     {
         $oldRole = Role::factory()->create(['is_team_based' => true]);
@@ -443,6 +443,44 @@ class UserRoleTest extends TestCase
              ',
             [
                 'id' => $otherUser->id,
+                'user' => [
+                    'roleAssignmentsInput' => [
+                        'attach' => [
+                            'roles' => [$newRole->id],
+                            'team' => $newTeam->id,
+                        ],
+                        'detach' => [
+                            'roles' => [$oldRole->id],
+                            'team' => $oldTeam->id,
+                        ],
+                    ],
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    // Create an applicant user. Assert that they cannot edit their own roles.
+    public function testApplicantCannotMutateOwnRoles()
+    {
+        $oldRole = Role::factory()->create(['is_team_based' => true]);
+        $newRole = Role::factory()->create(['is_team_based' => true]);
+        $oldTeam = Team::factory()->create();
+        $newTeam = Team::factory()->create();
+
+        $this->actingAs($this->baseUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
+                     updateUserAsAdmin(id:$id, user:$user) {
+                       roleAssignments {
+                         role { id }
+                         team { id }
+                       }
+                     }
+                   }
+             ',
+            [
+                'id' => $this->baseUser->id,
                 'user' => [
                     'roleAssignmentsInput' => [
                         'attach' => [

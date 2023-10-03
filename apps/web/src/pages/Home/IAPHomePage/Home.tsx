@@ -703,8 +703,8 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <p data-h2-margin="base(x1, 0, 0, 0)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "Upon submission, a team member will contact you within 3-5 business days.",
-                    id: "GnmmgR",
+                      "Upon submission, a team member will contact you within 5-10 business days.",
+                    id: "GaX7sd",
                     description: "How it works, step 3 content sentence 2",
                   })}
                 </p>
