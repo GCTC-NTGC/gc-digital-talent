@@ -111,7 +111,10 @@ const SkillDialog = ({
     }
   }, [watchSkill, formTrigger]);
 
-  const shouldShowDetails = showDetails(context);
+  const skillInLibrary = !!inLibrary?.find(
+    (librarySkill) => selectedSkill?.id === librarySkill.id,
+  );
+  const shouldShowDetails = showDetails(skillInLibrary, context);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
