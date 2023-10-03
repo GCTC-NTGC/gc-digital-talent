@@ -52,7 +52,13 @@ const ScopeOfContractSection = () => {
     selectedCommodityType,
     selectedMethodOfSupply,
     selectedInstrumentType,
-  ] = watch(["commodityType", "methodOfSupply", "instrumentType"]);
+    selectedContractStartDate,
+  ] = watch([
+    "commodityType",
+    "methodOfSupply",
+    "instrumentType",
+    "contractStartDate",
+  ]);
   const isCommodityTypeOther =
     selectedCommodityType === ContractCommodity.Other;
   const isMethodOfSupplyOther =
@@ -120,6 +126,12 @@ const ScopeOfContractSection = () => {
           show={["YEAR", "MONTH"]}
           rules={{
             required: intl.formatMessage(errorMessages.required),
+            min: {
+              value: selectedContractStartDate,
+              message: intl.formatMessage(errorMessages.mustBeGreater, {
+                value: selectedContractStartDate,
+              }),
+            },
           }}
         />
         <RadioGroup
