@@ -124,6 +124,7 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
     data-h2-display="base(none) l-tablet(table-cell)"
     data-h2-font-size="base(caption)"
     data-h2-vertical-align="base(middle)"
+    data-h2-font-weight="base(400)"
     {...styles.cell}
     {...rest}
   >
