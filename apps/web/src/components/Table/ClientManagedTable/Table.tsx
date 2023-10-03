@@ -305,23 +305,23 @@ function Table<T extends Record<string, unknown>>({
                                     >)}
                                   />
                                 </div>
+                                {allColumns.map((column) => (
+                                  <div
+                                    key={column.id}
+                                    data-h2-margin="base(x.125, 0)"
+                                  >
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        {...column.getToggleHiddenProps({
+                                          title: undefined,
+                                        })}
+                                      />
+                                      {` ${column.Header}`}
+                                    </label>
+                                  </div>
+                                ))}
                               </Field.BoundingBox>
-                              {allColumns.map((column) => (
-                                <div
-                                  key={column.id}
-                                  data-h2-margin="base(x.125, 0)"
-                                >
-                                  <label>
-                                    <input
-                                      type="checkbox"
-                                      {...column.getToggleHiddenProps({
-                                        title: undefined,
-                                      })}
-                                    />
-                                    {` ${column.Header}`}
-                                  </label>
-                                </div>
-                              ))}
                             </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>

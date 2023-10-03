@@ -68,24 +68,24 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                   {intl.formatMessage(adminMessages.toggleAll)}
                 </Field.Label>
               </div>
+              {table
+                .getAllLeafColumns()
+                .filter((c) => c.getCanHide())
+                .map((column) => (
+                  <div key={column.id} data-h2-margin="base(x.125, 0)">
+                    <label>
+                      <input
+                        {...{
+                          type: "checkbox",
+                          checked: column.getIsVisible(),
+                          onChange: column.getToggleVisibilityHandler(),
+                        }}
+                      />{" "}
+                      {column.columnDef.header?.toString() || ""}
+                    </label>
+                  </div>
+                ))}
             </Field.BoundingBox>
-            {table
-              .getAllLeafColumns()
-              .filter((c) => c.getCanHide())
-              .map((column) => (
-                <div key={column.id} data-h2-margin="base(x.125, 0)">
-                  <label>
-                    <input
-                      {...{
-                        type: "checkbox",
-                        checked: column.getIsVisible(),
-                        onChange: column.getToggleVisibilityHandler(),
-                      }}
-                    />{" "}
-                    {column.columnDef.header?.toString() || ""}
-                  </label>
-                </div>
-              ))}
           </Field.Fieldset>
         </Dialog.Body>
       </Dialog.Content>
