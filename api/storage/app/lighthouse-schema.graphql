@@ -1726,6 +1726,7 @@ enum EvaluatedLanguageAbility {
   C
   E
   P
+  NOT_ASSESSED
 }
 
 enum EstimatedLanguageAbility {

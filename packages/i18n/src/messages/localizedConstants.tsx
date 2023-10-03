@@ -30,6 +30,7 @@ import {
   EducationRequirementOption,
   PoolCandidateSearchPositionType,
   SkillLevel,
+  EvaluatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1880,4 +1881,51 @@ export const getBehaviouralSkillLevelDefinition = (
     behaviouralSkillLevelDefinitions,
     skillLevel,
     `Invalid behavioural skill level '${skillLevel}'`,
+  );
+
+const evaluatedLanguageMessages = defineMessages({
+  [EvaluatedLanguageAbility.X]: {
+    defaultMessage: "X",
+    id: "R6XtnR",
+    description: "The evaluated language ability level of X",
+  },
+  [EvaluatedLanguageAbility.A]: {
+    defaultMessage: "A",
+    id: "7TuiE1",
+    description: "The evaluated language ability level of A",
+  },
+  [EvaluatedLanguageAbility.B]: {
+    defaultMessage: "B",
+    id: "MUjjf9",
+    description: "The evaluated language ability level of B",
+  },
+  [EvaluatedLanguageAbility.C]: {
+    defaultMessage: "C",
+    id: "s16Ns7",
+    description: "The evaluated language ability level of C",
+  },
+  [EvaluatedLanguageAbility.E]: {
+    defaultMessage: "E",
+    id: "lOFpV2",
+    description: "The evaluated language ability level of E",
+  },
+  [EvaluatedLanguageAbility.P]: {
+    defaultMessage: "P",
+    id: "eC8w2e",
+    description: "The evaluated language ability level of P",
+  },
+  [EvaluatedLanguageAbility.NotAssessed]: {
+    defaultMessage: "Not assessed",
+    id: "L8TMtk",
+    description: "The evaluated language ability level for un-assessed",
+  },
+});
+
+export const getEvaluatedLanguageAbility = (
+  ability: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    evaluatedLanguageMessages,
+    ability,
+    `Invalid evaluatedLanguageAbility ${ability}`,
   );
