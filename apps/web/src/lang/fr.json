@@ -4636,7 +4636,7 @@
     "description": "Alert message informing user to add experience in application education page."
   },
   "Q9Qj+S": {
-    "defaultMessage": "25 000 $ to < 50 000 $",
+    "defaultMessage": "25 000 $ à < 50 000 $",
     "description": "Contract value range between twenty-five-thousand and fifty-thousand"
   },
   "Q9c+Kg": {
@@ -8799,7 +8799,7 @@
     "description": "A request for the user to review the IAP eligibility criteria"
   },
   "ozKHDz": {
-    "defaultMessage": "Si plusieurs types de ressources ont été établis sous {nom de la section}, veuillez inclure un numéro de suivi pour chaque ressource qui relève de volets de travail de la TI et/ou d’un niveau distinct. Séparez chaque numéro de suivi par une virgule.",
+    "defaultMessage": "Si plusieurs types de ressources ont été établis sous {sectionName}, veuillez inclure un numéro de suivi pour chaque ressource qui relève de volets de travail de la TI et/ou d’un niveau distinct. Séparez chaque numéro de suivi par une virgule.",
     "description": "introduction to needing tracking IDs"
   },
   "p+YRN1": {
@@ -10016,7 +10016,7 @@
     "description": "Text displayed when there are no pool advertisements to display"
   },
   "xJ7VCn": {
-    "defaultMessage": "$10 millions de dollars à < 15 millions de dollars",
+    "defaultMessage": "10 millions de dollars à < 15 millions de dollars",
     "description": "Contract value range between ten-million and fifteen-million"
   },
   "xJfPRe": {
