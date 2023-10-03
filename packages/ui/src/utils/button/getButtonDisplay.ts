@@ -5,7 +5,9 @@ interface ButtonDisplayInterface {
   block: boolean;
 }
 
-type ButtonDisplay = (args: ButtonDisplayInterface) => Record<string, string>;
+type ButtonDisplay = (
+  args: ButtonDisplayInterface,
+) => Record<string, string | undefined>;
 
 const getDisplay: ButtonDisplay = ({ mode, block }) => {
   if (mode === "cta") {
@@ -16,7 +18,8 @@ const getDisplay: ButtonDisplay = ({ mode, block }) => {
   }
   if (block) {
     return {
-      "data-h2-display": "base(block)",
+      "data-h2-display": "base(flex)",
+      "data-h2-justify-content": "base(center)",
     };
   }
   return {
