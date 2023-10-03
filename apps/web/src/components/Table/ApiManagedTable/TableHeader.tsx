@@ -133,35 +133,35 @@ function TableHeader<T extends Record<string, unknown>>({
                                     }}
                                   />
                                 </div>
-                              </Field.BoundingBox>
-                              {columns.map((column) => (
-                                <div
-                                  key={column.id}
-                                  data-h2-margin="base(x.125, 0)"
-                                >
-                                  <label htmlFor={column.id}>
-                                    <input
-                                      id={column.id}
-                                      type="checkbox"
-                                      checked={
-                                        !hiddenColumnIds.includes(column.id)
-                                      }
-                                      onChange={() => {
-                                        if (onColumnHiddenChange) {
-                                          onColumnHiddenChange({
-                                            columnId: column.id,
-                                            setHidden:
-                                              !hiddenColumnIds.includes(
-                                                column.id,
-                                              ),
-                                          });
+                                {columns.map((column) => (
+                                  <div
+                                    key={column.id}
+                                    data-h2-margin="base(x.125, 0)"
+                                  >
+                                    <label htmlFor={column.id}>
+                                      <input
+                                        id={column.id}
+                                        type="checkbox"
+                                        checked={
+                                          !hiddenColumnIds.includes(column.id)
                                         }
-                                      }}
-                                    />{" "}
-                                    {column.label}
-                                  </label>
-                                </div>
-                              ))}
+                                        onChange={() => {
+                                          if (onColumnHiddenChange) {
+                                            onColumnHiddenChange({
+                                              columnId: column.id,
+                                              setHidden:
+                                                !hiddenColumnIds.includes(
+                                                  column.id,
+                                                ),
+                                            });
+                                          }
+                                        }}
+                                      />{" "}
+                                      {column.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </Field.BoundingBox>
                             </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>

@@ -124,6 +124,7 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
     data-h2-display="base(none) l-tablet(table-cell)"
     data-h2-font-size="base(caption)"
     data-h2-vertical-align="base(middle)"
+    data-h2-font-weight="base(400)"
     {...styles.cell}
     {...rest}
   >
@@ -168,7 +169,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       {showHeader && (
         <span
           data-h2-display="base(inline) l-tablet(none)"
-          data-h2-font-weight="base(800)"
+          data-h2-font-weight="base(700)"
         >
           {header}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}
@@ -223,7 +224,7 @@ const Controls = ({ children, add }: ControlsProps) => (
     data-h2-display="base(flex)"
     data-h2-align-items="base(flex-end)"
     data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+    data-h2-gap="base(x.25 0) l-tablet(0 x1)"
     data-h2-margin-bottom="base(x.25)"
     data-h2-justify-content="base(space-between)"
     data-h2-font-size="base(caption)"
@@ -232,7 +233,7 @@ const Controls = ({ children, add }: ControlsProps) => (
       data-h2-display="base(flex)"
       data-h2-align-items="base(flex-end)"
       data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+      data-h2-gap="base(x.25 0) l-tablet(0 x1)"
       data-h2-flex-grow="base(1)"
       data-h2-width="base(100%) l-tablet(auto)"
     >

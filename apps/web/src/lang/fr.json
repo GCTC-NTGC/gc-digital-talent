@@ -2382,6 +2382,10 @@
     "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
+  "CsPyAD": {
+    "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
+    "description": "Description of how many items are being displayed out of the total value"
+  },
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
@@ -4390,10 +4394,6 @@
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
-  },
-  "R1BcTP": {
-    "defaultMessage": "Rechercher{column}",
-    "description": "Button text to search specific columns in table"
   },
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
@@ -6717,10 +6717,6 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "Third paragraph for publish pool dialog"
   },
-  "gMWuvj": {
-    "defaultMessage": "Afficher les résultats {pageSize} de {total}",
-    "description": "Description of how many items are being displayed out of the total value"
-  },
   "gN5gy5": {
     "defaultMessage": "Groupe et niveau de départ",
     "description": "Label displayed on the pool form classification field."
@@ -8632,6 +8628,10 @@
   "tu2Z17": {
     "defaultMessage": "L’équipe de Talents numériques du GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
+  },
+  "tuMmWm": {
+    "defaultMessage": "Filtrer par ordre de {column}",
+    "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
     "defaultMessage": "Rôles individuels",
