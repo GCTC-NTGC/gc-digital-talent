@@ -231,6 +231,9 @@ const UpdateSkillShowcase = ({
                       showAdd={canAdd}
                       customButton={
                         <SkillDialog
+                          inLibrary={userSkills.map(
+                            (userSkill) => userSkill.skill,
+                          )}
                           trigger={
                             canAdd
                               ? {
