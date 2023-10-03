@@ -42,11 +42,9 @@ class AssessmentStepPolicy
      */
     public function update(User $user, AssessmentStep $assessmentStep)
     {
-        $assessmentStep->loadMissing('pool');
-        $poolId = $assessmentStep->pool->id;
-        $pool = Pool::with('team')->find($poolId);
+        $assessmentStep->loadMissing('pool.team');
 
-        return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-        && $user->isAbleTo('update-team-draftPool', $pool->team);
+        return $assessmentStep->pool->getStatusAttribute() === PoolStatus::DRAFT->name
+        && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
     }
 }
