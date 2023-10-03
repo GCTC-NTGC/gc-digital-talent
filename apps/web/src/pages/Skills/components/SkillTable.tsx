@@ -1,46 +1,26 @@
-import React, { useMemo } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import React from "react";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 
-import { getLocale, getSkillCategory } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pill, Pending } from "@gc-digital-talent/ui";
+import { Pending } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Maybe,
-  Skill,
-  SkillCategory,
-  SkillFamily,
-  useAllSkillsQuery,
-} from "~/api/generated";
-import Table, {
-  ColumnsOf,
-  tableEditButtonAccessor,
-  Cell,
-} from "~/components/Table/ClientManagedTable";
+import { Skill, useAllSkillsQuery } from "~/api/generated";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 
-// callbacks extracted to separate function to stabilize memoized component
-const categoryAccessor = (
-  category: SkillCategory | null | undefined,
-  intl: IntlShape,
-) => (category ? intl.formatMessage(getSkillCategory(category as string)) : "");
+import {
+  categoryAccessor,
+  familiesAccessor,
+  keywordsAccessor,
+  skillFamiliesCell,
+} from "./tableHelpers";
 
-const skillFamiliesCell = (
-  skillFamilies: Maybe<Maybe<SkillFamily>[]>,
-  locale: "en" | "fr",
-) => {
-  const families = skillFamilies?.filter(notEmpty).map((family) => (
-    <Pill color="primary" mode="outline" key={family?.key}>
-      {family?.name?.[locale]}
-    </Pill>
-  ));
-
-  return families ? <span>{families}</span> : null;
-};
-
-type SkillCell = Cell<Skill>;
+const columnHelper = createColumnHelper<Skill>();
 
 interface SkillTableProps {
   skills: Array<Skill>;
@@ -49,110 +29,105 @@ interface SkillTableProps {
 
 export const SkillTable = ({ skills, title }: SkillTableProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
-  const columns = useMemo<ColumnsOf<Skill>>(
-    () => [
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "ID",
-          id: "Z6o8ym",
-          description: "Title displayed on the Skill table ID column.",
-        }),
-        accessor: "id",
+  const columns = [
+    columnHelper.accessor("id", {
+      id: "id",
+      enableColumnFilter: false,
+      header: intl.formatMessage(adminMessages.id),
+    }),
+    columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
+      id: "name",
+      header: intl.formatMessage({
+        defaultMessage: "Name",
+        id: "BOeBpE",
+        description: "Title displayed for the skill table Name column.",
+      }),
+      meta: {
+        isRowTitle: true,
       },
+    }),
+    columnHelper.accessor(
+      (skill) => getLocalizedName(skill.description, intl, true),
       {
-        Header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "BOeBpE",
-          description: "Title displayed for the skill table Name column.",
-        }),
-        accessor: (skill) => skill.name?.[locale],
-      },
-      {
-        Header: intl.formatMessage({
+        id: "description",
+        header: intl.formatMessage({
           defaultMessage: "Description",
           id: "9yGJ6k",
           description:
             "Title displayed for the skill table Description column.",
         }),
-        accessor: (skill) => skill.description?.[locale],
       },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Keywords",
-          id: "I7rxxQ",
-          description: "Title displayed for the skill table Keywords column.",
-        }),
-        // keywords[locale] throws type problems
-        accessor: (skill) => {
-          if (locale === "en") {
-            if (skill.keywords && skill.keywords.en)
-              return skill.keywords.en.join(", ");
-          }
-          if (locale === "fr") {
-            if (skill.keywords && skill.keywords.fr)
-              return skill.keywords.fr.join(", ");
-          }
-          return "";
-        },
-      },
-      {
-        Header: intl.formatMessage(adminMessages.skillFamilies),
-        Cell: ({ row: { original: skill } }: SkillCell) =>
-          skillFamiliesCell(skill.families, locale),
-        accessor: (skill) =>
-          skill.families
-            ?.map((family) => family?.name?.[locale])
-            .filter(notEmpty)
-            .sort()
-            .join(", "),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Category",
-          id: "m5RwGF",
-          description:
-            "Title displayed for the Skill Family table Category column.",
-        }),
-        accessor: ({ category }) => categoryAccessor(category, intl),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Edit",
-          id: "X4nVv/",
-          description: "Title displayed for the skill table Edit column.",
-        }),
-        id: "edit",
-        accessor: (d) => `Edit ${d.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: skill } }: SkillCell) =>
-          tableEditButtonAccessor(
-            skill.id,
-            paths.skillTable(),
-            skill.name?.[locale],
-          ),
-      },
-    ],
-    [paths, intl, locale],
-  );
+    ),
+    columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
+      id: "keywords",
+      header: intl.formatMessage({
+        defaultMessage: "Keywords",
+        id: "I7rxxQ",
+        description: "Title displayed for the skill table Keywords column.",
+      }),
+    }),
+    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
+      id: "skillFamilies",
+      header: intl.formatMessage(adminMessages.skillFamilies),
+      cell: ({ row: { original: skill } }) =>
+        skillFamiliesCell(skill.families, intl),
+    }),
+    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
+      id: "category",
+      header: intl.formatMessage({
+        defaultMessage: "Category",
+        id: "m5RwGF",
+        description:
+          "Title displayed for the Skill Family table Category column.",
+      }),
+    }),
+    columnHelper.display({
+      id: "edit",
+      header: intl.formatMessage(adminMessages.edit),
+      cell: ({ row: { original: skill } }) =>
+        cells.edit(
+          skill.id,
+          paths.skillTable(),
+          getLocalizedName(skill.name, intl),
+        ),
+    }),
+  ] as ColumnDef<Skill>[];
 
-  const data = useMemo(() => skills.filter(notEmpty), [skills]);
+  const data = skills.filter(notEmpty);
 
   return (
-    <Table
+    <Table<Skill>
+      caption={title}
       data={data}
       columns={columns}
-      hiddenCols={["id"]}
-      addBtn={{
-        path: paths.skillCreate(),
+      hiddenColumnIds={["id"]}
+      pagination={{
+        internal: true,
+        total: data.length,
+        pageSizes: [10, 20, 50],
+      }}
+      sort={{
+        internal: true,
+      }}
+      search={{
+        internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Create Skill",
-          id: "lFrPv1",
-          description: "Heading displayed above the Create Skill form.",
+          defaultMessage: "Search skills",
+          id: "cWqtEU",
+          description: "Label for the skills table search input",
         }),
       }}
-      title={title}
+      add={{
+        linkProps: {
+          href: paths.skillCreate(),
+          label: intl.formatMessage({
+            defaultMessage: "Create Skill",
+            id: "lFrPv1",
+            description: "Heading displayed above the Create Skill form.",
+          }),
+        },
+      }}
     />
   );
 };

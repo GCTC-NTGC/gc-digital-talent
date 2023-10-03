@@ -3,7 +3,8 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
 
-import { TeamTable, MyRoleTeam } from "./TeamTable";
+import { TeamTable } from "./TeamTable";
+import { MyRoleTeam } from "./types";
 
 const mockTeams = fakeTeams();
 

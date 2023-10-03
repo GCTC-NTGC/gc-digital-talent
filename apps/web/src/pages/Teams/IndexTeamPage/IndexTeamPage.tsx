@@ -35,7 +35,7 @@ const IndexTeamPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
-      <p>
+      <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
             "The following is a table of teams along with their details. You can also create a new team or edit existing ones.",
