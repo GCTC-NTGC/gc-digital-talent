@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
-import SortIcon from "../ClientManagedTable/SortIcon";
+import SortIcon from "../SortIcon";
 import tableMessages from "../tableMessages";
 import {
   Column,

@@ -38,10 +38,7 @@ import {
   handleRowSelectedChange,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import {
-  tableEditButtonAccessor,
-  tableViewItemButtonAccessor,
-} from "~/components/Table/ClientManagedTable";
+import cells from "~/components/Table/cells";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,
@@ -49,7 +46,6 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 import adminMessages from "~/messages/adminMessages";
-import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserTableFilterDialog, {
@@ -154,7 +150,7 @@ const rolesAccessor = (
       .map((role) => getLocalizedName(role.displayName, intl));
     const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 
-    return tableCommaList({
+    return cells.commaList({
       list: uniqueRolesToDisplay,
     });
   }
@@ -391,7 +387,7 @@ const UserTable = ({ title }: { title: string }) => {
           description: "Title displayed for the User table Edit column.",
         }),
         accessor: (d) =>
-          tableEditButtonAccessor(
+          cells.edit(
             d.id,
             pathname,
             getFullNameLabel(d.firstName, d.lastName, intl),
@@ -405,7 +401,7 @@ const UserTable = ({ title }: { title: string }) => {
           description: "Title displayed for the User table View column.",
         }),
         accessor: (user) =>
-          tableViewItemButtonAccessor(
+          cells.view(
             paths.userView(user.id),
             "",
             getFullNameLabel(user.firstName, user.lastName, intl),

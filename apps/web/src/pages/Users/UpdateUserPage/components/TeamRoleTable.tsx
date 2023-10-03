@@ -1,83 +1,37 @@
 import React, { useMemo, useCallback } from "react";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
-import { Heading, Link, Pill } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import {
   Role,
   Scalars,
   Team,
   UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
-import { UpdateUserFunc } from "../types";
+import { TeamAssignment, UpdateUserFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
-import EditTeamRoleDialog from "./EditTeamRoleDialog";
-import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
-
-type UpdateUserHandler = (
-  submitData: UpdateUserAsAdminInput,
-) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+import {
+  teamActionCell,
+  teamCell,
+  teamRolesAccessor,
+  teamRolesCell,
+} from "./helpers";
 
 type RoleTeamPair = {
   role: Role;
   team: Team;
 };
 
-const rolesCell = (displayNames: string[]) => (
-  <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
-    {displayNames.map((displayName) => {
-      return (
-        <Pill color="black" mode="solid" key={displayName}>
-          {displayName}
-        </Pill>
-      );
-    })}
-  </div>
-);
+const columnHelper = createColumnHelper<TeamAssignment>();
 
-const actionCell = (
-  teamAssignment: TeamAssignment,
-  user: User,
-  handleUserUpdate: UpdateUserHandler,
-  availableRoles: Role[],
-) => (
-  <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
-    <EditTeamRoleDialog
-      initialRoles={teamAssignment.roles}
-      user={user}
-      team={teamAssignment.team}
-      onEditRoles={handleUserUpdate}
-      allRoles={availableRoles}
-    />
-    <RemoveTeamRoleDialog
-      roles={teamAssignment.roles}
-      user={user}
-      team={teamAssignment.team}
-      onRemoveRoles={handleUserUpdate}
-    />
-  </div>
-);
-
-const teamCell = (displayName: string, href: string) => {
-  return (
-    <Link color="black" href={href}>
-      {displayName}
-    </Link>
-  );
-};
-
-type TeamAssignment = {
-  team: Team;
-  roles: Role[];
-};
-type TeamAssignmentCell = Cell<TeamAssignment>;
 type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"];
 
 interface TeamRoleTableProps {
@@ -101,59 +55,54 @@ const TeamRoleTable = ({
     [onUpdateUser, user.id],
   );
 
-  const columns = useMemo<ColumnsOf<TeamAssignment>>(
-    () => [
+  const columns = [
+    columnHelper.display({
+      id: "actions",
+      header: intl.formatMessage({
+        defaultMessage: "Actions",
+        id: "OxeGLu",
+        description: "Title displayed for the team table actions column",
+      }),
+      cell: ({ row: { original: teamAssignment } }) =>
+        teamActionCell(teamAssignment, user, handleEditRoles, availableRoles),
+    }),
+    columnHelper.accessor(
+      (teamAssignment) =>
+        getLocalizedName(teamAssignment.team.displayName, intl),
       {
-        Header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "S8ra2P",
-          description: "Title displayed for the role table actions column",
-        }),
-        accessor: (teamAssignment) => `Actions ${teamAssignment.team.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: teamAssignment } }: TeamAssignmentCell) =>
-          actionCell(teamAssignment, user, handleEditRoles, availableRoles),
-      },
-      {
-        Header: intl.formatMessage({
+        id: "team",
+        header: intl.formatMessage({
           defaultMessage: "Team",
           id: "3IZ3mN",
           description: "Title displayed for the role table display team column",
         }),
-        accessor: (teamAssignment) =>
-          getLocalizedName(teamAssignment.team.displayName, intl),
-        Cell: ({
+        cell: ({
           row: {
             original: { team },
           },
-        }: TeamAssignmentCell) =>
-          teamCell(
-            getLocalizedName(team?.displayName, intl),
-            team ? routes.teamView(team.id) : "",
-          ),
+          getValue,
+        }) => teamCell(getValue(), team ? routes.teamView(team.id) : ""),
       },
+    ),
+    columnHelper.accessor(
+      (teamAssignment) => teamRolesAccessor(teamAssignment, intl),
       {
-        Header: intl.formatMessage({
+        id: "membershipRoles",
+        header: intl.formatMessage({
           defaultMessage: "Membership Roles",
           id: "GjaLl7",
           description:
             "Title displayed for the role table display roles column",
         }),
-        accessor: (teamAssignment) =>
-          teamAssignment.roles
-            .map((role) => getLocalizedName(role.displayName, intl))
-            .sort((a, b) => a.localeCompare(b))
-            .join(),
-        Cell: ({ row: { original: teamAssignment } }: TeamAssignmentCell) =>
-          rolesCell(
+        cell: ({ row: { original: teamAssignment } }) =>
+          teamRolesCell(
             teamAssignment.roles
               .map((role) => getLocalizedName(role.displayName, intl))
               .sort((a, b) => a.localeCompare(b)),
           ),
       },
-    ],
-    [availableRoles, handleEditRoles, intl, routes, user],
-  );
+    ),
+  ] as ColumnDef<TeamAssignment>[];
 
   const data = useMemo(() => {
     const roleTeamPairs: RoleTeamPair[] = (user.roleAssignments ?? [])
@@ -194,17 +143,31 @@ const TeamRoleTable = ({
       <Heading level="h3" size="h4">
         {pageTitle}
       </Heading>
-      <Table
+      <Table<TeamAssignment>
+        caption={pageTitle}
         data={data}
         columns={columns}
-        addDialog={
-          <AddTeamRoleDialog
-            user={user}
-            availableRoles={availableRoles}
-            onAddRoles={handleEditRoles}
-          />
-        }
-        title={pageTitle}
+        urlSync={false}
+        search={{
+          internal: true,
+          label: intl.formatMessage({
+            defaultMessage: "Search team based roles",
+            id: "Z+JxTc",
+            description: "Label for the team roles table search input",
+          }),
+        }}
+        sort={{
+          internal: true,
+        }}
+        add={{
+          component: (
+            <AddTeamRoleDialog
+              user={user}
+              availableRoles={availableRoles}
+              onAddRoles={handleEditRoles}
+            />
+          ),
+        }}
       />
     </>
   );
