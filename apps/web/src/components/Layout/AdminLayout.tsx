@@ -50,7 +50,7 @@ const AdminLayout = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const isSmallScreen = useIsSmallScreen();
-  useLayoutTheme("admin");
+  // useLayoutTheme("admin");
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
