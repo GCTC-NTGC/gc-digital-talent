@@ -42,7 +42,7 @@ import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
-import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable";
+import cells from "~/components/Table/cells";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
@@ -254,7 +254,7 @@ const viewAccessor = (
   if (isQualified) {
     return (
       <span data-h2-font-weight="base(700)">
-        {tableViewItemButtonAccessor(
+        {cells.view(
           paths.userView(candidate.user.id),
           intl.formatMessage({
             defaultMessage: "Profile",
@@ -280,7 +280,7 @@ const viewAccessor = (
   }
   return (
     <span data-h2-font-weight="base(700)">
-      {tableViewItemButtonAccessor(
+      {cells.view(
         paths.poolCandidateApplication(candidate.id),
         intl.formatMessage({
           defaultMessage: "Application",

@@ -7,13 +7,13 @@ import { Link, Button } from "@gc-digital-talent/ui";
 
 import { Maybe } from "~/api/generated";
 
-interface TableActionsProps {
+export interface ActionsProps {
   id: string;
   label?: Maybe<string>;
   editPathFunc: (id: string) => string;
 }
 
-const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
+const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
   const intl = useIntl();
   const editPath = editPathFunc(id);
 
@@ -66,8 +66,4 @@ const TableActions = ({ id, label, editPathFunc }: TableActionsProps) => {
   );
 };
 
-const tableActionsAccessor = (props: TableActionsProps) => (
-  <TableActions {...props} />
-);
-
-export default tableActionsAccessor;
+export default Actions;

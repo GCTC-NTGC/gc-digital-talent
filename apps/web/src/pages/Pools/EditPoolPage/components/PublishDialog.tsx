@@ -7,6 +7,7 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import { Pool } from "~/api/generated";
 
@@ -34,11 +35,7 @@ const PublishDialog = ({
               data-h2-display="base(flex)"
               data-h2-align-items="base(center)"
             >
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+              {intl.formatMessage(formMessages.cancelGoBack)}
             </Button>
           </Dialog.Close>
         </div>

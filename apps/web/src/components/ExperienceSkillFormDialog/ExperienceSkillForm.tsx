@@ -11,7 +11,7 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import { Experience, Scalars } from "~/api/generated";
@@ -282,11 +282,7 @@ const ExperienceSkillForm = ({
         <Dialog.Footer>
           <Dialog.Close>
             <Button type="button" mode="inline" color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+              {intl.formatMessage(formMessages.cancelGoBack)}
             </Button>
           </Dialog.Close>
           {defaultValues.experience && (
