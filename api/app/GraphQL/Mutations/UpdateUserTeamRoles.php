@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Team;
 use Illuminate\Support\Facades\DB;
 
-final class AssignUserToTeam
+final class UpdateUserTeamRoles
 {
     /**
      * Duplicates a pool
@@ -15,8 +15,8 @@ final class AssignUserToTeam
      */
     public function __invoke($_, array $args)
     {
-        $team = Team::find($args['id']);
-        $users = User::whereIn($args['users'])->get();
+        $team = Team::find($args['teamId']); // Even if we don't use the whole team object, ensure it exists.
+        $user = User::find($args['userId']);
 
         // Assemble a roleAssignments object which makes sense to User->setRoleAssignmentsInputAttribute
         // Do this by inserting the team id into each attach/detach/sync key of role assignments
@@ -24,13 +24,7 @@ final class AssignUserToTeam
         foreach ($roleAssignments as $key => $value) {
             $roleAssignments[$key]['team'] = $team->id;
         }
-
-        // Update the
-        DB::transaction(function () use ($users, $roleAssignments) {
-            foreach ($users as $user) {
-                $user->setRoleAssignmentsInputAttribute($roleAssignments);
-            }
-        });
+        $user->setRoleAssignmentsInputAttribute($roleAssignments);
 
         return $team->fresh();
     }
