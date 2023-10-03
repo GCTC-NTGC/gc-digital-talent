@@ -137,6 +137,9 @@ type Mutation {
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: UUID!): UserSkill
+  createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  deleteAssessmentStep(id: UUID!): AssessmentStep
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -279,6 +282,7 @@ type Pool {
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
+  specialNote: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -296,6 +300,8 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+  poolSkills: [PoolSkill]
 }
 
 type ScreeningQuestionResponse {
@@ -303,6 +309,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion
   poolCandidate: PoolCandidate
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedString
+  poolSkills: [PoolSkill]
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool
+  skill: Skill
+  assessmentSteps: [AssessmentStep]
 }
 
 type PoolCandidate {
@@ -1088,6 +1111,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID]
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID]
+}
+
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1097,14 +1128,26 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  specialNote: LocalizedStringInput
+  essentialSkills: SyncEssentialPoolSkills
+  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany
+}
+
+input AssessmentStepInput {
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput {
@@ -1683,6 +1726,7 @@ enum EvaluatedLanguageAbility {
   C
   E
   P
+  NOT_ASSESSED
 }
 
 enum EstimatedLanguageAbility {
@@ -1715,6 +1759,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum PoolSkillType {
+  ESSENTIAL
+  NONESSENTIAL
 }
 
 enum PoolStream {
@@ -2073,4 +2122,17 @@ enum ContractingRationale {
   REQUIRES_INDEPENDENT
   INTELLECTUAL_PROPERTY_FACTORS
   OTHER
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  APPLICATION_SCREENING
+  ADDITIONAL_ASSESSMENT
 }

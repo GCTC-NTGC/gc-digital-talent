@@ -191,6 +191,7 @@ type Pool {
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
+  specialNote: LocalizedString @rename(attribute: "special_note")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -210,6 +211,10 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+    @hasMany
+    @canOnParent(ability: "viewAssessments")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
 }
 
 type ScreeningQuestionResponse {
@@ -217,6 +222,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion @belongsTo
   poolCandidate: PoolCandidate @belongsTo
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool @belongsTo
+  type: AssessmentStepType
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedString
+  poolSkills: [PoolSkill] @belongsToMany
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool @belongsTo
+  skill: Skill @belongsTo
+  assessmentSteps: [AssessmentStep] @belongsToMany
 }
 
 type PoolCandidate {
@@ -1308,6 +1330,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setNonessentialPoolSkills")
+}
+
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1327,9 +1357,11 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  # Special note
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
   # Essential skills and Asset skills
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  essentialSkills: SyncEssentialPoolSkills @spread
+  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1337,6 +1369,21 @@ input UpdatePoolInput {
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
+}
+
+input AssessmentStepInput {
+  type: AssessmentStepType
+    @rules(
+      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
+    )
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput
@@ -1644,8 +1691,7 @@ type Mutation {
   ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
 
   # Notifications
-  markNotificationAsRead(id: UUID!): Notification
-
+  markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
@@ -1663,6 +1709,20 @@ type Mutation {
   deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
+
+  # Assessment mutations
+  createAssessmentStep(
+    poolId: UUID! @rename(attribute: "pool_id")
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @create @guard @can(ability: "create", injectArgs: true)
+  updateAssessmentStep(
+    id: UUID!
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
+    @delete
+    @guard
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql

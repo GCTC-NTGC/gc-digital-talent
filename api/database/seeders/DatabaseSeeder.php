@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
-        Pool::factory()->count(6)->published()->create();
+        Pool::factory()->count(6)->published()->withAssessments()->create();
         Pool::factory()->count(2)->closed()->create();
         Pool::factory()->count(2)->archived()->create();
         // Seed some expected values
@@ -210,7 +210,7 @@ class DatabaseSeeder extends Seeder
     {
         // attach an award experience to a given user that has all the essential skills of a given pool
         $faker = Faker\Factory::create();
-        $essentialSkillIds = $pool->essentialSkills()->pluck('id');
+        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id');
 
         if ($essentialSkillIds->isNotEmpty()) {
             $data = $essentialSkillIds->map(function ($id) use ($faker) {

@@ -704,6 +704,7 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
           ) : (
             <p>{notProvided}</p>
           )}
+          {/* What to expect section */}
           <div data-h2-flex-grid="base(flex-start, x1, x1)">
             <div data-h2-flex-item="base(1of1)">
               <h2
@@ -749,6 +750,55 @@ export const ViewPool = ({ pool }: ViewPoolProps): JSX.Element => {
               </p>
               <p data-h2-margin="base(x.5, 0, 0, 0)">
                 {pool.whatToExpect?.fr || notProvided}
+              </p>
+            </div>
+          </div>
+          {/* Special note section */}
+          <div data-h2-flex-grid="base(flex-start, x1, x1)">
+            <div data-h2-flex-item="base(1of1)">
+              <h2
+                data-h2-margin="base(x2, 0, 0, 0)"
+                data-h2-font-size="base(h3)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Special note for this process",
+                  id: "ye0xFe",
+                  description: "Sub title for the special note section",
+                })}
+              </h2>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "English special note for this process text",
+                  id: "0W2yCR",
+                  description:
+                    "Title for English pool advertisement special note for this process",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.specialNote?.en || notProvided}
+              </p>
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <p
+                data-h2-margin="base(x1, 0, 0, 0)"
+                data-h2-font-weight="base(700)"
+                data-h2-font-size="base(h6)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "French special note for this process text",
+                  id: "ycmN2m",
+                  description:
+                    "Title for French pool advertisement special note for this process",
+                })}
+              </p>
+              <p data-h2-margin="base(x.5, 0, 0, 0)">
+                {pool.specialNote?.fr || notProvided}
               </p>
             </div>
           </div>

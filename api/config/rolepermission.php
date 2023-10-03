@@ -62,6 +62,7 @@ return [
         'skillFamily' => 'skillFamily',
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
+        'userSub' => 'userSub',
         'pool' => 'pool',
         'publishedPool' => 'publishedPool',
         'draftPool' => 'draftPool',
@@ -194,12 +195,16 @@ return [
             'fr' => 'Visionner l\'utilisateur de l\'équipe',
         ],
         'update-any-user' => [
-            'en' => 'Update Any User',
-            'fr' => 'Mettre à jour tout utilisateur',
+            'en' => 'Update Any User (does not include updating the "sub" field or role assignments)',
+            'fr' => 'Mettre à jour tout utilisateur (ne comprend pas la mise à jour du champ "sub" ou des attributions de rôles)',
+        ],
+        'update-any-userSub' => [
+            'en' => 'Update the "sub" field of any user',
+            'fr' => 'Mettre à jour le champ "sub" de n\'importe quel utilisateur',
         ],
         'update-own-user' => [
-            'en' => 'Update Own User',
-            'fr' => 'Mettre à jour son propre utilisateur',
+            'en' => 'Update Own User (does not include updating the "sub" field or role assignments)',
+            'fr' => 'Mettre à jour son propre utilisateur (ne comprend pas la mise à jour du champ "sub" ou des attributions de rôles)',
         ],
         'delete-any-user' => [
             'en' => 'Delete Any User',
@@ -672,6 +677,9 @@ return [
             ],
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'],
+            ],
+            'userSub' => [
+                'any' => ['update'],
             ],
             'userBasicInfo' => [
                 'any' => ['view'],

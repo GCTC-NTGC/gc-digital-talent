@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "GplLic",
     description: "Title for unique ID of a resource",
   },
+  edit: {
+    defaultMessage: "Edit",
+    id: "yZoSaY",
+    description: "Title displayed for a tables Edit column.",
+  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",
