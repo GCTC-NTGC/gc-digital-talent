@@ -8,7 +8,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import Field from "../Field";
 import WordCounter from "../WordCounter";
 import type { CommonInputProps } from "../../types";
-import { countNumberOfWords } from "../../utils";
+import { countNumberOfWords, sanitizeString } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
@@ -62,11 +62,13 @@ const TextArea = ({
     },
   });
 
-  const whitespaceTrimmer = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const normalizeInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    let inputValue = e.target.value;
     if (whitespaceTrim) {
-      const value = e.target.value.trim();
-      setValue(name, value);
+      inputValue = inputValue.trim();
     }
+    inputValue = sanitizeString(inputValue);
+    setValue(name, inputValue);
   };
 
   let wordLimitRule = {};
@@ -108,7 +110,7 @@ const TextArea = ({
               ...rules.validate,
               ...wordLimitRule,
             },
-            onBlur: whitespaceTrimmer,
+            onBlur: normalizeInput,
           })}
           {...(readOnly
             ? {
