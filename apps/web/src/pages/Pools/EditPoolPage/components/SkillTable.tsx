@@ -59,7 +59,7 @@ const SkillTable = ({
     onSave(data.filter((skill) => skill.id !== id).map((skill) => skill.id));
   };
 
-  const columns = [
+  let columns = [
     columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
       id: "name",
       header: intl.formatMessage({
@@ -73,20 +73,26 @@ const SkillTable = ({
         isRowTitle: true,
       },
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage({
-        defaultMessage: "Remove",
-        id: "yBZaZy",
-        description: "Header for the remove column on a skill table",
-      }),
-      meta: {
-        hideMobileHeader: true,
-      },
-      cell: ({ row: { original: department } }) =>
-        removeCell(department, handleRemove, intl),
-    }),
   ] as ColumnDef<Skill>[];
+
+  if (!disableAdd) {
+    columns = [
+      ...columns,
+      columnHelper.display({
+        id: "edit",
+        header: intl.formatMessage({
+          defaultMessage: "Remove",
+          id: "yBZaZy",
+          description: "Header for the remove column on a skill table",
+        }),
+        meta: {
+          hideMobileHeader: true,
+        },
+        cell: ({ row: { original: department } }) =>
+          removeCell(department, handleRemove, intl),
+      }),
+    ];
+  }
 
   return (
     <Table<Skill>
