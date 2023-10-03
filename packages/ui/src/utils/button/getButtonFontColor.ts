@@ -347,10 +347,10 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       if (color === "white") {
         return {
           "data-h2-color": `
-            base:children[>div:first-child](gray.lighter)
-            base:all:focus-visible:children[>div:first-child](black)
+            base:children[>span:first-child](gray.lighter)
+            base:all:focus-visible:children[>span:first-child](black)
 
-            base:children[>div:last-child](gray.darker)
+            base:children[>span:last-child](gray.darker)
 
             base:children[.counter](white)
             base:all:focus-visible:children[.counter](black)`,
@@ -358,10 +358,10 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       }
       return {
         "data-h2-color": `
-          base:children[>div:first-child](gray.darker)
-          base:all:focus-visible:children[>div:first-child](black)
+          base:children[>span:first-child](gray.darker)
+          base:all:focus-visible:children[>span:first-child](black)
 
-          base:children[>div:last-child](gray.darker)
+          base:children[>span:last-child](gray.darker)
 
           base:children[.counter](white)
           base:all:focus-visible:children[.counter](black)`,
@@ -370,16 +370,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "primary") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)
 
-          base:iap:all:children[>div:first-child](white)
-          base:iap:hover:children[>div:first-child](black)
-          base:iap:all:focus-visible:children[>div:first-child](black)
+          base:iap:all:children[>span:first-child](white)
+          base:iap:hover:children[>span:first-child](black)
+          base:iap:all:focus-visible:children[>span:first-child](black)
 
           base:iap:all:children[.counter](white)
           base:iap:all:focus-visible:children[.counter](black)`,
@@ -388,16 +388,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "secondary") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)
 
-          base:iap:all:children[>div:first-child](white)
-          base:iap:hover:children[>div:first-child](black)
-          base:iap:all:focus-visible:children[>div:first-child](black)
+          base:iap:all:children[>span:first-child](white)
+          base:iap:hover:children[>span:first-child](black)
+          base:iap:all:focus-visible:children[>span:first-child](black)
 
           base:iap:all:children[.counter](white)
           base:iap:all:focus-visible:children[.counter](black)`,
@@ -406,16 +406,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "tertiary") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)
 
-          base:iap:all:children[>div:first-child](white)
-          base:iap:hover:children[>div:first-child](black)
-          base:iap:all:focus-visible:children[>div:first-child](black)
+          base:iap:all:children[>span:first-child](white)
+          base:iap:hover:children[>span:first-child](black)
+          base:iap:all:focus-visible:children[>span:first-child](black)
 
           base:iap:all:children[.counter](white)
           base:iap:all:focus-visible:children[.counter](black)`,
@@ -424,16 +424,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "quaternary") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)
 
-          base:iap:all:children[>div:first-child](white)
-          base:iap:hover:children[>div:first-child](black)
-          base:iap:all:focus-visible:children[>div:first-child](black)
+          base:iap:all:children[>span:first-child](white)
+          base:iap:hover:children[>span:first-child](black)
+          base:iap:all:focus-visible:children[>span:first-child](black)
 
           base:iap:all:children[.counter](white)
           base:iap:all:focus-visible:children[.counter](black)`,
@@ -442,16 +442,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "quinary") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)
 
-          base:iap:all:children[>div:first-child](white)
-          base:iap:hover:children[>div:first-child](black)
-          base:iap:all:focus-visible:children[>div:first-child](black)
+          base:iap:all:children[>span:first-child](white)
+          base:iap:hover:children[>span:first-child](black)
+          base:iap:all:focus-visible:children[>span:first-child](black)
 
           base:iap:all:children[.counter](white)
           base:iap:all:focus-visible:children[.counter](black)`,
@@ -460,10 +460,10 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "success") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)`,
       };
@@ -471,10 +471,10 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "warning") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)`,
       };
@@ -482,10 +482,10 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
     if (color === "error") {
       return {
         "data-h2-color": `
-          base:dark:hover:children[>div:first-child](black)
-          base:dark:focus-visible:children[>div:first-child](white)
+          base:dark:hover:children[>span:first-child](black)
+          base:dark:focus-visible:children[>span:first-child](white)
 
-          base:children[>div:last-child](black)
+          base:children[>span:last-child](black)
 
           base:all:children[.counter](black)`,
       };
@@ -495,9 +495,9 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
         "data-h2-color": `
           base(black)
 
-          base:children[>div:first-child](white)
-          base:hover:children[>div:first-child](black)
-          base:all:focus-visible:children[>div:first-child](black)
+          base:children[>span:first-child](white)
+          base:hover:children[>span:first-child](black)
+          base:all:focus-visible:children[>span:first-child](black)
 
           base:children[.counter](white)
           base:all:focus-visible:children[.counter](black)`,
@@ -508,9 +508,9 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
         "data-h2-color": `
           base(black)
 
-          base:children[>div:first-child](black)
-          base:hover:children[>div:first-child](white)
-          base:all:focus-visible:children[>div:first-child](black)
+          base:children[>span:first-child](black)
+          base:hover:children[>span:first-child](white)
+          base:all:focus-visible:children[>span:first-child](black)
 
           base:children[.counter](black)
           base:all:focus-visible:children[.counter](black)`,

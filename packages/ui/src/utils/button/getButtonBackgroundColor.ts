@@ -359,10 +359,10 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         return {
           "data-h2-background-color": `
             base(transparent)
-            base:children[>div:first-child](gray.darkest)
-            base:all:focus-visible:children[>div:first-child](focus)
+            base:children[>span:first-child](gray.darkest)
+            base:all:focus-visible:children[>span:first-child](focus)
 
-            base:children[>div:last-child](foreground)
+            base:children[>span:last-child](foreground)
 
             base:children[.counter](gray.darker)
             base:all:focus-visible:children[.counter](focus)`,
@@ -371,10 +371,10 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:children[>div:first-child](gray.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:children[.counter](gray.darker)
           base:all:focus-visible:children[.counter](focus)`,
@@ -385,18 +385,18 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
 
-          base:all:children[>div:first-child](primary.light)
-          base:hover:children[>div:first-child](primary.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](primary.light)
+          base:hover:children[>span:first-child](primary.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](primary.light)
           base:all:focus-visible:children[.counter](focus)
 
-          base:iap:all:children[>div:first-child](primary)
-          base:iap:hover:children[>div:first-child](primary.lightest)
-          base:iap:all:focus-visible:children[>div:first-child](focus)
+          base:iap:all:children[>span:first-child](primary)
+          base:iap:hover:children[>span:first-child](primary.lightest)
+          base:iap:all:focus-visible:children[>span:first-child](focus)
 
           base:iap:all:children[.counter](primary)
           base:iap:dark:focus-visible:children[.counter](focus)`,
@@ -406,19 +406,19 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](secondary)
-          base:hover:children[>div:first-child](secondary.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](secondary)
+          base:hover:children[>span:first-child](secondary.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](secondary)
           base:all:focus-visible:children[.counter](focus)
 
-          base:iap:all:children[>div:first-child](secondary)
-          base:iap:hover:children[>div:first-child](secondary.lightest)
-          base:iap:all:focus-visible:children[>div:first-child](focus)
-          base:iap:dark:children[>div:first-child](secondary.light)
+          base:iap:all:children[>span:first-child](secondary)
+          base:iap:hover:children[>span:first-child](secondary.lightest)
+          base:iap:all:focus-visible:children[>span:first-child](focus)
+          base:iap:dark:children[>span:first-child](secondary.light)
 
           base:iap:all:children[.counter](secondary)
           base:iap:dark:children[.counter](secondary.light)
@@ -429,19 +429,19 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](tertiary)
-          base:hover:children[>div:first-child](tertiary.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](tertiary)
+          base:hover:children[>span:first-child](tertiary.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](tertiary)
           base:all:focus-visible:children[.counter](focus)
 
-          base:iap:all:children[>div:first-child](tertiary)
-          base:iap:hover:children[>div:first-child](tertiary.lightest)
-          base:iap:all:focus-visible:children[>div:first-child](focus)
-          base:iap:dark:children[>div:first-child](tertiary.light)
+          base:iap:all:children[>span:first-child](tertiary)
+          base:iap:hover:children[>span:first-child](tertiary.lightest)
+          base:iap:all:focus-visible:children[>span:first-child](focus)
+          base:iap:dark:children[>span:first-child](tertiary.light)
 
           base:iap:all:children[.counter](tertiary)
           base:iap:dark:children[.counter](tertiary.light)
@@ -452,19 +452,19 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](quaternary)
-          base:hover:children[>div:first-child](quaternary.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](quaternary)
+          base:hover:children[>span:first-child](quaternary.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](quaternary)
           base:all:focus-visible:children[.counter](focus)
 
-          base:iap:all:children[>div:first-child](quaternary)
-          base:iap:hover:children[>div:first-child](quaternary.lightest)
-          base:iap:all:focus-visible:children[>div:first-child](focus)
-          base:iap:dark:children[>div:first-child](quaternary.light)
+          base:iap:all:children[>span:first-child](quaternary)
+          base:iap:hover:children[>span:first-child](quaternary.lightest)
+          base:iap:all:focus-visible:children[>span:first-child](focus)
+          base:iap:dark:children[>span:first-child](quaternary.light)
 
           base:iap:all:children[.counter](quaternary)
           base:iap:dark:children[.counter](quaternary.light)
@@ -475,19 +475,19 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](quinary)
-          base:hover:children[>div:first-child](quinary.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](quinary)
+          base:hover:children[>span:first-child](quinary.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](quinary)
           base:all:focus-visible:children[.counter](focus)
 
-          base:iap:all:children[>div:first-child](quinary)
-          base:iap:hover:children[>div:first-child](quinary.lightest)
-          base:iap:all:focus-visible:children[>div:first-child](focus)
-          base:iap:dark:children[>div:first-child](quinary.light)
+          base:iap:all:children[>span:first-child](quinary)
+          base:iap:hover:children[>span:first-child](quinary.lightest)
+          base:iap:all:focus-visible:children[>span:first-child](focus)
+          base:iap:dark:children[>span:first-child](quinary.light)
 
           base:iap:all:children[.counter](quinary)
           base:iap:dark:children[.counter](quinary.light)
@@ -498,11 +498,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](success.light)
-          base:hover:children[>div:first-child](success.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](success.light)
+          base:hover:children[>span:first-child](success.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](success.light)
           base:all:focus-visible:children[.counter](focus)`,
@@ -512,11 +512,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](warning)
-          base:hover:children[>div:first-child](warning.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](warning)
+          base:hover:children[>span:first-child](warning.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](warning)
           base:all:focus-visible:children[.counter](focus)`,
@@ -526,11 +526,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:all:children[>div:first-child](error.light)
-          base:hover:children[>div:first-child](error.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](error.light)
+          base:hover:children[>span:first-child](error.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:all:children[.counter](error.light)
           base:all:focus-visible:children[.counter](focus)`,
@@ -540,11 +540,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:children[>div:first-child](gray.darkest)
-          base:hover:children[>div:first-child](gray.lighter)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.darkest)
+          base:hover:children[>span:first-child](gray.lighter)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:children[.counter](gray.darkest)
           base:all:focus-visible:children[.counter](focus)`,
@@ -554,11 +554,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       return {
         "data-h2-background-color": `
           base(transparent)
-          base:children[>div:first-child](gray.lightest)
-          base:hover:children[>div:first-child](gray.darker)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.lightest)
+          base:hover:children[>span:first-child](gray.darker)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
           base:children[.counter](gray.lightest)
           base:all:focus-visible:children[.counter](focus)`,

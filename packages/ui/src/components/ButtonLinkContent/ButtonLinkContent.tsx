@@ -9,8 +9,8 @@ import Counter from "../Button/Counter";
 
 interface IconTextProps
   extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
+    React.HTMLAttributes<HTMLSpanElement>,
+    HTMLSpanElement
   > {
   mode: ButtonLinkMode;
   icon?: IconType;
@@ -36,7 +36,7 @@ const ButtonLinkContent = ({
   if (mode === "cta") {
     return (
       <>
-        <div
+        <span
           data-h2-display="base(flex) base:children[>*](inline-block)"
           data-h2-padding="base(calc(x.5 - 3px))"
           data-h2-align-self="base(stretch)"
@@ -48,9 +48,9 @@ const ButtonLinkContent = ({
               data-h2-vertical-align="base(middle)"
             />
           )}
-        </div>
-        <div
-          data-h2-display="base:children[>*](inline-block)"
+        </span>
+        <span
+          data-h2-display="base(block) base:children[>*](inline-block)"
           data-h2-padding="base(calc(x.5 - 3px) calc(x1 - 3px))"
           data-h2-vertical-align="base:children[>*](middle)"
           {...rest}
@@ -76,13 +76,13 @@ const ButtonLinkContent = ({
             />
           )}
           {counter && <Counter count={counter} />}
-        </div>
+        </span>
       </>
     );
   }
   return (
-    <div
-      data-h2-display="base:children[>*](inline-block)"
+    <span
+      data-h2-display="base(block) base:children[>*](inline-block)"
       data-h2-vertical-align="base:children[>*](middle)"
       {...rest}
     >
@@ -109,7 +109,7 @@ const ButtonLinkContent = ({
         />
       )}
       {counter && <Counter count={counter} />}
-    </div>
+    </span>
   );
 };
 

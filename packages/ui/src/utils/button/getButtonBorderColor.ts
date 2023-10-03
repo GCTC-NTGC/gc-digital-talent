@@ -183,127 +183,127 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
       if (color === "white") {
         return {
           "data-h2-border-color": `
-            base:children[>div:first-child](gray.lighter)
-            base:all:focus-visible:children[>div:first-child](focus)
+            base:children[>span:first-child](gray.lighter)
+            base:all:focus-visible:children[>span:first-child](focus)
 
-            base:children[>div:last-child](foreground)`,
+            base:children[>span:last-child](foreground)`,
         };
       }
       return {
         "data-h2-border-color": `
-          base:children[>div:first-child](gray.darker)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.darker)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
     if (color === "primary") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](primary.light)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](primary.light)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
-          base:iap:all:children[>div:first-child](primary)
-          base:iap:dark:focus-visible:children[>div:first-child](focus)`,
+          base:iap:all:children[>span:first-child](primary)
+          base:iap:dark:focus-visible:children[>span:first-child](focus)`,
       };
     }
     if (color === "secondary") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](secondary)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](secondary)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
-          base:iap:all:children[>div:first-child](secondary)
-          base:iap:dark:children[>div:first-child](secondary.light)
-          base:iap:dark:focus-visible:children[>div:first-child](focus)`,
+          base:iap:all:children[>span:first-child](secondary)
+          base:iap:dark:children[>span:first-child](secondary.light)
+          base:iap:dark:focus-visible:children[>span:first-child](focus)`,
       };
     }
     if (color === "tertiary") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](tertiary)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](tertiary)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
-          base:iap:all:children[>div:first-child](tertiary)
-          base:iap:dark:children[>div:first-child](tertiary.light)
-          base:iap:dark:focus-visible:children[>div:first-child](focus)`,
+          base:iap:all:children[>span:first-child](tertiary)
+          base:iap:dark:children[>span:first-child](tertiary.light)
+          base:iap:dark:focus-visible:children[>span:first-child](focus)`,
       };
     }
     if (color === "quaternary") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](quaternary)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](quaternary)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
-          base:iap:all:children[>div:first-child](quaternary)
-          base:iap:dark:children[>div:first-child](quaternary.light)
-          base:iap:dark:focus-visible:children[>div:first-child](focus)`,
+          base:iap:all:children[>span:first-child](quaternary)
+          base:iap:dark:children[>span:first-child](quaternary.light)
+          base:iap:dark:focus-visible:children[>span:first-child](focus)`,
       };
     }
     if (color === "quinary") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](quinary)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](quinary)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)
+          base:children[>span:last-child](foreground)
 
-          base:iap:all:children[>div:first-child](quinary)
-          base:iap:dark:children[>div:first-child](quinary.light)
-          base:iap:dark:focus-visible:children[>div:first-child](focus)`,
+          base:iap:all:children[>span:first-child](quinary)
+          base:iap:dark:children[>span:first-child](quinary.light)
+          base:iap:dark:focus-visible:children[>span:first-child](focus)`,
       };
     }
     if (color === "success") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](success.light)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](success.light)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
     if (color === "warning") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](warning)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](warning)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
     if (color === "error") {
       return {
         "data-h2-border-color": `
-          base:all:children[>div:first-child](error.light)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:all:children[>span:first-child](error.light)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
     if (color === "black") {
       return {
         "data-h2-border-color": `
-          base:children[>div:first-child](gray.darkest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.darkest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
     if (color === "white") {
       return {
         "data-h2-border-color": `
-          base:children[>div:first-child](gray.lightest)
-          base:all:focus-visible:children[>div:first-child](focus)
+          base:children[>span:first-child](gray.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
 
-          base:children[>div:last-child](foreground)`,
+          base:children[>span:last-child](foreground)`,
       };
     }
   }

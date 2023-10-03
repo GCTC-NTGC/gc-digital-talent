@@ -33,12 +33,12 @@ const getBaseStyle: ButtonBaseStyle = ({ mode }) => {
     return {
       "data-h2-padding": "base(0)",
       "data-h2-radius":
-        "base(rounded) base:children[>div:first-child](rounded 0px 0px rounded) base:children[>div:last-child](0px rounded rounded 0px)",
+        "base(rounded) base:children[>span:first-child](rounded 0px 0px rounded) base:children[>span:last-child](0px rounded rounded 0px)",
       "data-h2-outline": "base(none)",
       "data-h2-transition":
-        "base(all .2s ease) base:children[>div](all .2s ease)",
-      "data-h2-border-width": "base:children[>div](3px)",
-      "data-h2-border-style": "base:children[>div](solid)",
+        "base(all .2s ease) base:children[>span](all .2s ease)",
+      "data-h2-border-width": "base:children[>span](3px)",
+      "data-h2-border-style": "base:children[>span](solid)",
     };
   }
   return {

@@ -11,7 +11,7 @@ const getDisplay: ButtonDisplay = ({ mode, block }) => {
   if (mode === "cta") {
     return {
       "data-h2-display":
-        "base(inline-flex) base:children[>div:first-child](flex)",
+        "base(inline-flex) base:children[>span:first-child](flex)",
     };
   }
   if (block) {
