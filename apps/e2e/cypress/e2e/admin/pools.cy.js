@@ -134,9 +134,11 @@ describe("Pools", () => {
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /edit pool/i })
+    cy.findByRole("heading", { name: /advertisement information/i })
       .should("exist")
       .and("be.visible");
+
+    cy.findByRole("button", { name: /edit pool name/i }).click();
 
     // Update the classification field
     cy.findByRole("combobox", { name: /classification/i }).select(
@@ -169,9 +171,19 @@ describe("Pools", () => {
       `${title} FR`,
     );
 
+    const publishingGroup = "Other";
+    cy.findByRole("combobox", { name: /publishing group/i }).select(
+      publishingGroup,
+    );
+    cy.findByRole("combobox", { name: /publishing group/i }).within(() => {
+      cy.get("option:selected").should("have.text", publishingGroup);
+    });
+
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
     expectUpdate();
+
+    cy.findByRole("button", { name: /edit closing date/i }).click();
 
     // Update expiry date to some arbitrary date in the future
     cy.findByRole("group", { name: /end date/i }).within(() => {
@@ -184,6 +196,8 @@ describe("Pools", () => {
 
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
+
+    cy.findByRole("button", { name: /edit other requirements/i }).click();
 
     const langRequirement = "Bilingual intermediate";
     cy.findByRole("combobox", { name: /language requirement/i }).select(
@@ -199,14 +213,6 @@ describe("Pools", () => {
     );
     cy.findByRole("combobox", { name: /security requirement/i }).within(() => {
       cy.get("option:selected").should("have.text", securityRequirement);
-    });
-
-    const publishingGroup = "Other";
-    cy.findByRole("combobox", { name: /publishing group/i }).select(
-      publishingGroup,
-    );
-    cy.findByRole("combobox", { name: /publishing group/i }).within(() => {
-      cy.get("option:selected").should("have.text", publishingGroup);
     });
 
     cy.findByRole("button", { name: /save other requirements/i }).click();
@@ -231,8 +237,9 @@ describe("Pools", () => {
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
+    cy.findByRole("button", { name: /edit pool name/i }).click()
+
     // Set a process number
-    cy.findByRole("textbox", { name: /edit pool name/i }).click();
     const processNumber = "process 123";
     cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
 
