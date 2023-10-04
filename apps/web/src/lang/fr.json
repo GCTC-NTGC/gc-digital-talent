@@ -541,6 +541,10 @@
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
   },
+  "147mtW": {
+    "defaultMessage": "Chercher les équipes",
+    "description": "Label for the teams table search input"
+  },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
@@ -1302,6 +1306,10 @@
   "5r8Ka2": {
     "defaultMessage": "Tout le tableau",
     "description": "Text in table search form column dropdown when no column is selected."
+  },
+  "5tmTP/": {
+    "defaultMessage": "Chercher les classifications",
+    "description": "Label for the classifications table search input"
   },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
@@ -2374,6 +2382,10 @@
     "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
     "description": "Title for the 'project portfolio management' IT work stream"
   },
+  "CsPyAD": {
+    "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
+    "description": "Description of how many items are being displayed out of the total value"
+  },
   "CuHYqt": {
     "defaultMessage": "Sauvegarder et revenir en arrière",
     "description": "Text for save button on profile form."
@@ -2405,10 +2417,6 @@
   "D6f8hs": {
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
     "description": "Text for first sign up -> mfa step."
-  },
-  "D753gS": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Classification table Edit column."
   },
   "D8Pgbs": {
     "defaultMessage": "Créer une classification",
@@ -2933,6 +2941,10 @@
     "defaultMessage": "Équipe",
     "description": "Label for the input to select team of a team role"
   },
+  "GaX7sd": {
+    "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 5 à 10 jours ouvrables qui suivent.",
+    "description": "How it works, step 3 content sentence 2"
+  },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
@@ -2952,10 +2964,6 @@
   "GjaLl7": {
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
-  },
-  "GnmmgR": {
-    "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 3 à 5 jours ouvrables qui suivent.",
-    "description": "How it works, step 3 content sentence 2"
   },
   "Gp+70V": {
     "defaultMessage": "Postulez d’ici le :",
@@ -4387,10 +4395,6 @@
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
   },
-  "R1BcTP": {
-    "defaultMessage": "Rechercher{column}",
-    "description": "Button text to search specific columns in table"
-  },
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
     "description": "Instructions on how to describe a skill"
@@ -4510,10 +4514,6 @@
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
     "description": "Default team for pool"
-  },
-  "S8ra2P": {
-    "defaultMessage": "Actions",
-    "description": "Title displayed for the role table actions column"
   },
   "S9lNLG": {
     "defaultMessage": "Modifiez vos options d'informations linguistiques",
@@ -5067,10 +5067,6 @@
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
   },
-  "VqyL+/": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Classification table ID column."
-  },
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
     "description": "Subject line for contact email to start a recruitment process"
@@ -5269,10 +5265,6 @@
   "X4TOhW": {
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
-  },
-  "X4nVv/": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the skill table Edit column."
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
@@ -5548,9 +5540,17 @@
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
   },
+  "Yy27PD": {
+    "defaultMessage": "Chercher les membres de l’équipe",
+    "description": "Label for the team members table search input"
+  },
   "YyHN1i": {
     "defaultMessage": "Toute langue (anglais ou français)",
     "description": "No preference for language ability - will accept English or French"
+  },
+  "Z+JxTc": {
+    "defaultMessage": "Chercher les rôles fondés sur l’équipe",
+    "description": "Label for the team roles table search input"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -5567,10 +5567,6 @@
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
-  },
-  "Z6o8ym": {
-    "defaultMessage": "Identité",
-    "description": "Title displayed on the Skill table ID column."
   },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
@@ -5663,10 +5659,6 @@
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
-  },
-  "ZobKCk": {
-    "defaultMessage": "Identité",
-    "description": "Title displayed on the Skill Family table ID column."
   },
   "ZqZc8Z": {
     "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
@@ -5933,6 +5925,10 @@
     "defaultMessage": "Réussite",
     "description": "Breadcrumb link text for the application success page"
   },
+  "bUyxJi": {
+    "defaultMessage": "Chercher les ministères",
+    "description": "Label for the departments table search input"
+  },
   "bVRixs": {
     "defaultMessage": "Niveau",
     "description": "Label displayed on the classification form level field."
@@ -6084,6 +6080,10 @@
   "cVszq/": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
     "description": "Sentence before signature space on the add indigenous identity dialog"
+  },
+  "cWqtEU": {
+    "defaultMessage": "Chercher les compétences",
+    "description": "Label for the skills table search input"
   },
   "cYq1Dp": {
     "defaultMessage": "Les apprentis qui participent au programme disent que ça « change une vie », que ça représente « une occasion d’avoir une meilleure vie grâce à la technologie » et qu’« il n’y a aucun obstacle à la réussite de ce programme ».",
@@ -6717,10 +6717,6 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "Third paragraph for publish pool dialog"
   },
-  "gMWuvj": {
-    "defaultMessage": "Afficher les résultats {pageSize} de {total}",
-    "description": "Description of how many items are being displayed out of the total value"
-  },
   "gN5gy5": {
     "defaultMessage": "Groupe et niveau de départ",
     "description": "Label displayed on the pool form classification field."
@@ -6913,10 +6909,6 @@
     "defaultMessage": "Nous tentons de répondre aux demandes de renseignements dans un délai de cinq jours ouvrables.",
     "description": "Disclaimer for support email response time"
   },
-  "hTfHUv": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Department table Edit column."
-  },
   "hV2hKJ": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Field label before government employment group and level"
@@ -6987,6 +6979,10 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
+  "i2LB7R": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
+    "description": "First paragraph for apply now dialog"
+  },
   "i3C5Hn": {
     "defaultMessage": "Ministère",
     "description": "Title displayed on the search request table department column."
@@ -7038,10 +7034,6 @@
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
     "description": "Introduction text for selecting employment equity groups"
-  },
-  "iKpxPY": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
-    "description": "First paragraph for apply now dialog"
   },
   "iMAe2n": {
     "defaultMessage": "<strong>une autre spécialité pertinente à cette offre d’emploi</strong>",
@@ -7402,10 +7394,6 @@
   "kspVvy": {
     "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez <mailLink>communiquer avec nous</mailLink> et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions.",
     "description": "Second paragraph about who the program is for"
-  },
-  "kt5dPm": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Pool table Unique Identifier column."
   },
   "kukr/B": {
     "defaultMessage": "<strong>Je respecte l’option d’expérience appliquée</strong>",
@@ -8086,6 +8074,10 @@
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
   },
+  "paTLlJ": {
+    "defaultMessage": "Chercher les rôles",
+    "description": "Label for the roles table search input"
+  },
   "pe5WkF": {
     "defaultMessage": "Courriel du propriétaire",
     "description": "Title displayed for the Pool table Owner Email column"
@@ -8206,6 +8198,10 @@
     "defaultMessage": " Créer une compétence",
     "description": "Title displayed on the create a skill form."
   },
+  "qb6pT2": {
+    "defaultMessage": "Chercher les bassins",
+    "description": "Label for the pools table search input"
+  },
   "qeD2p/": {
     "defaultMessage": "Titre du prix",
     "description": "Label displayed on award form for award title input"
@@ -8276,10 +8272,6 @@
   "rGE0gj": {
     "defaultMessage": "Votre incidence",
     "description": "Title for pool advertisement impact section"
-  },
-  "rJ36SS": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Skill Family table Edit column."
   },
   "rJqCuH": {
     "defaultMessage": "Description (anglais)",
@@ -8621,10 +8613,6 @@
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
   },
-  "tpzt/B": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Pool table Edit column."
-  },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
     "description": "Heading for how employment equity information will be used."
@@ -8636,6 +8624,10 @@
   "tu2Z17": {
     "defaultMessage": "L’équipe de Talents numériques du GC adhère aux <digitalStandardsLink>normes numériques inclusives du gouvernement du Canada</digitalStandardsLink> (GC).",
     "description": "Paragraph describing accessibility standards"
+  },
+  "tuMmWm": {
+    "defaultMessage": "Filtrer par ordre de {column}",
+    "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
     "defaultMessage": "Rôles individuels",
@@ -9243,6 +9235,10 @@
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
     "description": "Call to action to begin editing government information"
   },
+  "yXwlJw": {
+    "defaultMessage": "Chercher les familles de compétences",
+    "description": "Label for the skill families table search input"
+  },
   "yYDzYE": {
     "defaultMessage": "Fermez le bassin maintenant",
     "description": "Button to close the pool in the close pool dialog"
@@ -9250,6 +9246,10 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
+  },
+  "yZoSaY": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for a tables Edit column."
   },
   "yZqUAU": {
     "defaultMessage": "Niveau",

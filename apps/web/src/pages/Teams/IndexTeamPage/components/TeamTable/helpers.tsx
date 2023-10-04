@@ -1,0 +1,115 @@
+import React from "react";
+import { IntlShape } from "react-intl";
+
+import { Maybe, RoleAssignment, Team } from "@gc-digital-talent/graphql";
+import { Link, Pill } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { MyRoleTeam } from "./types";
+
+export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
+  return (
+    <Link href={url} color="black">
+      {label ||
+        intl.formatMessage({
+          defaultMessage: "No name provided",
+          id: "L9Ked5",
+          description: "Fallback for team display name value",
+        })}
+    </Link>
+  );
+}
+
+export function emailCell(email: Maybe<string>, intl: IntlShape) {
+  if (email) {
+    return (
+      <Link color="black" external href={`mailto:${email}`}>
+        {email}
+      </Link>
+    );
+  }
+  return (
+    <span data-h2-font-style="base(italic)">
+      {intl.formatMessage({
+        defaultMessage: "No email provided",
+        id: "1JCjTP",
+        description: "Fallback for email value",
+      })}
+    </span>
+  );
+}
+
+export function myRolesAccessor(
+  teamId: string,
+  myRoleTeams: MyRoleTeam[],
+  intl: IntlShape,
+) {
+  // pull out roles associated with the (row's) team id passed in for generating searchable string
+  const teamFiltered = myRoleTeams.filter(
+    (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
+  );
+  const accessorString = teamFiltered
+    .map((roleTeam) => getLocalizedName(roleTeam.roleName, intl))
+    .join(", ");
+
+  return accessorString;
+}
+
+export function myRolesCell(
+  teamId: string,
+  myRoleTeams: MyRoleTeam[],
+  intl: IntlShape,
+) {
+  // pull out roles associated with the (row's) team id passed in for generating UI elements
+  const teamFiltered = myRoleTeams.filter(
+    (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
+  );
+
+  const rolesPillsArray = teamFiltered.map((roleTeam) => (
+    <Pill
+      color="primary"
+      mode="outline"
+      key={`${teamId}-${roleTeam.roleName.en}`}
+    >
+      {getLocalizedName(roleTeam.roleName, intl)}
+    </Pill>
+  ));
+
+  return rolesPillsArray.length > 0 ? <span>{rolesPillsArray}</span> : null;
+}
+
+// given an array of RoleAssignments
+// generate an array of MyRoleTeam objects for team-based roles, filtering out individual roles and empty
+// the returned array functions like a map
+export function roleAssignmentsToRoleTeamArray(
+  roleAssignments: RoleAssignment[],
+): MyRoleTeam[] {
+  let collection: Array<MyRoleTeam> = [];
+
+  roleAssignments.forEach((roleAssignment) => {
+    if (
+      roleAssignment?.role &&
+      roleAssignment.role.isTeamBased &&
+      roleAssignment?.team &&
+      roleAssignment.role.displayName
+    ) {
+      const newTeam: MyRoleTeam = {
+        teamId: roleAssignment.team.id,
+        roleName: roleAssignment.role.displayName,
+      };
+
+      collection = [newTeam, ...collection];
+    }
+  });
+
+  return collection;
+}
+
+export function departmentAccessor(team: Team, intl: IntlShape) {
+  return team.departments
+    ?.filter(notEmpty)
+    .map((department) => getLocalizedName(department?.name, intl, true))
+    .filter(notEmpty)
+    .join(", ");
+}
