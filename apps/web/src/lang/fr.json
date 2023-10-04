@@ -6945,10 +6945,6 @@
     "defaultMessage": "Votre signature",
     "description": "label for the signature input on the self-declaration form"
   },
-  "hi9+Mu": {
-    "defaultMessage": "Veuillez relier au moins une expérience de parcours professionnel à chaque compétence technique requise.",
-    "description": "Error message if there are no experiences"
-  },
   "hiZAeF": {
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
