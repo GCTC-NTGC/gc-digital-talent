@@ -22,3 +22,5 @@ export interface EditPoolSectionMetadata {
 }
 
 export type PageNavKeys = "view" | "edit" | "candidates";
+
+export type PoolCompleteness = "incomplete" | "complete" | "submitted";
