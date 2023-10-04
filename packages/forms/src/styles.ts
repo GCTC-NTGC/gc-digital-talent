@@ -10,6 +10,7 @@ const fieldStateStyles: Record<FieldState, Record<string, string>> = {
     "data-h2-background-color": "base(error.lightest)",
   },
   dirty: {
+    "data-h2-background-color": "base(foreground)",
     "data-h2-border-color": "base(secondary.darker) base:focus-visible(focus)",
   },
 };
