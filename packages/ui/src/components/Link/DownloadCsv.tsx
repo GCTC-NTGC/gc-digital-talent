@@ -11,7 +11,10 @@ interface CsvHeader {
 }
 
 export interface DownloadCsvProps
-  extends Pick<LinkProps, "color" | "mode" | "block" | "type" | "icon"> {
+  extends Pick<
+    LinkProps,
+    "color" | "mode" | "block" | "type" | "icon" | "fontSize"
+  > {
   headers: CsvHeader[];
   data: Record<string, string>[];
   fileName: string;
@@ -22,6 +25,7 @@ const DownloadCsv = ({
   color = "primary",
   mode = "solid",
   block = false,
+  fontSize = "body",
   icon,
   headers,
   data,
@@ -38,7 +42,7 @@ const DownloadCsv = ({
       data={data}
       filename={fileName}
     >
-      <ButtonLinkContent mode={mode} icon={icon}>
+      <ButtonLinkContent mode={mode} icon={icon} fontSize={fontSize}>
         {children}
       </ButtonLinkContent>
     </CSVLink>

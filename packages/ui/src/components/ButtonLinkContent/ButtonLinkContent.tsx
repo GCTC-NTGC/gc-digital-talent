@@ -13,6 +13,7 @@ interface IconTextProps
     HTMLSpanElement
   > {
   mode: ButtonLinkMode;
+  fontSize?: "body" | "caption";
   icon?: IconType;
   counter?: number;
   utilityIcon?: IconType;
@@ -25,6 +26,7 @@ const ButtonLinkContent = ({
   counter,
   utilityIcon,
   mode,
+  fontSize,
   newTab = false,
   ...rest
 }: IconTextProps) => {
@@ -32,6 +34,21 @@ const ButtonLinkContent = ({
   if (!newTab && !icon && !utilityIcon) return <span>{children}</span>;
   const Icon = icon;
   const UtilityIcon = utilityIcon;
+
+  let textSize = {
+    "data-h2-font-size": "base(body)",
+  };
+  let iconSize = {
+    "data-h2-width": "base(x1)",
+  };
+  if (fontSize === "caption") {
+    textSize = {
+      "data-h2-font-size": "base(caption)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x.75)",
+    };
+  }
 
   if (mode === "cta") {
     return (
@@ -42,12 +59,7 @@ const ButtonLinkContent = ({
           data-h2-align-self="base(stretch)"
           data-h2-align-items="base(center)"
         >
-          {Icon && (
-            <Icon
-              data-h2-width="base(x1)"
-              data-h2-vertical-align="base(middle)"
-            />
-          )}
+          {Icon && <Icon {...iconSize} data-h2-vertical-align="base(middle)" />}
         </span>
         <span
           data-h2-display="base(block) base:children[>*](inline-block)"
@@ -56,22 +68,19 @@ const ButtonLinkContent = ({
           {...rest}
         >
           <span
-            data-h2-font-size="base(body)"
+            {...textSize}
             data-h2-font-weight="base(700)"
             data-h2-text-decoration="base(underline)"
           >
             {children}
           </span>
           {UtilityIcon && (
-            <UtilityIcon
-              data-h2-width="base(x1)"
-              data-h2-margin-left="base(x.25)"
-            />
+            <UtilityIcon {...iconSize} data-h2-margin-left="base(x.25)" />
           )}
           {newTab && (
             <ArrowTopRightOnSquareIcon
               aria-label={intl.formatMessage(uiMessages.newTab)}
-              data-h2-width="base(x1)"
+              {...iconSize}
               data-h2-margin-left="base(x.25)"
             />
           )}
@@ -86,25 +95,17 @@ const ButtonLinkContent = ({
       data-h2-vertical-align="base:children[>*](middle)"
       {...rest}
     >
-      {Icon && (
-        <Icon data-h2-margin-right="base(x.25)" data-h2-width="base(x1)" />
-      )}
-      <span
-        data-h2-font-size="base(body)"
-        data-h2-text-decoration="base(underline)"
-      >
+      {Icon && <Icon data-h2-margin-right="base(x.25)" {...iconSize} />}
+      <span {...textSize} data-h2-text-decoration="base(underline)">
         {children}
       </span>
       {UtilityIcon && (
-        <UtilityIcon
-          data-h2-width="base(x1)"
-          data-h2-margin-left="base(x.25)"
-        />
+        <UtilityIcon {...iconSize} data-h2-margin-left="base(x.25)" />
       )}
       {newTab && (
         <ArrowTopRightOnSquareIcon
           aria-label={intl.formatMessage(uiMessages.newTab)}
-          data-h2-width="base(x1)"
+          {...iconSize}
           data-h2-margin-left="base(x.25)"
         />
       )}

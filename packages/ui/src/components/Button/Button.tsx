@@ -20,6 +20,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       counter,
       color = "primary",
       mode = "solid",
+      fontSize = "body",
       block = false,
       ...rest
     },
@@ -44,6 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           utilityIcon={utilityIcon}
           color={color}
           counter={counter}
+          fontSize={fontSize}
         >
           {children}
         </ButtonLinkContent>

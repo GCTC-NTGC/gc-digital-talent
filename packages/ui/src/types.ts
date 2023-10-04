@@ -34,4 +34,5 @@ export type ButtonLinkProps = {
   icon?: IconType;
   utilityIcon?: IconType;
   counter?: number;
+  fontSize?: "body" | "caption";
 } & HydrogenAttributes;

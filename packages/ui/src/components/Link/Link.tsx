@@ -31,6 +31,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       color = "secondary",
       mode = "text",
       block = false,
+      fontSize = "body",
       external = false,
       newTab = false,
       disabled = false,
@@ -65,6 +66,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
         icon={icon}
         utilityIcon={utilityIcon}
         newTab={newTab}
+        fontSize={fontSize}
       >
         {children}
       </ButtonLinkContent>
