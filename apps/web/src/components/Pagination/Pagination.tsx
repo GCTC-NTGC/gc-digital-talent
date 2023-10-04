@@ -13,7 +13,7 @@ import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
 
 type ButtonColor = Extract<Color, "white" | "black">;
-type ActiveColor = Exclude<Color, "white" | "black">;
+type ActiveColor = Color;
 
 export interface PaginationProps
   extends React.DetailedHTMLProps<
@@ -58,7 +58,7 @@ const Pagination = ({
   onPageSizeChange,
   spacing,
   color,
-  activeColor = "primary",
+  activeColor = "black",
   ...rest
 }: PaginationProps) => {
   const intl = useIntl();
@@ -238,6 +238,9 @@ const Pagination = ({
                   aria-current={current}
                   onClick={() => onCurrentPageChange(Number(pageNumber))}
                   color={current ? activeColor : color}
+                  {...(current && {
+                    "data-h2-text-decoration": "base(none)",
+                  })}
                   {...(!current && {
                     "data-h2-font-weight": "base(400)",
                   })}

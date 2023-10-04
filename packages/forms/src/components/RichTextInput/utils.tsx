@@ -29,7 +29,7 @@ export const extensions = [
 
 export const contentStyles = {
   "data-h2-color":
-    "base:children[a](secondary.darker) base:hover:children[a](secondary) base:focus-visible:children[a](black) base:dark:children[a](secondary.lighter) base:dark:hover:children[a](secondary.light) base:dark:focus-visible:children[a](black) base:admin:children[a](secondary.light) base:admin:hover:children[a](secondary.lighter) base:admin:focus-visible(black) base:admin:dark(secondary.lightest) base:admin:dark:hover(secondary.lighter) base:admin:dark:focus-visible(black) base:iap:hover(secondary.light) base:iap:focus-visible(black) base:iap:dark:hover(secondary.light) base:iap:dark:focus-visible(black)",
+    "base:children[a](secondary.darker) base:hover:children[a](secondary) base:focus-visible:children[a](black) base:dark:children[a](secondary.lighter) base:dark:hover:children[a](secondary.light) base:dark:focus-visible:children[a](black) base:iap:hover(secondary.light) base:iap:focus-visible(black) base:iap:dark:hover(secondary.light) base:iap:dark:focus-visible(black)",
   "data-h2-margin-top": "base:children[:not(:first-child):not(li)](x.5)",
   "data-h2-margin-bottom": "base:children[:not(:last-child):not(li)](x.5)",
   "data-h2-outline-offset": "base:children[a](4px)",

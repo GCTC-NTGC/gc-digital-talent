@@ -38,7 +38,7 @@ const PageTitle = ({ icon, subtitle, children, ...rest }: PageTitleProps) => {
           size="h5"
           data-h2-padding="base(0) p-tablet(0, 0, 0, x3)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          data-h2-font-weight="base(700)"
+          data-h2-font-weight="base(400)"
         >
           {subtitle}
         </Heading>
