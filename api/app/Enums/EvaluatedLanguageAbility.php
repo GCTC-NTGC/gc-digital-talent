@@ -10,4 +10,5 @@ enum EvaluatedLanguageAbility
     case C;
     case E;
     case P;
+    case NOT_ASSESSED;
 }

@@ -99,6 +99,12 @@ const errorMessages = defineMessages({
     description:
       "Error message when a date was entered that is greater than the maximum required",
   },
+  specialCharacters: {
+    defaultMessage:
+      "The text cannot be saved. Please ensure the text has no formatting or special characters and try again.",
+    id: "Q3Pc71",
+    description: "Error message that there might be a special character.",
+  },
 });
 
 export default errorMessages;

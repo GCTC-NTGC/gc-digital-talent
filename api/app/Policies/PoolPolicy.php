@@ -193,4 +193,20 @@ class PoolPolicy
 
         return $user->isAbleTo('archive-team-pool', $pool->team);
     }
+
+    /**
+     * Determine whether the user can view pool assessments
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAssessments(User $user, Pool $pool)
+    {
+        if ($user->isAbleTo('view-any-pool')) {
+            return true;
+        }
+
+        $pool->loadMissing('team');
+
+        return $user->isAbleTo('view-team-pool', $pool->team);
+    }
 }
