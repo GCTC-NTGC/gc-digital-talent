@@ -141,6 +141,41 @@ const ImproveBehaviouralSkills = ({
       });
   };
 
+  const updateRankingsAfterAddingSkill = (
+    initialSkillRanking: string[],
+    newSkillId: string,
+  ) => {
+    const mergedSkillIds = [...initialSkillRanking, newSkillId];
+    executeMutation({
+      userId: user?.id,
+      userSkillRanking: {
+        improveBehaviouralSkillsRanked: mergedSkillIds,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully updated improve behavioural skills",
+              id: "B6SS7l",
+              description:
+                "Success message displayed after updating improve behavioural skills",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating improve behavioural skills failed",
+            id: "O53DAg",
+            description:
+              "Message displayed to user after improve behavioural skills fails to update",
+          }),
+        );
+      });
+  };
+
   return (
     <UpdateSkillShowcase
       userId={user?.id}
@@ -150,6 +185,7 @@ const ImproveBehaviouralSkills = ({
       userSkills={userSkills}
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
+      onAddition={updateRankingsAfterAddingSkill}
     />
   );
 };
