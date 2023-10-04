@@ -150,9 +150,15 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
 };
 
 export const showDetails = (
+  skillInLibrary: boolean,
   context: SkillDialogContext | undefined,
 ): boolean => {
   const detailContexts: SkillDialogContext[] = ["library", "showcase"];
+
+  // We do not need details if already in library when on showcase context
+  if (context === "showcase" && skillInLibrary) {
+    return false;
+  }
 
   return context ? detailContexts.includes(context) : false;
 };

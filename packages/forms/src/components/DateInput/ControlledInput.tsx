@@ -17,18 +17,21 @@ import {
   setComputedValue,
   splitSegments,
 } from "./utils";
+import { StyleRecord } from "../../types";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   formState: UseFormStateReturn<FieldValues>;
   show: Array<DateSegment>;
+  stateStyles: StyleRecord;
 }
 
 const ControlledInput = ({
   field: { onChange, value, name },
   formState: { defaultValues },
   show,
+  stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
   const inputStyles = useCommonInputStyles();
@@ -90,6 +93,7 @@ const ControlledInput = ({
             data-h2-width="base(100%)"
             min={1900}
             {...inputStyles}
+            {...stateStyles}
           />
         </div>
       )}
@@ -105,6 +109,7 @@ const ControlledInput = ({
             defaultValue={month || ""}
             data-h2-width="base(100%)"
             {...inputStyles}
+            {...stateStyles}
           >
             <option value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
@@ -133,6 +138,7 @@ const ControlledInput = ({
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
             data-h2-width="base(100%)"
             {...inputStyles}
+            {...stateStyles}
           />
         </div>
       )}

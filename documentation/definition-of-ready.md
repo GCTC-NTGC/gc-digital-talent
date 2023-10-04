@@ -1,4 +1,4 @@
-# Definition of Ready:
+# Definition of Ready
 
 - Approved by stakeholders
 - Wireframes with copy and all possible states and views

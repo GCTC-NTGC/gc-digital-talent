@@ -115,6 +115,7 @@ function BasicTable<T extends RecordWithId>({
                     key={column.id}
                     data-h2-background-color="base(black)"
                     data-h2-padding="base(x.5, x1, x.5, x.5)"
+                    data-h2-min-width="base(x8)"
                     role="columnheader"
                     {...calculateTableHeaderProps(column)}
                   >
@@ -128,6 +129,7 @@ function BasicTable<T extends RecordWithId>({
                         data-h2-outline="base(none)"
                         data-h2-padding="base(x.25, x.5)"
                         data-h2-radius="base(s)"
+                        data-h2-font-size="base(caption)"
                         disabled={
                           !column.sortColumnName && column.id !== "selection"
                         }
@@ -142,8 +144,9 @@ function BasicTable<T extends RecordWithId>({
                       <span
                         data-h2-display="base(block)"
                         data-h2-color="base(white)"
-                        data-h2-font-weight="base(700)"
+                        data-h2-font-weight="base(400)"
                         data-h2-text-align="base(left)"
+                        data-h2-font-size="base(caption)"
                       >
                         {label}
                       </span>
@@ -153,11 +156,14 @@ function BasicTable<T extends RecordWithId>({
               })}
           </tr>
         </thead>
-        <tbody data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)">
+        <tbody data-h2-background="base(foreground) base:selectors[>tr:nth-child(even)](#f4f5f9) base:selectors[>tr:nth-child(odd)](foreground)">
           {data.length ? (
             data.map((datum) => {
               return (
-                <tr key={JSON.stringify(datum) /* 🤷 */}>
+                <tr
+                  key={JSON.stringify(datum) /* 🤷 */}
+                  data-h2-border-bottom="base(1px solid gray.light)"
+                >
                   {columns
                     .filter((column) => !hiddenColumnIds.includes(column.id))
                     .map((column) => {
@@ -175,7 +181,7 @@ function BasicTable<T extends RecordWithId>({
               );
             })
           ) : (
-            <tr>
+            <tr data-h2-border-bottom="base(1px solid gray.light)">
               <td
                 colSpan={columns.length}
                 data-h2-padding="base(x1)"

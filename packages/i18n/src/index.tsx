@@ -75,6 +75,7 @@ import {
   getTechnicalSkillLevelDefinition,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
+  getEvaluatedLanguageAbility,
 } from "./messages/localizedConstants";
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
@@ -155,6 +156,7 @@ export {
   getTechnicalSkillLevelDefinition,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
+  getEvaluatedLanguageAbility,
 };
 
 export type { Locales, Messages };

@@ -19,6 +19,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
 import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
+import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
   HTMLFieldsetProps & {
@@ -56,6 +57,7 @@ const DateInput = ({
   const error = get(errors, name)?.message as FieldError;
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
+  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
@@ -128,7 +130,13 @@ const DateInput = ({
                 isBeforeMax,
               },
             }}
-            render={(props) => <ControlledInput {...props} show={show} />}
+            render={(props) => (
+              <ControlledInput
+                {...props}
+                show={show}
+                stateStyles={stateStyles}
+              />
+            )}
           />
         </Field.BoundingBox>
       </Field.Fieldset>

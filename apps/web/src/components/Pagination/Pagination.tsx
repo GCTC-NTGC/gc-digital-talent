@@ -13,7 +13,7 @@ import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
 
 type ButtonColor = Extract<Color, "white" | "black">;
-type ActiveColor = Exclude<Color, "white" | "black">;
+type ActiveColor = Color;
 
 export interface PaginationProps
   extends React.DetailedHTMLProps<
@@ -58,7 +58,7 @@ const Pagination = ({
   onPageSizeChange,
   spacing,
   color,
-  activeColor = "primary",
+  activeColor = "black",
   ...rest
 }: PaginationProps) => {
   const intl = useIntl();
@@ -87,6 +87,8 @@ const Pagination = ({
   const lastPage = paginationRange[paginationRange.length - 1];
   const isLeftArrowDisabled = currentPage === 1;
   const isRightArrowDisabled = currentPage === lastPage;
+  const currentPageStartIndex = (currentPage - 1) * pageSize + 1;
+  const currentPageSize = currentPage * pageSize;
 
   const iconStyles = {
     "data-h2-width": "base(1rem)",
@@ -128,13 +130,16 @@ const Pagination = ({
         <span>
           {intl.formatMessage(
             {
-              defaultMessage: "Showing results {pageSize} of {total}",
-              id: "gMWuvj",
+              defaultMessage:
+                "Showing results {currentPageStartIndex} - {currentPageEndIndex} of {total}",
+              id: "CsPyAD",
               description:
                 "Description of how many items are being displayed out of the total value",
             },
             {
-              pageSize: pageSize > totalCount ? totalCount : pageSize,
+              currentPageStartIndex,
+              currentPageEndIndex:
+                currentPageSize > totalCount ? totalCount : currentPageSize,
               total: totalCount,
             },
           )}
@@ -148,6 +153,8 @@ const Pagination = ({
                   mode="inline"
                   color={color}
                   utilityIcon={ChevronDownIcon}
+                  data-h2-font-size="base(caption)"
+                  data-h2-font-weight="base(400)"
                 >
                   {intl.formatMessage(
                     {
@@ -231,6 +238,9 @@ const Pagination = ({
                   aria-current={current}
                   onClick={() => onCurrentPageChange(Number(pageNumber))}
                   color={current ? activeColor : color}
+                  {...(current && {
+                    "data-h2-text-decoration": "base(none)",
+                  })}
                   {...(!current && {
                     "data-h2-font-weight": "base(400)",
                   })}

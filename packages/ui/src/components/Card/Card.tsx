@@ -20,14 +20,12 @@ export interface CardProps {
 const colorMap = {
   primary: {
     "data-h2-background-color": "base:all(primary.light) base:iap:all(primary)",
-    "data-h2-color":
-      "base:all(black) base:all:admin(white) base:all:iap(white)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   secondary: {
     "data-h2-background-color":
-      "base(secondary) base:dark:admin(secondary.lighter) base:iap:dark(secondary.light)",
-    "data-h2-color":
-      "base:all(black) base:all:admin(white) base:all:iap(white)",
+      "base(secondary) base:iap:dark(secondary.light)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   tertiary: {
     "data-h2-background-color":

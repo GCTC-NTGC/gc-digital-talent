@@ -85,7 +85,7 @@ export type ButtonClickEvent = (
 type Csv = Pick<DownloadCsvProps, "headers" | "data" | "fileName">;
 
 /** Props for a CSV download button */
-type DatasetDownloadItem = {
+export type DatasetDownloadItem = {
   /** The props required for CSV Download */
   csv: Csv;
   /** The label to display in the button */
