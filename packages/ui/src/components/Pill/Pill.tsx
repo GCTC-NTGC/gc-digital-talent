@@ -20,10 +20,9 @@ export interface PillProps
 const h2ChipColors = {
   primary: {
     solid: {
-      "data-h2-border":
-        "base(1px solid primary.light) base:admin(1px solid primary)",
-      "data-h2-background-color": "base(primary.light) base:admin(primary)",
-      "data-h2-color": "base(black) base:admin(white)",
+      "data-h2-border": "base(1px solid primary.light)",
+      "data-h2-background-color": "base(primary.light) ",
+      "data-h2-color": "base(black) ",
     },
     outline: {
       "data-h2-border": "base(1px solid primary.darker)",
@@ -35,7 +34,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid secondary)",
       "data-h2-background-color": "base(secondary)",
-      "data-h2-color": "base(black) base:admin(white) base:iap(white)",
+      "data-h2-color": "base(black) base:iap(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid secondary.darker)",
