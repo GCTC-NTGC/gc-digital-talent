@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
-import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
 import HomeIconOutline from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/20/solid/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/20/solid/BuildingOffice2Icon";
