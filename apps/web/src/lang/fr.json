@@ -7152,7 +7152,7 @@
     "description": "Application step for skill requirements, introduction, description, paragraph one"
   },
   "ilZlfH": {
-    "defaultMessage": "{count, plural, =0 {0 applicants au total} =1 {1 applicant au total} other {# applicants au total}}",
+    "defaultMessage": "{count, plural, =0 {0 demandes} =1 {1 demande} other {# demandes}}",
     "description": "The number of applicants to a specific process"
   },
   "inxVq8": {
