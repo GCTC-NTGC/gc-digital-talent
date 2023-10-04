@@ -156,11 +156,14 @@ function BasicTable<T extends RecordWithId>({
               })}
           </tr>
         </thead>
-        <tbody data-h2-background="base(foreground) base:children[>tr:nth-child(odd)](primary.darker.1)">
+        <tbody data-h2-background="base(foreground) base:selectors[>tr:nth-child(even)](#f4f5f9) base:selectors[>tr:nth-child(odd)](foreground)">
           {data.length ? (
             data.map((datum) => {
               return (
-                <tr key={JSON.stringify(datum) /* 🤷 */}>
+                <tr
+                  key={JSON.stringify(datum) /* 🤷 */}
+                  data-h2-border-bottom="base(1px solid gray.light)"
+                >
                   {columns
                     .filter((column) => !hiddenColumnIds.includes(column.id))
                     .map((column) => {
@@ -178,7 +181,7 @@ function BasicTable<T extends RecordWithId>({
               );
             })
           ) : (
-            <tr>
+            <tr data-h2-border-bottom="base(1px solid gray.light)">
               <td
                 colSpan={columns.length}
                 data-h2-padding="base(x1)"
