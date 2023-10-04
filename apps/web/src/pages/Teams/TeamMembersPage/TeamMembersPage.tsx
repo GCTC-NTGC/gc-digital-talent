@@ -6,17 +6,15 @@ import { useParams } from "react-router-dom";
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import SEO from "~/components/SEO/SEO";
 import {
+  useTeamMembersQuery,
   Role,
   Scalars,
   Team,
-  useAllUsersQuery,
-  useGetTeamQuery,
-  useListRolesQuery,
   User,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -96,7 +94,7 @@ const TeamMembers = ({
     }),
   ] as ColumnDef<TeamMember>[];
 
-  const data = members.filter(notEmpty);
+  const data = React.useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>
@@ -144,20 +142,18 @@ const TeamMembersPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { teamId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useGetTeamQuery({
-    variables: { teamId: teamId || "" },
+  const [{ data, fetching, error }] = useTeamMembersQuery({
+    variables: { id: teamId || "" },
   });
-  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
-    useListRolesQuery();
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useAllUsersQuery();
 
   const team = data?.team;
-  const roles = rolesData?.roles
-    .filter(notEmpty)
-    .filter((role) => role.isTeamBased);
-  const users = groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
-  const availableUsers = userData?.users
+  const roles = React.useMemo(() => {
+    return data?.roles.filter(notEmpty).filter((role) => role.isTeamBased);
+  }, [data?.roles]);
+  const users = React.useMemo(() => {
+    return groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
+  }, [data?.team?.roleAssignments]);
+  const availableUsers = data?.users
     ?.filter(notEmpty)
     .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
 
@@ -198,10 +194,7 @@ const TeamMembersPage = () => {
 
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending
-        fetching={fetching || rolesFetching || userFetching}
-        error={error || rolesError || userError}
-      >
+      <Pending fetching={fetching} error={error}>
         {team && users ? (
           <TeamMembers
             members={users}
