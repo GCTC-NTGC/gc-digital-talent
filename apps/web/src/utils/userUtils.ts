@@ -1,7 +1,13 @@
+import { IntlShape } from "react-intl";
+
+import { getEvaluatedLanguageAbility } from "@gc-digital-talent/i18n";
+
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
+  EvaluatedLanguageAbility,
   LanguageAbility,
+  Maybe,
   OperationalRequirement,
   PoolCandidateStatus,
   PositionDuration,
@@ -91,3 +97,22 @@ export function durationToEnumPositionDuration(
   }
   return undefined;
 }
+
+export const getEvaluatedLanguageLevels = (
+  intl: IntlShape,
+  comprehensionLevel: Maybe<EvaluatedLanguageAbility>,
+  writtenLevel: Maybe<EvaluatedLanguageAbility>,
+  verbalLevel: Maybe<EvaluatedLanguageAbility>,
+): React.ReactNode => {
+  return [
+    comprehensionLevel
+      ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
+      : "",
+    writtenLevel
+      ? intl.formatMessage(getEvaluatedLanguageAbility(writtenLevel))
+      : "",
+    verbalLevel
+      ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
+      : "",
+  ].join(", ");
+};

@@ -8,6 +8,7 @@ import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import { sanitizeString } from "../../utils";
 
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
@@ -51,11 +52,13 @@ const Input = ({
     },
   });
 
-  const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
+  const normalizeInput = (e: React.FocusEvent<HTMLInputElement>) => {
+    let inputValue = e.target.value;
     if (whitespaceTrim) {
-      const value = e.target.value.trim();
-      setValue(name, value);
+      inputValue = inputValue.trim();
     }
+    inputValue = sanitizeString(inputValue);
+    setValue(name, inputValue);
   };
 
   return (
@@ -73,7 +76,7 @@ const Input = ({
         {...stateStyles}
         {...register(name, {
           ...rules,
-          onBlur: whitespaceTrimmer,
+          onBlur: normalizeInput,
         })}
         {...(readOnly
           ? {

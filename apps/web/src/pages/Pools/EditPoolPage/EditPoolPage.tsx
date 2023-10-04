@@ -32,6 +32,7 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as whatToExpectError } from "~/validators/process/whatToExpect";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import usePoolMutations from "~/hooks/usePoolMutations";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -65,7 +66,6 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import useMutations from "./hooks/useMutations";
 import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
 
@@ -413,7 +413,7 @@ export const EditPoolPage = () => {
     variables: { poolId: poolId || "" },
   });
 
-  const { isFetching, mutations } = useMutations();
+  const { isFetching, mutations } = usePoolMutations();
 
   const ctx = React.useMemo(() => {
     return { isSubmitting: isFetching };

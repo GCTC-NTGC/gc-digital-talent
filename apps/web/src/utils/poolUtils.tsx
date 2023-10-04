@@ -1,16 +1,24 @@
 import React from "react";
-import { IntlShape } from "react-intl";
+import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getPoolStatus,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
+import { Color, IconType } from "@gc-digital-talent/ui";
 
 import {
   PublishingGroup,
@@ -23,8 +31,14 @@ import {
 } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
+import poolMessages from "~/messages/poolMessages";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
-import { PageNavKeys, SimpleClassification, SimplePool } from "~/types/pool";
+import {
+  PageNavKeys,
+  PoolCompleteness,
+  SimpleClassification,
+  SimplePool,
+} from "~/types/pool";
 
 import { wrapAbbr } from "./nameUtils";
 
@@ -201,8 +215,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
       {
         icon: ClipboardDocumentIcon,
         title: intl.formatMessage({
-          defaultMessage: "Pool information",
-          id: "Cjp2F6",
+          defaultMessage: "Process information",
+          id: "R5sGKY",
           description: "Title for the pool info page",
         }),
         link: {
@@ -255,6 +269,77 @@ export function getClassificationGroup(pool: Maybe<Pool>): string {
   const classification = pool?.classifications ? pool.classifications[0] : null;
   return classification?.group ? classification.group : "";
 }
+
+export const getAdvertisementStatus = (pool?: Pool): PoolCompleteness => {
+  if (!pool) return "incomplete";
+
+  if (pool.publishedAt) return "submitted";
+
+  return pool.isComplete ? "complete" : "incomplete";
+};
+
+type StatusBadge = {
+  color: Color;
+  label: MessageDescriptor;
+  icon?: IconType;
+};
+
+const defaultCompleteness: StatusBadge = {
+  color: "error",
+  label: poolMessages.incomplete,
+};
+
+const poolCompletenessMap = new Map<PoolCompleteness, StatusBadge>([
+  [
+    "complete",
+    {
+      color: "success",
+      label: poolMessages.complete,
+    },
+  ],
+  ["incomplete", defaultCompleteness],
+  [
+    "submitted",
+    {
+      color: "black",
+      label: poolMessages.submitted,
+    },
+  ],
+]);
+
+export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
+  const badgeInfo = poolCompletenessMap.get(completeness);
+
+  return badgeInfo ?? defaultCompleteness;
+};
+
+export const getProcessStatusBadge = (
+  status?: Maybe<PoolStatus>,
+): StatusBadge => {
+  const statusBadge: StatusBadge = {
+    color: "black",
+    label: getPoolStatus(status ?? PoolStatus.Draft),
+    icon: LockClosedIcon,
+  };
+
+  if (status === PoolStatus.Draft) {
+    return {
+      ...statusBadge,
+      color: "warning",
+      icon: ClipboardDocumentListIcon,
+    };
+  }
+
+  if (status === PoolStatus.Published) {
+    return {
+      label: poolMessages.open,
+      color: "primary",
+      icon: RocketLaunchIcon,
+    };
+  }
+
+  return statusBadge;
+};
 
 export function getClassificationName(
   { group, level, name }: Classification,

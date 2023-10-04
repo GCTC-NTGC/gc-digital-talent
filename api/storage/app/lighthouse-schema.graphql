@@ -137,6 +137,9 @@ type Mutation {
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: UUID!): UserSkill
+  createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  deleteAssessmentStep(id: UUID!): AssessmentStep
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -297,6 +300,8 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+  poolSkills: [PoolSkill]
 }
 
 type ScreeningQuestionResponse {
@@ -304,6 +309,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion
   poolCandidate: PoolCandidate
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedString
+  poolSkills: [PoolSkill]
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool
+  skill: Skill
+  assessmentSteps: [AssessmentStep]
 }
 
 type PoolCandidate {
@@ -1117,6 +1139,17 @@ input UpdatePoolInput {
   screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
+input AssessmentStepInput {
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
+}
+
 input RolesInput {
   roles: [ID!]!
   team: ID
@@ -1161,6 +1194,7 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  applicationId: ID
 }
 
 type DigitalContractingPersonnelSkill {
@@ -1693,6 +1727,7 @@ enum EvaluatedLanguageAbility {
   C
   E
   P
+  NOT_ASSESSED
 }
 
 enum EstimatedLanguageAbility {
@@ -1725,6 +1760,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum PoolSkillType {
+  ESSENTIAL
+  NONESSENTIAL
 }
 
 enum PoolStream {
@@ -2083,4 +2123,17 @@ enum ContractingRationale {
   REQUIRES_INDEPENDENT
   INTELLECTUAL_PROPERTY_FACTORS
   OTHER
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  APPLICATION_SCREENING
+  ADDITIONAL_ASSESSMENT
 }
