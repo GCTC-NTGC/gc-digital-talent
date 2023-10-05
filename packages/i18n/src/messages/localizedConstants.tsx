@@ -31,6 +31,7 @@ import {
   PoolCandidateSearchPositionType,
   SkillLevel,
   EvaluatedLanguageAbility,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -798,6 +799,28 @@ export const getSkillCategory = (
     SkillCategories,
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
+  );
+
+const PoolSkillTypes = defineMessages({
+  [PoolSkillType.Essential]: {
+    defaultMessage: "Essential",
+    id: "ArBddb",
+    description: "The skill is considered essential.",
+  },
+  [PoolSkillType.Nonessential]: {
+    defaultMessage: "Asset",
+    id: "2jjZbd",
+    description: "The skill is considered nonessential.",
+  },
+});
+
+export const getPoolSkillType = (
+  poolSkillId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    PoolSkillTypes,
+    poolSkillId,
+    `Invalid PoolSkill Type '${poolSkillId}'`,
   );
 
 const GenericJobTitles = defineMessages({

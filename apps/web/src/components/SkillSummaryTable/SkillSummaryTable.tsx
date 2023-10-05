@@ -4,7 +4,11 @@ import { useIntl } from "react-intl";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getPoolSkillType,
+  getSkillCategory,
+} from "@gc-digital-talent/i18n";
 import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
@@ -74,9 +78,10 @@ const SkillSummaryTable = ({
     columnHelper.display({
       id: "plannedAssessment",
       header: intl.formatMessage({
-        defaultMessage: "PLANNED ASSESSMENT",
-        id: "tCzwKO",
-        description: "AAA",
+        defaultMessage: "Planned assessment",
+        id: "AxKi2s",
+        description:
+          "Title for a column that displays a complete or not state.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(plannedAssessmentCell(poolSkill)),
@@ -84,27 +89,37 @@ const SkillSummaryTable = ({
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
       id: "skillName",
       header: intl.formatMessage({
-        defaultMessage: "SKILL NAME",
-        id: "J7tdeD",
-        description: "AAA",
+        defaultMessage: "Skill name",
+        id: "hjxxaQ",
+        description: "Skill name column header for the skill library table",
       }),
     }),
-    columnHelper.accessor((row) => row.type, {
-      id: "type",
-      header: intl.formatMessage({
-        defaultMessage: "REQUIREMENT TYPE",
-        id: "zSiXCM",
-        description: "AAA",
-      }),
-    }),
-    columnHelper.accessor((row) => row.skill?.category, {
-      id: "skillCategory",
-      header: intl.formatMessage({
-        defaultMessage: "SKILL CATEGORY",
-        id: "Q5U3u9",
-        description: "AAA",
-      }),
-    }),
+    columnHelper.accessor(
+      (row) => (row.type ? intl.formatMessage(getPoolSkillType(row.type)) : ""),
+      {
+        id: "type",
+        header: intl.formatMessage({
+          defaultMessage: "Requirement type",
+          id: "o5g1d/",
+          description:
+            "Column title for whether a skill is either required or just an asset.",
+        }),
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        row.skill
+          ? intl.formatMessage(getSkillCategory(row.skill.category))
+          : "",
+      {
+        id: "skillCategory",
+        header: intl.formatMessage({
+          defaultMessage: "Skill category",
+          id: "piZjS+",
+          description: "Label for the skill category filter field",
+        }),
+      },
+    ),
   ] as ColumnDef<PoolSkill>[];
 
   let columns = initialColumns;
