@@ -24,36 +24,6 @@ import profileMessages from "~/messages/profileMessages";
 
 import SkillRankCard from "./components/SkillRankCard";
 
-interface ManageLinkProps {
-  asButton?: boolean;
-}
-
-const ManageLink = ({ asButton = false }: ManageLinkProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      href={paths.skillLibrary()}
-      color="secondary"
-      {...(asButton
-        ? {
-            mode: "solid",
-            block: false,
-            icon: PencilSquareIcon,
-          }
-        : { mode: "inline" })}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Manage all skills",
-        id: "RcMbGk",
-        description:
-          "Link text to navigate from skill showcase to the skill library page",
-      })}
-    </Link>
-  );
-};
-
 type PageSection = {
   id: string;
   title: React.ReactNode;
@@ -144,7 +114,19 @@ export const SkillShowcase = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
-            <ManageLink asButton />
+            <Link
+              href={paths.skillLibrary()}
+              color="secondary"
+              mode="solid"
+              block={false}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Manage all skills",
+                id: "RcMbGk",
+                description:
+                  "Link text to navigate from skill showcase to the skill library page",
+              })}
+            </Link>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.topSkills.id}>
@@ -162,7 +144,6 @@ export const SkillShowcase = ({
                 >
                   {sections.topSkills.title}
                 </TableOfContents.Heading>
-                <ManageLink />
               </div>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
@@ -243,7 +224,6 @@ export const SkillShowcase = ({
                 >
                   {sections.improveSkills.title}
                 </TableOfContents.Heading>
-                <ManageLink />
               </div>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
