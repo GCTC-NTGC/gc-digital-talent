@@ -35,9 +35,14 @@ function viewCell(
   );
 }
 
+function jsxCell(element: JSX.Element) {
+  return element;
+}
+
 export default {
   actions: actionsCell,
   edit: editCell,
   view: viewCell,
   commaList: commaListCell,
+  jsx: jsxCell,
 };
