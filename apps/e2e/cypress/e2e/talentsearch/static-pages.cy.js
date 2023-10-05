@@ -117,14 +117,14 @@ describe("Static pages", () => {
       });
 
       cy.findByRole("link", {
-        name: /formulaire de recrutement propre à un ministère/i,
+        name: /le formulaire recrutement particulier à un ministère/i,
       }).click();
       cy.verifyDownload("Modele_de_recrutement_numerique_FR.docx", {
         contains: true,
       });
 
       cy.findByRole("link", {
-        name: /formulaire d’octroi de contrat de services numériques/i,
+        name: /le formulaire octroi de contrat pour des services numériques/i,
       }).click();
       cy.verifyDownload(
         "Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
@@ -132,7 +132,7 @@ describe("Static pages", () => {
       );
 
       cy.findByRole("link", {
-        name: /faire suivre le plan de talents/i,
+        name: /le formulaire faire suivre le plan de talents/i,
       }).click();
       cy.verifyDownload("Plan_prospectif_sur_les_talents_FR.docx", {
         contains: true,
