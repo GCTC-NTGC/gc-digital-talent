@@ -9,6 +9,7 @@ import {
   Link,
   TableOfContents,
   Heading,
+  Pill,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -68,6 +69,10 @@ import WhatToExpectSection, {
 import EditPoolContext from "./components/EditPoolContext";
 import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
+import {
+  getAdvertisementStatus,
+  getPoolCompletenessBadge,
+} from "../../../utils/poolUtils";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
@@ -96,6 +101,8 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const advertisementStatus = getAdvertisementStatus(pool);
+  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
@@ -250,16 +257,26 @@ export const EditPoolForm = ({
           data-h2-display="base(flex)"
           data-h2-align-items="base(flex-start) p-tablet(flex-end)"
           data-h2-flex-direction="base(column) p-tablet(row)"
+          data-h2-justify-content="p-tablet(space-between)"
           data-h2-gap="base(x1)"
+          data-h2-margin-bottom="base(x1)"
         >
           <Heading
             level="h2"
             Icon={RocketLaunchIcon}
             color="primary"
-            data-h2-margin-top="base(0)"
+            data-h2-margin="base(0)"
           >
             {pageTitle}
           </Heading>
+          <Pill
+            bold
+            mode="outline"
+            color={advertisementBadge.color}
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(advertisementBadge.label)}
+          </Pill>
         </div>
         <p data-h2-margin="base(x1 0)">{pageSubtitle}</p>
         <TableOfContents.Wrapper>
