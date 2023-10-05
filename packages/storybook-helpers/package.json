@@ -15,7 +15,7 @@
     "@storybook/addons": "^7.4.5",
     "@storybook/react": "^7.4.5",
     "@storybook/react-webpack5": "^7.4.5",
-    "chromatic": "^7.2.0",
+    "chromatic": "^7.2.2",
     "framer-motion": "^10.16.4",
     "hydrogen-webpack-plugin": "*",
     "lodash": "^4.17.21",
