@@ -31,6 +31,7 @@ describe("Pools", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
       aliasQuery(req, "getMePoolCreation");
+      aliasQuery(req, "GetProcessInfo");
       aliasQuery(req, "allPools");
       aliasMutation(req, "createPool");
       aliasMutation(req, "updatePool");
@@ -254,7 +255,7 @@ describe("Pools", () => {
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findByRole("link", { name: /process information/i }).click();
+    cy.findByRole("link", { name: /back to process information/i }).click();
 
     // Confirm process number has new value
     cy.findByRole("heading", { name: /new test pool/i });
@@ -265,7 +266,7 @@ describe("Pools", () => {
    *
    * Note: Skipping until #8004 is in
    */
-  it.skip("should delete the pool", () => {
+  it("should delete the pool", () => {
     loginAndGoToPoolsPage();
 
     cy.wait("@gqlallPoolsQuery");
@@ -274,11 +275,11 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /show 10/i }).click();
     cy.get("[role=menuitemradio]").contains(/50/i).click();
 
-    cy.findAllByRole("link", { name: /edit new test pool en/i })
+    cy.findAllByRole("link", { name: /new test pool en/i })
       .first()
       .click();
 
-    cy.wait("@gqlgetEditPoolDataQuery");
+    cy.wait("@gqlGetProcessInfoQuery");
 
     cy.findByRole("button", { name: /delete/i }).click();
 
