@@ -129,8 +129,8 @@ export const SkillShowcase = ({
               block={false}
             >
               {intl.formatMessage({
-                defaultMessage: "Manage all skills",
-                id: "RcMbGk",
+                defaultMessage: "Return to skill library",
+                id: "jH5V6M",
                 description:
                   "Link text to navigate from skill showcase to the skill library page",
               })}

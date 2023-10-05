@@ -4483,10 +4483,6 @@
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "RcMbGk": {
-    "defaultMessage": "Gérer toutes les compétences",
-    "description": "Link text to navigate from skill showcase to the skill library page"
-  },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
