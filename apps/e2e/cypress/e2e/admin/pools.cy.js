@@ -263,8 +263,6 @@ describe("Pools", () => {
 
   /**
    * Delete the Pool
-   *
-   * Note: Skipping until #8004 is in
    */
   it("should delete the pool", () => {
     loginAndGoToPoolsPage();
