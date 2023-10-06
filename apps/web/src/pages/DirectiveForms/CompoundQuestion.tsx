@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useLogger } from "@gc-digital-talent/logger";
+
 export type CompoundQuestionProps = {
   title?: string;
   introduction?: React.ReactElement | React.ReactNode | string;
@@ -12,24 +14,22 @@ const CompoundQuestion = ({
   introduction,
   inputElement,
 }: CompoundQuestionProps) => {
+  const logger = useLogger();
+  if (!(title || introduction)) {
+    logger.warning(
+      "Expecting either a title or introduction to use the CompoundQuestion component",
+    );
+  }
   const descriptionId = React.useId();
-  const detailsId = React.useId();
   const clonedInput = React.cloneElement(inputElement, {
     "aria-describedby": title ? descriptionId : undefined,
-    "aria-details": introduction ? detailsId : undefined,
   });
   return (
     <div>
-      <div data-h2-margin-top="base(x.5)">
-        {title ? (
-          <div data-h2-font-weight="base(700)" id={descriptionId}>
-            {title}
-          </div>
-        ) : null}
+      <div data-h2-margin-top="base(x.5)" id={descriptionId}>
+        {title ? <div data-h2-font-weight="base(700)">{title}</div> : null}
         {introduction ? (
-          <div data-h2-margin-top="base(x.5)" id={detailsId}>
-            {introduction}
-          </div>
+          <div data-h2-margin-top="base(x.5)">{introduction}</div>
         ) : null}
       </div>
       <div data-h2-margin-top="base(x.5)">{clonedInput}</div>
