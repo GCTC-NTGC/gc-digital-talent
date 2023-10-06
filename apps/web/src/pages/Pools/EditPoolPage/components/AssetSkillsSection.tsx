@@ -5,7 +5,6 @@ import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import { ToggleSection } from "@gc-digital-talent/ui";
 
 import { PoolStatus, Skill, UpdatePoolInput } from "~/api/generated";
-import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import SkillTable from "./SkillTable";
@@ -23,10 +22,9 @@ const AssetSkillsSection = ({
   onSave,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
-  const emptyRequired = hasEmptyRequiredFields(pool);
   const { icon } = useToggleSectionInfo({
-    isNull: emptyRequired,
-    emptyRequired,
+    isNull: false,
+    emptyRequired: false,
     fallbackIcon: AcademicCapIcon,
   });
   const defaultSkills = pool.nonessentialSkills ? pool.nonessentialSkills : [];
