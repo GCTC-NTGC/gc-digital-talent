@@ -35,7 +35,7 @@ const ButtonLinkContent = ({
     "data-h2-font-size": "base(body)",
   };
   let iconSize = {
-    "data-h2-width": "base(x1)",
+    "data-h2-width": "base(x.85)",
   };
   if (fontSize === "caption") {
     textSize = {
@@ -43,6 +43,25 @@ const ButtonLinkContent = ({
     };
     iconSize = {
       "data-h2-width": "base(x.75)",
+    };
+  }
+  let iconMargin = {
+    "data-h2-margin-top": "base(0)",
+  };
+  if (mode === "text") {
+    iconMargin = {
+      "data-h2-margin-top": "base(-x.2)",
+    };
+  }
+  let contentDisplay = {
+    "data-h2-display": "base(block) base:children[>*](inline-block)",
+    "data-h2-vertical-align": "base:children[>*](middle)",
+  };
+  if (mode === "text") {
+    contentDisplay = {
+      "data-h2-display":
+        "base(inline) base:children[>svg, .counter](inline-block)",
+      "data-h2-vertical-align": "base:children[>svg, .counter](middle)",
     };
   }
   if (!newTab && !icon && !utilityIcon)
@@ -88,7 +107,6 @@ const ButtonLinkContent = ({
             <ArrowTopRightOnSquareIcon
               aria-label={intl.formatMessage(uiMessages.newTab)}
               {...iconSize}
-              data-h2-margin-left="base(x.25)"
             />
           )}
           {counter && <Counter count={counter} />}
@@ -97,26 +115,29 @@ const ButtonLinkContent = ({
     );
   }
   return (
-    <span
-      data-h2-display="base(block) base:children[>*](inline-block)"
-      data-h2-vertical-align="base:children[>*](middle)"
-      {...rest}
-    >
-      {Icon && <Icon data-h2-margin-right="base(x.25)" {...iconSize} />}
+    <span {...contentDisplay} {...rest}>
+      {Icon && (
+        <Icon data-h2-margin-right="base(x.25)" {...iconSize} {...iconMargin} />
+      )}
       <span {...textSize} data-h2-text-decoration="base(underline)">
         {children}
       </span>
       {UtilityIcon && (
-        <UtilityIcon {...iconSize} data-h2-margin-left="base(x.25)" />
+        <UtilityIcon
+          {...iconSize}
+          {...iconMargin}
+          data-h2-margin-left="base(x.25)"
+        />
       )}
       {newTab && (
         <ArrowTopRightOnSquareIcon
           aria-label={intl.formatMessage(uiMessages.newTab)}
           {...iconSize}
-          data-h2-margin-left="base(x.25)"
+          {...iconMargin}
+          data-h2-margin-left="base(x.15)"
         />
       )}
-      {counter && <Counter count={counter} />}
+      {counter && <Counter {...iconMargin} count={counter} />}
     </span>
   );
 };

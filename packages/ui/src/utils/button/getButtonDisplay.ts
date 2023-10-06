@@ -23,6 +23,11 @@ const getDisplay: ButtonDisplay = ({ mode, block }) => {
       "data-h2-width": "base(100%)",
     };
   }
+  if (mode === "text") {
+    return {
+      "data-h2-display": "base(inline)",
+    };
+  }
   return {
     "data-h2-display": "base(inline-block)",
   };
