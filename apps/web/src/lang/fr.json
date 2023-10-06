@@ -5986,7 +5986,7 @@
     "description": "Seventh of the Frequently Asked Questions for logging in"
   },
   "YZMi8D": {
-    "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une  <link>réserve de talents coordonnée par le BDPI</link>  qui pourrait répondre au besoin dans le délai imparti.",
+    "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une  <link>bassin de talents coordonnée par le BDPI</link>  qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "YbkM7u": {
@@ -7594,7 +7594,7 @@
     "description": "Learn more dialog question ten paragraph one"
   },
   "heME90": {
-    "defaultMessage": "Si “{choice}”  est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>Réserve de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
+    "defaultMessage": "Si « {choice} » est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>bassin de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
     "description": "introduction paragraph 1 to needing more information about the talent search"
   },
   "hfI9v3": {
@@ -10164,7 +10164,7 @@
     "description": "Summary for the feature about finding executive jobs"
   },
   "yGW8Y5": {
-    "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une <link>réserve de talents coordonnée par le BDPI</link> qui pourraient répondre au besoin dans le délai imparti?",
+    "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourraient répondre au besoin dans le délai imparti?",
     "description": "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_"
   },
   "yGlG9e": {
