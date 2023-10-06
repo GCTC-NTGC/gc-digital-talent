@@ -1163,6 +1163,10 @@
     "defaultMessage": "Supprimer cette expérience",
     "description": "Label on button to delete the current experience"
   },
+  "5DsB2D": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Heading for a list of users technical skills"
+  },
   "5F/aKm": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the update a skill form name (English) field."
@@ -3226,6 +3230,10 @@
     "defaultMessage": "Liens rapides",
     "description": "Title displayed for helpful links on logged out page."
   },
+  "Ih9aGC": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "Heading for a list of users behavioural skills"
+  },
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
@@ -4667,6 +4675,10 @@
     "defaultMessage": "Langue préférée de l'examen écrit",
     "description": "Label displayed on the user form preferred written exam language field."
   },
+  "SxPilM": {
+    "defaultMessage": "Meilleures compétences",
+    "description": "Heading for a users top skills"
+  },
   "SypvZP": {
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
@@ -5619,6 +5631,10 @@
   "ZA20CY": {
     "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
     "description": "Text displayed for gaining hiring experience"
+  },
+  "ZAeStR": {
+    "defaultMessage": "Compétences à améliorer",
+    "description": "Heading for a users skill they would like to improve"
   },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",

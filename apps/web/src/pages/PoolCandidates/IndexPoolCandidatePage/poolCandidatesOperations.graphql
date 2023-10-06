@@ -167,6 +167,25 @@ fragment poolCandidateForm on PoolCandidate {
   status
 }
 
+fragment poolCandidateUserSkillFragment on UserSkill {
+  id
+  user {
+    id
+  }
+  skill {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+  }
+  skillLevel
+  topSkillsRank
+  improveSkillsRank
+}
+
 fragment selectedPoolCandidates on PoolCandidate {
   id
   pool {
@@ -243,6 +262,18 @@ fragment selectedPoolCandidates on PoolCandidate {
     armedForcesStatus
     currentCity
     currentProvince
+    topTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    topBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
     department {
       id
       departmentNumber
