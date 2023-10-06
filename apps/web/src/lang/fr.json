@@ -2155,7 +2155,7 @@
     "description": "CSV Header, Disabled column"
   },
   "AinG8I": {
-    "defaultMessage": "Sélectionnez \"oui\" si l’un des éléments ci-dessus s’applique.",
+    "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
   },
   "AkuIfT": {
@@ -2475,7 +2475,7 @@
     "description": "Descriptive text explaining the government information section of the application profile"
   },
   "CRnoE8": {
-    "defaultMessage": "Cacher les exemples de \"contrats de services numériques\" où cette exigence s’applique",
+    "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
   "CSg8cH": {
@@ -9418,7 +9418,7 @@
     "description": "Message for the intermediate language ability option"
   },
   "t7T/Zv": {
-    "defaultMessage": "Montrer des exemples de \"contrats de services numériques\" où cette exigence s’applique",
+    "defaultMessage": "Montrer des exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
   },
   "t9HxQm": {
