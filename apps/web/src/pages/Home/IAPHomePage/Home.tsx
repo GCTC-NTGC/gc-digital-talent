@@ -535,7 +535,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               data-h2-shadow="base(l)"
               data-h2-display="base(grid)"
               data-h2-grid-template-rows="base(1fr 1fr) p-tablet(1fr)"
-              data-h2-grid-template-columns="base(1fr) p-tablet(1fr 2fr) l-tablet(1fr 1fr) desktop(4fr 3fr)"
+              data-h2-grid-template-columns="base(minmax(1px, 1fr)) p-tablet(1fr 2fr) l-tablet(1fr 1fr) desktop(4fr 3fr)"
             >
               <div data-h2-position="base(relative)">
                 <img
