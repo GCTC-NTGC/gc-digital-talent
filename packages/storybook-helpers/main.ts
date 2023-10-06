@@ -54,7 +54,6 @@ const config: StorybookConfig = {
     "@storybook/addon-viewport",
     "storybook-addon-intl",
   ],
-  logLevel: "debug",
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
