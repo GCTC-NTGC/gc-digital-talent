@@ -8,6 +8,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { BilingualEvaluation } from "~/api/generated";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
@@ -110,7 +111,12 @@ const Display = ({
           })}
         >
           {comprehensionLevel || writtenLevel || verbalLevel
-            ? `${comprehensionLevel}, ${writtenLevel}, ${verbalLevel}`
+            ? getEvaluatedLanguageLevels(
+                intl,
+                comprehensionLevel,
+                writtenLevel,
+                verbalLevel,
+              )
             : notProvided}
         </FieldDisplay>
       )}

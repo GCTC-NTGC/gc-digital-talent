@@ -11,7 +11,6 @@ import { useLocale } from "@gc-digital-talent/i18n";
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 import MaintenanceBanner from "./MaintenanceBanner";
@@ -50,7 +49,7 @@ const AdminLayout = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const isSmallScreen = useIsSmallScreen();
-  useLayoutTheme("admin");
+  // useLayoutTheme("admin");
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(

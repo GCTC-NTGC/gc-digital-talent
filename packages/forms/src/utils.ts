@@ -205,3 +205,16 @@ export function enumToOptionsWorkRegionSorted(
 export function htmlToRichTextJSON(html: string): Node {
   return generateJSON(html, [StarterKit, Link]) as Node;
 }
+
+const sanitizeSubstitutions: Record<string, string> = {
+  "\u202F": "\u00A0", // Narrow No-Break Space ➡️ No-Break Space
+} as const;
+
+export function sanitizeString(original: string): string {
+  let str = original;
+  Object.keys(sanitizeSubstitutions).forEach((key) => {
+    const replacement = sanitizeSubstitutions[key];
+    str = str.replaceAll(key, replacement);
+  });
+  return str;
+}

@@ -27,6 +27,7 @@ import {
   extractErrorMessages,
   extractValidationMessageKeys,
 } from "../../utils/errors";
+import specialErrorExchange from "../../exchanges/specialErrorExchange";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -198,6 +199,7 @@ const ClientProvider = ({
             didAuthError,
             willAuthError,
           }),
+          specialErrorExchange({ intl }),
           fetchExchange,
         ],
       })

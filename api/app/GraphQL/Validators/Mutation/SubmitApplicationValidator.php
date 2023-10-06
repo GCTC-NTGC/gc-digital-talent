@@ -39,7 +39,7 @@ final class SubmitApplicationValidator extends Validator
             ],
             'user_id' => [
                 new UserProfileComplete,
-                new HasEssentialSkills($this->application->pool),
+                new HasEssentialSkills($this->application),
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [

@@ -10,11 +10,8 @@ import { fakeTeams } from "@gc-digital-talent/fake-data";
 
 import { RoleAssignment } from "~/api/generated";
 
-import {
-  roleAssignmentsToRoleTeamArray,
-  TeamTable,
-  TeamTableProps,
-} from "./TeamTable";
+import { TeamTable, TeamTableProps } from "./TeamTable";
+import { roleAssignmentsToRoleTeamArray } from "./helpers";
 
 const mockTeams = fakeTeams(5);
 const mockRoleAssignments: RoleAssignment[] = [

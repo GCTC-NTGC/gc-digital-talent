@@ -17,12 +17,12 @@ import {
   Scalars,
 } from "~/api/generated";
 
-const useMutations = () => {
+const usePoolMutations = (returnPath?: string) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
 
-  const navigateBack = () => navigate(paths.poolTable());
+  const navigateBack = () => navigate(returnPath ?? paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
     useUpdatePoolMutation();
@@ -157,8 +157,8 @@ const useMutations = () => {
     );
   };
 
-  const deletePool = (id: string) => {
-    executeDeleteMutation({ id })
+  const deletePool = async (id: string) => {
+    await executeDeleteMutation({ id })
       .then((result) => {
         if (result.data?.deletePool) {
           navigateBack();
@@ -190,8 +190,8 @@ const useMutations = () => {
     );
   };
 
-  const archivePool = (id: string) => {
-    executeArchiveMutation({ id })
+  const archivePool = async (id: string) => {
+    await executeArchiveMutation({ id })
       .then((result) => {
         if (result.data?.archivePool) {
           navigateBack();
@@ -224,8 +224,8 @@ const useMutations = () => {
     );
   };
 
-  const duplicatePool = (id: string, teamId: string) => {
-    executeDuplicateMutation({ id, teamId })
+  const duplicatePool = async (id: string, teamId: string) => {
+    await executeDuplicateMutation({ id, teamId })
       .then((result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(
@@ -258,8 +258,8 @@ const useMutations = () => {
     );
   };
 
-  const unarchivePool = (id: string) => {
-    executeUnarchiveMutation({ id })
+  const unarchivePool = async (id: string) => {
+    await executeUnarchiveMutation({ id })
       .then((result) => {
         if (result.data?.unarchivePool) {
           toast.success(
@@ -300,4 +300,4 @@ const useMutations = () => {
   };
 };
 
-export default useMutations;
+export default usePoolMutations;

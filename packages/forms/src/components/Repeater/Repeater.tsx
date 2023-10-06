@@ -254,7 +254,10 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
-  customButton?: React.ReactNode;
+  customButton?: {
+    button: React.ReactNode;
+    id: string;
+  };
 }
 
 const Root = ({
@@ -268,6 +271,7 @@ const Root = ({
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -277,7 +281,7 @@ const Root = ({
     >
       <Link
         external
-        href={`#${addId}`}
+        href={`#${customButton?.id ?? addId}`}
         data-h2-visually-hidden="base(invisible)"
         data-h2-position="base:focus-visible(static)"
         data-h2-location="base:focus-visible(auto)"
@@ -318,7 +322,7 @@ const Root = ({
           {addText}
         </Button>
       ) : (
-        customButton
+        customButton?.button
       )}
     </div>
   );

@@ -15,7 +15,7 @@ import { Language, User } from "@gc-digital-talent/graphql";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
-import { SearchState } from "./types";
+import { SearchState, DatasetDownload, DatasetDownloadItem } from "./types";
 
 const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();
@@ -81,6 +81,17 @@ const columns = [
   }),
 ] as ColumnDef<User>[];
 
+const item: DatasetDownloadItem = {
+  csv: {
+    data: [],
+    headers: [],
+    fileName: "s.txt",
+  },
+};
+const download: DatasetDownload = {
+  selection: item,
+};
+
 export default {
   component: Table,
   title: "Tables/Responsive Table",
@@ -91,6 +102,7 @@ export default {
     search: defaultSearchProps,
     sort: defaultSortProps,
     pagination: defaultPaginationProps,
+    download,
   },
 } as Meta<typeof Table<User>>;
 

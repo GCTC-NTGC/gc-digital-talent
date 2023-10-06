@@ -211,6 +211,10 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+    @hasMany
+    @canOnParent(ability: "viewAssessments")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
 }
 
 type ScreeningQuestionResponse {
@@ -218,6 +222,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion @belongsTo
   poolCandidate: PoolCandidate @belongsTo
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool @belongsTo
+  type: AssessmentStepType
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedString
+  poolSkills: [PoolSkill] @belongsToMany
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool @belongsTo
+  skill: Skill @belongsTo
+  assessmentSteps: [AssessmentStep] @belongsToMany
 }
 
 type PoolCandidate {
@@ -1350,6 +1371,21 @@ input UpdatePoolInput {
   screeningQuestions: UpdateScreeningQuestionsHasMany
 }
 
+input AssessmentStepInput {
+  type: AssessmentStepType
+    @rules(
+      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
+    )
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
+}
+
 input RolesInput
   @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
   roles: [ID!]!
@@ -1397,6 +1433,11 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+
+  # Used to validate essential skills
+  applicationId: ID
+    @rename(attribute: "id")
+    @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
 type Mutation {
@@ -1633,8 +1674,7 @@ type Mutation {
     @can(ability: "delete", find: "id")
 
   # Notifications
-  markNotificationAsRead(id: UUID!): Notification
-
+  markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
@@ -1652,6 +1692,20 @@ type Mutation {
   deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
+
+  # Assessment mutations
+  createAssessmentStep(
+    poolId: UUID! @rename(attribute: "pool_id")
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @create @guard @can(ability: "create", injectArgs: true)
+  updateAssessmentStep(
+    id: UUID!
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
+    @delete
+    @guard
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql

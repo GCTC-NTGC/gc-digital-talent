@@ -22,6 +22,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import usePoolMutations from "~/hooks/usePoolMutations";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -55,7 +56,6 @@ import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection";
 import EditPoolContext from "./components/EditPoolContext";
-import useMutations from "./hooks/useMutations";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
@@ -383,7 +383,7 @@ export const EditPoolPage = () => {
     variables: { poolId: poolId || "" },
   });
 
-  const { isFetching, mutations } = useMutations();
+  const { isFetching, mutations } = usePoolMutations();
 
   const ctx = React.useMemo(() => {
     return { isSubmitting: isFetching };

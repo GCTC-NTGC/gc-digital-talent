@@ -5,10 +5,14 @@ import { useIntl } from "react-intl";
 import {
   RadioGroup,
   Select,
-  enumToOptions,
   FieldLabels,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
-import { errorMessages, useLocale } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getEvaluatedLanguageAbility,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 
 import { BilingualEvaluation, EvaluatedLanguageAbility } from "~/api/generated";
@@ -25,6 +29,7 @@ const EvaluatedAbilityItemsSortOrder = [
   EvaluatedLanguageAbility.C,
   EvaluatedLanguageAbility.E,
   EvaluatedLanguageAbility.P,
+  EvaluatedLanguageAbility.NotAssessed,
 ];
 
 interface ConsideredLanguagesProps {
@@ -88,8 +93,10 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     EvaluatedAbilityItemsSortOrder,
   ).map(({ value }) => ({
     value,
-    label: value,
+    label: intl.formatMessage(getEvaluatedLanguageAbility(value)),
   }));
+
+  // const evaluatedAbilityItems = getEvaluatedAbilityOptions(intl);
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
@@ -175,6 +182,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
             <Select
               id="writtenLevel"
@@ -190,6 +198,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
             <Select
               id="verbalLevel"
@@ -205,6 +214,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                 required: intl.formatMessage(errorMessages.required),
               }}
               options={evaluatedAbilityItems}
+              doNotSort
             />
           </div>
         </>

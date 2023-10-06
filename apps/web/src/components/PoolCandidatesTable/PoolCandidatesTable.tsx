@@ -42,7 +42,7 @@ import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
-import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable";
+import cells from "~/components/Table/cells";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
@@ -254,7 +254,7 @@ const viewAccessor = (
   if (isQualified) {
     return (
       <span data-h2-font-weight="base(700)">
-        {tableViewItemButtonAccessor(
+        {cells.view(
           paths.userView(candidate.user.id),
           intl.formatMessage({
             defaultMessage: "Profile",
@@ -280,7 +280,7 @@ const viewAccessor = (
   }
   return (
     <span data-h2-font-weight="base(700)">
-      {tableViewItemButtonAccessor(
+      {cells.view(
         paths.poolCandidateApplication(candidate.id),
         intl.formatMessage({
           defaultMessage: "Application",
@@ -606,17 +606,17 @@ const PoolCandidatesTable = ({
         }),
         header: (
           <span>
+            <LockClosedIcon
+              data-h2-width="base(x.75)"
+              data-h2-margin-right="base(x.15)"
+              data-h2-vertical-align="base(middle)"
+            />
             {intl.formatMessage({
               defaultMessage: "Status",
               id: "l+cu8R",
               description:
                 "Title displayed for the Pool Candidates table Status column.",
             })}
-            <LockClosedIcon
-              data-h2-margin="base(0, 0, 0, x1)"
-              data-h2-width="base(x1)"
-              data-h2-vertical-align="base(middle)"
-            />
           </span>
         ),
         id: "status",
@@ -631,17 +631,17 @@ const PoolCandidatesTable = ({
         }),
         header: (
           <span>
+            <LockClosedIcon
+              data-h2-width="base(x.75)"
+              data-h2-margin-right="base(x.15)"
+              data-h2-vertical-align="base(middle)"
+            />
             {intl.formatMessage({
               defaultMessage: "Category",
               id: "qrDCTV",
               description:
                 "Title displayed for the Pool Candidates table Priority column.",
             })}
-            <LockClosedIcon
-              data-h2-margin="base(0, 0, 0, x1)"
-              data-h2-width="base(x1)"
-              data-h2-vertical-align="base(middle)"
-            />
           </span>
         ),
         id: "priority",

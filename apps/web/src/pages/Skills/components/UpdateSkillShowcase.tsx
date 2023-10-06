@@ -18,7 +18,7 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
-import { Repeater, Submit } from "@gc-digital-talent/forms";
+import { Repeater, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import {
   getBehaviouralSkillLevel,
   getLocalizedName,
@@ -90,6 +90,7 @@ interface UpdateSkillShowcaseProps {
     returnPath: string;
   };
   handleSubmit: SubmitHandler<FormValues>;
+  onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
 }
 
 const UpdateSkillShowcase = ({
@@ -100,9 +101,11 @@ const UpdateSkillShowcase = ({
   crumbs,
   pageInfo,
   handleSubmit,
+  onAddition,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const addId = React.useId();
 
   const [, executeCreateMutation] = useCreateUserSkillMutation();
   const [, executeUpdateMutation] = useUpdateUserSkillMutation();
@@ -111,7 +114,7 @@ const UpdateSkillShowcase = ({
     defaultValues: initialSkills,
   });
   const { control, watch, formState } = methods;
-  const { remove, move, append, fields } = useFieldArray({
+  const { remove, move, fields } = useFieldArray({
     control,
     name: "userSkills",
   });
@@ -147,6 +150,10 @@ const UpdateSkillShowcase = ({
         .length > 0 ||
       watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
         .length > 0;
+    const existingSkillsRanking = initialSkills.userSkills.map(
+      (userSkill) => userSkill.skill,
+    );
+    const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -158,14 +165,14 @@ const UpdateSkillShowcase = ({
         },
       })
         .then((res) => {
-          append(
-            {
-              skill: res.data?.updateUserSkill?.skill.id,
-              skillLevel: res.data?.updateUserSkill?.skillLevel ?? undefined,
-            },
-            { shouldFocus: false },
-          );
           handleSuccess();
+          if (res.data?.updateUserSkill?.skill.id) {
+            // having claimed a user skill in the modal and the mutation successful, update the ranking
+            onAddition(
+              existingSkillsRankingFiltered,
+              res.data.updateUserSkill.skill.id,
+            );
+          }
         })
         .catch(() => handleError());
     } else {
@@ -178,14 +185,13 @@ const UpdateSkillShowcase = ({
         },
       })
         .then((res) => {
-          append(
-            {
-              skill: res.data?.createUserSkill?.skill.id,
-              skillLevel: res.data?.createUserSkill?.skillLevel ?? undefined,
-            },
-            { shouldFocus: false },
-          );
           handleSuccess();
+          if (res.data?.createUserSkill?.skill.id) {
+            onAddition(
+              existingSkillsRankingFiltered,
+              res.data.createUserSkill.skill.id,
+            );
+          }
         })
         .catch(() => handleError());
     }
@@ -229,72 +235,79 @@ const UpdateSkillShowcase = ({
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
                       showAdd={canAdd}
-                      customButton={
-                        <SkillDialog
-                          trigger={
-                            canAdd
+                      customButton={{
+                        id: addId,
+                        button: (
+                          <SkillDialog
+                            inLibrary={userSkills.map(
+                              (userSkill) => userSkill.skill,
+                            )}
+                            trigger={
+                              canAdd
+                                ? {
+                                    id: addId,
+                                    label: intl.formatMessage(
+                                      {
+                                        defaultMessage:
+                                          "Add a new item ({numOfSkills}/{maxSkills})",
+                                        id: "XzGOuV",
+                                        description:
+                                          "Label for skill dialog trigger on skills showcase section.",
+                                      },
+                                      {
+                                        numOfSkills: watchedSkills.length,
+                                        maxSkills: pageInfo.maxSkillCount,
+                                      },
+                                    ),
+                                  }
+                                : {
+                                    label: intl.formatMessage(
+                                      {
+                                        defaultMessage:
+                                          "Delete an item to add another ({numOfSkills}/{maxSkills})",
+                                        id: "lFFnfX",
+                                        description:
+                                          "Label for disabled dialog trigger on skills showcase section.",
+                                      },
+                                      {
+                                        numOfSkills: watchedSkills.length,
+                                        maxSkills: pageInfo.maxSkillCount,
+                                      },
+                                    ),
+                                    disabled: true,
+                                  }
+                            }
+                            context="showcase"
+                            skills={skills}
+                            onSave={handleSave}
+                            showCategory={false}
+                            noToast
+                            {...(!canAdd
                               ? {
-                                  label: intl.formatMessage(
-                                    {
-                                      defaultMessage:
-                                        "Add a new item ({numOfSkills}/{maxSkills})",
-                                      id: "XzGOuV",
-                                      description:
-                                        "Label for skill dialog trigger on skills showcase section.",
-                                    },
-                                    {
-                                      numOfSkills: watchedSkills.length,
-                                      maxSkills: pageInfo.maxSkillCount,
-                                    },
-                                  ),
+                                  "data-h2-background": "base(background)",
+                                  "data-h2-border-style": "base(dashed)",
+                                  "data-h2-border-color": "base(gray.dark)",
+                                  "data-h2-color": "base(gray.dark)",
+                                  "data-h2-display": "base(flex)",
+                                  "data-h2-justify-content": "base(center)",
+                                  "data-h2-width": "base(100%)",
                                 }
                               : {
-                                  label: intl.formatMessage(
-                                    {
-                                      defaultMessage:
-                                        "Delete an item to add another ({numOfSkills}/{maxSkills})",
-                                      id: "lFFnfX",
-                                      description:
-                                        "Label for disabled dialog trigger on skills showcase section.",
-                                    },
-                                    {
-                                      numOfSkills: watchedSkills.length,
-                                      maxSkills: pageInfo.maxSkillCount,
-                                    },
-                                  ),
-                                  disabled: true,
-                                }
-                          }
-                          context="showcase"
-                          skills={skills}
-                          onSave={handleSave}
-                          showCategory={false}
-                          noToast
-                          {...(!canAdd
-                            ? {
-                                "data-h2-background": "base(background)",
-                                "data-h2-border-style": "base(dashed)",
-                                "data-h2-border-color": "base(gray.dark)",
-                                "data-h2-color": "base(gray.dark)",
-                                "data-h2-display": "base(flex)",
-                                "data-h2-justify-content": "base(center)",
-                                "data-h2-width": "base(100%)",
-                              }
-                            : {
-                                "data-h2-background":
-                                  "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                                "data-h2-border-style":
-                                  "base(dashed) base:focus-visible(solid)",
-                                "data-h2-border-color":
-                                  "base(secondary.darker) base:focus-visible(focus)",
-                                "data-h2-color":
-                                  "base(secondary.darker) base:focus-visible(black)",
-                                "data-h2-display": "base(flex)",
-                                "data-h2-justify-content": "base(center)",
-                                "data-h2-width": "base(100%)",
-                              })}
-                        />
-                      }
+                                  "data-h2-background":
+                                    "base(background) base:hover(secondary.10) base:focus-visible(focus)",
+                                  "data-h2-border-style":
+                                    "base(dashed) base:focus-visible(solid)",
+                                  "data-h2-border-color":
+                                    "base(secondary.darker) base:focus-visible(focus)",
+                                  "data-h2-color":
+                                    "base(secondary.darker) base:focus-visible(black)",
+                                  "data-h2-display": "base(flex)",
+                                  "data-h2-justify-content": "base(center)",
+                                  "data-h2-width": "base(100%)",
+                                })}
+                          />
+                        ),
+                      }}
                     >
                       {fields.length ? (
                         fields.map((item, index) => (

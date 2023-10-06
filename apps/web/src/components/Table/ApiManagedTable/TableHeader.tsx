@@ -9,7 +9,7 @@ import { Field } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
 
-import IndeterminateCheckbox from "../ClientManagedTable/tableComponents";
+import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import SearchForm from "./SearchForm";
 import type {
   ColumnHiddenEvent,
@@ -70,7 +70,7 @@ function TableHeader<T extends Record<string, unknown>>({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {filter && (
-        <div data-h2-margin="base(x2, 0, x.5, 0)">
+        <div data-h2-margin="base(x2, 0, x.25, 0)">
           <p>
             {title && (
               <label data-h2-font-weight="base(700)" htmlFor={inputId}>
@@ -80,7 +80,7 @@ function TableHeader<T extends Record<string, unknown>>({
           </p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
-              <div data-h2-flex-grid="base(center, x.5)">
+              <div data-h2-flex-grid="base(center, x.25)">
                 <div data-h2-flex-item="base(content)">
                   <SearchForm
                     onChange={onSearchChange}
@@ -96,7 +96,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          color="secondary"
+                          color="quaternary"
                           type="button"
                           icon={TableCellsIcon}
                         >
@@ -133,35 +133,35 @@ function TableHeader<T extends Record<string, unknown>>({
                                     }}
                                   />
                                 </div>
-                              </Field.BoundingBox>
-                              {columns.map((column) => (
-                                <div
-                                  key={column.id}
-                                  data-h2-margin="base(x.125, 0)"
-                                >
-                                  <label htmlFor={column.id}>
-                                    <input
-                                      id={column.id}
-                                      type="checkbox"
-                                      checked={
-                                        !hiddenColumnIds.includes(column.id)
-                                      }
-                                      onChange={() => {
-                                        if (onColumnHiddenChange) {
-                                          onColumnHiddenChange({
-                                            columnId: column.id,
-                                            setHidden:
-                                              !hiddenColumnIds.includes(
-                                                column.id,
-                                              ),
-                                          });
+                                {columns.map((column) => (
+                                  <div
+                                    key={column.id}
+                                    data-h2-margin="base(x.125, 0)"
+                                  >
+                                    <label htmlFor={column.id}>
+                                      <input
+                                        id={column.id}
+                                        type="checkbox"
+                                        checked={
+                                          !hiddenColumnIds.includes(column.id)
                                         }
-                                      }}
-                                    />{" "}
-                                    {column.label}
-                                  </label>
-                                </div>
-                              ))}
+                                        onChange={() => {
+                                          if (onColumnHiddenChange) {
+                                            onColumnHiddenChange({
+                                              columnId: column.id,
+                                              setHidden:
+                                                !hiddenColumnIds.includes(
+                                                  column.id,
+                                                ),
+                                            });
+                                          }
+                                        }}
+                                      />{" "}
+                                      {column.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </Field.BoundingBox>
                             </Field.Fieldset>
                           </FormProvider>
                         </Dialog.Body>
