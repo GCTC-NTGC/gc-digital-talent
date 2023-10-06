@@ -208,21 +208,6 @@ export const EditPoolForm = ({
         description: "Sub title for the pool other requirements",
       }),
     },
-    specialNote: {
-      id: "special-note",
-      hasError: false, // Optional
-      title: intl.formatMessage({
-        defaultMessage: "Special note for this process",
-        id: "ye0xFe",
-        description: "Sub title for the special note section",
-      }),
-      shortTitle: intl.formatMessage({
-        defaultMessage: "Special note",
-        id: "loQ7wy",
-        description:
-          "Shorter version of the title for the special note section",
-      }),
-    },
     whatToExpect: {
       id: "what-to-expect",
       hasError: whatToExpectError(pool),
@@ -236,6 +221,21 @@ export const EditPoolForm = ({
         id: "Al6x8w",
         description:
           "Shorter version of the title for the what to expect section",
+      }),
+    },
+    specialNote: {
+      id: "special-note",
+      hasError: false, // Optional
+      title: intl.formatMessage({
+        defaultMessage: "Special note for this process",
+        id: "ye0xFe",
+        description: "Sub title for the special note section",
+      }),
+      shortTitle: intl.formatMessage({
+        defaultMessage: "Special note",
+        id: "loQ7wy",
+        description:
+          "Shorter version of the title for the special note section",
       }),
     },
     screeningQuestions: {
@@ -374,17 +374,17 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-              <TableOfContents.Section id={sectionMetadata.specialNote.id}>
-                <SpecialNoteSection
-                  pool={pool}
-                  sectionMetadata={sectionMetadata.specialNote}
-                  onSave={onSave}
-                />
-              </TableOfContents.Section>
               <TableOfContents.Section id={sectionMetadata.whatToExpect.id}>
                 <WhatToExpectSection
                   pool={pool}
                   sectionMetadata={sectionMetadata.whatToExpect}
+                  onSave={onSave}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sectionMetadata.specialNote.id}>
+                <SpecialNoteSection
+                  pool={pool}
+                  sectionMetadata={sectionMetadata.specialNote}
                   onSave={onSave}
                 />
               </TableOfContents.Section>

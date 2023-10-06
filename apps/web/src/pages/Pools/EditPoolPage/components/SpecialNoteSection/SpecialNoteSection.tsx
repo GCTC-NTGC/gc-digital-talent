@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit, TextArea } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -113,14 +113,7 @@ const SpecialNoteSection = ({
       </ToggleSection.Header>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} subtitle={subtitle} />
-          )}
+          <Display pool={pool} subtitle={subtitle} />
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <p>{subtitle}</p>
