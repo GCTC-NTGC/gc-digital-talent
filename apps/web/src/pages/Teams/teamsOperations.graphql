@@ -146,3 +146,11 @@ mutation CreateTeam($team: CreateTeamInput!) {
     id
   }
 }
+
+query AllUsersNames {
+  userPublicProfiles {
+    id
+    firstName
+    lastName
+  }
+}

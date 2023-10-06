@@ -12,10 +12,10 @@ import {
   Role,
   Scalars,
   Team,
-  useAllUsersQuery,
+  useAllUsersNamesQuery,
   useGetTeamQuery,
   useListRolesQuery,
-  User,
+  UserPublicProfile,
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
@@ -31,7 +31,7 @@ const columnHelper = createColumnHelper<TeamMember>();
 
 interface TeamMembersProps {
   members: Array<TeamMember>;
-  availableUsers: Array<User>;
+  availableUsers: Array<UserPublicProfile> | null;
   roles: Array<Role>;
   team: Team;
 }
@@ -150,14 +150,14 @@ const TeamMembersPage = () => {
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
   const [{ data: userData, fetching: userFetching, error: userError }] =
-    useAllUsersQuery();
+    useAllUsersNamesQuery();
 
   const team = data?.team;
   const roles = rolesData?.roles
     .filter(notEmpty)
     .filter((role) => role.isTeamBased);
   const users = groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
-  const availableUsers = userData?.users
+  const availableUsers = userData?.userPublicProfiles
     ?.filter(notEmpty)
     .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
 
@@ -199,13 +199,13 @@ const TeamMembersPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending
-        fetching={fetching || rolesFetching || userFetching}
+        fetching={fetching || rolesFetching}
         error={error || rolesError || userError}
       >
         {team && users ? (
           <TeamMembers
             members={users}
-            availableUsers={availableUsers || []}
+            availableUsers={availableUsers || null}
             roles={roles || []}
             team={team}
           />

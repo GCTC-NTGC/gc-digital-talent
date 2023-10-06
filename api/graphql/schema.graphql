@@ -162,7 +162,7 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
-type UserPublicProfile {
+type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
   firstName: String @rename(attribute: "first_name")
@@ -667,6 +667,13 @@ type Query {
     @can(ability: "viewAny", model: "User")
     @deprecated(
       reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
+    )
+  userPublicProfiles: [UserPublicProfile]!
+    @all
+    @guard
+    @can(ability: "viewBasicInfo", model: "User")
+    @deprecated(
+      reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!"
     )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
