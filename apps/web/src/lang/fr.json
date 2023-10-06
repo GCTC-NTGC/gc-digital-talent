@@ -7207,6 +7207,10 @@
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
   },
+  "jH5V6M": {
+    "defaultMessage": "Retourner à la bibliothèque des compétences",
+    "description": "Link text to navigate from skill showcase to the skill library page"
+  },
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
