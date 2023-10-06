@@ -31,10 +31,6 @@ const ButtonLinkContent = ({
   ...rest
 }: IconTextProps) => {
   const intl = useIntl();
-  if (!newTab && !icon && !utilityIcon) return <span>{children}</span>;
-  const Icon = icon;
-  const UtilityIcon = utilityIcon;
-
   let textSize = {
     "data-h2-font-size": "base(body)",
   };
@@ -49,7 +45,18 @@ const ButtonLinkContent = ({
       "data-h2-width": "base(x.75)",
     };
   }
-
+  if (!newTab && !icon && !utilityIcon)
+    return (
+      <span
+        {...textSize}
+        data-h2-font-weight="base(700)"
+        data-h2-text-decoration="base(underline)"
+      >
+        {children}
+      </span>
+    );
+  const Icon = icon;
+  const UtilityIcon = utilityIcon;
   if (mode === "cta") {
     return (
       <>
