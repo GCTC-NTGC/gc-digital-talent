@@ -9,13 +9,13 @@
   "dependencies": {
     "@gc-digital-talent/theme": "*",
     "@storybook/addon-actions": "^7.4.5",
-    "@storybook/addon-essentials": "^7.4.5",
-    "@storybook/addon-links": "^7.4.5",
+    "@storybook/addon-essentials": "^7.4.6",
+    "@storybook/addon-links": "^7.4.6",
     "@storybook/addon-viewport": "^7.4.5",
     "@storybook/addons": "^7.4.5",
     "@storybook/react": "^7.4.5",
-    "@storybook/react-webpack5": "^7.4.5",
-    "chromatic": "^7.2.0",
+    "@storybook/react-webpack5": "^7.4.6",
+    "chromatic": "^7.2.2",
     "framer-motion": "^10.16.4",
     "hydrogen-webpack-plugin": "*",
     "lodash": "^4.17.21",
@@ -29,7 +29,7 @@
     "wonka": "^6.3.4"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.4.5",
-    "storybook": "^7.4.5"
+    "@storybook/addon-a11y": "^7.4.6",
+    "storybook": "^7.4.6"
   }
 }

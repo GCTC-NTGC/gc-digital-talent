@@ -38,9 +38,9 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
           ? "base(underline) base:hover(none)"
           : "base(none) base:hover(underline)"
       }
-      utilityIcon={icon}
+      data-h2-text-align="base(left)"
+      icon={icon}
     >
-      {children}
       {sortDirection && (
         <span data-h2-visually-hidden="base(invisible)">
           {sortDirection === "asc"
@@ -58,6 +58,7 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
               })}
         </span>
       )}
+      {children}
     </Button>
   );
 };

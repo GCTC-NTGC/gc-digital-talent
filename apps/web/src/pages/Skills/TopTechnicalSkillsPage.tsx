@@ -141,6 +141,41 @@ const TopTechnicalSkills = ({
       });
   };
 
+  const updateRankingsAfterAddingSkill = (
+    initialSkillRanking: string[],
+    newSkillId: string,
+  ) => {
+    const mergedSkillIds = [...initialSkillRanking, newSkillId];
+    executeMutation({
+      userId: user?.id,
+      userSkillRanking: {
+        topTechnicalSkillsRanked: mergedSkillIds,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully updated top technical skills",
+              id: "iqmE+5",
+              description:
+                "Success message displayed after updating top technical skills",
+            }),
+          );
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating top technical skills failed",
+            id: "D1+SmE",
+            description:
+              "Message displayed to user after top technical skills fails to update",
+          }),
+        );
+      });
+  };
+
   return (
     <UpdateSkillShowcase
       userId={user?.id}
@@ -150,6 +185,7 @@ const TopTechnicalSkills = ({
       userSkills={userSkills}
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
+      onAddition={updateRankingsAfterAddingSkill}
     />
   );
 };

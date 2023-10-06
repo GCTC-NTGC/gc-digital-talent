@@ -446,10 +446,6 @@
     "defaultMessage": "Cours en ligne",
     "description": "Online Course selection for education type input"
   },
-  "H8eisr": {
-    "defaultMessage": "Compétences essentielles manquantes",
-    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
-  },
   "HGM0YR": {
     "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
     "description": "Indeterminate selection for government employee type."
@@ -1233,6 +1229,10 @@
   "lOFpV2": {
     "defaultMessage": "E",
     "description": "The evaluated language ability level of E"
+  },
+  "lXgeJr": {
+    "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
+    "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
   },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",

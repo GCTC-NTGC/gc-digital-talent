@@ -96,7 +96,7 @@ const TeamMembers = ({
     }),
   ] as ColumnDef<TeamMember>[];
 
-  const data = members.filter(notEmpty);
+  const data = React.useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>
