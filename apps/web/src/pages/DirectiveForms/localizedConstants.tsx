@@ -227,8 +227,8 @@ const ContractFteRanges = defineMessages({
     description: "Contract FTE range between fifty-one and one-hundred",
   },
   [ContractFteRange.GreaterThan_100]: {
-    defaultMessage: "> 100",
-    id: "G6pLud",
+    defaultMessage: "Greater than 100",
+    id: "DhU+iu",
     description: "Contract FTE range greater than one-hundred",
   },
 });

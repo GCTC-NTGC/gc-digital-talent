@@ -3082,10 +3082,6 @@
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
-  "G6pLud": {
-    "defaultMessage": "> 100",
-    "description": "Contract FTE range greater than one-hundred"
-  },
   "G8cmgj": {
     "defaultMessage": "En termes d’équivalents temps plein (ETP), le nombre total estimé de ressources prévues du contrat ou nécessaires pour produire les produits livrables du contrat",
     "description": "Label for _contract FTEs_ fieldset in the _digital services contracting questionnaire_"
