@@ -892,10 +892,6 @@
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
   },
-  "34geEU": {
-    "defaultMessage": "15 millions de dollars à < 25 millions de dollars",
-    "description": "Contract value range between fifteen-million and twenty-five-million"
-  },
   "36k+Da": {
     "defaultMessage": "Nom",
     "description": "Label for user table search dropdown (name)."
@@ -3018,6 +3014,10 @@
     "defaultMessage": "Mots-clés (anglais)",
     "description": "Label displayed on the skill form keywords field in English."
   },
+  "FjqRUc": {
+    "defaultMessage": "$0 to 10 000 $",
+    "description": "Contract value range between zero and ten-thousand"
+  },
   "FkwGWO": {
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
@@ -3293,6 +3293,10 @@
   "HHtv+9": {
     "defaultMessage": "Postuler à des emplois de gestionnaire",
     "description": "Title for the feature about finding manager jobs"
+  },
+  "HMm2S4": {
+    "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
+    "description": "Contract value range between one-million and two-point-five-million"
   },
   "HNe+Yh": {
     "defaultMessage": "Bienvenue sur le site du <abbreviation>Talent numérique</abbreviation> du GC, veuillez vous connecter pour continuer",
@@ -3698,6 +3702,10 @@
     "defaultMessage": "Candidature archivée!",
     "description": "Message displayed to user after application is archived successfully."
   },
+  "KFdDjj": {
+    "defaultMessage": "25 000 $ à 50 000 $",
+    "description": "Contract value range between twenty-five-thousand and fifty-thousand"
+  },
   "KIWVbp": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the teams table team column."
@@ -4056,10 +4064,6 @@
     "defaultMessage": "Demande élevée",
     "description": "Talent portal strategy item 1 heading"
   },
-  "MhcVn4": {
-    "defaultMessage": "10 000 $ à < 25 000 $",
-    "description": "Contract value range between ten-thousand and twenty-five-thousand"
-  },
   "MhgtB6": {
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
@@ -4407,10 +4411,6 @@
     "defaultMessage": "Ajouter une compétence",
     "description": "Label for skill dialog trigger on experience skills section."
   },
-  "Ofb9fJ": {
-    "defaultMessage": "1 million de dollars à < 2,5 millions de dollars",
-    "description": "Contract value range between one-million and two-point-five-million"
-  },
   "OgeWgx": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Breadcrumb title for the create new pool page link."
@@ -4494,6 +4494,10 @@
   "PB2VIT": {
     "defaultMessage": "Une exigence de la Directive sur les talents numériques.",
     "description": "Subtitle for the _digital services contracting questionnaire_ page"
+  },
+  "PBAxdK": {
+    "defaultMessage": "15 millions de dollars à 25 millions de dollars",
+    "description": "Contract value range between fifteen-million and twenty-five-million"
   },
   "PDbqFR": {
     "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
@@ -4635,10 +4639,6 @@
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
   },
-  "Q9Qj+S": {
-    "defaultMessage": "25 000 $ à < 50 000 $",
-    "description": "Contract value range between twenty-five-thousand and fifty-thousand"
-  },
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
@@ -4743,10 +4743,6 @@
     "defaultMessage": "Votre travail",
     "description": "Title for pool advertisement work text section"
   },
-  "QpMJYu": {
-    "defaultMessage": "5 millions de dollars à < 10 millions de dollars",
-    "description": "Contract value range between five-million and ten-million"
-  },
   "QpfFEG": {
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
@@ -4798,10 +4794,6 @@
   "R9YL7P": {
     "defaultMessage": "Télécharger une copie de ce formulaire",
     "description": "Button text to download this form"
-  },
-  "RA+c+a": {
-    "defaultMessage": "> 25 millions de dollars",
-    "description": "Contract value range greater than twenty-five-million"
   },
   "RBsGRp": {
     "defaultMessage": "Postulez au recrutement en cours",
@@ -5086,10 +5078,6 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
-  },
-  "TDJtET": {
-    "defaultMessage": "50 000 $ à < 1 million de dollars",
-    "description": "Contract value range between fifty-thousand and one-million"
   },
   "TJ+5Xn": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
@@ -5989,6 +5977,10 @@
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
+  "YWPvor": {
+    "defaultMessage": "10 000 $ à 25 000 $",
+    "description": "Contract value range between ten-thousand and twenty-five-thousand"
+  },
   "YWxGL/": {
     "defaultMessage": "Quelle application d'authentification dois-je installer?",
     "description": "Seventh of the Frequently Asked Questions for logging in"
@@ -6689,10 +6681,6 @@
     "defaultMessage": "Langue de communication",
     "description": "Legend text for communication language preference"
   },
-  "chjmn3": {
-    "defaultMessage": "2,5 millions de dollars à < 5 millions de dollars",
-    "description": "Contract value range between two-point-five-million and five-million"
-  },
   "chnoRd": {
     "defaultMessage": "Type d’expérience",
     "description": "Label for the type of experience a user is creating"
@@ -6848,6 +6836,10 @@
   "de2F/x": {
     "defaultMessage": "Annonce du bassin",
     "description": "Label for pool advertisement url field"
+  },
+  "deFarB": {
+    "defaultMessage": "5 millions de dollars à 10 millions de dollars",
+    "description": "Contract value range between five-million and ten-million"
   },
   "deiylo": {
     "defaultMessage": "Meilleures compétences",
@@ -7152,6 +7144,10 @@
   "fKaw5B": {
     "defaultMessage": "Plus précisément, nous voulons non seulement connaître vos <strong>antécédents professionnels</strong>, mais nous attachons une grande importance <strong>à votre expérience communautaire</strong>, <strong>aux récompenses que vous avez reçues </strong>, <strong>à vos initiatives personnelles</strong>, ainsi qu’à <strong>vos études</strong> !",
     "description": "Application step to begin working on career timeline, paragraph two"
+  },
+  "fLTOAm": {
+    "defaultMessage": "2,5 millions de dollars à 5 millions de dollars",
+    "description": "Contract value range between two-point-five-million and five-million"
   },
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
@@ -7826,6 +7822,10 @@
   "iqmE+5": {
     "defaultMessage": "Mise à jour réussie des principales compétences techniques",
     "description": "Success message displayed after updating top technical skills"
+  },
+  "iruU4c": {
+    "defaultMessage": "10 millions de dollars à 15 millions de dollars",
+    "description": "Contract value range between ten-million and fifteen-million"
   },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
@@ -9521,6 +9521,10 @@
     "defaultMessage": "Rôles individuels",
     "description": "Label for the input to add roles to a user"
   },
+  "txq9ha": {
+    "defaultMessage": "50 000 $ à 1 million de dollars",
+    "description": "Contract value range between fifty-thousand and one-million"
+  },
   "tzMNF3": {
     "defaultMessage": "État"
   },
@@ -9999,10 +10003,6 @@
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
   },
-  "xJ7VCn": {
-    "defaultMessage": "10 millions de dollars à < 15 millions de dollars",
-    "description": "Contract value range between ten-million and fifteen-million"
-  },
   "xJfPRe": {
     "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
     "description": "Subtitle for the self skill evaluation page"
@@ -10190,10 +10190,6 @@
   "ySkRmX": {
     "defaultMessage": "Bibliothèque des compétences",
     "description": "Page title for the skill library page"
-  },
-  "yUhMJK": {
-    "defaultMessage": "$0 to < 10 000 $",
-    "description": "Contract value range between zero and ten-thousand"
   },
   "yXWaAj": {
     "defaultMessage": "Veuillez préciser le niveau de sécurité",

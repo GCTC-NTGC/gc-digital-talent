@@ -122,58 +122,58 @@ export const contractAuthoritySortOrder = [
 
 const contractValueRanges = defineMessages({
   [ContractValueRange.From_0To_10K]: {
-    defaultMessage: "$0 to <$10,000",
-    id: "yUhMJK",
+    defaultMessage: "$0 to $10,000",
+    id: "FjqRUc",
     description: "Contract value range between zero and ten-thousand",
   },
   [ContractValueRange.From_10KTo_25K]: {
-    defaultMessage: "$10,000 to <$25,000",
-    id: "MhcVn4",
+    defaultMessage: "$10,000 to $25,000",
+    id: "YWPvor",
     description:
       "Contract value range between ten-thousand and twenty-five-thousand",
   },
   [ContractValueRange.From_25KTo_50K]: {
-    defaultMessage: "$25,000 to <$50,000",
-    id: "Q9Qj+S",
+    defaultMessage: "$25,000 to $50,000",
+    id: "KFdDjj",
     description:
       "Contract value range between twenty-five-thousand and fifty-thousand",
   },
   [ContractValueRange.From_50KTo_1M]: {
-    defaultMessage: "$50,000 to <$1 million",
-    id: "TDJtET",
+    defaultMessage: "$50,000 to $1 million",
+    id: "txq9ha",
     description: "Contract value range between fifty-thousand and one-million",
   },
   [ContractValueRange.From_1MTo_2500K]: {
-    defaultMessage: "$1 million to <$2.5 million",
-    id: "Ofb9fJ",
+    defaultMessage: "$1 million to $2.5 million",
+    id: "HMm2S4",
     description:
       "Contract value range between one-million and two-point-five-million",
   },
   [ContractValueRange.From_2500KTo_5M]: {
-    defaultMessage: "$2.5 million to <$5 million",
-    id: "chjmn3",
+    defaultMessage: "$2.5 million to $5 million",
+    id: "fLTOAm",
     description:
       "Contract value range between two-point-five-million and five-million",
   },
   [ContractValueRange.From_5MTo_10M]: {
-    defaultMessage: "$5 million to <$10 million",
-    id: "QpMJYu",
+    defaultMessage: "$5 million to $10 million",
+    id: "deFarB",
     description: "Contract value range between five-million and ten-million",
   },
   [ContractValueRange.From_10MTo_15M]: {
-    defaultMessage: "$10 million to <$15 million",
-    id: "xJ7VCn",
+    defaultMessage: "$10 million to $15 million",
+    id: "iruU4c",
     description: "Contract value range between ten-million and fifteen-million",
   },
   [ContractValueRange.From_15MTo_25M]: {
-    defaultMessage: "$15 million to <$25 million",
-    id: "34geEU",
+    defaultMessage: "$15 million to $25 million",
+    id: "PBAxdK",
     description:
       "Contract value range between fifteen-million and twenty-five-million",
   },
   [ContractValueRange.GreaterThan_25M]: {
-    defaultMessage: ">$25 million",
-    id: "RA+c+a",
+    defaultMessage: "Greater than $25 million",
+    id: "99D3id",
     description: "Contract value range greater than twenty-five-million",
   },
 });
