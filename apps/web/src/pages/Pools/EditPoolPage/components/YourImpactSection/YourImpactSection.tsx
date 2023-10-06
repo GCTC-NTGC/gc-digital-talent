@@ -64,17 +64,19 @@ const YourImpactSection = ({
   const { handleSubmit } = methods;
 
   const handleSave = async (formValues: FormValues) => {
-    await onSave({
+    return onSave({
       yourImpact: {
         en: formValues.yourImpactEn,
         fr: formValues.yourImpactFr,
       },
-    }).then(() => {
-      methods.reset(formValues, {
-        keepDirty: false,
-      });
-      setIsEditing(false);
-    });
+    })
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
   };
 
   // disabled unless status is draft

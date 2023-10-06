@@ -65,19 +65,21 @@ const SpecialNoteSection = ({
   const watchHasSpecialNote = watch("hasSpecialNote");
 
   const handleSave = async (formValues: FormValues) => {
-    await onSave({
+    return onSave({
       specialNote: formValues.hasSpecialNote
         ? {
             en: formValues.specialNoteEn ?? "",
             fr: formValues.specialNoteFr ?? "",
           }
         : null, // Save data if confirmation box (hasSpecialNote) is selected
-    }).then(() => {
-      methods.reset(formValues, {
-        keepDirty: false,
-      });
-      setIsEditing(false);
-    });
+    })
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
   };
 
   // disabled unless status is draft

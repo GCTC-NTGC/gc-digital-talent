@@ -62,19 +62,20 @@ const WorkTasksSection = ({
     defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit } = methods;
-
   const handleSave = async (formValues: FormValues) => {
-    await onSave({
+    return onSave({
       keyTasks: {
         en: formValues.YourWorkEn,
         fr: formValues.YourWorkFr,
       },
-    }).then(() => {
-      methods.reset(formValues, {
-        keepDirty: false,
-      });
-      setIsEditing(false);
-    });
+    })
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
   };
 
   // disabled unless status is draft

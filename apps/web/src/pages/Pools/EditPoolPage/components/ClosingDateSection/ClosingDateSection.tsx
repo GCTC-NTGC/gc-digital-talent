@@ -78,14 +78,16 @@ const ClosingDateSection = ({
         )
       : null;
 
-    await onSave({
+    return onSave({
       closingDate: closingDateInUtc,
-    }).then(() => {
-      methods.reset(formValues, {
-        keepDirty: false,
-      });
-      setIsEditing(false);
-    });
+    })
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
   };
 
   // disabled unless status is draft

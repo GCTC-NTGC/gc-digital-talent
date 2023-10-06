@@ -64,12 +64,14 @@ const OtherRequirementsSection = ({
   });
 
   const handleSave = async (formValues: FormValues) => {
-    await onSave(formValuesToSubmitData(formValues)).then(() => {
-      methods.reset(formValues, {
-        keepDirty: false,
-      });
-      setIsEditing(false);
-    });
+    return onSave(formValuesToSubmitData(formValues))
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
   };
 
   // disabled unless status is draft
