@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import {
   TableOfContents,
@@ -23,36 +22,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 
 import SkillRankCard from "./components/SkillRankCard";
-
-interface ManageLinkProps {
-  asButton?: boolean;
-}
-
-const ManageLink = ({ asButton = false }: ManageLinkProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  return (
-    <Link
-      href={paths.skillLibrary()}
-      color="secondary"
-      {...(asButton
-        ? {
-            mode: "solid",
-            block: false,
-            icon: PencilSquareIcon,
-          }
-        : { mode: "inline" })}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Manage all skills",
-        id: "RcMbGk",
-        description:
-          "Link text to navigate from skill showcase to the skill library page",
-      })}
-    </Link>
-  );
-};
 
 type PageSection = {
   id: string;
@@ -97,6 +66,14 @@ export const SkillShowcase = ({
         description: "Breadcrumb for profile and applications page.",
       }),
       url: paths.profileAndApplications(),
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Skill library",
+        id: "Oi6fll",
+        description: "Breadcrumb for skill library page.",
+      }),
+      url: paths.skillLibrary(),
     },
     {
       label: pageTitle,
@@ -144,7 +121,19 @@ export const SkillShowcase = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
-            <ManageLink asButton />
+            <Link
+              href={paths.skillLibrary()}
+              color="secondary"
+              mode="solid"
+              block={false}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Return to skill library",
+                id: "jH5V6M",
+                description:
+                  "Link text to navigate from skill showcase to the skill library page",
+              })}
+            </Link>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.topSkills.id}>
@@ -162,7 +151,6 @@ export const SkillShowcase = ({
                 >
                   {sections.topSkills.title}
                 </TableOfContents.Heading>
-                <ManageLink />
               </div>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
@@ -243,7 +231,6 @@ export const SkillShowcase = ({
                 >
                   {sections.improveSkills.title}
                 </TableOfContents.Heading>
-                <ManageLink />
               </div>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
