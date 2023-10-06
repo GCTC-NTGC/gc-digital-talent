@@ -31,10 +31,15 @@ const messages = defineMessages({
     id: "ysKXVP",
     description: "Label for a process' publishing group",
   },
-  closingDate: {
-    defaultMessage: "Closing date",
-    id: "CQxGrS",
-    description: "Label for a process' closing date",
+  closingDatePacific: {
+    defaultMessage: "Closing date (Pacific timezone)",
+    id: "Jqt2vB",
+    description: "Label for a process' closing date in pacific timezone",
+  },
+  closingDateLocal: {
+    defaultMessage: "Closing date (Local time)",
+    id: "3BeThz",
+    description: "Label for a process' closing date in users local timezone",
   },
   yourImpactEn: {
     defaultMessage: "Your impact (English)",
