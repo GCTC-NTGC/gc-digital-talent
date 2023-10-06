@@ -116,6 +116,122 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
       };
     }
   }
+  if (mode === "placeholder") {
+    if (disabled) {
+      if (color === "white") {
+        return {
+          "data-h2-border-color": `
+            base(gray.lighter)
+            base:all:focus-visible(black)`,
+        };
+      }
+      return {
+        "data-h2-border-color": `
+          base(gray.darker)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "primary") {
+      return {
+        "data-h2-border-color": `
+          base(primary.darker)
+          base:hover(primary.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "secondary") {
+      return {
+        "data-h2-border-color": `
+          base(secondary.darker)
+          base:hover(secondary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(secondary.lightest)
+          base:iap:dark:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "tertiary") {
+      return {
+        "data-h2-border-color": `
+          base(tertiary.darker)
+          base:dark(tertiary.lightest)
+          base:hover(tertiary.darkest)
+          base:dark:hover(black)
+          base:all:focus-visible(black)
+
+          base:iap:dark(tertiary.lightest)
+          base:iap:dark:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "quaternary") {
+      return {
+        "data-h2-border-color": `
+          base(quaternary.darker)
+          base:hover(quaternary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(quaternary.lightest)
+          base:iap:dark:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "quinary") {
+      return {
+        "data-h2-border-color": `
+          base(quinary.darker)
+          base:hover(quinary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(quinary.lightest)
+          base:iap:dark:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "success") {
+      return {
+        "data-h2-border-color": `
+          base(success.darker)
+          base:hover(success.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "warning") {
+      return {
+        "data-h2-border-color": `
+          base(warning.darker)
+          base:hover(warning.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "error") {
+      return {
+        "data-h2-border-color": `
+          base(error.darker)
+          base:hover(error.darkest)
+          base:all:focus-visible(black)
+          base:dark(error.lightest)
+          base:dark:hover(black)`,
+      };
+    }
+    if (color === "black") {
+      return {
+        "data-h2-border-color": `
+          base(gray.darkest)
+          base:hover(black)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "white") {
+      return {
+        "data-h2-border-color": `
+          base(gray.lightest)
+          base:hover(white)
+          base:all:focus-visible(black)`,
+      };
+    }
+  }
   if (mode === "inline" || mode === "text") {
     if (disabled) {
       if (color === "white") {

@@ -19,6 +19,16 @@ const getBaseStyle: ButtonBaseStyle = ({ mode }) => {
       "data-h2-border-style": "base(solid)",
     };
   }
+  if (mode === "placeholder") {
+    return {
+      "data-h2-padding": "base(calc(x.5 - 3px) calc(x1 - 3px))",
+      "data-h2-radius": "base(rounded)",
+      "data-h2-outline": "base(none)",
+      "data-h2-transition": "base(all .2s ease)",
+      "data-h2-border-width": "base(3px)",
+      "data-h2-border-style": "base(dashed)",
+    };
+  }
   if (mode === "inline" || mode === "text") {
     return {
       "data-h2-padding": "base(0)",

@@ -190,7 +190,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       };
     }
   }
-  if (mode === "inline" || mode === "text") {
+  if (mode === "inline" || mode === "text" || mode === "placeholder") {
     if (disabled) {
       if (color === "white") {
         return {
