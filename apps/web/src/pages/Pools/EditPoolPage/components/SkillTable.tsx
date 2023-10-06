@@ -80,6 +80,7 @@ const SkillTable = ({
       ...columns,
       columnHelper.display({
         id: "edit",
+        enableHiding: false,
         header: intl.formatMessage({
           defaultMessage: "Remove",
           id: "yBZaZy",
@@ -118,14 +119,6 @@ const SkillTable = ({
             }
           : undefined
       }
-      search={{
-        label: intl.formatMessage({
-          defaultMessage: "Search for a skill",
-          id: "RjYGPw",
-          description: "Label for the skill library table search input",
-        }),
-        internal: true,
-      }}
       sort={{
         internal: true,
       }}
