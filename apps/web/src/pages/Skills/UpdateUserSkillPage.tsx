@@ -546,6 +546,7 @@ export const UpdateUserSkillForm = ({
                       headingLevel="h3"
                       editMode="dialog"
                       showSkills={skill}
+                      linkTo={skill}
                     />
                   ))}
                 </div>
