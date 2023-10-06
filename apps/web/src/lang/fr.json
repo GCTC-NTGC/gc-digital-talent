@@ -3026,6 +3026,10 @@
     "defaultMessage": "Autres exigences",
     "description": "Sub title for the pool other requirements"
   },
+  "FntaLg": {
+    "defaultMessage": "Pour obtenir de plus amples renseignements sur le <link1>plan prospectif de gestion des talents de l'Initiative en matière numérique</link1>, reportez-vous à l'exigence A.2.4 des <link2>Procédures obligatoires sur les talents numériques</link2>.",
+    "description": "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
+  },
   "FpDMGu": {
     "defaultMessage": "Lien établi avec l’expérience!",
     "description": "Success message displayed after unlinking an experience to a skill"
@@ -5031,10 +5035,6 @@
     "defaultMessage": "Date d'expiration du candidat",
     "description": "Label displayed on the pool candidate application form expiry date field."
   },
-  "Su8FEn": {
-    "defaultMessage": "Un <link>plan en lien avec talents pour l’initiative numérique</link> a-t-il été soumis précédemment pour cette initiative?",
-    "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
-  },
   "Swde4t": {
     "defaultMessage": "En apprendre davantage sur les tests de langue",
     "description": "Link text for language testing information"
@@ -6290,6 +6290,10 @@
   "aGaaPi": {
     "defaultMessage": "Femme",
     "description": "CSV Header, Woman column"
+  },
+  "aH4Suk": {
+    "defaultMessage": "Un plan en lien avec talents pour l’initiative numérique a-t-il été soumis précédemment pour cette initiative?",
+    "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "aIMh6f": {
     "defaultMessage": "Cinq compétences techniques que vous aimeriez perfectionner",
@@ -10350,10 +10354,6 @@
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
     "description": "Label for removing the skill category filter"
-  },
-  "zSjmgi": {
-    "defaultMessage": "Pour obtenir de plus amples renseignements sur le plan prospectif de gestion des talents de l'Initiative en matière numérique, reportez-vous à l'exigence A.2.4 des <link>Procédures obligatoires sur les talents numériques</link>.",
-    "description": "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "zTJ2DT": {
     "defaultMessage": "Gérer <a1>votre profil</a1>, <a2>votre parcours professionnel</a2> et <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",

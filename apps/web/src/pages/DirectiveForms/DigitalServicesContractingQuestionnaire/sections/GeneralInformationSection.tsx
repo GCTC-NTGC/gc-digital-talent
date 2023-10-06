@@ -10,7 +10,11 @@ import {
   Checklist,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 import {
   ContractAuthority,
   Department,
@@ -18,6 +22,9 @@ import {
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
+
+import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
+import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
 
 import {
   buildExternalLink,
@@ -363,13 +370,18 @@ const GeneralInformationSection = ({
               introduction={intl.formatMessage(
                 {
                   defaultMessage:
-                    "For more information on the digital initiative forward talent plan, refer to requirement A.2.4 of the <link>Mandatory Procedures on Digital Talent</link>.",
-                  id: "zSjmgi",
+                    "For more information on the <link1>digital initiative forward talent plan</link1>, refer to requirement A.2.4 of the <link2>Mandatory Procedures on Digital Talent</link2>.",
+                  id: "FntaLg",
                   description:
                     "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
                 },
                 {
-                  link: (chunks: React.ReactNode) =>
+                  link1: (chunks: React.ReactNode) => {
+                    const locale = getLocale(intl);
+                    const url = locale === "en" ? talentPlanEn : talentPlanFr;
+                    return buildExternalLink(url, chunks);
+                  },
+                  link2: (chunks: React.ReactNode) =>
                     buildExternalLink(getDirectiveUrl(intl), chunks),
                 },
               )}

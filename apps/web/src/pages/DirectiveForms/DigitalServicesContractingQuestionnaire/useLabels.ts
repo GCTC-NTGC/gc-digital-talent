@@ -1,10 +1,7 @@
 import { IntlShape, useIntl } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
-import { getLocale } from "@gc-digital-talent/i18n";
 
-import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
-import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
 import useRoutes from "~/hooks/useRoutes";
 
 import { buildExternalLink } from "../util";
@@ -120,22 +117,13 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
       description:
         "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
     }),
-    digitalInitiativePlanSubmitted: intl.formatMessage(
-      {
-        defaultMessage:
-          "Has a <link>digital initiative forward talent plan</link> been submitted previously for the initiative?",
-        id: "Su8FEn",
-        description:
-          "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
-      },
-      {
-        link: (chunks: React.ReactNode) => {
-          const locale = getLocale(intl);
-          const url = locale === "en" ? talentPlanEn : talentPlanFr;
-          return buildExternalLink(url, chunks);
-        },
-      },
-    ),
+    digitalInitiativePlanSubmitted: intl.formatMessage({
+      defaultMessage:
+        "Has a digital initiative forward talent plan been submitted previously for the initiative?",
+      id: "aH4Suk",
+      description:
+        "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
+    }),
     digitalInitiativePlanUpdated: intl.formatMessage({
       defaultMessage:
         "Has the plan been updated when the contract is initiated?",
