@@ -11,7 +11,7 @@ import {
   convertDateTimeZone,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
