@@ -21,8 +21,6 @@ import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
-import "./pool-card.css";
-
 const getSalaryRanges = (pool: Pool, locale: string) => {
   if (!pool.classifications) return null;
 
@@ -92,6 +90,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-position="base(absolute)"
           data-h2-location="base(auto, auto, x1.25, 50%)"
           data-h2-transform="base(translate(-50%, 0px))"
+          data-h2-white-space="base:children[*](nowrap)"
         >
           {classificationAbbr || nullMessage}
         </span>
