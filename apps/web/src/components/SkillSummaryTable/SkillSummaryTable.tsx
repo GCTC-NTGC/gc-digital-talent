@@ -3,6 +3,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
   getLocalizedName,
@@ -36,10 +37,20 @@ const SkillSummaryTable = ({
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+      data-h2-color="base(success)"
     />
   );
   const XCircleIconElement = (
     <XCircleIcon
+      data-h2-width="base(x1)"
+      data-h2-display="base(inline-block)"
+      data-h2-vertical-align="base(bottom)"
+      data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+      data-h2-color="base(error)"
+    />
+  );
+  const CheckIconElement = (
+    <CheckIcon
       data-h2-width="base(x1)"
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
@@ -69,7 +80,7 @@ const SkillSummaryTable = ({
       assessmentStep.type &&
       filteredPoolSkillsAssessments.includes(assessmentStep.type)
     ) {
-      return CheckCircleIconElement;
+      return CheckIconElement;
     }
     return <span />;
   };
