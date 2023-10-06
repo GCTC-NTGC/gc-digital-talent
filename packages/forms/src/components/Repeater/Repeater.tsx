@@ -296,27 +296,10 @@ const Root = ({
           id={addId}
           icon={PlusCircleIcon}
           type="button"
-          mode="solid"
+          mode="placeholder"
           block
           color="secondary"
           onClick={onAdd}
-          {...(addButtonProps?.disabled
-            ? {
-                "data-h2-background": "base(background)",
-                "data-h2-border-style": "base(dashed)",
-                "data-h2-border-color": "base(gray.dark)",
-                "data-h2-color": "base(gray.dark)",
-              }
-            : {
-                "data-h2-background":
-                  "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                "data-h2-border-style":
-                  "base(dashed) base:focus-visible(solid)",
-                "data-h2-border-color":
-                  "base(secondary.darker) base:focus-visible(focus)",
-                "data-h2-color":
-                  "base(secondary.darker) base:focus-visible(black)",
-              })}
           {...addButtonProps}
         >
           {addText}

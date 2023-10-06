@@ -38,7 +38,13 @@ const colors: Array<Color> = [
   "white",
 ];
 
-const modes: Array<ButtonLinkMode> = ["solid", "text", "inline", "cta"];
+const modes: Array<ButtonLinkMode> = [
+  "solid",
+  "placeholder",
+  "text",
+  "inline",
+  "cta",
+];
 
 const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
 
