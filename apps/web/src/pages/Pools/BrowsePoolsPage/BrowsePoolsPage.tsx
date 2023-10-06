@@ -120,9 +120,11 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
-          <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
-            <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
-          </div>
+          {ongoingRecruitmentPools.length > 0 && (
+            <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+            </div>
+          )}
           <div data-h2-padding="base(x3, 0) p-tablet(x4, 0)">
             <div
               data-h2-background-color="base(white) base:dark(black.light)"

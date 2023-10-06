@@ -33,6 +33,7 @@ interface SkillDialogProps {
   defaultOpen?: boolean;
   // Customize the trigger text and icon
   trigger?: {
+    id?: string;
     label?: React.ReactNode;
     icon?: IconType;
     disabled?: boolean;
@@ -100,6 +101,7 @@ const SkillDialog = ({
   };
 
   const triggerProps = {
+    id: trigger?.id,
     children: trigger?.label || triggerMessage,
     icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
     disabled: trigger?.disabled,

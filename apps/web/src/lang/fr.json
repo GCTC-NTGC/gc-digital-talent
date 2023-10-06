@@ -361,10 +361,6 @@
   "0/8x/z": {
     "defaultMessage": "N’importe quelle langue"
   },
-  "000m9d": {
-    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (FR)",
-    "description": "Link text for an French form download"
-  },
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
@@ -4447,6 +4443,10 @@
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
     "description": "Describing the purpose of the skill filters on the Search page."
   },
+  "RA6v6+": {
+    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden>",
+    "description": "Link text for form download"
+  },
   "RBsGRp": {
     "defaultMessage": "Postulez au recrutement en cours",
     "description": "title for section with ongoing pool advertisements"
@@ -4486,10 +4486,6 @@
   "RalbOM": {
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
-  },
-  "RcMbGk": {
-    "defaultMessage": "Gérer toutes les compétences",
-    "description": "Link text to navigate from skill showcase to the skill library page"
   },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
@@ -5456,10 +5452,6 @@
   "YCqTbH": {
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
     "description": "Button text to open accordion describing skill experience"
-  },
-  "YDJiAT": {
-    "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden> (EN)",
-    "description": "Link text for an English form download"
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
@@ -6645,10 +6637,6 @@
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
   },
-  "ft6q8G": {
-    "defaultMessage": "Télécharger le guide (FR)",
-    "description": "Link text for French guidance resource download"
-  },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -7222,6 +7210,10 @@
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
+  },
+  "jH5V6M": {
+    "defaultMessage": "Retourner à la bibliothèque des compétences",
+    "description": "Link text to navigate from skill showcase to the skill library page"
   },
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
@@ -9031,10 +9023,6 @@
     "defaultMessage": "Signaler un bogue",
     "description": "Support form subject field bug option label"
   },
-  "wMp4x6": {
-    "defaultMessage": "Télécharger le guide (EN)",
-    "description": "Link text for English guidance resource download"
-  },
   "wNJSJ7": {
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
     "description": "Second paragraph about the program"
@@ -9290,6 +9278,10 @@
   "ySkRmX": {
     "defaultMessage": "Bibliothèque des compétences",
     "description": "Page title for the skill library page"
+  },
+  "yVOpEI": {
+    "defaultMessage": "Télécharger le guide",
+    "description": "Link text for guidance resource download"
   },
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",

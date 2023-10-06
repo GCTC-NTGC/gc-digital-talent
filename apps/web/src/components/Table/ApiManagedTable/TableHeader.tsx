@@ -70,7 +70,7 @@ function TableHeader<T extends Record<string, unknown>>({
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {filter && (
-        <div data-h2-margin="base(x2, 0, x.5, 0)">
+        <div data-h2-margin="base(x2, 0, x.25, 0)">
           <p>
             {title && (
               <label data-h2-font-weight="base(700)" htmlFor={inputId}>
@@ -80,7 +80,7 @@ function TableHeader<T extends Record<string, unknown>>({
           </p>
           <div data-h2-flex-grid="base(center, x1)">
             <div data-h2-flex-item="base(1of1) l-tablet(fill)">
-              <div data-h2-flex-grid="base(center, x.5)">
+              <div data-h2-flex-grid="base(center, x.25)">
                 <div data-h2-flex-item="base(content)">
                   <SearchForm
                     onChange={onSearchChange}
@@ -96,7 +96,7 @@ function TableHeader<T extends Record<string, unknown>>({
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Button
-                          color="secondary"
+                          color="quaternary"
                           type="button"
                           icon={TableCellsIcon}
                         >
