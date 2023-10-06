@@ -153,48 +153,62 @@ const TeamMembersPage = () => {
     useAllUsersNamesQuery();
 
   const team = data?.team;
-  const roles = rolesData?.roles
-    .filter(notEmpty)
-    .filter((role) => role.isTeamBased);
-  const users = groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
-  const availableUsers = userData?.userPublicProfiles
-    ?.filter(notEmpty)
-    .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
+  const roles = React.useMemo(
+    () =>
+      rolesData?.roles
+        ? rolesData.roles.filter(notEmpty).filter((role) => role.isTeamBased)
+        : [],
+    [rolesData?.roles],
+  );
+  const users = React.useMemo(
+    () => groupRoleAssignmentsByUser(data?.team?.roleAssignments || []),
+    [data?.team?.roleAssignments],
+  );
+  const availableUsers = React.useMemo(
+    () =>
+      userData?.userPublicProfiles
+        ?.filter(notEmpty)
+        .filter((user) => !users.find((teamUser) => teamUser.id === user?.id)),
+    [userData?.userPublicProfiles, users],
+  );
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.teams),
-      url: routes.teamTable(),
-    },
-    ...(teamId
-      ? [
-          {
-            label: getLocalizedName(data?.team?.displayName, intl),
-            url: routes.teamView(teamId),
-          },
-        ]
-      : []),
-    ...(teamId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Members",
-              id: "nfZQ89",
-              description: "Breadcrumb title for the team members page link.",
-            }),
-            url: routes.teamMembers(teamId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = React.useMemo(
+    () => [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Home",
+          id: "EBmWyo",
+          description: "Link text for the home link in breadcrumbs.",
+        }),
+        url: routes.adminDashboard(),
+      },
+      {
+        label: intl.formatMessage(adminMessages.teams),
+        url: routes.teamTable(),
+      },
+      ...(teamId
+        ? [
+            {
+              label: getLocalizedName(data?.team?.displayName, intl),
+              url: routes.teamView(teamId),
+            },
+          ]
+        : []),
+      ...(teamId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Members",
+                id: "nfZQ89",
+                description: "Breadcrumb title for the team members page link.",
+              }),
+              url: routes.teamMembers(teamId),
+            },
+          ]
+        : []),
+    ],
+    [data?.team?.displayName, intl, routes, teamId],
+  );
 
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
@@ -206,7 +220,7 @@ const TeamMembersPage = () => {
           <TeamMembers
             members={users}
             availableUsers={availableUsers || null}
-            roles={roles || []}
+            roles={roles}
             team={team}
           />
         ) : (
