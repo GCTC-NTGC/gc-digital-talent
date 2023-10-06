@@ -20,6 +20,7 @@ const getDisplay: ButtonDisplay = ({ mode, block }) => {
     return {
       "data-h2-display": "base(flex)",
       "data-h2-justify-content": "base(center)",
+      "data-h2-width": "base(100%)",
     };
   }
   return {
