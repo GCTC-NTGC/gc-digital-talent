@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
+import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
 
 import {
   NotFound,
@@ -10,6 +11,7 @@ import {
   TableOfContents,
   Heading,
   Pill,
+  Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -249,6 +251,13 @@ export const EditPoolForm = ({
     },
   };
 
+  const backMessage = defineMessage({
+    defaultMessage: "Back to process information",
+    id: "wCvkgI",
+    description:
+      "Text on a link to navigate back to the process information page",
+  });
+
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
@@ -297,12 +306,7 @@ export const EditPoolForm = ({
               ))}
             </TableOfContents.List>
             <Link mode="solid" href={paths.poolView(pool.id)} color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Back to process information",
-                id: "wCvkgI",
-                description:
-                  "Text on a link to navigate back to the process information page",
-              })}
+              {intl.formatMessage(backMessage)}
             </Link>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
@@ -396,6 +400,19 @@ export const EditPoolForm = ({
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
+        <Separator
+          orientation="horizontal"
+          decorative
+          data-h2-background-color="base(gray.lighter)"
+          data-h2-margin="base(x1 0)"
+        />
+        <Link
+          mode="solid"
+          href={paths.poolView(pool.id)}
+          icon={ChevronDoubleLeftIcon}
+        >
+          {intl.formatMessage(backMessage)}
+        </Link>
       </div>
     </>
   );
