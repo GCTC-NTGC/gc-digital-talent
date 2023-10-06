@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import {
   TableOfContents,
