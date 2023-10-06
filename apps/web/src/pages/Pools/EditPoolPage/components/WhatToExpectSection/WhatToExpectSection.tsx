@@ -13,10 +13,7 @@ import {
   Pool,
   UpdatePoolInput,
 } from "~/api/generated";
-import {
-  hasEmptyRequiredFields,
-  hasAllEmptyFields,
-} from "~/validators/process/whatToExpect";
+import { hasAllEmptyFields } from "~/validators/process/whatToExpect";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -45,11 +42,10 @@ const WhatToExpectSection = ({
 }: WhatToExpectSectionProps): JSX.Element => {
   const intl = useIntl();
   const isNull = hasAllEmptyFields(pool);
-  const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
-    emptyRequired,
+    emptyRequired: false,
     fallbackIcon: QuestionMarkCircleIcon,
   });
 

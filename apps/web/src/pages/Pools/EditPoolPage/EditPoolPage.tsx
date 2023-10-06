@@ -33,7 +33,6 @@ import { hasEmptyRequiredFields as closingDateError } from "~/validators/process
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
-import { hasEmptyRequiredFields as whatToExpectError } from "~/validators/process/whatToExpect";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
 
@@ -212,7 +211,7 @@ export const EditPoolForm = ({
     },
     whatToExpect: {
       id: "what-to-expect",
-      hasError: whatToExpectError(pool),
+      hasError: false,
       title: intl.formatMessage({
         defaultMessage: "What to expect after you apply",
         id: "QdSYpe",
