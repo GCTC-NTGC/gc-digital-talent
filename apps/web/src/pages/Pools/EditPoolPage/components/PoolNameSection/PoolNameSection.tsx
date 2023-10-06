@@ -3,8 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
-import { getPublishingGroup, uiMessages } from "@gc-digital-talent/i18n";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import {
+  commonMessages,
+  getPublishingGroup,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
@@ -27,6 +31,7 @@ import {
   getStreamOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
+import ActionWrapper from "../ActionWrapper";
 
 type PoolNameSectionProps = SectionProps<PoolNameSubmitData> & {
   classifications: Array<Maybe<Classification>>;
@@ -216,18 +221,25 @@ const PoolNameSection = ({
                 />
               </div>
 
-              {!formDisabled && (
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save pool name",
-                    id: "bbIDc9",
-                    description: "Text on a button to save the pool name",
-                  })}
-                  color="tertiary"
-                  mode="solid"
-                  isSubmitting={isSubmitting}
-                />
-              )}
+              <ActionWrapper>
+                {!formDisabled && (
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save pool name",
+                      id: "bbIDc9",
+                      description: "Text on a button to save the pool name",
+                    })}
+                    color="tertiary"
+                    mode="solid"
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
+              </ActionWrapper>
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>

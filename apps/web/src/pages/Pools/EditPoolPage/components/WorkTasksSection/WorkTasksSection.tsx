@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -22,6 +23,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { useEditPoolContext } from "../EditPoolContext";
 import { SectionProps } from "../../types";
 import Display from "./Display";
+import ActionWrapper from "../ActionWrapper";
 
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
@@ -155,18 +157,26 @@ const WorkTasksSection = ({
                 />
               </div>
 
-              {!formDisabled && (
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save work tasks",
-                    id: "tiv5J7",
-                    description: "Text on a button to save the pool work tasks",
-                  })}
-                  color="tertiary"
-                  mode="solid"
-                  isSubmitting={isSubmitting}
-                />
-              )}
+              <ActionWrapper>
+                {!formDisabled && (
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save work tasks",
+                      id: "tiv5J7",
+                      description:
+                        "Text on a button to save the pool work tasks",
+                    })}
+                    color="tertiary"
+                    mode="solid"
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
+              </ActionWrapper>
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>

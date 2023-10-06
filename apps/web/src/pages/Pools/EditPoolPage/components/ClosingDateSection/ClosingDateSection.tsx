@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   DATE_FORMAT_STRING,
@@ -11,7 +11,7 @@ import {
   convertDateTimeZone,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
@@ -23,6 +23,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import { SectionProps } from "../../types";
+import ActionWrapper from "../ActionWrapper";
 
 type FormValues = {
   endDate?: Pool["closingDate"];
@@ -156,19 +157,26 @@ const ClosingDateSection = ({
                 />
               </div>
 
-              {!formDisabled && (
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save closing date",
-                    id: "jttjmJ",
-                    description:
-                      "Text on a button to save the pool closing date",
-                  })}
-                  color="tertiary"
-                  mode="solid"
-                  isSubmitting={isSubmitting}
-                />
-              )}
+              <ActionWrapper>
+                {!formDisabled && (
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save closing date",
+                      id: "jttjmJ",
+                      description:
+                        "Text on a button to save the pool closing date",
+                    })}
+                    color="tertiary"
+                    mode="solid"
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
+              </ActionWrapper>
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>

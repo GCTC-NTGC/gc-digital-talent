@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import InboxStackIcon from "@heroicons/react/24/outline/InboxStackIcon";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
@@ -12,6 +12,7 @@ import {
   enumToOptions,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   getLanguageRequirement,
   getSecurityClearance,
 } from "@gc-digital-talent/i18n";
@@ -34,6 +35,7 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
 } from "./utils";
+import ActionWrapper from "../ActionWrapper";
 
 type OtherRequirementsSectionProps = SectionProps<OtherRequirementsSubmitData>;
 
@@ -232,19 +234,26 @@ const OtherRequirementsSection = ({
                 ) : undefined}
               </div>
 
-              {!formDisabled && (
-                <Submit
-                  text={intl.formatMessage({
-                    defaultMessage: "Save other requirements",
-                    id: "66MUMB",
-                    description:
-                      "Text on a button to save the pool other requirements",
-                  })}
-                  color="tertiary"
-                  mode="solid"
-                  isSubmitting={isSubmitting}
-                />
-              )}
+              <ActionWrapper>
+                {!formDisabled && (
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Save other requirements",
+                      id: "66MUMB",
+                      description:
+                        "Text on a button to save the pool other requirements",
+                    })}
+                    color="tertiary"
+                    mode="solid"
+                    isSubmitting={isSubmitting}
+                  />
+                )}
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
+              </ActionWrapper>
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>
