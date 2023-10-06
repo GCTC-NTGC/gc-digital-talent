@@ -11,6 +11,10 @@
     "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
     "description": "Status name of a pool in ARCHIVED status"
   },
+  "RXOgrq": {
+    "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
+    "description": "Error message for closing date on a process advertisement."
+  },
   "+7v9Dq": {
     "defaultMessage": "Sauvegarder et ajouter un autre",
     "description": "Text for save button and add another button on experience form."

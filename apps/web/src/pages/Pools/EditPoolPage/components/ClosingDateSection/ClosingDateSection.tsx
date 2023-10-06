@@ -6,9 +6,12 @@ import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
+  DATE_FORMAT_STRING,
   convertDateTimeToDate,
   convertDateTimeZone,
+  formatDate,
 } from "@gc-digital-talent/date-helpers";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
@@ -135,6 +138,21 @@ const ClosingDateSection = ({
                   legend={experienceFormLabels.endDate}
                   name="endDate"
                   disabled={formDisabled}
+                  rules={{
+                    min: {
+                      value: formatDate({
+                        date: new Date(),
+                        formatString: DATE_FORMAT_STRING,
+                        intl,
+                      }),
+                      message: intl.formatMessage({
+                        defaultMessage: "Closing date must be after today.",
+                        id: "RXOgrq",
+                        description:
+                          "Error message for closing date on a process advertisement.",
+                      }),
+                    },
+                  }}
                 />
               </div>
 
