@@ -2,11 +2,7 @@ import { IntlShape, useIntl } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
 
-import useRoutes from "~/hooks/useRoutes";
-
-import { buildExternalLink } from "../util";
-
-const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
+const getLabels = (intl: IntlShape) => {
   return {
     // Preamble section
     readPreamble: intl.formatMessage({
@@ -449,19 +445,13 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
       description:
         "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_",
     }),
-    ocioConfirmedTalentShortage: intl.formatMessage(
-      {
-        defaultMessage:
-          "Has OCIO confirmed that there is no available pre-qualified talent in an <link>OCIO-coordinated talent pool</link> that could meet the need in the timeframe provided?",
-        id: "yGW8Y5",
-        description:
-          "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_",
-      },
-      {
-        link: (chunks: React.ReactNode) =>
-          buildExternalLink(paths.search(), chunks),
-      },
-    ),
+    ocioConfirmedTalentShortage: intl.formatMessage({
+      defaultMessage:
+        "Has OCIO confirmed that there is no available pre-qualified talent in an OCIO-coordinated talent pool that could meet the need in the timeframe provided?",
+      id: "Jehcen",
+      description:
+        "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_",
+    }),
     talentSearchTrackingNumber: intl.formatMessage({
       defaultMessage: "GC Digital Talent search request tracking number",
       id: "dVlECR",
@@ -513,8 +503,7 @@ const getLabels = (intl: IntlShape, paths: ReturnType<typeof useRoutes>) => {
 
 const useLabels = () => {
   const intl = useIntl();
-  const paths = useRoutes();
-  const labels = getLabels(intl, paths) satisfies FieldLabels;
+  const labels = getLabels(intl) satisfies FieldLabels;
   return labels;
 };
 
