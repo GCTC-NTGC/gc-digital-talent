@@ -32,6 +32,7 @@ import {
   SkillLevel,
   EvaluatedLanguageAbility,
   PoolSkillType,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1951,4 +1952,66 @@ export const getEvaluatedLanguageAbility = (
     evaluatedLanguageMessages,
     ability,
     `Invalid evaluatedLanguageAbility ${ability}`,
+  );
+
+const assessmentStepTypes = defineMessages({
+  [AssessmentStepType.AdditionalAssessment]: {
+    defaultMessage: "Additional assessment",
+    id: "TP9lEp",
+    description: "Additional assessment of some unique sort.",
+  },
+  [AssessmentStepType.ApplicationScreening]: {
+    defaultMessage: "Application screening",
+    id: "2POiyT",
+    description: "Application screening assessment.",
+  },
+  [AssessmentStepType.InterviewFollowup]: {
+    defaultMessage: "Follow-up interview",
+    id: "IGl5IE",
+    description: "Follow-up interview assessment.",
+  },
+  [AssessmentStepType.InterviewGroup]: {
+    defaultMessage: "Group interview",
+    id: "vwszQC",
+    description: "Group interview assessment.",
+  },
+  [AssessmentStepType.InterviewIndividual]: {
+    defaultMessage: "Individual interview",
+    id: "PJn5I4",
+    description: "Individual interview assessment.",
+  },
+  [AssessmentStepType.PscExam]: {
+    defaultMessage: "PSC exam",
+    id: "DoFRsj",
+    description: "PSC exam assessment.",
+  },
+  [AssessmentStepType.ReferenceCheck]: {
+    defaultMessage: "Reference check",
+    id: "H9+LDC",
+    description: "Reference check assessment.",
+  },
+  [AssessmentStepType.ScreeningQuestionsAtApplication]: {
+    defaultMessage: "Screening questions (at time of application)",
+    id: "uKlMuC",
+    description: "Screening questions assessment concurrent with application.",
+  },
+  [AssessmentStepType.TechnicalExamAtHome]: {
+    defaultMessage: "Technical exam - Take home",
+    id: "vOw0qV",
+    description: "Technical exam assessment done at home.",
+  },
+  [AssessmentStepType.TechnicalExamAtSite]: {
+    defaultMessage: "Technical exam - On site",
+    id: "mPBvYz",
+    description: "Technical exam assessment done at some specified location.",
+  },
+});
+
+export const getAssessmentStepType = (
+  assessmentStepTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentStepTypes,
+    assessmentStepTypeId,
+    `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
   );

@@ -6,11 +6,18 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
+  commonMessages,
+  getAssessmentStepType,
   getLocalizedName,
   getPoolSkillType,
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
-import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStep,
+  AssessmentStepType,
+  PoolSkill,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -58,16 +65,45 @@ const SkillSummaryTable = ({
     />
   );
 
+  const generateAssessmentStepHeader = (
+    assessmentStep: AssessmentStep,
+  ): string => {
+    if (assessmentStep.title && assessmentStep.type) {
+      return `${getLocalizedName(
+        assessmentStep.title,
+        intl,
+      )} (${intl.formatMessage(getAssessmentStepType(assessmentStep.type))})`;
+    }
+
+    if (!assessmentStep.title && assessmentStep.type) {
+      return intl.formatMessage(getAssessmentStepType(assessmentStep.type));
+    }
+
+    if (assessmentStep.title && !assessmentStep.type) {
+      return getLocalizedName(assessmentStep.title, intl);
+    }
+
+    return intl.formatMessage(commonMessages.notAvailable);
+  };
+
   const plannedAssessmentCell = (poolSkill: PoolSkill): JSX.Element => {
     return poolSkill.assessmentSteps && poolSkill.assessmentSteps.length > 0
       ? CheckCircleIconElement
       : XCircleIconElement;
   };
 
-  const assessmentCellAccessor = (
+  const assessmentStepCell = (
     poolSkill: PoolSkill,
     assessmentStep: AssessmentStep,
   ): JSX.Element => {
+    // return early with specific message for certain combination
+    if (
+      poolSkill.skill?.category === SkillCategory.Behavioural &&
+      assessmentStep.type === AssessmentStepType.ApplicationScreening
+    ) {
+      return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
+    }
+
     const poolSkillsAssessmentTypes = poolSkill.assessmentSteps
       ? poolSkill.assessmentSteps.map((instance) =>
           instance && instance.type ? instance.type : undefined,
@@ -141,24 +177,18 @@ const SkillSummaryTable = ({
     return aPosition > bPosition ? 1 : -1;
   });
   sortedAssessmentSteps.forEach((element) => {
+    const headerName = generateAssessmentStepHeader(element);
     const newColumn = columnHelper.display({
-      id: element.type ?? "",
-      header: getLocalizedName(element.title, intl),
+      id: element.type ?? element.id,
+      header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentCellAccessor(poolSkill, element)),
+        cells.jsx(assessmentStepCell(poolSkill, element)),
     });
     columns = [...columns, newColumn];
   });
 
   return (
-    <Table<PoolSkill>
-      data={poolSkills}
-      caption={title}
-      columns={columns}
-      sort={{
-        internal: true,
-      }}
-    />
+    <Table<PoolSkill> data={poolSkills} caption={title} columns={columns} />
   );
 };
 
