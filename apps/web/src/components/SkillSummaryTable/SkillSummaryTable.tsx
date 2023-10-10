@@ -16,6 +16,7 @@ import {
   AssessmentStep,
   AssessmentStepType,
   PoolSkill,
+  PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -92,6 +93,22 @@ const SkillSummaryTable = ({
       : XCircleIconElement;
   };
 
+  const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
+    if (poolSkill?.type) {
+      return poolSkill.type === PoolSkillType.Essential ? (
+        <span
+          data-h2-color="base(primary.darker)"
+          data-h2-font-weight="base(700)"
+        >
+          {intl.formatMessage(getPoolSkillType(poolSkill.type))}
+        </span>
+      ) : (
+        <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
+      );
+    }
+    return null;
+  };
+
   const assessmentStepCell = (
     poolSkill: PoolSkill,
     assessmentStep: AssessmentStep,
@@ -143,19 +160,18 @@ const SkillSummaryTable = ({
       }),
       enableHiding: false,
     }),
-    columnHelper.accessor(
-      (row) => (row.type ? intl.formatMessage(getPoolSkillType(row.type)) : ""),
-      {
-        id: "type",
-        header: intl.formatMessage({
-          defaultMessage: "Requirement type",
-          id: "o5g1d/",
-          description:
-            "Column title for whether a skill is either required or just an asset.",
-        }),
-        enableHiding: false,
-      },
-    ),
+    columnHelper.display({
+      id: "type",
+      header: intl.formatMessage({
+        defaultMessage: "Requirement type",
+        id: "o5g1d/",
+        description:
+          "Column title for whether a skill is either required or just an asset.",
+      }),
+      enableHiding: false,
+      cell: ({ row: { original: poolSkill } }) =>
+        cells.jsx(requirementTypeCell(poolSkill)),
+    }),
     columnHelper.accessor(
       (row) =>
         row.skill
