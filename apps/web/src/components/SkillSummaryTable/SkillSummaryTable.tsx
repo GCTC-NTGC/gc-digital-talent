@@ -112,7 +112,7 @@ const SkillSummaryTable = ({
   const assessmentStepCell = (
     poolSkill: PoolSkill,
     assessmentStep: AssessmentStep,
-  ): JSX.Element => {
+  ): JSX.Element | null => {
     // return early with specific message for certain combination
     if (
       poolSkill.skill?.category === SkillCategory.Behavioural &&
@@ -135,7 +135,7 @@ const SkillSummaryTable = ({
     ) {
       return CheckIconElement;
     }
-    return <span />;
+    return null;
   };
 
   const initialColumns = [
