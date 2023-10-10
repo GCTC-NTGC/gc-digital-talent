@@ -254,6 +254,7 @@ const SkillSelection = ({
               name="skill"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               trackUnsaved={false}
+              total={filteredSkills.length}
               label={intl.formatMessage({
                 defaultMessage: "Skill",
                 id: "+K/smr",

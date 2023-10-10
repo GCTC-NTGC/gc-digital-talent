@@ -36,10 +36,12 @@ const usePoolMutations = (returnPath?: string) => {
           "Message displayed to user after pool fails to get updated.",
       }),
     );
+
+    throw new Error("PoolEditError");
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
-    await executeUpdateMutation({ id, pool })
+    return executeUpdateMutation({ id, pool })
       .then((result) => {
         if (result.data?.updatePool) {
           toast.success(
