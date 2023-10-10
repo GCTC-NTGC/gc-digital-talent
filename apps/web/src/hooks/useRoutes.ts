@@ -91,7 +91,7 @@ const getRoutes = (lang: Locales) => {
     userCreate: () => path.join(adminUrl, "users", "create"),
     userView: (userId: string) => path.join(adminUrl, "users", userId),
     userProfile: (userId: string) =>
-      path.join(adminUrl, "users", userId, "personal-information"),
+      path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
     userPlacement: (userId: string) =>
@@ -174,7 +174,7 @@ const getRoutes = (lang: Locales) => {
     applicationSelfDeclaration: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "self-declaration"),
     applicationProfile: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "personal-information"),
+      path.join(baseUrl, "applications", applicationId, "profile"),
     applicationCareerTimeline: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "career-timeline"),
     applicationCareerTimelineIntro: (applicationId: string) =>
