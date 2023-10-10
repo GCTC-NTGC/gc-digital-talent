@@ -1,10 +1,5 @@
 import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
-import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
-import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { HeadingProps, IconType } from "@gc-digital-talent/ui";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -13,52 +8,6 @@ import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
 import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
 import { getLabels as getLangLabels } from "./components/LanguageProfile/utils";
 import { SectionKey } from "./types";
-
-interface GetSectionIconArgs {
-  isEditing: boolean;
-  fallback: IconType;
-  completed?: boolean | null;
-  error?: boolean | null;
-}
-
-export type SectionIcon = {
-  icon: IconType;
-  color?: HeadingProps["color"];
-};
-
-type GetSectionIconFn = (args: GetSectionIconArgs) => SectionIcon;
-
-export const getSectionIcon: GetSectionIconFn = ({
-  isEditing,
-  fallback = InformationCircleIcon,
-  completed,
-  error,
-}) => {
-  if (isEditing) {
-    return {
-      icon: PencilSquareIcon,
-      color: "warning",
-    };
-  }
-
-  if (error) {
-    return {
-      icon: ExclamationCircleIcon,
-      color: "error",
-    };
-  }
-
-  if (completed) {
-    return {
-      icon: CheckCircleIcon,
-      color: "success",
-    };
-  }
-
-  return {
-    icon: fallback,
-  };
-};
 
 const sectionTitles = new Map<SectionKey, MessageDescriptor>([
   [

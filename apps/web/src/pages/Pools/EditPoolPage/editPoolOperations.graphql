@@ -11,6 +11,7 @@ query getEditPoolData($poolId: UUID!) {
     status
     language
     securityClearance
+    isComplete
     classifications {
       id
       group

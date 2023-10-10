@@ -53,8 +53,8 @@ const navigationMessages = defineMessages({
   },
   skillShowcase: {
     defaultMessage: "Skill showcase",
-    id: "cDmEep",
-    description: "Name of Skill showcase page",
+    id: "MBnBcY",
+    description: "Name of the skill showcase page",
   },
 });
 
