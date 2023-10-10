@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
 use App\Enums\BilingualEvaluation;
@@ -46,6 +47,7 @@ use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
@@ -157,6 +159,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'IndigenousCommunity',
                     'values' => array_column(IndigenousCommunity::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolSkillType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolSkillType',
+                    'values' => array_column(PoolSkillType::cases(), 'name'),
                 ]);
             }
         );
@@ -566,6 +577,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'ContractingRationale',
                     'values' => array_column(ContractingRationale::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentStepType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentStepType',
+                    'values' => array_column(AssessmentStepType::cases(), 'name'),
                 ]);
             }
         );

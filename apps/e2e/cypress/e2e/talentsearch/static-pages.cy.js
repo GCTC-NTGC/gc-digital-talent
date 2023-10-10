@@ -76,43 +76,56 @@ describe("Static pages", () => {
       cy.checkA11y();
     });
 
-    it("should download files", () => {
+    it("should download files in english", () => {
       cy.visit("/en/directive-on-digital-talent");
 
       // Open accordion
       cy.findByRole("button", { name: /enabling conditions/i }).click();
 
-      cy.findByRole("link", { name: /download the guidance \(en\)/i }).click();
+      cy.findByRole("link", { name: /download the guidance/i }).click();
       cy.verifyDownload("Enabling_Conditions_Guidance_EN.docx", {
         contains: true,
       });
 
-      cy.findByRole("link", { name: /download the guidance \(fr\)/i }).click();
-      cy.verifyDownload("Orientation_sur_les_conditions_habilitantes_FR.docx", {
-        contains: true,
-      });
-
       cy.findByRole("link", {
-        name: /department-specific recruitment form \(en\)/i,
+        name: /department-specific recruitment form/i,
       }).click();
       cy.verifyDownload("Digital_Recruitment_Template_EN.docx", {
         contains: true,
       });
 
+      cy.findByRole("link", { name: /forward talent plan form/i }).click();
+      cy.verifyDownload("Forward_Talent_Plan_EN.docx", { contains: true });
+    });
+
+    it("should download files in french", () => {
+      cy.visit("/fr/directive-on-digital-talent");
+
+      // Open accordion
+      cy.findByRole("button", { name: /conditions favorables/i }).click();
+
+      cy.findByRole("link", { name: /télécharger le guide/i }).click();
+      cy.verifyDownload("Orientation_sur_les_conditions_habilitantes_FR.docx", {
+        contains: true,
+      });
+
       cy.findByRole("link", {
-        name: /department-specific recruitment form \(fr\)/i,
+        name: /le formulaire recrutement particulier à un ministère/i,
       }).click();
       cy.verifyDownload("Modele_de_recrutement_numerique_FR.docx", {
         contains: true,
       });
 
       cy.findByRole("link", {
-        name: /forward talent plan form \(en\)/i,
+        name: /le formulaire octroi de contrat pour des services numériques/i,
       }).click();
-      cy.verifyDownload("Forward_Talent_Plan_EN.docx", { contains: true });
+      cy.verifyDownload(
+        "Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
+        { contains: true },
+      );
 
       cy.findByRole("link", {
-        name: /forward talent plan form \(fr\)/i,
+        name: /le formulaire faire suivre le plan de talents/i,
       }).click();
       cy.verifyDownload("Plan_prospectif_sur_les_talents_FR.docx", {
         contains: true,

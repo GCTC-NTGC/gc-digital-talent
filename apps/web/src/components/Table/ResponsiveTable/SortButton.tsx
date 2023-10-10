@@ -32,9 +32,15 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
       color="white"
       onClick={column.getToggleSortingHandler()}
       data-h2-font-size="base(caption)"
-      utilityIcon={icon}
+      data-h2-font-weight={sortDirection ? "base(700)" : "base(400)"}
+      data-h2-text-decoration={
+        !sortDirection
+          ? "base(underline) base:hover(none)"
+          : "base(none) base:hover(underline)"
+      }
+      data-h2-text-align="base(left)"
+      icon={icon}
     >
-      {children}
       {sortDirection && (
         <span data-h2-visually-hidden="base(invisible)">
           {sortDirection === "asc"
@@ -52,6 +58,7 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
               })}
         </span>
       )}
+      {children}
     </Button>
   );
 };

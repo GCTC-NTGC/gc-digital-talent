@@ -124,6 +124,8 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
     data-h2-display="base(none) l-tablet(table-cell)"
     data-h2-font-size="base(caption)"
     data-h2-vertical-align="base(middle)"
+    data-h2-font-weight="base(400)"
+    data-h2-min-width="base(x8)"
     {...styles.cell}
     {...rest}
   >
@@ -168,7 +170,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       {showHeader && (
         <span
           data-h2-display="base(inline) l-tablet(none)"
-          data-h2-font-weight="base(800)"
+          data-h2-font-weight="base(700)"
         >
           {header}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}

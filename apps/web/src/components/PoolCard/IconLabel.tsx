@@ -13,12 +13,9 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
 
   return (
     <p
-      data-h2-align-items="base(center)"
-      data-h2-display="base(inline-flex)"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-gap="base(0, x.5)"
-      data-h2-flex-grow="base(1)"
-      data-h2-margin="base(x1, 0) p-tablet(0, 0, x1, 0)"
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(x1 1fr)"
+      data-h2-gap="base(0, x.25)"
     >
       <span
         data-h2-display="base(inline-block)"
@@ -28,8 +25,16 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
       >
         <Icon />
       </span>
-      <span data-h2-font-weight="base(700)">{label}</span>
-      {children && <span>{children}</span>}
+      <span>
+        <span
+          data-h2-font-weight="base(700)"
+          data-h2-display="base(inline-block)"
+          data-h2-margin-right="base(x.15)"
+        >
+          {label}
+        </span>
+        {children && <span>{children}</span>}
+      </span>
     </p>
   );
 };

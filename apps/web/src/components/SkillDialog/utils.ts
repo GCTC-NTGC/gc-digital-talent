@@ -178,6 +178,7 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
 };
 
 export const showDetails = (
+  skillInLibrary: boolean,
   context: SkillDialogContext | undefined,
 ): boolean => {
   const detailContexts: SkillDialogContext[] = [
@@ -185,6 +186,11 @@ export const showDetails = (
     "showcase",
     "directive_forms",
   ];
+
+  // We do not need details if already in library when on showcase context
+  if (context === "showcase" && skillInLibrary) {
+    return false;
+  }
 
   return context ? detailContexts.includes(context) : false;
 };

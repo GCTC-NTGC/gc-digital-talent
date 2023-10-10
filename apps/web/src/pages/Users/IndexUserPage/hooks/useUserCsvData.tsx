@@ -8,6 +8,7 @@ import {
   getCitizenshipStatusesAdmin,
   getLanguageProficiency,
   getLocale,
+  getEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -273,9 +274,15 @@ const useUserCsvData = (users: User[]) => {
         bilingualEvaluation: bilingualEvaluation
           ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
           : "",
-        comprehensionLevel: comprehensionLevel || "",
-        writtenLevel: writtenLevel || "",
-        verbalLevel: verbalLevel || "",
+        comprehensionLevel: comprehensionLevel
+          ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
+          : "",
+        writtenLevel: writtenLevel
+          ? intl.formatMessage(getEvaluatedLanguageAbility(writtenLevel))
+          : "",
+        verbalLevel: verbalLevel
+          ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
+          : "",
         estimatedLanguageAbility: estimatedLanguageAbility
           ? intl.formatMessage(getLanguageProficiency(estimatedLanguageAbility))
           : "",

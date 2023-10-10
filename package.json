@@ -35,6 +35,8 @@
     "lint": "turbo run lint",
     "storybook:project": "npm run storybook",
     "storybook": "npm run storybook --workspace=@gc-digital-talent/web",
+    "storybook:design-system": "npm run storybook:design-system --workspace=@gc-digital-talent/web",
+    "storybook:web": "npm run storybook:web --workspace=@gc-digital-talent/web",
     "build-storybook": "npm run build-storybook --workspace=@gc-digital-talent/web",
     "test": "turbo run test",
     "watch": "turbo run watch --concurrency=30",
@@ -47,7 +49,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",
-    "@hydrogen-css/hydrogen": "2.0.2",
+    "@hydrogen-css/hydrogen": "2.0.3",
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.1",
     "prettier": "^2.8.8",

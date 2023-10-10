@@ -33,6 +33,7 @@ interface SkillDialogProps {
   defaultOpen?: boolean;
   // Customize the trigger text and icon
   trigger?: {
+    id?: string;
     label?: React.ReactNode;
 
     icon?: IconType | null;
@@ -116,6 +117,7 @@ const SkillDialog = ({
   }
 
   const triggerProps = {
+    id: trigger?.id,
     children: trigger?.label || triggerMessage,
     icon: derivedIcon,
     mode: trigger?.mode,
@@ -128,7 +130,10 @@ const SkillDialog = ({
     }
   }, [watchSkill, formTrigger]);
 
-  const shouldShowDetails = showDetails(context);
+  const skillInLibrary = !!inLibrary?.find(
+    (librarySkill) => selectedSkill?.id === librarySkill.id,
+  );
+  const shouldShowDetails = showDetails(skillInLibrary, context);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
