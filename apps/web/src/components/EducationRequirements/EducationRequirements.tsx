@@ -6,7 +6,11 @@ import { getLocale } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import Text from "./Text";
+type TextProps = React.HTMLProps<HTMLParagraphElement>;
+
+const Text = (props: TextProps) => (
+  <p data-h2-margin="base(x1, 0)" {...props} />
+);
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
   <div

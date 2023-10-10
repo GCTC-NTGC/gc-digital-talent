@@ -14,6 +14,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 
 import {
@@ -225,9 +229,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
       {
         icon: Cog8ToothIcon,
         title: intl.formatMessage({
-          defaultMessage: "Edit pool",
-          id: "l7Wu86",
-          description: "Title for the edit pool page",
+          defaultMessage: "Advertisement information",
+          id: "rwQPZE",
+          description: "Page title for process' advertisement information page",
         }),
         link: {
           url: paths.poolUpdate(pool.id),
@@ -335,4 +339,45 @@ export const getProcessStatusBadge = (
   }
 
   return statusBadge;
+};
+
+export function getClassificationName(
+  { group, level, name }: Classification,
+  intl: IntlShape,
+) {
+  const groupLevelStr = `${group}-0${level}`;
+
+  if (!name) {
+    return groupLevelStr;
+  }
+
+  const nameStr = getLocalizedName(name, intl);
+  return `${groupLevelStr} (${nameStr})`;
+}
+
+type FormattedClosingDates = {
+  local?: string;
+  pacific?: string;
+};
+
+export const formatClosingDate = (
+  closingDate: Pool["closingDate"],
+  intl: IntlShape,
+): FormattedClosingDates => {
+  if (closingDate) {
+    const closingDateObject = parseDateTimeUtc(closingDate);
+    return {
+      local: relativeClosingDate({
+        closingDate: closingDateObject,
+        intl,
+      }),
+      pacific: relativeClosingDate({
+        closingDate: closingDateObject,
+        intl,
+        timeZone: "Canada/Pacific",
+      }),
+    };
+  }
+
+  return {};
 };

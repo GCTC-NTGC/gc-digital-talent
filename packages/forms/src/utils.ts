@@ -214,7 +214,7 @@ export function sanitizeString(original: string): string {
   let str = original;
   Object.keys(sanitizeSubstitutions).forEach((key) => {
     const replacement = sanitizeSubstitutions[key];
-    str = str.replaceAll(key, replacement);
+    str = str.replace(new RegExp(key, "g"), replacement);
   });
   return str;
 }
