@@ -34,7 +34,9 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
               {getLocalizedName(userSkill.skill.name, intl)}
               {intl.formatMessage(commonMessages.dividingColon)}
               {intl.formatMessage(
-                getBehaviouralSkillLevel(userSkill.skillLevel ?? ""),
+                userSkill.skillLevel
+                  ? getBehaviouralSkillLevel(userSkill.skillLevel)
+                  : commonMessages.unspecified,
               )}
             </li>
           ))}
@@ -58,7 +60,9 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
               {getLocalizedName(userSkill.skill.name, intl)}
               {intl.formatMessage(commonMessages.dividingColon)}
               {intl.formatMessage(
-                getTechnicalSkillLevel(userSkill.skillLevel ?? ""),
+                userSkill.skillLevel
+                  ? getTechnicalSkillLevel(userSkill.skillLevel)
+                  : commonMessages.unspecified,
               )}
             </li>
           ))}
