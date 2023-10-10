@@ -1899,6 +1899,10 @@
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred written exam language  field."
   },
+  "99D3id": {
+    "defaultMessage": "Plus élevé que 25 millions de dollars",
+    "description": "Contract value range greater than twenty-five-million"
+  },
   "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
@@ -2701,6 +2705,10 @@
   "DgMIfz": {
     "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
     "description": "Application box heading part one"
+  },
+  "DhU+iu": {
+    "defaultMessage": "Plus élevé que 100",
+    "description": "Contract FTE range greater than one-hundred"
   },
   "DlBusi": {
     "defaultMessage": "Nom de famille",
