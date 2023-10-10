@@ -43,16 +43,16 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
     behavioural: {
       id: "behavioural",
       title: intl.formatMessage({
-        defaultMessage: "Your behavioural skills",
-        id: "6Uyhp2",
+        defaultMessage: "Behavioural skill library",
+        id: "uknA15",
         description: "Title for the skill library behavioural skills section",
       }),
     },
     technical: {
       id: "technical",
       title: intl.formatMessage({
-        defaultMessage: "Your technical skills",
-        id: "GxBGcz",
+        defaultMessage: "Technical skill library",
+        id: "tM8SXS",
         description: "Title for the skill library technical skills section",
       }),
     },
