@@ -24,4 +24,15 @@ return [
     */
 
     'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Record of decision
+    |--------------------------------------------------------------------------
+    |
+    | A feature to introduce a multiple step assessment builder for evaluating candidates
+    |
+    */
+
+    'record_of_decision' => (bool) env('FEATURE_RECORD_OF_DECISION', false),
 ];
