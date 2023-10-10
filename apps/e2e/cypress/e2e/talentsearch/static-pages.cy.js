@@ -117,14 +117,6 @@ describe("Static pages", () => {
       });
 
       cy.findByRole("link", {
-        name: /le formulaire octroi de contrat pour des services numériques/i,
-      }).click();
-      cy.verifyDownload(
-        "Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
-        { contains: true },
-      );
-
-      cy.findByRole("link", {
         name: /le formulaire faire suivre le plan de talents/i,
       }).click();
       cy.verifyDownload("Plan_prospectif_sur_les_talents_FR.docx", {
