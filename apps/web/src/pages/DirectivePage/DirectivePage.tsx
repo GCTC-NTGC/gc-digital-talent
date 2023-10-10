@@ -27,7 +27,7 @@ import guidanceFr from "~/assets/documents/Orientation_sur_les_conditions_habili
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
-import { getFormLinks, getGenericLinks } from "./utils";
+import getFormLinks from "./utils";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link
@@ -115,26 +115,6 @@ const DirectivePage = () => {
       id: "G0RoYe",
       description: "Short name for Forward Talent Plan Form",
     }),
-  });
-
-  const guidanceLinks = getGenericLinks({
-    intl,
-    files: {
-      en: guidanceEn,
-      fr: guidanceFr,
-    },
-    labels: {
-      en: intl.formatMessage({
-        defaultMessage: "Download the guidance (EN)",
-        id: "wMp4x6",
-        description: "Link text for English guidance resource download",
-      }),
-      fr: intl.formatMessage({
-        defaultMessage: "Download the guidance (FR)",
-        id: "ft6q8G",
-        description: "Link text for French guidance resource download",
-      }),
-    },
   });
 
   return (
@@ -366,14 +346,20 @@ const DirectivePage = () => {
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x.25)"
                   >
-                    {guidanceLinks.map((guidanceLink) => (
-                      <Link
-                        key={guidanceLink.naturalKey ?? guidanceLink.href}
-                        external
-                        color="primary"
-                        {...guidanceLink}
-                      />
-                    ))}
+                    <Link
+                      external
+                      color="primary"
+                      mode="solid"
+                      data-h2-padding="base(x.5, x1)"
+                      href={locale === "en" ? guidanceEn : guidanceFr}
+                      download
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Download the guidance",
+                        id: "yVOpEI",
+                        description: "Link text for guidance resource download",
+                      })}
+                    </Link>
                   </div>
                 </Accordion.Content>
               </Accordion.Item>
