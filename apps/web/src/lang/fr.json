@@ -867,6 +867,14 @@
   "3BU43Q": {
     "defaultMessage": "Réponse à la question {number}"
   },
+  "3Bcg0F": {
+    "defaultMessage": "Cette annonce n’exige pas qu’on y joigne une note spéciale.",
+    "description": "Message displayed when there is no special note for a process advertisement."
+  },
+  "3BeThz": {
+    "defaultMessage": "Date de clôture (heure locale)",
+    "description": "Label for a process' closing date in users local timezone"
+  },
   "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
@@ -3421,6 +3429,10 @@
   "Jp0Beg": {
     "defaultMessage": "Archiver ce bassin ",
     "description": "Button to archive the pool in the archive pool dialog"
+  },
+  "Jqt2vB": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Label for a process' closing date in pacific timezone"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
