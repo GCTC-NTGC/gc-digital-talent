@@ -132,6 +132,7 @@ const SkillSummaryTable = ({
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(plannedAssessmentCell(poolSkill)),
+      enableHiding: false,
     }),
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
       id: "skillName",
@@ -140,6 +141,7 @@ const SkillSummaryTable = ({
         id: "hjxxaQ",
         description: "Skill name column header for the skill library table",
       }),
+      enableHiding: false,
     }),
     columnHelper.accessor(
       (row) => (row.type ? intl.formatMessage(getPoolSkillType(row.type)) : ""),
@@ -151,6 +153,7 @@ const SkillSummaryTable = ({
           description:
             "Column title for whether a skill is either required or just an asset.",
         }),
+        enableHiding: false,
       },
     ),
     columnHelper.accessor(
@@ -165,6 +168,7 @@ const SkillSummaryTable = ({
           id: "piZjS+",
           description: "Label for the skill category filter field",
         }),
+        enableHiding: false,
       },
     ),
   ] as ColumnDef<PoolSkill>[];
@@ -183,6 +187,7 @@ const SkillSummaryTable = ({
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(assessmentStepCell(poolSkill, element)),
+      enableHiding: false,
     });
     columns = [...columns, newColumn];
   });
