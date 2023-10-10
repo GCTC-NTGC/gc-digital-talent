@@ -44,7 +44,7 @@ const StatusItemTitle = ({
 }) => {
   if (href) {
     return (
-      <Link href={href} {...rest}>
+      <Link href={href} mode="text" {...rest}>
         {children}
       </Link>
     );

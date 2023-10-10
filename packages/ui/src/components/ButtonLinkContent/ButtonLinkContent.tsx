@@ -13,7 +13,7 @@ interface IconTextProps
     HTMLSpanElement
   > {
   mode: ButtonLinkMode;
-  fontSize?: "body" | "caption";
+  fontSize?: "h6" | "body" | "caption";
   icon?: IconType;
   counter?: number;
   utilityIcon?: IconType;
@@ -44,6 +44,13 @@ const ButtonLinkContent = ({
     iconSize = {
       "data-h2-width": "base(x.75)",
     };
+  } else if (fontSize === "h6") {
+    textSize = {
+      "data-h2-font-size": "base(h6)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x.95)",
+    };
   }
   let iconMargin = {
     "data-h2-margin-top": "base(0)",
@@ -66,11 +73,7 @@ const ButtonLinkContent = ({
   }
   if (!newTab && !icon && !utilityIcon)
     return (
-      <span
-        {...textSize}
-        data-h2-font-weight="base(700)"
-        data-h2-text-decoration="base(underline)"
-      >
+      <span {...textSize} data-h2-text-decoration="base(underline)">
         {children}
       </span>
     );
