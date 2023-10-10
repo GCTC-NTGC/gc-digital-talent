@@ -413,6 +413,10 @@
     "defaultMessage": "Modifier la classification",
     "description": "Link text to scroll to the section and change a process' classification"
   },
+  "0M5Wtb": {
+    "defaultMessage": "Cette démonstration de compétences permet au candidat de fournir une série organisée de listes qui mettent en valeur leurs compétences, leurs faiblesses particulières, de même que les occasions de croissance de leurs compétences. Ces listes peuvent vous donner un aperçu dans l’ensemble de compétences plus vaste d’un(e) candidat(e), et du domaine où il ou elle serait intéressé(e) en de nouvelles compétences.",
+    "description": "Lead-in text for a users skill showcase in a printed document"
+  },
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
@@ -1186,6 +1190,10 @@
   "5DfpAy": {
     "defaultMessage": "Supprimer cette expérience",
     "description": "Label on button to delete the current experience"
+  },
+  "5DsB2D": {
+    "defaultMessage": "Compétences techniques",
+    "description": "Heading for a list of users technical skills"
   },
   "5F/aKm": {
     "defaultMessage": "Nom (anglais)",
@@ -3270,6 +3278,10 @@
     "defaultMessage": "Liens rapides",
     "description": "Title displayed for helpful links on logged out page."
   },
+  "Ih9aGC": {
+    "defaultMessage": "Compétences comportementales",
+    "description": "Heading for a list of users behavioural skills"
+  },
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
@@ -4731,6 +4743,10 @@
     "defaultMessage": "Langue préférée de l'examen écrit",
     "description": "Label displayed on the user form preferred written exam language field."
   },
+  "SxPilM": {
+    "defaultMessage": "Meilleures compétences",
+    "description": "Heading for a users top skills"
+  },
   "SypvZP": {
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
@@ -5699,6 +5715,10 @@
   "ZA20CY": {
     "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
     "description": "Text displayed for gaining hiring experience"
+  },
+  "ZAeStR": {
+    "defaultMessage": "Compétences à améliorer",
+    "description": "Heading for a users skill they would like to improve"
   },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
