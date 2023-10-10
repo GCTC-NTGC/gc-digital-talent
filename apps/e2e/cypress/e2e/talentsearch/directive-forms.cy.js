@@ -144,7 +144,7 @@ describe("Directive Forms Tests", () => {
     cy.findByRole("group", {
       name: /total contract value/i,
     }).within(() => {
-      cy.findByRole("radio", { name: "$0 to <$10,000" }).click();
+      cy.findByRole("radio", { name: "$0 to $10,000" }).click();
     });
     cy.findByRole("group", {
       name: /the estimated total number of resources expected/i,
@@ -570,7 +570,7 @@ describe("Directive Forms Tests", () => {
     cy.findByRole("group", {
       name: /total contract value/i,
     }).within(() => {
-      cy.findByRole("radio", { name: "$0 to <$10,000" }).click();
+      cy.findByRole("radio", { name: "$0 to $10,000" }).click();
     });
     cy.findByRole("group", {
       name: /the estimated total number of resources expected/i,
