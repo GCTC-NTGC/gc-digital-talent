@@ -34,8 +34,8 @@ const getRoutes = (lang: Locales) => {
   const createExperienceUrl = (userId: string) =>
     `${path.join(
       userUrl(userId),
-      "profile",
-      "career-timeline-and-recruitment",
+      "personal-information",
+      "career-timeline",
       "create",
     )}`;
 
@@ -91,7 +91,7 @@ const getRoutes = (lang: Locales) => {
     userCreate: () => path.join(adminUrl, "users", "create"),
     userView: (userId: string) => path.join(adminUrl, "users", userId),
     userProfile: (userId: string) =>
-      path.join(adminUrl, "users", userId, "profile"),
+      path.join(adminUrl, "users", userId, "personal-information"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
     userPlacement: (userId: string) =>
@@ -174,7 +174,7 @@ const getRoutes = (lang: Locales) => {
     applicationSelfDeclaration: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "self-declaration"),
     applicationProfile: (applicationId: string) =>
-      path.join(baseUrl, "applications", applicationId, "profile"),
+      path.join(baseUrl, "applications", applicationId, "personal-information"),
     applicationCareerTimeline: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId, "career-timeline"),
     applicationCareerTimelineIntro: (applicationId: string) =>
@@ -234,7 +234,7 @@ const getRoutes = (lang: Locales) => {
     // Profile Routes
     profile: (userId: string, section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(userUrl(userId), "profile") + fragment;
+      return path.join(userUrl(userId), "personal-information") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
 
@@ -248,8 +248,8 @@ const getRoutes = (lang: Locales) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
       return `${path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
       )}${fragment}`;
     },
     editExperience: (
@@ -259,8 +259,8 @@ const getRoutes = (lang: Locales) => {
     ) =>
       path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
         experienceId,
         "edit",
       ),

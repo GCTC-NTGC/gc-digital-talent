@@ -30,7 +30,7 @@ describe("Talentsearch Profile Page", () => {
       [
         "/en/talent/profile",
         "/en/users/test-no-role/profile",
-        "/en/users/test-no-role/profile/career-timeline-and-recruitment",
+        "/en/users/test-no-role/profile/career-timeline",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.contains("not authorized");

@@ -948,7 +948,7 @@ const createRoute = (
                   path: ":userId",
                   children: [
                     {
-                      path: "profile",
+                      path: "personal-information",
                       children: [
                         {
                           index: true,
@@ -962,7 +962,7 @@ const createRoute = (
                           ),
                         },
                         {
-                          path: "career-timeline-and-recruitment",
+                          path: "career-timeline",
                           children: [
                             {
                               index: true,

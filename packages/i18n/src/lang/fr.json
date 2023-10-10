@@ -470,10 +470,6 @@
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
   },
-  "Icl1fF": {
-    "defaultMessage": "Parcours professionnel et recrutement",
-    "description": "Name of Career timeline and recruitment page"
-  },
   "Ij1cFC": {
     "defaultMessage": "Contributeur individuel",
     "description": "The position type is an individual contributor."
@@ -793,6 +789,10 @@
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
+  },
+  "TUfJUD": {
+    "defaultMessage": "Parcours professionnel",
+    "description": "Name of Career timeline page"
   },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",

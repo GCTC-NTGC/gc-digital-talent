@@ -47,9 +47,9 @@ const navigationMessages = defineMessages({
     description: "Name of Work preferences page",
   },
   careerTimelineAndRecruitment: {
-    defaultMessage: "Career timeline and recruitment",
-    id: "Icl1fF",
-    description: "Name of Career timeline and recruitment page",
+    defaultMessage: "Career timeline",
+    id: "TUfJUD",
+    description: "Name of Career timeline page",
   },
 });
 

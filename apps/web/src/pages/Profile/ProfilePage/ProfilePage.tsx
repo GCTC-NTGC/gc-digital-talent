@@ -28,8 +28,8 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
   const intl = useIntl();
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Profile information",
-    id: "gTjLic",
+    defaultMessage: "Personal information",
+    id: "g8Ur9z",
     description: "applicant dashboard card title for profile card",
   });
 
