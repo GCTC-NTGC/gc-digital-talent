@@ -389,6 +389,10 @@
     "defaultMessage": "Équipe",
     "description": "Label for the team select field on team membership form"
   },
+  "0D8Efk": {
+    "defaultMessage": "Deux plumes attachées l’une à l’autre.",
+    "description": "Indigenous Apprenticeship feathers image text alternative"
+  },
   "0DILS7": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez organiser un recrutement de talents numériques qui créera un bassin de candidats. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the department-specific recruitment form"
@@ -1479,6 +1483,10 @@
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Title for skill requirements section of a pool advertisement"
   },
+  "71+GZq": {
+    "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
+    "description": "Indigenous Apprenticeship hero image text alternative"
+  },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
     "description": "List item of experiences required in application education page."
@@ -1862,6 +1870,10 @@
   "9V8bnL": {
     "defaultMessage": "Compétences techniques requises",
     "description": "Title for required technical skills section of a pool advertisement"
+  },
+  "9VPBwR": {
+    "defaultMessage": "Homme danseur en régalia traditionnelle.",
+    "description": "Indigenous Apprenticeship lower back image text alternative"
   },
   "9Vzxgu": {
     "defaultMessage": "Services d’orientation",
@@ -3229,6 +3241,10 @@
   "IIKzsd": {
     "defaultMessage": "Afficher ou masquer les colonnes du tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
+  },
+  "IIZNzj": {
+    "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
+    "description": "Indigenous Apprenticeship ulu image text alternative"
   },
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
@@ -5390,6 +5406,10 @@
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
   },
+  "X6+rc1": {
+    "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
+    "description": "Indigenous Apprenticeship applicant image text alternative"
+  },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on an Experience form for end date input"
@@ -5405,6 +5425,10 @@
   "XCYYdk": {
     "defaultMessage": "Gérer la disponibilité pour le recrutement",
     "description": "Heading for opening the recruitment availability accordion in account and privacy"
+  },
+  "XDgkwV": {
+    "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
+    "description": "Indigenous Apprenticeship man on computer image text alternative"
   },
   "XJ/xK1": {
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
@@ -5899,6 +5923,10 @@
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
     "description": "Second paragraph for profile and applications notification welcoming an IAP user"
   },
+  "aPLL9Z": {
+    "defaultMessage": "Des gants avec du perlage floral de style Métis.",
+    "description": "Indigenous Apprenticeship gloves image text alternative"
+  },
   "aPqZsz": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement."
   },
@@ -6177,6 +6205,10 @@
     "defaultMessage": "Vous n’avez pas encore ajouté aucun élément.",
     "description": "Message that appears when there are no skills on showcase"
   },
+  "cErFoy": {
+    "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
+    "description": "Indigenous Apprenticeship woman smiling image text alternative"
+  },
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
@@ -6364,6 +6396,10 @@
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their government employee information."
+  },
+  "dY3Qr4": {
+    "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
+    "description": "Indigenous Apprenticeship woman on laptop image text alternative"
   },
   "dYBwCh": {
     "defaultMessage": "Erreur : la fermeture du bassin a échoué",
