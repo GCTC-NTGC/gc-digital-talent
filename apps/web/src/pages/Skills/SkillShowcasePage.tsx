@@ -17,11 +17,10 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
+import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
-
-import SkillRankCard from "./components/SkillRankCard";
 
 type PageSection = {
   id: string;
@@ -168,6 +167,7 @@ export const SkillShowcase = ({
                 data-h2-gap="base(x.5)"
               >
                 <SkillRankCard
+                  editable
                   userSkills={topBehaviouralSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Behavioural skills",
@@ -192,6 +192,7 @@ export const SkillShowcase = ({
                   }}
                 />
                 <SkillRankCard
+                  editable
                   userSkills={topTechnicalSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Technical skills",
@@ -248,6 +249,7 @@ export const SkillShowcase = ({
                 data-h2-gap="base(x.5)"
               >
                 <SkillRankCard
+                  editable
                   userSkills={improveBehaviouralSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Behavioural skills",
@@ -272,6 +274,7 @@ export const SkillShowcase = ({
                   }}
                 />
                 <SkillRankCard
+                  editable
                   userSkills={improveTechnicalSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Technical skills",
