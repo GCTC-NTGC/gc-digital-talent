@@ -32,8 +32,6 @@ import {
   BilingualEvaluation,
   IndigenousCommunity,
   Pool,
-  EducationExperience,
-  WorkExperience,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 
@@ -41,15 +39,11 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
-import {
-  isEducationExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
-import experienceMessages from "~/messages/experienceMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 
 import SkillWithExperiences from "./SkillWithExperiences";
+import EducationRequirementExperience from "./EducationRequirementExperience";
 
 interface ApplicationPrintDocumentProps {
   user: User;
@@ -156,32 +150,6 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
-  // render experiences associated with education requirement
-  const educationOrWorkExperienceListElement = (
-    experience: EducationExperience | WorkExperience,
-  ): JSX.Element => {
-    if (isEducationExperience(experience)) {
-      const { areaOfStudy, institution } = experience;
-      return (
-        <li key={experience.id}>
-          {intl.formatMessage(experienceMessages.educationAt, {
-            areaOfStudy,
-            institution,
-          })}
-        </li>
-      );
-    }
-    const { role, organization } = experience;
-    return (
-      <li key={experience.id}>
-        {intl.formatMessage(experienceMessages.workAt, {
-          role,
-          organization,
-        })}
-      </li>
-    );
-  };
-
   return (
     <div style={{ display: "none" }}>
       <div data-h2 ref={ref}>
@@ -244,11 +212,13 @@ const ApplicationPrintDocument = React.forwardRef<
                       <ul>
                         {relevantPoolCandidate.educationRequirementExperiences.map(
                           (experience) => {
-                            return experience &&
-                              (isEducationExperience(experience) ||
-                                isWorkExperience(experience))
-                              ? educationOrWorkExperienceListElement(experience)
-                              : "";
+                            return experience ? (
+                              <EducationRequirementExperience
+                                experience={experience}
+                              />
+                            ) : (
+                              ""
+                            );
                           },
                         )}
                       </ul>
