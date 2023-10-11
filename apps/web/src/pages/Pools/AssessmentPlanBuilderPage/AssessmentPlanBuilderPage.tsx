@@ -1,11 +1,17 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Heading, NotFound, Pending, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  NotFound,
+  Pending,
+  Separator,
+} from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -38,6 +44,8 @@ export interface AssessmentPlanBuilderProps {
 
 export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
+  const navigate = useNavigate();
+  const routes = useRoutes();
 
   return (
     <>
@@ -60,6 +68,41 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
         />
         <OrganizeSection pool={pool} />
         <SkillSummarySection pool={pool} />
+        <Separator
+          orientation="horizontal"
+          decorative
+          data-h2-background-color="base(gray.lighter)"
+          data-h2-margin="base(x1 0)"
+        />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-gap="base(x.5, x1)"
+          data-h2-flex-wrap="base(wrap)"
+          data-h2-flex-direction="base(column) l-tablet(row)"
+          data-h2-align-items="base(flex-start) l-tablet(center)"
+        >
+          {/* TODO: switch to submit button */}
+          {intl.formatMessage({
+            defaultMessage: "Save plan and go back",
+            id: "Rbp02p",
+            description:
+              "Text on a button to save the assessment plan and return to the pool page",
+          })}
+          <Button
+            type="button"
+            mode="inline"
+            color="primary"
+            onClick={() => {
+              navigate(routes.poolView(pool.id));
+            }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Cancel",
+              id: "yFIC7K",
+              description: "Label for close availability dialog.",
+            })}
+          </Button>
+        </div>
       </div>
     </>
   );

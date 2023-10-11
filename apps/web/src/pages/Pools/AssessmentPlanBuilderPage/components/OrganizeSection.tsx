@@ -117,6 +117,24 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             "Button text to add a new assessment to the assessment plan",
         })}
         {intl.formatMessage({
+          defaultMessage: "You have too few assessments",
+          id: "ypxaI2",
+          description:
+            "Title for warning message when the user has few assessments to the assessment plan",
+        })}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
+            id: "xCoGIm",
+            description:
+              "Description for warning message when the user has few assessments to the assessment plan",
+          },
+          {
+            assessmentCount: 6,
+          },
+        )}
+        {intl.formatMessage({
           defaultMessage: "You are approaching the limit!",
           id: "1moJ8r",
           description:
