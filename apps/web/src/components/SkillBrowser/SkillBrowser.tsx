@@ -43,11 +43,7 @@ const SkillBrowser = ({
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const [category, family, value] = watch([
-    inputNames.category,
-    inputNames.family,
-    name,
-  ]);
+  const [category, family] = watch([inputNames.category, inputNames.family]);
 
   const filteredFamilies = React.useMemo(() => {
     return getFilteredFamilies({ skills, category });

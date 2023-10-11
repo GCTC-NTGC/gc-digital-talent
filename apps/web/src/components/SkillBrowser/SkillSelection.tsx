@@ -18,8 +18,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
-import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
-import { Skill, SkillCategory } from "~/api/generated";
+import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import SkillDescription from "./SkillDescription";
@@ -28,7 +27,6 @@ import {
   getFamilyOptions,
   getFilteredFamilies,
   getFilteredSkills,
-  getSkillCategorySkillCount,
   getSkillFamilySkillCount,
 } from "./utils";
 import NullFamilyMessage from "./NullFamilyMessage";
