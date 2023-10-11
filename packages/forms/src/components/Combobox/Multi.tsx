@@ -188,6 +188,10 @@ const Multi = ({
     },
   });
 
+  React.useEffect(() => {
+    setAvailable(options);
+  }, [options]);
+
   const handleClear = () => {
     if (onInputChange) {
       onInputChange("");
