@@ -5422,13 +5422,13 @@
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
   },
-  "X6+rc1": {
-    "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
-    "description": "Indigenous Apprenticeship applicant image text alternative"
-  },
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
     "description": "Title for no skills in a users library"
+  },
+  "X6+rc1": {
+    "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
+    "description": "Indigenous Apprenticeship applicant image text alternative"
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
