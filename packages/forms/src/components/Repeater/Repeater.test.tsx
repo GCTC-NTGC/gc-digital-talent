@@ -68,6 +68,7 @@ const RepeaterWrapper = ({
         <Repeater.Fieldset
           key={item.id}
           index={index}
+          name="repeater"
           total={fields.length}
           legend={`Test Repeater ${index + 1}`}
           onRemove={handleRemove}
@@ -125,10 +126,13 @@ const defaultProps: RenderRepeaterProps = {
     label: "Value",
   },
   repeaterProps: {
+    name: "value",
+    max: 5,
     onAdd: mockFn,
     addText: "Add item",
   },
   repeaterFieldsetProps: {
+    name: "value",
     onMove: mockFn,
     onRemove: mockFn,
   },

@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
-import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
+import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
+import get from "lodash/get";
+import { has, hasIn } from "lodash";
 
-import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { Field } from "@gc-digital-talent/forms";
 
-import Field from "../Field";
+import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useFieldState from "../../hooks/useFieldState";
+import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 /**
  * Generic button to apply styles to a
@@ -60,12 +66,10 @@ const ActionButton = ({
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
   index: number;
+  /** A string specifying a name for the input control. */
+  name: string;
   /** Current total number of fields (eg: fields.length) */
   total: number;
-  /** Callback function when this item's index is changed' */
-  onMove: (from: number, to: number) => void;
-  /** Callback when the item is removed from the array */
-  onRemove: (index: number) => void;
   /** The legend for the fieldset (required but hidden by default) */
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
@@ -74,13 +78,19 @@ export interface RepeaterFieldsetProps {
   hideIndex?: boolean;
   /** Disables deleting, moving and editing fields */
   disabled?: boolean;
+
   children: React.ReactNode;
+  /** Callback function when this item's index is changed' */
+  onMove: (from: number, to: number) => void;
+  /** Callback when the item is removed from the array */
+  onRemove: (index: number) => void;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
 
 const Fieldset = ({
   index,
+  name,
   total,
   legend,
   hideLegend = false,
@@ -93,8 +103,29 @@ const Fieldset = ({
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
+
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const fieldErrors = errors[name] as FieldErrors<{
+    [key: string]: FieldError;
+  }>;
+  const hasError = useMemo(() => {
+    // TODO: Still not perfect.
+    if (fieldErrors) {
+      return (
+        Object.keys(fieldErrors).includes(`${index}`) && fieldErrors[index]
+      );
+    }
+
+    return false;
+  }, [fieldErrors, index]);
+
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
+  const isFirstItem = disabled || index <= 0;
+  const isLastItem = disabled || index === total - 1;
 
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
@@ -145,95 +176,113 @@ const Fieldset = ({
       </Field.Legend>
       <Field.BoundingBox flat>
         <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(0, x.25)"
+          {...(!hasError
+            ? { "data-h2-border-top": "base(x.5 solid secondary)" }
+            : { "data-h2-border-top": "base(x.5 solid error)" })}
+          data-h2-shadow="base(medium)"
+          data-h2-radius="base(s)"
         >
           <div
-            data-h2-flex-grow="base(1)"
-            data-h2-padding="base(x1)"
-            data-h2-shadow="base(medium)"
-            data-h2-radius="base(s)"
-            data-h2-order="base(2)"
-          >
-            {
-              /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
-              !hideLegend && (
-                <p
-                  aria-hidden="true"
-                  role="presentation"
-                  data-h2-margin="base(0, 0, x.5, 0)"
-                  data-h2-color="base(inherit)"
-                  data-h2-font-weight="base(800)"
-                >
-                  {legend}
-                </p>
-              )
-            }
-            {children}
-          </div>
-          <div
-            data-h2-flex-shrink="base(0)"
+            data-h2-margin="base(x.5 x1 x1 x1)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.25, 0)"
-            data-h2-order="base(1)"
+            data-h2-align-items="base(flex-start)"
           >
             <div
               data-h2-display="base(flex)"
-              data-h2-radius="base(s)"
-              data-h2-shadow="base(medium)"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(center)"
-              data-h2-overflow="base(hidden)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-width="base(100%)"
+              data-h2-margin-bottom="base(x.5)"
             >
-              <ActionButton
-                disabled={disabled || index <= 0}
-                onClick={decrement}
-                decrement
-                animate={!shouldReduceMotion}
-                aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                  from: position,
-                  to: position - 1,
-                })}
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-margin-left="base(-x.5)"
               >
-                <ChevronUpIcon data-h2-width="base(x1)" />
-              </ActionButton>
-              {!hideIndex && (
-                <span
-                  aria-hidden="true"
-                  data-h2-text-align="base(center)"
+                <ActionButton
+                  disabled={isFirstItem}
+                  onClick={decrement}
+                  decrement
+                  animate={!shouldReduceMotion}
+                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                    from: position,
+                    to: position - 1,
+                  })}
                   data-h2-font-weight="base(700)"
-                  data-h2-margin="base(x.25, 0)"
+                  data-h2-margin="base(0, x.25)"
                 >
-                  {index + 1}
-                </span>
-              )}
-              <ActionButton
-                disabled={disabled || index === total - 1}
-                onClick={increment}
-                animate={!shouldReduceMotion}
-                aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                  from: position,
-                  to: position + 1,
-                })}
+                  {!isFirstItem ? (
+                    <ArrowUpIcon data-h2-width="base(x.75)" />
+                  ) : (
+                    <div data-h2-width="base(x.75)">
+                      <p>.</p>
+                    </div>
+                  )}
+                </ActionButton>
+                {!hideIndex && (
+                  <span
+                    aria-hidden="true"
+                    data-h2-text-align="base(center)"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin="base(x.25, 0)"
+                  >
+                    {index + 1}
+                  </span>
+                )}
+                <ActionButton
+                  disabled={isLastItem}
+                  onClick={increment}
+                  animate={!shouldReduceMotion}
+                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                    from: position,
+                    to: position + 1,
+                  })}
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(0, x.25)"
+                >
+                  {!isLastItem ? (
+                    <ArrowDownIcon data-h2-width="base(x.75)" />
+                  ) : (
+                    <div data-h2-width="base(x.75)">
+                      <p>.</p>
+                    </div>
+                  )}
+                </ActionButton>
+              </div>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-margin-right="base(-x.5)"
               >
-                <ChevronDownIcon data-h2-width="base(x1)" />
-              </ActionButton>
+                <ActionButton
+                  disabled={disabled}
+                  animate={false}
+                  onClick={handleRemove}
+                  aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+                    index: position,
+                  })}
+                >
+                  <TrashIcon data-h2-width="base(x.75)" />
+                </ActionButton>
+              </div>
             </div>
-            <ActionButton
-              disabled={disabled}
-              animate={false}
-              onClick={handleRemove}
-              data-h2-shadow="base(medium)"
-              data-h2-radius="base(s)"
-              data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
-              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-                index: position,
-              })}
-            >
-              <TrashIcon data-h2-width="base(x1)" />
-            </ActionButton>
+            <div data-h2-width="base(100%)">
+              {
+                /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
+                !hideLegend && (
+                  <p
+                    aria-hidden="true"
+                    role="presentation"
+                    data-h2-margin="base(0, 0, x.5, 0)"
+                    data-h2-color="base(inherit)"
+                    data-h2-font-weight="base(800)"
+                  >
+                    {legend}
+                  </p>
+                )
+              }
+              {children}
+            </div>
           </div>
         </div>
       </Field.BoundingBox>
@@ -242,6 +291,10 @@ const Fieldset = ({
 };
 
 export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
+  /** A string specifying a name for the input control. */
+  name: string;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText?: React.ReactNode;
@@ -250,29 +303,42 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
+  /* Maximum number of items in field array */
+  approachingLimit?: boolean;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   customButton?: React.ReactNode;
+  errorDescription?: React.ReactNode;
 }
 
 const Root = ({
+  name,
   onAdd,
   addText,
   addButtonProps,
   children,
   showAdd = true,
+  approachingLimit,
   customButton,
+  errorDescription,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
+
+  const {
+    formState: { errors },
+  } = useFormContext();
+  // To grab errors in nested objects we need to use lodash's get helper.
+  const hasError = get(errors, name) ? true : undefined;
+
   return (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5, 0)"
+      data-h2-gap="base(x.25, 0)"
       {...rest}
     >
       <Link
@@ -287,6 +353,46 @@ const Root = ({
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
       {children}
+      {approachingLimit && (
+        <Well
+          data-h2-margin-bottom="base(x1)"
+          data-h2-text-align="base(center)"
+        >
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+            {intl.formatMessage({
+              defaultMessage: "You're approaching the limit!",
+              id: "oDND0c",
+              description:
+                "Message displayed when items have been moved and not saved",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached you will have to remove an item to add another.`,
+              id: "vnp5Au",
+              description:
+                "Instructions on how to add a skill to showcase when there are none",
+            })}
+          </p>
+        </Well>
+      )}
+      {hasError && (
+        <Field.Error id={name} data-h2-padding="base(0)">
+          <Well data-h2-text-align="base(center)">
+            <p
+              data-h2-font-weight="base(700)"
+              data-h2-margin-bottom="base(x.5)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "It looks like this list has an error",
+                id: "OPdYSB",
+                description: "Error message title for repeater component.",
+              })}
+            </p>
+            <p>{errorDescription}</p>
+          </Well>
+        </Field.Error>
+      )}
       {showAdd && !customButton ? (
         <Button
           id={addId}

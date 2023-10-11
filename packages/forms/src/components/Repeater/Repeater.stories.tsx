@@ -2,6 +2,7 @@ import React from "react";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
 import { Announcer, Well } from "@gc-digital-talent/ui";
@@ -30,17 +31,24 @@ const defaultArgs = {
 };
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
+  const intl = useIntl();
   const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
     name,
   });
   const canAdd = maxItems ? fields.length < maxItems : true;
+  const approachingLimit = maxItems ? fields.length + 1 === maxItems : false;
 
   return (
     <Repeater.Root
       {...rootProps}
+      name={name}
+      trackUnsaved
       addButtonProps={{
         disabled: !canAdd,
       }}
@@ -52,6 +60,13 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
         append(newValues);
         action("add")(newValues);
       }}
+      approachingLimit={approachingLimit}
+      errorDescription={intl.formatMessage({
+        defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached you will have to remove an item to add another.`,
+        id: "vnp5Au",
+        description:
+          "Instructions on how to add a skill to showcase when there are none",
+      })}
     >
       <>
         {fields.length ? (
@@ -59,6 +74,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             <Repeater.Fieldset
               key={item.id}
               index={index}
+              name={name}
               total={fields.length}
               onMove={move}
               onRemove={remove}
@@ -75,11 +91,13 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                   id={`${name}.${index}.en`}
                   name={`${name}.${index}.en`}
                   label="Question (EN)"
+                  rules={{ required: "required" }}
                 />
                 <TextArea
                   id={`${name}.${index}.fr`}
                   name={`${name}.${index}.fr`}
                   label="Question (FR)"
+                  rules={{ required: "required" }}
                 />
               </div>
             </Repeater.Fieldset>
