@@ -11,20 +11,18 @@ import { Skill, SkillCategory } from "~/api/generated";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
-import { getSkillDialogMessages, showDetails } from "./utils";
-import { SkillDialogContext, FormValues } from "./types";
+import {
+  defaultFormValues,
+  getSkillBrowserDialogMessages,
+  showDetails,
+} from "./utils";
+import { SkillBrowserDialogContext, FormValues } from "./types";
 
-const defaultFormValues: FormValues = {
-  category: "",
-  family: "",
-  skill: "",
-};
-
-interface SkillDialogProps {
+interface SkillBrowserDialogProps {
   // All available skills
   skills: Skill[];
   // The context in which the dialog is being used
-  context?: SkillDialogContext;
+  context?: SkillBrowserDialogContext;
   // Determines if the category filter is shown or not
   showCategory?: boolean;
   // Currently selected skills (only needed if you want to display them in the selection)
@@ -43,7 +41,7 @@ interface SkillDialogProps {
   onSave: (values: FormValues) => Promise<void>;
 }
 
-const SkillDialog = ({
+const SkillBrowserDialog = ({
   skills,
   onSave,
   context,
@@ -53,7 +51,7 @@ const SkillDialog = ({
   defaultOpen = false,
   noToast = false,
   ...rest
-}: SkillDialogProps) => {
+}: SkillBrowserDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
@@ -67,7 +65,7 @@ const SkillDialog = ({
     trigger: triggerMessage,
     submit,
     selected,
-  } = getSkillDialogMessages({
+  } = getSkillBrowserDialogMessages({
     context,
     intl,
   });
@@ -80,8 +78,8 @@ const SkillDialog = ({
   } = methods;
   const watchSkill = watch("skill");
 
-  // Option 1: Move SkillDialog component outside of parent form (reactdom NOT browserdom?) and use css to move trigger with all event mutations props.
-  // Option 2: Change SkillDialog to not submit but instead run onSave function.
+  // Option 1: Move SkillBrowserDialog component outside of parent form (reactdom NOT browserdom?) and use css to move trigger with all event mutations props.
+  // Option 2: Change SkillBrowserDialog to not submit but instead run onSave function.
   const handleAddSkill = async (values: FormValues) => {
     const result = await formTrigger(["skill"]);
     if (result)
@@ -169,4 +167,4 @@ const SkillDialog = ({
   );
 };
 
-export default SkillDialog;
+export default SkillBrowserDialog;

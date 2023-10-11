@@ -8,14 +8,14 @@ import Toast from "@gc-digital-talent/toast";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { Skill } from "@gc-digital-talent/graphql";
 
-import SkillDialog from "./SkillDialog";
+import SkillBrowserDialog from "./SkillBrowserDialog";
 import { FormValues } from "./types";
 
 const mockSkills = getStaticSkills();
 
 export default {
-  component: SkillDialog,
-  title: "Components/Dialog/Skill Dialog",
+  component: SkillBrowserDialog,
+  title: "Components/Skill Browser/Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     skills: mockSkills,
@@ -23,7 +23,7 @@ export default {
   },
 };
 
-const Template: StoryFn<typeof SkillDialog> = (args) => {
+const Template: StoryFn<typeof SkillBrowserDialog> = (args) => {
   const handleSave = async (values: FormValues) => {
     await new Promise<void>((resolve) => {
       action("onSave")(values);
@@ -33,7 +33,7 @@ const Template: StoryFn<typeof SkillDialog> = (args) => {
 
   return (
     <>
-      <SkillDialog {...args} onSave={handleSave} />
+      <SkillBrowserDialog {...args} onSave={handleSave} />
       <Toast />
     </>
   );
