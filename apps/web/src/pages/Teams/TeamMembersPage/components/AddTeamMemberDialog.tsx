@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
-import { Dialog, Button, Pending } from "@gc-digital-talent/ui";
+import { Dialog, Button } from "@gc-digital-talent/ui";
 import { MultiSelectField, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -104,6 +104,8 @@ AddTeamMemberDialogProps) => {
     description: "Label for the add member to team form",
   });
 
+  const fetchingUsers = availableUsers === null;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -130,25 +132,26 @@ AddTeamMemberDialogProps) => {
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                <Pending fetching={userOptions === null}>
-                  <Select
-                    id="user"
-                    name="user"
-                    nullSelection={intl.formatMessage(
-                      uiMessages.nullSelectionOption,
-                    )}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    label={intl.formatMessage({
-                      defaultMessage: "Manager name",
-                      id: "1BEtoY",
-                      description:
-                        "Label for the user select field on team membership form",
-                    })}
-                    options={userOptions ?? []}
-                  />
-                </Pending>
+                <Select
+                  id="user"
+                  name="user"
+                  nullSelection={
+                    fetchingUsers
+                      ? intl.formatMessage(commonMessages.loading)
+                      : intl.formatMessage(uiMessages.nullSelectionOption)
+                  }
+                  disabled={fetchingUsers}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  label={intl.formatMessage({
+                    defaultMessage: "Manager name",
+                    id: "1BEtoY",
+                    description:
+                      "Label for the user select field on team membership form",
+                  })}
+                  options={userOptions ?? []}
+                />
                 {/** Note: Only one option since we are adding to this team's users */}
                 <input type="hidden" name="team" value={team.id} />
                 <Select
