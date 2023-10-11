@@ -32,9 +32,9 @@ const EducationRequirementExperience = ({
   const intl = useIntl();
 
   if (isAwardExperience(experience)) {
-    const { title, issuedBy, id } = experience;
+    const { title, issuedBy } = experience;
     return (
-      <li key={id}>
+      <li>
         {intl.formatMessage(experienceMessages.awardIssuedBy, {
           title,
           issuedBy,
@@ -43,9 +43,9 @@ const EducationRequirementExperience = ({
     );
   }
   if (isCommunityExperience(experience)) {
-    const { title, organization, id } = experience;
+    const { title, organization } = experience;
     return (
-      <li key={id}>
+      <li>
         {intl.formatMessage(experienceMessages.communityAt, {
           title,
           organization,
@@ -54,9 +54,9 @@ const EducationRequirementExperience = ({
     );
   }
   if (isEducationExperience(experience)) {
-    const { areaOfStudy, institution, id } = experience;
+    const { areaOfStudy, institution } = experience;
     return (
-      <li key={id}>
+      <li>
         {intl.formatMessage(experienceMessages.educationAt, {
           areaOfStudy,
           institution,
@@ -65,14 +65,14 @@ const EducationRequirementExperience = ({
     );
   }
   if (isPersonalExperience(experience)) {
-    const { title, id } = experience;
-    return <li key={id}>{title || ""}</li>;
+    const { title } = experience;
+    return <li>{title || ""}</li>;
   }
 
   // left with work experience
-  const { role, organization, id } = experience;
+  const { role, organization } = experience;
   return (
-    <li key={id}>
+    <li>
       {intl.formatMessage(experienceMessages.workAt, {
         role,
         organization,

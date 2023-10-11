@@ -82,6 +82,11 @@ const ApplicationPrintDocument = React.forwardRef<
     (element) => element.pool.id === pool.id,
   );
 
+  // unpack education requirement experiences
+  const educationRequirementExperiencesFiltered =
+    relevantPoolCandidate?.educationRequirementExperiences?.filter(notEmpty) ??
+    [];
+
   // filter out behavioural skills for both, and unused asset skills
   const poolEssentialTechnicalSkills =
     pool?.essentialSkills?.filter(
@@ -206,23 +211,20 @@ const ApplicationPrintDocument = React.forwardRef<
                         "label before listing experience associated with fulfilling requirements.",
                     })}
                   </p>
-                  {relevantPoolCandidate.educationRequirementExperiences &&
-                    relevantPoolCandidate.educationRequirementExperiences
-                      .length > 0 && (
-                      <ul>
-                        {relevantPoolCandidate.educationRequirementExperiences.map(
-                          (experience) => {
-                            return experience ? (
-                              <EducationRequirementExperience
-                                experience={experience}
-                              />
-                            ) : (
-                              ""
-                            );
-                          },
-                        )}
-                      </ul>
-                    )}
+                  {educationRequirementExperiencesFiltered.length > 0 && (
+                    <ul>
+                      {educationRequirementExperiencesFiltered.map(
+                        (experience) => {
+                          return (
+                            <EducationRequirementExperience
+                              experience={experience}
+                              key={`${experience.id}-education-requirement`}
+                            />
+                          );
+                        },
+                      )}
+                    </ul>
+                  )}
                 </PageSection>
                 <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
