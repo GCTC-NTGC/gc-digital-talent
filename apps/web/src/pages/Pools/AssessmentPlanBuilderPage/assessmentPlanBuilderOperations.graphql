@@ -1,0 +1,20 @@
+# query to populated the edit pool page
+query getAssessmentPlanBuilderData($poolId: UUID!) {
+  # the existing data of the pool to edit
+  pool(id: $poolId) {
+    id
+    name {
+      en
+      fr
+    }
+    assessmentSteps {
+      id
+      sortOrder
+      type
+      title {
+        en
+        fr
+      }
+    }
+  }
+}
