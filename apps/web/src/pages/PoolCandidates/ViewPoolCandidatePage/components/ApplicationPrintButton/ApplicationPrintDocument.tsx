@@ -7,11 +7,9 @@ import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
-  getAwardedTo,
   getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getEducationRequirementOption,
-  getEducationStatus,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
@@ -36,11 +34,7 @@ import {
   Pool,
   EducationExperience,
   WorkExperience,
-  Skill,
-  Experience,
-  AwardExperience,
-  CommunityExperience,
-  PersonalExperience,
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -48,17 +42,14 @@ import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByTyp
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import {
-  getExperienceFormLabels,
-  isAwardExperience,
-  isCommunityExperience,
   isEducationExperience,
-  isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
-import { getExperienceSkills } from "~/utils/skillUtils";
-import { formattedDate, getDateRange } from "~/utils/dateUtils";
 import applicationMessages from "~/messages/applicationMessages";
+import { getExperiencesSkillIds } from "~/utils/skillUtils";
+
+import SkillWithExperiences from "./SkillWithExperiences";
 
 interface ApplicationPrintDocumentProps {
   user: User;
@@ -96,6 +87,24 @@ const ApplicationPrintDocument = React.forwardRef<
   const relevantPoolCandidate = poolCandidates.find(
     (element) => element.pool.id === pool.id,
   );
+
+  // filter out behavioural skills for both, and unused asset skills
+  const poolEssentialTechnicalSkills =
+    pool?.essentialSkills?.filter(
+      (skill) => skill.category === SkillCategory.Technical,
+    ) ?? [];
+  const poolNonEssentialTechnicalSkills =
+    pool?.nonessentialSkills?.filter(
+      (skill) => skill.category === SkillCategory.Technical,
+    ) ?? [];
+  const experiencesSkillIds = getExperiencesSkillIds(
+    user.experiences?.filter(notEmpty) ?? [],
+  );
+  const usedAssetsSkills = poolNonEssentialTechnicalSkills.filter(
+    (assetSkill) => experiencesSkillIds.includes(assetSkill.id),
+  );
+
+  // massage user data for display
   const govEmployeeTypeId =
     enumToOptions(GovEmployeeType).find(
       (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,
@@ -147,7 +156,7 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
-  // define rendering functions
+  // render experiences associated with education requirement
   const educationOrWorkExperienceListElement = (
     experience: EducationExperience | WorkExperience,
   ): JSX.Element => {
@@ -170,163 +179,6 @@ const ApplicationPrintDocument = React.forwardRef<
           organization,
         })}
       </li>
-    );
-  };
-
-  const experienceListForSkill = (
-    experience:
-      | AwardExperience
-      | CommunityExperience
-      | EducationExperience
-      | PersonalExperience
-      | WorkExperience,
-  ): JSX.Element => {
-    const experienceFormLabels = getExperienceFormLabels(intl);
-
-    if (isAwardExperience(experience)) {
-      const { title, issuedBy, awardedDate, awardedTo, details } = experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.awardIssuedBy, {
-              title,
-              issuedBy,
-            })}
-          </p>
-          <p>
-            {awardedDate
-              ? formattedDate(awardedDate, intl)
-              : intl.formatMessage(commonMessages.notProvided)}
-          </p>
-          <p>
-            {experienceFormLabels.awardedTo}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {awardedTo
-              ? intl.formatMessage(getAwardedTo(awardedTo))
-              : intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>{details}</p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isCommunityExperience(experience)) {
-      const { title, organization, endDate, startDate, project, details } =
-        experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.communityAt, {
-              title,
-              organization,
-            })}
-          </p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>
-            {experienceFormLabels.project}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {project ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isEducationExperience(experience)) {
-      const { areaOfStudy, institution, startDate, endDate, status, details } =
-        experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.educationAt, {
-              areaOfStudy,
-              institution,
-            })}
-          </p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>
-            {experienceFormLabels.educationStatus}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {status
-              ? intl.formatMessage(getEducationStatus(status))
-              : intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isPersonalExperience(experience)) {
-      const { details, title, startDate, endDate, description } = experience;
-      return (
-        <>
-          <p>{title || ""}</p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>{description}</p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    const { role, organization, startDate, endDate, division, details } =
-      experience; // left with work experience
-    return (
-      <>
-        <p>
-          {intl.formatMessage(experienceMessages.workAt, {
-            role,
-            organization,
-          })}
-        </p>
-        <p>{getDateRange({ endDate, startDate, intl })}</p>
-        <p>
-          {experienceFormLabels.team}
-          {intl.formatMessage(commonMessages.dividingColon)}
-          {division ?? intl.formatMessage(commonMessages.notAvailable)}
-        </p>
-        <p>
-          {experienceFormLabels.details}
-          {intl.formatMessage(commonMessages.dividingColon)}
-          {details ?? intl.formatMessage(commonMessages.notAvailable)}
-        </p>
-      </>
-    );
-  };
-
-  const skillSection = (
-    skill: Skill,
-    experiences: Experience[],
-  ): JSX.Element => {
-    const skillExperiences = getExperienceSkills(experiences, skill);
-    return (
-      <PageSection>
-        <p data-h2-font-weight="base(700)">
-          {getLocalizedName(skill.name, intl)}
-        </p>
-        <p>
-          {skill.description ? getLocalizedName(skill.description, intl) : ""}
-        </p>
-        <ul>
-          {skillExperiences.map((experience) => {
-            return (
-              <li key={experience.id}>{experienceListForSkill(experience)}</li>
-            );
-          })}
-        </ul>
-      </PageSection>
     );
   };
 
@@ -410,16 +262,19 @@ const ApplicationPrintDocument = React.forwardRef<
                       "Title for the required skills snapshot section",
                   })}
                 </Heading>
-                <PageSection>
-                  {pool.essentialSkills
-                    ? pool.essentialSkills.map((skill) =>
-                        skillSection(
-                          skill,
-                          user.experiences?.filter(notEmpty) ?? [],
-                        ),
-                      )
-                    : ""}
-                </PageSection>
+                <BreakingPageSection>
+                  {poolEssentialTechnicalSkills.length > 0 ? (
+                    poolEssentialTechnicalSkills.map((skill) => (
+                      <SkillWithExperiences
+                        key={skill.id}
+                        skill={skill}
+                        experiences={user.experiences?.filter(notEmpty) ?? []}
+                      />
+                    ))
+                  ) : (
+                    <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
+                  )}
+                </BreakingPageSection>
                 <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
                     defaultMessage: "Asset skills",
@@ -428,16 +283,19 @@ const ApplicationPrintDocument = React.forwardRef<
                       "Title for the optional skills snapshot section",
                   })}
                 </Heading>
-                <PageSection>
-                  {pool.nonessentialSkills
-                    ? pool.nonessentialSkills.map((skill) =>
-                        skillSection(
-                          skill,
-                          user.experiences?.filter(notEmpty) ?? [],
-                        ),
-                      )
-                    : ""}
-                </PageSection>
+                <BreakingPageSection>
+                  {usedAssetsSkills.length > 0 ? (
+                    usedAssetsSkills.map((skill) => (
+                      <SkillWithExperiences
+                        key={skill.id}
+                        skill={skill}
+                        experiences={user.experiences?.filter(notEmpty) ?? []}
+                      />
+                    ))
+                  ) : (
+                    <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
+                  )}
+                </BreakingPageSection>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
