@@ -206,8 +206,6 @@ const Multi = ({
 
   const hasSelectedItems = selectedItems.length > 0;
 
-  console.log(selectedItems, items);
-
   return (
     <>
       <Field.Label {...getLabelProps()} required={isRequired}>
