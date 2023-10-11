@@ -1697,7 +1697,7 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
   updateUserTeamRoles(
-    teamId: UUID!
+    teamId: ID!
     userId: UUID!
     teamRoleAssignments: UpdateUserTeamRolesInput! @spread
   ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
