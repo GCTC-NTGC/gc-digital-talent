@@ -183,8 +183,8 @@ const SkillLibraryTable = ({
       }}
       nullMessage={{
         title: intl.formatMessage({
-          defaultMessage: "There are'nt any skills here yet.",
-          id: "sccTYH",
+          defaultMessage: "There aren't any skills here yet.",
+          id: "X5tRR4",
           description: "Title for no skills in a users library",
         }),
         description: intl.formatMessage({
