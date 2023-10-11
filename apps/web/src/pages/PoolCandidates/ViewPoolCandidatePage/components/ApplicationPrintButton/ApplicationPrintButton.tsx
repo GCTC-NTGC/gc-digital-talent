@@ -1,19 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
-import {
-  Button,
-  ButtonLinkMode,
-  Color,
-  DropdownMenu,
-} from "@gc-digital-talent/ui";
+import { Button, ButtonLinkMode, Color } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
 
-import { PoolCandidate, User } from "~/api/generated";
+import { User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
-import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 import ApplicationPrintDocument from "./ApplicationPrintDocument";
 

@@ -356,15 +356,15 @@ const ApplicationPrintDocument = React.forwardRef<
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Education requirement",
-                      id: "M7zr6L",
-                      description: "abc",
+                      id: "/zx1kX",
+                      description: "Education requirement section header.",
                     })}
                   </Heading>
                   <p>
                     {intl.formatMessage({
                       defaultMessage: "Requirement selection",
-                      id: "9FtaQX",
-                      description: "aaa",
+                      id: "bp1VHg",
+                      description: "Label before required selection listed.",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
                     {relevantPoolCandidate.educationRequirementOption
@@ -381,8 +381,9 @@ const ApplicationPrintDocument = React.forwardRef<
                     {intl.formatMessage({
                       defaultMessage:
                         "Demonstrated with the following experiences",
-                      id: "1+zt86",
-                      description: "aaa",
+                      id: "1CRt78",
+                      description:
+                        "label before listing experience associated with fulfilling requirements.",
                     })}
                   </p>
                   {relevantPoolCandidate.educationRequirementExperiences &&
@@ -404,8 +405,9 @@ const ApplicationPrintDocument = React.forwardRef<
                 <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
                     defaultMessage: "Essential skills",
-                    id: "gB91od",
-                    description: "abc",
+                    id: "w7E0He",
+                    description:
+                      "Title for the required skills snapshot section",
                   })}
                 </Heading>
                 <PageSection>
@@ -421,8 +423,9 @@ const ApplicationPrintDocument = React.forwardRef<
                 <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
                     defaultMessage: "Asset skills",
-                    id: "Xre5Pj",
-                    description: "abc",
+                    id: "Xpo+u6",
+                    description:
+                      "Title for the optional skills snapshot section",
                   })}
                 </Heading>
                 <PageSection>
@@ -439,8 +442,9 @@ const ApplicationPrintDocument = React.forwardRef<
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Screening questions",
-                      id: "8KDi7T",
-                      description: "abc",
+                      id: "mqWvWR",
+                      description:
+                        "Title for the screening questions snapshot section",
                     })}
                   </Heading>
                   <ul>
@@ -468,8 +472,9 @@ const ApplicationPrintDocument = React.forwardRef<
                 <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
                     defaultMessage: "Error, snapshot information missing",
-                    id: "OISr3A",
-                    description: "abc",
+                    id: "FxqP5P",
+                    description:
+                      "Error displayed in print view when attempting to print partial snapshot.",
                   })}
                 </Heading>
               </PageSection>
@@ -485,7 +490,14 @@ const ApplicationPrintDocument = React.forwardRef<
               />
             </BreakingPageSection>
             <Heading level="h2" data-h2-font-weight="base(700)">
-              <p>Profile information</p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Profile information",
+                  id: "zd/ve4",
+                  description:
+                    "Profile and applications card title for profile card",
+                })}
+              </p>
             </Heading>
             <PageSection>
               <Heading level="h3" data-h2-font-weight="base(700)">
