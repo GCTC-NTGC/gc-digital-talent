@@ -885,7 +885,9 @@ const ApplicationPrintDocument = React.forwardRef<
                         "Heading for the application snapshot users signature",
                     })}
                   </p>
-                  <p>{relevantPoolCandidate.signature}</p>
+                  <p data-h2-font-weight="base(700)">
+                    {relevantPoolCandidate.signature}
+                  </p>
                 </PageSection>
               </>
             )}
