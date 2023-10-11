@@ -31,6 +31,7 @@ import {
   getSkillCategorySkillCount,
   getSkillFamilySkillCount,
 } from "./utils";
+import NullFamilyMessage from "./NullFamilyMessage";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
@@ -178,16 +179,7 @@ const SkillSelection = ({
         </>
       ) : (
         <>
-          <Well>
-            <p data-h2-text-align="base(center)">
-              {intl.formatMessage({
-                id: "5CIYu4",
-                defaultMessage: "Please select a skill family to continue.",
-                description:
-                  "Help text to tell users to select a skill before submitting",
-              })}
-            </p>
-          </Well>
+          <NullFamilyMessage />
           <input
             type="hidden"
             {...register("skill", {

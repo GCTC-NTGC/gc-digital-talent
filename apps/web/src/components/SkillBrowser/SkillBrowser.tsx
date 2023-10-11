@@ -1,13 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { FieldError, useFormContext } from "react-hook-form";
+import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 
-import {
-  errorMessages,
-  getLocalizedName,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 
 import { BaseSkillBrowserProps } from "./types";
@@ -19,16 +15,19 @@ import {
   getFilteredSkills,
   getSkillFamilySkillCount,
 } from "./utils";
+import NullFamilyMessage from "./NullFamilyMessage";
 
 type SkillBrowserProps = BaseSkillBrowserProps & {
   name: string;
   isMulti?: boolean;
+  rules?: RegisterOptions;
 };
 
 const SkillBrowser = ({
   skills,
   showCategory,
   name,
+  rules = {},
   isMulti = true,
 }: SkillBrowserProps) => {
   const intl = useIntl();
@@ -44,7 +43,11 @@ const SkillBrowser = ({
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const [category, family] = watch([inputNames.category, inputNames.family]);
+  const [category, family, value] = watch([
+    inputNames.category,
+    inputNames.family,
+    name,
+  ]);
 
   const filteredFamilies = React.useMemo(() => {
     return getFilteredFamilies({ skills, category });
@@ -116,38 +119,27 @@ const SkillBrowser = ({
         />
       </div>
       {family && family !== "" ? (
-        <div data-h2-margin="base(x1, 0)">
-          <Combobox
-            id="skill"
-            name={name}
-            isMulti={isMulti}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            trackUnsaved={false}
-            total={filteredSkills.length}
-            label={intl.formatMessage({
-              defaultMessage: "Skill",
-              id: "+K/smr",
-              description: "Label for the skill select field",
-            })}
-            options={filteredSkills.map((currentSkill) => ({
-              value: currentSkill.id,
-              label: getLocalizedName(currentSkill.name, intl),
-            }))}
-          />
-        </div>
+        <Combobox
+          id="skill"
+          name={name}
+          isMulti={isMulti}
+          trackUnsaved={false}
+          total={filteredSkills.length}
+          rules={rules}
+          label={intl.formatMessage({
+            defaultMessage: "Skill",
+            id: "+K/smr",
+            description: "Label for the skill select field",
+          })}
+          options={filteredSkills.map((currentSkill) => ({
+            value: currentSkill.id,
+            label: getLocalizedName(currentSkill.name, intl),
+          }))}
+        />
       ) : (
         <>
-          <input
-            type="hidden"
-            {...register(name, {
-              required: intl.formatMessage({
-                defaultMessage: "Select a skill family and skill to continue.",
-                id: "jYPyWq",
-                description:
-                  "Error message when a user attempts to add a skill before selecting one",
-              }),
-            })}
-          />
+          <NullFamilyMessage />
+          <input type="hidden" {...register(name, rules)} />
           {skillError && <Field.Error>{skillError?.toString()}</Field.Error>}
         </>
       )}
