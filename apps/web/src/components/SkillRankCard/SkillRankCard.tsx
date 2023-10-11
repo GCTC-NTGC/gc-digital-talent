@@ -14,6 +14,7 @@ interface SkillRankCardProps {
   titleAs?: HeadingLevel;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];
+  type: "top" | "improve";
 }
 
 const SkillRankCard = ({
@@ -21,6 +22,7 @@ const SkillRankCard = ({
   description,
   userSkills,
   editLink,
+  type,
   editable = false,
   titleAs = "h3",
 }: SkillRankCardProps) => {
@@ -77,7 +79,7 @@ const SkillRankCard = ({
           ))}
         </ul>
       ) : (
-        <NullMessage editLink={editLink} editable={editable} />
+        <NullMessage type={type} editLink={editLink} editable={editable} />
       )}
     </div>
   );

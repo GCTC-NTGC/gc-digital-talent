@@ -168,6 +168,7 @@ export const SkillShowcase = ({
               >
                 <SkillRankCard
                   editable
+                  type="top"
                   userSkills={topBehaviouralSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Behavioural skills",
@@ -193,6 +194,7 @@ export const SkillShowcase = ({
                 />
                 <SkillRankCard
                   editable
+                  type="top"
                   userSkills={topTechnicalSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Technical skills",
@@ -250,6 +252,7 @@ export const SkillShowcase = ({
               >
                 <SkillRankCard
                   editable
+                  type="improve"
                   userSkills={improveBehaviouralSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Behavioural skills",
@@ -275,6 +278,7 @@ export const SkillShowcase = ({
                 />
                 <SkillRankCard
                   editable
+                  type="improve"
                   userSkills={improveTechnicalSkills}
                   title={intl.formatMessage({
                     defaultMessage: "Technical skills",

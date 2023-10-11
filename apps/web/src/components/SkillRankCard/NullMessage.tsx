@@ -5,13 +5,14 @@ import { Link, Well } from "@gc-digital-talent/ui";
 
 export interface NullMessageProps {
   editable?: boolean;
+  type: "top" | "improve";
   editLink?: {
     label: string;
     href: string;
   };
 }
 
-const NullMessage = ({ editable, editLink }: NullMessageProps) => {
+const NullMessage = ({ type, editable, editLink }: NullMessageProps) => {
   const intl = useIntl();
 
   return (
@@ -33,12 +34,20 @@ const NullMessage = ({ editable, editLink }: NullMessageProps) => {
         </Link>
       ) : (
         <p>
-          {intl.formatMessage({
-            defaultMessage: "No skills added.",
-            id: "ZkWI6J",
-            description:
-              "Message displayed when a user has no added skills to their showcase",
-          })}
+          {type === "improve"
+            ? intl.formatMessage({
+                defaultMessage:
+                  "This user has not selected any skills for improvement",
+                id: "ZTGPt3",
+                description:
+                  "Message displayed when a user has not added any skills for improvement",
+              })
+            : intl.formatMessage({
+                defaultMessage: "This user has not highlighted any skills",
+                id: "8L/R9h",
+                description:
+                  "Message displayed when a user has no top skills in their showcase",
+              })}
         </p>
       )}
     </Well>
