@@ -55,7 +55,7 @@ function buildLink(
   color?: LinkProps["color"],
 ): React.ReactElement {
   return (
-    <Link href={href} fontSize="h6" mode="text" color={color}>
+    <Link href={href} fontSize="h4" mode="text" color={color}>
       {chunks}
     </Link>
   );

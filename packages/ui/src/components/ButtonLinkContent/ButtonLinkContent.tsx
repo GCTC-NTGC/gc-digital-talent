@@ -13,7 +13,16 @@ interface IconTextProps
     HTMLSpanElement
   > {
   mode: ButtonLinkMode;
-  fontSize?: "h6" | "body" | "caption";
+  fontSize?:
+    | "display"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "body"
+    | "caption";
   icon?: IconType;
   counter?: number;
   utilityIcon?: IconType;
@@ -49,7 +58,49 @@ const ButtonLinkContent = ({
       "data-h2-font-size": "base(h6)",
     };
     iconSize = {
+      "data-h2-width": "base(x.85)",
+    };
+  } else if (fontSize === "h5") {
+    textSize = {
+      "data-h2-font-size": "base(h5)",
+    };
+    iconSize = {
       "data-h2-width": "base(x.95)",
+    };
+  } else if (fontSize === "h4") {
+    textSize = {
+      "data-h2-font-size": "base(h4)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x1.15)",
+    };
+  } else if (fontSize === "h3") {
+    textSize = {
+      "data-h2-font-size": "base(h3)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x1.35)",
+    };
+  } else if (fontSize === "h2") {
+    textSize = {
+      "data-h2-font-size": "base(h2)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x1.65)",
+    };
+  } else if (fontSize === "h1") {
+    textSize = {
+      "data-h2-font-size": "base(h1)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x2)",
+    };
+  } else if (fontSize === "display") {
+    textSize = {
+      "data-h2-font-size": "base(display)",
+    };
+    iconSize = {
+      "data-h2-width": "base(x2.35)",
     };
   }
   let iconMargin = {
