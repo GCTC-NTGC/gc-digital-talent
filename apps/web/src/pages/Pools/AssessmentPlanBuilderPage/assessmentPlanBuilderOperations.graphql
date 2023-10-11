@@ -7,6 +7,21 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       en
       fr
     }
+    publishedAt
+    poolSkills {
+      id
+      type
+      skill {
+        name {
+          en
+          fr
+        }
+        # three junk fields required by schema
+        id
+        category
+        key
+      }
+    }
     assessmentSteps {
       id
       sortOrder
@@ -14,6 +29,9 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       title {
         en
         fr
+      }
+      poolSkills {
+        id
       }
     }
   }

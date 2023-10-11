@@ -3,24 +3,22 @@ import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
-import { Pool, Scalars } from "@gc-digital-talent/graphql";
+import { Scalars } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  Heading,
-  NotFound,
-  Pending,
-  Pill,
-  Separator,
-} from "@gc-digital-talent/ui";
+import { Heading, NotFound, Pending, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { useGetAssessmentPlanBuilderDataQuery } from "~/api/generated";
+import {
+  GetAssessmentPlanBuilderDataQuery,
+  useGetAssessmentPlanBuilderDataQuery,
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
+import { getAssessmentPlanStatusPill } from "./utils";
 
 const pageTitle = {
   defaultMessage: "Assessment plan",
@@ -35,7 +33,7 @@ const pageSubtitle = {
   description: "Subtitle for the assessment plan builder",
 };
 export interface AssessmentPlanBuilderProps {
-  pool: Pool;
+  pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
 }
 
 export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
@@ -51,9 +49,7 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
         <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
           {intl.formatMessage(pageTitle)}
           <div data-h2-flex-grow="base(2)" />
-          <Pill bold mode="outline" color="black">
-            TODO: Status
-          </Pill>
+          {getAssessmentPlanStatusPill(pool, intl)}
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
         <Separator
