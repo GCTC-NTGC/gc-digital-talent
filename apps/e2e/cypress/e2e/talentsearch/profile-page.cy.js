@@ -51,7 +51,7 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Language profile");
       cy.contains("Account and privacy settings");
 
-      cy.visit("/en/talent/personal-information");
+      cy.visit("/en/talent/profile");
       cy.contains("Personal and contact information");
       cy.contains("Work preferences");
       cy.contains("Diversity, equity, and inclusion");
