@@ -121,7 +121,13 @@ const UserProfile = ({
   isNavigationVisible = true,
 }: UserProfileProps) => {
   const intl = useIntl();
-  const { experiences } = user;
+  const {
+    experiences,
+    topBehaviouralSkillsRanking,
+    topTechnicalSkillsRanking,
+    improveBehaviouralSkillsRanking,
+    improveTechnicalSkillsRanking,
+  } = user;
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
@@ -527,10 +533,18 @@ const UserProfile = ({
             ) : (
               <SkillShowcaseSection
                 headingLevel={contentHeadingLevel}
-                topTechnicalSkillsRanking={[]}
-                topBehaviouralSkillsRanking={[]}
-                improveTechnicalSkillsRanking={[]}
-                improveBehaviouralSkillsRanking={[]}
+                topTechnicalSkillsRanking={
+                  topTechnicalSkillsRanking?.filter(notEmpty) ?? []
+                }
+                topBehaviouralSkillsRanking={
+                  topBehaviouralSkillsRanking?.filter(notEmpty) ?? []
+                }
+                improveTechnicalSkillsRanking={
+                  improveTechnicalSkillsRanking?.filter(notEmpty) ?? []
+                }
+                improveBehaviouralSkillsRanking={
+                  improveBehaviouralSkillsRanking?.filter(notEmpty) ?? []
+                }
               />
             )}
           </TableOfContents.Section>

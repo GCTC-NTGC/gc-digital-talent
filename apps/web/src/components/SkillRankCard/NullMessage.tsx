@@ -37,14 +37,14 @@ const NullMessage = ({ type, editable, editLink }: NullMessageProps) => {
           {type === "improve"
             ? intl.formatMessage({
                 defaultMessage:
-                  "This user has not selected any skills for improvement",
-                id: "ZTGPt3",
+                  "This user has not selected any skills for improvement.",
+                id: "Ifl7BO",
                 description:
                   "Message displayed when a user has not added any skills for improvement",
               })
             : intl.formatMessage({
-                defaultMessage: "This user has not highlighted any skills",
-                id: "8L/R9h",
+                defaultMessage: "This user has not highlighted any skills.",
+                id: "iMJCf8",
                 description:
                   "Message displayed when a user has no top skills in their showcase",
               })}
