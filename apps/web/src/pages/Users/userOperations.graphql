@@ -259,6 +259,25 @@ mutation DeleteUser($id: ID!) {
   }
 }
 
+fragment poolCandidateUserSkillFragment on UserSkill {
+  id
+  user {
+    id
+  }
+  skill {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+  }
+  skillLevel
+  topSkillsRank
+  improveSkillsRank
+}
+
 query GetViewUserData($id: UUID!) {
   user(id: $id, trashed: WITH) {
     id
@@ -399,6 +418,18 @@ query GetViewUserData($id: UUID!) {
         startDate
         endDate
       }
+    }
+    topTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    topBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
     }
   }
   pools {
@@ -596,6 +627,18 @@ query selectedUsers($ids: [ID]!) {
         }
       }
       id
+    }
+    topTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    topBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveTechnicalSkillsRanking {
+      ...poolCandidateUserSkillFragment
+    }
+    improveBehaviouralSkillsRanking {
+      ...poolCandidateUserSkillFragment
     }
   }
 }

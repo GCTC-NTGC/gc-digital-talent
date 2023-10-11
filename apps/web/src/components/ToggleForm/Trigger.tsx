@@ -5,11 +5,11 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
 const { useContext } = ToggleSection;
 
-interface SectionTriggerProps {
+interface TriggerProps {
   children: React.ReactNode;
 }
 
-const SectionTrigger = ({ children, ...rest }: SectionTriggerProps) => {
+const Trigger = ({ children, ...rest }: TriggerProps) => {
   const intl = useIntl();
   const ctx = useContext();
 
@@ -28,4 +28,4 @@ const SectionTrigger = ({ children, ...rest }: SectionTriggerProps) => {
   );
 };
 
-export default SectionTrigger;
+export default Trigger;
