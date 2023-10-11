@@ -1015,6 +1015,10 @@
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Placeholder displayed on the language information form written field."
   },
+  "4Jc5pN": {
+    "defaultMessage": "Ajouter une nouvelle compétence",
+    "description": "Button text to open the skill dialog and add a skill to the users library"
+  },
   "4L9rHO": {
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
@@ -2814,6 +2818,10 @@
     "defaultMessage": "Définir les évaluations utilisées pour évaluer chaque compétence dans l'annonce.",
     "description": "Information about what an assessment plan represents"
   },
+  "FshBb0": {
+    "defaultMessage": "Commencez par ajouter un article en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "description": "Message displayed when a user has no skills in their library"
+  },
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
@@ -3755,6 +3763,10 @@
   "MUwxzr": {
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et d’études minimales, si vous avez besoin d’ajouter ou de modifier une expérience dans votre parcours professionnel, vous pouvez le faire en revenant à l’<careerTimelineLink>étape du parcours professionnel</careerTimelineLink> dans le formulaire de candidature.",
     "description": "Lead in paragraph for adding experiences to a users skills"
+  },
+  "MUxI+G": {
+    "defaultMessage": "Il n’existe aucun résultat correspondant.",
+    "description": "Title for when no skills match a users filters."
   },
   "MWZgsB": {
     "defaultMessage": "Lieu de travail",
@@ -4703,6 +4715,10 @@
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
   },
+  "TN9ndX": {
+    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "description": "Message displayed when no skills match a users filters"
+  },
   "TQU5g8": {
     "defaultMessage": "État d'expiration",
     "description": "Expiry status"
@@ -5297,6 +5313,10 @@
   "X4TOhW": {
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
+  },
+  "X5tRR4": {
+    "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
+    "description": "Title for no skills in a users library"
   },
   "X8JZSG": {
     "defaultMessage": "Date de fin",
