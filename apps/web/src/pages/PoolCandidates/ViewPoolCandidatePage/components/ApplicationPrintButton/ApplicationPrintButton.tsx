@@ -1,0 +1,60 @@
+import React, { useRef, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
+import { useReactToPrint } from "react-to-print";
+import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+
+import {
+  Button,
+  ButtonLinkMode,
+  Color,
+  DropdownMenu,
+} from "@gc-digital-talent/ui";
+import { Pool } from "@gc-digital-talent/graphql";
+
+import { PoolCandidate, User } from "~/api/generated";
+import printStyles from "~/styles/printStyles";
+import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+
+import ApplicationPrintDocument from "./ApplicationPrintDocument";
+
+interface ApplicationPrintButtonProps {
+  user: User;
+  pool: Pool;
+  color: Color;
+  mode: ButtonLinkMode;
+}
+
+const ApplicationPrintButton = ({
+  user,
+  pool,
+  color,
+  mode,
+}: ApplicationPrintButtonProps) => {
+  const intl = useIntl();
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Application snapshot",
+      id: "ipsXat",
+      description: "Document title for printing a user's application snapshot.",
+    }),
+  });
+
+  return (
+    <>
+      <Button color={color} mode={mode} onClick={handlePrint}>
+        {intl.formatMessage({
+          defaultMessage: "Print application",
+          id: "0pDCvX",
+          description: "Print application",
+        })}
+      </Button>
+      <ApplicationPrintDocument user={user} pool={pool} ref={componentRef} />
+    </>
+  );
+};
+
+export default ApplicationPrintButton;
