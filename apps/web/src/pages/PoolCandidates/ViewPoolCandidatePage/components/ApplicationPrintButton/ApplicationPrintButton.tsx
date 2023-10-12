@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
+import PrinterIcon from "@heroicons/react/20/solid/PrinterIcon";
 
 import { Button, ButtonLinkMode, Color } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
@@ -38,7 +39,12 @@ const ApplicationPrintButton = ({
 
   return (
     <>
-      <Button color={color} mode={mode} onClick={handlePrint}>
+      <Button
+        color={color}
+        mode={mode}
+        onClick={handlePrint}
+        icon={PrinterIcon}
+      >
         {intl.formatMessage({
           defaultMessage: "Print application",
           id: "0pDCvX",
