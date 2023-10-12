@@ -251,6 +251,18 @@ class UserFactory extends Factory
     }
 
     /**
+     * Attach the Community Manager role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asCommunityManager()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('community_manager');
+        });
+    }
+
+    /**
      * Attach the admin role to a user after creation.
      *
      * @return $this

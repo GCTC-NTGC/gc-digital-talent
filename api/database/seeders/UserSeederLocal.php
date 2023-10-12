@@ -49,6 +49,18 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
+            ->asCommunityManager()
+            ->withExperiences()
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Community',
+                'last_name' => 'Manager',
+                'email' => 'community@test.com',
+                'sub' => 'community@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
             ->asRequestResponder()
             ->withExperiences()
             ->asGovEmployee()
