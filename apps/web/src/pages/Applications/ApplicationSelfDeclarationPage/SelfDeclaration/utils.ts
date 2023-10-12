@@ -7,8 +7,8 @@ export const getSelfDeclarationLabels = (intl: IntlShape) => ({
     description: "label for the Indigenous self-declaration input",
   }),
   firstNations: intl.formatMessage({
-    id: "GSqmjE",
-    defaultMessage: "First Nations",
+    id: "VUPlmN",
+    defaultMessage: "First Nations (Status or Non-status)",
     description: "Label for First Nations community",
   }),
   inuk: intl.formatMessage({
