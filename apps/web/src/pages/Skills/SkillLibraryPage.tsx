@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 import GlobeAmericasIcon from "@heroicons/react/24/outline/GlobeAmericasIcon";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { OperationContext } from "urql";
+import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 
-import { TableOfContents, Pending } from "@gc-digital-talent/ui";
+import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
 import {
   Skill,
   SkillCategory,
@@ -42,17 +43,25 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
     behavioural: {
       id: "behavioural",
       title: intl.formatMessage({
-        defaultMessage: "Your behavioural skills",
-        id: "6Uyhp2",
+        defaultMessage: "Behavioural skill library",
+        id: "uknA15",
         description: "Title for the skill library behavioural skills section",
       }),
     },
     technical: {
       id: "technical",
       title: intl.formatMessage({
-        defaultMessage: "Your technical skills",
-        id: "GxBGcz",
+        defaultMessage: "Technical skill library",
+        id: "tM8SXS",
         description: "Title for the skill library technical skills section",
+      }),
+    },
+    showcase: {
+      id: "showcase",
+      title: intl.formatMessage({
+        defaultMessage: "Skill showcase",
+        id: "gntui6",
+        description: "Title for the skill library skills showcase section",
       }),
     },
   };
@@ -113,6 +122,11 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sections.technical.id}>
                   {sections.technical.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.showcase.id}>
+                  {sections.showcase.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
@@ -178,6 +192,30 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
                 data={categorizedUserSkills[SkillCategory.Technical] ?? []}
                 allSkills={categorizedSkills[SkillCategory.Technical] ?? []}
               />
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.showcase.id}>
+              <TableOfContents.Heading
+                icon={ChartPieIcon}
+                color="error"
+                data-h2-margin-top="base(x3)"
+              >
+                {sections.showcase.title}
+              </TableOfContents.Heading>
+              <p data-h2-margin="base(x1 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Your skill showcase allows you to curate lists of skills from your library that present a more targeted story about your strengths and areas of interest. While your skill library acts as a central place to manage all of the skills you add to your profile, the showcases you complete are paired with your job applications to help recruiters and managers see a more complete picture of your talent.",
+                  id: "ccR/uJ",
+                  description: "Description on what the skills showcase is.",
+                })}
+              </p>
+              <Link color="secondary" mode="solid" href={paths.skillShowcase()}>
+                {intl.formatMessage({
+                  defaultMessage: "Visit your showcase",
+                  id: "Y3rbFp",
+                  description: "Link text to the skill showcase page.",
+                })}
+              </Link>
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
