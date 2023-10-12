@@ -17,6 +17,7 @@ import {
   AssessmentStepType,
   PoolSkill,
   PoolSkillType,
+  Skill,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/forms";
@@ -32,39 +33,106 @@ export interface SkillSummaryTableProps {
   title: string;
 }
 
-const SkillSummaryTable = ({
-  title,
-  poolSkills,
-  assessmentSteps,
-}: SkillSummaryTableProps) => {
+const CheckCircleIconElement = (
+  skill: Skill | null | undefined,
+): JSX.Element | null => {
   const intl = useIntl();
+  if (!skill) {
+    return null;
+  }
+  const { name } = skill;
+  const localizedName = getLocalizedName(name, intl);
 
-  const CheckCircleIconElement = (
+  return (
     <CheckCircleIcon
       data-h2-width="base(x1)"
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
       data-h2-color="base(success)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "{localizedName} has assessments",
+          description:
+            "Aria text for icon confirming a skill is connected to assessments.",
+          id: "1WVTN6",
+        },
+        { localizedName },
+      )}
     />
   );
-  const XCircleIconElement = (
+};
+
+const XCircleIconElement = (
+  skill: Skill | null | undefined,
+): JSX.Element | null => {
+  const intl = useIntl();
+  if (!skill) {
+    return null;
+  }
+  const { name } = skill;
+  const localizedName = getLocalizedName(name, intl);
+
+  return (
     <XCircleIcon
       data-h2-width="base(x1)"
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
       data-h2-color="base(error)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage: "{localizedName} missing assessments",
+          description:
+            "Aria text for icon indicating a skill is not connected to assessments.",
+          id: "guN1wV",
+        },
+        { localizedName },
+      )}
     />
   );
-  const CheckIconElement = (
+};
+
+const CheckIconElement = (
+  skill: Skill | null | undefined,
+  assessmentStepType: AssessmentStepType,
+): JSX.Element | null => {
+  const intl = useIntl();
+  if (!skill) {
+    return null;
+  }
+  const { name } = skill;
+  const localizedName = getLocalizedName(name, intl);
+  const assessmentStepTypeLocalized = intl.formatMessage(
+    getAssessmentStepType(assessmentStepType),
+  );
+
+  return (
     <CheckIcon
       data-h2-width="base(x1)"
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+      aria-label={intl.formatMessage(
+        {
+          defaultMessage:
+            "{localizedName} assessed by {assessmentStepTypeLocalized}",
+          description:
+            "Aria text for icon indicating a skill to assessment step connection.",
+          id: "4LVc9T",
+        },
+        { localizedName, assessmentStepTypeLocalized },
+      )}
     />
   );
+};
+
+const SkillSummaryTable = ({
+  title,
+  poolSkills,
+  assessmentSteps,
+}: SkillSummaryTableProps) => {
+  const intl = useIntl();
 
   const generateAssessmentStepHeader = (
     assessmentStep: AssessmentStep,
@@ -87,10 +155,10 @@ const SkillSummaryTable = ({
     return intl.formatMessage(commonMessages.notAvailable);
   };
 
-  const plannedAssessmentCell = (poolSkill: PoolSkill): JSX.Element => {
+  const plannedAssessmentCell = (poolSkill: PoolSkill): JSX.Element | null => {
     return poolSkill.assessmentSteps && poolSkill.assessmentSteps.length > 0
-      ? CheckCircleIconElement
-      : XCircleIconElement;
+      ? CheckCircleIconElement(poolSkill.skill)
+      : XCircleIconElement(poolSkill.skill);
   };
 
   const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
@@ -133,7 +201,7 @@ const SkillSummaryTable = ({
       assessmentStep.type &&
       filteredPoolSkillsAssessments.includes(assessmentStep.type)
     ) {
-      return CheckIconElement;
+      return CheckIconElement(poolSkill.skill, assessmentStep.type);
     }
     return null;
   };
