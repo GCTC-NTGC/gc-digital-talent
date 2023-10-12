@@ -590,6 +590,7 @@ export const ViewPoolCandidate = ({
         <div
           data-h2-container="base(center, large, 0)"
           data-h2-text-align="base(right)"
+          data-h2-margin-right="base(0)"
         >
           <ApplicationPrintButton
             user={parsedSnapshot}
