@@ -47,32 +47,15 @@ const SkillTree = ({
 }: SkillTreeProps) => {
   const intl = useIntl();
   const contentHeadingLevel = incrementHeadingRank(headingAs);
-  const [isFormOpen, setIsFormOpen] = React.useState<boolean>(false);
-  const [currentExperience, setCurrentExperience] =
-    React.useState<Experience | null>(null);
 
   const title = getLocalizedName(skill.name, intl);
   const skillExperiences = getExperienceSkills(experiences, skill);
   const availableExperiences = experiences.filter(
     (exp) =>
       !skillExperiences.find(
-        (existingExperience) =>
-          existingExperience.id === exp.id && exp.id !== currentExperience?.id,
+        (existingExperience) => existingExperience.id === exp.id,
       ),
   );
-
-  const handleExperienceEdit = (experience: Experience) => {
-    setCurrentExperience(experience);
-    setIsFormOpen(true);
-  };
-
-  const handleFormOpenChange = (newIsFormOpen: boolean) => {
-    setIsFormOpen(newIsFormOpen);
-    // reset current experience when we close the form
-    if (!newIsFormOpen) {
-      setCurrentExperience(null);
-    }
-  };
 
   const disclaimer = showDisclaimer ? (
     <TreeView.Item>
@@ -93,69 +76,58 @@ const SkillTree = ({
   ) : null;
 
   return (
-    <>
-      <TreeView.Root data-h2-margin="base(x2, 0)">
-        <TreeView.Head>
-          <CardBasic>
-            <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
-              {title}
-            </Heading>
-            {skill.description && (
-              <p>{getLocalizedName(skill.description, intl)}</p>
-            )}
-          </CardBasic>
-        </TreeView.Head>
-        {skillExperiences.length ? (
-          <>
-            {skillExperiences.map((experience) => (
-              <TreeView.Item key={experience.id}>
-                <ExperienceCard
-                  experience={filterExperienceSkills(experience, skill)}
-                  headingLevel={contentHeadingLevel}
-                  showEdit={!hideEdit}
-                  showSkills={skill}
-                  onEditClick={
-                    !hideEdit
-                      ? () => handleExperienceEdit(experience)
-                      : undefined
-                  }
-                />
-              </TreeView.Item>
-            ))}
-          </>
-        ) : (
-          disclaimer
-        )}
-        {!hideConnectButton && availableExperiences.length > 0 ? (
-          <TreeView.Item>
-            <Button
-              type="button"
-              color="secondary"
-              mode="solid"
-              onClick={() => setIsFormOpen(true)}
-            >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Connect a career timeline experience<hidden> to {skillName}</hidden>",
-                  id: "fRwqM9",
-                  description:
-                    "Button text to open form to connect an experience to a skill",
-                },
-                { skillName: title },
-              )}
-            </Button>
-          </TreeView.Item>
-        ) : null}
-      </TreeView.Root>
-      <ExperienceSkillFormDialog
-        open={isFormOpen}
-        onOpenChange={handleFormOpenChange}
-        skill={skill}
-        availableExperiences={availableExperiences}
-        experience={currentExperience || undefined}
-      />
-    </>
+    <TreeView.Root data-h2-margin="base(x2, 0)">
+      <TreeView.Head>
+        <CardBasic>
+          <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
+            {title}
+          </Heading>
+          {skill.description && (
+            <p>{getLocalizedName(skill.description, intl)}</p>
+          )}
+        </CardBasic>
+      </TreeView.Head>
+      {skillExperiences.length ? (
+        <>
+          {skillExperiences.map((experience) => (
+            <TreeView.Item key={experience.id}>
+              <ExperienceCard
+                experience={filterExperienceSkills(experience, skill)}
+                headingLevel={contentHeadingLevel}
+                showEdit={!hideEdit}
+                showSkills={skill}
+                linkTo={skill}
+                editMode="dialog"
+              />
+            </TreeView.Item>
+          ))}
+        </>
+      ) : (
+        disclaimer
+      )}
+      {!hideConnectButton && availableExperiences.length > 0 ? (
+        <TreeView.Item>
+          <ExperienceSkillFormDialog
+            skill={skill}
+            availableExperiences={availableExperiences}
+            trigger={
+              <Button type="button" color="secondary" mode="solid">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Connect a career timeline experience<hidden> to {skillName}</hidden>",
+                    id: "fRwqM9",
+                    description:
+                      "Button text to open form to connect an experience to a skill",
+                  },
+                  { skillName: title },
+                )}
+              </Button>
+            }
+          />
+        </TreeView.Item>
+      ) : null}
+    </TreeView.Root>
   );
 };
 

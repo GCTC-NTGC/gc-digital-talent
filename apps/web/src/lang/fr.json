@@ -640,6 +640,10 @@
     "defaultMessage": "Signature",
     "description": "Title for the signature snapshot section"
   },
+  "1bWLa3": {
+    "defaultMessage": "Compétences que le candidat aimerait améliorer",
+    "description": "Heading for a users skills they would like to improve"
+  },
   "1c+inU": {
     "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
     "description": "IT-01 classification aria label including titles and salaries"
@@ -1046,6 +1050,10 @@
   "4JS9Yp": {
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Placeholder displayed on the language information form written field."
+  },
+  "4Jc5pN": {
+    "defaultMessage": "Ajouter une nouvelle compétence",
+    "description": "Button text to open the skill dialog and add a skill to the users library"
   },
   "4L9rHO": {
     "defaultMessage": "Actif",
@@ -2878,6 +2886,10 @@
     "defaultMessage": "Définir les évaluations utilisées pour évaluer chaque compétence dans l'annonce.",
     "description": "Information about what an assessment plan represents"
   },
+  "FshBb0": {
+    "defaultMessage": "Commencez par ajouter un article en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "description": "Message displayed when a user has no skills in their library"
+  },
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
@@ -3281,6 +3293,10 @@
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Second language proficiency label"
+  },
+  "Ifl7BO": {
+    "defaultMessage": "Cet utilisateur n’a pas sélectionné de compétences à améliorer.",
+    "description": "Message displayed when a user has not added any skills for improvement"
   },
   "Igrveg": {
     "defaultMessage": "Liens rapides",
@@ -3824,6 +3840,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Application title"
   },
+  "MTPlbB": {
+    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
+    "description": "Description of a users technical skills to be improved for admins"
+  },
   "MTwQ3S": {
     "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
     "description": "Label displayed for the email field in create account form."
@@ -3831,6 +3851,10 @@
   "MUwxzr": {
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et d’études minimales, si vous avez besoin d’ajouter ou de modifier une expérience dans votre parcours professionnel, vous pouvez le faire en revenant à l’<careerTimelineLink>étape du parcours professionnel</careerTimelineLink> dans le formulaire de candidature.",
     "description": "Lead in paragraph for adding experiences to a users skills"
+  },
+  "MUxI+G": {
+    "defaultMessage": "Il n’existe aucun résultat correspondant.",
+    "description": "Title for when no skills match a users filters."
   },
   "MWZgsB": {
     "defaultMessage": "Lieu de travail",
@@ -4115,6 +4139,10 @@
   "OIk63O": {
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Button to extend the pool closing date in the extend pool closing date dialog"
+  },
+  "OM75j3": {
+    "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences. ",
+    "description": "Lead in text for a users skill showcase for admins."
   },
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
@@ -4799,6 +4827,10 @@
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
   },
+  "TN9ndX": {
+    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
+    "description": "Message displayed when no skills match a users filters"
+  },
   "TQU5g8": {
     "defaultMessage": "État d'expiration",
     "description": "Expiry status"
@@ -5398,6 +5430,10 @@
     "defaultMessage": "Candidats",
     "description": "Page title for the admin pool candidates index page"
   },
+  "X5tRR4": {
+    "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
+    "description": "Title for no skills in a users library"
+  },
   "X6+rc1": {
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
     "description": "Indigenous Apprenticeship applicant image text alternative"
@@ -5649,6 +5685,10 @@
     "defaultMessage": "Aucune expérience trouvée.",
     "description": "Message displayed when no experience is found for experience form."
   },
+  "YiqbTc": {
+    "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou \"compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
+    "description": "Description of a users behavioural skills to improve for admins"
+  },
   "YjMfWZ": {
     "defaultMessage": "Nom de l’équipe (Français)",
     "description": "Name of an organization/team in French field."
@@ -5839,6 +5879,10 @@
   "ZwvgeK": {
     "defaultMessage": "Veuillez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
     "description": "Seventh answer of the Frequently Asked Questions for sign up"
+  },
+  "ZyA0CC": {
+    "defaultMessage": "Les principales compétences du candidat",
+    "description": "Heading for a users top skills"
   },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
@@ -7219,6 +7263,10 @@
     "defaultMessage": "<strong>une autre spécialité pertinente à cette offre d’emploi</strong>",
     "description": "List item of experiences required in application education page."
   },
+  "iMJCf8": {
+    "defaultMessage": "Cet utilisateur n’a mis aucune compétence en évidence.",
+    "description": "Message displayed when a user has no top skills in their showcase"
+  },
   "iMtZOR": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre bibliothèque",
     "description": "Title for the find a skill dialog within the skill library"
@@ -7254,6 +7302,10 @@
   "ibT7BK": {
     "defaultMessage": "Quelles sont les tâches ou activités que vous avez accomplies qui ont un rapport avec cette compétence?",
     "description": "Question list item in link featured skills section of experience form (tasks)."
+  },
+  "icNzuL": {
+    "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 10 compétences techniques </strong> qui représentent le mieux leur ensemble de compétences.",
+    "description": "Description of a users top technical skills"
   },
   "icYqDt": {
     "defaultMessage": "Bassin",
@@ -9418,6 +9470,10 @@
   "y9tCKP": {
     "defaultMessage": "Utilisez ces options pour publier ou clore votre annonce. Une annonce en direct permettra aux candidats de soumettre leur candidature pour ce bassin",
     "description": "Helper message for changing the pool advertisement status"
+  },
+  "yBXGo6": {
+    "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 5 compétences comportementales ou relationnelles</strong> dans lesquelles ils excellent le plus.",
+    "description": "Description of a users top behavioural skills"
   },
   "yBZaZy": {
     "defaultMessage": "Supprimer",
