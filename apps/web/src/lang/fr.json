@@ -350,6 +350,10 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
+  "/zx1kX": {
+    "defaultMessage": "Exigence d’études",
+    "description": "Education requirement section header."
+  },
   "0+g2jN": {
     "defaultMessage": "Courriel",
     "description": "Title displayed for the User table Email column."
@@ -560,6 +564,10 @@
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
+  },
+  "1CRt78": {
+    "defaultMessage": "Démontrée avec les expériences suivantes",
+    "description": "label before listing experience associated with fulfilling requirements."
   },
   "1E0RiD": {
     "defaultMessage": "Numéro du processus",
@@ -6100,6 +6108,10 @@
   "bozF1y": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
     "description": "Text to confirm the process to be deleted"
+  },
+  "bp1VHg": {
+    "defaultMessage": "Exigence de sélection",
+    "description": "Label before required selection listed."
   },
   "bq1MMd": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
