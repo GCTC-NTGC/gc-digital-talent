@@ -438,7 +438,6 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665.")
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
