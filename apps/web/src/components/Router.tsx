@@ -1185,6 +1185,7 @@ const createRoute = (
                   roles={[
                     ROLE_NAME.PoolOperator,
                     ROLE_NAME.RequestResponder,
+                    ROLE_NAME.CommunityManager,
                     ROLE_NAME.PlatformAdmin,
                   ]}
                   loginPath={loginPath}
@@ -1289,7 +1290,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1300,7 +1305,10 @@ const createRoute = (
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <CreateTeamPage />
@@ -1311,7 +1319,11 @@ const createRoute = (
                   path: ":teamId",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <TeamLayout />
@@ -1324,6 +1336,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1336,7 +1349,10 @@ const createRoute = (
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
+                          roles={[
+                            ROLE_NAME.CommunityManager,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UpdateTeamPage />
@@ -1349,6 +1365,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1368,7 +1385,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1393,6 +1414,7 @@ const createRoute = (
                       roles={[
                         ROLE_NAME.PoolOperator,
                         ROLE_NAME.RequestResponder,
+                        ROLE_NAME.CommunityManager,
                         ROLE_NAME.PlatformAdmin,
                       ]}
                       loginPath={loginPath}
@@ -1408,6 +1430,7 @@ const createRoute = (
                           roles={[
                             ROLE_NAME.PoolOperator,
                             ROLE_NAME.RequestResponder,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1422,6 +1445,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
