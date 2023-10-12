@@ -47,7 +47,6 @@ const SkillShowcaseSection = ({
         data-h2-gap="base(x.5)"
       >
         <SkillRankCard
-          editable
           type="top"
           userSkills={topBehaviouralSkillsRanking}
           title={intl.formatMessage({
