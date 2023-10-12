@@ -58,7 +58,7 @@
     "@types/jest": "^29.5.5",
     "@types/lodash": "4.14.199",
     "@types/react": "^18.2.25",
-    "@types/react-dom": "^18.2.10",
+    "@types/react-dom": "^18.2.13",
     "eslint": "^8.50.0",
     "eslint-config-custom": "*",
     "jest": "^29.7.0",
