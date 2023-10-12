@@ -216,7 +216,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
