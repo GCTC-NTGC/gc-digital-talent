@@ -226,15 +226,15 @@ const ApplicationPrintDocument = React.forwardRef<
                     </ul>
                   )}
                 </PageSection>
-                <Heading level="h3" data-h2-font-weight="base(700)">
-                  {intl.formatMessage({
-                    defaultMessage: "Essential skills",
-                    id: "w7E0He",
-                    description:
-                      "Title for the required skills snapshot section",
-                  })}
-                </Heading>
                 <BreakingPageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Essential skills",
+                      id: "w7E0He",
+                      description:
+                        "Title for the required skills snapshot section",
+                    })}
+                  </Heading>
                   {poolEssentialTechnicalSkills.length > 0 ? (
                     poolEssentialTechnicalSkills.map((skill) => (
                       <SkillWithExperiences
@@ -247,15 +247,15 @@ const ApplicationPrintDocument = React.forwardRef<
                     <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
                   )}
                 </BreakingPageSection>
-                <Heading level="h3" data-h2-font-weight="base(700)">
-                  {intl.formatMessage({
-                    defaultMessage: "Asset skills",
-                    id: "Xpo+u6",
-                    description:
-                      "Title for the optional skills snapshot section",
-                  })}
-                </Heading>
                 <BreakingPageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Asset skills",
+                      id: "Xpo+u6",
+                      description:
+                        "Title for the optional skills snapshot section",
+                    })}
+                  </Heading>
                   {usedAssetsSkills.length > 0 ? (
                     usedAssetsSkills.map((skill) => (
                       <SkillWithExperiences
