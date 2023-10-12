@@ -27,6 +27,7 @@ import {
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
+import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
 import CommunityContent from "./CommunityContent";
@@ -35,23 +36,30 @@ import PersonalContent from "./PersonalContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 
+type EditMode = "link" | "dialog";
+
 interface ExperienceCardProps {
   experience: AnyExperience;
   headingLevel?: HeadingRank;
   showSkills?: boolean | Skill | Array<Skill>;
   showEdit?: boolean;
   editParam?: string;
-  // If the edit button is a button, pass the onClick function
-  onEditClick?: () => void;
   // Override the edit path if needed
   editPath?: string;
+  editMode?: EditMode;
+  onSave?: () => void;
+  linkTo?: Skill;
+  editTrigger?: React.ReactNode;
 }
 
 const ExperienceCard = ({
   experience,
-  onEditClick,
   editParam,
   editPath: editPathProp,
+  editMode = "link",
+  onSave,
+  linkTo,
+  editTrigger,
   headingLevel = "h2",
   showSkills = true,
   showEdit = true,
@@ -76,6 +84,38 @@ const ExperienceCard = ({
 
   const skillCount = skills?.length;
 
+  const edit =
+    (editPath || editParam) && editMode === "link" ? (
+      <EditLink
+        editUrl={`${editPathProp || editPath}${editParam || ""}`}
+        ariaLabel={intl
+          .formatMessage(
+            {
+              defaultMessage: "Edit {experienceName}",
+              id: "CDV1Cw",
+              description: "Link text to edit a specific experience",
+            },
+            {
+              experienceName: title,
+            },
+          )
+          .toString()}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Edit",
+          id: "vXwT4K",
+          description: "Generic link text to edit a miscellaneous item",
+        })}
+      </EditLink>
+    ) : (
+      <ExperienceSkillFormDialog
+        onSave={onSave}
+        skill={linkTo}
+        trigger={editTrigger}
+        experience={experience}
+      />
+    );
+
   return (
     <div
       data-h2-border-left="base(x.5 solid tertiary)"
@@ -99,34 +139,7 @@ const ExperienceCard = ({
         >
           {titleHtml}
         </Heading>
-        {showEdit && (editPathProp || editPath || onEditClick) && (
-          <EditLink
-            editUrl={
-              onEditClick
-                ? undefined
-                : `${editPathProp || editPath}${editParam || ""}`
-            }
-            onEditClick={onEditClick}
-            ariaLabel={intl
-              .formatMessage(
-                {
-                  defaultMessage: "Edit {experienceName}",
-                  id: "CDV1Cw",
-                  description: "Link text to edit a specific experience",
-                },
-                {
-                  experienceName: title,
-                },
-              )
-              .toString()}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "vXwT4K",
-              description: "Generic link text to edit a miscellaneous item",
-            })}
-          </EditLink>
-        )}
+        {showEdit && edit}
       </div>
       <p
         data-h2-display="base(flex)"
