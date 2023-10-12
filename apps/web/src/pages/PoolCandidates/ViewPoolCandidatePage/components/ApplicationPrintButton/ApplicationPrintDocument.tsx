@@ -320,14 +320,12 @@ const ApplicationPrintDocument = React.forwardRef<
               />
             </BreakingPageSection>
             <Heading level="h2" data-h2-font-weight="base(700)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Profile information",
-                  id: "zd/ve4",
-                  description:
-                    "Profile and applications card title for profile card",
-                })}
-              </p>
+              {intl.formatMessage({
+                defaultMessage: "Profile information",
+                id: "zd/ve4",
+                description:
+                  "Profile and applications card title for profile card",
+              })}
             </Heading>
             <PageSection>
               <Heading level="h3" data-h2-font-weight="base(700)">
@@ -845,51 +843,44 @@ const ApplicationPrintDocument = React.forwardRef<
                 </>
               )}
             </PageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
-              <>
-                {intl.formatMessage({
-                  defaultMessage: "Signature",
-                  id: "1ZZgbi",
-                  description: "Title for the signature snapshot section",
-                })}
-              </>
-            </Heading>
             {relevantPoolCandidate && (
-              <>
-                <PageSection>
-                  <p data-h2-margin="base(0, 0, x1, 0)">
-                    {intl.formatMessage(applicationMessages.confirmationLead)}
-                  </p>
-                  <ul>
-                    <li>
-                      {intl.formatMessage(
-                        applicationMessages.confirmationReview,
-                      )}
-                    </li>
-                    <li>
-                      {intl.formatMessage(
-                        applicationMessages.confirmationCommunity,
-                      )}
-                    </li>
-                    <li>
-                      {intl.formatMessage(applicationMessages.confirmationTrue)}
-                    </li>
-                  </ul>
-                </PageSection>
-                <PageSection>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Signed",
-                      id: "fEcEv3",
-                      description:
-                        "Heading for the application snapshot users signature",
-                    })}
-                  </p>
-                  <p data-h2-font-weight="base(700)">
-                    {relevantPoolCandidate.signature}
-                  </p>
-                </PageSection>
-              </>
+              <PageSection>
+                <Heading level="h2" data-h2-font-weight="base(700)">
+                  {intl.formatMessage({
+                    defaultMessage: "Signature",
+                    id: "1ZZgbi",
+                    description: "Title for the signature snapshot section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(0, 0, x1, 0)">
+                  {intl.formatMessage(applicationMessages.confirmationLead)}
+                </p>
+                <ul>
+                  <li>
+                    {intl.formatMessage(applicationMessages.confirmationReview)}
+                  </li>
+                  <li>
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
+                  </li>
+                  <li>
+                    {intl.formatMessage(applicationMessages.confirmationTrue)}
+                  </li>
+                </ul>
+                <p> </p>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Signed",
+                    id: "fEcEv3",
+                    description:
+                      "Heading for the application snapshot users signature",
+                  })}
+                </p>
+                <p data-h2-font-weight="base(700)">
+                  {relevantPoolCandidate.signature}
+                </p>
+              </PageSection>
             )}
           </div>
         </div>
