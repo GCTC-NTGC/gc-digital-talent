@@ -128,6 +128,7 @@ const defaultProps: RenderRepeaterProps = {
   repeaterProps: {
     name: "value",
     max: 5,
+    total: 1,
     onAdd: mockFn,
     addText: "Add item",
   },

@@ -6,6 +6,7 @@ import { useIntl } from "react-intl";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
 import { Announcer, Well } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
@@ -17,6 +18,7 @@ type StoryProps = RepeaterProps &
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
+    numOfLockedItems?: number;
   };
 
 export default {
@@ -28,21 +30,28 @@ const defaultArgs = {
   label: "Screening Questions",
   name: "questions",
   addText: "Add screening question",
+  numOfLockedItems: 1,
 };
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const intl = useIntl();
-  const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
   const {
-    control,
-    formState: { errors },
-  } = useFormContext();
+    name,
+    hideLegend,
+    hideIndex,
+    maxItems,
+    numOfLockedItems,
+    ...rootProps
+  } = props;
+  const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
     name,
+    rules: {
+      required: "Please add at least 1 item.",
+    },
   });
   const canAdd = maxItems ? fields.length < maxItems : true;
-  const approachingLimit = maxItems ? fields.length + 1 === maxItems : false;
 
   return (
     <Repeater.Root
@@ -60,75 +69,46 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
         append(newValues);
         action("add")(newValues);
       }}
-      approachingLimit={approachingLimit}
-      errorDescription={intl.formatMessage({
-        defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached you will have to remove an item to add another.`,
-        id: "vnp5Au",
-        description:
-          "Instructions on how to add a skill to showcase when there are none",
-      })}
+      maxItems={maxItems}
+      total={fields.length}
     >
-      <>
-        {fields.length ? (
-          fields.map((item, index) => (
-            <Repeater.Fieldset
-              key={item.id}
-              index={index}
-              name={name}
-              total={fields.length}
-              onMove={move}
-              onRemove={remove}
-              legend={`Screening Question ${index + 1}`}
-              hideLegend={hideLegend}
-              hideIndex={hideIndex}
-            >
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="base(1fr 1fr)"
-                data-h2-gap="base(x.5)"
-              >
-                <TextArea
-                  id={`${name}.${index}.en`}
-                  name={`${name}.${index}.en`}
-                  label="Question (EN)"
-                  rules={{ required: "required" }}
-                />
-                <TextArea
-                  id={`${name}.${index}.fr`}
-                  name={`${name}.${index}.fr`}
-                  label="Question (FR)"
-                  rules={{ required: "required" }}
-                />
-              </div>
-            </Repeater.Fieldset>
-          ))
-        ) : (
-          <Well data-h2-text-align="base(center)">
-            <p
-              data-h2-font-weight="base(700)"
-              data-h2-margin-bottom="base(x.5)"
-            >
-              You have no questions.
-            </p>
-            <p>Start adding some questions using the following button.</p>
-          </Well>
-        )}
-        {!canAdd && maxItems && (
-          <Well data-h2-text-align="base(center)">
-            <p
-              data-h2-font-weight="base(700)"
-              data-h2-margin-bottom="base(x.5)"
-            >
-              You have reached the maximum amount ({maxItems}) of screening
-              questions per poster.
-            </p>
-            <p>
-              Remember, applicants will submit information on how they meet each
-              skill requirement through the regular application process.
-            </p>
-          </Well>
-        )}
-      </>
+      {fields.map((item, index) => (
+        <Repeater.Fieldset
+          key={item.id}
+          index={index}
+          name={name}
+          total={fields.length}
+          onMove={move}
+          onRemove={remove}
+          legend={`Screening Question ${index + 1}`}
+          hideLegend={hideLegend}
+          hideIndex={hideIndex}
+          numOfLockedItems={numOfLockedItems}
+        >
+          <div
+            data-h2-display="base(grid)"
+            data-h2-grid-template-columns="base(1fr 1fr)"
+            data-h2-gap="base(x.5)"
+          >
+            <TextArea
+              id={`${name}.${index}.en`}
+              name={`${name}.${index}.en`}
+              label="Question (EN)"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <TextArea
+              id={`${name}.${index}.fr`}
+              name={`${name}.${index}.fr`}
+              label="Question (FR)"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+        </Repeater.Fieldset>
+      ))}
     </Repeater.Root>
   );
 };
@@ -190,6 +170,27 @@ WithMaxItems.args = {
     {
       en: "Question 2 (EN)",
       fr: "Question 2 (FR)",
+    },
+  ],
+};
+
+export const WithLockedItems = Template.bind({});
+WithLockedItems.args = {
+  ...defaultArgs,
+  maxItems: 4,
+  numOfLockedItems: 1,
+  defaultValues: [
+    {
+      en: "Question 1 (EN)",
+      fr: "Question 1 (FR)",
+    },
+    {
+      en: "Question 2 (EN)",
+      fr: "Question 2 (FR)",
+    },
+    {
+      en: "Question 3 (EN)",
+      fr: "Question 3 (FR)",
     },
   ],
 };

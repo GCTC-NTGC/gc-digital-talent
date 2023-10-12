@@ -1,21 +1,18 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
 import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
-import get from "lodash/get";
-import { has, hasIn } from "lodash";
+import isEqual from "lodash/isEqual";
 
 import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
-import { Field } from "@gc-digital-talent/forms";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
-import useFieldState from "../../hooks/useFieldState";
-import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import Field from "../Field";
 
 /**
  * Generic button to apply styles to a
@@ -78,7 +75,8 @@ export interface RepeaterFieldsetProps {
   hideIndex?: boolean;
   /** Disables deleting, moving and editing fields */
   disabled?: boolean;
-
+  /** Locks item position (removes append and decrement actions) */
+  numOfLockedItems?: number;
   children: React.ReactNode;
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
@@ -99,33 +97,37 @@ const Fieldset = ({
   onRemove,
   children,
   disabled,
+  numOfLockedItems,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
 
   const {
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useFormContext();
 
   const fieldErrors = errors[name] as FieldErrors<{
     [key: string]: FieldError;
   }>;
   const hasError = useMemo(() => {
-    // TODO: Still not perfect.
-    if (fieldErrors) {
+    if (fieldErrors && isDirty) {
       return (
         Object.keys(fieldErrors).includes(`${index}`) && fieldErrors[index]
       );
     }
-
     return false;
-  }, [fieldErrors, index]);
+  }, [fieldErrors, index, isDirty]);
 
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
   const isFirstItem = disabled || index <= 0;
   const isLastItem = disabled || index === total - 1;
+
+  const isLocked = numOfLockedItems ? index + 1 <= numOfLockedItems : false;
+  const previousItemLocked = numOfLockedItems
+    ? numOfLockedItems + 1 === index + 1
+    : false;
 
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
@@ -199,55 +201,85 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-left="base(-x.5)"
               >
-                <ActionButton
-                  disabled={isFirstItem}
-                  onClick={decrement}
-                  decrement
-                  animate={!shouldReduceMotion}
-                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                    from: position,
-                    to: position - 1,
-                  })}
-                  data-h2-font-weight="base(700)"
-                  data-h2-margin="base(0, x.25)"
-                >
-                  {!isFirstItem ? (
-                    <ArrowUpIcon data-h2-width="base(x.75)" />
-                  ) : (
-                    <div data-h2-width="base(x.75)">
-                      <p>.</p>
-                    </div>
-                  )}
-                </ActionButton>
-                {!hideIndex && (
-                  <span
-                    aria-hidden="true"
-                    data-h2-text-align="base(center)"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin="base(x.25, 0)"
-                  >
-                    {index + 1}
-                  </span>
+                {!isLocked ? (
+                  <>
+                    <ActionButton
+                      disabled={isFirstItem || previousItemLocked}
+                      onClick={decrement}
+                      decrement
+                      animate={!shouldReduceMotion}
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position - 1,
+                        },
+                      )}
+                      data-h2-font-weight="base(700)"
+                      data-h2-margin="base(0, x.25, 0, 0)"
+                      {...(isFirstItem
+                        ? { "data-h2-padding-left": "base(x.25)" }
+                        : {})}
+                    >
+                      {!isFirstItem && !previousItemLocked ? (
+                        <ArrowUpIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        <div data-h2-width="base(x.75)">
+                          <p data-h2-padding-bottom="base(x.25)">.</p>
+                        </div>
+                      )}
+                    </ActionButton>
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin="base(x.25, 0)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                    <ActionButton
+                      disabled={isLastItem}
+                      onClick={increment}
+                      animate={!shouldReduceMotion}
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position + 1,
+                        },
+                      )}
+                      data-h2-font-weight="base(700)"
+                      data-h2-margin="base(0, x.25)"
+                    >
+                      {!isLastItem ? (
+                        <ArrowDownIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        <div data-h2-width="base(x.75)">
+                          <p data-h2-padding-bottom="base(x.25)">.</p>
+                        </div>
+                      )}
+                    </ActionButton>
+                  </>
+                ) : (
+                  <>
+                    <LockClosedIcon
+                      data-h2-margin="base(0, x.5)"
+                      data-h2-width="base(x.75)"
+                    />
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin="base(x.25, 0)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                  </>
                 )}
-                <ActionButton
-                  disabled={isLastItem}
-                  onClick={increment}
-                  animate={!shouldReduceMotion}
-                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                    from: position,
-                    to: position + 1,
-                  })}
-                  data-h2-font-weight="base(700)"
-                  data-h2-margin="base(0, x.25)"
-                >
-                  {!isLastItem ? (
-                    <ArrowDownIcon data-h2-width="base(x.75)" />
-                  ) : (
-                    <div data-h2-width="base(x.75)">
-                      <p>.</p>
-                    </div>
-                  )}
-                </ActionButton>
               </div>
               <div
                 data-h2-display="base(flex)"
@@ -255,7 +287,7 @@ const Fieldset = ({
                 data-h2-margin-right="base(-x.5)"
               >
                 <ActionButton
-                  disabled={disabled}
+                  disabled={disabled || isLocked}
                   animate={false}
                   onClick={handleRemove}
                   aria-label={intl.formatMessage(formMessages.repeaterRemove, {
@@ -303,14 +335,17 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
-  /* Maximum number of items in field array */
-  approachingLimit?: boolean;
+  /** Current total number of fields (eg: fields.length) */
+  total: number;
+  /* Maximum number of items */
+  maxItems?: number;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   customButton?: React.ReactNode;
-  errorDescription?: React.ReactNode;
+  /* Custom error message that overrides default root error message */
+  customErrorMessage?: React.ReactNode;
 }
 
 const Root = ({
@@ -320,19 +355,40 @@ const Root = ({
   addButtonProps,
   children,
   showAdd = true,
-  approachingLimit,
+  maxItems,
+  total,
   customButton,
-  errorDescription,
+  customErrorMessage,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
 
   const {
-    formState: { errors },
+    formState: { errors, defaultValues, isDirty },
+    watch,
   } = useFormContext();
-  // To grab errors in nested objects we need to use lodash's get helper.
-  const hasError = get(errors, name) ? true : undefined;
+
+  // Check if any changes have been made to repeater length or repeater items.
+  const originalItems = defaultValues?.[name];
+  const currentItems = watch(name);
+  // TODO: Find better type assignment
+  const changedItems = originalItems?.filter(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (original: any, index: string | number) => {
+      const current = currentItems[index];
+      return !current || !isEqual(original, current);
+    },
+  );
+  const hasUnsavedChanges =
+    isDirty ||
+    (changedItems?.length && currentItems.length !== originalItems?.length);
+
+  // Grab root error message from field errors list
+  const hasError = errors?.[name] ? true : undefined;
+  const errorMessage = errors?.[name]?.root?.message as string;
+
+  const approachingLimit = maxItems ? total + 1 === maxItems : false;
 
   return (
     <div
@@ -376,23 +432,58 @@ const Root = ({
           </p>
         </Well>
       )}
+      {total === 0 && (
+        <Well
+          data-h2-margin-bottom="base(x1)"
+          data-h2-text-align="base(center)"
+        >
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any items yet.",
+              id: "rWovPZ",
+              description:
+                "Message displayed when no items have been added to repeater.",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: `You can add items using the "Add a new item" button provided.`,
+              id: "ZSA4lO",
+              description:
+                "Secondary message displayed when no items have been added to repeater.",
+            })}
+          </p>
+        </Well>
+      )}
       {hasError && (
         <Field.Error id={name} data-h2-padding="base(0)">
           <Well data-h2-text-align="base(center)">
-            <p
-              data-h2-font-weight="base(700)"
-              data-h2-margin-bottom="base(x.5)"
-            >
+            <p data-h2-font-weight="base(700)">
               {intl.formatMessage({
                 defaultMessage: "It looks like this list has an error",
                 id: "OPdYSB",
                 description: "Error message title for repeater component.",
               })}
             </p>
-            <p>{errorDescription}</p>
+            {errorMessage && (
+              <p data-h2-margin-top="base(x.5)">
+                {customErrorMessage ?? errorMessage}
+              </p>
+            )}
           </Well>
         </Field.Error>
       )}
+      {hasUnsavedChanges ? (
+        <Well data-h2-margin-bottom="base(x1)">
+          {intl.formatMessage({
+            defaultMessage:
+              "You have unsaved changes. Please, remember to save!",
+            id: "Un9x5Z",
+            description:
+              "Message displayed when items have been moved and not saved",
+          })}
+        </Well>
+      ) : null}
       {showAdd && !customButton ? (
         <Button
           id={addId}
@@ -421,7 +512,7 @@ const Root = ({
               })}
           {...addButtonProps}
         >
-          {addText}
+          {addText} {maxItems && `(${total}/${maxItems})`}
         </Button>
       ) : (
         customButton
