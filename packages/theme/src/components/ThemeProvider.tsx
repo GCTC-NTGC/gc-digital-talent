@@ -90,7 +90,7 @@ const ThemeProvider = ({
 
   React.useEffect(() => {
     const hydrogen = document.querySelectorAll(
-      themeSelector || "body[data-h2]",
+      themeSelector || "html[data-h2], body[data-h2]",
     );
     let themeString: string | undefined = "";
     if (mode && key) {
