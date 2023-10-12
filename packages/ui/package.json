@@ -67,7 +67,7 @@
     "@types/react": "^18.2.28",
     "@types/react-csv": "^1.1.6",
     "@types/react-dom": "^18.2.13",
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "eslint-config-custom": "*",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
