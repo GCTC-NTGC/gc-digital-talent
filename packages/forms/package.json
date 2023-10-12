@@ -31,7 +31,7 @@
     "@gc-digital-talent/storage": "*",
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "2.0.18",
-    "@tiptap/extension-character-count": "^2.1.11",
+    "@tiptap/extension-character-count": "^2.1.12",
     "@tiptap/extension-link": "^2.1.12",
     "@tiptap/html": "^2.1.11",
     "@tiptap/react": "^2.1.11",
