@@ -26,6 +26,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
+const MAX_SCREENING_QUESTIONS = 3;
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
@@ -160,7 +161,56 @@ const ScreeningQuestions = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const canAdd = fields.length < 3;
+  const canAdd = fields.length < MAX_SCREENING_QUESTIONS;
+
+  const customNullMessage = (
+    <>
+      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        {intl.formatMessage({
+          defaultMessage: "You have no questions.",
+          id: "izt28e",
+          description:
+            "Message that appears when there are no screening messages for a pool",
+        })}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Start adding some questions using the following button.",
+          id: "vDqzWG",
+          description:
+            "Instructions on how to add a question when there are none",
+        })}
+      </p>
+    </>
+  );
+
+  const maxItemsMessage = (
+    <>
+      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "You have reached the maximum amount ({maxItems}) of screening questions per poster.",
+            id: "Kklz7F",
+            description:
+              "Message displayed when a user adds the maximum number of questions",
+          },
+          { maxItems: MAX_SCREENING_QUESTIONS },
+        )}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
+          id: "fNYEBT",
+          description:
+            "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
+        })}
+      </p>
+    </>
+  );
+
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
       <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
@@ -178,8 +228,10 @@ const ScreeningQuestions = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(handleSave)}>
           <Repeater.Root
-            data-h2-margin-bottom="base(1rem)"
+            name="questions"
+            total={fields.length}
             showAdd={canAdd && !formDisabled}
+            maxItems={MAX_SCREENING_QUESTIONS}
             onAdd={() => {
               append({
                 id: "new",
@@ -194,117 +246,65 @@ const ScreeningQuestions = ({
               id: "vf7/Xq",
               description: "Button text to add a new screening question",
             })}
+            customNullMessage={customNullMessage}
+            maxItemsMessage={maxItemsMessage}
+            data-h2-margin-bottom="base(1rem)"
           >
-            <>
-              {fields.length ? (
-                fields.map((item, index) => (
-                  <Repeater.Fieldset
-                    key={item.id}
-                    index={index}
-                    total={fields.length}
-                    onMove={move}
-                    onRemove={remove}
-                    disabled={formDisabled}
-                    legend={intl.formatMessage(
-                      {
-                        defaultMessage: "Screening question {index}",
-                        id: "s+ObMR",
-                        description: "Legend for screening question fieldset",
-                      },
-                      {
-                        index: index + 1,
-                      },
-                    )}
-                  >
-                    <input type="hidden" name={`questions.${index}.id`} />
-                    <div
-                      data-h2-display="base(grid)"
-                      data-h2-grid-template-columns="base(1fr 1fr)"
-                      data-h2-gap="base(0 x1)"
-                    >
-                      <div>
-                        <TextArea
-                          id={`questions.${index}.question.en`}
-                          name={`questions.${index}.question.en`}
-                          label="Question (EN)"
-                          disabled={formDisabled}
-                          rows={TEXT_AREA_ROWS}
-                          wordLimit={TEXT_AREA_MAX_WORDS}
-                          rules={{
-                            required: intl.formatMessage(
-                              errorMessages.required,
-                            ),
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <TextArea
-                          id={`questions.${index}.question.fr`}
-                          name={`questions.${index}.question.fr`}
-                          label="Question (FR)"
-                          disabled={formDisabled}
-                          rows={TEXT_AREA_ROWS}
-                          wordLimit={TEXT_AREA_MAX_WORDS}
-                          rules={{
-                            required: intl.formatMessage(
-                              errorMessages.required,
-                            ),
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </Repeater.Fieldset>
-                ))
-              ) : (
-                <Well>
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "You have no questions.",
-                      id: "izt28e",
-                      description:
-                        "Message that appears when there are no screening messages for a pool",
-                    })}
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Start adding some questions using the following button.",
-                      id: "vDqzWG",
-                      description:
-                        "Instructions on how to add a question when there are none",
-                    })}
-                  </p>
-                </Well>
-              )}
-              {!canAdd && (
-                <Well>
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You have reached the maximum amount (3) of screening questions per poster.",
-                      id: "qs09PP",
-                      description:
-                        "Message displayed when a user adds the maximum number of questions",
-                    })}
-                  </p>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
-                      id: "fNYEBT",
-                      description:
-                        "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
-                    })}
-                  </p>
-                </Well>
-              )}
-            </>
+            {fields.map((item, index) => (
+              <Repeater.Fieldset
+                key={item.id}
+                index={index}
+                name="questions"
+                total={fields.length}
+                onMove={move}
+                onRemove={remove}
+                disabled={formDisabled}
+                legend={intl.formatMessage(
+                  {
+                    defaultMessage: "Screening question {index}",
+                    id: "s+ObMR",
+                    description: "Legend for screening question fieldset",
+                  },
+                  {
+                    index: index + 1,
+                  },
+                )}
+              >
+                <input type="hidden" name={`questions.${index}.id`} />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(1fr 1fr)"
+                  data-h2-gap="base(0 x1)"
+                >
+                  <div>
+                    <TextArea
+                      id={`questions.${index}.question.en`}
+                      name={`questions.${index}.question.en`}
+                      label="Question (EN)"
+                      disabled={formDisabled}
+                      rows={TEXT_AREA_ROWS}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <TextArea
+                      id={`questions.${index}.question.fr`}
+                      name={`questions.${index}.question.fr`}
+                      label="Question (FR)"
+                      disabled={formDisabled}
+                      rows={TEXT_AREA_ROWS}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                </div>
+              </Repeater.Fieldset>
+            ))}
           </Repeater.Root>
 
           <ModificationAlert originalQuestions={defaultValues.questions} />
