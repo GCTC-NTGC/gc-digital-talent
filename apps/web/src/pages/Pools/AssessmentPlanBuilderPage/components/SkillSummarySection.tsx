@@ -1,17 +1,17 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
 import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-const sectionTitle = {
+const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
-  id: "x", // why hasn't this autofilled?
+  id: "iNIXQ9",
   description:
     "Title for the skill summary section in the assessment plan builder",
-};
+});
 
 export interface SkillSummarySectionProps {
   pool: Pool;

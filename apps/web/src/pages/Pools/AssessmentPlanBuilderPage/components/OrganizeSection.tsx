@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
 import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
@@ -8,11 +8,11 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 
-const sectionTitle = {
+const sectionTitle = defineMessage({
   defaultMessage: "Organize assessment approach",
-  id: "x", // why hasn't this auto-filled?
+  id: "qFY+K4",
   description: "Title for the organize section in the assessment plan builder",
-};
+});
 
 export interface OrganizeSectionProps {
   pool: Pool;
