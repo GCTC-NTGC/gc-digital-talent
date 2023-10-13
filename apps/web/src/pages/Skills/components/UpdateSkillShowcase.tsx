@@ -79,6 +79,7 @@ interface UpdateSkillShowcaseProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  maxItems: number;
   crumbs: { label: string; url: string }[];
   pageInfo: {
     id: string;
@@ -98,6 +99,7 @@ const UpdateSkillShowcase = ({
   skills,
   userSkills,
   initialSkills,
+  maxItems,
   crumbs,
   pageInfo,
   handleSubmit,
@@ -233,6 +235,9 @@ const UpdateSkillShowcase = ({
                   <form onSubmit={methods.handleSubmit(handleSubmit)}>
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
+                      name="userSkills"
+                      total={fields.length}
+                      maxItems={maxItems}
                       showAdd={canAdd}
                       customButton={
                         <SkillDialog
@@ -304,80 +309,55 @@ const UpdateSkillShowcase = ({
                         />
                       }
                     >
-                      {fields.length ? (
-                        fields.map((item, index) => (
-                          <Repeater.Fieldset
-                            key={item.id}
-                            index={index}
-                            total={fields.length}
-                            onMove={move}
-                            onRemove={remove}
-                            legend={
-                              <span
-                                data-h2-display="base(flex)"
-                                data-h2-justify-content="base(space-between)"
-                              >
-                                <span>
-                                  {getLocalizedName(
-                                    getSkill(item.skill)?.name ?? undefined,
-                                    intl,
-                                  )}
-                                </span>
-                                <span
-                                  data-h2-font-weight="base(400)"
-                                  data-h2-color="base(black.light)"
-                                >
-                                  {item.skillLevel
-                                    ? intl.formatMessage(
-                                        item.category ===
-                                          SkillCategory.Behavioural
-                                          ? getBehaviouralSkillLevel(
-                                              item.skillLevel,
-                                            )
-                                          : getTechnicalSkillLevel(
-                                              item.skillLevel,
-                                            ),
-                                      )
-                                    : getLocalizedName(null, intl)}
-                                </span>
-                              </span>
-                            }
-                          >
-                            <div>
-                              <p>
+                      {fields.map((item, index) => (
+                        <Repeater.Fieldset
+                          key={item.id}
+                          name="userSkills"
+                          index={index}
+                          total={fields.length}
+                          onMove={move}
+                          onRemove={remove}
+                          legend={
+                            <span
+                              data-h2-display="base(flex)"
+                              data-h2-justify-content="base(space-between)"
+                            >
+                              <span>
                                 {getLocalizedName(
-                                  getSkill(item.skill)?.description ??
-                                    undefined,
+                                  getSkill(item.skill)?.name ?? undefined,
                                   intl,
                                 )}
-                              </p>
-                            </div>
-                          </Repeater.Fieldset>
-                        ))
-                      ) : (
-                        <Well data-h2-text-align="base(center)">
-                          <p
-                            data-h2-font-weight="base(700)"
-                            data-h2-margin-bottom="base(x.5)"
-                          >
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "You haven't added any items yet.",
-                              id: "cEalcz",
-                              description:
-                                "Message that appears when there are no skills on showcase",
-                            })}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: `You can add items using the "Add a new item" button provided.`,
-                              id: "mR8ccV",
-                              description:
-                                "Instructions on how to add a skill to showcase when there are none",
-                            })}
-                          </p>
-                        </Well>
-                      )}
+                              </span>
+                              <span
+                                data-h2-font-weight="base(400)"
+                                data-h2-color="base(black.light)"
+                              >
+                                {item.skillLevel
+                                  ? intl.formatMessage(
+                                      item.category ===
+                                        SkillCategory.Behavioural
+                                        ? getBehaviouralSkillLevel(
+                                            item.skillLevel,
+                                          )
+                                        : getTechnicalSkillLevel(
+                                            item.skillLevel,
+                                          ),
+                                    )
+                                  : getLocalizedName(null, intl)}
+                              </span>
+                            </span>
+                          }
+                        >
+                          <div>
+                            <p>
+                              {getLocalizedName(
+                                getSkill(item.skill)?.description ?? undefined,
+                                intl,
+                              )}
+                            </p>
+                          </div>
+                        </Repeater.Fieldset>
+                      ))}
                     </Repeater.Root>
 
                     <ModificationAlert userSkills={initialSkills.userSkills} />
