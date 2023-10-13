@@ -344,8 +344,12 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   customButton?: React.ReactNode;
-  /* Custom error message that overrides default root error message */
+  /** Custom error message that overrides default root error message */
   customErrorMessage?: React.ReactNode;
+  /** Custom null message when no items have been added */
+  customNullMessage?: React.ReactNode;
+  /** Max items message when maximum amount of items have been added */
+  maxItemsMessage?: React.ReactNode;
 }
 
 const Root = ({
@@ -359,6 +363,8 @@ const Root = ({
   total,
   customButton,
   customErrorMessage,
+  customNullMessage,
+  maxItemsMessage,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
@@ -408,7 +414,7 @@ const Root = ({
       >
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
-      {children}
+      {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
       {approachingLimit && (
         <Well
           data-h2-margin-bottom="base(x1)"
@@ -437,27 +443,37 @@ const Root = ({
           data-h2-margin-bottom="base(x1)"
           data-h2-text-align="base(center)"
         >
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any items yet.",
-              id: "rWovPZ",
-              description:
-                "Message displayed when no items have been added to repeater.",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `You can add items using the "Add a new item" button provided.`,
-              id: "ZSA4lO",
-              description:
-                "Secondary message displayed when no items have been added to repeater.",
-            })}
-          </p>
+          {customNullMessage ?? (
+            <>
+              <p
+                data-h2-font-weight="base(700)"
+                data-h2-margin-bottom="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any items yet.",
+                  id: "rWovPZ",
+                  description:
+                    "Message displayed when no items have been added to repeater.",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: `You can add items using the "Add a new item" button provided.`,
+                  id: "ZSA4lO",
+                  description:
+                    "Secondary message displayed when no items have been added to repeater.",
+                })}
+              </p>
+            </>
+          )}
         </Well>
       )}
       {hasError && (
         <Field.Error id={name} data-h2-padding="base(0)">
-          <Well data-h2-text-align="base(center)">
+          <Well
+            data-h2-text-align="base(center)"
+            data-h2-margin-bottom="base(x1)"
+          >
             <p data-h2-font-weight="base(700)">
               {intl.formatMessage({
                 defaultMessage: "It looks like this list has an error",
@@ -473,6 +489,7 @@ const Root = ({
           </Well>
         </Field.Error>
       )}
+      {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
       {hasUnsavedChanges ? (
         <Well data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({
@@ -512,7 +529,26 @@ const Root = ({
               })}
           {...addButtonProps}
         >
-          {addText} {maxItems && `(${total}/${maxItems})`}
+          {maxItems && total === maxItems ? (
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Delete an item to add another",
+                id: "lFFnfX",
+                description:
+                  "Message displayed when max items have been reached.",
+              })}
+            </>
+          ) : (
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Add a new item",
+                id: "XzGOuV",
+                description:
+                  "Label for skill dialog trigger on skills showcase section.",
+              })}
+            </>
+          )}{" "}
+          {maxItems && `(${total}/${maxItems})`}
         </Button>
       ) : (
         customButton

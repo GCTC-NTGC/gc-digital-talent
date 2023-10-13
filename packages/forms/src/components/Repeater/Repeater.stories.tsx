@@ -5,7 +5,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
-import { Announcer, Well } from "@gc-digital-talent/ui";
+import { Announcer } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import BasicForm from "../BasicForm";
