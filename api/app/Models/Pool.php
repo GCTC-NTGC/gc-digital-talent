@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
+use App\Enums\SkillCategory;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -155,6 +157,7 @@ class Pool extends Model
         }
 
         $this->essentialSkills()->sync($skillArrayToSync);
+        $this->syncApplicationScreeningStepPoolSkills();
     }
 
     /**
@@ -171,6 +174,23 @@ class Pool extends Model
         }
 
         $this->nonessentialSkills()->sync($skillArrayToSync);
+        $this->syncApplicationScreeningStepPoolSkills();
+    }
+
+    // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
+    private function syncApplicationScreeningStepPoolSkills()
+    {
+        $screeningStep = $this->assessmentSteps()->firstOrNew([
+            'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+            'sort_order' => 1,
+        ]);
+
+        $technicalSkills = $this->poolSkills()->get()->filter(function (PoolSkill $poolSkill) {
+            $poolSkill->load('skill');
+            return $poolSkill->skill->category === SkillCategory::TECHNICAL->name;
+        });
+
+        $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
     public function screeningQuestions(): HasMany
@@ -215,6 +235,24 @@ class Pool extends Model
         }
 
         return true;
+    }
+
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Pool $pool) {
+            $step = new AssessmentStep;
+            $step->pool_id = $pool->id;
+            $step->type = AssessmentStepType::APPLICATION_SCREENING->name;
+            $step->sort_order = 1;
+            $step->save();
+        });
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)
