@@ -149,8 +149,7 @@ const TeamMembersPage = () => {
   });
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useAllUsersNamesQuery();
+  const [{ data: userData, error: userError }] = useAllUsersNamesQuery();
 
   const team = data?.team;
   const roles = React.useMemo(

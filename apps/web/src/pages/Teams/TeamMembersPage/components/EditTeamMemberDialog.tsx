@@ -14,12 +14,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
-import {
-  Role,
-  Team,
-  useUpdateUserAsAdminMutation,
-  useUpdateUserTeamRolesMutation,
-} from "~/api/generated";
+import { Role, Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
