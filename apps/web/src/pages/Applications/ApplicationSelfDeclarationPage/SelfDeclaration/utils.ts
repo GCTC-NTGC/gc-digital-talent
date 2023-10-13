@@ -1,5 +1,9 @@
 import { IntlShape } from "react-intl";
 
+import { empty } from "@gc-digital-talent/helpers";
+
+import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
+
 export const getSelfDeclarationLabels = (intl: IntlShape) => ({
   isIndigenous: intl.formatMessage({
     defaultMessage: "Self-Declaration",
@@ -91,3 +95,24 @@ export const getCommunityLabels = (intl: IntlShape) =>
       }),
     ],
   ]);
+
+type GetCommunityLabelArgs = {
+  community: string;
+  intl: IntlShape;
+  status?: FirstNationsStatus;
+};
+
+export const getCommunityLabel = ({
+  community,
+  status,
+  intl,
+}: GetCommunityLabelArgs) => {
+  const labels = getCommunityLabels(intl);
+  if (community === "firstNations") {
+    if (empty(status)) return null;
+
+    return labels.get(status);
+  }
+
+  return labels.get(community);
+};

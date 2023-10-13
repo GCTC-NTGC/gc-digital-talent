@@ -7,12 +7,15 @@ import {
   Checklist,
   Field,
   Checkbox,
+  RadioGroup,
 } from "@gc-digital-talent/forms";
-import { Alert, Chip, Chips } from "@gc-digital-talent/ui";
+import { Alert } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import HelpLink from "./HelpLink";
-import { getCommunityLabels, hasCommunityAndOther } from "./utils";
+import { hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
+import CommunityChips from "./CommunityChips";
 
 interface RowProps {
   children: React.ReactNode;
@@ -38,12 +41,10 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
   const [hasDismissedAlert, setHasDismissedAlert] =
     React.useState<boolean>(false);
-  const { watch, setValue, setError, clearErrors, formState } =
+  const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
-  const communityLabels = getCommunityLabels(intl);
-
-  const [communitiesValue] = watch(["communities"]);
+  const [communitiesValue, isStatus] = watch(["communities", "isStatus"]);
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
@@ -83,6 +84,9 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
       (value: string) => value !== community,
     );
     setValue("communities", newCommunities);
+    if (community === "firstNations") {
+      resetField("isStatus");
+    }
   };
 
   return (
@@ -94,32 +98,19 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
       >
         <Row>
           <div data-h2-grid-column="base(span 3)">
-            <Checklist
-              idPrefix="firstNations"
+            <Checkbox
               id="firstNations"
               name="communities"
-              legend={labels.firstNations}
+              boundingBox
+              boundingBoxLabel={labels.firstNations}
               trackUnsaved={false}
-              items={[
-                {
-                  value: "status",
-                  label: intl.formatMessage({
-                    defaultMessage: '"I am Status First Nations"',
-                    id: "ssJxrj",
-                    description:
-                      "Text for the option to self-declare as a status first nations",
-                  }),
-                },
-                {
-                  value: "nonStatus",
-                  label: intl.formatMessage({
-                    defaultMessage: '"I am Non-Status First Nations"',
-                    id: "sSE4kt",
-                    description:
-                      "Text for the option to self-declare as a non-status first nations",
-                  }),
-                },
-              ]}
+              value="firstNations"
+              label={intl.formatMessage({
+                defaultMessage: '"I am First Nations"',
+                id: "Wpj2OY",
+                description:
+                  "Text for the option to self-declare as first nations",
+              })}
               aria-describedby={customAlertId}
             />
             {formState.errors.firstNationsCustom && (
@@ -129,9 +120,50 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
             )}
           </div>
           <div>
-            <CommunityIcon values={["status"]} community="first-nations" />
+            <CommunityIcon
+              values={["firstNations"]}
+              community="first-nations"
+            />
           </div>
         </Row>
+        {communitiesValue.includes("firstNations") && (
+          <Row>
+            <div data-h2-grid-column="base(span 3)">
+              <RadioGroup
+                idPrefix="firstNationsStatus"
+                name="isStatus"
+                legend={intl.formatMessage({
+                  defaultMessage: "First Nations status",
+                  id: "0KY1My",
+                  description:
+                    "Legend for selecting First Nations status or non-status",
+                })}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                items={[
+                  {
+                    value: "status",
+                    label: intl.formatMessage({
+                      defaultMessage: '"I am Status First Nations"',
+                      id: "ssJxrj",
+                      description:
+                        "Text for the option to self-declare as a status first nations",
+                    }),
+                  },
+                  {
+                    value: "nonStatus",
+                    label: intl.formatMessage({
+                      defaultMessage: '"I am Non-Status First Nations"',
+                      id: "sSE4kt",
+                      description:
+                        "Text for the option to self-declare as a non-status first nations",
+                    }),
+                  },
+                ]}
+              />
+            </div>
+            <div />
+          </Row>
+        )}
         <Row>
           <div data-h2-grid-column="base(span 3)">
             <Checklist
@@ -206,26 +238,12 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           </div>
         </Row>
       </div>
-      {communitiesValue && communitiesValue.length > 0 ? (
-        <Chips data-h2-margin-bottom="base(x1)">
-          {communitiesValue.map((community: string) => {
-            const label = communityLabels.get(community);
-            return label ? (
-              <Chip
-                key={community}
-                mode="outline"
-                color={
-                  isOtherAndHasCommunity && isAlertOpen && community === "other"
-                    ? "warning"
-                    : "primary"
-                }
-                onDismiss={() => handleDismissCommunity(community)}
-                label={label}
-              />
-            ) : null;
-          })}
-        </Chips>
-      ) : null}
+      <CommunityChips
+        communities={communitiesValue}
+        status={isStatus}
+        otherAlert={!!(isOtherAndHasCommunity && isAlertOpen)}
+        onDismiss={handleDismissCommunity}
+      />
       {isAlertOpen && (
         <Alert.Root type="warning" dismissible onDismiss={handleAlertDismiss}>
           <Alert.Title>
