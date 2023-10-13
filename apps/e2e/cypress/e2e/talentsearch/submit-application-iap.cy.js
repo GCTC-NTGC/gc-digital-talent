@@ -156,15 +156,19 @@ describe("Submit Application for IAP Workflow Tests", () => {
     }).click();
     cy.findByRole("button", { name: /Sign and continue/i }).should("not.exist"); // check that you cannot proceed without affirmation
 
-    cy.findByRole("radio", {
+    cy.findByRole("checkbox", {
       // affirmation
-      name: /I am First Nations/i,
+      name: /i affirm that i am first nations/i,
     }).click();
     cy.findByRole("button", { name: /Sign and continue/i }).should("not.exist"); // check that you cannot proceed without community selection
 
     cy.findByRole("checkbox", {
       // community selection
-      name: /I am Status First Nations/i,
+      name: /i am first nations/i,
+    }).click();
+    cy.findByRole("radio", {
+      // affirmation
+      name: /i am status first nations/i,
     }).click();
     cy.findByRole("textbox", {
       name: /signature/i,
