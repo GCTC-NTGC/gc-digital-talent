@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
-import { registerShortcuts } from "@storybook/addon-viewport/*";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
