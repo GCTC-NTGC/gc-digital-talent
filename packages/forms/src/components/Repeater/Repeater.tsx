@@ -421,21 +421,9 @@ const Root = ({
           data-h2-text-align="base(center)"
         >
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
-            {intl.formatMessage({
-              defaultMessage: "You're approaching the limit!",
-              id: "oDND0c",
-              description:
-                "Message displayed when items have been moved and not saved",
-            })}
+            {intl.formatMessage(formMessages.approachingLimit)}
           </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached you will have to remove an item to add another.`,
-              id: "vnp5Au",
-              description:
-                "Instructions on how to add a skill to showcase when there are none",
-            })}
-          </p>
+          <p>{intl.formatMessage(formMessages.approachingLimitDetails)}</p>
         </Well>
       )}
       {total === 0 && (
@@ -449,21 +437,9 @@ const Root = ({
                 data-h2-font-weight="base(700)"
                 data-h2-margin-bottom="base(x.5)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any items yet.",
-                  id: "rWovPZ",
-                  description:
-                    "Message displayed when no items have been added to repeater.",
-                })}
+                {intl.formatMessage(formMessages.repeaterNull)}
               </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: `You can add items using the "Add a new item" button provided.`,
-                  id: "ZSA4lO",
-                  description:
-                    "Secondary message displayed when no items have been added to repeater.",
-                })}
-              </p>
+              <p>{intl.formatMessage(formMessages.repeaterNullDetails)}</p>
             </>
           )}
         </Well>
@@ -475,11 +451,7 @@ const Root = ({
             data-h2-margin-bottom="base(x1)"
           >
             <p data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "It looks like this list has an error",
-                id: "OPdYSB",
-                description: "Error message title for repeater component.",
-              })}
+              {intl.formatMessage(formMessages.repeaterDefaultError)}
             </p>
             {errorMessage && (
               <p data-h2-margin-top="base(x.5)">
@@ -492,13 +464,7 @@ const Root = ({
       {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
       {hasUnsavedChanges ? (
         <Well data-h2-margin-bottom="base(x1)">
-          {intl.formatMessage({
-            defaultMessage:
-              "You have unsaved changes. Please, remember to save!",
-            id: "Un9x5Z",
-            description:
-              "Message displayed when items have been moved and not saved",
-          })}
+          {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
         </Well>
       ) : null}
       {showAdd && !customButton ? (
@@ -530,23 +496,9 @@ const Root = ({
           {...addButtonProps}
         >
           {maxItems && total === maxItems ? (
-            <>
-              {intl.formatMessage({
-                defaultMessage: "Delete an item to add another",
-                id: "lFFnfX",
-                description:
-                  "Message displayed when max items have been reached.",
-              })}
-            </>
+            <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
           ) : (
-            <>
-              {intl.formatMessage({
-                defaultMessage: "Add a new item",
-                id: "XzGOuV",
-                description:
-                  "Label for skill dialog trigger on skills showcase section.",
-              })}
-            </>
+            <>{intl.formatMessage(formMessages.repeaterAddItem)}</>
           )}{" "}
           {maxItems && `(${total}/${maxItems})`}
         </Button>
