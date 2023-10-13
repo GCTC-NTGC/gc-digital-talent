@@ -115,7 +115,7 @@ AssessmentDetailsDialogProps) => {
   const methods = useForm<FormValues>({
     defaultValues: deriveDefaultFormValues(mode, existingValues),
   });
-  const { handleSubmit, control, watch } = methods;
+  const { handleSubmit, control } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "screeningQuestions",
@@ -140,7 +140,7 @@ AssessmentDetailsDialogProps) => {
       return;
     }
 
-    console.debug(values);
+    // console.debug(values);
 
     // if (executeMutation) {
     //   await executeMutation(args)
@@ -168,8 +168,6 @@ AssessmentDetailsDialogProps) => {
     );
     // });
   };
-
-  const formValues = watch();
 
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
@@ -209,7 +207,6 @@ AssessmentDetailsDialogProps) => {
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              {JSON.stringify(formValues)}
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
