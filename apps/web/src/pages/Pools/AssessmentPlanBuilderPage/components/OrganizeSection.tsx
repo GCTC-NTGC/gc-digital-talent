@@ -8,6 +8,8 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 
+const MAX_ASSESSMENT_STEPS = 6;
+
 const sectionTitle = defineMessage({
   defaultMessage: "Organize assessment approach",
   id: "qFY+K4",
@@ -76,24 +78,34 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             data-h2-text-decoration="base(underline)"
           >
             <Accordion.Trigger data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "What if I need more than 6 assessment methods?",
-                id: "8hct3m",
-                description:
-                  "second question in the organize section in the assessment plan builder",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "What if I need more than {maxSteps} assessment methods?",
+                  id: "LphzpW",
+                  description:
+                    "second question in the organize section in the assessment plan builder",
+                },
+                {
+                  maxSteps: MAX_ASSESSMENT_STEPS,
+                },
+              )}
             </Accordion.Trigger>
           </Accordion.Header>
           <Accordion.Content>
             <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  'Ultimately, it\'s the decision of the hiring panel or manager to determine how many assessment methods are appropriate. If you have more than 6, select "Additional Assessment" for your sixth choice, and then reach out to our team. We can walk you through how these additional assessments can be handled on the platform.',
-                id: "8cReOj",
-                description:
-                  "First paragraph of second answer of the Frequently Asked Questions for logging in",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    'Ultimately, it\'s the decision of the hiring panel or manager to determine how many assessment methods are appropriate. If you have more than {maxSteps}, select "Additional Assessment" for your last choice, and then reach out to our team. We can walk you through how these additional assessments can be handled on the platform.',
+                  id: "9IMcqY",
+                  description:
+                    "First paragraph of second answer of the Frequently Asked Questions for logging in",
+                },
+                {
+                  maxSteps: MAX_ASSESSMENT_STEPS,
+                },
+              )}
             </p>
           </Accordion.Content>
         </Accordion.Item>
@@ -124,18 +136,13 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
           description:
             "Title for warning message when the user has few assessments to the assessment plan",
         })}
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
-            id: "xCoGIm",
-            description:
-              "Description for warning message when the user has few assessments to the assessment plan",
-          },
-          {
-            assessmentCount: 6,
-          },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
+          id: "xCoGIm",
+          description:
+            "Description for warning message when the user has few assessments to the assessment plan",
+        })}
         {intl.formatMessage({
           defaultMessage: "You are approaching the limit!",
           id: "1moJ8r",
@@ -145,13 +152,13 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "You can add up to {assessmentCount} assessment methods, but you don’t need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
-            id: "ndgNJW",
+              "You can add up to {maxSteps} assessment methods, but you don’t need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
+            id: "X43Swd",
             description:
               "Description for warning message when the user has added many assessments to the assessment plan",
           },
           {
-            assessmentCount: 6,
+            maxSteps: MAX_ASSESSMENT_STEPS,
           },
         )}
         <AssessmentDetailsDialog

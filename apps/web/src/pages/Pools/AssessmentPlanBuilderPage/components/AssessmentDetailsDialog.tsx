@@ -107,8 +107,7 @@ const AssessmentDetailsDialog = ({
   mode = "regular",
   allPoolSkills,
   existingValues,
-}: // onOpenChange,
-AssessmentDetailsDialogProps) => {
+}: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 

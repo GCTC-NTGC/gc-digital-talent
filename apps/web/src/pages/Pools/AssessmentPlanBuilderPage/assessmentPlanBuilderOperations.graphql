@@ -1,4 +1,4 @@
-# query to populated the edit pool page
+# query to populate the assessment plan builder page
 query getAssessmentPlanBuilderData($poolId: UUID!) {
   # the existing data of the pool to edit
   pool(id: $poolId) {
@@ -16,7 +16,7 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
           en
           fr
         }
-        # three junk fields required by schema
+        # three junk fields required by schema since non-nullable
         id
         category
         key
