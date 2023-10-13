@@ -6,9 +6,11 @@ import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
+
 const sectionTitle = {
   defaultMessage: "Organize assessment approach",
-  id: "x",
+  id: "x", // why hasn't this auto-filled?
   description: "Title for the organize section in the assessment plan builder",
 };
 
@@ -152,6 +154,14 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             assessmentCount: 6,
           },
         )}
+        <AssessmentDetailsDialog
+          mode="regular"
+          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+        />
+        <AssessmentDetailsDialog
+          mode="screening_question"
+          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+        />
       </div>
     </>
   );

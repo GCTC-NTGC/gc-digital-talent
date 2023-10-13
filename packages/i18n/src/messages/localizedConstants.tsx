@@ -31,6 +31,7 @@ import {
   PoolCandidateSearchPositionType,
   SkillLevel,
   EvaluatedLanguageAbility,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1928,4 +1929,67 @@ export const getEvaluatedLanguageAbility = (
     evaluatedLanguageMessages,
     ability,
     `Invalid evaluatedLanguageAbility ${ability}`,
+  );
+
+const assessmentStepTypes = defineMessages({
+  [AssessmentStepType.ScreeningQuestionsAtApplication]: {
+    defaultMessage: "Screening questions (at time of application)",
+    id: "T9pOsc",
+    description:
+      "The assessment step type is 'screening questions at time of application)'",
+  },
+  [AssessmentStepType.TechnicalExamAtSite]: {
+    defaultMessage: "Technical exam - On site",
+    id: "8jKCbq",
+    description: "The assessment step type is 'technical exam on site'",
+  },
+  [AssessmentStepType.TechnicalExamAtHome]: {
+    defaultMessage: "Technical exam - Take home",
+    id: "ow1qRm",
+    description: "The assessment step type is 'technical exam take home'",
+  },
+  [AssessmentStepType.PscExam]: {
+    defaultMessage: "PSC exam",
+    id: "fXDHGr",
+    description: "The assessment step type is 'psc exam'",
+  },
+  [AssessmentStepType.InterviewGroup]: {
+    defaultMessage: "Group interview",
+    id: "HNlUTk",
+    description: "The assessment step type is 'group interview'",
+  },
+  [AssessmentStepType.InterviewIndividual]: {
+    defaultMessage: "Individual interview",
+    id: "ljZVOE",
+    description: "The assessment step type is 'individual interview'",
+  },
+  [AssessmentStepType.InterviewFollowup]: {
+    defaultMessage: "Follow-up interview",
+    id: "21NdbL",
+    description: "The assessment step type is 'followup interview'",
+  },
+  [AssessmentStepType.ReferenceCheck]: {
+    defaultMessage: "Reference check",
+    id: "oXCHA4",
+    description: "The assessment step type is 'reference check'",
+  },
+  [AssessmentStepType.ApplicationScreening]: {
+    defaultMessage: "Application screening",
+    id: "oVwXWE",
+    description: "The assessment step type is 'application screening'",
+  },
+  [AssessmentStepType.AdditionalAssessment]: {
+    defaultMessage: "Additional assessment",
+    id: "eqwL1A",
+    description: "The assessment step type is 'additional assessment'",
+  },
+});
+
+export const getAssessmentStepType = (
+  assessmentStepType: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentStepTypes,
+    assessmentStepType,
+    `Invalid assessment step type '${assessmentStepType}'`,
   );

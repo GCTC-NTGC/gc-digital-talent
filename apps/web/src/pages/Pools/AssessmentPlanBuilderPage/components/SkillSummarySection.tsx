@@ -8,7 +8,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 const sectionTitle = {
   defaultMessage: "Skill summary",
-  id: "x",
+  id: "x", // why hasn't this autofilled?
   description:
     "Title for the skill summary section in the assessment plan builder",
 };
