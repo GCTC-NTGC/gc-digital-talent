@@ -517,6 +517,10 @@
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
   },
+  "0pDCvX": {
+    "defaultMessage": "Imprimer la demande",
+    "description": "Print application"
+  },
   "0qKFaP": {
     "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
     "description": "Status description of a pool in PUBLISHED status"
@@ -2905,6 +2909,10 @@
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
     "description": "Title for skills to improve showcase section"
+  },
+  "FxqP5P": {
+    "defaultMessage": "Erreur, l’information sur la capture d’écran est manquante",
+    "description": "Error displayed in print view when attempting to print partial snapshot."
   },
   "G0RoYe": {
     "defaultMessage": "Faire suivre le plan de talents",
@@ -7366,6 +7374,10 @@
   "ipSk4R": {
     "defaultMessage": "Maintenance de la plateforme",
     "description": "Heading for platform dashboard links"
+  },
+  "ipsXat": {
+    "defaultMessage": "Capture d’écran de la demande",
+    "description": "Document title for printing a user's application snapshot."
   },
   "iqmE+5": {
     "defaultMessage": "Mise à jour réussie des principales compétences techniques",
