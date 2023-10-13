@@ -90,8 +90,8 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
     return {
       ...defaults,
       trigger: intl.formatMessage({
-        defaultMessage: "Add a new item",
-        id: "KdbrIC",
+        defaultMessage: "Add a new skill",
+        id: "4Jc5pN",
         description:
           "Button text to open the skill dialog and add a skill to the users library",
       }),

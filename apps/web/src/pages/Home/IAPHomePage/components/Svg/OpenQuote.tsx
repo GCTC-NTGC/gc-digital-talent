@@ -5,6 +5,7 @@ const OpenQuote = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 78 62"
+    aria-hidden="true"
     {...props}
   >
     <path

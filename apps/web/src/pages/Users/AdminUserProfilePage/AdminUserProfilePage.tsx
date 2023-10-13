@@ -42,6 +42,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
           workPreferences: { isVisible: true },
           employmentEquity: { isVisible: true },
           careerTimelineAndRecruitment: { isVisible: true },
+          skillShowcase: { isVisible: true },
         }}
       />
     </>

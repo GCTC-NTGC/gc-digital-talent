@@ -181,6 +181,33 @@ const SkillLibraryTable = ({
         total: data.length,
         pageSizes: [10, 20, 50],
       }}
+      nullMessage={{
+        title: intl.formatMessage({
+          defaultMessage: "There aren't any skills here yet.",
+          id: "X5tRR4",
+          description: "Title for no skills in a users library",
+        }),
+        description: intl.formatMessage({
+          defaultMessage:
+            'Get started by adding an item using the "Add a new skill" button provided.',
+          id: "FshBb0",
+          description:
+            "Message displayed when a user has no skills in their library",
+        }),
+      }}
+      nullSearchMessage={{
+        title: intl.formatMessage({
+          defaultMessage: "There are no matching results.",
+          id: "MUxI+G",
+          description: "Title for when no skills match a users filters.",
+        }),
+        description: intl.formatMessage({
+          defaultMessage:
+            'Try using a different term or searching for the skill using the "Add a new skill" button provided.',
+          id: "TN9ndX",
+          description: "Message displayed when no skills match a users filters",
+        }),
+      }}
     />
   );
 };

@@ -107,6 +107,7 @@ const UpdateSkillShowcase = ({
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
+  const addId = React.useId();
 
   const [, executeCreateMutation] = useCreateUserSkillMutation();
   const [, executeUpdateMutation] = useUpdateUserSkillMutation();
@@ -239,75 +240,79 @@ const UpdateSkillShowcase = ({
                       total={fields.length}
                       maxItems={maxItems}
                       showAdd={canAdd}
-                      customButton={
-                        <SkillDialog
-                          inLibrary={userSkills.map(
-                            (userSkill) => userSkill.skill,
-                          )}
-                          trigger={
-                            canAdd
+                      customButton={{
+                        id: addId,
+                        button: (
+                          <SkillDialog
+                            inLibrary={userSkills.map(
+                              (userSkill) => userSkill.skill,
+                            )}
+                            trigger={
+                              canAdd
+                                ? {
+                                    id: addId,
+                                    label: intl.formatMessage(
+                                      {
+                                        defaultMessage:
+                                          "Add a new item ({numOfSkills}/{maxSkills})",
+                                        id: "XzGOuV",
+                                        description:
+                                          "Label for skill dialog trigger on skills showcase section.",
+                                      },
+                                      {
+                                        numOfSkills: watchedSkills.length,
+                                        maxSkills: pageInfo.maxSkillCount,
+                                      },
+                                    ),
+                                  }
+                                : {
+                                    label: intl.formatMessage(
+                                      {
+                                        defaultMessage:
+                                          "Delete an item to add another ({numOfSkills}/{maxSkills})",
+                                        id: "lFFnfX",
+                                        description:
+                                          "Label for disabled dialog trigger on skills showcase section.",
+                                      },
+                                      {
+                                        numOfSkills: watchedSkills.length,
+                                        maxSkills: pageInfo.maxSkillCount,
+                                      },
+                                    ),
+                                    disabled: true,
+                                  }
+                            }
+                            context="showcase"
+                            skills={skills}
+                            onSave={handleSave}
+                            showCategory={false}
+                            noToast
+                            {...(!canAdd
                               ? {
-                                  label: intl.formatMessage(
-                                    {
-                                      defaultMessage:
-                                        "Add a new item ({numOfSkills}/{maxSkills})",
-                                      id: "XzGOuV",
-                                      description:
-                                        "Label for skill dialog trigger on skills showcase section.",
-                                    },
-                                    {
-                                      numOfSkills: watchedSkills.length,
-                                      maxSkills: pageInfo.maxSkillCount,
-                                    },
-                                  ),
+                                  "data-h2-background": "base(background)",
+                                  "data-h2-border-style": "base(dashed)",
+                                  "data-h2-border-color": "base(gray.dark)",
+                                  "data-h2-color": "base(gray.dark)",
+                                  "data-h2-display": "base(flex)",
+                                  "data-h2-justify-content": "base(center)",
+                                  "data-h2-width": "base(100%)",
                                 }
                               : {
-                                  label: intl.formatMessage(
-                                    {
-                                      defaultMessage:
-                                        "Delete an item to add another ({numOfSkills}/{maxSkills})",
-                                      id: "lFFnfX",
-                                      description:
-                                        "Label for disabled dialog trigger on skills showcase section.",
-                                    },
-                                    {
-                                      numOfSkills: watchedSkills.length,
-                                      maxSkills: pageInfo.maxSkillCount,
-                                    },
-                                  ),
-                                  disabled: true,
-                                }
-                          }
-                          context="showcase"
-                          skills={skills}
-                          onSave={handleSave}
-                          showCategory={false}
-                          noToast
-                          {...(!canAdd
-                            ? {
-                                "data-h2-background": "base(background)",
-                                "data-h2-border-style": "base(dashed)",
-                                "data-h2-border-color": "base(gray.dark)",
-                                "data-h2-color": "base(gray.dark)",
-                                "data-h2-display": "base(flex)",
-                                "data-h2-justify-content": "base(center)",
-                                "data-h2-width": "base(100%)",
-                              }
-                            : {
-                                "data-h2-background":
-                                  "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                                "data-h2-border-style":
-                                  "base(dashed) base:focus-visible(solid)",
-                                "data-h2-border-color":
-                                  "base(secondary.darker) base:focus-visible(focus)",
-                                "data-h2-color":
-                                  "base(secondary.darker) base:focus-visible(black)",
-                                "data-h2-display": "base(flex)",
-                                "data-h2-justify-content": "base(center)",
-                                "data-h2-width": "base(100%)",
-                              })}
-                        />
-                      }
+                                  "data-h2-background":
+                                    "base(background) base:hover(secondary.10) base:focus-visible(focus)",
+                                  "data-h2-border-style":
+                                    "base(dashed) base:focus-visible(solid)",
+                                  "data-h2-border-color":
+                                    "base(secondary.darker) base:focus-visible(focus)",
+                                  "data-h2-color":
+                                    "base(secondary.darker) base:focus-visible(black)",
+                                  "data-h2-display": "base(flex)",
+                                  "data-h2-justify-content": "base(center)",
+                                  "data-h2-width": "base(100%)",
+                                })}
+                          />
+                        ),
+                      }}
                     >
                       {fields.map((item, index) => (
                         <Repeater.Fieldset

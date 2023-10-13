@@ -53,10 +53,10 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
-import EducationRequirements from "./components/EducationRequirements";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";

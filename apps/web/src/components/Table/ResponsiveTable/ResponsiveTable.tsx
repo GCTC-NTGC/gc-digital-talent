@@ -53,6 +53,8 @@ interface TableProps<TData> {
   isLoading?: boolean;
   /** Override default null message with a custom one */
   nullMessage?: NullMessageProps;
+  /** Override default null message with a custom one */
+  nullSearchMessage?: NullMessageProps;
   /** Enable row selection */
   rowSelect?: RowSelectDef<TData>;
   /** Enable the search form */
@@ -80,6 +82,7 @@ const ResponsiveTable = <TData extends object>({
   hiddenColumnIds,
   isLoading,
   nullMessage,
+  nullSearchMessage,
   rowSelect,
   search,
   sort,
@@ -268,10 +271,16 @@ const ResponsiveTable = <TData extends object>({
   }, [sortingState, sort?.onSortChange, sort]);
 
   const hasNoData = !isLoading && (!data || data.length === 0);
+  const hasNoVisibleRows = table.getRowModel().rows.length <= 0;
   const captionId = `${id}-caption`;
   const hidableColumns = table
     .getAllLeafColumns()
     .filter((c) => c.getCanHide());
+
+  const nullStateMessage =
+    columnFilterState.length > 0 || globalFilterState !== ""
+      ? nullSearchMessage
+      : nullMessage;
 
   return (
     <>
@@ -292,7 +301,9 @@ const ResponsiveTable = <TData extends object>({
           </Table.Control>
         ) : null}
       </Table.Controls>
-      {!hasNoData ? (
+      {hasNoData || hasNoVisibleRows ? (
+        <NullMessage {...(nullStateMessage ? { ...nullStateMessage } : {})} />
+      ) : (
         <div aria-labelledby={captionId}>
           <Table.Wrapper data-h2-position="base(relative)">
             <Table.Table>
@@ -340,8 +351,6 @@ const ResponsiveTable = <TData extends object>({
             <TablePagination table={table} pagination={pagination} />
           )}
         </div>
-      ) : (
-        <NullMessage {...(nullMessage ? { ...nullMessage } : {})} />
       )}
     </>
   );
