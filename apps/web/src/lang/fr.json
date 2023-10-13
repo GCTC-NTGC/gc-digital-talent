@@ -413,6 +413,10 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0KY1My": {
+    "defaultMessage": "Statut des Premières Nations",
+    "description": "Legend for selecting First Nations status or non-status"
+  },
   "0L0MWD": {
     "defaultMessage": "Modifier la classification",
     "description": "Link text to scroll to the section and change a process' classification"
@@ -2985,10 +2989,6 @@
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
   },
-  "GSqmjE": {
-    "defaultMessage": "Premières Nations",
-    "description": "Label for First Nations community"
-  },
   "GTHuSJ": {
     "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
     "description": "Subtitle for the application screening questions page"
@@ -5155,6 +5155,10 @@
     "defaultMessage": "Niveau de la langue seconde",
     "description": "Estimated skill in second language"
   },
+  "VUPlmN": {
+    "defaultMessage": "Premières Nations (inscrites ou non)",
+    "description": "Label for First Nations community"
+  },
   "VW3KlZ": {
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
@@ -5381,6 +5385,10 @@
   "WpVd0l": {
     "defaultMessage": "Le droit de priorité est un statut offert par la Commission de la fonction publique du Canada. Pour en apprendre davantage, <priorityEntitlementLink>consultez le site Web Information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence describing what priority entitlement is"
+  },
+  "Wpj2OY": {
+    "defaultMessage": "\"Je suis membre d’une Première Nation\"",
+    "description": "Text for the option to self-declare as first nations"
   },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
