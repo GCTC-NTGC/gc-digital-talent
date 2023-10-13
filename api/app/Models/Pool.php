@@ -180,7 +180,7 @@ class Pool extends Model
     // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
     private function syncApplicationScreeningStepPoolSkills()
     {
-        $screeningStep = $this->assessmentSteps()->firstOrNew([
+        $screeningStep = $this->assessmentSteps()->firstOrCreate([
             'type' => AssessmentStepType::APPLICATION_SCREENING->name,
             'sort_order' => 1,
         ]);
@@ -247,11 +247,10 @@ class Pool extends Model
         parent::boot();
 
         static::created(function (Pool $pool) {
-            $step = new AssessmentStep;
-            $step->pool_id = $pool->id;
-            $step->type = AssessmentStepType::APPLICATION_SCREENING->name;
-            $step->sort_order = 1;
-            $step->save();
+            $pool->assessmentSteps()->create([
+                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+                'sort_order' => 1
+            ]);
         });
     }
 
