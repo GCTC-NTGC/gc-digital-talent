@@ -323,8 +323,11 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(gray.darkest)
-          base:hover(black)
+          base:hover(secondary.darker)
           base:all:focus-visible(black)
+
+          base:dark:hover:iap(secondary.lightest)
+          base:all:iap:focus-visible(black)
 
           base:children[.counter](white)
           base:focus-visible:children[.counter](focus)`,
@@ -334,8 +337,12 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(gray.lightest)
-          base:hover(white)
+          base:hover(secondary.lighter)
           base:all:focus-visible(black)
+
+          base:iap:hover(secondary.lightest)
+          base:dark:hover:iap(secondary.darker)
+          base:all:iap:focus-visible(black)
 
           base:children[.counter](black)
           base:focus-visible:children[.counter](focus)`,

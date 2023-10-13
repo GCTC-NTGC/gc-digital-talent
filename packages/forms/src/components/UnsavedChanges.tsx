@@ -51,7 +51,9 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {unsavedFields.map((field) => (
           <li key={field.name}>
-            <ScrollToLink to={field.name}>{field.label}</ScrollToLink>
+            <ScrollToLink to={field.name} mode="text" color="black">
+              {field.label}
+            </ScrollToLink>
           </li>
         ))}
       </ul>

@@ -2,25 +2,13 @@ import * as React from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 
-import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
+import { Link, IconType, ScrollToLink, Color } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success";
-type StatusColor = "default" | Status;
-
-const textColorMap: Record<StatusColor, Record<string, string>> = {
-  default: {
-    "data-h2-color": "base(black)",
-  },
-  error: {
-    "data-h2-color": "base(error.darker) base:hover(error.darkest)",
-  },
-  success: {
-    "data-h2-color": "base(success) base:hover(success.darker)",
-  },
-};
+type StatusColor = "black" | Status;
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
-  default: {
+  black: {
     "data-h2-color": "base(black.light) base:hover(primary)",
   },
   error: {
@@ -36,22 +24,24 @@ const StatusItemTitle = ({
   href,
   scrollTo,
   children,
+  color,
   ...rest
 }: {
   href?: string;
   scrollTo?: string;
   children?: React.ReactElement;
+  color?: Color;
 }) => {
   if (href) {
     return (
-      <Link href={href} mode="text" {...rest}>
+      <Link href={href} mode="text" color={color} {...rest}>
         {children}
       </Link>
     );
   }
   if (scrollTo) {
     return (
-      <ScrollToLink to={scrollTo} {...rest}>
+      <ScrollToLink to={scrollTo} color={color} {...rest}>
         {children}
       </ScrollToLink>
     );
@@ -74,10 +64,10 @@ interface StatusItemProps {
 
 const StatusItem = ({
   title,
-  titleColor = "default",
+  titleColor = "black",
   status,
   icon,
-  iconColor = "default",
+  iconColor = "black",
   href,
   scrollTo,
   hiddenContextPrefix,
@@ -141,7 +131,7 @@ const StatusItem = ({
           href={href}
           scrollTo={scrollTo}
           data-h2-text-align="base(left)"
-          {...textColorMap[effectiveTitleColor]}
+          color={effectiveTitleColor}
         >
           {combinedTitle}
         </StatusItemTitle>

@@ -337,8 +337,12 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:focus-visible(focus)
 
           base:children[.counter](gray.darkest)
-          base:hover:children[.counter](black)
-          base:all:focus-visible:children[.counter](black)`,
+          base:hover:children[.counter](secondary.darker)
+          base:all:focus-visible:children[.counter](black)
+
+          base:iap:hover:children[.counter](secondary.dark)
+          base:dark:iap:hover:children[.counter](secondary.lightest)
+          base:dark:iap:focus-visible:children[.counter](white)`,
       };
     }
     if (color === "white") {
@@ -348,8 +352,11 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:focus-visible(focus)
 
           base:children[.counter](gray.lightest)
-          base:hover:children[.counter](white)
-          base:all:focus-visible:children[.counter](black)`,
+          base:hover:children[.counter](secondary.lighter)
+          base:all:focus-visible:children[.counter](black)
+
+          base:iap:hover:children[.counter](secondary.lightest)
+          base:all:iap:focus-visible:children[.counter](black)`,
       };
     }
   }

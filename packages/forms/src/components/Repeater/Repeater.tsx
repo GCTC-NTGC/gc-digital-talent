@@ -44,7 +44,7 @@ const ActionButton = ({
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-padding="base(x.5)"
-      data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
+      data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
       data-h2-transition="base:children[svg](transform 200ms ease)"
       {...(disabled
         ? { disabled: true, "data-h2-color": "base(black.lightest)" }
@@ -150,6 +150,7 @@ const Fieldset = ({
           data-h2-gap="base(0, x.25)"
         >
           <div
+            data-h2-background-color="base(foreground)"
             data-h2-flex-grow="base(1)"
             data-h2-padding="base(x1)"
             data-h2-shadow="base(medium)"
@@ -180,6 +181,7 @@ const Fieldset = ({
             data-h2-order="base(1)"
           >
             <div
+              data-h2-background-color="base(foreground)"
               data-h2-display="base(flex)"
               data-h2-radius="base(s)"
               data-h2-shadow="base(medium)"
@@ -222,6 +224,7 @@ const Fieldset = ({
               </ActionButton>
             </div>
             <ActionButton
+              data-h2-background-color="base(foreground)"
               disabled={disabled}
               animate={false}
               onClick={handleRemove}
