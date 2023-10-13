@@ -64,8 +64,7 @@ class ScreeningQuestion extends Model
     {
         parent::boot();
 
-        static::created(function (ScreeningQuestion $question)
-        {
+        static::created(function (ScreeningQuestion $question) {
             // Create a new Assessment step for screening questions if there isn't one yet
             $question->pool()->get()->first()->assessmentSteps()->firstOrCreate([
                 'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
@@ -73,11 +72,9 @@ class ScreeningQuestion extends Model
             ]);
         });
 
-        static::deleted(function (ScreeningQuestion $question)
-        {
+        static::deleted(function (ScreeningQuestion $question) {
             // Delete the Assessment step for screening questions if there there are no other questions
-            if ($question->pool()->get()->first()->screeningQuestions()->get()->count() < 1)
-            {
+            if ($question->pool()->get()->first()->screeningQuestions()->get()->count() < 1) {
                 $stepIds = $question->pool()->get()->first()->assessmentSteps()->get()->filter(function (AssessmentStep $step) {
                     return $step->type == AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name && $step->sort_order == 2;
                 })->pluck('id');

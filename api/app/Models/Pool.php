@@ -187,6 +187,7 @@ class Pool extends Model
 
         $technicalSkills = $this->poolSkills()->get()->filter(function (PoolSkill $poolSkill) {
             $poolSkill->load('skill');
+
             return $poolSkill->skill->category === SkillCategory::TECHNICAL->name;
         });
 
@@ -249,7 +250,7 @@ class Pool extends Model
         static::created(function (Pool $pool) {
             $pool->assessmentSteps()->create([
                 'type' => AssessmentStepType::APPLICATION_SCREENING->name,
-                'sort_order' => 1
+                'sort_order' => 1,
             ]);
         });
     }
