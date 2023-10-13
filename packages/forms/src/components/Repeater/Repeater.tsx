@@ -501,7 +501,7 @@ const Root = ({
           {maxItems && total === maxItems ? (
             <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
           ) : (
-            <>{intl.formatMessage(formMessages.repeaterAddItem)}</>
+            addText || intl.formatMessage(formMessages.repeaterAddItem)
           )}{" "}
           {maxItems && `(${total}/${maxItems})`}
         </Button>
