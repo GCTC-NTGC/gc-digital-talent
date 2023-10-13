@@ -18,7 +18,7 @@ import {
   Role,
   Team,
   UserPublicProfile,
-  useUpdateUserAsAdminMutation,
+  useUpdateUserTeamRolesMutation,
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -38,14 +38,14 @@ const AddTeamMemberDialog = ({
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const [, executeMutation] = useUpdateUserTeamRolesMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
-      user: "",
-      team: team.id,
-      teamDisplay: team.id,
+      userId: "",
+      teamId: team.id,
+      teamDisplay: team.id, // This form field will be disabled and only used for display purposes.
       roles: [],
     },
   });
@@ -57,12 +57,12 @@ AddTeamMemberDialogProps) => {
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
     await executeMutation({
-      id: formValues.user,
-      user: {
-        roleAssignmentsInput: {
+      userId: formValues.userId,
+      teamId: formValues.teamId,
+      teamRoleAssignments: {
+        roleAssignments: {
           attach: {
             roles: formValues.roles,
-            team: formValues.team,
           },
         },
       },
@@ -153,7 +153,7 @@ AddTeamMemberDialogProps) => {
                   options={userOptions ?? []}
                 />
                 {/** Note: Only one option since we are adding to this team's users */}
-                <input type="hidden" name="team" value={team.id} />
+                <input type="hidden" name="teamId" value={team.id} />
                 <Select
                   id="teamDisplay"
                   name="teamDisplay"

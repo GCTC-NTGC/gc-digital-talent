@@ -179,3 +179,26 @@ query AllUsersNames {
     lastName
   }
 }
+
+mutation UpdateUserTeamRoles(
+  $teamId: ID!
+  $userId: UUID!
+  $teamRoleAssignments: UpdateUserTeamRolesInput!
+) {
+  updateUserTeamRoles(
+    teamId: $teamId
+    userId: $userId
+    teamRoleAssignments: $teamRoleAssignments
+  ) {
+    roleAssignments {
+      role {
+        name
+      }
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}
