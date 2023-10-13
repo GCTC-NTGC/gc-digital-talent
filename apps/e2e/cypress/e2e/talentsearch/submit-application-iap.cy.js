@@ -156,7 +156,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     }).click();
     cy.findByRole("button", { name: /Sign and continue/i }).should("not.exist"); // check that you cannot proceed without affirmation
 
-    cy.findByRole("checkbox", {
+    cy.findByRole("radio", {
       // affirmation
       name: /i affirm that i am first nations/i,
     }).click();
