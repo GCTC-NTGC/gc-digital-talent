@@ -2,12 +2,32 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { FieldLabels, Checklist, Field } from "@gc-digital-talent/forms";
+import {
+  FieldLabels,
+  Checklist,
+  Field,
+  Checkbox,
+} from "@gc-digital-talent/forms";
 import { Alert, Chip, Chips } from "@gc-digital-talent/ui";
 
 import HelpLink from "./HelpLink";
 import { getCommunityLabels, hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
+
+interface RowProps {
+  children: React.ReactNode;
+}
+
+const Row = ({ children }: RowProps) => (
+  <div
+    data-h2-display="base(grid)"
+    data-h2-grid-template-columns="base(repeat(4, 1fr))"
+    data-h2-align-items="base(center)"
+    data-h2-gap="base(0 x1)"
+  >
+    {children}
+  </div>
+);
 
 interface CommunityListProps {
   labels: FieldLabels;
@@ -67,118 +87,127 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
 
   return (
     <>
-      <div data-h2-flex-grid="base(center, x1, x0)">
-        <div data-h2-flex-item="base(3of4)" data-h2-align-self="base(center)">
-          <Checklist
-            idPrefix="firstNations"
-            id="firstNations"
-            name="communities"
-            legend={labels.firstNations}
-            trackUnsaved={false}
-            items={[
-              {
-                value: "status",
-                label: intl.formatMessage({
-                  defaultMessage: '"I am Status First Nations"',
-                  id: "ssJxrj",
-                  description:
-                    "Text for the option to self-declare as a status first nations",
-                }),
-              },
-              {
-                value: "nonStatus",
-                label: intl.formatMessage({
-                  defaultMessage: '"I am Non-Status First Nations"',
-                  id: "sSE4kt",
-                  description:
-                    "Text for the option to self-declare as a non-status first nations",
-                }),
-              },
-            ]}
-            aria-describedby={customAlertId}
-          />
-          {formState.errors.firstNationsCustom && (
-            <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
-              {formState.errors.firstNationsCustom.message?.toString()}
-            </Field.Error>
-          )}
-        </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-align-self="base(center)">
-          <CommunityIcon
-            values={["status", "nonStatus"]}
-            community="first-nations"
-          />
-        </div>
-        <div data-h2-flex-item="base(3of4)" data-h2-align-self="base(center)">
-          <Checklist
-            idPrefix="inuk"
-            id="inuk"
-            name="communities"
-            legend={labels.inuk}
-            trackUnsaved={false}
-            items={[
-              {
-                value: "inuk",
-                label: intl.formatMessage({
-                  defaultMessage: `"I am Inuk"`,
-                  id: "vDb+O+",
-                  description: "Label text for Inuk community declaration",
-                }),
-              },
-            ]}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-align-self="base(center)">
-          <CommunityIcon values={["inuk"]} community="inuit" />
-        </div>
-        <div data-h2-flex-item="base(3of4)" data-h2-align-self="base(center)">
-          <Checklist
-            idPrefix="metis"
-            id="metis"
-            name="communities"
-            legend={labels.metis}
-            trackUnsaved={false}
-            items={[
-              {
-                value: "metis",
-                label: intl.formatMessage({
-                  defaultMessage: `"I am Métis"`,
-                  id: "/81xCT",
-                  description: "Label text for Métis community declaration",
-                }),
-              },
-            ]}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-align-self="base(center)">
-          <CommunityIcon values={["metis"]} community="metis" />
-        </div>
-        <div data-h2-flex-item="base(3of4)" data-h2-align-self="base(center)">
-          <Checklist
-            idPrefix="other"
-            id="other"
-            name="communities"
-            legend={labels.other}
-            trackUnsaved={false}
-            items={[
-              {
-                value: "other",
-                label: intl.formatMessage({
-                  defaultMessage: `"I am Indigenous and I don't see my community here"`,
-                  id: "FRcbbi",
-                  description:
-                    "Label text for not represented community declaration",
-                }),
-              },
-            ]}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of4)" data-h2-align-self="base(center)">
-          <CommunityIcon values={["other"]} community="other" />
-        </div>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x1 0)"
+        data-h2-flex-direction="base(column)"
+      >
+        <Row>
+          <div data-h2-grid-column="base(span 3)">
+            <Checklist
+              idPrefix="firstNations"
+              id="firstNations"
+              name="communities"
+              legend={labels.firstNations}
+              trackUnsaved={false}
+              items={[
+                {
+                  value: "status",
+                  label: intl.formatMessage({
+                    defaultMessage: '"I am Status First Nations"',
+                    id: "ssJxrj",
+                    description:
+                      "Text for the option to self-declare as a status first nations",
+                  }),
+                },
+                {
+                  value: "nonStatus",
+                  label: intl.formatMessage({
+                    defaultMessage: '"I am Non-Status First Nations"',
+                    id: "sSE4kt",
+                    description:
+                      "Text for the option to self-declare as a non-status first nations",
+                  }),
+                },
+              ]}
+              aria-describedby={customAlertId}
+            />
+            {formState.errors.firstNationsCustom && (
+              <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
+                {formState.errors.firstNationsCustom.message?.toString()}
+              </Field.Error>
+            )}
+          </div>
+          <div>
+            <CommunityIcon values={["status"]} community="first-nations" />
+          </div>
+        </Row>
+        <Row>
+          <div data-h2-grid-column="base(span 3)">
+            <Checklist
+              idPrefix="inuk"
+              id="inuk"
+              name="communities"
+              legend={labels.inuk}
+              trackUnsaved={false}
+              items={[
+                {
+                  value: "inuk",
+                  label: intl.formatMessage({
+                    defaultMessage: `"I am Inuk"`,
+                    id: "vDb+O+",
+                    description: "Label text for Inuk community declaration",
+                  }),
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <CommunityIcon values={["inuk"]} community="inuit" />
+          </div>
+        </Row>
+        <Row>
+          <div data-h2-grid-column="base(span 3)">
+            <Checklist
+              idPrefix="metis"
+              id="metis"
+              name="communities"
+              legend={labels.metis}
+              trackUnsaved={false}
+              items={[
+                {
+                  value: "metis",
+                  label: intl.formatMessage({
+                    defaultMessage: `"I am Métis"`,
+                    id: "/81xCT",
+                    description: "Label text for Métis community declaration",
+                  }),
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <CommunityIcon values={["metis"]} community="metis" />
+          </div>
+        </Row>
+        <Row>
+          <div data-h2-grid-column="base(span 3)">
+            <Checklist
+              idPrefix="other"
+              id="other"
+              name="communities"
+              legend={labels.other}
+              trackUnsaved={false}
+              items={[
+                {
+                  value: "other",
+                  label: intl.formatMessage({
+                    defaultMessage: `"I am Indigenous and I don't see my community here"`,
+                    id: "FRcbbi",
+                    description:
+                      "Label text for not represented community declaration",
+                  }),
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <CommunityIcon values={["other"]} community="other" />
+          </div>
+        </Row>
       </div>
       {communitiesValue && communitiesValue.length > 0 ? (
-        <Chips>
+        <Chips data-h2-margin-bottom="base(x1)">
           {communitiesValue.map((community: string) => {
             const label = communityLabels.get(community);
             return label ? (
