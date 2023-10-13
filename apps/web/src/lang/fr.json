@@ -3513,6 +3513,10 @@
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
   },
+  "Kklz7F": {
+    "defaultMessage": "Vous avez atteint le nombre maximum ({maxItems}) de questions filtres par poste annoncé.",
+    "description": "Message displayed when a user adds the maximum number of questions"
+  },
   "KmqF8d": {
     "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
     "description": "Description for award section"
@@ -6069,10 +6073,6 @@
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
   },
-  "cEalcz": {
-    "defaultMessage": "Vous n’avez pas encore ajouté aucun élément.",
-    "description": "Message that appears when there are no skills on showcase"
-  },
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
@@ -7650,10 +7650,6 @@
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
   },
-  "mR8ccV": {
-    "defaultMessage": "Vous pouvez ajouter des éléments en utilisant le bouton \"Ajouter un nouvel élément\" fourni.",
-    "description": "Instructions on how to add a skill to showcase when there are none"
-  },
   "mRNmrR": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Label for government email input in the request form"
@@ -8280,10 +8276,6 @@
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",
     "description": "CSV Header, Accepted Operation Requirements column"
-  },
-  "qs09PP": {
-    "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
-    "description": "Message displayed when a user adds the maximum number of questions"
   },
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page ",
