@@ -23,6 +23,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
+            ->asCommunityManager()
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'test-team'])
             ->withExperiences()
