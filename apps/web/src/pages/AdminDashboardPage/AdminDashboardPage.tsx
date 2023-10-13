@@ -143,9 +143,8 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         {hasRole("community_manager", roleAssignments) && (
           <LinkWell
             title={intl.formatMessage({
-              defaultMessage:
-                "Community Management - publishing pools and managing Teams",
-              id: "reoNJN",
+              defaultMessage: "Publishing pools and managing teams",
+              id: "B29+yd",
               description: "Heading for Community Manager dashboard links",
             })}
             links={[
