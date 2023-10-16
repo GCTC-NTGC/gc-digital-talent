@@ -859,7 +859,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         if (! $user->isAbleTo('view-any-user')) {
             $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-user')) {
+                if ($user->isAbleTo('view-team-applicantProfile')) {
                     $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                         $teamIds = $user->rolesTeams()->get()->pluck('id');
                         $query->whereHas('pool', function (Builder $query) use ($teamIds) {
