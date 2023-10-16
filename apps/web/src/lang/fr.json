@@ -676,6 +676,10 @@
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
   },
+  "1moJ8r": {
+    "defaultMessage": "Vous approchez de la limite!",
+    "description": "Title for warning message when the user has added many assessments to the assessment plan"
+  },
   "1pCzp1": {
     "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « <strong>Demande de candidats</strong> ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
@@ -1042,6 +1046,10 @@
   "49UIne": {
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
+  },
+  "4AIeko": {
+    "defaultMessage": "Sauvegarder les détails de l’évaluation",
+    "description": "Button text to save assessment details"
   },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
@@ -1847,6 +1855,10 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
+  "9IMcqY": {
+    "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez \"évaluation supplémentaire\" en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
+    "description": "First paragraph of second answer of the Frequently Asked Questions for logging in"
+  },
   "9Jkoms": {
     "defaultMessage": "Trouver du talent numérique",
     "description": "Title displayed on hero for Search and Request pages."
@@ -2014,6 +2026,10 @@
     "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
+  "ARL2Tz": {
+    "defaultMessage": "Au moyen de la liste des compétences fournie dans l’annonce du bassin de candidats, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
+    "description": "description of 'skill selection' section of the 'assessment details' dialog"
+  },
   "ARSDO1": {
     "defaultMessage": "Localisation, langue et sécurité.",
     "description": "Title for the location, language and security section of a pool advertisement"
@@ -2073,6 +2089,10 @@
   "AfSlkm": {
     "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
+  },
+  "Ag8BE0": {
+    "defaultMessage": "Tout d’abord, demander trop de renseignements sur une demande d’emploi peut repousser de bons candidats qui estiment que le processus est trop laborieux. Si vous souhaiter recruter parmi les meilleurs candidats, vous devrez trouver le bon équilibre entre ce que vous voulez demander et le temps que les candidats devront accorder pour entreprendre le processus.",
+    "description": "Second paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "AgUBsQ": {
     "defaultMessage": "Quel est le titre de votre poste?",
@@ -2346,6 +2366,10 @@
     "defaultMessage": "Ministère",
     "description": "Department label"
   },
+  "CCyraT": {
+    "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
+    "description": "description of 'basic details' section of the 'assessment details' dialog"
+  },
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
@@ -2594,6 +2618,10 @@
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
   },
+  "DnXch4": {
+    "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
+    "description": "Message displayed to user after assessment step fails to be saved."
+  },
   "DpzAPD": {
     "defaultMessage": "Vous êtes sur le point de prolonger la date de clôture de ce processus : {poolName}",
     "description": "Text to confirm the process to be extend"
@@ -2786,6 +2814,10 @@
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Title to extend a process"
   },
+  "F46Sel": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour toute annonce du bassin de candidats.",
+    "description": "introduction to the organize section in the assessment plan builder"
+  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -2885,6 +2917,10 @@
   "FckGRB": {
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
+  },
+  "FffxNt": {
+    "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
+    "description": "Subtitle for Assessment details dialog"
   },
   "FiylOa": {
     "defaultMessage": "Mots-clés (anglais)",
@@ -3386,6 +3422,10 @@
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
   },
+  "J/JdxQ": {
+    "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
+    "description": "Description for warning message when the user has added many assessments to the assessment plan"
+  },
   "J/oofb": {
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
     "description": "Help text for updating a skill level"
@@ -3736,6 +3776,10 @@
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
   },
+  "LOVZi6": {
+    "defaultMessage": "Détails sur l’évaluation",
+    "description": "Title for Assessment details dialog"
+  },
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
@@ -3803,6 +3847,10 @@
   "LocjmN": {
     "defaultMessage": "De retour aux équipes",
     "description": "Button text to return to the table of teams page"
+  },
+  "LphzpW": {
+    "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
+    "description": "second question in the organize section in the assessment plan builder"
   },
   "LqCaFZ": {
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
@@ -4627,6 +4675,10 @@
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
   },
+  "Rbp02p": {
+    "defaultMessage": "Sauvegarder le plan et revenir en arrière",
+    "description": "Text on a button to save the assessment plan and return to the pool page"
+  },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
@@ -4975,6 +5027,10 @@
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
   },
+  "U9jw1M": {
+    "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
+    "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
+  },
   "UDHGGA": {
     "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
@@ -5131,6 +5187,10 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
     "description": "Null state message in screening questions section of the application review page."
   },
+  "VAI+TU": {
+    "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
+    "description": "Second paragraph of second answer of the Frequently Asked Questions for logging in"
+  },
   "VBsMcq": {
     "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
     "description": "Link text for Digital Community Management"
@@ -5186,6 +5246,10 @@
   "VW3KlZ": {
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
+  },
+  "VWLWLY": {
+    "defaultMessage": "Ajouter une nouvelle évaluation",
+    "description": "Button text to add a new assessment to the assessment plan"
   },
   "VX3Og5": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -5291,6 +5355,10 @@
     "defaultMessage": "Veuillez soumettre une demande en blanc et dites-nous en davantage dans les commentaires.",
     "description": "Link text to scroll to the submit button when no candidates were found"
   },
+  "W1vWDi": {
+    "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
+    "description": "Success message displayed after unlinking an experience to a skill"
+  },
   "W2YIEA": {
     "defaultMessage": "Postulez pour ce processus",
     "description": "Link text to apply for a pool advertisement"
@@ -5374,6 +5442,10 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
+  },
+  "WhQFXx": {
+    "defaultMessage": "Combien d’évaluations devrais-je inclure?",
+    "description": "first question in the organize section in the assessment plan builder"
   },
   "Wi4tia": {
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
@@ -5600,6 +5672,10 @@
   "XzGOuV": {
     "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
+  },
+  "Y+GgIV": {
+    "defaultMessage": "Toutes les compétences indiquées dans l’annonce doivent être évaluées au moyen d’une méthode, à tout le moins. Lorsque vous vous fiez aux affirmations d’un candidat (p. ex., la candidature initiale) vous devez sélectionner une autre méthode d’évaluation pour évaluer ou valider l’affirmation du candidat qu’il possède cette compétence. Dans la plupart des cas, cela signifiera que vous avez deux ou trois autres méthodes d’évaluation au-delà de la présentation de candidature initiale.",
+    "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
@@ -6349,6 +6425,10 @@
     "defaultMessage": "Votre démonstration de vos compétences vous permet de conserver des listes de compétences tirées de votre bibliothèque qui présentent une histoire davantage ciblée de vos forces et de vos domaines d’intérêt. Bien que votre bibliothèque agisse en tant qu’endroit central à partir duquel vous pouvez gérer toutes les compétences que vous ajoutez à votre profil, les démonstrations que vous complétez sont jumelées à vos demandes d’emploi afin d’aider les recruteurs et les gestionnaires à brosser un tableau complet de votre talent.",
     "description": "Description on what the skills showcase is."
   },
+  "ccyVDQ": {
+    "defaultMessage": "Questions de sélection",
+    "description": "title of 'screening questions' section of the 'assessment details' dialog"
+  },
   "ce3IeQ": {
     "defaultMessage": "Votre parcours professionnel comprend actuellement :",
     "description": "Title for list of experiences"
@@ -6468,6 +6548,10 @@
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
+  },
+  "dVZRH3": {
+    "defaultMessage": "Pourquoi la plupart des compétences comportementales sont-elles omises de la présentation de candidature initiale?",
+    "description": "first question in the skill summary section in the assessment plan builder"
   },
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
@@ -7235,6 +7319,10 @@
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
   },
+  "i131l/": {
+    "defaultMessage": "Détails de base",
+    "description": "title of 'basic details' section of the 'assessment details' dialog"
+  },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
@@ -7310,6 +7398,10 @@
   "iN2H6J": {
     "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
     "description": "Message describing the employment duration filter in the search form."
+  },
+  "iNIXQ9": {
+    "defaultMessage": "Sommaire de la compétence",
+    "description": "Title for the skill summary section in the assessment plan builder"
   },
   "iO72f+": {
     "defaultMessage": "Copier l’identifiant de recrutement",
@@ -7754,6 +7846,10 @@
     "defaultMessage": "Sauvegarder les questions filtres",
     "description": "Text on a button to save the pool screening questions"
   },
+  "lVb1hs": {
+    "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
+    "description": "description of 'screening questions' section of the 'assessment details' dialog"
+  },
   "lZ+aPI": {
     "defaultMessage": "Voici les exigences de formation suivantes, basées sur les normes de qualification du gouvernement du Canada.",
     "description": "Lead-in text for a process' education requirements"
@@ -7777,6 +7873,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "lmD1ef": {
+    "defaultMessage": "Sélection de la compétence",
+    "description": "title of 'skill selection' section of the 'assessment details' dialog"
   },
   "loDwKe": {
     "defaultMessage": "À propos du Portail des talents autochtones",
@@ -8382,6 +8482,10 @@
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
   },
+  "pPUC7o": {
+    "defaultMessage": "Ajouter une nouvelle question ({currentCount}/{maxCount})",
+    "description": "Button text to add a new screening question"
+  },
   "pPVkYX": {
     "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-02 Analyst' classification"
@@ -8481,6 +8585,10 @@
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "qFY+K4": {
+    "defaultMessage": "Organiser l’approche d’évaluation",
+    "description": "Title for the organize section in the assessment plan builder"
   },
   "qGSEMx": {
     "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
@@ -8864,6 +8972,10 @@
   "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
+  },
+  "t0OrQA": {
+    "defaultMessage": "Survol de l’ensemble des compétences et des évaluations prévues pour ce bassin de candidats.",
+    "description": "introduction to the skill summary section in the assessment plan builder"
   },
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
@@ -9411,6 +9523,10 @@
     "defaultMessage": "Nous pouvons peut-être vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
+  "xCoGIm": {
+    "defaultMessage": "Envisagez d’ajouter au moins une méthode d’évaluation pour améliorer la qualité de votre bassin de candidats.",
+    "description": "Description for warning message when the user has few assessments to the assessment plan"
+  },
   "xHjgXz": {
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
@@ -9623,6 +9739,10 @@
     "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
   },
+  "ypxaI2": {
+    "defaultMessage": "Vous n’avez pas assez d’évaluations",
+    "description": "Title for warning message when the user has few assessments to the assessment plan"
+  },
   "ysKXVP": {
     "defaultMessage": "Groupes de publication",
     "description": "Label for a process' publishing group"
@@ -9754,6 +9874,10 @@
   "zqBqj1": {
     "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
+  },
+  "zrEIiB": {
+    "defaultMessage": "Deuxièmement, dans le cadre de la mise à l’essai d’un projet pilote d’une durée d’un an, il en est ressorti que les gestionnaires ne trouvaient pas utiles les renseignements sur les compétences comportementales que les candidats avaient eux-mêmes fournis. Ils trouvaient plutôt que d’autres formes d’évaluation (comme les vérifications des références et les entrevues) étaient de bien meilleurs indicateurs que les longs paragraphes sur la façon dont le candidat devait faire preuve de son esprit de collaboration, son positivisme ou son inclusion des autres.",
+    "description": "Third paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
