@@ -31,7 +31,7 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
             "introduction to the skill summary section in the assessment plan builder",
         })}
       </p>
-      <Accordion.Root type="single" mode="simple" collapsible>
+      <Accordion.Root type="multiple" mode="simple">
         <Accordion.Item value="one">
           <Accordion.Header
             headingAs="h4"
