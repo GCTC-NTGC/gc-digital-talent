@@ -152,8 +152,8 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "You can add up to {maxSteps} assessment methods, but you don’t need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
-            id: "X43Swd",
+              "You can add up to {maxSteps} assessment methods, but you don't need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
+            id: "J/JdxQ",
             description:
               "Description for warning message when the user has added many assessments to the assessment plan",
           },
