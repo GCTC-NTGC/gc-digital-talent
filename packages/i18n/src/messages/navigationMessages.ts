@@ -51,6 +51,11 @@ const navigationMessages = defineMessages({
     id: "TUfJUD",
     description: "Name of Career timeline page",
   },
+  skillShowcase: {
+    defaultMessage: "Skill showcase",
+    id: "MBnBcY",
+    description: "Name of the skill showcase page",
+  },
 });
 
 export default navigationMessages;

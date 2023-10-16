@@ -562,6 +562,10 @@
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
   },
+  "MBnBcY": {
+    "defaultMessage": "Vitrine des compétences",
+    "description": "Name of the skill showcase page"
+  },
   "MUjjf9": {
     "defaultMessage": "B",
     "description": "The evaluated language ability level of B"
