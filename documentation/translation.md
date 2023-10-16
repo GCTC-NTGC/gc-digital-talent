@@ -2,6 +2,16 @@
 
 The application is being designed and written in English and simultaneously being translated to French. As pages are created, updated, and corrected a translation process is periodically performed to bring the French text up to date. This document describes how that translation process is performed.
 
+## Description Guidelines
+
+By providing proper context, translators will be able to create more accurate translations. Tips to writing an effective description include:
+
+- Limit the description to a single sentence
+- Avoid referencing the component or the page where the string is located
+- Avoid ending the description with a period or other punctuation
+
+For contextual descriptions of images, there are additional resources available from [W3C](https://www.w3.org/WAI/tutorials/images).
+
 ## Tools
 
 The i18n subproject contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
