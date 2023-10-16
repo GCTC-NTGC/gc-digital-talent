@@ -119,6 +119,10 @@
     "defaultMessage": "Très secret",
     "description": "Top secret security clearance"
   },
+  "2POiyT": {
+    "defaultMessage": "Sélection des candidatures",
+    "description": "Application screening assessment."
+  },
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
     "description": "Label to toggle the context description of a field set."
@@ -130,6 +134,10 @@
   "2eBm5y": {
     "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
     "description": "Successful Completion with credential selection for education status input"
+  },
+  "2jjZbd": {
+    "defaultMessage": "Atout",
+    "description": "The skill is considered nonessential."
   },
   "2ohWuK": {
     "defaultMessage": "Oui, évaluation en anglais terminée",
@@ -342,6 +350,10 @@
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
   },
+  "ArBddb": {
+    "defaultMessage": "Essentiel",
+    "description": "The skill is considered essential."
+  },
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
@@ -353,6 +365,10 @@
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
+  },
+  "C/mdCs": {
+    "defaultMessage": "Ne s’applique pas",
+    "description": "Not applicable, context or state does apply."
   },
   "C/tnCE": {
     "defaultMessage": "Le profil est incomplet",
@@ -393,6 +409,10 @@
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
+  },
+  "DoFRsj": {
+    "defaultMessage": "examen de la CFP",
+    "description": "PSC exam assessment."
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
@@ -446,6 +466,10 @@
     "defaultMessage": "Cours en ligne",
     "description": "Online Course selection for education type input"
   },
+  "H9+LDC": {
+    "defaultMessage": "Vérification des références",
+    "description": "Reference check assessment."
+  },
   "HGM0YR": {
     "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
     "description": "Indeterminate selection for government employee type."
@@ -465,6 +489,10 @@
   "IANM2P": {
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
+  },
+  "IGl5IE": {
+    "defaultMessage": "Entretien de suivi",
+    "description": "Follow-up interview assessment."
   },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
@@ -566,6 +594,10 @@
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
   },
+  "MBnBcY": {
+    "defaultMessage": "Vitrine des compétences",
+    "description": "Name of the skill showcase page"
+  },
   "MUjjf9": {
     "defaultMessage": "B",
     "description": "The evaluated language ability level of B"
@@ -649,6 +681,10 @@
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
+  },
+  "PJn5I4": {
+    "defaultMessage": "Entretien individuel",
+    "description": "Individual interview assessment."
   },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
@@ -789,6 +825,10 @@
   "TO/Q6I": {
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
+  },
+  "TP9lEp": {
+    "defaultMessage": "Évaluation supplémentaire",
+    "description": "Additional assessment of some unique sort."
   },
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
@@ -1266,6 +1306,10 @@
     "defaultMessage": "Niveau 1 : Technicien",
     "description": "The name of the Technician classification role."
   },
+  "mPBvYz": {
+    "defaultMessage": "Examen technique – Sur place",
+    "description": "Technical exam assessment done at some specified location."
+  },
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
@@ -1496,6 +1540,10 @@
     "defaultMessage": "Retourner à mon profil",
     "description": "Link text for button to return to user profile"
   },
+  "uKlMuC": {
+    "defaultMessage": "Questions de sélection (au moment de la candidature)",
+    "description": "Screening questions assessment concurrent with application."
+  },
   "uNArwM": {
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
@@ -1528,6 +1576,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vOw0qV": {
+    "defaultMessage": "Examen technique – À emporter",
+    "description": "Technical exam assessment done at home."
+  },
   "vPDtGU": {
     "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
@@ -1539,6 +1591,10 @@
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
     "description": "The operational requirement described as regular overtime."
+  },
+  "vwszQC": {
+    "defaultMessage": "Entretien de groupe",
+    "description": "Group interview assessment."
   },
   "w2Jpt8": {
     "defaultMessage": "Étudiant",

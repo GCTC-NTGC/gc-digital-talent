@@ -31,6 +31,7 @@ import {
   PoolCandidateSearchPositionType,
   SkillLevel,
   EvaluatedLanguageAbility,
+  PoolSkillType,
   AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 
@@ -799,6 +800,28 @@ export const getSkillCategory = (
     SkillCategories,
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
+  );
+
+const PoolSkillTypes = defineMessages({
+  [PoolSkillType.Essential]: {
+    defaultMessage: "Essential",
+    id: "ArBddb",
+    description: "The skill is considered essential.",
+  },
+  [PoolSkillType.Nonessential]: {
+    defaultMessage: "Asset",
+    id: "2jjZbd",
+    description: "The skill is considered nonessential.",
+  },
+});
+
+export const getPoolSkillType = (
+  poolSkillId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    PoolSkillTypes,
+    poolSkillId,
+    `Invalid PoolSkill Type '${poolSkillId}'`,
   );
 
 const GenericJobTitles = defineMessages({
@@ -1932,64 +1955,63 @@ export const getEvaluatedLanguageAbility = (
   );
 
 const assessmentStepTypes = defineMessages({
-  [AssessmentStepType.ScreeningQuestionsAtApplication]: {
-    defaultMessage: "Screening questions (at time of application)",
-    id: "T9pOsc",
-    description:
-      "The assessment step type is 'screening questions at time of application)'",
-  },
-  [AssessmentStepType.TechnicalExamAtSite]: {
-    defaultMessage: "Technical exam - On site",
-    id: "8jKCbq",
-    description: "The assessment step type is 'technical exam on site'",
-  },
-  [AssessmentStepType.TechnicalExamAtHome]: {
-    defaultMessage: "Technical exam - Take home",
-    id: "ow1qRm",
-    description: "The assessment step type is 'technical exam take home'",
-  },
-  [AssessmentStepType.PscExam]: {
-    defaultMessage: "PSC exam",
-    id: "fXDHGr",
-    description: "The assessment step type is 'psc exam'",
-  },
-  [AssessmentStepType.InterviewGroup]: {
-    defaultMessage: "Group interview",
-    id: "HNlUTk",
-    description: "The assessment step type is 'group interview'",
-  },
-  [AssessmentStepType.InterviewIndividual]: {
-    defaultMessage: "Individual interview",
-    id: "ljZVOE",
-    description: "The assessment step type is 'individual interview'",
-  },
-  [AssessmentStepType.InterviewFollowup]: {
-    defaultMessage: "Follow-up interview",
-    id: "21NdbL",
-    description: "The assessment step type is 'followup interview'",
-  },
-  [AssessmentStepType.ReferenceCheck]: {
-    defaultMessage: "Reference check",
-    id: "oXCHA4",
-    description: "The assessment step type is 'reference check'",
+  [AssessmentStepType.AdditionalAssessment]: {
+    defaultMessage: "Additional assessment",
+    id: "TP9lEp",
+    description: "Additional assessment of some unique sort.",
   },
   [AssessmentStepType.ApplicationScreening]: {
     defaultMessage: "Application screening",
-    id: "oVwXWE",
-    description: "The assessment step type is 'application screening'",
+    id: "2POiyT",
+    description: "Application screening assessment.",
   },
-  [AssessmentStepType.AdditionalAssessment]: {
-    defaultMessage: "Additional assessment",
-    id: "eqwL1A",
-    description: "The assessment step type is 'additional assessment'",
+  [AssessmentStepType.InterviewFollowup]: {
+    defaultMessage: "Follow-up interview",
+    id: "IGl5IE",
+    description: "Follow-up interview assessment.",
+  },
+  [AssessmentStepType.InterviewGroup]: {
+    defaultMessage: "Group interview",
+    id: "vwszQC",
+    description: "Group interview assessment.",
+  },
+  [AssessmentStepType.InterviewIndividual]: {
+    defaultMessage: "Individual interview",
+    id: "PJn5I4",
+    description: "Individual interview assessment.",
+  },
+  [AssessmentStepType.PscExam]: {
+    defaultMessage: "PSC exam",
+    id: "DoFRsj",
+    description: "PSC exam assessment.",
+  },
+  [AssessmentStepType.ReferenceCheck]: {
+    defaultMessage: "Reference check",
+    id: "H9+LDC",
+    description: "Reference check assessment.",
+  },
+  [AssessmentStepType.ScreeningQuestionsAtApplication]: {
+    defaultMessage: "Screening questions (at time of application)",
+    id: "uKlMuC",
+    description: "Screening questions assessment concurrent with application.",
+  },
+  [AssessmentStepType.TechnicalExamAtHome]: {
+    defaultMessage: "Technical exam - Take home",
+    id: "vOw0qV",
+    description: "Technical exam assessment done at home.",
+  },
+  [AssessmentStepType.TechnicalExamAtSite]: {
+    defaultMessage: "Technical exam - On site",
+    id: "mPBvYz",
+    description: "Technical exam assessment done at some specified location.",
   },
 });
 
 export const getAssessmentStepType = (
-  assessmentStepType: string | number,
+  assessmentStepTypeId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
     assessmentStepTypes,
-    assessmentStepType,
-    `Invalid assessment step type '${assessmentStepType}'`,
+    assessmentStepTypeId,
+    `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
   );
