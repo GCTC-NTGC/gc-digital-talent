@@ -52,7 +52,7 @@ const IndigenousDialog = ({
     onSave({
       indigenousCommunities: newCommunities,
       indigenousDeclarationSignature:
-        indigenousCommunities.length > 0 ? data.signature : null,
+        newCommunities.length > 0 ? data.signature : null,
     });
   };
 
