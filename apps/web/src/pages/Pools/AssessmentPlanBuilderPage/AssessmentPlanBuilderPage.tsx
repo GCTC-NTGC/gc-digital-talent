@@ -1,13 +1,17 @@
 import * as React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { Scalars } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  Button,
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import {
   Heading,
+  Link,
   NotFound,
   Pending,
   Separator,
@@ -44,7 +48,6 @@ export interface AssessmentPlanBuilderProps {
 
 export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const routes = useRoutes();
 
   return (
@@ -88,20 +91,14 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
             description:
               "Text on a button to save the assessment plan and return to the pool page",
           })}
-          <Button
+          <Link
             type="button"
             mode="inline"
             color="primary"
-            onClick={() => {
-              navigate(routes.poolView(pool.id));
-            }}
+            href={routes.poolView(pool.id)}
           >
-            {intl.formatMessage({
-              defaultMessage: "Cancel",
-              id: "yFIC7K",
-              description: "Label for close availability dialog.",
-            })}
-          </Button>
+            {intl.formatMessage(formMessages.cancelGoBack)}
+          </Link>
         </div>
       </div>
     </>
