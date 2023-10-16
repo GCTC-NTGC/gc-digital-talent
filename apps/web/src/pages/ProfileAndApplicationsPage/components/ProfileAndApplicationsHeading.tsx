@@ -147,8 +147,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            "Manage your <a1>personal info</a1>, <a2>career timeline</a2>, <a3>skills</a3>, and <a4>track applications</a4>.",
-          id: "oJAAnh",
+            "Manage your <a1>personal information</a1>, <a2>career timeline</a2>, <a3>skills</a3>, and <a4>track applications</a4>.",
+          id: "KCaMch",
           description: "Subtitle for profile and applications hero",
         },
         {

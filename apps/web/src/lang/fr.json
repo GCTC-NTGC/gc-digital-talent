@@ -3534,6 +3534,10 @@
     "defaultMessage": "Pause",
     "description": "Status for an application to an advertisement that is unavailable"
   },
+  "KCaMch": {
+    "defaultMessage": "Gérer <a1>vos renseignements personnels</a1>, <a2>votre parcours professionnel</a2>, <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
+    "description": "Subtitle for profile and applications hero"
+  },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
@@ -8229,10 +8233,6 @@
   "oIRkby": {
     "defaultMessage": "Autre expérience dans un domaine connexe",
     "description": "Experience requirement, other."
-  },
-  "oJAAnh": {
-    "defaultMessage": "Gérer <a1>vos renseignements personnels</a1>, <a2>votre parcours professionnel</a2>, <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
-    "description": "Subtitle for profile and applications hero"
   },
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
