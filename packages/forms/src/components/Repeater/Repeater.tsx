@@ -43,6 +43,7 @@ const ActionButton = ({
     <button
       type="button"
       data-h2-border="base(none)"
+      data-h2-radius="base(50%)"
       data-h2-cursor="base(pointer)"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
@@ -381,7 +382,7 @@ const Root = ({
   // Check if any changes have been made to repeater length or repeater items.
   const originalItems = defaultValues?.[name];
   const currentItems = watch(name);
-  // TODO: Find better type assignment
+
   const changedItems = originalItems?.filter(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (original: any, index: string | number) => {
