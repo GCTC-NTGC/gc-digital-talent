@@ -629,6 +629,10 @@
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkLocation section."
   },
+  "1WVTN6": {
+    "defaultMessage": "{localizedName} a des évaluations",
+    "description": "Aria text for icon confirming a skill is connected to assessments."
+  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
@@ -1070,6 +1074,10 @@
   "4L9rHO": {
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
+  },
+  "4LVc9T": {
+    "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
+    "description": "Aria text for icon indicating a skill to assessment step connection."
   },
   "4N/PxH": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
@@ -2125,6 +2133,10 @@
   "AwzZwe": {
     "defaultMessage": "Renseignements sur les fonctionnaires",
     "description": "Heading for the government information section on the application profile"
+  },
+  "AxKi2s": {
+    "defaultMessage": "Évaluation planifiée",
+    "description": "Title for a column that displays a complete or not state."
   },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
@@ -7041,6 +7053,10 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
+  "guN1wV": {
+    "defaultMessage": "{localizedName} évaluations manquantes",
+    "description": "Aria text for icon indicating a skill is not connected to assessments."
+  },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
@@ -8205,6 +8221,10 @@
   "o4PND7": {
     "defaultMessage": "A achevé une évaluation officielle du gouvernement du Canada",
     "description": "Completed a Government of Canada evaluation label"
+  },
+  "o5g1d/": {
+    "defaultMessage": "Type d’exigence",
+    "description": "Column title for whether a skill is either required or just an asset."
   },
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
