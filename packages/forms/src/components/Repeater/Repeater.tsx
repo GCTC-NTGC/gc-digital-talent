@@ -50,6 +50,7 @@ const ActionButton = ({
       data-h2-padding="base(x.5)"
       data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
       data-h2-transition="base:children[svg](transform 200ms ease)"
+      data-h2-font-weight="base(700)"
       {...(disabled
         ? { disabled: true, "data-h2-color": "base(black.lightest)" }
         : {
@@ -186,21 +187,24 @@ const Fieldset = ({
           data-h2-radius="base(s)"
         >
           <div
-            data-h2-margin="base(x.5 x1 x1 x1)"
+            data-h2-padding="base(x.5, x1, x1, x1)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             data-h2-align-items="base(flex-start)"
+            data-h2-gap="base(x.5)"
           >
             <div
               data-h2-display="base(flex)"
               data-h2-justify-content="base(space-between)"
+              data-h2-align-items="base(center)"
               data-h2-width="base(100%)"
-              data-h2-margin-bottom="base(x.5)"
             >
               <div
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
                 data-h2-margin-left="base(-x.5)"
+                data-h2-justify-content="base(center)"
+                data-h2-gap="base(x.5)"
               >
                 {!isLocked ? (
                   <>
@@ -216,7 +220,6 @@ const Fieldset = ({
                           to: position - 1,
                         },
                       )}
-                      data-h2-font-weight="base(700)"
                       data-h2-margin="base(0, x.25, 0, 0)"
                       {...(isFirstItem
                         ? { "data-h2-padding-left": "base(x.25)" }
@@ -226,7 +229,9 @@ const Fieldset = ({
                         <ArrowUpIcon data-h2-width="base(x.75)" />
                       ) : (
                         <div data-h2-width="base(x.75)">
-                          <p data-h2-padding-bottom="base(x.25)">.</p>
+                          <span data-h2-width="base(x.75)" aria-hidden>
+                            &bull;
+                          </span>
                         </div>
                       )}
                     </ActionButton>
@@ -251,14 +256,15 @@ const Fieldset = ({
                           to: position + 1,
                         },
                       )}
-                      data-h2-font-weight="base(700)"
                       data-h2-margin="base(0, x.25)"
                     >
                       {!isLastItem ? (
                         <ArrowDownIcon data-h2-width="base(x.75)" />
                       ) : (
                         <div data-h2-width="base(x.75)">
-                          <p data-h2-padding-bottom="base(x.25)">.</p>
+                          <span data-h2-width="base(x.75)" aria-hidden>
+                            &bull;
+                          </span>
                         </div>
                       )}
                     </ActionButton>
@@ -266,7 +272,7 @@ const Fieldset = ({
                 ) : (
                   <>
                     <LockClosedIcon
-                      data-h2-margin="base(0, x.5)"
+                      data-h2-margin-left="base(x.5)"
                       data-h2-width="base(x.75)"
                     />
                     {!hideIndex && (
@@ -421,7 +427,7 @@ const Root = ({
       {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
       {approachingLimit && (
         <Well
-          data-h2-margin-bottom="base(x1)"
+          data-h2-margin-bottom="base(x.5)"
           data-h2-text-align="base(center)"
         >
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
@@ -449,20 +455,24 @@ const Root = ({
         </Well>
       )}
       {hasError && (
-        <Field.Error id={name} data-h2-padding="base(0)">
-          <Well
-            data-h2-text-align="base(center)"
-            data-h2-margin-bottom="base(x1)"
-          >
-            <p data-h2-font-weight="base(700)">
-              {intl.formatMessage(formMessages.repeaterDefaultError)}
+        <Field.Error
+          id={name}
+          data-h2-border-style="base(solid)"
+          data-h2-border-width="base(1px)"
+          data-h2-font-size="base(caption)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(rounded)"
+          data-h2-text-align="base(center)"
+          data-h2-margin-bottom="base(x.5)"
+        >
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage(formMessages.repeaterDefaultError)}
+          </p>
+          {errorMessage && (
+            <p data-h2-margin-top="base(x.5)">
+              {customErrorMessage ?? errorMessage}
             </p>
-            {errorMessage && (
-              <p data-h2-margin-top="base(x.5)">
-                {customErrorMessage ?? errorMessage}
-              </p>
-            )}
-          </Well>
+          )}
         </Field.Error>
       )}
       {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
