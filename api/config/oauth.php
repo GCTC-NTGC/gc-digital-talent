@@ -12,7 +12,7 @@ return [
     | further configuration.  Should not end in a trailing slash.
     |
     */
-    'server_root' => env('AUTH_SERVER_ROOT'),
+    'server_root' => env('AUTH_SERVER_ROOT', ''),
 
     /*
     |--------------------------------------------------------------------------
