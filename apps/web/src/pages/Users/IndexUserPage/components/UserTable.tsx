@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
@@ -46,6 +46,7 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 import adminMessages from "~/messages/adminMessages";
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserTableFilterDialog, {
@@ -250,7 +251,9 @@ const UserTable = ({ title }: { title: string }) => {
     filters: userFilterInput,
   } = tableState;
 
-  const [selectedRows, setSelectedRows] = useState<User[]>([]);
+  const { selectedRows, setSelectedRows, hasSelected } = useSelectedRows<User>(
+    [],
+  );
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
@@ -294,7 +297,7 @@ const UserTable = ({ title }: { title: string }) => {
 
   useEffect(() => {
     setSelectedRows([]);
-  }, [currentPage, pageSize, searchState, sortingRule]);
+  }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
@@ -459,6 +462,7 @@ const UserTable = ({ title }: { title: string }) => {
     variables: {
       ids: selectedApplicantIds,
     },
+    pause: !hasSelected,
   });
 
   const selectedApplicants =
