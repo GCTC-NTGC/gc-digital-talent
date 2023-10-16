@@ -24,7 +24,7 @@ import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValuesWithSignature extends FormValues {
-  signature: string | undefined;
+  signature: string | undefined | null;
 }
 
 const IndigenousDialog = ({
@@ -48,9 +48,11 @@ const IndigenousDialog = ({
   const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
     data: FormValuesWithSignature,
   ) => {
+    const newCommunities = formValuesToApiCommunities(data);
     onSave({
-      indigenousCommunities: formValuesToApiCommunities(data),
-      indigenousDeclarationSignature: data.signature,
+      indigenousCommunities: newCommunities,
+      indigenousDeclarationSignature:
+        indigenousCommunities.length > 0 ? data.signature : null,
     });
   };
 

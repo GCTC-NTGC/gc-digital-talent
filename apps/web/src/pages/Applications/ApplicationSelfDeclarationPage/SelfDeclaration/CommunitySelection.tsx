@@ -12,6 +12,8 @@ import {
 import { Alert } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
+
 import HelpLink from "./HelpLink";
 import { hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
@@ -44,7 +46,10 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
-  const [communitiesValue, isStatus] = watch(["communities", "isStatus"]);
+  const [communitiesValue, isStatus]: [
+    string[],
+    FirstNationsStatus | undefined,
+  ] = watch(["communities", "isStatus"]);
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 

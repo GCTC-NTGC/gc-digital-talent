@@ -10,7 +10,7 @@ import { getCommunityLabel } from "./utils";
 
 interface CommunityChipsProps {
   communities: string[];
-  status: FirstNationsStatus;
+  status?: FirstNationsStatus;
   otherAlert: boolean;
   onDismiss: (community: string) => void;
 }
