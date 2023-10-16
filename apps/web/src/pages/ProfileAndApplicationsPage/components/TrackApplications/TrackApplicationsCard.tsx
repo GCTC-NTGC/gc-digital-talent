@@ -8,12 +8,7 @@ import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import {
-  isDraft,
-  isExpired,
-  getRecruitmentType,
-  isQualifiedStatus,
-} from "~/utils/poolCandidate";
+import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
@@ -84,17 +79,6 @@ const TrackApplicationsCard = ({
             {applicationTitle}
           </Heading>
           <div data-h2-display="base:children[>span](block) l-tablet:children[>span](inline-block)">
-            <span data-h2-color="base(primary.darker)">
-              {getRecruitmentType(application.pool.publishingGroup, intl)}
-            </span>
-            <span
-              data-h2-display="base(none) l-tablet(inline-block)"
-              data-h2-color="base(black.light)"
-              data-h2-margin="base(0, x.5)"
-              aria-hidden="true"
-            >
-              •
-            </span>
             <span data-h2-color="base(black.light)">
               {applicationDateInfo.message}
               {intl.formatMessage(commonMessages.dividingColon)}
