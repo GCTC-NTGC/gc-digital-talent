@@ -473,7 +473,10 @@ const Root = ({
       )}
       {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
       {hasUnsavedChanges ? (
-        <Well data-h2-margin-bottom="base(x1)">
+        <Well
+          data-h2-margin-bottom="base(x1)"
+          data-h2-text-align="base(center)"
+        >
           {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
         </Well>
       ) : null}
