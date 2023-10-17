@@ -1,0 +1,38 @@
+# query to populate the assessment plan builder page
+query getAssessmentPlanBuilderData($poolId: UUID!) {
+  # the existing data of the pool to edit
+  pool(id: $poolId) {
+    id
+    name {
+      en
+      fr
+    }
+    publishedAt
+    poolSkills {
+      id
+      type
+      skill {
+        name {
+          en
+          fr
+        }
+        # three junk fields required by schema since non-nullable
+        id
+        category
+        key
+      }
+    }
+    assessmentSteps {
+      id
+      sortOrder
+      type
+      title {
+        en
+        fr
+      }
+      poolSkills {
+        id
+      }
+    }
+  }
+}

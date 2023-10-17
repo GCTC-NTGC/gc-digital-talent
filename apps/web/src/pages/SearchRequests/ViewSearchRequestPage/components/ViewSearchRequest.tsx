@@ -357,9 +357,8 @@ const ViewSearchRequestApi = ({
       url: routes.searchRequestTable(),
     },
     {
-      label: `${
-        searchRequestData?.poolCandidateSearchRequest?.fullName
-      } - ${getLocalizedName(
+      label: `${searchRequestData?.poolCandidateSearchRequest
+        ?.fullName} - ${getLocalizedName(
         searchRequestData?.poolCandidateSearchRequest?.department?.name,
         intl,
       )}`,
