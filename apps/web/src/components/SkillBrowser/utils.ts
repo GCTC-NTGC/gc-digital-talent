@@ -1,11 +1,24 @@
 import { IntlShape } from "react-intl";
-import React from "react";
 
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+import { Option } from "@gc-digital-talent/forms";
 
-import { SkillDialogContext } from "./types";
+import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 
-interface SkillDialogMessages {
+import { FormValues, SkillBrowserDialogContext } from "./types";
+
+export const INPUT_NAME = {
+  CATEGORY: "skill-browser-category",
+  FAMILY: "skill-browser-family",
+};
+
+export const defaultFormValues: FormValues = {
+  category: "",
+  family: "",
+  skill: "",
+};
+
+interface SkillBrowserDialogMessages {
   trigger: React.ReactNode;
   title: React.ReactNode;
   subtitle: React.ReactNode;
@@ -13,21 +26,21 @@ interface SkillDialogMessages {
   selected: (skillName: string) => React.ReactNode;
 }
 
-type GetSkillDialogMessagesArgs = {
-  context?: SkillDialogContext;
+type GetSkillBrowserDialogMessagesArgs = {
+  context?: SkillBrowserDialogContext;
   intl: IntlShape;
 };
 
-type GetSkillDialogMessages = (
-  args: GetSkillDialogMessagesArgs,
-) => SkillDialogMessages;
+type GetSkillBrowserDialogMessages = (
+  args: GetSkillBrowserDialogMessagesArgs,
+) => SkillBrowserDialogMessages;
 
 // eslint-disable-next-line import/prefer-default-export
-export const getSkillDialogMessages: GetSkillDialogMessages = ({
+export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
   context,
   intl,
 }) => {
-  const defaults: SkillDialogMessages = {
+  const defaults: SkillBrowserDialogMessages = {
     trigger: intl.formatMessage({
       defaultMessage: "Find a skill",
       id: "maibxu",
@@ -151,9 +164,9 @@ export const getSkillDialogMessages: GetSkillDialogMessages = ({
 
 export const showDetails = (
   skillInLibrary: boolean,
-  context: SkillDialogContext | undefined,
+  context: SkillBrowserDialogContext | undefined,
 ): boolean => {
-  const detailContexts: SkillDialogContext[] = ["library", "showcase"];
+  const detailContexts: SkillBrowserDialogContext[] = ["library", "showcase"];
 
   // We do not need details if already in library when on showcase context
   if (context === "showcase" && skillInLibrary) {
@@ -161,6 +174,67 @@ export const showDetails = (
   }
 
   return context ? detailContexts.includes(context) : false;
+};
+
+type GetFilteredFamiliesArgs = {
+  skills: Skill[];
+  category: SkillCategory | "all" | "";
+};
+
+type GetFilteredFamilies = (args: GetFilteredFamiliesArgs) => SkillFamily[];
+
+export const getFilteredFamilies: GetFilteredFamilies = ({
+  skills,
+  category,
+}) => {
+  const invertedTree = invertSkillSkillFamilyTree(skills);
+
+  return category && category !== "all"
+    ? invertedTree.filter((currentFamily) => {
+        return currentFamily.skills?.filter((s) => s.category === category);
+      })
+    : invertedTree;
+};
+
+type GetFilteredSkillsArgs = {
+  skills: Skill[];
+  family: SkillFamily | "all" | "library" | "";
+  category?: SkillCategory | "all" | "";
+  inLibrary?: Skill[];
+};
+
+type GetFilteredSkills = (args: GetFilteredSkillsArgs) => Skill[];
+
+export const getFilteredSkills: GetFilteredSkills = ({
+  skills,
+  family,
+  category,
+  inLibrary,
+}) => {
+  if (inLibrary && family && family === "library") {
+    // If `inLibrary` was passed and selected, filter by those instead of family
+    return skills.filter(
+      (currentSkill) =>
+        inLibrary?.find(
+          (skillInLibrary) => skillInLibrary.id === currentSkill.id,
+        ),
+    );
+  }
+
+  if (family && family !== "all") {
+    // We only care about family if it is set
+    // since we are filtering families by category
+    return skills.filter(
+      (currentSkill) =>
+        currentSkill.families?.some((skillFamily) => skillFamily.id === family),
+    );
+  }
+  if (category && category !== "all") {
+    return skills.filter((currentSkill) => currentSkill.category === category);
+  }
+
+  // neither is set so return all skills
+  return skills;
 };
 
 export const getSkillFamilySkillCount = (
@@ -182,4 +256,98 @@ export const getSkillCategorySkillCount = (
     (skill) => skill.category === category,
   );
   return skillsByCategory.length;
+};
+
+export const getCategoryOptions = (
+  skills: Skill[],
+  intl: IntlShape,
+): Option[] => {
+  return [
+    {
+      value: "all",
+      label: intl.formatMessage(
+        {
+          defaultMessage: "All categories ({count})",
+          id: "zS2PN+",
+          description: "Label for removing the skill category filter",
+        },
+        {
+          count: skills.length,
+        },
+      ),
+    },
+    {
+      value: SkillCategory.Behavioural,
+      label: intl.formatMessage(
+        {
+          defaultMessage: "Behavioural skills ({count})",
+          id: "ElOtG0",
+          description: "Tab name for a list of behavioural skills",
+        },
+        {
+          count: getSkillCategorySkillCount(skills, SkillCategory.Behavioural),
+        },
+      ),
+    },
+    {
+      value: SkillCategory.Technical,
+      label: intl.formatMessage(
+        {
+          defaultMessage: "Technical skills ({count})",
+          id: "Z3+zWD",
+          description: "Tab name for a list of technical skills",
+        },
+        {
+          count: getSkillCategorySkillCount(skills, SkillCategory.Technical),
+        },
+      ),
+    },
+  ];
+};
+
+export const getFamilyOptions = (
+  skills: Skill[],
+  intl: IntlShape,
+  category?: SkillCategory,
+  inLibrary?: Skill[],
+): Option[] => {
+  let familyOptions = [
+    {
+      value: "all",
+      label: intl.formatMessage(
+        {
+          defaultMessage: "All skill families ({count})",
+          id: "mzQAMK",
+          description: "Label for removing the skill family filter",
+        },
+        {
+          count: category
+            ? getSkillCategorySkillCount(skills, category)
+            : skills.length,
+        },
+      ),
+    },
+  ];
+
+  if (inLibrary) {
+    familyOptions = [
+      ...familyOptions,
+      {
+        value: "library",
+        label: intl.formatMessage(
+          {
+            defaultMessage: "My library ({count})",
+            id: "P5tK5j",
+            description:
+              "Label for filtering skills by ones already added to the users library",
+          },
+          {
+            count: inLibrary.length,
+          },
+        ),
+      },
+    ];
+  }
+
+  return familyOptions;
 };
