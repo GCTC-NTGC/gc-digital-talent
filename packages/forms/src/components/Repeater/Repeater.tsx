@@ -228,11 +228,9 @@ const Fieldset = ({
                       {!isFirstItem && !previousItemLocked ? (
                         <ArrowUpIcon data-h2-width="base(x.75)" />
                       ) : (
-                        <div data-h2-width="base(x.75)">
-                          <span data-h2-width="base(x.75)" aria-hidden>
-                            &bull;
-                          </span>
-                        </div>
+                        <span data-h2-width="base(x.75)" aria-hidden>
+                          &bull;
+                        </span>
                       )}
                     </ActionButton>
                     {!hideIndex && (
@@ -261,11 +259,9 @@ const Fieldset = ({
                       {!isLastItem ? (
                         <ArrowDownIcon data-h2-width="base(x.75)" />
                       ) : (
-                        <div data-h2-width="base(x.75)">
-                          <span data-h2-width="base(x.75)" aria-hidden>
-                            &bull;
-                          </span>
-                        </div>
+                        <span data-h2-width="base(x.75)" aria-hidden>
+                          &bull;
+                        </span>
                       )}
                     </ActionButton>
                   </>
