@@ -34,7 +34,7 @@ export const contentStyles = {
   "data-h2-margin-bottom": "base:children[:not(:last-child):not(li)](x.5)",
   "data-h2-outline-offset": "base:children[a](4px)",
   "data-h2-text-decoration":
-    "base:children[a](underline) base:hover:children[a](none)",
+    "base:children[a](underline) base:children[a:hover](none)",
   "data-h2-transition":
     "base:children[a](all ease 50ms) base:children[a](all ease 50ms)",
   "data-h2-min-height": "base(8rem)",
