@@ -19,7 +19,7 @@ export interface EquityDialogProps {
 
 export interface IndigenousUpdateProps {
   indigenousCommunities: Array<IndigenousCommunity>;
-  indigenousDeclarationSignature: string | undefined;
+  indigenousDeclarationSignature?: string | null;
 }
 
 export interface IndigenousDialogProps {

@@ -71,12 +71,7 @@ describe("SelfDeclarationForm", () => {
 
     expect(
       await screen.findByRole("checkbox", {
-        name: /I am Status First Nations/i,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      await screen.findByRole("checkbox", {
-        name: /I am non-Status First Nations/i,
+        name: /I am First Nations/i,
       }),
     ).toBeInTheDocument();
 
@@ -127,6 +122,12 @@ describe("SelfDeclarationForm", () => {
 
     fireEvent.click(
       await screen.findByRole("checkbox", {
+        name: /i am first nations/i,
+      }),
+    );
+
+    fireEvent.click(
+      await screen.findByRole("radio", {
         name: /i am status first nations/i,
       }),
     );
