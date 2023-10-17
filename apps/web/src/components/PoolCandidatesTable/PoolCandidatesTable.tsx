@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { SubmitHandler } from "react-hook-form";
@@ -63,6 +63,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
@@ -401,9 +402,8 @@ const PoolCandidatesTable = ({
     filters: applicantFilterInput,
   } = tableState;
 
-  const [selectedRows, setSelectedRows] = useState<
-    PoolCandidateWithSkillCount[]
-  >([]);
+  const { selectedRows, setSelectedRows, hasSelected } =
+    useSelectedRows<PoolCandidateWithSkillCount>([]);
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -553,7 +553,7 @@ const PoolCandidatesTable = ({
 
   useEffect(() => {
     setSelectedRows([]);
-  }, [currentPage, pageSize, searchState, sortingRule]);
+  }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
@@ -756,7 +756,15 @@ const PoolCandidatesTable = ({
         sortColumnName: "submitted_at",
       },
     ],
-    [intl, selectedRows, filteredData, paths, allSkills, filteredSkillIds],
+    [
+      intl,
+      selectedRows,
+      filteredData,
+      setSelectedRows,
+      paths,
+      allSkills,
+      filteredSkillIds,
+    ],
   );
 
   const allColumnIds = columns.map((c) => c.id);
@@ -772,6 +780,7 @@ const PoolCandidatesTable = ({
     variables: {
       ids: selectedCandidateIds,
     },
+    pause: !hasSelected,
   });
 
   const selectedCandidates =
