@@ -18,6 +18,9 @@ class SupportController extends Controller
             'status' => 2, // Required by Freshdesk API. Status of the ticket. The default value is 2.
             'tags' => [config('freshdesk.api.ticket_tag')],
         ];
+        if ($request->input('previous_url')) {
+            $parameters['previous_url'] = (string) $request->input('previous_url');
+        }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }
