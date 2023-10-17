@@ -163,8 +163,8 @@ const formMessages = defineMessages({
       "Secondary message displayed when no items have been added to repeater.",
   },
   repeaterDefaultError: {
-    defaultMessage: "It looks like this list has an error",
-    id: "OPdYSB",
+    defaultMessage: "It looks like this list has an error.",
+    id: "exPBiQ",
     description: "Error message title for repeater component.",
   },
   repeaterUnsavedChanges: {
