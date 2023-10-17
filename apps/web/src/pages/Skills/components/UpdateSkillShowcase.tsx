@@ -5,15 +5,12 @@ import {
   SubmitHandler,
   useFieldArray,
   useForm,
-  useFormContext,
 } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 import { useNavigate } from "react-router-dom";
 
 import {
   TableOfContents,
   IconType,
-  Well,
   Separator,
   Button,
 } from "@gc-digital-talent/ui";
@@ -38,41 +35,6 @@ import {
 } from "~/api/generated";
 
 export type FormValues = { userSkills: SkillDialogFormValues[] };
-
-interface ModificationAlertProps {
-  userSkills: FormValues["userSkills"];
-}
-
-const ModificationAlert = ({ userSkills }: ModificationAlertProps) => {
-  const intl = useIntl();
-  const {
-    watch,
-    formState: { isDirty },
-  } = useFormContext();
-  const currentSkills = watch("userSkills");
-  const changedItems = userSkills?.filter((skill, index) => {
-    const current = currentSkills[index];
-    return !current || !isEqual(skill, current);
-  });
-
-  // Nothing has changed so do not show the alert
-  if (
-    !isDirty ||
-    (!changedItems?.length && currentSkills.length === userSkills?.length)
-  )
-    return null;
-
-  return (
-    <Well data-h2-margin-bottom="base(x1)" data-h2-text-align="base(center)">
-      {intl.formatMessage({
-        defaultMessage: "You have unsaved changes. Please, remember to save!",
-        id: "Un9x5Z",
-        description:
-          "Message displayed when items have been moved and not saved",
-      })}
-    </Well>
-  );
-};
 
 interface UpdateSkillShowcaseProps {
   userId: Scalars["UUID"];
@@ -364,8 +326,6 @@ const UpdateSkillShowcase = ({
                         </Repeater.Fieldset>
                       ))}
                     </Repeater.Root>
-
-                    <ModificationAlert userSkills={initialSkills.userSkills} />
 
                     <Separator
                       orientation="horizontal"

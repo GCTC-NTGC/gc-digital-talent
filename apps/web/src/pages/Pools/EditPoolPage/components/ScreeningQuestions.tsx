@@ -1,14 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import isEqual from "lodash/isEqual";
-import {
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 
-import { TableOfContents, Well } from "@gc-digital-talent/ui";
+import { TableOfContents } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -43,43 +37,6 @@ export type ScreeningQuestionsSubmitData = Pick<
   UpdatePoolInput,
   "screeningQuestions"
 >;
-
-interface ModificationAlertProps {
-  originalQuestions: FormValues["questions"];
-}
-
-const ModificationAlert = ({ originalQuestions }: ModificationAlertProps) => {
-  const intl = useIntl();
-  const {
-    watch,
-    formState: { isDirty },
-  } = useFormContext();
-  const currentQuestions = watch("questions");
-  const changedItems = originalQuestions?.filter((original, index) => {
-    const current = currentQuestions[index];
-    return !current || !isEqual(original, current);
-  });
-
-  // Nothing has changed so do not show the alert
-  if (
-    !isDirty ||
-    (!changedItems?.length &&
-      currentQuestions.length === originalQuestions?.length)
-  )
-    return null;
-
-  return (
-    <Well data-h2-margin-bottom="base(x1)">
-      {intl.formatMessage({
-        defaultMessage:
-          "You have unsaved changes to the screening questions. Please, remember to save!",
-        id: "7GHJGT",
-        description:
-          "Message displayed when items have been moved and not saved",
-      })}
-    </Well>
-  );
-};
 
 interface ScreeningQuestionsProps {
   pool: Pool;
@@ -306,8 +263,6 @@ const ScreeningQuestions = ({
               </Repeater.Fieldset>
             ))}
           </Repeater.Root>
-
-          <ModificationAlert originalQuestions={defaultValues.questions} />
 
           {!formDisabled && (
             <Submit
