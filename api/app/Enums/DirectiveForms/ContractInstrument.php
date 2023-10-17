@@ -8,4 +8,5 @@ enum ContractInstrument
     case STANDING_OFFER;
     case CONTRACT;
     case AMENDMENT;
+    case OTHER;
 }

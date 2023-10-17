@@ -94,13 +94,6 @@ describe("Static pages", () => {
         contains: true,
       });
 
-      cy.findByRole("link", {
-        name: /digital services contracting form/i,
-      }).click();
-      cy.verifyDownload("Digital_Contracting_Questionnaire_EN.docx", {
-        contains: true,
-      });
-
       cy.findByRole("link", { name: /forward talent plan form/i }).click();
       cy.verifyDownload("Forward_Talent_Plan_EN.docx", { contains: true });
     });
@@ -122,14 +115,6 @@ describe("Static pages", () => {
       cy.verifyDownload("Modele_de_recrutement_numerique_FR.docx", {
         contains: true,
       });
-
-      cy.findByRole("link", {
-        name: /le formulaire octroi de contrat pour des services numériques/i,
-      }).click();
-      cy.verifyDownload(
-        "Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
-        { contains: true },
-      );
 
       cy.findByRole("link", {
         name: /le formulaire faire suivre le plan de talents/i,

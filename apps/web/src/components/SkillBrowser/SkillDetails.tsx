@@ -2,12 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import UserSkillFormFields from "../UserSkillFormFields/UserSkillFormFields";
+import { SkillBrowserDialogContext } from "./types";
 
 interface SkillDetailsProps {
   isTechnical?: boolean;
+  context?: SkillBrowserDialogContext;
 }
 
-const SkillDetails = ({ isTechnical = false }: SkillDetailsProps) => {
+const SkillDetails = ({ isTechnical = false, context }: SkillDetailsProps) => {
   const intl = useIntl();
 
   return (
@@ -25,7 +27,7 @@ const SkillDetails = ({ isTechnical = false }: SkillDetailsProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1 0)"
       >
-        <UserSkillFormFields isTechnical={isTechnical} />
+        <UserSkillFormFields isTechnical={isTechnical} context={context} />
       </div>
     </>
   );
