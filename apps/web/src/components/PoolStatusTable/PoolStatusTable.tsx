@@ -101,7 +101,20 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         id: "application",
         enableHiding: false,
         cell: ({ row: { original: candidate }, getValue }) =>
-          cells.view(paths.poolCandidateApplication(candidate.id), getValue()),
+          cells.view(
+            paths.poolCandidateApplication(candidate.id),
+            intl.formatMessage(
+              {
+                defaultMessage: "{stream} application",
+                id: "jcWDLK",
+                description:
+                  "Link text to view an application to a specific pool stream",
+              },
+              {
+                stream: getValue(),
+              },
+            ),
+          ),
         header: intl.formatMessage({
           defaultMessage: "Application",
           id: "cF8idC",
