@@ -27,7 +27,7 @@ class PoolSkill extends Model
 
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(Skill::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
