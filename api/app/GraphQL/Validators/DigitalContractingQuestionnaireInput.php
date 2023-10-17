@@ -5,6 +5,7 @@ namespace App\GraphQL\Validators;
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
 use App\Enums\DirectiveForms\ContractingRationale;
+use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSupplyMethod;
 use App\Enums\DirectiveForms\OperationsConsideration;
 use App\Enums\DirectiveForms\PersonnelLanguage;
@@ -27,7 +28,6 @@ final class DigitalContractingQuestionnaireInput extends Validator
     public function rules(): array
     {
         return [
-            'readPreamble' => ['accepted'],
             'departmentOther' => [
                 'required_without:department',
                 Rule::prohibitedIf(! empty($this->arg('department'))),
@@ -41,8 +41,15 @@ final class DigitalContractingQuestionnaireInput extends Validator
             'commodityType' => [
                 new ScalarConsistentWithDetail(ContractCommodity::OTHER->name, 'commodityTypeOther'),
             ],
+            'instrumentType' => [
+                new ScalarConsistentWithDetail(ContractInstrument::OTHER->name, 'instrumentTypeOther'),
+            ],
             'methodOfSupply' => [
                 new ScalarConsistentWithDetail(ContractSupplyMethod::OTHER->name, 'methodOfSupplyOther'),
+            ],
+            'personnelRequirements' => [
+                'requiredIf:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
+                'prohibited_unless:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
             ],
             'requirementScreeningLevels' => [
                 new ArrayConsistentWithDetail(PersonnelScreeningLevel::OTHER->name, 'requirementScreeningLevelOther'),
@@ -51,20 +58,16 @@ final class DigitalContractingQuestionnaireInput extends Validator
                 new ArrayConsistentWithDetail(PersonnelLanguage::OTHER->name, 'requirementWorkLanguageOther'),
             ],
             'requirementWorkLocations' => [
-                new ArrayConsistentWithDetail(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, 'requirementWorkLocationSpecific'),
+                new ArrayConsistentWithDetail(PersonnelWorkLocation::GC_PREMISES->name, 'requirementWorkLocationGcSpecific'),
+                new ArrayConsistentWithDetail(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, 'requirementWorkLocationOffsiteSpecific'),
             ],
             'requirementOthers' => [
                 new ArrayConsistentWithDetail(PersonnelOtherRequirement::OTHER->name, 'requirementOtherOther'),
-            ],
-            'personnelRequirements' => [
-                'requiredIf:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
-                'prohibited_unless:hasPersonnelRequirements,'.YesNoUnsure::YES->name,
             ],
             'operationsConsiderations' => [
                 new ArrayConsistentWithDetail(OperationsConsideration::OTHER->name, 'operationsConsiderationsOther'),
             ],
             'contractingRationalePrimary' => [
-                Rule::notIn($this->arg('contractingRationalesSecondary')),
                 new ScalarConsistentWithDetail(ContractingRationale::OTHER->name, 'contractingRationalePrimaryOther'),
             ],
             'contractingRationalesSecondary' => [

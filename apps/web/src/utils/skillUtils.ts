@@ -35,10 +35,11 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   const skillFamiliesWithSkills = uniqueSkillFamilies.map(
     (family: SkillFamily) => {
       // step 1 - find the skills that belong to this family
-      const skillsInThisFamily = skills.filter((skill) =>
-        skill.families?.some(
-          (childSkillFamilies) => family.id === childSkillFamilies?.id,
-        ),
+      const skillsInThisFamily = skills.filter(
+        (skill) =>
+          skill.families?.some(
+            (childSkillFamilies) => family.id === childSkillFamilies?.id,
+          ),
       );
 
       // step 2 - clone the skills and strip off the child skillFamilies to prevent circular references
@@ -76,8 +77,11 @@ export function invertSkillExperienceTree(
     .filter(notEmpty)
     .map((skill: Skill) => {
       // step 1 - find the skills that belong to this experience
-      const skillsInThisExperience = experiences.filter((experience) =>
-        experience.skills?.some((childSkills) => skill.id === childSkills?.id),
+      const skillsInThisExperience = experiences.filter(
+        (experience) =>
+          experience.skills?.some(
+            (childSkills) => skill.id === childSkills?.id,
+          ),
       );
 
       // step 2 - clone the skill and attach the experience collection
@@ -220,10 +224,11 @@ export const getExperienceSkills = (
   experiences: Experience[],
   skill: Skill,
 ): Experience[] => {
-  return experiences.filter((experience) =>
-    experience.skills?.some(
-      (experienceSkill) => experienceSkill.id === skill.id,
-    ),
+  return experiences.filter(
+    (experience) =>
+      experience.skills?.some(
+        (experienceSkill) => experienceSkill.id === skill.id,
+      ),
   );
 };
 

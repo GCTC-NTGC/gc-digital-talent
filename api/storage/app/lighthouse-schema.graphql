@@ -216,7 +216,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -438,7 +437,6 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665.")
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
@@ -1200,7 +1198,7 @@ input UpdateApplicationInput {
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 type DigitalContractingPersonnelRequirement {
@@ -1217,7 +1215,6 @@ type DigitalContractingPersonnelRequirement {
 
 type DigitalContractingQuestionnaire {
   id: UUID!
-  readPreamble: Boolean
   department: Department
   departmentOther: String
   branchOther: String
@@ -1243,27 +1240,30 @@ type DigitalContractingQuestionnaire {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: [DigitalContractingPersonnelRequirement!]
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
-  hasPersonnelRequirements: YesNo
-  personnelRequirements: [DigitalContractingPersonnelRequirement!]
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -1284,13 +1284,13 @@ type DigitalContractingQuestionnaire {
 
 input CreateDigitalContractingPersonnelSkillInput {
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input UpdateDigitalContractingPersonnelSkillInput {
   id: UUID!
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {
@@ -1329,7 +1329,6 @@ input DigitalContractingPersonnelRequirementBelongsToMany {
 }
 
 input DigitalContractingQuestionnaireInput {
-  readPreamble: Boolean
   department: DepartmentBelongsTo
   departmentOther: String
   branchOther: String
@@ -1355,27 +1354,30 @@ input DigitalContractingQuestionnaireInput {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
-  hasPersonnelRequirements: YesNo
-  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -2032,11 +2034,21 @@ enum ContractCommodity {
   OTHER
 }
 
+enum ContractFteRange {
+  FROM_1_TO_5
+  FROM_6_TO_10
+  FROM_11_TO_30
+  FROM_31_TO_50
+  FROM_51_TO_100
+  GREATER_THAN_100
+}
+
 enum ContractInstrument {
   SUPPLY_ARRANGEMENT
   STANDING_OFFER
   CONTRACT
   AMENDMENT
+  OTHER
 }
 
 enum ContractSupplyMethod {
