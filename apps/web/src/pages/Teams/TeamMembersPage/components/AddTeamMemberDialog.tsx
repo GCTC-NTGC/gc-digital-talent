@@ -133,8 +133,8 @@ AddTeamMemberDialogProps) => {
                 data-h2-gap="base(x1 0)"
               >
                 <Select
-                  id="user"
-                  name="user"
+                  id="userId"
+                  name="userId"
                   nullSelection={
                     fetchingUsers
                       ? intl.formatMessage(commonMessages.loading)
