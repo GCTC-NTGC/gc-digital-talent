@@ -6,6 +6,7 @@ import { Dialog } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import {
   errorMessages,
+  formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
 
@@ -23,7 +24,7 @@ import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";
 
 interface FormValuesWithSignature extends FormValues {
-  signature: string | undefined;
+  signature: string | undefined | null;
 }
 
 const IndigenousDialog = ({
@@ -40,14 +41,18 @@ const IndigenousDialog = ({
       signature,
     },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const communities = watch("communities");
+  const hasCommunitiesSelected = communities && communities.length > 0;
 
   const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
     data: FormValuesWithSignature,
   ) => {
+    const newCommunities = formValuesToApiCommunities(data);
     onSave({
-      indigenousCommunities: formValuesToApiCommunities(data),
-      indigenousDeclarationSignature: data.signature,
+      indigenousCommunities: newCommunities,
+      indigenousDeclarationSignature:
+        newCommunities.length > 0 ? data.signature : null,
     });
   };
 
@@ -100,31 +105,42 @@ const IndigenousDialog = ({
               <div data-h2-margin="base(x1, 0, x1.5, 0)">
                 <CommunityList labels={labels} />
               </div>
-              <p data-h2-padding-bottom="base(x1)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                  id: "cVszq/",
-                  description:
-                    "Sentence before signature space on the add indigenous identity dialog",
-                })}
-              </p>
-              <Input
-                id="signature"
-                name="signature"
-                type="text"
-                label={labels.signature}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
+
+              {hasCommunitiesSelected && (
+                <>
+                  <p data-h2-padding-bottom="base(x1)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
+                      id: "cVszq/",
+                      description:
+                        "Sentence before signature space on the add indigenous identity dialog",
+                    })}
+                  </p>
+                  <Input
+                    id="signature"
+                    name="signature"
+                    type="text"
+                    label={labels.signature}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </>
+              )}
               <Dialog.Footer>
                 <DialogFooter
                   disabled={disabled}
-                  saveText={intl.formatMessage({
-                    defaultMessage: "Sign and save changes",
-                    id: "fgVziE",
-                    description:
-                      "Button text to submit indigenous identity form.",
-                  })}
+                  saveText={
+                    hasCommunitiesSelected
+                      ? intl.formatMessage({
+                          defaultMessage: "Sign and save changes",
+                          id: "fgVziE",
+                          description:
+                            "Button text to submit indigenous identity form.",
+                        })
+                      : intl.formatMessage(formMessages.saveChanges)
+                  }
                 />
               </Dialog.Footer>
             </form>

@@ -1,17 +1,16 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 
 import { IconType } from "@gc-digital-talent/ui";
 import { FieldLabels } from "@gc-digital-talent/forms";
 
+import useToggleSectionInfo, {
+  SectionIcon,
+} from "~/hooks/useToggleSectionInfo";
+
 import { useProfileFormContext } from "../components/ProfileFormContext";
 import { SectionKey } from "../types";
-import {
-  SectionIcon,
-  getSectionIcon,
-  getSectionLabels,
-  getSectionTitle,
-} from "../utils";
+import { getSectionLabels, getSectionTitle } from "../utils";
 
 interface UseSectionInfoArgs {
   fallbackIcon: IconType;
@@ -35,16 +34,14 @@ const useSectionInfo = ({
   fallbackIcon,
 }: UseSectionInfoArgs): SectionInfo => {
   const intl = useIntl();
+  const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
+    isNull,
+    emptyRequired,
+    fallbackIcon,
+  });
+  const title = getSectionTitle(section);
   const labels = getSectionLabels(section, intl);
   const { toggleDirty } = useProfileFormContext();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const title = getSectionTitle(section);
-  const icon = getSectionIcon({
-    isEditing,
-    error: emptyRequired,
-    completed: !isNull && !emptyRequired,
-    fallback: fallbackIcon,
-  });
 
   const handleOpenChange = useCallback(
     (newIsEditing: boolean) => {
@@ -53,7 +50,7 @@ const useSectionInfo = ({
         toggleDirty(section, false);
       }
     },
-    [section, toggleDirty],
+    [section, setIsEditing, toggleDirty],
   );
 
   const sectionInfo = useMemo(

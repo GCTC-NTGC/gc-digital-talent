@@ -35,7 +35,7 @@ const Multi = ({
 }: MultiProps) => {
   const intl = useIntl();
   const [inputValue, setInputValue] = React.useState<string>("");
-  const [available, setAvailable] = React.useState<Option[]>(options);
+  const [available, setAvailable] = React.useState<Option[]>([]);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const items = isExternalSearch ? options : available;
 
@@ -188,6 +188,10 @@ const Multi = ({
     },
   });
 
+  React.useEffect(() => {
+    setAvailable(options);
+  }, [options]);
+
   const handleClear = () => {
     if (onInputChange) {
       onInputChange("");
@@ -265,7 +269,11 @@ const Multi = ({
                 // eslint-disable-next-line react/no-array-index-key
                 key={`${item.value}${index}`}
                 active={highlightedIndex === index}
-                selected={selectedItems?.includes(item)}
+                selected={
+                  !!selectedItems.find(
+                    (selected) => selected.value === item.value,
+                  )
+                }
                 {...getItemProps({ item, index })}
               >
                 {item.label}

@@ -16,9 +16,9 @@ import {
   hasAllEmptyFields as hasAllEmptyPreferenceFields,
   hasEmptyRequiredFields as hasEmptyRequiredPreferenceFields,
 } from "~/validators/profile/workPreferences";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
-import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -79,7 +79,7 @@ const WorkPreferences = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger
+            <ToggleForm.Trigger
               aria-label={intl.formatMessage({
                 defaultMessage: "Edit work preferences",
                 id: "w63YYp",
@@ -92,7 +92,7 @@ const WorkPreferences = ({
                 description:
                   "Button text to start editing one of the profile sections.",
               })}
-            </SectionTrigger>
+            </ToggleForm.Trigger>
           ) : undefined
         }
       >

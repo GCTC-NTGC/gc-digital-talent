@@ -37,6 +37,8 @@ import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByTyp
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
+import UserSkillList from "./UserSkillList";
+
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
   anonymous?: boolean;
@@ -771,6 +773,59 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                           experiences={result.experiences?.filter(notEmpty)}
                         />
                       </BreakingPageSection>
+                      <PageSection>
+                        <Heading level="h4" data-h2-font-weight="base(700)">
+                          {intl.formatMessage(navigationMessages.skillShowcase)}
+                        </Heading>
+                        <p data-h2-margin="base(x1 0)">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses and skill growth opportunities. These lists can provide you with insight into a candidate's broader skill set and where they might be interested in new skills.",
+                            description:
+                              "Lead-in text for a users skill showcase in a printed document",
+                            id: "0M5Wtb",
+                          })}
+                        </p>
+                        <Heading level="h5" data-h2-font-weight="base(700)">
+                          {intl.formatMessage({
+                            defaultMessage: "Top skills",
+                            id: "SxPilM",
+                            description: "Heading for a users top skills",
+                          })}
+                        </Heading>
+                        <UserSkillList
+                          technical={
+                            result.topTechnicalSkillsRanking?.filter(
+                              notEmpty,
+                            ) ?? []
+                          }
+                          behavioural={
+                            result.topBehaviouralSkillsRanking?.filter(
+                              notEmpty,
+                            ) ?? []
+                          }
+                        />
+                        <Heading level="h5" data-h2-font-weight="base(700)">
+                          {intl.formatMessage({
+                            defaultMessage: "Skills to improve",
+                            id: "ZAeStR",
+                            description:
+                              "Heading for a users skill they would like to improve",
+                          })}
+                        </Heading>
+                        <UserSkillList
+                          technical={
+                            result.improveTechnicalSkillsRanking?.filter(
+                              notEmpty,
+                            ) ?? []
+                          }
+                          behavioural={
+                            result.improveBehaviouralSkillsRanking?.filter(
+                              notEmpty,
+                            ) ?? []
+                          }
+                        />
+                      </PageSection>
                     </div>
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />

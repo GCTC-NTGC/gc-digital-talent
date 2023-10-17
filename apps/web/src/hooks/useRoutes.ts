@@ -67,6 +67,8 @@ const getRoutes = (lang: Locales) => {
     poolView: (poolId: string) => path.join(adminUrl, "pools", poolId),
     poolUpdate: (poolId: string) =>
       path.join(adminUrl, "pools", poolId, "edit"),
+    assessmentPlanBuilder: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "plan"),
 
     // Admin - Pool Candidates
     poolCandidateTable: (poolId: string) =>

@@ -189,7 +189,7 @@ const SearchForm = <T,>({
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"
             data-h2-margin-left="base(0)"
-            data-h2-padding="base(x.5 x1.5)"
+            data-h2-padding="base(x.5 x1.5 x.5 x.5)"
             data-h2-width="base(100%) l-tablet(auto)"
             {...(showDropdown
               ? {

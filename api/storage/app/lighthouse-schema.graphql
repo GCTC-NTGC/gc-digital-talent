@@ -216,7 +216,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -438,7 +437,6 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665.")
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
