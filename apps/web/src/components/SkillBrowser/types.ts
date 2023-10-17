@@ -6,7 +6,7 @@ import {
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
 
-export type SkillDialogContext =
+export type SkillBrowserDialogContext =
   | "experience"
   | "library"
   | "showcase"

@@ -2,11 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import UserSkillFormFields from "../UserSkillFormFields/UserSkillFormFields";
-import { SkillDialogContext } from "./types";
+import { SkillBrowserDialogContext } from "./types";
 
 interface SkillDetailsProps {
   isTechnical?: boolean;
-  context?: SkillDialogContext;
+  context?: SkillBrowserDialogContext;
 }
 
 const SkillDetails = ({ isTechnical = false, context }: SkillDetailsProps) => {

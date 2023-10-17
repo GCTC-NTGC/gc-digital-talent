@@ -13,11 +13,11 @@ import {
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
-import { SkillDialogContext } from "../SkillDialog/types";
+import { SkillBrowserDialogContext } from "../SkillBrowser/types";
 
 interface UserSkillFormFieldsProps {
   isTechnical?: boolean;
-  context?: SkillDialogContext;
+  context?: SkillBrowserDialogContext;
 }
 
 const UserSkillFormFields = ({

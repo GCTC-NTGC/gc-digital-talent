@@ -20,8 +20,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Button, Separator } from "@gc-digital-talent/ui";
 
-import SkillDialog from "~/components/SkillDialog/SkillDialog";
-import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
+import SkillDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillDialogFormValues } from "~/components/SkillBrowser/types";
 
 import { enumToOptions, stringToEnum } from "../../util";
 import {
