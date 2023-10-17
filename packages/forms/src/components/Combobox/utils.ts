@@ -111,8 +111,9 @@ export function getMultiDefaultValue<T extends Option>(
 ): Option[] {
   let value: Option[] = [];
   if (isArray(defaultValue)) {
-    value = options.filter((option) =>
-      defaultValue?.some((defaultItem) => defaultItem === option.value),
+    value = options.filter(
+      (option) =>
+        defaultValue?.some((defaultItem) => defaultItem === option.value),
     );
   } else {
     const singleValue = getSingleDefaultValue(options, defaultValue);

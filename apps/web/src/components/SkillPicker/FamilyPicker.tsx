@@ -37,10 +37,11 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           description: "Tab name for a list of technical skills",
         }),
         options: families
-          .filter((sf) =>
-            sf.skills?.filter(
-              (skill) => skill.category === SkillCategory.Technical,
-            ),
+          .filter(
+            (sf) =>
+              sf.skills?.filter(
+                (skill) => skill.category === SkillCategory.Technical,
+              ),
           )
           .map((family) => ({
             value: family.id,
@@ -55,10 +56,11 @@ const FamilyPicker = ({ families, onSelectFamily }: FamilyPickerProps) => {
           description: "Tab name for a list of behavioural skills",
         }),
         options: families
-          .filter((sf) =>
-            sf.skills?.filter(
-              (skill) => skill.category === SkillCategory.Behavioural,
-            ),
+          .filter(
+            (sf) =>
+              sf.skills?.filter(
+                (skill) => skill.category === SkillCategory.Behavioural,
+              ),
           )
           .map((family) => ({
             value: family.id,
