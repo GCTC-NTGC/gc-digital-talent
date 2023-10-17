@@ -270,16 +270,16 @@ const PersonnelRequirementFieldset = ({
       <SignPost
         title={intl.formatMessage({
           defaultMessage: "Other requirements",
-          id: "WiyJdK",
+          id: "RbHGhj",
           description:
-            "Title for _other reuquirements_ section in the _digital services contracting questionnaire_",
+            "Title for _other requirements_ section in the _digital services contracting questionnaire_",
         })}
         introduction={intl.formatMessage({
           defaultMessage:
             "Please specify the following requirements for this role.",
-          id: "+lXeYD",
+          id: "LizQuG",
           description:
-            "Introduction for _other reuquirements_ section in the _digital services contracting questionnaire_",
+            "Introduction for _other requirements_ section in the _digital services contracting questionnaire_",
         })}
       />
       <Select

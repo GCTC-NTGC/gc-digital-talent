@@ -123,10 +123,6 @@
     "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience au cours de votre parcours professionnel.",
     "description": "Message that appears when a required skill has no experiences linked to it"
   },
-  "+lXeYD": {
-    "defaultMessage": "Veuillez préciser les exigences suivantes pour ce poste.",
-    "description": "Introduction for _other requirements_ section in the _digital services contracting questionnaire_"
-  },
   "+mCsoW": {
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
@@ -4156,6 +4152,10 @@
     "defaultMessage": "Compétences comportementales facultatives",
     "description": "Title for optional behavioural skills section of a pool advertisement"
   },
+  "LizQuG": {
+    "defaultMessage": "Veuillez préciser les exigences suivantes pour ce poste.",
+    "description": "Introduction for _other requirements_ section in the _digital services contracting questionnaire_"
+  },
   "LjE48l": {
     "defaultMessage": "Annuler",
     "description": "Button text to close employment equity form."
@@ -5079,6 +5079,10 @@
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
   },
+  "RbHGhj": {
+    "defaultMessage": "Autres exigences",
+    "description": "Title for _other requirements_ section in the _digital services contracting questionnaire_"
+  },
   "Rbp02p": {
     "defaultMessage": "Sauvegarder le plan et revenir en arrière",
     "description": "Text on a button to save the assessment plan and return to the pool page"
@@ -5946,10 +5950,6 @@
   "WieVH/": {
     "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
-  },
-  "WiyJdK": {
-    "defaultMessage": "Autres exigences",
-    "description": "Title for _other reuquirements_ section in the _digital services contracting questionnaire_"
   },
   "WkD8tV": {
     "defaultMessage": "Ajouter une expérience professionnelle",
