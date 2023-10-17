@@ -532,6 +532,14 @@ const EditPoolPage = React.lazy(() =>
       ),
   ),
 );
+const AssessmentPlanBuilderPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+      ),
+  ),
+);
 const PoolLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1488,6 +1496,22 @@ const createRoute = (
                           ],
                         },
                       ],
+                    },
+                    {
+                      path: "plan",
+                      element: featureFlags.recordOfDecision ? (
+                        <RequireAuth
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
+                          loginPath={loginPath}
+                        >
+                          <AssessmentPlanBuilderPage />
+                        </RequireAuth>
+                      ) : (
+                        <AdminErrorPage />
+                      ),
                     },
                   ],
                 },

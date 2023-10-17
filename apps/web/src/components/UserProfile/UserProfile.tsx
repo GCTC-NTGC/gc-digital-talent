@@ -26,6 +26,7 @@ import GovernmentInformationSection from "./ProfileSections/GovernmentInformatio
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
+import SkillShowcaseSection from "./SkillShowcaseSection";
 import { PAGE_SECTION_ID } from "./constants";
 
 interface SectionControl {
@@ -45,6 +46,7 @@ interface UserProfileProps {
     careerTimelineAndRecruitment?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
+    skillShowcase?: SectionControl;
   };
   isNavigationVisible?: boolean;
   subTitle?: React.ReactNode;
@@ -119,7 +121,13 @@ const UserProfile = ({
   isNavigationVisible = true,
 }: UserProfileProps) => {
   const intl = useIntl();
-  const { experiences } = user;
+  const {
+    experiences,
+    topBehaviouralSkillsRanking,
+    topTechnicalSkillsRanking,
+    improveBehaviouralSkillsRanking,
+    improveTechnicalSkillsRanking,
+  } = user;
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   type SectionKeys = keyof UserProfileProps["sections"];
@@ -187,6 +195,13 @@ const UserProfile = ({
                   {intl.formatMessage(
                     navigationMessages.careerTimelineAndRecruitment,
                   )}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+            {showSection("skillShowcase") && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SHOWCASE}>
+                  {intl.formatMessage(navigationMessages.skillShowcase)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             )}
@@ -497,6 +512,39 @@ const UserProfile = ({
               <ExperienceSection
                 headingLevel={contentHeadingLevel}
                 experiences={experiences?.filter(notEmpty)}
+              />
+            )}
+          </TableOfContents.Section>
+        )}
+        {showSection("skillShowcase") && (
+          <TableOfContents.Section id={PAGE_SECTION_ID.SKILL_SHOWCASE}>
+            <HeadingWrapper show={!!sections.skillShowcase?.editUrl}>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(fill)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
+                  {intl.formatMessage(navigationMessages.skillShowcase)}
+                </TableOfContents.Heading>
+              </div>
+            </HeadingWrapper>
+            {sections.skillShowcase?.override ? (
+              sections.skillShowcase.override
+            ) : (
+              <SkillShowcaseSection
+                headingLevel={contentHeadingLevel}
+                topTechnicalSkillsRanking={
+                  topTechnicalSkillsRanking?.filter(notEmpty) ?? []
+                }
+                topBehaviouralSkillsRanking={
+                  topBehaviouralSkillsRanking?.filter(notEmpty) ?? []
+                }
+                improveTechnicalSkillsRanking={
+                  improveTechnicalSkillsRanking?.filter(notEmpty) ?? []
+                }
+                improveBehaviouralSkillsRanking={
+                  improveBehaviouralSkillsRanking?.filter(notEmpty) ?? []
+                }
               />
             )}
           </TableOfContents.Section>

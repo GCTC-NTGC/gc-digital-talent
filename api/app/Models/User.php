@@ -7,7 +7,6 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -679,22 +678,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
 
         return $query;
-    }
-
-    /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
-    public function getWouldAcceptTemporaryAttribute()
-    {
-        $positionDuration = $this->position_duration;
-
-        if ($positionDuration && in_array(PositionDuration::TEMPORARY->name, $positionDuration)) {
-            return true;
-        }
-
-        if ($positionDuration && count($positionDuration) >= 1) {
-            return false;
-        }
-
-        return null; // catch all other cases, like null variable or empty array
     }
 
     /* accessor to maintain functionality of to be deprecated isIndigenous field */

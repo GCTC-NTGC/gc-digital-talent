@@ -74,10 +74,11 @@ const streamIsRecommended = (
   stream: StreamViewModel,
   userSkillIds: Skill["id"][],
 ): boolean =>
-  stream.classifications.some((classification) =>
-    classification.pool?.essentialSkills?.every((skill) =>
-      userSkillIds.includes(skill.id),
-    ),
+  stream.classifications.some(
+    (classification) =>
+      classification.pool?.essentialSkills?.every((skill) =>
+        userSkillIds.includes(skill.id),
+      ),
   );
 
 export interface OngoingRecruitmentSectionProps {

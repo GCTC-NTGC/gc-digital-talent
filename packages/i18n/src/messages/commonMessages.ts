@@ -130,6 +130,11 @@ const commonMessages = defineMessages({
     id: "zhqK/P",
     description: "Unspecified, has not been set or defined",
   },
+  notApplicable: {
+    defaultMessage: "Not applicable",
+    id: "C/mdCs",
+    description: "Not applicable, context or state does apply.",
+  },
 });
 
 export default commonMessages;

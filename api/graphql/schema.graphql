@@ -95,11 +95,6 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  wouldAcceptTemporary: Boolean
-    @rename(attribute: "would_accept_temporary")
-    @deprecated(
-      reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663."
-    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
@@ -374,11 +369,6 @@ type ApplicantFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean
-    @rename(attribute: "would_accept_temporary")
-    @deprecated(
-      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665."
-    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications

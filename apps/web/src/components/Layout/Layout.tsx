@@ -80,8 +80,8 @@ const Layout = () => {
         ROLE_NAME.RequestResponder,
         ROLE_NAME.CommunityManager,
         ROLE_NAME.PlatformAdmin,
-      ].some((authorizedRoleName) =>
-        userRoleNames?.includes(authorizedRoleName),
+      ].some(
+        (authorizedRoleName) => userRoleNames?.includes(authorizedRoleName),
       )
     ) {
       menuItems = [

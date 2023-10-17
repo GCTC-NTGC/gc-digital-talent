@@ -28,8 +28,8 @@ import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import SkillDialog from "~/components/SkillDialog/SkillDialog";
-import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import {
   Scalars,
   SkillCategory,
@@ -37,7 +37,7 @@ import {
   useUpdateUserSkillMutation,
 } from "~/api/generated";
 
-export type FormValues = { userSkills: SkillDialogFormValues[] };
+export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
 interface ModificationAlertProps {
   userSkills: FormValues["userSkills"];
@@ -143,7 +143,7 @@ const UpdateSkillShowcase = ({
     );
   };
 
-  const handleSave = async (values: SkillDialogFormValues) => {
+  const handleSave = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const userHasSkill =
       userSkills.filter((userSkill) => userSkill.skill.id === values.skill)
@@ -238,7 +238,7 @@ const UpdateSkillShowcase = ({
                       customButton={{
                         id: addId,
                         button: (
-                          <SkillDialog
+                          <SkillBrowserDialog
                             inLibrary={userSkills.map(
                               (userSkill) => userSkill.skill,
                             )}
