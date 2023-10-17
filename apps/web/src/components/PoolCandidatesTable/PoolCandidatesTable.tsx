@@ -710,8 +710,8 @@ const PoolCandidatesTable = ({
         sortColumnName: "SKILL_COUNT",
         accessor: ({ poolCandidate: { user }, skillCount }) =>
           skillMatchDialogAccessor(
-            allSkills?.filter((skill) =>
-              filteredSkillIds?.includes(skill.id),
+            allSkills?.filter(
+              (skill) => filteredSkillIds?.includes(skill.id),
             ) ?? [],
             user.experiences?.filter(notEmpty) ?? [],
             skillCount,

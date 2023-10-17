@@ -158,9 +158,8 @@ describe("MultiSelectFieldBase", () => {
       <MultiSelectFieldBase {...defaultProps} options={[]} />,
     );
     toggleMenuOpen(document.body);
-    const noticeText = document.querySelector(
-      `.${CLASS_PREFIX}__menu-notice`,
-    )?.textContent;
+    const noticeText = document.querySelector(`.${CLASS_PREFIX}__menu-notice`)
+      ?.textContent;
     expect(noticeText).toBe("No options");
   });
 
@@ -308,9 +307,8 @@ describe("MultiSelectFieldBase", () => {
   it("should have default placeholder when not specified", () => {
     renderWithProviders(<MultiSelectFieldBase {...defaultProps} />);
 
-    const placeholderText = document.querySelector(
-      `.${CLASS_PREFIX}__control`,
-    )?.textContent;
+    const placeholderText = document.querySelector(`.${CLASS_PREFIX}__control`)
+      ?.textContent;
     expect(placeholderText).toBe("Select");
   });
 
@@ -319,9 +317,8 @@ describe("MultiSelectFieldBase", () => {
       <MultiSelectFieldBase {...defaultProps} placeholder="Select thing" />,
     );
 
-    const placeholderText = document.querySelector(
-      `.${CLASS_PREFIX}__control`,
-    )?.textContent;
+    const placeholderText = document.querySelector(`.${CLASS_PREFIX}__control`)
+      ?.textContent;
     expect(placeholderText).toBe("Select thing");
   });
 
@@ -338,9 +335,8 @@ describe("MultiSelectFieldBase", () => {
     renderWithProviders(<MultiSelectFieldBase {...defaultProps} isLoading />);
     toggleMenuOpen(document.body);
 
-    const loadingText = document.querySelector(
-      `.${CLASS_PREFIX}__menu-notice`,
-    )?.textContent;
+    const loadingText = document.querySelector(`.${CLASS_PREFIX}__menu-notice`)
+      ?.textContent;
     expect(loadingText).toBe("Loading...");
   });
 

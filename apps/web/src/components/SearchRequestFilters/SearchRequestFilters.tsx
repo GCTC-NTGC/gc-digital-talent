@@ -340,9 +340,7 @@ const SearchRequestFilters = ({
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
       (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+        `${classification?.group.toLocaleUpperCase()}-0${classification?.level}`,
     );
 
   const pools: Pool[] | undefined = poolCandidateFilter
