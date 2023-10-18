@@ -119,13 +119,6 @@ type User {
   topBehaviouralSkillsRanking: [UserSkill]
   improveTechnicalSkillsRanking: [UserSkill]
   improveBehaviouralSkillsRanking: [UserSkill]
-  # Pool Manager info
-  pools: [Pool]
-    @hasMany
-    @can(ability: "view", resolved: true)
-    @deprecated(
-      reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664."
-    ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
