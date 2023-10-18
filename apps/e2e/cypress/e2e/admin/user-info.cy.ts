@@ -28,9 +28,8 @@ describe("User Information Page", () => {
     // select some dimensions to use for testing
     cy.getTeams().then((allTeams) => {
       const team = allTeams.filter(
-        (team) =>
-          team.name !== "test-team" &&
-          team.name !== "digital-community-management",
+        ({ name }) =>
+          !["test-team", "digital-community-management"].includes(name),
       )[0];
       cy.wrap(team.id).as("newTeam"); // take a team for testing that's not attached to the pool operator
     });
