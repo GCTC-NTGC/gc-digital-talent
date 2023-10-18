@@ -2,7 +2,7 @@ import React from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
-import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 
 export type ButtonProps = ButtonLinkProps &
   React.DetailedHTMLProps<
@@ -17,8 +17,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       utilityIcon,
       disabled,
+      counter,
       color = "primary",
       mode = "solid",
+      fontSize = "body",
       block = false,
       ...rest
     },
@@ -29,17 +31,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const styles = useCommonButtonLinkStyles({
-      mode,
-      color,
-      block,
-      disabled,
-    });
-
     return (
       // eslint-disable-next-line react/button-has-type
-      <button ref={ref} disabled={disabled} {...styles} {...rest}>
-        <ButtonLinkContent mode={mode} icon={icon} utilityIcon={utilityIcon}>
+      <button
+        ref={ref}
+        disabled={disabled}
+        {...getButtonStyles({ mode, color, block, disabled })}
+        {...rest}
+      >
+        <ButtonLinkContent
+          mode={mode}
+          icon={icon}
+          utilityIcon={utilityIcon}
+          color={color}
+          counter={counter}
+          fontSize={fontSize}
+        >
           {children}
         </ButtonLinkContent>
       </button>

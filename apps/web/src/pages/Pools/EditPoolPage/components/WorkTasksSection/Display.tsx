@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
@@ -25,13 +26,21 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
           hasError={!keyTasks?.en}
           label={intl.formatMessage(processMessages.keyTasksEn)}
         >
-          {keyTasks?.en || notProvided}
+          {keyTasks?.en ? (
+            <RichTextRenderer node={htmlToRichTextJSON(keyTasks?.en)} />
+          ) : (
+            notProvided
+          )}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!keyTasks?.fr}
           label={intl.formatMessage(processMessages.keyTasksFr)}
         >
-          {keyTasks?.fr || notProvided}
+          {keyTasks?.fr ? (
+            <RichTextRenderer node={htmlToRichTextJSON(keyTasks?.fr)} />
+          ) : (
+            notProvided
+          )}
         </ToggleForm.FieldDisplay>
       </div>
     </>

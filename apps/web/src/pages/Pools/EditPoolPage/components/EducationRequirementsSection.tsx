@@ -56,11 +56,7 @@ const EducationRequirementsSection = ({
         <span data-h2-font-weight="base(700)">
           {classificationAbbr || intl.formatMessage(commonMessages.notProvided)}
         </span>{" "}
-        <ScrollToLink
-          to={changeTargetId}
-          data-h2-font-weight="base(700)"
-          data-h2-color="base(secondary.darker) base:hover:(secondary.darkest)"
-        >
+        <ScrollToLink to={changeTargetId} mode="text" color="secondary">
           {classification
             ? intl.formatMessage({
                 defaultMessage: "change classification",

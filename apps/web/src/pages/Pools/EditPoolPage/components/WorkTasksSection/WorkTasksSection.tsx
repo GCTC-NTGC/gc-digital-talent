@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
+import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -36,7 +36,6 @@ type WorkTasksSectionProps = SectionProps<WorkTasksSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
-const TEXT_AREA_ROWS = 15;
 
 const WorkTasksSection = ({
   pool,
@@ -130,7 +129,7 @@ const WorkTasksSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin="base(x1 0)"
               >
-                <TextArea
+                <RichTextInput
                   id="YourWorkEn"
                   label={intl.formatMessage({
                     defaultMessage: "English - Your work",
@@ -139,11 +138,10 @@ const WorkTasksSection = ({
                       "Label for the English - Your Work textarea in the edit pool page.",
                   })}
                   name="YourWorkEn"
-                  rows={TEXT_AREA_ROWS}
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
-                <TextArea
+                <RichTextInput
                   id="YourWorkFr"
                   label={intl.formatMessage({
                     defaultMessage: "French - Your work",
@@ -153,8 +151,7 @@ const WorkTasksSection = ({
                   })}
                   name="YourWorkFr"
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                  rows={TEXT_AREA_ROWS}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
               </div>
 
