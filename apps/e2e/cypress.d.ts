@@ -125,7 +125,7 @@ declare global {
       /**
        * Custom command to update an existing application as a user with the admin role.
        * @param {string} applicationId - ID of the application being submitted
-       * @param {UpdatePoolCandidateAsAdminInput} signature - Signature of the user submitting
+       * @param {UpdatePoolCandidateAsAdminInput} input - Input for the graphql request
        * @example cy.updatePoolCandidateAsAdmin('applicationUUID', 'John Doe')
        */
       updatePoolCandidateAsAdmin(
@@ -178,7 +178,7 @@ declare global {
       /**
        * Custom command to log a user in using a specific sub.
        * @param {string} sub - The sub to login with
-       * @example cy.loginByRole('admin')
+       * @example cy.loginBySubject('sub')
        */
       loginBySubject(sub: string): Promise<void>;
 
@@ -251,7 +251,7 @@ declare global {
       getGenericJobTitles(): Chainable<GenericJobTitle[]>;
       /**
        * Custom command to get all generic job titles.
-       * @example cy.getSkills().then(genericJobTitles => {})
+       * @example cy.getSkills().then(skills => {})
        */
       getSkills(): Chainable<Skill[]>;
 
@@ -262,8 +262,8 @@ declare global {
        */
       /**
        * Custom command to assert that a toast appears in the DOM.
-       * @param {string} text - The text to look for in the toast
-       * @example cy.loginByRole('admin')
+       * @param {RegExp} text - The text to look for in the toast
+       * @example cy.expectToast(/toast test/i)
        */
       expectToast(text: RegExp): void;
     }
