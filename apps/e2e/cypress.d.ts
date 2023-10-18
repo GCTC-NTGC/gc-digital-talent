@@ -98,7 +98,10 @@ declare global {
        * @param {string} poolId - ID of the pool the user is applying to
        * @example cy.createApplication('userUUID', 'poolUUID')
        */
-      createApplication(userId: string, poolId: string): void;
+      createApplication(
+        userId: string,
+        poolId: string,
+      ): Chainable<PoolCandidate>;
       /**
        * Custom command to submit an existing application.
        * @param {string} applicationId - ID of the application being submitted
@@ -165,19 +168,19 @@ declare global {
        * Custom command to log the current user out.
        * @example cy.logout()
        */
-      logout(): void;
+      logout(): Promise<void>;
       /**
        * Custom command to log a user in using a specific role.
        * @param {string} role - The role to login with
        * @example cy.loginByRole('admin')
        */
-      loginByRole(role: string): void;
+      loginByRole(role: string): Promise<void>;
       /**
        * Custom command to log a user in using a specific sub.
        * @param {string} sub - The sub to login with
        * @example cy.loginByRole('admin')
        */
-      loginBySubject(sub: string): void;
+      loginBySubject(sub: string): Promise<void>;
 
       /**
        * ======================================
@@ -218,7 +221,7 @@ declare global {
        * Custom command to get the current user.
        * @example cy.getDCM().then(team => {})
        */
-      getDCM(): Chainable<Team>;
+      getDCM(): Chainable<string>;
       /**
        * Custom command to get the current user.
        * @example cy.getTeams().then(teams => {})

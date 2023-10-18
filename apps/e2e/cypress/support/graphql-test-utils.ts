@@ -1,6 +1,8 @@
 // Source: https://docs.cypress.io/guides/testing-strategies/working-with-graphql
 
-type GraphqlRequest = Request & {
+import { CyHttpMessages } from "cypress/types/net-stubbing";
+
+type GraphqlRequest = CyHttpMessages.IncomingHttpRequest & {
   alias?: string;
   body: Request["body"] & {
     operationName?: string;
