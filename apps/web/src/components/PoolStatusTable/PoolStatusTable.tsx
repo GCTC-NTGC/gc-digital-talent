@@ -151,6 +151,12 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       urlSync={false}
       sort={{
         internal: true,
+        initialState: [
+          {
+            id: "status",
+            desc: false,
+          },
+        ],
       }}
       nullMessage={{
         description: intl.formatMessage({
