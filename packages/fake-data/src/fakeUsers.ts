@@ -10,7 +10,6 @@ import {
   EstimatedLanguageAbility,
   Classification,
   OperationalRequirement,
-  Pool,
   WorkRegion,
   GovEmployeeType,
   Department,
@@ -60,7 +59,6 @@ const generateUser = (
   workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
-  pools: Pool[] = [], // pools owned by this user
 ): GeneratedUser => {
   return {
     __typename: "User",
@@ -173,8 +171,6 @@ const generateUser = (
     educationExperiences,
     personalExperiences,
     workExperiences,
-
-    pools,
   };
 };
 
