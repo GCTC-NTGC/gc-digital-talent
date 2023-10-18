@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Well } from "@gc-digital-talent/ui";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
@@ -29,13 +30,21 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
             hasError={!specialNote?.en}
             label={intl.formatMessage(processMessages.specialNoteEn)}
           >
-            {specialNote?.en || notProvided}
+            {specialNote?.en ? (
+              <RichTextRenderer node={htmlToRichTextJSON(specialNote?.en)} />
+            ) : (
+              notProvided
+            )}
           </ToggleForm.FieldDisplay>
           <ToggleForm.FieldDisplay
             hasError={!specialNote?.fr}
             label={intl.formatMessage(processMessages.specialNoteFr)}
           >
-            {specialNote?.fr || notProvided}
+            {specialNote?.fr ? (
+              <RichTextRenderer node={htmlToRichTextJSON(specialNote?.fr)} />
+            ) : (
+              notProvided
+            )}
           </ToggleForm.FieldDisplay>
         </div>
       ) : (

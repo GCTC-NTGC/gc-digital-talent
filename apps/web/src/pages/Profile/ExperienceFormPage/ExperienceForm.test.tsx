@@ -323,7 +323,7 @@ describe("ExperienceForm", () => {
     await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
   });
 
-  // TODO: Commenting out test below until the <SkillDialog /> error is resolved... When skill dialog is opened this console.error() appears -> "Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
+  // TODO: Commenting out test below until the <SkillBrowserDialog /> error is resolved... When skill dialog is opened this console.error() appears -> "Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
   // it("should add skill", async () => {
   //   renderExperienceForm({
   //     userId: mockUserId,

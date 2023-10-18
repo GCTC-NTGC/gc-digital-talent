@@ -1,6 +1,10 @@
 import React from "react";
 import { useLocation, Link, LinkProps } from "react-router-dom";
 
+import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
+import { ButtonLinkProps } from "../../types";
+import getButtonStyles from "../../utils/button/getButtonStyles";
+
 type ClickEvent =
   | React.MouseEvent<HTMLAnchorElement | undefined>
   | React.KeyboardEvent<HTMLAnchorElement | undefined>;
@@ -21,15 +25,27 @@ const scrollToSection = (section: HTMLElement | null) => {
   }
 };
 
-export interface ScrollToLinkProps extends Omit<LinkProps, "to"> {
-  to: string;
-  onScrollTo?: ScrollLinkClickFunc;
-}
+export type ScrollToLinkProps = Omit<LinkProps, "to"> &
+  ButtonLinkProps & {
+    to: string;
+    onScrollTo?: ScrollLinkClickFunc;
+    external?: boolean;
+    newTab?: boolean;
+    disabled?: boolean;
+  };
 
 const ScrollToLink = ({
   to,
   onScrollTo,
   children,
+  color = "black",
+  mode = "text",
+  block = false,
+  fontSize = "body",
+  icon,
+  utilityIcon,
+  disabled = false,
+  newTab = false,
   ...rest
 }: ScrollToLinkProps) => {
   const { pathname, hash, search, state } = useLocation();
@@ -55,6 +71,18 @@ const ScrollToLink = ({
     }
   };
 
+  const content = (
+    <ButtonLinkContent
+      mode={mode}
+      icon={icon}
+      utilityIcon={utilityIcon}
+      newTab={newTab}
+      fontSize={fontSize}
+    >
+      {children}
+    </ButtonLinkContent>
+  );
+
   return (
     <Link
       to={{
@@ -65,10 +93,11 @@ const ScrollToLink = ({
       state={state}
       replace
       preventScrollReset={false}
+      {...getButtonStyles({ mode, color, block, disabled })}
       {...rest}
       onClick={handleClick}
     >
-      {children}
+      {content}
     </Link>
   );
 };

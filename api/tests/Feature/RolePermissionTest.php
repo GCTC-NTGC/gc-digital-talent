@@ -145,6 +145,7 @@ class RolePermissionTest extends TestCase
             'view-team-submittedApplication',
             'update-team-applicationStatus',
             'view-team-teamMembers',
+            'view-team-applicantProfile',
         ];
 
         $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));

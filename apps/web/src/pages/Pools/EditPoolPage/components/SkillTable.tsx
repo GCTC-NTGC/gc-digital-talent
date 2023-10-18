@@ -7,7 +7,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import SkillDialog from "~/components/SkillDialog/SkillDialog";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
 const columnHelper = createColumnHelper<Skill>();
 
@@ -105,7 +105,7 @@ const SkillTable = ({
         !disableAdd
           ? {
               component: (
-                <SkillDialog
+                <SkillBrowserDialog
                   context="experience"
                   showCategory={false}
                   skills={availableSkills}

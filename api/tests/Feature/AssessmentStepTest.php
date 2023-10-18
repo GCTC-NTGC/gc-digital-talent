@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\AssessmentStepType;
+use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolSkill;
@@ -13,6 +14,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
 
 class AssessmentStepTest extends TestCase
 {
@@ -162,7 +165,7 @@ class AssessmentStepTest extends TestCase
         $assessment = AssessmentStep::factory()->create(
             ['pool_id' => $this->pool->id]
         );
-        assertEquals(1, count(AssessmentStep::all()));
+        assertNotNull(AssessmentStep::all()->find($assessment->id));
 
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
@@ -172,14 +175,20 @@ class AssessmentStepTest extends TestCase
                 ]
             )
             ->assertSuccessful();
-        assertEquals(0, count(AssessmentStep::all()));
+        assertNull(AssessmentStep::all()->find($assessment->id));
     }
 
     // test syncing a pool's skills with its assessment steps
     public function testSyncAssessmentStepPoolSkill(): void
     {
-        $skill1 = Skill::factory()->create();
-        $skill2 = Skill::factory()->create();
+        // avoid creating technical skills to prevent them
+        // syncing with the pools APPLICATION_SCREENING step
+        $skill1 = Skill::factory()->create([
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
+        $skill2 = Skill::factory()->create([
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
         $this->pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert having set two essential pool skills the counts line up
@@ -190,7 +199,7 @@ class AssessmentStepTest extends TestCase
         $poolSkillIds = PoolSkill::all()->pluck('id')->toArray();
 
         // create an AssessmentStep and sync it to both the pool's skills
-        $this->actingAs($this->teamUser, 'api')
+        $response = $this->actingAs($this->teamUser, 'api')
             ->graphQL(
                 $this->createAssessmentStep,
                 [
@@ -210,32 +219,33 @@ class AssessmentStepTest extends TestCase
             )
             ->assertSuccessful();
         $this->pool->refresh();
+        $assessmentStep = AssessmentStep::all()->find($response->json('data.createAssessmentStep.id'));
 
         // assert an assessment step created that through the pivot connected it to two pool skills
-        assertEquals(1, count(AssessmentStep::all()));
-        assertEquals(2, count(AssessmentStep::first()->poolSkills));
+        assertNotNull($assessmentStep);
+        $assessmentStep->load('poolSkills');
+        assertEquals(2, count($assessmentStep->poolSkills));
 
         // assert a pool skill is associated with one assessment step
         assertEquals(1, count(PoolSkill::first()->assessmentSteps));
 
-        // assert the pool has one assessment step it can access
-        assertEquals(1, count($this->pool->assessmentSteps));
+        // assert the pool can access the new assessment step
+        assertNotNull($this->pool->assessmentSteps->find($assessmentStep->id));
 
         // delete the assessment step
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
                 $this->deleteAssessmentStep,
                 [
-                    'id' => AssessmentStep::first()->id,
+                    'id' => $assessmentStep->id,
                 ]
             )
             ->assertSuccessful();
         $this->pool->refresh();
 
         // make assertions again now that the assessment was deleted
-        assertEquals(0, count(AssessmentStep::all()));
+        assertNull(AssessmentStep::all()->find($assessmentStep->id));
         assertEquals(0, count(PoolSkill::first()->assessmentSteps));
-        assertEquals(0, count($this->pool->assessmentSteps));
     }
 
     // test that you cannot add screening or application related assessment steps

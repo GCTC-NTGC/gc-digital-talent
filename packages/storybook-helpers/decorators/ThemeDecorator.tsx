@@ -42,7 +42,7 @@ export const themeMode = {
     items: [
       {
         value: "pref",
-        right: "🖥",
+        right: "🖥️",
         title: "Preference",
       },
       {

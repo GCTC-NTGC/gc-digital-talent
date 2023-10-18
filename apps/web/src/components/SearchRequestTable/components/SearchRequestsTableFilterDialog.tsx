@@ -69,7 +69,7 @@ export const SearchRequestsTableFilterDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Trigger>
-        <Button color="secondary" type="button" icon={AdjustmentsVerticalIcon}>
+        <Button color="quaternary" type="button" icon={AdjustmentsVerticalIcon}>
           {formatMessage({
             defaultMessage: "Filters",
             id: "1HPhji",

@@ -16,20 +16,20 @@ const paddingMap = new Map([
   [
     "default",
     {
-      "data-h2-padding": "base(x3, 0)",
+      "data-h2-padding": "base(x4, 0)",
     },
   ],
   [
     "image",
     {
       "data-h2-padding":
-        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x3, 0)",
+        "base(x3, 0, 50vh, 0) p-tablet(x3, 0, 60vh, 0) l-tablet(x4, 0)",
     },
   ],
   [
     "overlap",
     {
-      "data-h2-padding": "base(x3, 0, x6, 0)",
+      "data-h2-padding": "base(x4, 0, x8, 0)",
     },
   ],
 ]);
@@ -145,8 +145,7 @@ const Hero = ({
             </Heading>
             {subtitle && (
               <p
-                data-h2-font-size="base(h6, 1.4)"
-                data-h2-font-weight="base(300)"
+                data-h2-font-size="base(h4, 1.4)"
                 data-h2-margin="base(x1, 0, 0, 0)"
               >
                 {subtitle}
