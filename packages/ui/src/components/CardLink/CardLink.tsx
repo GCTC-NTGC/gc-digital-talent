@@ -6,7 +6,14 @@ import { sanitizeUrl } from "@gc-digital-talent/helpers";
 import { IconType } from "../../types";
 import "./cardLink.css";
 
-type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
+type Color =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
+  | "black"
+  | "white";
 
 export interface CardLinkProps {
   href: string;
@@ -15,31 +22,41 @@ export interface CardLinkProps {
   icon?: IconType;
   external?: boolean;
   children?: React.ReactNode;
+  subtitle?: string;
 }
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-background-color":
-      "base:all(primary.light) base:dark:iap(primary)",
+    "data-h2-background-color": "base:all(primary.light) base:iap:all(primary)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   secondary: {
     "data-h2-background-color":
-      "base(secondary) base:dark:iap(secondary.light)",
+      "base(secondary) base:iap:dark(secondary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   tertiary: {
-    "data-h2-background-color": "base(tertiary) base:dark:iap(tertiary.light)",
+    "data-h2-background-color":
+      "base:all(tertiary.light) base:iap(secondary) base:dark:iap(tertiary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quaternary: {
     "data-h2-background-color":
-      "base(quaternary) base:dark:iap(quaternary.light)",
+      "base:all(quaternary.light) base:iap(secondary) base:dark:iap(quaternary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quinary: {
     "data-h2-background-color": "base(quinary) base:dark:iap(quinary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
+  },
+  black: {
+    "data-h2-background-color":
+      "base(gray.darkest) base:dark(foreground.shade)",
+    "data-h2-color": "base:all(white)",
+  },
+  white: {
+    "data-h2-background-color": "base(foreground) base:dark(foreground.tint)",
+    "data-h2-color": "base:all(black)",
   },
 };
 
@@ -47,6 +64,7 @@ interface LinkProps {
   href: string;
   external: boolean;
   children: React.ReactNode;
+  subtitle?: string;
 }
 
 const Link = ({ href, external, children }: LinkProps) => {
@@ -82,33 +100,41 @@ const CardLink = ({
   icon,
   label,
   children,
+  subtitle,
 }: CardLinkProps) => {
   const Icon = icon || null;
   const url = sanitizeUrl(href);
   return (
     <Link href={url || "#"} external={!!external}>
-      <span
-        className="card-link__header"
-        data-h2-display="base(block)"
-        data-h2-font-size="base(h5, 1)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(rounded, rounded, 0px, 0px)"
-        {...{ ...colorMap[color] }}
-      >
-        {children}
-      </span>
-      <span
-        className="card-link__label"
+      <div
         data-h2-background-color="base(foreground)"
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(flex-start)"
-        data-h2-radius="base(0, 0, rounded, rounded)"
-        data-h2-padding="base(x1)"
+        data-h2-min-height="base(100%)"
+        data-h2-radius="base(rounded)"
+        data-h2-overflow="base(hidden)"
       >
-        {Icon && <Icon className="card-link__icon" />}
-        <span>{label}</span>
-      </span>
+        <div
+          className="card-link__header"
+          data-h2-display="base:children[>span](block)"
+          data-h2-padding="base(x1)"
+          {...{ ...colorMap[color] }}
+        >
+          <span data-h2-font-size="base(h6, 1)" data-h2-font-weight="base(700)">
+            {children}
+          </span>
+          {subtitle && <span data-h2-margin="base(x.5 0 0 0)">{subtitle}</span>}
+        </div>
+        <span
+          className="card-link__label"
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-justify-content="base(flex-start)"
+          data-h2-padding="base(x1)"
+          data-h2-color="base(black)"
+        >
+          {Icon && <Icon className="card-link__icon" />}
+          <span>{label}</span>
+        </span>
+      </div>
     </Link>
   );
 };

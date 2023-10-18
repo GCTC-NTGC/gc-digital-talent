@@ -4,11 +4,11 @@ export type Color =
   | "tertiary"
   | "quaternary"
   | "quinary"
-  | "white"
-  | "black"
   | "success"
   | "warning"
-  | "error";
+  | "error"
+  | "black"
+  | "white";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -25,7 +25,12 @@ type HydrogenAttributes = {
   [dataAttribute: HydrogenAttributeKey]: unknown;
 };
 
-export type ButtonLinkMode = "solid" | "inline" | "cta" | "text";
+export type ButtonLinkMode =
+  | "solid"
+  | "inline"
+  | "cta"
+  | "text"
+  | "placeholder";
 
 export type ButtonLinkProps = {
   color?: Color;
@@ -33,4 +38,15 @@ export type ButtonLinkProps = {
   mode?: ButtonLinkMode;
   icon?: IconType;
   utilityIcon?: IconType;
+  counter?: number;
+  fontSize?:
+    | "display"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "body"
+    | "caption";
 } & HydrogenAttributes;
