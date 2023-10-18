@@ -1,16 +1,16 @@
 import {
+  CreatePoolCandidateSearchRequestMutation,
+  UpdatePoolCandidateSearchRequestMutation,
   CreatePoolCandidateSearchRequestDocument,
   UpdatePoolCandidateSearchRequestDocument,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add(
   "createPoolCandidateSearchRequest",
   (poolCandidateSearchRequest) => {
-    cy.graphqlRequest({
+    cy.graphqlRequest<CreatePoolCandidateSearchRequestMutation>({
       operationName: "createPoolCandidateSearchRequest",
       query: getGqlString(CreatePoolCandidateSearchRequestDocument),
       variables: {
@@ -25,7 +25,7 @@ Cypress.Commands.add(
 Cypress.Commands.add(
   "updatePoolCandidateSearchRequest",
   (id, poolCandidateSearchRequest) => {
-    cy.graphqlRequest({
+    cy.graphqlRequest<UpdatePoolCandidateSearchRequestMutation>({
       operationName: "updatePoolCandidateSearchRequest",
       query: getGqlString(UpdatePoolCandidateSearchRequestDocument),
       variables: {
@@ -33,7 +33,7 @@ Cypress.Commands.add(
         poolCandidateSearchRequest: poolCandidateSearchRequest,
       },
     }).then((data) => {
-      cy.wrap(data.UpdatePoolCandidateSearchRequest);
+      cy.wrap(data.updatePoolCandidateSearchRequest);
     });
   },
 );

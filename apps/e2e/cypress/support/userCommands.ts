@@ -1,14 +1,15 @@
 import {
+  CreateUserMutation,
+  GetMeQuery,
+  ListRolesQuery,
+  UpdateUserAsAdminMutation,
   CreateUserDocument,
-  MeDocument,
   GetMeDocument,
   ListRolesDocument,
   UpdateUserAsAdminDocument,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 const defaultUser = {
   // required
@@ -49,7 +50,7 @@ const defaultUser = {
 };
 
 Cypress.Commands.add("createUser", (user) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<CreateUserMutation>({
     operationName: "CreateUser",
     query: getGqlString(CreateUserDocument),
     variables: {
@@ -62,7 +63,7 @@ Cypress.Commands.add("createUser", (user) => {
 });
 
 Cypress.Commands.add("updateUser", (id, user) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<UpdateUserAsAdminMutation>({
     operationName: "UpdateUserAsAdmin",
     query: getGqlString(UpdateUserAsAdminDocument),
     variables: {
@@ -76,7 +77,7 @@ Cypress.Commands.add("updateUser", (id, user) => {
 });
 
 Cypress.Commands.add("getMe", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<GetMeQuery>({
     operationName: "getMe",
     query: getGqlString(GetMeDocument),
     variables: {},
@@ -86,7 +87,7 @@ Cypress.Commands.add("getMe", () => {
 });
 
 Cypress.Commands.add("getRoles", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<ListRolesQuery>({
     operationName: "ListRoles",
     query: getGqlString(ListRolesDocument),
     variables: {},

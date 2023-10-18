@@ -9,6 +9,6 @@
       "node"
     ]
   },
-  "include": ["."],
+  "include": [".", "./cypress.d.ts"],
   "exclude": []
 }

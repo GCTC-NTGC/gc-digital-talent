@@ -2,17 +2,19 @@ import {
   CreateApplicationDocument,
   SubmitApplicationDocument,
   UpdateApplicationDocument,
-} from "@gc-digital-talent/web/src/api/generated";
-import { UpdatePoolCandidateStatusDocument } from "@gc-digital-talent/web/src/api/generated";
-import { EducationRequirementOption } from "@gc-digital-talent/graphql";
+  UpdateApplicationMutation,
+  UpdatePoolCandidateStatusDocument,
+  CreateApplicationMutation,
+  EducationRequirementOption,
+  SubmitApplicationMutation,
+  UpdatePoolCandidateMutation,
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 // create an application that is ready to submit, for use with createApplicant
 Cypress.Commands.add("createApplication", (userId, poolId) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<CreateApplicationMutation>({
     operationName: "createApplication",
     query: getGqlString(CreateApplicationDocument),
     variables: {
@@ -37,7 +39,7 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
 });
 
 Cypress.Commands.add("submitApplication", (applicationId, signature) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<SubmitApplicationMutation>({
     operationName: "SubmitApplication",
     query: getGqlString(SubmitApplicationDocument),
     variables: {
@@ -50,7 +52,7 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
 });
 
 Cypress.Commands.add("updateApplication", (applicationId, application) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<UpdateApplicationMutation>({
     operationName: "UpdateApplication",
     query: getGqlString(UpdateApplicationDocument),
     variables: {
@@ -65,7 +67,7 @@ Cypress.Commands.add("updateApplication", (applicationId, application) => {
 Cypress.Commands.add(
   "updatePoolCandidateAsAdmin",
   (applicationId, updatePoolCandidateAsAdminInput) => {
-    cy.graphqlRequest({
+    cy.graphqlRequest<UpdatePoolCandidateMutation>({
       operationName: "UpdatePoolCandidateStatus",
       query: getGqlString(UpdatePoolCandidateStatusDocument),
       variables: {
