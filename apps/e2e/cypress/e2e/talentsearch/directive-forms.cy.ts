@@ -1,10 +1,13 @@
-import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
+import {
+  GetDigitalContractingQuestionnaireDocument,
+  GetDigitalContractingQuestionnaireQuery,
+} from "@gc-digital-talent/graphql";
 
-import { GetDigitalContractingQuestionnaireDocument } from "@gc-digital-talent/web/src/api/generated";
-
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import {
+  aliasMutation,
+  aliasQuery,
+  getGqlString,
+} from "../../support/graphql-test-utils";
 
 describe("Directive Forms Tests", () => {
   beforeEach(() => {
@@ -362,7 +365,7 @@ describe("Directive Forms Tests", () => {
     cy.expectToast(/Questionnaire successfully saved/i);
 
     cy.get("@questionnaireId").then((questionnaireId) => {
-      cy.graphqlRequest({
+      cy.graphqlRequest<GetDigitalContractingQuestionnaireQuery>({
         operationName: "GetDigitalContractingQuestionnaire",
         query: getGqlString(GetDigitalContractingQuestionnaireDocument),
         variables: {
@@ -743,7 +746,7 @@ describe("Directive Forms Tests", () => {
     cy.expectToast(/Questionnaire successfully saved/i);
 
     cy.get("@questionnaireId").then((questionnaireId) => {
-      cy.graphqlRequest({
+      cy.graphqlRequest<GetDigitalContractingQuestionnaireQuery>({
         operationName: "GetDigitalContractingQuestionnaire",
         query: getGqlString(GetDigitalContractingQuestionnaireDocument),
         variables: {
