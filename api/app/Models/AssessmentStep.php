@@ -38,7 +38,10 @@ class AssessmentStep extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'type',
+        'sort_order',
+    ];
 
     public function pool(): BelongsTo
     {
