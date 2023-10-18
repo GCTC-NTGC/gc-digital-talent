@@ -80,7 +80,12 @@ const ErrorSummary = React.forwardRef<
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {invalidFields.map((field) => (
           <li key={field.name}>
-            <ScrollToLink to={field.name} onScrollTo={handleErrorClick}>
+            <ScrollToLink
+              to={field.name}
+              onScrollTo={handleErrorClick}
+              mode="text"
+              color="error"
+            >
               {field.label}
             </ScrollToLink>
             {`${locale === "fr" ? ` : ` : `: `}${field.message}`}

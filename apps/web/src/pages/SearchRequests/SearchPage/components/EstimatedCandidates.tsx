@@ -111,12 +111,7 @@ const EstimatedCandidates = ({
               <CandidateMessage candidateCount={candidateCount} />
             )}
             <p>
-              <ScrollToLink
-                to="results"
-                data-h2-color="base(black) base:hover(primary)"
-                data-h2-transition="base:hover(color .2s ease 0s)"
-                data-h2-display="base(inline-block)"
-              >
+              <ScrollToLink to="results" color="black" mode="inline">
                 {candidateCount
                   ? intl.formatMessage({
                       defaultMessage: "View results",

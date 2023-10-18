@@ -1,7 +1,8 @@
 import React from "react";
 import { CSVLink } from "react-csv";
 
-import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 import type { LinkProps } from "./Link";
 
 interface CsvHeader {
@@ -10,7 +11,10 @@ interface CsvHeader {
 }
 
 export interface DownloadCsvProps
-  extends Pick<LinkProps, "color" | "mode" | "block" | "type"> {
+  extends Pick<
+    LinkProps,
+    "color" | "mode" | "block" | "type" | "icon" | "fontSize"
+  > {
   headers: CsvHeader[];
   data: Record<string, string>[];
   fileName: string;
@@ -20,29 +24,27 @@ export interface DownloadCsvProps
 const DownloadCsv = ({
   color = "primary",
   mode = "solid",
-  block,
+  block = false,
+  fontSize = "body",
+  icon,
   headers,
   data,
   fileName,
   children,
   ...rest
 }: DownloadCsvProps) => {
-  const styles = useCommonButtonLinkStyles({
-    color,
-    mode,
-    block,
-  });
-
   return (
     <CSVLink
-      {...styles}
+      {...getButtonStyles({ mode, color, block })}
       {...rest}
       target="_blank"
       headers={headers}
       data={data}
       filename={fileName}
     >
-      {children}
+      <ButtonLinkContent mode={mode} icon={icon} fontSize={fontSize}>
+        {children}
+      </ButtonLinkContent>
     </CSVLink>
   );
 };

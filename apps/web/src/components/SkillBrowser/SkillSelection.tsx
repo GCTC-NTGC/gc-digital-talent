@@ -18,12 +18,18 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
-import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
-import { Skill, SkillCategory } from "~/api/generated";
+import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import SkillDescription from "./SkillDescription";
-import { getSkillCategorySkillCount, getSkillFamilySkillCount } from "./utils";
+import {
+  getCategoryOptions,
+  getFamilyOptions,
+  getFilteredFamilies,
+  getFilteredSkills,
+  getSkillFamilySkillCount,
+} from "./utils";
+import NullFamilyMessage from "./NullFamilyMessage";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
@@ -56,44 +62,11 @@ const SkillSelection = ({
   const [category, family, skill] = watch(["category", "family", "skill"]);
 
   const filteredFamilies = React.useMemo(() => {
-    const invertedTree = invertSkillSkillFamilyTree(skills);
-
-    return category && category !== "all"
-      ? invertedTree.filter((currentFamily) => {
-          return currentFamily.skills?.filter((s) => s.category === category);
-        })
-      : invertedTree;
+    return getFilteredFamilies({ skills, category });
   }, [skills, category]);
 
   const filteredSkills = React.useMemo(() => {
-    if (inLibrary && family && family === "library") {
-      // If `inLibrary` was passed and selected, filter by those instead of family
-      return skills.filter(
-        (currentSkill) =>
-          inLibrary?.find(
-            (skillInLibrary) => skillInLibrary.id === currentSkill.id,
-          ),
-      );
-    }
-
-    if (family && family !== "all") {
-      // We only care about family if it is set
-      // since we are filtering families by category
-      return skills.filter(
-        (currentSkill) =>
-          currentSkill.families?.some(
-            (skillFamily) => skillFamily.id === family,
-          ),
-      );
-    }
-    if (category && category !== "all") {
-      return skills.filter(
-        (currentSkill) => currentSkill.category === category,
-      );
-    }
-
-    // neither is set so return all skills
-    return skills;
+    return getFilteredSkills({ skills, family, inLibrary, category });
   }, [category, family, inLibrary, skills]);
 
   const selectedSkill = React.useMemo(() => {
@@ -116,43 +89,8 @@ const SkillSelection = ({
     resetField("family");
   }, [category, resetField]);
 
-  let familyOptions = [
-    {
-      value: "all",
-      label: intl.formatMessage(
-        {
-          defaultMessage: "All skill families ({count})",
-          id: "mzQAMK",
-          description: "Label for removing the skill family filter",
-        },
-        {
-          count: category
-            ? getSkillCategorySkillCount(skills, category)
-            : skills.length,
-        },
-      ),
-    },
-  ];
-
-  if (inLibrary) {
-    familyOptions = [
-      ...familyOptions,
-      {
-        value: "library",
-        label: intl.formatMessage(
-          {
-            defaultMessage: "My library ({count})",
-            id: "P5tK5j",
-            description:
-              "Label for filtering skills by ones already added to the users library",
-          },
-          {
-            count: inLibrary.length,
-          },
-        ),
-      },
-    ];
-  }
+  const categoryOptions = getCategoryOptions(skills, intl);
+  const familyOptions = getFamilyOptions(skills, intl, category, inLibrary);
 
   return (
     <>
@@ -179,53 +117,7 @@ const SkillSelection = ({
               id: "piZjS+",
               description: "Label for the skill category filter field",
             })}
-            options={[
-              {
-                value: "all",
-                label: intl.formatMessage(
-                  {
-                    defaultMessage: "All categories ({count})",
-                    id: "zS2PN+",
-                    description: "Label for removing the skill category filter",
-                  },
-                  {
-                    count: skills.length,
-                  },
-                ),
-              },
-              {
-                value: SkillCategory.Behavioural,
-                label: intl.formatMessage(
-                  {
-                    defaultMessage: "Behavioural skills ({count})",
-                    id: "ElOtG0",
-                    description: "Tab name for a list of behavioural skills",
-                  },
-                  {
-                    count: getSkillCategorySkillCount(
-                      skills,
-                      SkillCategory.Behavioural,
-                    ),
-                  },
-                ),
-              },
-              {
-                value: SkillCategory.Technical,
-                label: intl.formatMessage(
-                  {
-                    defaultMessage: "Technical skills ({count})",
-                    id: "Z3+zWD",
-                    description: "Tab name for a list of technical skills",
-                  },
-                  {
-                    count: getSkillCategorySkillCount(
-                      skills,
-                      SkillCategory.Technical,
-                    ),
-                  },
-                ),
-              },
-            ]}
+            options={categoryOptions}
           />
         )}
         <Select
@@ -285,16 +177,7 @@ const SkillSelection = ({
         </>
       ) : (
         <>
-          <Well>
-            <p data-h2-text-align="base(center)">
-              {intl.formatMessage({
-                id: "5CIYu4",
-                defaultMessage: "Please select a skill family to continue.",
-                description:
-                  "Help text to tell users to select a skill before submitting",
-              })}
-            </p>
-          </Well>
+          <NullFamilyMessage />
           <input
             type="hidden"
             {...register("skill", {

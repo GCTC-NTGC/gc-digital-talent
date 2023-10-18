@@ -48,7 +48,7 @@ const ActionButton = ({
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-padding="base(x.5)"
-      data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
+      data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
       data-h2-transition="base:children[svg](transform 200ms ease)"
       data-h2-font-weight="base(700)"
       {...(disabled
@@ -194,6 +194,7 @@ const Fieldset = ({
             data-h2-gap="base(x.5)"
           >
             <div
+              data-h2-background-color="base(foreground)"
               data-h2-display="base(flex)"
               data-h2-justify-content="base(space-between)"
               data-h2-align-items="base(center)"
@@ -485,27 +486,10 @@ const Root = ({
           id={addId}
           icon={PlusCircleIcon}
           type="button"
-          mode="solid"
+          mode="placeholder"
           block
           color="secondary"
           onClick={onAdd}
-          {...(addButtonProps?.disabled
-            ? {
-                "data-h2-background": "base(background)",
-                "data-h2-border-style": "base(dashed)",
-                "data-h2-border-color": "base(gray.dark)",
-                "data-h2-color": "base(gray.dark)",
-              }
-            : {
-                "data-h2-background":
-                  "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                "data-h2-border-style":
-                  "base(dashed) base:focus-visible(solid)",
-                "data-h2-border-color":
-                  "base(secondary.darker) base:focus-visible(focus)",
-                "data-h2-color":
-                  "base(secondary.darker) base:focus-visible(black)",
-              })}
           {...addButtonProps}
         >
           {maxItems && total === maxItems ? (

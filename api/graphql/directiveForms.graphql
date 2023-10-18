@@ -1,7 +1,7 @@
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill @belongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 type DigitalContractingPersonnelRequirement {
@@ -18,7 +18,6 @@ type DigitalContractingPersonnelRequirement {
 
 type DigitalContractingQuestionnaire {
   id: UUID!
-  readPreamble: Boolean @rename(attribute: "read_preamble")
   department: Department @belongsTo
   departmentOther: String @rename(attribute: "department_other")
   branchOther: String @rename(attribute: "branch_other")
@@ -51,11 +50,13 @@ type DigitalContractingQuestionnaire {
   contractAmendable: YesNo @rename(attribute: "contract_amendable")
   contractMultiyear: YesNo @rename(attribute: "contract_multiyear")
   contractValue: ContractValueRange @rename(attribute: "contract_value")
+  contractFtes: ContractFteRange @rename(attribute: "contract_ftes")
   contractResourcesStartTimeframe: ContractStartTimeframe
     @rename(attribute: "contract_resources_start_timeframe")
   commodityType: ContractCommodity @rename(attribute: "commodity_type")
   commodityTypeOther: String @rename(attribute: "commodity_type_other")
   instrumentType: ContractInstrument @rename(attribute: "instrument_type")
+  instrumentTypeOther: String @rename(attribute: "instrument_type_other")
   methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
   methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
   solicitationProcedure: ContractSolicitationProcedure
@@ -64,9 +65,12 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "subject_to_trade_agreement")
   workRequirementDescription: String
     @rename(attribute: "work_requirement_description")
+  hasPersonnelRequirements: YesNo
+    @rename(attribute: "has_personnel_requirements")
+  personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
     @rename(attribute: "requirement_screening_levels")
@@ -78,21 +82,20 @@ type DigitalContractingQuestionnaire {
     @rename(attribute: "requirement_work_language_other")
   requirementWorkLocations: [PersonnelWorkLocation!]
     @rename(attribute: "requirement_work_locations")
-  requirementWorkLocationSpecific: String
-    @rename(attribute: "requirement_work_location_specific")
+  requirementWorkLocationGcSpecific: String
+    @rename(attribute: "requirement_work_location_gc_specific")
+  requirementWorkLocationOffsiteSpecific: String
+    @rename(attribute: "requirement_work_location_offsite_specific")
   requirementOthers: [PersonnelOtherRequirement!]
     @rename(attribute: "requirement_others")
   requirementOtherOther: String @rename(attribute: "requirement_other_other")
-  hasPersonnelRequirements: YesNo
-    @rename(attribute: "has_personnel_requirements")
-  personnelRequirements: [DigitalContractingPersonnelRequirement!] @hasMany
   isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
   hasImmediateImpactOnOtherDepartments: YesNo
     @rename(attribute: "has_immediate_impact_on_other_departments")
   hasFutureImpactOnOtherDepartments: YesNo
-    @rename(attribute: "has_immediate_impact_on_other_departments")
+    @rename(attribute: "has_future_impact_on_other_departments")
   operationsConsiderations: [OperationsConsideration!]
     @rename(attribute: "operations_considerations")
   operationsConsiderationsOther: String
@@ -120,13 +123,13 @@ type DigitalContractingQuestionnaire {
 
 input CreateDigitalContractingPersonnelSkillInput {
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input UpdateDigitalContractingPersonnelSkillInput {
   id: UUID!
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {
@@ -164,7 +167,10 @@ input UpdateDigitalContractingPersonnelRequirementInput
   quantity: Int
 }
 
-input DigitalContractingPersonnelRequirementBelongsToMany {
+input DigitalContractingPersonnelRequirementBelongsToMany
+  @validator(
+    class: "App\\GraphQL\\Validators\\DigitalContractingPersonnelRequirementBelongsToMany"
+  ) {
   create: [CreateDigitalContractingPersonnelRequirementInput!]
   update: [UpdateDigitalContractingPersonnelRequirementInput!]
   delete: [UUID!]
@@ -174,7 +180,6 @@ input DigitalContractingQuestionnaireInput
   @validator(
     class: "App\\GraphQL\\Validators\\DigitalContractingQuestionnaireInput"
   ) {
-  readPreamble: Boolean @rename(attribute: "read_preamble")
   department: DepartmentBelongsTo
   departmentOther: String @rename(attribute: "department_other")
   branchOther: String @rename(attribute: "branch_other")
@@ -207,11 +212,13 @@ input DigitalContractingQuestionnaireInput
   contractAmendable: YesNo @rename(attribute: "contract_amendable")
   contractMultiyear: YesNo @rename(attribute: "contract_multiyear")
   contractValue: ContractValueRange @rename(attribute: "contract_value")
+  contractFtes: ContractFteRange @rename(attribute: "contract_ftes")
   contractResourcesStartTimeframe: ContractStartTimeframe
     @rename(attribute: "contract_resources_start_timeframe")
   commodityType: ContractCommodity @rename(attribute: "commodity_type")
   commodityTypeOther: String @rename(attribute: "commodity_type_other")
   instrumentType: ContractInstrument @rename(attribute: "instrument_type")
+  instrumentTypeOther: String @rename(attribute: "instrument_type_other")
   methodOfSupply: ContractSupplyMethod @rename(attribute: "method_of_supply")
   methodOfSupplyOther: String @rename(attribute: "method_of_supply_other")
   solicitationProcedure: ContractSolicitationProcedure
@@ -220,9 +227,12 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "subject_to_trade_agreement")
   workRequirementDescription: String
     @rename(attribute: "work_requirement_description")
+  hasPersonnelRequirements: YesNo
+    @rename(attribute: "has_personnel_requirements")
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
     @rename(attribute: "qualification_requirement")
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
     @rename(attribute: "requirement_access_to_secure")
   requirementScreeningLevels: [PersonnelScreeningLevel!]
     @rename(attribute: "requirement_screening_levels")
@@ -234,21 +244,20 @@ input DigitalContractingQuestionnaireInput
     @rename(attribute: "requirement_work_language_other")
   requirementWorkLocations: [PersonnelWorkLocation!]
     @rename(attribute: "requirement_work_locations")
-  requirementWorkLocationSpecific: String
-    @rename(attribute: "requirement_work_location_specific")
+  requirementWorkLocationGcSpecific: String
+    @rename(attribute: "requirement_work_location_gc_specific")
+  requirementWorkLocationOffsiteSpecific: String
+    @rename(attribute: "requirement_work_location_offsite_specific")
   requirementOthers: [PersonnelOtherRequirement!]
     @rename(attribute: "requirement_others")
   requirementOtherOther: String @rename(attribute: "requirement_other_other")
-  hasPersonnelRequirements: YesNo
-    @rename(attribute: "has_personnel_requirements")
-  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   isTechnologicalChange: YesNo @rename(attribute: "is_technological_change")
   hasImpactOnYourDepartment: YesNo
     @rename(attribute: "has_impact_on_your_department")
   hasImmediateImpactOnOtherDepartments: YesNo
     @rename(attribute: "has_immediate_impact_on_other_departments")
   hasFutureImpactOnOtherDepartments: YesNo
-    @rename(attribute: "has_immediate_impact_on_other_departments")
+    @rename(attribute: "has_future_impact_on_other_departments")
   operationsConsiderations: [OperationsConsideration!]
     @rename(attribute: "operations_considerations")
   operationsConsiderationsOther: String
@@ -397,7 +406,7 @@ extend type Mutation {
     @guard
     @can(ability: "update", find: "id")
   deleteDigitalContractingQuestionnaire(
-    id: UUID!
+    id: UUID! @whereKey
   ): DigitalContractingQuestionnaire
     @delete
     @guard

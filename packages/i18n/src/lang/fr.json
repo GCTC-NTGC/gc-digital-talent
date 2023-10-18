@@ -115,6 +115,10 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2KDa14": {
+    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
+    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
+  },
   "2Ka1oj": {
     "defaultMessage": "Très secret",
     "description": "Top secret security clearance"
@@ -413,6 +417,10 @@
   "DoFRsj": {
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
+  },
+  "E6JTyY": {
+    "defaultMessage": "Autre",
+    "description": "The selection to choose when the expected option is not available"
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",

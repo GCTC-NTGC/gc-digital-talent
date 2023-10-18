@@ -27,7 +27,12 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
         {intl.formatMessage(uiMessages.onThisPage)}
         {intl.formatMessage(commonMessages.dividingColon)}
       </h2>
-      <nav aria-labelledby={`toc-heading-${id}`}>{children}</nav>
+      <nav
+        aria-labelledby={`toc-heading-${id}`}
+        data-h2-text-align="base:children[>button, >a](center)"
+      >
+        {children}
+      </nav>
     </Sidebar>
   );
 };

@@ -3,15 +3,12 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import { useIntl } from "react-intl";
-import ArrowTopRightOnSquareIcon from "@heroicons/react/24/outline/ArrowTopRightOnSquareIcon";
 
-import { uiMessages } from "@gc-digital-talent/i18n";
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
-import useCommonButtonLinkStyles from "../../hooks/useCommonButtonLinkStyles";
+import getButtonStyles from "../../utils/button/getButtonStyles";
 
 export type LinkProps = ButtonLinkProps &
   Omit<RouterLinkProps, "to"> &
@@ -34,6 +31,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       color = "secondary",
       mode = "text",
       block = false,
+      fontSize = "body",
       external = false,
       newTab = false,
       disabled = false,
@@ -49,14 +47,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       throw new Error("Icon is required when mode is set to 'cta'");
     }
 
-    const intl = useIntl();
     const url = sanitizeUrl(href);
-    const styles = useCommonButtonLinkStyles({
-      mode,
-      color,
-      block,
-      disabled,
-    });
 
     const commonProps = {
       ...(newTab
@@ -65,7 +56,7 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
             rel: "noopener noreferrer",
           }
         : {}),
-      ...styles,
+      ...getButtonStyles({ mode, color, block, disabled }),
       ...rest,
     };
 
@@ -75,14 +66,9 @@ const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
         icon={icon}
         utilityIcon={utilityIcon}
         newTab={newTab}
+        fontSize={fontSize}
       >
         {children}
-        {newTab && (
-          <ArrowTopRightOnSquareIcon
-            aria-label={intl.formatMessage(uiMessages.newTab)}
-            data-h2-margin="base(0 0 0 x.25)"
-          />
-        )}
       </ButtonLinkContent>
     );
 
