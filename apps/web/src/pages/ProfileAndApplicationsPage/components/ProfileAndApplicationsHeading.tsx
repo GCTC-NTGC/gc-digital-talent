@@ -55,7 +55,7 @@ function buildLink(
   color?: LinkProps["color"],
 ): React.ReactElement {
   return (
-    <Link href={href} color={color}>
+    <Link href={href} fontSize="h4" mode="text" color={color}>
       {chunks}
     </Link>
   );
@@ -64,9 +64,10 @@ function buildScrollToLink(
   to: string,
   chunks: React.ReactNode,
   color?: ScrollToLinkProps["color"],
+  fontSize?: ScrollToLinkProps["fontSize"],
 ): React.ReactElement {
   return (
-    <ScrollToLink to={to} color={color}>
+    <ScrollToLink to={to} mode="text" color={color} fontSize={fontSize}>
       {chunks}
     </ScrollToLink>
   );
@@ -163,7 +164,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a3: (chunks: React.ReactNode) =>
             buildLink(paths.skillLibrary(), chunks, "white"),
           a4: (chunks: React.ReactNode) =>
-            buildScrollToLink("track-applications-section", chunks, "white"),
+            buildScrollToLink(
+              "track-applications-section",
+              chunks,
+              "white",
+              "h4",
+            ),
         },
       )}
     >

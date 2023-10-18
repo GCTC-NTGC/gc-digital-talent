@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { Checkbox, Submit, TextArea } from "@gc-digital-talent/forms";
+import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -34,7 +34,6 @@ type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
-const TEXT_AREA_ROWS = 1;
 
 const SpecialNoteSection = ({
   pool,
@@ -149,7 +148,7 @@ const SpecialNoteSection = ({
                   data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                   data-h2-margin="base(x1, 0)"
                 >
-                  <TextArea
+                  <RichTextInput
                     id="whatToExpectEn"
                     label={intl.formatMessage({
                       defaultMessage: "English - Special note for this process",
@@ -158,13 +157,12 @@ const SpecialNoteSection = ({
                         "Label for the English - Special note for this process textarea on edit pool page.",
                     })}
                     name="specialNoteEn"
-                    rows={TEXT_AREA_ROWS}
                     {...(!formDisabled && {
                       wordLimit: TEXT_AREA_MAX_WORDS_EN,
                     })}
-                    disabled={formDisabled}
+                    readOnly={formDisabled}
                   />
-                  <TextArea
+                  <RichTextInput
                     id="whatToExpectFr"
                     label={intl.formatMessage({
                       defaultMessage: "French - Special note for this process",
@@ -176,8 +174,7 @@ const SpecialNoteSection = ({
                     {...(!formDisabled && {
                       wordLimit: TEXT_AREA_MAX_WORDS_FR,
                     })}
-                    rows={TEXT_AREA_ROWS}
-                    disabled={formDisabled}
+                    readOnly={formDisabled}
                   />
                 </div>
               )}

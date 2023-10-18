@@ -52,8 +52,8 @@ class ArrayConsistentWithDetail implements DataAwareRule, ValidationRule
         }
 
         // if the primary field is missing make sure the detail field is also missing
-        if (! is_array($value) && Arr::has($this->data, $fullyQualifiedDetailFieldName)) {
-            $fail('The '.$attribute.' array is missing and requires that '.$this->detailFieldName.' also be missing.');
+        if (! is_array($value) && ! empty(Arr::get($this->data, $fullyQualifiedDetailFieldName))) {
+            $fail('The '.$attribute.' array is missing and requires that '.$this->detailFieldName.' also be empty.');
         }
 
         // make sure the detail field is present

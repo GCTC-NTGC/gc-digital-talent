@@ -54,7 +54,6 @@ class DigitalContractingQuestionnaireTest extends TestCase
         $skill = Skill::factory()->create();
 
         $questionnaireTableFields = [
-            'readPreamble' => true,
             'departmentOther' => null,
             'branchOther' => 'branch_other',
             'businessOwnerName' => 'business_owner_name',
@@ -79,15 +78,18 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'contractAmendable' => 'YES',
             'contractMultiyear' => 'YES',
             'contractValue' => 'FROM_0_TO_10K',
+            'contractFtes' => 'FROM_11_TO_30',
             'contractResourcesStartTimeframe' => 'FROM_0_TO_3M',
             'commodityType' => 'OTHER',
             'commodityTypeOther' => 'commodity_type_other',
-            'instrumentType' => 'SUPPLY_ARRANGEMENT',
+            'instrumentType' => 'OTHER',
+            'instrumentTypeOther' => 'instrument_type_other',
             'methodOfSupply' => 'OTHER',
             'methodOfSupplyOther' => 'method_of_supply_other',
             'solicitationProcedure' => 'ADVANCE_CONTRACT_AWARD_NOTICE',
             'subjectToTradeAgreement' => 'YES',
             'workRequirementDescription' => 'work_requirement_description',
+            'hasPersonnelRequirements' => 'YES',
             'qualificationRequirement' => 'qualification_requirement',
             'requirementAccessToSecure' => 'YES',
             'requirementScreeningLevels' => ['RELIABILITY', 'OTHER'],
@@ -95,10 +97,10 @@ class DigitalContractingQuestionnaireTest extends TestCase
             'requirementWorkLanguages' => ['ENGLISH_ONLY', 'OTHER'],
             'requirementWorkLanguageOther' => 'requirement_work_language_other',
             'requirementWorkLocations' => ['GC_PREMISES', 'OFFSITE_SPECIFIC'],
-            'requirementWorkLocationSpecific' => 'requirement_work_location_specific',
+            'requirementWorkLocationGcSpecific' => 'requirement_work_location_gc_specific',
+            'requirementWorkLocationOffsiteSpecific' => 'requirement_work_location_offsite_specific',
             'requirementOthers' => ['SHIFT_WORK', 'OTHER'],
             'requirementOtherOther' => 'requirement_other_other',
-            'hasPersonnelRequirements' => 'YES',
             'isTechnologicalChange' => 'YES',
             'hasImpactOnYourDepartment' => 'YES',
             'hasImmediateImpactOnOtherDepartments' => 'YES',
@@ -172,6 +174,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         contractStartDate
                         contractTitle
                         contractValue
+                        contractFtes
                         contractingRationalePrimary
                         contractingRationalePrimaryOther
                         contractingRationalesSecondary
@@ -191,6 +194,7 @@ class DigitalContractingQuestionnaireTest extends TestCase
                         hasImpactOnYourDepartment
                         hasPersonnelRequirements
                         instrumentType
+                        instrumentTypeOther
                         isTechnologicalChange
                         knowledgeTransferInContract
                         methodOfSupply
@@ -214,16 +218,16 @@ class DigitalContractingQuestionnaireTest extends TestCase
                             telework
                         }
                         qualificationRequirement
-                        readPreamble
                         requirementAccessToSecure
-                        requirementOtherOther
-                        requirementOthers
                         requirementScreeningLevelOther
                         requirementScreeningLevels
                         requirementWorkLanguageOther
                         requirementWorkLanguages
-                        requirementWorkLocationSpecific
+                        requirementWorkLocationGcSpecific
+                        requirementWorkLocationOffsiteSpecific
                         requirementWorkLocations
+                        requirementOthers
+                        requirementOtherOther
                         solicitationProcedure
                         subjectToTradeAgreement
                         talentSearchTrackingNumber

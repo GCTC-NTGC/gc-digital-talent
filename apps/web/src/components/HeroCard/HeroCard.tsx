@@ -62,7 +62,7 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
           data-h2-color="base(black) base:hover(black)"
-          data-h2-text-decoration="base(underline) base:hover(none)"
+          data-h2-text-decoration="base(underline)"
           data-h2-width="base(100%)"
         >
           <span
