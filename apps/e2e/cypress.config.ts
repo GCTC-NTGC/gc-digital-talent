@@ -17,7 +17,7 @@ export default defineConfig({
   retries: {
     runMode: 3,
   },
-  reporter: "cypress-multi-reporters",
+  reporter: "./cypress-multi-reporters.ts",
   reporterOptions: {
     configFile: "cypress/reporters-config.json",
   },
