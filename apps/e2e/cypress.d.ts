@@ -1,6 +1,7 @@
 import {
   Classification,
   CreatePoolCandidateSearchRequestInput,
+  CreateTeamInput,
   CreateUserInput,
   Department,
   GenericJobTitle,
@@ -218,15 +219,20 @@ declare global {
        * ======================================
        */
       /**
-       * Custom command to get the current user.
+       * Custom command to get the DCM team.
        * @example cy.getDCM().then(team => {})
        */
       getDCM(): Chainable<string>;
       /**
-       * Custom command to get the current user.
+       * Custom command to get all teams.
        * @example cy.getTeams().then(teams => {})
        */
       getTeams(): Chainable<Team[]>;
+      /**
+       * Custom command to create a new team.
+       * @example cy.createTeam({}).then(team => {})
+       */
+      createTeam(team: CreateTeamInput): Chainable<Team>;
 
       /**
        * ======================================

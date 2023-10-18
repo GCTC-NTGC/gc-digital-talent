@@ -26,11 +26,13 @@ describe("User Information Page", () => {
       cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
     // select some dimensions to use for testing
-    cy.getTeams().then((allTeams) => {
-      const team = allTeams.filter(
-        ({ name }) =>
-          !["test-team", "digital-community-management"].includes(name),
-      )[0];
+    cy.createTeam({
+      name: "new-team",
+      displayName: {
+        en: "New Team (EN)",
+        fr: "New Team (FR)",
+      },
+    }).then((team) => {
       cy.wrap(team.id).as("newTeam"); // take a team for testing that's not attached to the pool operator
     });
   });
