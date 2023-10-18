@@ -141,10 +141,7 @@ const Combobox = ({
             <Multi
               onInputChange={onSearch}
               onSelectedChange={(items) => {
-                setValue(
-                  name,
-                  items?.map((item) => item.value),
-                );
+                setValue(name, items?.map((item) => item.value));
               }}
               value={getMultiDefaultValue(options, defaultValue)}
               {...sharedProps}

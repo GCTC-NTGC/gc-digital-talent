@@ -28,7 +28,7 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-user')
+            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams(
                     $model,
                     $user->rolesTeams()->get()->pluck('id')

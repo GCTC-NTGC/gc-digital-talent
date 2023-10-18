@@ -92,7 +92,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           ...award,
           startDate: award.awardedDate,
           endDate: award.awardedDate,
-        } as AwardExperience & { startDate: string; endDate: string }),
+        }) as AwardExperience & { startDate: string; endDate: string },
     ) || [];
   const communityExperiences =
     notEmptyExperiences?.filter(isCommunityExperience) || [];

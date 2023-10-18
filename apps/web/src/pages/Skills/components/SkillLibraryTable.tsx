@@ -23,8 +23,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
-
-import SkillDialog from "../../../components/SkillDialog/SkillDialog";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
 type UserSkillCell = CellContext<UserSkill, unknown>;
 
@@ -148,7 +147,7 @@ const SkillLibraryTable = ({
       urlSync={false}
       add={{
         component: (
-          <SkillDialog
+          <SkillBrowserDialog
             context="library"
             showCategory={false}
             skills={allSkills}

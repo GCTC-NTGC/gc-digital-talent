@@ -375,12 +375,14 @@ const ApplicationSelfDeclarationPage = () => {
       navigate(paths.browsePools());
       return;
     }
+    const newCommunities = formValuesToApiCommunities(formValues);
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
       userId: userData?.me?.id || "",
       userInput: {
-        indigenousDeclarationSignature: formValues.signature,
-        indigenousCommunities: formValuesToApiCommunities(formValues),
+        indigenousCommunities: newCommunities,
+        indigenousDeclarationSignature:
+          newCommunities.length > 0 ? formValues.signature : null,
       },
       applicationId: applicationId || "",
       applicationInput: {
