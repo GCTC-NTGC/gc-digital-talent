@@ -32,8 +32,9 @@ const HIRED_STATUSES: CombinedStatus[] = [
   "HIRED_TERM",
   "HIRED_INDETERMINATE",
 ];
-export const isHiredCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
-  status ? HIRED_STATUSES.includes(status) : false;
+export const isHiredCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? HIRED_STATUSES.includes(status) : false);
 const READY_TO_HIRE_STATUSES: CombinedStatus[] = ["READY_TO_HIRE"];
 export const isReadyToHireCombinedStatus = (
   status: Maybe<CombinedStatus>,
@@ -55,8 +56,9 @@ export const isInactiveCombinedStatus = (
   status: Maybe<CombinedStatus>,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
 const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
-export const isErrorCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
-  status ? ERROR_STATUSES.includes(status) : false;
+export const isErrorCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? ERROR_STATUSES.includes(status) : false);
 const HIRED_LONGE_TERM_STATUSES: CombinedStatus[] = [
   "HIRED_INDETERMINATE",
   "HIRED_TERM",

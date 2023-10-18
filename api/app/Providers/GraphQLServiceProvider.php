@@ -15,6 +15,7 @@ use App\Enums\DirectiveForms\AdvertisementType;
 use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractFteRange;
 use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSolicitationProcedure;
@@ -459,6 +460,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'ContractCommodity',
                     'values' => array_column(ContractCommodity::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ContractFteRange',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractFteRange',
+                    'values' => array_column(ContractFteRange::cases(), 'name'),
                 ]);
             }
         );

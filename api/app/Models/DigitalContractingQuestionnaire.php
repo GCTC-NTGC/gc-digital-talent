@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class DigitalContractingQuestionnaire
  *
  * @property string id
- * @property bool read_preamble
  * @property string department_other
  * @property string branch_other
  * @property string business_owner_name
@@ -36,15 +35,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string contract_amendable
  * @property string contract_multiyear
  * @property string contract_value
+ * @property string contract_ftes
  * @property string contract_resources_start_timeframe
  * @property string commodity_type
  * @property string commodity_type_other
  * @property string instrument_type
+ * @property string instrument_type_other
  * @property string method_of_supply
  * @property string method_of_supply_other
  * @property string solicitation_procedure
  * @property string subject_to_trade_agreement
  * @property string work_requirement_description
+ * @property string has_personnel_requirements
+ * @property array personnel_requirements
  * @property string qualification_requirement
  * @property string requirement_access_to_secure
  * @property array requirement_screening_levels
@@ -52,11 +55,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array requirement_work_languages
  * @property string requirement_work_language_other
  * @property array requirement_work_locations
- * @property string requirement_work_location_specific
+ * @property string requirement_work_location_gc_specific
+ * @property string requirement_work_location_offsite_specific
  * @property array requirement_others
  * @property string requirement_other_other
- * @property string has_personnel_requirements
- * @property array personnel_requirements
  * @property string is_technological_change
  * @property string has_impact_on_your_department
  * @property string has_immediate_impact_on_other_departments

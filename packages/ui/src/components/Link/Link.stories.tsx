@@ -2,7 +2,7 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
-import { Color } from "../../types";
+import { Color, ButtonLinkMode } from "../../types";
 import Link from "./Link";
 import type { LinkProps } from "./Link";
 
@@ -23,113 +23,98 @@ export default {
   },
 };
 
+type Story = StoryFn<Omit<LinkProps, "ref"> & { label: string }>;
+
 const colors: Array<Color> = [
   "primary",
   "secondary",
   "tertiary",
   "quaternary",
   "quinary",
+  "success",
+  "warning",
+  "error",
+  "black",
+  "white",
 ];
-const stoplight: Array<Color> = ["success", "warning", "error"];
-const black: Array<Color> = ["black"];
-const white: Array<Color> = ["white"];
 
-type Story = StoryFn<Omit<LinkProps, "ref"> & { label: string }>;
+const modes: Array<ButtonLinkMode> = [
+  "solid",
+  "placeholder",
+  "text",
+  "inline",
+  "cta",
+];
 
-const TemplateLink: Story = (args) => {
-  const { label, ...rest } = args;
+const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
 
+const Template: Story = () => {
   return (
-    <Link {...rest}>
-      <span>{label}</span>
-    </Link>
-  );
-};
-
-const TemplateLinkColors: Story = (args) => {
-  const { label, ...rest } = args;
-  return (
-    <div data-h2-display="base(flex)">
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {colors.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Link color={color} {...rest}>
-              <span>{label}</span>
-            </Link>
-          </p>
-        ))}
-      </div>
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {stoplight.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Link color={color} {...rest}>
-              <span>{label}</span>
-            </Link>
-          </p>
-        ))}
-      </div>
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {black.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Link color={color} {...rest}>
-              <span>{label}</span>
-            </Link>
-          </p>
-        ))}
-      </div>
-      <div data-h2-padding="base(x1)" data-h2-background="base(black)">
-        {white.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Link color={color} {...rest}>
-              <span>{label}</span>
-            </Link>
-          </p>
+    <div>
+      <div
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(1fr 1fr 1fr 1fr)"
+        data-h2-text-align="base(center)"
+        data-h2-color="base(red)"
+      >
+        {themes.map((theme) => (
+          <div key={theme} data-h2={theme}>
+            {colors.map((color) => (
+              <>
+                {modes.map((mode) => (
+                  <>
+                    <div
+                      key={`${theme}-${mode}`}
+                      {...(color === "white" && {
+                        "data-h2-background-color": "base(black)",
+                      })}
+                      {...(color !== "white" && {
+                        "data-h2-background-color": "base(background)",
+                      })}
+                      data-h2-padding="base(x2 x2 x1 x2)"
+                    >
+                      <Link
+                        href="https://google.com"
+                        newTab
+                        mode={mode}
+                        color={color}
+                        icon={InformationCircleIcon}
+                        counter={99}
+                      >
+                        Example label
+                      </Link>
+                    </div>
+                    <div
+                      key=""
+                      {...(color === "white" && {
+                        "data-h2-background-color": "base(black)",
+                      })}
+                      {...(color !== "white" && {
+                        "data-h2-background-color": "base(background)",
+                      })}
+                      data-h2-padding="base(x1 x2 x2 x2)"
+                    >
+                      <Link
+                        href="https://google.com"
+                        newTab
+                        mode={mode}
+                        color={color}
+                        icon={InformationCircleIcon}
+                        counter={99}
+                        disabled
+                      >
+                        Example label
+                      </Link>
+                    </div>
+                  </>
+                ))}
+              </>
+            ))}
+          </div>
         ))}
       </div>
     </div>
   );
 };
 
-export const Default = TemplateLink.bind({});
-
-export const SolidLink = TemplateLinkColors.bind({});
-SolidLink.args = {
-  mode: "solid",
-};
-
-export const InlineLink = TemplateLinkColors.bind({});
-InlineLink.args = {
-  mode: "inline",
-};
-
-export const CalltoActionLink = TemplateLinkColors.bind({});
-CalltoActionLink.args = {
-  mode: "cta",
-  icon: InformationCircleIcon,
-};
-
-export const BlockLink = TemplateLink.bind({});
-BlockLink.args = {
-  mode: "solid",
-  block: true,
-};
-
-export const IconLink = TemplateLink.bind({});
-IconLink.args = {
-  mode: "solid",
-  icon: InformationCircleIcon,
-};
-
-export const LinkExternalNewTab = TemplateLink.bind({});
-LinkExternalNewTab.args = {
-  newTab: true,
-  mode: "inline",
-  href: "https://example.com",
-};
-
-export const LinkExternalNoNewTab = TemplateLink.bind({});
-LinkExternalNoNewTab.args = {
-  newTab: false,
-  mode: "inline",
-  href: "https://example.com",
-};
+export const Default = Template.bind({});

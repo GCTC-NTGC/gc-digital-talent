@@ -1,10 +1,7 @@
 import { getFeatureFlags } from "./utils";
 
-export type FeatureFlags = {
-  skillLibrary: boolean;
-};
-
-const useFeatureFlags = (): FeatureFlags => {
+export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
+const useFeatureFlags = () => {
   return getFeatureFlags();
 };
 

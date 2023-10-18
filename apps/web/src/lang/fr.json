@@ -19,6 +19,10 @@
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal learning section"
   },
+  "+C20lR": {
+    "defaultMessage": "Vous n’avez pas de besoins en matière de personnel.",
+    "description": "Message that appears when there are no screening messages for a pool"
+  },
   "+G/4Zs": {
     "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
     "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
@@ -158,6 +162,10 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "//mFwp": {
+    "defaultMessage": "Quelles sont les tâches que l’entrepreneur doit accomplir dans le cadre du contrat?",
+    "description": "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_"
+  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -189,6 +197,10 @@
   "/8fQ9Y": {
     "defaultMessage": "Lien vers le courriel de l'utilisateur",
     "description": "Descriptive title for an anchor link"
+  },
+  "/8qCuC": {
+    "defaultMessage": "Déterminer les défis et les obstacles systémiques potentiels dans la recherche de talents numériques",
+    "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
   },
   "/BWol9": {
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
@@ -237,6 +249,10 @@
   "/MMizV": {
     "defaultMessage": "Langues de travail",
     "description": "Opportunity languages label"
+  },
+  "/Oq5UR": {
+    "defaultMessage": "Date prévue de début du contrat",
+    "description": "Label for _contract start date_ field in the _digital services contracting questionnaire_"
   },
   "/QUq6L": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
@@ -330,6 +346,10 @@
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
   },
+  "/rmunL": {
+    "defaultMessage": "En fonction des besoins",
+    "description": "As and when needed personnel other requirement"
+  },
   "/s66sg": {
     "defaultMessage": "Statut de la demande",
     "description": "Title for admins to edit an applications status."
@@ -417,6 +437,10 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0KY1My": {
+    "defaultMessage": "Statut des Premières Nations",
+    "description": "Legend for selecting First Nations status or non-status"
+  },
   "0L0MWD": {
     "defaultMessage": "Modifier la classification",
     "description": "Link text to scroll to the section and change a process' classification"
@@ -473,6 +497,10 @@
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
   },
+  "0aU6BD": {
+    "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
+    "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
+  },
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
@@ -492,6 +520,10 @@
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
+  },
+  "0jfEjz": {
+    "defaultMessage": "Mettre en œuvre et appuyer des initiatives pour faire progresser la diversité, l’équité et l’inclusion dans la collectivité du numérique",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
@@ -569,6 +601,10 @@
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
   },
+  "19wJhE": {
+    "defaultMessage": "Français seulement",
+    "description": "French only personnel language"
+  },
   "1BEtoY": {
     "defaultMessage": "Nom du gestionnaire",
     "description": "Label for the user select field on team membership form"
@@ -596,6 +632,10 @@
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
+  },
+  "1MtuHa": {
+    "defaultMessage": "Veuillez préciser le facteur",
+    "description": "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_"
   },
   "1NliRt": {
     "defaultMessage": "Une CléGC est une identité centrale qui n'est pas gérée par l'équipe des Talents numériques du GC. Le gouvernement du Canada l'offre comme moyen d'accéder, en toute sécurité, à de nombreux programmes et services gouvernementaux en ligne.",
@@ -628,6 +668,10 @@
   "1VFyrc": {
     "defaultMessage": "Aucune information n'a été fournie.",
     "description": "Message on Admin side when user not filled WorkLocation section."
+  },
+  "1WVTN6": {
+    "defaultMessage": "{localizedName} a des évaluations",
+    "description": "Aria text for icon confirming a skill is connected to assessments."
   },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
@@ -668,9 +712,17 @@
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
   },
+  "1hNh9g": {
+    "defaultMessage": "Préambule",
+    "description": "Heading for the Preamble section on the digital services contracting questionnaire"
+  },
   "1mYPEx": {
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
+  },
+  "1moJ8r": {
+    "defaultMessage": "Vous approchez de la limite!",
+    "description": "Title for warning message when the user has added many assessments to the assessment plan"
   },
   "1pCzp1": {
     "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « <strong>Demande de candidats</strong> ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
@@ -764,6 +816,10 @@
     "defaultMessage": "Type d’emploi",
     "description": "Label for applicant's employment type"
   },
+  "2QDT5C": {
+    "defaultMessage": "Y a-t-il d’autres autorités qui participent à ce contrat?",
+    "description": "Label for _ is authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
   "2TrYLI": {
     "defaultMessage": "Erreur : la mise à jour du bassin a échoué",
     "description": "Message displayed to user after pool fails to get updated."
@@ -795,6 +851,10 @@
   "2ekC5r": {
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
+  },
+  "2f+IKU": {
+    "defaultMessage": "Valeur monétaire du contrat",
+    "description": "Title for _contract value_ fieldset in the _digital services contracting questionnaire_"
   },
   "2f1kN5": {
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences techniques.",
@@ -975,6 +1035,10 @@
     "defaultMessage": "Décrivez comment cette compétence s’est appliquée à cette expérience",
     "description": "Heading for the skill experience details section"
   },
+  "3jfmAz": {
+    "defaultMessage": "Arrangement en matière d'approvisionnement",
+    "description": "Supply arrangement contract instrument"
+  },
   "3mrTn5": {
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Heading for the extend pool closing date dialog"
@@ -1039,6 +1103,10 @@
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
   },
+  "4AIeko": {
+    "defaultMessage": "Sauvegarder les détails de l’évaluation",
+    "description": "Button text to save assessment details"
+  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1050,6 +1118,10 @@
   "4EkI/1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the update a skill form description (French) field."
+  },
+  "4Gh12/": {
+    "defaultMessage": "Offres à commandes",
+    "description": "Standing offer contract instrument"
   },
   "4I6WIU": {
     "defaultMessage": "Bienvenue",
@@ -1071,6 +1143,10 @@
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
   },
+  "4LVc9T": {
+    "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
+    "description": "Aria text for icon indicating a skill to assessment step connection."
+  },
   "4N/PxH": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page"
@@ -1079,9 +1155,17 @@
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
   },
+  "4QXiPk": {
+    "defaultMessage": "Veuillez préciser la méthode",
+    "description": "Label for _other method of supply_ fieldset in the _digital services contracting questionnaire_"
+  },
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
+  },
+  "4SNM1S": {
+    "defaultMessage": "Non compétitive (source unique)",
+    "description": "Non-competitive contract solicitation procedure"
   },
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
@@ -1090,6 +1174,10 @@
   "4TmwRU": {
     "defaultMessage": "Candidature reçue",
     "description": "Status for an application that has been submitted"
+  },
+  "4UYBKD": {
+    "defaultMessage": "Des exemples de ces contrats peuvent inclure, sans toutefois s'y limiter :",
+    "description": "Paragraph two of the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
@@ -1106,6 +1194,10 @@
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
+  },
+  "4bEY3Y": {
+    "defaultMessage": "la recherche sur l’expérience utilisateur et conception de services pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC.",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
@@ -1134,6 +1226,10 @@
   "4ii2WZ": {
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
     "description": "Subtitle for the application review page."
+  },
+  "4l+jIq": {
+    "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
+    "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
   "4liNMy": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
@@ -1183,6 +1279,14 @@
     "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
     "description": "Link text to continue a specific application"
   },
+  "51Hc86": {
+    "defaultMessage": "Courriel",
+    "description": "Label for _financial authority email_ field in the _digital services contracting questionnaire_"
+  },
+  "52MYM4": {
+    "defaultMessage": "Sélectionnez toutes les autres exigences qui s’appliquent.",
+    "description": "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_"
+  },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
@@ -1231,6 +1335,10 @@
     "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
     "description": "Label for priority number input"
   },
+  "5GUCh4": {
+    "defaultMessage": "Les ressources contractuelles devraient commencer à travailler en",
+    "description": "Label for _contract start timeframe_ fieldset in the _digital services contracting questionnaire_"
+  },
   "5HJIwt": {
     "defaultMessage": "Identifiant de recrutement copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
@@ -1258,6 +1366,10 @@
   "5U4C61": {
     "defaultMessage": "Nous utilisons également ces renseignements pour vous offrir des possibilités et des suggestions plus contextualisées en fonction de votre situation d'emploi.",
     "description": "Second message before is a government of canada radio group in create account form."
+  },
+  "5UBJy7": {
+    "defaultMessage": "Ajouter un besoin en personnel",
+    "description": "Button text to add a new personnel requirement"
   },
   "5WOqlf": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
@@ -1343,6 +1455,10 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
     "description": "Question displayed when user attempts to delete an application"
   },
+  "5pyCTN": {
+    "defaultMessage": "Type d’instrument",
+    "description": "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_"
+  },
   "5r5XSh": {
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
@@ -1358,6 +1474,10 @@
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
     "description": "Text displayed for soon to come data talent data portal"
+  },
+  "5yv4Ko": {
+    "defaultMessage": "Quantité",
+    "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
   },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
@@ -1447,6 +1567,10 @@
     "defaultMessage": "Ce processus est <heavyPrimary>ouvert</heavyPrimary> et accepte les candidatures jusqu'au <heavyPrimary>{closingDate}</heavyPrimary>.",
     "description": "Message displayed to admins when a process is published"
   },
+  "6cEYtp": {
+    "defaultMessage": "la cybersécurité;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
   "6cFJ2w": {
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences techniques associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
     "description": "Description on how to use technical skills"
@@ -1475,6 +1599,10 @@
     "defaultMessage": "La valeur doit correspondre au nom au complet de l'utilisateur : {name}",
     "description": "Placeholder text for user name input in the delete user dialog"
   },
+  "6ntAxU": {
+    "defaultMessage": "Nom de l’initiative en matière numérique",
+    "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
   "6ofORn": {
     "defaultMessage": "Famille de compétences",
     "description": "Label for the skill family filter field"
@@ -1482,6 +1610,10 @@
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
+  },
+  "6sjsDa": {
+    "defaultMessage": "Impossible de créer de nouveaux postes indéterminés dans les délais requis",
+    "description": "Unable to create new indeterminate positions operations consideration"
   },
   "6tqGpT": {
     "defaultMessage": "En savoir plus<hidden> le Programme d’apprentissage en TI pour les populations autochtones</hidden>",
@@ -1515,6 +1647,10 @@
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Radio group option for education requirement filter in search form."
   },
+  "76vo/V": {
+    "defaultMessage": "Veuillez préciser le niveau de contrôle",
+    "description": "Label for _other contractor screening levels_ fieldset in the _digital services contracting questionnaire_"
+  },
   "79m9jN": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
@@ -1547,9 +1683,17 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Label displayed on the browse pools menu item."
   },
+  "7KEfBI": {
+    "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
+    "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
+  },
   "7KJGSu": {
     "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
     "description": "Title for the 'software solutions' IT work stream"
+  },
+  "7MMfLQ": {
+    "defaultMessage": "Améliorer la coordination des possibilités de formation et de perfectionnement pour la collectivité du numérique du GC",
+    "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
   },
   "7Mbt01": {
     "defaultMessage": "Le retrait du membre de l’équipe a échoué",
@@ -1791,6 +1935,14 @@
     "defaultMessage": "Exemptions de lieux",
     "description": "CSV Header, Location Exemptions column"
   },
+  "8ownC2": {
+    "defaultMessage": "Veuillez préciser la raison",
+    "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
+  },
+  "8v/v3u": {
+    "defaultMessage": "Compétences requises",
+    "description": "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
+  },
   "8yB2Bm": {
     "defaultMessage": "Conditions favorables",
     "description": "Heading for the directives digital enabling conditions component"
@@ -1823,6 +1975,10 @@
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred written exam language  field."
   },
+  "99D3id": {
+    "defaultMessage": "Plus élevé que 25 millions de dollars",
+    "description": "Contract value range greater than twenty-five-million"
+  },
   "9Aa5c0": {
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
@@ -1838,6 +1994,10 @@
   "9Eh1nm": {
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
+  },
+  "9IMcqY": {
+    "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez \"évaluation supplémentaire\" en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
+    "description": "First paragraph of second answer of the Frequently Asked Questions for logging in"
   },
   "9Jkoms": {
     "defaultMessage": "Trouver du talent numérique",
@@ -1923,6 +2083,10 @@
     "defaultMessage": "Activez le mode lumière",
     "description": "Button text to set theme mode to light"
   },
+  "9o9XhC": {
+    "defaultMessage": "Hors site, quel que soit le lieu",
+    "description": "Any offsite personnel work location"
+  },
   "9pYlYz": {
     "defaultMessage": "Flux",
     "description": "Label for a process' stream"
@@ -2006,6 +2170,10 @@
     "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
+  "ARL2Tz": {
+    "defaultMessage": "Au moyen de la liste des compétences fournie dans l’annonce du bassin de candidats, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
+    "description": "description of 'skill selection' section of the 'assessment details' dialog"
+  },
   "ARSDO1": {
     "defaultMessage": "Localisation, langue et sécurité.",
     "description": "Title for the location, language and security section of a pool advertisement"
@@ -2050,6 +2218,10 @@
     "defaultMessage": "S.O.",
     "description": "Not available message."
   },
+  "AbU5rL": {
+    "defaultMessage": "Travail posté",
+    "description": "Shift work personnel other requirement"
+  },
   "AcsOrg": {
     "defaultMessage": "Êtes-vous certain(e)?",
     "description": "Delete confirmation"
@@ -2065,6 +2237,10 @@
   "AfSlkm": {
     "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
+  },
+  "Ag8BE0": {
+    "defaultMessage": "Tout d’abord, demander trop de renseignements sur une demande d’emploi peut repousser de bons candidats qui estiment que le processus est trop laborieux. Si vous souhaiter recruter parmi les meilleurs candidats, vous devrez trouver le bon équilibre entre ce que vous voulez demander et le temps que les candidats devront accorder pour entreprendre le processus.",
+    "description": "Second paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "AgUBsQ": {
     "defaultMessage": "Quel est le titre de votre poste?",
@@ -2085,6 +2261,14 @@
   "AijsNM": {
     "defaultMessage": "Désactivé",
     "description": "CSV Header, Disabled column"
+  },
+  "AinG8I": {
+    "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
+    "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
+  },
+  "AkuIfT": {
+    "defaultMessage": "Nom",
+    "description": "Label for _business owner name_ field in the _digital services contracting questionnaire_"
   },
   "Al6x8w": {
     "defaultMessage": "Après avoir postulé",
@@ -2114,6 +2298,10 @@
     "defaultMessage": "Compétences requises",
     "description": "Page title for the application skills page"
   },
+  "Aw00Lh": {
+    "defaultMessage": "L’un des facteurs suivants a-t-il une influence sur la décision d’établir un contrat?",
+    "description": "Context for _operations considerations_ section, paragraph 1, in the _digital services contracting questionnaire_"
+  },
   "AwIGg0": {
     "defaultMessage": "Vous avez une question précise? Vous souhaitez faire part de vos commentaires ou signaler un bogue? Envoyez-nous un message au moyen de ce formulaire.",
     "description": "Support form paragraph one"
@@ -2125,6 +2313,10 @@
   "AwzZwe": {
     "defaultMessage": "Renseignements sur les fonctionnaires",
     "description": "Heading for the government information section on the application profile"
+  },
+  "AxKi2s": {
+    "defaultMessage": "Évaluation planifiée",
+    "description": "Title for a column that displays a complete or not state."
   },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
@@ -2153,6 +2345,10 @@
   "B6XXtf": {
     "defaultMessage": "Télécharger le jeu de données intégral",
     "description": "Text label for button to download a csv file of all items in a table."
+  },
+  "B75J3Q": {
+    "defaultMessage": "Chef opérationnel",
+    "description": "Label for _business owner_ fieldset in the _digital services contracting questionnaire_"
   },
   "B89Ihf": {
     "defaultMessage": "Compétences requises pour la demande",
@@ -2186,6 +2382,10 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
+  "BJ38Kf": {
+    "defaultMessage": "Veuillez préciser votre ministère ou organisme",
+    "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
+  },
   "BLg0f4": {
     "defaultMessage": "Contact et hébergement",
     "description": "Title for the contact and accommodation section of a pool advertisement"
@@ -2214,6 +2414,10 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed for the Pool Candidates table Email column."
   },
+  "BSkVBd": {
+    "defaultMessage": "Veuillez préciser la langue de travail",
+    "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
+  },
   "BYGKiT": {
     "defaultMessage": "Équité en matière d'emploi",
     "description": "Title of the 'Employment equity' section of the view-user page"
@@ -2229,6 +2433,10 @@
   "BdsZwe": {
     "defaultMessage": "Candidature formulée le cv",
     "description": "Label for showing the submitted date of an application."
+  },
+  "BfU5BR": {
+    "defaultMessage": "Veuillez préciser le produit",
+    "description": "Label for _other commodity type_ fieldset in the _digital services contracting questionnaire_"
   },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
@@ -2250,6 +2458,10 @@
     "defaultMessage": "Analyste T I 2 (75 000 $ à 91 000 $)",
     "description": "IT-02 classification aria label including titles and salaries"
   },
+  "BkJbK1": {
+    "defaultMessage": "L’initiative sur le numérique fait avancer le plan pour les talents",
+    "description": "Title for digital initiative signpost in the _digital services contracting questionnaire_"
+  },
   "Bkxf6p": {
     "defaultMessage": "Sélectionnez un statut de bassin",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
@@ -2269,6 +2481,10 @@
   "BruLeg": {
     "defaultMessage": "Erreur : échec de la création du compte.",
     "description": "Message displayed to user if account fails to get updated."
+  },
+  "BuXxS9": {
+    "defaultMessage": "Anglais seulement",
+    "description": "English only personnel language"
   },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
@@ -2330,6 +2546,10 @@
     "defaultMessage": "Ministère",
     "description": "Department label"
   },
+  "CCyraT": {
+    "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
+    "description": "description of 'basic details' section of the 'assessment details' dialog"
+  },
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
@@ -2369,6 +2589,10 @@
   "CRXFbo": {
     "defaultMessage": "Dans cette section, vous devez indiquer si vous êtes actuellement un(e) employé(e) du gouvernement du Canada, et vous devez répondre à d’autres questions connexes",
     "description": "Descriptive text explaining the government information section of the application profile"
+  },
+  "CRnoE8": {
+    "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
+    "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
   "CSg8cH": {
     "defaultMessage": "Ajouter un prix",
@@ -2434,6 +2658,10 @@
     "defaultMessage": "Informations sur le bassin",
     "description": "Title for the pool info page"
   },
+  "Cl3GCt": {
+    "defaultMessage": "Titre du contrat",
+    "description": "Label for _contract title_ field in the _digital services contracting questionnaire_"
+  },
   "ClrNAj": {
     "defaultMessage": "Puis-je utiliser l'authentification par texto ou par courriel au lieu d'une application?",
     "description": "Eighth of the Frequently Asked Questions for logging in"
@@ -2485,6 +2713,14 @@
   "D2HsoO": {
     "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
     "description": "Title for the what to expect section of a pool advertisement"
+  },
+  "D2v0V5": {
+    "defaultMessage": "Renseignements généraux",
+    "description": "Heading for the General information section on the digital services contracting questionnaire"
+  },
+  "D3UXq2": {
+    "defaultMessage": "Liste des tâches que l’entrepreneur doit accomplir dans le cadre du contrat.",
+    "description": "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "D6HIId": {
     "defaultMessage": "Modifier<hidden> le bassin</hidden>",
@@ -2542,6 +2778,10 @@
     "defaultMessage": "Prénom",
     "description": "Label for given name field"
   },
+  "DUlWNu": {
+    "defaultMessage": "31 à 50",
+    "description": "Contract FTE range between thirty-one and fifty"
+  },
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
@@ -2562,9 +2802,17 @@
     "defaultMessage": "Demande réussie",
     "description": "Page title for the request confirmation page."
   },
+  "DdTqTh": {
+    "defaultMessage": "Gel de la dotation en matière de personnel en place",
+    "description": "Staffing freeze operations consideration"
+  },
   "DeGAS5": {
     "defaultMessage": "Vous vous êtes connecté(e) avec succès",
     "description": "Title for successful sign in alert in create account page."
+  },
+  "DeQTkE": {
+    "defaultMessage": "Télétravail autorisé",
+    "description": "Label for _telework option_ fieldset in the _digital services contracting questionnaire_"
   },
   "DexZJJ": {
     "defaultMessage": "Créer une classification",
@@ -2574,9 +2822,17 @@
     "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
     "description": "Application box heading part one"
   },
+  "DhU+iu": {
+    "defaultMessage": "Plus élevé que 100",
+    "description": "Contract FTE range greater than one-hundred"
+  },
   "DlBusi": {
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
+  },
+  "DnXch4": {
+    "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
+    "description": "Message displayed to user after assessment step fails to be saved."
   },
   "DpzAPD": {
     "defaultMessage": "Vous êtes sur le point de prolonger la date de clôture de ce processus : {poolName}",
@@ -2585,6 +2841,10 @@
   "Dqsq+M": {
     "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "Ds7ONS": {
+    "defaultMessage": "une modification ou une extension à un contrat visant la mise à l’essai de logiciels.",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "DsUtfO": {
     "defaultMessage": "Mise en œuvre de 573 entretiens personnalisés de gestion et d’accompagnement de carrière avec des candidats à l’emploi et des cadres au cours de l’exercice financier de 2022-2023.",
@@ -2642,6 +2902,10 @@
     "defaultMessage": "Aucune compétence comportementale obligatoire n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no required behavioural skills"
   },
+  "E3lQMA": {
+    "defaultMessage": "Sélectionnez tous les facteurs qui ont influencé la décision d’établir le contrat.",
+    "description": "Label for _operations considerations_ fieldset in the _digital services contracting questionnaire_"
+  },
   "E3loNV": {
     "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
     "description": "Title for the 'planning and reporting' IT work stream"
@@ -2697,6 +2961,10 @@
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
     "description": "Message before skills list in application education page."
+  },
+  "Eht9xP": {
+    "defaultMessage": "un changement majeur dans le fonctionnement de votre ministère directement lié à l’introduction de cet équipement ou matériel;",
+    "description": "technological change factor - change department's operation"
   },
   "EjhuA1": {
     "defaultMessage": "Demandes",
@@ -2770,6 +3038,10 @@
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Title to extend a process"
   },
+  "F46Sel": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour toute annonce du bassin de candidats.",
+    "description": "introduction to the organize section in the assessment plan builder"
+  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -2822,6 +3094,10 @@
     "defaultMessage": "Cela va masquer ce bassin dans tous les tableaux concernés et dans les informations relatives au bassin d'un utilisateur.",
     "description": "Second paragraph for archive pool dialog"
   },
+  "FMJiDY": {
+    "defaultMessage": "Sélectionnez la valeur totale du contrat",
+    "description": "Label for _contract value_ fieldset in the _digital services contracting questionnaire_"
+  },
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
@@ -2850,6 +3126,10 @@
     "defaultMessage": "Citoyenneté",
     "description": "CSV Header, Citizenship column"
   },
+  "FXJMDV": {
+    "defaultMessage": "Direction générale",
+    "description": "Label for _branch_ field in the _digital services contracting questionnaire_"
+  },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
@@ -2870,9 +3150,17 @@
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
   },
+  "FffxNt": {
+    "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
+    "description": "Subtitle for Assessment details dialog"
+  },
   "FiylOa": {
     "defaultMessage": "Mots-clés (anglais)",
     "description": "Label displayed on the skill form keywords field in English."
+  },
+  "FjqRUc": {
+    "defaultMessage": "$0 to 10 000 $",
+    "description": "Contract value range between zero and ten-thousand"
   },
   "FkwGWO": {
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
@@ -2881,6 +3169,10 @@
   "Fm4Muz": {
     "defaultMessage": "Autres exigences",
     "description": "Sub title for the pool other requirements"
+  },
+  "FntaLg": {
+    "defaultMessage": "Pour obtenir de plus amples renseignements sur le <link1>plan prospectif de gestion des talents de l'Initiative en matière numérique</link1>, reportez-vous à l'exigence A.2.4 des <link2>Procédures obligatoires sur les talents numériques</link2>.",
+    "description": "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "FpDMGu": {
     "defaultMessage": "Lien établi avec l’expérience!",
@@ -2909,6 +3201,10 @@
   "FxqP5P": {
     "defaultMessage": "Erreur, l’information sur la capture d’écran est manquante",
     "description": "Error displayed in print view when attempting to print partial snapshot."
+  },
+  "G0OY3I": {
+    "defaultMessage": "la gestion de l’information;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "G0RoYe": {
     "defaultMessage": "Faire suivre le plan de talents",
@@ -2945,6 +3241,10 @@
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
     "description": "Text to confirm the process to be duplicated"
+  },
+  "G8cmgj": {
+    "defaultMessage": "En termes d’équivalents temps plein (ETP), le nombre total estimé de ressources prévues du contrat ou nécessaires pour produire les produits livrables du contrat",
+    "description": "Label for _contract FTEs_ fieldset in the _digital services contracting questionnaire_"
   },
   "GAYZpV": {
     "defaultMessage": "Fermer",
@@ -2996,10 +3296,6 @@
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
-  },
-  "GSqmjE": {
-    "defaultMessage": "Premières Nations",
-    "description": "Label for First Nations community"
   },
   "GTHuSJ": {
     "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
@@ -3075,6 +3371,10 @@
   "GsBRWL": {
     "defaultMessage": "Langues"
   },
+  "GsHDxH": {
+    "defaultMessage": "Méthode d’invitation à soumissionner",
+    "description": "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_"
+  },
   "GtZyhK": {
     "defaultMessage": "Technicien (<abbreviation>TI-01</abbreviation>)",
     "description": "Title for the 'IT-01 Technician' classification"
@@ -3142,6 +3442,10 @@
     "defaultMessage": "Postuler à des emplois de gestionnaire",
     "description": "Title for the feature about finding manager jobs"
   },
+  "HMm2S4": {
+    "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
+    "description": "Contract value range between one-million and two-point-five-million"
+  },
   "HNe+Yh": {
     "defaultMessage": "Bienvenue sur le site du <abbreviation>Talent numérique</abbreviation> du GC, veuillez vous connecter pour continuer",
     "description": "Instructional text for the talent cloud pool manager portal home page."
@@ -3157,6 +3461,10 @@
   "HUy0EA": {
     "defaultMessage": "Langue de l'entrevue de vive voix",
     "description": "Label for spoken interview language"
+  },
+  "HX/Tj+": {
+    "defaultMessage": "Secret",
+    "description": "Secret screening level"
   },
   "HYSPug": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en anglais.",
@@ -3210,6 +3518,10 @@
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the remove role from user dialog"
   },
+  "I+GYIo": {
+    "defaultMessage": "Par exemple, l’entrepreneur :",
+    "description": "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_"
+  },
   "I/fGUN": {
     "defaultMessage": "Analyste (<abbreviation>TI-02</abbreviation>)",
     "description": "Title for the 'IT-02 Analyst' classification"
@@ -3225,6 +3537,10 @@
   "I6Qz7N": {
     "defaultMessage": "Non, je n'ai pas de droit de priorité.",
     "description": "affirm no entitlement"
+  },
+  "I6TA7y": {
+    "defaultMessage": "Impossible de créer de nouveaux postes à durée déterminée dans les délais requis",
+    "description": "Unable to create new term positions operations consideration"
   },
   "I7rxxQ": {
     "defaultMessage": "Mots-clés",
@@ -3265,6 +3581,10 @@
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
+  },
+  "IKkBm7": {
+    "defaultMessage": "Oui",
+    "description": "The affirmative option to answer a question"
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -3318,6 +3638,10 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
+  "IjBtl5": {
+    "defaultMessage": "Le transfert de connaissances de l’entrepreneur à l’unité de travail du gouvernement a-t-il été intégré au contrat?",
+    "description": "Label for _knowledge transfer in contract_ fieldset in the _digital services contracting questionnaire_"
+  },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
     "description": "Learn more dialog question three heading"
@@ -3365,6 +3689,10 @@
   "J+MAUg": {
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
+  },
+  "J/JdxQ": {
+    "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
+    "description": "Description for warning message when the user has added many assessments to the assessment plan"
   },
   "J/oofb": {
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
@@ -3446,6 +3774,10 @@
     "defaultMessage": "Présenter sa candidature pour les opportunités de techniciens<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-01 Technician' classification"
   },
+  "Jehcen": {
+    "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une bassin de talents coordonnée par le BDPI qui pourraient répondre au besoin dans le délai imparti?",
+    "description": "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_"
+  },
   "JerysR": {
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
@@ -3473,6 +3805,10 @@
   "Jp0Beg": {
     "defaultMessage": "Archiver ce bassin ",
     "description": "Button to archive the pool in the archive pool dialog"
+  },
+  "JqP2TC": {
+    "defaultMessage": "1 à 2 ans",
+    "description": "Contract start timeframe of one to two years"
   },
   "Jqt2vB": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
@@ -3538,6 +3874,10 @@
     "defaultMessage": "Gérer <a1>vos renseignements personnels</a1>, <a2>votre parcours professionnel</a2>, <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
     "description": "Subtitle for profile and applications hero"
   },
+  "KCzZr9": {
+    "defaultMessage": "En s'appuyant sur ces données, le BDPI peut collaborer avec les ministères et les organismes à l’élaboration de stratégies et d’initiatives pangouvernementales pour mieux préparer le gouvernement du Canada aux futurs besoins en matière de talents, notamment en :",
+    "description": "Paragraph two of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_"
+  },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
@@ -3546,6 +3886,10 @@
     "defaultMessage": "Candidature archivée!",
     "description": "Message displayed to user after application is archived successfully."
   },
+  "KFdDjj": {
+    "defaultMessage": "25 000 $ à 50 000 $",
+    "description": "Contract value range between twenty-five-thousand and fifty-thousand"
+  },
   "KIWVbp": {
     "defaultMessage": "Équipe",
     "description": "Title displayed for the teams table team column."
@@ -3553,6 +3897,10 @@
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
+  },
+  "KKXJFE": {
+    "defaultMessage": "Fiabilité",
+    "description": "Reliability screening level"
   },
   "KQvWvD": {
     "defaultMessage": "Supprimé"
@@ -3601,6 +3949,10 @@
     "defaultMessage": "Masquer les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
   },
+  "KcvmuN": {
+    "defaultMessage": "Le BDPI s’est-il engagé à mettre en relation les employés avec les occasions de formation et de perfectionnement liées aux exigences du présent contrat, le cas échéant?",
+    "description": "Label for _OCIO engaged for training_ fieldset in the _digital services contracting questionnaire_"
+  },
   "KdXvmY": {
     "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
     "description": "Learn more dialog question seven heading"
@@ -3613,9 +3965,17 @@
     "defaultMessage": "Salaire maximal",
     "description": "Title displayed for the Classification table Maximum Salary column."
   },
+  "KeMgYF": {
+    "defaultMessage": "Bilingue (avancé – CBC/CBC)",
+    "description": "Bilingual advanced personnel language"
+  },
   "Kg8PlJ": {
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
+  },
+  "KifUVY": {
+    "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
+    "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
   },
   "KmqF8d": {
     "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
@@ -3652,9 +4012,17 @@
     "defaultMessage": "Imprimer la sélection",
     "description": "Text label for button to print items in a table."
   },
+  "KsRa41": {
+    "defaultMessage": "un contrat concurrentiel pour faire appel à plusieurs développeurs de logiciels pour une capacité de surcharge;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
+  },
+  "Kss450": {
+    "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
+    "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
   },
   "KteuZ5": {
     "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés facultatives</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
@@ -3696,6 +4064,10 @@
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
+  "LAW/ov": {
+    "defaultMessage": "Facteurs de propriété intellectuelle (par exemple, les logiciels propriétaires.)",
+    "description": "Intellectual property factors contracting rationale"
+  },
   "LBU5dT": {
     "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
     "description": "Introductory text displayed in sign in and authentication accordion."
@@ -3720,6 +4092,10 @@
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
   },
+  "LOVZi6": {
+    "defaultMessage": "Détails sur l’évaluation",
+    "description": "Title for Assessment details dialog"
+  },
   "LOhcO4": {
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
@@ -3727,6 +4103,10 @@
   "LOmX3T": {
     "defaultMessage": "Expérience de travail",
     "description": "Title for work experience section"
+  },
+  "LTmcVS": {
+    "defaultMessage": "Non",
+    "description": "The negative option to answer a question"
   },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
@@ -3768,6 +4148,10 @@
     "defaultMessage": "Compétences comportementales facultatives",
     "description": "Title for optional behavioural skills section of a pool advertisement"
   },
+  "LizQuG": {
+    "defaultMessage": "Veuillez préciser les exigences suivantes pour ce poste.",
+    "description": "Introduction for _other requirements_ section in the _digital services contracting questionnaire_"
+  },
   "LjE48l": {
     "defaultMessage": "Annuler",
     "description": "Button text to close employment equity form."
@@ -3787,6 +4171,10 @@
   "LocjmN": {
     "defaultMessage": "De retour aux équipes",
     "description": "Button text to return to the table of teams page"
+  },
+  "LphzpW": {
+    "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
+    "description": "second question in the organize section in the assessment plan builder"
   },
   "LqCaFZ": {
     "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
@@ -3920,6 +4308,10 @@
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
   },
+  "Mxu+IY": {
+    "defaultMessage": "Inconnu",
+    "description": "Contract start timeframe is unknown"
+  },
   "Myfw+L": {
     "defaultMessage": "Bassins",
     "description": "Title for pools"
@@ -3956,6 +4348,10 @@
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
   },
+  "N631me": {
+    "defaultMessage": "Portée du contrat",
+    "description": "Heading for the Scope of the contract section on the digital services contracting questionnaire"
+  },
   "N6DlK/": {
     "defaultMessage": "Modifier les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
@@ -3967,6 +4363,10 @@
   "N87bC7": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
+  },
+  "NDkViv": {
+    "defaultMessage": "L’un des facteurs suivants a-t-il une influence sur la décision d’établir un contrat?",
+    "description": "Label for _has operations considerations_ fieldset in the _digital services contracting questionnaire_"
   },
   "NGEgVN": {
     "defaultMessage": "Organisation émettrice",
@@ -4004,6 +4404,10 @@
     "defaultMessage": "Présenter une demande avant :",
     "description": "Label for pool advertisement closing date"
   },
+  "NT0U2K": {
+    "defaultMessage": "Hors site, lieu précis",
+    "description": "Specific offsite personnel work location"
+  },
   "NT3jrI": {
     "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
@@ -4039,6 +4443,10 @@
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list"
+  },
+  "NeY5Ac": {
+    "defaultMessage": "Services professionnels en informatique centrés sur les solutions (SPICS)",
+    "description": "Solutions based informatics professional services contract supply method"
   },
   "NfRLs/": {
     "defaultMessage": "Anglais - Votre impact",
@@ -4156,12 +4564,24 @@
     "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences. ",
     "description": "Lead in text for a users skill showcase for admins."
   },
+  "ONrdDg": {
+    "defaultMessage": "un contrat faisant appel à des consultants pour la conception d'un service numérique;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
+  "OOHY6f": {
+    "defaultMessage": "Transfert de connaissances",
+    "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
+  },
   "OPG1Q0": {
     "defaultMessage": "Profil complet"
   },
   "OQhL7A": {
     "defaultMessage": "Statut",
     "description": "Label displayed on Education form for status input"
+  },
+  "OTuMuQ": {
+    "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
+    "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
   },
   "OUXmYd": {
     "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
@@ -4170,6 +4590,10 @@
   "OVBFto": {
     "defaultMessage": "Annuler",
     "description": "Button text to cancel and close the skill dialog"
+  },
+  "OWD/ns": {
+    "defaultMessage": "6 à 10",
+    "description": "Contract FTE range between six and ten"
   },
   "OY6KVG": {
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -4271,6 +4695,10 @@
     "defaultMessage": "Ma bibliothèque ({count})",
     "description": "Label for filtering skills by ones already added to the users library"
   },
+  "P6jGb4": {
+    "defaultMessage": "Veuillez préciser les exigences linguistiques",
+    "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
+  },
   "P7ZWZ/": {
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
     "description": "Describes the 'your impact' section of a process' advertisement."
@@ -4282,6 +4710,14 @@
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
+  },
+  "PB2VIT": {
+    "defaultMessage": "Une exigence de la Directive sur les talents numériques.",
+    "description": "Subtitle for the _digital services contracting questionnaire_ page"
+  },
+  "PBAxdK": {
+    "defaultMessage": "15 millions de dollars à 25 millions de dollars",
+    "description": "Contract value range between fifteen-million and twenty-five-million"
   },
   "PDbqFR": {
     "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
@@ -4423,6 +4859,10 @@
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
   },
+  "QCuAwH": {
+    "defaultMessage": "Situation financière – restriction relativement à l’utilisation des fonds",
+    "description": "Financial situation contracting rationale"
+  },
   "QHR5ay": {
     "defaultMessage": "Vous n'avez pas actuellement de bassins de talents dans votre profil.",
     "description": "Message displayed in recruitment availability when the user is not in any valid pools"
@@ -4447,6 +4887,10 @@
     "defaultMessage": "Modifier votre expérience",
     "description": "Page title for the application career timeline edit experience page"
   },
+  "QRnkPO": {
+    "defaultMessage": "Commencez à ajouter des exigences en utilisant le bouton suivant.",
+    "description": "Instructions on how to add a question when there are none"
+  },
   "QSTaWO": {
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
@@ -4467,6 +4911,10 @@
     "defaultMessage": "Une fois que vous en aurez ajouté quelques-unes, vous pourrez compter cette compétence selon l’une ou plusieurs de vos expériences.",
     "description": "Instructions displayed when user has no experiences to feature on a skill."
   },
+  "QaLQPG": {
+    "defaultMessage": "Garde 24/7",
+    "description": "On-call 24/7 personnel other requirement"
+  },
   "QagkWo": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add education experience in application education page."
@@ -4482,6 +4930,10 @@
   "QfOWr0": {
     "defaultMessage": "Détails additionnels :",
     "description": "Additional details if provided (without details)"
+  },
+  "QgX0vb": {
+    "defaultMessage": "Retirer<hidden> {skillName}</hidden>",
+    "description": "Button text to delete a personnel skill requirement"
   },
   "QjF2CL": {
     "defaultMessage": "Menu Principal",
@@ -4547,6 +4999,10 @@
     "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
     "description": "Definition of behavioural skills"
   },
+  "R5eNu/": {
+    "defaultMessage": "Y aura-t-il un besoin continu pour les connaissances dans l’unité de travail pour laquelle l’entrepreneur est engagé?",
+    "description": "Label for _ongoing need for knowledge_ fieldset in the _digital services contracting questionnaire_"
+  },
   "R5sGKY": {
     "defaultMessage": "Information sur le processus",
     "description": "Title for the pool info page"
@@ -4554,6 +5010,10 @@
   "R75HsV": {
     "defaultMessage": "Aidez-nous à vous apparier avec les meilleurs candidats en partageant de plus amples renseignements avec notre équipe sur les compétences particulières dont vous recherchez.",
     "description": "Describing the purpose of the skill filters on the Search page."
+  },
+  "R9YL7P": {
+    "defaultMessage": "Télécharger une copie de ce formulaire",
+    "description": "Button text to download this form"
   },
   "RA6v6+": {
     "defaultMessage": "Télécharger le formulaire<hidden>{formName} </hidden>",
@@ -4603,9 +5063,21 @@
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
     "description": "Button text to duplicate a process"
   },
+  "Raho+z": {
+    "defaultMessage": "Questionnaire",
+    "description": "Heading for the Questionnaire section on the digital services contracting questionnaire"
+  },
   "RalbOM": {
     "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "RbHGhj": {
+    "defaultMessage": "Autres exigences",
+    "description": "Title for _other requirements_ section in the _digital services contracting questionnaire_"
+  },
+  "Rbp02p": {
+    "defaultMessage": "Sauvegarder le plan et revenir en arrière",
+    "description": "Text on a button to save the assessment plan and return to the pool page"
   },
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
@@ -4639,6 +5111,10 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title for group and level on summary of filters section"
   },
+  "RogeBe": {
+    "defaultMessage": "Services d’aide temporaire",
+    "description": "Temporary help services contract supply method"
+  },
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
@@ -4646,6 +5122,14 @@
   "Rs50V0": {
     "defaultMessage": "Désarchiver ce bassin",
     "description": "Button to un-archive the pool in the un-archive pool dialog"
+  },
+  "RvB1GT": {
+    "defaultMessage": "Relations de travail",
+    "description": "Label for _labour relations_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "RvG69R": {
+    "defaultMessage": "Sélectionner le niveau de mesure de sécurité du personnel requis pour l’entrepreneur",
+    "description": "Label for _contractor screening levels_ fieldset in the _digital services contracting questionnaire_"
   },
   "RwXPoj": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -4666,6 +5150,10 @@
   "S02Y/P": {
     "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>TI-03</abbreviation>)",
     "description": "Title for the 'IT-03 Advisor' classification"
+  },
+  "S2if5C": {
+    "defaultMessage": "Questionnaire sauvegardé avec succès.",
+    "description": "Message displayed to user if the questionnaire was saved successfully."
   },
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
@@ -4719,6 +5207,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
+  "STIhQg": {
+    "defaultMessage": "Si plusieurs types de ressources sont nécessaires, veuillez inclure un numéro de suivi pour chaque ressource qui relève d’un volet de travail de la TI et/ou d’un niveau distinct. Séparez chaque numéro de suivi par une virgule.",
+    "description": "introduction paragraph 2 to needing more information about the talent search"
+  },
   "SUUqzt": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
@@ -4754,6 +5246,10 @@
   "Sd8883": {
     "defaultMessage": "Vous avez répondu aux questions suivantes :",
     "description": "Message in screening questions section of the application review page."
+  },
+  "SgkkWp": {
+    "defaultMessage": "Remplir et soumettre ce questionnaire au moment où un contrat de services numériques est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
+    "description": "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_"
   },
   "Sgp2Zb": {
     "defaultMessage": "Voyez comment vos données sont consultées et gérez la disponibilité et les communications.",
@@ -4791,9 +5287,17 @@
     "defaultMessage": "Meilleures compétences",
     "description": "Heading for a users top skills"
   },
+  "SycVSd": {
+    "defaultMessage": "Le travail est-il attribué à la sous-traitance parce qu’il comprend l’apport de ce qui suit :",
+    "description": "Context for _technological change_ section, paragraph 1, in the _digital services contracting questionnaire_"
+  },
   "SypvZP": {
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
+  },
+  "T0JO/F": {
+    "defaultMessage": "Description du travail requis",
+    "description": "title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "T1TKNL": {
     "defaultMessage": "Niveau de compétence en langue seconde",
@@ -4802,6 +5306,10 @@
   "T49QiO": {
     "defaultMessage": "Type d’emploi :",
     "description": "Label for applicant's employment type"
+  },
+  "T5QT/C": {
+    "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "T8J2Lp": {
     "defaultMessage": "Vos coordonnées",
@@ -4875,6 +5383,10 @@
     "defaultMessage": "Vous avez lu la FAQ et vous ne savez toujours pas quoi faire? <link>Communiquez avec notre équipe pour obtenir de l’aide</link>",
     "description": "Seventh answer of the Frequently Asked Questions for sign up"
   },
+  "TYOzfT": {
+    "defaultMessage": "Exigences",
+    "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
+  },
   "Tdr8r5": {
     "defaultMessage": "Quelques questions sur le sujet",
     "description": "Page title for the application screening questions introduction page"
@@ -4882,6 +5394,10 @@
   "TiVKPr": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
     "description": "Legend for considered position languages check list in language information form"
+  },
+  "TiutAx": {
+    "defaultMessage": "Raison de l’octroi de contrats",
+    "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
   },
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
@@ -4931,6 +5447,10 @@
     "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à :",
     "description": "Lead in text for accessibility contact information"
   },
+  "TySSof": {
+    "defaultMessage": "Facteurs d’influence",
+    "description": "Title for _influencing factors_ section, in the _digital services contracting questionnaire_"
+  },
   "U+WqrO": {
     "defaultMessage": "Mettre à jour une classification",
     "description": "Title displayed on the update a classification form."
@@ -4959,6 +5479,10 @@
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
   },
+  "U9jw1M": {
+    "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
+    "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
+  },
   "UDHGGA": {
     "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
@@ -4986,6 +5510,10 @@
   "UN2Ncr": {
     "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
     "description": "IT-02 classification label including titles and salaries"
+  },
+  "UNLuiP": {
+    "defaultMessage": "3 à 6 mois",
+    "description": "Contract start timeframe of three to six months"
   },
   "UNMEfB": {
     "defaultMessage": "Processus de recrutement des cadres",
@@ -5103,6 +5631,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
     "description": "list a number of community experiences"
   },
+  "V7ld7D": {
+    "defaultMessage": "Remplir le <hidden>{formName} </hidden>formulaire",
+    "description": "Link text for a form page"
+  },
   "V8v+/g": {
     "defaultMessage": "Filtre de classification",
     "description": "Label for classification filter in search form."
@@ -5114,6 +5646,10 @@
   "V9lxDE": {
     "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
     "description": "Null state message in screening questions section of the application review page."
+  },
+  "VAI+TU": {
+    "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
+    "description": "Second paragraph of second answer of the Frequently Asked Questions for logging in"
   },
   "VBsMcq": {
     "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
@@ -5167,9 +5703,17 @@
     "defaultMessage": "Niveau de la langue seconde",
     "description": "Estimated skill in second language"
   },
+  "VUPlmN": {
+    "defaultMessage": "Premières Nations (inscrites ou non)",
+    "description": "Label for First Nations community"
+  },
   "VW3KlZ": {
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
+  },
+  "VWLWLY": {
+    "defaultMessage": "Ajouter une nouvelle évaluation",
+    "description": "Button text to add a new assessment to the assessment plan"
   },
   "VX3Og5": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -5183,6 +5727,10 @@
     "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
     "description": "Message displayed to admins when a process is in draft mode"
   },
+  "VYzixZ": {
+    "defaultMessage": "Autres raisons",
+    "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
+  },
   "VaVo2t": {
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
@@ -5190,6 +5738,10 @@
   "Val79M": {
     "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte pour que je puisse le réinitialiser?",
     "description": "Second of the Frequently Asked Questions for logging in"
+  },
+  "Vbl9/L": {
+    "defaultMessage": "un contrat de services professionnels pour l'évaluation de la cybersécurité;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
@@ -5235,6 +5787,10 @@
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
     "description": "CSV Header, Education Requirement Experiences column"
   },
+  "VmMnkU": {
+    "defaultMessage": "Préavis d'attribution de contrat",
+    "description": "Advance contract award notice contract solicitation procedure"
+  },
   "VphXhu": {
     "defaultMessage": "Nom",
     "description": "Title displayed for the Skill Family table Name column."
@@ -5274,6 +5830,10 @@
   "W/cZp2": {
     "defaultMessage": "Veuillez soumettre une demande en blanc et dites-nous en davantage dans les commentaires.",
     "description": "Link text to scroll to the submit button when no candidates were found"
+  },
+  "W1vWDi": {
+    "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
+    "description": "Success message displayed after unlinking an experience to a skill"
   },
   "W2YIEA": {
     "defaultMessage": "Postulez pour ce processus",
@@ -5319,6 +5879,14 @@
     "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
     "description": "Title displayed on the candidate skill count column."
   },
+  "WHMukc": {
+    "defaultMessage": "Si le contrat a fait l’objet d’une modification, sélectionnez la valeur totale après la modification.",
+    "description": "introduction for _contract value_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "WHkMFr": {
+    "defaultMessage": "Veuillez préciser les locaux du GC",
+    "description": "Label for _gc specific work locations_ fieldset in the _digital services contracting questionnaire_"
+  },
   "WJM32F": {
     "defaultMessage": "Avec qui puis-je communiquer si j’ai des questions au sujet de CléGC?",
     "description": "Second of the Frequently Asked Questions for sign up"
@@ -5330,6 +5898,10 @@
   "WLcP98": {
     "defaultMessage": "Le « sujet » est une chaîne de caractères qui établit de manière unique l’identité de connexion d’un utilisateur.",
     "description": "Additional context describing the purpose of the users's 'subject' field."
+  },
+  "WNqXQa": {
+    "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
+    "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
   },
   "WP7NTc": {
     "defaultMessage": "Choisir une expérience",
@@ -5358,6 +5930,14 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
+  },
+  "WdBt7s": {
+    "defaultMessage": "Approvisionnement",
+    "description": "Label for _procurement_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "WhQFXx": {
+    "defaultMessage": "Combien d’évaluations devrais-je inclure?",
+    "description": "first question in the organize section in the assessment plan builder"
   },
   "Wi4tia": {
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
@@ -5394,6 +5974,10 @@
     "defaultMessage": "Le droit de priorité est un statut offert par la Commission de la fonction publique du Canada. Pour en apprendre davantage, <priorityEntitlementLink>consultez le site Web Information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence describing what priority entitlement is"
   },
+  "Wpj2OY": {
+    "defaultMessage": "« Je suis membre d’une Première Nation »",
+    "description": "Text for the option to self-declare as first nations"
+  },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
     "description": "Title for the additional comments block in the search request filters"
@@ -5426,9 +6010,17 @@
     "defaultMessage": "Statut de vétéran",
     "description": "Legend text for Veteran status selection"
   },
+  "X+IHFX": {
+    "defaultMessage": "Veuillez préciser les lieux hors site",
+    "description": "Label for _offsite specific work locations_ fieldset in the _digital services contracting questionnaire_"
+  },
   "X0YPib": {
     "defaultMessage": "Expériences relatives aux prix",
     "description": "Heading for award experiences in experience by type listing"
+  },
+  "X28mdy": {
+    "defaultMessage": "Cote de fiabilité approfondie",
+    "description": "Enhanced reliability screening level"
   },
   "X354at": {
     "defaultMessage": "Évaluation bilingue",
@@ -5486,6 +6078,10 @@
     "defaultMessage": "À quoi s’attendre (français)",
     "description": "Label for a process' French what to expect after applying"
   },
+  "XRbVxf": {
+    "defaultMessage": "Modifier<hidden> {skillName}</hidden>",
+    "description": "Button text to edit a personnel skill requirement"
+  },
   "XS21o1": {
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
@@ -5498,9 +6094,17 @@
     "defaultMessage": "Préférences en matière de travail",
     "description": "Heading for the work preferences section on the application profile"
   },
+  "XVI4qU": {
+    "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
+    "description": "technological change factor - technological change to a system"
+  },
   "XVWN/C": {
     "defaultMessage": "Remplir les formulaires obligatoires",
     "description": "Heading for section for the downloadable forms section"
+  },
+  "XXzVNT": {
+    "defaultMessage": "Finances",
+    "description": "Label for _finance_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
   "XaYhX3": {
     "defaultMessage": "Créer une nouvelle équipe à partir de zéro",
@@ -5529,6 +6133,10 @@
   "Xhfkfg": {
     "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
     "description": "Talent portal strategy item 1 content"
+  },
+  "Xhq/96": {
+    "defaultMessage": "11 à 30",
+    "description": "Contract FTE range between eleven and thirty"
   },
   "XijxiY": {
     "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
@@ -5585,6 +6193,10 @@
     "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
   },
+  "Y+GgIV": {
+    "defaultMessage": "Toutes les compétences indiquées dans l’annonce doivent être évaluées au moyen d’une méthode, à tout le moins. Lorsque vous vous fiez aux affirmations d’un candidat (p. ex., la candidature initiale) vous devez sélectionner une autre méthode d’évaluation pour évaluer ou valider l’affirmation du candidat qu’il possède cette compétence. Dans la plupart des cas, cela signifiera que vous avez deux ou trois autres méthodes d’évaluation au-delà de la présentation de candidature initiale.",
+    "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
+  },
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
@@ -5604,6 +6216,10 @@
   "Y96JXz": {
     "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
     "description": "Subtitle for the find a skill dialog within an experience"
+  },
+  "Y9N3Fw": {
+    "defaultMessage": "Y a-t-il d’autres exigences (p. ex., travail par postes, service de garde 24 heures sur 24, 7 jours sur 7, selon les besoins, heures supplémentaires, etc.) pour ce contrat?",
+    "description": "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_"
   },
   "YA/7nb": {
     "defaultMessage": "Erreur : groupe de classification introuvable.",
@@ -5641,6 +6257,10 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
+  "YRZ5Cx": {
+    "defaultMessage": "Méthodes d'approvisionnement",
+    "description": "Label for _method of supply_ fieldset in the _digital services contracting questionnaire_"
+  },
   "YUx5ti": {
     "defaultMessage": "Compte supprimé",
     "description": "Title for the page users land on if their account was deleted."
@@ -5661,9 +6281,17 @@
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
+  "YWPvor": {
+    "defaultMessage": "10 000 $ à 25 000 $",
+    "description": "Contract value range between ten-thousand and twenty-five-thousand"
+  },
   "YWxGL/": {
     "defaultMessage": "Quelle application d'authentification dois-je installer?",
     "description": "Seventh of the Frequently Asked Questions for logging in"
+  },
+  "YZMi8D": {
+    "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
+    "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
@@ -5693,9 +6321,17 @@
     "defaultMessage": "Examen de langue écrit",
     "description": "Label for written exam language"
   },
+  "YhPG+C": {
+    "defaultMessage": "Le financement a été obtenu sur la base du recouvrement des coûts",
+    "description": "Funding secured on a cost-recovery basis operations consideration"
+  },
   "Yhd/hk": {
     "defaultMessage": "Aucune expérience trouvée.",
     "description": "Message displayed when no experience is found for experience form."
+  },
+  "Yik/xN": {
+    "defaultMessage": "Type de personnel",
+    "description": "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_"
   },
   "YiqbTc": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 3 compétences comportementales ou \"compétences relationnelles”</strong> qu’ils cherchent à améliorer activement.",
@@ -5803,6 +6439,10 @@
   "ZGpncy": {
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
+  },
+  "ZIDY0W": {
+    "defaultMessage": "Considérations relatives aux opérations",
+    "description": "Heading for the Operations considerations section on the digital services contracting questionnaire"
   },
   "ZIwaDE": {
     "defaultMessage": "Études postsecondaires de deux ans",
@@ -5928,12 +6568,20 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
+  "a5FZSP": {
+    "defaultMessage": "Variable",
+    "description": "Contract start timeframe is variable"
+  },
   "a5msuh": {
     "defaultMessage": "Oui"
   },
   "a6FJwN": {
     "defaultMessage": "Vous n'avez pas ajouté d'options d'équité à votre profil.",
     "description": "Message when user has not selected as being in any employment equity groups."
+  },
+  "a8S36W": {
+    "defaultMessage": "Il s’agit uniquement d’une obligation de déclaration qui n’impose aucune étape d’approbation supplémentaire de la part du BDPI. En d’autres termes, l’approbation du BDPI n’est pas nécessaire pour lancer une procédure d’approvisionnement pour des services numériques",
+    "description": "Paragraph four of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "a8wd8c": {
     "defaultMessage": "Compétences mises en évidence",
@@ -5962,6 +6610,10 @@
   "aGaaPi": {
     "defaultMessage": "Femme",
     "description": "CSV Header, Woman column"
+  },
+  "aH4Suk": {
+    "defaultMessage": "Un plan en lien avec talents pour l’initiative numérique a-t-il été soumis précédemment pour cette initiative?",
+    "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
   },
   "aIMh6f": {
     "defaultMessage": "Cinq compétences techniques que vous aimeriez perfectionner",
@@ -6086,6 +6738,10 @@
     "defaultMessage": "Lieu de travail :",
     "description": "Work Location label, followed by colon"
   },
+  "b8XLn5": {
+    "defaultMessage": "Confirmation du préambule",
+    "description": "Preamble confirmation label of the _digital services contracting questionnaire_"
+  },
   "bBz/OJ": {
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
@@ -6098,6 +6754,10 @@
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
+  "bDnBF9": {
+    "defaultMessage": "Création d’une réserve de talents numériques préqualifiés à l’échelle du gouvernement, en fonction des besoins des ministères",
+    "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
+  },
   "bEwwY/": {
     "defaultMessage": "Langue de communication préférée :",
     "description": "Preferred Language for communication purposes label and colon"
@@ -6109,6 +6769,10 @@
   "bGi9fO": {
     "defaultMessage": "Création réussie de la compétence!",
     "description": "Message displayed to user after skill is created successfully."
+  },
+  "bIdalW": {
+    "defaultMessage": "Date de fin prévue du contrat",
+    "description": "Label for _contract end date_ field in the _digital services contracting questionnaire_"
   },
   "bJRzd6": {
     "defaultMessage": "Celle-ci est calculée en fonction de votre choix de groupe et de niveau",
@@ -6209,6 +6873,10 @@
     "defaultMessage": "Auto-évaluation du niveau de compétence",
     "description": "Title for the skill level self-evaluation form"
   },
+  "by9soK": {
+    "defaultMessage": "S’agit-il d’un contrat pluriannuel?",
+    "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
+  },
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
@@ -6281,6 +6949,10 @@
     "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
     "description": "The award title is issued by some group"
   },
+  "cLwQgK": {
+    "defaultMessage": "Développer un <link>ensemble de produits génériques en matière de RH</link> (accessibles uniquement sur le réseau du GC), tels que des descriptions d’emploi normalisées, pour la collectivité du numérique",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
+  },
   "cMsRgt": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
@@ -6296,6 +6968,10 @@
   "cPOQCk": {
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
+  },
+  "cRtxUW": {
+    "defaultMessage": "Niveau de compétence : {skillLevel}",
+    "description": "Skill level field label and name"
   },
   "cS73MC": {
     "defaultMessage": "Je consens à travailler dans",
@@ -6337,6 +7013,10 @@
     "defaultMessage": "Votre démonstration de vos compétences vous permet de conserver des listes de compétences tirées de votre bibliothèque qui présentent une histoire davantage ciblée de vos forces et de vos domaines d’intérêt. Bien que votre bibliothèque agisse en tant qu’endroit central à partir duquel vous pouvez gérer toutes les compétences que vous ajoutez à votre profil, les démonstrations que vous complétez sont jumelées à vos demandes d’emploi afin d’aider les recruteurs et les gestionnaires à brosser un tableau complet de votre talent.",
     "description": "Description on what the skills showcase is."
   },
+  "ccyVDQ": {
+    "defaultMessage": "Questions de sélection",
+    "description": "title of 'screening questions' section of the 'assessment details' dialog"
+  },
   "ce3IeQ": {
     "defaultMessage": "Votre parcours professionnel comprend actuellement :",
     "description": "Title for list of experiences"
@@ -6356,6 +7036,14 @@
   "ci1JMn": {
     "defaultMessage": "À titre de rappel, vous allez quitter notre site pour vous connecter avec une CléGC. Si vous éprouvez des problèmes, nous avons quelques conseils supplémentaires pour vous.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey"
+  },
+  "ci72ST": {
+    "defaultMessage": "Ce contrat est-il lié à une initiative en matière numérique en particulier?",
+    "description": "Label for _contract for digital initiative_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "ckDYuu": {
+    "defaultMessage": "Établir les éventuelles justifications secondaires",
+    "description": "Label for _secondary contracting rationales_ fieldset in the _digital services contracting questionnaire_"
   },
   "cktAfD": {
     "defaultMessage": "Planification et établissement de rapports",
@@ -6421,6 +7109,10 @@
     "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
     "description": "List item four, things designers consider for accessibility"
   },
+  "dD3S0i": {
+    "defaultMessage": "Les employés auront-ils accès à la formation et au perfectionnement pour les ensembles de compétences requis dans le contrat?",
+    "description": "Label for _employees have access to knowledge_ fieldset in the _digital services contracting questionnaire_"
+  },
   "dDHy5d": {
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
@@ -6457,9 +7149,17 @@
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
   },
+  "dVZRH3": {
+    "defaultMessage": "Pourquoi la plupart des compétences comportementales sont-elles omises de la présentation de candidature initiale?",
+    "description": "first question in the skill summary section in the assessment plan builder"
+  },
   "dVc2uY": {
     "defaultMessage": "Les renseignements gouvernementaux ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their government employee information."
+  },
+  "dVlECR": {
+    "defaultMessage": "Numéro de suivi de la demande de recherche de Talents numériques du GC",
+    "description": "Label for _talent search tracking number_ fieldset in the _digital services contracting questionnaire_"
   },
   "dY3Qr4": {
     "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
@@ -6485,6 +7185,10 @@
     "defaultMessage": "Ville actuelle",
     "description": "Label for current city field in About Me form"
   },
+  "deFarB": {
+    "defaultMessage": "5 millions de dollars à 10 millions de dollars",
+    "description": "Contract value range between five-million and ten-million"
+  },
   "deiylo": {
     "defaultMessage": "Meilleures compétences",
     "description": "Title for top skills showcase section"
@@ -6496,6 +7200,10 @@
   "dgG8md": {
     "defaultMessage": "Quelles sont les exigences en matière d’études – puis-je présenter une demande si je n’ai pas de diplôme collégial ou universitaire?",
     "description": "Learn more dialog question twelve heading"
+  },
+  "dgVAPq": {
+    "defaultMessage": "Titre du poste",
+    "description": "Label for _financial authority job title_ field in the _digital services contracting questionnaire_"
   },
   "dh2xc5": {
     "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
@@ -6549,6 +7257,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
   },
+  "dwFVEN": {
+    "defaultMessage": "Sélectionner la justification principale",
+    "description": "Label for _primary contracting rationale_ fieldset in the _digital services contracting questionnaire_"
+  },
   "dwYJOo": {
     "defaultMessage": "Expérience professionnelle appliquée",
     "description": "Title for the applied work experience requirements"
@@ -6560,6 +7272,10 @@
   "dxv7Jx": {
     "defaultMessage": "Nous utilisons ce filtre pour apparier les candidats qui expriment de l’intérêt pour un niveau de classification, ou certains salaires prévus dans ces classifications.",
     "description": "Message describing the classification filter of the search form."
+  },
+  "e+xir3": {
+    "defaultMessage": "Autres exigences",
+    "description": "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
@@ -6576,6 +7292,10 @@
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
     "description": "Team and department of pool"
+  },
+  "e3BCAd": {
+    "defaultMessage": "Autres considérations relatives aux opérations non énumérées",
+    "description": "Other operations consideration"
   },
   "e5/v2u": {
     "defaultMessage": "Employé du gouvernement du Canada",
@@ -6681,6 +7401,10 @@
     "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
     "description": "Heading for total matching candidates in results section of search page."
   },
+  "eeyR6R": {
+    "defaultMessage": "étiqueter et compléter les jeux de données fournis, le cas échéant, pour l’établissement de rapports",
+    "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
+  },
   "egLb65": {
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
@@ -6692,6 +7416,10 @@
   "eickbr": {
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
+  },
+  "ekDavD": {
+    "defaultMessage": "Renseignements sur les accords commerciaux",
+    "description": "Title for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
   "ekGCv2": {
     "defaultMessage": "Cela mettra votre bassin à la disposition des candidats pour qu'ils puissent soumettre des candidatures",
@@ -6713,6 +7441,10 @@
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
     "description": "Notice that deleting a skill removes it from a users skill showcase"
   },
+  "epzs/N": {
+    "defaultMessage": "Instruction",
+    "description": "Heading for the Instructions section on the digital services contracting questionnaire"
+  },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
@@ -6724,6 +7456,10 @@
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
     "description": "Text displayed when no skills have been linked to an experience"
+  },
+  "ezstJx": {
+    "defaultMessage": "Exigences",
+    "description": "Heading for the Requirements section on the digital services contracting questionnaire"
   },
   "f/yvXg": {
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
@@ -6761,6 +7497,10 @@
     "defaultMessage": "Plus précisément, nous voulons non seulement connaître vos <strong>antécédents professionnels</strong>, mais nous attachons une grande importance <strong>à votre expérience communautaire</strong>, <strong>aux récompenses que vous avez reçues </strong>, <strong>à vos initiatives personnelles</strong>, ainsi qu’à <strong>vos études</strong> !",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
+  "fLTOAm": {
+    "defaultMessage": "2,5 millions de dollars à 5 millions de dollars",
+    "description": "Contract value range between two-point-five-million and five-million"
+  },
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
@@ -6788,6 +7528,10 @@
   "fRwqM9": {
     "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
+  },
+  "fSEfTI": {
+    "defaultMessage": "Sélectionnez votre ministère ou organisme",
+    "description": "Label for _department / agency_ field in the _digital services contracting questionnaire_"
   },
   "fTwl6k": {
     "defaultMessage": "Titre précis (anglais)",
@@ -6969,6 +7713,10 @@
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
   },
+  "gZKJeF": {
+    "defaultMessage": "Exigence en matière de langue officielle",
+    "description": "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_"
+  },
   "gbquTr": {
     "defaultMessage": "Soumis",
     "description": "Simplified status label for a submitted process advertisement or assessment"
@@ -6996,6 +7744,10 @@
   "gkLEbN": {
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
+  },
+  "glDA2j": {
+    "defaultMessage": "Le fournisseur et ses employés devront-ils avoir accès à des renseignements ou à des actifs protégés et/ou classifiés?",
+    "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
   },
   "gn1vl8": {
     "defaultMessage": "Si vos compétences principales mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Les compétences énumérées ci-dessous ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
@@ -7025,6 +7777,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer ce bassin.",
     "description": "First paragraph for delete pool dialog"
   },
+  "gsaza3": {
+    "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
+    "description": "Label for _has immediate impact on other departments_ fieldset in the _digital services contracting questionnaire_"
+  },
   "gtLuDM": {
     "defaultMessage": "Projet : {project}",
     "description": "Project Name"
@@ -7040,6 +7796,14 @@
   "gto/zD": {
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
+  },
+  "guIFRq": {
+    "defaultMessage": "Veuillez préciser les autres exigences",
+    "description": "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "guN1wV": {
+    "defaultMessage": "{localizedName} évaluations manquantes",
+    "description": "Aria text for icon indicating a skill is not connected to assessments."
   },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
@@ -7105,6 +7869,10 @@
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder les talents numériques du GC comme une collectivité cohésive et évolutive.",
     "description": "The directives digital talent and development component"
   },
+  "hBf/ab": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button text to open the skill dialog and add a skill to the users library"
+  },
   "hEa14D": {
     "defaultMessage": "Nous l’avons à partir d’ici!",
     "description": "Lead in text for the page content on the request confirmation page"
@@ -7121,6 +7889,10 @@
     "defaultMessage": "Statut du bassin",
     "description": "Title of the 'Pool status' section of the view-user page"
   },
+  "hL3EY7": {
+    "defaultMessage": "Changements technologiques",
+    "description": "Heading for the Technological change section on the digital services contracting questionnaire"
+  },
   "hL7Y6p": {
     "defaultMessage": "(Aucune compétence requise)",
     "description": "Message displayed when no skills are required for a pool"
@@ -7128,6 +7900,14 @@
   "hMRpmG": {
     "defaultMessage": "Classification actuelle",
     "description": "CSV Header, Current Classification column"
+  },
+  "hNq2Lk": {
+    "defaultMessage": "Traitement de l’information et services de télécommunications connexes",
+    "description": "Telecom services contract commodity"
+  },
+  "hP2Dxo": {
+    "defaultMessage": "Oui, à temps partiel",
+    "description": "Part-time personnel telework option"
   },
   "hRe0yl": {
     "defaultMessage": "Durée de l’emploi",
@@ -7153,9 +7933,17 @@
     "defaultMessage": "Groupe et classification actuels",
     "description": "Field label before government employment group and level"
   },
+  "hVLtXr": {
+    "defaultMessage": "Non",
+    "description": "No personnel telework option"
+  },
   "hWHT65": {
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
+  },
+  "ha+vp4": {
+    "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
+    "description": "Task based informatics professional services contract supply method"
   },
   "hci1jW": {
     "defaultMessage": "Voir",
@@ -7164,6 +7952,10 @@
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
     "description": "Learn more dialog question ten paragraph one"
+  },
+  "heME90": {
+    "defaultMessage": "Si « {choice} » est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>bassin de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
+    "description": "introduction paragraph 1 to needing more information about the talent search"
   },
   "hfI9v3": {
     "defaultMessage": "Talents numériques du GC",
@@ -7181,9 +7973,17 @@
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
   },
+  "hj9jLb": {
+    "defaultMessage": "Besoins en personnel {index}",
+    "description": "Legend for personnel requirement fieldset"
+  },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
+  },
+  "hl4QA9": {
+    "defaultMessage": "un contrat de source unique pour une société de conseil afin de mener des recherches sur les utilisateurs d'un produit numérique;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "hlcd+5": {
     "defaultMessage": "Résultats du tableau"
@@ -7199,9 +7999,17 @@
     "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
     "description": "Paragraph one, about who is eligible for exposition"
   },
+  "hnrC2A": {
+    "defaultMessage": "Très secret",
+    "description": "Top secret screening level"
+  },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
+  },
+  "hvG6bH": {
+    "defaultMessage": "Exécuter des processus de recrutement pangouvernementaux pour les talents numériques",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "hxaIWa": {
     "defaultMessage": "Ministères et organismes",
@@ -7218,6 +8026,10 @@
   "i0IT1I": {
     "defaultMessage": "Annuler et retourner aux équipes",
     "description": "Link text to cancel updating a team"
+  },
+  "i131l/": {
+    "defaultMessage": "Détails de base",
+    "description": "title of 'basic details' section of the 'assessment details' dialog"
   },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
@@ -7295,6 +8107,10 @@
     "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
     "description": "Message describing the employment duration filter in the search form."
   },
+  "iNIXQ9": {
+    "defaultMessage": "Sommaire de la compétence",
+    "description": "Title for the skill summary section in the assessment plan builder"
+  },
   "iO72f+": {
     "defaultMessage": "Copier l’identifiant de recrutement",
     "description": "Button text to copy a specific qualified recruitment's ID"
@@ -7322,6 +8138,14 @@
   "iXdeVu": {
     "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
     "description": "Descriptive text about how optional behavioural skills are used in the application process"
+  },
+  "iZ922O": {
+    "defaultMessage": "Fournir des renseignements sur chaque type de personnel requis dans le cadre du contrat. En ajouter s’il y a lieu.",
+    "description": "Context for the personnel requirements section"
+  },
+  "iasn5H": {
+    "defaultMessage": "En recueillant des renseignements sur l’octroi de contrats sur les services numériques, le BDPI peut déterminer les lacunes potentielles dans les approches de recherche de talents et les nouveaux besoins en matière de compétences.",
+    "description": "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_"
   },
   "ibT7BK": {
     "defaultMessage": "Quelles sont les tâches ou activités que vous avez accomplies qui ont un rapport avec cette compétence?",
@@ -7387,6 +8211,10 @@
     "defaultMessage": "Mise à jour réussie des principales compétences techniques",
     "description": "Success message displayed after updating top technical skills"
   },
+  "iruU4c": {
+    "defaultMessage": "10 millions de dollars à 15 millions de dollars",
+    "description": "Contract value range between ten-million and fifteen-million"
+  },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
@@ -7406,6 +8234,10 @@
   "j01W+1": {
     "defaultMessage": "Nom (français)",
     "description": "Label displayed on the update a skill form name (French) field."
+  },
+  "j12uou": {
+    "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
+    "description": "technological change factor - new technological system"
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>TI-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
@@ -7486,6 +8318,10 @@
   "jV/FG1": {
     "defaultMessage": "Modifiez la formation requise",
     "description": "Edit link text for education requirements section of the application review page."
+  },
+  "jVfVFG": {
+    "defaultMessage": "Pourquoi faut-il recueillir ces données?",
+    "description": "Heading for the Why collect section on the digital services contracting questionnaire"
   },
   "jX2LG0": {
     "defaultMessage": "Compétences requises",
@@ -7623,9 +8459,21 @@
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
   },
+  "kMoUof": {
+    "defaultMessage": "Locaux du GC",
+    "description": "GC premises personnel work location"
+  },
+  "kMpqRq": {
+    "defaultMessage": "Vous attendez-vous à ce que ce contrat ait des incidences immédiates sur votre ministère en ce qui concerne le niveau de dotation ou les ensembles de compétences requis?",
+    "description": "Label for _has impact on your department_ fieldset in the _digital services contracting questionnaire_"
+  },
   "kUHaE/": {
     "defaultMessage": "Inuk",
     "description": "Label for Inuk community"
+  },
+  "kUgTNq": {
+    "defaultMessage": "Questionnaire sur l’octroi de contrats sur les services numériques",
+    "description": "Title for the Digital services contracting questionnaire form page"
   },
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton \"Ajouter une compétence\" pour mettre une compétence en vedette ici.",
@@ -7702,6 +8550,10 @@
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
     "description": "Label for the 'project portfolio management' IT work stream"
   },
+  "lDRl7g": {
+    "defaultMessage": "Type de produit",
+    "description": "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_"
+  },
   "lE92J0": {
     "defaultMessage": "Nous vous contacterons si votre candidature correspond aux critères définis par les occasions d’emploi En attendant, consultez les ressources suivantes pour en savoir sur la suite des événements.",
     "description": "Description of review process and next steps for the applicant."
@@ -7713,6 +8565,10 @@
   "lFrPv1": {
     "defaultMessage": "Créer une compétence",
     "description": "Heading displayed above the Create Skill form."
+  },
+  "lGUfLc": {
+    "defaultMessage": "Ce contrat est-il soumis à des accords commerciaux tels que l’Accord de libre-échange nord-américain (ALENA) ou l’accord Accord Canada–États-Unis–Mexique (ACEUM)?",
+    "description": "Introduction pour le champ _accord commercial_ dans le _questionnaire sur les contrats de services numériques)_"
   },
   "lIHNov": {
     "defaultMessage": "Évaluer",
@@ -7742,6 +8598,14 @@
     "defaultMessage": "Sauvegarder les questions filtres",
     "description": "Text on a button to save the pool screening questions"
   },
+  "lVb1hs": {
+    "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
+    "description": "description of 'screening questions' section of the 'assessment details' dialog"
+  },
+  "lYLIe5": {
+    "defaultMessage": "Indiquer si ce contrat est soumis à des accords commerciaux",
+    "description": "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
+  },
   "lZ+aPI": {
     "defaultMessage": "Voici les exigences de formation suivantes, basées sur les normes de qualification du gouvernement du Canada.",
     "description": "Lead-in text for a process' education requirements"
@@ -7765,6 +8629,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "lmD1ef": {
+    "defaultMessage": "Sélection de la compétence",
+    "description": "title of 'skill selection' section of the 'assessment details' dialog"
   },
   "loDwKe": {
     "defaultMessage": "À propos du Portail des talents autochtones",
@@ -7797,6 +8665,10 @@
   "lxDgNf": {
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
+  },
+  "m+411R": {
+    "defaultMessage": "Exigences temporelles",
+    "description": "Timing requirements contracting rationale"
   },
   "m+IDnG": {
     "defaultMessage": "Que puis-je faire si j'ai supprimé l'application ou changé de téléphone et que je n'ai plus les codes de récupération?",
@@ -7854,6 +8726,10 @@
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
   },
+  "mEvIF8": {
+    "defaultMessage": "Appuyer la collectivité du numérique du CG",
+    "description": "Heading for the Supporting The Community section on the digital services contracting questionnaire"
+  },
   "mGGj/i": {
     "defaultMessage": "Numéro de priorité",
     "description": "Label for applicant's priority number value"
@@ -7886,6 +8762,10 @@
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
   },
+  "mNfi9b": {
+    "defaultMessage": "Sélectionnez le lieu géographique où le travail doit être effectué.",
+    "description": "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_"
+  },
   "mOGNS3": {
     "defaultMessage": "Cette section comprendra les candidatures qui n’ont pas été présentées dans les délais impartis ainsi que les candidatures qui ont été évaluées avec succès.",
     "description": "Additional text displayed in past applications section when empty."
@@ -7902,6 +8782,10 @@
     "defaultMessage": "Vous pouvez ajouter des éléments en utilisant le bouton \"Ajouter un nouvel élément\" fourni.",
     "description": "Instructions on how to add a skill to showcase when there are none"
   },
+  "mR9A3a": {
+    "defaultMessage": "Contrat",
+    "description": "Contract contract instrument"
+  },
   "mRNmrR": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Label for government email input in the request form"
@@ -7913,6 +8797,10 @@
   "mS15HC": {
     "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill"
+  },
+  "mSUVuL": {
+    "defaultMessage": "RH",
+    "description": "Label for _hr_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
   "mTsq+x": {
     "defaultMessage": "Sélectionnez un rôle",
@@ -7954,6 +8842,10 @@
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
   },
+  "maMA3/": {
+    "defaultMessage": "Le Bureau de la dirigeante principale de l’information du Canada (BDPI) du Secrétariat du Conseil du Trésor du Canada (SCT) est responsable de la durabilité et du perfectionnement de la collectivité du numérique du gouvernement du Canada (GC), y compris :",
+    "description": "Introduction to the _supporting the community_ section of the _digital services contracting questionnaire_"
+  },
   "maibxu": {
     "defaultMessage": "Trouver une compétence",
     "description": "Button text to open the skill dialog"
@@ -7961,6 +8853,10 @@
   "mbASCD": {
     "defaultMessage": "L'équipe des Talents numériques du GC examinera et publiera votre annonce.",
     "description": "Description of what happens after a process is submitted for publishing"
+  },
+  "mcZbcM": {
+    "defaultMessage": "Pas certain",
+    "description": "The unsure option to answer a question"
   },
   "mevv+t": {
     "defaultMessage": "Disponibilité",
@@ -7978,6 +8874,10 @@
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
     "description": "Message describing the education requirement filter of the search form."
   },
+  "mieIXc": {
+    "defaultMessage": "Modification",
+    "description": "Amendment contract instrument"
+  },
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
@@ -7993,6 +8893,10 @@
   "mpa5Fd": {
     "defaultMessage": "Développement des talents numériques",
     "description": "Heading for the directives digital talent and development component"
+  },
+  "mpt068": {
+    "defaultMessage": "Travailler avec les autorités compétentes à l’échelle du gouvernement pour établir les solutions et les pratiques exemplaires",
+    "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
   },
   "mqWvWR": {
     "defaultMessage": "Questions relatives à la sélection préliminaire ",
@@ -8057,6 +8961,10 @@
   "n57MWI": {
     "defaultMessage": "définir la classification",
     "description": "Link text to scroll to the section and set a process' classification"
+  },
+  "n7RwgC": {
+    "defaultMessage": "Autorité indépendante non gouvernementale requise (par exemple, examen indépendant des services.)",
+    "description": "Requires independent contracting rationale"
   },
   "n80lVV": {
     "defaultMessage": "Aucun nom fourni",
@@ -8142,6 +9050,10 @@
     "defaultMessage": "Membres",
     "description": "Breadcrumb title for the team members page link."
   },
+  "nfcDvX": {
+    "defaultMessage": "Autres autorités qui participent à ce contrat",
+    "description": "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
@@ -8210,6 +9122,10 @@
     "defaultMessage": "A achevé une évaluation officielle du gouvernement du Canada",
     "description": "Completed a Government of Canada evaluation label"
   },
+  "o5g1d/": {
+    "defaultMessage": "Type d’exigence",
+    "description": "Column title for whether a skill is either required or just an asset."
+  },
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
     "description": "Label for the English - What to expect textarea in the edit pool page."
@@ -8242,6 +9158,10 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   },
+  "oOPwam": {
+    "defaultMessage": "6 à 12 mois",
+    "description": "Contract start timeframe of six to twelve months"
+  },
   "oQnVSn": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed on the user form last name field."
@@ -8253,6 +9173,10 @@
   "oSPdz1": {
     "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
     "description": "Additional text displayed in the applications in progress section when empty."
+  },
+  "oTs24h": {
+    "defaultMessage": "Concurrence (appel d’offres ouvert/appel d’offres sélectif/traditionnel)",
+    "description": "Competitive contract solicitation procedure"
   },
   "oURESC": {
     "defaultMessage": " J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
@@ -8310,6 +9234,10 @@
     "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
     "description": "A request for the user to review the IAP eligibility criteria"
   },
+  "ozKHDz": {
+    "defaultMessage": "Si plusieurs types de ressources ont été établis sous {sectionName}, veuillez inclure un numéro de suivi pour chaque ressource qui relève de volets de travail de la TI et/ou d’un niveau distinct. Séparez chaque numéro de suivi par une virgule.",
+    "description": "introduction to needing tracking IDs"
+  },
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
@@ -8333,6 +9261,10 @@
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
+  },
+  "pBAHrf": {
+    "defaultMessage": "Élaborer des parcours de carrière pour les talents numériques",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -8365,6 +9297,10 @@
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
     "description": "IAP Requirement list item one"
+  },
+  "pPUC7o": {
+    "defaultMessage": "Ajouter une nouvelle question ({currentCount}/{maxCount})",
+    "description": "Button text to add a new screening question"
   },
   "pPVkYX": {
     "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
@@ -8410,6 +9346,10 @@
     "defaultMessage": "Sauter la liste des compétences.",
     "description": "Link text to skip the list of add skill links"
   },
+  "pgPBbf": {
+    "defaultMessage": "51 à 100",
+    "description": "Contract FTE range between fifty-one and one-hundred"
+  },
   "pgQl5t": {
     "defaultMessage": "Expérience actuelle associée à cette compétence",
     "description": "Label for a specific skills experience level"
@@ -8418,6 +9358,10 @@
     "defaultMessage": "Catégorie de compétences",
     "description": "Label for the skill category filter field"
   },
+  "pjTZQr": {
+    "defaultMessage": "Une option de modification du contrat est-elle actuellement prévue?",
+    "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
+  },
   "pkFLpT": {
     "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
     "description": "Learn more dialog question seven paragraph one"
@@ -8425,6 +9369,10 @@
   "pmCge3": {
     "defaultMessage": "Votre incidence (anglais)",
     "description": "Label for a process' English impact"
+  },
+  "ppJF9L": {
+    "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
+    "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
   },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
@@ -8466,6 +9414,10 @@
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
   },
+  "qFY+K4": {
+    "defaultMessage": "Organiser l’approche d’évaluation",
+    "description": "Title for the organize section in the assessment plan builder"
+  },
   "qGSEMx": {
     "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
@@ -8498,6 +9450,14 @@
     "defaultMessage": "Veuillez contacter notre <helpLink>service d'assistance</helpLink>, qui pourra vous aider à récupérer l'accès à votre compte.",
     "description": "Third answer of the Frequently Asked Questions for logging in"
   },
+  "qQjLqa": {
+    "defaultMessage": "un arrangement en matière d’approvisionnement pour qu'un fournisseur construise une application numérique;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
+  "qRPPY2": {
+    "defaultMessage": "Cet approvisionnement complète-t-il d’autres activités de recherche de talents (p. ex., recrutement, formation) dans le cadre de cette initiative?",
+    "description": "Label for _digital initiative plan complemented_ fieldset in the _digital services contracting questionnaire_"
+  },
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
@@ -8505,6 +9465,10 @@
   "qT9sS0": {
     "defaultMessage": "Postes en français",
     "description": "French Positions message"
+  },
+  "qUkJSG": {
+    "defaultMessage": "0 à 3 mois",
+    "description": "Contract start timeframe of zero to three months"
   },
   "qYH0du": {
     "defaultMessage": "Modifier",
@@ -8529,6 +9493,10 @@
   "qhhPj5": {
     "defaultMessage": "Lieux de travail"
   },
+  "qmKVmr": {
+    "defaultMessage": "Décision de recherche de talents",
+    "description": "Heading for the Talent sourcing decision section on the digital services contracting questionnaire"
+  },
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
@@ -8544,6 +9512,10 @@
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
     "description": "Message displayed when a user adds the maximum number of questions"
+  },
+  "qsuIJa": {
+    "defaultMessage": "Déterminer et coordonner les occasions de formation et d’amélioration des compétences à l’échelle du gouvernement",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page ",
@@ -8617,6 +9589,10 @@
     "defaultMessage": "Permettre la collecte des données et de la rétroaction pour les mettre à profit afin d’améliorer le service.",
     "description": "Talent portal strategy item 3 content"
   },
+  "rSlYQA": {
+    "defaultMessage": "p. ex., développeur de logiciels",
+    "description": "Placeholder for _type of resource_ field in the _digital services contracting questionnaire_"
+  },
   "rSymh2": {
     "defaultMessage": "Langue préférée de l'examen écrit :",
     "description": "Preferred Language for exams label and colon"
@@ -8660,6 +9636,10 @@
   "rrKF85": {
     "defaultMessage": "Qu’est-ce qu’une CléGC?",
     "description": "First of the Frequently Asked Questions for sign up"
+  },
+  "rtzp80": {
+    "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",
+    "description": "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
   },
   "ruEs9/": {
     "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
@@ -8729,6 +9709,14 @@
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
     "description": "Breadcrumb title for the edit team page link."
   },
+  "s7Uy7q": {
+    "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",
+    "description": "Support services contract commodity"
+  },
+  "s9unRt": {
+    "defaultMessage": "Heures supplémentaires à court terme",
+    "description": "Overtime on short notice personnel other requirement"
+  },
   "sBksyQ": {
     "defaultMessage": "Supprimer",
     "description": "Delete confirmation"
@@ -8745,6 +9733,10 @@
     "defaultMessage": "Envoyer le formulaire du plan pour les talents",
     "description": "Heading for the forward talent plan form"
   },
+  "sKqKYS": {
+    "defaultMessage": "de l’équipement ou du matériel de nature fondamentalement différente de celui utilisé précédemment;",
+    "description": "technological change factor - different nature"
+  },
   "sLqKuH": {
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
@@ -8756,6 +9748,10 @@
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
     "description": "Description for checklist section in application education page."
+  },
+  "sQxZhr": {
+    "defaultMessage": "Oui, à temps plein",
+    "description": "Full-time personnel telework option"
   },
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
@@ -8781,6 +9777,10 @@
     "defaultMessage": "Courriel",
     "description": "Label displayed on the user form email field."
   },
+  "sa8LdD": {
+    "defaultMessage": "Situation des RH – solutions de dotation disponible non viables",
+    "description": "HR situation contracting rationale"
+  },
   "sapxcU": {
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
@@ -8805,6 +9805,10 @@
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
   },
+  "sg9olk": {
+    "defaultMessage": "Courriel",
+    "description": "Label for _business owner email_ field in the _digital services contracting questionnaire_"
+  },
   "sgaZcd": {
     "defaultMessage": "Compétences que vous souhaitez améliorer",
     "description": "Title for the skills to improve section of a users skill showcase"
@@ -8812,6 +9816,10 @@
   "shwFSK": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
     "description": "Message for the completed french bilingual evaluation option"
+  },
+  "siF4qC": {
+    "defaultMessage": "Le plan a-t-il été mis à jour lors de l’entrée en vigueur du contrat?",
+    "description": "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_"
   },
   "sk9CeW": {
     "defaultMessage": "Langue",
@@ -8824,6 +9832,10 @@
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
     "description": "Citizenship label"
+  },
+  "srZlRP": {
+    "defaultMessage": "Exigences en matière de personnel",
+    "description": "Heading for the personnel requirements section on the digital services contracting questionnaire"
   },
   "ssJxrj": {
     "defaultMessage": "Je suis un membre des Premières Nations.",
@@ -8853,6 +9865,14 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
   },
+  "t0OrQA": {
+    "defaultMessage": "Survol de l’ensemble des compétences et des évaluations prévues pour ce bassin de candidats.",
+    "description": "introduction to the skill summary section in the assessment plan builder"
+  },
+  "t28EG0": {
+    "defaultMessage": "Le moyen de financement disponible ne peut pas être utilisé pour la dotation (impossible d'utiliser les fonds disponibles pour la dotation en matière de personnel)",
+    "description": "Finance vehicle not usable operations consideration"
+  },
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
@@ -8868,6 +9888,10 @@
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
+  },
+  "t7T/Zv": {
+    "defaultMessage": "Montrer des exemples de « contrats de services numériques » où cette exigence s’applique",
+    "description": "Button text to show a specific qualified recruitment cards's skill assessments"
   },
   "t9HxQm": {
     "defaultMessage": "Compétences comportementales requises",
@@ -8888,6 +9912,10 @@
   "tDetPq": {
     "defaultMessage": "Les conseillers principaux sont des travailleurs individuels qui fournissent des conseils techniques spécialisés et une orientation stratégique en vue de la fourniture de solutions et de services.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 2"
+  },
+  "tDwAB0": {
+    "defaultMessage": "manipuler et effectuer des calculs à partir du jeu de données",
+    "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
@@ -8925,9 +9953,17 @@
     "defaultMessage": "Partagez vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses ou de stages.",
     "description": "Description for work experience section"
   },
+  "tXw1VV": {
+    "defaultMessage": "Aux fins de cette exigence, les contrats sur les services numériques comprennent tout contrat, quel que soit le type de contrat ou la procédure d'appel d'offres, qui appuie l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC, tels que les contrats portant sur :",
+    "description": "Paragraph one of the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
     "description": "List item two, things designers consider for accessibility"
+  },
+  "tgGPyx": {
+    "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
+    "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
@@ -8944,6 +9980,10 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
+  },
+  "ttIQ0Q": {
+    "defaultMessage": "Nom",
+    "description": "Label for _financial authority name_ field in the _digital services contracting questionnaire_"
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
@@ -8964,6 +10004,10 @@
   "tuXnJB": {
     "defaultMessage": "Rôles individuels",
     "description": "Label for the input to add roles to a user"
+  },
+  "txq9ha": {
+    "defaultMessage": "50 000 $ à 1 million de dollars",
+    "description": "Contract value range between fifty-thousand and one-million"
   },
   "tzMNF3": {
     "defaultMessage": "État"
@@ -8987,6 +10031,10 @@
   "u3eefq": {
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
     "description": "Page title for the request candidates form page"
+  },
+  "u42Yks": {
+    "defaultMessage": "Ce contrat est-il mis en place dans le but de fournir des services à un autre ministère ou organisme du gouvernement du Canada?",
+    "description": "Label for _contract of service to gc_ fieldset in the _digital services contracting questionnaire_"
   },
   "u5UAJn": {
     "defaultMessage": "Inactif",
@@ -9032,6 +10080,10 @@
     "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
   },
+  "uIWCnb": {
+    "defaultMessage": "Veuillez préciser l’autorité",
+    "description": "Label for _other authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
   "uIWFvk": {
     "defaultMessage": "Vous êtes à l’affût des possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user is appearing in a recruitment"
@@ -9043,6 +10095,10 @@
   "uJyWDM": {
     "defaultMessage": "Recrutement particulier à un ministère",
     "description": "Short name for Department-Specific Recruitment Form"
+  },
+  "uK+4La": {
+    "defaultMessage": "Le contrat comporte-t-il des exigences particulières en matière de personnel?",
+    "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
   },
   "uKD+km": {
     "defaultMessage": "(Ordre décroissant)",
@@ -9120,12 +10176,20 @@
     "defaultMessage": "À propos",
     "description": "Title of the 'About' section of the view-user page"
   },
+  "uvYhZD": {
+    "defaultMessage": "Maintenir des bassins de talents numériques accessibles à tous les ministères",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
+  },
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
   },
   "v1Ya0+": {
     "defaultMessage": "10 principales compétences techniques"
+  },
+  "v27PDJ": {
+    "defaultMessage": "Compétences requises",
+    "description": "Title for _skills_ fieldset in the _digital services contracting questionnaire_"
   },
   "v6boy9": {
     "defaultMessage": "Expérience ou études minimales",
@@ -9319,6 +10383,10 @@
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
   },
+  "wRhcac": {
+    "defaultMessage": "Titre du poste",
+    "description": "Label for _business owner job title_ field in the _digital services contracting questionnaire_"
+  },
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
     "description": "Role at organization"
@@ -9326,6 +10394,18 @@
   "wTFUPE": {
     "defaultMessage": "Expérience personnelle",
     "description": "Title for personal experience section"
+  },
+  "wUdfC1": {
+    "defaultMessage": "la science des données et analyse pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
+  "wUujPy": {
+    "defaultMessage": "la technologie de l'information;",
+    "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
+  "wXLoar": {
+    "defaultMessage": "1 à 5",
+    "description": "Contract FTE range between one and five"
   },
   "wZ91g+": {
     "defaultMessage": "Création du bassin réussie!",
@@ -9399,6 +10479,10 @@
     "defaultMessage": "Nous pouvons peut-être vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
   },
+  "xCoGIm": {
+    "defaultMessage": "Envisagez d’ajouter au moins une méthode d’évaluation pour améliorer la qualité de votre bassin de candidats.",
+    "description": "Description for warning message when the user has few assessments to the assessment plan"
+  },
   "xHjgXz": {
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
@@ -9411,9 +10495,17 @@
     "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
     "description": "Lead in text for list of skills linked to a specific experience"
   },
+  "xM6U6U": {
+    "defaultMessage": "Sans objet (s. o.)",
+    "description": "Not applicable contract supply method"
+  },
   "xNVsei": {
     "defaultMessage": "{experienceLength} Expériences",
     "description": "Pluralization for zero or multiple experiences"
+  },
+  "xPaVvi": {
+    "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
+    "description": "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_"
   },
   "xQfIcL": {
     "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
@@ -9447,6 +10539,10 @@
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
   },
+  "xj7X6V": {
+    "defaultMessage": "J’ai lu le préambule.",
+    "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
+  },
   "xjZO11": {
     "defaultMessage": "Sélectionnez d’autres bassins additionnels",
     "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
@@ -9466,6 +10562,14 @@
   "xnNnwu": {
     "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de DPI au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
     "description": "Description of the executive community"
+  },
+  "xoT1eU": {
+    "defaultMessage": "Toutes les questions de ce questionnaire sont marquées comme obligatoires (<red>*</red>) sauf indication contraire. Une copie de votre demande vous sera envoyée par courriel une fois qu’elle sera terminée.",
+    "description": "Paragraph two of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "xp1dWY": {
+    "defaultMessage": "Pénurie de talents disponibles ou qualifiés",
+    "description": "Shortage of talent contracting rationale"
   },
   "xwBt36": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
@@ -9519,6 +10623,10 @@
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
     "description": "Error message after failed submission for the application review page."
   },
+  "yCHFQo": {
+    "defaultMessage": "Bilingue (intermédiaire – BBB/BBB)",
+    "description": "Bilingual intermediate personnel language"
+  },
   "yE/QNS": {
     "defaultMessage": "Obtenez du soutien pour le poste {title}",
     "description": "Link text to direct a user to the support page"
@@ -9547,6 +10655,10 @@
     "defaultMessage": "Aller à la page précédente ",
     "description": "Aria label for previous page button in pagination nav"
   },
+  "yGyjXK": {
+    "defaultMessage": "Sélectionnez la langue dans laquelle le travail sera effectué et livré.",
+    "description": "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_"
+  },
   "yITGeG": {
     "defaultMessage": "En acceptant d'utiliser la plateforme Talents numériques du GC, vous consentez à ce que vos données soient anonymisées et utilisées à des fins statistiques. Vous pouvez en apprendre davantage sur la façon dont nous traitons vos renseignements confidentiels dans la <link>politique de confidentialité de notre plateforme</link>.",
     "description": "Description of how we handle privacy."
@@ -9562,6 +10674,10 @@
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
     "description": "Link text for guidance resource download"
+  },
+  "yXWaAj": {
+    "defaultMessage": "Veuillez préciser le niveau de sécurité",
+    "description": "Label for _other security level_ fieldset in the _digital services contracting questionnaire_"
   },
   "yXXj1D": {
     "defaultMessage": "Commencez <hidden> à remplir la section sur vos renseignements en tant que fonctionnaire </hidden>",
@@ -9611,6 +10727,10 @@
     "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
   },
+  "ypxaI2": {
+    "defaultMessage": "Vous n’avez pas assez d’évaluations",
+    "description": "Title for warning message when the user has few assessments to the assessment plan"
+  },
   "ysKXVP": {
     "defaultMessage": "Groupes de publication",
     "description": "Label for a process' publishing group"
@@ -9647,6 +10767,10 @@
     "defaultMessage": "Outres compétences",
     "description": "Title that appears for skills not in one of the other categories on the users profile."
   },
+  "z5YYOk": {
+    "defaultMessage": "Veuillez préciser l’instrument",
+    "description": "Label for _instrument type other_ fieldset in the _digital services contracting questionnaire_"
+  },
   "z5f+GT": {
     "defaultMessage": "Mise à jour réussie de l’amélioration des compétences techniques",
     "description": "Success message displayed after updating improve technical skills"
@@ -9655,6 +10779,10 @@
     "defaultMessage": "Vous pouvez commencer par formuler une demande dans le cadre d’un processus de recrutement ciblé ou en cours.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph two."
   },
+  "zACLaV": {
+    "defaultMessage": "Position dans le groupe requis non autorisée en raison d’une restriction de classification",
+    "description": "Unable to create new positions in classification operations consideration"
+  },
   "zAl7ZH": {
     "defaultMessage": "Michif",
     "description": "Name of Michif language"
@@ -9662,6 +10790,10 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
+  },
+  "zCKX6h": {
+    "defaultMessage": "L’enregistrement du questionnaire a échoué.",
+    "description": "Message displayed to user if account fails to get updated."
   },
   "zDHOiY": {
     "defaultMessage": "Français - À quoi s’attendre",
@@ -9707,13 +10839,25 @@
     "defaultMessage": "Toutes les catégories ({count})",
     "description": "Label for removing the skill category filter"
   },
+  "zXzQhc": {
+    "defaultMessage": "Si vous ne savez pas si ce questionnaire est nécessaire pour un type de contrat spécifique, veuillez communiquer avec nous, à <link>GCTalentGC@tbs-sct.gc.ca</link>, pour obtenir de plus amples renseignements.",
+    "description": "Paragraph three of the _examples of contracts_ section of the _digital services contracting questionnaire_"
+  },
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
     "description": "Heading for the education requirement option secondary school diploma."
   },
+  "zemp3H": {
+    "defaultMessage": "Niveau de sécurité",
+    "description": "Label for _security level_ fieldset in the _digital services contracting questionnaire_"
+  },
   "zfi91j": {
     "defaultMessage": "Candidats du bassin",
     "description": "Title for pool candidates"
+  },
+  "zl6H2p": {
+    "defaultMessage": "Questions relatives à l’Initiative en matière numérique",
+    "description": "Heading for the Questions about the digital initiative section on the digital services contracting questionnaire"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
@@ -9734,6 +10878,10 @@
   "zqBqj1": {
     "defaultMessage": "Ces renseignements seront utilisés pour vous faire correspondre aux emplois prioritaires.",
     "description": "Explanation on how employment equity information will be used, item two"
+  },
+  "zrEIiB": {
+    "defaultMessage": "Deuxièmement, dans le cadre de la mise à l’essai d’un projet pilote d’une durée d’un an, il en est ressorti que les gestionnaires ne trouvaient pas utiles les renseignements sur les compétences comportementales que les candidats avaient eux-mêmes fournis. Ils trouvaient plutôt que d’autres formes d’évaluation (comme les vérifications des références et les entrevues) étaient de bien meilleurs indicateurs que les longs paragraphes sur la façon dont le candidat devait faire preuve de son esprit de collaboration, son positivisme ou son inclusion des autres.",
+    "description": "Third paragraph of first answer of the Frequently Asked Questions for logging in"
   },
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",

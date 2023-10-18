@@ -133,12 +133,30 @@ export function groupBy<
   T,
   Func extends (arg: T) => RetType,
 >(arr: T[], mapper: Func): Record<RetType, T[]> {
-  return arr.reduce((accumulator, val) => {
-    const groupedKey = mapper(val);
-    if (!accumulator[groupedKey]) {
-      accumulator[groupedKey] = [];
-    }
-    accumulator[groupedKey].push(val);
-    return accumulator;
-  }, {} as Record<RetType, T[]>);
+  return arr.reduce(
+    (accumulator, val) => {
+      const groupedKey = mapper(val);
+      if (!accumulator[groupedKey]) {
+        accumulator[groupedKey] = [];
+      }
+      accumulator[groupedKey].push(val);
+      return accumulator;
+    },
+    {} as Record<RetType, T[]>,
+  );
+}
+
+/**
+ * A small function to assert that code execution should never
+ * reach this location. Handy for generate compile-time errors
+ * for non-exhaustive switch statements.
+ *
+ * Copied from https://stackoverflow.com/a/39419171
+ *
+ * @param x Not used, but important that it is typed _never_
+ */
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function assertUnreachable(x: never): never {
+  throw new Error("Didn't expect to be reachable.");
 }
