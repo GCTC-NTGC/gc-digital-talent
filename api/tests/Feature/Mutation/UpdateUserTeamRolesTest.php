@@ -52,16 +52,17 @@ class UpdateUserTeamRolesTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+            mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                     id
                 }
               }
         ',
             [
-                'teamId' => $this->team->id,
-                'userId' => $this->applicant->id,
+
                 'teamRoleAssignments' => [
+                    'teamId' => $this->team->id,
+                    'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'attach' => [
                             'roles' => [$this->poolOperatorId]
@@ -80,16 +81,17 @@ class UpdateUserTeamRolesTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+            mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                     id
                 }
               }
         ',
             [
-                'teamId' => $this->team->id,
-                'userId' => $this->applicant->id,
+
                 'teamRoleAssignments' => [
+                    'teamId' => $this->team->id,
+                    'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'detach' => [
                             'roles' => [$this->poolOperatorId]
@@ -106,16 +108,17 @@ class UpdateUserTeamRolesTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+            mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                     id
                 }
               }
         ',
             [
-                'teamId' => $this->team->id,
-                'userId' => $this->applicant->id,
+
                 'teamRoleAssignments' => [
+                    'teamId' => $this->team->id,
+                    'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'sync' => [
                             'roles' => [$this->poolOperatorId]
@@ -129,16 +132,17 @@ class UpdateUserTeamRolesTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+            mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                     id
                 }
               }
         ',
             [
-                'teamId' => $this->team->id,
-                'userId' => $this->applicant->id,
+
                 'teamRoleAssignments' => [
+                    'teamId' => $this->team->id,
+                    'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'sync' => [
                             'roles' => []
@@ -157,8 +161,8 @@ class UpdateUserTeamRolesTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+            mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                   id
                   roleAssignments {
                     role { name }
@@ -168,9 +172,10 @@ class UpdateUserTeamRolesTest extends TestCase
               }
         ',
             [
-                'teamId' => $this->team->id,
-                'userId' => $this->applicant->id,
+
                 'teamRoleAssignments' => [
+                    'teamId' => $this->team->id,
+                    'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'attach' => [
                             'roles' => [$this->poolOperatorId]
@@ -222,16 +227,16 @@ class UpdateUserTeamRolesTest extends TestCase
             $response = $this->actingAs($user, 'api')->graphQL(
                 /** @lang GraphQL */
                 '
-                mutation updateUserTeamRoles($teamId: ID!, $userId: UUID!, $teamRoleAssignments: UpdateUserTeamRolesInput!) {
-                    updateUserTeamRoles(teamId: $teamId, userId: $userId, teamRoleAssignments: $teamRoleAssignments) {
+                mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+                    updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
                       id
                     }
                   }
             ',
                 [
-                    'teamId' => $this->team->id,
-                    'userId' => $user->id,
                     'teamRoleAssignments' => [
+                        'teamId' => $this->team->id,
+                        'userId' => $user->id,
                         'roleAssignments' => [
                             'attach' => [
                                 'roles' => [$this->poolOperatorId]

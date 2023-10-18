@@ -133,7 +133,7 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamId: ID!, userId: UUID!, teamRoleAssignments: UpdateUserTeamRolesInput!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
@@ -1172,6 +1172,8 @@ input RolesForTeamHasMany {
 }
 
 input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
   roleAssignments: RolesForTeamHasMany!
 }
 

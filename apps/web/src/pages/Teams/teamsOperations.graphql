@@ -180,16 +180,8 @@ query AllUsersNames {
   }
 }
 
-mutation UpdateUserTeamRoles(
-  $teamId: ID!
-  $userId: UUID!
-  $teamRoleAssignments: UpdateUserTeamRolesInput!
-) {
-  updateUserTeamRoles(
-    teamId: $teamId
-    userId: $userId
-    teamRoleAssignments: $teamRoleAssignments
-  ) {
+mutation UpdateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+  updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
     roleAssignments {
       role {
         name

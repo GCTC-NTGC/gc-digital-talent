@@ -1408,6 +1408,8 @@ input RolesForTeamHasMany {
 }
 
 input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
   roleAssignments: RolesForTeamHasMany!
 }
 
@@ -1687,8 +1689,6 @@ type Mutation {
     @guard
     @can(ability: "delete", find: "id")
   updateUserTeamRoles(
-    teamId: ID!
-    userId: UUID!
     teamRoleAssignments: UpdateUserTeamRolesInput! @spread
   ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
 

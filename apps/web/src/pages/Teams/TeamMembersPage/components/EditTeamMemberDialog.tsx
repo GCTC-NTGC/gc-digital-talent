@@ -53,9 +53,9 @@ const EditTeamMemberDialog = ({
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
     await executeMutation({
-      userId: formValues.userId,
-      teamId: formValues.teamId,
       teamRoleAssignments: {
+        userId: formValues.userId,
+        teamId: formValues.teamId,
         roleAssignments: {
           attach: {
             roles: formValues.roles,
