@@ -1,12 +1,12 @@
-import Sidebar, { type SidebarProps as TocSidebarProps } from "./Sidebar";
+import Sidebar, { type SidebarProps } from "./Sidebar";
 import Wrapper from "./Wrapper";
 import Content from "./Content";
 
-const TableOfContents = {
+const SidebarPackage = {
   Sidebar,
   Wrapper,
   Content,
 };
 
-export default TableOfContents;
-export type { TocSidebarProps };
+export default SidebarPackage;
+export type { SidebarProps };
