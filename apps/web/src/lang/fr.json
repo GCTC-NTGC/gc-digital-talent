@@ -1911,6 +1911,10 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
+  "8di/ke": {
+    "defaultMessage": "Consulter le résumé intégral",
+    "description": "Link title to view the full skill summary section"
+  },
   "8ea9ne": {
     "defaultMessage": "Niveau d’écriture",
     "description": "CSV Header, Writing Level column"
@@ -5046,6 +5050,10 @@
   "RNI+IH": {
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
     "description": "Skills selected and then a number in parentheses"
+  },
+  "RSx3Ni": {
+    "defaultMessage": "Bref résumé des compétences",
+    "description": "Title for skills quick summary sidebar"
   },
   "RTf/0v": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
@@ -10410,6 +10418,10 @@
   "wf3e6C": {
     "defaultMessage": "Partie 2 : Configuration de l’authentification à deux facteurs",
     "description": "Heading for section of the sign up page showing the mfa steps"
+  },
+  "wfnbFR": {
+    "defaultMessage": "Nombre total d’évaluations",
+    "description": "Grand total for skills quick summary sidebar"
   },
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
