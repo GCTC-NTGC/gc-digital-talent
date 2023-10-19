@@ -12,7 +12,7 @@
     "@storybook/addon-essentials": "^7.4.6",
     "@storybook/addon-links": "^7.4.6",
     "@storybook/addon-viewport": "^7.4.5",
-    "@storybook/addons": "^7.4.5",
+    "@storybook/addons": "^7.5.0",
     "@storybook/react": "^7.4.5",
     "@storybook/react-webpack5": "^7.4.6",
     "chromatic": "^7.3.0",
