@@ -1174,6 +1174,10 @@
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
   },
+  "hd7hdn": {
+    "defaultMessage": "avertissement",
+    "description": "Message for the warning status"
+  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
