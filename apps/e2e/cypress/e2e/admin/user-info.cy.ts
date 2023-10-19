@@ -27,7 +27,7 @@ describe("User Information Page", () => {
     });
     // select some dimensions to use for testing
     cy.createTeam({
-      name: "new-team",
+      name: `new-team-${Date.now().valueOf()}`,
       displayName: {
         en: "New Team (EN)",
         fr: "New Team (FR)",
