@@ -275,7 +275,7 @@ const CreateAccount = () => {
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
-  const meId = authContext.user?.id;
+  const meId = authContext?.userAuthInfo?.id;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;

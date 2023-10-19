@@ -43,7 +43,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const methods = useForm<ExperienceExperienceFormValues>({
     shouldFocusError: false,
   });
@@ -64,7 +64,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], type);
-    const args = getMutationArgs(user?.id || "", submitData);
+    const args = getMutationArgs(userAuthInfo?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
