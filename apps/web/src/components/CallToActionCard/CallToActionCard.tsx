@@ -2,10 +2,13 @@ import React from "react";
 
 import { Heading, Link, HeadingRank, LinkProps } from "@gc-digital-talent/ui";
 
-interface CallToActionCardProps {
-  title: React.ReactNode;
-  titleAs?: HeadingRank;
-  children: React.ReactNode;
+interface CallToActionCardProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
+  heading: React.ReactNode;
+  headingAs?: HeadingRank;
   link: {
     href: string;
     label: React.ReactNode;
@@ -14,10 +17,11 @@ interface CallToActionCardProps {
 }
 
 const CallToActionCard = ({
-  title,
-  titleAs = "h3",
+  heading,
+  headingAs = "h3",
   children,
   link,
+  ...rest
 }: CallToActionCardProps) => (
   <div
     data-h2-background-color="base(white) base:dark(black.light)"
@@ -25,6 +29,7 @@ const CallToActionCard = ({
     data-h2-shadow="base(large)"
     data-h2-padding="base(x1)"
     data-h2-radius="base(rounded)"
+    {...rest}
   >
     <div
       data-h2-display="p-tablet(flex)"
@@ -32,8 +37,12 @@ const CallToActionCard = ({
       data-h2-align-items="base(center)"
     >
       <div>
-        <Heading level={titleAs} size="h6" data-h2-margin="base(0, 0, x.5, 0)">
-          {title}
+        <Heading
+          level={headingAs}
+          size="h6"
+          data-h2-margin="base(0, 0, x.5, 0)"
+        >
+          {heading}
         </Heading>
         {children}
       </div>

@@ -5,6 +5,7 @@ import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -45,6 +46,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
+  const { executiveTeaser } = useFeatureFlags();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse jobs",
@@ -132,14 +134,35 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
+          {executiveTeaser && (
+            <CallToActionCard
+              heading={intl.formatMessage({
+                defaultMessage: "Coming end of November 2023: EX-03",
+                id: "+DHW06",
+                description: "Heading for the teaser of executive processes",
+              })}
+              link={profileLink}
+              data-h2-margin="base(x3, 0) p-tablet(x4, 0)"
+            >
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Our first executive (EX) process will be live on the GC Talent platform in November of this year. Keep an eye on this page for an opportunity to submit your candidacy to be a digital leader in government.",
+                  id: "XX3BfH",
+                  description:
+                    "Text describing upcoming executive opportunities instructing users to create a profile when anonymous",
+                })}
+              </p>
+            </CallToActionCard>
+          )}
           {ongoingRecruitmentPools.length > 0 && (
             <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
               <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
             </div>
           )}
-          <div data-h2-padding="base(x3, 0) p-tablet(x4, 0)">
+          {!executiveTeaser && (
             <CallToActionCard
-              title={
+              heading={
                 areOpportunitiesShowing
                   ? intl.formatMessage({
                       defaultMessage: "More opportunities are coming soon!",
@@ -156,6 +179,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                     })
               }
               link={profileLink}
+              data-h2-margin="base(x3, 0) p-tablet(x4, 0)"
             >
               <p>
                 {loggedIn
@@ -175,7 +199,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                     })}
               </p>
             </CallToActionCard>
-          </div>
+          )}
         </div>
         <img
           alt=""
