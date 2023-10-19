@@ -137,8 +137,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           {executiveTeaser && (
             <CallToActionCard
               heading={intl.formatMessage({
-                defaultMessage: "Coming end of November 2023: EX-03",
-                id: "+DHW06",
+                defaultMessage: "Executive (EX) process coming soon",
+                id: "dFCH1c",
                 description: "Heading for the teaser of executive processes",
               })}
               link={profileLink}
@@ -147,8 +147,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Our first executive (EX) process will be live on the GC Talent platform in November of this year. Keep an eye on this page for an opportunity to submit your candidacy to be a digital leader in government.",
-                  id: "XX3BfH",
+                    "Our first executive (EX) process for an EX-03 position will be published on the GC Digital Talent platform in November 2023. Check this space for an opportunity to submit your candidacy to be a digital leader in government.",
+                  id: "3yg5j7",
                   description:
                     "Text describing upcoming executive opportunities instructing users to create a profile when anonymous",
                 })}
