@@ -50,13 +50,13 @@ const IndividualRoleTable = ({
   ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
-    const roles = user.roleAssignments
+    const roles = user?.authInfo?.roleAssignments
       ?.filter(notEmpty)
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
     return roles || [];
-  }, [user.roleAssignments]);
+  }, [user?.authInfo?.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
     return onUpdateUser(user.id, values);
