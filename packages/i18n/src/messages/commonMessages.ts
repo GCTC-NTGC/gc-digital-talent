@@ -84,6 +84,11 @@ const commonMessages = defineMessages({
     id: "99cWuv",
     description: "Message for the success status",
   },
+  warning: {
+    defaultMessage: "warning",
+    id: "hd7hdn",
+    description: "Message for the warning status",
+  },
   dividingColon: {
     defaultMessage: ": ",
     id: "i3Jl6C",
