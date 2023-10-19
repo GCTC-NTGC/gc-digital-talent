@@ -12,16 +12,20 @@ import { AlertType } from "./types";
 
 export const styleMap: Record<AlertType, Record<string, string>> = {
   success: {
-    "data-h2-border": "base(3px solid success.darker)",
+    "data-h2-border":
+      "base(3px solid success.darker) base:dark(3px solid success.lightest)",
   },
   warning: {
-    "data-h2-border": "base(3px solid warning.darker)",
+    "data-h2-border":
+      "base(3px solid warning.darker) base:dark(3px solid warning.lightest)",
   },
   info: {
-    "data-h2-border": "base(3px solid secondary.darker)",
+    "data-h2-border":
+      "base(3px solid secondary.darker) base:dark(3px solid secondary.lightest)",
   },
   error: {
-    "data-h2-border": "base(3px solid error.darker)",
+    "data-h2-border":
+      "base(3px solid error.darker) base:dark(3px solid error.lightest)",
   },
 };
 
@@ -30,25 +34,25 @@ export const dismissStyleMap: Record<AlertType, Record<string, string>> = {
     "data-h2-background-color":
       "base(transparent) base:hover(success.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(success.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(success.darker)  base:all:focus-visible(black)",
   },
   warning: {
     "data-h2-background-color":
       "base(transparent) base:hover(warning.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(warning.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(warning.darker)  base:all:focus-visible(black)",
   },
   info: {
     "data-h2-background-color":
       "base(transparent) base:hover(secondary.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(secondary.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(secondary.darker)  base:all:focus-visible(black)",
   },
   error: {
     "data-h2-background-color":
       "base(transparent) base:hover(error.lightest) base:focus-visible(focus.light)",
     "data-h2-color":
-      "base:(inherit) base:hover(error.darker)  base:focus-visible(black)",
+      "base:(inherit) base:hover(error.darker)  base:all:focus-visible(black)",
   },
 };
 

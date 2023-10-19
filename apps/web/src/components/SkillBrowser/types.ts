@@ -6,7 +6,11 @@ import {
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
 
-export type SkillBrowserDialogContext = "experience" | "library" | "showcase";
+export type SkillBrowserDialogContext =
+  | "experience"
+  | "library"
+  | "showcase"
+  | "directive_forms";
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";

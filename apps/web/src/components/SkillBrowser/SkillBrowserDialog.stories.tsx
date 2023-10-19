@@ -64,3 +64,8 @@ ShowcaseShowMyLibraryContext.args = {
   showCategory: false,
   inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
 };
+
+export const DirectiveFormsContext = Template.bind({});
+DirectiveFormsContext.args = {
+  context: "directive_forms",
+};

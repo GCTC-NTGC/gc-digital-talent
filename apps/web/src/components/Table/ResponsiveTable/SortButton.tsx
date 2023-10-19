@@ -30,8 +30,8 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
     <Button
       mode="inline"
       color="white"
+      fontSize="caption"
       onClick={column.getToggleSortingHandler()}
-      data-h2-font-size="base(caption)"
       data-h2-font-weight={sortDirection ? "base(700)" : "base(400)"}
       data-h2-text-decoration={
         !sortDirection

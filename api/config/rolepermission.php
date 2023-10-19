@@ -77,6 +77,7 @@ return [
         'teamMembers' => 'teamMembers',
         'role' => 'role',
         'directiveForm' => 'directiveForm',
+        'applicantProfile' => 'applicantProfile',
     ],
 
     /*
@@ -189,7 +190,7 @@ return [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur',
         ],
-        'view-team-user' => [
+        'view-team-applicantProfile' => [
             'en' => 'View Team User',
             'fr' => 'Visionner l\'utilisateur de l\'équipe',
         ],
@@ -604,7 +605,7 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
+            'applicantProfile' => [
                 'team' => ['view'],
             ],
         ],

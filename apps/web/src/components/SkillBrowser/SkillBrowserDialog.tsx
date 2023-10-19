@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Button, Dialog, IconType } from "@gc-digital-talent/ui";
+import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -33,9 +33,13 @@ interface SkillBrowserDialogProps {
   trigger?: {
     id?: string;
     label?: React.ReactNode;
-    icon?: IconType;
+
+    icon?: IconType | null;
+    mode?: ButtonProps["mode"];
     disabled?: boolean;
   };
+  // initial state (like when editing)
+  initialState?: FormValues;
   noToast?: boolean;
   // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
@@ -48,6 +52,7 @@ const SkillBrowserDialog = ({
   showCategory,
   trigger,
   inLibrary,
+  initialState,
   defaultOpen = false,
   noToast = false,
   ...rest
@@ -56,7 +61,7 @@ const SkillBrowserDialog = ({
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
   const methods = useForm<FormValues>({
-    defaultValues: defaultFormValues,
+    defaultValues: initialState ?? defaultFormValues,
   });
 
   const {
@@ -98,10 +103,22 @@ const SkillBrowserDialog = ({
     setIsOpen(newIsOpen);
   };
 
+  let derivedIcon: ButtonProps["icon"];
+  if (trigger?.icon) {
+    derivedIcon = trigger.icon; // an icon was specified
+  } else if (trigger?.icon === null) {
+    derivedIcon = undefined; // an icon was explicitly not set
+  } else if (context) {
+    derivedIcon = PlusCircleIcon; // with a context, there's a fallback
+  } else {
+    derivedIcon = undefined; // nothing requested, leave blank
+  }
+
   const triggerProps = {
     id: trigger?.id,
     children: trigger?.label || triggerMessage,
-    icon: trigger?.icon || (context ? PlusCircleIcon : undefined),
+    icon: derivedIcon,
+    mode: trigger?.mode,
     disabled: trigger?.disabled,
   };
 
@@ -135,6 +152,7 @@ const SkillBrowserDialog = ({
                   isTechnical={
                     selectedSkill.category === SkillCategory.Technical
                   }
+                  context={context}
                 />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">

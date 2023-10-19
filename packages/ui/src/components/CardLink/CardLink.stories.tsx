@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 
 import CardLink from "./CardLink";
 
@@ -36,35 +37,104 @@ export default {
       },
     },
     color: {
-      options: ["primary", "secondary", "tertiary", "quaternary", "quinary"],
+      options: [
+        "primary",
+        "secondary",
+        "tertiary",
+        "quaternary",
+        "quinary",
+        "black",
+        "white",
+      ],
     },
   },
 } as Meta;
 
 const Template: Story = (args) => {
   const { label, icon } = args;
-  return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(repeat(5, minmax(0, 1fr)))"
-      data-h2-gap="base(x2)"
-      data-h2-padding="base(x2)"
-    >
-      <CardLink color="primary" label={label} href="#" icon={icon}>
+  faker.seed(0);
+  const Cards = (
+    <div>
+      <CardLink
+        color="primary"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
         Primary
       </CardLink>
-      <CardLink color="secondary" label={label} href="#" icon={icon}>
+      <CardLink
+        color="secondary"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
         Secondary
       </CardLink>
-      <CardLink color="tertiary" label={label} href="#" icon={icon}>
+      <CardLink
+        color="tertiary"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
         Tertiary
       </CardLink>
-      <CardLink color="quaternary" label={label} href="#" icon={icon}>
+      <CardLink
+        color="quaternary"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
         Quaternary
       </CardLink>
-      <CardLink color="quinary" label={label} href="#" icon={icon}>
+      <CardLink
+        color="quinary"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
         Quinary
       </CardLink>
+      <CardLink
+        color="black"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
+        Quinary
+      </CardLink>
+      <CardLink
+        color="white"
+        label={label}
+        href="#"
+        icon={icon}
+        subtitle={faker.lorem.words(5)}
+      >
+        Quinary
+      </CardLink>
+    </div>
+  );
+  return (
+    <div>
+      <div
+        data-h2-display="base(grid) base:children[>div>div](grid)"
+        data-h2-grid-template-columns="base(1fr) base:children[>div>div](repeat(7, minmax(0, 1fr)))"
+        data-h2-height="base:children[>div>div](100%)"
+        data-h2-padding="base:children[>div>div](x2)"
+        data-h2-gap="base:children[>div>div](x1)"
+        data-h2-background-color="base:children[>div>div](background)"
+      >
+        <div data-h2="light">{Cards}</div>
+        <div data-h2="dark">{Cards}</div>
+        <div data-h2="iap light">{Cards}</div>
+        <div data-h2="iap dark">{Cards}</div>
+      </div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
+import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -33,7 +33,6 @@ type WhatToExpectSectionProps = SectionProps<WhatToExpectSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
-const TEXT_AREA_ROWS = 3;
 
 const WhatToExpectSection = ({
   pool,
@@ -127,7 +126,7 @@ const WhatToExpectSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin="base(x1 0)"
               >
-                <TextArea
+                <RichTextInput
                   id="whatToExpectEn"
                   label={intl.formatMessage({
                     defaultMessage: "English - What to expect",
@@ -136,11 +135,10 @@ const WhatToExpectSection = ({
                       "Label for the English - What to expect textarea in the edit pool page.",
                   })}
                   name="whatToExpectEn"
-                  rows={TEXT_AREA_ROWS}
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
-                <TextArea
+                <RichTextInput
                   id="whatToExpectFr"
                   label={intl.formatMessage({
                     defaultMessage: "French - What to expect",
@@ -150,8 +148,7 @@ const WhatToExpectSection = ({
                   })}
                   name="whatToExpectFr"
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                  rows={TEXT_AREA_ROWS}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
               </div>
 
