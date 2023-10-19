@@ -19,7 +19,13 @@ const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
           })}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content
+        closeLabel={intl.formatMessage({
+          defaultMessage: "Close",
+          id: "4p0QdF",
+          description: "Button text used to close an open modal",
+        })}
+      >
         <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Applicants must meet the following requirements:",
