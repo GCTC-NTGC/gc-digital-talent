@@ -14,5 +14,7 @@ declare module "@tanstack/table-core" {
     hideMobileHeader?: boolean;
     /** Header for the search column dropdown */
     searchHeader?: React.ReactNode;
+    /** Allows the column to shrink below the min width (x8) */
+    shrink?: boolean;
   }
 }
