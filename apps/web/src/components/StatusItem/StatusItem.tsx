@@ -127,6 +127,7 @@ const StatusItem = ({
     <Wrapper
       data-h2-display="base(flex)"
       data-h2-justify-content="base(space-between)"
+      data-h2-gap="base(x.15)"
       {...layoutStyleMap[layout]}
     >
       <span
