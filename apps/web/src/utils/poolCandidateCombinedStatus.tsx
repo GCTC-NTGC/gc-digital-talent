@@ -59,13 +59,13 @@ const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
 export const isErrorCombinedStatus = (
   status: Maybe<CombinedStatus>,
 ): boolean => (status ? ERROR_STATUSES.includes(status) : false);
-const HIRED_LONGE_TERM_STATUSES: CombinedStatus[] = [
+const HIRED_LONG_TERM_STATUSES: CombinedStatus[] = [
   "HIRED_INDETERMINATE",
   "HIRED_TERM",
 ];
 export const isHiredLongTermCombinedStatus = (
   status: Maybe<CombinedStatus>,
-): boolean => (status ? HIRED_LONGE_TERM_STATUSES.includes(status) : false);
+): boolean => (status ? HIRED_LONG_TERM_STATUSES.includes(status) : false);
 
 // Map combined statuses to their labels
 const combinedStatusLabels = defineMessages<CombinedStatus>({
