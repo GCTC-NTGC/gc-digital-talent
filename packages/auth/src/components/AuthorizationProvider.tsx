@@ -3,6 +3,7 @@ import React from "react";
 import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 import { containsUserDeletedError } from "../utils/errors";
@@ -22,12 +23,15 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
     deleted = true;
   }
 
+  const roleAssignmentsFiltered =
+    data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
+
   return (
     <AuthorizationContainer
-      roleAssignments={data?.me?.roleAssignments}
-      email={data?.me?.email}
+      roleAssignments={roleAssignmentsFiltered}
+      email={data?.myAuth?.email}
       deleted={deleted}
-      user={data?.me}
+      userAuthInfo={data?.myAuth}
       isLoaded={isLoaded}
     >
       <Pending fetching={!isLoaded}>{children}</Pending>

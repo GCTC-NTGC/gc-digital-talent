@@ -1,19 +1,17 @@
 query getCurrentAuthorizedUser {
-  me {
+  myAuth {
     id
     email
     deletedDate
-    authInfo {
-      roleAssignments {
+    roleAssignments {
+      id
+      role {
         id
-        role {
-          id
-          name
-        }
-        team {
-          id
-          name
-        }
+        name
+      }
+      team {
+        id
+        name
       }
     }
   }

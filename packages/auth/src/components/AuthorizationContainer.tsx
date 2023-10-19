@@ -2,16 +2,16 @@ import React from "react";
 
 import {
   Maybe,
-  User,
   Scalars,
   RoleAssignment,
+  UserAuthInfo,
 } from "@gc-digital-talent/graphql";
 
 export interface AuthorizationState {
   roleAssignments: Maybe<Array<RoleAssignment>>;
   email?: Maybe<Scalars["Email"]>;
   deleted: boolean;
-  user?: Maybe<User>;
+  userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
 }
 
@@ -19,7 +19,7 @@ export const AuthorizationContext = React.createContext<AuthorizationState>({
   roleAssignments: null,
   email: null,
   deleted: false,
-  user: null,
+  userAuthInfo: null,
   isLoaded: false,
 });
 
@@ -27,7 +27,7 @@ interface AuthorizationContainerProps {
   roleAssignments?: Maybe<Array<RoleAssignment>>;
   email?: Maybe<Scalars["Email"]>;
   deleted: boolean;
-  user?: Maybe<User>;
+  userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
   children?: React.ReactNode;
 }
@@ -36,7 +36,7 @@ const AuthorizationContainer = ({
   roleAssignments,
   email,
   deleted,
-  user,
+  userAuthInfo,
   isLoaded,
   children,
 }: AuthorizationContainerProps) => {
@@ -45,10 +45,10 @@ const AuthorizationContainer = ({
       roleAssignments,
       email,
       deleted,
-      user,
+      userAuthInfo,
       isLoaded,
     };
-  }, [roleAssignments, email, deleted, user, isLoaded]);
+  }, [roleAssignments, email, deleted, userAuthInfo, isLoaded]);
 
   return (
     <AuthorizationContext.Provider value={state}>
