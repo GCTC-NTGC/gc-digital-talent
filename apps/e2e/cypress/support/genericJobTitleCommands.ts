@@ -1,11 +1,12 @@
-import { GetGenericJobTitlesDocument } from "@gc-digital-talent/web/src/api/generated";
+import {
+  GetGenericJobTitlesQuery,
+  GetGenericJobTitlesDocument,
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getGenericJobTitles", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<GetGenericJobTitlesQuery>({
     operationName: "GetGenericJobTitles",
     query: getGqlString(GetGenericJobTitlesDocument),
     variables: {},

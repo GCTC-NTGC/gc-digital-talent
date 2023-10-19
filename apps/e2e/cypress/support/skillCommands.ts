@@ -1,11 +1,9 @@
-import { AllSkillsDocument } from "@gc-digital-talent/web/src/api/generated";
+import { AllSkillsQuery, AllSkillsDocument } from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getSkills", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<AllSkillsQuery>({
     operationName: "AllSkills",
     query: getGqlString(AllSkillsDocument),
     variables: {},

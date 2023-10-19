@@ -1,8 +1,14 @@
 {
   "extends": "tsconfig/e2e.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "types": [
+      "cypress",
+      "@testing-library/cypress",
+      "cy-verify-downloads",
+      "node"
+    ]
   },
-  "include": ["."],
+  "include": [".", "./cypress.d.ts"],
   "exclude": []
 }

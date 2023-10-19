@@ -26,8 +26,8 @@
 
 // See: https://testing-library.com/docs/cypress-testing-library/intro/
 import "@testing-library/cypress/add-commands";
-import url from "url";
-import verifyDownloads from "cy-verify-downloads";
+import * as verifyDownloads from "cy-verify-downloads";
+import * as url from "url";
 
 before(() => {
   cy.log(
@@ -49,55 +49,12 @@ Cypress.Commands.add("setLocale", (locale) => {
   window.localStorage.setItem("stored_locale", locale);
 });
 
-Cypress.Commands.add("loginByRole", (...args) => {
-  let userRole;
-  let email;
-  let password;
-  let rest;
-  switch (args.length) {
-    // If no arg, assume we're using non-interactive login for admin user.
-    case 0:
-      loginNonInteractive();
-      break;
-    // If arg provided, assume it's a role.
-    case 1:
-      [userRole, ...rest] = args;
-      loginByRole(userRole);
-      break;
-    // No-op for password login with our mock server.
-    case 2:
-    default:
-      [email, password] = args;
-      // See: https://www.cypress.io/blog/2021/08/04/authenticate-faster-in-tests-cy-session-command/
-      cy.session([email, password], () => {
-        loginByPassword(email, password);
-      });
-  }
+Cypress.Commands.add("loginByRole", (role) => {
+  loginByRole(role);
 });
 
-Cypress.Commands.add("loginBySubject", (...args) => {
-  let subject;
-  let password;
-  let rest;
-  switch (args.length) {
-    // If no arg, assume we're using non-interactive login for admin user.
-    case 0:
-      loginNonInteractive();
-      break;
-    // If arg provided, assume it's a subject.
-    case 1:
-      [subject, ...rest] = args;
-      loginBySubject(subject);
-      break;
-    // No-op for password login with our mock server.
-    case 2:
-    default:
-      [email, password] = args;
-      // See: https://www.cypress.io/blog/2021/08/04/authenticate-faster-in-tests-cy-session-command/
-      cy.session([email, password], () => {
-        loginByPassword(email, password);
-      });
-  }
+Cypress.Commands.add("loginBySubject", (sub) => {
+  loginBySubject(sub);
 });
 
 // Logs in with no user specified, assuming no login page.
@@ -116,7 +73,7 @@ const loginByRole = (userRole = "admin") => {
 
 // Logs in by subject
 // Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
-const loginBySubject = (subject) => {
+const loginBySubject = (subject: string) => {
   const authorizeReqOptions = {
     method: "POST",
     form: true,
@@ -131,7 +88,7 @@ const _login = (authorizeReqOptions = {}) => {
   cy.request({ url: "/login", followRedirect: false }).then((resp) => {
     cy.wrap(resp.redirectedToUrl).as("oauth2AuthorizeUrl");
   });
-  cy.get("@oauth2AuthorizeUrl").then((url) => {
+  cy.get<string>("@oauth2AuthorizeUrl").then((url) => {
     cy.request({
       url,
       followRedirect: false,
@@ -140,7 +97,7 @@ const _login = (authorizeReqOptions = {}) => {
       cy.wrap(resp.redirectedToUrl).as("appCallbackUrl");
     });
   });
-  cy.get("@appCallbackUrl").then((url) => {
+  cy.get<string>("@appCallbackUrl").then((url) => {
     cy.request({ url, followRedirect: false }).then(
       setLocalStorageTokensFromResponse,
     );
@@ -161,9 +118,9 @@ const setLocalStorageTokensFromResponse = (resp) => {
   expect(uri.query).to.have.property("refresh_token");
 
   // Store tokens in localStorage.
-  window.localStorage.setItem("id_token", uri.query.id_token);
-  window.localStorage.setItem("access_token", uri.query.access_token);
-  window.localStorage.setItem("refresh_token", uri.query.refresh_token);
+  window.localStorage.setItem("id_token", String(uri.query.id_token));
+  window.localStorage.setItem("access_token", String(uri.query.access_token));
+  window.localStorage.setItem("refresh_token", String(uri.query.refresh_token));
 };
 
 // No-op placeholder function to document how our mock-oauth2-server works.

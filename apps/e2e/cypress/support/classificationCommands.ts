@@ -1,11 +1,12 @@
-import { GetClassificationsDocument } from "@gc-digital-talent/web/src/api/generated";
+import {
+  GetClassificationsQuery,
+  GetClassificationsDocument,
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getClassifications", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<GetClassificationsQuery>({
     operationName: "GetClassifications",
     query: getGqlString(GetClassificationsDocument),
     variables: {},

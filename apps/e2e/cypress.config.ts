@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-const { verifyDownloadTasks } = require("cy-verify-downloads");
+import { verifyDownloadTasks } from "cy-verify-downloads";
 
 const extendedTimeout = 60000;
 
@@ -17,7 +17,7 @@ export default defineConfig({
   retries: {
     runMode: 3,
   },
-  reporter: "cypress-multi-reporters",
+  reporter: "./cypress-multi-reporters.ts",
   reporterOptions: {
     configFile: "cypress/reporters-config.json",
   },
@@ -30,7 +30,7 @@ export default defineConfig({
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
       on("task", verifyDownloadTasks);
-      return require("./cypress/plugins/index.js")(on, config);
+      return require("./cypress/plugins/index.ts")(on, config);
     },
     excludeSpecPattern: "**/examples/*.spec.js",
     baseUrl: "http://localhost:8000",

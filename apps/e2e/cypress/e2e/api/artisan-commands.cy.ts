@@ -1,3 +1,7 @@
+import { GetPoolDocument, GetPoolQuery } from "@gc-digital-talent/graphql";
+
+import { getGqlString } from "../../support/graphql-test-utils";
+
 describe("Artisan command tests", () => {
   it("Can create a new custom pool using an Artisan command", () => {
     const uniqueTestId = (
@@ -15,29 +19,18 @@ describe("Artisan command tests", () => {
       cy.wrap(jsonObject.key_tasks.en).as("poolKeyTasks");
     });
 
-    cy.get("@poolId").then((poolId) => {
-      cy.graphqlRequest({
-        query: `
-          query myPool($poolId:UUID!) {
-            pool(id: $poolId) {
-              name {
-                en
-              }
-              keyTasks {
-                en
-              }
-            }
-          }
-        `,
+    cy.get<string>("@poolId").then((poolId) => {
+      cy.graphqlRequest<GetPoolQuery>({
+        query: getGqlString(GetPoolDocument),
         variables: {
-          poolId,
+          id: poolId,
         },
       }).then((actual) => {
-        cy.get("@poolName").then((expectedName) => {
+        cy.get<string>("@poolName").then((expectedName) => {
           expect(actual.pool.name.en).to.equal(expectedName);
         });
 
-        cy.get("@poolKeyTasks").then((expectedKeyTasks) => {
+        cy.get<string>("@poolKeyTasks").then((expectedKeyTasks) => {
           expect(actual.pool.keyTasks.en).to.equal(expectedKeyTasks);
         });
       });

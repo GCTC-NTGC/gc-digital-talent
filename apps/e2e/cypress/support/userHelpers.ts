@@ -3,12 +3,22 @@ import {
   CitizenshipStatus,
   ProvinceOrTerritory,
   WorkRegion,
-} from "@gc-digital-talent/web/src/api/generated";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
-import {
   OperationalRequirement,
   PositionDuration,
-} from "@gc-digital-talent/web/src/api/generated";
+  Skill,
+  GenericJobTitle,
+  Role,
+  Team,
+} from "@gc-digital-talent/graphql";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+
+type CreateApplicationArgs = {
+  email: string;
+  sub: string;
+  skill: Skill;
+  genericJobTitle: GenericJobTitle;
+  userAlias: string;
+};
 
 export function createApplicant({
   email,
@@ -16,7 +26,7 @@ export function createApplicant({
   skill,
   genericJobTitle,
   userAlias,
-}) {
+}: CreateApplicationArgs) {
   cy.createUser({
     email: email ? `cypress.user.${Date.now().valueOf()}@example.org` : null,
     sub: sub ? `cypress.sub.${Date.now().valueOf()}` : null,
@@ -31,7 +41,7 @@ export function createApplicant({
     isWoman: true,
     hasPriorityEntitlement: false,
     hasDiploma: true,
-    locationPreferences: WorkRegion.Ontario,
+    locationPreferences: [WorkRegion.Ontario],
     acceptedOperationalRequirements: [
       OperationalRequirement.OvertimeOccasional,
     ],
@@ -57,7 +67,11 @@ export function createApplicant({
   }).as(userAlias);
 }
 
-export function addRolesToUser(userId, roles = [], team = undefined) {
+export function addRolesToUser(
+  userId: string,
+  roles: string[] = [],
+  team?: string,
+) {
   cy.getRoles().then(($roles) => {
     const roleIds = $roles
       .filter((role) => roles.includes(role.name))
