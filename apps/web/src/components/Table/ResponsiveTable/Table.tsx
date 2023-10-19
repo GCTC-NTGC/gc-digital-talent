@@ -131,7 +131,6 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
       {...(!isRowSelect &&
         !shouldShrink && {
           "data-h2-min-width": "base(x8)",
-          "data-h2-width": "base(100%)",
         })}
       {...styles.cell}
       {...rest}
