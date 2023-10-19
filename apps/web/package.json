@@ -59,7 +59,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
-    "react-intl": "^6.4.7",
+    "react-intl": "^6.5.0",
     "react-router-dom": "^6.16.0",
     "react-to-print": "^2.14.15",
     "react-toastify": "^9.1.3",
