@@ -86,7 +86,7 @@ const loginBySubject = (subject: string) => {
 
 const _login = (authorizeReqOptions = {}) => {
   cy.request({ url: "/login", followRedirect: false }).then((resp) => {
-    cy.wrap(resp.redirectedToUrl as string).as("oauth2AuthorizeUrl");
+    cy.wrap(resp.redirectedToUrl).as("oauth2AuthorizeUrl");
   });
   cy.get<string>("@oauth2AuthorizeUrl").then((url) => {
     cy.request({
