@@ -3,7 +3,9 @@
 query getMe {
   me {
     id
-    sub
+    authInfo {
+      sub
+    }
     firstName
     lastName
     email
