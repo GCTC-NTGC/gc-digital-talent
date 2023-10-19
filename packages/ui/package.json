@@ -66,7 +66,7 @@
     "@types/mdx": "^2.0.9",
     "@types/react": "^18.2.29",
     "@types/react-csv": "^1.1.7",
-    "@types/react-dom": "^18.2.13",
+    "@types/react-dom": "^18.2.14",
     "eslint": "^8.51.0",
     "eslint-config-custom": "*",
     "jest": "^29.7.0",
