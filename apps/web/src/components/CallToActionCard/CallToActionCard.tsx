@@ -35,6 +35,7 @@ const CallToActionCard = ({
       data-h2-display="p-tablet(flex)"
       data-h2-gap="base(x3)"
       data-h2-align-items="base(center)"
+      data-h2-justify-content="base(space-between)"
     >
       <div>
         <Heading
@@ -46,7 +47,10 @@ const CallToActionCard = ({
         </Heading>
         {children}
       </div>
-      <div data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)">
+      <div
+        data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)"
+        data-h2-flex-shrink="base(0)"
+      >
         <Link
           color="secondary"
           mode="solid"
