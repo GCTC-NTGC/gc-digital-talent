@@ -130,7 +130,7 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
-  authInfo: UserAuthInfo
+  authInfo: UserAuthInfo @self
 
   # Notifications
   unreadNotifications: [Notification!]
