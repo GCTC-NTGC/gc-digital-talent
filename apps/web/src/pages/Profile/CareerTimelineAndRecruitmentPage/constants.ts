@@ -10,9 +10,9 @@ export type PageSectionId = ObjectValues<typeof PAGE_SECTION_ID>;
 
 export const titles = defineMessages({
   careerTimelineAndRecruitment: {
-    defaultMessage: "Career timeline and recruitment",
-    id: "Icl1fF",
-    description: "Name of Career timeline and recruitment page",
+    defaultMessage: "Career timeline",
+    id: "TUfJUD",
+    description: "Name of Career timeline page",
   },
   manageYourCareerTimeline: {
     defaultMessage: "Manage your career timeline",

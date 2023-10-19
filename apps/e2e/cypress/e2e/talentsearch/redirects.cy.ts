@@ -5,7 +5,10 @@ const uuidRegEx =
 
 describe("Redirects", () => {
   const expectToBeOnProfile = () => {
-    cy.url().should("match", new RegExp("users" + uuidRegEx + "profile", "gi"));
+    cy.url().should(
+      "match",
+      new RegExp("users" + uuidRegEx + "personal-information", "gi"),
+    );
   };
 
   beforeEach(() => {

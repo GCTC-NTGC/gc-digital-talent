@@ -3,14 +3,14 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 describe("User Profile Workflow Tests", () => {
   const loginAndGoToProfile = () => {
     cy.loginByRole("applicant");
-    cy.visit("/en/users/test-applicant/profile");
+    cy.visit("/en/users/test-applicant/personal-information");
 
-    // make sure we end up on the profile page
+    // make sure we end up on the personal information page
     cy.wait("@gqlgetMeQuery");
     cy.findByRole("heading", { name: /Personal and contact information/i })
       .should("exist")
       .and("be.visible");
-    cy.url().should("contain", "/profile");
+    cy.url().should("contain", "/personal-information");
   };
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe("User Profile Workflow Tests", () => {
     cy.findByRole("button", { name: /Save changes/i }).click();
     cy.wait("@gqlUpdateUserAsUserMutation");
     cy.expectToast(/information updated successfully/i);
-    cy.url().should("contain", "/profile");
+    cy.url().should("contain", "/personal-information");
 
     // work preferences
     cy.findByRole("button", { name: /Edit Work preferences/i }).click();
@@ -43,6 +43,6 @@ describe("User Profile Workflow Tests", () => {
     cy.findByRole("button", { name: /Save changes/i }).click();
     cy.wait("@gqlUpdateUserAsUserMutation");
     cy.expectToast(/work preferences updated successfully/i);
-    cy.url().should("contain", "/profile");
+    cy.url().should("contain", "/personal-information");
   });
 });

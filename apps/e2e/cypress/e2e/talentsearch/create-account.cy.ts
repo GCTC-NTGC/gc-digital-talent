@@ -56,9 +56,9 @@ describe("Create account tests", () => {
     cy.findByRole("button", { name: "Save and go to my profile" }).click();
 
     cy.wait("@gqlCreateAccountMutation");
-    // should go to the profile page
+    // should go to the personal information page
     cy.findByRole("heading", {
-      name: `Profile information`,
+      name: `Personal information`,
       level: 1,
     }).should("exist");
   });

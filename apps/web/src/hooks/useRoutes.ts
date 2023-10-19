@@ -34,8 +34,8 @@ const getRoutes = (lang: Locales) => {
   const createExperienceUrl = (userId: string) =>
     `${path.join(
       userUrl(userId),
-      "profile",
-      "career-timeline-and-recruitment",
+      "personal-information",
+      "career-timeline",
       "create",
     )}`;
 
@@ -235,7 +235,7 @@ const getRoutes = (lang: Locales) => {
     // Profile Routes
     profile: (userId: string, section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(userUrl(userId), "profile") + fragment;
+      return path.join(userUrl(userId), "personal-information") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
 
@@ -249,8 +249,8 @@ const getRoutes = (lang: Locales) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
       return `${path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
       )}${fragment}`;
     },
     editExperience: (
@@ -260,8 +260,8 @@ const getRoutes = (lang: Locales) => {
     ) =>
       path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
         experienceId,
         "edit",
       ),

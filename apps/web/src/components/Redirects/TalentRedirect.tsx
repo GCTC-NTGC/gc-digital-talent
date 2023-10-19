@@ -19,7 +19,7 @@ const TalentRedirect = () => {
       if (pathname.includes("create-account")) {
         profilePath = paths.createAccount();
       }
-      if (pathname.includes("career-timeline-and-recruitment")) {
+      if (pathname.includes("career-timeline")) {
         profilePath = paths.careerTimelineAndRecruitment(id);
 
         if (pathname.includes("create")) {
