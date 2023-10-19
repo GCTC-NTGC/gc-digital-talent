@@ -27,10 +27,11 @@ type LocalizedString {
 
 type UserAuthInfo {
   id: UUID!
+  email: Email
   sub: String
   roleAssignments: [RoleAssignment] @hasMany
-  createdAt: DateTime
-  deletedAt: DateTime
+  createdDate: DateTime @rename(attribute: "created_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type User {

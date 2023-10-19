@@ -177,10 +177,11 @@ type LocalizedString {
 
 type UserAuthInfo {
   id: UUID!
+  email: Email
   sub: String
   roleAssignments: [RoleAssignment]
-  createdAt: DateTime
-  deletedAt: DateTime
+  createdDate: DateTime
+  deletedDate: DateTime
 }
 
 type User {
