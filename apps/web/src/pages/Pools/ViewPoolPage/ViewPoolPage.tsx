@@ -380,14 +380,13 @@ export const ViewPool = ({
                   onDelete={onDelete}
                 />
               )}
-              {pool.status === PoolStatus.Draft &&
-                checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-                  <PublishProcessDialog
-                    {...commonDialogProps}
-                    closingDate={pool.closingDate}
-                    onPublish={onPublish}
-                  />
-                )}
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                />
+              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>
