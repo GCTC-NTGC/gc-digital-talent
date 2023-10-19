@@ -245,7 +245,7 @@ class RolePermissionTest extends TestCase
             'create-any-team',
             'update-any-team',
             'delete-any-team',
-            'assign-any-teamRole'
+            'assign-any-teamRole',
         ];
 
         $this->assertTrue($this->user->hasRole('community_manager'));

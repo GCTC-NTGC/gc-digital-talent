@@ -2,9 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\User;
 use App\Models\Team;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 final class UpdateUserTeamRoles
 {

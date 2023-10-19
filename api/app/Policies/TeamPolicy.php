@@ -78,8 +78,7 @@ class TeamPolicy
     /**
      * Determine whether the user can assign any user to this team (giving them any team-based role)
      *
-     * @param User $user
-     * @return void
+     * @return \Illuminate\Auth\Access\Response|bool
      */
     public function assignTeamMembers(User $user, Team $team)
     {

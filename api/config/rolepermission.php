@@ -482,11 +482,11 @@ return [
         'community_manager' => [
             'display_name' => [
                 'en' => 'Community Manager',
-                'fr' => 'Gestionnaire de communauté'
+                'fr' => 'Gestionnaire de communauté',
             ],
             'description' => [
                 'en' => 'Publishes pools, creates teams, and adds Pool Operators to teams.',
-                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.'
+                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.',
             ],
             'is_team_based' => false,
         ],
@@ -656,8 +656,8 @@ return [
                 'any' => ['view', 'create', 'update', 'delete'],
             ],
             'teamRole' => [
-                'any' => ['assign']
-            ]
+                'any' => ['assign'],
+            ],
         ],
 
         'platform_admin' => [

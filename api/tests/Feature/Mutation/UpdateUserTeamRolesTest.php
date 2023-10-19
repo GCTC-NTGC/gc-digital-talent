@@ -16,8 +16,11 @@ class UpdateUserTeamRolesTest extends TestCase
     use RefreshesSchemaCache;
 
     protected $adminUser;
+
     protected $applicant;
+
     protected $team;
+
     protected $poolOperatorId;
 
     protected function setUp(): void
@@ -65,10 +68,10 @@ class UpdateUserTeamRolesTest extends TestCase
                     'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'attach' => [
-                            'roles' => [$this->poolOperatorId]
-                        ]
-                    ]
-                ]
+                            'roles' => [$this->poolOperatorId],
+                        ],
+                    ],
+                ],
             ]
         );
 
@@ -94,10 +97,10 @@ class UpdateUserTeamRolesTest extends TestCase
                     'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'detach' => [
-                            'roles' => [$this->poolOperatorId]
-                        ]
-                    ]
-                ]
+                            'roles' => [$this->poolOperatorId],
+                        ],
+                    ],
+                ],
             ]
         );
         $this->assertFalse($this->applicant->hasRole(EnumsRole::POOL_OPERATOR, $this->team));
@@ -121,10 +124,10 @@ class UpdateUserTeamRolesTest extends TestCase
                     'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'sync' => [
-                            'roles' => [$this->poolOperatorId]
-                        ]
-                    ]
-                ]
+                            'roles' => [$this->poolOperatorId],
+                        ],
+                    ],
+                ],
             ]
         );
         $this->assertTrue($this->applicant->hasRole(EnumsRole::POOL_OPERATOR, $this->team));
@@ -145,10 +148,10 @@ class UpdateUserTeamRolesTest extends TestCase
                     'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'sync' => [
-                            'roles' => []
-                        ]
-                    ]
-                ]
+                            'roles' => [],
+                        ],
+                    ],
+                ],
             ]
         );
         $this->assertFalse($this->applicant->hasRole(EnumsRole::POOL_OPERATOR, $this->team));
@@ -178,10 +181,10 @@ class UpdateUserTeamRolesTest extends TestCase
                     'userId' => $this->applicant->id,
                     'roleAssignments' => [
                         'attach' => [
-                            'roles' => [$this->poolOperatorId]
-                        ]
-                    ]
-                ]
+                            'roles' => [$this->poolOperatorId],
+                        ],
+                    ],
+                ],
             ]
         )->assertJson([
             'data' => [
@@ -191,18 +194,18 @@ class UpdateUserTeamRolesTest extends TestCase
                         [
 
                             'role' => [
-                                'name' => EnumsRole::POOL_OPERATOR->value
+                                'name' => EnumsRole::POOL_OPERATOR->value,
                             ],
                             'user' => [
-                                'id' => $otherUser->id
+                                'id' => $otherUser->id,
                             ],
                         ],
                         [
                             'role' => [
-                                'name' => EnumsRole::POOL_OPERATOR->value
+                                'name' => EnumsRole::POOL_OPERATOR->value,
                             ],
                             'user' => [
-                                'id' => $this->applicant->id
+                                'id' => $this->applicant->id,
                             ],
                         ],
                     ],
@@ -239,10 +242,10 @@ class UpdateUserTeamRolesTest extends TestCase
                         'userId' => $user->id,
                         'roleAssignments' => [
                             'attach' => [
-                                'roles' => [$this->poolOperatorId]
-                            ]
-                        ]
-                    ]
+                                'roles' => [$this->poolOperatorId],
+                            ],
+                        ],
+                    ],
                 ]
             );
             if ($hasPermission) {
