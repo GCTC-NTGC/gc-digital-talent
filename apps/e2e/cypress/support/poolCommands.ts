@@ -1,16 +1,17 @@
 import {
+  CreatePoolMutation,
+  PublishPoolMutation,
+  UpdatePoolMutation,
   CreatePoolDocument,
   UpdatePoolDocument,
   PublishPoolDocument,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
   // there are no optional fields on the variables for this mutation
-  cy.graphqlRequest({
+  cy.graphqlRequest<CreatePoolMutation>({
     operationName: "createPool",
     query: getGqlString(CreatePoolDocument),
     variables: {
@@ -28,7 +29,7 @@ Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
 });
 
 Cypress.Commands.add("updatePool", (id, pool) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<UpdatePoolMutation>({
     operationName: "updatePool",
     query: getGqlString(UpdatePoolDocument),
     variables: {
@@ -41,7 +42,7 @@ Cypress.Commands.add("updatePool", (id, pool) => {
 });
 
 Cypress.Commands.add("publishPool", (id) => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<PublishPoolMutation>({
     operationName: "publishPool",
     query: getGqlString(PublishPoolDocument),
     variables: {

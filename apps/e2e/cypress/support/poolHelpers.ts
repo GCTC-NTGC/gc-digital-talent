@@ -1,10 +1,20 @@
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import {
+  Classification,
+  Skill,
   PoolLanguage,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "@gc-digital-talent/web/src/api/generated";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+} from "@gc-digital-talent/graphql";
+
+type CreateAndPublishPoolArgs = {
+  adminUserId: string;
+  teamId: string;
+  englishName: string;
+  classification: Classification;
+  poolAlias: string;
+};
 
 export function createAndPublishPool({
   adminUserId,
@@ -12,11 +22,11 @@ export function createAndPublishPool({
   englishName,
   classification,
   poolAlias,
-}) {
+}: CreateAndPublishPoolArgs) {
   cy.createPool(adminUserId, teamId, [classification.id]).then(
     (createdPool) => {
-      cy.get("@testSkill").then((skill) => {
-        cy.log(skill);
+      cy.get<Skill>("@testSkill").then((skill) => {
+        cy.log(JSON.stringify(skill));
         cy.updatePool(createdPool.id, {
           name: {
             en: englishName
@@ -32,7 +42,7 @@ export function createAndPublishPool({
           },
           keyTasks: { en: "key task EN", fr: "key task FR" },
           essentialSkills: {
-            sync: skill.id,
+            sync: [skill.id],
           },
           language: PoolLanguage.Various,
           securityClearance: SecurityStatus.Secret,

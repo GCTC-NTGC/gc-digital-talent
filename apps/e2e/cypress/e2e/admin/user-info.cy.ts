@@ -1,3 +1,11 @@
+import {
+  Classification,
+  GenericJobTitle,
+  Pool,
+  Skill,
+  User,
+} from "@gc-digital-talent/graphql";
+
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
@@ -18,14 +26,14 @@ describe("User Information Page", () => {
       cy.wrap(testGenericJobTitle.classification).as("testClassification");
     });
     // select some dimensions to use for testing
-    cy.getTeams().then((allTeams) => {
-      cy.wrap(
-        allTeams.filter(
-          (team) =>
-            team.name !== "test-team" ||
-            team.name !== "digital-community-management",
-        )[0].id,
-      ).as("newTeam"); // take a team for testing that's not attached to the pool operator
+    cy.createTeam({
+      name: `new-team-${Date.now().valueOf()}`,
+      displayName: {
+        en: "New Team (EN)",
+        fr: "New Team (FR)",
+      },
+    }).then((team) => {
+      cy.wrap(team.id).as("newTeam"); // take a team for testing that's not attached to the pool operator
     });
   });
 
@@ -39,58 +47,68 @@ describe("User Information Page", () => {
     cy.getMe()
       .its("id")
       .then((adminUserId) => {
-        cy.get("@testGenericJobTitle").then((genericJobTitle) => {
-          cy.get("@testSkill").then((skill) => {
-            // This user must have the entire profile completed to be able to apply to a pool
-            createApplicant({
-              email: `cypress.user.${uniqueTestId}@example.org`,
-              sub: `cypress.sub.${uniqueTestId}`,
-              skill,
-              genericJobTitle,
-              userAlias: "testUser",
-            });
-
-            cy.get("@testUser").then((testUser) => {
-              addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
-            });
-
-            // fetch the newTeamId for pool creation
-            let newTeamId;
-            cy.get("@newTeam").then((newTeam) => {
-              newTeamId = newTeam;
-              addRolesToUser(adminUserId, ["pool_operator"], newTeam);
-            });
-
-            // fetch the dcmId for pool creation
-            cy.getDCM().then((dcmId) => {
-              // create and publish a new dcm pool
-              cy.get("@testClassification").then((classification) => {
-                createAndPublishPool({
-                  adminUserId,
-                  teamId: dcmId,
-                  englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                  classification,
-                  poolAlias: "dcmPool",
-                });
+        cy.get<GenericJobTitle>("@testGenericJobTitle").then(
+          (genericJobTitle) => {
+            cy.get<Skill>("@testSkill").then((skill) => {
+              // This user must have the entire profile completed to be able to apply to a pool
+              createApplicant({
+                email: `cypress.user.${uniqueTestId}@example.org`,
+                sub: `cypress.sub.${uniqueTestId}`,
+                skill,
+                genericJobTitle,
+                userAlias: "testUser",
               });
-            });
 
-            // create and publish a new newTeam pool
-            cy.get("@testClassification").then((classification) => {
-              createAndPublishPool({
-                adminUserId,
-                teamId: newTeamId,
-                englishName: `Cypress Test Pool EN ${uniqueTestId}`,
-                classification,
-                poolAlias: "newTeamPool",
+              cy.get<User>("@testUser").then((testUser) => {
+                addRolesToUser(testUser.id, [
+                  "guest",
+                  "base_user",
+                  "applicant",
+                ]);
               });
+
+              // fetch the newTeamId for pool creation
+              let newTeamId;
+              cy.get<string>("@newTeam").then((newTeam) => {
+                newTeamId = newTeam;
+                addRolesToUser(adminUserId, ["pool_operator"], newTeam);
+              });
+
+              // fetch the dcmId for pool creation
+              cy.getDCM().then((dcmId) => {
+                // create and publish a new dcm pool
+                cy.get<Classification>("@testClassification").then(
+                  (classification) => {
+                    createAndPublishPool({
+                      adminUserId,
+                      teamId: dcmId,
+                      englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                      classification,
+                      poolAlias: "dcmPool",
+                    });
+                  },
+                );
+              });
+
+              // create and publish a new newTeam pool
+              cy.get<Classification>("@testClassification").then(
+                (classification) => {
+                  createAndPublishPool({
+                    adminUserId,
+                    teamId: newTeamId,
+                    englishName: `Cypress Test Pool EN ${uniqueTestId}`,
+                    classification,
+                    poolAlias: "newTeamPool",
+                  });
+                },
+              );
             });
-          });
-        });
+          },
+        );
       });
 
-    cy.get("@testUser").then((testUser) => {
-      const loginAndVisitTestUser = (role) => {
+    cy.get<User>("@testUser").then((testUser) => {
+      const loginAndVisitTestUser = (role: string) => {
         cy.loginByRole(`${role}`);
         cy.visit(`/en/admin/users/${testUser.id}`);
         cy.findByRole("heading", {
@@ -129,7 +147,7 @@ describe("User Information Page", () => {
       // Submit an application to DCM pool (connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@dcmPool").then((pool) => {
+        cy.get<Pool>("@dcmPool").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
             cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
               .its("id")
@@ -141,7 +159,7 @@ describe("User Information Page", () => {
       // Submit an application to newTeam pool (NOT connected to pool_operator) with the test user
       cy.loginBySubject(testUser.sub);
       cy.getMe().then((testUser) => {
-        cy.get("@newTeamPool").then((pool) => {
+        cy.get<Pool>("@newTeamPool").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
             cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
               .its("id")

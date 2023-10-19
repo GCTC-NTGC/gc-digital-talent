@@ -1,11 +1,14 @@
-import { AllTeamsDocument } from "@gc-digital-talent/web/src/api/generated";
+import {
+  AllTeamsQuery,
+  AllTeamsDocument,
+  CreateTeamMutation,
+  CreateTeamDocument,
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getDCM", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<AllTeamsQuery>({
     operationName: "allTeams",
     query: getGqlString(AllTeamsDocument),
     variables: {},
@@ -20,11 +23,23 @@ Cypress.Commands.add("getDCM", () => {
 });
 
 Cypress.Commands.add("getTeams", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<AllTeamsQuery>({
     operationName: "allTeams",
     query: getGqlString(AllTeamsDocument),
     variables: {},
   }).then((data) => {
     cy.wrap(data.teams);
+  });
+});
+
+Cypress.Commands.add("createTeam", (team) => {
+  cy.graphqlRequest<CreateTeamMutation>({
+    operationName: "CreateTeam",
+    query: getGqlString(CreateTeamDocument),
+    variables: {
+      team,
+    },
+  }).then((data) => {
+    cy.wrap(data.createTeam);
   });
 });

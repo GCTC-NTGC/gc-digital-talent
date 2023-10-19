@@ -188,7 +188,7 @@ describe("Pools", () => {
 
     // Update expiry date to some arbitrary date in the future
     cy.findByRole("group", { name: /end date/i }).within(() => {
-      cy.findAllByRole("spinbutton", { name: /year/i }).clear()
+      cy.findAllByRole("spinbutton", { name: /year/i }).clear();
       cy.findAllByRole("spinbutton", { name: /year/i }).type("2030");
       cy.findAllByRole("combobox", { name: /month/i }).select("01");
       cy.findAllByRole("spinbutton", { name: /day/i }).clear();
@@ -238,24 +238,26 @@ describe("Pools", () => {
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click()
+    cy.findByRole("button", { name: /edit pool name/i }).click();
 
     // Set a process number
     const processNumber = "process 123";
     cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
 
     const title = "New test pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i })
-      .clear();
-    cy.findByRole("textbox", { name: /specific title \(english\)/i })
-      .type(`${title} EN`);
+    cy.findByRole("textbox", { name: /specific title \(english\)/i }).clear();
+    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
+      `${title} EN`,
+    );
 
     // Submit the form
     cy.findByRole("button", { name: /save pool name/i }).click();
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findAllByRole("link", { name: /Process information/i }).first().click();
+    cy.findAllByRole("link", { name: /Process information/i })
+      .first()
+      .click();
 
     // Confirm process number has new value
     cy.findByRole("heading", { name: /new test pool/i });

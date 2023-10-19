@@ -1,11 +1,12 @@
-import { DepartmentsDocument } from "@gc-digital-talent/web/src/api/generated";
+import {
+  DepartmentsQuery,
+  DepartmentsDocument,
+} from "@gc-digital-talent/graphql";
 
-function getGqlString(doc) {
-  return doc.loc && doc.loc.source.body;
-}
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getDepartments", () => {
-  cy.graphqlRequest({
+  cy.graphqlRequest<DepartmentsQuery>({
     operationName: "departments",
     query: getGqlString(DepartmentsDocument),
     variables: {},
