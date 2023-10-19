@@ -229,10 +229,8 @@ describe("Pools", () => {
     cy.wait("@gqlallPoolsQuery");
 
     // Navigate to edit pool page
-    cy.findByRole("button", { name: /show 10/i })
-      .click()
-      .then(() => {});
-    cy.get("[role=menuitemradio]").contains(/50/i).click({ force: true });
+    cy.findByRole("button", { name: /show 10/i }).click();
+    cy.get("[role=menuitemradio]").contains(/50/i).click();
 
     cy.findAllByRole("link", { name: /edit test pool en/i })
       .first()
@@ -275,7 +273,7 @@ describe("Pools", () => {
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
-    cy.get("[role=menuitemradio]").contains(/50/i).click({ force: true });
+    cy.get("[role=menuitemradio]").contains(/50/i).click();
 
     cy.findAllByRole("link", { name: /new test pool en/i })
       .first()
