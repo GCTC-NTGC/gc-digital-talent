@@ -181,7 +181,7 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
-    @hasMany(relation: "publishedPoolCandidates")
+    @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
