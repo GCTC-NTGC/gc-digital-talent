@@ -52,6 +52,11 @@ export interface AssessmentPlanBuilderProps {
 export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  pool.poolSkills?.sort((a, b) => {
+    const aName = getLocalizedName(a?.skill?.name, intl);
+    const bName = getLocalizedName(b?.skill?.name, intl);
+    return aName.localeCompare(bName);
+  });
 
   return (
     <>
