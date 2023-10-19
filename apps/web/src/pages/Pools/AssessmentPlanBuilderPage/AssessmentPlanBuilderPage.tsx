@@ -15,8 +15,8 @@ import {
   NotFound,
   Pending,
   Separator,
+  Sidebar,
 } from "@gc-digital-talent/ui";
-import Sidebar from "@gc-digital-talent/ui/src/components/Sidebar";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
