@@ -65,6 +65,7 @@ query ListTeams {
 query MeRoleAssignments {
   me {
     authInfo {
+      id
       roleAssignments {
         id
         role {

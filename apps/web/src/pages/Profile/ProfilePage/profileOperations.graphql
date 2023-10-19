@@ -4,6 +4,7 @@ query getMe {
   me {
     id
     authInfo {
+      id
       sub
     }
     firstName

@@ -126,10 +126,6 @@ mutation CreateUser($user: CreateUserInput!) {
 mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
-    authInfo {
-      id
-      sub
-    }
     firstName
     lastName
     telephone

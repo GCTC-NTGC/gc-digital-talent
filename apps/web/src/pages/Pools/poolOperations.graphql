@@ -95,6 +95,7 @@ query getMePoolCreation {
   me {
     id
     authInfo {
+      id
       roleAssignments {
         id
         team {
