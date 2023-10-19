@@ -19,7 +19,7 @@ class SupportController extends Controller
             'tags' => [config('freshdesk.api.ticket_tag')],
         ];
         if ($request->input('previous_url')) {
-            $parameters['previous_url'] = (string) $request->input('previous_url');
+            $parameters['custom_fields']['cf_page_url'] = (string) $request->input('previous_url');
         }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
