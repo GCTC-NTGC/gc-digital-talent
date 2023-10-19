@@ -38,7 +38,7 @@ const TopTechnicalSkills = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "top-technical-skills";
@@ -109,7 +109,7 @@ const TopTechnicalSkills = ({
 
   const handleUpdateUserSkillRankings = (formValues: FormValues) => {
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         topTechnicalSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
@@ -147,7 +147,7 @@ const TopTechnicalSkills = ({
   ) => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         topTechnicalSkillsRanked: mergedSkillIds,
       },
@@ -178,7 +178,7 @@ const TopTechnicalSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={user?.id}
+      userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
       skills={skills}

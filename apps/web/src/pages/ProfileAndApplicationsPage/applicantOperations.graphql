@@ -55,6 +55,7 @@ query ApplicantInformation {
   me {
     id
     authInfo {
+      id
       sub
     }
     firstName

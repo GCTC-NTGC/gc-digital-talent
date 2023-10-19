@@ -16,6 +16,7 @@ query User($id: UUID!) {
     id
     email
     authInfo {
+      id
       sub
       roleAssignments {
         id
@@ -61,6 +62,7 @@ mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     id
     authInfo {
+      id
       sub
     }
 
@@ -125,6 +127,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
     authInfo {
+      id
       sub
     }
     firstName
@@ -188,6 +191,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
     id
     authInfo {
+      id
       sub
     }
 
@@ -252,6 +256,7 @@ mutation DeleteUser($id: ID!) {
     id
     deletedDate
     authInfo {
+      id
       sub
     }
     email
@@ -477,6 +482,7 @@ query AllUsersPaginated(
       createdDate
       updatedDate
       authInfo {
+        id
         roleAssignments {
           id
           role {

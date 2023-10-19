@@ -75,7 +75,7 @@ const SkillLibraryTable = ({
 }: SkillLibraryTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeCreateMutation] = useCreateUserSkillMutation();
 
   const levelGetter = isTechnical
@@ -153,7 +153,7 @@ const SkillLibraryTable = ({
             skills={allSkills}
             onSave={async (value) => {
               executeCreateMutation({
-                userId: user?.id,
+                userId: userAuthInfo?.id,
                 skillId: value?.skill,
                 userSkill: {
                   skillLevel: value.skillLevel,
