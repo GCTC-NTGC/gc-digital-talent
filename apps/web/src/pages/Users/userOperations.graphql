@@ -15,7 +15,29 @@ query User($id: UUID!) {
   user(id: $id, trashed: WITH) {
     id
     email
-    sub
+    authInfo {
+      sub
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
     deletedDate
     firstName
     lastName
@@ -23,26 +45,6 @@ query User($id: UUID!) {
     preferredLang
     preferredLanguageForInterview
     preferredLanguageForExam
-    roleAssignments {
-      id
-      role {
-        id
-        name
-        isTeamBased
-        displayName {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-        displayName {
-          en
-          fr
-        }
-      }
-    }
   }
 }
 
@@ -58,7 +60,9 @@ query UserName($userId: UUID!) {
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     id
-    sub
+    authInfo {
+      sub
+    }
 
     firstName
     lastName
@@ -120,7 +124,9 @@ mutation CreateUser($user: CreateUserInput!) {
 mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
-    sub
+    authInfo {
+      sub
+    }
     firstName
     lastName
     telephone
@@ -181,7 +187,9 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
 mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
     id
-    sub
+    authInfo {
+      sub
+    }
 
     firstName
     lastName
@@ -243,7 +251,9 @@ mutation DeleteUser($id: ID!) {
   deleteUser(id: $id) {
     id
     deletedDate
-    sub
+    authInfo {
+      sub
+    }
     email
     poolCandidates {
       id
@@ -466,14 +476,16 @@ query AllUsersPaginated(
       preferredLanguageForExam
       createdDate
       updatedDate
-      roleAssignments {
-        id
-        role {
+      authInfo {
+        roleAssignments {
           id
-          name
-          displayName {
-            en
-            fr
+          role {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
           }
         }
       }

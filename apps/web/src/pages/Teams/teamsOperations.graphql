@@ -64,20 +64,22 @@ query ListTeams {
 
 query MeRoleAssignments {
   me {
-    roleAssignments {
-      id
-      role {
+    authInfo {
+      roleAssignments {
         id
-        name
-        displayName {
-          en
-          fr
+        role {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+          isTeamBased
         }
-        isTeamBased
-      }
-      team {
-        id
-        name
+        team {
+          id
+          name
+        }
       }
     }
   }

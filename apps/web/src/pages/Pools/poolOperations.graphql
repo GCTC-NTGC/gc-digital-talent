@@ -94,14 +94,16 @@ mutation createPool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
 query getMePoolCreation {
   me {
     id
-    roleAssignments {
-      id
-      team {
+    authInfo {
+      roleAssignments {
         id
-        name
-        displayName {
-          en
-          fr
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
         }
       }
     }
