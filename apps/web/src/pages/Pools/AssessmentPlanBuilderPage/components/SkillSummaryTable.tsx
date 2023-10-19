@@ -8,6 +8,7 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import {
   commonMessages,
   getAssessmentStepType,
+  getLocale,
   getLocalizedName,
   getPoolSkillType,
   getSkillCategory,
@@ -137,19 +138,23 @@ const SkillSummaryTable = ({
   const generateAssessmentStepHeader = (
     assessmentStep: AssessmentStep,
   ): string => {
-    if (assessmentStep.title && assessmentStep.type) {
-      return `${getLocalizedName(
-        assessmentStep.title,
-        intl,
-      )} (${intl.formatMessage(getAssessmentStepType(assessmentStep.type))})`;
+    const locale = getLocale(intl);
+    // don't want "N/A" from getLocalizedName
+    const localizedTitle = assessmentStep?.title
+      ? assessmentStep.title[locale]
+      : null;
+    if (localizedTitle && assessmentStep.type) {
+      return `${localizedTitle} (${intl.formatMessage(
+        getAssessmentStepType(assessmentStep.type),
+      )})`;
     }
 
-    if (!assessmentStep.title && assessmentStep.type) {
+    if (!localizedTitle && assessmentStep.type) {
       return intl.formatMessage(getAssessmentStepType(assessmentStep.type));
     }
 
-    if (assessmentStep.title && !assessmentStep.type) {
-      return getLocalizedName(assessmentStep.title, intl);
+    if (localizedTitle && !assessmentStep.type) {
+      return localizedTitle;
     }
 
     return intl.formatMessage(commonMessages.notAvailable);
