@@ -184,7 +184,6 @@ const statusMap = new Map<PoolCandidateStatus, CombinedStatus>([
 
 // Map pool candidate statuses to their suspended combined statuses
 const suspendedStatusMap = new Map<PoolCandidateStatus, CombinedStatus>([
-  [PoolCandidateStatus.PlacedCasual, "NOT_INTERESTED"],
   [PoolCandidateStatus.QualifiedAvailable, "NOT_INTERESTED"],
 ]);
 
