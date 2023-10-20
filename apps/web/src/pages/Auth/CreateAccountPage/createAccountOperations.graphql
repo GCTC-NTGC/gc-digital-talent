@@ -72,7 +72,10 @@ query getGovInfoFormLookupData {
 mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     id
-    email
+    authInfo {
+      id
+      email
+    }
     firstName
     lastName
     preferredLang
