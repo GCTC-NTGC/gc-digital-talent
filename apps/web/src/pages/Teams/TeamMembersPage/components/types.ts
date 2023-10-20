@@ -1,9 +1,9 @@
 import { Scalars } from "~/api/generated";
 
 export type TeamMemberFormValues = {
-  user: Scalars["UUID"];
-  userDisplay: Scalars["UUID"];
-  team: Scalars["UUID"];
+  teamId: Scalars["UUID"];
   teamDisplay: Scalars["UUID"];
+  userId: Scalars["UUID"];
+  userDisplay: Scalars["UUID"];
   roles: Array<Scalars["UUID"]>;
 };

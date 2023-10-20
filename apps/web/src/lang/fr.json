@@ -2334,6 +2334,10 @@
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
   },
+  "B29+yd": {
+    "defaultMessage": "Publication des bassins et gestion d'équipes",
+    "description": "Heading for Community Manager dashboard links"
+  },
   "B6SS7l": {
     "defaultMessage": "Mise à jour réussie de l’amélioration des compétences comportementales",
     "description": "Success message displayed after updating improve behavioural skills"

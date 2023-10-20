@@ -430,6 +430,10 @@
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing"
   },
+  "ErrpJC": {
+    "defaultMessage": "Chargement...",
+    "description": "Text for a component which can't be rendered yet because a data load is in progress."
+  },
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"

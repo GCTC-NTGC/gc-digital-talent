@@ -23,6 +23,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
+            ->asCommunityManager()
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'test-team'])
             ->withExperiences()
@@ -45,6 +46,18 @@ class UserSeederLocal extends Seeder
                 'last_name' => 'Admin',
                 'email' => 'platform@test.com',
                 'sub' => 'platform@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asCommunityManager()
+            ->withExperiences()
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Community',
+                'last_name' => 'Manager',
+                'email' => 'community@test.com',
+                'sub' => 'community@test.com',
             ]);
 
         User::factory()

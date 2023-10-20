@@ -150,7 +150,7 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
-type UserPublicProfile {
+type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
   firstName: String @rename(attribute: "first_name")
@@ -174,7 +174,7 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
-    @hasMany(relation: "publishedPoolCandidates")
+    @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
@@ -650,6 +650,13 @@ type Query {
     @can(ability: "viewAny", model: "User")
     @deprecated(
       reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
+    )
+  userPublicProfiles: [UserPublicProfile]!
+    @all
+    @guard
+    @can(ability: "viewBasicInfo", model: "User")
+    @deprecated(
+      reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!"
     )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
@@ -1380,6 +1387,25 @@ input RoleAssignmentHasMany {
   detach: RolesInput
   sync: RolesInput
 }
+
+# This input only accepts Team-Based roles. It is assumed that a team id will be provided at a higher level of input.
+input RolesForTeamInput
+  @validator(class: "App\\GraphQL\\Validators\\TeamRolesInputValidator") {
+  roles: [ID!]
+}
+
+input RolesForTeamHasMany {
+  attach: RolesForTeamInput
+  detach: RolesForTeamInput
+  sync: RolesForTeamInput
+}
+
+input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
+  roleAssignments: RolesForTeamHasMany!
+}
+
 input ScreeningResponseBelongsTo {
   connect: ID!
 }
@@ -1655,6 +1681,9 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
+  updateUserTeamRoles(
+    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
+  ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
