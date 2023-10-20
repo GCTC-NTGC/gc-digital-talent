@@ -9,7 +9,10 @@ import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import QualifiedRecruitmentCard, {
@@ -18,7 +21,10 @@ import QualifiedRecruitmentCard, {
 
 const mockApplication = fakePoolCandidates()[0];
 const defaultProps = {
-  candidate: mockApplication,
+  candidate: {
+    ...mockApplication,
+    expiryDate: FAR_FUTURE_DATE,
+  },
 };
 
 const mockClient = {
@@ -52,14 +58,23 @@ describe("QualifiedRecruitmentCard", () => {
 
     expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/you are open to opportunities from this recruitment/i),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
+      screen.queryByText(
+        /you are open to opportunities from this recruitment/i,
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        /you are not receiving opportunities from this recruitment/i,
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/change your availability/i),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(3);
+    expect(buttons).toHaveLength(2);
   });
 
   it("PLACED_CASUAL and SUSPENDED", async () => {
@@ -72,18 +87,25 @@ describe("QualifiedRecruitmentCard", () => {
       },
     });
 
-    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
     expect(
-      screen.getByText(
+      screen.queryByText(
+        /you are open to opportunities from this recruitment/i,
+      ),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/change your availability/i),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByText(/show this recruitment's skill assessments/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(3);
+    expect(buttons).toHaveLength(2);
   });
 
   it("PLACED_INDETERMINATE and UN-SUSPENDED", async () => {
