@@ -8,7 +8,6 @@
 
 - Comment out block of variables 'for mock oauth testing'
 - Uncomment block of variables 'for SiC testing'
-- Change `OAUTH_ACR_VALUES=gckeymfa` to `OAUTH_ACR_VALUES=gckey`
 - Add values for `OAUTH_API_CLIENT_ID` and `OAUTH_API_CLIENT_SECRET` (these can be obtained from @tristan-orourke)
 
 #### `apps/web/.env`
