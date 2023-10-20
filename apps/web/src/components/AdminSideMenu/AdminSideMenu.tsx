@@ -44,6 +44,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       roles: [
         ROLE_NAME.PoolOperator,
         ROLE_NAME.RequestResponder,
+        ROLE_NAME.CommunityManager,
         ROLE_NAME.PlatformAdmin,
       ],
       text: intl.formatMessage({
@@ -56,7 +57,11 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.CommunityManager,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.pools),
     },
     {
@@ -84,7 +89,11 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
-      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.CommunityManager,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.teams),
     },
     {

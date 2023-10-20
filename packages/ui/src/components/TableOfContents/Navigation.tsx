@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 type NavigationProps = React.HTMLProps<HTMLDivElement>;
 

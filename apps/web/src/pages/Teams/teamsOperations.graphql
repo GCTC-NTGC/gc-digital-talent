@@ -174,3 +174,26 @@ mutation CreateTeam($team: CreateTeamInput!) {
     id
   }
 }
+
+query AllUsersNames {
+  userPublicProfiles {
+    id
+    firstName
+    lastName
+  }
+}
+
+mutation UpdateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+  updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
+    roleAssignments {
+      role {
+        name
+      }
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
+  }
+}

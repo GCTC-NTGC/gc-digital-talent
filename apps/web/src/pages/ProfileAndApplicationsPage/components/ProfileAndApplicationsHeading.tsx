@@ -306,6 +306,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         >
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Personal and contact info",
               id: "b0fN+P",
@@ -319,6 +320,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work preferences",
               id: "Pf+PA/",
@@ -338,6 +340,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Diversity, equity, inclusion",
               id: "HAkMnl",
@@ -349,6 +352,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Government employee info",
               id: "ZsevjY",
@@ -364,6 +368,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Language profile",
               id: "Ji2C9w",
@@ -378,6 +383,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Account and privacy settings",
               id: "O+Lj1u",
@@ -402,6 +408,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
               id: "LOmX3T",
@@ -411,6 +418,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={BriefcaseIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Education and certificates",
               id: "PFoM2I",
@@ -420,6 +428,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={BookOpenIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Community participation",
               id: "Uy5Dg2",
@@ -429,6 +438,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={UsersIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Personal learning",
               id: "UDMUHH",
@@ -438,6 +448,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={LightBulbIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Awards and recognition",
               id: "mWnekb",
@@ -447,6 +458,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={StarIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Qualified recruitments",
               id: "2dpDPq",
@@ -474,6 +486,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             href={skillLibraryUrl}
           >
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Behavioural skill library",
                 id: "yzqnvb",
@@ -484,6 +497,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillLibraryUrl}#behavioural`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Technical skill library",
                 id: "FEK54g",
@@ -494,6 +508,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillLibraryUrl}#technical`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Top skills",
                 id: "deiylo",
@@ -503,6 +518,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillShowcaseUrl}#top-skills`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Skills to improve",
                 id: "FvbONe",

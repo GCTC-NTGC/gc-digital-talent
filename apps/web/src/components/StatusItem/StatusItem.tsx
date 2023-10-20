@@ -1,11 +1,13 @@
 import * as React from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 
 import { Link, IconType, ScrollToLink, Color } from "@gc-digital-talent/ui";
 
-export type Status = "error" | "success";
+export type Status = "error" | "success" | "warning";
 type StatusColor = "black" | Status;
+type Layout = "compact" | "hero";
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
   black: {
@@ -17,6 +19,19 @@ const iconColorMap: Record<StatusColor, Record<string, string>> = {
   success: {
     "data-h2-color": "base(success)",
   },
+  warning: {
+    "data-h2-color": "base(warning.dark)",
+  },
+};
+
+const layoutStyleMap: Record<Layout, Record<string, string>> = {
+  hero: {
+    "data-h2-border-top":
+      "base:selectors[:not(:first-child)](1px solid gray.lighter)",
+    "data-h2-margin-top": "base:selectors[:not(:first-child)](x.5)",
+    "data-h2-padding-top": "base:selectors[:not(:first-child)](x.5)",
+  },
+  compact: {},
 };
 
 // could be a regular link, a scroll link, or just a regular span
@@ -60,6 +75,7 @@ interface StatusItemProps {
   hiddenContextPrefix?: string;
   asListItem?: boolean;
   itemCount?: number;
+  layout?: Layout;
 }
 
 const StatusItem = ({
@@ -73,6 +89,7 @@ const StatusItem = ({
   hiddenContextPrefix,
   asListItem = true,
   itemCount,
+  layout = "compact",
 }: StatusItemProps) => {
   let Icon: IconType | null | undefined;
   switch (status) {
@@ -81,6 +98,9 @@ const StatusItem = ({
       break;
     case "success":
       Icon = CheckCircleIcon;
+      break;
+    case "warning":
+      Icon = ExclamationTriangleIcon;
       break;
     default:
       Icon = icon;
@@ -106,10 +126,9 @@ const StatusItem = ({
   return (
     <Wrapper
       data-h2-display="base(flex)"
-      data-h2-border-top="base:selectors[:not(:first-child)](1px solid gray.lighter)"
-      data-h2-margin-top="base:selectors[:not(:first-child)](x.5)"
-      data-h2-padding-top="base:selectors[:not(:first-child)](x.5)"
       data-h2-justify-content="base(space-between)"
+      data-h2-gap="base(x.15)"
+      {...layoutStyleMap[layout]}
     >
       <span
         data-h2-display="base(flex)"

@@ -20,7 +20,6 @@ import {
   isExpiredCombinedStatus,
   isInactiveCombinedStatus,
   isErrorCombinedStatus,
-  isHiredLongTermCombinedStatus,
   isSuspendedCombinedStatus,
 } from "~/utils/poolCandidateCombinedStatus";
 
@@ -113,7 +112,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isHiredLongTermCombinedStatus(combinedStatus)) {
+  if (isHiredCombinedStatus(combinedStatus)) {
     return {
       icon: null,
       color: {},
