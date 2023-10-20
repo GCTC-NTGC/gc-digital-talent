@@ -16,6 +16,8 @@ class UserSeederLocal extends Seeder
      */
     public function run()
     {
+        // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
+
         // collect roles and teams for assignment
         $roles = Role::all();
 
