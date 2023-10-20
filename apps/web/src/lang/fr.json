@@ -4384,10 +4384,6 @@
     "defaultMessage": "Trouver des talents",
     "description": "Link text for find talent (search) page"
   },
-  "NLX/aa": {
-    "defaultMessage": "Supprimer {label}",
-    "description": "Label for link to delete a specific item in a table"
-  },
   "NNosUu": {
     "defaultMessage": "Explorer les emplois",
     "description": "Link text for manager jobs in government call to action"
