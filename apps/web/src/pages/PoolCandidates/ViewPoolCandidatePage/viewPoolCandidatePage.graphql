@@ -10,6 +10,7 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
         status
         expiryDate
         notes
+        suspendedAt
         user {
           id
         }

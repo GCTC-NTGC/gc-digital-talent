@@ -55,7 +55,7 @@ function buildLink(
   color?: LinkProps["color"],
 ): React.ReactElement {
   return (
-    <Link href={href} color={color}>
+    <Link href={href} fontSize="h4" mode="text" color={color}>
       {chunks}
     </Link>
   );
@@ -64,9 +64,10 @@ function buildScrollToLink(
   to: string,
   chunks: React.ReactNode,
   color?: ScrollToLinkProps["color"],
+  fontSize?: ScrollToLinkProps["fontSize"],
 ): React.ReactElement {
   return (
-    <ScrollToLink to={to} color={color}>
+    <ScrollToLink to={to} mode="text" color={color} fontSize={fontSize}>
       {chunks}
     </ScrollToLink>
   );
@@ -147,8 +148,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       subtitle={intl.formatMessage(
         {
           defaultMessage:
-            "Manage your <a1>profile</a1>, <a2>career timeline</a2>, <a3>skills</a3>, and <a4>track applications</a4>.",
-          id: "zTJ2DT",
+            "Manage your <a1>personal information</a1>, <a2>career timeline</a2>, <a3>skills</a3>, and <a4>track applications</a4>.",
+          id: "KCaMch",
           description: "Subtitle for profile and applications hero",
         },
         {
@@ -163,7 +164,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           a3: (chunks: React.ReactNode) =>
             buildLink(paths.skillLibrary(), chunks, "white"),
           a4: (chunks: React.ReactNode) =>
-            buildScrollToLink("track-applications-section", chunks, "white"),
+            buildScrollToLink(
+              "track-applications-section",
+              chunks,
+              "white",
+              "h4",
+            ),
         },
       )}
     >
@@ -292,14 +298,15 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           asNav
           color="secondary"
           title={intl.formatMessage({
-            defaultMessage: "Profile information",
-            id: "zd/ve4",
+            defaultMessage: "Personal information",
+            id: "cA0iH+",
             description: "Profile and applications card title for profile card",
           })}
           href={paths.profile(user.id)}
         >
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Personal and contact info",
               id: "b0fN+P",
@@ -313,6 +320,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work preferences",
               id: "Pf+PA/",
@@ -332,6 +340,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Diversity, equity, inclusion",
               id: "HAkMnl",
@@ -343,6 +352,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Government employee info",
               id: "ZsevjY",
@@ -358,6 +368,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
 
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Language profile",
               id: "Ji2C9w",
@@ -372,6 +383,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             asListItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Account and privacy settings",
               id: "O+Lj1u",
@@ -388,14 +400,15 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="tertiary"
           title={intl.formatMessage({
-            defaultMessage: "Career timeline and recruitments",
-            id: "BYxqL/",
+            defaultMessage: "Career timeline",
+            id: "sdvCNP",
             description:
               "Profile and applications card title for career timeline card",
           })}
           href={paths.careerTimelineAndRecruitment(user.id)}
         >
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
               id: "LOmX3T",
@@ -405,6 +418,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={BriefcaseIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Education and certificates",
               id: "PFoM2I",
@@ -414,6 +428,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={BookOpenIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Community participation",
               id: "Uy5Dg2",
@@ -423,6 +438,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={UsersIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Personal learning",
               id: "UDMUHH",
@@ -432,6 +448,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={LightBulbIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Awards and recognition",
               id: "mWnekb",
@@ -441,6 +458,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             icon={StarIcon}
           />
           <StatusItem
+            layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Qualified recruitments",
               id: "2dpDPq",
@@ -461,13 +479,14 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <HeroCard
             color="quaternary"
             title={intl.formatMessage({
-              defaultMessage: "Skill showcase",
-              id: "OXyqf7",
-              description: "applicant dashboard card title for skill showcase",
+              defaultMessage: "Skill library",
+              id: "iWzkOn",
+              description: "applicant dashboard card title for skill library",
             })}
-            href={skillShowcaseUrl}
+            href={skillLibraryUrl}
           >
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Behavioural skill library",
                 id: "yzqnvb",
@@ -478,6 +497,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillLibraryUrl}#behavioural`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Technical skill library",
                 id: "FEK54g",
@@ -488,6 +508,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillLibraryUrl}#technical`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Top skills",
                 id: "deiylo",
@@ -497,6 +518,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               href={`${skillShowcaseUrl}#top-skills`}
             />
             <StatusItem
+              layout="hero"
               title={intl.formatMessage({
                 defaultMessage: "Skills to improve",
                 id: "FvbONe",

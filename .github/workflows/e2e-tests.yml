@@ -65,7 +65,7 @@ jobs:
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v6.5.0
         with:
-          spec: "**/*.cy.js"
+          spec: "**/*.cy.ts"
           browser: electron
           config-file: cypress.config.ts
           project: ./apps/e2e

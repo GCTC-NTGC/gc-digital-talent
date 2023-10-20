@@ -1,3 +1,5 @@
+import "./mocks/drag";
+import "./mocks/clipboard";
 import "./mocks/matchMeta";
 
 import Providers from "./components/Providers";

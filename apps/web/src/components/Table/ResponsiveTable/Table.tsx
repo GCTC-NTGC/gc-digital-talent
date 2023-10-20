@@ -116,26 +116,33 @@ type HeadCellProps<T> = {
   header: Header<T, unknown>;
 } & CellHTMLProps;
 
-const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => (
-  <th
-    role="columnheader"
-    data-h2-background-color="base(black)"
-    data-h2-color="base(white)"
-    data-h2-display="base(none) l-tablet(table-cell)"
-    data-h2-font-size="base(caption)"
-    data-h2-vertical-align="base(middle)"
-    data-h2-font-weight="base(400)"
-    data-h2-min-width="base(x8)"
-    {...styles.cell}
-    {...rest}
-  >
-    {header.isPlaceholder ? null : (
-      <SortButton column={header.column}>
-        {flexRender(header.column.columnDef.header, header.getContext())}
-      </SortButton>
-    )}
-  </th>
-);
+const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
+  const isRowSelect = header.column.columnDef.meta?.isRowSelect;
+  const shouldShrink = header.column.columnDef.meta?.shrink;
+  return (
+    <th
+      role="columnheader"
+      data-h2-background-color="base(black)"
+      data-h2-color="base(white)"
+      data-h2-display="base(none) l-tablet(table-cell)"
+      data-h2-font-size="base(caption)"
+      data-h2-vertical-align="base(middle)"
+      data-h2-font-weight="base(400)"
+      {...(!isRowSelect &&
+        !shouldShrink && {
+          "data-h2-min-width": "base(x8)",
+        })}
+      {...styles.cell}
+      {...rest}
+    >
+      {header.isPlaceholder ? null : (
+        <SortButton column={header.column}>
+          {flexRender(header.column.columnDef.header, header.getContext())}
+        </SortButton>
+      )}
+    </th>
+  );
+};
 
 type CellProps<T> = {
   cell: Cell<T, unknown>;
@@ -145,9 +152,11 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   const intl = useIntl();
   const isRowTitle = cell.column.columnDef.meta?.isRowTitle;
   const isRowSelect = cell.column.columnDef.meta?.isRowSelect;
+  const shouldShrink = cell.column.columnDef.meta?.shrink;
   const cellStyles = getCellStyles({
     isRowTitle,
     isRowSelect,
+    shouldShrink,
   });
   const header = getColumnHeader(cell.column, "mobileHeader");
 

@@ -140,6 +140,27 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             ]}
           />
         )}
+        {hasRole("community_manager", roleAssignments) && (
+          <LinkWell
+            title={intl.formatMessage({
+              defaultMessage: "Publishing pools and managing teams",
+              id: "B29+yd",
+              description: "Heading for Community Manager dashboard links",
+            })}
+            links={[
+              {
+                label: intl.formatMessage(adminMessages.pools),
+                href: adminRoutes.poolTable(),
+                icon: Squares2X2Icon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.teams),
+                href: adminRoutes.teamTable(),
+                icon: BuildingOffice2Icon,
+              },
+            ]}
+          />
+        )}
         {hasRole("platform_admin", roleAssignments) && (
           <LinkWell
             title={intl.formatMessage({

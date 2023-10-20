@@ -115,6 +115,10 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2KDa14": {
+    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
+    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
+  },
   "2Ka1oj": {
     "defaultMessage": "Très secret",
     "description": "Top secret security clearance"
@@ -414,6 +418,10 @@
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
   },
+  "E6JTyY": {
+    "defaultMessage": "Autre",
+    "description": "The selection to choose when the expected option is not available"
+  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -421,6 +429,10 @@
   "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing"
+  },
+  "ErrpJC": {
+    "defaultMessage": "Chargement...",
+    "description": "Text for a component which can't be rendered yet because a data load is in progress."
   },
   "F6j96P": {
     "defaultMessage": "Refaire",
@@ -497,10 +509,6 @@
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
-  },
-  "Icl1fF": {
-    "defaultMessage": "Parcours professionnel et recrutement",
-    "description": "Name of Career timeline and recruitment page"
   },
   "Ij1cFC": {
     "defaultMessage": "Contributeur individuel",
@@ -834,6 +842,10 @@
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
   },
+  "TUfJUD": {
+    "defaultMessage": "Parcours professionnel",
+    "description": "Name of Career timeline page"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -1165,6 +1177,10 @@
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
+  },
+  "hd7hdn": {
+    "defaultMessage": "avertissement",
+    "description": "Message for the warning status"
   },
   "i3Jl6C": {
     "defaultMessage": " : ",

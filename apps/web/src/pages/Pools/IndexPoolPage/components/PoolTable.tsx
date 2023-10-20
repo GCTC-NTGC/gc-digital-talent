@@ -238,7 +238,8 @@ const PoolTableApi = ({ title }: { title: string }) => {
   const pools = unpackMaybes(data?.pools).filter((pool) => {
     if (
       hasRole(ROLE_NAME.PlatformAdmin, roleAssignments) ||
-      hasRole(ROLE_NAME.RequestResponder, roleAssignments)
+      hasRole(ROLE_NAME.RequestResponder, roleAssignments) ||
+      hasRole(ROLE_NAME.CommunityManager, roleAssignments)
     ) {
       return true;
     }

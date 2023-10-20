@@ -1,7 +1,7 @@
 import AnchorLink, {
   type AnchorLinkProps as TocAnchorLinkProps,
 } from "./AnchorLink";
-import Content from "./Content";
+import Content from "../Sidebar/Content";
 import Heading, { type HeadingProps as TocHeadingProps } from "./Heading";
 import List, {
   ListItem,
@@ -10,8 +10,10 @@ import List, {
 } from "./List";
 import Navigation from "./Navigation";
 import Section, { type SectionProps as TocSectionProps } from "./Section";
-import Sidebar, { type SidebarProps as TocSidebarProps } from "./Sidebar";
-import Wrapper from "./Wrapper";
+import Sidebar, {
+  type SidebarProps as TocSidebarProps,
+} from "../Sidebar/Sidebar";
+import Wrapper from "../Sidebar/Wrapper";
 
 const TableOfContents = {
   AnchorLink,

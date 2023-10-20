@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import Sidebar from "./Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
 type NavigationProps = React.HTMLProps<HTMLDivElement>;
 
@@ -27,7 +27,12 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
         {intl.formatMessage(uiMessages.onThisPage)}
         {intl.formatMessage(commonMessages.dividingColon)}
       </h2>
-      <nav aria-labelledby={`toc-heading-${id}`}>{children}</nav>
+      <nav
+        aria-labelledby={`toc-heading-${id}`}
+        data-h2-text-align="base:children[>button, >a](center)"
+      >
+        {children}
+      </nav>
     </Sidebar>
   );
 };

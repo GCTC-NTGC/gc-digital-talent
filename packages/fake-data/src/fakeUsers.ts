@@ -10,13 +10,11 @@ import {
   EstimatedLanguageAbility,
   Classification,
   OperationalRequirement,
-  Pool,
   WorkRegion,
   GovEmployeeType,
   Department,
   CitizenshipStatus,
   ArmedForcesStatus,
-  GenericJobTitle,
   PositionDuration,
   IndigenousCommunity,
   Maybe,
@@ -31,7 +29,6 @@ import {
 } from "./fakeExperiences";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
-import fakeGenericJobTitles from "./fakeGenericJobTitles";
 import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 
 type GeneratedUser = User & {
@@ -51,7 +48,6 @@ type GeneratedUser = User & {
 const generateUser = (
   departments: Department[],
   classifications: Classification[], // all classifications
-  genericJobTitles: GenericJobTitle[], // all generic job titles
 
   awardExperiences: GeneratedAwardExperience[], // Experiences belonging to this user
   communityExperiences: GeneratedCommunityExperience[], // Experiences belonging to this user
@@ -60,7 +56,6 @@ const generateUser = (
   workExperiences: GeneratedWorkExperience[], // Experiences belonging to this user
 
   poolCandidates: GeneratedPoolCandidate[] = [], // poolCandidates associating this user with a pool
-  pools: Pool[] = [], // pools owned by this user
 ): GeneratedUser => {
   return {
     __typename: "User",
@@ -173,8 +168,6 @@ const generateUser = (
     educationExperiences,
     personalExperiences,
     workExperiences,
-
-    pools,
   };
 };
 
@@ -182,7 +175,6 @@ const generateUser = (
 const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
-  const genericJobTitles = fakeGenericJobTitles();
 
   const awardExperiences: GeneratedAwardExperience[] = [];
   const communityExperiences: GeneratedCommunityExperience[] = [];
@@ -195,7 +187,6 @@ const defaultGenerator = (numToGenerate = 20): GeneratedUser[] => {
     generateUser(
       departments,
       classifications,
-      genericJobTitles,
       awardExperiences,
       communityExperiences,
       educationExperiences,

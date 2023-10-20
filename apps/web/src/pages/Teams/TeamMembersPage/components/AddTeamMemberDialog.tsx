@@ -17,8 +17,8 @@ import {
 import {
   Role,
   Team,
-  User,
-  useUpdateUserAsAdminMutation,
+  UserPublicProfile,
+  useUpdateUserTeamRolesMutation,
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -27,7 +27,7 @@ import { getTeamBasedRoleOptions } from "./utils";
 
 interface AddTeamMemberDialogProps {
   team: Team;
-  availableUsers: Array<User>;
+  availableUsers: Array<UserPublicProfile> | null;
   availableRoles: Array<Role>;
 }
 
@@ -38,14 +38,14 @@ const AddTeamMemberDialog = ({
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const [, executeMutation] = useUpdateUserTeamRolesMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
-      user: "",
-      team: team.id,
-      teamDisplay: team.id,
+      userId: "",
+      teamId: team.id,
+      teamDisplay: team.id, // This form field will be disabled and only used for display purposes.
       roles: [],
     },
   });
@@ -57,12 +57,12 @@ AddTeamMemberDialogProps) => {
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
     await executeMutation({
-      id: formValues.user,
-      user: {
-        roleAssignmentsInput: {
+      teamRoleAssignments: {
+        userId: formValues.userId,
+        teamId: formValues.teamId,
+        roleAssignments: {
           attach: {
             roles: formValues.roles,
-            team: formValues.team,
           },
         },
       },
@@ -93,7 +93,7 @@ AddTeamMemberDialogProps) => {
   };
 
   const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
-  const userOptions = availableUsers.map((user) => ({
+  const userOptions = availableUsers?.map((user) => ({
     value: user.id,
     label: getFullNameLabel(user.firstName, user.lastName, intl),
   }));
@@ -103,6 +103,8 @@ AddTeamMemberDialogProps) => {
     id: "+e2nr6",
     description: "Label for the add member to team form",
   });
+
+  const fetchingUsers = availableUsers === null;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -131,11 +133,14 @@ AddTeamMemberDialogProps) => {
                 data-h2-gap="base(x1 0)"
               >
                 <Select
-                  id="user"
-                  name="user"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
+                  id="userId"
+                  name="userId"
+                  nullSelection={
+                    fetchingUsers
+                      ? intl.formatMessage(commonMessages.loading)
+                      : intl.formatMessage(uiMessages.nullSelectionOption)
+                  }
+                  disabled={fetchingUsers}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -145,10 +150,10 @@ AddTeamMemberDialogProps) => {
                     description:
                       "Label for the user select field on team membership form",
                   })}
-                  options={userOptions}
+                  options={userOptions ?? []}
                 />
                 {/** Note: Only one option since we are adding to this team's users */}
-                <input type="hidden" name="team" value={team.id} />
+                <input type="hidden" name="teamId" value={team.id} />
                 <Select
                   id="teamDisplay"
                   name="teamDisplay"

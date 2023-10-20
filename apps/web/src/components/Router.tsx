@@ -69,14 +69,6 @@ const AccessibilityPage = React.lazy(() =>
       ),
   ),
 );
-const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
-);
 
 /** Search */
 const SearchPage = React.lazy(() =>
@@ -709,6 +701,24 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
+/** Directive on Digital Talent */
+const DirectivePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
+      ),
+  ),
+);
+const DigitalServicesContractingQuestionnaire = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
+      ),
+  ),
+);
+
 const createRoute = (
   locale: Locales,
   loginPath: string,
@@ -750,7 +760,23 @@ const createRoute = (
             },
             {
               path: "directive-on-digital-talent",
-              element: <DirectivePage />,
+              children: [
+                {
+                  index: true,
+                  element: <DirectivePage />,
+                },
+                {
+                  path: "digital-services-contracting-questionnaire",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <DigitalServicesContractingQuestionnaire />
+                    </RequireAuth>
+                  ),
+                },
+              ],
             },
             {
               path: "search",
@@ -956,7 +982,7 @@ const createRoute = (
                   path: ":userId",
                   children: [
                     {
-                      path: "profile",
+                      path: "personal-information",
                       children: [
                         {
                           index: true,
@@ -970,7 +996,7 @@ const createRoute = (
                           ),
                         },
                         {
-                          path: "career-timeline-and-recruitment",
+                          path: "career-timeline",
                           children: [
                             {
                               index: true,
@@ -1193,6 +1219,7 @@ const createRoute = (
                   roles={[
                     ROLE_NAME.PoolOperator,
                     ROLE_NAME.RequestResponder,
+                    ROLE_NAME.CommunityManager,
                     ROLE_NAME.PlatformAdmin,
                   ]}
                   loginPath={loginPath}
@@ -1297,7 +1324,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1308,7 +1339,10 @@ const createRoute = (
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <CreateTeamPage />
@@ -1319,7 +1353,11 @@ const createRoute = (
                   path: ":teamId",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <TeamLayout />
@@ -1332,6 +1370,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1344,7 +1383,10 @@ const createRoute = (
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
+                          roles={[
+                            ROLE_NAME.CommunityManager,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UpdateTeamPage />
@@ -1357,6 +1399,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1376,7 +1419,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1401,6 +1448,7 @@ const createRoute = (
                       roles={[
                         ROLE_NAME.PoolOperator,
                         ROLE_NAME.RequestResponder,
+                        ROLE_NAME.CommunityManager,
                         ROLE_NAME.PlatformAdmin,
                       ]}
                       loginPath={loginPath}
@@ -1416,6 +1464,7 @@ const createRoute = (
                           roles={[
                             ROLE_NAME.PoolOperator,
                             ROLE_NAME.RequestResponder,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1430,6 +1479,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}

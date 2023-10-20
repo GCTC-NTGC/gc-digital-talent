@@ -145,3 +145,18 @@ export function groupBy<
     {} as Record<RetType, T[]>,
   );
 }
+
+/**
+ * A small function to assert that code execution should never
+ * reach this location. Handy for generate compile-time errors
+ * for non-exhaustive switch statements.
+ *
+ * Copied from https://stackoverflow.com/a/39419171
+ *
+ * @param x Not used, but important that it is typed _never_
+ */
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function assertUnreachable(x: never): never {
+  throw new Error("Didn't expect to be reachable.");
+}

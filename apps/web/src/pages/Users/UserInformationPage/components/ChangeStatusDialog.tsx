@@ -170,12 +170,21 @@ const ChangeStatusDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {intl.formatMessage({
-              defaultMessage: "Change status",
-              id: "bl7pCx",
-              description:
-                "Button to change a users status in a pool - located in the table on view-user page",
-            })}
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "{status} <hidden>Change status for {poolName}</hidden>",
+                id: "QJPsGW",
+                description:
+                  "Button to change a users status in a pool - located in the table on view-user page",
+              },
+              {
+                status: intl.formatMessage(
+                  getPoolCandidateStatus(selectedCandidate.status as string),
+                ),
+                poolName: getFullPoolTitleLabel(intl, selectedCandidate?.pool),
+              },
+            )}
           </span>
         </Button>
       </Dialog.Trigger>

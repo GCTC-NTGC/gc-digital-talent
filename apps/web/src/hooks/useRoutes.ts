@@ -34,8 +34,8 @@ const getRoutes = (lang: Locales) => {
   const createExperienceUrl = (userId: string) =>
     `${path.join(
       userUrl(userId),
-      "profile",
-      "career-timeline-and-recruitment",
+      "personal-information",
+      "career-timeline",
       "create",
     )}`;
 
@@ -54,7 +54,6 @@ const getRoutes = (lang: Locales) => {
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
-    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
 
@@ -236,7 +235,7 @@ const getRoutes = (lang: Locales) => {
     // Profile Routes
     profile: (userId: string, section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(userUrl(userId), "profile") + fragment;
+      return path.join(userUrl(userId), "personal-information") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
 
@@ -250,8 +249,8 @@ const getRoutes = (lang: Locales) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
       return `${path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
       )}${fragment}`;
     },
     editExperience: (
@@ -261,8 +260,8 @@ const getRoutes = (lang: Locales) => {
     ) =>
       path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
         experienceId,
         "edit",
       ),
@@ -299,6 +298,15 @@ const getRoutes = (lang: Locales) => {
       path.join(showcase, "3-behavioural-skills-to-improve"),
     improveTechnicalSkills: () =>
       path.join(showcase, "5-technical-skills-to-train"),
+
+    // Directive on digital talent
+    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
+    digitalServicesContractingQuestionnaire: () =>
+      path.join(
+        baseUrl,
+        "directive-on-digital-talent",
+        "digital-services-contracting-questionnaire",
+      ),
 
     /**
      * Deprecated
