@@ -24,7 +24,7 @@
 3. Sign in or Sign up for an account
 4. Start your account at the [Welcome to GC Digital Talent](http://localhost:8000/en/create-account) page
 5. Copy the email address entered on the Welcome to GC Digital Talent page form for later
-6. Run `php artisan tinker`
+6. Run `php artisan tinker` in `/api` directory
 7. Run the following code block in tinker to add `base_user`, `applicant`, and `platform_admin` roles to the user previously created (replace *username@domain.tld* with email previously copied in step 5)
 
 ```
