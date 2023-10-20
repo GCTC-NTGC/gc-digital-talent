@@ -30,6 +30,7 @@
 ```
 $user = User::where('email', 'username@domain.tld')->sole();
 $roles = ['base_user', 'applicant', 'platform_admin'];
-$user->attachRoles($roles)
+$user->attachRoles($roles);
 $user->syncRoles($roles);
+$user->roles()->get()->pluck('name');
 ```
