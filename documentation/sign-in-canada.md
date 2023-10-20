@@ -9,12 +9,12 @@
 - Comment out block of variables 'for mock oauth testing'
 - Uncomment block of variables 'for SiC testing'
 - Add values for `OAUTH_API_CLIENT_ID` and `OAUTH_API_CLIENT_SECRET` (these can be obtained from @tristan-orourke)
+- Change `OAUTH_ACR_VALUES=gckeymfa` to `OAUTH_ACR_VALUES=gckey`
 
 #### `apps/web/.env`
 
 - Comment out block of variables 'Mock auth endpoint'
 - Uncomment block of variables 'SiC endpoint (will break e2e tests)'
-- Change `OAUTH_ACR_VALUES=gckeymfa` to `OAUTH_ACR_VALUES=gckey`
 - Run `npm run dev` to update config values
 
 ### Account creation
