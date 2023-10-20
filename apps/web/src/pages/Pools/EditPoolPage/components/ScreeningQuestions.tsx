@@ -67,7 +67,7 @@ const ScreeningQuestions = ({
   const defaultValues = dataToFormValues(pool);
 
   const methods = useForm<FormValues>({
-    defaultValues,
+    values: defaultValues,
   });
   const { handleSubmit, control } = methods;
   const { remove, move, append, fields } = useFieldArray({

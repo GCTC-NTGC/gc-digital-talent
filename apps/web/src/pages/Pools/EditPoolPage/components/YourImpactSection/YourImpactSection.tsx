@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
+import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -36,7 +36,6 @@ type YourImpactSectionProps = SectionProps<YourImpactSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
-const TEXT_AREA_ROWS = 15;
 
 const YourImpactSection = ({
   pool,
@@ -131,7 +130,7 @@ const YourImpactSection = ({
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
                 data-h2-margin="base(x1 0)"
               >
-                <TextArea
+                <RichTextInput
                   id="yourImpactEn"
                   label={intl.formatMessage({
                     defaultMessage: "English - Your impact",
@@ -141,10 +140,9 @@ const YourImpactSection = ({
                   })}
                   name="yourImpactEn"
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                  rows={TEXT_AREA_ROWS}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
-                <TextArea
+                <RichTextInput
                   id="yourImpactFr"
                   label={intl.formatMessage({
                     defaultMessage: "French - Your impact",
@@ -154,11 +152,9 @@ const YourImpactSection = ({
                   })}
                   name="yourImpactFr"
                   {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                  rows={TEXT_AREA_ROWS}
-                  disabled={formDisabled}
+                  readOnly={formDisabled}
                 />
               </div>
-
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit

@@ -15,7 +15,9 @@ import {
   NotFound,
   Pending,
   Separator,
+  Sidebar,
 } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -29,6 +31,7 @@ import SEO from "~/components/SEO/SEO";
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
 import { getAssessmentPlanStatusPill } from "./utils";
+import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
 const pageTitle = {
   defaultMessage: "Assessment plan",
@@ -56,7 +59,7 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
         title={intl.formatMessage(pageTitle)}
         description={intl.formatMessage(pageSubtitle)}
       />
-      <div data-h2-container="base(left, large, 0)">
+      <div data-h2-container="base(center, full, 0)">
         <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
           {intl.formatMessage(pageTitle)}
           <div data-h2-flex-grow="base(2)" />
@@ -69,37 +72,49 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
           data-h2-background-color="base(gray.lighter)"
           data-h2-margin="base(x1 0)"
         />
-        <OrganizeSection pool={pool} />
-        <SkillSummarySection pool={pool} />
-        <Separator
-          orientation="horizontal"
-          decorative
-          data-h2-background-color="base(gray.lighter)"
-          data-h2-margin="base(x1 0)"
-        />
-        <div
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x.5, x1)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-align-items="base(flex-start) l-tablet(center)"
-        >
-          {/* TODO: switch to submit button */}
-          {intl.formatMessage({
-            defaultMessage: "Save plan and go back",
-            id: "Rbp02p",
-            description:
-              "Text on a button to save the assessment plan and return to the pool page",
-          })}
-          <Link
-            type="button"
-            mode="inline"
-            color="primary"
-            href={routes.poolView(pool.id)}
-          >
-            {intl.formatMessage(formMessages.cancelGoBack)}
-          </Link>
-        </div>
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar>
+            <div data-h2-margin-top="base(x1.5)">
+              <SkillsQuickSummary
+                poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+                assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
+              />
+            </div>
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            <OrganizeSection pool={pool} />
+            <SkillSummarySection pool={pool} />
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base(gray.lighter)"
+              data-h2-margin="base(x1 0)"
+            />
+            <div
+              data-h2-display="base(flex)"
+              data-h2-gap="base(x.5, x1)"
+              data-h2-flex-wrap="base(wrap)"
+              data-h2-flex-direction="base(column) l-tablet(row)"
+              data-h2-align-items="base(flex-start) l-tablet(center)"
+            >
+              {/* TODO: switch to submit button */}
+              {intl.formatMessage({
+                defaultMessage: "Save plan and go back",
+                id: "Rbp02p",
+                description:
+                  "Text on a button to save the assessment plan and return to the pool page",
+              })}
+              <Link
+                type="button"
+                mode="inline"
+                color="primary"
+                href={routes.poolView(pool.id)}
+              >
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Link>
+            </div>
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
       </div>
     </>
   );

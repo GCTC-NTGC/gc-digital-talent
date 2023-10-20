@@ -229,7 +229,6 @@ type User {
   topBehaviouralSkillsRanking: [UserSkill]
   improveTechnicalSkillsRanking: [UserSkill]
   improveBehaviouralSkillsRanking: [UserSkill]
-  pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]

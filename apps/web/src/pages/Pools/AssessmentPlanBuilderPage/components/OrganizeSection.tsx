@@ -7,6 +7,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
+import { PAGE_SECTION_ID } from "../navigation";
 
 const MAX_ASSESSMENT_STEPS = 6;
 
@@ -24,7 +25,9 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const intl = useIntl();
   return (
     <>
-      <Heading level="h3">{intl.formatMessage(sectionTitle)}</Heading>
+      <Heading level="h3" id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}>
+        {intl.formatMessage(sectionTitle)}
+      </Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:

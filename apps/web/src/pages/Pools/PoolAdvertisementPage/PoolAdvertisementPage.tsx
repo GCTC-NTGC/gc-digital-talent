@@ -33,6 +33,7 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import {
   PoolStatus,
@@ -459,7 +460,11 @@ export const PoolPoster = ({
                           "Heading for a special note in pool advertisement.",
                       })}
                     </Alert.Title>
-                    <p>{getLocalizedName(pool.specialNote, intl)}</p>
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.specialNote, intl),
+                      )}
+                    />
                   </Alert.Root>
                 </div>
               </TableOfContents.Section>
@@ -469,7 +474,15 @@ export const PoolPoster = ({
                 <TableOfContents.Heading>
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
-                {pool.yourImpact && <Text>{pool.yourImpact[locale]}</Text>}
+                {pool.yourImpact && (
+                  <div data-h2-margin-top="base(x1)">
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.yourImpact, intl),
+                      )}
+                    />
+                  </div>
+                )}
                 {pool.keyTasks && (
                   <>
                     <Heading level="h3" size="h4">
@@ -480,7 +493,13 @@ export const PoolPoster = ({
                           "Title for key tasks on a pool advertisement.",
                       })}
                     </Heading>
-                    <Text>{pool.keyTasks[locale]}</Text>
+                    <div data-h2-margin-top="base(x1)">
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.keyTasks, intl),
+                        )}
+                      />
+                    </div>
                   </>
                 )}
               </TableOfContents.Section>
@@ -757,7 +776,13 @@ export const PoolPoster = ({
                 <TableOfContents.Heading>
                   {sections.whatToExpect.title}
                 </TableOfContents.Heading>
-                <Text>{getLocalizedName(pool.whatToExpect, intl)}</Text>
+                <div data-h2-margin-top="base(x1)">
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.whatToExpect, intl),
+                    )}
+                  />
+                </div>
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>

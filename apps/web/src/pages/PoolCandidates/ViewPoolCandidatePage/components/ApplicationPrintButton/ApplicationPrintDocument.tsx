@@ -321,8 +321,8 @@ const ApplicationPrintDocument = React.forwardRef<
             </BreakingPageSection>
             <Heading level="h2" data-h2-font-weight="base(700)">
               {intl.formatMessage({
-                defaultMessage: "Profile information",
-                id: "zd/ve4",
+                defaultMessage: "Personal information",
+                id: "cA0iH+",
                 description:
                   "Profile and applications card title for profile card",
               })}
