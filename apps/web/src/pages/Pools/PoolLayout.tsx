@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
@@ -10,6 +11,8 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
 import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
+
+import useRequiredParams from "../../hooks/useRequiredParams";
 
 interface PoolHeaderProps {
   pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
@@ -37,11 +40,15 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
   );
 };
 
+type RouteParams = {
+  poolId: string;
+};
+
 const PoolLayout = () => {
-  const { poolId } = useParams();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
     variables: {
-      poolId: poolId || "",
+      poolId,
     },
   });
 

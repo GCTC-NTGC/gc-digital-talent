@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext } from "urql";
@@ -28,6 +28,7 @@ import {
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -267,11 +268,11 @@ type RouteParams = {
 const UpdateUserPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { userId } = useParams<RouteParams>();
+  const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
   const [{ data: userData, fetching, error }] = useUserQuery({
-    variables: { id: userId || "" },
+    variables: { id: userId },
     context,
   });
 

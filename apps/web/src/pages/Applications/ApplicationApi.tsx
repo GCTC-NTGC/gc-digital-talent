@@ -1,9 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
 import { PoolCandidate, useGetApplicationQuery } from "~/api/generated";
+import useRequiredParams from "~/hooks/useRequiredParams";
+
+import useApplicationId from "./useApplicationId";
 
 export type ApplicationPageProps = {
   application: PoolCandidate;
@@ -14,11 +16,11 @@ interface ApplicationApiProps {
 }
 
 const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [{ data, fetching, error, stale }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
-      id: applicationId || "",
+      id,
     },
   });
 

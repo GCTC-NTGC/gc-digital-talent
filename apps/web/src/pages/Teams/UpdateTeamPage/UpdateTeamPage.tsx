@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -15,19 +14,24 @@ import {
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
+type RouteParams = {
+  teamId: string;
+};
+
 const EditTeamPage = () => {
   const intl = useIntl();
-  const { teamId } = useParams();
+  const { teamId } = useRequiredParams<RouteParams>("teamId");
   const routes = useRoutes();
   const [{ data: teamData, fetching: teamFetching, error: teamError }] =
     useGetTeamQuery({
       variables: {
-        teamId: teamId || "",
+        teamId,
       },
     });
   const [

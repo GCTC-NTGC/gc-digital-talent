@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
@@ -10,6 +9,7 @@ import { User, Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
@@ -54,7 +54,7 @@ type RouteParams = {
 };
 
 const AdminUserProfilePage = () => {
-  const { userId } = useParams<RouteParams>();
+  const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
   const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({

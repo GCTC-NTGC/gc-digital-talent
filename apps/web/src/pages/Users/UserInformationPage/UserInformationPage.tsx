@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
@@ -13,6 +12,7 @@ import SEO from "~/components/SEO/SEO";
 import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
@@ -108,11 +108,11 @@ type RouteParams = {
 };
 
 const UserInformationPage = () => {
-  const { userId } = useParams<RouteParams>();
+  const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
   const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
-    variables: { id: userId || "" },
+    variables: { id: userId },
   });
 
   const user = lookupData?.user;

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { Pending, NotFound, Link, Heading, Pill } from "@gc-digital-talent/ui";
@@ -21,6 +20,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
@@ -402,10 +402,10 @@ type RouteParams = {
 const ViewPoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const { isFetching, mutations } = usePoolMutations();
   const [{ data, fetching, error }] = useGetProcessInfoQuery({
-    variables: { id: poolId || "" },
+    variables: { id: poolId },
   });
 
   const navigationCrumbs = [

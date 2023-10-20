@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
@@ -10,6 +10,7 @@ import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useUserNameQuery } from "~/api/generated";
@@ -104,8 +105,12 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   );
 };
 
+type RouteParams = {
+  userId: string;
+};
+
 const UserLayout = () => {
-  const { userId } = useParams();
+  const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data, fetching, error }] = useUserNameQuery({
     variables: {
       userId: userId || "",
