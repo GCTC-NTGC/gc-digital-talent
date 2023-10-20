@@ -3,6 +3,8 @@ type GetCellStyleArgs = {
   isRowTitle?: boolean;
   /** Determine if this cell is the selection cell  */
   isRowSelect?: boolean;
+  /** Determine if this cell should shrink below the min width of x8  */
+  shouldShrink?: boolean;
 };
 
 type CellStyles = {
@@ -20,25 +22,28 @@ type GetCellStyles = (args: GetCellStyleArgs) => CellStyles;
  * Creates the style attributes for cells changing for
  * row titles (mobile) and row selection columns
  */
-export const getCellStyles: GetCellStyles = ({ isRowTitle, isRowSelect }) => {
+export const getCellStyles: GetCellStyles = ({
+  isRowTitle,
+  isRowSelect,
+  shouldShrink,
+}) => {
+  const shrinkCol = shouldShrink || isRowSelect;
   return {
     td: {
-      ...(!isRowTitle && !isRowSelect
-        ? {
-            // Not a title or selection
-            "data-h2-display": "base(block) l-tablet(table-cell)",
-            // "data-h2-grid-template-columns": "base(6rem auto)",
-            // "data-h2-gap": "base(x.5 x.25) l-tablet(0)",
-            "data-h2-width": "base(100%) l-tablet(auto)",
-            "data-h2-order": "base(3)",
-          }
-        : {
-            "data-h2-width": "base(auto)",
-          }),
+      ...(!isRowTitle &&
+        !isRowSelect && {
+          // Not a title or selection
+          "data-h2-display": "base(block) l-tablet(table-cell)",
+          "data-h2-order": "base(3)",
+        }),
+
+      ...(shrinkCol && {
+        "data-h2-flex-shrink": "base(0)",
+        "data-h2-width": "base(auto)",
+      }),
 
       // Custom styles for row selection cell
       ...(isRowSelect && {
-        "data-h2-flex-shrink": "base(0)",
         "data-h2-order": "base(2)",
       }),
 
