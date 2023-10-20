@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
+import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
@@ -25,18 +25,18 @@ const RemoveTeamMemberDialog = ({
   team,
 }: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [{ fetching }, executeMutation] = useUpdateUserAsAdminMutation();
+  const [{ fetching }, executeMutation] = useUpdateUserTeamRolesMutation();
 
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleRemove = async () => {
     await executeMutation({
-      id: user.id,
-      user: {
-        roleAssignmentsInput: {
+      teamRoleAssignments: {
+        userId: user.id,
+        teamId: team.id,
+        roleAssignments: {
           detach: {
             roles: user.roles.map((role) => role.id),
-            team: team.id,
           },
         },
       },

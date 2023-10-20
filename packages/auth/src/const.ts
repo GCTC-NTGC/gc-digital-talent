@@ -11,6 +11,7 @@ export const ROLE_NAME = {
   Applicant: "applicant",
   PoolOperator: "pool_operator",
   RequestResponder: "request_responder",
+  CommunityManager: "community_manager",
   PlatformAdmin: "platform_admin",
 } as const;
 

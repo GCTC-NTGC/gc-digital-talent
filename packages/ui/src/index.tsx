@@ -61,6 +61,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
@@ -107,6 +108,7 @@ export type {
   PillProps,
   PillMode,
   PillSize,
+  SidebarProps,
   SideMenuProps,
   SideMenuItemProps,
   SpoilerProps,
@@ -156,6 +158,7 @@ export {
   Separator,
   SideMenu,
   ExternalSideMenuItem,
+  Sidebar,
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,

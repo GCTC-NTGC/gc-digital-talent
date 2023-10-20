@@ -6,6 +6,8 @@ import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import { PAGE_SECTION_ID } from "../navigation";
+
 const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
   id: "iNIXQ9",
@@ -21,7 +23,9 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
   const intl = useIntl();
   return (
     <>
-      <Heading level="h3">{intl.formatMessage(sectionTitle)}</Heading>
+      <Heading level="h3" id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+        {intl.formatMessage(sectionTitle)}
+      </Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:

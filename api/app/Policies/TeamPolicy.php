@@ -66,7 +66,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can view a specific teams, team members.
-     * Likely to be updated later to allow the team admin and teammates to view their own team
      *
      * @param  \App\Models\Team/null $team
      * @return \Illuminate\Auth\Access\Response|bool
@@ -74,5 +73,15 @@ class TeamPolicy
     public function viewTeamMembers(User $user, Team $team)
     {
         return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $team);
+    }
+
+    /**
+     * Determine whether the user can assign any user to this team (giving them any team-based role)
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function assignTeamMembers(User $user, Team $team)
+    {
+        return $user->isAbleTo('assign-any-role') || $user->isAbleTo('assign-any-teamRole') || $user->isAbleTo('assign-team-role', $team);
     }
 }
