@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";

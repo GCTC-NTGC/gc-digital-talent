@@ -3,7 +3,6 @@ import React from "react";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 
 import { PoolCandidate, useGetApplicationQuery } from "~/api/generated";
-import useRequiredParams from "~/hooks/useRequiredParams";
 
 import useApplicationId from "./useApplicationId";
 
