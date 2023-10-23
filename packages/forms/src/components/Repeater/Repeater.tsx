@@ -6,6 +6,7 @@ import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
+import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -84,6 +85,8 @@ export interface RepeaterFieldsetProps {
   onMove: (from: number, to: number) => void;
   /** Callback when the item is removed from the array */
   onRemove: (index: number) => void;
+  /** Callback function when edit button is clicked */
+  onSave?: () => void;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -100,6 +103,7 @@ const Fieldset = ({
   children,
   disabled,
   numOfLockedItems,
+  onSave,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -192,6 +196,7 @@ const Fieldset = ({
             data-h2-flex-direction="base(column)"
             data-h2-align-items="base(flex-start)"
             data-h2-gap="base(x.5)"
+            data-h2-background-color="base(foreground)"
           >
             <div
               data-h2-background-color="base(foreground)"
@@ -290,6 +295,18 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
+                {onSave && (
+                  <ActionButton
+                    disabled={disabled}
+                    animate={false}
+                    onClick={onSave}
+                    aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+                      index: position,
+                    })}
+                  >
+                    <PencilSquareIcon data-h2-width="base(x.75)" />
+                  </ActionButton>
+                )}
                 <ActionButton
                   disabled={disabled || isLocked}
                   animate={false}
