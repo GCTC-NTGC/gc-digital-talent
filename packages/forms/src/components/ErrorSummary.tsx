@@ -1,6 +1,7 @@
 import React from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 import {
   Alert,
@@ -8,24 +9,97 @@ import {
   ScrollLinkClickFunc,
   Link,
 } from "@gc-digital-talent/ui";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FieldLabels } from "./BasicForm";
 
-const getInvalidFieldMessage = (
-  field: string,
+const flattenErrors = (
   errors: FieldErrors<FieldValues>,
-  intl: IntlShape,
-) => {
-  const invalidField = errors[field];
-  let message = invalidField?.message;
+  parent?: string,
+): string[] => {
+  let errorNames: string[] = [];
+  const parentKey = parent ? `${parent}.` : "";
 
-  if (!message && invalidField && "root" in invalidField) {
-    message = invalidField.root?.message;
+  Object.keys(errors).forEach((fieldName) => {
+    const fieldError = errors[fieldName];
+    if (fieldError) {
+      if ("root" in fieldError) {
+        errorNames = [...errorNames, `${fieldName}.root`];
+      }
+      if (Array.isArray(fieldError)) {
+        fieldError.forEach((subFieldError, index) => {
+          errorNames = [
+            ...errorNames,
+            ...flattenErrors(
+              subFieldError,
+              `${parentKey}${fieldName}.${index}`,
+            ),
+          ];
+        });
+      }
+      if ("message" in fieldError) {
+        errorNames = [...errorNames, `${parentKey}${fieldName}`];
+      }
+    }
+  });
+
+  return errorNames;
+};
+
+type FieldNameWithLabel = {
+  label: React.ReactNode;
+  name: string;
+  index?: number;
+};
+
+const numberRegex = /\d/g;
+
+const getFieldLabel = (
+  name: string,
+  labels: FieldLabels,
+): FieldNameWithLabel | null => {
+  let labelKey = name;
+  let index: undefined | number;
+
+  // This is a root error for a field array
+  if (name.includes(".root")) {
+    labelKey = name.replace(".root", "");
+  } else if (numberRegex.test(name)) {
+    labelKey = name.replace(numberRegex, "*");
+    const indices = numberRegex.exec(name);
+    if (indices) {
+      const [nestedIndex] = indices;
+      index = Number(nestedIndex);
+    }
   }
 
-  return message || intl.formatMessage(errorMessages.unknown);
+  if (labelKey in labels) {
+    return {
+      name,
+      index,
+      label: labels[labelKey],
+    };
+  }
+
+  return null;
+};
+
+const addLabelsToErrors = (
+  errors: FieldErrors<FieldValues>,
+  labels: FieldLabels,
+): FieldNameWithLabel[] => {
+  const invalidFieldNames = flattenErrors(errors);
+  let fieldNamesWithLabels: FieldNameWithLabel[] = [];
+
+  invalidFieldNames.forEach((fieldName) => {
+    const fieldNameWithLabel = getFieldLabel(fieldName, labels);
+    if (fieldNameWithLabel) {
+      fieldNamesWithLabels = [...fieldNamesWithLabels, fieldNameWithLabel];
+    }
+  });
+
+  return fieldNamesWithLabels;
 };
 
 interface ErrorSummaryProps {
@@ -44,31 +118,13 @@ const ErrorSummary = React.forwardRef<
   ErrorSummaryProps
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
-
-  const locale = getLocale(intl);
   const { errors } = useFormState();
 
   // Don't show if the form is valid
-  if (!errors || !show) return null;
+  if (!errors || !show || !labels) return null;
 
-  const invalidFields = Object.keys(errors)
-    .map((field) => {
-      /**
-       * Massages the errors to a human readable
-       * format as well as displaying generic
-       * error message when one is not provided.
-       */
-      if (labels && field in labels) {
-        return {
-          name: field,
-          label: labels[field],
-          message: getInvalidFieldMessage(field, errors, intl),
-        };
-      }
-
-      return undefined;
-    })
-    .filter(notEmpty);
+  // Flatten the error object and get the label
+  const invalidFieldNames = addLabelsToErrors(errors, labels);
 
   const handleErrorClick: ScrollLinkClickFunc = (e, target) => {
     e.preventDefault();
@@ -84,26 +140,31 @@ const ErrorSummary = React.forwardRef<
     }
   };
 
-  return invalidFields.length > 0 ? (
+  return invalidFieldNames.length > 0 ? (
     <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
       <Alert.Title>
         {intl.formatMessage(errorMessages.summaryTitle)}
       </Alert.Title>
       <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
-        {invalidFields.map((field) => (
-          <li key={field.name}>
-            <ScrollToLink
-              to={field.name}
-              onScrollTo={handleErrorClick}
-              mode="text"
-              color="error"
-            >
-              {field.label}
-            </ScrollToLink>
-            {`${locale === "fr" ? ` : ` : `: `}${field.message}`}
-          </li>
-        ))}
+        {invalidFieldNames.map((field) => {
+          const fieldIndex = notEmpty(field.index) ? field.index + 1 : null;
+          return (
+            <li key={field.name}>
+              <ScrollToLink
+                to={field.name}
+                onScrollTo={handleErrorClick}
+                mode="text"
+                color="error"
+              >
+                {field.label}
+                {fieldIndex ? ` (${fieldIndex})` : null}
+              </ScrollToLink>
+              {intl.formatMessage(commonMessages.dividingColon)}
+              <ErrorMessage name={field.name} />
+            </li>
+          );
+        })}
       </ul>
       <Alert.Footer>
         <p>{intl.formatMessage(errorMessages.summaryContact, { a })}</p>
