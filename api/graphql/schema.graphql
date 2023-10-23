@@ -219,6 +219,24 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
+  assessmentResults: AssessmentResult @hasMany
+}
+
+type AssessmentResult {
+  id: ID!
+  assessmentStep: AssessmentStep @belongsTo
+  poolCandidate: PoolCandidate @belongsTo
+  poolSkill: PoolSkill @belongsTo
+  assessmentResultType: AssessmentResultType
+    @rename(attribute: "assessment_result_type")
+  assessmentDecision: AssessmentDecision
+    @rename(attribute: "assessment_decision")
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+    @rename(attribute: "other_justification_notes")
+  skillDecisionLevel: SkillDecisionLevel
+    @rename(attribute: "skill_decision_level")
+  skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
 type PoolSkill {
@@ -227,6 +245,7 @@ type PoolSkill {
   pool: Pool @belongsTo
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep] @belongsToMany
+  assessmentResults: AssessmentResult @hasMany
 }
 
 type PoolCandidate {
@@ -258,6 +277,8 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+  # record of decision
+  assessmentResults: AssessmentResult @hasMany
 }
 
 type PoolCandidateWithSkillCount {
