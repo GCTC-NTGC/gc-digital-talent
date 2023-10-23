@@ -23,7 +23,7 @@ return new class extends Migration
             $table->uuid('pool_skill_id')->nullable();
             $table->foreign('pool_skill_id')->references('id')->on('pool_skill')->cascadeOnDelete(true);
             // fields
-            $table->string('assessment_result_type');
+            $table->string('assessment_result_type')->nullable();
             $table->string('assessment_decision')->nullable();
             $table->jsonb('justifications')->default(new Expression('\'[]\'::jsonb'))->nullable();
             $table->text('other_justification_notes')->nullable();
