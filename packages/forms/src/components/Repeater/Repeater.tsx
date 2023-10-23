@@ -86,7 +86,7 @@ export interface RepeaterFieldsetProps {
   /** Callback when the item is removed from the array */
   onRemove: (index: number) => void;
   /** Callback function when edit button is clicked */
-  onSave?: () => void;
+  onEdit?: (index: number) => void;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -103,7 +103,7 @@ const Fieldset = ({
   children,
   disabled,
   numOfLockedItems,
-  onSave,
+  onEdit,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -156,6 +156,10 @@ const Fieldset = ({
         }),
       );
     }
+  };
+
+  const handleEdit = () => {
+    if (onEdit) onEdit(index);
   };
 
   const decrement = () => {
@@ -295,11 +299,11 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
-                {onSave && (
+                {onEdit && (
                   <ActionButton
                     disabled={disabled}
                     animate={false}
-                    onClick={onSave}
+                    onClick={handleEdit}
                     aria-label={intl.formatMessage(formMessages.repeaterEdit, {
                       index: position,
                     })}
