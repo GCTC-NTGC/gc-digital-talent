@@ -32,7 +32,19 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       }
       poolSkills {
         id
+        type
+        skill {
+          name {
+            en
+            fr
+          }
+          # three junk fields required by schema since non-nullable
+          id
+          category
+          key
+        }
       }
     }
+    status
   }
 }

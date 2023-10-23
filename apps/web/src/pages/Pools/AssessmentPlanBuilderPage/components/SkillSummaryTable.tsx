@@ -8,7 +8,6 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import {
   commonMessages,
   getAssessmentStepType,
-  getLocale,
   getLocalizedName,
   getPoolSkillType,
   getSkillCategory,
@@ -25,6 +24,8 @@ import {
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+
+import { assessmentStepDisplayName } from "../utils";
 
 const columnHelper = createColumnHelper<PoolSkill>();
 
@@ -152,31 +153,6 @@ const SkillSummaryTable = ({
 }: SkillSummaryTableProps) => {
   const intl = useIntl();
 
-  const generateAssessmentStepHeader = (
-    assessmentStep: AssessmentStep,
-  ): string => {
-    const locale = getLocale(intl);
-    // don't want "N/A" from getLocalizedName
-    const localizedTitle = assessmentStep?.title
-      ? assessmentStep.title[locale]
-      : null;
-    if (localizedTitle && assessmentStep.type) {
-      return `${localizedTitle} (${intl.formatMessage(
-        getAssessmentStepType(assessmentStep.type),
-      )})`;
-    }
-
-    if (!localizedTitle && assessmentStep.type) {
-      return intl.formatMessage(getAssessmentStepType(assessmentStep.type));
-    }
-
-    if (localizedTitle && !assessmentStep.type) {
-      return localizedTitle;
-    }
-
-    return intl.formatMessage(commonMessages.notAvailable);
-  };
-
   const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
     if (poolSkill?.type) {
       return poolSkill.type === PoolSkillType.Essential ? (
@@ -275,7 +251,7 @@ const SkillSummaryTable = ({
     return aPosition > bPosition ? 1 : -1;
   });
   assessmentSteps.forEach((assessmentStep) => {
-    const headerName = generateAssessmentStepHeader(assessmentStep);
+    const headerName = assessmentStepDisplayName(assessmentStep, intl);
     const newColumn = columnHelper.display({
       id: assessmentStep.type ?? assessmentStep.id,
       header: headerName,

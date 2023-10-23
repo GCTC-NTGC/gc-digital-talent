@@ -28,11 +28,12 @@ import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/loca
 import { toast } from "@gc-digital-talent/toast";
 
 import labels from "./AssessmentDetailsDialogLabels";
-
-const SCREENING_QUESTIONS_TEXT_AREA_ROWS = 3;
-const SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS = 200;
-const SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS = 266;
-const SCREENING_QUESTIONS_MAX_QUESTIONS = 3;
+import {
+  SCREENING_QUESTIONS_MAX_QUESTIONS,
+  SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS,
+  SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
+  SCREENING_QUESTIONS_TEXT_AREA_ROWS,
+} from "../constants";
 
 type DialogMode = "regular" | "screening_question";
 

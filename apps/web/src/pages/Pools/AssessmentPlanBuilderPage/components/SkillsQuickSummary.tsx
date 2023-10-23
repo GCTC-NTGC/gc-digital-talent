@@ -14,6 +14,10 @@ import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
 import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 
 import { PAGE_SECTION_ID } from "../navigation";
+import {
+  ASSESSMENT_STEPS_FEW_STEPS,
+  ASSESSMENT_STEPS_MANY_STEPS,
+} from "../constants";
 
 export interface SkillsQuickSummaryProps {
   poolSkills: Array<PoolSkill>;
@@ -54,7 +58,8 @@ const SkillsQuickSummary = ({
 
   // grand total validation
   const grandTotalStatus: Status =
-    assessmentSteps.length <= 1 || assessmentSteps.length >= 4
+    assessmentSteps.length <= ASSESSMENT_STEPS_FEW_STEPS ||
+    assessmentSteps.length >= ASSESSMENT_STEPS_MANY_STEPS
       ? "warning"
       : "success";
 

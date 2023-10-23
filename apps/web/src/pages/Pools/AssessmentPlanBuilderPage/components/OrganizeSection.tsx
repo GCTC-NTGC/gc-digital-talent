@@ -1,15 +1,31 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useFormState,
+} from "react-hook-form";
 
-import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
+import { Accordion, Heading, Separator } from "@gc-digital-talent/ui";
+import { AssessmentStep, Pool, PoolStatus } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Repeater, Submit } from "@gc-digital-talent/forms";
+import Context from "@gc-digital-talent/forms/src/components/Field/Context";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";
+import { assessmentStepDisplayName } from "../utils";
+import {
+  ASSESSMENT_STEPS_FEW_STEPS,
+  ASSESSMENT_STEPS_MANY_STEPS,
+  ASSESSMENT_STEPS_MAX_STEPS,
+} from "../constants";
 
-const MAX_ASSESSMENT_STEPS = 6;
+type FormValues = {
+  assessmentSteps?: Array<AssessmentStep>;
+};
 
 const sectionTitle = defineMessage({
   defaultMessage: "Organize assessment approach",
@@ -23,6 +39,32 @@ export interface OrganizeSectionProps {
 
 const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const intl = useIntl();
+
+  const defaultValues = {
+    assessmentSteps: pool.assessmentSteps?.filter(notEmpty) ?? [],
+  };
+
+  const methods = useForm<FormValues>({
+    values: defaultValues,
+  });
+
+  const { handleSubmit, control } = methods;
+  const { remove, move, append, fields } = useFieldArray({
+    control,
+    name: "assessmentSteps",
+  });
+  const { isDirty } = useFormState({
+    control,
+  });
+
+  const handleSave = (formValues: FormValues) => {
+    console.debug(formValues);
+  };
+
+  // disabled unless status is draft
+  const formDisabled = pool.status !== PoolStatus.Draft;
+  const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
+
   return (
     <>
       <Heading level="h3" id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}>
@@ -90,7 +132,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                     "second question in the organize section in the assessment plan builder",
                 },
                 {
-                  maxSteps: MAX_ASSESSMENT_STEPS,
+                  maxSteps: ASSESSMENT_STEPS_MAX_STEPS,
                 },
               )}
             </Accordion.Trigger>
@@ -106,7 +148,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                     "First paragraph of second answer of the Frequently Asked Questions for logging in",
                 },
                 {
-                  maxSteps: MAX_ASSESSMENT_STEPS,
+                  maxSteps: ASSESSMENT_STEPS_MAX_STEPS,
                 },
               )}
             </p>
@@ -114,64 +156,176 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
         </Accordion.Item>
       </Accordion.Root>
       <div data-h2-margin-top="base(x1)">
-        {/* TODO: replace with repeater cards */}
-        {pool.assessmentSteps
-          ?.filter(notEmpty)
-          .sort((a: AssessmentStep, b: AssessmentStep) =>
-            (a.sortOrder ?? 0) > (b.sortOrder ?? 0) ? 1 : -1,
-          )
-          .map((step: AssessmentStep) => (
-            <div key={step.id}>
-              <p>{step.type}</p>
-              <p>{getLocalizedName(step.title, intl)}</p>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(handleSave)}>
+            <Repeater.Root
+              data-h2-margin-bottom="base(1rem)"
+              showAdd={canAdd && !formDisabled}
+              onAdd={() => {
+                append({
+                  id: "new",
+                });
+              }}
+              addText={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Add a new assessment ({currentCount}/{maxCount})",
+                  id: "jwCFf7",
+                  description:
+                    "Button text to add a new assessment to the assessment plan",
+                },
+                {
+                  currentCount: fields.length,
+                  maxCount: ASSESSMENT_STEPS_MAX_STEPS,
+                },
+              )}
+            >
+              <>
+                {fields.map((assessmentStep, index) => {
+                  const skillNames =
+                    assessmentStep.poolSkills
+                      ?.filter(notEmpty)
+                      .map((poolSkill) =>
+                        getLocalizedName(poolSkill?.skill?.name, intl),
+                      ) ?? [];
+                  skillNames.sort();
+
+                  return (
+                    <Repeater.Fieldset
+                      key={assessmentStep.id}
+                      index={index}
+                      total={fields.length}
+                      onMove={move}
+                      onRemove={remove}
+                      disabled={formDisabled}
+                      legend={intl.formatMessage(
+                        {
+                          defaultMessage: "Assessment plan step {index}",
+                          id: "kZWII8",
+                          description:
+                            "Legend for assessment plan step fieldset",
+                        },
+                        {
+                          index: index + 1,
+                        },
+                      )}
+                      hideLegend
+                    >
+                      <input
+                        type="hidden"
+                        name={`assessmentSteps.${index}.id`}
+                      />
+                      <p>{assessmentStepDisplayName(assessmentStep, intl)}</p>
+                      {skillNames.length ? (
+                        <p
+                          data-h2-margin-top="base(x.5)"
+                          data-h2-color="base(black.light)"
+                          data-h2-font-size="base(caption)"
+                        >
+                          {skillNames.join(" • ")}
+                        </p>
+                      ) : null}
+                      <AssessmentDetailsDialog
+                        mode="regular"
+                        allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+                      />
+                      <AssessmentDetailsDialog
+                        mode="screening_question"
+                        allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+                      />
+                    </Repeater.Fieldset>
+                  );
+                })}
+              </>
+            </Repeater.Root>
+
+            <div
+              data-h2-display="base(flex)"
+              data-h2-gap="base(x1)"
+              data-h2-flex-direction="base(column)"
+            >
+              {fields.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
+                <Context color="warning">
+                  <p data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "You are approaching the limit!",
+                      id: "1moJ8r",
+                      description:
+                        "Title for warning message when the user has added many assessments to the assessment plan",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "You can add up to {maxSteps} assessment methods, but you don't need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
+                        id: "J/JdxQ",
+                        description:
+                          "Description for warning message when the user has added many assessments to the assessment plan",
+                      },
+                      {
+                        maxSteps: ASSESSMENT_STEPS_MAX_STEPS,
+                      },
+                    )}
+                  </p>
+                </Context>
+              ) : null}
+              {isDirty ? (
+                <Context color="warning">
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You have unsaved changes in your assessment plan.",
+                      id: "bY8aOj",
+                      description:
+                        "Message displayed when items have been moved and not saved",
+                    })}
+                  </p>
+                </Context>
+              ) : null}
+              {fields.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
+                <Context color="warning">
+                  <p data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "You have too few assessments",
+                      id: "ypxaI2",
+                      description:
+                        "Title for warning message when the user has few assessments to the assessment plan",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
+                      id: "xCoGIm",
+                      description:
+                        "Description for warning message when the user has few assessments to the assessment plan",
+                    })}
+                  </p>
+                </Context>
+              ) : null}
             </div>
-          ))}
-        {/* TODO: Adding some strings for translation that will be needed later */}
-        {intl.formatMessage({
-          defaultMessage: "Add a new assessment",
-          id: "VWLWLY",
-          description:
-            "Button text to add a new assessment to the assessment plan",
-        })}
-        {intl.formatMessage({
-          defaultMessage: "You have too few assessments",
-          id: "ypxaI2",
-          description:
-            "Title for warning message when the user has few assessments to the assessment plan",
-        })}
-        {intl.formatMessage({
-          defaultMessage:
-            "Consider adding at least one assessment method to strengthen the quality of your candidate pool.",
-          id: "xCoGIm",
-          description:
-            "Description for warning message when the user has few assessments to the assessment plan",
-        })}
-        {intl.formatMessage({
-          defaultMessage: "You are approaching the limit!",
-          id: "1moJ8r",
-          description:
-            "Title for warning message when the user has added many assessments to the assessment plan",
-        })}
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "You can add up to {maxSteps} assessment methods, but you don't need to. You are covered as long as every skill has been taken into account. Choosing too many assessment methods can delay the staffing process and reduce the chances of a successful hire.",
-            id: "J/JdxQ",
-            description:
-              "Description for warning message when the user has added many assessments to the assessment plan",
-          },
-          {
-            maxSteps: MAX_ASSESSMENT_STEPS,
-          },
-        )}
-        <AssessmentDetailsDialog
-          mode="regular"
-          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-        />
-        <AssessmentDetailsDialog
-          mode="screening_question"
-          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-        />
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base(gray.lighter)"
+              data-h2-margin="base(x1 0)"
+            />
+
+            {!formDisabled && (
+              <Submit
+                text={intl.formatMessage({
+                  defaultMessage: "Save changes to assessment plan",
+                  id: "brXBed",
+                  description: "Text on a button to save the assessment plan",
+                })}
+                color="secondary"
+                mode="solid"
+                // isSubmitting={isSubmitting}
+              />
+            )}
+          </form>
+        </FormProvider>
       </div>
     </>
   );

@@ -5719,8 +5719,8 @@
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
   },
-  "VWLWLY": {
-    "defaultMessage": "Ajouter une nouvelle évaluation",
+  "jwCFf7": {
+    "defaultMessage": "Ajouter une nouvelle évaluation ({currentCount}/{maxCount})",
     "description": "Button text to add a new assessment to the assessment plan"
   },
   "VX3Og5": {
