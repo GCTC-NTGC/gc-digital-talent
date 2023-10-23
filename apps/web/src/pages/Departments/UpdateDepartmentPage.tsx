@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
@@ -21,6 +21,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -150,9 +151,9 @@ type RouteParams = {
 const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { departmentId } = useParams<RouteParams>();
+  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
-    variables: { id: departmentId || "" },
+    variables: { id: departmentId },
   });
   const [, executeMutation] = useUpdateDepartmentMutation();
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>

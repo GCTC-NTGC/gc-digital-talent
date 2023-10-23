@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
@@ -38,6 +38,7 @@ import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/s
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import useApplicationId from "../useApplicationId";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -446,7 +447,7 @@ const context: Partial<OperationContext> = {
 };
 
 const ApplicationCareerTimelinePage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -455,7 +456,7 @@ const ApplicationCareerTimelinePage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id,
     },
     requestPolicy: "cache-first",
   });

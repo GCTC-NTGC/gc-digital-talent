@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
@@ -36,6 +35,7 @@ import {
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -723,9 +723,9 @@ type RouteParams = {
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { poolCandidateId } = useParams<RouteParams>();
+  const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
-    variables: { poolCandidateId: poolCandidateId || "" },
+    variables: { poolCandidateId },
   });
 
   const navigationCrumbs = [

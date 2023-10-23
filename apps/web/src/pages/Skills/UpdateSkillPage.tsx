@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -36,6 +36,7 @@ import {
   SkillCategory,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
@@ -303,7 +304,7 @@ type RouteParams = {
 export const UpdateSkill = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { skillId } = useParams<RouteParams>();
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
   const [{ data: lookupData, fetching, error }] = useGetUpdateSkillDataQuery({
     variables: { id: skillId || "" },
   });

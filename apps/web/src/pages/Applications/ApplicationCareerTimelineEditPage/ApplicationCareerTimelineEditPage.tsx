@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
@@ -13,6 +12,7 @@ import {
   useGetMyExperiencesQuery,
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -65,6 +65,11 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
+type RouteParams = {
+  experienceId: string;
+  applicationId: string;
+};
+
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
   experience: AnyExperience;
 }
@@ -75,7 +80,7 @@ const ApplicationCareerTimelineEdit = ({
 }: ApplicationCareerTimelineEditProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { experienceId } = useParams();
+  const { experienceId } = useRequiredParams<RouteParams>("experienceId", true);
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -105,7 +110,10 @@ const ApplicationCareerTimelineEdit = ({
 };
 
 const ApplicationCareerTimelineEditPage = () => {
-  const { applicationId, experienceId } = useParams();
+  const { applicationId, experienceId } = useRequiredParams<RouteParams>(
+    ["experienceId", "applicationId"],
+    true,
+  );
   const [
     {
       data: applicationData,
@@ -114,7 +122,7 @@ const ApplicationCareerTimelineEditPage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id: applicationId,
     },
     requestPolicy: "cache-first",
   });
