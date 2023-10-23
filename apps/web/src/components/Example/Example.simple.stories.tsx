@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Example from "./Example";
 
 // The default export metadata controls how Storybook lists your stories and provides information used by addons.
-const meta: Meta<typeof Example> = {
+const meta = {
   component: Example,
   // You can also define args at the component level; they will apply to all the component's stories unless you overwrite them. To do so, use the args key on the default CSF export:
   argTypes: {
@@ -13,10 +13,10 @@ const meta: Meta<typeof Example> = {
   args: {
     showBorder: true,
   },
-};
+} satisfies Meta<typeof Example>;
 export default meta;
 
-type Story = StoryObj<typeof Example>;
+type Story = StoryObj<typeof meta>;
 
 // Use the named exports of a CSF file to define your component’s stories. We recommend you use UpperCamelCase for your story exports.
 export const WithDefaultArgs: Story = {
@@ -27,7 +27,7 @@ export const WithDefaultArgs: Story = {
 };
 
 // A story can use a custom render function
-export const WithRenderFunction: Story = {
+export const WithRenderFunction = {
   name: "With render function",
   render: () => (
     <Example subtitle="WithRenderFunction" color="primary" showBorder />
