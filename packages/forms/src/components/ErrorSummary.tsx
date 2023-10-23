@@ -14,6 +14,16 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FieldLabels } from "./BasicForm";
 
+/**
+ * Flatten Errors
+ *
+ * Recursively takes the the errors produced by `useFormState`
+ * and flattens them to an array of the field names.
+ *
+ * @param {FieldErrors<FieldValues> } errors - from form state
+ * @param {string} parent - The field name of an existing parent
+ * @returns {string[]}
+ */
 const flattenErrors = (
   errors: FieldErrors<FieldValues>,
   parent?: string,
@@ -24,9 +34,11 @@ const flattenErrors = (
   Object.keys(errors).forEach((fieldName) => {
     const fieldError = errors[fieldName];
     if (fieldError) {
+      // This is a root of a field array, so add it to the key so we are aware later
       if ("root" in fieldError) {
         errorNames = [...errorNames, `${fieldName}.root`];
       }
+      // If it is a field array, loop through, hoisting up field names
       if (Array.isArray(fieldError)) {
         fieldError.forEach((subFieldError, index) => {
           errorNames = [
@@ -38,6 +50,7 @@ const flattenErrors = (
           ];
         });
       }
+      // We have an error message so add it to the array (we don't want errors with no message)
       if ("message" in fieldError) {
         errorNames = [...errorNames, `${parentKey}${fieldName}`];
       }
@@ -55,6 +68,15 @@ type FieldNameWithLabel = {
 
 const numberRegex = /\d/g;
 
+/**
+ * Get Field Label
+ *
+ * User the field name to extract the associated label
+ *
+ * @param {string} name - The name property of the field
+ * @param {FieldLabels} labels - Available labels
+ * @returns {FieldNameWithLabel | null}
+ */
 const getFieldLabel = (
   name: string,
   labels: FieldLabels,
@@ -66,7 +88,9 @@ const getFieldLabel = (
   if (name.includes(".root")) {
     labelKey = name.replace(".root", "");
   } else if (numberRegex.test(name)) {
+    // If a number exists in the field name, replace it with an asterisk
     labelKey = name.replace(numberRegex, "*");
+    // Get the number and assign it to the index so we can show it in the link
     const indices = numberRegex.exec(name);
     if (indices) {
       const [nestedIndex] = indices;
@@ -85,6 +109,16 @@ const getFieldLabel = (
   return null;
 };
 
+/**
+ * Add labels to errors
+ *
+ * Transform the errors to associate them with labels
+ * so they can be used as the link name
+ *
+ * @param {FieldErrors<FieldValues> } errors - from form state
+ * @param {FieldLabels} labels - Available labels
+ * @returns {FieldNameWithLabel}
+ */
 const addLabelsToErrors = (
   errors: FieldErrors<FieldValues>,
   labels: FieldLabels,
