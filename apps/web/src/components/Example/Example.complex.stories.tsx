@@ -15,7 +15,7 @@ type PagePropsAndCustomArgs = React.ComponentProps<typeof Example> & {
   footer?: string;
 };
 
-const meta: Meta<PagePropsAndCustomArgs> = {
+const meta = {
   component: Example,
   render: ({ footer, ...args }) => (
     <>
@@ -26,14 +26,15 @@ const meta: Meta<PagePropsAndCustomArgs> = {
   parameters: {
     chromatic: { viewports: VIEWPORTS },
   },
-};
+} satisfies Meta<PagePropsAndCustomArgs>;
 export default meta;
 
-type Story = StoryObj<PagePropsAndCustomArgs>;
+type Story = StoryObj<typeof meta>;
 
 export const CustomFooter: Story = {
   args: {
-    showBorder: false,
     footer: "CustomFooter",
+    color: "primary",
+    showBorder: false,
   },
-};
+} satisfies Story;
