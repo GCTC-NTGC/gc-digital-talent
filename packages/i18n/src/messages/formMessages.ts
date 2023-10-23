@@ -128,6 +128,11 @@ const formMessages = defineMessages({
     id: "T/97gk",
     description: "Button text to remove an item from repeatable fields",
   },
+  repeaterEdit: {
+    defaultMessage: "Edit item {index}",
+    id: "Gz8vAO",
+    description: "Button text to edit an item from repeatable fields",
+  },
   repeaterAnnounceMove: {
     defaultMessage: "Item moved from {from} to {to}.",
     id: "PAXoFY",
@@ -146,8 +151,8 @@ const formMessages = defineMessages({
     description: "Message displayed when one away from repeater limit.",
   },
   approachingLimitDetails: {
-    defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached you will have to remove an item to add another.`,
-    id: "+CcpGB",
+    defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached, you will have to remove an item to add another.`,
+    id: "DPYoOj",
     description:
       "Additional details displayed when one away from repeater limit.",
   },
@@ -168,8 +173,8 @@ const formMessages = defineMessages({
     description: "Error message title for repeater component.",
   },
   repeaterUnsavedChanges: {
-    defaultMessage: "You have unsaved changes. Please, remember to save!",
-    id: "Un9x5Z",
+    defaultMessage: "You have unsaved changes. Remember to save!",
+    id: "cAXj6F",
     description: "Message displayed when items have been moved and not saved",
   },
   repeaterDeleteItem: {
