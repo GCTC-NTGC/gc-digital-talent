@@ -142,6 +142,9 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   deleteAssessmentStep(id: UUID!): AssessmentStep
+  createAssessmentResult(assessmentStepId: UUID!, poolCandidateId: UUID!, poolSkillId: UUID, assessmentResult: AssessmentResultInput!): AssessmentResult
+  updateAssessmentResult(id: UUID!, assessmentResult: AssessmentResultInput!): AssessmentResult
+  deleteAssessmentResult(id: UUID!): AssessmentResult
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -1159,6 +1162,15 @@ input AssessmentStepInput {
   sortOrder: Int
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
+}
+
+input AssessmentResultInput {
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  skillDecisionLevel: SkillDecisionLevel
+  skillDecisionNotes: String
 }
 
 input PoolSkillBelongsToMany {
