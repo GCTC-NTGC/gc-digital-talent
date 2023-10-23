@@ -776,10 +776,6 @@
     "defaultMessage": "Visitez votre profil et la page de candidature",
     "description": "Link text to navigate to the profile and applications page"
   },
-  "276x9r": {
-    "defaultMessage": "{skillCount, plural, =0 {0 compétence mise en évidence} =1 {1 compétence mise en évidence} other {# compétences mises en évidence}}",
-    "description": "Number of skills attached to a specific experience"
-  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
