@@ -318,7 +318,7 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
-  assessmentResults: AssessmentResult
+  assessmentResults: [AssessmentResult]
 }
 
 type AssessmentResult {
@@ -340,7 +340,7 @@ type PoolSkill {
   pool: Pool
   skill: Skill
   assessmentSteps: [AssessmentStep]
-  assessmentResults: AssessmentResult
+  assessmentResults: [AssessmentResult]
 }
 
 type PoolCandidate {
@@ -362,7 +362,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
-  assessmentResults: AssessmentResult
+  assessmentResults: [AssessmentResult]
 }
 
 type PoolCandidateWithSkillCount {
