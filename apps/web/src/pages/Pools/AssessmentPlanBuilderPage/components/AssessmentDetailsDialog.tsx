@@ -296,6 +296,7 @@ const AssessmentDetailsDialog = ({
                       name="questions"
                       total={fields.length}
                       showAdd={canAddScreeningQuestions}
+                      showUnsavedChanges
                       onAdd={() => {
                         append({
                           id: "new",

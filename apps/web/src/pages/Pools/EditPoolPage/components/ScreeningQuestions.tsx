@@ -205,6 +205,7 @@ const ScreeningQuestions = ({
             })}
             customNullMessage={customNullMessage}
             maxItemsMessage={maxItemsMessage}
+            showUnsavedChanges
             data-h2-margin-bottom="base(1rem)"
           >
             {fields.map((item, index) => (

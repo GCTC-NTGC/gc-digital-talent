@@ -368,6 +368,8 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
     button: React.ReactNode;
     id: string;
   };
+  showUnsavedChanges?: boolean;
+  showApproachingLimit?: boolean;
   /** Custom error message that overrides default root error message */
   customErrorMessage?: React.ReactNode;
   /** Custom null message when no items have been added */
@@ -386,6 +388,8 @@ const Root = ({
   maxItems,
   total,
   customButton,
+  showUnsavedChanges,
+  showApproachingLimit,
   customErrorMessage,
   customNullMessage,
   maxItemsMessage,
@@ -411,14 +415,16 @@ const Root = ({
     },
   );
   const hasUnsavedChanges =
-    isDirty ||
-    (changedItems?.length && currentItems.length !== originalItems?.length);
+    showUnsavedChanges &&
+    (isDirty ||
+      (changedItems?.length && currentItems.length !== originalItems?.length));
 
   // Grab root error message from field errors list
   const hasError = errors?.[name] ? true : undefined;
   const errorMessage = errors?.[name]?.root?.message as string;
 
-  const approachingLimit = maxItems ? total + 1 === maxItems : false;
+  const approachingLimit =
+    showApproachingLimit && maxItems ? total + 1 === maxItems : false;
 
   return (
     <div

@@ -202,6 +202,8 @@ const UpdateSkillShowcase = ({
                       total={fields.length}
                       maxItems={maxItems}
                       showAdd={canAdd}
+                      showApproachingLimit
+                      showUnsavedChanges
                       customButton={{
                         id: addId,
                         button: (

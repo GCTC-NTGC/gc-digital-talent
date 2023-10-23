@@ -73,6 +73,8 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
       }}
       maxItems={maxItems}
       total={fields.length}
+      showApproachingLimit
+      showUnsavedChanges
     >
       {fields.map((item, index) => (
         <Repeater.Fieldset
