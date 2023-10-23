@@ -19,7 +19,6 @@ type StoryProps = RepeaterProps &
     name: string;
     maxItems?: number;
     numOfLockedItems?: number;
-    onSave?: () => void;
   };
 
 export default {
@@ -31,7 +30,6 @@ const defaultArgs = {
   label: "Screening Questions",
   name: "questions",
   addText: "Add screening question",
-  numOfLockedItems: 1,
 };
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
@@ -42,7 +40,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
     hideIndex,
     maxItems,
     numOfLockedItems,
-    onSave,
     ...rootProps
   } = props;
   const { control } = useFormContext();
@@ -88,7 +85,9 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           hideLegend={hideLegend}
           hideIndex={hideIndex}
           numOfLockedItems={numOfLockedItems}
-          onSave={onSave}
+          onEdit={() => {
+            action("edit")("Opens edit form dialog.");
+          }}
         >
           <div
             data-h2-display="base(grid)"
@@ -205,7 +204,6 @@ WithEditButton.args = {
   ...defaultArgs,
   maxItems: 4,
   numOfLockedItems: 1,
-  onSave: action("onSave"),
   defaultValues: [
     {
       en: "Question 1 (EN)",

@@ -53,7 +53,11 @@ const ActionButton = ({
       data-h2-transition="base:children[svg](transform 200ms ease)"
       data-h2-font-weight="base(700)"
       {...(disabled
-        ? { disabled: true, "data-h2-color": "base(black.lightest)" }
+        ? {
+            disabled: true,
+            "data-h2-color": "base(black.lightest)",
+            "data-h2-background-color": "base(foreground)",
+          }
         : {
             "data-h2-color": "base(black)",
             ...(animate ? transform : {}),
@@ -218,6 +222,7 @@ const Fieldset = ({
               >
                 {!isLocked ? (
                   <>
+                    {/* UP ARROW */}
                     <ActionButton
                       disabled={isFirstItem || previousItemLocked}
                       onClick={decrement}
@@ -230,7 +235,6 @@ const Fieldset = ({
                           to: position - 1,
                         },
                       )}
-                      data-h2-margin="base(0, x.25, 0, 0)"
                       {...(isFirstItem
                         ? { "data-h2-padding-left": "base(x.25)" }
                         : {})}
@@ -243,16 +247,17 @@ const Fieldset = ({
                         </span>
                       )}
                     </ActionButton>
+                    {/* INDEX */}
                     {!hideIndex && (
                       <span
                         aria-hidden="true"
                         data-h2-text-align="base(center)"
                         data-h2-font-weight="base(700)"
-                        data-h2-margin="base(x.25, 0)"
                       >
                         {index + 1}
                       </span>
                     )}
+                    {/* DOWN ARROW */}
                     <ActionButton
                       disabled={isLastItem}
                       onClick={increment}
@@ -264,7 +269,6 @@ const Fieldset = ({
                           to: position + 1,
                         },
                       )}
-                      data-h2-margin="base(0, x.25)"
                     >
                       {!isLastItem ? (
                         <ArrowDownIcon data-h2-width="base(x.75)" />
@@ -286,7 +290,6 @@ const Fieldset = ({
                         aria-hidden="true"
                         data-h2-text-align="base(center)"
                         data-h2-font-weight="base(700)"
-                        data-h2-margin="base(x.25, 0)"
                       >
                         {index + 1}
                       </span>
