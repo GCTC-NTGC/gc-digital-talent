@@ -3,8 +3,9 @@ import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending, Spoiler } from "@gc-digital-talent/ui";
+import { Pending, Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
+  Classification,
   InputMaybe,
   Maybe,
   PoolCandidateSearchRequestInput,
@@ -33,7 +34,7 @@ import {
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/hooks/useTableState";
-import tableViewItemButtonAccessor from "~/components/Table/ClientManagedTable/TableViewItemButton";
+import cells from "~/components/Table/cells";
 import useRoutes from "~/hooks/useRoutes";
 import {
   stringToEnumRequestStatus,
@@ -42,8 +43,6 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import { PoolCandidateSearchRequest } from "~/api/generated";
 
-import tableClassificationPills from "../Table/ClientManagedTable/tableClassificationPills";
-import tableCommaList from "../Table/ClientManagedTable/tableCommaList";
 import SearchRequestsTableFilter, {
   FormValues,
 } from "./components/SearchRequestsTableFilterDialog";
@@ -96,6 +95,29 @@ function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
         intl,
       })}
     </span>
+  ) : null;
+}
+
+function classificationsCell(classifications: Maybe<Maybe<Classification>[]>) {
+  const filteredClassifications = classifications
+    ? classifications.filter(notEmpty)
+    : [];
+  const pillsArray = filteredClassifications.map((classification, index) => {
+    return (
+      <span
+        key={classification.id}
+        {...(index + 1 !== filteredClassifications.length && {
+          "data-h2-padding-right": "base(x1)",
+        })}
+      >
+        <Pill color="primary" mode="outline">
+          {`${classification.group}-0${classification.level}`}
+        </Pill>
+      </span>
+    );
+  });
+  return pillsArray.length > 0 ? (
+    <div data-h2-display="base(flex)">{pillsArray}</div>
   ) : null;
 }
 
@@ -192,6 +214,7 @@ const SearchRequestsTableApi = ({
     return {
       // search bar
       generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+      id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
       fullName:
         searchType === "fullName" && !!searchBarTerm
           ? searchBarTerm
@@ -263,11 +286,7 @@ const SearchRequestsTableApi = ({
         id: "job_title",
         sortColumnName: "job_title",
         accessor: (d) =>
-          tableViewItemButtonAccessor(
-            paths.searchRequestView(d.id),
-            d.jobTitle || "",
-            "",
-          ),
+          cells.view(paths.searchRequestView(d.id), d.jobTitle || "", ""),
       },
       {
         label: intl.formatMessage({
@@ -278,10 +297,9 @@ const SearchRequestsTableApi = ({
         }),
         id: "group_and_level",
         accessor: (d) =>
-          tableClassificationPills({
-            classifications:
-              d.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
-          }),
+          classificationsCell(
+            d.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+          ),
       },
       {
         label: intl.formatMessage({
@@ -292,7 +310,7 @@ const SearchRequestsTableApi = ({
         }),
         id: "stream",
         accessor: (d) =>
-          tableCommaList({
+          cells.commaList({
             list:
               d.applicantFilter?.qualifiedStreams
                 ?.filter(notEmpty)
@@ -439,6 +457,10 @@ const SearchRequestsTableApi = ({
           {
             label: intl.formatMessage(adminMessages.manager),
             value: "fullName",
+          },
+          {
+            label: intl.formatMessage(adminMessages.id),
+            value: "id",
           },
           {
             label: intl.formatMessage(adminMessages.email),

@@ -1,11 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars } from "~/api/generated";
 import PageHeader from "~/components/PageHeader";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
@@ -15,7 +15,7 @@ type RouteParams = {
 
 export const SingleSearchRequestPage = () => {
   const intl = useIntl();
-  const { searchRequestId } = useParams<RouteParams>();
+  const { searchRequestId } = useRequiredParams<RouteParams>("searchRequestId");
   const pageTitle = intl.formatMessage({
     defaultMessage: "Request",
     id: "WYJnLs",
@@ -32,7 +32,7 @@ export const SingleSearchRequestPage = () => {
         </header>
       </div>
 
-      <ViewSearchRequestApi searchRequestId={searchRequestId || ""} />
+      <ViewSearchRequestApi searchRequestId={searchRequestId} />
     </>
   );
 };

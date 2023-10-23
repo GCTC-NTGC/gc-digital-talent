@@ -1,34 +1,19 @@
 import React, { useMemo } from "react";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Heading, Pill } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import Table, { ColumnsOf, Cell } from "~/components/Table/ClientManagedTable";
 import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import { UpdateUserFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
-import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
+import { actionCell, roleCell } from "./helpers";
 
-const roleCell = (displayName: string) => {
-  return (
-    <Pill color="black" mode="solid">
-      {displayName}
-    </Pill>
-  );
-};
-
-const actionCell = (role: Role, user: User, onUpdateUser: UpdateUserFunc) => (
-  <RemoveIndividualRoleDialog
-    role={role}
-    user={user}
-    onUpdateUser={onUpdateUser}
-  />
-);
-
-type RoleCell = Cell<Role>;
+const columnHelper = createColumnHelper<Role>();
 
 interface IndividualRoleTableProps {
   user: User;
@@ -42,33 +27,27 @@ const IndividualRoleTable = ({
   onUpdateUser,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
-
-  const columns = useMemo<ColumnsOf<Role>>(
-    () => [
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Actions",
-          id: "S8ra2P",
-          description: "Title displayed for the role table actions column",
-        }),
-        accessor: (d) => `Actions ${d.id}`,
-        disableGlobalFilter: true,
-        Cell: ({ row: { original: role } }: RoleCell) =>
-          actionCell(role, user, onUpdateUser),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Role",
-          id: "uBmoxQ",
-          description: "Title displayed for the role table display name column",
-        }),
-        accessor: (role) => getLocalizedName(role.displayName, intl),
-        Cell: ({ row: { original: role } }: RoleCell) =>
-          roleCell(getLocalizedName(role.displayName, intl)),
-      },
-    ],
-    [intl, onUpdateUser, user],
-  );
+  const columns = [
+    columnHelper.display({
+      id: "actions",
+      header: intl.formatMessage({
+        defaultMessage: "Actions",
+        id: "OxeGLu",
+        description: "Title displayed for the team table actions column",
+      }),
+      cell: ({ row: { original: role } }) =>
+        actionCell(role, user, onUpdateUser),
+    }),
+    columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
+      id: "role",
+      header: intl.formatMessage({
+        defaultMessage: "Role",
+        id: "uBmoxQ",
+        description: "Title displayed for the role table display name column",
+      }),
+      cell: ({ getValue }) => roleCell(getValue()),
+    }),
+  ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
     const roles = user.roleAssignments
@@ -94,17 +73,31 @@ const IndividualRoleTable = ({
       <Heading level="h3" size="h4">
         {pageTitle}
       </Heading>
-      <Table
+      <Table<Role>
+        caption={pageTitle}
         data={data}
         columns={columns}
-        addDialog={
-          <AddIndividualRoleDialog
-            user={user}
-            availableRoles={availableRoles}
-            onAddRoles={handleAddRoles}
-          />
-        }
-        title={pageTitle}
+        urlSync={false}
+        search={{
+          internal: true,
+          label: intl.formatMessage({
+            defaultMessage: "Search roles",
+            id: "paTLlJ",
+            description: "Label for the roles table search input",
+          }),
+        }}
+        sort={{
+          internal: true,
+        }}
+        add={{
+          component: (
+            <AddIndividualRoleDialog
+              user={user}
+              availableRoles={availableRoles}
+              onAddRoles={handleAddRoles}
+            />
+          ),
+        }}
       />
     </>
   );

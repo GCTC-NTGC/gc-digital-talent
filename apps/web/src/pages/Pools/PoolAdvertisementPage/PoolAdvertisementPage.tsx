@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
@@ -17,6 +16,7 @@ import {
   Pill,
   Link,
   StandardAccordionHeader,
+  Alert,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -32,6 +32,7 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import {
   PoolStatus,
@@ -52,10 +53,11 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import ApplicationLink from "./components/ApplicationLink";
 import Text from "./components/Text";
-import EducationRequirements from "./components/EducationRequirements";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
@@ -100,6 +102,7 @@ export const PoolPoster = ({
   }
   const fullTitle = getFullPoolTitleLabel(intl, pool);
 
+  const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
 
@@ -154,6 +157,15 @@ export const PoolPoster = ({
         defaultMessage: "About the opportunity",
         id: "WDsKjD",
         description: "Title for a summary of a pool advertisement",
+      }),
+    },
+    specialNote: {
+      id: "special-note-section",
+      title: intl.formatMessage({
+        defaultMessage: "Special note for this process",
+        id: "4yFgQW",
+        description:
+          "Title for the special note for this process section of a pool advertisement",
       }),
     },
     impactTasks: {
@@ -251,6 +263,13 @@ export const PoolPoster = ({
                   {sections.summary.linkText}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              {showSpecialNote && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.specialNote.id}>
+                    {sections.specialNote.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               {showImpactTasks && (
                 <TableOfContents.ListItem>
                   <TableOfContents.AnchorLink id={sections.impactTasks.id}>
@@ -304,13 +323,19 @@ export const PoolPoster = ({
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
                 data-h2-margin="base(0, 0, x1, 0)"
+                data-h2-flex-wrap="base(wrap)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading data-h2-margin="base(0)">
                     {sections.summary.title}
                   </TableOfContents.Heading>
                 </div>
-                <div data-h2-flex-shrink="base(0)">{applyBtn}</div>
+                <div
+                  data-h2-flex-shrink="base(0)"
+                  data-h2-margin-top="base(x.75) p-tablet(0)"
+                >
+                  {applyBtn}
+                </div>
               </div>
               <Accordion.Root mode="simple" type="single" collapsible>
                 <Accordion.Item value="when">
@@ -423,12 +448,41 @@ export const PoolPoster = ({
                 />
               </div>
             </TableOfContents.Section>
+            {showSpecialNote && (
+              <TableOfContents.Section id={sections.specialNote.id}>
+                <div>
+                  <Alert.Root type="info" data-h2-shadow="base(none)">
+                    <Alert.Title>
+                      {intl.formatMessage({
+                        defaultMessage: "Special note for this process",
+                        id: "cbwWa0",
+                        description:
+                          "Heading for a special note in pool advertisement.",
+                      })}
+                    </Alert.Title>
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.specialNote, intl),
+                      )}
+                    />
+                  </Alert.Root>
+                </div>
+              </TableOfContents.Section>
+            )}
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
                 <TableOfContents.Heading>
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
-                {pool.yourImpact && <Text>{pool.yourImpact[locale]}</Text>}
+                {pool.yourImpact && (
+                  <div data-h2-margin-top="base(x1)">
+                    <RichTextRenderer
+                      node={htmlToRichTextJSON(
+                        getLocalizedName(pool.yourImpact, intl),
+                      )}
+                    />
+                  </div>
+                )}
                 {pool.keyTasks && (
                   <>
                     <Heading level="h3" size="h4">
@@ -439,7 +493,13 @@ export const PoolPoster = ({
                           "Title for key tasks on a pool advertisement.",
                       })}
                     </Heading>
-                    <Text>{pool.keyTasks[locale]}</Text>
+                    <div data-h2-margin-top="base(x1)">
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.keyTasks, intl),
+                        )}
+                      />
+                    </div>
                   </>
                 )}
               </TableOfContents.Section>
@@ -716,7 +776,13 @@ export const PoolPoster = ({
                 <TableOfContents.Heading>
                   {sections.whatToExpect.title}
                 </TableOfContents.Heading>
-                <Text>{getLocalizedName(pool.whatToExpect, intl)}</Text>
+                <div data-h2-margin-top="base(x1)">
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.whatToExpect, intl),
+                    )}
+                  />
+                </div>
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>
@@ -786,11 +852,11 @@ type RouteParams = {
 };
 
 const PoolAdvertisementPage = () => {
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId", true);
   const auth = useAuthorization();
 
   const [{ data, fetching, error }] = useGetPoolQuery({
-    variables: { id: poolId || "" },
+    variables: { id: poolId },
   });
 
   const isVisible = isAdvertisementVisible(

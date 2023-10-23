@@ -1,14 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
-import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
-import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
+import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
+import HomeIconOutline from "@heroicons/react/24/outline/HomeIcon";
+import BuildingOfficeIcon from "@heroicons/react/20/solid/BuildingOfficeIcon";
+import BuildingOffice2Icon from "@heroicons/react/20/solid/BuildingOffice2Icon";
+import TicketIcon from "@heroicons/react/20/solid/TicketIcon";
+import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import UserIcon from "@heroicons/react/20/solid/UserIcon";
+import Squares2X2Icon from "@heroicons/react/20/solid/Squares2X2Icon";
+import PuzzlePieceIcon from "@heroicons/react/20/solid/PuzzlePieceIcon";
 
 import { Heading, Pending } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
@@ -52,7 +52,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         })}
       />
       <PageHeader
-        icon={HomeIcon}
+        icon={HomeIconOutline}
         subtitle={intl.formatMessage({
           defaultMessage:
             "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
@@ -136,6 +136,27 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 label: intl.formatMessage(adminMessages.requests),
                 href: adminRoutes.searchRequestTable(),
                 icon: TicketIcon,
+              },
+            ]}
+          />
+        )}
+        {hasRole("community_manager", roleAssignments) && (
+          <LinkWell
+            title={intl.formatMessage({
+              defaultMessage: "Publishing pools and managing teams",
+              id: "B29+yd",
+              description: "Heading for Community Manager dashboard links",
+            })}
+            links={[
+              {
+                label: intl.formatMessage(adminMessages.pools),
+                href: adminRoutes.poolTable(),
+                icon: Squares2X2Icon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.teams),
+                href: adminRoutes.teamTable(),
+                icon: BuildingOffice2Icon,
               },
             ]}
           />

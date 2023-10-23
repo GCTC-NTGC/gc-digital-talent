@@ -24,4 +24,27 @@ return [
     */
 
     'status_notifications' => (bool) env('FEATURE_STATUS_NOTIFICATIONS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Directive forms
+    |--------------------------------------------------------------------------
+    |
+    | A feature to provide users with the ability to view and use the directive
+    | forms in the site.
+    |
+    */
+
+    'status_notifications' => (bool) env('FEATURE_DIRECTIVE_FORMS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Record of decision
+    |--------------------------------------------------------------------------
+    |
+    | A feature to introduce a multiple step assessment builder for evaluating candidates
+    |
+    */
+
+    'record_of_decision' => (bool) env('FEATURE_RECORD_OF_DECISION', false),
 ];

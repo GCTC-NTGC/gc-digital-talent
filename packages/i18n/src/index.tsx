@@ -36,7 +36,6 @@ import {
   getCitizenshipStatusesAdmin,
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
-  getEducationRequirement,
   getEducationRequirementOption,
   EmploymentDuration,
   getEmploymentDuration,
@@ -76,6 +75,9 @@ import {
   getTechnicalSkillLevelDefinition,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
+  getEvaluatedLanguageAbility,
+  getPoolSkillType,
+  getAssessmentStepType,
 } from "./messages/localizedConstants";
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
@@ -117,7 +119,6 @@ export {
   getCitizenshipStatusesAdmin,
   getArmedForcesStatusesAdmin,
   getArmedForcesStatusesProfile,
-  getEducationRequirement,
   getEducationRequirementOption,
   EmploymentDuration,
   getEmploymentDuration,
@@ -157,6 +158,9 @@ export {
   getTechnicalSkillLevelDefinition,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
+  getEvaluatedLanguageAbility,
+  getPoolSkillType,
+  getAssessmentStepType,
 };
 
 export type { Locales, Messages };

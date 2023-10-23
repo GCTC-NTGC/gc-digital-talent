@@ -8,14 +8,12 @@ const colorMap: Record<Color, Record<string, string>> = {
   primary: {
     "data-h2-background-color":
       "base:all(primary.light) base:dark:iap(primary)",
-    "data-h2-color":
-      "base:all(black) base:all:admin(white) base:all:iap(white)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   secondary: {
     "data-h2-background-color":
-      "base(secondary) base:dark:admin(secondary.lighter) base:dark:iap(secondary.light)",
-    "data-h2-color":
-      "base:all(black) base:all:admin(white) base:all:iap(white)",
+      "base(secondary) base:dark:iap(secondary.light)",
+    "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   tertiary: {
     "data-h2-background-color": "base(tertiary.light)",
@@ -64,7 +62,7 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
           data-h2-color="base(black) base:hover(black)"
-          data-h2-text-decoration="base(underline) base:hover(none)"
+          data-h2-text-decoration="base(underline)"
           data-h2-width="base(100%)"
         >
           <span

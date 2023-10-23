@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -14,6 +14,7 @@ import {
   StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -27,7 +28,7 @@ import guidanceFr from "~/assets/documents/Orientation_sur_les_conditions_habili
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
-import { getFormLinks, getGenericLinks } from "./utils";
+import getFormLinks from "./utils";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link
@@ -49,20 +50,21 @@ const contactLink = (chunks: React.ReactNode) => (
   </Link>
 );
 
+export const pageTitle = defineMessage({
+  defaultMessage: "Directive on Digital Talent",
+  id: "xXwUGs",
+  description: "Title for the digital talent directive page",
+});
+
 const DirectivePage = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Directive on Digital Talent",
-    id: "xXwUGs",
-    description: "Title for the digital talent directive page",
-  });
+  const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
   const crumbs = useBreadcrumbs([
     {
-      label: pageTitle,
+      label: intl.formatMessage(pageTitle),
       url: paths.directive(),
     },
   ]);
@@ -91,18 +93,42 @@ const DirectivePage = () => {
     }),
   });
 
-  const contractingFormLinks = getFormLinks({
-    intl,
-    files: {
-      en: contractingEn,
-      fr: contractingFr,
-    },
-    formName: intl.formatMessage({
-      defaultMessage: "Digital Services Contracting",
-      id: "X3bPom",
-      description: "Short name for Digital Services Contracting Form",
-    }),
-  });
+  const contractingFormLinks = directiveFormsFlag
+    ? [
+        {
+          label: intl.formatMessage(
+            {
+              defaultMessage: "Complete the <hidden>{formName} </hidden>form",
+              id: "V7ld7D",
+              description: "Link text for a form page",
+            },
+            {
+              formName: intl.formatMessage({
+                defaultMessage: "Digital Services Contracting",
+                id: "X3bPom",
+                description: "Short name for Digital Services Contracting Form",
+              }),
+            },
+          ),
+          href: paths.digitalServicesContractingQuestionnaire(),
+          mode: "solid",
+          "data-h2-padding": "base(x.5, x1)",
+          download: false,
+          external: false,
+        } as const,
+      ]
+    : getFormLinks({
+        intl,
+        files: {
+          en: contractingEn,
+          fr: contractingFr,
+        },
+        formName: intl.formatMessage({
+          defaultMessage: "Digital Services Contracting",
+          id: "X3bPom",
+          description: "Short name for Digital Services Contracting Form",
+        }),
+      });
 
   const talentPlanFormLinks = getFormLinks({
     intl,
@@ -117,30 +143,10 @@ const DirectivePage = () => {
     }),
   });
 
-  const guidanceLinks = getGenericLinks({
-    intl,
-    files: {
-      en: guidanceEn,
-      fr: guidanceFr,
-    },
-    labels: {
-      en: intl.formatMessage({
-        defaultMessage: "Download the guidance (EN)",
-        id: "wMp4x6",
-        description: "Link text for English guidance resource download",
-      }),
-      fr: intl.formatMessage({
-        defaultMessage: "Download the guidance (FR)",
-        id: "ft6q8G",
-        description: "Link text for French guidance resource download",
-      }),
-    },
-  });
-
   return (
     <>
       <Hero
-        title={pageTitle}
+        title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage({
           defaultMessage:
             "Learn more about how the Government of Canada is strengthening the talent base of the GC digital community.",
@@ -366,14 +372,20 @@ const DirectivePage = () => {
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x.25)"
                   >
-                    {guidanceLinks.map((guidanceLink) => (
-                      <Link
-                        key={guidanceLink.naturalKey ?? guidanceLink.href}
-                        external
-                        color="primary"
-                        {...guidanceLink}
-                      />
-                    ))}
+                    <Link
+                      external
+                      color="primary"
+                      mode="solid"
+                      data-h2-padding="base(x.5, x1)"
+                      href={locale === "en" ? guidanceEn : guidanceFr}
+                      download
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Download the guidance",
+                        id: "yVOpEI",
+                        description: "Link text for guidance resource download",
+                      })}
+                    </Link>
                   </div>
                 </Accordion.Content>
               </Accordion.Item>

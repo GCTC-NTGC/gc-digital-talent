@@ -4,8 +4,6 @@ const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const transform = TsTransformer.transform;
-const shell = require("shelljs");
-const fs = require("fs");
 
 // This uses ts-loader to inject generated ids into react-intl messages.
 const reactIntlTransformRule = {
@@ -34,13 +32,21 @@ const staticDocumentsRule = {
   },
 };
 
+const webStories = "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+const designStories =
+  "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
+let stories = [webStories, designStories];
+const sbApp = process.env.SB_APP;
+if (sbApp) {
+  if (sbApp === "web") {
+    stories = [webStories];
+  } else if (sbApp === "design") {
+    stories = [designStories];
+  }
+}
+
 const config: StorybookConfig = {
-  stories: [
-    "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../src/**/*.mdx",
-    "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/**/src/**/*.mdx",
-  ],
+  stories,
   addons: [
     "@storybook/addon-a11y",
     "@storybook/addon-essentials",

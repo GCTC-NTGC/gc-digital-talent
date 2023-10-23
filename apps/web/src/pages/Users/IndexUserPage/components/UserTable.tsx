@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
@@ -38,10 +38,7 @@ import {
   handleRowSelectedChange,
   TABLE_DEFAULTS,
 } from "~/components/Table/ApiManagedTable/helpers";
-import {
-  tableEditButtonAccessor,
-  tableViewItemButtonAccessor,
-} from "~/components/Table/ClientManagedTable";
+import cells from "~/components/Table/cells";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,
@@ -49,7 +46,7 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 import adminMessages from "~/messages/adminMessages";
-import tableCommaList from "~/components/Table/ClientManagedTable/tableCommaList";
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserTableFilterDialog, {
@@ -154,7 +151,7 @@ const rolesAccessor = (
       .map((role) => getLocalizedName(role.displayName, intl));
     const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 
-    return tableCommaList({
+    return cells.commaList({
       list: uniqueRolesToDisplay,
     });
   }
@@ -254,7 +251,9 @@ const UserTable = ({ title }: { title: string }) => {
     filters: userFilterInput,
   } = tableState;
 
-  const [selectedRows, setSelectedRows] = useState<User[]>([]);
+  const { selectedRows, setSelectedRows, hasSelected } = useSelectedRows<User>(
+    [],
+  );
 
   // merge search bar input with fancy filter state
   const addSearchToUserFilterInput = (
@@ -298,7 +297,7 @@ const UserTable = ({ title }: { title: string }) => {
 
   useEffect(() => {
     setSelectedRows([]);
-  }, [currentPage, pageSize, searchState, sortingRule]);
+  }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
@@ -391,7 +390,7 @@ const UserTable = ({ title }: { title: string }) => {
           description: "Title displayed for the User table Edit column.",
         }),
         accessor: (d) =>
-          tableEditButtonAccessor(
+          cells.edit(
             d.id,
             pathname,
             getFullNameLabel(d.firstName, d.lastName, intl),
@@ -405,7 +404,7 @@ const UserTable = ({ title }: { title: string }) => {
           description: "Title displayed for the User table View column.",
         }),
         accessor: (user) =>
-          tableViewItemButtonAccessor(
+          cells.view(
             paths.userView(user.id),
             "",
             getFullNameLabel(user.firstName, user.lastName, intl),
@@ -463,6 +462,7 @@ const UserTable = ({ title }: { title: string }) => {
     variables: {
       ids: selectedApplicantIds,
     },
+    pause: !hasSelected,
   });
 
   const selectedApplicants =

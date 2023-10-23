@@ -7,7 +7,6 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -358,8 +357,6 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Return applicants with PoolCandidates in any of the given pools.
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
-     *
-     * @param  array  $poolIds
      */
     public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
     {
@@ -683,22 +680,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
-    /* accessor to maintain functionality of deprecated wouldAcceptTemporary field */
-    public function getWouldAcceptTemporaryAttribute()
-    {
-        $positionDuration = $this->position_duration;
-
-        if ($positionDuration && in_array(PositionDuration::TEMPORARY->name, $positionDuration)) {
-            return true;
-        }
-
-        if ($positionDuration && count($positionDuration) >= 1) {
-            return false;
-        }
-
-        return null; // catch all other cases, like null variable or empty array
-    }
-
     /* accessor to maintain functionality of to be deprecated isIndigenous field */
     public function getIsIndigenousAttribute()
     {
@@ -878,7 +859,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         if (! $user->isAbleTo('view-any-user')) {
             $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-user')) {
+                if ($user->isAbleTo('view-team-applicantProfile')) {
                     $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
                         $teamIds = $user->rolesTeams()->get()->pluck('id');
                         $query->whereHas('pool', function (Builder $query) use ($teamIds) {

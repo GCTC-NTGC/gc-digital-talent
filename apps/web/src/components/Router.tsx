@@ -69,14 +69,6 @@ const AccessibilityPage = React.lazy(() =>
       ),
   ),
 );
-const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
-);
 
 /** Search */
 const SearchPage = React.lazy(() =>
@@ -532,6 +524,14 @@ const EditPoolPage = React.lazy(() =>
       ),
   ),
 );
+const AssessmentPlanBuilderPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+      ),
+  ),
+);
 const PoolLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -650,6 +650,38 @@ const SkillShowcasePage = React.lazy(() =>
       ),
   ),
 );
+const TopBehaviouralSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsTopBehaviouralSkillsPage" */ "../pages/Skills/TopBehaviouralSkillsPage"
+      ),
+  ),
+);
+const TopTechnicalSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsTopTechnicalSkillsPage" */ "../pages/Skills/TopTechnicalSkillsPage"
+      ),
+  ),
+);
+const ImproveBehaviouralSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsImproveBehaviouralSkillsPage" */ "../pages/Skills/ImproveBehaviouralSkillsPage"
+      ),
+  ),
+);
+const ImproveTechnicalSkillsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsImproveTechnicalSkillsPage" */ "../pages/Skills/ImproveTechnicalSkillsPage"
+      ),
+  ),
+);
 
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
@@ -665,6 +697,24 @@ const ViewSearchRequestPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminViewSearchRequestPage" */ "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+      ),
+  ),
+);
+
+/** Directive on Digital Talent */
+const DirectivePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
+      ),
+  ),
+);
+const DigitalServicesContractingQuestionnaire = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
       ),
   ),
 );
@@ -710,7 +760,23 @@ const createRoute = (
             },
             {
               path: "directive-on-digital-talent",
-              element: <DirectivePage />,
+              children: [
+                {
+                  index: true,
+                  element: <DirectivePage />,
+                },
+                {
+                  path: "digital-services-contracting-questionnaire",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <DigitalServicesContractingQuestionnaire />
+                    </RequireAuth>
+                  ),
+                },
+              ],
             },
             {
               path: "search",
@@ -843,6 +909,50 @@ const createRoute = (
                                 </RequireAuth>
                               ) : null,
                             },
+                            {
+                              path: "top-5-behavioural-skills",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <TopBehaviouralSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "top-10-technical-skills",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <TopTechnicalSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "3-behavioural-skills-to-improve",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ImproveBehaviouralSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
+                            {
+                              path: "5-technical-skills-to-train",
+                              element: featureFlags.skillLibrary ? (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.Applicant]}
+                                  loginPath={loginPath}
+                                >
+                                  <ImproveTechnicalSkillsPage />
+                                </RequireAuth>
+                              ) : null,
+                            },
                           ],
                         },
                       ],
@@ -872,7 +982,7 @@ const createRoute = (
                   path: ":userId",
                   children: [
                     {
-                      path: "profile",
+                      path: "personal-information",
                       children: [
                         {
                           index: true,
@@ -886,7 +996,7 @@ const createRoute = (
                           ),
                         },
                         {
-                          path: "career-timeline-and-recruitment",
+                          path: "career-timeline",
                           children: [
                             {
                               index: true,
@@ -1109,6 +1219,7 @@ const createRoute = (
                   roles={[
                     ROLE_NAME.PoolOperator,
                     ROLE_NAME.RequestResponder,
+                    ROLE_NAME.CommunityManager,
                     ROLE_NAME.PlatformAdmin,
                   ]}
                   loginPath={loginPath}
@@ -1213,7 +1324,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexTeamPage />
@@ -1224,7 +1339,10 @@ const createRoute = (
                   path: "create",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <CreateTeamPage />
@@ -1235,7 +1353,11 @@ const createRoute = (
                   path: ":teamId",
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <TeamLayout />
@@ -1248,6 +1370,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1260,7 +1383,10 @@ const createRoute = (
                       path: "edit",
                       element: (
                         <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
+                          roles={[
+                            ROLE_NAME.CommunityManager,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
                           loginPath={loginPath}
                         >
                           <UpdateTeamPage />
@@ -1273,6 +1399,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1292,7 +1419,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.CommunityManager,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexPoolPage />
@@ -1317,6 +1448,7 @@ const createRoute = (
                       roles={[
                         ROLE_NAME.PoolOperator,
                         ROLE_NAME.RequestResponder,
+                        ROLE_NAME.CommunityManager,
                         ROLE_NAME.PlatformAdmin,
                       ]}
                       loginPath={loginPath}
@@ -1332,6 +1464,7 @@ const createRoute = (
                           roles={[
                             ROLE_NAME.PoolOperator,
                             ROLE_NAME.RequestResponder,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1346,6 +1479,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1388,6 +1522,22 @@ const createRoute = (
                           ],
                         },
                       ],
+                    },
+                    {
+                      path: "plan",
+                      element: featureFlags.recordOfDecision ? (
+                        <RequireAuth
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
+                          loginPath={loginPath}
+                        >
+                          <AssessmentPlanBuilderPage />
+                        </RequireAuth>
+                      ) : (
+                        <AdminErrorPage />
+                      ),
                     },
                   ],
                 },

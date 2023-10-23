@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 
@@ -30,6 +29,7 @@ import LanguageProfile from "~/components/Profile/components/LanguageProfile/Lan
 import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
+import useApplicationId from "../useApplicationId";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -138,7 +138,7 @@ export const ApplicationProfile = ({
 };
 
 const ApplicationProfilePage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -149,7 +149,7 @@ const ApplicationProfilePage = () => {
   ] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
-      id: applicationId || "",
+      id,
     },
   });
   const [{ data: userData, fetching: userFetching, error: userError }] =

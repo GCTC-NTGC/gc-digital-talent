@@ -32,8 +32,9 @@ const HIRED_STATUSES: CombinedStatus[] = [
   "HIRED_TERM",
   "HIRED_INDETERMINATE",
 ];
-export const isHiredCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
-  status ? HIRED_STATUSES.includes(status) : false;
+export const isHiredCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? HIRED_STATUSES.includes(status) : false);
 const READY_TO_HIRE_STATUSES: CombinedStatus[] = ["READY_TO_HIRE"];
 export const isReadyToHireCombinedStatus = (
   status: Maybe<CombinedStatus>,
@@ -55,15 +56,16 @@ export const isInactiveCombinedStatus = (
   status: Maybe<CombinedStatus>,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
 const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
-export const isErrorCombinedStatus = (status: Maybe<CombinedStatus>): boolean =>
-  status ? ERROR_STATUSES.includes(status) : false;
-const HIRED_LONGE_TERM_STATUSES: CombinedStatus[] = [
+export const isErrorCombinedStatus = (
+  status: Maybe<CombinedStatus>,
+): boolean => (status ? ERROR_STATUSES.includes(status) : false);
+const HIRED_LONG_TERM_STATUSES: CombinedStatus[] = [
   "HIRED_INDETERMINATE",
   "HIRED_TERM",
 ];
 export const isHiredLongTermCombinedStatus = (
   status: Maybe<CombinedStatus>,
-): boolean => (status ? HIRED_LONGE_TERM_STATUSES.includes(status) : false);
+): boolean => (status ? HIRED_LONG_TERM_STATUSES.includes(status) : false);
 
 // Map combined statuses to their labels
 const combinedStatusLabels = defineMessages<CombinedStatus>({
@@ -182,7 +184,6 @@ const statusMap = new Map<PoolCandidateStatus, CombinedStatus>([
 
 // Map pool candidate statuses to their suspended combined statuses
 const suspendedStatusMap = new Map<PoolCandidateStatus, CombinedStatus>([
-  [PoolCandidateStatus.PlacedCasual, "NOT_INTERESTED"],
   [PoolCandidateStatus.QualifiedAvailable, "NOT_INTERESTED"],
 ]);
 

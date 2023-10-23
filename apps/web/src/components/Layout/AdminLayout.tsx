@@ -5,19 +5,16 @@ import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
-import {
-  Button,
-  SkipLink,
-  SideMenuContentWrapper,
-} from "@gc-digital-talent/ui";
+import { Button, SideMenuContentWrapper } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
-import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import AdminSideMenu from "../AdminSideMenu/AdminSideMenu";
 import MaintenanceBanner from "./MaintenanceBanner";
+import SkipLink from "./SkipLink";
 
 interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
   show: boolean;
@@ -50,8 +47,9 @@ const OpenMenuButton = React.forwardRef<
 
 const AdminLayout = () => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const isSmallScreen = useIsSmallScreen();
-  useLayoutTheme("admin");
+  // useLayoutTheme("admin");
 
   // retain menu preference in storage
   const [isMenuOpen, setMenuOpen] = useLocalStorage(
@@ -66,7 +64,7 @@ const AdminLayout = () => {
 
   return (
     <>
-      <Favicon project="admin" />
+      <Favicon locale={locale} project="admin" />
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Admin",

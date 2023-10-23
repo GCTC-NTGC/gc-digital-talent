@@ -95,19 +95,6 @@ type User {
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
-  expectedSalary: [SalaryRange]
-    @rename(attribute: "expected_salary")
-    @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
-  expectedClassifications: [Classification]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedClassifications is deprecated. Remove in #6226."
-    )
-  wouldAcceptTemporary: Boolean
-    @rename(attribute: "would_accept_temporary")
-    @deprecated(
-      reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663."
-    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
@@ -132,20 +119,8 @@ type User {
   topBehaviouralSkillsRanking: [UserSkill]
   improveTechnicalSkillsRanking: [UserSkill]
   improveBehaviouralSkillsRanking: [UserSkill]
-  # Pool Manager info
-  pools: [Pool]
-    @hasMany
-    @can(ability: "view", resolved: true)
-    @deprecated(
-      reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664."
-    ) # Pools a user owns
   # Profile Status
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle]
-    @belongsToMany
-    @deprecated(
-      reason: "expectedGenericJobTitles is deprecated. Remove in #7645."
-    )
   priorityWeight: Int @rename(attribute: "priority_weight")
   # teams and roles
   roleAssignments: [RoleAssignment!] @hasMany
@@ -175,7 +150,7 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
-type UserPublicProfile {
+type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
   firstName: String @rename(attribute: "first_name")
@@ -199,11 +174,12 @@ type Pool {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
-    @hasMany(relation: "publishedPoolCandidates")
+    @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @can(ability: "view", resolved: true)
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
+  specialNote: LocalizedString @rename(attribute: "special_note")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -223,6 +199,10 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+    @hasMany
+    @canOnParent(ability: "viewAssessments")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
 }
 
 type ScreeningQuestionResponse {
@@ -230,6 +210,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion @belongsTo
   poolCandidate: PoolCandidate @belongsTo
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool @belongsTo
+  type: AssessmentStepType
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedString
+  poolSkills: [PoolSkill] @belongsToMany
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool @belongsTo
+  skill: Skill @belongsTo
+  assessmentSteps: [AssessmentStep] @belongsToMany
 }
 
 type PoolCandidate {
@@ -365,11 +362,6 @@ type ApplicantFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-  wouldAcceptTemporary: Boolean
-    @rename(attribute: "would_accept_temporary")
-    @deprecated(
-      reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665."
-    )
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
@@ -610,6 +602,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream] @scope
   fullName: String @scope
   email: String @scope
+  id: ID @scope
   jobTitle: String @scope
   additionalComments: String @scope
   adminNotes: String @scope
@@ -641,7 +634,7 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000)
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @can(ability: "viewAny")
   applicant(id: UUID! @eq): User
@@ -657,6 +650,13 @@ type Query {
     @can(ability: "viewAny", model: "User")
     @deprecated(
       reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
+    )
+  userPublicProfiles: [UserPublicProfile]!
+    @all
+    @guard
+    @can(ability: "viewBasicInfo", model: "User")
+    @deprecated(
+      reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!"
     )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
@@ -707,7 +707,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "withSkillCount"]
+      scopes: ["notDraft", "withSkillCount", "authorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
     @guard
@@ -1320,6 +1320,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID] @resolveWith(method: "setNonessentialPoolSkills")
+}
+
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1339,9 +1347,11 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   # What to expect
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  # Special note
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
   # Essential skills and Asset skills
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  essentialSkills: SyncEssentialPoolSkills @spread
+  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1349,6 +1359,21 @@ input UpdatePoolInput {
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   screeningQuestions: UpdateScreeningQuestionsHasMany
+}
+
+input AssessmentStepInput {
+  type: AssessmentStepType
+    @rules(
+      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
+    )
+  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput
@@ -1362,6 +1387,25 @@ input RoleAssignmentHasMany {
   detach: RolesInput
   sync: RolesInput
 }
+
+# This input only accepts Team-Based roles. It is assumed that a team id will be provided at a higher level of input.
+input RolesForTeamInput
+  @validator(class: "App\\GraphQL\\Validators\\TeamRolesInputValidator") {
+  roles: [ID!]
+}
+
+input RolesForTeamHasMany {
+  attach: RolesForTeamInput
+  detach: RolesForTeamInput
+  sync: RolesForTeamInput
+}
+
+input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
+  roleAssignments: RolesForTeamHasMany!
+}
+
 input ScreeningResponseBelongsTo {
   connect: ID!
 }
@@ -1398,6 +1442,11 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+
+  # Used to validate essential skills
+  applicationId: ID
+    @rename(attribute: "id")
+    @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
 type Mutation {
@@ -1632,10 +1681,12 @@ type Mutation {
     @delete
     @guard
     @can(ability: "delete", find: "id")
+  updateUserTeamRoles(
+    teamRoleAssignments: UpdateUserTeamRolesInput! @spread
+  ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
 
   # Notifications
-  markNotificationAsRead(id: UUID!): Notification
-
+  markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
@@ -1653,6 +1704,20 @@ type Mutation {
   deleteUserSkill(id: UUID! @whereKey): UserSkill
     @can(ability: "delete", find: "id")
     @delete
+
+  # Assessment mutations
+  createAssessmentStep(
+    poolId: UUID! @rename(attribute: "pool_id")
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @create @guard @can(ability: "create", injectArgs: true)
+  updateAssessmentStep(
+    id: UUID!
+    assessmentStep: AssessmentStepInput @spread
+  ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
+    @delete
+    @guard
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql

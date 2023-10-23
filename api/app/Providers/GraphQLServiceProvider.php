@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
 use App\Enums\BilingualEvaluation;
@@ -14,6 +15,7 @@ use App\Enums\DirectiveForms\AdvertisementType;
 use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractFteRange;
 use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSolicitationProcedure;
@@ -45,6 +47,7 @@ use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
@@ -156,6 +159,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'IndigenousCommunity',
                     'values' => array_column(IndigenousCommunity::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolSkillType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolSkillType',
+                    'values' => array_column(PoolSkillType::cases(), 'name'),
                 ]);
             }
         );
@@ -452,6 +464,15 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
         $typeRegistry->registerLazy(
+            'ContractFteRange',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ContractFteRange',
+                    'values' => array_column(ContractFteRange::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
             'ContractInstrument',
             static function (): EnumType {
                 return new EnumType([
@@ -556,6 +577,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'ContractingRationale',
                     'values' => array_column(ContractingRationale::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentStepType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentStepType',
+                    'values' => array_column(AssessmentStepType::cases(), 'name'),
                 ]);
             }
         );

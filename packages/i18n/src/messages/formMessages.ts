@@ -66,10 +66,42 @@ const formMessages = defineMessages({
     id: "U/4a27",
     description: "Button text to reset the combobox input",
   },
+  toggleCombobox: {
+    defaultMessage: "Toggle options menu",
+    id: "Ot5z0u",
+    description: "Button text to toggle the combobox menu",
+  },
   noResultsCombobox: {
     defaultMessage: "No results found.",
     id: "IRCKBP",
     description: "Message displayed when combobox has no options available",
+  },
+  allAvailableCombobox: {
+    defaultMessage:
+      "{total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
+    id: "FYrmhH",
+    description:
+      "Message showing number of all available options in combobox menu",
+  },
+  subsetAvailableCombobox: {
+    defaultMessage:
+      "{count, plural, =0 {<strong>0</strong> matching results} =1 {<strong>1</strong> matching result} other {<strong>#</strong> matching results}} out of {total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
+    id: "KGX4bI",
+    description:
+      "Message showing number of matching items from all available options in combobox menu",
+  },
+  itemsSelectedCombobox: {
+    defaultMessage:
+      "{count, plural, =0 {0 options selected} =1 {1 option selected} other {# options selected}}",
+    id: "eBNZxB",
+    description:
+      "Message displayed telling user how many items they have selected in a multi-select combobox",
+  },
+  clearSelectedCombobox: {
+    defaultMessage: "Clear all selections",
+    id: "QnlRv0",
+    description:
+      "Button text to clear the current selected items in a multi-select combobox",
   },
   saveChanges: {
     defaultMessage: "Save changes",
@@ -145,6 +177,12 @@ const formMessages = defineMessages({
     defaultMessage: "All types",
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
+  },
+  other: {
+    defaultMessage: "Other",
+    id: "E6JTyY",
+    description:
+      "The selection to choose when the expected option is not available",
   },
 });
 

@@ -19,6 +19,10 @@ export type SimplePool = Pick<
 export interface EditPoolSectionMetadata {
   id: string;
   title: string;
+  shortTitle?: string;
+  hasError?: boolean;
 }
 
 export type PageNavKeys = "view" | "edit" | "candidates";
+
+export type PoolCompleteness = "incomplete" | "complete" | "submitted";

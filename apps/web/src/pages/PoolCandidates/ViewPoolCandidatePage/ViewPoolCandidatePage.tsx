@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
@@ -36,6 +35,7 @@ import {
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -53,6 +53,7 @@ import WorkPreferencesDisplay from "../../../components/Profile/components/WorkP
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
+import ApplicationPrintButton from "./components/ApplicationPrintButton/ApplicationPrintButton";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -583,8 +584,22 @@ export const ViewPoolCandidate = ({
       </p>
       <Separator
         data-h2-background-color="base(black.lightest)"
-        data-h2-margin="base(x1, 0, 0, 0)"
+        data-h2-margin="base(x1, 0, x1, 0)"
       />
+      {parsedSnapshot && (
+        <div
+          data-h2-container="base(center, large, 0)"
+          data-h2-text-align="base(right)"
+          data-h2-margin-right="base(0)"
+        >
+          <ApplicationPrintButton
+            user={parsedSnapshot}
+            pool={poolCandidate.pool}
+            color="primary"
+            mode="solid"
+          />
+        </div>
+      )}
       <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
         <TableOfContents.Navigation>
           <TableOfContents.List>
@@ -708,9 +723,9 @@ type RouteParams = {
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { poolCandidateId } = useParams<RouteParams>();
+  const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
-    variables: { poolCandidateId: poolCandidateId || "" },
+    variables: { poolCandidateId },
   });
 
   const navigationCrumbs = [

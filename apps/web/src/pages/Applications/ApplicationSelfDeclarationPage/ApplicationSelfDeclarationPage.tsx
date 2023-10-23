@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -41,6 +41,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
+import useApplicationId from "../useApplicationId";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -343,7 +344,7 @@ export const ApplicationSelfDeclaration = ({
 const ApplicationSelfDeclarationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -354,7 +355,7 @@ const ApplicationSelfDeclarationPage = () => {
   ] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
-      id: applicationId || "",
+      id,
     },
   });
   const [{ data: userData, fetching: userFetching, error: userError }] =
@@ -375,14 +376,16 @@ const ApplicationSelfDeclarationPage = () => {
       navigate(paths.browsePools());
       return;
     }
+    const newCommunities = formValuesToApiCommunities(formValues);
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
       userId: userData?.me?.id || "",
       userInput: {
-        indigenousDeclarationSignature: formValues.signature,
-        indigenousCommunities: formValuesToApiCommunities(formValues),
+        indigenousCommunities: newCommunities,
+        indigenousDeclarationSignature:
+          newCommunities.length > 0 ? formValues.signature : null,
       },
-      applicationId: applicationId || "",
+      applicationId: id,
       applicationInput: {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },

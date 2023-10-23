@@ -14,9 +14,9 @@ import {
   hasAllEmptyFields,
 } from "~/validators/profile/languageInformation";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
-import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -49,16 +49,18 @@ const LanguageProfile = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Language profile updated successfully!",
-            id: "43VEQA",
-            description:
-              "Message displayed when a user successfully updates their language profile.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Language profile updated successfully!",
+              id: "43VEQA",
+              description:
+                "Message displayed when a user successfully updates their language profile.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
@@ -78,7 +80,7 @@ const LanguageProfile = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger
+            <ToggleForm.Trigger
               aria-label={intl.formatMessage({
                 defaultMessage: "Edit language profile",
                 id: "fxPLAl",
@@ -91,7 +93,7 @@ const LanguageProfile = ({
                 description:
                   "Button text to start editing one of the profile sections.",
               })}
-            </SectionTrigger>
+            </ToggleForm.Trigger>
           ) : undefined
         }
       >

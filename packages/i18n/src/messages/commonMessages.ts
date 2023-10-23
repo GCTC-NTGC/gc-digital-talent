@@ -6,6 +6,12 @@ const commonMessages = defineMessages({
     id: "o/6zAs",
     description: "Title displayed for a table initial loading state.",
   },
+  loading: {
+    defaultMessage: "Loading...",
+    id: "ErrpJC",
+    description:
+      "Text for a component which can't be rendered yet because a data load is in progress.",
+  },
   saving: {
     defaultMessage: "Saving...",
     id: "Tw90Pi",
@@ -84,6 +90,11 @@ const commonMessages = defineMessages({
     id: "99cWuv",
     description: "Message for the success status",
   },
+  warning: {
+    defaultMessage: "warning",
+    id: "hd7hdn",
+    description: "Message for the warning status",
+  },
   dividingColon: {
     defaultMessage: ": ",
     id: "i3Jl6C",
@@ -123,6 +134,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Unspecified",
     id: "zhqK/P",
     description: "Unspecified, has not been set or defined",
+  },
+  notApplicable: {
+    defaultMessage: "Not applicable",
+    id: "C/mdCs",
+    description: "Not applicable, context or state does apply.",
   },
 });
 

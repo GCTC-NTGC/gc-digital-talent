@@ -4,8 +4,11 @@ import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "framer-motion";
 
-import { SkipLink } from "@gc-digital-talent/ui";
-import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
+import {
+  NestedLanguageProvider,
+  Messages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 
@@ -19,6 +22,7 @@ import * as crkMessages from "~/lang/crkCompiled.json";
 import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
+import SkipLink from "./SkipLink";
 import MaintenanceBanner from "./MaintenanceBanner";
 
 const messages: Map<string, Messages> = new Map([
@@ -50,6 +54,7 @@ const IAPSeo = () => {
 };
 
 const Layout = () => {
+  const { locale } = useLocale();
   const location = useLocation();
   const { user } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -73,7 +78,7 @@ const Layout = () => {
     <NestedLanguageProvider messages={messages}>
       <AnimatePresence>
         <React.Fragment key={location.pathname}>
-          <Favicon project="iap" />
+          <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
           <div

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
@@ -8,6 +7,7 @@ import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
 import SEO from "~/components/SEO/SEO";
 import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 
@@ -48,9 +48,9 @@ const ViewTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const { teamId } = useParams<RouteParams>();
+  const { teamId } = useRequiredParams<RouteParams>("teamId");
   const [{ data, fetching, error }] = useViewTeamQuery({
-    variables: { id: teamId || "" },
+    variables: { id: teamId },
   });
 
   const navigationCrumbs = [

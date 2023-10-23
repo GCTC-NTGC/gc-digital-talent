@@ -1,0 +1,891 @@
+import React from "react";
+import { useIntl } from "react-intl";
+import isEmpty from "lodash/isEmpty";
+
+import { Heading } from "@gc-digital-talent/ui";
+import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  commonMessages,
+  getArmedForcesStatusesAdmin,
+  getBilingualEvaluation,
+  getCitizenshipStatusesAdmin,
+  getEducationRequirementOption,
+  getEmploymentEquityGroup,
+  getEmploymentEquityStatement,
+  getIndigenousCommunity,
+  getLanguage,
+  getLanguageProficiency,
+  getLocale,
+  getLocalizedName,
+  getOperationalRequirement,
+  getProvinceOrTerritory,
+  getSimpleGovEmployeeType,
+  getWorkRegion,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
+import {
+  GovEmployeeType,
+  OperationalRequirement,
+  PositionDuration,
+  User,
+  BilingualEvaluation,
+  IndigenousCommunity,
+  Pool,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
+
+import { getFullNameLabel } from "~/utils/nameUtils";
+import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
+import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
+import applicationMessages from "~/messages/applicationMessages";
+import { getExperiencesSkillIds } from "~/utils/skillUtils";
+
+import SkillWithExperiences from "./SkillWithExperiences";
+import EducationRequirementExperience from "./EducationRequirementExperience";
+
+interface ApplicationPrintDocumentProps {
+  user: User;
+  pool: Pool;
+}
+
+const PageSection = ({ children }: { children: React.ReactNode }) => (
+  <div
+    data-h2-margin-bottom="base(2rem)"
+    data-h2-display="base(block)"
+    data-h2-break-inside="base(avoid) base:print(avoid)"
+    data-h2-break-after="base(avoid) base:print(avoid)"
+  >
+    {children}
+  </div>
+);
+
+// If a section is too big, use this instead of PageSection to allow it to break
+const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
+    {children}
+  </div>
+);
+
+const ApplicationPrintDocument = React.forwardRef<
+  HTMLDivElement,
+  ApplicationPrintDocumentProps
+>(({ user, pool }, ref) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
+  // data manipulation
+  // pull pool candidate for the pool in question out of snapshot
+  const poolCandidates = unpackMaybes(user.poolCandidates);
+  const relevantPoolCandidate = poolCandidates.find(
+    (element) => element.pool.id === pool.id,
+  );
+
+  // unpack education requirement experiences
+  const educationRequirementExperiencesFiltered =
+    relevantPoolCandidate?.educationRequirementExperiences?.filter(notEmpty) ??
+    [];
+
+  // filter out behavioural skills for both, and unused asset skills
+  const poolEssentialTechnicalSkills =
+    pool?.essentialSkills?.filter(
+      (skill) => skill.category === SkillCategory.Technical,
+    ) ?? [];
+  const poolNonEssentialTechnicalSkills =
+    pool?.nonessentialSkills?.filter(
+      (skill) => skill.category === SkillCategory.Technical,
+    ) ?? [];
+  const experiencesSkillIds = getExperiencesSkillIds(
+    user.experiences?.filter(notEmpty) ?? [],
+  );
+  const usedAssetsSkills = poolNonEssentialTechnicalSkills.filter(
+    (assetSkill) => experiencesSkillIds.includes(assetSkill.id),
+  );
+
+  // massage user data for display
+  const govEmployeeTypeId =
+    enumToOptions(GovEmployeeType).find(
+      (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,
+    )?.value || "";
+  const regionPreferencesSquished = user.locationPreferences?.map((region) =>
+    region ? intl.formatMessage(getWorkRegion(region)) : "",
+  );
+  const regionPreferences = regionPreferencesSquished
+    ? insertBetween(", ", regionPreferencesSquished)
+    : "";
+  const acceptedOperationalArray = user.acceptedOperationalRequirements
+    ? user.acceptedOperationalRequirements.map((opRequirement) => (
+        <li key={opRequirement}>
+          {opRequirement
+            ? intl.formatMessage(
+                getOperationalRequirement(opRequirement, "firstPerson"),
+              )
+            : ""}
+        </li>
+      ))
+    : null;
+  const anyCriteriaSelected = !isEmpty(acceptedOperationalArray);
+  const operationalRequirementsSubsetV2 = [
+    OperationalRequirement.OvertimeOccasional,
+    OperationalRequirement.OvertimeRegular,
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
+  ];
+  const unselectedOperationalArray = operationalRequirementsSubsetV2.filter(
+    (requirement) =>
+      !user.acceptedOperationalRequirements?.includes(requirement),
+  );
+  const unacceptedOperationalArray = unselectedOperationalArray
+    ? unselectedOperationalArray.map((opRequirement) => (
+        <li key={opRequirement}>
+          {opRequirement
+            ? intl.formatMessage(
+                getOperationalRequirement(opRequirement, "firstPerson"),
+              )
+            : ""}
+        </li>
+      ))
+    : null;
+  const nonLegacyIndigenousCommunities =
+    unpackMaybes(user.indigenousCommunities).filter(
+      (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+    ) || [];
+
+  return (
+    <div style={{ display: "none" }}>
+      <div data-h2 ref={ref}>
+        <div
+          data-h2-font-family="base(sans) base:print(sans)"
+          data-h2-padding-bottom="base(1rem)"
+          data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
+        >
+          <div>
+            <Heading level="h1" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Application snapshot",
+                id: "ipsXat",
+                description:
+                  "Document title for printing a user's application snapshot.",
+              })}
+            </Heading>
+            <Heading level="h2" data-h2-font-weight="base(700)">
+              <>{getFullNameLabel(user.firstName, user.lastName, intl)}</>
+            </Heading>
+            {relevantPoolCandidate && (
+              <>
+                <PageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Education requirement",
+                      id: "/zx1kX",
+                      description: "Education requirement section header.",
+                    })}
+                  </Heading>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Requirement selection",
+                      id: "bp1VHg",
+                      description: "Label before required selection listed.",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {relevantPoolCandidate.educationRequirementOption
+                      ? intl.formatMessage(
+                          getEducationRequirementOption(
+                            relevantPoolCandidate.educationRequirementOption,
+                          ),
+                        )
+                      : intl.formatMessage(commonMessages.notAvailable)}
+                  </p>
+                </PageSection>
+                <PageSection>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Demonstrated with the following experiences",
+                      id: "1CRt78",
+                      description:
+                        "label before listing experience associated with fulfilling requirements.",
+                    })}
+                  </p>
+                  {educationRequirementExperiencesFiltered.length > 0 && (
+                    <ul>
+                      {educationRequirementExperiencesFiltered.map(
+                        (experience) => {
+                          return (
+                            <EducationRequirementExperience
+                              experience={experience}
+                              key={`${experience.id}-education-requirement`}
+                            />
+                          );
+                        },
+                      )}
+                    </ul>
+                  )}
+                </PageSection>
+                <BreakingPageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Essential skills",
+                      id: "w7E0He",
+                      description:
+                        "Title for the required skills snapshot section",
+                    })}
+                  </Heading>
+                  {poolEssentialTechnicalSkills.length > 0 ? (
+                    poolEssentialTechnicalSkills.map((skill) => (
+                      <SkillWithExperiences
+                        key={skill.id}
+                        skill={skill}
+                        experiences={user.experiences?.filter(notEmpty) ?? []}
+                      />
+                    ))
+                  ) : (
+                    <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
+                  )}
+                </BreakingPageSection>
+                <BreakingPageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Asset skills",
+                      id: "Xpo+u6",
+                      description:
+                        "Title for the optional skills snapshot section",
+                    })}
+                  </Heading>
+                  {usedAssetsSkills.length > 0 ? (
+                    usedAssetsSkills.map((skill) => (
+                      <SkillWithExperiences
+                        key={skill.id}
+                        skill={skill}
+                        experiences={user.experiences?.filter(notEmpty) ?? []}
+                      />
+                    ))
+                  ) : (
+                    <p>{intl.formatMessage(commonMessages.notAvailable)}</p>
+                  )}
+                </BreakingPageSection>
+                <PageSection>
+                  <Heading level="h3" data-h2-font-weight="base(700)">
+                    {intl.formatMessage({
+                      defaultMessage: "Screening questions",
+                      id: "mqWvWR",
+                      description:
+                        "Title for the screening questions snapshot section",
+                    })}
+                  </Heading>
+                  <ul>
+                    {relevantPoolCandidate.screeningQuestionResponses?.map(
+                      (instance) => {
+                        return (
+                          <li key={instance?.id}>
+                            <p data-h2-font-weight="base(700)">
+                              {getLocalizedName(
+                                instance?.screeningQuestion?.question,
+                                intl,
+                              )}
+                            </p>
+                            <p>{instance?.answer}</p>
+                          </li>
+                        );
+                      },
+                    )}
+                  </ul>
+                </PageSection>
+              </>
+            )}
+            {!relevantPoolCandidate && (
+              <PageSection>
+                <Heading level="h3" data-h2-font-weight="base(700)">
+                  {intl.formatMessage({
+                    defaultMessage: "Error, snapshot information missing",
+                    id: "FxqP5P",
+                    description:
+                      "Error displayed in print view when attempting to print partial snapshot.",
+                  })}
+                </Heading>
+              </PageSection>
+            )}
+            <BreakingPageSection>
+              <Heading level="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage(
+                  navigationMessages.careerTimelineAndRecruitment,
+                )}
+              </Heading>
+              <PrintExperienceByType
+                experiences={user.experiences?.filter(notEmpty)}
+              />
+            </BreakingPageSection>
+            <Heading level="h2" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Personal information",
+                id: "cA0iH+",
+                description:
+                  "Profile and applications card title for profile card",
+              })}
+            </Heading>
+            <PageSection>
+              <Heading level="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Contact information",
+                  id: "XqF3wS",
+                  description: "Profile section title for contact information",
+                })}
+              </Heading>
+              {user.email && (
+                <p>
+                  {intl.formatMessage(commonMessages.email)}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.email}
+                </p>
+              )}
+              {user.telephone && (
+                <p>
+                  {intl.formatMessage(commonMessages.telephone)}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.telephone}
+                </p>
+              )}
+              {user.currentCity && user.currentProvince && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "City",
+                    id: "QjO3Y0",
+                    description: "Label for city and province/territory",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.currentCity},{" "}
+                  {intl.formatMessage(
+                    getProvinceOrTerritory(user.currentProvince),
+                  )}
+                </p>
+              )}
+              {user.preferredLang && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Communication language",
+                    id: "BzKGyK",
+                    description: "Label for communication language",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(getLanguage(user.preferredLang))}
+                </p>
+              )}
+              {user.preferredLanguageForInterview && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Spoken interview language",
+                    id: "HUy0EA",
+                    description: "Label for spoken interview language",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getLanguage(user.preferredLanguageForInterview),
+                  )}
+                </p>
+              )}
+              {user.preferredLanguageForExam && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Written exam language",
+                    id: "Yh1Y7Z",
+                    description: "Label for written exam language",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getLanguage(user.preferredLanguageForExam),
+                  )}
+                </p>
+              )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(commonMessages.status)}
+              </Heading>
+              {user.armedForcesStatus !== null &&
+                user.armedForcesStatus !== undefined && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Member of CAF",
+                      id: "ybzxmU",
+                      description: "Veteran/member label",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getArmedForcesStatusesAdmin(user.armedForcesStatus),
+                    )}
+                  </p>
+                )}
+              {user.citizenship ? (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Citizenship",
+                    id: "sr20Tb",
+                    description: "Citizenship label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getCitizenshipStatusesAdmin(user.citizenship),
+                  )}
+                </p>
+              ) : (
+                intl.formatMessage(commonMessages.notProvided)
+              )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(navigationMessages.languageInformation)}
+              </Heading>
+              {user.lookingForEnglish &&
+                !user.lookingForFrench &&
+                !user.lookingForBilingual && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "/oqWA0",
+                      description: "Interested in label",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage({
+                      defaultMessage: "English positions",
+                      id: "vFMPHW",
+                      description: "English Positions message",
+                    })}
+                  </p>
+                )}
+              {!user.lookingForEnglish &&
+                user.lookingForFrench &&
+                !user.lookingForBilingual && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "/oqWA0",
+                      description: "Interested in label",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage({
+                      defaultMessage: "French positions",
+                      id: "qT9sS0",
+                      description: "French Positions message",
+                    })}
+                  </p>
+                )}
+              {user.lookingForEnglish &&
+                user.lookingForFrench &&
+                !user.lookingForBilingual && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "/oqWA0",
+                      description: "Interested in label",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage({
+                      defaultMessage: "English or French positions",
+                      id: "fFznH0",
+                      description: "English or French Positions message",
+                    })}
+                  </p>
+                )}
+              {user.lookingForBilingual && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Interested in",
+                    id: "/oqWA0",
+                    description: "Interested in label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage({
+                    defaultMessage: "Bilingual positions (English and French)",
+                    id: "6eCvv1",
+                    description: "Bilingual Positions message",
+                  })}
+                </p>
+              )}
+              {user.bilingualEvaluation && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Completed an official Government of Canada evaluation",
+                    id: "o4PND7",
+                    description:
+                      "Completed a Government of Canada evaluation label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getBilingualEvaluation(user.bilingualEvaluation),
+                  )}
+                </p>
+              )}
+              {(user.bilingualEvaluation ===
+                BilingualEvaluation.CompletedEnglish ||
+                user.bilingualEvaluation ===
+                  BilingualEvaluation.CompletedFrench) && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Second language level (reading, writing, oral interaction)",
+                    id: "qOi2J0",
+                    description:
+                      "Second language level (reading, writing, oral interaction) label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {getEvaluatedLanguageLevels(
+                    intl,
+                    user.comprehensionLevel,
+                    user.writtenLevel,
+                    user.verbalLevel,
+                  )}
+                </p>
+              )}
+              {user.bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+                !!user.estimatedLanguageAbility && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Second language level",
+                      id: "VTHGET",
+                      description: "Estimated skill in second language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getLanguageProficiency(user.estimatedLanguageAbility),
+                    )}
+                  </p>
+                )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(navigationMessages.governmentInformation)}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Government of Canada employee",
+                  id: "e5/v2u",
+                  description:
+                    "Label for status as Government of Canada employee",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                {user.isGovEmployee
+                  ? intl.formatMessage(commonMessages.yes)
+                  : intl.formatMessage(commonMessages.no)}
+              </p>
+              {user.isGovEmployee && user.department && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Department",
+                    id: "M7bb1V",
+                    description:
+                      "Label for applicant's Government of Canada department",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.department.name[locale]}
+                </p>
+              )}
+              {user.govEmployeeType && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Employment type",
+                    id: "2Oubfe",
+                    description: "Label for applicant's employment type",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getSimpleGovEmployeeType(govEmployeeTypeId),
+                  )}
+                </p>
+              )}
+              {user.isGovEmployee &&
+                !!user.currentClassification?.group &&
+                !!user.currentClassification?.level && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Current group and classification",
+                      id: "hV2hKJ",
+                      description:
+                        "Field label before government employment group and level",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.currentClassification?.group}-
+                    {user.currentClassification?.level}
+                  </p>
+                )}
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Priority entitlement",
+                  id: "Wd/+eR",
+                  description:
+                    "Label for applicant's priority entitlement status",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                {user.hasPriorityEntitlement
+                  ? intl.formatMessage(commonMessages.yes)
+                  : intl.formatMessage(commonMessages.no)}
+              </p>
+              {user.hasPriorityEntitlement && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Priority number",
+                    id: "mGGj/i",
+                    description: "Label for applicant's priority number value",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.priorityNumber
+                    ? user.priorityNumber
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </p>
+              )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(navigationMessages.workLocation)}
+              </Heading>
+              {!isEmpty(user.locationPreferences) && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Work location",
+                    id: "SZzC9e",
+                    description: "Work location label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {regionPreferences}
+                </p>
+              )}
+              {!!user.locationExemptions && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Work location exceptions",
+                    id: "OpKC2i",
+                    description: "Work location exceptions label",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {user.locationExemptions}
+                </p>
+              )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(navigationMessages.workPreferences)}
+              </Heading>
+              {user.positionDuration &&
+                user.positionDuration.includes(PositionDuration.Temporary) && (
+                  <>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Would consider accepting a job that lasts for:",
+                        id: "j/28Dz",
+                        description:
+                          "Label for what length of position user prefers, followed by colon",
+                      })}
+                    </p>
+                    <ul>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "any duration. (short term, long term, or indeterminate duration)",
+                          id: "uHx3G7",
+                          description:
+                            "Label displayed on Work Preferences form for any duration option",
+                        })}
+                      </li>
+                    </ul>
+                  </>
+                )}
+              {user.positionDuration &&
+                !user.positionDuration.includes(PositionDuration.Temporary) && (
+                  <>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Would consider accepting a job that lasts for:",
+                        id: "j/28Dz",
+                        description:
+                          "Label for what length of position user prefers, followed by colon",
+                      })}
+                    </p>
+                    <ul>
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage: "Permanent duration",
+                          id: "8cRL8r",
+                          description: "Permanent duration only",
+                        })}{" "}
+                      </li>
+                    </ul>
+                  </>
+                )}
+              {anyCriteriaSelected && !isEmpty(unacceptedOperationalArray) && (
+                <>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Would consider accepting a job that:",
+                      id: "q3xbiI",
+                      description:
+                        "Label for what conditions a user will accept, followed by a colon",
+                    })}
+                  </p>
+                  <ul>{acceptedOperationalArray}</ul>
+                </>
+              )}
+              {anyCriteriaSelected && !isEmpty(unacceptedOperationalArray) && (
+                <>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Would <strong>not consider</strong> accepting a job that:",
+                      id: "b4Kjwl",
+                      description: "would not accept job line before a list",
+                    })}
+                  </p>
+                  <ul>{unacceptedOperationalArray}</ul>
+                </>
+              )}
+              {anyCriteriaSelected && isEmpty(unacceptedOperationalArray) && (
+                <>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Would consider accepting a job that:",
+                      id: "q3xbiI",
+                      description:
+                        "Label for what conditions a user will accept, followed by a colon",
+                    })}
+                  </p>
+                  <ul>{acceptedOperationalArray}</ul>
+                </>
+              )}
+              {!anyCriteriaSelected && (
+                <>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Would <strong>not consider</strong> accepting a job that:",
+                      id: "b4Kjwl",
+                      description: "would not accept job line before a list",
+                    })}
+                  </p>
+                  <ul>{unacceptedOperationalArray}</ul>
+                </>
+              )}
+            </PageSection>
+            <PageSection>
+              <Heading level="h4" data-h2-font-weight="base(700)">
+                {intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                )}
+              </Heading>
+              {anyCriteriaSelectedDiversityEquityInclusion(user) && (
+                <>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Employment equity information",
+                      id: "xd9+6O",
+                      description:
+                        "Label preceding what groups the user identifies as part of",
+                    })}
+                  </p>
+                  {user.indigenousCommunities &&
+                    user.indigenousCommunities.length > 0 && (
+                      <div>
+                        <ul>
+                          <li>
+                            {intl.formatMessage(
+                              getEmploymentEquityStatement("indigenous"),
+                            )}
+                            <ul>
+                              {nonLegacyIndigenousCommunities.length > 0
+                                ? nonLegacyIndigenousCommunities.map(
+                                    (community) => {
+                                      return (
+                                        <li key={community}>
+                                          {intl.formatMessage(
+                                            getIndigenousCommunity(community),
+                                          )}
+                                        </li>
+                                      );
+                                    },
+                                  )
+                                : ""}
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  {(user.isWoman ||
+                    user.isVisibleMinority ||
+                    user.hasDisability) && (
+                    <ul>
+                      {user.isWoman && (
+                        <li>
+                          {intl.formatMessage(
+                            getEmploymentEquityGroup("woman"),
+                          )}
+                        </li>
+                      )}
+                      {user.isVisibleMinority && (
+                        <li>
+                          {intl.formatMessage(
+                            getEmploymentEquityGroup("minority"),
+                          )}
+                        </li>
+                      )}{" "}
+                      {user.hasDisability && (
+                        <li>
+                          {intl.formatMessage(
+                            getEmploymentEquityGroup("disability"),
+                          )}
+                        </li>
+                      )}
+                    </ul>
+                  )}
+                </>
+              )}
+            </PageSection>
+            {relevantPoolCandidate && (
+              <PageSection>
+                <Heading level="h2" data-h2-font-weight="base(700)">
+                  {intl.formatMessage({
+                    defaultMessage: "Signature",
+                    id: "1ZZgbi",
+                    description: "Title for the signature snapshot section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(0, 0, x1, 0)">
+                  {intl.formatMessage(applicationMessages.confirmationLead)}
+                </p>
+                <ul>
+                  <li>
+                    {intl.formatMessage(applicationMessages.confirmationReview)}
+                  </li>
+                  <li>
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
+                  </li>
+                  <li>
+                    {intl.formatMessage(applicationMessages.confirmationTrue)}
+                  </li>
+                </ul>
+                <p> </p>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Signed",
+                    id: "fEcEv3",
+                    description:
+                      "Heading for the application snapshot users signature",
+                  })}
+                </p>
+                <p data-h2-font-weight="base(700)">
+                  {relevantPoolCandidate.signature}
+                </p>
+              </PageSection>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
+export default ApplicationPrintDocument;

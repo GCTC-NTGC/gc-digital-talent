@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import {
@@ -14,6 +14,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
+import { apiMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -33,6 +34,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillTree from "./components/SkillTree";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
+import useApplicationId from "../useApplicationId";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -131,6 +133,7 @@ export const ApplicationSkills = ({
       id: application.id,
       application: {
         insertSubmittedStep: ApplicationStep.SkillRequirements,
+        applicationId: application.id,
       },
     })
       .then((res) => {
@@ -291,12 +294,9 @@ export const ApplicationSkills = ({
             rules={{
               max: {
                 value: 0,
-                message: intl.formatMessage({
-                  defaultMessage:
-                    "Please connect at least one career timeline experience to each required technical skill.",
-                  id: "hi9+Mu",
-                  description: "Error message if there are no experiences",
-                }),
+                message: intl.formatMessage(
+                  apiMessages.MISSING_ESSENTIAL_SKILLS,
+                ),
               },
             }}
           />
@@ -338,7 +338,7 @@ export const ApplicationSkills = ({
 };
 
 const ApplicationSkillsPage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -347,7 +347,7 @@ const ApplicationSkillsPage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id,
     },
     requestPolicy: "cache-first",
   });

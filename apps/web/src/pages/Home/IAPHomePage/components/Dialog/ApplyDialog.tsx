@@ -29,7 +29,13 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
           })}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content
+        closeLabel={intl.formatMessage({
+          defaultMessage: "Close",
+          id: "4p0QdF",
+          description: "Button text used to close an open modal",
+        })}
+      >
         <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Apply Now",
@@ -42,8 +48,8 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Please send your résumé and cover letter explaining your passion for IT and why you're interested in joining the program to: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. A team member will contact you in 3-5 business days",
-                id: "iKpxPY",
+                  "Please send your résumé and cover letter explaining your passion for IT and why you're interested in joining the program to: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. A team member will contact you in 5-10 business days.",
+                id: "i2LB7R",
                 description: "First paragraph for apply now dialog",
               },
               {

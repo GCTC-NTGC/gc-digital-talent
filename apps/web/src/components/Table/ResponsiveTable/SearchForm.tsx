@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
@@ -136,10 +135,10 @@ const SearchForm = <T,>({
               >
                 {intl.formatMessage(
                   {
-                    defaultMessage: "Search {column}",
-                    id: "R1BcTP",
+                    defaultMessage: "Filter by {column}",
+                    id: "tuMmWm",
                     description:
-                      "Button text to search specific columns in table",
+                      "Button text to filter by specific columns in table",
                   },
                   {
                     column: column ? column.label : "",
@@ -178,20 +177,7 @@ const SearchForm = <T,>({
             data-h2-location="base(x.25, auto, x.25, x.25)"
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
-          >
-            <span
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-padding="base(x.25)"
-            >
-              <MagnifyingGlassIcon
-                data-h2-height="base(1rem)"
-                data-h2-width="base(1rem)"
-                data-h2-color="base(gray)"
-              />
-            </span>
-          </div>
+          />
           <input
             name="search"
             id={id}
@@ -203,7 +189,7 @@ const SearchForm = <T,>({
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"
             data-h2-margin-left="base(0)"
-            data-h2-padding="base(x.5 x1.5)"
+            data-h2-padding="base(x.5 x1.5 x.5 x.5)"
             data-h2-width="base(100%) l-tablet(auto)"
             {...(showDropdown
               ? {

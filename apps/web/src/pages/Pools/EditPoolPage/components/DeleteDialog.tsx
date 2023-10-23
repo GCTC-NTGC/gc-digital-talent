@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 type DeleteDialogProps = {
   onDelete: () => void;
@@ -15,11 +16,7 @@ const DeleteDialog = ({ onDelete }: DeleteDialogProps): JSX.Element => {
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
             <Button color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+              {intl.formatMessage(formMessages.cancelGoBack)}
             </Button>
           </Dialog.Close>
         </div>

@@ -62,6 +62,7 @@ return [
         'skillFamily' => 'skillFamily',
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
+        'userSub' => 'userSub',
         'pool' => 'pool',
         'publishedPool' => 'publishedPool',
         'draftPool' => 'draftPool',
@@ -76,6 +77,8 @@ return [
         'teamMembers' => 'teamMembers',
         'role' => 'role',
         'directiveForm' => 'directiveForm',
+        'applicantProfile' => 'applicantProfile',
+        'teamRole' => 'teamRole',
     ],
 
     /*
@@ -188,17 +191,21 @@ return [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur',
         ],
-        'view-team-user' => [
+        'view-team-applicantProfile' => [
             'en' => 'View Team User',
             'fr' => 'Visionner l\'utilisateur de l\'équipe',
         ],
         'update-any-user' => [
-            'en' => 'Update Any User',
-            'fr' => 'Mettre à jour tout utilisateur',
+            'en' => 'Update Any User (does not include updating the "sub" field or role assignments)',
+            'fr' => 'Mettre à jour tout utilisateur (ne comprend pas la mise à jour du champ "sub" ou des attributions de rôles)',
+        ],
+        'update-any-userSub' => [
+            'en' => 'Update the "sub" field of any user',
+            'fr' => 'Mettre à jour le champ "sub" de n\'importe quel utilisateur',
         ],
         'update-own-user' => [
-            'en' => 'Update Own User',
-            'fr' => 'Mettre à jour son propre utilisateur',
+            'en' => 'Update Own User (does not include updating the "sub" field or role assignments)',
+            'fr' => 'Mettre à jour son propre utilisateur (ne comprend pas la mise à jour du champ "sub" ou des attributions de rôles)',
         ],
         'delete-any-user' => [
             'en' => 'Delete Any User',
@@ -375,6 +382,10 @@ return [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle',
         ],
+        'assign-any-teamRole' => [
+            'en' => 'Assign any user to any team, with any role.',
+            'fr' => 'Affecter n\'importe quel utilisateur à n\'importe quelle équipe, avec n\'importe quel rôle.',
+        ],
 
         'create-any-directiveForm' => [
             'en' => 'Create any directive form',
@@ -464,6 +475,18 @@ return [
             'description' => [
                 'en' => 'Responsible for responding to all talent requests, regardless of Team/Department. This requires viewing all published pools, and the applicants who have been qualified within them.',
                 'fr' => 'Responsable de la réponse à toutes les demandes de talents, quelle que soit l\'équipe ou le département. Pour cela, il faut consulter tous les bassins publiés et les candidats qui ont été qualifiés dedans.',
+            ],
+            'is_team_based' => false,
+        ],
+
+        'community_manager' => [
+            'display_name' => [
+                'en' => 'Community Manager',
+                'fr' => 'Gestionnaire de communauté',
+            ],
+            'description' => [
+                'en' => 'Publishes pools, creates teams, and adds Pool Operators to teams.',
+                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.',
             ],
             'is_team_based' => false,
         ],
@@ -599,7 +622,7 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
+            'applicantProfile' => [
                 'team' => ['view'],
             ],
         ],
@@ -616,6 +639,24 @@ return [
             ],
             'user' => [
                 'any' => ['view'],
+            ],
+        ],
+
+        'community_manager' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'pool' => [
+                'any' => ['view', 'publish'],
+            ],
+            'teamMembers' => [
+                'any' => ['view'],
+            ],
+            'team' => [
+                'any' => ['view', 'create', 'update', 'delete'],
+            ],
+            'teamRole' => [
+                'any' => ['assign'],
             ],
         ],
 
@@ -638,6 +679,9 @@ return [
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
+            'userSub' => [
+                'any' => ['update'],
+            ],
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
@@ -651,7 +695,7 @@ return [
                 'any' => ['view'],
             ],
             'team' => [
-                'any' => ['create', 'update', 'delete'],
+                'any' => ['view', 'create', 'update', 'delete'],
             ],
             'role' => [
                 'any' => ['view', 'assign'],

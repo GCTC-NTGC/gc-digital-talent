@@ -12,9 +12,9 @@ import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
-import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { formValuesToSubmitData, dataToFormValues } from "./utils";
@@ -41,17 +41,19 @@ const PersonalInformation = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues, user))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage:
-              "Personal and contact information updated successfully!",
-            id: "J+MAUg",
-            description:
-              "Message displayed when a user successfully updates their personal and contact information.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Personal and contact information updated successfully!",
+              id: "J+MAUg",
+              description:
+                "Message displayed when a user successfully updates their personal and contact information.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
@@ -71,7 +73,7 @@ const PersonalInformation = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger
+            <ToggleForm.Trigger
               aria-label={intl.formatMessage({
                 defaultMessage: "Edit personal and contact information",
                 id: "WE8ZUX",
@@ -85,7 +87,7 @@ const PersonalInformation = ({
                 description:
                   "Button text to start editing one of the profile sections.",
               })}
-            </SectionTrigger>
+            </ToggleForm.Trigger>
           ) : undefined
         }
       >

@@ -87,12 +87,12 @@
     "defaultMessage": "Neeshouhkamakaywin avek IT Mawchi<softHyphen></softHyphen>koushkoun<softHyphen></softHyphen>awawpiwin Paminikaywin poor Indigene Li moond, Indigene Eshimamiyooyen La leeng chi-mawchistawn avek wawpahtamoowin didawn IT and li mashiniry eshimamiyooyen, tawnima chikeel:",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "iKpxPY": {
-    "defaultMessage": "Madoon ichaha toon kochiwahpatahiwaywin pi ta kouvayr letr ay-weestamakayin toon miyeuwayhtamoowin poor IT pi tawnayhki kaw-ninahihtamin chi-takoo ooma paminikaywin ishi: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Aen chim mambr ka-peekishkwatik ishpee trwaw-saenk kaw-atoushkay lee zhournee",
+  "i2LB7R": {
+    "defaultMessage": "Madoon ichaha toon kochiwahpatahiwaywin pi ta kouvayr letr ay-weestamakayin toon miyeuwayhtamoowin poor IT pi tawnayhki kaw-ninahihtamin chi-takoo ooma paminikaywin ishi: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Aen chim mambr ka-peekishkwatik ishpee saenk-jhis kaw-atoushkay lee zhournee.",
     "description": "First paragraph for apply now dialog"
   },
-  "GnmmgR": {
-    "defaultMessage": "Ishpee kaw-ichahmaen, aen chim mambr ka-peekishkwatik ishpee trwaw-saenk kaw-atoushkay lee zhournee.",
+  "GaX7sd": {
+    "defaultMessage": "Ishpee kaw-ichahmaen, aen chim mambr ka-peekishkwatik ishpee saenk-jhis kaw-atoushkay lee zhournee.",
     "description": "How it works, step 3 content sentence 2"
   },
   "Ilot3b": {
@@ -335,14 +335,6 @@
     "defaultMessage": "Natouta anoush chi-mawchistayin toon IT nouvrazh.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": " Nimistawtaen, noo nimishkaenawn la paezh kaw-natounamaen.",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "Ooma paminikaywin kwaysh<softHyphen></softHyphen>koochina<softHyphen></softHyphen>koohtaw nipimaw<softHyphen></softHyphen>tishiwin la shawns kaw-ayawyawn pi niwawpastaen <b>nawut pleu boon li tawn ki vyaen</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Shawpouhtay ishi li promyee mawachistowina",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Keewee",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Yow, ayshinakwun etakoushineeyn daw la paezh namoo kipakitinikawin chi-wawpastmaen.",

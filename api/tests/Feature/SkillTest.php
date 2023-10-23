@@ -202,7 +202,7 @@ class SkillTest extends TestCase
             'published_at' => config('constants.past_datetime'),
             'closing_date' => config('constants.far_future_datetime'),
         ]);
-        $pool->essentialSkills()->sync([$skill1->id, $skill2->id]);
+        $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
         $mutation =
             /** @lang GraphQL */
             '

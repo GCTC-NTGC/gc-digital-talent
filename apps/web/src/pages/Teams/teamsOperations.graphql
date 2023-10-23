@@ -131,6 +131,31 @@ query ViewTeam($id: UUID!) {
   }
 }
 
+query TeamMembers($id: UUID!) {
+  team(id: $id) {
+    ...team
+  }
+  roles {
+    id
+    name
+    isTeamBased
+    displayName {
+      en
+      fr
+    }
+  }
+  users {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+  }
+}
+
 query TeamName($id: UUID!) {
   team(id: $id) {
     id
@@ -144,5 +169,28 @@ query TeamName($id: UUID!) {
 mutation CreateTeam($team: CreateTeamInput!) {
   createTeam(team: $team) {
     id
+  }
+}
+
+query AllUsersNames {
+  userPublicProfiles {
+    id
+    firstName
+    lastName
+  }
+}
+
+mutation UpdateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
+  updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
+    roleAssignments {
+      role {
+        name
+      }
+      user {
+        id
+        firstName
+        lastName
+      }
+    }
   }
 }

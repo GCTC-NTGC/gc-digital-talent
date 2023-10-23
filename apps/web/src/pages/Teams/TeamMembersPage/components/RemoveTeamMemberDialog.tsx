@@ -5,12 +5,13 @@ import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  formMessages,
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { Team, useUpdateUserAsAdminMutation } from "~/api/generated";
+import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
@@ -24,18 +25,18 @@ const RemoveTeamMemberDialog = ({
   team,
 }: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [{ fetching }, executeMutation] = useUpdateUserAsAdminMutation();
+  const [{ fetching }, executeMutation] = useUpdateUserTeamRolesMutation();
 
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleRemove = async () => {
     await executeMutation({
-      id: user.id,
-      user: {
-        roleAssignmentsInput: {
+      teamRoleAssignments: {
+        userId: user.id,
+        teamId: team.id,
+        roleAssignments: {
           detach: {
             roles: user.roles.map((role) => role.id),
-            team: team.id,
           },
         },
       },
@@ -132,11 +133,7 @@ const RemoveTeamMemberDialog = ({
           <Dialog.Footer>
             <Dialog.Close>
               <Button color="secondary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel and go back",
-                  id: "tiF/jI",
-                  description: "Close dialog button",
-                })}
+                {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
             <Button

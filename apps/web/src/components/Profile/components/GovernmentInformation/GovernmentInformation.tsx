@@ -14,9 +14,9 @@ import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
 } from "~/validators/profile/governmentInformation";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
-import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -50,16 +50,18 @@ const GovernmentInformation = ({
       user.id,
       formValuesToSubmitData(formValues, classifications),
     )
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Government information updated successfully!",
-            id: "dVc2uY",
-            description:
-              "Message displayed when a user successfully updates their government employee information.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Government information updated successfully!",
+              id: "dVc2uY",
+              description:
+                "Message displayed when a user successfully updates their government employee information.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
@@ -79,7 +81,7 @@ const GovernmentInformation = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger
+            <ToggleForm.Trigger
               aria-label={intl.formatMessage({
                 defaultMessage: "Edit government information",
                 id: "Ysf8wI",
@@ -93,7 +95,7 @@ const GovernmentInformation = ({
                 description:
                   "Button text to start editing one of the profile sections.",
               })}
-            </SectionTrigger>
+            </ToggleForm.Trigger>
           ) : undefined
         }
       >

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\AssessmentStepType;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
+use App\Enums\SkillCategory;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,6 +29,7 @@ use Illuminate\Support\Facades\Validator;
  * @property array $your_impact
  * @property array $what_to_expect
  * @property array $advertisement_location
+ * @property array $special_note
  * @property string $security_clearance
  * @property string $advertisement_language
  * @property string $stream
@@ -57,6 +61,7 @@ class Pool extends Model
         'advertisement_location' => 'array',
         'your_impact' => 'array',
         'what_to_expect' => 'array',
+        'special_note' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
@@ -80,6 +85,7 @@ class Pool extends Model
         'your_impact',
         'what_to_expect',
         'advertisement_location',
+        'special_note',
         'publishing_group',
         'process_number',
         'operational_requirements',
@@ -113,12 +119,79 @@ class Pool extends Model
 
     public function essentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_essential_skills')->withTrashed(); // always fetch all skills for a pool
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed() // pool-skills always fetches soft-deleted skill models
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
     public function nonessentialSkills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills')->withTrashed();
+        return $this->belongsToMany(Skill::class, 'pool_skill')
+            ->withTrashed()
+            ->withTimestamps()
+            ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
+    }
+
+    public function poolSkills(): HasMany
+    {
+        return $this->hasMany(PoolSkill::class);
+    }
+
+    public function assessmentSteps(): HasMany
+    {
+        return $this->hasMany(AssessmentStep::class);
+    }
+
+    /**
+     * Sync the essential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setEssentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::ESSENTIAL->name];
+        }
+
+        $this->essentialSkills()->sync($skillArrayToSync);
+        $this->syncApplicationScreeningStepPoolSkills();
+    }
+
+    /**
+     * Sync the nonessential skills in pool_skill
+     *
+     * @param $skillIds - array of skill ids
+     * @return void
+     */
+    public function setNonessentialPoolSkills($skillIds)
+    {
+        $skillArrayToSync = [];
+        foreach ($skillIds as $skill) {
+            $skillArrayToSync[$skill] = ['type' => PoolSkillType::NONESSENTIAL->name];
+        }
+
+        $this->nonessentialSkills()->sync($skillArrayToSync);
+        $this->syncApplicationScreeningStepPoolSkills();
+    }
+
+    // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
+    private function syncApplicationScreeningStepPoolSkills()
+    {
+        $screeningStep = $this->assessmentSteps()->firstOrCreate([
+            'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+            'sort_order' => 1,
+        ]);
+
+        $technicalSkills = $this->poolSkills()->get()->filter(function (PoolSkill $poolSkill) {
+            $poolSkill->load('skill');
+
+            return $poolSkill->skill->category === SkillCategory::TECHNICAL->name;
+        });
+
+        $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
     public function screeningQuestions(): HasMany
@@ -163,6 +236,23 @@ class Pool extends Model
         }
 
         return true;
+    }
+
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Pool $pool) {
+            $pool->assessmentSteps()->create([
+                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+                'sort_order' => 1,
+            ]);
+        });
     }
 
     public function scopeWasPublished(Builder $query, ?array $args)

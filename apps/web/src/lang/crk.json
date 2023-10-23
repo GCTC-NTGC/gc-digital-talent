@@ -87,12 +87,12 @@
     "defaultMessage": "ē-wīcihtāsocik IT Apprenticeship Program for Indigenous Peoples, Indigenous Talent Portal ka-māci-kanawāpahtamwak IT ēkwa aniki kā-nahīcik technology ēkosi ēkwa:",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "iKpxPY": {
-    "defaultMessage": "pētisaha atoskē-masinahikan ēkwa masinaha tānēhki ka-miywiyihtaman IT ēkwa tānēhki kā-nōhtē-otinaman ēkōma : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. awiyak ka-pē-pīkiskwātik 3-5 kīsikāwa ispayiki",
+  "i2LB7R": {
+    "defaultMessage": "pētisaha atoskē-masinahikan ēkwa masinaha tānēhki ka-miywiyihtaman IT ēkwa tānēhki kā-nōhtē-otinaman ēkōma : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. awiyak ka-pē-pīkiskwātik 5-10 kīsikāwa ispayiki.",
     "description": "First paragraph for apply now dialog"
   },
-  "GnmmgR": {
-    "defaultMessage": "Kīsihtāyani awiyak ka-pē-pīkiskwātik 3-5 kīsikāwa kā-atoskēhk",
+  "GaX7sd": {
+    "defaultMessage": "Kīsihtāyani awiyak ka-pē-pīkiskwātik 5-10 kīsikāwa kā-atoskēhk.",
     "description": "How it works, step 3 content sentence 2"
   },
   "Ilot3b": {
@@ -335,14 +335,6 @@
     "defaultMessage": "Natota anohc ta-mâcihtâyin IT atoskêwin.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Nimihtâtên, namôy niki miskênân pâskinikêwin ka-natonamin.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": "Nimihtâtên, namôy niki miskênân pâskinikêwin ka-natonamin.",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "Ôma pimipayihtâwin ê-nahipayik nikwêski-pimâtisihikon kiki niya mîna ni-wâpahtên <b>miyopayiwin ati-nîkânihk</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Sâpohtê isi kihci mawacihcikêwin",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Kîwê",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Yâw, ki-takosinin isi pâskinikêwin êka pakitinikâtêw ta-wâpahtamin.",

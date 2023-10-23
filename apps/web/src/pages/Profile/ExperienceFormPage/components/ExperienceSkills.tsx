@@ -12,8 +12,8 @@ import {
 import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
-import SkillDialog from "~/components/SkillDialog/SkillDialog";
-import { FormValues as SkillDialogFormValues } from "~/components/SkillDialog/types";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 type AccordionStates = "learn-more" | "";
@@ -38,7 +38,7 @@ const ExperienceSkills = ({
 
   const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
-  const handleAddSkill = async (values: SkillDialogFormValues) => {
+  const handleAddSkill = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const skill = skills.find(({ id }) => id === skillId);
 
@@ -165,7 +165,7 @@ const ExperienceSkills = ({
           data-h2-margin-top="base(x1)"
         >
           <div data-h2-align-self="base(flex-end)">
-            <SkillDialog
+            <SkillBrowserDialog
               trigger={{
                 label: intl.formatMessage({
                   defaultMessage: "Add a skill",

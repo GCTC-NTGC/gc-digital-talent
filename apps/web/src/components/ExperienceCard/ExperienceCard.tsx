@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isArray from "lodash/isArray";
+import isBoolean from "lodash/isBoolean";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 
 import {
@@ -26,6 +27,7 @@ import {
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
+import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
 import CommunityContent from "./CommunityContent";
@@ -34,23 +36,30 @@ import PersonalContent from "./PersonalContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 
+type EditMode = "link" | "dialog";
+
 interface ExperienceCardProps {
   experience: AnyExperience;
   headingLevel?: HeadingRank;
-  showSkills?: boolean | Array<Skill>;
+  showSkills?: boolean | Skill | Array<Skill>;
   showEdit?: boolean;
   editParam?: string;
-  // If the edit button is a button, pass the onClick function
-  onEditClick?: () => void;
   // Override the edit path if needed
   editPath?: string;
+  editMode?: EditMode;
+  onSave?: () => void;
+  linkTo?: Skill;
+  editTrigger?: React.ReactNode;
 }
 
 const ExperienceCard = ({
   experience,
-  onEditClick,
   editParam,
   editPath: editPathProp,
+  editMode = "link",
+  onSave,
+  linkTo,
+  editTrigger,
   headingLevel = "h2",
   showSkills = true,
   showEdit = true,
@@ -68,8 +77,44 @@ const ExperienceCard = ({
         showSkills.some((showSkill) => showSkill.id === skill.id),
       )
     : experience.skills;
+  const singleSkill =
+    !isBoolean(showSkills) && !isArray(showSkills) && "id" in showSkills
+      ? experience.skills?.find((skill) => skill.id === showSkills.id)
+      : false;
 
   const skillCount = skills?.length;
+
+  const edit =
+    (editPath || editParam) && editMode === "link" ? (
+      <EditLink
+        editUrl={`${editPathProp || editPath}${editParam || ""}`}
+        ariaLabel={intl
+          .formatMessage(
+            {
+              defaultMessage: "Edit {experienceName}",
+              id: "CDV1Cw",
+              description: "Link text to edit a specific experience",
+            },
+            {
+              experienceName: title,
+            },
+          )
+          .toString()}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Edit",
+          id: "vXwT4K",
+          description: "Generic link text to edit a miscellaneous item",
+        })}
+      </EditLink>
+    ) : (
+      <ExperienceSkillFormDialog
+        onSave={onSave}
+        skill={linkTo}
+        trigger={editTrigger}
+        experience={experience}
+      />
+    );
 
   return (
     <div
@@ -94,34 +139,7 @@ const ExperienceCard = ({
         >
           {titleHtml}
         </Heading>
-        {showEdit && (editPathProp || editPath || onEditClick) && (
-          <EditLink
-            editUrl={
-              onEditClick
-                ? undefined
-                : `${editPathProp || editPath}${editParam || ""}`
-            }
-            onEditClick={onEditClick}
-            ariaLabel={intl
-              .formatMessage(
-                {
-                  defaultMessage: "Edit {experienceName}",
-                  id: "CDV1Cw",
-                  description: "Link text to edit a specific experience",
-                },
-                {
-                  experienceName: title,
-                },
-              )
-              .toString()}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "vXwT4K",
-              description: "Generic link text to edit a miscellaneous item",
-            })}
-          </EditLink>
-        )}
+        {showEdit && edit}
       </div>
       <p
         data-h2-display="base(flex)"
@@ -159,6 +177,31 @@ const ExperienceCard = ({
           </>
         )}
       </p>
+      {singleSkill && singleSkill.experienceSkillRecord?.details && (
+        <>
+          <Heading
+            level={contentHeadingLevel}
+            size="h6"
+            data-h2-font-size="base(copy)"
+            data-h2-margin="base(x1 0 x.5 0)"
+          >
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  'How you applied "{skillName}" in this experience',
+                id: "J8Nltm",
+                description: "Heading for a single skill on an experience.",
+              },
+              {
+                skillName: getLocalizedName(singleSkill.name, intl),
+              },
+            )}
+          </Heading>
+          <p data-h2-margin-bottom="base(x1)">
+            {singleSkill.experienceSkillRecord.details}
+          </p>
+        </>
+      )}
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
           <Button
@@ -270,7 +313,7 @@ const ExperienceCard = ({
             {experience.details ??
               intl.formatMessage(commonMessages.notAvailable)}
           </ContentSection>
-          {showSkills && (
+          {showSkills && !singleSkill && (
             <>
               <Separator
                 orientation="horizontal"

@@ -56,8 +56,10 @@ final class PoolIsCompleteValidator extends Validator
             'advertisement_language' => ['required', Rule::in(array_column(PoolLanguage::cases(), 'name'))],
             'security_clearance' => ['required', Rule::in(array_column(SecurityStatus::cases(), 'name'))],
             'is_remote' => ['required', 'boolean'],
-            'advertisement_location.en' => ['required_if:is_remote,false', 'required_with:advertisement_location.fr', 'string'],
-            'advertisement_location.fr' => ['required_if:is_remote,false', 'required_with:advertisement_location.en', 'string'],
+            'advertisement_location.en' => ['string', 'nullable', 'required_if:is_remote,false', 'required_with:advertisement_location.fr'],
+            'advertisement_location.fr' => ['string', 'nullable', 'required_if:is_remote,false', 'required_with:advertisement_location.en'],
+            'special_note.en' => ['required_with:special_note.fr', 'string'],
+            'special_note.fr' => ['required_with:special_note.en', 'string'],
             'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
         ];
     }
@@ -79,6 +81,8 @@ final class PoolIsCompleteValidator extends Validator
             'key_tasks.fr.required' => 'FrenchWorkTasksRequired',
             'your_impact.en.required' => 'EnglishYourImpactRequired',
             'your_impact.fr.required' => 'FrenchYourImpactRequired',
+            'special_note.en.required' => 'EnglishSpecialNoteRequired',
+            'special_note.fr.required' => 'EnglishSpecialNoteRequired',
         ];
     }
 }

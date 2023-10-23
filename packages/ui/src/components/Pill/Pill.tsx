@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Color } from "../../types";
+import { Color, IconType } from "../../types";
 
 export type PillSize = "sm" | "md" | "lg";
 export type PillMode = "solid" | "outline";
@@ -15,15 +15,15 @@ export interface PillProps
   block?: boolean;
   size?: PillSize;
   bold?: boolean;
+  icon?: IconType;
 }
 
 const h2ChipColors = {
   primary: {
     solid: {
-      "data-h2-border":
-        "base(1px solid primary.light) base:admin(1px solid primary)",
-      "data-h2-background-color": "base(primary.light) base:admin(primary)",
-      "data-h2-color": "base(black) base:admin(white)",
+      "data-h2-border": "base(1px solid primary.light)",
+      "data-h2-background-color": "base(primary.light) ",
+      "data-h2-color": "base(black) ",
     },
     outline: {
       "data-h2-border": "base(1px solid primary.darker)",
@@ -35,7 +35,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid secondary)",
       "data-h2-background-color": "base(secondary)",
-      "data-h2-color": "base(black) base:admin(white) base:iap(white)",
+      "data-h2-color": "base(black) base:iap(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid secondary.darker)",
@@ -164,16 +164,20 @@ const Pill = ({
   children,
   color,
   mode,
+  icon,
   size = "md",
   block = false,
   bold = false,
   ...rest
 }: PillProps) => {
+  const Icon = icon;
   return (
     <span
       {...(block
-        ? { "data-h2-display": "base(block)" }
-        : { "data-h2-display": "base(inline-block)" })}
+        ? { "data-h2-display": "base(flex)" }
+        : { "data-h2-display": "base(inline-flex)" })}
+      data-h2-align-items="base(center)"
+      data-h2-gap="base(0 x.25)"
       data-h2-radius="base(m)"
       data-h2-font-size="base(caption)"
       {...colorMap[color][mode]}
@@ -183,7 +187,14 @@ const Pill = ({
       {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
       {...rest}
     >
-      {children}
+      {Icon && (
+        <Icon
+          data-h2-height="base(1rem)"
+          data-h2-width="base(1rem)"
+          data-h2-flex-shrink="base(0)"
+        />
+      )}
+      <span>{children}</span>
     </span>
   );
 };

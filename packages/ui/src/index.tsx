@@ -36,13 +36,11 @@ import Heading, {
 import Link, {
   DownloadCsv,
   ScrollToLink,
-  SkipLink,
   MenuLink,
   type DownloadCsvProps,
   type LinkProps,
   type ScrollToLinkProps,
   type ScrollLinkClickFunc,
-  type SkipLinkProps,
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
@@ -63,6 +61,7 @@ import SideMenu, {
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
+import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
@@ -103,13 +102,13 @@ export type {
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
-  SkipLinkProps,
   MenuLinkProps,
   LoadingProps,
   PendingProps,
   PillProps,
   PillMode,
   PillSize,
+  SidebarProps,
   SideMenuProps,
   SideMenuItemProps,
   SpoilerProps,
@@ -149,7 +148,6 @@ export {
   Link,
   DownloadCsv,
   ScrollToLink,
-  SkipLink,
   MenuLink,
   Loading,
   Pending,
@@ -160,6 +158,7 @@ export {
   Separator,
   SideMenu,
   ExternalSideMenuItem,
+  Sidebar,
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,

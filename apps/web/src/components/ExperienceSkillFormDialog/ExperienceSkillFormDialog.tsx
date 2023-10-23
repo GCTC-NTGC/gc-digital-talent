@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
 
@@ -30,24 +31,51 @@ const deriveDefaultValues = (
 };
 
 interface ExperienceSkillFormDialogProps {
-  open: boolean;
-  onOpenChange: (newOpen: boolean) => void;
+  onSave?: () => void;
   skill?: Skill;
   experience?: Experience;
-  availableExperiences: Experience[];
+  availableExperiences?: Experience[];
+  trigger?: React.ReactNode;
 }
 
 const ExperienceSkillFormDialog = ({
-  open,
-  onOpenChange,
   skill,
   experience,
+  trigger,
   availableExperiences,
+  onSave,
 }: ExperienceSkillFormDialogProps) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const intl = useIntl();
+  let experiences = availableExperiences ?? [];
+  if (experience) {
+    experiences = !availableExperiences
+      ? [experience]
+      : availableExperiences.filter(
+          (availableExperience) => availableExperience.id !== experience.id,
+        );
+  }
+
+  const handleSuccess = () => {
+    if (onSave) {
+      onSave();
+    }
+    setIsOpen(false);
+  };
 
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger>
+        {trigger || (
+          <Button icon={PencilSquareIcon} color="secondary" mode="inline">
+            {intl.formatMessage({
+              defaultMessage: "Edit",
+              id: "vXwT4K",
+              description: "Generic link text to edit a miscellaneous item",
+            })}
+          </Button>
+        )}
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
           {intl.formatMessage(
@@ -62,9 +90,9 @@ const ExperienceSkillFormDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <ExperienceSkillForm
-            experiences={availableExperiences}
+            experiences={experiences}
             defaultValues={deriveDefaultValues(skill, experience)}
-            onSuccess={() => onOpenChange(false)}
+            onSuccess={handleSuccess}
           />
         </Dialog.Body>
       </Dialog.Content>

@@ -11,8 +11,6 @@ class KeyString extends Regex
 {
     /**
      * The description that is used for schema introspection.
-     *
-     * @var string
      */
     public ?string $description = <<<'DESCRIPTION'
     Certain models, like our lookup tables, have a "key" field.

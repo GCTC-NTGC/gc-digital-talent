@@ -28,7 +28,7 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-user')
+            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams(
                     $model,
                     $user->rolesTeams()->get()->pluck('id')
@@ -61,19 +61,23 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model, array $injected = null)
+    public function update(User $user, User $model, array $request = null)
     {
+        // TODO: This implementation means that assigning roles or updating sub also requires the `update` permission, which doesn't strictly match our permissions spreadsheet :(
         /**
-         * If a user is assigning a role here, check all actions
-         * and fail early
+         * If a user is assigning a role or updating 'sub', check for extra permissions and fail early
          */
-        if ($injected && isset($injected['roles'])) {
+        if ($request && isset($request['roleAssignmentsInput'])) {
             if (! $user->isAbleTo('assign-any-role')) {
                 return false;
             }
         }
+        if ($request && isset($request['sub'])) {
+            if (! $user->isAbleTo('update-any-userSub')) {
+                return false;
+            }
+        }
 
-        // TODO: Right now, for a user to assign-any-role they ALSO need to be able to update-any-user! That doesn't quite match the permissions table.
         return $user->isAbleTo('update-any-user')
             || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
     }

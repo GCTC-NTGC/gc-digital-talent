@@ -87,12 +87,12 @@
     "defaultMessage": "Anishinaabe anokii’indwaa mii owe ge-izhichigeyan giga-naanaagadawaabandaamin aazhawaatebii’iganan:",
     "description": "Description for strategy for the indigenous talent portal"
   },
-  "iKpxPY": {
-    "defaultMessage": "Bi-izhi’an gidaangibii’igan dibaajimon wenjiimagak waa-onji-gagwe-gikendaman aazhawaate<softHyphen></softHyphen>bii’igan wenji-misawendaman ji-gikinoo’amaagooyan: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Awiiya gaa-anokaadang giga-wiindamaag gaa-ayi-zhiiyan eko-niswi maagizhaa naanogonagak anokiiwigiizhigak",
+  "i2LB7R": {
+    "defaultMessage": "Bi-izhi’an gidaangibii’igan dibaajimon wenjiimagak waa-onji-gagwe-gikendaman aazhawaate<softHyphen></softHyphen>bii’igan wenji-misawendaman ji-gikinoo’amaagooyan: <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Awiiya gaa-anokaadang giga-wiindamaag gaa-ayi-zhiiyan eko-naanan maagizhaa midaasgonagak anokiiwigiizhigak.",
     "description": "First paragraph for apply now dialog"
   },
-  "GnmmgR": {
-    "defaultMessage": "Gii-noondamaang idash, ayaawiyan giga-nakwetaagoo 3-5 giizhigadoon.",
+  "GaX7sd": {
+    "defaultMessage": "Gii-noondamaang idash, ayaawiyan giga-nakwetaagoo 5-10 giizhigadoon.",
     "description": "How it works, step 3 content sentence 2"
   },
   "Ilot3b": {
@@ -335,14 +335,6 @@
     "defaultMessage": "Noongom maajitoon aazhawaatebii’igano-anokiiwining.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
-  "pBJzgi": {
-    "defaultMessage": "Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
-    "description": "Heading for the message saying the page was not found."
-  },
-  "pgHTkX": {
-    "defaultMessage": " Hay’ Gaawiin ninga-mikanziimin gaa-dibaadondaman ozhibii’igan.",
-    "description": "Detailed message saying the page was not found."
-  },
   "404R1N": {
     "defaultMessage": "Owe izhichigewin aapichi go niwiiji’igon niwaabandaan <b>niigaan ji-ani-minoseg</b>.",
     "description": "testimonial number one"
@@ -350,10 +342,6 @@
   "Srs7a4": {
     "defaultMessage": "Izhaan ge-onji-gikendaman",
     "description": "Assistive technology skip link"
-  },
-  "M1JKQs": {
-    "defaultMessage": "Endaawin",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
   },
   "gKyog2": {
     "defaultMessage": "Hay’aa, gigii-wanibidoon ge-gii-izhaasiwanban.",

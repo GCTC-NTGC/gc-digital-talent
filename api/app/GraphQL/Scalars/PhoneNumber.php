@@ -11,8 +11,6 @@ class PhoneNumber extends Regex
 {
     /**
      * The description that is used for schema introspection.
-     *
-     * @var string
      */
     public ?string $description = <<<'DESCRIPTION'
 A phone number which complies with E.164 international notation.

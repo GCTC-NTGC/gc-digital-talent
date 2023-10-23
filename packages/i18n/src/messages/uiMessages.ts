@@ -44,6 +44,12 @@ const uiMessages = defineMessages({
     id: "4l+gBD",
     description: "Message to display when a search is being done.",
   },
+  loadingResults: {
+    defaultMessage: "Loading results...",
+    id: "QRXLf/",
+    description:
+      "Message to display when a search is currently loading results.",
+  },
   closeDialog: {
     defaultMessage: "Close dialog",
     id: "g2X8Fx",

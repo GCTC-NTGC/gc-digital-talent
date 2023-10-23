@@ -115,9 +115,17 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2KDa14": {
+    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
+    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
+  },
   "2Ka1oj": {
     "defaultMessage": "Très secret",
     "description": "Top secret security clearance"
+  },
+  "2POiyT": {
+    "defaultMessage": "Sélection des candidatures",
+    "description": "Application screening assessment."
   },
   "2W9CMn": {
     "defaultMessage": "Activer ou désactiver le contexte",
@@ -130,6 +138,10 @@
   "2eBm5y": {
     "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
     "description": "Successful Completion with credential selection for education status input"
+  },
+  "2jjZbd": {
+    "defaultMessage": "Atout",
+    "description": "The skill is considered nonessential."
   },
   "2ohWuK": {
     "defaultMessage": "Oui, évaluation en anglais terminée",
@@ -174,9 +186,6 @@
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
     "description": "The operational requirement described as regular overtime."
-  },
-  "4dx4ju": {
-    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
   },
   "4i9X6i": {
     "defaultMessage": "En cours",
@@ -261,6 +270,10 @@
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
   },
+  "7TuiE1": {
+    "defaultMessage": "A",
+    "description": "The evaluated language ability level of A"
+  },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
@@ -341,6 +354,10 @@
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
   },
+  "ArBddb": {
+    "defaultMessage": "Essentiel",
+    "description": "The skill is considered essential."
+  },
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
@@ -352,6 +369,10 @@
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
+  },
+  "C/mdCs": {
+    "defaultMessage": "Ne s’applique pas",
+    "description": "Not applicable, context or state does apply."
   },
   "C/tnCE": {
     "defaultMessage": "Le profil est incomplet",
@@ -393,6 +414,14 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
+  "DoFRsj": {
+    "defaultMessage": "examen de la CFP",
+    "description": "PSC exam assessment."
+  },
+  "E6JTyY": {
+    "defaultMessage": "Autre",
+    "description": "The selection to choose when the expected option is not available"
+  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -401,6 +430,10 @@
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
     "description": "Message that there are required fields missing"
   },
+  "ErrpJC": {
+    "defaultMessage": "Chargement...",
+    "description": "Text for a component which can't be rendered yet because a data load is in progress."
+  },
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
@@ -408,6 +441,10 @@
   "FEfWEH": {
     "defaultMessage": "Ébauche",
     "description": "The pool candidate's status is Draft."
+  },
+  "FYrmhH": {
+    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
+    "description": "Message showing number of all available options in combobox menu"
   },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
@@ -441,9 +478,9 @@
     "defaultMessage": "Cours en ligne",
     "description": "Online Course selection for education type input"
   },
-  "H8eisr": {
-    "defaultMessage": "Compétences essentielles manquantes",
-    "description": "Message displayed when user attempts to apply to a pool without an essential skill"
+  "H9+LDC": {
+    "defaultMessage": "Vérification des références",
+    "description": "Reference check assessment."
   },
   "HGM0YR": {
     "defaultMessage": "Je suis un employé <strong>nommé pour une période indéterminée</strong>.",
@@ -465,13 +502,13 @@
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
   },
+  "IGl5IE": {
+    "defaultMessage": "Entretien de suivi",
+    "description": "Follow-up interview assessment."
+  },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
-  },
-  "Icl1fF": {
-    "defaultMessage": "Parcours professionnel et recrutement",
-    "description": "Name of Career timeline and recruitment page"
   },
   "Ij1cFC": {
     "defaultMessage": "Contributeur individuel",
@@ -521,6 +558,10 @@
     "defaultMessage": "Ce champ est obligatoire.",
     "description": "Error message that this field must filled for the form to be valid."
   },
+  "KGX4bI": {
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+    "description": "Message showing number of matching items from all available options in combobox menu"
+  },
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
@@ -536,6 +577,10 @@
   "L05/+D": {
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
+  },
+  "L8TMtk": {
+    "defaultMessage": "Non évalué",
+    "description": "The evaluated language ability level for un-assessed"
   },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
@@ -556,6 +601,14 @@
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
+  },
+  "MBnBcY": {
+    "defaultMessage": "Vitrine des compétences",
+    "description": "Name of the skill showcase page"
+  },
+  "MUjjf9": {
+    "defaultMessage": "B",
+    "description": "The evaluated language ability level of B"
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -585,6 +638,10 @@
     "defaultMessage": "Retiré",
     "description": "The pool candidate's status is Removed."
   },
+  "NQhU3F": {
+    "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in French must be filled"
+  },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
@@ -613,8 +670,9 @@
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
   },
-  "OujTbA": {
-    "defaultMessage": "Diplôme postsecondaire requis"
+  "Ot5z0u": {
+    "defaultMessage": "Menu des options de bascule",
+    "description": "Button text to toggle the combobox menu"
   },
   "P1ajBo": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
@@ -632,13 +690,25 @@
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
   },
+  "PJn5I4": {
+    "defaultMessage": "Entretien individuel",
+    "description": "Individual interview assessment."
+  },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
+  "Q3Pc71": {
+    "defaultMessage": "Il n’est pas possible de sauvegarder ce texte. Veillez à ce que le texte soit dépourvu de formatage ou de caractères spéciaux, et essayez de nouveau.",
+    "description": "Error message that there might be a special character."
+  },
   "QCcpJr": {
     "defaultMessage": "Éliminé à la présélection – non réactif",
     "description": "The pool candidate's status is Screened Out because no longer responding"
+  },
+  "QRXLf/": {
+    "defaultMessage": "Chargement des résultats...",
+    "description": "Message to display when a search is currently loading results."
   },
   "QVdubF": {
     "defaultMessage": "Membre",
@@ -651,6 +721,10 @@
   "QhRU19": {
     "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "QnlRv0": {
+    "defaultMessage": "Effacer toutes les sélections",
+    "description": "Button text to clear the current selected items in a multi-select combobox"
   },
   "QrKbH+": {
     "defaultMessage": "Durée",
@@ -667,6 +741,10 @@
   "R0pQGQ": {
     "defaultMessage": "Chef d'équipe",
     "description": "The position type is a team lead."
+  },
+  "R6XtnR": {
+    "defaultMessage": "X",
+    "description": "The evaluated language ability level of X"
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -700,6 +778,10 @@
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."
   },
+  "S2BTqm": {
+    "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
+    "description": "Error message that Special note for this process in English must be filled"
+  },
   "S2zQmD": {
     "defaultMessage": "En attente (voir les notes)",
     "description": "The status is blocked and you can refer to notes field for more information."
@@ -711,10 +793,6 @@
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
-  },
-  "Srs7a4": {
-    "defaultMessage": "Passer au contenu principal",
-    "description": "Assistive technology skip link"
   },
   "Ss95s5": {
     "defaultMessage": "Alerte de réussite :",
@@ -756,9 +834,17 @@
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
   },
+  "TP9lEp": {
+    "defaultMessage": "Évaluation supplémentaire",
+    "description": "Additional assessment of some unique sort."
+  },
   "TRDfnp": {
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
+  },
+  "TUfJUD": {
+    "defaultMessage": "Parcours professionnel",
+    "description": "Name of Career timeline page"
   },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
@@ -1020,6 +1106,14 @@
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
   },
+  "eBNZxB": {
+    "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
+    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
+  },
+  "eC8w2e": {
+    "defaultMessage": "P",
+    "description": "The evaluated language ability level of P"
+  },
   "eGg734": {
     "defaultMessage": "Autre",
     "description": "Other selection for education type input"
@@ -1083,6 +1177,10 @@
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
+  },
+  "hd7hdn": {
+    "defaultMessage": "avertissement",
+    "description": "Message for the warning status"
   },
   "i3Jl6C": {
     "defaultMessage": " : ",
@@ -1184,6 +1282,14 @@
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
   },
+  "lOFpV2": {
+    "defaultMessage": "E",
+    "description": "The evaluated language ability level of E"
+  },
+  "lXgeJr": {
+    "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
+    "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
+  },
   "lYtXQJ": {
     "defaultMessage": "Souvent démontrée comme étant bien développée dans la plupart des situations quotidiennes auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress et dans des situations modérément difficiles.",
     "description": "The behavioural skill level definition for intermediate"
@@ -1215,6 +1321,10 @@
   "mMw73T": {
     "defaultMessage": "Niveau 1 : Technicien",
     "description": "The name of the Technician classification role."
+  },
+  "mPBvYz": {
+    "defaultMessage": "Examen technique – Sur place",
+    "description": "Technical exam assessment done at some specified location."
   },
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
@@ -1371,6 +1481,10 @@
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
   },
+  "s16Ns7": {
+    "defaultMessage": "C",
+    "description": "The evaluated language ability level of C"
+  },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
@@ -1442,6 +1556,10 @@
     "defaultMessage": "Retourner à mon profil",
     "description": "Link text for button to return to user profile"
   },
+  "uKlMuC": {
+    "defaultMessage": "Questions de sélection (au moment de la candidature)",
+    "description": "Screening questions assessment concurrent with application."
+  },
   "uNArwM": {
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
@@ -1474,6 +1592,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vOw0qV": {
+    "defaultMessage": "Examen technique – À emporter",
+    "description": "Technical exam assessment done at home."
+  },
   "vPDtGU": {
     "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
@@ -1485,6 +1607,10 @@
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
     "description": "The operational requirement described as regular overtime."
+  },
+  "vwszQC": {
+    "defaultMessage": "Entretien de groupe",
+    "description": "Group interview assessment."
   },
   "w2Jpt8": {
     "defaultMessage": "Étudiant",

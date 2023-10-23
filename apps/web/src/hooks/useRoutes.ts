@@ -23,13 +23,19 @@ const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
   const applicantUrl = path.join(baseUrl, "applicant");
+  const showcase = path.join(
+    applicantUrl,
+    "profile-and-applications",
+    "skills",
+    "showcase",
+  );
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
 
   const createExperienceUrl = (userId: string) =>
     `${path.join(
       userUrl(userId),
-      "profile",
-      "career-timeline-and-recruitment",
+      "personal-information",
+      "career-timeline",
       "create",
     )}`;
 
@@ -48,7 +54,6 @@ const getRoutes = (lang: Locales) => {
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
-    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
 
@@ -62,6 +67,8 @@ const getRoutes = (lang: Locales) => {
     poolView: (poolId: string) => path.join(adminUrl, "pools", poolId),
     poolUpdate: (poolId: string) =>
       path.join(adminUrl, "pools", poolId, "edit"),
+    assessmentPlanBuilder: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "plan"),
 
     // Admin - Pool Candidates
     poolCandidateTable: (poolId: string) =>
@@ -228,7 +235,7 @@ const getRoutes = (lang: Locales) => {
     // Profile Routes
     profile: (userId: string, section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(userUrl(userId), "profile") + fragment;
+      return path.join(userUrl(userId), "personal-information") + fragment;
     },
     myProfile: () => path.join(baseUrl, "users", "me"),
 
@@ -242,8 +249,8 @@ const getRoutes = (lang: Locales) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
       return `${path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
       )}${fragment}`;
     },
     editExperience: (
@@ -253,8 +260,8 @@ const getRoutes = (lang: Locales) => {
     ) =>
       path.join(
         userUrl(userId),
-        "profile",
-        "career-timeline-and-recruitment",
+        "personal-information",
+        "career-timeline",
         experienceId,
         "edit",
       ),
@@ -282,10 +289,24 @@ const getRoutes = (lang: Locales) => {
 
     skillLibrary: () =>
       path.join(applicantUrl, "profile-and-applications", "skills"),
-    skillShowcase: () =>
-      path.join(applicantUrl, "profile-and-applications", "skills", "showcase"),
+    skillShowcase: () => path.join(showcase),
     editUserSkill: (skillId: string) =>
       path.join(applicantUrl, "profile-and-applications", "skills", skillId),
+    topBehaviouralSkills: () => path.join(showcase, "top-5-behavioural-skills"),
+    topTechnicalSkills: () => path.join(showcase, "top-10-technical-skills"),
+    improveBehaviouralSkills: () =>
+      path.join(showcase, "3-behavioural-skills-to-improve"),
+    improveTechnicalSkills: () =>
+      path.join(showcase, "5-technical-skills-to-train"),
+
+    // Directive on digital talent
+    directive: () => path.join(baseUrl, "directive-on-digital-talent"),
+    digitalServicesContractingQuestionnaire: () =>
+      path.join(
+        baseUrl,
+        "directive-on-digital-talent",
+        "digital-services-contracting-questionnaire",
+      ),
 
     /**
      * Deprecated

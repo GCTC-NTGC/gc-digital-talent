@@ -109,7 +109,7 @@ const ScreeningQuestions = ({
   const defaultValues = dataToFormValues(pool);
 
   const methods = useForm<FormValues>({
-    defaultValues,
+    values: defaultValues,
   });
   const { handleSubmit, control } = methods;
   const { remove, move, append, fields } = useFieldArray({
@@ -163,7 +163,7 @@ const ScreeningQuestions = ({
   const canAdd = fields.length < 3;
   return (
     <TableOfContents.Section id={sectionMetadata.id}>
-      <TableOfContents.Heading data-h2-margin="base(x3, 0, x1, 0)">
+      <TableOfContents.Heading data-h2-margin-top="base(0)">
         {sectionMetadata.title}
       </TableOfContents.Heading>
       <p data-h2-margin="base(x1, 0)">

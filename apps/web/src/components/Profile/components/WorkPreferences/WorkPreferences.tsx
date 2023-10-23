@@ -16,9 +16,9 @@ import {
   hasAllEmptyFields as hasAllEmptyPreferenceFields,
   hasEmptyRequiredFields as hasEmptyRequiredPreferenceFields,
 } from "~/validators/profile/workPreferences";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
-import SectionTrigger from "../SectionTrigger";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -48,16 +48,18 @@ const WorkPreferences = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work preferences updated successfully!",
-            id: "bt0WcN",
-            description:
-              "Message displayed when a user successfully updates their work preferences.",
-          }),
-        );
-        setIsEditing(false);
+      .then((response) => {
+        if (response) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Work preferences updated successfully!",
+              id: "bt0WcN",
+              description:
+                "Message displayed when a user successfully updates their work preferences.",
+            }),
+          );
+          setIsEditing(false);
+        }
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
@@ -77,7 +79,7 @@ const WorkPreferences = ({
         size={pool ? "h5" : "h3"}
         toggle={
           !isNull ? (
-            <SectionTrigger
+            <ToggleForm.Trigger
               aria-label={intl.formatMessage({
                 defaultMessage: "Edit work preferences",
                 id: "w63YYp",
@@ -90,7 +92,7 @@ const WorkPreferences = ({
                 description:
                   "Button text to start editing one of the profile sections.",
               })}
-            </SectionTrigger>
+            </ToggleForm.Trigger>
           ) : undefined
         }
       >

@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import { Pool } from "~/api/generated";
 
@@ -27,11 +28,7 @@ const CloseDialog = ({
         <div style={{ flexGrow: 2 } /* push other div to the right */}>
           <Dialog.Close>
             <Button color="secondary">
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back",
-                id: "tiF/jI",
-                description: "Close dialog button",
-              })}
+              {intl.formatMessage(formMessages.cancelGoBack)}
             </Button>
           </Dialog.Close>
         </div>

@@ -44,7 +44,7 @@ const ActionButton = ({
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-padding="base(x.5)"
-      data-h2-background-color="base(background) base:hover(gray.lightest) base:focus(focus)"
+      data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
       data-h2-transition="base:children[svg](transform 200ms ease)"
       {...(disabled
         ? { disabled: true, "data-h2-color": "base(black.lightest)" }
@@ -150,6 +150,7 @@ const Fieldset = ({
           data-h2-gap="base(0, x.25)"
         >
           <div
+            data-h2-background-color="base(foreground)"
             data-h2-flex-grow="base(1)"
             data-h2-padding="base(x1)"
             data-h2-shadow="base(medium)"
@@ -180,6 +181,7 @@ const Fieldset = ({
             data-h2-order="base(1)"
           >
             <div
+              data-h2-background-color="base(foreground)"
               data-h2-display="base(flex)"
               data-h2-radius="base(s)"
               data-h2-shadow="base(medium)"
@@ -222,6 +224,7 @@ const Fieldset = ({
               </ActionButton>
             </div>
             <ActionButton
+              data-h2-background-color="base(foreground)"
               disabled={disabled}
               animate={false}
               onClick={handleRemove}
@@ -244,16 +247,20 @@ const Fieldset = ({
 export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
-  addText: React.ReactNode;
+  addText?: React.ReactNode;
   /** Additional props to style the add button */
   addButtonProps?: Omit<
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
   /** Callback function when the add button is clicked */
-  onAdd: () => void;
+  onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
+  customButton?: {
+    button: React.ReactNode;
+    id: string;
+  };
 }
 
 const Root = ({
@@ -262,10 +269,12 @@ const Root = ({
   addButtonProps,
   children,
   showAdd = true,
+  customButton,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -275,7 +284,7 @@ const Root = ({
     >
       <Link
         external
-        href={`#${addId}`}
+        href={`#${customButton?.id ?? addId}`}
         data-h2-visually-hidden="base(invisible)"
         data-h2-position="base:focus-visible(static)"
         data-h2-location="base:focus-visible(auto)"
@@ -285,36 +294,21 @@ const Root = ({
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
       {children}
-      {showAdd && (
+      {showAdd && !customButton ? (
         <Button
           id={addId}
           icon={PlusCircleIcon}
           type="button"
-          mode="solid"
+          mode="placeholder"
           block
           color="secondary"
           onClick={onAdd}
-          {...(addButtonProps?.disabled
-            ? {
-                "data-h2-background": "base(background)",
-                "data-h2-border-style": "base(dashed)",
-                "data-h2-border-color": "base(gray.dark)",
-                "data-h2-color": "base(gray.dark)",
-              }
-            : {
-                "data-h2-background":
-                  "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                "data-h2-border-style":
-                  "base(dashed) base:focus-visible(solid)",
-                "data-h2-border-color":
-                  "base(secondary.darker) base:focus-visible(focus)",
-                "data-h2-color":
-                  "base(secondary.darker) base:focus-visible(black)",
-              })}
           {...addButtonProps}
         >
           {addText}
         </Button>
+      ) : (
+        customButton?.button
       )}
     </div>
   );

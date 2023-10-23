@@ -12,6 +12,7 @@ type Query {
   ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
   applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
+  userPublicProfiles: [UserPublicProfile]! @deprecated(reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -132,11 +133,15 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
   deleteUserSkill(id: UUID!): UserSkill
+  createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  deleteAssessmentStep(id: UUID!): AssessmentStep
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -213,9 +218,6 @@ type User {
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
-  expectedSalary: [SalaryRange] @deprecated(reason: "expectedSalary is deprecated. Remove in #6226.")
-  expectedClassifications: [Classification] @deprecated(reason: "expectedClassifications is deprecated. Remove in #6226.")
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. use positionDuration instead. Remove in #7663.")
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -229,9 +231,7 @@ type User {
   topBehaviouralSkillsRanking: [UserSkill]
   improveTechnicalSkillsRanking: [UserSkill]
   improveBehaviouralSkillsRanking: [UserSkill]
-  pools: [Pool] @deprecated(reason: "pools is deprecated. user.roles.team.pools instead. Remove in #7664.")
   isProfileComplete: Boolean
-  expectedGenericJobTitles: [GenericJobTitle] @deprecated(reason: "expectedGenericJobTitles is deprecated. Remove in #7645.")
   priorityWeight: Int
   roleAssignments: [RoleAssignment!]
   unreadNotifications: [Notification!]
@@ -282,6 +282,7 @@ type Pool {
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
+  specialNote: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -299,6 +300,8 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentSteps: [AssessmentStep]
+  poolSkills: [PoolSkill]
 }
 
 type ScreeningQuestionResponse {
@@ -306,6 +309,23 @@ type ScreeningQuestionResponse {
   answer: String
   screeningQuestion: ScreeningQuestion
   poolCandidate: PoolCandidate
+}
+
+type AssessmentStep {
+  id: ID!
+  pool: Pool
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedString
+  poolSkills: [PoolSkill]
+}
+
+type PoolSkill {
+  id: ID!
+  type: PoolSkillType
+  pool: Pool
+  skill: Skill
+  assessmentSteps: [AssessmentStep]
 }
 
 type PoolCandidate {
@@ -418,7 +438,6 @@ type ApplicantFilter {
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  wouldAcceptTemporary: Boolean @deprecated(reason: "wouldAcceptTemporary is deprecated. Use positionDuration instead. Remove in #7665.")
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
@@ -636,6 +655,7 @@ input PoolCandidateSearchRequestInput {
   streams: [PoolStream]
   fullName: String
   email: String
+  id: ID
   jobTitle: String
   additionalComments: String
   adminNotes: String
@@ -1090,6 +1110,14 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncEssentialPoolSkills {
+  sync: [ID]
+}
+
+input SyncNonessentialPoolSkills {
+  sync: [ID]
+}
+
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1099,14 +1127,26 @@ input UpdatePoolInput {
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
-  essentialSkills: SkillBelongsToMany
-  nonessentialSkills: SkillBelongsToMany
+  specialNote: LocalizedStringInput
+  essentialSkills: SyncEssentialPoolSkills
+  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
   screeningQuestions: UpdateScreeningQuestionsHasMany
+}
+
+input AssessmentStepInput {
+  type: AssessmentStepType
+  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input PoolSkillBelongsToMany {
+  sync: [UUID!]
 }
 
 input RolesInput {
@@ -1118,6 +1158,22 @@ input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
   sync: RolesInput
+}
+
+input RolesForTeamInput {
+  roles: [ID!]
+}
+
+input RolesForTeamHasMany {
+  attach: RolesForTeamInput
+  detach: RolesForTeamInput
+  sync: RolesForTeamInput
+}
+
+input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
+  roleAssignments: RolesForTeamHasMany!
 }
 
 input ScreeningResponseBelongsTo {
@@ -1153,12 +1209,13 @@ input UpdateApplicationInput {
   educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  applicationId: ID
 }
 
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 type DigitalContractingPersonnelRequirement {
@@ -1175,7 +1232,6 @@ type DigitalContractingPersonnelRequirement {
 
 type DigitalContractingQuestionnaire {
   id: UUID!
-  readPreamble: Boolean
   department: Department
   departmentOther: String
   branchOther: String
@@ -1201,27 +1257,30 @@ type DigitalContractingQuestionnaire {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: [DigitalContractingPersonnelRequirement!]
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
-  hasPersonnelRequirements: YesNo
-  personnelRequirements: [DigitalContractingPersonnelRequirement!]
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -1242,13 +1301,13 @@ type DigitalContractingQuestionnaire {
 
 input CreateDigitalContractingPersonnelSkillInput {
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input UpdateDigitalContractingPersonnelSkillInput {
   id: UUID!
   skill: SkillBelongsTo
-  level: PersonnelSkillExpertiseLevel
+  level: SkillLevel
 }
 
 input DigitalContractingPersonnelSkillBelongsTo {
@@ -1287,7 +1346,6 @@ input DigitalContractingPersonnelRequirementBelongsToMany {
 }
 
 input DigitalContractingQuestionnaireInput {
-  readPreamble: Boolean
   department: DepartmentBelongsTo
   departmentOther: String
   branchOther: String
@@ -1313,27 +1371,30 @@ input DigitalContractingQuestionnaireInput {
   contractAmendable: YesNo
   contractMultiyear: YesNo
   contractValue: ContractValueRange
+  contractFtes: ContractFteRange
   contractResourcesStartTimeframe: ContractStartTimeframe
   commodityType: ContractCommodity
   commodityTypeOther: String
   instrumentType: ContractInstrument
+  instrumentTypeOther: String
   methodOfSupply: ContractSupplyMethod
   methodOfSupplyOther: String
   solicitationProcedure: ContractSolicitationProcedure
   subjectToTradeAgreement: YesNoUnsure
   workRequirementDescription: String
+  hasPersonnelRequirements: YesNo
+  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   qualificationRequirement: String
-  requirementAccessToSecure: YesNoUnsure
+  requirementAccessToSecure: YesNo
   requirementScreeningLevels: [PersonnelScreeningLevel!]
   requirementScreeningLevelOther: String
   requirementWorkLanguages: [PersonnelLanguage!]
   requirementWorkLanguageOther: String
   requirementWorkLocations: [PersonnelWorkLocation!]
-  requirementWorkLocationSpecific: String
+  requirementWorkLocationGcSpecific: String
+  requirementWorkLocationOffsiteSpecific: String
   requirementOthers: [PersonnelOtherRequirement!]
   requirementOtherOther: String
-  hasPersonnelRequirements: YesNo
-  personnelRequirements: DigitalContractingPersonnelRequirementBelongsToMany
   isTechnologicalChange: YesNo
   hasImpactOnYourDepartment: YesNo
   hasImmediateImpactOnOtherDepartments: YesNo
@@ -1685,6 +1746,7 @@ enum EvaluatedLanguageAbility {
   C
   E
   P
+  NOT_ASSESSED
 }
 
 enum EstimatedLanguageAbility {
@@ -1717,6 +1779,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum PoolSkillType {
+  ESSENTIAL
+  NONESSENTIAL
 }
 
 enum PoolStream {
@@ -1984,11 +2051,21 @@ enum ContractCommodity {
   OTHER
 }
 
+enum ContractFteRange {
+  FROM_1_TO_5
+  FROM_6_TO_10
+  FROM_11_TO_30
+  FROM_31_TO_50
+  FROM_51_TO_100
+  GREATER_THAN_100
+}
+
 enum ContractInstrument {
   SUPPLY_ARRANGEMENT
   STANDING_OFFER
   CONTRACT
   AMENDMENT
+  OTHER
 }
 
 enum ContractSupplyMethod {
@@ -2075,4 +2152,17 @@ enum ContractingRationale {
   REQUIRES_INDEPENDENT
   INTELLECTUAL_PROPERTY_FACTORS
   OTHER
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  APPLICATION_SCREENING
+  ADDITIONAL_ASSESSMENT
 }

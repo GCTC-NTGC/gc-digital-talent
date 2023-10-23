@@ -16,11 +16,6 @@ const navigationMessages = defineMessages({
     id: "g08hvq",
     description: "Breadcrumb back to review application page.",
   },
-  skipLink: {
-    defaultMessage: "Skip to main content",
-    id: "Srs7a4",
-    description: "Assistive technology skip link",
-  },
   aboutMe: {
     defaultMessage: "About me",
     id: "Gx8qCK",
@@ -52,9 +47,14 @@ const navigationMessages = defineMessages({
     description: "Name of Work preferences page",
   },
   careerTimelineAndRecruitment: {
-    defaultMessage: "Career timeline and recruitment",
-    id: "Icl1fF",
-    description: "Name of Career timeline and recruitment page",
+    defaultMessage: "Career timeline",
+    id: "TUfJUD",
+    description: "Name of Career timeline page",
+  },
+  skillShowcase: {
+    defaultMessage: "Skill showcase",
+    id: "MBnBcY",
+    description: "Name of the skill showcase page",
   },
 });
 

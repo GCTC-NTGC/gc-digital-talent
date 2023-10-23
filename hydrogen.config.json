@@ -179,17 +179,30 @@
           "key": "foreground",
           "default": {
             "color": "#FFFFFF",
-            "modifiers": []
+            "modifiers": [
+              {
+                "key": "tint",
+                "color": "#A3A5B1"
+              },
+              {
+                "key": "shade",
+                "color": "#232632"
+              },
+              {
+                "key": "darker",
+                "color": "#808080"
+              }
+            ]
           },
           "dark": {
-            "color": "#2a2b38",
+            "color": "#494D61",
             "modifiers": []
           }
         },
         {
           "key": "background",
           "default": {
-            "color": "#F9FBFF",
+            "color": "#F5F8FD",
             "modifiers": [
               {
                 "key": "dark",
@@ -202,7 +215,7 @@
             ]
           },
           "dark": {
-            "color": "#212130",
+            "color": "#2F313D",
             "modifiers": []
           }
         },
@@ -526,79 +539,6 @@
           "key": "primary-transparent-linear",
           "default": {
             "gradient": "linear-gradient(rgb(104, 7, 43, 1), rgb(104, 7, 43, 0))",
-            "fallback": "transparent"
-          }
-        }
-      ]
-    },
-    {
-      "key": "admin",
-      "colors": [
-        {
-          "key": "primary",
-          "default": {
-            "color": "#674C90",
-            "modifiers": [
-              {
-                "key": "dark",
-                "color": "#363661"
-              }
-            ]
-          }
-        },
-        {
-          "key": "secondary",
-          "default": {
-            "color": "#072131",
-            "modifiers": [
-              {
-                "key": "light",
-                "color": "#1D2C4C"
-              }
-            ]
-          }
-        },
-        {
-          "key": "tertiary",
-          "default": {
-            "color": "#F8A812",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "quaternary",
-          "default": {
-            "color": "#F8A812",
-            "modifiers": []
-          }
-        },
-        {
-          "key": "quinary",
-          "default": {
-            "color": "#F8A812",
-            "modifiers": []
-          }
-        }
-      ],
-      "gradients": [
-        {
-          "key": "main-linear",
-          "default": {
-            "gradient": "linear-gradient(to right, #F8A812, #4E00C6 75%, #27178C)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "home-footer-linear",
-          "default": {
-            "gradient": "linear-gradient(135deg, #4E00C6, #F8A812)",
-            "fallback": "transparent"
-          }
-        },
-        {
-          "key": "primary-transparent-linear",
-          "default": {
-            "gradient": "linear-gradient(rgb(51, 35, 75, 1), rgb(51, 35, 75, 0))",
             "fallback": "transparent"
           }
         }

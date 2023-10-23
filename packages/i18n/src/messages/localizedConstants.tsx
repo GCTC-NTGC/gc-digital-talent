@@ -30,6 +30,9 @@ import {
   EducationRequirementOption,
   PoolCandidateSearchPositionType,
   SkillLevel,
+  EvaluatedLanguageAbility,
+  PoolSkillType,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -272,26 +275,6 @@ export const getArmedForcesStatusesProfile = (
     bold ? armedForcesStatusesProfile : armedForcesStatusesProfileNoBold,
     armedForcesId,
     `Invalid status '${armedForcesId}'`,
-  );
-
-const educationRequirements = defineMessages({
-  hasDiploma: {
-    defaultMessage: "Required diploma from post-secondary institution",
-    id: "OujTbA",
-  },
-  doesNotHaveDiploma: {
-    defaultMessage: "Can accept a combination of work experience and education",
-    id: "4dx4ju",
-  },
-});
-
-export const getEducationRequirement = (
-  educationRequirementId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    educationRequirements,
-    educationRequirementId,
-    `Invalid Education Requirement '${educationRequirementId}'`,
   );
 
 const educationRequirementOptions = defineMessages({
@@ -817,6 +800,28 @@ export const getSkillCategory = (
     SkillCategories,
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
+  );
+
+const PoolSkillTypes = defineMessages({
+  [PoolSkillType.Essential]: {
+    defaultMessage: "Essential",
+    id: "ArBddb",
+    description: "The skill is considered essential.",
+  },
+  [PoolSkillType.Nonessential]: {
+    defaultMessage: "Asset",
+    id: "2jjZbd",
+    description: "The skill is considered nonessential.",
+  },
+});
+
+export const getPoolSkillType = (
+  poolSkillId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    PoolSkillTypes,
+    poolSkillId,
+    `Invalid PoolSkill Type '${poolSkillId}'`,
   );
 
 const GenericJobTitles = defineMessages({
@@ -1900,4 +1905,113 @@ export const getBehaviouralSkillLevelDefinition = (
     behaviouralSkillLevelDefinitions,
     skillLevel,
     `Invalid behavioural skill level '${skillLevel}'`,
+  );
+
+const evaluatedLanguageMessages = defineMessages({
+  [EvaluatedLanguageAbility.X]: {
+    defaultMessage: "X",
+    id: "R6XtnR",
+    description: "The evaluated language ability level of X",
+  },
+  [EvaluatedLanguageAbility.A]: {
+    defaultMessage: "A",
+    id: "7TuiE1",
+    description: "The evaluated language ability level of A",
+  },
+  [EvaluatedLanguageAbility.B]: {
+    defaultMessage: "B",
+    id: "MUjjf9",
+    description: "The evaluated language ability level of B",
+  },
+  [EvaluatedLanguageAbility.C]: {
+    defaultMessage: "C",
+    id: "s16Ns7",
+    description: "The evaluated language ability level of C",
+  },
+  [EvaluatedLanguageAbility.E]: {
+    defaultMessage: "E",
+    id: "lOFpV2",
+    description: "The evaluated language ability level of E",
+  },
+  [EvaluatedLanguageAbility.P]: {
+    defaultMessage: "P",
+    id: "eC8w2e",
+    description: "The evaluated language ability level of P",
+  },
+  [EvaluatedLanguageAbility.NotAssessed]: {
+    defaultMessage: "Not assessed",
+    id: "L8TMtk",
+    description: "The evaluated language ability level for un-assessed",
+  },
+});
+
+export const getEvaluatedLanguageAbility = (
+  ability: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    evaluatedLanguageMessages,
+    ability,
+    `Invalid evaluatedLanguageAbility ${ability}`,
+  );
+
+const assessmentStepTypes = defineMessages({
+  [AssessmentStepType.AdditionalAssessment]: {
+    defaultMessage: "Additional assessment",
+    id: "TP9lEp",
+    description: "Additional assessment of some unique sort.",
+  },
+  [AssessmentStepType.ApplicationScreening]: {
+    defaultMessage: "Application screening",
+    id: "2POiyT",
+    description: "Application screening assessment.",
+  },
+  [AssessmentStepType.InterviewFollowup]: {
+    defaultMessage: "Follow-up interview",
+    id: "IGl5IE",
+    description: "Follow-up interview assessment.",
+  },
+  [AssessmentStepType.InterviewGroup]: {
+    defaultMessage: "Group interview",
+    id: "vwszQC",
+    description: "Group interview assessment.",
+  },
+  [AssessmentStepType.InterviewIndividual]: {
+    defaultMessage: "Individual interview",
+    id: "PJn5I4",
+    description: "Individual interview assessment.",
+  },
+  [AssessmentStepType.PscExam]: {
+    defaultMessage: "PSC exam",
+    id: "DoFRsj",
+    description: "PSC exam assessment.",
+  },
+  [AssessmentStepType.ReferenceCheck]: {
+    defaultMessage: "Reference check",
+    id: "H9+LDC",
+    description: "Reference check assessment.",
+  },
+  [AssessmentStepType.ScreeningQuestionsAtApplication]: {
+    defaultMessage: "Screening questions (at time of application)",
+    id: "uKlMuC",
+    description: "Screening questions assessment concurrent with application.",
+  },
+  [AssessmentStepType.TechnicalExamAtHome]: {
+    defaultMessage: "Technical exam - Take home",
+    id: "vOw0qV",
+    description: "Technical exam assessment done at home.",
+  },
+  [AssessmentStepType.TechnicalExamAtSite]: {
+    defaultMessage: "Technical exam - On site",
+    id: "mPBvYz",
+    description: "Technical exam assessment done at some specified location.",
+  },
+});
+
+export const getAssessmentStepType = (
+  assessmentStepTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentStepTypes,
+    assessmentStepTypeId,
+    `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
   );

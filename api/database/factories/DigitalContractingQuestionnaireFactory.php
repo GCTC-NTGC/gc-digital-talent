@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\DirectiveForms\ContractAuthority;
 use App\Enums\DirectiveForms\ContractCommodity;
+use App\Enums\DirectiveForms\ContractFteRange;
 use App\Enums\DirectiveForms\ContractingRationale;
 use App\Enums\DirectiveForms\ContractInstrument;
 use App\Enums\DirectiveForms\ContractSolicitationProcedure;
@@ -36,7 +37,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
     public function definition(): array
     {
         return [
-            'read_preamble' => $this->faker->boolean(),
             'department_id' => $this->faker->boolean(75)
                 ? Department::inRandomOrder()
                     ->limit(1)
@@ -76,12 +76,16 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'contract_amendable' => $this->faker->randomElement(YesNo::cases())->name,
             'contract_multiyear' => $this->faker->randomElement(YesNo::cases())->name,
             'contract_value' => $this->faker->randomElement(ContractValueRange::cases())->name,
+            'contract_ftes' => $this->faker->randomElement(ContractFteRange::cases())->name,
             'contract_resources_start_timeframe' => $this->faker->randomElement(ContractStartTimeframe::cases())->name,
             'commodity_type' => $this->faker->randomElement(ContractCommodity::cases())->name,
             'commodity_type_other' => function (array $attributes) {
                 return $attributes['commodity_type'] == ContractCommodity::OTHER->name ? $this->faker->word() : null;
             },
             'instrument_type' => $this->faker->randomElement(ContractInstrument::cases())->name,
+            'instrument_type_other' => function (array $attributes) {
+                return $attributes['instrument_type'] == ContractInstrument::OTHER->name ? $this->faker->word() : null;
+            },
             'method_of_supply' => $this->faker->randomElement(ContractSupplyMethod::cases())->name,
             'method_of_supply_other' => function (array $attributes) {
                 return $attributes['method_of_supply'] == ContractSupplyMethod::OTHER->name ? $this->faker->word() : null;
@@ -89,27 +93,48 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'solicitation_procedure' => $this->faker->randomElement(ContractSolicitationProcedure::cases())->name,
             'subject_to_trade_agreement' => $this->faker->randomElement(YesNoUnsure::cases())->name,
             'work_requirement_description' => $this->faker->paragraph(),
-            'qualification_requirement' => $this->faker->paragraph(),
-            'requirement_access_to_secure' => $this->faker->randomElement(YesNoUnsure::cases())->name,
-            'requirement_screening_levels' => $this->faker->randomElements(
-                array_column(PersonnelScreeningLevel::cases(), 'name'),
-                $this->faker->numberBetween(1, count(PersonnelScreeningLevel::cases()))
-            ),
+            'has_personnel_requirements' => $this->faker->randomElement(YesNo::cases())->name,
+            // personnel_requirements added in configure method
+            'qualification_requirement' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === YesNo::NO->name ? $this->faker->paragraph() : null;
+            },
+            'requirement_access_to_secure' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === YesNo::NO->name
+                    ? $this->faker->randomElement(array_column(YesNoUnsure::cases(), 'name'))
+                    : null;
+            },
+            'requirement_screening_levels' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === YesNo::NO->name
+                    ? $this->faker->randomElements(
+                        array_column(PersonnelScreeningLevel::cases(), 'name'),
+                        $this->faker->numberBetween(1, count(PersonnelScreeningLevel::cases()))
+                    )
+                    : [];
+            },
             'requirement_screening_level_other' => function (array $attributes) {
                 return in_array(PersonnelScreeningLevel::OTHER->name, $attributes['requirement_screening_levels']) ? $this->faker->word() : null;
             },
-            'requirement_work_languages' => $this->faker->randomElements(
-                array_column(PersonnelLanguage::cases(), 'name'),
-                $this->faker->numberBetween(1, count(PersonnelLanguage::cases()))
-            ),
+            'requirement_work_languages' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === YesNo::NO->name
+                    ? $this->faker->randomElements(
+                        array_column(PersonnelLanguage::cases(), 'name'),
+                        $this->faker->numberBetween(1, count(PersonnelLanguage::cases())))
+                : [];
+            },
             'requirement_work_language_other' => function (array $attributes) {
                 return in_array(PersonnelLanguage::OTHER->name, $attributes['requirement_work_languages']) ? $this->faker->word() : null;
             },
-            'requirement_work_locations' => $this->faker->randomElements(
-                array_column(PersonnelWorkLocation::cases(), 'name'),
-                $this->faker->numberBetween(1, count(PersonnelWorkLocation::cases()))
-            ),
-            'requirement_work_location_specific' => function (array $attributes) {
+            'requirement_work_locations' => function (array $attributes) {
+                return $attributes['has_personnel_requirements'] === YesNo::NO->name
+                    ? $this->faker->randomElements(
+                        array_column(PersonnelWorkLocation::cases(), 'name'),
+                        $this->faker->numberBetween(1, count(PersonnelWorkLocation::cases())))
+                : [];
+            },
+            'requirement_work_location_gc_specific' => function (array $attributes) {
+                return in_array(PersonnelWorkLocation::GC_PREMISES->name, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
+            },
+            'requirement_work_location_offsite_specific' => function (array $attributes) {
                 return in_array(PersonnelWorkLocation::OFFSITE_SPECIFIC->name, $attributes['requirement_work_locations']) ? $this->faker->word() : null;
             },
             'requirement_others' => $this->faker->randomElements(
@@ -119,8 +144,6 @@ class DigitalContractingQuestionnaireFactory extends Factory
             'requirement_other_other' => function (array $attributes) {
                 return in_array(PersonnelOtherRequirement::OTHER->name, $attributes['requirement_others']) ? $this->faker->word() : null;
             },
-            'has_personnel_requirements' => $this->faker->randomElement(YesNo::cases())->name,
-            // personnel_requirements added in configure method
             'is_technological_change' => $this->faker->randomElement(YesNo::cases())->name,
             'has_impact_on_your_department' => $this->faker->randomElement(YesNo::cases())->name,
             'has_immediate_impact_on_other_departments' => $this->faker->randomElement(YesNo::cases())->name,

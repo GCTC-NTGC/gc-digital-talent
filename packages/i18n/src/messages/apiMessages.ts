@@ -124,6 +124,20 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "kg28xx",
       description: "Error message that Your Impact in French must be filled",
     },
+    EnglishSpecialNoteRequired: {
+      defaultMessage:
+        "You are missing a required field: English - Special note for this process",
+      id: "S2BTqm",
+      description:
+        "Error message that Special note for this process in English must be filled",
+    },
+    FrenchSpecialNoteRequired: {
+      defaultMessage:
+        "You are missing a required field: French - Special note for this process",
+      id: "NQhU3F",
+      description:
+        "Error message that Special note for this process in French must be filled",
+    },
     EssentialSkillRequired: {
       defaultMessage: "You must have at least one Essential Skill.",
       id: "Mco0Km",
@@ -199,10 +213,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Message displayed when user attempts to apply to a pool with an incomplete profile",
     },
     MISSING_ESSENTIAL_SKILLS: {
-      defaultMessage: "Missing essential skills",
-      id: "H8eisr",
+      defaultMessage:
+        "Please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it.",
+      id: "lXgeJr",
       description:
-        "Message displayed when user attempts to apply to a pool without an essential skill",
+        "Message displayed when user attempts to apply to a pool without connecting all essential skills.",
     },
     MISSING_LANGUAGE_REQUIREMENTS: {
       defaultMessage: "There is a missing language requirement",
@@ -240,6 +255,12 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "LBqw5w",
       description:
         "Message displayed when user attempts to apply to a pool without answering all screening questions",
+    },
+    NEED_AT_LEAST_ONE_PERSONNEL_REQUIREMENT: {
+      defaultMessage: "You must add at least one personnel requirement.",
+      id: "2KDa14",
+      description:
+        "Message displayed when user attempts to submit a form without at least one personnel requirement",
     },
   },
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -42,6 +42,7 @@ import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormF
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 type PageSection = {
   id: string;
@@ -118,9 +119,6 @@ export const UpdateUserSkillForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const [isFormDialogOpen, setFormDialogOpen] = React.useState<boolean>(false);
-  const [currentExperience, setCurrentExperience] =
-    React.useState<Experience | null>(null);
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
@@ -209,14 +207,6 @@ export const UpdateUserSkillForm = ({
           }),
         ),
       );
-  };
-
-  const handleFormOpenChange = (newIsFormOpen: boolean) => {
-    setFormDialogOpen(newIsFormOpen);
-    // reset current experience when we close the form
-    if (!newIsFormOpen) {
-      setCurrentExperience(null);
-    }
   };
 
   const crumbs = [
@@ -528,18 +518,20 @@ export const UpdateUserSkillForm = ({
                   data-h2-justify-content="base(flex-end)"
                   data-h2-margin="base(x.5 0)"
                 >
-                  <Button
-                    color="secondary"
-                    icon={PlusCircleIcon}
-                    onClick={() => setFormDialogOpen(true)}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Link an experience",
-                      id: "Y2ULHN",
-                      description:
-                        "Button text to open the form allowing a user to link an experience to a skill",
-                    })}
-                  </Button>
+                  <ExperienceSkillFormDialog
+                    skill={skill}
+                    availableExperiences={availableExperiences}
+                    trigger={
+                      <Button color="secondary" icon={PlusCircleIcon}>
+                        {intl.formatMessage({
+                          defaultMessage: "Link an experience",
+                          id: "Y2ULHN",
+                          description:
+                            "Button text to open the form allowing a user to link an experience to a skill",
+                        })}
+                      </Button>
+                    }
+                  />
                 </div>
               ) : null}
               {linkedExperiences?.length ? (
@@ -553,12 +545,9 @@ export const UpdateUserSkillForm = ({
                       key={experience.id}
                       experience={experience}
                       headingLevel="h3"
-                      showEdit
-                      showSkills={false}
-                      onEditClick={() => {
-                        setCurrentExperience(experience);
-                        setFormDialogOpen(true);
-                      }}
+                      editMode="dialog"
+                      showSkills={skill}
+                      linkTo={skill}
                     />
                   ))}
                 </div>
@@ -571,15 +560,6 @@ export const UpdateUserSkillForm = ({
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-      <ExperienceSkillFormDialog
-        open={isFormDialogOpen}
-        onOpenChange={handleFormOpenChange}
-        skill={skill}
-        availableExperiences={
-          currentExperience ? [currentExperience] : availableExperiences
-        }
-        experience={currentExperience || undefined}
-      />
     </>
   );
 };
@@ -590,11 +570,11 @@ type RouteParams = {
 
 const UpdateUserSkillPage = () => {
   const intl = useIntl();
-  const { skillId } = useParams<RouteParams>();
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
 
   const [{ data, fetching, error }] = useUserSkillQuery({
     variables: {
-      skillId: skillId ?? "",
+      skillId,
     },
   });
 

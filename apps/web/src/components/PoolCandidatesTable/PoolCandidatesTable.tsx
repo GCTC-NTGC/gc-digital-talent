@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { SubmitHandler } from "react-hook-form";
@@ -42,7 +42,7 @@ import useRoutes from "~/hooks/useRoutes";
 import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
 import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
 import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
-import { tableViewItemButtonAccessor } from "~/components/Table/ClientManagedTable";
+import cells from "~/components/Table/cells";
 import {
   ColumnsOf,
   handleColumnHiddenChange,
@@ -63,6 +63,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
@@ -254,7 +255,7 @@ const viewAccessor = (
   if (isQualified) {
     return (
       <span data-h2-font-weight="base(700)">
-        {tableViewItemButtonAccessor(
+        {cells.view(
           paths.userView(candidate.user.id),
           intl.formatMessage({
             defaultMessage: "Profile",
@@ -280,7 +281,7 @@ const viewAccessor = (
   }
   return (
     <span data-h2-font-weight="base(700)">
-      {tableViewItemButtonAccessor(
+      {cells.view(
         paths.poolCandidateApplication(candidate.id),
         intl.formatMessage({
           defaultMessage: "Application",
@@ -401,9 +402,8 @@ const PoolCandidatesTable = ({
     filters: applicantFilterInput,
   } = tableState;
 
-  const [selectedRows, setSelectedRows] = useState<
-    PoolCandidateWithSkillCount[]
-  >([]);
+  const { selectedRows, setSelectedRows, hasSelected } =
+    useSelectedRows<PoolCandidateWithSkillCount>([]);
 
   // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
   // this smooths the table sort value into appropriate API calls
@@ -553,7 +553,7 @@ const PoolCandidatesTable = ({
 
   useEffect(() => {
     setSelectedRows([]);
-  }, [currentPage, pageSize, searchState, sortingRule]);
+  }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
@@ -606,17 +606,17 @@ const PoolCandidatesTable = ({
         }),
         header: (
           <span>
+            <LockClosedIcon
+              data-h2-width="base(x.75)"
+              data-h2-margin-right="base(x.15)"
+              data-h2-vertical-align="base(middle)"
+            />
             {intl.formatMessage({
               defaultMessage: "Status",
               id: "l+cu8R",
               description:
                 "Title displayed for the Pool Candidates table Status column.",
             })}
-            <LockClosedIcon
-              data-h2-margin="base(0, 0, 0, x1)"
-              data-h2-width="base(x1)"
-              data-h2-vertical-align="base(middle)"
-            />
           </span>
         ),
         id: "status",
@@ -631,17 +631,17 @@ const PoolCandidatesTable = ({
         }),
         header: (
           <span>
+            <LockClosedIcon
+              data-h2-width="base(x.75)"
+              data-h2-margin-right="base(x.15)"
+              data-h2-vertical-align="base(middle)"
+            />
             {intl.formatMessage({
               defaultMessage: "Category",
               id: "qrDCTV",
               description:
                 "Title displayed for the Pool Candidates table Priority column.",
             })}
-            <LockClosedIcon
-              data-h2-margin="base(0, 0, 0, x1)"
-              data-h2-width="base(x1)"
-              data-h2-vertical-align="base(middle)"
-            />
           </span>
         ),
         id: "priority",
@@ -710,8 +710,8 @@ const PoolCandidatesTable = ({
         sortColumnName: "SKILL_COUNT",
         accessor: ({ poolCandidate: { user }, skillCount }) =>
           skillMatchDialogAccessor(
-            allSkills?.filter((skill) =>
-              filteredSkillIds?.includes(skill.id),
+            allSkills?.filter(
+              (skill) => filteredSkillIds?.includes(skill.id),
             ) ?? [],
             user.experiences?.filter(notEmpty) ?? [],
             skillCount,
@@ -756,7 +756,15 @@ const PoolCandidatesTable = ({
         sortColumnName: "submitted_at",
       },
     ],
-    [intl, selectedRows, filteredData, paths, allSkills, filteredSkillIds],
+    [
+      intl,
+      selectedRows,
+      filteredData,
+      setSelectedRows,
+      paths,
+      allSkills,
+      filteredSkillIds,
+    ],
   );
 
   const allColumnIds = columns.map((c) => c.id);
@@ -772,6 +780,7 @@ const PoolCandidatesTable = ({
     variables: {
       ids: selectedCandidateIds,
     },
+    pause: !hasSelected,
   });
 
   const selectedCandidates =
