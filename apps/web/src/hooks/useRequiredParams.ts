@@ -25,6 +25,20 @@ type Keys<T, K extends keyof T> = K | Array<K>;
 
 const useRequiredParams = <
   T extends Record<
+    /**
+     * This is a way to self-reference the type to only allow string keys.
+     *
+     * Constrains keys of `T` to be the `P` alias which
+     * is constrained to type `string` and, a key of the passed in generic type.
+     *
+     * Right side could be `any` (we don't actually use this)
+     * but should be `string | undefined` to satisfy the type.
+     *
+     * The resulting type should be constrained to: `Record<keyof Record<string, string>, string>`
+     *
+     * We then use this in the `keys: Key<T, keyof T>` to constrain
+     * the argument to be a key of the generic record passed in.
+     */
     keyof {
       [P in keyof T as T[P] extends string ? P : never]: string | undefined;
     },
