@@ -1,6 +1,6 @@
 import React from "react";
-import { useIntl } from "react-intl";
-import { useFormState } from "react-hook-form";
+import { IntlShape, useIntl } from "react-intl";
+import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
 
 import {
   Alert,
@@ -12,6 +12,21 @@ import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FieldLabels } from "./BasicForm";
+
+const getInvalidFieldMessage = (
+  field: string,
+  errors: FieldErrors<FieldValues>,
+  intl: IntlShape,
+) => {
+  const invalidField = errors[field];
+  let message = invalidField?.message;
+
+  if (!message && invalidField && "root" in invalidField) {
+    message = invalidField.root?.message;
+  }
+
+  return message || intl.formatMessage(errorMessages.unknown);
+};
 
 interface ErrorSummaryProps {
   labels?: FieldLabels;
@@ -43,13 +58,11 @@ const ErrorSummary = React.forwardRef<
        * format as well as displaying generic
        * error message when one is not provided.
        */
-      const fieldInvalid = errors[field];
-      if (labels && field in labels && fieldInvalid) {
+      if (labels && field in labels) {
         return {
           name: field,
           label: labels[field],
-          message:
-            fieldInvalid?.message || intl.formatMessage(errorMessages.unknown),
+          message: getInvalidFieldMessage(field, errors, intl),
         };
       }
 
