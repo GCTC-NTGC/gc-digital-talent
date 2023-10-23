@@ -51,6 +51,7 @@ const StyledClose = React.forwardRef<
 
 interface DialogProps extends DialogPrimitiveContentProps {
   container?: HTMLElement;
+  closeLabel?: string;
 }
 
 type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
@@ -60,7 +61,7 @@ type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
 const Content = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogProps
->(({ container, children, ...props }, forwardedRef) => {
+>(({ container, closeLabel, children, ...props }, forwardedRef) => {
   const intl = useIntl();
 
   return (
@@ -82,7 +83,9 @@ const Content = React.forwardRef<
               data-h2-position="base(absolute)"
               data-h2-radius="base(circle)"
               data-h2-z-index="base(9)"
-              aria-label={intl.formatMessage(uiMessages.closeDialog)}
+              aria-label={
+                closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
+              }
             >
               <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
             </button>
