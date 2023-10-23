@@ -4,6 +4,7 @@ import {
   getLoggingLevel,
 } from "./utils/logger";
 import useLogger, { defaultLogger } from "./hooks/useLogger";
+import type { Logger } from "./types";
 
 export {
   tryParseSeverityLevelString,
@@ -12,3 +13,5 @@ export {
   useLogger,
   defaultLogger,
 };
+
+export type { Logger };

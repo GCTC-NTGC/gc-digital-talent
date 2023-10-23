@@ -1,7 +1,13 @@
-import invariant from "tiny-invariant";
 import { Params, useParams } from "react-router-dom";
 
+import {
+  useLogger,
+  defaultLogger,
+  type Logger,
+} from "@gc-digital-talent/logger";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import invariant from "~/utils/invariant";
 
 export const uuidRegEx =
   /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}/;
@@ -10,14 +16,23 @@ export const isUUID = (str: string): boolean => {
   return !!str.match(uuidRegEx);
 };
 
-const assertParam = (param?: string, enforceUUID: boolean = true) => {
+const assertParam = (
+  param?: string,
+  enforceUUID: boolean = true,
+  logger: Logger = defaultLogger,
+) => {
   invariant(
     notEmpty(param),
     `Could not find required URL parameter "${param}"`,
+    logger,
   );
 
   if (enforceUUID) {
-    invariant(isUUID(param), `URL parameter "${param}" must be a UUID.`);
+    invariant(
+      isUUID(param),
+      `URL parameter "${param}" must be a UUID.`,
+      logger,
+    );
   }
 };
 
@@ -48,13 +63,14 @@ const useRequiredParams = <
   keys: Keys<T, keyof T>,
   enforceUUID: boolean = true,
 ): Record<string, string> => {
+  const logger = useLogger();
   const params: Params<string> = useParams<T>();
   const keyArray = Array.isArray(keys) ? keys : [keys];
 
   let nonEmptyParams = {};
   keyArray.forEach((key) => {
     const param = params[String(key)];
-    assertParam(param, enforceUUID);
+    assertParam(param, enforceUUID, logger);
 
     nonEmptyParams = { ...nonEmptyParams, [key]: param ?? "" };
   });
