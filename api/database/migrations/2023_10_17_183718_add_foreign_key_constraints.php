@@ -12,37 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('applicant_filter_classification', function (Blueprint $table) {
-            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters')->cascadeOnDelete(true);
-            $table->foreign('classification_id')->references('id')->on('classifications')->cascadeOnDelete(true);
+            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters');
+            $table->foreign('classification_id')->references('id')->on('classifications');
         });
 
         Schema::table('applicant_filter_pool', function (Blueprint $table) {
-            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters')->cascadeOnDelete(true);
-            $table->foreign('pool_id')->references('id')->on('pools')->cascadeOnDelete(true);
+            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters');
+            $table->foreign('pool_id')->references('id')->on('pools');
         });
 
         Schema::table('applicant_filter_qualified_classification', function (Blueprint $table) {
-            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters')->cascadeOnDelete(true);
-            $table->foreign('classification_id')->references('id')->on('classifications')->cascadeOnDelete(true);
+            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters');
+            $table->foreign('classification_id')->references('id')->on('classifications');
         });
 
         Schema::table('applicant_filter_skill', function (Blueprint $table) {
-            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters')->cascadeOnDelete(true);
-            $table->foreign('skill_id')->references('id')->on('skills')->cascadeOnDelete(true);
+            $table->foreign('applicant_filter_id')->references('id')->on('applicant_filters');
+            $table->foreign('skill_id')->references('id')->on('skills');
         });
 
         Schema::table('classification_user', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
-            $table->foreign('classification_id')->references('id')->on('classifications')->cascadeOnDelete(true);
+            $table->foreign('classification_id')->references('id')->on('classifications');
         });
 
         Schema::table('generic_job_title_user', function (Blueprint $table) {
-            $table->foreign('generic_job_title_id')->references('id')->on('generic_job_titles')->cascadeOnDelete(true);
+            $table->foreign('generic_job_title_id')->references('id')->on('generic_job_titles');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
         });
 
         Schema::table('generic_job_titles', function (Blueprint $table) {
-            $table->foreign('classification_id')->references('id')->on('classifications')->cascadeOnDelete(true);
+            $table->foreign('classification_id')->references('id')->on('classifications');
         });
 
         Schema::table('permission_user', function (Blueprint $table) {
@@ -50,7 +50,7 @@ return new class extends Migration
         });
 
         Schema::table('pools', function (Blueprint $table) {
-            $table->foreign('team_id')->references('id')->on('teams')->cascadeOnDelete(true);
+            $table->foreign('team_id')->references('id')->on('teams');
         });
     }
 
