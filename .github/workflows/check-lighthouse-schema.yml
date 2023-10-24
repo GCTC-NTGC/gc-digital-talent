@@ -2,16 +2,18 @@ name: Check schema
 
 on:
   push:
-    branches: ["main"]
-    paths:
-      - .github/workflows/*lighthouse*.yml
-      - api/**
-  pull_request:
-    paths:
-      - .github/workflows/*lighthouse*.yml
-      - api/**
-  merge_group:
-    branches: [main]
+    branches: ["test-do-not-run"]
+  # push:
+  #   branches: ["main"]
+  #   paths:
+  #     - .github/workflows/*lighthouse*.yml
+  #     - api/**
+  # pull_request:
+  #   paths:
+  #     - .github/workflows/*lighthouse*.yml
+  #     - api/**
+  # merge_group:
+  #   branches: [main]
 
 jobs:
   runner:

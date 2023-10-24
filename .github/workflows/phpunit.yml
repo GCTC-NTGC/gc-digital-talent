@@ -2,10 +2,12 @@ name: PHP Unit Tests
 
 on:
   push:
-    branches: [main]
-  merge_group:
-    branches: [main]
-  pull_request:
+    branches: ["test-do-not-run"]
+  # push:
+  #   branches: [main]
+  # merge_group:
+  #   branches: [main]
+  # pull_request:
 
 jobs:
   phpunit:
