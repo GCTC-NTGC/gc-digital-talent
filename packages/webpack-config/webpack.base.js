@@ -145,6 +145,15 @@ module.exports = (basePath) => {
         `...`, // Includes default minimizers
         new CssMinimizerPlugin(),
       ],
+      splitChunks: {
+        cacheGroups: {
+          appInsights: {
+            test: /[\\/]node_modules[\\/](@microsoft)[\\/]/,
+            name: 'appInsights',
+            chunks: 'all',
+          },
+        },
+      },
     },
     output: {
       publicPath: "/talent/", // final path for routing
