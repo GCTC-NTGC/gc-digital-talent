@@ -32,9 +32,7 @@ jobs:
           POSTGRES_DB: gctalent
         ports:
           - 5432:5432
-        volumes:
-          - ${{ github.workspace }}/infrastructure/db:/docker-entrypoint-initdb.d/
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3 --user postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
       - uses: actions/checkout@v4
@@ -44,6 +42,8 @@ jobs:
           node-version-file: "./.nvmrc"
           cache: "npm"
           cache-dependency-path: "./package-lock.json"
+      - name: Mount postgres container volume
+        run: docker run --rm postgres
       - name: Connect to PostgreSQL, List extensions
         run: psql "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres/$POSTGRES_DB; \dx"
         env:
