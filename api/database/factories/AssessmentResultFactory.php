@@ -27,28 +27,11 @@ class AssessmentResultFactory extends Factory
      */
     public function definition()
     {
-        $educationJustifications = [
-            AssessmentResultJustification::EDUCATION_ACCEPTED_INFORMATION->name,
-            AssessmentResultJustification::EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE->name,
-            AssessmentResultJustification::EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY->name,
-            AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name,
-            AssessmentResultJustification::EDUCATION_FAILED_REQUIREMENT_NOT_MET->name,
-            AssessmentResultJustification::FAILED_NOT_ENOUGH_INFORMATION->name,
-            AssessmentResultJustification::FAILED_OTHER->name,
-        ];
-
-        $skillJustifications = [
-            AssessmentResultJustification::SKILL_ACCEPTED->name,
-            AssessmentResultJustification::SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED->name,
-            AssessmentResultJustification::FAILED_NOT_ENOUGH_INFORMATION->name,
-            AssessmentResultJustification::FAILED_OTHER->name,
-        ];
-
         $assessmentResultType = $this->faker->randomElement(array_column(AssessmentResultType::cases(), 'name'));
         $assessmentDecision = $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
         $justifications = $assessmentResultType === AssessmentResultType::EDUCATION->name ?
-            [$this->faker->randomElement($educationJustifications)] :
-            [$this->faker->randomElement($skillJustifications)];
+            [$this->faker->randomElement(array_column(AssessmentResultJustification::educationJustifications(), 'name'))] :
+            [$this->faker->randomElement(array_column(AssessmentResultJustification::skillJustifications(), 'name'))];
 
         return [
             'assessment_step_id' => AssessmentStep::factory(),
