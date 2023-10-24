@@ -74,6 +74,7 @@ export const TeamTable = ({
       (team) => myRolesAccessor(team.id, myRolesAndTeams, intl),
       {
         id: "myRoles",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "My Roles",
           id: "+agJAH",
@@ -86,6 +87,7 @@ export const TeamTable = ({
     ),
     columnHelper.accessor((team) => departmentAccessor(team, intl), {
       id: "departments",
+      sortingFn: diacritic,
       header: intl.formatMessage({
         defaultMessage: "Department",
         id: "BDo1aH",

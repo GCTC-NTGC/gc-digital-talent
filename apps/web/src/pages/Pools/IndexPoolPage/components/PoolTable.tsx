@@ -53,6 +53,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
+      sortingFn: diacritic,
       header: intl.formatMessage({
         defaultMessage: "Pool Name",
         id: "HocLRh",
@@ -73,6 +74,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         ),
       {
         id: "publishingGroup",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "Publishing group",
           id: "rYgaTA",
@@ -98,6 +100,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         ),
       {
         id: "status",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "Status",
           id: "ioqFVF",

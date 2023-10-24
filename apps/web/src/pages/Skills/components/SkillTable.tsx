@@ -64,6 +64,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     ),
     columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
       id: "keywords",
+      sortingFn: diacritic,
       header: intl.formatMessage({
         defaultMessage: "Keywords",
         id: "I7rxxQ",
@@ -72,12 +73,14 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     }),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
       id: "skillFamilies",
+      sortingFn: diacritic,
       header: intl.formatMessage(adminMessages.skillFamilies),
       cell: ({ row: { original: skill } }) =>
         skillFamiliesCell(skill.families, intl),
     }),
     columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
       id: "category",
+      sortingFn: diacritic,
       header: intl.formatMessage({
         defaultMessage: "Category",
         id: "m5RwGF",
