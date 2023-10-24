@@ -25,6 +25,9 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+        volumes:
+          - ./infrastructure/db:/docker-entrypoint-initdb.d/
+          - pgdata:/var/lib/postgresql/data
 
     steps:
       - uses: actions/checkout@v4
