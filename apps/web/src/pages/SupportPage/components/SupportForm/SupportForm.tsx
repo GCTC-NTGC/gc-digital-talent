@@ -105,7 +105,7 @@ const SupportForm = ({
 }: SupportFormProps) => {
   const intl = useIntl();
   const location = useLocation();
-  const previousUrl = location?.state.referrer ?? document.referrer;
+  const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
       user_id: currentUser?.id || "",
