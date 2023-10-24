@@ -43,7 +43,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "./package-lock.json"
       - name: Mount postgres container volume
-        run: docker run --rm postgres
+        run: docker run --rm postgres:12.15
       - name: Connect to PostgreSQL, List extensions
         run: psql "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres/$POSTGRES_DB; \dx"
         env:
