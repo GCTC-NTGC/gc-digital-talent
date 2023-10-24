@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -20,6 +19,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -143,9 +143,9 @@ type RouteParams = {
 const TeamMembersPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { teamId } = useParams<RouteParams>();
+  const { teamId } = useRequiredParams<RouteParams>("teamId");
   const [{ data, fetching, error }] = useGetTeamQuery({
-    variables: { teamId: teamId || "" },
+    variables: { teamId },
   });
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();

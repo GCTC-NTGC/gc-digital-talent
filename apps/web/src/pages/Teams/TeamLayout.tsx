@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
@@ -12,6 +12,7 @@ import SEO from "~/components/SEO/SEO";
 import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { Team, useTeamNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
@@ -88,11 +89,15 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
   );
 };
 
+type RouteParams = {
+  teamId: string;
+};
+
 const TeamLayout = () => {
-  const { teamId } = useParams();
+  const { teamId } = useRequiredParams<RouteParams>("teamId");
   const [{ data, fetching, error }] = useTeamNameQuery({
     variables: {
-      id: teamId || "",
+      id: teamId,
     },
   });
 

@@ -13,11 +13,11 @@ class UatSeeder extends Seeder
      */
     public function run()
     {
+        // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
         $this->call(RolePermissionSeeder::class);
         $this->call(ClassificationSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(TeamSeeder::class);
-        $this->call(UserSeederUat::class);
         $this->call(PoolSeederUat::class);
     }
 }

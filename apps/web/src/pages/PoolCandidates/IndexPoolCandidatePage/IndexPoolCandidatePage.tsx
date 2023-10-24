@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -11,6 +10,7 @@ import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidates
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 type RouteParams = {
   poolId: Scalars["ID"];
@@ -19,13 +19,13 @@ type RouteParams = {
 export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
 
   const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
 
   const [{ data, fetching, error }] = useGetPoolQuery({
     variables: {
-      id: poolId || "",
+      id: poolId,
     },
   });
 

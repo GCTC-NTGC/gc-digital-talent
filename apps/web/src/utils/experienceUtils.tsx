@@ -22,6 +22,7 @@ import {
   ExperienceType,
 } from "~/types/experience";
 
+import { formattedDate, getDateRange } from "./dateUtils";
 import {
   AwardExperience,
   CommunityExperience,
@@ -622,12 +623,37 @@ export const getExperienceName = (
   return intl.formatMessage(commonMessages.notProvided);
 };
 
+/**
+ * Get the formatted date of any experience type
+ *
+ * @param {AnyExperience} experience
+ * @param {IntlShape} intl
+ * @return {string|React.ReactNode}
+ */
+export const getExperienceDate = (
+  experience: AnyExperience,
+  intl: IntlShape,
+): undefined | React.ReactNode => {
+  let dateString;
+  if (!experience) {
+    return dateString;
+  }
+
+  if (isAwardExperience(experience)) {
+    return formattedDate(experience.awardedDate ?? "", intl);
+  }
+
+  const { startDate, endDate } = experience;
+  return getDateRange({ startDate, endDate, intl });
+};
+
 type ExperienceInfo = {
   title: string;
   titleHtml: React.ReactNode;
   editPath?: string;
   typeMessage: React.ReactNode;
   icon: IconType;
+  date?: React.ReactNode;
 };
 
 type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
@@ -686,5 +712,6 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
     editPath: editPaths.get(experienceType),
     typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
     icon: icons.get(experienceType) || defaults.icon,
+    date: getExperienceDate(experience, intl),
   };
 };

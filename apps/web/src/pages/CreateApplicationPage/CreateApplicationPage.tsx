@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -12,6 +12,7 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import {
   Scalars,
   useCreateApplicationMutation,
@@ -28,7 +29,7 @@ type RouteParams = {
  * and forward a user on
  */
 const CreateApplication = () => {
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const CreateApplication = () => {
   const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
 
   // Store path to redirect to later on
-  let redirectPath = paths.pool(poolId || "");
+  let redirectPath = paths.pool(poolId);
 
   const genericErrorMessage = intl.formatMessage({
     defaultMessage: "Error application creation failed",

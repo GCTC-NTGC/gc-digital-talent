@@ -6,7 +6,6 @@ use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Team;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PoolSeederUat extends Seeder
@@ -18,7 +17,6 @@ class PoolSeederUat extends Seeder
      */
     public function run()
     {
-        $defaultOwner = User::where('email', "tristan.o'rourke@tbs-sct.gc.ca")->first();
 
         $digitalCareers = Pool::updateOrCreate(
             ['name->en' => 'Digital Careers'],
@@ -27,7 +25,6 @@ class PoolSeederUat extends Seeder
                     'en' => 'Digital Careers',
                     'fr' => 'Carrières Numériques',
                 ],
-                'user_id' => $defaultOwner->id,
                 'operational_requirements' => [
                     'SHIFT_WORK',
                     'OVERTIME_SCHEDULED',

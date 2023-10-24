@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -42,6 +42,7 @@ import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormF
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 type PageSection = {
   id: string;
@@ -569,11 +570,11 @@ type RouteParams = {
 
 const UpdateUserSkillPage = () => {
   const intl = useIntl();
-  const { skillId } = useParams<RouteParams>();
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
 
   const [{ data, fetching, error }] = useUserSkillQuery({
     variables: {
-      skillId: skillId ?? "",
+      skillId,
     },
   });
 

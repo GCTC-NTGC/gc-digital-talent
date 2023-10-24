@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
@@ -37,6 +37,7 @@ import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
+import useApplicationId from "../useApplicationId";
 
 type FormValues = {
   signature: string;
@@ -523,7 +524,7 @@ const ApplicationReview = ({
 };
 
 const ApplicationReviewPage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -532,7 +533,7 @@ const ApplicationReviewPage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id,
     },
     requestPolicy: "cache-first",
   });
