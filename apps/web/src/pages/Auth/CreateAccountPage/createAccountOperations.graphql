@@ -74,8 +74,8 @@ mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
     id
     authInfo {
       id
-      email
     }
+    email
     firstName
     lastName
     preferredLang
@@ -151,5 +151,11 @@ mutation UpdateUserAboutMe($id: ID!, $user: UpdateUserAsUserInput!) {
     isProfileComplete
     armedForcesStatus
     citizenship
+  }
+}
+
+query MyEmail {
+  me {
+    email
   }
 }

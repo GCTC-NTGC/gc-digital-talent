@@ -1,7 +1,6 @@
 query getCurrentAuthorizedUser {
   myAuth {
     id
-    email
     deletedDate
     roleAssignments {
       id

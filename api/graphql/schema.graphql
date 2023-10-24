@@ -27,7 +27,6 @@ type LocalizedString {
 
 type UserAuthInfo {
   id: UUID!
-  email: Email
   sub: String
   roleAssignments: [RoleAssignment] @hasMany
   createdDate: DateTime @rename(attribute: "created_at")
