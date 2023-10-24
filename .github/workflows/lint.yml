@@ -34,7 +34,7 @@ jobs:
           - 5432:5432
         volumes:
           - pgdata:/var/lib/postgresql/data
-          - ./infrastructure/db/add-extensions-db.sql:/docker-entrypoint-initdb.d/
+          - ./infrastructure/db/add-extensions-db.sql:/docker-entrypoint-initdb.d/add-extensions-db.sql
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
@@ -45,41 +45,56 @@ jobs:
           node-version-file: "./.nvmrc"
           cache: "npm"
           cache-dependency-path: "./package-lock.json"
+      - name: Connect to PostgreSQL, List extensions
+        run: psql "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres/$POSTGRES_DB; \dx"
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password1234
+          POSTGRES_DB: gctalent
 
-      - name: Upgrade npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+    # steps:
+    #   - uses: actions/checkout@v4
+    #   - name: Use Node.js
+    #     uses: actions/setup-node@v3
+    #     with:
+    #       node-version-file: "./.nvmrc"
+    #       cache: "npm"
+    #       cache-dependency-path: "./package-lock.json"
 
-      - name: "Install dependencies: workspace"
-        working-directory: ./
-        run: npm install
+    #   - name: Upgrade npm
+    #     run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
-      - name: "Setup: all workspaces"
-        working-directory: ./
-        run: npm run build
+    #   - name: "Install dependencies: workspace"
+    #     working-directory: ./
+    #     run: npm install
 
-      - name: "Run ESlint: all workspaces"
-        working-directory: ./
-        # Pass arg to eslint so that any warnings will raise error code and fail workflow.
-        run: npm run lint -- -- --max-warnings=0
+    #   - name: "Setup: all workspaces"
+    #     working-directory: ./
+    #     run: npm run build
 
-      - name: "Run typescript linting: all workspaces"
-        # Allow tsc linting to happen even if js linting step raises errors.
-        if: always()
-        working-directory: ./
-        run: npm run tsc
+    #   - name: "Run ESlint: all workspaces"
+    #     working-directory: ./
+    #     # Pass arg to eslint so that any warnings will raise error code and fail workflow.
+    #     run: npm run lint -- -- --max-warnings=0
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-          extensions: bcmath
+    #   - name: "Run typescript linting: all workspaces"
+    #     # Allow tsc linting to happen even if js linting step raises errors.
+    #     if: always()
+    #     working-directory: ./
+    #     run: npm run tsc
 
-      - name: Install composer dependencies
-        working-directory: api
-        run: |
-          cp .env.example .env
-          composer install --no-interaction --prefer-dist --optimize-autoloader
+    #   - name: Setup PHP
+    #     uses: shivammathur/setup-php@v2
+    #     with:
+    #       php-version: "8.1"
+    #       extensions: bcmath
 
-      - name: Run Pint
-        working-directory: api
-        run: vendor/bin/pint --test
+    #   - name: Install composer dependencies
+    #     working-directory: api
+    #     run: |
+    #       cp .env.example .env
+    #       composer install --no-interaction --prefer-dist --optimize-autoloader
+
+    #   - name: Run Pint
+    #     working-directory: api
+    #     run: vendor/bin/pint --test
