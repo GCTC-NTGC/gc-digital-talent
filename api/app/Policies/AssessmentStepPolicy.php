@@ -7,7 +7,6 @@ use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Auth\Access\Response;
 
 class AssessmentStepPolicy
 {
@@ -22,17 +21,15 @@ class AssessmentStepPolicy
      */
     public function create(User $user, $request)
     {
-        $poolId = null;
         if (array_key_exists('pool_id', $request)) {
             $poolId = $request['pool_id'];
-        } else {
-            return Response::deny('Cannot find pool.');
+            $pool = Pool::with('team')->find($poolId);
+
+            return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
+            && $user->isAbleTo('update-team-draftPool', $pool->team);
         }
 
-        $pool = Pool::with('team')->find($poolId);
-
-        return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-        && $user->isAbleTo('update-team-draftPool', $pool->team);
+        return false;
     }
 
     /**
