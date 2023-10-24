@@ -11,7 +11,7 @@ import { normalizeString } from "@gc-digital-talent/helpers";
  * @param {string} strB
  * @returns {number}
  */
-export const diacriticSort = (strA: string, strB: string): number => {
+export const compareNormalized = (strA: string, strB: string): number => {
   const a = normalizeString(strA);
   const b = normalizeString(strB);
 
@@ -21,6 +21,6 @@ export const diacriticSort = (strA: string, strB: string): number => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const diacritic: SortingFn<any> = (rowA, rowB, columnId) => {
-  return diacriticSort(rowA.getValue(columnId), rowB.getValue(columnId));
+export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
+  return compareNormalized(rowA.getValue(columnId), rowB.getValue(columnId));
 };

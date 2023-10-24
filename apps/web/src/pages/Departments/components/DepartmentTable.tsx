@@ -11,7 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import { diacritic } from "~/components/Table/sortingFns";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
 
@@ -39,7 +39,7 @@ export const DepartmentTable = ({
     }),
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Name",
         id: "2wmzS1",

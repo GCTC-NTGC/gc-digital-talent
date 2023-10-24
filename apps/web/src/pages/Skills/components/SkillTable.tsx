@@ -12,7 +12,7 @@ import { Skill, useAllSkillsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import { diacritic } from "~/components/Table/sortingFns";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import {
   categoryAccessor,
@@ -44,7 +44,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         id: "BOeBpE",
         description: "Title displayed for the skill table Name column.",
       }),
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       meta: {
         isRowTitle: true,
       },
@@ -53,7 +53,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       (skill) => getLocalizedName(skill.description, intl, true),
       {
         id: "description",
-        sortingFn: diacritic,
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "9yGJ6k",
@@ -64,7 +64,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     ),
     columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
       id: "keywords",
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Keywords",
         id: "I7rxxQ",
@@ -73,14 +73,14 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     }),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
       id: "skillFamilies",
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       header: intl.formatMessage(adminMessages.skillFamilies),
       cell: ({ row: { original: skill } }) =>
         skillFamiliesCell(skill.families, intl),
     }),
     columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
       id: "category",
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Category",
         id: "m5RwGF",

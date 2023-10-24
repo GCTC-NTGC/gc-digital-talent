@@ -16,7 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import { diacritic } from "~/components/Table/sortingFns";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Classification>();
 
@@ -42,7 +42,7 @@ export const ClassificationTable = ({
       meta: {
         isRowTitle: true,
       },
-      sortingFn: diacritic,
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Name",
         id: "HUCIzc",
