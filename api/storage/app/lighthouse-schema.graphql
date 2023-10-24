@@ -2202,8 +2202,8 @@ enum AssessmentResultType {
 
 enum AssessmentDecision {
   NOT_SURE
-  DEMONSTRATED
-  NOT_DEMONSTRATED
+  SUCCESSFUL
+  UNSUCCESSFUL
 }
 
 enum AssessmentResultJustification {
