@@ -1059,6 +1059,10 @@
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
   },
+  "3yg5j7": {
+    "defaultMessage": "Notre premier processus exécutif (EX) pour un poste EX-03 sera publié sur la plateforme des talents numériques du GC en novembre 2023. Gardez l’œil ouvert pour une possibilité d’emploi où vous pourrez soumettre votre candidature pour devenir un leader du numérique au sein du gouvernement.",
+    "description": "Text describing upcoming executive opportunities instructing users to create a profile when anonymous"
+  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -7124,6 +7128,10 @@
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
+  },
+  "dFCH1c": {
+    "defaultMessage": "Processus exécutif à venir sous peu",
+    "description": "Heading for the teaser of executive processes"
   },
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
