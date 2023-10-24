@@ -29,7 +29,6 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   return (
     <AuthorizationContainer
       roleAssignments={roleAssignmentsFiltered}
-      email={data?.myAuth?.email}
       deleted={deleted}
       userAuthInfo={data?.myAuth}
       isLoaded={isLoaded}
