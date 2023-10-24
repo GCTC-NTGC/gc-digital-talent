@@ -8,6 +8,7 @@ import { Button } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { diacritic } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Skill>();
 
@@ -69,6 +70,7 @@ const SkillTable = ({
       }),
       enableHiding: false,
       enableColumnFilter: false,
+      sortingFn: diacritic,
       meta: {
         isRowTitle: true,
       },

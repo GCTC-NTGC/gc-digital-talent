@@ -12,6 +12,7 @@ import { Skill, useAllSkillsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { diacritic } from "~/components/Table/sortingFns";
 
 import {
   categoryAccessor,
@@ -43,6 +44,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         id: "BOeBpE",
         description: "Title displayed for the skill table Name column.",
       }),
+      sortingFn: diacritic,
       meta: {
         isRowTitle: true,
       },
@@ -51,6 +53,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       (skill) => getLocalizedName(skill.description, intl, true),
       {
         id: "description",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "9yGJ6k",

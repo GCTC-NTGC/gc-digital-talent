@@ -11,6 +11,7 @@ import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { diacritic } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<SkillFamily>();
 
@@ -35,6 +36,7 @@ export const SkillFamilyTable = ({
       (skillFamily) => getLocalizedName(skillFamily.name, intl),
       {
         id: "name",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "Name",
           id: "VphXhu",
@@ -50,6 +52,7 @@ export const SkillFamilyTable = ({
       (skillFamily) => getLocalizedName(skillFamily.description, intl, true),
       {
         id: "description",
+        sortingFn: diacritic,
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "XSo129",

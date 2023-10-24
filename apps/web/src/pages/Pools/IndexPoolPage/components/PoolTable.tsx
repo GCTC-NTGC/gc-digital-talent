@@ -19,6 +19,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { diacritic } from "~/components/Table/sortingFns";
 
 import {
   classificationAccessor,
@@ -129,6 +130,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "fCXZ4R",
           description: "Title displayed for the Pool table Team column",
         }),
+        sortingFn: diacritic,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
             paths.teamView(pool.team?.id ? pool.team?.id : ""),

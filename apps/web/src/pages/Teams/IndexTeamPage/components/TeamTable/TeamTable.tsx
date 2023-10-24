@@ -14,6 +14,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+import { diacritic } from "~/components/Table/sortingFns";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -57,6 +58,7 @@ export const TeamTable = ({
     }),
     columnHelper.accessor((team) => getLocalizedName(team.displayName, intl), {
       id: "teamName",
+      sortingFn: diacritic,
       header: intl.formatMessage({
         defaultMessage: "Team",
         id: "KIWVbp",
