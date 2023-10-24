@@ -34,7 +34,7 @@ jobs:
           - 5432:5432
         volumes:
           - pgdata:/var/lib/postgresql/data
-          - ./infrastructure/db/create-tc-db.sql:/docker-entrypoint-initdb.d/
+          - ./infrastructure/db/add-extensions-db.sql:/docker-entrypoint-initdb.d/
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
