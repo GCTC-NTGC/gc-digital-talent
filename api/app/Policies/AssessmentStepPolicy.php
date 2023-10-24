@@ -47,4 +47,20 @@ class AssessmentStepPolicy
         return $assessmentStep->pool->getStatusAttribute() === PoolStatus::DRAFT->name
         && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
     }
+
+    /**
+     * Determine whether the user can view attached assessment results
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAssessmentResults(User $user, AssessmentStep $assessmentStep)
+    {
+        if ($user->isAbleTo('view-any-assessmentResult')) {
+            return true;
+        }
+
+        $assessmentStep->loadMissing('pool.team');
+
+        return $user->isAbleTo('view-team-assessmentResult', $assessmentStep->pool->team);
+    }
 }

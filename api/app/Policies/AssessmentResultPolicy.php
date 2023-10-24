@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\AssessmentResult;
+use App\Models\AssessmentStep;
+use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
+
+class AssessmentResultPolicy
+{
+    use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user, AssessmentResult $assessmentResult)
+    {
+        $parentAssessmentStep = AssessmentStep::with('pool.team')->find($assessmentResult['assessment_step_id']);
+
+        return $user->isAbleTo('view-team-assessmentResult', $parentAssessmentStep->pool->team);
+    }
+
+    /**
+     * Determine whether the user can view any
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny(User $user)
+    {
+        return $user->isAbleTo('view-any-assessmentResult');
+    }
+
+    /**
+     * Determine whether the user can create assessment results.
+     *
+     * @param $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *      We need to use this because the model hasn't been created yet so we can't read from it
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create(User $user, $request)
+    {
+        if (array_key_exists('assessment_step_id', $request)) {
+            $parentAssessmentStep = AssessmentStep::with('pool.team')->find($request['assessment_step_id']);
+
+            return $user->isAbleTo('update-team-assessmentResult', $parentAssessmentStep->pool->team);
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the user can update and/or delete the assessment result
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update(User $user, AssessmentResult $assessmentStep)
+    {
+        $assessmentStep->loadMissing('pool.team');
+
+        return $user->isAbleTo('update-team-assessmentResult', $assessmentStep->pool->team);
+    }
+}
