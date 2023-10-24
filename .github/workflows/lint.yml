@@ -34,7 +34,7 @@ jobs:
           - 5432:5432
         volumes:
           - ${{ github.workspace }}/infrastructure/db:/docker-entrypoint-initdb.d/
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3 --user 1000
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3 --user postgres
 
     steps:
       - uses: actions/checkout@v4
