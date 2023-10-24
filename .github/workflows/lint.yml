@@ -33,7 +33,7 @@ jobs:
         ports:
           - 5432:5432
         volumes:
-          - infrastructure/db:/docker-entrypoint-initdb.d/
+          - ../../infrastructure/db:/docker-entrypoint-initdb.d/
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
