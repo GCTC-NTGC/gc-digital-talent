@@ -142,8 +142,8 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   deleteAssessmentStep(id: UUID!): AssessmentStep
-  createAssessmentResult(assessmentStepId: UUID!, poolCandidateId: UUID!, poolSkillId: UUID, assessmentResult: AssessmentResultInput!): AssessmentResult
-  updateAssessmentResult(id: UUID!, assessmentResult: AssessmentResultInput!): AssessmentResult
+  createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
+  updateAssessmentResult(id: UUID!, updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
@@ -1164,7 +1164,19 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input AssessmentResultInput {
+input CreateAssessmentResultInput {
+  assessmentStepId: UUID!
+  poolCandidateId: UUID!
+  poolSkillId: UUID
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  skillDecisionLevel: SkillDecisionLevel
+  skillDecisionNotes: String
+}
+
+input UpdateAssessmentResultInput {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
