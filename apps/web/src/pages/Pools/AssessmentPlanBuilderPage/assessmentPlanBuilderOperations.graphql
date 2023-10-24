@@ -48,3 +48,10 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
     status
   }
 }
+
+# create a new assessment step
+mutation createAssessmentStep($poolId: UUID!, $step: AssessmentStepInput) {
+  createAssessmentStep(poolId: $poolId, assessmentStep: $step) {
+    id
+  }
+}

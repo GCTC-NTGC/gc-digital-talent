@@ -16,6 +16,7 @@ import {
   TextArea,
   Checklist,
   CheckboxOption,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
@@ -23,6 +24,7 @@ import {
   Maybe,
   PoolSkill,
   Scalars,
+  useCreateAssessmentStepMutation,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
@@ -37,89 +39,66 @@ import {
 
 type DialogMode = "regular" | "screening_question";
 
-const deriveAssessmentTypeOptions = (
-  mode: DialogMode,
-): AssessmentStepType[] => {
-  if (mode === "regular")
-    return [
-      AssessmentStepType.TechnicalExamAtSite,
-      AssessmentStepType.TechnicalExamAtHome,
-      AssessmentStepType.PscExam,
-      AssessmentStepType.InterviewGroup,
-      AssessmentStepType.InterviewIndividual,
-      AssessmentStepType.InterviewFollowup,
-      AssessmentStepType.ReferenceCheck,
-      AssessmentStepType.AdditionalAssessment,
-    ];
-  if (mode === "screening_question")
-    return [AssessmentStepType.ScreeningQuestionsAtApplication];
-  return [];
-};
-
-const deriveDefaultFormValues = (
-  mode: DialogMode,
-  existingValues: Maybe<FormValues>,
-): FormValues => {
-  // eslint-disable-next-line prefer-const
-  let newValues = existingValues ?? {};
-  if (mode === "regular") {
-    newValues.screeningQuestions = undefined;
-  }
-  if (mode === "screening_question") {
-    newValues.typeOfAssessment =
-      AssessmentStepType.ScreeningQuestionsAtApplication;
-    newValues.assessmentTitleEn = null;
-    newValues.assessmentTitleFr = null;
-    if (!newValues.screeningQuestions?.length) {
-      newValues.screeningQuestions = [
-        {
-          id: "new",
-          question: {
-            en: "",
-            fr: "",
-          },
-        },
-      ];
-    }
-  }
-  return newValues;
-};
-
 type ScreeningQuestionValue = {
   id?: Scalars["ID"];
   question: LocalizedString;
 };
 
 type FormValues = {
-  typeOfAssessment?: Maybe<string>;
+  id?: Maybe<Scalars["ID"]>;
+  poolId?: Maybe<Scalars["ID"]>;
+  sortOrder?: Maybe<number>;
+  typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
-  screeningQuestions?: Array<ScreeningQuestionValue>;
-  assessedSkills?: Array<Scalars["ID"]>;
+  screeningQuestions?: Maybe<Array<ScreeningQuestionValue>>;
+  assessedSkills?: Maybe<Array<Scalars["ID"]>>;
 };
 
 interface AssessmentDetailsDialogProps {
   mode?: DialogMode;
-  existingValues?: FormValues;
+  initialValues?: FormValues;
   allPoolSkills: PoolSkill[];
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 const AssessmentDetailsDialog = ({
-  mode = "regular",
   allPoolSkills,
-  existingValues,
+  initialValues,
+  isOpen,
+  setIsOpen,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
+  const [{ fetching: createFetching }, executeCreateMutation] =
+    useCreateAssessmentStepMutation();
 
   const methods = useForm<FormValues>({
-    defaultValues: deriveDefaultFormValues(mode, existingValues),
+    defaultValues: initialValues,
   });
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, watch, setValue, reset } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "screeningQuestions",
   });
+
+  const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
+  const dialogMode: DialogMode =
+    selectedTypeOfAssessment ===
+    AssessmentStepType.ScreeningQuestionsAtApplication
+      ? "screening_question"
+      : "regular";
+
+  React.useEffect(() => {
+    if (dialogMode === "regular") {
+      setValue("screeningQuestions", []);
+    }
+    if (dialogMode === "screening_question") {
+      setValue("assessmentTitleEn", null);
+      setValue("assessmentTitleFr", null);
+    }
+  }, [dialogMode, setValue]);
 
   const submitForm = async (values: FormValues) => {
     // can't do this validation in the repeater right now 😢
@@ -140,33 +119,44 @@ const AssessmentDetailsDialog = ({
       return;
     }
 
-    // console.debug(values);
-
-    // if (executeMutation) {
-    //   await executeMutation(args)
-    //     .then((res) => {
-    //       if (res.data) {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Successfully saved assessment step!",
-        id: "W1vWDi",
-        description:
-          "Success message displayed after unlinking an experience to a skill",
-      }),
-    );
-    setIsOpen(false);
-    //   }
-    // })
-    // .catch(() => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: saving assessment step failed.",
-        id: "DnXch4",
-        description:
-          "Message displayed to user after assessment step fails to be saved.",
-      }),
-    );
-    // });
+    await executeCreateMutation({
+      poolId: values.poolId,
+      step: {
+        type: values.typeOfAssessment,
+        sortOrder: values.sortOrder,
+        title: {
+          en: values.assessmentTitleEn,
+          fr: values.assessmentTitleFr,
+        },
+        poolSkills: {
+          sync: values.assessedSkills,
+        },
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully saved assessment step!",
+              id: "W1vWDi",
+              description:
+                "Success message displayed after unlinking an experience to a skill",
+            }),
+          );
+          setIsOpen(false);
+          reset();
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: saving assessment step failed.",
+            id: "DnXch4",
+            description:
+              "Message displayed to user after assessment step fails to be saved.",
+          }),
+        );
+      });
   };
 
   const canAddScreeningQuestions =
@@ -185,11 +175,6 @@ const AssessmentDetailsDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
-      <Dialog.Trigger>
-        <Button onClick={() => setIsOpen(true)}>
-          {`Temporary button to launch dialog ${mode}`}
-        </Button>
-      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
@@ -207,6 +192,9 @@ const AssessmentDetailsDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
+              <input type="hidden" {...methods.register("id")} />
+              <input type="hidden" {...methods.register("poolId")} />
+              <input type="hidden" {...methods.register("sortOrder")} />
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
@@ -243,15 +231,24 @@ const AssessmentDetailsDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  options={deriveAssessmentTypeOptions(mode).map((value) => ({
+                  options={enumToOptions(AssessmentStepType, [
+                    AssessmentStepType.ScreeningQuestionsAtApplication,
+                    AssessmentStepType.TechnicalExamAtSite,
+                    AssessmentStepType.TechnicalExamAtHome,
+                    AssessmentStepType.PscExam,
+                    AssessmentStepType.InterviewGroup,
+                    AssessmentStepType.InterviewIndividual,
+                    AssessmentStepType.InterviewFollowup,
+                    AssessmentStepType.ReferenceCheck,
+                    AssessmentStepType.AdditionalAssessment,
+                  ]).map(({ value }) => ({
                     value,
                     label: intl.formatMessage(getAssessmentStepType(value)),
                   }))}
                   doNotSort
-                  disabled={mode === "screening_question"}
                 />
 
-                {mode === "regular" ? (
+                {dialogMode === "regular" ? (
                   <div data-h2-flex-grid="base(flex-start, x2, x1)">
                     <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                       <Input
@@ -271,7 +268,7 @@ const AssessmentDetailsDialog = ({
                     </div>
                   </div>
                 ) : null}
-                {mode === "screening_question" ? (
+                {dialogMode === "screening_question" ? (
                   <>
                     <div>
                       <div data-h2-font-weight="base(700)">
