@@ -17,11 +17,11 @@ return new class extends Migration
             $table->timestamps();
             // belongsTo three tables, the third isn't required
             $table->uuid('assessment_step_id');
-            $table->foreign('assessment_step_id')->references('id')->on('assessment_steps')->cascadeOnDelete(true);
+            $table->foreign('assessment_step_id')->references('id')->on('assessment_steps');
             $table->uuid('pool_candidate_id');
             $table->foreign('pool_candidate_id')->references('id')->on('pool_candidates')->cascadeOnDelete(true);
             $table->uuid('pool_skill_id')->nullable();
-            $table->foreign('pool_skill_id')->references('id')->on('pool_skill')->cascadeOnDelete(true);
+            $table->foreign('pool_skill_id')->references('id')->on('pool_skill');
             // fields
             $table->string('assessment_result_type')->nullable();
             $table->string('assessment_decision')->nullable();
