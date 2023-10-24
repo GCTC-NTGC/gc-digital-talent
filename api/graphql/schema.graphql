@@ -219,7 +219,9 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
-  assessmentResults: [AssessmentResult] @hasMany
+  assessmentResults: [AssessmentResult]
+    @hasMany
+    @canOnParent(ability: "viewAssessmentResults")
 }
 
 type AssessmentResult {
@@ -245,7 +247,6 @@ type PoolSkill {
   pool: Pool @belongsTo
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep] @belongsToMany
-  assessmentResults: [AssessmentResult] @hasMany
 }
 
 type PoolCandidate {
@@ -278,7 +279,9 @@ type PoolCandidate {
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
   # record of decision
-  assessmentResults: [AssessmentResult] @hasMany
+  assessmentResults: [AssessmentResult]
+    @hasMany
+    @canOnParent(ability: "viewAssessmentResults")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1770,12 +1773,14 @@ type Mutation {
     @can(ability: "update", find: "id")
   createAssessmentResult(
     createAssessmentResult: CreateAssessmentResultInput! @spread
-  ): AssessmentResult @create
+  ): AssessmentResult @create @guard @can(ability: "create", injectArgs: true)
   updateAssessmentResult(
     id: UUID!
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult @update
-  deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult @delete
+  ): AssessmentResult @update @guard @can(ability: "update", find: "id")
+  deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
+    @delete
+    @can(ability: "update", find: "id")
 }
 
 #import directiveForms.graphql

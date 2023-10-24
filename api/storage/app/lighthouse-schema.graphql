@@ -343,7 +343,6 @@ type PoolSkill {
   pool: Pool
   skill: Skill
   assessmentSteps: [AssessmentStep]
-  assessmentResults: [AssessmentResult]
 }
 
 type PoolCandidate {
