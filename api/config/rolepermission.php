@@ -79,6 +79,7 @@ return [
         'directiveForm' => 'directiveForm',
         'applicantProfile' => 'applicantProfile',
         'teamRole' => 'teamRole',
+        'assessmentResult' => 'assessmentResult',
     ],
 
     /*
@@ -403,6 +404,19 @@ return [
             'en' => 'Delete any directive form',
             'fr' => 'Supprimer tout formulaire de directive',
         ],
+
+        'view-any-assessmentResult' => [
+            'en' => 'abc',
+            'fr' => 'abc',
+        ],
+        'view-team-assessmentResult' => [
+            'en' => 'abc',
+            'fr' => 'abc',
+        ],
+        'update-team-assessmentResult' => [
+            'en' => 'abc',
+            'fr' => 'abc',
+        ],
     ],
 
     /*
@@ -625,6 +639,9 @@ return [
             'applicantProfile' => [
                 'team' => ['view'],
             ],
+            'assessmentResult' => [
+                'team' => ['view', 'update'],
+            ],
         ],
 
         'request_responder' => [
@@ -702,6 +719,9 @@ return [
             ],
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
+            ],
+            'assessmentResult' => [
+                'any' => ['view'],
             ],
         ],
     ],
