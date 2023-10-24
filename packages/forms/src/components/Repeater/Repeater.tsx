@@ -19,7 +19,7 @@ import Field from "../Field";
  * Generic button to apply styles to a
  * fieldset action button
  */
-const ActionButton = ({
+export const ActionButton = ({
   decrement = false,
   animate = true,
   disabled,
@@ -91,6 +91,8 @@ export interface RepeaterFieldsetProps {
   onRemove: (index: number) => void;
   /** Callback function when edit button is clicked */
   onEdit?: (index: number) => void;
+  /** Add a custom edit button */
+  customEditButton?: React.ReactNode;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -108,6 +110,7 @@ const Fieldset = ({
   disabled,
   numOfLockedItems,
   onEdit,
+  customEditButton,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -314,6 +317,7 @@ const Fieldset = ({
                     <PencilSquareIcon data-h2-width="base(x.75)" />
                   </ActionButton>
                 )}
+                {customEditButton && <div>{customEditButton}</div>}
                 <ActionButton
                   disabled={disabled || isLocked}
                   animate={false}

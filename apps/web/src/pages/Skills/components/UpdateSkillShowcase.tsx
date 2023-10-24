@@ -7,6 +7,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 
 import {
   TableOfContents,
@@ -17,11 +18,13 @@ import {
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import { Repeater, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import {
+  formMessages,
   getBehaviouralSkillLevel,
   getLocalizedName,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { ActionButton } from "@gc-digital-talent/forms/src/components/Repeater/Repeater";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -33,6 +36,29 @@ import {
   useCreateUserSkillMutation,
   useUpdateUserSkillMutation,
 } from "~/api/generated";
+
+const addButtonStyling = (canAdd: boolean) =>
+  !canAdd
+    ? {
+        "data-h2-background": "base(background)",
+        "data-h2-border-style": "base(dashed)",
+        "data-h2-border-color": "base(gray.dark)",
+        "data-h2-color": "base(gray.dark)",
+        "data-h2-display": "base(flex)",
+        "data-h2-justify-content": "base(center)",
+        "data-h2-width": "base(100%)",
+      }
+    : {
+        "data-h2-background":
+          "base(background) base:hover(secondary.10) base:focus-visible(focus)",
+        "data-h2-border-style": "base(dashed) base:focus-visible(solid)",
+        "data-h2-border-color":
+          "base(secondary.darker) base:focus-visible(focus)",
+        "data-h2-color": "base(secondary.darker) base:focus-visible(black)",
+        "data-h2-display": "base(flex)",
+        "data-h2-justify-content": "base(center)",
+        "data-h2-width": "base(100%)",
+      };
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -164,6 +190,40 @@ const UpdateSkillShowcase = ({
   const canAdd = fields.length < pageInfo.maxSkillCount;
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
+
+  const triggerProps = canAdd
+    ? {
+        id: addId,
+        label: intl.formatMessage(
+          {
+            defaultMessage: "Add a new item ({numOfSkills}/{maxSkills})",
+            id: "XzGOuV",
+            description:
+              "Label for skill dialog trigger on skills showcase section.",
+          },
+          {
+            numOfSkills: watchedSkills.length,
+            maxSkills: pageInfo.maxSkillCount,
+          },
+        ),
+      }
+    : {
+        label: intl.formatMessage(
+          {
+            defaultMessage:
+              "Delete an item to add another ({numOfSkills}/{maxSkills})",
+            id: "lFFnfX",
+            description:
+              "Label for disabled dialog trigger on skills showcase section.",
+          },
+          {
+            numOfSkills: watchedSkills.length,
+            maxSkills: pageInfo.maxSkillCount,
+          },
+        ),
+        disabled: true,
+      };
+
   return (
     <>
       <SEO title={pageInfo.title} description={pageInfo.description} />
@@ -211,69 +271,13 @@ const UpdateSkillShowcase = ({
                             inLibrary={userSkills.map(
                               (userSkill) => userSkill.skill,
                             )}
-                            trigger={
-                              canAdd
-                                ? {
-                                    id: addId,
-                                    label: intl.formatMessage(
-                                      {
-                                        defaultMessage:
-                                          "Add a new item ({numOfSkills}/{maxSkills})",
-                                        id: "XzGOuV",
-                                        description:
-                                          "Label for skill dialog trigger on skills showcase section.",
-                                      },
-                                      {
-                                        numOfSkills: watchedSkills.length,
-                                        maxSkills: pageInfo.maxSkillCount,
-                                      },
-                                    ),
-                                  }
-                                : {
-                                    label: intl.formatMessage(
-                                      {
-                                        defaultMessage:
-                                          "Delete an item to add another ({numOfSkills}/{maxSkills})",
-                                        id: "lFFnfX",
-                                        description:
-                                          "Label for disabled dialog trigger on skills showcase section.",
-                                      },
-                                      {
-                                        numOfSkills: watchedSkills.length,
-                                        maxSkills: pageInfo.maxSkillCount,
-                                      },
-                                    ),
-                                    disabled: true,
-                                  }
-                            }
+                            trigger={triggerProps}
                             context="showcase"
                             skills={skills}
                             onSave={handleSave}
                             showCategory={false}
                             noToast
-                            {...(!canAdd
-                              ? {
-                                  "data-h2-background": "base(background)",
-                                  "data-h2-border-style": "base(dashed)",
-                                  "data-h2-border-color": "base(gray.dark)",
-                                  "data-h2-color": "base(gray.dark)",
-                                  "data-h2-display": "base(flex)",
-                                  "data-h2-justify-content": "base(center)",
-                                  "data-h2-width": "base(100%)",
-                                }
-                              : {
-                                  "data-h2-background":
-                                    "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                                  "data-h2-border-style":
-                                    "base(dashed) base:focus-visible(solid)",
-                                  "data-h2-border-color":
-                                    "base(secondary.darker) base:focus-visible(focus)",
-                                  "data-h2-color":
-                                    "base(secondary.darker) base:focus-visible(black)",
-                                  "data-h2-display": "base(flex)",
-                                  "data-h2-justify-content": "base(center)",
-                                  "data-h2-width": "base(100%)",
-                                })}
+                            {...addButtonStyling(canAdd)}
                           />
                         ),
                       }}
@@ -286,6 +290,38 @@ const UpdateSkillShowcase = ({
                           total={fields.length}
                           onMove={move}
                           onRemove={remove}
+                          customEditButton={
+                            <SkillBrowserDialog
+                              initialState={{
+                                family: "library",
+                                skill: item.skill,
+                                skillLevel: item.skillLevel,
+                                whenSkillUsed: item.whenSkillUsed,
+                              }}
+                              inLibrary={userSkills.map(
+                                (userSkill) => userSkill.skill,
+                              )}
+                              customTrigger={
+                                <ActionButton
+                                  animate={false}
+                                  type="button"
+                                  aria-label={intl.formatMessage(
+                                    formMessages.repeaterEdit,
+                                    {
+                                      index: index + 1,
+                                    },
+                                  )}
+                                >
+                                  <PencilSquareIcon data-h2-width="base(x.75)" />
+                                </ActionButton>
+                              }
+                              context="library"
+                              skills={skills}
+                              onSave={handleSave}
+                              showCategory={false}
+                              noToast
+                            />
+                          }
                           legend={
                             <span
                               data-h2-display="base(flex)"
