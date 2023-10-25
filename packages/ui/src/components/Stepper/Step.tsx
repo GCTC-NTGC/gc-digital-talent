@@ -45,7 +45,7 @@ const StepLink = ({
   );
 };
 interface StepProps extends Omit<StepLinkProps, "children"> {
-  icon: IconType;
+  icon?: IconType;
   last?: boolean;
   label: React.ReactNode;
 }
@@ -76,7 +76,7 @@ const Step = ({
       >
         <span
           data-h2-position="base(absolute)"
-          data-h2-location="base(0, auto, auto, 0)"
+          data-h2-location="base(x.1, auto, auto, 0)"
           data-h2-width="base(x1.5)"
           data-h2-height="base(100%)"
         >
@@ -86,12 +86,11 @@ const Step = ({
               data-h2-position="base(absolute)"
               data-h2-location="base(-x.1, auto, auto, 50%)"
               data-h2-transform="base(translate(-50%, 0))"
-              data-h2-height="base(calc(100% + x.85))"
+              data-h2-height="base(calc(100% + x1))"
               data-h2-width="base(x.15)"
             />
           )}
 
-          {Icon && (
           <span
             className="Step__Icon Step__Flair"
             data-h2-position="base(absolute)"
@@ -111,8 +110,7 @@ const Step = ({
                 data-h2-width="base(x.75)"
               />
             )}
-            </span>
-          )}
+          </span>
         </span>
         <span
           className="Step__Text"
