@@ -82,8 +82,6 @@ class PoolPolicy
             if (! is_null($team)) {
                 if ($user->isAbleTo('create-team-pool', $team)) {
                     return true;
-                } else {
-                    return Response::deny('Cannot create a pool for that team.');
                 }
             } else {
                 return Response::deny('Cannot find a team matching team_id.');
@@ -91,6 +89,8 @@ class PoolPolicy
         } else {
             Response::deny('Pool must be associated with a team when it is created.');
         }
+
+        return Response::deny('Cannot create a pool for that team.');
     }
 
     /**

@@ -27,14 +27,19 @@ class AssessmentStepPolicy
             $pool = Pool::with('team')->find($poolId);
 
             if (! is_null($pool)) {
-                return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-                    && $user->isAbleTo('update-team-draftPool', $pool->team);
+                if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name
+                    && $user->isAbleTo('update-team-draftPool', $pool->team))
+                {
+                    return true;
+                }
             } else {
                 return Response::deny('Cannot find a pool matching pool_id.');
             }
         } else {
-            return Response::deny('AssessmentStep must be associated with a pool when it is created.');
+            return Response::deny('Assessment step must be associated with a pool when it is created.');
         }
+
+        return Response::deny('Cannot create that assessment step');
     }
 
     /**
