@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
@@ -129,7 +129,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "skills",
       href: paths.skillTable(),
-      icon: AcademicCapIcon,
+      icon: BoltIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.skills),
     },
