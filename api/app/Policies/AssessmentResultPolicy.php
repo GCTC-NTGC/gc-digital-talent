@@ -56,10 +56,10 @@ class AssessmentResultPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, AssessmentResult $assessmentStep)
+    public function update(User $user, AssessmentResult $assessmentResult)
     {
-        $assessmentStep->loadMissing('pool.team');
+        $assessmentResult->loadMissing('assessmentStep.pool.team');
 
-        return $user->isAbleTo('update-team-assessmentResult', $assessmentStep->pool->team);
+        return $user->isAbleTo('update-team-assessmentResult', $assessmentResult->assessmentStep->pool->team);
     }
 }
