@@ -79,12 +79,18 @@ class PoolPolicy
             $team = Team::find($team_id);
 
             // Confirm the user can create pools for the team
-            if ($user->isAbleTo('create-team-pool', $team)) {
-                return true;
+            if (! is_null($team)) {
+                if ($user->isAbleTo('create-team-pool', $team)) {
+                    return true;
+                } else {
+                    return Response::deny('Cannot create a pool for that team.');
+                }
+            } else {
+                return Response::deny('Cannot find a team matching team_id.');
             }
+        } else {
+            Response::deny('Pool must be associated with a team when it is created.');
         }
-
-        return Response::deny('Cannot create a pool for that team.');
     }
 
     /**
