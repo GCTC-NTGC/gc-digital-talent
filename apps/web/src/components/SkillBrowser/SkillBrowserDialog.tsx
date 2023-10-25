@@ -135,10 +135,6 @@ const SkillBrowserDialog = ({
   );
   const shouldShowDetails = showDetails(skillInLibrary, context);
 
-  console.log({ selectedSkill });
-  console.log({ shouldShowDetails });
-  console.log({ skillInLibrary });
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
