@@ -134,11 +134,17 @@ class PoolPolicy
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
             // The closing date must be greater than today's date at the end of day.
             if ($pool->closing_date && $pool->closing_date > Carbon::now()->endOfDay()) {
-                return $user->isAbleTo('publish-any-pool');
+                if ($user->isAbleTo('publish-any-pool')) {
+                    return true;
+                }
+            } else {
+                return Response::deny('Expiry date must be a future date.');
             }
+        } else {
+            return Response::deny('Pool has already been published.');
         }
 
-        return false;
+        return Response::deny('Cannot publish that pool.');
     }
 
     /**
