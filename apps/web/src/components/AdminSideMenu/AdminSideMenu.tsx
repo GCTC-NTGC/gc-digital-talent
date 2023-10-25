@@ -5,9 +5,9 @@ import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
@@ -68,7 +68,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "pool-candidates",
       href: paths.poolCandidates(),
-      icon: UserGroupIcon,
+      icon: IdentificationIcon,
       roles: [
         ROLE_NAME.PoolOperator,
         ROLE_NAME.RequestResponder,
@@ -97,7 +97,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "classifications",
       href: paths.classificationTable(),
-      icon: TagIcon,
+      icon: PuzzlePieceIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.classifications),
     },

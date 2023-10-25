@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -37,7 +37,7 @@ export const AllPoolCandidatesPage = () => {
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
-      <PageHeader icon={UserIcon}>{pageTitle}</PageHeader>
+      <PageHeader icon={IdentificationIcon}>{pageTitle}</PageHeader>
       <PoolCandidatesTable title={pageTitle} />
     </AdminContentWrapper>
   );

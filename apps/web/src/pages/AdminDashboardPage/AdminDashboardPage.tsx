@@ -6,7 +6,7 @@ import HomeIconOutline from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/20/solid/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/20/solid/BuildingOffice2Icon";
 import TicketIcon from "@heroicons/react/20/solid/TicketIcon";
-import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import IdentificationIcon from "@heroicons/react/20/solid/IdentificationIcon";
 import UserIcon from "@heroicons/react/20/solid/UserIcon";
 import Squares2X2Icon from "@heroicons/react/20/solid/Squares2X2Icon";
 import PuzzlePieceIcon from "@heroicons/react/20/solid/PuzzlePieceIcon";
@@ -116,7 +116,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               {
                 label: intl.formatMessage(adminMessages.poolsCandidates),
                 href: adminRoutes.poolCandidates(),
-                icon: UserGroupIcon,
+                icon: IdentificationIcon,
               },
               {
                 label: intl.formatMessage({
