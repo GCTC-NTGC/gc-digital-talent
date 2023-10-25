@@ -188,7 +188,7 @@ class PoolPolicy
             return Response::deny("You cannot delete a Pool once it's been published.");
         }
 
-        return Response::deny("You cannot delete that pool.");
+        return Response::deny('You cannot delete that pool.');
     }
 
     /**

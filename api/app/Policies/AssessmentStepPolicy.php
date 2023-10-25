@@ -28,8 +28,7 @@ class AssessmentStepPolicy
 
             if (! is_null($pool)) {
                 if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name
-                    && $user->isAbleTo('update-team-draftPool', $pool->team))
-                {
+                    && $user->isAbleTo('update-team-draftPool', $pool->team)) {
                     return true;
                 }
             } else {
