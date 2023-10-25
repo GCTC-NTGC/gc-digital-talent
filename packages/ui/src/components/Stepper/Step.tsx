@@ -92,23 +92,25 @@ const Step = ({
           )}
 
           {Icon && (
-            <span
-              className="Step__Icon Step__Flair"
-              data-h2-position="base(absolute)"
-              data-h2-location="base(-x.1, auto, auto, 50%)"
-              data-h2-transform="base(translate(-50%, 0))"
-              data-h2-background="base(primary.light)"
-              data-h2-radius="base(circle)"
-              data-h2-height="base(x1.25)"
-              data-h2-width="base(x1.25)"
-            >
+          <span
+            className="Step__Icon Step__Flair"
+            data-h2-position="base(absolute)"
+            data-h2-location="base(-x.1, auto, auto, 50%)"
+            data-h2-transform="base(translate(-50%, 0))"
+            data-h2-background="base(primary.light)"
+            data-h2-radius="base(circle)"
+            data-h2-height="base(x1)"
+            data-h2-width="base(x1)"
+          >
+            {Icon && (
               <Icon
                 data-h2-position="base(absolute)"
                 data-h2-location="base(50%, auto, auto, 50%)"
                 data-h2-transform="base(translate(-50%, -50%))"
-                data-h2-height="base(x.65)"
-                data-h2-width="base(x.65)"
+                data-h2-height="base(x.75)"
+                data-h2-width="base(x.75)"
               />
+            )}
             </span>
           )}
         </span>

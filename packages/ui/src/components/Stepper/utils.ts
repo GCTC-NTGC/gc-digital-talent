@@ -1,6 +1,6 @@
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import FlagIcon from "@heroicons/react/20/solid/FlagIcon";
-import MapPinIcon from "@heroicons/react/20/solid/MapPinIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { MessageDescriptor } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -8,13 +8,13 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "../../types";
 import { StepState } from "./types";
 
-export const getIconFromState = (state: StepState, defaultIcon: IconType) => {
-  const iconMap = new Map<StepState, IconType>([
-    ["active", MapPinIcon],
+export const getIconFromState = (state: StepState, defaultIcon?: IconType) => {
+  const iconMap = new Map<StepState, IconType | undefined>([
+    ["active", PencilSquareIcon],
     ["completed", CheckIcon],
     ["disabled", defaultIcon],
     ["default", defaultIcon],
-    ["error", FlagIcon],
+    ["error", XMarkIcon],
   ]);
 
   return iconMap.get(state);
