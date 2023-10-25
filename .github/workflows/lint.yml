@@ -42,9 +42,12 @@ jobs:
           node-version-file: "./.nvmrc"
           cache: "npm"
           cache-dependency-path: "./package-lock.json"
-      - name: List postgres extensions
+      - name: List initial postgres extensions
         run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'SELECT * FROM pg_extension';"
-
+      - name: Add postgres extensions
+        run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c "CREATE EXTENSION IF NOT EXISTS plpgsql WITH VERSION '1.0'; CREATE EXTENSION IF NOT EXISTS pgcrypto WITH VERSION '1.3';"
+      - name: List updated postgres extensions
+        run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'SELECT * FROM pg_extension';"
     # steps:
     #   - uses: actions/checkout@v4
     #   - name: Use Node.js
