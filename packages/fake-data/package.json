@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "eslint-config-custom": "*",
+    "tsconfig": "*",
     "typescript": "^5.1.3"
   }
 }

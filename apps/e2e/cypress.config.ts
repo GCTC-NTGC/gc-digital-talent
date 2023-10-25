@@ -17,10 +17,6 @@ export default defineConfig({
   retries: {
     runMode: 3,
   },
-  reporter: "./cypress-multi-reporters.ts",
-  reporterOptions: {
-    configFile: "cypress/reporters-config.json",
-  },
   viewportWidth: 1920,
   viewportHeight: 1080,
   videoCompression: 15,

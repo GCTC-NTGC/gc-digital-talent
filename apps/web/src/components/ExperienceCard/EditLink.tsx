@@ -23,7 +23,7 @@ const EditLink = ({
   }
 
   const commonProps = {
-    color: "secondary" as Color,
+    color: "tertiary" as Color,
     icon: PencilSquareIcon,
     "aria-label": ariaLabel,
     mode: "inline" as ButtonLinkMode,
