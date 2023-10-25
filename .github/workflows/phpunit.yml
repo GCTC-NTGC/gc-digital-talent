@@ -25,12 +25,11 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
-        volumes:
-          - ./infrastructure/db:/docker-entrypoint-initdb.d/
-          - pgdata:/var/lib/postgresql/data
 
     steps:
       - uses: actions/checkout@v4
+      - name: Add postgres extension pgcrypto # not included with postgres 12
+        run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
