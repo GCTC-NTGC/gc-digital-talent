@@ -25,7 +25,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.15
+        image: Dockerfile-postgres
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password1234

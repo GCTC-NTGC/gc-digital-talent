@@ -1,0 +1,2 @@
+FROM postgres:12.15
+COPY ../../infrastructure/db/add-extensions-db.sql /docker-entrypoint-initdb.d/
