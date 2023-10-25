@@ -43,7 +43,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "./package-lock.json"
       - name: Mount postgres container volume
-        run: docker run --rm --network ${{ job.container.network }} postgres:12.15 --env POSTGRES_PASSWORD=password1234
+        run: docker run --rm --network ${{ job.container.network }} --e POSTGRES_PASSWORD=password1234 postgres:12.15 sh -c "exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'SELECT datname FROM pg_database;"
       - name: Connect to PostgreSQL, List extensions
         run: psql "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres/$POSTGRES_DB; \dx"
         env:
