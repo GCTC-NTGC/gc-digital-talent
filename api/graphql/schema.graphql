@@ -1396,7 +1396,10 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input CreateAssessmentResultInput {
+input CreateAssessmentResultInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\CreateAssessmentResultInputValidator"
+  ) {
   assessmentStepId: UUID! @rename(attribute: "assessment_step_id")
   poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
   poolSkillId: UUID @rename(attribute: "pool_skill_id")
@@ -1777,7 +1780,13 @@ type Mutation {
   updateAssessmentResult(
     id: UUID!
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult @update @guard @can(ability: "update", find: "id")
+  ): AssessmentResult
+    @validator(
+      class: "App\\GraphQL\\Validators\\UpdateAssessmentResultValidator"
+    )
+    @update
+    @guard
+    @can(ability: "update", find: "id")
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
