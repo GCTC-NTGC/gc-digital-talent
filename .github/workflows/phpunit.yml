@@ -45,4 +45,6 @@ jobs:
 
       - name: PHPUnit tests
         working-directory: api
+        env:
+          DB_HOST: localhost
         run: php artisan test
