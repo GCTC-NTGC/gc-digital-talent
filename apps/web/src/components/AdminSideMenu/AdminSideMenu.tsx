@@ -80,7 +80,11 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.users),
     },
     {
