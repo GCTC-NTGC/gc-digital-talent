@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
@@ -65,6 +66,17 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       text: intl.formatMessage(adminMessages.pools),
     },
     {
+      key: "pool-candidates",
+      href: paths.poolCandidates(),
+      icon: UserGroupIcon,
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ],
+      text: intl.formatMessage(adminMessages.poolsCandidates),
+    },
+    {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
@@ -106,7 +118,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "skill-families",
       href: paths.skillFamilyTable(),
-      icon: UserGroupIcon,
+      icon: CloudIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.skillFamilies),
     },
