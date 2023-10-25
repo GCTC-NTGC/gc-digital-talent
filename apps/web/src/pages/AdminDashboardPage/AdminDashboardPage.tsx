@@ -119,6 +119,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 icon: IdentificationIcon,
               },
               {
+                label: intl.formatMessage(adminMessages.users),
+                href: adminRoutes.userTable(),
+                icon: UserIcon,
+              },
+              {
                 label: intl.formatMessage({
                   defaultMessage: "My Teams",
                   id: "N3uD4m",
@@ -142,6 +147,16 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 label: intl.formatMessage(adminMessages.requests),
                 href: adminRoutes.searchRequestTable(),
                 icon: TicketIcon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.poolsCandidates),
+                href: adminRoutes.poolCandidates(),
+                icon: IdentificationIcon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.users),
+                href: adminRoutes.userTable(),
+                icon: UserIcon,
               },
             ]}
           />
