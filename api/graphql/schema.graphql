@@ -48,11 +48,6 @@ type User {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility
-    @rename(attribute: "language_ability")
-    @deprecated(
-      reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661."
-    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")

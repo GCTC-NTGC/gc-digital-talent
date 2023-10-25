@@ -91,9 +91,6 @@ const generateUser = (
     ]),
 
     // Language
-    languageAbility: faker.helpers.arrayElement<LanguageAbility>(
-      Object.values(LanguageAbility),
-    ),
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),

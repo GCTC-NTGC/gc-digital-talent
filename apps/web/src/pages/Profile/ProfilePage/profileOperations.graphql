@@ -15,7 +15,6 @@ query getMe {
     currentCity
     citizenship
     armedForcesStatus
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual

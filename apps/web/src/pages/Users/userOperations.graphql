@@ -67,7 +67,6 @@ mutation CreateUser($user: CreateUserInput!) {
     currentProvince
     currentCity
 
-    languageAbility
     preferredLang
     preferredLanguageForInterview
     preferredLanguageForExam
@@ -130,7 +129,6 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     currentProvince
     currentCity
 
-    languageAbility
     preferredLang
     lookingForEnglish
     lookingForFrench
@@ -189,7 +187,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     currentProvince
     currentCity
 
-    languageAbility
     preferredLang
     preferredLanguageForInterview
     preferredLanguageForExam
