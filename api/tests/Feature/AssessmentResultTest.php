@@ -4,6 +4,7 @@ use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\PoolSkillType;
+use App\Enums\SkillDecisionLevel;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
@@ -237,5 +238,150 @@ class AssessmentResultTest extends TestCase
             )
             ->assertSuccessful();
         assertNull(AssessmentStep::all()->find($assessmentResult->id));
+    }
+
+    // test validation of input belongsTo relations when creating
+    public function testAssessmentResultPoolValidation(): void
+    {
+        Skill::factory()->create();
+        PoolSkill::truncate();
+
+        $parentAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+        $parentPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        // unrelated models
+        $randomPool = Pool::factory()->create();
+        $randomAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $randomPool->id,
+        ]);
+        $randomPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $randomPool->id,
+        ]);
+        $randomPoolSkillModel = PoolSkill::first(); // filled when calling pool factory above, this happens when calling it after skills seeded
+
+        // trying combinations of pools and assert they fail, with and without pool skill
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $parentAssessmentStep->id,
+                        'poolCandidateId' => $randomPoolCandidate->id,
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $randomAssessmentStep->id,
+                        'poolCandidateId' => $parentPoolCandidate->id,
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $parentAssessmentStep->id,
+                        'poolCandidateId' => $parentPoolCandidate->id,
+                        'poolSkillId' => $randomPoolSkillModel->id,
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('createAssessmentResult.assessmentStepId', 'AssessmentResultReferencesMultiplePools');
+
+        // success when all three reference one pool
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $randomAssessmentStep->id,
+                        'poolCandidateId' => $randomPoolCandidate->id,
+                        'poolSkillId' => $randomPoolSkillModel->id,
+                    ],
+                ]
+            )
+            ->assertSuccessful();
+    }
+
+    // test validation of updating assessment result
+    public function testAssessmentResultUpdatingValidation(): void
+    {
+        $parentAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+        $parentPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $parentAssessmentStep->id,
+                        'poolCandidateId' => $parentPoolCandidate->id,
+                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                        'assessmentDecision' => AssessmentDecision::SUCCESSFUL->name,
+                    ],
+                ]
+            )
+            ->assertSuccessful();
+
+        $assessmentResult = AssessmentResult::first();
+
+        // assert validation blocks some update combinations
+        // cannot have skill type with education justifications, validation draws from saved model
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->updateAssessmentResult,
+                [
+                    'id' => $assessmentResult->id,
+                    'updateAssessmentResult' => [
+                        'justifications' => [AssessmentResultJustification::EDUCATION_ACCEPTED_INFORMATION->name],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('updateAssessmentResult.justifications', 'EducationJustificationsForSkillAssessment');
+
+        // cannot have skill decision notes for unsuccessful, input changes it from successful
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->updateAssessmentResult,
+                [
+                    'id' => $assessmentResult->id,
+                    'updateAssessmentResult' => [
+                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                        'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
+                        'skillDecisionNotes' => 'Notes',
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('updateAssessmentResult.skillDecisionNotes', 'CannotSetSkillDecisionNotesForThisTypeOrDecision');
+
+        // cannot have skill decision level for unsuccessful, input changes it from successful
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->updateAssessmentResult,
+                [
+                    'id' => $assessmentResult->id,
+                    'updateAssessmentResult' => [
+                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                        'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
+                        'skillDecisionLevel' => SkillDecisionLevel::AT_REQUIRED->name,
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('updateAssessmentResult.skillDecisionLevel', 'CannotSetSkillDecisionLevelForThisTypeOrDecision');
     }
 }
