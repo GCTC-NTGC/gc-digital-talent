@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
@@ -24,6 +25,7 @@ export type FormValues = {
   email: string;
   description: string;
   subject: string;
+  previous_url: string;
 };
 
 interface SupportFormProps {
@@ -102,6 +104,8 @@ const SupportForm = ({
   currentUser,
 }: SupportFormProps) => {
   const intl = useIntl();
+  const location = useLocation();
+  const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
       user_id: currentUser?.id || "",
@@ -109,6 +113,7 @@ const SupportForm = ({
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
       email: currentUser?.email || "",
+      previous_url: previousUrl || "",
     },
   });
   const { handleSubmit } = methods;

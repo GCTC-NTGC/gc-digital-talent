@@ -100,6 +100,7 @@ const ErrorPage = () => {
               color="primary"
               mode="cta"
               href={paths.support()}
+              state={{ referrer: window.location.href }}
             >
               {intl.formatMessage({
                 defaultMessage: "Report a missing page",
