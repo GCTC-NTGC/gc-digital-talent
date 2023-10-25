@@ -3,30 +3,28 @@ name: e2e-tests
 
 on:
   push:
-    branches: ["test-do-not-run"]
-  #   push:
-#     branches:
-#       - main
-#     paths-ignore:
-#       - "**.md"
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
 
-#   pull_request:
-#     paths-ignore:
-#       - "**.md"
-#   merge_group:
-#     branches: [main]
-# # Concurrency is used to cancel other currently-running jobs, to preserve
-# # compute resources and cumulative build hours. (ie. If you push twice in a
-# # row, this will cancel the previous run.)
-# # See: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
-# concurrency:
-#   # This scopes the group to:
-#   # - the same workflow,
-#   # - the same event type, and
-#   # - the same branch name
-#   # e.g., my-workflow-pull_request-feature/123-my-thing
-#   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}
-#   cancel-in-progress: true
+  pull_request:
+    paths-ignore:
+      - "**.md"
+  merge_group:
+    branches: [main]
+# Concurrency is used to cancel other currently-running jobs, to preserve
+# compute resources and cumulative build hours. (ie. If you push twice in a
+# row, this will cancel the previous run.)
+# See: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  # This scopes the group to:
+  # - the same workflow,
+  # - the same event type, and
+  # - the same branch name
+  # e.g., my-workflow-pull_request-feature/123-my-thing
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}
+  cancel-in-progress: true
 
 jobs:
   run-cypress:
