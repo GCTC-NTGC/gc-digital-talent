@@ -150,6 +150,7 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
   return (
     <Link
       href={paths.support()}
+      state={{ referrer: window.location.href }}
       mode="inline"
       data-h2-color="base(black.light)"
       data-h2-font-size="base(caption)"

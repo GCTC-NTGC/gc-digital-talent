@@ -32,7 +32,9 @@ import {
 import NullFamilyMessage from "./NullFamilyMessage";
 
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
-  <Link href={href}>{chunks}</Link>
+  <Link href={href} state={{ referrer: window.location.href }}>
+    {chunks}
+  </Link>
 );
 
 interface SkillSelectionProps {

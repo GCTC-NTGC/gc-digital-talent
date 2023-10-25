@@ -26,7 +26,9 @@ import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.jpg";
 import Instructions from "~/components/Instructions";
 
 const buildLink = (path: string, chunks: React.ReactNode) => (
-  <Link href={path}>{chunks}</Link>
+  <Link href={path} state={{ referrer: window.location.href }}>
+    {chunks}
+  </Link>
 );
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (

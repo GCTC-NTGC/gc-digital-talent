@@ -13,7 +13,6 @@ const UserDeletedPage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const supportPath = paths.support();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Account deleted",
@@ -30,7 +29,11 @@ const UserDeletedPage = () => {
   ]);
 
   const inlineLink = (chunks: React.ReactNode) => (
-    <Link href={supportPath} color="black">
+    <Link
+      href={paths.support()}
+      state={{ referrer: window.location.href }}
+      color="black"
+    >
       {chunks}
     </Link>
   );

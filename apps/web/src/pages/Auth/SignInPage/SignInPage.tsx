@@ -58,7 +58,9 @@ const SignInPage = () => {
   }, [iapMode, themeKey, setThemeKey]);
 
   const helpLink = (chunks: React.ReactNode) => (
-    <Link href={paths.support()}>{chunks}</Link>
+    <Link href={paths.support()} state={{ referrer: window.location.href }}>
+      {chunks}
+    </Link>
   );
 
   return (
