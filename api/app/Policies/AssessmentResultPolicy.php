@@ -18,19 +18,13 @@ class AssessmentResultPolicy
      */
     public function view(User $user, AssessmentResult $assessmentResult)
     {
-        $parentAssessmentStep = AssessmentStep::with('pool.team')->find($assessmentResult['assessment_step_id']);
+        if ($user->isAbleTo('view-any-assessmentResult')) {
+            return true;
+        }
 
-        return $user->isAbleTo('view-team-assessmentResult', $parentAssessmentStep->pool->team);
-    }
+        $assessmentResult->loadMissing('assessmentStep.pool.team');
 
-    /**
-     * Determine whether the user can view any
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        return $user->isAbleTo('view-any-assessmentResult');
+        return $user->isAbleTo('view-team-assessmentResult', $assessmentResult->assessmentStep->pool->team);
     }
 
     /**
