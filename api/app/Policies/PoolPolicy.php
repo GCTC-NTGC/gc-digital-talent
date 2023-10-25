@@ -181,10 +181,14 @@ class PoolPolicy
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
             $pool->loadMissing('team');
 
-            return $user->isAbleTo('delete-team-draftPool', $pool->team);
+            if ($user->isAbleTo('delete-team-draftPool', $pool->team)) {
+                return true;
+            }
+        } else {
+            return Response::deny("You cannot delete a Pool once it's been published.");
         }
 
-        return false;
+        return Response::deny("You cannot delete that pool.");
     }
 
     /**
