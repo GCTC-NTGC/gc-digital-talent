@@ -12,7 +12,7 @@ type LogInvariantArgs = {
 function logInvariant({
   logger = defaultLogger,
   message = defaultMessage,
-}: LogInvariantArgs) {
+}: LogInvariantArgs): never {
   logger.error(message);
   throw new Error(message);
 }

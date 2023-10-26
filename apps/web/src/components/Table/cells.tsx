@@ -15,8 +15,15 @@ function commaListCell(props: CommaListProps) {
   return <CommaList {...props} />;
 }
 
-function editCell(id: string, editUrlRoot: string, label?: Maybe<string>) {
-  return <EditLink id={id} editUrlRoot={editUrlRoot} label={label} />;
+function editCell(
+  id: string,
+  editUrlRoot: string,
+  label?: Maybe<string>,
+  text?: Maybe<string>,
+) {
+  return (
+    <EditLink id={id} editUrlRoot={editUrlRoot} label={label} text={text} />
+  );
 }
 
 function viewCell(

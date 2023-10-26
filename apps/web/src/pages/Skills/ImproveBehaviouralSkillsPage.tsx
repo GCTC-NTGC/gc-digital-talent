@@ -186,6 +186,7 @@ const ImproveBehaviouralSkills = ({
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
+      maxItems={MAX_SKILL_COUNT}
     />
   );
 };
