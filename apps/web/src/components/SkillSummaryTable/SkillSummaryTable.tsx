@@ -24,7 +24,6 @@ import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
-import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<PoolSkill>();
 
@@ -228,7 +227,6 @@ const SkillSummaryTable = ({
         description: "Skill name column header for the skill library table",
       }),
       enableHiding: false,
-      sortingFn: normalizedText,
     }),
     columnHelper.display({
       id: "type",
