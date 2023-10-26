@@ -63,7 +63,7 @@
     "jest-presets": "*",
     "react": "^18.2.0",
     "react-hook-form": "^7.47.0",
-    "react-intl": "^6.5.0",
+    "react-intl": "^6.5.1",
     "tsconfig": "*",
     "tsup": "^7.2.0",
     "typescript": "^5.1.3"
