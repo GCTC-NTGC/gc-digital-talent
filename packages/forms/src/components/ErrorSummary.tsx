@@ -30,7 +30,7 @@ const flattenErrors = (
 ): string[] => {
   let errorNames: string[] = [];
   const parentKey = parent ? `${parent}.` : "";
-   if (errors)
+  if (errors) {
     Object.keys(errors).forEach((fieldName) => {
       const fieldError = errors[fieldName];
       if (fieldError) {
@@ -56,6 +56,7 @@ const flattenErrors = (
         }
       }
     });
+  }
 
   return errorNames;
 };
