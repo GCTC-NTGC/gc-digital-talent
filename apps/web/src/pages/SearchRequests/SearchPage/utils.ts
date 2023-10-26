@@ -61,26 +61,6 @@ export const applicantFilterToQueryArgs = (
 };
 
 /**
- * Derive the currently selected classification
- * from applicant filters and location state.
- *
- * As well as transforming it to a useable string.
- *
- * @param {ApplicantFilterInput} data
- * @param {Maybe<SimpleClassification[]>} selectedClassifications
- * @returns {string}
- */
-const getCurrentClassification = (
-  data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<SimpleClassification[]>,
-): string => {
-  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
-  const classification = selectedClassifications ?? classifications;
-
-  return classification ? formatClassificationString(classification[0]) : "";
-};
-
-/**
  * Transform data from location state, API and filters
  * to a shape useable by `react-hook-form`
  *
@@ -123,18 +103,6 @@ export const dataToFormValues = (
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
   };
-};
-
-export const durationSelectionToEnum = (
-  selection: string | null,
-): PositionDuration[] | null => {
-  if (selection && selection === EmploymentDuration.Term) {
-    return [PositionDuration.Temporary];
-  }
-  if (selection && selection === EmploymentDuration.Indeterminate) {
-    return [PositionDuration.Permanent];
-  }
-  return null;
 };
 
 /**
@@ -231,4 +199,36 @@ export const getClassificationLabel = (
 ) => {
   const key = `${group}-0${level}`;
   return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
+};
+
+/**
+ * Derive the currently selected classification
+ * from applicant filters and location state.
+ *
+ * As well as transforming it to a useable string.
+ *
+ * @param {ApplicantFilterInput} data
+ * @param {Maybe<SimpleClassification[]>} selectedClassifications
+ * @returns {string}
+ */
+const getCurrentClassification = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+): string => {
+  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
+  const classification = selectedClassifications ?? classifications;
+
+  return classification ? formatClassificationString(classification[0]) : "";
+};
+
+export const durationSelectionToEnum = (
+  selection: string | null,
+): PositionDuration[] | null => {
+  if (selection && selection === EmploymentDuration.Term) {
+    return [PositionDuration.Temporary];
+  }
+  if (selection && selection === EmploymentDuration.Indeterminate) {
+    return [PositionDuration.Permanent];
+  }
+  return null;
 };
