@@ -67,19 +67,16 @@ class UserPolicy
         /**
          * If a user is assigning a role or updating 'sub', check for extra permissions and fail early
          */
-        if ($request && isset($request['roleAssignmentsInput'])) {
-            if (! $user->isAbleTo('assign-any-role')) {
-                return false;
-            }
-        }
-        if ($request && isset($request['sub'])) {
-            if (! $user->isAbleTo('update-any-userSub')) {
-                return false;
+        $updateRolesAllowedIfRequested = ! $request || ! isset($request['roleAssignmentsInput']) || $user->isAbleTo('assign-any-role');
+        $updateSubAllowedIfRequested = ! $request || ! isset($request['sub']) || $user->isAbleTo('update-any-userSub');
+
+        if ($updateRolesAllowedIfRequested && $updateSubAllowedIfRequested) {
+            if ($user->isAbleTo('update-any-user') || ($user->isAbleTo('update-own-user') && $user->id === $model->id)) {
+                return true;
             }
         }
 
-        return $user->isAbleTo('update-any-user')
-            || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
+        return false;
     }
 
     /**
