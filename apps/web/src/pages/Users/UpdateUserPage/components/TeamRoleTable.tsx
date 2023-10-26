@@ -15,6 +15,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import { TeamAssignment, UpdateUserFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -71,6 +72,7 @@ const TeamRoleTable = ({
         getLocalizedName(teamAssignment.team.displayName, intl),
       {
         id: "team",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Team",
           id: "3IZ3mN",
