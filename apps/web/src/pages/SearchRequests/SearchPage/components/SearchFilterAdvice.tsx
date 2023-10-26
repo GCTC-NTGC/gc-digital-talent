@@ -2,24 +2,28 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { LanguageAbility, Maybe, PositionDuration } from "~/api/generated";
+import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-const SearchFilterAdvice = ({
-  operationalRequirementFilterCount,
-  educationSelection,
-  workingLanguage,
-  employmentDuration,
-  equityFiltersActive,
-  skillCount,
-}: {
-  operationalRequirementFilterCount: number;
-  educationSelection: Maybe<boolean>;
-  workingLanguage: Maybe<LanguageAbility>;
-  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
-  equityFiltersActive: number;
-  skillCount: number;
-}) => {
+interface SearchFilterAdviceProps {
+  filters: ApplicantFilterInput;
+}
+
+const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
   const intl = useIntl();
+
+  const operationalRequirementFilterCount =
+    filters?.operationalRequirements?.length ?? 0;
+  const educationSelection = filters?.hasDiploma;
+  const workingLanguage = filters?.languageAbility;
+  const employmentDuration = filters?.positionDuration;
+  const skillCount = filters?.skills?.length ?? 0;
+
+  const activeEquityFilters = Object.values(filters?.equity ?? {})
+    .filter(notEmpty)
+    .filter((field) => !!field);
+  const equityFiltersActive = activeEquityFilters.length;
+
   if (
     operationalRequirementFilterCount === 0 &&
     !educationSelection &&
