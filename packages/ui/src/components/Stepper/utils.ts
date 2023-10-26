@@ -74,7 +74,6 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
       `,
       "data-h2-color": `
         base(black)
-        base:hover:children[.Step__Text](primary)
       `,
       "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
     },
