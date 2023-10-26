@@ -82,6 +82,8 @@ type Mutation {
   createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
+  updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
+  updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
@@ -732,7 +734,6 @@ input CreateUserInput {
 "When updating a User, all fields are optional"
 input UpdateUserAsAdminInput {
   id: ID
-  sub: String
   email: Email
   firstName: String
   lastName: String
@@ -773,7 +774,16 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roleAssignmentsInput: RoleAssignmentHasMany
+}
+
+input UpdateUserSubInput {
+  userId: UUID!
+  sub: String!
+}
+
+input UpdateUserRolesInput {
+  id: UUID!
+  roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
 input UpdateUserAsUserInput {
