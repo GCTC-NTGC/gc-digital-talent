@@ -34,7 +34,11 @@ interface SearchFormProps {
   skills: Skill[];
 }
 
-const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
+export const SearchForm = ({
+  pools,
+  classifications,
+  skills,
+}: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
