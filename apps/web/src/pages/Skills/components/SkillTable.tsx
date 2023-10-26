@@ -48,6 +48,10 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       meta: {
         isRowTitle: true,
       },
+      cell: ({ row: { original: skill } }) => {
+        const skillName = getLocalizedName(skill.name, intl);
+        return cells.edit(skill.id, paths.skillTable(), skillName, skillName);
+      },
     }),
     columnHelper.accessor(
       (skill) => getLocalizedName(skill.description, intl, true),
@@ -88,16 +92,6 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           "Title displayed for the Skill Family table Category column.",
       }),
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
-      cell: ({ row: { original: skill } }) =>
-        cells.edit(
-          skill.id,
-          paths.skillTable(),
-          getLocalizedName(skill.name, intl),
-        ),
-    }),
   ] as ColumnDef<Skill>[];
 
   const data = skills.filter(notEmpty);
@@ -107,7 +101,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       caption={title}
       data={data}
       columns={columns}
-      hiddenColumnIds={["id"]}
+      hiddenColumnIds={["id", "keywords"]}
       pagination={{
         internal: true,
         total: data.length,
@@ -115,6 +109,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       }}
       sort={{
         internal: true,
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
