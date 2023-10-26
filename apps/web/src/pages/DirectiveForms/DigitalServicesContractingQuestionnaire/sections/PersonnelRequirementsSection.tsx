@@ -45,6 +45,8 @@ const PersonnelRequirementsSection = ({
       </p>
       <Repeater.Root
         data-h2-margin-bottom="base(1rem)"
+        name="personnelRequirements"
+        total={fields.length}
         onAdd={() => {
           append({});
         }}
@@ -58,6 +60,7 @@ const PersonnelRequirementsSection = ({
           fields.map((item, index) => (
             <Repeater.Fieldset
               key={item.id}
+              name="personnelRequirements"
               index={index}
               total={fields.length}
               onMove={move}
