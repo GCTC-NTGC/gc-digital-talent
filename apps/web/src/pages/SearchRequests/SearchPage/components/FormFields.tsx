@@ -76,56 +76,62 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
             "Message describing the classification filter of the search form.",
         })}
       >
-        <Select
-          id="classifications"
-          label={intl.formatMessage({
-            defaultMessage: "Classification filter",
-            id: "V8v+/g",
-            description: "Label for classification filter in search form.",
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Select a classification",
-            id: "HHEQgM",
-            description:
-              "Placeholder for classification filter in search form.",
-          })}
-          name="classification"
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a classification",
-            id: "HHEQgM",
-            description:
-              "Placeholder for classification filter in search form.",
-          })}
-          options={classificationOptions}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          trackUnsaved={false}
-        />
-        <Select
-          id="stream"
-          label={intl.formatMessage({
-            defaultMessage: "Stream",
-            id: "qYWmzA",
-            description: "Label for stream filter in search form.",
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Select a job stream",
-            id: "QJ5uDV",
-            description: "Placeholder for stream filter in search form.",
-          })}
-          name="stream"
-          nullSelection={intl.formatMessage({
-            defaultMessage: "Select a job stream",
-            id: "QJ5uDV",
-            description: "Placeholder for stream filter in search form.",
-          })}
-          options={streamOptions}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          trackUnsaved={false}
-        />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Select
+            id="classifications"
+            label={intl.formatMessage({
+              defaultMessage: "Classification filter",
+              id: "V8v+/g",
+              description: "Label for classification filter in search form.",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Select a classification",
+              id: "HHEQgM",
+              description:
+                "Placeholder for classification filter in search form.",
+            })}
+            name="classification"
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a classification",
+              id: "HHEQgM",
+              description:
+                "Placeholder for classification filter in search form.",
+            })}
+            options={classificationOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            trackUnsaved={false}
+          />
+          <Select
+            id="stream"
+            label={intl.formatMessage({
+              defaultMessage: "Stream",
+              id: "qYWmzA",
+              description: "Label for stream filter in search form.",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Select a job stream",
+              id: "QJ5uDV",
+              description: "Placeholder for stream filter in search form.",
+            })}
+            name="stream"
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a job stream",
+              id: "QJ5uDV",
+              description: "Placeholder for stream filter in search form.",
+            })}
+            options={streamOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            trackUnsaved={false}
+          />
+        </div>
       </FilterBlock>
       <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
       <FilterBlock

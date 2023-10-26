@@ -97,29 +97,27 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
             data-h2-gap="base(x2)"
           >
             <div data-h2-grid-column="p-tablet(span 3)">
-              <div>
-                <Heading
-                  data-h2-margin="base(x3, 0, x1, 0)"
-                  data-h2-font-weight="base(300)"
-                  level="h2"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "How to use this tool",
-                    id: "HvD7jI",
-                    description:
-                      "Heading displayed in the How To area of the hero section of the Search page.",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
-                    id: "1pCzp1",
-                    description:
-                      "Content displayed in the How To area of the hero section of the Search page.",
-                  })}
-                </p>
-              </div>
+              <Heading
+                data-h2-margin="base(x3, 0, x1, 0)"
+                data-h2-font-weight="base(300)"
+                level="h2"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "How to use this tool",
+                  id: "HvD7jI",
+                  description:
+                    "Heading displayed in the How To area of the hero section of the Search page.",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "1pCzp1",
+                  description:
+                    "Content displayed in the How To area of the hero section of the Search page.",
+                })}
+              </p>
               <FormFields skills={skills} classifications={classifications} />
             </div>
             <div

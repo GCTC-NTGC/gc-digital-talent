@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
+import { Heading } from "@gc-digital-talent/ui";
+
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 
@@ -33,14 +35,18 @@ const SearchPage = () => {
           data-h2-shadow="base(large)"
           data-h2-text-align="base(center)"
         >
-          <h2 data-h2-color="base(black)" data-h2-margin="base(0, 0, x1, 0)">
+          <Heading
+            level="h2"
+            data-h2-margin="base(0, 0, x1, 0)"
+            data-h2-font-weight="base(400)"
+          >
             {intl.formatMessage({
               defaultMessage: "Are you looking to hire digital talent?",
               id: "zMuDSL",
               description:
                 "Heading on find talent page posing question to users.",
             })}
-          </h2>
+          </Heading>
           <p>
             {intl.formatMessage({
               defaultMessage:
