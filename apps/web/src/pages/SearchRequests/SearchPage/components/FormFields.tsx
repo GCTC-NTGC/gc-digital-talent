@@ -24,11 +24,12 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { NullSelection } from "~/types/searchRequest";
+import { formatClassificationString } from "~/utils/poolUtils";
 
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "./AddSkillsToFilter";
 import AdvancedFilters from "./AdvancedFilters";
-import { classificationToKey, getClassificationLabel } from "../utils";
+import { getClassificationLabel } from "../utils";
 import { classificationAriaLabels, classificationLabels } from "../labels";
 
 interface FormFieldsProps {
@@ -40,7 +41,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
   const intl = useIntl();
 
   const classificationOptions = classifications.map((classification) => ({
-    value: classificationToKey(classification),
+    value: formatClassificationString(classification),
     label: getClassificationLabel(classification, classificationLabels, intl),
     ariaLabel: getClassificationLabel(
       classification,

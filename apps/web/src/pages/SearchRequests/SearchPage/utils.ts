@@ -1,98 +1,121 @@
-import pick from "lodash/pick";
 import { IntlShape, MessageDescriptor } from "react-intl";
 
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import {
+  unpackMaybes,
+  empty,
+  hasKey,
+  notEmpty,
+  pickMap,
+} from "@gc-digital-talent/helpers";
 import {
   ApplicantFilterInput,
   Classification,
   CountApplicantsQueryVariables,
-  LanguageAbility,
   Maybe,
   Pool,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-import { hasKey, notEmpty } from "@gc-digital-talent/helpers";
 
-import { SimpleClassification, SimplePool } from "~/types/pool";
+import { SimpleClassification } from "~/types/pool";
 import { FormValues, NullSelection } from "~/types/searchRequest";
-import { poolMatchesClassification } from "~/utils/poolUtils";
+import {
+  formatClassificationString,
+  poolMatchesClassification,
+} from "~/utils/poolUtils";
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
+import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
-export const positionDurationToEmploymentDuration = (
-  durations: Maybe<PositionDuration>[],
-): string => {
-  if (durations && durations.includes(PositionDuration.Temporary)) {
-    return EmploymentDuration.Term;
-  }
-  return EmploymentDuration.Indeterminate;
-};
-
+/**
+ * Massage the current filters into a shape
+ * that will be accepted by the API.
+ *
+ * Omits some fields we do not want impacting results.
+ */
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
 ): CountApplicantsQueryVariables => {
+  if (empty(filter)) {
+    return {};
+  }
+
   /* We must pick only the fields belonging to ApplicantFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
   */
-  // Apply pick to each element of an array.
-  function pickMap<T, K extends keyof T>(
-    list: Maybe<Maybe<T>[]> | null | undefined,
-    keys: K | K[],
-  ): Pick<T, K>[] | undefined {
-    return unpackMaybes(list).map(
-      (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
-    );
-  }
+  return {
+    where: {
+      ...filter,
+      equity: { ...filter?.equity },
+      qualifiedClassifications: filter?.qualifiedClassifications
+        ? pickMap(filter.qualifiedClassifications, ["group", "level"])
+        : undefined,
+      skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
+      hasDiploma: null, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
 
-  if (filter !== null || undefined)
-    return {
-      where: {
-        ...filter,
-        equity: { ...filter?.equity },
-        qualifiedClassifications: filter?.qualifiedClassifications
-          ? pickMap(filter.qualifiedClassifications, ["group", "level"])
-          : undefined,
-        skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
-        hasDiploma: null, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
-
-        // Override the filter's pool if one is provided separately.
-        pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
-      },
-    };
-  return {};
+      // Override the filter's pool if one is provided separately.
+      pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
+    },
+  };
 };
 
+/**
+ * Derive the currently selected classification
+ * from applicant filters and location state.
+ *
+ * As well as transforming it to a useable string.
+ *
+ * @param {ApplicantFilterInput} data
+ * @param {Maybe<SimpleClassification[]>} selectedClassifications
+ * @returns {string}
+ */
+const getCurrentClassification = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+): string => {
+  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
+  const classification = selectedClassifications ?? classifications;
+
+  return classification ? formatClassificationString(classification[0]) : "";
+};
+
+/**
+ * Transform data from location state, API and filters
+ * to a shape useable by `react-hook-form`
+ *
+ * @param data
+ * @param selectedClassifications
+ * @param pools
+ * @returns {FormValues}
+ */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<SimpleClassification[]>,
-  pools?: SimplePool[],
+  pools?: Pool[],
 ): FormValues => {
-  const dataPoolsSafe = data.pools ? data.pools : [];
-  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+  const safePools = data.pools?.filter(notEmpty) ?? [];
+  const selectedPool = pools?.find((pool) =>
+    safePools.some(({ id }) => id === pool.id),
+  );
 
-  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
+  let stream = data?.qualifiedStreams?.filter(notEmpty)[0];
+  if (selectedPool?.stream) {
+    stream = selectedPool.stream;
+  }
+
   return {
-    classification: selectedClassifications
-      ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
-      : "",
-    languageAbility: data?.languageAbility
-      ? data?.languageAbility
-      : "NULL_SELECTION",
-    employmentEquity: data.equity
-      ? [
-          ...(data.equity.hasDisability ? ["hasDisability"] : []),
-          ...(data.equity.isIndigenous ? ["isIndigenous"] : []),
-          ...(data.equity.isVisibleMinority ? ["isVisibleMinority"] : []),
-          ...(data.equity.isWoman ? ["isWoman"] : []),
-        ]
-      : [],
+    classification: getCurrentClassification(data, selectedClassifications),
+    languageAbility: data?.languageAbility ?? "NULL_SELECTION",
+    employmentEquity: [
+      ...(data?.equity?.hasDisability ? ["hasDisability"] : []),
+      ...(data?.equity?.isIndigenous ? ["isIndigenous"] : []),
+      ...(data?.equity?.isVisibleMinority ? ["isVisibleMinority"] : []),
+      ...(data?.equity?.isWoman ? ["isWoman"] : []),
+    ],
     educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
     skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    stream: dataPoolsSafe[0]
-      ? poolMap.get(dataPoolsSafe[0].id)?.stream || ""
-      : "",
+    stream: stream ?? "",
     locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
@@ -101,19 +124,6 @@ export const dataToFormValues = (
       : "",
   };
 };
-
-export function mapObjectsByKey<T>(
-  keyFunction: (t: T) => string,
-  objects: T[],
-): Map<string, T> {
-  return objects.reduce((map, obj) => {
-    map.set(keyFunction(obj), obj);
-    return map;
-  }, new Map());
-}
-
-export const classificationToKey = (classification: SimpleClassification) =>
-  `${classification.group}-0${classification.level}`;
 
 export const durationSelectionToEnum = (
   selection: string | null,
@@ -127,14 +137,23 @@ export const durationSelectionToEnum = (
   return null;
 };
 
+/**
+ * Massage the current filters into a shape
+ * that will be accepted by the API. (full object)
+ *
+ * @param values
+ * @param pools
+ * @param classifications
+ * @returns
+ */
 export const formValuesToData = (
   values: FormValues,
   pools: Pool[],
-  classificationMap: Map<string, SimpleClassification>,
+  classifications: Classification[],
 ): ApplicantFilterInput => {
-  const selectedClassification = values.classification
-    ? classificationMap.get(values.classification)
-    : undefined;
+  const selectedClassification = classifications.find((classification) => {
+    return formatClassificationString(classification) === values.classification;
+  });
 
   return {
     qualifiedClassifications: [selectedClassification],
@@ -145,29 +164,18 @@ export const formValuesToData = (
             id,
           }))
       : [],
-    operationalRequirements: values.operationalRequirements
-      ? unpackMaybes(values.operationalRequirements)
-      : [],
+    operationalRequirements: unpackMaybes(values.operationalRequirements),
     hasDiploma: values.educationRequirement === "has_diploma",
     equity: {
-      hasDisability:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("hasDisability"),
-      isIndigenous:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("isIndigenous"),
-      isVisibleMinority:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("isVisibleMinority"),
-      isWoman:
-        values.employmentEquity && values.employmentEquity?.includes("isWoman"),
+      hasDisability: values.employmentEquity?.includes("hasDisability"),
+      isIndigenous: values.employmentEquity?.includes("isIndigenous"),
+      isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
+      isWoman: values.employmentEquity?.includes("isWoman"),
     },
     ...(values.languageAbility !== NullSelection
-      ? { languageAbility: values.languageAbility as LanguageAbility }
+      ? { languageAbility: values.languageAbility }
       : {}), // Ensure null in FormValues is converted to undefined
-    positionDuration: values.employmentDuration
-      ? durationSelectionToEnum(values.employmentDuration)
-      : null,
+    positionDuration: durationSelectionToEnum(values.employmentDuration),
     locationPreferences: values.locationPreferences || [],
     qualifiedStreams: values.stream ? [values.stream] : undefined,
     pools: pools
@@ -214,16 +222,6 @@ export const getAvailableClassifications = (
         x?.level === classification?.level,
     );
   });
-};
-
-export const applicantFilterIncludesPools = (
-  filter: ApplicantFilterInput,
-): boolean => {
-  return (
-    notEmpty(filter) &&
-    notEmpty(filter.pools) &&
-    filter.pools.filter(notEmpty).length > 0
-  );
 };
 
 export const getClassificationLabel = (

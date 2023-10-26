@@ -9,23 +9,77 @@ import {
   Pool,
   useCountApplicantsAndCountPoolCandidatesByPoolQuery,
 } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { FormValues, LocationState } from "~/types/searchRequest";
 
-import {
-  applicantFilterIncludesPools,
-  applicantFilterToQueryArgs,
-  dataToFormValues,
-} from "./utils";
+import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
 
-// eslint-disable-next-line import/prefer-default-export
-export const useAnnounceCandidateAccount = (
-  candidateCount: number,
+type UseInitialState = {
+  defaultValues: FormValues;
+  initialFilters: ApplicantFilterInput;
+};
+
+export const useInitialFilters = (pools: Pool[]): UseInitialState => {
+  const location = useLocation();
+  const { state }: { state: LocationState } = location;
+
+  const initialFilters = useMemo(() => {
+    return (
+      state?.applicantFilter ?? {
+        pools,
+      }
+    );
+  }, [pools, state?.applicantFilter]);
+
+  const defaultValues = dataToFormValues(
+    state?.applicantFilter ?? {},
+    state?.selectedClassifications,
+    pools,
+  );
+
+  return {
+    defaultValues,
+    initialFilters,
+  };
+};
+
+type UseCandidateCountReturn = {
+  fetching: boolean;
+  candidateCount: number;
+  results?: CandidateSearchPoolResult[];
+};
+
+export const useCandidateCount = (
   filters: ApplicantFilterInput,
-  fetching?: boolean,
-) => {
+): UseCandidateCountReturn => {
   const intl = useIntl();
   const { announce } = useAnnouncer();
+
+  const queryArgs = useMemo(
+    () => applicantFilterToQueryArgs(filters),
+    [filters],
+  );
+
+  // The countApplicants query ignores the pool filter if it is an empty array, just like if it were undefined.
+  // However, we want to treat an empty pool filter as resulting in zero candidates.
+  // Therefore, we can skip the query and override the count results ourselves.
+  const hasPools =
+    notEmpty(filters) &&
+    notEmpty(filters.pools) &&
+    filters.pools.filter(notEmpty).length > 0;
+
+  // Fetches the number of pool candidates by pool to display on pool cards AND
+  // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
+  const [{ data, fetching }] =
+    useCountApplicantsAndCountPoolCandidatesByPoolQuery({
+      variables: queryArgs,
+      pause: !hasPools, // If filter does not include pools, we wil manually return 0 count.
+    });
+
+  const candidateCount =
+    hasPools && data?.countApplicants ? data.countApplicants : 0;
+
   /**
    * Announce the candidate count to users in a less verbose way
    *
@@ -52,68 +106,10 @@ export const useAnnounceCandidateAccount = (
     }
     announceCount.current += 1;
   }, [candidateCount, announce, filters, fetching, intl]);
-};
-
-type UseInitialFiltersReturn = {
-  formValues: FormValues;
-  filters: ApplicantFilterInput;
-};
-
-export const useInitialFilters = (pools: Pool[]): UseInitialFiltersReturn => {
-  const location = useLocation();
-  const { state }: { state: LocationState } = location;
-
-  const initialFilters = useMemo(() => {
-    return (
-      state?.applicantFilter ?? {
-        pools,
-      }
-    );
-  }, [pools, state?.applicantFilter]);
-
-  return {
-    formValues: dataToFormValues(
-      initialFilters,
-      state?.selectedClassifications,
-      pools,
-    ),
-    filters: initialFilters,
-  };
-};
-
-type UseCandidateCountReturn = {
-  fetching: boolean;
-  candidateCount: number;
-  results?: CandidateSearchPoolResult[];
-};
-
-export const useCandidateCount = (
-  filters: ApplicantFilterInput,
-): UseCandidateCountReturn => {
-  const queryArgs = useMemo(
-    () => applicantFilterToQueryArgs(filters),
-    [filters],
-  );
-
-  // The countApplicants query ignores the pool filter if it is an empty array, just like if it were undefined.
-  // However, we want to treat an empty pool filter as resulting in zero candidates.
-  // Therefore, we can skip the query and override the count results ourselves.
-  const hasPools = applicantFilterIncludesPools(filters);
-
-  // Fetches the number of pool candidates by pool to display on pool cards AND
-  // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
-  const [{ data, fetching }] =
-    useCountApplicantsAndCountPoolCandidatesByPoolQuery({
-      variables: queryArgs,
-      pause: !hasPools, // If filter does not include pools, we wil manually return 0 count.
-    });
 
   return {
     fetching,
-    candidateCount:
-      hasPools && data?.countApplicants !== undefined
-        ? data.countApplicants
-        : 0,
+    candidateCount,
     results: hasPools ? data?.countPoolCandidatesByPool : [],
   };
 };

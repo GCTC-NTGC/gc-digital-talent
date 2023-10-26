@@ -3,7 +3,7 @@ import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
@@ -11,7 +11,6 @@ import {
   getLocalizedName,
   getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Pool, useAllPoolsQuery } from "~/api/generated";

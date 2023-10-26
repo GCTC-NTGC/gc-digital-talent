@@ -11,18 +11,12 @@ import {
   useGetSearchFormDataAcrossAllPoolsQuery,
 } from "@gc-digital-talent/graphql";
 import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
-import {
-  getAvailableClassifications,
-  classificationToKey,
-  mapObjectsByKey,
-  formValuesToData,
-} from "../utils";
+import { getAvailableClassifications, formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -44,11 +38,7 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { formValues: defaultValues, filters: initialFilters } =
-    useInitialFilters(pools);
-  const classificationMap = React.useMemo(() => {
-    return mapObjectsByKey(classificationToKey, classifications);
-  }, [classifications]);
+  const { defaultValues, initialFilters } = useInitialFilters(pools);
 
   const [applicantFilter, setApplicantFilter] =
     React.useState<ApplicantFilterInput>(initialFilters);
@@ -68,13 +58,13 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
       const newFilters = formValuesToData(
         newValues as FormValues,
         pools,
-        classificationMap,
+        classifications,
       );
       setApplicantFilter(newFilters);
     });
 
     return () => subscription.unsubscribe();
-  }, [classificationMap, pools, watch]);
+  }, [classifications, pools, watch]);
 
   const handleSubmit = (values: FormValues) => {
     const poolIds = values.pool ? [{ id: values.pool }] : [];
