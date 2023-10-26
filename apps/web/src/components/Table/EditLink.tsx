@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
 
@@ -21,6 +22,8 @@ function EditLink({
 }: EditLinkProps): React.ReactElement {
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
   return (
     <Link
       href={href}
@@ -33,6 +36,7 @@ function EditLink({
         },
         { label },
       )}
+      state={{ from: currentUrl }}
     >
       {intl.formatMessage(
         {
