@@ -6,8 +6,9 @@ import {
   useForm,
   useFormState,
 } from "react-hook-form";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Accordion, Heading, Separator } from "@gc-digital-talent/ui";
+import { Accordion, Button, Heading, Separator } from "@gc-digital-talent/ui";
 import { AssessmentStep, Pool, PoolStatus } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -24,7 +25,10 @@ import {
 } from "../constants";
 
 type FormValues = {
-  assessmentSteps?: Array<AssessmentStep>;
+  assessmentStepFieldArray?: Array<{
+    id: string | null;
+    assessmentStep: AssessmentStep;
+  }>;
 };
 
 const sectionTitle = defineMessage({
@@ -39,11 +43,15 @@ export interface OrganizeSectionProps {
 
 const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const intl = useIntl();
-  const [newStepDialogIsOpen, setNewStepDialogIsOpen] =
-    React.useState<boolean>(false);
+  const addId = React.useId();
 
   const defaultValues = {
-    assessmentSteps: pool.assessmentSteps?.filter(notEmpty) ?? [],
+    assessmentStepFieldArray: (
+      pool.assessmentSteps?.filter(notEmpty) ?? []
+    ).map((assessmentStep) => ({
+      id: null, // filled by react-hook-form
+      assessmentStep,
+    })),
   };
 
   const methods = useForm<FormValues>({
@@ -53,7 +61,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const { handleSubmit, control } = methods;
   const { remove, move, fields } = useFieldArray({
     control,
-    name: "assessmentSteps",
+    name: "assessmentStepFieldArray",
   });
   const { isDirty } = useFormState({
     control,
@@ -165,23 +173,46 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             <Repeater.Root
               data-h2-margin-bottom="base(1rem)"
               showAdd={canAdd && !formDisabled}
-              onAdd={() => setNewStepDialogIsOpen(true)}
-              addText={intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Add a new assessment ({currentCount}/{maxCount})",
-                  id: "jwCFf7",
-                  description:
-                    "Button text to add a new assessment to the assessment plan",
-                },
-                {
-                  currentCount: fields.length,
-                  maxCount: ASSESSMENT_STEPS_MAX_STEPS,
-                },
-              )}
+              customButton={{
+                id: addId,
+                button: (
+                  <AssessmentDetailsDialog
+                    trigger={
+                      <Button
+                        id={addId}
+                        icon={PlusCircleIcon}
+                        type="button"
+                        mode="placeholder"
+                        block
+                        color="secondary"
+                      >
+                        {intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "Add a new assessment ({currentCount}/{maxCount})",
+                            id: "jwCFf7",
+                            description:
+                              "Button text to add a new assessment to the assessment plan",
+                          },
+                          {
+                            currentCount: fields.length,
+                            maxCount: ASSESSMENT_STEPS_MAX_STEPS,
+                          },
+                        )}
+                      </Button>
+                    }
+                    allPoolSkills={allPoolSkills}
+                    initialValues={{
+                      id: null,
+                      poolId: pool.id,
+                      sortOrder: fields.length + 1,
+                    }}
+                  />
+                ),
+              }}
             >
               <>
-                {fields.map((assessmentStep, index) => {
+                {fields.map(({ id, assessmentStep }, index) => {
                   const skillNames =
                     assessmentStep.poolSkills
                       ?.filter(notEmpty)
@@ -189,10 +220,13 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                         getLocalizedName(poolSkill?.skill?.name, intl),
                       ) ?? [];
                   skillNames.sort();
+                  const customEditButton: React.ReactNode = (
+                    <Button>Temporary Edit Button</Button>
+                  );
 
                   return (
                     <Repeater.Fieldset
-                      key={assessmentStep.id}
+                      key={id}
                       index={index}
                       total={fields.length}
                       onMove={move}
@@ -226,13 +260,20 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                         </p>
                       ) : null}
                       <AssessmentDetailsDialog
-                        isOpen={newStepDialogIsOpen}
-                        setIsOpen={setNewStepDialogIsOpen}
+                        trigger={customEditButton}
                         allPoolSkills={allPoolSkills}
                         initialValues={{
-                          id: null,
+                          id: assessmentStep.id,
                           poolId: pool.id,
-                          sortOrder: fields.length + 1,
+                          sortOrder: assessmentStep.sortOrder,
+                          typeOfAssessment: assessmentStep.type,
+                          assessmentTitleEn: assessmentStep?.title?.en,
+                          assessmentTitleFr: assessmentStep?.title?.fr,
+                          screeningQuestions: [],
+                          assessedSkills:
+                            assessmentStep?.poolSkills
+                              ?.map((poolSkill) => poolSkill?.id)
+                              ?.filter(notEmpty) ?? [],
                         }}
                       />
                     </Repeater.Fieldset>
@@ -338,17 +379,6 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
           </form>
         </FormProvider>
       </div>
-      {/* Dialog for adding new assessment steps, triggered by repeater button. */}
-      <AssessmentDetailsDialog
-        isOpen={newStepDialogIsOpen}
-        setIsOpen={setNewStepDialogIsOpen}
-        allPoolSkills={allPoolSkills}
-        initialValues={{
-          id: null,
-          poolId: pool.id,
-          sortOrder: fields.length + 1,
-        }}
-      />
     </>
   );
 };

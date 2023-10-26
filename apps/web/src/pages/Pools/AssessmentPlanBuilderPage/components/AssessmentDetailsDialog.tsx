@@ -25,6 +25,7 @@ import {
   PoolSkill,
   Scalars,
   useCreateAssessmentStepMutation,
+  useUpdateAssessmentStepMutation,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
@@ -59,20 +60,21 @@ interface AssessmentDetailsDialogProps {
   mode?: DialogMode;
   initialValues?: FormValues;
   allPoolSkills: PoolSkill[];
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  trigger?: React.ReactNode;
 }
 
 const AssessmentDetailsDialog = ({
   allPoolSkills,
   initialValues,
-  isOpen,
-  setIsOpen,
+  trigger,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const [{ fetching: createFetching }, executeCreateMutation] =
     useCreateAssessmentStepMutation();
+  const [{ fetching: updateFetching }, executeUpdateMutation] =
+    useUpdateAssessmentStepMutation();
 
   const methods = useForm<FormValues>({
     defaultValues: initialValues,
@@ -100,28 +102,10 @@ const AssessmentDetailsDialog = ({
     }
   }, [dialogMode, setValue]);
 
-  const submitForm = async (values: FormValues) => {
-    // can't do this validation in the repeater right now 😢
-    if (
-      values.typeOfAssessment ===
-        AssessmentStepType.ScreeningQuestionsAtApplication &&
-      !values.screeningQuestions?.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage:
-            "This assessment requires at least one question, please add it here.",
-          id: "lVb1hs",
-          description:
-            "description of 'screening questions' section of the 'assessment details' dialog",
-        }),
-      );
-      return;
-    }
-
-    await executeCreateMutation({
+  const submitCreateMutation = (values: FormValues): Promise<void> =>
+    executeCreateMutation({
       poolId: values.poolId,
-      step: {
+      assessmentStep: {
         type: values.typeOfAssessment,
         sortOrder: values.sortOrder,
         title: {
@@ -134,7 +118,47 @@ const AssessmentDetailsDialog = ({
       },
     })
       .then((res) => {
-        if (res.data) {
+        if (res?.data?.createAssessmentStep?.id) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Successfully saved assessment step!",
+              id: "W1vWDi",
+              description:
+                "Success message displayed after unlinking an experience to a skill",
+            }),
+          );
+          setIsOpen(false);
+          reset(); // the create dialog could be used several times in a row
+        }
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: saving assessment step failed.",
+            id: "DnXch4",
+            description:
+              "Message displayed to user after assessment step fails to be saved.",
+          }),
+        );
+      });
+
+  const submitUpdateMutation = (values: FormValues): Promise<void> =>
+    executeUpdateMutation({
+      id: values.id,
+      assessmentStep: {
+        type: values.typeOfAssessment,
+        sortOrder: values.sortOrder,
+        title: {
+          en: values.assessmentTitleEn,
+          fr: values.assessmentTitleFr,
+        },
+        poolSkills: {
+          sync: values.assessedSkills,
+        },
+      },
+    })
+      .then((res) => {
+        if (res?.data?.updateAssessmentStep?.id) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully saved assessment step!",
@@ -157,6 +181,31 @@ const AssessmentDetailsDialog = ({
           }),
         );
       });
+
+  const submitForm = async (values: FormValues) => {
+    // can't do this validation in the repeater right now 😢
+    if (
+      values.typeOfAssessment ===
+        AssessmentStepType.ScreeningQuestionsAtApplication &&
+      !values.screeningQuestions?.length
+    ) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage:
+            "This assessment requires at least one question, please add it here.",
+          id: "lVb1hs",
+          description:
+            "description of 'screening questions' section of the 'assessment details' dialog",
+        }),
+      );
+      return;
+    }
+
+    const submitPromise = values.id
+      ? submitUpdateMutation(values)
+      : submitCreateMutation(values);
+
+    await submitPromise;
   };
 
   const canAddScreeningQuestions =
@@ -175,6 +224,7 @@ const AssessmentDetailsDialog = ({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+      <Dialog.Trigger>{trigger}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
@@ -495,7 +545,7 @@ const AssessmentDetailsDialog = ({
               <Button
                 mode="inline"
                 color="warning"
-                // disabled={updating || creating}
+                disabled={updateFetching || createFetching}
               >
                 {intl.formatMessage(commonMessages.cancel)}
               </Button>
