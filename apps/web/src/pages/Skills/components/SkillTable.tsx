@@ -101,7 +101,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       caption={title}
       data={data}
       columns={columns}
-      hiddenColumnIds={["id"]}
+      hiddenColumnIds={["id", "keywords"]}
       pagination={{
         internal: true,
         total: data.length,
