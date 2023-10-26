@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link } from "react-router-dom";
 
 import { IconType } from "../../types";
 import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
+import Link from "../Link";
 
 interface StepLinkProps {
   children: React.ReactNode;
@@ -36,7 +36,8 @@ const StepLink = ({
   return (
     <Link
       aria-current={state === "active" ? "step" : undefined}
-      to={href}
+      href={href}
+      mode="text"
       {...(linkStyles || {})}
       {...rest}
     >
@@ -98,16 +99,16 @@ const Step = ({
             data-h2-transform="base(translate(-50%, 0))"
             data-h2-background="base(primary.light)"
             data-h2-radius="base(circle)"
-            data-h2-height="base(x1)"
-            data-h2-width="base(x1)"
+            data-h2-height="base(x1.15)"
+            data-h2-width="base(x1.15)"
           >
             {Icon && (
               <Icon
                 data-h2-position="base(absolute)"
                 data-h2-location="base(50%, auto, auto, 50%)"
                 data-h2-transform="base(translate(-50%, -50%))"
-                data-h2-height="base(x.75)"
-                data-h2-width="base(x.75)"
+                data-h2-height="base(x.65)"
+                data-h2-width="base(x.65)"
               />
             )}
           </span>
@@ -115,7 +116,7 @@ const Step = ({
         <span
           className="Step__Text"
           data-h2-display="base(inline-block)"
-          data-h2-margin-left="base(x.5)"
+          data-h2-margin-left="base(x.25)"
         >
           {message ? intl.formatMessage(message, { label }) : label}
         </span>

@@ -98,6 +98,7 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
       "data-h2-background-color": `
         base:children[.Step__Flair](error.light)
         base:focus-visible:children[.Step__Flair](focus)
+        base:children[.Step__Tail](gray.light)
       `,
       "data-h2-color": `
         base(black)
