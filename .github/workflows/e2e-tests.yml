@@ -54,7 +54,7 @@ jobs:
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh -c
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: npm
