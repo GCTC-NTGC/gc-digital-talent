@@ -1481,9 +1481,12 @@ type Mutation {
     @can(ability: "update", find: "id", injectArgs: true)
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
+    @can(ability: "updateSub", model: "User")
   updateUserRoles(
     updateUserRolesInput: UpdateUserRolesInput! @spread
-  ): UserAuthInfo @update(model: "User")
+  ): UserAuthInfo
+    @update(model: "User")
+    @can(ability: "updateRoles", model: "User")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
