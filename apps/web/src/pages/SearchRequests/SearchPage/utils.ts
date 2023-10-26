@@ -26,6 +26,76 @@ import {
 import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
+export const getAvailableClassifications = (
+  pools: Pool[],
+): Classification[] => {
+  const availableClassifications = pools
+    ?.flatMap((pool) => pool?.classifications)
+    .filter(notEmpty)
+    .reduce((currentClassifications, classification) => {
+      let newClassifications = [...currentClassifications];
+      const includesClassification = newClassifications.find(
+        (c) => c.id === classification.id,
+      );
+      if (!includesClassification) {
+        newClassifications = [...newClassifications, classification];
+      }
+
+      return newClassifications;
+    }, [] as Classification[]);
+
+  const ITClassifications = nonExecutiveITClassifications();
+
+  return availableClassifications.filter((classification) => {
+    return ITClassifications.some(
+      (x) =>
+        x?.group === classification?.group &&
+        x?.level === classification?.level,
+    );
+  });
+};
+
+export const getClassificationLabel = (
+  { group, level }: Classification,
+  labels: Record<string, MessageDescriptor>,
+  intl: IntlShape,
+) => {
+  const key = `${group}-0${level}`;
+  return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
+};
+
+/**
+ * Derive the currently selected classification
+ * from applicant filters and location state.
+ *
+ * As well as transforming it to a useable string.
+ *
+ * @param {ApplicantFilterInput} data
+ * @param {Maybe<SimpleClassification[]>} selectedClassifications
+ * @returns {string}
+ */
+const getCurrentClassification = (
+  data: ApplicantFilterInput,
+  selectedClassifications?: Maybe<SimpleClassification[]>,
+): string => {
+  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
+  const classification = selectedClassifications ?? classifications;
+
+  return classification ? formatClassificationString(classification[0]) : "";
+};
+
+export const durationSelectionToEnum = (
+  selection: string | null,
+): PositionDuration[] | null => {
+  if (selection && selection === EmploymentDuration.Term) {
+    return [PositionDuration.Temporary];
+  }
+  if (selection && selection === EmploymentDuration.Indeterminate) {
+    return [PositionDuration.Permanent];
+  }
+  return null;
+};
+
 /**
  * Massage the current filters into a shape
  * that will be accepted by the API.
@@ -161,74 +231,4 @@ export const formValuesToData = (
           )
       : [],
   };
-};
-
-export const getAvailableClassifications = (
-  pools: Pool[],
-): Classification[] => {
-  const availableClassifications = pools
-    ?.flatMap((pool) => pool?.classifications)
-    .filter(notEmpty)
-    .reduce((currentClassifications, classification) => {
-      let newClassifications = [...currentClassifications];
-      const includesClassification = newClassifications.find(
-        (c) => c.id === classification.id,
-      );
-      if (!includesClassification) {
-        newClassifications = [...newClassifications, classification];
-      }
-
-      return newClassifications;
-    }, [] as Classification[]);
-
-  const ITClassifications = nonExecutiveITClassifications();
-
-  return availableClassifications.filter((classification) => {
-    return ITClassifications.some(
-      (x) =>
-        x?.group === classification?.group &&
-        x?.level === classification?.level,
-    );
-  });
-};
-
-export const getClassificationLabel = (
-  { group, level }: Classification,
-  labels: Record<string, MessageDescriptor>,
-  intl: IntlShape,
-) => {
-  const key = `${group}-0${level}`;
-  return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
-};
-
-/**
- * Derive the currently selected classification
- * from applicant filters and location state.
- *
- * As well as transforming it to a useable string.
- *
- * @param {ApplicantFilterInput} data
- * @param {Maybe<SimpleClassification[]>} selectedClassifications
- * @returns {string}
- */
-const getCurrentClassification = (
-  data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<SimpleClassification[]>,
-): string => {
-  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
-  const classification = selectedClassifications ?? classifications;
-
-  return classification ? formatClassificationString(classification[0]) : "";
-};
-
-export const durationSelectionToEnum = (
-  selection: string | null,
-): PositionDuration[] | null => {
-  if (selection && selection === EmploymentDuration.Term) {
-    return [PositionDuration.Temporary];
-  }
-  if (selection && selection === EmploymentDuration.Indeterminate) {
-    return [PositionDuration.Permanent];
-  }
-  return null;
 };

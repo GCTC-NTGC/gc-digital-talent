@@ -6,7 +6,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 
-import SearchForm from "./components/SearchForm";
+import SearchFormContainer from "./components/SearchForm";
 
 const SearchPage = () => {
   const intl = useIntl();
@@ -58,7 +58,7 @@ const SearchPage = () => {
           </p>
         </div>
       </Hero>
-      <SearchForm />
+      <SearchFormContainer />
     </>
   );
 };
