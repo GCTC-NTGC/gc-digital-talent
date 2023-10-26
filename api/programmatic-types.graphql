@@ -299,6 +299,7 @@ enum EvaluatedLanguageAbility {
   C
   E
   P
+  NOT_ASSESSED
 }
 
 enum EstimatedLanguageAbility {
@@ -331,6 +332,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum PoolSkillType {
+  ESSENTIAL
+  NONESSENTIAL
 }
 
 enum PoolStream {
@@ -598,11 +604,21 @@ enum ContractCommodity {
   OTHER
 }
 
+enum ContractFteRange {
+  FROM_1_TO_5
+  FROM_6_TO_10
+  FROM_11_TO_30
+  FROM_31_TO_50
+  FROM_51_TO_100
+  GREATER_THAN_100
+}
+
 enum ContractInstrument {
   SUPPLY_ARRANGEMENT
   STANDING_OFFER
   CONTRACT
   AMENDMENT
+  OTHER
 }
 
 enum ContractSupplyMethod {
@@ -689,6 +705,19 @@ enum ContractingRationale {
   REQUIRES_INDEPENDENT
   INTELLECTUAL_PROPERTY_FACTORS
   OTHER
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  APPLICATION_SCREENING
+  ADDITIONAL_ASSESSMENT
 }
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."

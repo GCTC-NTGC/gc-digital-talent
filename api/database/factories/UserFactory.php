@@ -234,7 +234,7 @@ class UserFactory extends Factory
     /**
      * Attach the pool operator role to a user after creation.
      *
-     * @param  string  $team   Name of the team to attach the role to
+     * @param  string|array  $team   Name of the team or teams to attach the role to
      * @return $this
      */
     public function asPoolOperator(string|array $team)
@@ -247,6 +247,18 @@ class UserFactory extends Factory
             } else {
                 $user->addRole('pool_operator', $team);
             }
+        });
+    }
+
+    /**
+     * Attach the Community Manager role to a user after creation.
+     *
+     * @return $this
+     */
+    public function asCommunityManager()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->addRole('community_manager');
         });
     }
 

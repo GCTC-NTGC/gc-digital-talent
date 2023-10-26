@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
@@ -20,6 +19,7 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import {
@@ -126,7 +126,7 @@ type RouteParams = {
 
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
@@ -147,7 +147,7 @@ export const AssessmentPlanBuilderPage = () => {
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useGetAssessmentPlanBuilderDataQuery({
-      variables: { poolId: poolId || "" },
+      variables: { poolId },
     });
 
   const navigationCrumbs = [

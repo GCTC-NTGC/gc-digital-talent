@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useParams, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
 
 import {
@@ -29,12 +29,17 @@ import {
 import { ApplicationPageProps } from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
+import useApplicationId from "./useApplicationId";
+
+type RouteParams = {
+  experienceId: string;
+};
 
 const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { experienceId } = useParams();
+  const { experienceId } = useParams<RouteParams>();
   const steps = getApplicationSteps({
     intl,
     paths,
@@ -158,11 +163,11 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 };
 
 const ApplicationLayout = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [{ data, fetching, error, stale }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
-      id: applicationId || "",
+      id,
     },
   });
 

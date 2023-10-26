@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import {
@@ -34,6 +34,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillTree from "./components/SkillTree";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
+import useApplicationId from "../useApplicationId";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -337,7 +338,7 @@ export const ApplicationSkills = ({
 };
 
 const ApplicationSkillsPage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -346,7 +347,7 @@ const ApplicationSkillsPage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id,
     },
     requestPolicy: "cache-first",
   });

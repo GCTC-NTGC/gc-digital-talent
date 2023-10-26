@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
@@ -26,6 +25,7 @@ import {
   Skill,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
@@ -423,7 +423,7 @@ type RouteParams = {
 
 export const EditPoolPage = () => {
   const intl = useIntl();
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
@@ -443,7 +443,7 @@ export const EditPoolPage = () => {
   }
 
   const [{ data, fetching, error }] = useGetEditPoolDataQuery({
-    variables: { poolId: poolId || "" },
+    variables: { poolId },
   });
 
   const { isFetching, mutations } = usePoolMutations();

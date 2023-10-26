@@ -776,10 +776,6 @@
     "defaultMessage": "Visitez votre profil et la page de candidature",
     "description": "Link text to navigate to the profile and applications page"
   },
-  "276x9r": {
-    "defaultMessage": "{skillCount, plural, =0 {0 compétence mise en évidence} =1 {1 compétence mise en évidence} other {# compétences mises en évidence}}",
-    "description": "Number of skills attached to a specific experience"
-  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -1062,6 +1058,10 @@
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
+  },
+  "3yg5j7": {
+    "defaultMessage": "Notre premier processus exécutif (EX) pour un poste EX-03 sera publié sur la plateforme des talents numériques du GC en novembre 2023. Gardez l’œil ouvert pour une possibilité d’emploi où vous pourrez soumettre votre candidature pour devenir un leader du numérique au sein du gouvernement.",
+    "description": "Text describing upcoming executive opportunities instructing users to create a profile when anonymous"
   },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
@@ -2329,6 +2329,10 @@
   "B164SZ": {
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
+  },
+  "B29+yd": {
+    "defaultMessage": "Publication des bassins et gestion d'équipes",
+    "description": "Heading for Community Manager dashboard links"
   },
   "B6SS7l": {
     "defaultMessage": "Mise à jour réussie de l’amélioration des compétences comportementales",
@@ -4387,10 +4391,6 @@
   "NKr2Rg": {
     "defaultMessage": "Trouver des talents",
     "description": "Link text for find talent (search) page"
-  },
-  "NLX/aa": {
-    "defaultMessage": "Supprimer {label}",
-    "description": "Label for link to delete a specific item in a table"
   },
   "NNosUu": {
     "defaultMessage": "Explorer les emplois",
@@ -7120,6 +7120,10 @@
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
+  },
+  "dFCH1c": {
+    "defaultMessage": "Processus exécutif à venir sous peu",
+    "description": "Heading for the teaser of executive processes"
   },
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",

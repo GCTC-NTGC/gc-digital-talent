@@ -1,7 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 import uniqueId from "lodash/uniqueId";
 
@@ -42,6 +42,7 @@ import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
+import useApplicationId from "../useApplicationId";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -528,7 +529,7 @@ const ApplicationEducation = ({
 };
 
 const ApplicationEducationPage = () => {
-  const { applicationId } = useParams();
+  const id = useApplicationId();
   const [
     {
       data: applicationData,
@@ -538,7 +539,7 @@ const ApplicationEducationPage = () => {
     },
   ] = useGetApplicationQuery({
     variables: {
-      id: applicationId || "",
+      id,
     },
     requestPolicy: "cache-first",
   });

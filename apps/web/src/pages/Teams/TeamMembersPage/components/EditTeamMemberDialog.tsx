@@ -14,7 +14,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
-import { Role, Team, useUpdateUserAsAdminMutation } from "~/api/generated";
+import { Role, Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
@@ -33,14 +33,14 @@ const EditTeamMemberDialog = ({
   availableRoles,
 }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const [, executeMutation] = useUpdateUserTeamRolesMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
-      user: user.id,
+      userId: user.id,
       userDisplay: user.id,
-      team: team.id,
+      teamId: team.id,
       teamDisplay: team.id,
       roles: user.roles.map((role) => role.id),
     },
@@ -53,12 +53,12 @@ const EditTeamMemberDialog = ({
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
     await executeMutation({
-      id: formValues.user,
-      user: {
-        roleAssignmentsInput: {
-          sync: {
+      teamRoleAssignments: {
+        userId: formValues.userId,
+        teamId: formValues.teamId,
+        roleAssignments: {
+          attach: {
             roles: formValues.roles,
-            team: formValues.team,
           },
         },
       },
@@ -123,7 +123,7 @@ const EditTeamMemberDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               {/** Note: Only one option since we are editing this user */}
-              <input type="hidden" name="user" value={user.id} />
+              <input type="hidden" name="userId" value={user.id} />
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
@@ -150,7 +150,7 @@ const EditTeamMemberDialog = ({
                   ]}
                 />
                 {/** Note: Only one option since we are editing this team's users */}
-                <input type="hidden" name="team" value={team.id} />
+                <input type="hidden" name="teamId" value={team.id} />
                 <Select
                   id="teamDisplay"
                   name="teamDisplay"

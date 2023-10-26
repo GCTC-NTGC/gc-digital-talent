@@ -12,6 +12,7 @@ type Query {
   ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
   applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
+  userPublicProfiles: [UserPublicProfile]! @deprecated(reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -132,6 +133,7 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
@@ -1156,6 +1158,22 @@ input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
   sync: RolesInput
+}
+
+input RolesForTeamInput {
+  roles: [ID!]
+}
+
+input RolesForTeamHasMany {
+  attach: RolesForTeamInput
+  detach: RolesForTeamInput
+  sync: RolesForTeamInput
+}
+
+input UpdateUserTeamRolesInput {
+  teamId: ID!
+  userId: UUID!
+  roleAssignments: RolesForTeamHasMany!
 }
 
 input ScreeningResponseBelongsTo {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -21,6 +21,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -222,10 +223,11 @@ type RouteParams = {
 const UpdateClassification = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { classificationId } = useParams<RouteParams>();
+  const { classificationId } =
+    useRequiredParams<RouteParams>("classificationId");
   const [{ data: classificationData, fetching, error }] =
     useGetClassificationQuery({
-      variables: { id: classificationId || "" },
+      variables: { id: classificationId },
     });
 
   const [, executeMutation] = useUpdateClassificationMutation();
