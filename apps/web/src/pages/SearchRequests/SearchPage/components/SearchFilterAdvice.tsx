@@ -2,6 +2,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
 import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -35,16 +36,17 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     return null;
   }
 
+  const linkProps: LinkProps = {
+    color: "primary",
+    mode: "inline",
+  };
+
   const recommendations = [];
   if (operationalRequirementFilterCount > 0) {
     recommendations.push({
       key: "operationalRequirements",
       link: (
-        <a
-          href="#operationalRequirementFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="operationalRequirementFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage:
@@ -53,7 +55,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
             },
             { operationalRequirementFilterCount },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -62,17 +64,13 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "educationRequirementFilter",
       link: (
-        <a
-          href="#educationRequirementFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="educationRequirementFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Diploma required",
             description: "Diploma required",
             id: "w1/0Cd",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -81,17 +79,13 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "workingLanguageFilter",
       link: (
-        <a
-          href="#workingLanguageFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="workingLanguageFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Language ability",
             description: "Language ability",
             id: "mKzQwr",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -100,17 +94,13 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "employmentDurationFilter",
       link: (
-        <a
-          href="#employmentDurationFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="employmentDurationFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Employment duration",
             description: "Employment duration",
             id: "hRe0yl",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -119,11 +109,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "employmentEquityFilter",
       link: (
-        <a
-          href="#employmentEquityFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="employmentEquityFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Employment equity ({equityFiltersActive})",
@@ -132,7 +118,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
             },
             { equityFiltersActive },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -141,11 +127,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     recommendations.push({
       key: "skillFilter",
       link: (
-        <a
-          href="#skillFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="skillFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
@@ -154,7 +136,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
             },
             { skillCount },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }

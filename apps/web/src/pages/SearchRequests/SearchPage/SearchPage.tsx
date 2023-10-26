@@ -10,7 +10,7 @@ const SearchPage = () => {
   const intl = useIntl();
 
   return (
-    <div>
+    <>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Find talent",
@@ -53,7 +53,7 @@ const SearchPage = () => {
         </div>
       </Hero>
       <SearchForm />
-    </div>
+    </>
   );
 };
 
