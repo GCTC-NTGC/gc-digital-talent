@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -107,10 +107,13 @@ export const UpdateSkillForm = ({
   });
   const { handleSubmit } = methods;
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.skillTable(); // If location state includes a `from` parameter, navigate to that url on success.
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.skillTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill updated successfully!",
