@@ -74,8 +74,8 @@ class AssessmentResultTest extends TestCase
     protected $updateAssessmentResult =
     /** @lang GraphQL */
     '
-        mutation updateAssessmentResult($id: UUID!, $updateAssessmentResult: UpdateAssessmentResultInput!){
-            updateAssessmentResult(id: $id, updateAssessmentResult: $updateAssessmentResult) {
+        mutation updateAssessmentResult($updateAssessmentResult: UpdateAssessmentResultInput!){
+            updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
                 id
                 assessmentResultType
                 assessmentDecision
@@ -190,8 +190,8 @@ class AssessmentResultTest extends TestCase
             ->graphQL(
                 $this->updateAssessmentResult,
                 [
-                    'id' => $assessmentResult->id,
                     'updateAssessmentResult' => [
+                        'id' => $assessmentResult->id,
                         'assessmentResultType' => AssessmentResultType::EDUCATION->name,
                         'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
                         'justifications' => [AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name],
@@ -346,8 +346,8 @@ class AssessmentResultTest extends TestCase
             ->graphQL(
                 $this->updateAssessmentResult,
                 [
-                    'id' => $assessmentResult->id,
                     'updateAssessmentResult' => [
+                        'id' => $assessmentResult->id,
                         'justifications' => [AssessmentResultJustification::EDUCATION_ACCEPTED_INFORMATION->name],
                     ],
                 ]
@@ -359,8 +359,8 @@ class AssessmentResultTest extends TestCase
             ->graphQL(
                 $this->updateAssessmentResult,
                 [
-                    'id' => $assessmentResult->id,
                     'updateAssessmentResult' => [
+                        'id' => $assessmentResult->id,
                         'assessmentResultType' => AssessmentResultType::SKILL->name,
                         'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
                         'skillDecisionNotes' => 'Notes',
@@ -374,8 +374,8 @@ class AssessmentResultTest extends TestCase
             ->graphQL(
                 $this->updateAssessmentResult,
                 [
-                    'id' => $assessmentResult->id,
                     'updateAssessmentResult' => [
+                        'id' => $assessmentResult->id,
                         'assessmentResultType' => AssessmentResultType::SKILL->name,
                         'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
                         'skillDecisionLevel' => SkillDecisionLevel::AT_REQUIRED->name,

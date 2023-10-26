@@ -143,7 +143,7 @@ type Mutation {
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
-  updateAssessmentResult(id: UUID!, updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
+  updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
@@ -1176,6 +1176,7 @@ input CreateAssessmentResultInput {
 }
 
 input UpdateAssessmentResultInput {
+  id: UUID!
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]

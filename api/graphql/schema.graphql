@@ -1415,7 +1415,11 @@ input CreateAssessmentResultInput
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
-input UpdateAssessmentResultInput {
+input UpdateAssessmentResultInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\UpdateAssessmentResultInputValidator"
+  ) {
+  id: UUID!
   assessmentResultType: AssessmentResultType
     @rename(attribute: "assessment_result_type")
   assessmentDecision: AssessmentDecision
@@ -1778,15 +1782,8 @@ type Mutation {
     createAssessmentResult: CreateAssessmentResultInput! @spread
   ): AssessmentResult @create @guard @can(ability: "create", injectArgs: true)
   updateAssessmentResult(
-    id: UUID!
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult
-    @validator(
-      class: "App\\GraphQL\\Validators\\UpdateAssessmentResultValidator"
-    )
-    @update
-    @guard
-    @can(ability: "update", find: "id")
+  ): AssessmentResult @update @guard @can(ability: "update", find: "id")
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")

@@ -9,7 +9,7 @@ use App\Rules\AssessmentResultJustificationsConsistent;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateAssessmentResultValidator extends Validator
+final class UpdateAssessmentResultInputValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -19,30 +19,27 @@ final class UpdateAssessmentResultValidator extends Validator
     public function rules(): array
     {
         $assessmentResultModel = AssessmentResult::find($this->arg('id')); // cannot access in constructor
-        $assessmentResultInput = $this->arg('updateAssessmentResult');
 
         // new arguments take priority, otherwise fallback to model value
-        $assessmentDecision = array_key_exists('assessmentDecision', $assessmentResultInput) ?
-            $assessmentResultInput['assessmentDecision'] : $assessmentResultModel->assessment_decision;
-        $assessmentResultType = array_key_exists('assessmentResultType', $assessmentResultInput) ?
-            $assessmentResultInput['assessmentResultType'] : $assessmentResultModel->assessment_result_type;
+        $assessmentDecision = $this->arg('assessmentDecision') ?? $assessmentResultModel->assessment_decision;
+        $assessmentResultType = $this->arg('assessmentResultType') ?? $assessmentResultModel->assessment_result_type;
 
         return [
-            'updateAssessmentResult.justifications' => [
+            'justifications' => [
                 new AssessmentResultJustificationsConsistent($assessmentResultType),
             ],
-            'updateAssessmentResult.otherJustificationNotes' => [
+            'otherJustificationNotes' => [
                 Rule::prohibitedIf(
                     $assessmentDecision !== AssessmentDecision::UNSUCCESSFUL->name
                 ),
             ],
-            'updateAssessmentResult.skillDecisionNotes' => [
+            'skillDecisionNotes' => [
                 Rule::prohibitedIf(
                     $assessmentResultType !== AssessmentResultType::SKILL->name ||
                     $assessmentDecision !== AssessmentDecision::SUCCESSFUL->name
                 ),
             ],
-            'updateAssessmentResult.skillDecisionLevel' => [
+            'skillDecisionLevel' => [
                 Rule::prohibitedIf(
                     (
                         $assessmentResultType !== null &&
@@ -63,9 +60,9 @@ final class UpdateAssessmentResultValidator extends Validator
     public function messages(): array
     {
         return [
-            'updateAssessmentResult.otherJustificationNotes.prohibited' => 'CannotSetJustificationNotesForThisDecision',
-            'updateAssessmentResult.skillDecisionNotes.prohibited' => 'CannotSetSkillDecisionNotesForThisTypeOrDecision',
-            'updateAssessmentResult.skillDecisionLevel.prohibited' => 'CannotSetSkillDecisionLevelForThisTypeOrDecision',
+            'otherJustificationNotes.prohibited' => 'CannotSetJustificationNotesForThisDecision',
+            'skillDecisionNotes.prohibited' => 'CannotSetSkillDecisionNotesForThisTypeOrDecision',
+            'skillDecisionLevel.prohibited' => 'CannotSetSkillDecisionLevelForThisTypeOrDecision',
         ];
     }
 }
