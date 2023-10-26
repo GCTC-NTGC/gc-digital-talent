@@ -68,3 +68,10 @@ mutation createAssessmentStep(
     id
   }
 }
+
+# delete an existing assessment step
+mutation deleteAssessmentStep($id: UUID!) {
+  deleteAssessmentStep(id: $id) {
+    id
+  }
+}

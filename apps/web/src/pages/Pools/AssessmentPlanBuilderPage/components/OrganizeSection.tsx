@@ -8,8 +8,15 @@ import {
 } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
+import { toast } from "@gc-digital-talent/toast";
 import { Accordion, Button, Heading, Separator } from "@gc-digital-talent/ui";
-import { AssessmentStep, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStep,
+  Pool,
+  PoolStatus,
+  useDeleteAssessmentStepMutation,
+  useUpdateAssessmentStepMutation,
+} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Repeater, Submit } from "@gc-digital-talent/forms";
@@ -45,10 +52,21 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const intl = useIntl();
   const addId = React.useId();
 
+  const [{ fetching: deleteFetching }, executeDeleteMutation] =
+    useDeleteAssessmentStepMutation();
+  const [{ fetching: updateFetching }, executeUpdateMutation] =
+    useUpdateAssessmentStepMutation();
+
+  const initialAssessmentSteps = pool.assessmentSteps?.filter(notEmpty) ?? [];
+  initialAssessmentSteps.sort((a, b) =>
+    (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+    (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
+      ? 1
+      : -1,
+  );
+
   const defaultValues = {
-    assessmentStepFieldArray: (
-      pool.assessmentSteps?.filter(notEmpty) ?? []
-    ).map((assessmentStep) => ({
+    assessmentStepFieldArray: initialAssessmentSteps.map((assessmentStep) => ({
       id: null, // filled by react-hook-form
       assessmentStep,
     })),
@@ -67,8 +85,78 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
     control,
   });
 
-  const handleSave = (formValues: FormValues) => {
-    console.debug(formValues);
+  const handleSave = () => {
+    const oldStepIds = initialAssessmentSteps.map((step) => step.id);
+    const newStepIds = fields.map((field) => field.assessmentStep.id);
+    const deletes = oldStepIds.filter((oldId) => !newStepIds.includes(oldId));
+
+    const deletePromises = deletes.map((id) =>
+      executeDeleteMutation({ id }).then((res) => {
+        if (res.data?.deleteAssessmentStep?.id) {
+          return Promise.resolve();
+        }
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: deleting assessment step failed.",
+            id: "/+8dEd",
+            description:
+              "Message displayed to user after assessment step fails to be deleted.",
+          }),
+        );
+        return Promise.reject();
+      }),
+    );
+
+    const moves = fields
+      .map((field, index) => ({
+        id: field.assessmentStep.id,
+        oldSpot: field.assessmentStep.sortOrder,
+        newSpot: index + 1,
+      }))
+      .filter((item) => item.oldSpot !== item.newSpot);
+
+    const updatePromises = moves.map((item) =>
+      executeUpdateMutation({
+        id: item.id,
+        assessmentStep: {
+          sortOrder: item.newSpot,
+        },
+      }).then((res) => {
+        if (res.data?.updateAssessmentStep?.id) {
+          return Promise.resolve();
+        }
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: saving assessment step failed.",
+            id: "DnXch4",
+            description:
+              "Message displayed to user after assessment step fails to be saved.",
+          }),
+        );
+        return Promise.reject();
+      }),
+    );
+
+    Promise.all([...deletePromises, ...updatePromises])
+      .then(() =>
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully saved assessment steps!",
+            id: "dGgEAz",
+            description: "Success message displayed after all steps were saved",
+          }),
+        ),
+      )
+      .catch(() =>
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Not all assessment steps changes saved.",
+            id: "cNeFmG",
+            description:
+              "Error message displayed after all some steps were not changed",
+          }),
+        ),
+      );
   };
 
   // disabled unless status is draft
@@ -373,7 +461,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                 })}
                 color="secondary"
                 mode="solid"
-                // isSubmitting={isSubmitting}
+                isSubmitting={updateFetching || deleteFetching}
               />
             )}
           </form>

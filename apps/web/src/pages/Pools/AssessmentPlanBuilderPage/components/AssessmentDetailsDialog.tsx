@@ -533,7 +533,7 @@ const AssessmentDetailsDialog = ({
             <Button
               color="secondary"
               onClick={handleSubmit(submitForm)}
-              // disabled={updating || creating}
+              disabled={updateFetching || createFetching}
             >
               {intl.formatMessage({
                 defaultMessage: "Save assessment details",
