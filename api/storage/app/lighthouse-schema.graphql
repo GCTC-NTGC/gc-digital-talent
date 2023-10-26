@@ -782,7 +782,7 @@ input UpdateUserSubInput {
 }
 
 input UpdateUserRolesInput {
-  id: UUID!
+  userId: UUID!
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 

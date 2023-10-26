@@ -960,7 +960,7 @@ input UpdateUserSubInput {
 }
 
 input UpdateUserRolesInput {
-  id: UUID! @rename(attribute: "id")
+  userId: UUID! @rename(attribute: "id")
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
