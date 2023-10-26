@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
 
@@ -12,15 +13,20 @@ interface EditLinkProps {
   editUrlRoot: string;
   /** Label for link text  */
   label?: Maybe<string>;
+  /** Visible text for the string, if you want to override default. */
+  text?: Maybe<string>;
 }
 
 function EditLink({
   id,
   editUrlRoot,
   label,
+  text,
 }: EditLinkProps): React.ReactElement {
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`; // Passing the current url, including search params, allows the next page to return to current table state.
   return (
     <Link
       href={href}
@@ -33,15 +39,17 @@ function EditLink({
         },
         { label },
       )}
+      state={{ from: currentUrl }}
     >
-      {intl.formatMessage(
-        {
-          defaultMessage: "Edit<hidden> {label}</hidden>",
-          id: "i9ND/M",
-          description: "Title displayed for the Edit column.",
-        },
-        { label },
-      )}
+      {text ??
+        intl.formatMessage(
+          {
+            defaultMessage: "Edit<hidden> {label}</hidden>",
+            id: "i9ND/M",
+            description: "Title displayed for the Edit column.",
+          },
+          { label },
+        )}
     </Link>
   );
 }

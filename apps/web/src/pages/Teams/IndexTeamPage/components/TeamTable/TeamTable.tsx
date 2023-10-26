@@ -14,6 +14,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -57,6 +58,7 @@ export const TeamTable = ({
     }),
     columnHelper.accessor((team) => getLocalizedName(team.displayName, intl), {
       id: "teamName",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Team",
         id: "KIWVbp",
@@ -72,6 +74,7 @@ export const TeamTable = ({
       (team) => myRolesAccessor(team.id, myRolesAndTeams, intl),
       {
         id: "myRoles",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "My Roles",
           id: "+agJAH",
@@ -84,6 +87,7 @@ export const TeamTable = ({
     ),
     columnHelper.accessor((team) => departmentAccessor(team, intl), {
       id: "departments",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Department",
         id: "BDo1aH",

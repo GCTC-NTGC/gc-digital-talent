@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import { useLocation } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
 
@@ -15,7 +16,8 @@ export interface ActionsProps {
 const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
   const intl = useIntl();
   const editPath = editPathFunc(id);
-
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`; // Passing the current url, including search params, allows the next page to return to current table state.
   return (
     <Link
       href={editPath}
@@ -30,6 +32,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
         },
         { label },
       )}
+      state={{ from: currentUrl }}
     >
       <PencilIcon
         data-h2-display="base(block)"

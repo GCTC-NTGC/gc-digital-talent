@@ -660,7 +660,7 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
-    @can(ability: "viewAny")
+    @can(ability: "view", resolved: true)
   applicant(id: UUID! @eq): User
     @find(model: "User")
     @guard

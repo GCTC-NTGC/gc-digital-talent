@@ -14,6 +14,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -41,6 +42,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       meta: {
         isRowTitle: true,
       },
+      sortingFn: normalizedText,
       enableHiding: false,
       cell: ({ row: { original: candidate }, getValue }) =>
         cells.view(paths.poolView(candidate.pool.id), getValue()),
@@ -100,6 +102,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       {
         id: "application",
         enableHiding: false,
+        sortingFn: normalizedText,
         cell: ({ row: { original: candidate }, getValue }) =>
           cells.view(
             paths.poolCandidateApplication(candidate.id),
