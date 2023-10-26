@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
+import CloudIcon from "@heroicons/react/20/solid/CloudIcon";
 import HomeIconOutline from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/20/solid/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/20/solid/BuildingOffice2Icon";
 import TicketIcon from "@heroicons/react/20/solid/TicketIcon";
-import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
+import IdentificationIcon from "@heroicons/react/20/solid/IdentificationIcon";
 import UserIcon from "@heroicons/react/20/solid/UserIcon";
 import Squares2X2Icon from "@heroicons/react/20/solid/Squares2X2Icon";
 import PuzzlePieceIcon from "@heroicons/react/20/solid/PuzzlePieceIcon";
@@ -113,6 +114,16 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 icon: Squares2X2Icon,
               },
               {
+                label: intl.formatMessage(adminMessages.poolsCandidates),
+                href: adminRoutes.poolCandidates(),
+                icon: IdentificationIcon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.users),
+                href: adminRoutes.userTable(),
+                icon: UserIcon,
+              },
+              {
                 label: intl.formatMessage({
                   defaultMessage: "My Teams",
                   id: "N3uD4m",
@@ -136,6 +147,16 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 label: intl.formatMessage(adminMessages.requests),
                 href: adminRoutes.searchRequestTable(),
                 icon: TicketIcon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.poolsCandidates),
+                href: adminRoutes.poolCandidates(),
+                icon: IdentificationIcon,
+              },
+              {
+                label: intl.formatMessage(adminMessages.users),
+                href: adminRoutes.userTable(),
+                icon: UserIcon,
               },
             ]}
           />
@@ -196,7 +217,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               {
                 label: intl.formatMessage(adminMessages.skillFamilies),
                 href: adminRoutes.skillFamilyTable(),
-                icon: UserGroupIcon,
+                icon: CloudIcon,
               },
               {
                 label: intl.formatMessage({

@@ -482,6 +482,14 @@ const UpdateClassificationPage = React.lazy(() =>
 );
 
 /** Pool Candidates */
+const AllPoolCandidatesPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAllPoolCandidatesPage" */ "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+      ),
+  ),
+);
 const IndexPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1235,7 +1243,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
@@ -1544,10 +1556,29 @@ const createRoute = (
               ],
             },
             {
+              path: "pool-candidates",
+              element: (
+                <RequireAuth
+                  roles={[
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
+                  ]}
+                  loginPath={loginPath}
+                >
+                  <AllPoolCandidatesPage />
+                </RequireAuth>
+              ),
+            },
+            {
               path: "candidates/:poolCandidateId/application",
               element: (
                 <RequireAuth
-                  roles={[ROLE_NAME.PoolOperator]}
+                  roles={[
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
+                  ]}
                   loginPath={loginPath}
                 >
                   <ViewPoolCandidatePage />

@@ -16,11 +16,21 @@ export const isUUID = (str: string): boolean => {
   return !!str.match(uuidRegEx);
 };
 
-const assertParam = (
+/**
+ * Assert Param
+ *
+ * Ensures that a specific route parameter exists
+ * and, optionally check if it is a UUID.
+ *
+ * @param param
+ * @param enforceUUID
+ * @param logger
+ */
+function assertParam(
   param?: string,
   enforceUUID: boolean = true,
   logger: Logger = defaultLogger,
-) => {
+): asserts param is string | never {
   invariant(
     notEmpty(param),
     `Could not find required URL parameter "${param}"`,
@@ -34,46 +44,40 @@ const assertParam = (
       logger,
     );
   }
-};
+}
 
-type Keys<T, K extends keyof T> = K | Array<K>;
-
+/**
+ * Use Required Params
+ *
+ * Strict version of `useParams` that throws an error
+ * if they are undefined (will be caught by router error boundary)
+ *
+ * @param keys
+ * @param enforceUUID
+ */
 const useRequiredParams = <
-  T extends Record<
-    /**
-     * This is a way to self-reference the type to only allow string keys.
-     *
-     * Constrains keys of `T` to be the `P` alias which
-     * is constrained to type `string` and, a key of the passed in generic type.
-     *
-     * Right side could be `any` (we don't actually use this)
-     * but should be `string | undefined` to satisfy the type.
-     *
-     * The resulting type should be constrained to: `Record<keyof Record<string, string>, string>`
-     *
-     * We then use this in the `keys: Key<T, keyof T>` to constrain
-     * the argument to be a key of the generic record passed in.
-     */
-    keyof {
-      [P in keyof T as T[P] extends string ? P : never]: string | undefined;
-    },
-    string
-  >,
+  T extends Record<string, string>,
+  K extends keyof T = keyof T,
 >(
-  keys: Keys<T, keyof T>,
+  keys: K | Array<K>,
   enforceUUID: boolean = true,
-): Record<string, string> => {
+): Record<K, string> => {
   const logger = useLogger();
   const params: Params<string> = useParams<T>();
   const keyArray = Array.isArray(keys) ? keys : [keys];
+  let nonEmptyParams: Record<K, string> = {} as Record<K, string>;
 
-  let nonEmptyParams = {};
-  keyArray.forEach((key) => {
-    const param = params[String(key)];
+  nonEmptyParams = keyArray.reduce((reducedParams, key) => {
+    const param: string | undefined = params[String(key)];
+    let newParams = { ...reducedParams };
     assertParam(param, enforceUUID, logger);
 
-    nonEmptyParams = { ...nonEmptyParams, [key]: param ?? "" };
-  });
+    if (key) {
+      newParams = { ...newParams, [key]: param }; // param must be a string if assertParam didn't throw an error.
+    }
+
+    return newParams;
+  }, nonEmptyParams);
 
   return nonEmptyParams;
 };
