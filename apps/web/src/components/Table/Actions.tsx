@@ -17,7 +17,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
   const intl = useIntl();
   const editPath = editPathFunc(id);
   const { pathname, search, hash } = useLocation();
-  const currentUrl = `${pathname}${search}${hash}`;
+  const currentUrl = `${pathname}${search}${hash}`; // Passing the current url, including search params, allows the next page to return to current table state.
   return (
     <Link
       href={editPath}
