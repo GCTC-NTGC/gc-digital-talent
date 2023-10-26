@@ -7,7 +7,6 @@ import {
   useForm,
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 
 import {
   TableOfContents,
@@ -18,13 +17,11 @@ import {
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import { Repeater, Submit, unpackMaybes } from "@gc-digital-talent/forms";
 import {
-  formMessages,
   getBehaviouralSkillLevel,
   getLocalizedName,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { ActionButton } from "@gc-digital-talent/forms/src/components/Repeater/Repeater";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -290,38 +287,6 @@ const UpdateSkillShowcase = ({
                           total={fields.length}
                           onMove={move}
                           onRemove={remove}
-                          customEditButton={
-                            <SkillBrowserDialog
-                              initialState={{
-                                family: "library",
-                                skill: item.skill,
-                                skillLevel: item.skillLevel,
-                                whenSkillUsed: item.whenSkillUsed,
-                              }}
-                              inLibrary={userSkills.map(
-                                (userSkill) => userSkill.skill,
-                              )}
-                              customTrigger={
-                                <ActionButton
-                                  animate={false}
-                                  type="button"
-                                  aria-label={intl.formatMessage(
-                                    formMessages.repeaterEdit,
-                                    {
-                                      index: index + 1,
-                                    },
-                                  )}
-                                >
-                                  <PencilSquareIcon data-h2-width="base(x.75)" />
-                                </ActionButton>
-                              }
-                              context="library"
-                              skills={skills}
-                              onSave={handleSave}
-                              showCategory={false}
-                              noToast
-                            />
-                          }
                           legend={
                             <span
                               data-h2-display="base(flex)"
