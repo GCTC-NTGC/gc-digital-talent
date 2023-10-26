@@ -1,9 +1,12 @@
 import {
+  Scalars,
   ApplicantFilterInput,
   LanguageAbility,
   PoolStream,
   UserPoolFilterInput,
-} from "~/api/generated";
+  Classification,
+} from "@gc-digital-talent/graphql";
+
 import { SimpleClassification, SimplePool } from "~/types/pool";
 
 export const NullSelection = "NULL_SELECTION";
@@ -22,6 +25,9 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pools?: SimplePool[];
+  pool?: Scalars["ID"];
+  selectedClassifications?: Classification[];
+  count?: number;
 };
 
 export type LocationState = BrowserHistoryState | null;

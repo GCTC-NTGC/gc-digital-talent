@@ -1,6 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 import {
   Classification,
@@ -11,8 +12,10 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { FormValues } from "~/types/searchRequest";
+import useRoutes from "~/hooks/useRoutes";
 
 import {
   getAvailableClassifications,
@@ -24,6 +27,8 @@ import { useCandidateCount, useInitialFilters } from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
+import NoResults from "./NoResults";
+import SearchResultCard from "./SearchResultCard";
 
 const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
@@ -37,6 +42,8 @@ interface SearchFormProps {
 
 const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
   const intl = useIntl();
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const { formValues: defaultValues, filters: initialFilters } =
     useInitialFilters(pools);
   const classificationMap = React.useMemo(() => {
@@ -52,7 +59,7 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
   const methods = useForm<FormValues>({
     defaultValues,
     mode: "onSubmit",
-    reValidateMode: "onSubmit",
+    reValidateMode: "onBlur",
   });
   const { watch } = methods;
 
@@ -70,13 +77,30 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
   }, [classificationMap, pools, watch]);
 
   const handleSubmit = (values: FormValues) => {
-    console.log(values);
+    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    const selectedPool = pools.find((pool) => pool.id === values.pool);
+
+    navigate(paths.request(), {
+      state: {
+        applicantFilter: {
+          ...applicantFilter,
+          pools: poolIds,
+        },
+        candidateCount: values.count,
+        selectedClassifications: selectedPool
+          ? selectedPool.classifications?.filter(notEmpty)
+          : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+      },
+    });
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+    <div
+      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+      data-h2-margin-bottom="base(x3)"
+    >
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(5, 1fr))"
@@ -143,9 +167,26 @@ const SearchForm = ({ pools, classifications, skills }: SearchFormProps) => {
             )}
           </Heading>
           <SearchFilterAdvice filters={applicantFilter} />
-        </div>
-      </form>
-    </FormProvider>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
+            {results?.length && candidateCount > 0 ? (
+              results.map(({ pool, candidateCount: resultsCount }) => (
+                <SearchResultCard
+                  key={pool.id}
+                  candidateCount={resultsCount}
+                  pool={pool}
+                />
+              ))
+            ) : (
+              <NoResults />
+            )}
+          </div>
+        </form>
+      </FormProvider>
+    </div>
   );
 };
 

@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import { Button, Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pool } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { SimpleClassification } from "~/types/pool";
 import useRoutes from "~/hooks/useRoutes";
 
 const testId = (text: React.ReactNode) => (
@@ -15,36 +16,25 @@ const testId = (text: React.ReactNode) => (
 
 export interface SearchResultCardProps {
   candidateCount: number;
-  pool: Pick<
-    Pool,
-    "id" | "owner" | "name" | "classifications" | "team" | "essentialSkills"
-  >;
-  handleSubmit: (
-    candidateCount: number,
-    poolId: string,
-    selectedClassifications: SimpleClassification[],
-  ) => Promise<void>;
+  pool: Pool;
 }
 
-const SearchResultCard = ({
-  candidateCount,
-  pool,
-  handleSubmit,
-}: SearchResultCardProps) => {
+const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   const intl = useIntl();
-  const selectedClassifications =
-    pool.classifications as SimpleClassification[];
+  const { register, setValue } = useFormContext();
+  const poolSubmitProps = register("pool");
   const paths = useRoutes();
-  const team = pool?.team;
-  const departmentsArray =
-    team?.departments && team?.departments.length > 0
-      ? team.departments.map((department) =>
-          getLocalizedName(department?.name, intl),
-        )
-      : null;
+  const departments = pool?.team?.departments
+    ?.filter(notEmpty)
+    .map((department) => getLocalizedName(department.name, intl));
 
   return (
     <article
+      data-h2-background-color="base(foreground)"
+      data-h2-shadow="base(medium)"
+      data-h2-border-left="base(x.5 solid primary)"
+      data-h2-margin="base(x.5, 0, 0, 0)"
+      data-h2-radius="base(0, s, s, 0)"
       data-h2-padding="base(x1)"
       aria-labelledby={`search_pool_${pool.id}`}
     >
@@ -123,8 +113,8 @@ const SearchResultCard = ({
                   id: "S82O61",
                   description: "Default team for pool",
                 }),
-            departments: departmentsArray
-              ? departmentsArray.join(", ")
+            departments: departments
+              ? departments.join(", ")
               : intl.formatMessage({
                   defaultMessage: "Treasury Board of Canada Secretariat",
                   id: "SZ2DsZ",
@@ -135,9 +125,13 @@ const SearchResultCard = ({
       </p>
       <Button
         color="secondary"
-        onClick={() =>
-          handleSubmit(candidateCount, pool.id, selectedClassifications)
-        }
+        type="submit"
+        {...poolSubmitProps}
+        value={pool.id}
+        onClick={() => {
+          setValue("pool", pool.id);
+          setValue("count", candidateCount);
+        }}
       >
         {intl.formatMessage({
           defaultMessage: "Request candidates",

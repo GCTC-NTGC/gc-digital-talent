@@ -1,6 +1,5 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
 
@@ -15,17 +14,5 @@ export default meta;
 type Story = StoryObj<typeof SearchResultCard>;
 
 export const Default: Story = {
-  render: () => (
-    <SearchResultCard
-      candidateCount={2}
-      pool={fakePools()[0]}
-      handleSubmit={async (candidateCount, poolId, selectedClassifications) => {
-        action("handleSubmit")({
-          candidateCount,
-          poolId,
-          selectedClassifications,
-        });
-      }}
-    />
-  ),
+  render: () => <SearchResultCard candidateCount={2} pool={fakePools()[0]} />,
 };
