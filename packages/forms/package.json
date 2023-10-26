@@ -44,7 +44,7 @@
     "react-select": "^5.7.7"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.1.0",
+    "@faker-js/faker": "^8.2.0",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@storybook/addon-actions": "^7.5.1",

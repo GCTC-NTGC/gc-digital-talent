@@ -65,7 +65,7 @@
     "@babel/core": "^7.23.2",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-react": "^7.22.15",
-    "@faker-js/faker": "^8.1.0",
+    "@faker-js/faker": "^8.2.0",
     "@formatjs/cli": "^6.2.1",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/helpers": "*",
