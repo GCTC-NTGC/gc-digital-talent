@@ -64,7 +64,6 @@ class UserResource extends JsonResource
             'currentCity' => $this->current_city,
             'citizenship' => $this->citizenship,
             'armedForcesStatus' => $this->armed_forces_status,
-            'languageAbility' => $this->language_ability,
             'lookingForEnglish' => $this->looking_for_english,
             'lookingForFrench' => $this->looking_for_french,
             'lookingForBilingual' => $this->looking_for_bilingual,

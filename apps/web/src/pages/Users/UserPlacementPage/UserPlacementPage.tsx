@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router";
 import { OperationContext } from "urql";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
@@ -9,6 +8,7 @@ import { Scalars, useUserQuery } from "@gc-digital-talent/graphql";
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -25,9 +25,9 @@ type RouteParams = {
 const UserPlacementPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { userId } = useParams<RouteParams>();
+  const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data: userData /* , fetching, error */ }] = useUserQuery({
-    variables: { id: userId || "" },
+    variables: { id: userId },
     context,
   });
 

@@ -15,6 +15,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import { TeamAssignment, UpdateUserFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -71,6 +72,7 @@ const TeamRoleTable = ({
         getLocalizedName(teamAssignment.team.displayName, intl),
       {
         id: "team",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Team",
           id: "3IZ3mN",
@@ -105,9 +107,11 @@ const TeamRoleTable = ({
   ] as ColumnDef<TeamAssignment>[];
 
   const data = useMemo(() => {
-    const roleTeamPairs: RoleTeamPair[] = (user.roleAssignments ?? [])
+    const roleTeamPairs: RoleTeamPair[] = (
+      user?.authInfo?.roleAssignments ?? []
+    )
       .map((assignment) => {
-        if (assignment.team && assignment.role && assignment.role.isTeamBased)
+        if (assignment?.team && assignment.role && assignment.role.isTeamBased)
           return {
             role: assignment.role,
             team: assignment.team,
@@ -130,7 +134,7 @@ const TeamRoleTable = ({
         roles: teamGroupOfPairs.map((pair) => pair.role),
       };
     });
-  }, [user.roleAssignments]);
+  }, [user?.authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team based roles",

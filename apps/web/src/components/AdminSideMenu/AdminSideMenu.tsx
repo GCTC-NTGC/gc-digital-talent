@@ -1,12 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
 import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
@@ -44,6 +45,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       roles: [
         ROLE_NAME.PoolOperator,
         ROLE_NAME.RequestResponder,
+        ROLE_NAME.CommunityManager,
         ROLE_NAME.PlatformAdmin,
       ],
       text: intl.formatMessage({
@@ -56,14 +58,33 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       key: "pools",
       href: paths.poolTable(),
       icon: Squares2X2Icon,
-      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.CommunityManager,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.pools),
+    },
+    {
+      key: "pool-candidates",
+      href: paths.poolCandidates(),
+      icon: IdentificationIcon,
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ],
+      text: intl.formatMessage(adminMessages.poolsCandidates),
     },
     {
       key: "users",
       href: paths.userTable(),
       icon: UserIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.RequestResponder,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.users),
     },
     {
@@ -76,7 +97,7 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "classifications",
       href: paths.classificationTable(),
-      icon: TagIcon,
+      icon: PuzzlePieceIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.classifications),
     },
@@ -84,7 +105,11 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
       key: "teams",
       href: paths.teamTable(),
       icon: BuildingOffice2Icon,
-      roles: [ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin],
+      roles: [
+        ROLE_NAME.PoolOperator,
+        ROLE_NAME.CommunityManager,
+        ROLE_NAME.PlatformAdmin,
+      ],
       text: intl.formatMessage(adminMessages.teams),
     },
     {
@@ -97,14 +122,14 @@ const AdminSideMenu = ({ isOpen, onToggle }: AdminSideMenuProps) => {
     {
       key: "skill-families",
       href: paths.skillFamilyTable(),
-      icon: UserGroupIcon,
+      icon: CloudIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.skillFamilies),
     },
     {
       key: "skills",
       href: paths.skillTable(),
-      icon: AcademicCapIcon,
+      icon: BoltIcon,
       roles: [ROLE_NAME.PlatformAdmin],
       text: intl.formatMessage(adminMessages.skills),
     },

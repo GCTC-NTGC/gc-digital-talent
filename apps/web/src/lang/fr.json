@@ -776,10 +776,6 @@
     "defaultMessage": "Visitez votre profil et la page de candidature",
     "description": "Link text to navigate to the profile and applications page"
   },
-  "276x9r": {
-    "defaultMessage": "{skillCount, plural, =0 {0 compétence mise en évidence} =1 {1 compétence mise en évidence} other {# compétences mises en évidence}}",
-    "description": "Number of skills attached to a specific experience"
-  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -1062,6 +1058,10 @@
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
+  },
+  "3yg5j7": {
+    "defaultMessage": "Notre premier processus exécutif (EX) pour un poste EX-03 sera publié sur la plateforme des talents numériques du GC en novembre 2023. Gardez l’œil ouvert pour une possibilité d’emploi où vous pourrez soumettre votre candidature pour devenir un leader du numérique au sein du gouvernement.",
+    "description": "Text describing upcoming executive opportunities instructing users to create a profile when anonymous"
   },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
@@ -1666,10 +1666,6 @@
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
-  },
-  "7GHJGT": {
-    "defaultMessage": "Les modifications apportées aux questions filtres n’ont pas été enregistrées. N’oubliez pas de sauvegarder les modifications!",
-    "description": "Message displayed when items have been moved and not saved"
   },
   "7GRDML": {
     "defaultMessage": "Autochtone",
@@ -2333,6 +2329,10 @@
   "B164SZ": {
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
+  },
+  "B29+yd": {
+    "defaultMessage": "Publication des bassins et gestion d'équipes",
+    "description": "Heading for Community Manager dashboard links"
   },
   "B6SS7l": {
     "defaultMessage": "Mise à jour réussie de l’amélioration des compétences comportementales",
@@ -3981,6 +3981,10 @@
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
     "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
   },
+  "Kklz7F": {
+    "defaultMessage": "Vous avez atteint le nombre maximal ({maxItems}) de questions de présélection par offre d’emploi.",
+    "description": "Message displayed when a user adds the maximum number of questions"
+  },
   "KmqF8d": {
     "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
     "description": "Description for award section"
@@ -4387,10 +4391,6 @@
   "NKr2Rg": {
     "defaultMessage": "Trouver des talents",
     "description": "Link text for find talent (search) page"
-  },
-  "NLX/aa": {
-    "defaultMessage": "Supprimer {label}",
-    "description": "Label for link to delete a specific item in a table"
   },
   "NNosUu": {
     "defaultMessage": "Explorer les emplois",
@@ -5582,10 +5582,6 @@
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
-  },
-  "Un9x5Z": {
-    "defaultMessage": "Vous avez des modifications non enregistrées. N’oubliez pas d’enregistrer! ",
-    "description": "Message displayed when items have been moved and not saved"
   },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
@@ -6937,10 +6933,6 @@
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
   },
-  "cEalcz": {
-    "defaultMessage": "Vous n’avez pas encore ajouté aucun élément.",
-    "description": "Message that appears when there are no skills on showcase"
-  },
   "cErFoy": {
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
     "description": "Indigenous Apprenticeship woman smiling image text alternative"
@@ -7128,6 +7120,10 @@
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
+  },
+  "dFCH1c": {
+    "defaultMessage": "Processus exécutif à venir sous peu",
+    "description": "Heading for the teaser of executive processes"
   },
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
@@ -8789,10 +8785,6 @@
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
-  },
-  "mR8ccV": {
-    "defaultMessage": "Vous pouvez ajouter des éléments en utilisant le bouton \"Ajouter un nouvel élément\" fourni.",
-    "description": "Instructions on how to add a skill to showcase when there are none"
   },
   "mR9A3a": {
     "defaultMessage": "Contrat",

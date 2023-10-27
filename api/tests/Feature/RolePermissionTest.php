@@ -61,7 +61,7 @@ class RolePermissionTest extends TestCase
             'create-any-searchRequest',
             'view-any-team',
             'view-any-role',
-        ], true));
+        ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
 
@@ -223,6 +223,33 @@ class RolePermissionTest extends TestCase
             'delete-any-team',
             'assign-any-role',
         ], true));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Community Manager Role
+     *
+     * @return void
+     */
+    public function test_community_manager_role()
+    {
+        $communityManager = Role::where('name', 'community_manager')->sole();
+        $this->user->addRole($communityManager);
+
+        $permissionsToCheck = [
+            'view-any-userBasicInfo',
+            'view-any-pool',
+            'publish-any-pool',
+            'view-any-teamMembers',
+            'create-any-team',
+            'update-any-team',
+            'delete-any-team',
+            'assign-any-teamRole',
+        ];
+
+        $this->assertTrue($this->user->hasRole('community_manager'));
+        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
 
         $this->cleanup();
     }

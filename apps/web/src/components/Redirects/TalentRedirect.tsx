@@ -10,11 +10,11 @@ const TalentRedirect = () => {
   const paths = useRoutes();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
 
   React.useEffect(() => {
-    if (user) {
-      const { id } = user;
+    if (userAuthInfo) {
+      const { id } = userAuthInfo;
       let profilePath = paths.profile(id);
       if (pathname.includes("create-account")) {
         profilePath = paths.createAccount();
@@ -46,7 +46,7 @@ const TalentRedirect = () => {
       // This is an else so it doesn't fire too early
       navigate(paths.home(), { replace: true });
     }
-  }, [pathname, user, navigate, paths]);
+  }, [pathname, userAuthInfo, navigate, paths]);
 
   return <Loading />; // Show loading spinner while we process redirect
 };

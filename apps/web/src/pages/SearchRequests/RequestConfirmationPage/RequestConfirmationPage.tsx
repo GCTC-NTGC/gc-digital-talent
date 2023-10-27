@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Heading, ThrowNotFound, Button, Link } from "@gc-digital-talent/ui";
 
@@ -8,6 +7,7 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import { Scalars } from "~/api/generated";
 
 type RequestConfirmationParams = {
@@ -29,8 +29,8 @@ const mailLink = (chunks: React.ReactNode) => (
 const RequestConfirmationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const params = useParams<RequestConfirmationParams>();
-  const { requestId } = params;
+  const { requestId } =
+    useRequiredParams<RequestConfirmationParams>("requestId");
 
   const crumbs = useBreadcrumbs([
     {
@@ -47,7 +47,7 @@ const RequestConfirmationPage = () => {
         id: "0zo274",
         description: "Link text for request confirmation breadcrumb",
       }),
-      url: paths.requestConfirmation(requestId || ""),
+      url: paths.requestConfirmation(requestId),
     },
   ]);
 

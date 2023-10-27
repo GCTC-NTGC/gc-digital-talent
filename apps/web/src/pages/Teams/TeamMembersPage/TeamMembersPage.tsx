@@ -1,23 +1,25 @@
 import * as React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import SEO from "~/components/SEO/SEO";
 import {
-  useTeamMembersQuery,
   Role,
   Scalars,
   Team,
-  User,
-} from "@gc-digital-talent/graphql";
-
-import SEO from "~/components/SEO/SEO";
+  useAllUsersNamesQuery,
+  useGetTeamQuery,
+  useListRolesQuery,
+  UserPublicProfile,
+} from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -29,7 +31,7 @@ const columnHelper = createColumnHelper<TeamMember>();
 
 interface TeamMembersProps {
   members: Array<TeamMember>;
-  availableUsers: Array<User>;
+  availableUsers: Array<UserPublicProfile> | null;
   roles: Array<Role>;
   team: Team;
 }
@@ -141,65 +143,83 @@ type RouteParams = {
 const TeamMembersPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { teamId } = useParams<RouteParams>();
-  const [{ data, fetching, error }] = useTeamMembersQuery({
-    variables: { id: teamId || "" },
+  const { teamId } = useRequiredParams<RouteParams>("teamId");
+  const [{ data, fetching, error }] = useGetTeamQuery({
+    variables: { teamId },
   });
+  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
+    useListRolesQuery();
+  const [{ data: userData, error: userError }] = useAllUsersNamesQuery();
 
   const team = data?.team;
-  const roles = React.useMemo(() => {
-    return data?.roles.filter(notEmpty).filter((role) => role.isTeamBased);
-  }, [data?.roles]);
-  const users = React.useMemo(() => {
-    return groupRoleAssignmentsByUser(data?.team?.roleAssignments || []);
-  }, [data?.team?.roleAssignments]);
-  const availableUsers = data?.users
-    ?.filter(notEmpty)
-    .filter((user) => !users.find((teamUser) => teamUser.id === user?.id));
+  const roles = React.useMemo(
+    () =>
+      rolesData?.roles
+        ? rolesData.roles.filter(notEmpty).filter((role) => role.isTeamBased)
+        : [],
+    [rolesData?.roles],
+  );
+  const users = React.useMemo(
+    () => groupRoleAssignmentsByUser(data?.team?.roleAssignments || []),
+    [data?.team?.roleAssignments],
+  );
+  const availableUsers = React.useMemo(
+    () =>
+      userData?.userPublicProfiles
+        ?.filter(notEmpty)
+        .filter((user) => !users.find((teamUser) => teamUser.id === user?.id)),
+    [userData?.userPublicProfiles, users],
+  );
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.teams),
-      url: routes.teamTable(),
-    },
-    ...(teamId
-      ? [
-          {
-            label: getLocalizedName(data?.team?.displayName, intl),
-            url: routes.teamView(teamId),
-          },
-        ]
-      : []),
-    ...(teamId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Members",
-              id: "nfZQ89",
-              description: "Breadcrumb title for the team members page link.",
-            }),
-            url: routes.teamMembers(teamId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = React.useMemo(
+    () => [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Home",
+          id: "EBmWyo",
+          description: "Link text for the home link in breadcrumbs.",
+        }),
+        url: routes.adminDashboard(),
+      },
+      {
+        label: intl.formatMessage(adminMessages.teams),
+        url: routes.teamTable(),
+      },
+      ...(teamId
+        ? [
+            {
+              label: getLocalizedName(data?.team?.displayName, intl),
+              url: routes.teamView(teamId),
+            },
+          ]
+        : []),
+      ...(teamId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Members",
+                id: "nfZQ89",
+                description: "Breadcrumb title for the team members page link.",
+              }),
+              url: routes.teamMembers(teamId),
+            },
+          ]
+        : []),
+    ],
+    [data?.team?.displayName, intl, routes, teamId],
+  );
 
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={fetching} error={error}>
+      <Pending
+        fetching={fetching || rolesFetching}
+        error={error || rolesError || userError}
+      >
         {team && users ? (
           <TeamMembers
             members={users}
-            availableUsers={availableUsers || []}
-            roles={roles || []}
+            availableUsers={availableUsers || null}
+            roles={roles}
             team={team}
           />
         ) : (

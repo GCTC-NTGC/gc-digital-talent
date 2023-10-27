@@ -24,7 +24,6 @@ const defaultUser = {
   email: undefined,
   currentProvince: undefined,
   currentCity: undefined,
-  languageAbility: undefined,
   lookingForEnglish: undefined,
   lookingForFrench: undefined,
   lookingForBilingual: undefined,

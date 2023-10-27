@@ -54,7 +54,7 @@ const TrackApplicationsCard = ({
     : getStatusPillInfo(application.status, application.suspendedAt, intl);
 
   const applicationDateInfo = getApplicationDateInfo(application, intl);
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
   return (
     <div
@@ -159,7 +159,7 @@ const TrackApplicationsCard = ({
 
         <ApplicationActions.VisitCareerTimelineAction
           show={isApplicantQualified}
-          userID={user?.id ?? ""}
+          userID={userAuthInfo?.id ?? ""}
           application={application}
         />
         <ApplicationActions.SupportAction show application={application} />

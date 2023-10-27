@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -36,6 +36,7 @@ import {
   SkillCategory,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
@@ -107,10 +108,13 @@ export const UpdateSkillForm = ({
   });
   const { handleSubmit } = methods;
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.skillTable(); // If location state includes a `from` parameter, navigate to that url on success.
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateSkill(initialSkill.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.skillTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill updated successfully!",
@@ -303,7 +307,7 @@ type RouteParams = {
 export const UpdateSkill = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { skillId } = useParams<RouteParams>();
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
   const [{ data: lookupData, fetching, error }] = useGetUpdateSkillDataQuery({
     variables: { id: skillId || "" },
   });

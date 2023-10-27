@@ -21,6 +21,7 @@ const Footer = ({ width }: FooterProps) => {
         id: "AWiMVP",
         description: "Label for the support link in the Footer.",
       }),
+      state: { referrer: window.location.href },
     },
     {
       href: `/${intl.locale}/terms-and-conditions`,

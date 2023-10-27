@@ -53,9 +53,11 @@ class UserRoleTest extends TestCase
             '
             query user($id: UUID!) {
                 user(id: $id) {
-                  roleAssignments {
-                    role { name }
-                  }
+                    authInfo {
+                        roleAssignments {
+                            role { name }
+                        }
+                    }
                 }
               }
         ',
@@ -63,10 +65,12 @@ class UserRoleTest extends TestCase
         )->assertJson([
             'data' => [
                 'user' => [
-                    'roleAssignments' => [
-                        [
-                            'role' => [
-                                'name' => $role->name,
+                    'authInfo' => [
+                        'roleAssignments' => [
+                            [
+                                'role' => [
+                                    'name' => $role->name,
+                                ],
                             ],
                         ],
                     ],
@@ -174,10 +178,12 @@ class UserRoleTest extends TestCase
             '
             query user($id: UUID!) {
                 user(id: $id) {
-                  sub
-                  roleAssignments {
-                    team { id }
-                  }
+                  authInfo {
+                    sub
+                    roleAssignments {
+                        team { id }
+                    }
+                }
                 }
               }
         ',
@@ -203,9 +209,11 @@ class UserRoleTest extends TestCase
             '
             mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                 updateUserAsAdmin(id:$id, user:$user) {
-                  roleAssignments {
-                    role { id }
-                  }
+                    authInfo {
+                        roleAssignments {
+                            role { id }
+                        }
+                    }
                 }
               }
         ',
@@ -225,9 +233,11 @@ class UserRoleTest extends TestCase
         )->assertJson([
             'data' => [
                 'updateUserAsAdmin' => [
-                    'roleAssignments' => [
-                        [
-                            'role' => ['id' => $newRole->id],
+                    'authInfo' => [
+                        'roleAssignments' => [
+                            [
+                                'role' => ['id' => $newRole->id],
+                            ],
                         ],
                     ],
                 ],
@@ -249,12 +259,14 @@ class UserRoleTest extends TestCase
             '
                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                     updateUserAsAdmin(id:$id, user:$user) {
-                      roleAssignments {
-                        role { id }
-                        team { id }
-                      }
-                    }
+                        authInfo {
+                            roleAssignments {
+                                role { id }
+                                team { id }
+                            }
+                        }
                   }
+                }
             ',
             [
                 'id' => $user->id,
@@ -291,12 +303,14 @@ class UserRoleTest extends TestCase
             '
                  mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                      updateUserAsAdmin(id:$id, user:$user) {
-                       roleAssignments {
-                         role { id }
-                         team { id }
-                       }
-                     }
+                        authInfo {
+                            roleAssignments {
+                                role { id }
+                                team { id }
+                            }
+                        }
                    }
+                }
              ',
             [
                 'id' => $user->id,
@@ -327,12 +341,14 @@ class UserRoleTest extends TestCase
             '
                     mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                         updateUserAsAdmin(id:$id, user:$user) {
-                          roleAssignments {
-                            role { id }
-                            team { id }
-                          }
-                        }
+                            authInfo {
+                                roleAssignments {
+                                    role { id }
+                                    team { id }
+                                }
+                            }
                       }
+                    }
                 ',
             [
                 'id' => $user->id,
@@ -361,11 +377,13 @@ class UserRoleTest extends TestCase
             '
             query user($id: UUID!) {
                 user(id: $id) {
-                  roleAssignments {
-                    role { name }
-                  }
-                }
+                    authInfo {
+                        roleAssignments {
+                            role { name }
+                        }
+                    }
               }
+            }
             ',
             ['id' => $users[1]->id]
         )->assertJson([
@@ -434,12 +452,14 @@ class UserRoleTest extends TestCase
             '
                  mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                      updateUserAsAdmin(id:$id, user:$user) {
-                       roleAssignments {
-                         role { id }
-                         team { id }
-                       }
-                     }
+                        authInfo {
+                            roleAssignments {
+                                role { id }
+                                team { id }
+                            }
+                        }
                    }
+                }
              ',
             [
                 'id' => $otherUser->id,
@@ -472,12 +492,14 @@ class UserRoleTest extends TestCase
             '
                  mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
                      updateUserAsAdmin(id:$id, user:$user) {
-                       roleAssignments {
-                         role { id }
-                         team { id }
-                       }
-                     }
+                        authInfo {
+                            roleAssignments {
+                                role { id }
+                                team { id }
+                            }
+                        }
                    }
+                }
              ',
             [
                 'id' => $this->baseUser->id,

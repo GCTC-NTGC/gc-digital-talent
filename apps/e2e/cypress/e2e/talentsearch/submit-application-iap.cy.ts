@@ -110,7 +110,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     });
 
     cy.get<User>("@testUser").then((user) => {
-      cy.loginBySubject(user.sub);
+      cy.loginBySubject(user.authInfo.sub);
     });
     cy.visit("/en/indigenous-it-apprentice");
 

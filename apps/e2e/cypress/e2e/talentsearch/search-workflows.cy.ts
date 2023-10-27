@@ -127,7 +127,7 @@ describe("Talent Search Workflow Tests", () => {
 
     // use new test user to submit an application
     cy.get<User>("@testUser").then((testUser) => {
-      cy.loginBySubject(testUser.sub);
+      cy.loginBySubject(testUser.authInfo.sub);
       cy.getMe().then((testUser) => {
         cy.get<Pool>("@publishedTestPool1").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {

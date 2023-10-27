@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useParams } from "react-router-dom";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import { Pending, NotFound, Link, Heading, Pill } from "@gc-digital-talent/ui";
@@ -21,6 +20,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
@@ -73,7 +73,10 @@ export const ViewPool = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
-  const isAdmin = checkRole([ROLE_NAME.PlatformAdmin], roleAssignments);
+  const canPublish = checkRole(
+    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    roleAssignments,
+  );
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -341,7 +344,7 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
-              {!isAdmin && pool.status === PoolStatus.Draft && (
+              {!canPublish && pool.status === PoolStatus.Draft && (
                 <SubmitForPublishingDialog isReadyToPublish={pool.isComplete} />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
@@ -377,14 +380,13 @@ export const ViewPool = ({
                   onDelete={onDelete}
                 />
               )}
-              {pool.status === PoolStatus.Draft &&
-                checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-                  <PublishProcessDialog
-                    {...commonDialogProps}
-                    closingDate={pool.closingDate}
-                    onPublish={onPublish}
-                  />
-                )}
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                />
+              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>
@@ -400,10 +402,10 @@ type RouteParams = {
 const ViewPoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { poolId } = useParams<RouteParams>();
+  const { poolId } = useRequiredParams<RouteParams>("poolId");
   const { isFetching, mutations } = usePoolMutations();
   const [{ data, fetching, error }] = useGetProcessInfoQuery({
-    variables: { id: poolId || "" },
+    variables: { id: poolId },
   });
 
   const navigationCrumbs = [

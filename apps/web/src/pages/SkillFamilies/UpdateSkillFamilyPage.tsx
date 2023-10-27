@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -23,6 +23,7 @@ import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import {
   Skill,
   SkillFamily,
@@ -225,7 +226,7 @@ type RouteParams = {
 const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { skillFamilyId } = useParams<RouteParams>();
+  const { skillFamilyId } = useRequiredParams<RouteParams>("skillFamilyId");
   const [{ data: lookupData, fetching, error }] =
     useGetUpdateSkillFamilyDataQuery({
       variables: { id: skillFamilyId || "" },

@@ -32,7 +32,6 @@ import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
 import CommunityContent from "./CommunityContent";
 import EducationContent from "./EducationContent";
-import PersonalContent from "./PersonalContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 
@@ -67,7 +66,7 @@ const ExperienceCard = ({
   const intl = useIntl();
   const experienceLabels = getExperienceFormLabels(intl);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const { title, titleHtml, editPath, icon, typeMessage } =
+  const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const Icon = icon;
@@ -132,8 +131,10 @@ const ExperienceCard = ({
         data-h2-margin-bottom="base(x.5)"
       >
         <Heading
+          Icon={Icon}
           level={headingLevel}
           size="h6"
+          color="tertiary"
           data-h2-margin="base(0)"
           data-h2-font-weight="base(400)"
         >
@@ -146,34 +147,13 @@ const ExperienceCard = ({
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.5)"
         data-h2-margin="base(x1 0)"
+        data-h2-color="base(black.light)"
       >
-        <span
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x.25)"
-        >
-          <Icon
-            data-h2-color="base(tertiary)"
-            data-h2-height="base(1.2em)"
-            data-h2-width="base(1.2em)"
-          />
-          <span data-h2-color="base(tertiary.darker)">{typeMessage}</span>
-        </span>
-        {showSkills && (
+        <span>{typeMessage}</span>
+        {date && (
           <>
-            <span aria-hidden>•</span>
-            <span data-h2-color="base(black.light)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "{skillCount, plural, =0 {0 featured skills} =1 {1 featured skill} other {# featured skills}}",
-                  id: "276x9r",
-                  description:
-                    "Number of skills attached to a specific experience",
-                },
-                { skillCount },
-              )}
-            </span>
+            <span aria-hidden>&bull;</span>
+            <span>{date}</span>
           </>
         )}
       </p>
@@ -288,24 +268,21 @@ const ExperienceCard = ({
               headingLevel={contentHeadingLevel}
             />
           )}
-          {isPersonalExperience(experience) && (
-            <PersonalContent
-              experience={experience}
-              headingLevel={contentHeadingLevel}
-            />
-          )}
           {isWorkExperience(experience) && (
             <WorkContent
               experience={experience}
               headingLevel={contentHeadingLevel}
             />
           )}
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
+          {/** Personal type has no custom content so separator is redundant */}
+          {!isPersonalExperience(experience) && (
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base(gray.lighter)"
+              data-h2-margin="base(x1 0)"
+            />
+          )}
           <ContentSection
             title={experienceLabels.details}
             headingLevel={headingLevel}
