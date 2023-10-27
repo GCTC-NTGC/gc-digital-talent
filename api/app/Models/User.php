@@ -696,37 +696,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return null; // if indigenousCommunities is null then so is isIndigenous
     }
 
-    /* accessor to maintain functionality of to be deprecated languageAbility field, its logic comes from migration drop_language_ability*/
-    public function getLanguageAbilityAttribute($languageAbility = null)
-    {
-        // if the field exists, say for migration purposes, must stop accessor overriding
-        if ($languageAbility !== null) {
-            return $languageAbility;
-        }
-
-        $lookingForEnglish = $this->looking_for_english;
-        $lookingForFrench = $this->looking_for_french;
-        $lookingForBilingual = $this->looking_for_bilingual;
-
-        // only english case
-        if ($lookingForEnglish && ! $lookingForFrench && ! $lookingForBilingual) {
-            return LanguageAbility::ENGLISH->name;
-        }
-
-        // only french case
-        if (! $lookingForEnglish && $lookingForFrench && ! $lookingForBilingual) {
-            return LanguageAbility::FRENCH->name;
-        }
-
-        // bilingual case just depends on the one field being true
-        // or ignore the field if english and french are both true
-        if (($lookingForBilingual) || ($lookingForEnglish && $lookingForFrench)) {
-            return LanguageAbility::BILINGUAL->name;
-        }
-
-        // in all other cases the field stays null, so cases where all fields tested are false/null for instance
-    }
-
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
     private function callRolesFunction($rolesInput, $functionName)
     {

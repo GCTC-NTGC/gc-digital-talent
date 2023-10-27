@@ -18,7 +18,6 @@ query getProfile($userId: UUID!) {
     currentCity
     citizenship
     armedForcesStatus
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
