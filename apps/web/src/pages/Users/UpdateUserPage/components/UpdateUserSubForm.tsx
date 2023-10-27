@@ -2,12 +2,13 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Input } from "@gc-digital-talent/forms";
+import { Input, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   UpdateUserSubInput,
   UpdateUserSubMutation,
 } from "@gc-digital-talent/graphql";
+import { Heading } from "@gc-digital-talent/ui";
 
 import { User } from "~/api/generated";
 
@@ -40,10 +41,10 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
     }).then(() => {
       toast.success(
         intl.formatMessage({
-          defaultMessage: "Sub updated successfully",
-          id: "SqduJp",
+          defaultMessage: "Subject updated successfully!",
+          id: "GOCEuh",
           description:
-            "Message displayed to user when sub field has been updated.",
+            "Message displayed to user when subject field has been updated successfully.",
         }),
       );
     });
@@ -51,7 +52,13 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
 
   return (
     <section>
-      <p>SPACE</p>
+      <Heading level="h3" size="h4" data-h2-margin-bottom="base(x1)">
+        {intl.formatMessage({
+          defaultMessage: "Update subject",
+          id: "NuT+Rx",
+          description: "Heading label for update a user's subject form",
+        })}
+      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(handleUpdateSub)}
@@ -76,6 +83,9 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
                 "Additional context describing the purpose of the users's 'subject' field.",
             })}
           />
+          <div data-h2-align-self="base(flex-start)">
+            <Submit />
+          </div>
         </form>
       </FormProvider>
     </section>
