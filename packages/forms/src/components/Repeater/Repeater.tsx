@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
@@ -7,13 +7,14 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
-import { FieldError, FieldErrors, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
+import { flattenErrors } from "../../utils";
 
 /**
  * Generic button to apply styles to a
@@ -117,20 +118,13 @@ const Fieldset = ({
   const { announce } = useAnnouncer();
 
   const {
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useFormContext();
 
-  const fieldErrors = errors[name] as FieldErrors<{
-    [key: string]: FieldError;
-  }>;
-  const hasError = useMemo(() => {
-    if (fieldErrors && isDirty) {
-      return (
-        Object.keys(fieldErrors).includes(`${index}`) && fieldErrors[index]
-      );
-    }
-    return false;
-  }, [fieldErrors, index, isDirty]);
+  const fieldErrors = flattenErrors(errors);
+  const hasError = !!fieldErrors.find((fieldName) =>
+    fieldName.includes(`${name}.${index}`),
+  );
 
   // Non-zero index position of the fieldset for humans
   const position = index + 1;

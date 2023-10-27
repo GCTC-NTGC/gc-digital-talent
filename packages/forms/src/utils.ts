@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import Link from "@tiptap/extension-link";
 import StarterKit from "@tiptap/starter-kit";
+import { FieldErrors, FieldValues } from "react-hook-form";
 
 import {
   LocalizedString,
@@ -217,4 +218,51 @@ export function sanitizeString(original: string): string {
     str = str.replace(new RegExp(key, "g"), replacement);
   });
   return str;
+}
+
+/**
+ * Flatten Errors
+ *
+ * Recursively takes the the errors produced by `useFormState`
+ * and flattens them to an array of the field names.
+ *
+ * @param {FieldErrors<FieldValues> } errors - from form state
+ * @param {string} parent - The field name of an existing parent
+ * @returns {string[]}
+ */
+export function flattenErrors(
+  errors: FieldErrors<FieldValues>,
+  parent?: string,
+): string[] {
+  let errorNames: string[] = [];
+  const parentKey = parent ? `${parent}.` : "";
+  if (errors) {
+    Object.keys(errors).forEach((fieldName) => {
+      const fieldError = errors[fieldName];
+      if (fieldError) {
+        // This is a root of a field array, so add it to the key so we are aware later
+        if ("root" in fieldError) {
+          errorNames = [...errorNames, `${fieldName}.root`];
+        }
+        // If it is a field array, loop through, hoisting up field names
+        if (Array.isArray(fieldError)) {
+          fieldError.forEach((subFieldError, index) => {
+            errorNames = [
+              ...errorNames,
+              ...flattenErrors(
+                subFieldError,
+                `${parentKey}${fieldName}.${index}`,
+              ),
+            ];
+          });
+        }
+        // We have an error message so add it to the array (we don't want errors with no message)
+        if ("message" in fieldError) {
+          errorNames = [...errorNames, `${parentKey}${fieldName}`];
+        }
+      }
+    });
+  }
+
+  return errorNames;
 }

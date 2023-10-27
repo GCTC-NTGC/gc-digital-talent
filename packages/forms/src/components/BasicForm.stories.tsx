@@ -58,7 +58,7 @@ const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {
         fields.map((item, index) => (
           <Repeater.Fieldset
             key={item.id}
-            name="nestedFieldArray"
+            name={`fieldArray.${parentIndex}.nestedFieldArray`}
             index={index}
             total={fields.length}
             onMove={move}
