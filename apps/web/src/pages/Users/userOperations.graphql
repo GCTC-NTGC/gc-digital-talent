@@ -259,6 +259,15 @@ mutation UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
       role {
         id
         name
+        isTeamBased
+        displayName {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
         displayName {
           en
           fr
