@@ -10,7 +10,6 @@ import {
   Link,
 } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import type { FieldLabels } from "./BasicForm";
 import { flattenErrors } from "../utils";
@@ -18,10 +17,10 @@ import { flattenErrors } from "../utils";
 type FieldNameWithLabel = {
   label: React.ReactNode;
   name: string;
-  index?: number;
+  index?: string;
 };
 
-const numberRegex = /\d/g;
+const numberRegex = /(\d+)/g;
 
 /**
  * Get Field Label
@@ -37,7 +36,7 @@ const getFieldLabel = (
   labels: FieldLabels,
 ): FieldNameWithLabel | null => {
   let labelKey = name;
-  let index: undefined | number;
+  let index: undefined | string;
 
   // This is a root error for a field array
   if (name.includes(".root")) {
@@ -46,10 +45,9 @@ const getFieldLabel = (
     // If a number exists in the field name, replace it with an asterisk
     labelKey = name.replace(numberRegex, "*");
     // Get the number and assign it to the index so we can show it in the link
-    const indices = numberRegex.exec(name);
+    const indices = name.match(numberRegex);
     if (indices) {
-      const [nestedIndex] = indices;
-      index = Number(nestedIndex);
+      index = indices.map((i) => `(${Number(i) + 1})`).join(" ");
     }
   }
 
@@ -137,7 +135,6 @@ const ErrorSummary = React.forwardRef<
       <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
         {invalidFieldNames.map((field) => {
-          const fieldIndex = notEmpty(field.index) ? field.index + 1 : null;
           return (
             <li key={field.name}>
               <ScrollToLink
@@ -147,7 +144,7 @@ const ErrorSummary = React.forwardRef<
                 color="error"
               >
                 {field.label}
-                {fieldIndex ? ` (${fieldIndex})` : null}
+                {field.index ? ` ${field.index}` : null}
               </ScrollToLink>
               {intl.formatMessage(commonMessages.dividingColon)}
               <ErrorMessage name={field.name} />
