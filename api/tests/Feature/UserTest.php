@@ -2416,4 +2416,59 @@ class UserTest extends TestCase
             )
             ->assertGraphQLValidationError('user.indigenousCommunities', 'BothStatusNonStatus');
     }
+
+    public function testUserUpdatingSub(): void
+    {
+        $this->seed(RolePermissionSeeder::class);
+        $baseUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'base-user@test.com',
+                'sub' => 'base-user@test.com',
+            ]);
+        $adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'admin-user@test.com',
+                'sub' => 'admin-user@test.com',
+            ]);
+
+        $this->actingAs($baseUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
+                    updateUserSub(updateUserSubInput:$updateUserSubInput) {
+                        sub
+                    }
+                    }
+                ',
+            [
+                'updateUserSubInput' => [
+                    'userId' => $baseUser->id,
+                    'sub' => 'admin123',
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation updateUserSub($updateUserSubInput:UpdateUserSubInput!) {
+                    updateUserSub(updateUserSubInput:$updateUserSubInput) {
+                        sub
+                    }
+                    }
+                ',
+            [
+                'updateUserSubInput' => [
+                    'userId' => $baseUser->id,
+                    'sub' => 'admin123',
+                ],
+            ]
+        )->assertJsonFragment([
+            'sub' => 'admin123',
+        ]);
+    }
 }
