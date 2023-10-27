@@ -63,8 +63,8 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAbleTo('update-any-user')
-            || ($user->isAbleTo('update-own-user') && $user->id === $model->id);
+        return $user->isAbleTo('update-any-user') ||
+            ($user->isAbleTo('update-own-user') && $user->id === $model->id);
     }
 
     /**

@@ -65,7 +65,6 @@ query ApplicantInformation {
     currentCity
     citizenship
     armedForcesStatus
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
