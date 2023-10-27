@@ -357,11 +357,12 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                           typeOfAssessment: assessmentStep.type,
                           assessmentTitleEn: assessmentStep?.title?.en,
                           assessmentTitleFr: assessmentStep?.title?.fr,
-                          screeningQuestions: [],
                           assessedSkills:
                             assessmentStep?.poolSkills
                               ?.map((poolSkill) => poolSkill?.id)
                               ?.filter(notEmpty) ?? [],
+                          screeningQuestions:
+                            pool.screeningQuestions?.filter(notEmpty) ?? [],
                         }}
                       />
                     </Repeater.Fieldset>

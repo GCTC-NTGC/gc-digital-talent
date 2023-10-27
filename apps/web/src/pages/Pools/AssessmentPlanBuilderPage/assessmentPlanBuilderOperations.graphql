@@ -46,6 +46,14 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       }
     }
     status
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+      sortOrder
+    }
   }
 }
 

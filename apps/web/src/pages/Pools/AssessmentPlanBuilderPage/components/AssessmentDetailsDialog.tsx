@@ -20,12 +20,13 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
-  LocalizedString,
   Maybe,
   PoolSkill,
   Scalars,
+  ScreeningQuestion,
   useCreateAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
+  useUpdatePoolMutation,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
@@ -40,11 +41,6 @@ import {
 
 type DialogMode = "regular" | "screening_question";
 
-type ScreeningQuestionValue = {
-  id?: Scalars["ID"];
-  question: LocalizedString;
-};
-
 type FormValues = {
   id?: Maybe<Scalars["ID"]>;
   poolId?: Maybe<Scalars["ID"]>;
@@ -52,37 +48,80 @@ type FormValues = {
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
-  screeningQuestions?: Maybe<Array<ScreeningQuestionValue>>;
+  screeningQuestionFieldArray?: Array<{
+    id: string | null;
+    screeningQuestion: {
+      id?: Maybe<Scalars["ID"]>;
+      sortOrder?: Maybe<number>;
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+  }>;
   assessedSkills?: Maybe<Array<Scalars["ID"]>>;
 };
 
+type InitialValues = Omit<
+  FormValues,
+  "poolId" | "screeningQuestionFieldArray"
+> & {
+  poolId: NonNullable<FormValues["poolId"]>;
+  screeningQuestions?: Array<ScreeningQuestion>;
+};
+
 interface AssessmentDetailsDialogProps {
-  mode?: DialogMode;
-  initialValues?: FormValues;
+  initialValues: InitialValues;
   allPoolSkills: PoolSkill[];
   trigger?: React.ReactNode;
 }
 
 const AssessmentDetailsDialog = ({
-  allPoolSkills,
   initialValues,
+  allPoolSkills,
   trigger,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const [{ fetching: createFetching }, executeCreateMutation] =
-    useCreateAssessmentStepMutation();
-  const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdateAssessmentStepMutation();
+  const [
+    { fetching: createAssessmentStepFetching },
+    executeCreateAssessmentStepMutation,
+  ] = useCreateAssessmentStepMutation();
+  const [
+    { fetching: updateAssessmentStepFetching },
+    executeUpdateAssessmentStepMutation,
+  ] = useUpdateAssessmentStepMutation();
+  const [{ fetching: updatePoolFetching }, executeUpdatePoolMutation] =
+    useUpdatePoolMutation();
+
+  if (initialValues.screeningQuestions) {
+    initialValues.screeningQuestions.sort((a, b) =>
+      (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+      (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
+        ? 1
+        : -1,
+    );
+  }
 
   const methods = useForm<FormValues>({
-    defaultValues: initialValues,
+    defaultValues: {
+      ...initialValues,
+      screeningQuestionFieldArray: initialValues.screeningQuestions?.map(
+        (initialScreeningQuestion) => ({
+          id: null, // filled by react-hook-form
+          screeningQuestion: {
+            id: initialScreeningQuestion.id,
+            sortOrder: initialScreeningQuestion.sortOrder,
+            en: initialScreeningQuestion.question?.en,
+            fr: initialScreeningQuestion.question?.fr,
+          },
+        }),
+      ),
+    },
   });
   const { handleSubmit, control, watch, setValue, reset } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
-    name: "screeningQuestions",
+    name: "screeningQuestionFieldArray",
   });
 
   const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
@@ -94,7 +133,7 @@ const AssessmentDetailsDialog = ({
 
   React.useEffect(() => {
     if (dialogMode === "regular") {
-      setValue("screeningQuestions", []);
+      setValue("screeningQuestionFieldArray", []);
     }
     if (dialogMode === "screening_question") {
       setValue("assessmentTitleEn", null);
@@ -102,8 +141,10 @@ const AssessmentDetailsDialog = ({
     }
   }, [dialogMode, setValue]);
 
-  const submitCreateMutation = (values: FormValues): Promise<void> =>
-    executeCreateMutation({
+  const submitCreateAssessmentStepMutation = (
+    values: FormValues,
+  ): Promise<void> => {
+    const mutationParameters = {
       poolId: values.poolId,
       assessmentStep: {
         type: values.typeOfAssessment,
@@ -116,34 +157,21 @@ const AssessmentDetailsDialog = ({
           sync: values.assessedSkills,
         },
       },
-    })
-      .then((res) => {
-        if (res?.data?.createAssessmentStep?.id) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully saved assessment step!",
-              id: "W1vWDi",
-              description:
-                "Success message displayed after unlinking an experience to a skill",
-            }),
-          );
-          setIsOpen(false);
-          reset(); // the create dialog could be used several times in a row
+    };
+    return executeCreateAssessmentStepMutation(mutationParameters).then(
+      (result) => {
+        if (result?.data?.createAssessmentStep?.id) {
+          return Promise.resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: saving assessment step failed.",
-            id: "DnXch4",
-            description:
-              "Message displayed to user after assessment step fails to be saved.",
-          }),
-        );
-      });
+        return Promise.reject();
+      },
+    );
+  };
 
-  const submitUpdateMutation = (values: FormValues): Promise<void> =>
-    executeUpdateMutation({
+  const submitUpdateAssessmentStepMutation = (
+    values: FormValues,
+  ): Promise<void> => {
+    const mutationParameters = {
       id: values.id,
       assessmentStep: {
         type: values.typeOfAssessment,
@@ -156,38 +184,23 @@ const AssessmentDetailsDialog = ({
           sync: values.assessedSkills,
         },
       },
-    })
-      .then((res) => {
+    };
+    return executeUpdateAssessmentStepMutation(mutationParameters).then(
+      (res) => {
         if (res?.data?.updateAssessmentStep?.id) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully saved assessment step!",
-              id: "W1vWDi",
-              description:
-                "Success message displayed after unlinking an experience to a skill",
-            }),
-          );
-          setIsOpen(false);
-          reset();
+          return Promise.resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: saving assessment step failed.",
-            id: "DnXch4",
-            description:
-              "Message displayed to user after assessment step fails to be saved.",
-          }),
-        );
-      });
+        return Promise.reject();
+      },
+    );
+  };
 
   const submitForm = async (values: FormValues) => {
     // can't do this validation in the repeater right now 😢
     if (
       values.typeOfAssessment ===
         AssessmentStepType.ScreeningQuestionsAtApplication &&
-      !values.screeningQuestions?.length
+      !values.screeningQuestionFieldArray?.length
     ) {
       toast.error(
         intl.formatMessage({
@@ -202,25 +215,48 @@ const AssessmentDetailsDialog = ({
     }
 
     const submitPromise = values.id
-      ? submitUpdateMutation(values)
-      : submitCreateMutation(values);
+      ? submitUpdateAssessmentStepMutation(values)
+      : submitCreateAssessmentStepMutation(values);
 
-    await submitPromise;
+    submitPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully saved assessment step!",
+            id: "W1vWDi",
+            description:
+              "Success message displayed after unlinking an experience to a skill",
+          }),
+        );
+        setIsOpen(false);
+        reset(); // the create dialog could be used several times in a row
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: saving assessment step failed.",
+            id: "DnXch4",
+            description:
+              "Message displayed to user after assessment step fails to be saved.",
+          }),
+        );
+      });
   };
 
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: CheckboxOption[] = allPoolSkills
-    .map((poolSkill) => ({
+  const assessedSkillsItems: CheckboxOption[] = allPoolSkills.map(
+    (poolSkill) => ({
       value: poolSkill.id,
       label: poolSkill?.skill?.name
         ? getLocalizedName(poolSkill.skill.name, intl)
         : intl.formatMessage(commonMessages.nameNotLoaded),
-    }))
-    .sort((a, b) => {
-      return a.label > b.label ? 1 : -1;
-    });
+    }),
+  );
+  assessedSkillsItems.sort((a, b) => {
+    return (a.label ?? "") > (b.label ?? "") ? 1 : -1;
+  });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -348,7 +384,7 @@ const AssessmentDetailsDialog = ({
                       onAdd={() => {
                         append({
                           id: "new",
-                          question: {
+                          screeningQuestion: {
                             en: "",
                             fr: "",
                           },
@@ -370,10 +406,10 @@ const AssessmentDetailsDialog = ({
                     >
                       <>
                         {fields.length ? (
-                          fields.map((item, index) => (
+                          fields.map(({ id }, index) => (
                             <Repeater.Fieldset
-                              key={item.id}
                               name="questions"
+                              key={id}
                               index={index}
                               total={fields.length}
                               onMove={move}
@@ -394,7 +430,11 @@ const AssessmentDetailsDialog = ({
                             >
                               <input
                                 type="hidden"
-                                name={`questions.${index}.id`}
+                                name={`screeningQuestionFieldArray.${index}.id`}
+                              />
+                              <input
+                                type="hidden"
+                                name={`screeningQuestionFieldArray.${index}.sortOrder`}
                               />
                               <div
                                 data-h2-display="base(grid)"
@@ -403,8 +443,8 @@ const AssessmentDetailsDialog = ({
                               >
                                 <div>
                                   <TextArea
-                                    id={`questions.${index}.question.en`}
-                                    name={`questions.${index}.question.en`}
+                                    id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
+                                    name={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
                                     label={intl.formatMessage(
                                       labels.screeningQuestionEn,
                                       { questionNumber: index + 1 },
@@ -422,8 +462,8 @@ const AssessmentDetailsDialog = ({
                                 </div>
                                 <div>
                                   <TextArea
-                                    id={`questions.${index}.question.fr`}
-                                    name={`questions.${index}.question.fr`}
+                                    id={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
+                                    name={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
                                     label={intl.formatMessage(
                                       labels.screeningQuestionFr,
                                       { questionNumber: index + 1 },
@@ -533,7 +573,11 @@ const AssessmentDetailsDialog = ({
             <Button
               color="secondary"
               onClick={handleSubmit(submitForm)}
-              disabled={updateFetching || createFetching}
+              disabled={
+                updateAssessmentStepFetching ||
+                createAssessmentStepFetching ||
+                updatePoolFetching
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Save assessment details",
@@ -545,7 +589,11 @@ const AssessmentDetailsDialog = ({
               <Button
                 mode="inline"
                 color="warning"
-                disabled={updateFetching || createFetching}
+                disabled={
+                  updateAssessmentStepFetching ||
+                  createAssessmentStepFetching ||
+                  updatePoolFetching
+                }
               >
                 {intl.formatMessage(commonMessages.cancel)}
               </Button>
