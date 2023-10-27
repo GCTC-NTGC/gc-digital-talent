@@ -302,9 +302,6 @@ const UpdateUserPage = () => {
     });
 
   const handleUpdateUserRoles = (data: UpdateUserRolesInput) =>
-    /* We must pick only the fields belonging to UpdateUserInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
     executeUpdateRolesMutation({
       updateUserRolesInput: {
         ...data,
@@ -317,9 +314,6 @@ const UpdateUserPage = () => {
     });
 
   const handleUpdateUserSub = (data: UpdateUserSubInput) =>
-    /* We must pick only the fields belonging to UpdateUserInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
     executeUpdateSubMutation({
       updateUserSubInput: {
         ...data,
@@ -333,9 +327,6 @@ const UpdateUserPage = () => {
 
   const [, executeDeleteMutation] = useDeleteUserMutation();
   const handleDeleteUser = (id: string) =>
-    /* We must pick only the fields belonging to UpdateUserInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
     executeDeleteMutation({
       id,
     }).then((result) => {
