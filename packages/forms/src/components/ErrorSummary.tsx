@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useFormState } from "react-hook-form";
+import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 
 import {
   Alert,
@@ -8,10 +9,85 @@ import {
   ScrollLinkClickFunc,
   Link,
 } from "@gc-digital-talent/ui";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FieldLabels } from "./BasicForm";
+import { flattenErrors } from "../utils";
+
+type FieldNameWithLabel = {
+  label: React.ReactNode;
+  name: string;
+  index?: string;
+};
+
+const numberRegex = /(\d+)/g;
+
+/**
+ * Get Field Label
+ *
+ * User the field name to extract the associated label
+ *
+ * @param {string} name - The name property of the field
+ * @param {FieldLabels} labels - Available labels
+ * @returns {FieldNameWithLabel | null}
+ */
+const getFieldLabel = (
+  name: string,
+  labels: FieldLabels,
+): FieldNameWithLabel | null => {
+  let labelKey = name;
+  let index: undefined | string;
+
+  // This is a root error for a field array
+  if (name.includes(".root")) {
+    labelKey = name.replace(".root", "");
+  } else if (numberRegex.test(name)) {
+    // If a number exists in the field name, replace it with an asterisk
+    labelKey = name.replace(numberRegex, "*");
+    // Get the number and assign it to the index so we can show it in the link
+    const indices = name.match(numberRegex);
+    if (indices) {
+      index = indices.map((i) => `(${Number(i) + 1})`).join(" ");
+    }
+  }
+
+  if (labelKey in labels) {
+    return {
+      name,
+      index,
+      label: labels[labelKey],
+    };
+  }
+
+  return null;
+};
+
+/**
+ * Add labels to errors
+ *
+ * Transform the errors to associate them with labels
+ * so they can be used as the link name
+ *
+ * @param {FieldErrors<FieldValues> } errors - from form state
+ * @param {FieldLabels} labels - Available labels
+ * @returns {FieldNameWithLabel}
+ */
+const addLabelsToErrors = (
+  errors: FieldErrors<FieldValues>,
+  labels: FieldLabels,
+): FieldNameWithLabel[] => {
+  const invalidFieldNames = flattenErrors(errors);
+  let fieldNamesWithLabels: FieldNameWithLabel[] = [];
+
+  invalidFieldNames.forEach((fieldName) => {
+    const fieldNameWithLabel = getFieldLabel(fieldName, labels);
+    if (fieldNameWithLabel) {
+      fieldNamesWithLabels = [...fieldNamesWithLabels, fieldNameWithLabel];
+    }
+  });
+
+  return fieldNamesWithLabels;
+};
 
 interface ErrorSummaryProps {
   labels?: FieldLabels;
@@ -29,33 +105,13 @@ const ErrorSummary = React.forwardRef<
   ErrorSummaryProps
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
-
-  const locale = getLocale(intl);
   const { errors } = useFormState();
 
   // Don't show if the form is valid
-  if (!errors || !show) return null;
+  if (!errors || !show || !labels) return null;
 
-  const invalidFields = Object.keys(errors)
-    .map((field) => {
-      /**
-       * Massages the errors to a human readable
-       * format as well as displaying generic
-       * error message when one is not provided.
-       */
-      const fieldInvalid = errors[field];
-      if (labels && field in labels && fieldInvalid) {
-        return {
-          name: field,
-          label: labels[field],
-          message:
-            fieldInvalid?.message || intl.formatMessage(errorMessages.unknown),
-        };
-      }
-
-      return undefined;
-    })
-    .filter(notEmpty);
+  // Flatten the error object and get the label
+  const invalidFieldNames = addLabelsToErrors(errors, labels);
 
   const handleErrorClick: ScrollLinkClickFunc = (e, target) => {
     e.preventDefault();
@@ -71,26 +127,30 @@ const ErrorSummary = React.forwardRef<
     }
   };
 
-  return invalidFields.length > 0 ? (
+  return invalidFieldNames.length > 0 ? (
     <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
       <Alert.Title>
         {intl.formatMessage(errorMessages.summaryTitle)}
       </Alert.Title>
       <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
       <ul data-h2-margin="base(x.5, 0, 0, 0)">
-        {invalidFields.map((field) => (
-          <li key={field.name}>
-            <ScrollToLink
-              to={field.name}
-              onScrollTo={handleErrorClick}
-              mode="text"
-              color="error"
-            >
-              {field.label}
-            </ScrollToLink>
-            {`${locale === "fr" ? ` : ` : `: `}${field.message}`}
-          </li>
-        ))}
+        {invalidFieldNames.map((field) => {
+          return (
+            <li key={field.name}>
+              <ScrollToLink
+                to={field.name}
+                onScrollTo={handleErrorClick}
+                mode="text"
+                color="error"
+              >
+                {field.label}
+                {field.index ? ` ${field.index}` : null}
+              </ScrollToLink>
+              {intl.formatMessage(commonMessages.dividingColon)}
+              <ErrorMessage name={field.name} />
+            </li>
+          );
+        })}
       </ul>
       <Alert.Footer>
         <p>{intl.formatMessage(errorMessages.summaryContact, { a })}</p>
