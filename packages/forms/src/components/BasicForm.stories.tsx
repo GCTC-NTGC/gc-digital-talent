@@ -42,12 +42,12 @@ const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {
 
   const { remove, move, append, fields } = useFieldArray({
     control,
-    name: "nestedFieldArray",
+    name: `fieldArray.${parentIndex}.nestedFieldArray`,
   });
 
   return (
     <Repeater.Root
-      name="nestedFieldArray"
+      name={`fieldArray.${parentIndex}.nestedFieldArray`}
       addText="Add nested item"
       total={fields.length}
       onAdd={() => {
