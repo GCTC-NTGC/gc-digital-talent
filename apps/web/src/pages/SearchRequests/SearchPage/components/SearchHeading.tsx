@@ -15,7 +15,7 @@ const SearchHeading = () => {
       })}
     >
       <div
-        data-h2-background-color="base(white)"
+        data-h2-background-color="base(foreground)"
         data-h2-radius="base(rounded)"
         data-h2-padding="base(x1) p-tablet(x2)"
         data-h2-shadow="base(large)"

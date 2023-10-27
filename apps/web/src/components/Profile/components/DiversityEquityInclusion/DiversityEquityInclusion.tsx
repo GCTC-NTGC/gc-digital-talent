@@ -107,7 +107,7 @@ const DiversityEquityInclusion = ({
             <Separator
               orientation="horizontal"
               decorative
-              data-h2-background-color="base(gray.lighter)"
+              data-h2-background-color="base:all(gray.lighter)"
               data-h2-margin="base(x1, 0, x1, 0)"
             />
             <p data-h2-padding-bottom="base(x0.5)">

@@ -18,7 +18,7 @@ const SkewedImageContainer = ({
 }: SkewedImageContainerProps) => {
   return (
     <div
-      data-h2-background-color="base(white) base:dark(black.light)"
+      data-h2-background-color="base(background)"
       data-h2-layer="base(3, relative)"
     >
       <div

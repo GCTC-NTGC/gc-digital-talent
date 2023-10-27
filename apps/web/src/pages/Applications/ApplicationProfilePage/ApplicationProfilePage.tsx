@@ -124,7 +124,7 @@ export const ApplicationProfile = ({
       </div>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base:all(gray.lighter)"
         data-h2-margin="base(x2, 0)"
         decorative
       />

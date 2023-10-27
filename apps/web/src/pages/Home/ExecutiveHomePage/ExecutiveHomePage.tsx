@@ -134,9 +134,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
         )}
       </SkewedContainer>
       <div
-        data-h2-background="base(white) base:dark(black.light)"
+        data-h2-background="base(background)"
         data-h2-padding="base(x3 0)"
-        data-h2-border-top="base(solid 1px gray.lighter)"
+        data-h2-border-top="base:all(solid 1px gray.lighter)"
         data-h2-margin-top="base(-x1) l-tablet(-x3)"
         data-h2-position="base(relative)"
         data-h2-z-index="base(3)"
@@ -280,7 +280,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
-          data-h2-color="base(white)"
+          data-h2-color="base:all(white)"
           data-h2-margin="base(0, 0, x2, 0)"
           data-h2-max-width="p-tablet(50%)"
         >
@@ -325,7 +325,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading level="h3">
+        <Heading level="h3" size="h4">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
@@ -348,7 +348,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading level="h3">
+        <Heading level="h3" size="h4">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",
@@ -363,9 +363,10 @@ export const HomePage = ({ pools }: HomePageProps) => {
           data-h2-margin="base(x1 0)"
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
+          data-h2-gap="base(x.5 0)"
         >
           <Accordion.Item
+            data-h2-background-color="base(foreground)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             value="digital-community-support"
@@ -393,6 +394,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
           <Accordion.Item
+            data-h2-background-color="base(foreground)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             value="id-digital-talents"
@@ -421,6 +423,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
           <Accordion.Item
+            data-h2-background-color="base(foreground)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             value="referral-services"
@@ -448,6 +451,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
           <Accordion.Item
+            data-h2-background-color="base(foreground)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             value="digital-community-mentorship-program"

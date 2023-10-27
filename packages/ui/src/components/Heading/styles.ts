@@ -67,7 +67,13 @@ export const iconStyles: Record<Color, Record<string, string>> = {
   black: {
     "data-h2-color": "base(black)",
   },
+  blackFixed: {
+    "data-h2-color": "base:all(black)",
+  },
   white: {
     "data-h2-color": "base(white)",
+  },
+  whiteFixed: {
+    "data-h2-color": "base:all(white)",
   },
 };

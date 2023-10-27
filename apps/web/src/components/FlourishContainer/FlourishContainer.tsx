@@ -21,11 +21,10 @@ const FlourishContainer = ({
   size = "lg",
   skew = true,
 }: FlourishContainerProps) => (
-  <div data-h2-layer="base(2, relative)">
+  <div data-h2-layer="base(3, relative)">
     <div
       data-h2-height="base(100%)"
       data-h2-width="base(100%)"
-      data-h2-background-color="base(white) base:dark(black.light)"
       data-h2-position="base(absolute)"
       {...(skew && {
         "data-h2-transform": "base(skewY(-3deg))",
@@ -97,9 +96,16 @@ const FlourishContainer = ({
             data-h2-position="base(absolute)"
             data-h2-location="base(auto, auto, 0, 0)"
             data-h2-transform="base(skew(3deg))"
-            data-h2-height="base(auto) desktop(90%)"
-            data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
             data-h2-max-width="base(initial)"
+            {...(size === "lg"
+              ? {
+                  "data-h2-height": "base(auto) desktop(90%)",
+                  "data-h2-width": "base(150%) p-tablet(100%) desktop(auto)",
+                }
+              : {
+                  "data-h2-height": "base(auto) desktop(30%)",
+                  "data-h2-width": "base(45%) p-tablet(32%) desktop(auto)",
+                })}
             src={desktopGraphicsDark3}
             alt=""
           />

@@ -27,7 +27,7 @@ const HomeHero = ({
       data-h2-layer="base(1, relative)"
     >
       <div
-        data-h2-color="base(white)"
+        data-h2-color="base:all(white)"
         data-h2-text-align="base(center) p-tablet(left)"
       >
         {children}
