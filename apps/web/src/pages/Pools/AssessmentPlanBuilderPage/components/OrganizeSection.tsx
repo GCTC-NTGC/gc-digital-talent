@@ -259,6 +259,8 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleSave)}>
             <Repeater.Root
+              name="assessmentStepFieldArray"
+              total={fields.length}
               data-h2-margin-bottom="base(1rem)"
               showAdd={canAdd && !formDisabled}
               customButton={{
@@ -315,6 +317,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                   return (
                     <Repeater.Fieldset
                       key={id}
+                      name="assessmentStepFieldArray"
                       index={index}
                       total={fields.length}
                       onMove={move}

@@ -377,7 +377,7 @@ const AssessmentDetailsDialog = ({
                     </div>
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
-                      name="questions"
+                      name="screeningQuestionFieldArray"
                       total={fields.length}
                       showAdd={canAddScreeningQuestions}
                       showUnsavedChanges
@@ -408,7 +408,7 @@ const AssessmentDetailsDialog = ({
                         {fields.length ? (
                           fields.map(({ id }, index) => (
                             <Repeater.Fieldset
-                              name="questions"
+                              name="screeningQuestionFieldArray"
                               key={id}
                               index={index}
                               total={fields.length}
