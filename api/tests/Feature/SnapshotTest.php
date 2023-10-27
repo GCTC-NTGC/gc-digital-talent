@@ -92,6 +92,11 @@ class SnapshotTest extends TestCase
             return $poolCandidate['id'] === $individualPoolCandidate['id'];
         }));
         $expectedSnapshot['poolCandidates'] = $filteredPoolCandidates;
+
+        // line-up query format with how the snapshot is ordered
+        $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
+        unset($expectedSnapshot['authInfo']);
+
         assertEquals($expectedSnapshot, $decodedActual);
     }
 

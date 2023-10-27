@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import {
   Team,
@@ -154,9 +155,9 @@ const TeamTableApi = ({ title }: { title: string }) => {
   const teams = dataTeam?.teams.filter(notEmpty);
 
   let myRolesAndTeams: MyRoleTeam[] = [];
-  if (dataMe?.me?.roleAssignments) {
-    myRolesAndTeams = roleAssignmentsToRoleTeamArray(dataMe.me.roleAssignments);
-  }
+  const roleAssignments =
+    unpackMaybes(dataMe?.me?.authInfo?.roleAssignments) ?? [];
+  myRolesAndTeams = roleAssignmentsToRoleTeamArray(roleAssignments);
 
   return (
     <Pending fetching={isFetching} error={errorTeam || errorMe}>

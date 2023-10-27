@@ -145,7 +145,7 @@ describe("User Information Page", () => {
       /* TEST VIEWING NEW USER WITH APPLICATIONS */
 
       // Submit an application to DCM pool (connected to pool_operator) with the test user
-      cy.loginBySubject(testUser.sub);
+      cy.loginBySubject(testUser.authInfo.sub);
       cy.getMe().then((testUser) => {
         cy.get<Pool>("@dcmPool").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
@@ -157,7 +157,7 @@ describe("User Information Page", () => {
       });
 
       // Submit an application to newTeam pool (NOT connected to pool_operator) with the test user
-      cy.loginBySubject(testUser.sub);
+      cy.loginBySubject(testUser.authInfo.sub);
       cy.getMe().then((testUser) => {
         cy.get<Pool>("@newTeamPool").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {

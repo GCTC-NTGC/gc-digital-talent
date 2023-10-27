@@ -54,7 +54,6 @@ fragment userSkill on UserSkill {
 query ApplicantInformation {
   me {
     id
-    sub
     firstName
     lastName
     email

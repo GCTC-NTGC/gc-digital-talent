@@ -107,9 +107,11 @@ const TeamRoleTable = ({
   ] as ColumnDef<TeamAssignment>[];
 
   const data = useMemo(() => {
-    const roleTeamPairs: RoleTeamPair[] = (user.roleAssignments ?? [])
+    const roleTeamPairs: RoleTeamPair[] = (
+      user?.authInfo?.roleAssignments ?? []
+    )
       .map((assignment) => {
-        if (assignment.team && assignment.role && assignment.role.isTeamBased)
+        if (assignment?.team && assignment.role && assignment.role.isTeamBased)
           return {
             role: assignment.role,
             team: assignment.team,
@@ -132,7 +134,7 @@ const TeamRoleTable = ({
         roles: teamGroupOfPairs.map((pair) => pair.role),
       };
     });
-  }, [user.roleAssignments]);
+  }, [user?.authInfo?.roleAssignments]);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team based roles",

@@ -9,15 +9,15 @@ import useRoutes from "~/hooks/useRoutes";
 const ProfileRedirect = () => {
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
 
   React.useEffect(() => {
-    if (user) {
-      navigate(paths.profile(user.id), { replace: true });
+    if (userAuthInfo) {
+      navigate(paths.profile(userAuthInfo.id), { replace: true });
     } else {
       navigate(paths.home(), { replace: true });
     }
-  }, [user, navigate, paths]);
+  }, [userAuthInfo, navigate, paths]);
 
   return <Loading />; // Show loading spinner while we process redirect
 };
