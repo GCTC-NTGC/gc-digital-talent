@@ -101,7 +101,6 @@ query GetApplication($id: UUID!) {
       currentProvince
       currentCity
       citizenship
-      languageAbility
       lookingForEnglish
       lookingForFrench
       lookingForBilingual

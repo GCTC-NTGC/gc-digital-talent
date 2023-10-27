@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { MenuLink } from "@gc-digital-talent/ui";
-import { Maybe, User } from "@gc-digital-talent/graphql";
+import { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -13,10 +13,10 @@ import NavMenu from "./NavMenu";
 
 interface IAPNavMenuProps {
   loggedIn?: boolean;
-  user?: Maybe<User>;
+  userAuthInfo?: Maybe<UserAuthInfo>;
 }
 
-const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
+const IAPNavMenu = ({ loggedIn, userAuthInfo }: IAPNavMenuProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const searchParams = `?from=${paths.iap()}&personality=iap`;
@@ -30,7 +30,7 @@ const IAPNavMenu = ({ loggedIn, user }: IAPNavMenuProps) => {
     </MenuLink>,
   ];
 
-  if (loggedIn && user) {
+  if (loggedIn && userAuthInfo) {
     authLinks = [
       <SignOutConfirmation key="sign-out">
         <LogoutButton>{intl.formatMessage(authMessages.signOut)}</LogoutButton>

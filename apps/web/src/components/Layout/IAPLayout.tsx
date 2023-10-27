@@ -56,7 +56,7 @@ const IAPSeo = () => {
 const Layout = () => {
   const { locale } = useLocale();
   const location = useLocation();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
   useLayoutTheme("iap");
 
@@ -91,7 +91,7 @@ const Layout = () => {
             <div>
               <Header />
               <MaintenanceBanner />
-              <IAPNavMenu {...{ loggedIn, user }} />
+              <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
             </div>
             <main id="main">
               <Outlet />
