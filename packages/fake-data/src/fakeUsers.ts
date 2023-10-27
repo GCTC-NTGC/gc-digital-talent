@@ -4,7 +4,6 @@ import {
   User,
   Language,
   ProvinceOrTerritory,
-  LanguageAbility,
   BilingualEvaluation,
   EvaluatedLanguageAbility,
   EstimatedLanguageAbility,
