@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
@@ -59,7 +60,6 @@ use App\Enums\PublishingGroup;
 use App\Enums\SalaryRange;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillCategory;
-use App\Enums\SkillDecisionLevel;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Enums\WorkRegion;
@@ -621,11 +621,11 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
         $typeRegistry->registerLazy(
-            'SkillDecisionLevel',
+            'AssessmentDecisionLevel',
             static function (): EnumType {
                 return new EnumType([
-                    'name' => 'SkillDecisionLevel',
-                    'values' => array_column(SkillDecisionLevel::cases(), 'name'),
+                    'name' => 'AssessmentDecisionLevel',
+                    'values' => array_column(AssessmentDecisionLevel::cases(), 'name'),
                 ]);
             }
         );

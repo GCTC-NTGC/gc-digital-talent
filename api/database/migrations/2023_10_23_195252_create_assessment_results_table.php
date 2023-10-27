@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('assessment_decision')->nullable();
             $table->jsonb('justifications')->default(new Expression('\'[]\'::jsonb'))->nullable();
             $table->text('other_justification_notes')->nullable();
-            $table->string('skill_decision_level')->nullable();
+            $table->string('assessment_decision_level')->nullable();
             $table->text('skill_decision_notes')->nullable();
         });
     }

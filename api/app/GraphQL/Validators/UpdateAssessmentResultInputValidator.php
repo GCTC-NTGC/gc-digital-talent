@@ -39,7 +39,7 @@ final class UpdateAssessmentResultInputValidator extends Validator
                     $assessmentDecision !== AssessmentDecision::SUCCESSFUL->name
                 ),
             ],
-            'skillDecisionLevel' => [
+            'assessmentDecisionLevel' => [
                 Rule::prohibitedIf(
                     (
                         $assessmentResultType !== null &&
@@ -62,7 +62,7 @@ final class UpdateAssessmentResultInputValidator extends Validator
         return [
             'otherJustificationNotes.prohibited' => 'CannotSetJustificationNotesForThisDecision',
             'skillDecisionNotes.prohibited' => 'CannotSetSkillDecisionNotesForThisTypeOrDecision',
-            'skillDecisionLevel.prohibited' => 'CannotSetSkillDecisionLevelForThisTypeOrDecision',
+            'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
         ];
     }
 }

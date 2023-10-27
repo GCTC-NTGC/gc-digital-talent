@@ -238,8 +238,8 @@ type AssessmentResult {
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
     @rename(attribute: "other_justification_notes")
-  skillDecisionLevel: SkillDecisionLevel
-    @rename(attribute: "skill_decision_level")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
@@ -1413,8 +1413,8 @@ input CreateAssessmentResultInput
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
     @rename(attribute: "other_justification_notes")
-  skillDecisionLevel: SkillDecisionLevel
-    @rename(attribute: "skill_decision_level")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
@@ -1430,8 +1430,8 @@ input UpdateAssessmentResultInput
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
     @rename(attribute: "other_justification_notes")
-  skillDecisionLevel: SkillDecisionLevel
-    @rename(attribute: "skill_decision_level")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 

@@ -1,10 +1,10 @@
 <?php
 
 use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\PoolSkillType;
-use App\Enums\SkillDecisionLevel;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
@@ -378,10 +378,10 @@ class AssessmentResultTest extends TestCase
                         'id' => $assessmentResult->id,
                         'assessmentResultType' => AssessmentResultType::SKILL->name,
                         'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
-                        'skillDecisionLevel' => SkillDecisionLevel::AT_REQUIRED->name,
+                        'assessmentDecisionLevel' => AssessmentDecisionLevel::AT_REQUIRED->name,
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('updateAssessmentResult.skillDecisionLevel', 'CannotSetSkillDecisionLevelForThisTypeOrDecision');
+            ->assertGraphQLValidationError('updateAssessmentResult.assessmentDecisionLevel', 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision');
     }
 }

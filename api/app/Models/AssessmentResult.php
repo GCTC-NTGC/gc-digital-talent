@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $assessment_decision
  * @property array $justifications
  * @property string $other_justification_notes
- * @property string $skill_decision_level
+ * @property string $assessment_decision_level
  * @property string $skill_decision_notes
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at

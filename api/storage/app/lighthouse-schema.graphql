@@ -340,7 +340,7 @@ type AssessmentResult {
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
-  skillDecisionLevel: SkillDecisionLevel
+  assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
 }
 
@@ -1178,7 +1178,7 @@ input CreateAssessmentResultInput {
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
-  skillDecisionLevel: SkillDecisionLevel
+  assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
 }
 
@@ -1188,7 +1188,7 @@ input UpdateAssessmentResultInput {
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
   otherJustificationNotes: String
-  skillDecisionLevel: SkillDecisionLevel
+  assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
 }
 
@@ -2237,7 +2237,7 @@ enum AssessmentResultJustification {
   FAILED_OTHER
 }
 
-enum SkillDecisionLevel {
+enum AssessmentDecisionLevel {
   AT_REQUIRED
   ABOVE_REQUIRED
   ABOVE_AND_BEYOND_REQUIRED

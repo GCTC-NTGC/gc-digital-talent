@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SkillDecisionLevel
+enum AssessmentDecisionLevel
 {
     case AT_REQUIRED;
     case ABOVE_REQUIRED;

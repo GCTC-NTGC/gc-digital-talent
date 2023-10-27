@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
-use App\Enums\SkillDecisionLevel;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\PoolCandidate;
@@ -41,9 +41,9 @@ class AssessmentResultFactory extends Factory
             'justifications' => $justifications,
             'other_justification_notes' => in_array(AssessmentResultJustification::FAILED_OTHER->name, $justifications) ?
                 $this->faker->paragraph() : null,
-            'skill_decision_level' => $assessmentResultType === AssessmentResultType::SKILL->name &&
+            'assessment_decision_level' => $assessmentResultType === AssessmentResultType::SKILL->name &&
                 $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
-                $this->faker->randomElement(array_column(SkillDecisionLevel::cases(), 'name')) : null,
+                $this->faker->randomElement(array_column(AssessmentDecisionLevel::cases(), 'name')) : null,
             'skill_decision_notes' => $assessmentResultType === AssessmentResultType::SKILL->name &&
                 $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
                 $this->faker->paragraph() : null,
