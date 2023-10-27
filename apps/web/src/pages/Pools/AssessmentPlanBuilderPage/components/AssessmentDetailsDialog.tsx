@@ -71,16 +71,19 @@ type InitialValues = Omit<
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
   allPoolSkills: PoolSkill[];
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
   trigger?: React.ReactNode;
 }
 
 const AssessmentDetailsDialog = ({
   initialValues,
   allPoolSkills,
+  isOpen,
+  setIsOpen,
   trigger,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const [
     { fetching: createAssessmentStepFetching },

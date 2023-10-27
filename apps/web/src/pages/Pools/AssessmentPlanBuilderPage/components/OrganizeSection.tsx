@@ -18,18 +18,17 @@ import {
   useUpdateAssessmentStepMutation,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import Context from "@gc-digital-talent/forms/src/components/Field/Context";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";
-import { assessmentStepDisplayName } from "../utils";
 import {
   ASSESSMENT_STEPS_FEW_STEPS,
   ASSESSMENT_STEPS_MANY_STEPS,
   ASSESSMENT_STEPS_MAX_STEPS,
 } from "../constants";
+import AssessmentStepFieldset from "./AssessmentStepFieldset";
 
 type FormValues = {
   assessmentStepFieldArray?: Array<{
@@ -51,6 +50,8 @@ export interface OrganizeSectionProps {
 const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const intl = useIntl();
   const addId = React.useId();
+  const [isNewStepDialogOpen, setIsNewStepDialogOpen] =
+    React.useState<boolean>(false);
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
     useDeleteAssessmentStepMutation();
@@ -162,8 +163,6 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
   const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
-
-  const allPoolSkills = pool.poolSkills?.filter(notEmpty) ?? [];
 
   return (
     <>
@@ -291,84 +290,31 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                         )}
                       </Button>
                     }
-                    allPoolSkills={allPoolSkills}
+                    allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
                     initialValues={{
                       id: null,
                       poolId: pool.id,
                       sortOrder: fields.length + 1,
                     }}
+                    isOpen={isNewStepDialogOpen}
+                    setIsOpen={setIsNewStepDialogOpen}
                   />
                 ),
               }}
             >
               <>
                 {fields.map(({ id, assessmentStep }, index) => {
-                  const skillNames =
-                    assessmentStep.poolSkills
-                      ?.filter(notEmpty)
-                      .map((poolSkill) =>
-                        getLocalizedName(poolSkill?.skill?.name, intl),
-                      ) ?? [];
-                  skillNames.sort();
-                  const customEditButton: React.ReactNode = (
-                    <Button>Temporary Edit Button</Button>
-                  );
-
                   return (
-                    <Repeater.Fieldset
+                    <AssessmentStepFieldset
                       key={id}
-                      name="assessmentStepFieldArray"
                       index={index}
+                      assessmentStep={assessmentStep}
                       total={fields.length}
-                      onMove={move}
-                      onRemove={remove}
                       disabled={formDisabled}
-                      legend={intl.formatMessage(
-                        {
-                          defaultMessage: "Assessment plan step {index}",
-                          id: "kZWII8",
-                          description:
-                            "Legend for assessment plan step fieldset",
-                        },
-                        {
-                          index: index + 1,
-                        },
-                      )}
-                      hideLegend
-                    >
-                      <input
-                        type="hidden"
-                        name={`assessmentSteps.${index}.id`}
-                      />
-                      <p>{assessmentStepDisplayName(assessmentStep, intl)}</p>
-                      {skillNames.length ? (
-                        <p
-                          data-h2-margin-top="base(x.5)"
-                          data-h2-color="base(black.light)"
-                          data-h2-font-size="base(caption)"
-                        >
-                          {skillNames.join(" • ")}
-                        </p>
-                      ) : null}
-                      <AssessmentDetailsDialog
-                        trigger={customEditButton}
-                        allPoolSkills={allPoolSkills}
-                        initialValues={{
-                          id: assessmentStep.id,
-                          poolId: pool.id,
-                          sortOrder: assessmentStep.sortOrder,
-                          typeOfAssessment: assessmentStep.type,
-                          assessmentTitleEn: assessmentStep?.title?.en,
-                          assessmentTitleFr: assessmentStep?.title?.fr,
-                          assessedSkills:
-                            assessmentStep?.poolSkills
-                              ?.map((poolSkill) => poolSkill?.id)
-                              ?.filter(notEmpty) ?? [],
-                          screeningQuestions:
-                            pool.screeningQuestions?.filter(notEmpty) ?? [],
-                        }}
-                      />
-                    </Repeater.Fieldset>
+                      pool={pool}
+                      onRemove={remove}
+                      onMove={move}
+                    />
                   );
                 })}
               </>
