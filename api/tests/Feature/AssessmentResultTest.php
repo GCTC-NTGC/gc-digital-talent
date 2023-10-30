@@ -111,7 +111,7 @@ class AssessmentResultTest extends TestCase
         ]);
         $poolSkillModel = PoolSkill::first();
 
-        // can create assessment result without pool skill
+        // can create education assessment result without pool skill
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
                 $this->createAssessmentResult,
@@ -119,7 +119,7 @@ class AssessmentResultTest extends TestCase
                     'createAssessmentResult' => [
                         'assessmentStepId' => $parentAssessmentStep->id,
                         'poolCandidateId' => $parentPoolCandidate->id,
-                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                        'assessmentResultType' => AssessmentResultType::EDUCATION->name,
                     ],
                 ]
             )
@@ -131,10 +131,10 @@ class AssessmentResultTest extends TestCase
                     'id' => $parentPoolCandidate->id,
                 ],
                 'poolSkill' => null,
-                'assessmentResultType' => AssessmentResultType::SKILL->name,
+                'assessmentResultType' => AssessmentResultType::EDUCATION->name,
             ]);
 
-        // can create assessment result with pool skill
+        // can create skill assessment result with pool skill
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
                 $this->createAssessmentResult,
@@ -178,7 +178,7 @@ class AssessmentResultTest extends TestCase
                     'createAssessmentResult' => [
                         'assessmentStepId' => $parentAssessmentStep->id,
                         'poolCandidateId' => $parentPoolCandidate->id,
-                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                        'assessmentResultType' => AssessmentResultType::EDUCATION->name,
                     ],
                 ]
             )
@@ -192,7 +192,6 @@ class AssessmentResultTest extends TestCase
                 [
                     'updateAssessmentResult' => [
                         'id' => $assessmentResult->id,
-                        'assessmentResultType' => AssessmentResultType::EDUCATION->name,
                         'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
                         'justifications' => [AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name],
                     ],
@@ -317,12 +316,19 @@ class AssessmentResultTest extends TestCase
     // test validation of updating assessment result
     public function testAssessmentResultUpdatingValidation(): void
     {
+        $skill = Skill::factory()->create();
         $parentAssessmentStep = AssessmentStep::factory()->create([
             'pool_id' => $this->pool->id,
         ]);
         $parentPoolCandidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
         ]);
+        DB::table('pool_skill')->insert([
+            'pool_id' => $this->pool->id,
+            'skill_id' => $skill->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
+        $poolSkillModel = PoolSkill::first();
 
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
@@ -331,6 +337,7 @@ class AssessmentResultTest extends TestCase
                     'createAssessmentResult' => [
                         'assessmentStepId' => $parentAssessmentStep->id,
                         'poolCandidateId' => $parentPoolCandidate->id,
+                        'poolSkillId' => $poolSkillModel->id,
                         'assessmentResultType' => AssessmentResultType::SKILL->name,
                         'assessmentDecision' => AssessmentDecision::SUCCESSFUL->name,
                     ],
@@ -368,5 +375,29 @@ class AssessmentResultTest extends TestCase
                 ]
             )
             ->assertGraphQLValidationError('updateAssessmentResult.assessmentDecisionLevel', 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision');
+    }
+
+    // test validation blocks creating skill assessment results missing a skill
+    public function testSkillAssessmentRequiresSkill(): void
+    {
+        $parentAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+        $parentPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $parentAssessmentStep->id,
+                        'poolCandidateId' => $parentPoolCandidate->id,
+                        'assessmentResultType' => AssessmentResultType::SKILL->name,
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('createAssessmentResult.poolSkillId', 'SkillAssessmentResultMissingSkill');
     }
 }

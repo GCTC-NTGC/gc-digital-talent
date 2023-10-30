@@ -27,6 +27,9 @@ final class CreateAssessmentResultInputValidator extends Validator
                     $this->arg('poolSkillId')
                 ),
             ],
+            'poolSkillId' => [
+                Rule::requiredIf($this->arg('assessmentResultType') === AssessmentResultType::SKILL->name),
+            ],
             'justifications' => [
                 new AssessmentResultJustificationsConsistent($this->arg('assessmentResultType')),
             ],
@@ -51,6 +54,7 @@ final class CreateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
+            'poolSkillId' => 'SkillAssessmentResultMissingSkill',
             'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
         ];
     }
