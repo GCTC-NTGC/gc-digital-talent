@@ -99,7 +99,11 @@ interface ErrorSummaryProps {
 }
 
 const supportLink = (chunks: React.ReactNode, locale: string) => (
-  <Link href={`/${locale}/support`} state={{ referrer: window.location.href }}>
+  <Link
+    href={`/${locale}/support`}
+    state={{ referrer: window.location.href }}
+    newTab
+  >
     {chunks}
   </Link>
 );
