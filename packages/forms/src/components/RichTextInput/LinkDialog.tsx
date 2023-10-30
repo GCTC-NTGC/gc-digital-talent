@@ -1,5 +1,5 @@
 import React from "react";
-import { createIntlCache, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
