@@ -33,11 +33,11 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const handleSubmit: SubmitHandler<FormValues> = ({
-    href,
-    newTab,
-    action,
-  }) => {
+  const handleSubmit: SubmitHandler<FormValues> = (
+    { href, newTab, action },
+    e,
+  ) => {
+    e?.stopPropagation();
     if (action === "add") {
       editor
         ?.chain()
@@ -51,6 +51,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
       editor?.chain().focus().unsetLink().run();
     }
     setIsOpen(false);
+    return false;
   };
 
   const methods = useForm<FormValues>();
@@ -78,6 +79,13 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
     }
 
     setIsOpen(newOpen);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSave("add");
+    }
   };
 
   const isValidLink = (value: string) => {
@@ -121,6 +129,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
                     name="href"
                     type="text"
                     label={intl.formatMessage(richTextMessages.url)}
+                    onKeyDown={handleKeyDown}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       validate: {
