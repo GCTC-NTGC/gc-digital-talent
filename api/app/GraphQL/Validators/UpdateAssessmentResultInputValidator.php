@@ -28,17 +28,6 @@ final class UpdateAssessmentResultInputValidator extends Validator
             'justifications' => [
                 new AssessmentResultJustificationsConsistent($assessmentResultType),
             ],
-            'otherJustificationNotes' => [
-                Rule::prohibitedIf(
-                    $assessmentDecision !== AssessmentDecision::UNSUCCESSFUL->name
-                ),
-            ],
-            'skillDecisionNotes' => [
-                Rule::prohibitedIf(
-                    $assessmentResultType !== AssessmentResultType::SKILL->name ||
-                    $assessmentDecision !== AssessmentDecision::SUCCESSFUL->name
-                ),
-            ],
             'assessmentDecisionLevel' => [
                 Rule::prohibitedIf(
                     (
@@ -46,8 +35,8 @@ final class UpdateAssessmentResultInputValidator extends Validator
                         $assessmentResultType !== AssessmentResultType::SKILL->name
                     ) ||
                     (
-                        $assessmentResultType !== null &&
-                        $assessmentResultType !== AssessmentDecision::SUCCESSFUL->name
+                        $assessmentDecision !== null &&
+                        $assessmentDecision !== AssessmentDecision::SUCCESSFUL->name
                     )
                 ),
             ],
@@ -60,8 +49,6 @@ final class UpdateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'otherJustificationNotes.prohibited' => 'CannotSetJustificationNotesForThisDecision',
-            'skillDecisionNotes.prohibited' => 'CannotSetSkillDecisionNotesForThisTypeOrDecision',
             'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
         ];
     }

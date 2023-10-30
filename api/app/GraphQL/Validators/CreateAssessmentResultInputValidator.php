@@ -30,24 +30,6 @@ final class CreateAssessmentResultInputValidator extends Validator
             'justifications' => [
                 new AssessmentResultJustificationsConsistent($this->arg('assessmentResultType')),
             ],
-            'otherJustificationNotes' => [
-                Rule::prohibitedIf(
-                    $this->arg('assessmentDecision') !== null &&
-                    $this->arg('assessmentDecision') !== AssessmentDecision::UNSUCCESSFUL->name
-                ),
-            ],
-            'skillDecisionNotes' => [
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('assessmentResultType') !== null &&
-                        $this->arg('assessmentResultType') !== AssessmentResultType::SKILL->name
-                    ) ||
-                    (
-                        $this->arg('assessmentDecision') !== null &&
-                        $this->arg('assessmentDecision') !== AssessmentDecision::SUCCESSFUL->name
-                    )
-                ),
-            ],
             'assessmentDecisionLevel' => [
                 Rule::prohibitedIf(
                     (
@@ -69,8 +51,6 @@ final class CreateAssessmentResultInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'otherJustificationNotes.prohibited' => 'CannotSetJustificationNotesForThisDecision',
-            'skillDecisionNotes.prohibited' => 'CannotSetSkillDecisionNotesForThisTypeOrDecision',
             'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
         ];
     }

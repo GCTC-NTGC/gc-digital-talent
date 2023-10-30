@@ -354,21 +354,6 @@ class AssessmentResultTest extends TestCase
             )
             ->assertGraphQLValidationError('updateAssessmentResult.justifications', 'EducationJustificationsForSkillAssessment');
 
-        // cannot have skill decision notes for unsuccessful, input changes it from successful
-        $this->actingAs($this->teamUser, 'api')
-            ->graphQL(
-                $this->updateAssessmentResult,
-                [
-                    'updateAssessmentResult' => [
-                        'id' => $assessmentResult->id,
-                        'assessmentResultType' => AssessmentResultType::SKILL->name,
-                        'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
-                        'skillDecisionNotes' => 'Notes',
-                    ],
-                ]
-            )
-            ->assertGraphQLValidationError('updateAssessmentResult.skillDecisionNotes', 'CannotSetSkillDecisionNotesForThisTypeOrDecision');
-
         // cannot have skill decision level for unsuccessful, input changes it from successful
         $this->actingAs($this->teamUser, 'api')
             ->graphQL(
