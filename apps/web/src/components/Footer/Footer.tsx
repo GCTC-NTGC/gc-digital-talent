@@ -4,7 +4,10 @@ import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
+import { VERSION } from "~/constants/talentSearchConstants";
+
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
+import VersionLink from "./VersionLink";
 
 interface FooterProps {
   width?: string;
@@ -108,21 +111,24 @@ const Footer = ({ width }: FooterProps) => {
                 data-h2-color="base(black.70) base:dark(white.70)"
                 data-h2-font-size="base(caption)"
               >
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Date Modified: {modifiedDate}",
-                    id: "Fc/i3e",
-                    description:
-                      "Header for the sites last date modification found in the footer.",
-                  },
-                  {
-                    modifiedDate: new Date(
-                      process.env.BUILD_DATE ?? "1970-01-01",
-                    )
-                      .toISOString()
-                      .slice(0, 10),
-                  },
-                )}
+                <span>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Date Modified: {modifiedDate}",
+                      id: "Fc/i3e",
+                      description:
+                        "Header for the sites last date modification found in the footer.",
+                    },
+                    {
+                      modifiedDate: new Date(
+                        process.env.BUILD_DATE ?? "1970-01-01",
+                      )
+                        .toISOString()
+                        .slice(0, 10),
+                    },
+                  )}
+                </span>
+                <VersionLink />
               </p>
             </div>
           </div>

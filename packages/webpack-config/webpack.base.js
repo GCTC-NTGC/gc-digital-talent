@@ -19,7 +19,16 @@ const meta = {
   type: "website",
 };
 
+const gitCommand = (cmd) => {
+  return require('child_process')
+    .execSync('git ' + cmd)
+    .toString()
+    .trim()
+}
+
 module.exports = (basePath) => {
+  let version = gitCommand('describe --abbrev=0');
+  let commitHash = gitCommand('rev-parse --short HEAD');
   return {
     plugins: [
       // process and copy CSS files
@@ -54,6 +63,8 @@ module.exports = (basePath) => {
           TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(
             process.env.TALENTSEARCH_SUPPORT_EMAIL,
           ),
+          VERSION: JSON.stringify(version),
+          COMMIT_HASH: JSON.stringify(commitHash)
         },
       }),
 
