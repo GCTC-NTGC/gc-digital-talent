@@ -5,15 +5,12 @@ import {
   SubmitHandler,
   useFieldArray,
   useForm,
-  useFormContext,
 } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 import { useNavigate } from "react-router-dom";
 
 import {
   TableOfContents,
   IconType,
-  Well,
   Separator,
   Button,
 } from "@gc-digital-talent/ui";
@@ -38,48 +35,37 @@ import {
   useUpdateUserSkillMutation,
 } from "~/api/generated";
 
+const addButtonStyling = (canAdd: boolean) =>
+  !canAdd
+    ? {
+        "data-h2-background": "base(background)",
+        "data-h2-border-style": "base(dashed)",
+        "data-h2-border-color": "base(gray.dark)",
+        "data-h2-color": "base(gray.dark)",
+        "data-h2-display": "base(flex)",
+        "data-h2-justify-content": "base(center)",
+        "data-h2-width": "base(100%)",
+      }
+    : {
+        "data-h2-background":
+          "base(background) base:hover(secondary.10) base:focus-visible(focus)",
+        "data-h2-border-style": "base(dashed) base:focus-visible(solid)",
+        "data-h2-border-color":
+          "base(secondary.darker) base:focus-visible(focus)",
+        "data-h2-color": "base(secondary.darker) base:focus-visible(black)",
+        "data-h2-display": "base(flex)",
+        "data-h2-justify-content": "base(center)",
+        "data-h2-width": "base(100%)",
+      };
+
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
-
-interface ModificationAlertProps {
-  userSkills: FormValues["userSkills"];
-}
-
-const ModificationAlert = ({ userSkills }: ModificationAlertProps) => {
-  const intl = useIntl();
-  const {
-    watch,
-    formState: { isDirty },
-  } = useFormContext();
-  const currentSkills = watch("userSkills");
-  const changedItems = userSkills?.filter((skill, index) => {
-    const current = currentSkills[index];
-    return !current || !isEqual(skill, current);
-  });
-
-  // Nothing has changed so do not show the alert
-  if (
-    !isDirty ||
-    (!changedItems?.length && currentSkills.length === userSkills?.length)
-  )
-    return null;
-
-  return (
-    <Well data-h2-margin-bottom="base(x1)" data-h2-text-align="base(center)">
-      {intl.formatMessage({
-        defaultMessage: "You have unsaved changes. Please, remember to save!",
-        id: "Un9x5Z",
-        description:
-          "Message displayed when items have been moved and not saved",
-      })}
-    </Well>
-  );
-};
 
 interface UpdateSkillShowcaseProps {
   userId: Scalars["UUID"];
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  maxItems: number;
   crumbs: { label: string; url: string }[];
   pageInfo: {
     id: string;
@@ -99,6 +85,7 @@ const UpdateSkillShowcase = ({
   skills,
   userSkills,
   initialSkills,
+  maxItems,
   crumbs,
   pageInfo,
   handleSubmit,
@@ -201,6 +188,40 @@ const UpdateSkillShowcase = ({
   const canAdd = fields.length < pageInfo.maxSkillCount;
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
+
+  const triggerProps = canAdd
+    ? {
+        id: addId,
+        label: intl.formatMessage(
+          {
+            defaultMessage: "Add a new item ({numOfSkills}/{maxSkills})",
+            id: "XzGOuV",
+            description:
+              "Label for skill dialog trigger on skills showcase section.",
+          },
+          {
+            numOfSkills: watchedSkills.length,
+            maxSkills: pageInfo.maxSkillCount,
+          },
+        ),
+      }
+    : {
+        label: intl.formatMessage(
+          {
+            defaultMessage:
+              "Delete an item to add another ({numOfSkills}/{maxSkills})",
+            id: "lFFnfX",
+            description:
+              "Label for disabled dialog trigger on skills showcase section.",
+          },
+          {
+            numOfSkills: watchedSkills.length,
+            maxSkills: pageInfo.maxSkillCount,
+          },
+        ),
+        disabled: true,
+      };
+
   return (
     <>
       <SEO title={pageInfo.title} description={pageInfo.description} />
@@ -235,7 +256,12 @@ const UpdateSkillShowcase = ({
                   <form onSubmit={methods.handleSubmit(handleSubmit)}>
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
+                      name="userSkills"
+                      total={fields.length}
+                      maxItems={maxItems}
                       showAdd={canAdd}
+                      showApproachingLimit
+                      showUnsavedChanges
                       customButton={{
                         id: addId,
                         button: (
@@ -243,150 +269,67 @@ const UpdateSkillShowcase = ({
                             inLibrary={userSkills.map(
                               (userSkill) => userSkill.skill,
                             )}
-                            trigger={
-                              canAdd
-                                ? {
-                                    id: addId,
-                                    label: intl.formatMessage(
-                                      {
-                                        defaultMessage:
-                                          "Add a new item ({numOfSkills}/{maxSkills})",
-                                        id: "XzGOuV",
-                                        description:
-                                          "Label for skill dialog trigger on skills showcase section.",
-                                      },
-                                      {
-                                        numOfSkills: watchedSkills.length,
-                                        maxSkills: pageInfo.maxSkillCount,
-                                      },
-                                    ),
-                                  }
-                                : {
-                                    label: intl.formatMessage(
-                                      {
-                                        defaultMessage:
-                                          "Delete an item to add another ({numOfSkills}/{maxSkills})",
-                                        id: "lFFnfX",
-                                        description:
-                                          "Label for disabled dialog trigger on skills showcase section.",
-                                      },
-                                      {
-                                        numOfSkills: watchedSkills.length,
-                                        maxSkills: pageInfo.maxSkillCount,
-                                      },
-                                    ),
-                                    disabled: true,
-                                  }
-                            }
+                            trigger={triggerProps}
                             context="showcase"
                             skills={skills}
                             onSave={handleSave}
                             showCategory={false}
                             noToast
-                            {...(!canAdd
-                              ? {
-                                  "data-h2-background": "base(background)",
-                                  "data-h2-border-style": "base(dashed)",
-                                  "data-h2-border-color": "base(gray.dark)",
-                                  "data-h2-color": "base(gray.dark)",
-                                  "data-h2-display": "base(flex)",
-                                  "data-h2-justify-content": "base(center)",
-                                  "data-h2-width": "base(100%)",
-                                }
-                              : {
-                                  "data-h2-background":
-                                    "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-                                  "data-h2-border-style":
-                                    "base(dashed) base:focus-visible(solid)",
-                                  "data-h2-border-color":
-                                    "base(secondary.darker) base:focus-visible(focus)",
-                                  "data-h2-color":
-                                    "base(secondary.darker) base:focus-visible(black)",
-                                  "data-h2-display": "base(flex)",
-                                  "data-h2-justify-content": "base(center)",
-                                  "data-h2-width": "base(100%)",
-                                })}
+                            {...addButtonStyling(canAdd)}
                           />
                         ),
                       }}
                     >
-                      {fields.length ? (
-                        fields.map((item, index) => (
-                          <Repeater.Fieldset
-                            key={item.id}
-                            index={index}
-                            total={fields.length}
-                            onMove={move}
-                            onRemove={remove}
-                            legend={
-                              <span
-                                data-h2-display="base(flex)"
-                                data-h2-justify-content="base(space-between)"
-                              >
-                                <span>
-                                  {getLocalizedName(
-                                    getSkill(item.skill)?.name ?? undefined,
-                                    intl,
-                                  )}
-                                </span>
-                                <span
-                                  data-h2-font-weight="base(400)"
-                                  data-h2-color="base(black.light)"
-                                >
-                                  {item.skillLevel
-                                    ? intl.formatMessage(
-                                        item.category ===
-                                          SkillCategory.Behavioural
-                                          ? getBehaviouralSkillLevel(
-                                              item.skillLevel,
-                                            )
-                                          : getTechnicalSkillLevel(
-                                              item.skillLevel,
-                                            ),
-                                      )
-                                    : getLocalizedName(null, intl)}
-                                </span>
-                              </span>
-                            }
-                          >
-                            <div>
-                              <p>
+                      {fields.map((item, index) => (
+                        <Repeater.Fieldset
+                          key={item.id}
+                          name="userSkills"
+                          index={index}
+                          total={fields.length}
+                          onMove={move}
+                          onRemove={remove}
+                          legend={
+                            <span
+                              data-h2-display="base(flex)"
+                              data-h2-justify-content="base(space-between)"
+                            >
+                              <span>
                                 {getLocalizedName(
-                                  getSkill(item.skill)?.description ??
-                                    undefined,
+                                  getSkill(item.skill)?.name ?? undefined,
                                   intl,
                                 )}
-                              </p>
-                            </div>
-                          </Repeater.Fieldset>
-                        ))
-                      ) : (
-                        <Well data-h2-text-align="base(center)">
-                          <p
-                            data-h2-font-weight="base(700)"
-                            data-h2-margin-bottom="base(x.5)"
-                          >
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "You haven't added any items yet.",
-                              id: "cEalcz",
-                              description:
-                                "Message that appears when there are no skills on showcase",
-                            })}
-                          </p>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: `You can add items using the "Add a new item" button provided.`,
-                              id: "mR8ccV",
-                              description:
-                                "Instructions on how to add a skill to showcase when there are none",
-                            })}
-                          </p>
-                        </Well>
-                      )}
+                              </span>
+                              <span
+                                data-h2-font-weight="base(400)"
+                                data-h2-color="base(black.light)"
+                              >
+                                {item.skillLevel
+                                  ? intl.formatMessage(
+                                      item.category ===
+                                        SkillCategory.Behavioural
+                                        ? getBehaviouralSkillLevel(
+                                            item.skillLevel,
+                                          )
+                                        : getTechnicalSkillLevel(
+                                            item.skillLevel,
+                                          ),
+                                    )
+                                  : getLocalizedName(null, intl)}
+                              </span>
+                            </span>
+                          }
+                        >
+                          <div>
+                            <p>
+                              {getLocalizedName(
+                                getSkill(item.skill)?.description ?? undefined,
+                                intl,
+                              )}
+                            </p>
+                          </div>
+                        </Repeater.Fieldset>
+                      ))}
                     </Repeater.Root>
-
-                    <ModificationAlert userSkills={initialSkills.userSkills} />
 
                     <Separator
                       orientation="horizontal"

@@ -33,7 +33,6 @@ interface SkillBrowserDialogProps {
   trigger?: {
     id?: string;
     label?: React.ReactNode;
-
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
@@ -43,6 +42,8 @@ interface SkillBrowserDialogProps {
   noToast?: boolean;
   // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
+  /** Custom trigger button which overrides default settings */
+  customTrigger?: React.ReactNode;
 }
 
 const SkillBrowserDialog = ({
@@ -55,6 +56,7 @@ const SkillBrowserDialog = ({
   initialState,
   defaultOpen = false,
   noToast = false,
+  customTrigger,
   ...rest
 }: SkillBrowserDialogProps) => {
   const intl = useIntl();
@@ -136,7 +138,9 @@ const SkillBrowserDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
-        <Button {...triggerProps} {...rest} color="secondary" />
+        {customTrigger || (
+          <Button {...triggerProps} {...rest} color="secondary" />
+        )}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>

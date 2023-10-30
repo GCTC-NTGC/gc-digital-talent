@@ -19,7 +19,6 @@ fragment poolCandidateTable on PoolCandidate {
     armedForcesStatus
 
     # Language
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual

@@ -64,7 +64,6 @@ UserProfileNull.args = {
   preferredLanguageForExam: null,
   currentCity: null,
   currentProvince: null,
-  languageAbility: null,
   lookingForEnglish: null,
   lookingForFrench: null,
   lookingForBilingual: null,

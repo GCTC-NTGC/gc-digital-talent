@@ -98,7 +98,7 @@ const CreateApplication = () => {
    * checkedForExistingApplications - We should check existing applications before applying again
    * existingApplicationIdToThisPool - If there's already an application to this pool don't apply again
    */
-  const userId = auth.user?.id;
+  const userId = auth.userAuthInfo?.id;
   const hasNewApplicationData = notEmpty(newApplicationData);
   const haveRequiredDataToCreateNewApplication = userId && poolId;
 

@@ -12,9 +12,9 @@ import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitm
 
 const CareerTimelineAndRecruitmentPage = () => {
   const intl = useIntl();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [{ data, fetching, error }] = useGetAllApplicantExperiencesQuery({
-    variables: { id: user?.id || "" },
+    variables: { id: userAuthInfo?.id || "" },
   });
 
   const experiences = data?.applicant?.experiences?.filter(notEmpty);

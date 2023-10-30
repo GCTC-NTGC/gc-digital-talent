@@ -113,9 +113,9 @@ const OngoingRecruitmentSection = ({
     PoolStream | "ALL"
   >("ALL");
 
-  const { user, isLoaded } = useAuthorization();
+  const { userAuthInfo, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
-    pause: !isLoaded || !user,
+    pause: !isLoaded || !userAuthInfo,
   });
 
   const mySkillIdsWithDuplicates = skillsData?.me?.experiences

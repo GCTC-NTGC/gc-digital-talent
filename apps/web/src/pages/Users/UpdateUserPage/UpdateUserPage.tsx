@@ -76,8 +76,13 @@ export const UpdateUserForm = ({
     sub: emptyToNull(values.sub),
   });
 
+  const dataToFormValues = (data: User): FormValues => ({
+    ...data,
+    sub: data.authInfo?.sub,
+  });
+
   const methods = useForm<FormValues>({
-    defaultValues: initialUser,
+    defaultValues: dataToFormValues(initialUser),
   });
   const { handleSubmit } = methods;
 

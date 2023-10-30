@@ -14,6 +14,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import { useMyEmailQuery } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -275,7 +276,10 @@ const CreateAccount = () => {
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
-  const meId = authContext.user?.id;
+  const [lookUpResultEmail] = useMyEmailQuery();
+  const { data: lookupDataEmail } = lookUpResultEmail;
+  const email = lookupDataEmail?.me?.email;
+  const meId = authContext?.userAuthInfo?.id;
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
   const { data: lookupData, fetching, error } = lookUpResult;
@@ -336,7 +340,7 @@ const CreateAccount = () => {
   };
 
   // OK to navigate to profile once we have a user ID and an email
-  const shouldNavigate = meId && authContext.email;
+  const shouldNavigate = meId && email;
   const fallbackTarget = paths.profileAndApplications();
   const navigationTarget = from || fallbackTarget;
   React.useEffect(() => {

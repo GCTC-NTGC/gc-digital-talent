@@ -3,7 +3,10 @@
 query getMe {
   me {
     id
-    sub
+    authInfo {
+      id
+      sub
+    }
     firstName
     lastName
     email
@@ -15,7 +18,6 @@ query getMe {
     currentCity
     citizenship
     armedForcesStatus
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual

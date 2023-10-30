@@ -231,7 +231,9 @@ const CreatePoolPage = () => {
   const userIdQuery = userIdQueryUntyped || "";
 
   const classificationsData = unpackMaybes(lookupData?.classifications);
-  const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
+  const roleAssignments =
+    unpackMaybes(lookupData?.me?.authInfo?.roleAssignments) ?? [];
+  const teamsArray = roleAssignmentsToTeams(roleAssignments);
 
   const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (
