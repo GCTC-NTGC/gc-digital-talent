@@ -9,7 +9,11 @@ import {
   ScrollLinkClickFunc,
   Link,
 } from "@gc-digital-talent/ui";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 
 import type { FieldLabels } from "./BasicForm";
 import { flattenErrors } from "../utils";
@@ -94,8 +98,12 @@ interface ErrorSummaryProps {
   show: boolean;
 }
 
-const a = (chunks: React.ReactNode) => (
-  <Link external href="mailto:gctalent-talentgc@support-soutien.gc.ca">
+const supportLink = (chunks: React.ReactNode, locale: string) => (
+  <Link
+    href={`/${locale}/support`}
+    state={{ referrer: window.location.href }}
+    newTab
+  >
     {chunks}
   </Link>
 );
@@ -105,6 +113,7 @@ const ErrorSummary = React.forwardRef<
   ErrorSummaryProps
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
+  const { locale } = useLocale();
   const { errors } = useFormState();
 
   // Don't show if the form is valid
@@ -153,7 +162,11 @@ const ErrorSummary = React.forwardRef<
         })}
       </ul>
       <Alert.Footer>
-        <p>{intl.formatMessage(errorMessages.summaryContact, { a })}</p>
+        <p>
+          {intl.formatMessage(errorMessages.summaryContact, {
+            a: (chunks: React.ReactNode) => supportLink(chunks, locale),
+          })}
+        </p>
       </Alert.Footer>
     </Alert.Root>
   ) : null;
