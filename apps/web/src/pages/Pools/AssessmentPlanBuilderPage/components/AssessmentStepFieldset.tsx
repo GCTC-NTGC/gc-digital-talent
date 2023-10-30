@@ -63,13 +63,25 @@ const AssessmentStepFieldset = ({
       <p>{assessmentStepDisplayName(assessmentStep, intl)}</p>
 
       {skillNames.length ? (
-        <p
-          data-h2-margin-top="base(x.5)"
+        <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"
+          data-h2-padding-left="base(0)"
+          data-h2-margin-top="base(x.5)"
         >
-          {skillNames.join(" • ")}
-        </p>
+          {skillNames.map((skillName, skillIndex) => (
+            <React.Fragment key={skillName}>
+              {skillIndex !== 0 ? (
+                <span data-h2-margin="base(0 x.5)" aria-hidden>
+                  •
+                </span>
+              ) : null}
+              <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
+                {skillName}
+              </li>
+            </React.Fragment>
+          ))}
+        </ul>
       ) : null}
 
       <AssessmentDetailsDialog
