@@ -20,16 +20,19 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
+  CreateScreeningQuestionInput,
   Maybe,
   PoolSkill,
   Scalars,
   ScreeningQuestion,
+  UpdateScreeningQuestionInput,
   useCreateAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
   useUpdatePoolMutation,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -122,17 +125,28 @@ const AssessmentDetailsDialog = ({
     },
   });
   const { handleSubmit, control, watch, setValue, reset } = methods;
+
+  const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
+  const dialogMode: DialogMode =
+    selectedTypeOfAssessment ===
+    AssessmentStepType.ScreeningQuestionsAtApplication
+      ? "screening_question"
+      : "regular";
+
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "screeningQuestionFieldArray",
     rules: {
-      required: intl.formatMessage({
-        defaultMessage:
-          "Include up to 3 questions in your application process.",
-        id: "P3WkJv",
-        description:
-          "Helper message indicating max screening questions allowed",
-      }),
+      required: {
+        value: dialogMode === "screening_question",
+        message: intl.formatMessage({
+          defaultMessage:
+            "Include up to 3 questions in your application process.",
+          id: "P3WkJv",
+          description:
+            "Helper message indicating max screening questions allowed",
+        }),
+      },
       minLength: {
         value: 1,
         message: intl.formatMessage({
@@ -155,13 +169,6 @@ const AssessmentDetailsDialog = ({
       },
     },
   });
-
-  const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
-  const dialogMode: DialogMode =
-    selectedTypeOfAssessment ===
-    AssessmentStepType.ScreeningQuestionsAtApplication
-      ? "screening_question"
-      : "regular";
 
   React.useEffect(() => {
     if (dialogMode === "regular") {
@@ -227,12 +234,87 @@ const AssessmentDetailsDialog = ({
     );
   };
 
-  const submitForm = async (values: FormValues) => {
-    const submitPromise = values.id
+  const submitUpdateScreeningQuestionMutation = (
+    values: FormValues,
+  ): Promise<void> => {
+    if (!values.poolId) {
+      return Promise.reject();
+    }
+
+    // what does the list look like now?
+    const newScreeningQuestions =
+      values.screeningQuestionFieldArray?.map(
+        ({ screeningQuestion }, index) => ({
+          index,
+          screeningQuestion,
+        }),
+      ) ?? [];
+
+    // original ID no longer exists in new lists - delete it
+    const toBeDeletedIds = initialValues.screeningQuestions
+      ?.filter((existingQuestion) => {
+        return !newScreeningQuestions.some(
+          ({ screeningQuestion }) =>
+            screeningQuestion.id === existingQuestion?.id,
+        );
+      })
+      .map<Scalars["ID"]>((q) => q.id);
+
+    // question in new list doesn't have an ID yet - create it
+    const toBeCreatedInputs = newScreeningQuestions
+      .filter(({ screeningQuestion }) => !screeningQuestion.id)
+      .map<CreateScreeningQuestionInput>(({ index, screeningQuestion }) => ({
+        question: {
+          en: screeningQuestion.en,
+          fr: screeningQuestion.fr,
+        },
+        sortOrder: index + 1,
+      }));
+
+    // question in new list already has an ID - submit for update
+    const toBeUpdatedInputs = newScreeningQuestions
+      .filter(({ screeningQuestion }) => notEmpty(screeningQuestion.id))
+      .map<UpdateScreeningQuestionInput>(({ index, screeningQuestion }) => ({
+        id: screeningQuestion.id ?? "",
+        question: {
+          en: screeningQuestion.en,
+          fr: screeningQuestion.fr,
+        },
+        sortOrder: index + 1,
+      }));
+
+    const mutationParameters = {
+      id: values.poolId,
+      pool: {
+        screeningQuestions: {
+          update: toBeUpdatedInputs,
+          create: toBeCreatedInputs,
+          delete: toBeDeletedIds,
+        },
+      },
+    };
+
+    return executeUpdatePoolMutation(mutationParameters).then((res) => {
+      if (res?.data?.updatePool?.id) {
+        return Promise.resolve();
+      }
+      return Promise.reject();
+    });
+  };
+
+  const submitForm = (values: FormValues) => {
+    const assessmentStepPromise = values.id
       ? submitUpdateAssessmentStepMutation(values)
       : submitCreateAssessmentStepMutation(values);
 
-    submitPromise
+    const combinedPromise =
+      dialogMode === "screening_question"
+        ? assessmentStepPromise.then(() =>
+            submitUpdateScreeningQuestionMutation(values),
+          )
+        : assessmentStepPromise;
+
+    combinedPromise
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -397,7 +479,7 @@ const AssessmentDetailsDialog = ({
                       showUnsavedChanges={false}
                       onAdd={() => {
                         append({
-                          id: "new",
+                          id: null,
                           screeningQuestion: {
                             en: "",
                             fr: "",
@@ -439,7 +521,6 @@ const AssessmentDetailsDialog = ({
                               },
                             )}
                             hideLegend
-                            // no frontend validation (1-3 questions) possible #7888
                           >
                             <input
                               type="hidden"

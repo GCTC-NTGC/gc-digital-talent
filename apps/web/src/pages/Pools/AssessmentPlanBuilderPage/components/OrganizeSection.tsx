@@ -101,9 +101,11 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const handleSave = () => {
     const oldStepIds = initialAssessmentSteps.map((step) => step.id);
     const newStepIds = fields.map((field) => field.assessmentStep.id);
-    const deletes = oldStepIds.filter((oldId) => !newStepIds.includes(oldId));
+    const toBeDeletedStepIds = oldStepIds.filter(
+      (oldId) => !newStepIds.includes(oldId),
+    );
 
-    const deletePromises = deletes.map((id) =>
+    const deletePromises = toBeDeletedStepIds.map((id) =>
       executeDeleteMutation({ id }).then((res) => {
         if (res.data?.deleteAssessmentStep?.id) {
           return Promise.resolve();
@@ -120,7 +122,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
       }),
     );
 
-    const moves = fields
+    const toBeMovedItems = fields
       .map((field, index) => ({
         id: field.assessmentStep.id,
         oldSpot: field.assessmentStep.sortOrder,
@@ -128,7 +130,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
       }))
       .filter((item) => item.oldSpot !== item.newSpot);
 
-    const updatePromises = moves.map((item) =>
+    const updatePromises = toBeMovedItems.map((item) =>
       executeUpdateMutation({
         id: item.id,
         assessmentStep: {
