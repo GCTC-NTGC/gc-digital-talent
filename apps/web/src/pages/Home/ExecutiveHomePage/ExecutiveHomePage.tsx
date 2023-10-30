@@ -93,7 +93,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+          <div data-h2-padding="base(x2, 0, x1, 0) p-tablet(x3, 0, x1, 0)">
             <ul
               data-h2-margin="base(0)"
               data-h2-padding="base(0)"
@@ -109,6 +109,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         ) : (
           <div
             data-h2-padding="base(x1)"
+            data-h2-margin="base(x1, 0, x1, 0)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             data-h2-background="base(foreground)"
@@ -141,7 +142,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         data-h2-position="base(relative)"
         data-h2-z-index="base(3)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
           <Heading
             level="h2"
             Icon={PuzzlePieceIcon}
@@ -158,7 +159,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
             data-h2-gap="base(x2) p-tablet(x3)"
-            data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
+            data-h2-padding="base(x2, 0, 0, 0) p-tablet(x2, 0, x3, 0)"
           >
             <CardFlat
               color="tertiary"

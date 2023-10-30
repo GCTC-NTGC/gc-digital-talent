@@ -17,10 +17,7 @@ const SkewedImageContainer = ({
   imgProps,
 }: SkewedImageContainerProps) => {
   return (
-    <div
-      data-h2-background-color="base(background)"
-      data-h2-layer="base(3, relative)"
-    >
+    <div data-h2-layer="base(4, relative)">
       <div
         data-h2-height="base(100%)"
         data-h2-width="base(100%)"

@@ -23,6 +23,7 @@ const FlourishContainer = ({
 }: FlourishContainerProps) => (
   <div data-h2-layer="base(3, relative)">
     <div
+      data-h2-background="base(background)"
       data-h2-height="base(100%)"
       data-h2-width="base(100%)"
       data-h2-position="base(absolute)"
