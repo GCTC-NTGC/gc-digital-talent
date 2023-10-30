@@ -81,6 +81,18 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   const { remove, move, fields } = useFieldArray({
     control,
     name: "assessmentStepFieldArray",
+    // not sure why this causes "type instantiation is excessively deep"
+    // rules: {
+    //   maxLength: {
+    //     value: ASSESSMENT_STEPS_MAX_STEPS,
+    //     message: intl.formatMessage({
+    //       defaultMessage: "You are at the limit!",
+    //       id: "j7+E9C",
+    //       description:
+    //         "Title for warning message when the user has added the maximum assessments to the assessment plan",
+    //     }),
+    //   },
+    // },
   });
   const { isDirty } = useFormState({
     control,

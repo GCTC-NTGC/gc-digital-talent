@@ -125,6 +125,35 @@ const AssessmentDetailsDialog = ({
   const { remove, move, append, fields } = useFieldArray({
     control,
     name: "screeningQuestionFieldArray",
+    rules: {
+      required: intl.formatMessage({
+        defaultMessage:
+          "Include up to 3 questions in your application process.",
+        id: "P3WkJv",
+        description:
+          "Helper message indicating max screening questions allowed",
+      }),
+      minLength: {
+        value: 1,
+        message: intl.formatMessage({
+          defaultMessage:
+            "Include up to 3 questions in your application process.",
+          id: "P3WkJv",
+          description:
+            "Helper message indicating max screening questions allowed",
+        }),
+      },
+      maxLength: {
+        value: 3,
+        message: intl.formatMessage({
+          defaultMessage:
+            "Include up to 3 questions in your application process.",
+          id: "P3WkJv",
+          description:
+            "Helper message indicating max screening questions allowed",
+        }),
+      },
+    },
   });
 
   const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
@@ -199,24 +228,6 @@ const AssessmentDetailsDialog = ({
   };
 
   const submitForm = async (values: FormValues) => {
-    // can't do this validation in the repeater right now 😢
-    if (
-      values.typeOfAssessment ===
-        AssessmentStepType.ScreeningQuestionsAtApplication &&
-      !values.screeningQuestionFieldArray?.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage:
-            "This assessment requires at least one question, please add it here.",
-          id: "lVb1hs",
-          description:
-            "description of 'screening questions' section of the 'assessment details' dialog",
-        }),
-      );
-      return;
-    }
-
     const submitPromise = values.id
       ? submitUpdateAssessmentStepMutation(values)
       : submitCreateAssessmentStepMutation(values);
@@ -383,7 +394,7 @@ const AssessmentDetailsDialog = ({
                       name="screeningQuestionFieldArray"
                       total={fields.length}
                       showAdd={canAddScreeningQuestions}
-                      showUnsavedChanges
+                      showUnsavedChanges={false}
                       onAdd={() => {
                         append({
                           id: "new",
@@ -408,107 +419,82 @@ const AssessmentDetailsDialog = ({
                       )}
                     >
                       <>
-                        {fields.length ? (
-                          fields.map(({ id }, index) => (
-                            <Repeater.Fieldset
-                              name="screeningQuestionFieldArray"
-                              key={id}
-                              index={index}
-                              total={fields.length}
-                              onMove={move}
-                              onRemove={remove}
-                              legend={intl.formatMessage(
-                                {
-                                  defaultMessage: "Screening question {index}",
-                                  id: "s+ObMR",
-                                  description:
-                                    "Legend for screening question fieldset",
-                                },
-                                {
-                                  index: index + 1,
-                                },
-                              )}
-                              hideLegend
-                              // no frontend validation (1-3 questions) possible #7888
+                        {fields.map(({ id }, index) => (
+                          <Repeater.Fieldset
+                            name="screeningQuestionFieldArray"
+                            key={id}
+                            index={index}
+                            total={fields.length}
+                            onMove={move}
+                            onRemove={remove}
+                            legend={intl.formatMessage(
+                              {
+                                defaultMessage: "Screening question {index}",
+                                id: "s+ObMR",
+                                description:
+                                  "Legend for screening question fieldset",
+                              },
+                              {
+                                index: index + 1,
+                              },
+                            )}
+                            hideLegend
+                            // no frontend validation (1-3 questions) possible #7888
+                          >
+                            <input
+                              type="hidden"
+                              name={`screeningQuestionFieldArray.${index}.id`}
+                            />
+                            <input
+                              type="hidden"
+                              name={`screeningQuestionFieldArray.${index}.sortOrder`}
+                            />
+                            <div
+                              data-h2-display="base(grid)"
+                              data-h2-grid-template-columns="base(1fr 1fr)"
+                              data-h2-gap="base(0 x1)"
                             >
-                              <input
-                                type="hidden"
-                                name={`screeningQuestionFieldArray.${index}.id`}
-                              />
-                              <input
-                                type="hidden"
-                                name={`screeningQuestionFieldArray.${index}.sortOrder`}
-                              />
-                              <div
-                                data-h2-display="base(grid)"
-                                data-h2-grid-template-columns="base(1fr 1fr)"
-                                data-h2-gap="base(0 x1)"
-                              >
-                                <div>
-                                  <TextArea
-                                    id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
-                                    name={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
-                                    label={intl.formatMessage(
-                                      labels.screeningQuestionEn,
-                                      { questionNumber: index + 1 },
-                                    )}
-                                    rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
-                                    wordLimit={
-                                      SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS
-                                    }
-                                    rules={{
-                                      required: intl.formatMessage(
-                                        errorMessages.required,
-                                      ),
-                                    }}
-                                  />
-                                </div>
-                                <div>
-                                  <TextArea
-                                    id={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
-                                    name={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
-                                    label={intl.formatMessage(
-                                      labels.screeningQuestionFr,
-                                      { questionNumber: index + 1 },
-                                    )}
-                                    rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
-                                    wordLimit={
-                                      SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS
-                                    }
-                                    rules={{
-                                      required: intl.formatMessage(
-                                        errorMessages.required,
-                                      ),
-                                    }}
-                                  />
-                                </div>
+                              <div>
+                                <TextArea
+                                  id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
+                                  name={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
+                                  label={intl.formatMessage(
+                                    labels.screeningQuestionEn,
+                                    { questionNumber: index + 1 },
+                                  )}
+                                  rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
+                                  wordLimit={
+                                    SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS
+                                  }
+                                  rules={{
+                                    required: intl.formatMessage(
+                                      errorMessages.required,
+                                    ),
+                                  }}
+                                />
                               </div>
-                            </Repeater.Fieldset>
-                          ))
-                        ) : (
-                          <Well>
-                            <p
-                              data-h2-font-weight="base(700)"
-                              data-h2-margin-bottom="base(x.5)"
-                            >
-                              {intl.formatMessage({
-                                defaultMessage: "You have no questions.",
-                                id: "izt28e",
-                                description:
-                                  "Message that appears when there are no screening messages for a pool",
-                              })}
-                            </p>
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Start adding some questions using the following button.",
-                                id: "vDqzWG",
-                                description:
-                                  "Instructions on how to add a question when there are none",
-                              })}
-                            </p>
-                          </Well>
-                        )}
+                              <div>
+                                <TextArea
+                                  id={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
+                                  name={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
+                                  label={intl.formatMessage(
+                                    labels.screeningQuestionFr,
+                                    { questionNumber: index + 1 },
+                                  )}
+                                  rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
+                                  wordLimit={
+                                    SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS
+                                  }
+                                  rules={{
+                                    required: intl.formatMessage(
+                                      errorMessages.required,
+                                    ),
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          </Repeater.Fieldset>
+                        ))}
                         {!canAddScreeningQuestions && (
                           <Well>
                             <p
