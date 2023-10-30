@@ -62,15 +62,21 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   };
 
   const handleOpenChange = (newOpen: boolean) => {
-    const attributes = editor?.getAttributes("link");
-    if (newOpen && (attributes?.href || attributes?.target)) {
-      if (attributes?.href) {
-        methods.setValue("href", attributes.href);
+    if (newOpen) {
+      const attributes = editor?.getAttributes("link");
+      if (newOpen && (attributes?.href || attributes?.target)) {
+        if (attributes?.href) {
+          methods.setValue("href", attributes.href);
+        }
+        if (attributes?.target) {
+          methods.setValue("newTab", attributes.target === "_blank");
+        }
       }
-      if (attributes?.target) {
-        methods.setValue("newTab", attributes.target === "_blank");
-      }
+    } else {
+      methods.resetField("href");
+      methods.resetField("newTab");
     }
+
     setIsOpen(newOpen);
   };
 
