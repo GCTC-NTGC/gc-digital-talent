@@ -4,8 +4,6 @@ import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
-import { VERSION } from "~/constants/talentSearchConstants";
-
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
 import VersionLink from "./VersionLink";
 
