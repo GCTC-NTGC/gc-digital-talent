@@ -406,16 +406,16 @@ return [
         ],
 
         'view-any-assessmentResult' => [
-            'en' => 'abc',
-            'fr' => 'abc',
+            'en' => 'View assessment results for any pool',
+            'fr' => 'Voir les résultats de l\'évaluation pour n\'importe quel bassin',
         ],
         'view-team-assessmentResult' => [
-            'en' => 'abc',
-            'fr' => 'abc',
+            'en' => 'View assessment results for pools run by your team only',
+            'fr' => 'Visualiser les résultats des évaluations pour les pools gérés par votre équipe uniquement',
         ],
         'update-team-assessmentResult' => [
-            'en' => 'abc',
-            'fr' => 'abc',
+            'en' => 'Mutate assessment result objects',
+            'fr' => 'Modifier les objets de résultats d\'évaluation',
         ],
     ],
 
