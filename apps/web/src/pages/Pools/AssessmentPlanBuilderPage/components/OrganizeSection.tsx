@@ -324,7 +324,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                       index={index}
                       assessmentStep={assessmentStep}
                       total={fields.length}
-                      disabled={formDisabled}
+                      formDisabled={formDisabled}
                       pool={pool}
                       onRemove={remove}
                       onMove={move}

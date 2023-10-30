@@ -19,7 +19,7 @@ type AssessmentStepFieldsetProps = {
   index: number;
   assessmentStep: AssessmentStep;
   total: number;
-  disabled: boolean;
+  formDisabled: boolean;
   pool: Pool;
   onRemove: UseFieldArrayRemove;
   onMove: UseFieldArrayMove;
@@ -29,7 +29,7 @@ const AssessmentStepFieldset = ({
   index,
   assessmentStep,
   total,
-  disabled,
+  formDisabled,
   pool,
   onRemove,
   onMove,
@@ -48,6 +48,10 @@ const AssessmentStepFieldset = ({
       ? 1
       : -1,
   );
+
+  const disabled =
+    formDisabled ||
+    assessmentStep.type === AssessmentStepType.ApplicationScreening;
 
   return (
     <Repeater.Fieldset
