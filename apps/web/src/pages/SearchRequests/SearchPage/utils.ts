@@ -75,13 +75,11 @@ export const getClassificationLabel = (
  * @returns {string}
  */
 const getCurrentClassification = (
-  data: ApplicantFilterInput,
   selectedClassifications?: Maybe<SimpleClassification[]>,
 ): string => {
-  const classifications = data?.qualifiedClassifications?.filter(notEmpty);
-  const classification = selectedClassifications ?? classifications;
-
-  return classification ? formatClassificationString(classification[0]) : "";
+  return selectedClassifications && selectedClassifications?.length > 0
+    ? formatClassificationString(selectedClassifications[0])
+    : "";
 };
 
 export const durationSelectionToEnum = (
@@ -155,7 +153,7 @@ export const dataToFormValues = (
   }
 
   return {
-    classification: getCurrentClassification(data, selectedClassifications),
+    classification: getCurrentClassification(selectedClassifications),
     languageAbility: data?.languageAbility ?? "NULL_SELECTION",
     employmentEquity: [
       ...(data?.equity?.hasDisability ? ["hasDisability"] : []),
