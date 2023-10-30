@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { createIntlCache, useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
@@ -18,6 +18,23 @@ import MenuButton from "./MenuButton";
 
 const validLinkRegex =
   /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+const looseProtocolRegex = /^(?!(?:\w+?:)?\/\/)/;
+const localHostRegex = /^\.*\/|^(?!localhost)\w+?:/;
+
+const prependHttp = (url: string, https: boolean = false): string => {
+  const transformedUrl = url.trim();
+
+  // Don't prepend to localhost or a hash
+  if (localHostRegex.test(transformedUrl) || transformedUrl === "#") {
+    return transformedUrl;
+  }
+
+  // Append to beginning of string if protoical does not exist
+  return transformedUrl.replace(
+    looseProtocolRegex,
+    https ? "https://" : "http://",
+  );
+};
 
 type FormValues = {
   href: string;
@@ -39,11 +56,12 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   ) => {
     e?.stopPropagation();
     if (action === "add") {
+      const sanitizedUrl = sanitizeUrl(href) ?? "";
       editor
         ?.chain()
         .focus()
         .setLink({
-          href: sanitizeUrl(href) ?? "",
+          href: prependHttp(sanitizedUrl) || "",
           target: newTab ? "_blank" : "__self",
         })
         .run();
@@ -89,9 +107,11 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
   };
 
   const isValidLink = (value: string) => {
+    const url = prependHttp(value);
+
     return (
-      validLinkRegex.test(value) ||
-      value === "#" ||
+      validLinkRegex.test(url) ||
+      url === "#" ||
       intl.formatMessage(richTextMessages.invalidLink)
     );
   };
