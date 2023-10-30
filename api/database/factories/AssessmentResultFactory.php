@@ -49,4 +49,44 @@ class AssessmentResultFactory extends Factory
                 $this->faker->paragraph() : null,
         ];
     }
+
+    /**
+     * Pick result type and constrain related fields
+     */
+    public function withResultType(AssessmentResultType $type)
+    {
+        return $this->state(function () use ($type) {
+            if ($type === AssessmentResultType::EDUCATION) {
+                $justifications = [$this->faker->randomElement(array_column(AssessmentResultJustification::educationJustifications(), 'name'))];
+
+                return [
+                    'assessment_result_type' => $type->name,
+                    'justifications' => $justifications,
+                    'other_justification_notes' => in_array(AssessmentResultJustification::FAILED_OTHER->name, $justifications) ?
+                        $this->faker->paragraph() : null,
+                    'assessment_decision_level' => null,
+                    'skill_decision_notes' => null,
+                ];
+            }
+
+            if ($type === AssessmentResultType::SKILL) {
+                $justifications = [$this->faker->randomElement(array_column(AssessmentResultJustification::skillJustifications(), 'name'))];
+                $assessmentDecision = $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+
+                return [
+                    'assessment_result_type' => $type->name,
+                    'justifications' => $justifications,
+                    'other_justification_notes' => in_array(AssessmentResultJustification::FAILED_OTHER->name, $justifications) ?
+                        $this->faker->paragraph() : null,
+                    'assessment_decision' => $assessmentDecision,
+                    'assessment_decision_level' => $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
+                        $this->faker->randomElement(array_column(AssessmentDecisionLevel::cases(), 'name')) : null,
+                    'skill_decision_notes' => $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
+                        $this->faker->paragraph() : null,
+                ];
+            }
+
+            return [];
+        });
+    }
 }
