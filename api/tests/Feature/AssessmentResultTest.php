@@ -39,7 +39,7 @@ class AssessmentResultTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
         $this->team = Team::factory()->create();
-        $this->pool = Pool::factory()->draft()->create([
+        $this->pool = Pool::factory()->create([
             'team_id' => $this->team->id,
         ]);
         $this->teamUser = User::factory()
