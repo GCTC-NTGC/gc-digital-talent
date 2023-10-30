@@ -342,21 +342,19 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
               {fields.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
                 <Context color="warning">
                   <p data-h2-font-weight="base(700)">
-                    {intl.formatMessage(
-                      fields.length === ASSESSMENT_STEPS_MAX_STEPS
-                        ? {
-                            defaultMessage: "You are at the limit!",
-                            id: "1moJ8r",
-                            description:
-                              "Title for warning message when the user has added the maximum assessments to the assessment plan",
-                          }
-                        : {
-                            defaultMessage: "You are approaching the limit!",
-                            id: "1moJ8r",
-                            description:
-                              "Title for warning message when the user has added many assessments to the assessment plan",
-                          },
-                    )}
+                    {fields.length === ASSESSMENT_STEPS_MAX_STEPS
+                      ? intl.formatMessage({
+                          defaultMessage: "You are at the limit!",
+                          id: "j7+E9C",
+                          description:
+                            "Title for warning message when the user has added the maximum assessments to the assessment plan",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "You are approaching the limit!",
+                          id: "1moJ8r",
+                          description:
+                            "Title for warning message when the user has added many assessments to the assessment plan",
+                        })}
                   </p>
                   <p>
                     {intl.formatMessage(

@@ -3,9 +3,14 @@ import { UseFieldArrayMove, UseFieldArrayRemove } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Repeater } from "@gc-digital-talent/forms";
-import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStep,
+  AssessmentStepType,
+  Pool,
+} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Accordion, Heading } from "@gc-digital-talent/ui";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -36,6 +41,13 @@ const AssessmentStepFieldset = ({
       ?.filter(notEmpty)
       .map((poolSkill) => getLocalizedName(poolSkill?.skill?.name, intl)) ?? [];
   skillNames.sort();
+  const screeningQuestions = pool.screeningQuestions?.filter(notEmpty) ?? [];
+  screeningQuestions.sort((a, b) =>
+    (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+    (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
+      ? 1
+      : -1,
+  );
 
   return (
     <Repeater.Fieldset
@@ -60,7 +72,9 @@ const AssessmentStepFieldset = ({
     >
       <input type="hidden" name={`assessmentSteps.${index}.id`} />
 
-      <p>{assessmentStepDisplayName(assessmentStep, intl)}</p>
+      <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+        {assessmentStepDisplayName(assessmentStep, intl)}
+      </Heading>
 
       {skillNames.length ? (
         <ul
@@ -82,6 +96,70 @@ const AssessmentStepFieldset = ({
             </React.Fragment>
           ))}
         </ul>
+      ) : null}
+
+      {assessmentStep.type ===
+      AssessmentStepType.ScreeningQuestionsAtApplication ? (
+        <Accordion.Root
+          type="multiple"
+          mode="simple"
+          data-h2-margin-top="base(x.5)"
+        >
+          <Accordion.Item value="one">
+            <Accordion.Header headingAs="h5" data-h2-font-size="base(h6)">
+              <Accordion.Trigger data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Screening questions",
+                  id: "V62J5w",
+                  description:
+                    "title of 'screening questions' section of the assessment builder",
+                })}
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Content>
+              <Heading
+                level="h6"
+                data-h2-font-size="base(copy)"
+                data-h2-margin-top="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Questions in English",
+                  id: "9cLJwl",
+                  description:
+                    "Description for a list of questions in the English language",
+                })}
+              </Heading>
+              <ol
+                data-h2-padding-left="base(0)"
+                data-h2-list-style-position="base(inside)"
+              >
+                {screeningQuestions.map((screeningQuestion) => (
+                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                    {screeningQuestion.question?.en}
+                  </li>
+                ))}
+              </ol>
+              <Heading level="h6" data-h2-font-size="base(copy)">
+                {intl.formatMessage({
+                  defaultMessage: "Questions in French",
+                  id: "OyMDr3",
+                  description:
+                    "Description for a list of questions in the French language",
+                })}
+              </Heading>
+              <ol
+                data-h2-padding-left="base(0)"
+                data-h2-list-style-position="base(inside)"
+              >
+                {screeningQuestions.map((screeningQuestion) => (
+                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                    {screeningQuestion.question?.fr}
+                  </li>
+                ))}
+              </ol>
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
       ) : null}
 
       <AssessmentDetailsDialog

@@ -5635,6 +5635,10 @@
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
   },
+  "V62J5w": {
+    "defaultMessage": "Questions de sélection",
+    "description": "title of 'screening questions' section of the assessment builder"
+  },
   "V6wB0a": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
     "description": "list a number of community experiences"
@@ -5718,10 +5722,6 @@
   "VW3KlZ": {
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
-  },
-  "jwCFf7": {
-    "defaultMessage": "Ajouter une nouvelle évaluation ({currentCount}/{maxCount})",
-    "description": "Button text to add a new assessment to the assessment plan"
   },
   "VX3Og5": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -7012,10 +7012,6 @@
   "ccR/uJ": {
     "defaultMessage": "Votre démonstration de vos compétences vous permet de conserver des listes de compétences tirées de votre bibliothèque qui présentent une histoire davantage ciblée de vos forces et de vos domaines d’intérêt. Bien que votre bibliothèque agisse en tant qu’endroit central à partir duquel vous pouvez gérer toutes les compétences que vous ajoutez à votre profil, les démonstrations que vous complétez sont jumelées à vos demandes d’emploi afin d’aider les recruteurs et les gestionnaires à brosser un tableau complet de votre talent.",
     "description": "Description on what the skills showcase is."
-  },
-  "ccyVDQ": {
-    "defaultMessage": "Questions de sélection",
-    "description": "title of 'screening questions' section of the 'assessment details' dialog"
   },
   "ce3IeQ": {
     "defaultMessage": "Votre parcours professionnel comprend actuellement :",
@@ -8406,6 +8402,10 @@
   "jw6Umr": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
+  },
+  "jwCFf7": {
+    "defaultMessage": "Ajouter une nouvelle évaluation ({currentCount}/{maxCount})",
+    "description": "Button text to add a new assessment to the assessment plan"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",

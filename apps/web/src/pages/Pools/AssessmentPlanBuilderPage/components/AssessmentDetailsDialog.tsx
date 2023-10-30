@@ -456,9 +456,9 @@ const AssessmentDetailsDialog = ({
                       <div data-h2-font-weight="base(700)">
                         {intl.formatMessage({
                           defaultMessage: "Screening questions",
-                          id: "ccyVDQ",
+                          id: "V62J5w",
                           description:
-                            "title of 'screening questions' section of the 'assessment details' dialog",
+                            "title of 'screening questions' section of the assessment builder",
                         })}
                       </div>
                       <div data-h2-margin-top="base(x.25)">
