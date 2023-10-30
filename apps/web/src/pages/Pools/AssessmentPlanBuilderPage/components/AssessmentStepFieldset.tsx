@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Accordion, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -100,7 +100,18 @@ const AssessmentStepFieldset = ({
             </React.Fragment>
           ))}
         </ul>
-      ) : null}
+      ) : (
+        <Well color="error">
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "This assessment is missing skills",
+              id: "NROIaL",
+              description:
+                "Warning message that an assessment step is missing skills",
+            })}
+          </p>
+        </Well>
+      )}
 
       {assessmentStep.type ===
       AssessmentStepType.ScreeningQuestionsAtApplication ? (
