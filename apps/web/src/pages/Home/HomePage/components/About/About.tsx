@@ -13,7 +13,7 @@ const About = () => {
   return (
     <div
       data-h2-background="base(home-footer-linear)"
-      data-h2-layer="base(1, relative)"
+      data-h2-layer="base(4, relative)"
       data-h2-margin="base(-3%, 0, 0, 0)"
     >
       <div
