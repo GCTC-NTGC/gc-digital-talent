@@ -4,8 +4,7 @@ import { useIntl } from "react-intl";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   Team,
