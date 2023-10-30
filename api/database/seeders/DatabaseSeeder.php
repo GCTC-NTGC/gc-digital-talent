@@ -276,7 +276,7 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    private function seedAssessmentResults(Pool $dcmPool)
+    private function seedAssessmentResults(Pool $pool)
     {
         // regular random
         $assessmentSteps = AssessmentStep::inRandomOrder()->limit(5)->get();
@@ -291,30 +291,29 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // to CMO pool
-        $dcmPoolCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $dcmPool->id,
+        $poolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
         ]);
-        $dcmPoolSkills = $dcmPool->poolSkills()->pluck('id')->toArray();
+        $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();
         $dcmAssessment1 = AssessmentStep::factory()->create([
-            'pool_id' => $dcmPool->id,
+            'pool_id' => $pool->id,
         ]);
         $dcmAssessment2 = AssessmentStep::factory()->create([
-            'pool_id' => $dcmPool->id,
+            'pool_id' => $pool->id,
         ]);
         AssessmentResult::factory()->create([
             'assessment_step_id' => $dcmAssessment1->id,
-            'pool_candidate_id' => $dcmPoolCandidate->id,
+            'pool_candidate_id' => $poolCandidate->id,
             'pool_skill_id' => $dcmPoolSkills[0],
         ]);
         AssessmentResult::factory()->create([
             'assessment_step_id' => $dcmAssessment2->id,
-            'pool_candidate_id' => $dcmPoolCandidate->id,
+            'pool_candidate_id' => $poolCandidate->id,
             'pool_skill_id' => $dcmPoolSkills[0],
         ]);
         AssessmentResult::factory()->create([
             'assessment_step_id' => $dcmAssessment2->id,
-            'pool_candidate_id' => $dcmPoolCandidate->id,
+            'pool_candidate_id' => $poolCandidate->id,
             'pool_skill_id' => $dcmPoolSkills[1],
         ]);
     }
