@@ -74,7 +74,7 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(warning)",
   },
   success: {
-    "data-h2-color": "base(success)",
+    "data-h2-color": "base(success) base:dark(success.light)",
   },
   black: {
     "data-h2-color": "base(black)",
