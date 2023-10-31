@@ -29,7 +29,7 @@ const VersionLink = () => {
         external
         fontSize="caption"
         href={`https://github.com/GCTC-NTGC/gc-digital-talent/releases${
-          process.env.VERSION ? `/tags/${process.env.VERSION}` : ``
+          process.env.VERSION ? `/tag/${process.env.VERSION}` : ``
         }`}
       >
         {content}
