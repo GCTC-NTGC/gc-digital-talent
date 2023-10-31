@@ -9,6 +9,7 @@ import {
   UpdateUserSubMutation,
 } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import { User } from "~/api/generated";
 
@@ -51,7 +52,7 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
   };
 
   return (
-    <section>
+    <section data-h2-container="base(left, s)">
       <Heading level="h3" size="h4" data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage: "Update subject",
@@ -73,6 +74,9 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
               id: "m4rXNt",
               description: "Label displayed on the user form subject field.",
             })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
             type="text"
             name="sub"
             context={intl.formatMessage({
