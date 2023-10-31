@@ -1,17 +1,19 @@
 import React, { useEffect, useMemo } from "react";
-import { IntlShape, useIntl } from "react-intl";
-import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
+import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending, Spoiler } from "@gc-digital-talent/ui";
 import {
-  getCandidateSuspendedFilterStatus,
+  CellContext,
+  ColumnDef,
+  createColumnHelper,
+} from "@tanstack/react-table";
+
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pending } from "@gc-digital-talent/ui";
+import {
+  commonMessages,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
-  getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -19,12 +21,8 @@ import { FromArray } from "~/types/utility";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  Language,
   OrderByRelationWithColumnAggregateFunction,
-  PoolCandidate,
   PoolCandidateWithSkillCountPaginator,
-  PoolCandidateStatus,
-  ProvinceOrTerritory,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
@@ -39,18 +37,7 @@ import {
   PublishingGroup,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import BasicTable from "~/components/Table/ApiManagedTable/BasicTable";
-import TableFooter from "~/components/Table/ApiManagedTable/TableFooter";
-import TableHeader from "~/components/Table/ApiManagedTable/TableHeader";
-import cells from "~/components/Table/cells";
-import {
-  ColumnsOf,
-  handleColumnHiddenChange,
-  handleRowSelectedChange,
-  rowSelectionColumn,
-  SortingRule,
-  TABLE_DEFAULTS,
-} from "~/components/Table/ApiManagedTable/helpers";
+import { TABLE_DEFAULTS } from "~/components/Table/ApiManagedTable/helpers";
 import useTableState from "~/hooks/useTableState";
 import {
   stringToEnumCandidateExpiry,
@@ -60,16 +47,32 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
   FormValues,
 } from "./PoolCandidateTableFilterDialog";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
+import tableMessages from "./tableMessages";
+import { SearchState } from "../Table/ResponsiveTable/types";
+import {
+  candidacyStatusAccessorNew,
+  currentLocationAccessor,
+  notesAccessorNew,
+  preferredLanguageAccessorNew,
+  priorityAccessorNew,
+  statusAccessorNew,
+  userNameAccessor,
+  viewPoolCandidateAccessor,
+} from "./helpers";
+import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
+import { normalizedText } from "../Table/sortingFns";
+
+const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 type Data = NonNullable<
   FromArray<PoolCandidateWithSkillCountPaginator["data"]>
@@ -124,216 +127,6 @@ function transformPoolCandidateSearchInputToFormValues(
     govEmployee: input?.isGovEmployee ? ["true"] : [],
   };
 }
-
-// callbacks extracted to separate function to stabilize memoized component
-const preferredLanguageAccessor = (
-  language: Language | null | undefined,
-  intl: IntlShape,
-) => (
-  <span>
-    {language ? intl.formatMessage(getLanguage(language as string)) : ""}
-  </span>
-);
-const statusAccessor = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => {
-  if (status === PoolCandidateStatus.NewApplication) {
-    return (
-      <span
-        data-h2-color="base(tertiary.darker)"
-        data-h2-font-weight="base(700)"
-      >
-        {status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : ""}
-      </span>
-    );
-  }
-  if (
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : ""}
-      </span>
-    );
-  }
-  return (
-    <span>
-      {status
-        ? intl.formatMessage(getPoolCandidateStatus(status as string))
-        : ""}
-    </span>
-  );
-};
-const priorityAccessor = (
-  priority: number | null | undefined,
-  intl: IntlShape,
-) => {
-  if (priority === 10 || priority === 20) {
-    return (
-      <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
-        {priority
-          ? intl.formatMessage(getPoolCandidatePriorities(priority))
-          : ""}
-      </span>
-    );
-  }
-  return (
-    <span>
-      {priority ? intl.formatMessage(getPoolCandidatePriorities(priority)) : ""}
-    </span>
-  );
-};
-
-const candidacyStatusAccessor = (
-  suspendedAt: string | null | undefined,
-  intl: IntlShape,
-) => {
-  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
-  const getSuspendedStatus = (
-    suspendedTime: Date,
-    currentTime: Date,
-  ): CandidateSuspendedFilter => {
-    if (suspendedTime >= currentTime) {
-      return CandidateSuspendedFilter.Active;
-    }
-    return CandidateSuspendedFilter.Suspended;
-  };
-
-  if (suspendedAt) {
-    const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
-    const currentTime = new Date();
-    return (
-      <span>
-        {intl.formatMessage(
-          getCandidateSuspendedFilterStatus(
-            getSuspendedStatus(parsedSuspendedTime, currentTime),
-          ),
-        )}
-      </span>
-    );
-  }
-
-  return (
-    <span>
-      {intl.formatMessage(
-        getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
-      )}
-    </span>
-  );
-};
-
-const viewAccessor = (
-  candidate: PoolCandidate,
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-) => {
-  const isQualified =
-    candidate.status !== PoolCandidateStatus.NewApplication &&
-    candidate.status !== PoolCandidateStatus.ApplicationReview &&
-    candidate.status !== PoolCandidateStatus.ScreenedIn &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
-    candidate.status !== PoolCandidateStatus.UnderAssessment &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
-  const candidateName = getFullNameLabel(
-    candidate.user.firstName,
-    candidate.user.lastName,
-    intl,
-  );
-  if (isQualified) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {cells.view(
-          paths.userView(candidate.user.id),
-          intl.formatMessage({
-            defaultMessage: "Profile",
-            id: "mRQ/uk",
-            description:
-              "Title displayed for the Pool Candidates table View Profile link.",
-          }),
-          undefined,
-          intl.formatMessage(
-            {
-              defaultMessage: "View {name}'s profile",
-              id: "bWTzRy",
-              description:
-                "Link text to view a candidates profile for assistive technologies",
-            },
-            {
-              name: candidateName,
-            },
-          ),
-        )}
-      </span>
-    );
-  }
-  return (
-    <span data-h2-font-weight="base(700)">
-      {cells.view(
-        paths.poolCandidateApplication(candidate.id),
-        intl.formatMessage({
-          defaultMessage: "Application",
-          id: "5iNcHS",
-          description:
-            "Title displayed for the Pool Candidates table View Application link.",
-        }),
-        undefined,
-        intl.formatMessage(
-          {
-            defaultMessage: "View {name}'s application",
-            id: "mzGMZC",
-            description:
-              "Link text to view a candidates application for assistive technologies",
-          },
-          {
-            name: candidateName,
-          },
-        ),
-      )}
-    </span>
-  );
-};
-const provinceAccessor = (
-  province: ProvinceOrTerritory | null | undefined,
-  intl: IntlShape,
-) =>
-  province
-    ? intl.formatMessage(getProvinceOrTerritory(province as string))
-    : "";
-
-const notesAccessor = (candidate: PoolCandidate, intl: IntlShape) =>
-  candidate?.notes ? (
-    <Spoiler
-      text={candidate.notes}
-      linkSuffix={intl.formatMessage(
-        {
-          defaultMessage: "notes for {name}",
-          id: "CZbb7c",
-          description:
-            "Link text suffix to read more notes for a pool candidate",
-        },
-        {
-          name: getFullNameLabel(
-            candidate.user.firstName,
-            candidate.user.lastName,
-            intl,
-          ),
-        },
-      )}
-    />
-  ) : null;
 
 const defaultState = {
   ...TABLE_DEFAULTS,
@@ -551,9 +344,9 @@ const PoolCandidatesTable = ({
     });
   };
 
-  useEffect(() => {
-    setSelectedRows([]);
-  }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
+  // useEffect(() => {
+  //   setSelectedRows([]);
+  // }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
 
   const [result] = useGetPoolCandidatesPaginatedQuery({
     variables: {
@@ -570,8 +363,11 @@ const PoolCandidatesTable = ({
 
   const { data, fetching, error } = result;
 
-  const candidateData = data?.poolCandidatesPaginated?.data ?? [];
+  const candidateData = data?.poolCandidatesPaginated.data ?? [];
   const filteredData = candidateData.filter(notEmpty);
+  const paginationInfo = data?.poolCandidatesPaginated.paginatorInfo;
+
+  console.log(paginationInfo);
 
   const [
     { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
@@ -580,194 +376,6 @@ const PoolCandidatesTable = ({
   const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
-
-  const columns = useMemo<ColumnsOf<Data>>(
-    () => [
-      rowSelectionColumn(
-        intl,
-        selectedRows,
-        filteredData.length,
-        (candidate: Data) =>
-          `${candidate.poolCandidate.user.firstName} ${candidate.poolCandidate.user.lastName}`,
-        (event) =>
-          handleRowSelectedChange(
-            filteredData,
-            selectedRows,
-            setSelectedRows,
-            event,
-          ),
-      ),
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "l+cu8R",
-          description:
-            "Title displayed for the Pool Candidates table Status column.",
-        }),
-        header: (
-          <span>
-            <LockClosedIcon
-              data-h2-width="base(x.75)"
-              data-h2-margin-right="base(x.15)"
-              data-h2-vertical-align="base(middle)"
-            />
-            {intl.formatMessage({
-              defaultMessage: "Status",
-              id: "l+cu8R",
-              description:
-                "Title displayed for the Pool Candidates table Status column.",
-            })}
-          </span>
-        ),
-        id: "status",
-        accessor: (d) => statusAccessor(d.poolCandidate.status, intl),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Category",
-          id: "qrDCTV",
-          description:
-            "Title displayed for the Pool Candidates table Priority column.",
-        }),
-        header: (
-          <span>
-            <LockClosedIcon
-              data-h2-width="base(x.75)"
-              data-h2-margin-right="base(x.15)"
-              data-h2-vertical-align="base(middle)"
-            />
-            {intl.formatMessage({
-              defaultMessage: "Category",
-              id: "qrDCTV",
-              description:
-                "Title displayed for the Pool Candidates table Priority column.",
-            })}
-          </span>
-        ),
-        id: "priority",
-        accessor: ({ poolCandidate: { user } }) =>
-          priorityAccessor(user.priorityWeight, intl),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Candidacy Status",
-          description: "Candidacy status label",
-          id: "/LGiVB",
-        }),
-        id: "candidacyStatus",
-        accessor: ({ poolCandidate: { suspendedAt } }) =>
-          candidacyStatusAccessor(suspendedAt, intl),
-        sortColumnName: "suspended_at",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "View",
-          id: "VhBuJ/",
-          description:
-            "Title displayed for the Pool Candidates table View column.",
-        }),
-        id: "view",
-        accessor: ({ poolCandidate }) => {
-          return viewAccessor(poolCandidate, paths, intl);
-        },
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Candidate Name",
-          id: "p/Qp/u",
-          description:
-            "Title displayed on the Pool Candidates table name column.",
-        }),
-        id: "candidateName",
-        accessor: ({ poolCandidate: { user } }) =>
-          `${user?.firstName} ${user?.lastName}`,
-        sortColumnName: "FIRST_NAME",
-      },
-      {
-        label: intl.formatMessage(adminMessages.notes),
-        id: "notes",
-        accessor: ({ poolCandidate }) => notesAccessor(poolCandidate, intl),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Preferred Communication Language",
-          id: "eN8J/9",
-          description:
-            "Title displayed on the Pool Candidates table Preferred Communication Language column.",
-        }),
-        id: "preferredLang",
-        accessor: ({ poolCandidate: { user } }) =>
-          preferredLanguageAccessor(user?.preferredLang, intl),
-        sortColumnName: "PREFERRED_LANG",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Number of skills matched",
-          id: "0dQ62G",
-          description: "Title displayed on the candidate skill count column.",
-        }),
-        id: "skillCount",
-        sortColumnName: "SKILL_COUNT",
-        accessor: ({ poolCandidate: { user }, skillCount }) =>
-          skillMatchDialogAccessor(
-            allSkills?.filter(
-              (skill) => filteredSkillIds?.includes(skill.id),
-            ) ?? [],
-            user.experiences?.filter(notEmpty) ?? [],
-            skillCount,
-            `${user.firstName} ${user.lastName}`,
-          ),
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Email",
-          id: "BSVnmg",
-          description:
-            "Title displayed for the Pool Candidates table Email column.",
-        }),
-        id: "email",
-        accessor: ({ poolCandidate: { user } }) => user?.email,
-        sortColumnName: "EMAIL",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Current Location",
-          id: "1sPszf",
-          description:
-            "Title displayed on the Pool Candidates table Current Location column.",
-        }),
-        id: "currentLocation",
-        accessor: ({ poolCandidate: { user } }) =>
-          `${user?.currentCity}, ${provinceAccessor(
-            user?.currentProvince,
-            intl,
-          )}`,
-        sortColumnName: "CURRENT_CITY",
-      },
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "3eNQnt",
-          description:
-            "Title displayed on the Pool Candidates table Date Received column.",
-        }),
-        id: "dateReceived",
-        accessor: ({ poolCandidate: { submittedAt } }) => submittedAt,
-        sortColumnName: "submitted_at",
-      },
-    ],
-    [
-      intl,
-      selectedRows,
-      filteredData,
-      setSelectedRows,
-      paths,
-      allSkills,
-      filteredSkillIds,
-    ],
-  );
-
-  const allColumnIds = columns.map((c) => c.id);
 
   const selectedCandidateIds = selectedRows.map((user) => user.id);
   const [
@@ -793,30 +401,12 @@ const PoolCandidatesTable = ({
     [applicantFilterInput],
   );
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setTableState({ pageSize: newPageSize });
-  };
-
-  const handleCurrentPageChange = (newCurrentPage: number) => {
-    setTableState({
-      currentPage: newCurrentPage,
-    });
-  };
-
-  const handleSortingRuleChange = (
-    newSortingRule: SortingRule<Date> | undefined,
-  ) => {
-    setTableState({
-      sortBy: newSortingRule,
-    });
-  };
-
   const handleSearchStateChange = ({
     term,
     type,
   }: {
-    term: string | undefined;
-    type: string | undefined;
+    term?: string | undefined;
+    type?: string | undefined;
   }) => {
     setTableState({
       currentPage: 1,
@@ -824,12 +414,6 @@ const PoolCandidatesTable = ({
         term: term ?? defaultState.searchState.term,
         type: type ?? defaultState.searchState.type,
       },
-    });
-  };
-
-  const setHiddenColumnIds = (newCols: string[]) => {
-    setTableState({
-      hiddenColumnIds: newCols,
     });
   };
 
@@ -852,6 +436,167 @@ const PoolCandidatesTable = ({
     }
   };
 
+  const newColumns = [
+    columnHelper.accessor(
+      ({ poolCandidate: { status } }) =>
+        intl.formatMessage(
+          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
+        ),
+      {
+        id: "status",
+        sortingFn: normalizedText,
+        header: intl.formatMessage(tableMessages.status),
+        cell: ({
+          row: {
+            original: { poolCandidate },
+          },
+        }) => statusAccessorNew(poolCandidate.status, intl),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) =>
+        intl.formatMessage(
+          user.priorityWeight
+            ? getPoolCandidatePriorities(user.priorityWeight)
+            : commonMessages.notFound,
+        ),
+      {
+        id: "priority",
+        header: intl.formatMessage(tableMessages.category),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { user },
+            },
+          },
+        }) => priorityAccessorNew(user.priorityWeight, intl),
+      },
+    ),
+    columnHelper.display({
+      // TODO: Should this be an accessor instead of a display type?
+      id: "candidacyStatus",
+      header: intl.formatMessage(tableMessages.candidacyStatus),
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => candidacyStatusAccessorNew(poolCandidate.suspendedAt, intl),
+    }),
+    columnHelper.display({
+      id: "view",
+      header: intl.formatMessage(tableMessages.view),
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => viewPoolCandidateAccessor(poolCandidate, paths, intl),
+    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) => userNameAccessor(user),
+      {
+        id: "candidateName",
+        header: intl.formatMessage(tableMessages.candidateName),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { user },
+            },
+          },
+        }) => `${user?.firstName} ${user?.lastName}`,
+      },
+    ),
+    columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
+      id: "notes",
+      header: intl.formatMessage(adminMessages.notes),
+      sortingFn: normalizedText,
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => notesAccessorNew(poolCandidate, intl),
+    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) =>
+        intl.formatMessage(
+          user.preferredLang
+            ? getLanguage(user.preferredLang)
+            : commonMessages.notFound,
+        ),
+      {
+        id: "preferredLang",
+        header: intl.formatMessage(tableMessages.preferredLang),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { user },
+            },
+          },
+        }) => preferredLanguageAccessorNew(user.preferredLang, intl),
+      },
+    ),
+    columnHelper.display({
+      id: "skillCount",
+      header: intl.formatMessage(tableMessages.skillCount),
+      cell: ({
+        row: {
+          original: {
+            poolCandidate: { user },
+            skillCount,
+          },
+        },
+      }) =>
+        skillMatchDialogAccessor(
+          allSkills?.filter((skill) => filteredSkillIds?.includes(skill.id)) ??
+            [],
+          user.experiences?.filter(notEmpty) ?? [],
+          skillCount,
+          `${user.firstName} ${user.lastName}`,
+        ),
+    }),
+    columnHelper.accessor(({ poolCandidate: { user } }) => user.email, {
+      id: "email",
+      header: intl.formatMessage(tableMessages.email),
+      sortingFn: normalizedText,
+      cell: ({
+        row: {
+          original: {
+            poolCandidate: { user },
+          },
+        },
+      }) => user.email,
+    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) =>
+        currentLocationAccessor(user.currentCity, user.currentProvince, intl),
+      {
+        id: "currentLocation",
+        header: intl.formatMessage(tableMessages.currentLocation),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { user },
+            },
+          },
+        }) =>
+          currentLocationAccessor(user.currentCity, user.currentProvince, intl),
+      },
+    ),
+    columnHelper.accessor(({ poolCandidate: { submittedAt } }) => submittedAt, {
+      id: "dateReceived",
+      header: intl.formatMessage(tableMessages.dateReceived),
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      cell: ({
+        row: {
+          original: {
+            poolCandidate: { submittedAt },
+          },
+        },
+      }) => submittedAt,
+    }),
+  ] as ColumnDef<PoolCandidateWithSkillCount>[];
+
   return (
     <div data-h2-margin="base(x1, 0)">
       <h2
@@ -864,107 +609,81 @@ const PoolCandidatesTable = ({
           description: "Title for the admin pool candidates table",
         })}
       </h2>
-      <TableHeader
-        columns={columns}
-        filterComponent={
-          <PoolCandidateTableFilterDialog
-            onSubmit={handlePoolCandidateFilterSubmit}
-            initialFilters={initialFilters}
-          />
-        }
-        onSearchChange={(
-          term: string | undefined,
-          type: string | undefined,
-        ) => {
-          handleSearchStateChange({
-            term,
-            type,
-          });
-        }}
-        initialSearchState={searchState}
-        searchBy={[
-          {
+      <Pending
+        fetching={fetching || fetchingSkills}
+        error={error || skillsError}
+      >
+        <Table<PoolCandidateWithSkillCount>
+          caption={title}
+          data={filteredData}
+          columns={newColumns}
+          hiddenColumnIds={["candidacyStatus", "notes"]}
+          search={{
+            internal: true,
             label: intl.formatMessage({
-              defaultMessage: "Name",
-              id: "36k+Da",
-              description: "Label for user table search dropdown (name).",
+              defaultMessage: "Search pool candidates",
+              id: "6+H2T9",
+              description: "Label for the pool candidates table search input",
             }),
-            value: "name",
-          },
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Email",
-              id: "fivWMs",
-              description: "Label for user table search dropdown (email).",
-            }),
-            value: "email",
-          },
-          {
-            label: intl.formatMessage(adminMessages.notes),
-            value: "notes",
-          },
-        ]}
-        onColumnHiddenChange={(event) => {
-          handleColumnHiddenChange(
-            allColumnIds,
-            hiddenColumnIds ?? [],
-            setHiddenColumnIds,
-            event,
-          );
-        }}
-        hiddenColumnIds={hiddenColumnIds ?? []}
-      />
-      <div data-h2-radius="base(s)">
-        <Pending
-          fetching={fetching || fetchingSkills}
-          error={error || skillsError}
-          inline
-        >
-          <BasicTable
-            labelledBy="pool-candidate-table-heading"
-            title={title}
-            data={filteredData}
-            columns={columns}
-            onSortingRuleChange={handleSortingRuleChange}
-            sortingRule={sortingRule}
-            hiddenColumnIds={hiddenColumnIds ?? []}
-          />
-        </Pending>
-        <TableFooter
-          paginatorInfo={data?.poolCandidatesPaginated?.paginatorInfo}
-          onCurrentPageChange={handleCurrentPageChange}
-          onPageSizeChange={handlePageSizeChange}
-          hasSelection
-          fetchingSelected={selectedCandidatesFetching}
-          selectionError={selectedCandidatesError}
-          disableActions={
-            selectedCandidatesFetching ||
-            !!selectedCandidatesError ||
-            !selectedCandidatesData?.poolCandidates.length
-          }
-          csv={{
-            ...csv,
-            fileName: intl.formatMessage(
-              {
-                defaultMessage: "pool_candidates_{date}.csv",
-                id: "aWsXoR",
-                description: "Filename for pool candidate CSV file download",
-              },
-              {
-                date: new Date().toISOString(),
-              },
-            ),
+            onChange: (newState: SearchState) => {
+              handleSearchStateChange(newState);
+            },
           }}
-          additionalActions={
-            <UserProfilePrintButton
-              users={selectedCandidates}
-              beforePrint={handlePrint}
-              color="white"
-              mode="inline"
+          filterComponent={
+            <PoolCandidateTableFilterDialog
+              onSubmit={handlePoolCandidateFilterSubmit}
+              initialFilters={initialFilters}
             />
           }
+          rowSelect={{
+            allLabel: intl.formatMessage(tableMessages.rowSelection),
+            cell: ({
+              row,
+            }: CellContext<PoolCandidateWithSkillCount, unknown>) =>
+              rowSelectCell({
+                row,
+                label: `${row.original.poolCandidate.user.firstName} ${row.original.poolCandidate.user.lastName}`,
+              }),
+            onRowSelection: async (rows: PoolCandidateWithSkillCount[]) => {
+              await setSelectedRows(rows);
+            },
+          }}
+          download={{
+            selection: {
+              csv: {
+                ...csv,
+                fileName: intl.formatMessage(
+                  {
+                    defaultMessage: "pool_candidates_{date}.csv",
+                    id: "aWsXoR",
+                    description:
+                      "Filename for pool candidate CSV file download",
+                  },
+                  {
+                    date: new Date().toISOString(),
+                  },
+                ),
+              },
+            },
+          }}
+          print={{
+            onPrint: () => {},
+            button: (
+              <UserProfilePrintButton
+                users={selectedCandidates}
+                beforePrint={handlePrint}
+                color="white"
+                mode="inline"
+              />
+            ),
+          }}
+          // pagination={{
+          //   internal: true,
+          //   total: paginationInfo?.total,
+          //   pageSizes: [10, 20, 50],
+          // }}
         />
-      </div>
+      </Pending>
     </div>
   );
 };
