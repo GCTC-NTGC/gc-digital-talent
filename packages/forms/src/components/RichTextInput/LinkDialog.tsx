@@ -29,7 +29,7 @@ const prependHttp = (url: string, https: boolean = false): string => {
     return transformedUrl;
   }
 
-  // Append to beginning of string if protoical does not exist
+  // Append to beginning of string if protocol does not exist
   return transformedUrl.replace(
     looseProtocolRegex,
     https ? "https://" : "http://",
