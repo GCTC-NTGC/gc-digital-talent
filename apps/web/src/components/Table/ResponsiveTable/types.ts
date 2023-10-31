@@ -103,6 +103,7 @@ export type DatasetDownload = {
 /** Controls the print button in `RowSelection.Actions` */
 export type DatasetPrint = {
   onPrint: ButtonClickEvent;
+  button?: React.ReactNode;
   label?: React.ReactNode;
 };
 

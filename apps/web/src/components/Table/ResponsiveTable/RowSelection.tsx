@@ -236,20 +236,13 @@ const Actions = ({
             </span>
 
             {download?.selection && (
-              <span
-                data-h2-align-items="base(center) l-tablet(flex-start)"
-                data-h2-gap="base(0 x.25)"
-              >
-                <span
-                  aria-hidden
-                  data-h2-display="base(none) l-tablet(inline-block)"
-                >
-                  &bull;
+              <>
+                <span data-h2-display="base(none) l-tablet(block)">
+                  <Bullet data-h2-display="base(none) l-tablet(block)" />
                 </span>
                 <span
                   data-h2-position="base(relative)"
                   data-h2-align-items="base(center) l-tablet(flex-start)"
-                  data-h2-padding="base(x.25)"
                 >
                   <DownloadCsv
                     data-h2-font-weight="base(400)"
@@ -265,30 +258,33 @@ const Actions = ({
                       })}
                   </DownloadCsv>
                 </span>
-              </span>
+              </>
             )}
 
             {print?.onPrint && (
-              <span
-                data-h2-align-items="base(center) l-tablet(flex-start)"
-                data-h2-gap="base(0 x.25)"
-              >
-                <span
-                  aria-hidden
-                  data-h2-display="base(none) l-tablet(inline-block)"
-                >
-                  &bull;
+              <>
+                <span data-h2-display="base(none) l-tablet(block)">
+                  <Bullet data-h2-display="base(none) l-tablet(block)" />
                 </span>
-                <Button onClick={print.onPrint} {...actionButtonStyles}>
-                  {print.label ||
-                    intl.formatMessage({
-                      defaultMessage: "Print selection",
-                      id: "KrrW7D",
-                      description:
-                        "Text label for button to print items in a table.",
-                    })}
-                </Button>
-              </span>
+                <span
+                  data-h2-position="base(relative)"
+                  data-h2-align-items="base(center) l-tablet(flex-start)"
+                >
+                  {print.button ? (
+                    print.button
+                  ) : (
+                    <Button onClick={print.onPrint} {...actionButtonStyles}>
+                      {print.label ||
+                        intl.formatMessage({
+                          defaultMessage: "Print selection",
+                          id: "KrrW7D",
+                          description:
+                            "Text label for button to print items in a table.",
+                        })}
+                    </Button>
+                  )}
+                </span>
+              </>
             )}
           </Section>
         )}
