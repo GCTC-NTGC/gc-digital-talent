@@ -16,7 +16,7 @@ import {
   TextArea,
   Checklist,
   CheckboxOption,
-  enumToOptions,
+  Option,
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
@@ -43,6 +43,7 @@ import {
 } from "../constants";
 
 type DialogMode = "regular" | "screening_question";
+type DialogAction = "create" | "update";
 
 type FormValues = {
   id?: Maybe<Scalars["ID"]>;
@@ -74,6 +75,7 @@ type InitialValues = Omit<
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
   allPoolSkills: PoolSkill[];
+  disallowStepTypes?: AssessmentStepType[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   trigger?: React.ReactNode;
@@ -82,11 +84,13 @@ interface AssessmentDetailsDialogProps {
 const AssessmentDetailsDialog = ({
   initialValues,
   allPoolSkills,
+  disallowStepTypes = [],
   isOpen,
   setIsOpen,
   trigger,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const dialogAction: DialogAction = initialValues.id ? "update" : "create";
 
   const [
     { fetching: createAssessmentStepFetching },
@@ -303,9 +307,10 @@ const AssessmentDetailsDialog = ({
   };
 
   const submitForm = (values: FormValues) => {
-    const assessmentStepPromise = values.id
-      ? submitUpdateAssessmentStepMutation(values)
-      : submitCreateAssessmentStepMutation(values);
+    const assessmentStepPromise =
+      dialogAction === "update"
+        ? submitUpdateAssessmentStepMutation(values)
+        : submitCreateAssessmentStepMutation(values);
 
     const combinedPromise =
       dialogMode === "screening_question"
@@ -353,6 +358,29 @@ const AssessmentDetailsDialog = ({
   assessedSkillsItems.sort((a, b) => {
     return (a.label ?? "") > (b.label ?? "") ? 1 : -1;
   });
+
+  const assessmentStepTypeOptions = [
+    // can't manually choose or edit application screening step
+    AssessmentStepType.ScreeningQuestionsAtApplication,
+    AssessmentStepType.TechnicalExamAtSite,
+    AssessmentStepType.TechnicalExamAtHome,
+    AssessmentStepType.PscExam,
+    AssessmentStepType.InterviewGroup,
+    AssessmentStepType.InterviewIndividual,
+    AssessmentStepType.InterviewFollowup,
+    AssessmentStepType.ReferenceCheck,
+    AssessmentStepType.AdditionalAssessment,
+  ]
+    .filter(
+      (stepType) =>
+        !disallowStepTypes.some(
+          (disallowStepType) => disallowStepType === stepType,
+        ),
+    )
+    .map<Option>((stepType) => ({
+      value: stepType,
+      label: intl.formatMessage(getAssessmentStepType(stepType)),
+    }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -413,17 +441,8 @@ const AssessmentDetailsDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  options={enumToOptions(AssessmentStepType, [
-                    AssessmentStepType.ScreeningQuestionsAtApplication,
-                    AssessmentStepType.TechnicalExamAtSite,
-                    AssessmentStepType.TechnicalExamAtHome,
-                    AssessmentStepType.PscExam,
-                    AssessmentStepType.InterviewGroup,
-                    AssessmentStepType.InterviewIndividual,
-                    AssessmentStepType.InterviewFollowup,
-                    AssessmentStepType.ReferenceCheck,
-                    AssessmentStepType.AdditionalAssessment,
-                  ]).map(({ value }) => ({
+                  disabled={dialogAction === "update"}
+                  options={assessmentStepTypeOptions.map(({ value }) => ({
                     value,
                     label: intl.formatMessage(getAssessmentStepType(value)),
                   }))}

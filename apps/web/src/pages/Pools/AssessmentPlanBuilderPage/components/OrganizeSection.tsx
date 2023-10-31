@@ -12,6 +12,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Accordion, Button, Heading, Separator } from "@gc-digital-talent/ui";
 import {
   AssessmentStep,
+  AssessmentStepType,
   Pool,
   PoolStatus,
   useDeleteAssessmentStepMutation,
@@ -177,6 +178,11 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
   const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
+  const alreadyHasAScreeningQuestionsStep = !!pool.assessmentSteps?.find(
+    (assessmentStep) =>
+      assessmentStep?.type ===
+      AssessmentStepType.ScreeningQuestionsAtApplication,
+  );
 
   return (
     <>
@@ -308,6 +314,13 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                           }
                           allPoolSkills={
                             pool.poolSkills?.filter(notEmpty) ?? []
+                          }
+                          disallowStepTypes={
+                            alreadyHasAScreeningQuestionsStep
+                              ? [
+                                  AssessmentStepType.ScreeningQuestionsAtApplication,
+                                ]
+                              : []
                           }
                           initialValues={{
                             id: null,
