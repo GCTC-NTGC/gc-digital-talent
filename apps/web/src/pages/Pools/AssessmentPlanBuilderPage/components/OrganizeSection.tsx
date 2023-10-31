@@ -275,46 +275,52 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
               name="assessmentStepFieldArray"
               total={fields.length}
               data-h2-margin-bottom="base(1rem)"
-              showAdd={canAdd && !formDisabled}
-              customButton={{
-                id: addId,
-                button: (
-                  <AssessmentDetailsDialog
-                    trigger={
-                      <Button
-                        id={addId}
-                        icon={PlusCircleIcon}
-                        type="button"
-                        mode="placeholder"
-                        block
-                        color="secondary"
-                      >
-                        {intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "Add a new assessment ({currentCount}/{maxCount})",
-                            id: "jwCFf7",
-                            description:
-                              "Button text to add a new assessment to the assessment plan",
-                          },
-                          {
-                            currentCount: fields.length,
-                            maxCount: ASSESSMENT_STEPS_MAX_STEPS,
-                          },
-                        )}
-                      </Button>
+              showAdd={false}
+              customButton={
+                canAdd && !formDisabled
+                  ? {
+                      id: addId,
+                      button: (
+                        <AssessmentDetailsDialog
+                          trigger={
+                            <Button
+                              id={addId}
+                              icon={PlusCircleIcon}
+                              type="button"
+                              mode="placeholder"
+                              block
+                              color="secondary"
+                            >
+                              {intl.formatMessage(
+                                {
+                                  defaultMessage:
+                                    "Add a new assessment ({currentCount}/{maxCount})",
+                                  id: "jwCFf7",
+                                  description:
+                                    "Button text to add a new assessment to the assessment plan",
+                                },
+                                {
+                                  currentCount: fields.length,
+                                  maxCount: ASSESSMENT_STEPS_MAX_STEPS,
+                                },
+                              )}
+                            </Button>
+                          }
+                          allPoolSkills={
+                            pool.poolSkills?.filter(notEmpty) ?? []
+                          }
+                          initialValues={{
+                            id: null,
+                            poolId: pool.id,
+                            sortOrder: fields.length + 1,
+                          }}
+                          isOpen={isNewStepDialogOpen}
+                          setIsOpen={setIsNewStepDialogOpen}
+                        />
+                      ),
                     }
-                    allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-                    initialValues={{
-                      id: null,
-                      poolId: pool.id,
-                      sortOrder: fields.length + 1,
-                    }}
-                    isOpen={isNewStepDialogOpen}
-                    setIsOpen={setIsNewStepDialogOpen}
-                  />
-                ),
-              }}
+                  : undefined
+              }
             >
               <>
                 {fields.map(({ id, assessmentStep }, index) => {
