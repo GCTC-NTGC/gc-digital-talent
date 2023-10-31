@@ -1,5 +1,4 @@
 import React from "react";
-import { UseFieldArrayMove, UseFieldArrayRemove } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Repeater } from "@gc-digital-talent/forms";
@@ -14,6 +13,7 @@ import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
+import DeleteDialog from "./DeleteDialog";
 
 type AssessmentStepFieldsetProps = {
   index: number;
@@ -21,8 +21,8 @@ type AssessmentStepFieldsetProps = {
   total: number;
   formDisabled: boolean;
   pool: Pool;
-  onRemove: UseFieldArrayRemove;
-  onMove: UseFieldArrayMove;
+  onRemove: () => void;
+  onMove: (fromIndex: number, toIndex: number) => void;
 };
 
 const AssessmentStepFieldset = ({
@@ -35,7 +35,8 @@ const AssessmentStepFieldset = ({
   onMove,
 }: AssessmentStepFieldsetProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isEditOpen, setIsEditOpen] = React.useState<boolean>(false);
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState<boolean>(false);
   const skillNames =
     assessmentStep.poolSkills
       ?.filter(notEmpty)
@@ -58,8 +59,8 @@ const AssessmentStepFieldset = ({
       name="assessmentStepFieldArray"
       index={index}
       total={total}
-      onMove={onMove}
-      onRemove={onRemove}
+      onMove={onMove} // immediately fire event
+      onRemove={() => setIsDeleteOpen(true)} // confirm through dialog before firing event
       disabled={disabled}
       legend={intl.formatMessage(
         {
@@ -72,7 +73,7 @@ const AssessmentStepFieldset = ({
         },
       )}
       hideLegend
-      onEdit={() => setIsOpen(true)}
+      onEdit={() => setIsEditOpen(true)}
     >
       <input type="hidden" name={`assessmentSteps.${index}.id`} />
 
@@ -192,9 +193,15 @@ const AssessmentStepFieldset = ({
               ?.filter(notEmpty) ?? [],
           screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
         }}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        isOpen={isEditOpen}
+        setIsOpen={setIsEditOpen}
         // no good way to associate edit button in repeater fieldset with dialog
+      />
+
+      <DeleteDialog
+        isOpen={isDeleteOpen}
+        setIsOpen={setIsDeleteOpen}
+        onDelete={onRemove}
       />
     </Repeater.Fieldset>
   );

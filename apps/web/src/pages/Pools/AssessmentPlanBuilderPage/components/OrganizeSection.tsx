@@ -1,15 +1,10 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
-import {
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormState,
-} from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Accordion, Button, Heading, Separator } from "@gc-digital-talent/ui";
+import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import {
   AssessmentStep,
   AssessmentStepType,
@@ -19,7 +14,7 @@ import {
   useUpdateAssessmentStepMutation,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Repeater, Submit } from "@gc-digital-talent/forms";
+import { Repeater } from "@gc-digital-talent/forms";
 import Context from "@gc-digital-talent/forms/src/components/Field/Context";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -46,9 +41,13 @@ const sectionTitle = defineMessage({
 
 export interface OrganizeSectionProps {
   pool: Pool;
+  pageIsLoading: boolean;
 }
 
-const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
+const OrganizeSection = ({
+  pool,
+  pageIsLoading: pageLoading,
+}: OrganizeSectionProps) => {
   const intl = useIntl();
   const addId = React.useId();
   const [isNewStepDialogOpen, setIsNewStepDialogOpen] =
@@ -78,91 +77,36 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
     values: defaultValues,
   });
 
-  const { handleSubmit, control } = methods;
-  const { remove, move, fields } = useFieldArray({
+  const { control } = methods;
+  const {
+    remove: fieldArrayRemove,
+    move: fieldArrayMove,
+    fields,
+  } = useFieldArray({
     control,
     name: "assessmentStepFieldArray",
-    // not sure why this causes "type instantiation is excessively deep"
-    // rules: {
-    //   maxLength: {
-    //     value: ASSESSMENT_STEPS_MAX_STEPS,
-    //     message: intl.formatMessage({
-    //       defaultMessage: "You are at the limit!",
-    //       id: "j7+E9C",
-    //       description:
-    //         "Title for warning message when the user has added the maximum assessments to the assessment plan",
-    //     }),
-    //   },
-    // },
-  });
-  const { isDirty } = useFormState({
-    control,
   });
 
-  const handleSave = () => {
-    const oldStepIds = initialAssessmentSteps.map((step) => step.id);
-    const newStepIds = fields.map((field) => field.assessmentStep.id);
-    const toBeDeletedStepIds = oldStepIds.filter(
-      (oldId) => !newStepIds.includes(oldId),
-    );
+  const remove = (index: number) => {
+    const { id } = fields[index].assessmentStep;
 
-    const deletePromises = toBeDeletedStepIds.map((id) =>
-      executeDeleteMutation({ id }).then((res) => {
+    executeDeleteMutation({ id })
+      .then((res) => {
         if (res.data?.deleteAssessmentStep?.id) {
           return Promise.resolve();
         }
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: deleting assessment step failed.",
-            id: "/+8dEd",
-            description:
-              "Message displayed to user after assessment step fails to be deleted.",
-          }),
-        );
         return Promise.reject();
-      }),
-    );
-
-    const toBeMovedItems = fields
-      .map((field, index) => ({
-        id: field.assessmentStep.id,
-        oldSpot: field.assessmentStep.sortOrder,
-        newSpot: index + 1,
-      }))
-      .filter((item) => item.oldSpot !== item.newSpot);
-
-    const updatePromises = toBeMovedItems.map((item) =>
-      executeUpdateMutation({
-        id: item.id,
-        assessmentStep: {
-          sortOrder: item.newSpot,
-        },
-      }).then((res) => {
-        if (res.data?.updateAssessmentStep?.id) {
-          return Promise.resolve();
-        }
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: saving assessment step failed.",
-            id: "DnXch4",
-            description:
-              "Message displayed to user after assessment step fails to be saved.",
-          }),
-        );
-        return Promise.reject();
-      }),
-    );
-
-    Promise.all([...deletePromises, ...updatePromises])
-      .then(() =>
+      })
+      .then(() => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Successfully saved assessment steps!",
             id: "dGgEAz",
             description: "Success message displayed after all steps were saved",
           }),
-        ),
-      )
+        );
+        fieldArrayRemove(index); // optimistic UI update
+      })
       .catch(() =>
         toast.error(
           intl.formatMessage({
@@ -175,8 +119,60 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
       );
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const move = (indexFrom: number, indexTo: number) => {
+    const modifiedArray = [...initialAssessmentSteps];
+    modifiedArray.splice(indexTo, 0, modifiedArray.splice(indexFrom, 1)[0]); // https://stackoverflow.com/a/5306832
+
+    const toBeMovedItems = modifiedArray
+      .map((assessmentStep, index) => ({
+        id: assessmentStep.id,
+        oldSortOrder: assessmentStep.sortOrder,
+        newSortOrder: index + 1,
+      }))
+      .filter((item) => item.oldSortOrder !== item.newSortOrder);
+
+    const updatePromises = toBeMovedItems.map((item) =>
+      executeUpdateMutation({
+        id: item.id,
+        assessmentStep: {
+          sortOrder: item.newSortOrder,
+        },
+      }).then((res) => {
+        if (res.data?.updateAssessmentStep?.id) {
+          return Promise.resolve();
+        }
+        return Promise.reject();
+      }),
+    );
+
+    Promise.all(updatePromises)
+      .then(() => {
+        fieldArrayMove(indexFrom, indexTo); // optimistic UI update
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully saved assessment steps!",
+            id: "dGgEAz",
+            description: "Success message displayed after all steps were saved",
+          }),
+        );
+      })
+      .catch(() =>
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Not all assessment steps changes saved.",
+            id: "cNeFmG",
+            description:
+              "Error message displayed after all some steps were not changed",
+          }),
+        ),
+      );
+  };
+
+  const formDisabled =
+    pool.status !== PoolStatus.Draft ||
+    deleteFetching ||
+    updateFetching ||
+    pageLoading;
   const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
   const alreadyHasAScreeningQuestionsStep = !!pool.assessmentSteps?.find(
     (assessmentStep) =>
@@ -276,7 +272,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
       </Accordion.Root>
       <div data-h2-margin-top="base(x1)">
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(handleSave)}>
+          <form>
             <Repeater.Root
               name="assessmentStepFieldArray"
               total={fields.length}
@@ -345,7 +341,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                       total={fields.length}
                       formDisabled={formDisabled}
                       pool={pool}
-                      onRemove={remove}
+                      onRemove={() => remove(index)}
                       onMove={move}
                     />
                   );
@@ -391,19 +387,6 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                   </p>
                 </Context>
               ) : null}
-              {isDirty ? (
-                <Context color="warning">
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You have unsaved changes in your assessment plan.",
-                      id: "bY8aOj",
-                      description:
-                        "Message displayed when items have been moved and not saved",
-                    })}
-                  </p>
-                </Context>
-              ) : null}
               {fields.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
                 <Context color="warning">
                   <p data-h2-font-weight="base(700)">
@@ -426,25 +409,6 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
                 </Context>
               ) : null}
             </div>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1 0)"
-            />
-
-            {!formDisabled && (
-              <Submit
-                text={intl.formatMessage({
-                  defaultMessage: "Save changes to assessment plan",
-                  id: "brXBed",
-                  description: "Text on a button to save the assessment plan",
-                })}
-                color="secondary"
-                mode="solid"
-                isSubmitting={updateFetching || deleteFetching}
-              />
-            )}
           </form>
         </FormProvider>
       </div>

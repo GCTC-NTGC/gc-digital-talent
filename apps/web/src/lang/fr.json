@@ -5783,6 +5783,10 @@
     "defaultMessage": "Affichage",
     "description": "Title displayed for the Pool Candidates table View column."
   },
+  "VhqbdZ": {
+    "defaultMessage": "Vous êtes certain de vouloir continuer?",
+    "description": "Question to continue in a confirmation dialog"
+  },
   "VkBcGJ": {
     "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
     "description": "Description for the notes about this request section of the single search request view."

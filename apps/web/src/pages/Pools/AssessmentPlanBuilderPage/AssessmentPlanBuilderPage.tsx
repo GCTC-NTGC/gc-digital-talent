@@ -47,9 +47,13 @@ const pageSubtitle = {
 };
 export interface AssessmentPlanBuilderProps {
   pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
+  pageIsLoading: boolean;
 }
 
-export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
+export const AssessmentPlanBuilder = ({
+  pool,
+  pageIsLoading,
+}: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   pool.poolSkills?.sort((a, b) => {
@@ -87,7 +91,7 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <OrganizeSection pool={pool} />
+            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
             <Separator
               orientation="horizontal"
@@ -102,13 +106,19 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
               data-h2-flex-direction="base(column) l-tablet(row)"
               data-h2-align-items="base(flex-start) l-tablet(center)"
             >
-              {/* TODO: switch to submit button */}
-              {intl.formatMessage({
-                defaultMessage: "Save plan and go back",
-                id: "Rbp02p",
-                description:
-                  "Text on a button to save the assessment plan and return to the pool page",
-              })}
+              <Link
+                mode="solid"
+                color="secondary"
+                href={routes.poolView(pool.id)}
+              >
+                {/* Doesn't actually save anything */}
+                {intl.formatMessage({
+                  defaultMessage: "Save plan and go back",
+                  id: "Rbp02p",
+                  description:
+                    "Text on a button to save the assessment plan and return to the pool page",
+                })}
+              </Link>
               <Link
                 type="button"
                 mode="inline"
@@ -182,7 +192,10 @@ export const AssessmentPlanBuilderPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={queryFetching} error={queryError}>
         {queryData?.pool ? (
-          <AssessmentPlanBuilder pool={queryData.pool} />
+          <AssessmentPlanBuilder
+            pool={queryData.pool}
+            pageIsLoading={queryFetching}
+          />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
