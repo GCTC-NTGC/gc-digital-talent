@@ -108,15 +108,16 @@ const ResponsiveTable = <TData extends object>({
     data,
     rowSelect,
   );
-  const { state, initialState, updaters } = useControlledTableState({
-    columnIds,
-    initialState: {
-      hiddenColumnIds,
-      searchState: search?.initialState,
-      sortState: sort?.initialState,
-      paginationState: pagination?.initialState,
-    },
-  });
+  const { state, initialState, initialParamState, updaters } =
+    useControlledTableState({
+      columnIds,
+      initialState: {
+        hiddenColumnIds,
+        searchState: search?.initialState,
+        sortState: sort?.initialState,
+        paginationState: pagination?.initialState,
+      },
+    });
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
@@ -129,6 +130,7 @@ const ResponsiveTable = <TData extends object>({
   const table = useReactTable({
     data,
     columns: memoizedColumns,
+    initialState,
     state: {
       ...state,
       rowSelection,
@@ -289,7 +291,7 @@ const ResponsiveTable = <TData extends object>({
           <SearchForm
             id={`${id}-search`}
             table={table}
-            state={initialState.searchState}
+            state={initialParamState.searchState}
             searchBy={searchColumns}
             {...search}
           />
