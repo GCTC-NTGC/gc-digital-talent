@@ -135,6 +135,7 @@ const ResponsiveTable = <TData extends object>({
       ...state,
       rowSelection,
     },
+    autoResetPageIndex: false,
     enableGlobalFilter: isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
@@ -185,7 +186,9 @@ const ResponsiveTable = <TData extends object>({
         (previous) => {
           const newParams = new URLSearchParams(previous);
 
-          if (isEqual(sortingState, sort?.initialState ?? [])) {
+          const initialSortState =
+            sort?.initialState ?? INITIAL_STATE.sortState;
+          if (isEqual(sortingState, initialSortState)) {
             newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
           } else {
             newParams.set(
@@ -203,7 +206,10 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (paginationState.pageSize === pagination?.initialState?.pageSize) {
+          const initialPageSize =
+            pagination?.initialState?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize;
+          if (paginationState.pageSize === initialPageSize) {
             newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
           } else {
             newParams.set(
@@ -212,11 +218,10 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (
-            paginationState.pageIndex === pagination?.initialState?.pageIndex
-              ? pagination.initialState.pageIndex + 1
-              : 0
-          ) {
+          const initialPageIndex =
+            pagination?.initialState?.pageIndex ??
+            INITIAL_STATE.paginationState.pageIndex;
+          if (paginationState.pageIndex === initialPageIndex) {
             newParams.delete(SEARCH_PARAM_KEY.PAGE);
           } else {
             newParams.set(
@@ -225,7 +230,9 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (isEqual(search?.initialState, searchState)) {
+          const initialSearchState =
+            search?.initialState ?? INITIAL_STATE.searchState;
+          if (isEqual(initialSearchState, searchState)) {
             newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
             newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
           } else if (columnFilterState.length > 0) {
