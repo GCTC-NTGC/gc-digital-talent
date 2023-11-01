@@ -180,6 +180,7 @@ query AllUsersNames {
     id
     firstName
     lastName
+    email
   }
 }
 
