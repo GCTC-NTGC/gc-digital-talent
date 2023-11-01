@@ -295,14 +295,12 @@ class DatabaseSeeder extends Seeder
             AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
-                'pool_skill_id' => count($poolSkillIds) > 0 ?
-                    array_rand(array_flip($poolSkillIds)) : null,
+                'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[0] : null,
             ]);
             AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
-                'pool_skill_id' => count($poolSkillIds) > 0 ?
-                    array_rand(array_flip($poolSkillIds)) : null,
+                'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[1] : null,
             ]);
         }
 
