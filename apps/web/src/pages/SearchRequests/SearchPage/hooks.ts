@@ -24,13 +24,9 @@ export const useInitialFilters = (pools: Pool[]): UseInitialState => {
   const location = useLocation();
   const { state }: { state: LocationState } = location;
 
-  const initialFilters = useMemo(() => {
-    return (
-      state?.applicantFilter ?? {
-        pools,
-      }
-    );
-  }, [pools, state?.applicantFilter]);
+  const initialFilters = state?.applicantFilter ?? {
+    pools,
+  };
 
   const defaultValues = dataToFormValues(
     state?.applicantFilter ?? {},
