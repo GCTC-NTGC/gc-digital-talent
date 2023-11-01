@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  PaginationState,
+  createColumnHelper,
+} from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -34,18 +38,6 @@ interface SearchRequestTableProps {
   title: string;
 }
 
-const defaultState = {
-  pageSize: 10,
-  currentPage: 1,
-  searchState: {
-    term: "",
-    type: "",
-  },
-  hiddenColumnIds: [],
-  sortBy: undefined,
-  filters: {},
-};
-
 const searchRequestInput = (
   searchBarTerm: string | undefined,
   searchType: string | undefined,
@@ -78,6 +70,9 @@ const searchRequestInput = (
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [paginationState, setPaginationState] = useState<PaginationState>(
+    INITIAL_STATE.paginationState,
+  );
   const [searchState, setSearchState] = useState<SearchState>(
     INITIAL_STATE.searchState,
   );
@@ -215,22 +210,32 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
   ] as ColumnDef<PoolCandidateSearchRequest>[];
 
-  const handleSearchStateChange = ({
-    term,
-    type,
-  }: {
-    term: string | undefined;
-    type: string | undefined;
-  }) => {
+  const handlePaginationStateChange = ({
+    pageIndex,
+    pageSize,
+  }: PaginationState) => {
+    setPaginationState({
+      pageIndex: pageIndex ?? INITIAL_STATE.paginationState.pageIndex,
+      pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
+    });
+  };
+
+  const handleSearchStateChange = ({ term, type }: SearchState) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
     setSearchState({
-      term: term ?? defaultState.searchState.term,
-      type: type ?? defaultState.searchState.type,
+      term: term ?? INITIAL_STATE.searchState.term,
+      type: type ?? INITIAL_STATE.searchState.type,
     });
   };
 
   const [{ data, fetching }] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
       where: searchRequestInput(searchState?.term, searchState?.type),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
     },
   });
 
@@ -249,8 +254,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }}
       pagination={{
         internal: false,
-        total: requestData.length,
+        total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
         pageSizes: [10, 20, 50],
+        onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
+          handlePaginationStateChange({ pageIndex, pageSize });
+        },
       }}
       search={{
         internal: false,
