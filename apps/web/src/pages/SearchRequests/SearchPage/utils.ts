@@ -115,12 +115,12 @@ export const applicantFilterToQueryArgs = (
   return {
     where: {
       ...filter,
-      equity: { ...filter?.equity },
+      equity: filter?.equity ? { ...filter?.equity } : undefined,
       qualifiedClassifications: filter?.qualifiedClassifications
         ? pickMap(filter.qualifiedClassifications, ["group", "level"])
         : undefined,
       skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
-      hasDiploma: null, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
+      hasDiploma: undefined, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
 
       // Override the filter's pool if one is provided separately.
       pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
@@ -201,17 +201,19 @@ export const formValuesToData = (
           }))
       : [],
     operationalRequirements: unpackMaybes(values.operationalRequirements),
-    hasDiploma: values.educationRequirement === "has_diploma",
-    equity: {
+    // hasDiploma: values.educationRequirement === "has_diploma", // Disconnect from API request
+    ...(values.employmentEquity?.length && {
       hasDisability: values.employmentEquity?.includes("hasDisability"),
       isIndigenous: values.employmentEquity?.includes("isIndigenous"),
       isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
       isWoman: values.employmentEquity?.includes("isWoman"),
-    },
+    }),
     ...(values.languageAbility !== NullSelection
       ? { languageAbility: values.languageAbility }
       : {}), // Ensure null in FormValues is converted to undefined
-    positionDuration: durationSelectionToEnum(values.employmentDuration),
+    positionDuration: values.employmentDuration
+      ? durationSelectionToEnum(values.employmentDuration)
+      : undefined,
     locationPreferences: values.locationPreferences || [],
     qualifiedStreams: values.stream ? [values.stream] : undefined,
     pools: pools
