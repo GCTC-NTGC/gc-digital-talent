@@ -79,7 +79,7 @@ export const useCandidateCount = (
   /**
    * Announce the candidate count to users in a less verbose way
    *
-   * Note: `announceCount.current > 3` is a magic number, our current candidate count is causing
+   * Note: `announceCount.current > 3` is a magic number, urql is causing
    * a lot of re-runs for some reason (specifically 3 on initial loading)
    * and this prevents the announcer  repeating itself excessively
    */
