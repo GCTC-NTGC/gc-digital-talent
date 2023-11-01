@@ -221,6 +221,9 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
+  assessmentResults: [AssessmentResult]
+    @hasMany
+    @canOnParent(ability: "viewAssessmentResults")
 }
 
 type AssessmentResult {

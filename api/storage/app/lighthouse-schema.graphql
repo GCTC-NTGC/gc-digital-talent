@@ -328,6 +328,7 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
+  assessmentResults: [AssessmentResult]
 }
 
 type AssessmentResult {
