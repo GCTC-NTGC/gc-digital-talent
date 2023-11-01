@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -61,9 +61,7 @@ export const useCandidateCount = (
   // However, we want to treat an empty pool filter as resulting in zero candidates.
   // Therefore, we can skip the query and override the count results ourselves.
   const hasPools =
-    notEmpty(filters) &&
-    notEmpty(filters.pools) &&
-    filters.pools.filter(notEmpty).length > 0;
+    notEmpty(filters.pools) && filters.pools.filter(notEmpty).length > 0;
 
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
@@ -79,29 +77,35 @@ export const useCandidateCount = (
   /**
    * Announce the candidate count to users in a less verbose way
    *
-   * Note: `announceCount.current > 3` is a magic number, urql is causing
-   * a lot of re-runs for some reason (specifically 3 on initial loading)
-   * and this prevents the announcer  repeating itself excessively
+   * Note: `announceCount.current > 1` is there to prevent
+   * announcing on the first load.
    */
   const announceCount = useRef<number>(0);
+  const announceCandidateCount = useCallback(
+    (count: number) => {
+      if (announceCount.current > 1 && !fetching) {
+        announce(
+          intl.formatMessage(
+            {
+              defaultMessage: "{count} candidates meet your criteria.",
+              id: "dwe1M+",
+              description:
+                "Message announced to assistive technology users when the estimated candidate count changes.",
+            },
+            {
+              count,
+            },
+          ),
+        );
+      }
+      announceCount.current += 1;
+    },
+    [announce, fetching, intl],
+  );
+
   useEffect(() => {
-    if (filters && announceCount.current > 3 && !fetching) {
-      announce(
-        intl.formatMessage(
-          {
-            defaultMessage: "{count} candidates meet your criteria.",
-            id: "dwe1M+",
-            description:
-              "Message announced to assistive technology users when the estimated candidate count changes.",
-          },
-          {
-            count: candidateCount,
-          },
-        ),
-      );
-    }
-    announceCount.current += 1;
-  }, [candidateCount, announce, filters, fetching, intl]);
+    announceCandidateCount(candidateCount);
+  }, [announceCandidateCount, candidateCount]);
 
   return {
     fetching,
