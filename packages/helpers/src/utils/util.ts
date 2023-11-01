@@ -1,4 +1,6 @@
-import { InputMaybe } from "@gc-digital-talent/graphql";
+import pick from "lodash/pick";
+
+import { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
 
 export function identity<T>(value: T): T {
   return value;
@@ -159,4 +161,23 @@ export function groupBy<
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function assertUnreachable(x: never): never {
   throw new Error("Didn't expect to be reachable.");
+}
+
+/*
+ * Filters out empty data from data response.
+ * @param data
+ * @returns T[]
+ */
+export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>>): T[] {
+  return data?.filter(notEmpty) ?? [];
+}
+
+// Apply pick to each element of an array.
+export function pickMap<T, K extends keyof T>(
+  list: Maybe<Maybe<T>[]> | null | undefined,
+  keys: K | K[],
+): Pick<T, K>[] | undefined {
+  return unpackMaybes(list).map(
+    (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+  );
 }

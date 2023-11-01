@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import {
-  EmploymentDuration,
   getEmploymentDuration,
   getLanguageAbility,
   getOperationalRequirement,
@@ -21,8 +20,8 @@ import {
   Maybe,
   Pool,
   PoolCandidateFilter,
-  PositionDuration,
 } from "~/api/generated";
+import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 import FilterBlock from "./FilterBlock";
 
@@ -61,17 +60,6 @@ const ApplicantFilters = ({
       })
     );
   });
-
-  const positionDurationToEmploymentDuration = (
-    durations: Maybe<PositionDuration>[],
-  ): string => {
-    if (durations && durations.includes(PositionDuration.Temporary)) {
-      return EmploymentDuration.Term;
-    }
-    return EmploymentDuration.Indeterminate;
-    // Search/Request currently selects TEMPORARY or PERMANENT or NULL, no combinations
-    // therefore if applicant.positionDuration exists, durations exists as an array of either TEMPORARY or PERMANENT
-  };
 
   const employmentDuration: string | undefined =
     applicantFilter && applicantFilter.positionDuration

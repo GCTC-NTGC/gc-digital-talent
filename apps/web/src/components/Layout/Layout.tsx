@@ -10,7 +10,7 @@ import {
   hasRole,
 } from "@gc-digital-talent/auth";
 import { useLocale } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu/NavMenu";

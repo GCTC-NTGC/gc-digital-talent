@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well, Link } from "@gc-digital-talent/ui";
 import {
   getEmploymentEquityStatement,

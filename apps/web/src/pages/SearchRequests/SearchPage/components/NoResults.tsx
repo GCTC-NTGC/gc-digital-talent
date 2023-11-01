@@ -1,38 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
 
 import { Button, Heading, Separator } from "@gc-digital-talent/ui";
 
-import { SimpleClassification } from "~/types/pool";
-
-import SearchResultCard, {
-  type SearchResultCardProps,
-} from "./SearchResultCard";
-
-type CandidateResultsProps = SearchResultCardProps;
-
-const CandidateResults = ({
-  candidateCount,
-  pool,
-  handleSubmit,
-}: CandidateResultsProps) => {
+const NoResults = () => {
   const intl = useIntl();
+  const { register, setValue } = useFormContext();
+  const poolSubmitProps = register("pool");
 
-  return candidateCount > 0 ? (
-    <div
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(medium)"
-      data-h2-border-left="base(x.5 solid primary)"
-      data-h2-margin="base(x.5, 0, 0, 0)"
-      data-h2-radius="base(0, s, s, 0)"
-    >
-      <SearchResultCard
-        candidateCount={candidateCount}
-        pool={pool}
-        handleSubmit={handleSubmit}
-      />
-    </div>
-  ) : (
+  return (
     <div
       data-h2-background="base(foreground)"
       data-h2-shadow="base(medium)"
@@ -76,21 +53,22 @@ const CandidateResults = ({
             "Instructions telling the user to submit a request even though there are no candidates",
         })}
       </p>
+
       <Separator
         orientation="horizontal"
         data-h2-margin="base(x1 0)"
-        data-h2-background="base(gray.lighter)"
+        data-h2-background-color="base(gray.lighter)"
       />
 
       <Button
         color="secondary"
-        onClick={() =>
-          handleSubmit(
-            candidateCount,
-            pool.id,
-            pool.classifications as SimpleClassification[],
-          )
-        }
+        type="submit"
+        {...poolSubmitProps}
+        value=""
+        onClick={() => {
+          setValue("pool", "");
+          setValue("count", 0);
+        }}
       >
         {intl.formatMessage({
           defaultMessage: "Request candidates",
@@ -103,4 +81,4 @@ const CandidateResults = ({
   );
 };
 
-export default CandidateResults;
+export default NoResults;
