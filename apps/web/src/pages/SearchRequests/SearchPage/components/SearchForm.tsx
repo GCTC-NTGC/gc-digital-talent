@@ -138,7 +138,7 @@ export const SearchForm = ({
             decorative
             orientation="horizontal"
             data-h2-margin="base(x2, 0)"
-            data-h2-background-color="base(gray)"
+            data-h2-background-color="base(gray.lighter)"
           />
           <Heading level="h3" size="h4" id="results">
             {intl.formatMessage(
