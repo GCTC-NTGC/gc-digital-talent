@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
+use App\Enums\AssessmentResultType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -142,13 +143,25 @@ class PoolCandidateFactory extends Factory
             $poolSkillIds = $poolCandidate->pool->poolSkills()->pluck('id')->toArray();
 
             AssessmentResult::factory()
-                ->count(3)
+                ->withResultType(AssessmentResultType::EDUCATION)
+                ->count(1)
                 ->create([
                     'assessment_step_id' => AssessmentStep::factory()->create([
                         'pool_id' => $poolCandidate->pool_id,
                     ]),
                     'pool_candidate_id' => $poolCandidate->id,
-                    'pool_skill_id' => $this->faker->boolean() && count($poolSkillIds) > 0 ? $poolSkillIds[0] : null,
+                ]);
+
+            AssessmentResult::factory()
+                ->withResultType(AssessmentResultType::SKILL)
+                ->count(4)
+                ->create([
+                    'assessment_step_id' => AssessmentStep::factory()->create([
+                        'pool_id' => $poolCandidate->pool_id,
+                    ]),
+                    'pool_candidate_id' => $poolCandidate->id,
+                    'pool_skill_id' => count($poolSkillIds) > 0 ?
+                        array_rand(array_flip($poolSkillIds)) : null,
                 ]);
         });
     }
