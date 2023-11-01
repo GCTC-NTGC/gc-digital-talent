@@ -38,7 +38,7 @@ const ImproveBehaviouralSkills = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "improve-behavioural-skills";
@@ -109,7 +109,7 @@ const ImproveBehaviouralSkills = ({
 
   const handleUpdateUserSkillRankings = (formValues: FormValues) => {
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
@@ -147,7 +147,7 @@ const ImproveBehaviouralSkills = ({
   ) => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: mergedSkillIds,
       },
@@ -178,7 +178,7 @@ const ImproveBehaviouralSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={user?.id}
+      userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
       skills={skills}
@@ -186,6 +186,7 @@ const ImproveBehaviouralSkills = ({
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
+      maxItems={MAX_SKILL_COUNT}
     />
   );
 };

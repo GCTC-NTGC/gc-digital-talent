@@ -8,6 +8,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import { UpdateUserFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
@@ -40,6 +41,7 @@ const IndividualRoleTable = ({
     }),
     columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
       id: "role",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Role",
         id: "uBmoxQ",
@@ -50,13 +52,13 @@ const IndividualRoleTable = ({
   ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
-    const roles = user.roleAssignments
+    const roles = user?.authInfo?.roleAssignments
       ?.filter(notEmpty)
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
     return roles || [];
-  }, [user.roleAssignments]);
+  }, [user?.authInfo?.roleAssignments]);
 
   const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
     return onUpdateUser(user.id, values);

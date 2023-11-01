@@ -1,4 +1,5 @@
 type Query {
+  myAuth: UserAuthInfo
   me: User
   user(
     id: UUID!
@@ -176,9 +177,16 @@ type LocalizedString {
   fr: String
 }
 
+type UserAuthInfo {
+  id: UUID!
+  sub: String
+  roleAssignments: [RoleAssignment]
+  createdDate: DateTime
+  deletedDate: DateTime
+}
+
 type User {
   id: ID!
-  sub: String
   createdDate: DateTime
   updatedDate: DateTime
   deletedDate: DateTime
@@ -193,7 +201,6 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661.")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -233,7 +240,7 @@ type User {
   improveBehaviouralSkillsRanking: [UserSkill]
   isProfileComplete: Boolean
   priorityWeight: Int
-  roleAssignments: [RoleAssignment!]
+  authInfo: UserAuthInfo
   unreadNotifications: [Notification!]
   notifications: [Notification!]
 }

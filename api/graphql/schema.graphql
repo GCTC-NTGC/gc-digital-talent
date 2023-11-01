@@ -25,9 +25,16 @@ type LocalizedString {
   fr: String
 }
 
+type UserAuthInfo {
+  id: UUID!
+  sub: String
+  roleAssignments: [RoleAssignment] @hasMany
+  createdDate: DateTime @rename(attribute: "created_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
+}
+
 type User {
   id: ID!
-  sub: String
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
@@ -48,11 +55,6 @@ type User {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
-  languageAbility: LanguageAbility
-    @rename(attribute: "language_ability")
-    @deprecated(
-      reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661."
-    )
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
@@ -122,8 +124,8 @@ type User {
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
-  # teams and roles
-  roleAssignments: [RoleAssignment!] @hasMany
+  # authorization and roles
+  authInfo: UserAuthInfo @self
 
   # Notifications
   unreadNotifications: [Notification!]
@@ -615,6 +617,7 @@ type CandidateSearchPoolResult {
 }
 
 type Query {
+  myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User
     @find

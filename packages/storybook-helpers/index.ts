@@ -1,3 +1,4 @@
+import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
 import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
 import OverlayOrDialogDecorator from "./decorators/OverlayOrDialogDecorator";
@@ -11,6 +12,7 @@ import ThemeDecorator, {
 import { widthOf, heightOf } from "./utils";
 
 export {
+  FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   OverlayOrDialogDecorator,

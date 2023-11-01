@@ -13,10 +13,16 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
     "watch": "tsup --watch",
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint \"src/**/*.ts*\"",
+    "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
+    "@swc/core": "^1.3.95",
+    "@types/react": "^18.2.33",
+    "eslint": "^8.52.0",
     "eslint-config-custom": "*",
+    "react": "^18.2.0",
+    "tsconfig": "*",
     "tsup": "^7.2.0",
     "typescript": "^5.1.3"
   }

@@ -22,6 +22,7 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 import useRoutes from "~/hooks/useRoutes";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
@@ -75,7 +76,7 @@ const SkillLibraryTable = ({
 }: SkillLibraryTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeCreateMutation] = useCreateUserSkillMutation();
 
   const levelGetter = isTechnical
@@ -90,6 +91,7 @@ const SkillLibraryTable = ({
         id: "hjxxaQ",
         description: "Skill name column header for the skill library table",
       }),
+      sortingFn: normalizedText,
       cell: (cell: UserSkillCell) => skillNameCell(cell, intl, paths),
       enableHiding: false,
       enableColumnFilter: false,
@@ -153,7 +155,7 @@ const SkillLibraryTable = ({
             skills={allSkills}
             onSave={async (value) => {
               executeCreateMutation({
-                userId: user?.id,
+                userId: userAuthInfo?.id,
                 skillId: value?.skill,
                 userSkill: {
                   skillLevel: value.skillLevel,

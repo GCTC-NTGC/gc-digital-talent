@@ -9,6 +9,7 @@ import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import { FromArray } from "~/types/utility";
@@ -359,7 +360,11 @@ const UserTable = ({ title }: { title: string }) => {
       },
       {
         label: intl.formatMessage(adminMessages.rolesAndPermissions),
-        accessor: (user) => rolesAccessor(user.roleAssignments, intl),
+        accessor: (user) =>
+          rolesAccessor(
+            unpackMaybes(user.authInfo?.roleAssignments) ?? [],
+            intl,
+          ),
         id: "rolesAndPermissions",
       },
       {

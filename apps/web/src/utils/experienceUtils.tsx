@@ -669,10 +669,10 @@ type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
  */
 export const useExperienceInfo: UseExperienceInfo = (experience) => {
   const intl = useIntl();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const paths = useRoutes();
   const experienceType = deriveExperienceType(experience);
-  const userId = experience?.user?.id || user?.id || "";
+  const userId = experience?.user?.id || userAuthInfo?.id || "";
   const defaults = {
     title: intl.formatMessage(commonMessages.notProvided).toString(),
     titleHtml: intl.formatMessage(commonMessages.notProvided),

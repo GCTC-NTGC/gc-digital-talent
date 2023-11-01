@@ -96,13 +96,13 @@ const AddTeamRoleDialog = ({
 
   const teamId = watch("team");
   useEffect(() => {
-    const roleAssignments = user.roleAssignments || [];
+    const roleAssignments = user?.authInfo?.roleAssignments || [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => ra.team?.id === teamId)
-      .map((r) => r.role?.id)
+      .filter((ra) => ra?.team?.id === teamId)
+      .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
-  }, [user.roleAssignments, teamId, setValue]);
+  }, [user?.authInfo?.roleAssignments, teamId, setValue]);
 
   const [{ data: teamsData }] = useListTeamsQuery();
 

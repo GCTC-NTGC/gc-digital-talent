@@ -1667,10 +1667,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7GHJGT": {
-    "defaultMessage": "Les modifications apportées aux questions filtres n’ont pas été enregistrées. N’oubliez pas de sauvegarder les modifications!",
-    "description": "Message displayed when items have been moved and not saved"
-  },
   "7GRDML": {
     "defaultMessage": "Autochtone",
     "description": "Message for indigenous option in the employment equity section of the request page."
@@ -2521,6 +2517,10 @@
   "C1wuXs": {
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
     "description": "Description on how to use behavioural skills"
+  },
+  "C3fUwm": {
+    "defaultMessage": "Version",
+    "description": "Label for the specific version number of the site"
   },
   "C43ZgD": {
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
@@ -3984,6 +3984,10 @@
   "KifUVY": {
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
     "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "Kklz7F": {
+    "defaultMessage": "Vous avez atteint le nombre maximal ({maxItems}) de questions de présélection par offre d’emploi.",
+    "description": "Message displayed when a user adds the maximum number of questions"
   },
   "KmqF8d": {
     "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
@@ -5583,10 +5587,6 @@
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
   },
-  "Un9x5Z": {
-    "defaultMessage": "Vous avez des modifications non enregistrées. N’oubliez pas d’enregistrer! ",
-    "description": "Message displayed when items have been moved and not saved"
-  },
   "UoZLL/": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> (CCDP) traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
@@ -6936,10 +6936,6 @@
   "cAOf3a": {
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
-  },
-  "cEalcz": {
-    "defaultMessage": "Vous n’avez pas encore ajouté aucun élément.",
-    "description": "Message that appears when there are no skills on showcase"
   },
   "cErFoy": {
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
@@ -8793,10 +8789,6 @@
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
-  },
-  "mR8ccV": {
-    "defaultMessage": "Vous pouvez ajouter des éléments en utilisant le bouton \"Ajouter un nouvel élément\" fourni.",
-    "description": "Instructions on how to add a skill to showcase when there are none"
   },
   "mR9A3a": {
     "defaultMessage": "Contrat",
