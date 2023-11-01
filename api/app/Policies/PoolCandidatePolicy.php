@@ -186,4 +186,20 @@ class PoolCandidatePolicy
     {
         return $user->id === $poolCandidate->user_id && $user->isAbleTo('delete-own-draftApplication');
     }
+
+    /**
+     * Determine whether the user can view attached assessment results
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAssessmentResults(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('view-any-assessmentResult')) {
+            return true;
+        }
+
+        $poolCandidate->loadMissing('pool.team');
+
+        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
+    }
 }
