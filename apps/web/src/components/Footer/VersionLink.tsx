@@ -6,9 +6,14 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 const VersionLink = () => {
   const intl = useIntl();
-  let content = process.env.COMMIT_HASH;
+  let content;
+  let url;
   if (process.env.VERSION) {
     content = process.env.VERSION;
+    url = `https://github.com/GCTC-NTGC/gc-digital-talent/releases/tag/${process.env.VERSION}`;
+  } else if (process.env.COMMIT_HASH) {
+    content = process.env.COMMIT_HASH;
+    url = `https://github.com/GCTC-NTGC/gc-digital-talent/commit/${process.env.COMMIT_HASH}`;
   }
 
   if (!content) {
@@ -25,13 +30,7 @@ const VersionLink = () => {
         description: "Label for the specific version number of the site",
       })}
       {intl.formatMessage(commonMessages.dividingColon)}
-      <Link
-        external
-        fontSize="caption"
-        href={`https://github.com/GCTC-NTGC/gc-digital-talent/releases${
-          process.env.VERSION ? `/tag/${process.env.VERSION}` : ``
-        }`}
-      >
+      <Link external fontSize="caption" href={url}>
         {content}
       </Link>
     </span>
