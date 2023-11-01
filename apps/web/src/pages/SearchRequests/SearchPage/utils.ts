@@ -115,7 +115,7 @@ export const applicantFilterToQueryArgs = (
   return {
     where: {
       ...filter,
-      equity: filter?.equity ? { ...filter?.equity } : undefined,
+      equity: filter?.equity,
       qualifiedClassifications: filter?.qualifiedClassifications
         ? pickMap(filter.qualifiedClassifications, ["group", "level"])
         : undefined,
@@ -201,12 +201,15 @@ export const formValuesToData = (
           }))
       : [],
     operationalRequirements: unpackMaybes(values.operationalRequirements),
-    // hasDiploma: values.educationRequirement === "has_diploma", // Disconnect from API request
+    hasDiploma: values.educationRequirement === "has_diploma",
     ...(values.employmentEquity?.length && {
-      hasDisability: values.employmentEquity?.includes("hasDisability"),
-      isIndigenous: values.employmentEquity?.includes("isIndigenous"),
-      isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
-      isWoman: values.employmentEquity?.includes("isWoman"),
+      equity: {
+        hasDisability: values.employmentEquity?.includes("hasDisability"),
+        isIndigenous: values.employmentEquity?.includes("isIndigenous"),
+        isVisibleMinority:
+          values.employmentEquity?.includes("isVisibleMinority"),
+        isWoman: values.employmentEquity?.includes("isWoman"),
+      },
     }),
     ...(values.languageAbility !== NullSelection
       ? { languageAbility: values.languageAbility }
