@@ -13,7 +13,22 @@ import {
   PoolStream,
   PoolCandidateSearchStatus,
   useGetFilterDataForRequestsQuery,
+  PoolCandidateSearchRequestInput,
 } from "@gc-digital-talent/graphql";
+
+import {
+  stringToEnumRequestStatus,
+  stringToEnumStream,
+} from "~/utils/requestUtils";
+
+type Option = { value: string; label: string };
+
+export type FormValues = {
+  status: Option["value"][];
+  departments: Option["value"][];
+  classifications: Option["value"][];
+  streams: Option["value"][];
+};
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Classification", "Department"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -63,5 +78,16 @@ export default function useFilterOptions() {
       departments: filterRes,
       classifications: filterRes,
     },
+  };
+}
+
+export function transformFormValuesToSearchRequestFilterInput(
+  data: FormValues,
+): PoolCandidateSearchRequestInput {
+  return {
+    status: data.status.map(stringToEnumRequestStatus),
+    departments: data.departments,
+    classifications: data.classifications,
+    streams: data.streams.map(stringToEnumStream),
   };
 }

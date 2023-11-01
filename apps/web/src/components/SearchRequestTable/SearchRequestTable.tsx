@@ -5,6 +5,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
@@ -31,6 +32,11 @@ import cells from "../Table/cells";
 import accessors from "../Table/accessors";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import { INITIAL_STATE } from "../Table/ResponsiveTable/constants";
+import {
+  FormValues,
+  transformFormValuesToSearchRequestFilterInput,
+} from "./components/utils";
+import SearchRequestsTableFilters from "./components/SearchRequestsTableFilterDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
 
@@ -38,16 +44,21 @@ interface SearchRequestTableProps {
   title: string;
 }
 
-const searchRequestInput = (
+const transformSearchRequestInput = (
+  filterState: PoolCandidateSearchRequestInput,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
 ): InputMaybe<PoolCandidateSearchRequestInput> => {
-  if (searchBarTerm === undefined && searchType === undefined) {
+  if (
+    filterState === undefined &&
+    searchBarTerm === undefined &&
+    searchType === undefined
+  ) {
     return null;
   }
 
   return {
-    // search bar
+    // from search bar
     generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
     id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
     fullName:
@@ -64,6 +75,11 @@ const searchRequestInput = (
       searchType === "adminNotes" && !!searchBarTerm
         ? searchBarTerm
         : undefined,
+    // from filter
+    status: filterState?.status,
+    departments: filterState?.departments,
+    classifications: filterState?.classifications,
+    streams: filterState?.streams,
   };
 };
 
@@ -76,6 +92,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const [searchState, setSearchState] = useState<SearchState>(
     INITIAL_STATE.searchState,
   );
+  const [filterState, setFilterState] =
+    useState<PoolCandidateSearchRequestInput>({});
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSearchRequestFilterInput(data);
+    setFilterState(transformedData);
+  };
+
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -233,7 +257,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
 
   const [{ data, fetching }] = useGetPoolCandidateSearchRequestsPaginatedQuery({
     variables: {
-      where: searchRequestInput(searchState?.term, searchState?.type),
+      where: transformSearchRequestInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
     },
@@ -271,6 +299,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           handleSearchStateChange({ term, type });
         },
       }}
+      filterComponent={
+        <SearchRequestsTableFilters onSubmit={handleFilterSubmit} />
+      }
     />
   );
 };
