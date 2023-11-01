@@ -1,8 +1,9 @@
-import { getFeatureFlags } from "./utils";
+import React from "react";
 
-export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
+import { FeatureFlagContext } from "./FeatureFlagProvider";
+
 const useFeatureFlags = () => {
-  return getFeatureFlags();
+  return React.useContext(FeatureFlagContext);
 };
 
 export default useFeatureFlags;

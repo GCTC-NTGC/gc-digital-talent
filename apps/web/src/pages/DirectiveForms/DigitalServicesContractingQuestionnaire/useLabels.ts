@@ -317,43 +317,43 @@ const getLabels = (intl: IntlShape) => {
     }),
 
     // Personnel requirements section
-    resourceType: intl.formatMessage({
+    "personnelRequirements.*.resourceType": intl.formatMessage({
       defaultMessage: "Type of personnel",
       id: "Yik/xN",
       description:
         "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_",
     }),
-    language: intl.formatMessage({
+    "personnelRequirements.*.language": intl.formatMessage({
       defaultMessage: "Official language requirement",
       id: "gZKJeF",
       description:
         "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_",
     }),
-    languageOther: intl.formatMessage({
+    "personnelRequirements.*.languageOther": intl.formatMessage({
       defaultMessage: "Please specify the language requirement",
       id: "P6jGb4",
       description:
         "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_",
     }),
-    security: intl.formatMessage({
+    "personnelRequirements.*.security": intl.formatMessage({
       defaultMessage: "Security level",
       id: "zemp3H",
       description:
         "Label for _security level_ fieldset in the _digital services contracting questionnaire_",
     }),
-    securityOther: intl.formatMessage({
+    "personnelRequirements.*.securityOther": intl.formatMessage({
       defaultMessage: "Please specify the security level",
       id: "yXWaAj",
       description:
         "Label for _other security level_ fieldset in the _digital services contracting questionnaire_",
     }),
-    telework: intl.formatMessage({
+    "personnelRequirements.*.telework": intl.formatMessage({
       defaultMessage: "Telework allowed",
       id: "DeQTkE",
       description:
         "Label for _telework option_ fieldset in the _digital services contracting questionnaire_",
     }),
-    quantity: intl.formatMessage({
+    "personnelRequirements.*.quantity": intl.formatMessage({
       defaultMessage: "Quantity",
       id: "5yv4Ko",
       description:
