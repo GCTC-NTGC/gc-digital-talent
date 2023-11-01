@@ -46,7 +46,7 @@ const SearchForm = <T,>({
 
   const updateTable = React.useCallback(
     (newState: SearchState) => {
-      table.resetPageIndex(); // Go to first page when searching
+      table.resetPageIndex(true); // Go to first page when searching
       if (newState.type && newState.type !== "") {
         table.setGlobalFilter("");
         table.setColumnFilters([

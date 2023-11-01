@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, MultiSelectField, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -20,7 +20,7 @@ import {
   UserPublicProfile,
   useUpdateUserTeamRolesMutation,
 } from "~/api/generated";
-import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -95,7 +95,12 @@ AddTeamMemberDialogProps) => {
   const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
   const userOptions = availableUsers?.map((user) => ({
     value: user.id,
-    label: getFullNameLabel(user.firstName, user.lastName, intl),
+    label: getFullNameAndEmailLabel(
+      user.firstName,
+      user.lastName,
+      user.email,
+      intl,
+    ),
   }));
 
   const label = intl.formatMessage({
@@ -132,14 +137,9 @@ AddTeamMemberDialogProps) => {
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                <Select
+                <Combobox
                   id="userId"
                   name="userId"
-                  nullSelection={
-                    fetchingUsers
-                      ? intl.formatMessage(commonMessages.loading)
-                      : intl.formatMessage(uiMessages.nullSelectionOption)
-                  }
                   disabled={fetchingUsers}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

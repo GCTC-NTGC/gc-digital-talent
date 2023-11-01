@@ -137,7 +137,7 @@ const PersonnelRequirementFieldset = ({
         id={`${fieldsetName}.resourceType`}
         name={`${fieldsetName}.resourceType`}
         type="text"
-        label={labels.resourceType}
+        label={labels["personnelRequirements.*.resourceType"]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
@@ -285,7 +285,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.language`}
         name={`${fieldsetName}.language`}
-        label={labels.language}
+        label={labels["personnelRequirements.*.language"]}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -306,7 +306,7 @@ const PersonnelRequirementFieldset = ({
           id={`${fieldsetName}.languageOther`}
           name={`${fieldsetName}.languageOther`}
           type="text"
-          label={labels.languageOther}
+          label={labels["personnelRequirements.*.languageOther"]}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -315,7 +315,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.security`}
         name={`${fieldsetName}.security`}
-        label={labels.security}
+        label={labels["personnelRequirements.*.security"]}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -336,7 +336,7 @@ const PersonnelRequirementFieldset = ({
           id={`${fieldsetName}.securityOther`}
           name={`${fieldsetName}.securityOther`}
           type="text"
-          label={labels.securityOther}
+          label={labels["personnelRequirements.*.securityOther"]}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -345,7 +345,7 @@ const PersonnelRequirementFieldset = ({
       <Select
         id={`${fieldsetName}.telework`}
         name={`${fieldsetName}.telework`}
-        label={labels.telework}
+        label={labels["personnelRequirements.*.telework"]}
         nullSelection={intl.formatMessage(formMessages.defaultPlaceholder)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
@@ -365,7 +365,7 @@ const PersonnelRequirementFieldset = ({
         id={`${fieldsetName}.quantity`}
         name={`${fieldsetName}.quantity`}
         type="number"
-        label={labels.quantity}
+        label={labels["personnelRequirements.*.quantity"]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
           min: {
