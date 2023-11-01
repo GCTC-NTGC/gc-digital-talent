@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  InputMaybe,
+  PoolCandidateSearchRequestInput,
+} from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchRequest,
@@ -22,24 +25,65 @@ import {
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
+import { SearchState } from "../Table/ResponsiveTable/types";
+import { INITIAL_STATE } from "../Table/ResponsiveTable/constants";
 
 const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
 
 interface SearchRequestTableProps {
-  searchRequests: Array<PoolCandidateSearchRequest>;
   title: string;
 }
 
-export const SearchRequestTable = ({
-  searchRequests,
-  title,
-}: SearchRequestTableProps) => {
+const defaultState = {
+  pageSize: 10,
+  currentPage: 1,
+  searchState: {
+    term: "",
+    type: "",
+  },
+  hiddenColumnIds: [],
+  sortBy: undefined,
+  filters: {},
+};
+
+const searchRequestInput = (
+  searchBarTerm: string | undefined,
+  searchType: string | undefined,
+): InputMaybe<PoolCandidateSearchRequestInput> => {
+  if (searchBarTerm === undefined && searchType === undefined) {
+    return null;
+  }
+
+  return {
+    // search bar
+    generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+    id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
+    fullName:
+      searchType === "fullName" && !!searchBarTerm ? searchBarTerm : undefined,
+    email:
+      searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
+    jobTitle:
+      searchType === "jobTitle" && !!searchBarTerm ? searchBarTerm : undefined,
+    additionalComments:
+      searchType === "additionalComments" && !!searchBarTerm
+        ? searchBarTerm
+        : undefined,
+    adminNotes:
+      searchType === "adminNotes" && !!searchBarTerm
+        ? searchBarTerm
+        : undefined,
+  };
+};
+
+const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [searchState, setSearchState] = useState<SearchState>(
+    INITIAL_STATE.searchState,
+  );
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
-      enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
     }),
     columnHelper.accessor("jobTitle", {
@@ -50,6 +94,15 @@ export const SearchRequestTable = ({
         description:
           "Title displayed for the search request table request job title column.",
       }),
+      // meta: {
+      //   searchHeader: intl.formatMessage({
+      //     defaultMessage: "Job title",
+      //     id: "nkVG29",
+      //     description:
+      //       "Title displayed for the search request table request job title column.",
+      //   }),
+      // },
+      // why is this different?
       cell: ({ row: { original: searchRequest }, getValue }) =>
         cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
     }),
@@ -66,28 +119,38 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table group and level column.",
         }),
+        enableColumnFilter: false,
         cell: ({ row: { original: pool } }) =>
           classificationsCell(
             pool.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
           ),
       },
     ),
-    columnHelper.accessor((row) => row, {
-      id: "stream",
-      header: intl.formatMessage({
-        defaultMessage: "Stream",
-        id: "LoKxJe",
-        description:
-          "Title displayed on the search request table stream column.",
-      }),
-      cell: ({ row: { original: row } }) =>
-        cells.commaList({
-          list:
-            row.applicantFilter?.qualifiedStreams
-              ?.filter(notEmpty)
-              .map((stream) => intl.formatMessage(getPoolStream(stream))) ?? [],
+    columnHelper.accessor(
+      (row) =>
+        row.applicantFilter?.qualifiedStreams
+          ?.filter(notEmpty)
+          .map((stream) => intl.formatMessage(getPoolStream(stream)))
+          .join(","),
+      {
+        id: "stream",
+        header: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "LoKxJe",
+          description:
+            "Title displayed on the search request table stream column.",
         }),
-    }),
+        enableColumnFilter: false,
+        cell: ({ row: { original: row } }) =>
+          cells.commaList({
+            list:
+              row.applicantFilter?.qualifiedStreams
+                ?.filter(notEmpty)
+                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
+              [],
+          }),
+      },
+    ),
     columnHelper.accessor("fullName", {
       id: "manager",
       header: intl.formatMessage({
@@ -116,6 +179,7 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table department column.",
         }),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor("status", {
@@ -126,6 +190,7 @@ export const SearchRequestTable = ({
         description:
           "Title displayed on the search request table status column.",
       }),
+      enableColumnFilter: false,
       cell: ({ row: { original: searchRequest } }) =>
         statusAccessor(searchRequest.status, intl),
     }),
@@ -139,6 +204,7 @@ export const SearchRequestTable = ({
           description:
             "Title displayed on the search request table requested date column.",
         }),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor("adminNotes", {
@@ -149,46 +215,56 @@ export const SearchRequestTable = ({
     }),
   ] as ColumnDef<PoolCandidateSearchRequest>[];
 
-  const data = searchRequests.filter(notEmpty);
+  const handleSearchStateChange = ({
+    term,
+    type,
+  }: {
+    term: string | undefined;
+    type: string | undefined;
+  }) => {
+    setSearchState({
+      term: term ?? defaultState.searchState.term,
+      type: type ?? defaultState.searchState.type,
+    });
+  };
+
+  const [{ data, fetching }] = useGetPoolCandidateSearchRequestsPaginatedQuery({
+    variables: {
+      where: searchRequestInput(searchState?.term, searchState?.type),
+    },
+  });
+
+  const requestData =
+    data?.poolCandidateSearchRequestsPaginated?.data.filter(notEmpty) ?? [];
 
   return (
     <Table<PoolCandidateSearchRequest>
-      data={data}
+      data={requestData}
       caption={title}
       columns={columns}
       hiddenColumnIds={["id", "manager", "email", "adminNotes"]}
+      isLoading={fetching}
       sort={{
-        internal: true,
+        internal: false,
       }}
       pagination={{
-        internal: true,
-        total: data.length,
+        internal: false,
+        total: requestData.length,
         pageSizes: [10, 20, 50],
       }}
       search={{
-        internal: true,
+        internal: false,
         label: intl.formatMessage({
           defaultMessage: "Search requests",
           id: "pnjDCS",
           description: "Label for the search request table search input",
         }),
+        onChange: ({ term, type }: SearchState) => {
+          handleSearchStateChange({ term, type });
+        },
       }}
     />
   );
 };
 
-const SearchRequestTableApi = ({ title }: { title: string }) => {
-  const [result] = useGetPoolCandidateSearchRequestsPaginatedQuery();
-  const { data, fetching, error } = result;
-
-  const requestsData = data?.poolCandidateSearchRequestsPaginated?.data ?? [];
-  const filteredData = requestsData.filter(notEmpty);
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <SearchRequestTable searchRequests={filteredData || []} title={title} />
-    </Pending>
-  );
-};
-
-export default SearchRequestTableApi;
+export default SearchRequestTable;
