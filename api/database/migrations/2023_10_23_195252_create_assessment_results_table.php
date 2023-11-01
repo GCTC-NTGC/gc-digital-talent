@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('assessment_results', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->timestamps();
-            // belongsTo three tables, the third isn't required
+            // belongsTo three tables, the third relation to PoolSkill model is nullable for education assessments currently
             $table->uuid('assessment_step_id');
             $table->foreign('assessment_step_id')->references('id')->on('assessment_steps');
             $table->uuid('pool_candidate_id');
