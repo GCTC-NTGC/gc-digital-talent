@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AssessmentResultType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -279,18 +280,33 @@ class DatabaseSeeder extends Seeder
     private function seedAssessmentResults(Pool $pool)
     {
         // regular random
-        $assessmentSteps = AssessmentStep::inRandomOrder()->limit(5)->get();
+        $assessmentSteps = AssessmentStep::inRandomOrder()->with('pool')->limit(10)->get();
 
         foreach ($assessmentSteps as $assessmentStep) {
+            $poolSkillIds = $assessmentStep->pool->poolSkills()->pluck('id')->toArray();
             $poolCandidate = PoolCandidate::factory()->create([
                 'pool_id' => $assessmentStep->pool_id,
             ]);
-            AssessmentResult::factory()->count(3)->create([
+
+            AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
             ]);
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+                'assessment_step_id' => $assessmentStep->id,
+                'pool_candidate_id' => $poolCandidate->id,
+                'pool_skill_id' => count($poolSkillIds) > 0 ?
+                    array_rand(array_flip($poolSkillIds)) : null,
+            ]);
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+                'assessment_step_id' => $assessmentStep->id,
+                'pool_candidate_id' => $poolCandidate->id,
+                'pool_skill_id' => count($poolSkillIds) > 0 ?
+                    array_rand(array_flip($poolSkillIds)) : null,
+            ]);
         }
 
+        // specific pool
         $poolCandidate = PoolCandidate::factory()->create([
             'pool_id' => $pool->id,
         ]);
@@ -301,17 +317,16 @@ class DatabaseSeeder extends Seeder
         $dcmAssessment2 = AssessmentStep::factory()->create([
             'pool_id' => $pool->id,
         ]);
-        AssessmentResult::factory()->create([
+        AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
             'assessment_step_id' => $dcmAssessment1->id,
             'pool_candidate_id' => $poolCandidate->id,
-            'pool_skill_id' => $dcmPoolSkills[0],
         ]);
-        AssessmentResult::factory()->create([
+        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
             'assessment_step_id' => $dcmAssessment2->id,
             'pool_candidate_id' => $poolCandidate->id,
             'pool_skill_id' => $dcmPoolSkills[0],
         ]);
-        AssessmentResult::factory()->create([
+        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
             'assessment_step_id' => $dcmAssessment2->id,
             'pool_candidate_id' => $poolCandidate->id,
             'pool_skill_id' => $dcmPoolSkills[1],
