@@ -1491,10 +1491,6 @@
     "defaultMessage": "Renseignements sur le candidat",
     "description": "Heading displayed above the pool candidate application page."
   },
-  "6AhLsc": {
-    "defaultMessage": "Demander le titre du poste",
-    "description": "Title displayed for the search request table request job title column."
-  },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
@@ -7472,10 +7468,6 @@
   "f/yvXg": {
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
-  },
-  "f24Z8p": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the search request table id column."
   },
   "fA79sM": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
