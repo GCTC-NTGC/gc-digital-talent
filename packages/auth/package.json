@@ -28,7 +28,7 @@
     "@gc-digital-talent/ui": "*",
     "jwt-decode": "^3.1.2",
     "path-browserify": "^1.0.1",
-    "react-router-dom": "^6.17.0",
+    "react-router-dom": "^6.18.0",
     "urql": "3.0.4"
   },
   "devDependencies": {
