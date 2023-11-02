@@ -1,4 +1,5 @@
 import React from "react";
+import { useImage } from "react-image";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 
@@ -8,6 +9,7 @@ interface FeatureBlockProps {
     summary: React.ReactNode;
     img: {
       path: string;
+      fallback: string;
       position?: string;
     };
     link: {
@@ -17,6 +19,18 @@ interface FeatureBlockProps {
     };
   };
 }
+
+interface ReactImageProps {
+  UrlArray: string[];
+}
+
+const ReactImage = ({ UrlArray }: ReactImageProps) => {
+  const { src } = useImage({
+    srcList: UrlArray,
+  });
+
+  return <img src={src} alt="" />;
+};
 
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
@@ -42,14 +56,15 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           {content.title}
         </Heading>
       </div>
-      <div
+      {/* <div
         data-h2-height="base(x10) desktop(x12)"
         style={{
           backgroundImage: `url('${content.img.path}')`,
           backgroundPosition: content.img.position || "center",
           backgroundSize: "cover",
         }}
-      />
+      /> */}
+      <ReactImage UrlArray={[content.img.path, content.img.fallback]} />
       <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
         {content.summary}
       </div>
