@@ -29,7 +29,7 @@ import AssessmentStepFieldset from "./AssessmentStepFieldset";
 type FormValues = {
   assessmentStepFieldArray?: Array<{
     id: string | null;
-    assessmentStep: AssessmentStep;
+    assessmentStep: Pick<AssessmentStep, "id" | "sortOrder">; // hack for "Type instantiation is excessively deep" error
   }>;
 };
 
