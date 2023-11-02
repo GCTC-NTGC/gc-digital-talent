@@ -9378,6 +9378,10 @@
     "defaultMessage": "Votre incidence (anglais)",
     "description": "Label for a process' English impact"
   },
+  "pnjDCS": {
+    "defaultMessage": "Chercher les demandes",
+    "description": "Label for the search request table search input"
+  },
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
@@ -9836,6 +9840,10 @@
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
+  },
+  "sl1kbp": {
+    "defaultMessage": "détails pour {name}",
+    "description": "Link text suffix to read more details for a search request"
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
