@@ -752,6 +752,10 @@
     "defaultMessage": "Profil",
     "description": "User profile breadcrumb text"
   },
+  "1yO4e+": {
+    "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
+    "description": "First paragraph for delete assessment step dialog"
+  },
   "2++hVA": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
     "description": "Third paragraph for Close pool dialog"
@@ -2058,6 +2062,10 @@
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
+  },
+  "9cLJwl": {
+    "defaultMessage": "Questions en anglais",
+    "description": "Description for a list of questions in the English language"
   },
   "9gpVCX": {
     "defaultMessage": "Prêt à être embauché",
@@ -4400,6 +4408,10 @@
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
   },
+  "NROIaL": {
+    "defaultMessage": "Il manque certaines compétences à cette évaluation",
+    "description": "Warning message that an assessment step is missing skills"
+  },
   "NSHPIJ": {
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
@@ -4678,6 +4690,10 @@
   "OxeGLu": {
     "defaultMessage": "Mesures",
     "description": "Title displayed for the team table actions column"
+  },
+  "OyMDr3": {
+    "defaultMessage": "Questions en français",
+    "description": "Description for a list of questions in the French language"
   },
   "P+m8Wl": {
     "defaultMessage": "Langue parlée préférée pour l'entretien",
@@ -6965,6 +6981,10 @@
     "defaultMessage": "Être âgé(e) d’au moins 16 ans",
     "description": "IAP Requirement list item three"
   },
+  "cNeFmG": {
+    "defaultMessage": "Ce ne sont pas toutes les étapes de l’évaluation qui ont été sauvegardées.",
+    "description": "Error message displayed after all some steps were not changed"
+  },
   "cOJVBW": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to add roles to a user's team membership"
@@ -7124,6 +7144,10 @@
   "dFCH1c": {
     "defaultMessage": "Processus exécutif à venir sous peu",
     "description": "Heading for the teaser of executive processes"
+  },
+  "dGgEAz": {
+    "defaultMessage": "La sauvegarde des étapes d’évaluation ont été sauvegardées!",
+    "description": "Success message displayed after all steps were saved"
   },
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
@@ -8255,6 +8279,10 @@
     "defaultMessage": "Emplacement précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
   },
+  "j7+E9C": {
+    "defaultMessage": "Vous êtes à la limite!",
+    "description": "Title for warning message when the user has added the maximum assessments to the assessment plan"
+  },
   "j7nWu/": {
     "defaultMessage": "Vous avez réussi à mettre à jour vos compétences!",
     "description": "Message displayed to users when saving skills is successful."
@@ -8494,6 +8522,10 @@
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
+  },
+  "kZWII8": {
+    "defaultMessage": "Étape du plan d’évaluation {index}",
+    "description": "Legend for assessment plan step fieldset"
   },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
