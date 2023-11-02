@@ -107,20 +107,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
     columnHelper.accessor("jobTitle", {
       id: "jobTitle",
-      header: intl.formatMessage({
-        defaultMessage: "Request job title",
-        id: "6AhLsc",
-        description:
-          "Title displayed for the search request table request job title column.",
-      }),
-      meta: {
-        searchHeader: intl.formatMessage({
-          defaultMessage: "Job title",
-          id: "nkVG29",
-          description:
-            "Title displayed for the search request table request job title column.",
-        }),
-      },
+      header: intl.formatMessage(adminMessages.jobTitle),
       cell: ({ row: { original: searchRequest }, getValue }) =>
         cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
     }),
