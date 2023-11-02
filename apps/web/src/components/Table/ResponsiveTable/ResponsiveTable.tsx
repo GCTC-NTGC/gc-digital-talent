@@ -189,7 +189,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
           const initialSortState =
             sort?.initialState ?? INITIAL_STATE.sortState;
-          if (isEqual(sortingState, initialSortState)) {
+          if (
+            isEqual(sortingState, initialSortState) ||
+            isEmpty(sortingState)
+          ) {
             newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
           } else {
             newParams.set(
@@ -198,7 +201,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             );
           }
 
-          if (isEqual(hiddenColumnIds, newHiddenIds)) {
+          if (isEqual(hiddenColumnIds, newHiddenIds) || isEmpty(sortingState)) {
             newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
           } else {
             newParams.set(

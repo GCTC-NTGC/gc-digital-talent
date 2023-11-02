@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import {
   ColumnDef,
   PaginationState,
+  SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
@@ -39,6 +40,7 @@ import {
 import {
   FormValues,
   transformFormValuesToSearchRequestFilterInput,
+  transformSortStateToOrderByClause,
 } from "./components/utils";
 import SearchRequestsTableFilters from "./components/SearchRequestsTableFilterDialog";
 
@@ -105,6 +107,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const [searchState, setSearchState] = useState<SearchState>(
     INITIAL_STATE.searchState,
   );
+  const [sortState, setSortState] = useState<SortingState | undefined>(
+    INITIAL_STATE.sortState,
+  );
   const [filterState, setFilterState] =
     useState<PoolCandidateSearchRequestInput>(initialFilters);
 
@@ -141,6 +146,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
             "Title displayed on the search request table group and level column.",
         }),
         enableColumnFilter: false,
+        enableSorting: false,
         cell: ({ row: { original: pool } }) =>
           classificationsCell(
             pool.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
@@ -162,6 +168,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
             "Title displayed on the search request table stream column.",
         }),
         enableColumnFilter: false,
+        enableSorting: false,
         cell: ({ row: { original: row } }) =>
           cells.commaList({
             list:
@@ -201,6 +208,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
             "Title displayed on the search request table department column.",
         }),
         enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor("status", {
@@ -230,6 +238,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     ),
     columnHelper.accessor("adminNotes", {
       id: "adminNotes",
+      enableSorting: false,
       header: intl.formatMessage(adminMessages.notes),
       cell: ({ row: { original: searchRequest } }) =>
         notesAccessor(searchRequest, intl),
@@ -266,6 +275,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      orderBy: sortState
+        ? transformSortStateToOrderByClause(sortState)
+        : undefined,
     },
   });
 
@@ -281,6 +293,13 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       isLoading={fetching}
       sort={{
         internal: false,
+        onSortChange: setSortState,
+        initialState: [
+          {
+            id: "requestedDate",
+            desc: true,
+          },
+        ],
       }}
       pagination={{
         internal: false,

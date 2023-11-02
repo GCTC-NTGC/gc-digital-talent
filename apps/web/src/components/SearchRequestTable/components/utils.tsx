@@ -1,6 +1,7 @@
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { SortingState } from "@tanstack/react-table";
 
 import {
   getPoolStream,
@@ -14,6 +15,8 @@ import {
   PoolCandidateSearchStatus,
   useGetFilterDataForRequestsQuery,
   PoolCandidateSearchRequestInput,
+  OrderByClause,
+  SortOrder,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -96,4 +99,29 @@ export function transformFormValuesToSearchRequestFilterInput(
       ? data.streams.map(stringToEnumStream)
       : undefined,
   };
+}
+export function transformSortStateToOrderByClause(
+  sortingRule: SortingState,
+): OrderByClause | OrderByClause[] | undefined {
+  const columnMap = new Map<string, string>([
+    ["id", "id"],
+    ["manager", "full_name"],
+    ["jobTitle", "job_title"],
+    ["email", "email"],
+    ["status", "request_status"],
+    ["requestedDate", "created_at"],
+  ]);
+
+  const orderBy = sortingRule
+    .map((rule) => {
+      const columnName = columnMap.get(rule.id);
+      if (!columnName) return undefined;
+      return {
+        column: columnName,
+        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+      };
+    })
+    .filter(notEmpty);
+
+  return orderBy.length ? orderBy : undefined;
 }
