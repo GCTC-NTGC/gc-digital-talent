@@ -28,7 +28,7 @@
     "@gc-digital-talent/toast": "*",
     "@urql/exchange-auth": "1.0.0",
     "graphql": "^16.8.1",
-    "jwt-decode": "^3.1.2",
+    "jwt-decode": "^4.0.0",
     "lodash": "4.17.21",
     "react-intl": "^6.5.1",
     "urql": "3.0.4",
