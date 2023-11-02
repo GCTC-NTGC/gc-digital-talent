@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   ColumnDef,
   PaginationState,
@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
@@ -31,7 +32,10 @@ import {
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
 import { SearchState } from "../Table/ResponsiveTable/types";
-import { INITIAL_STATE } from "../Table/ResponsiveTable/constants";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "../Table/ResponsiveTable/constants";
 import {
   FormValues,
   transformFormValuesToSearchRequestFilterInput,
@@ -86,6 +90,15 @@ const transformSearchRequestInput = (
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: PoolCandidateSearchRequestInput = useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+    [filtersEncoded],
+  );
+  const filterRef = React.useRef<PoolCandidateSearchRequestInput | undefined>(
+    initialFilters,
+  );
   const [paginationState, setPaginationState] = useState<PaginationState>(
     INITIAL_STATE.paginationState,
   );
@@ -93,11 +106,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     INITIAL_STATE.searchState,
   );
   const [filterState, setFilterState] =
-    useState<PoolCandidateSearchRequestInput>({});
+    useState<PoolCandidateSearchRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = transformFormValuesToSearchRequestFilterInput(data);
     setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
   };
 
   const columns = [
@@ -257,7 +273,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     data?.poolCandidateSearchRequestsPaginated?.data.filter(notEmpty) ?? [];
 
   return (
-    <Table<PoolCandidateSearchRequest>
+    <Table<PoolCandidateSearchRequest, PoolCandidateSearchRequestInput>
       data={requestData}
       caption={title}
       columns={columns}
@@ -285,9 +301,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           handleSearchStateChange({ term, type });
         },
       }}
-      filterComponent={
-        <SearchRequestsTableFilters onSubmit={handleFilterSubmit} />
-      }
+      filter={{
+        state: filterRef.current,
+        component: <SearchRequestsTableFilters onSubmit={handleFilterSubmit} />,
+      }}
     />
   );
 };

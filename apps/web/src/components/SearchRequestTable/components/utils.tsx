@@ -85,9 +85,15 @@ export function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,
 ): PoolCandidateSearchRequestInput {
   return {
-    status: data.status.map(stringToEnumRequestStatus),
-    departments: data.departments,
-    classifications: data.classifications,
-    streams: data.streams.map(stringToEnumStream),
+    status: data.status.length
+      ? data.status.map(stringToEnumRequestStatus)
+      : undefined,
+    departments: data.departments.length ? data.departments : undefined,
+    classifications: data.classifications.length
+      ? data.classifications
+      : undefined,
+    streams: data.streams.length
+      ? data.streams.map(stringToEnumStream)
+      : undefined,
   };
 }
