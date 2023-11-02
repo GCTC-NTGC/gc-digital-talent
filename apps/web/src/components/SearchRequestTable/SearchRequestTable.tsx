@@ -113,15 +113,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         description:
           "Title displayed for the search request table request job title column.",
       }),
-      // meta: {
-      //   searchHeader: intl.formatMessage({
-      //     defaultMessage: "Job title",
-      //     id: "nkVG29",
-      //     description:
-      //       "Title displayed for the search request table request job title column.",
-      //   }),
-      // },
-      // why is this different?
+      meta: {
+        searchHeader: intl.formatMessage({
+          defaultMessage: "Job title",
+          id: "nkVG29",
+          description:
+            "Title displayed for the search request table request job title column.",
+        }),
+      },
       cell: ({ row: { original: searchRequest }, getValue }) =>
         cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
     }),
