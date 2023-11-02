@@ -17,10 +17,15 @@ import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContai
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import managerHero from "~/assets/img/manager-hero.jpg";
+import managerHeroWebp from "~/assets/img/webp/manager-hero.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.jpg";
+// import managerProfileHeroWebp from "~/assets/img/webp/manager-profile-hero.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.jpg";
+import peopleGatheredAroundLaptopWebp from "~/assets/img/webp/people-gathered-around-laptop.webp";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.jpg";
+import peopleSittingOnCouchWebp from "~/assets/img/webp/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.jpg";
+import peopleSittingInLineWebp from "~/assets/img/webp/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const HomePage = () => {
@@ -38,7 +43,7 @@ const HomePage = () => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          src: managerHero,
+          src: { webp: managerHeroWebp, fallback: managerHero },
           alt: "",
         }}
         callToAction={
@@ -275,7 +280,10 @@ const HomePage = () => {
         >
           <FeatureBlock
             content={{
-              img: { path: peopleGatheredAroundLaptop },
+              img: {
+                path: peopleGatheredAroundLaptopWebp,
+                fallback: peopleGatheredAroundLaptop,
+              },
               title: intl.formatMessage({
                 defaultMessage: "Get hiring experience",
                 id: "azBrrC",
@@ -326,7 +334,10 @@ const HomePage = () => {
           />
           <FeatureBlock
             content={{
-              img: { path: peopleSittingOnCouch },
+              img: {
+                path: peopleSittingOnCouchWebp,
+                fallback: peopleSittingOnCouch,
+              },
               title: intl.formatMessage({
                 defaultMessage: "Apply for manager jobs",
                 id: "HHtv+9",
@@ -356,7 +367,10 @@ const HomePage = () => {
           />
           <FeatureBlock
             content={{
-              img: { path: peopleSittingInLine },
+              img: {
+                path: peopleSittingInLineWebp,
+                fallback: peopleSittingInLine,
+              },
               title: intl.formatMessage({
                 defaultMessage: "Ready for an executive role?",
                 id: "7TwG/b",
