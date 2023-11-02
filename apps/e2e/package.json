@@ -19,7 +19,7 @@
     "cy-verify-downloads": "^0.2.2",
     "cypress": "^13.3.3",
     "cypress-axe": "^1.5.0",
-    "cypress-terminal-report": "^5.3.7",
+    "cypress-terminal-report": "^5.3.9",
     "eslint-plugin-cypress": "^2.15.1",
     "prettier": "^3.0.3",
     "tsconfig": "*",
