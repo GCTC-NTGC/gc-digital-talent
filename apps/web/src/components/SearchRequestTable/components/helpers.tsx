@@ -75,6 +75,27 @@ export const notesAccessor = (
     />
   ) : null;
 
+export const detailsAccessor = (
+  searchRequest: PoolCandidateSearchRequest,
+  intl: IntlShape,
+) =>
+  searchRequest?.additionalComments ? (
+    <Spoiler
+      text={searchRequest.additionalComments}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "details for {name}",
+          id: "sl1kbp",
+          description:
+            "Link text suffix to read more details for a search request",
+        },
+        {
+          name: searchRequest.jobTitle,
+        },
+      )}
+    />
+  ) : null;
+
 export const statusAccessor = (
   status: PoolCandidateSearchStatus | null | undefined,
   intl: IntlShape,

@@ -27,6 +27,7 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   classificationAccessor,
   classificationsCell,
+  detailsAccessor,
   notesAccessor,
   statusAccessor,
 } from "./components/helpers";
@@ -243,6 +244,13 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       cell: ({ row: { original: searchRequest } }) =>
         notesAccessor(searchRequest, intl),
     }),
+    columnHelper.accessor("additionalComments", {
+      id: "additionalComments",
+      enableSorting: false,
+      header: intl.formatMessage(adminMessages.details),
+      cell: ({ row: { original: searchRequest } }) =>
+        detailsAccessor(searchRequest, intl),
+    }),
   ] as ColumnDef<PoolCandidateSearchRequest>[];
 
   const handlePaginationStateChange = ({
@@ -289,7 +297,13 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       data={requestData}
       caption={title}
       columns={columns}
-      hiddenColumnIds={["id", "manager", "email", "adminNotes"]}
+      hiddenColumnIds={[
+        "id",
+        "manager",
+        "email",
+        "adminNotes",
+        "additionalComments",
+      ]}
       isLoading={fetching}
       sort={{
         internal: false,
