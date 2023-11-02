@@ -8,9 +8,10 @@ import desktopGraphicsDark1Webp from "~/assets/img/webp/Desktop_Graphics_dark_1.
 
 interface ReactImageProps {
   UrlArray: string[];
+  imageCase: "light" | "dark";
 }
 
-const ReactImage = ({ UrlArray }: ReactImageProps) => {
+const ReactImage = ({ UrlArray, imageCase }: ReactImageProps) => {
   const { src } = useImage({
     srcList: UrlArray,
   });
@@ -19,13 +20,17 @@ const ReactImage = ({ UrlArray }: ReactImageProps) => {
     <img
       src={src}
       alt=""
-      data-h2-display="base(block) base:dark(none)"
       data-h2-position="base(absolute)"
       data-h2-location="base(0, 0, auto, auto)"
       data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
       data-h2-height="base(auto)"
       data-h2-width="base(250%) l-tablet(40%)"
       data-h2-max-width="base(initial)"
+      data-h2-display={
+        imageCase === "light"
+          ? "base(block) base:dark(none)"
+          : "base(none) base:dark(block)"
+      }
     />
   );
 };
@@ -46,8 +51,12 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => (
     >
       <ReactImage
         UrlArray={[desktopGraphicsLight1Webp, desktopGraphicsLight1]}
+        imageCase="light"
       />
-      <ReactImage UrlArray={[desktopGraphicsDark1Webp, desktopGraphicsDark1]} />
+      <ReactImage
+        UrlArray={[desktopGraphicsDark1Webp, desktopGraphicsDark1]}
+        imageCase="dark"
+      />
       <div
         data-h2-background="base(main-linear)"
         data-h2-location="base(0, 0, auto, 0)"

@@ -18,7 +18,11 @@ interface ReactImageProps {
   size: Size;
 }
 
-const ReactImageTop = ({ UrlArray, size }: ReactImageProps) => {
+const ReactImageTop = ({
+  UrlArray,
+  size,
+  imageCase,
+}: ReactImageProps & { imageCase: "light" | "dark" }) => {
   const { src } = useImage({
     srcList: UrlArray,
   });
@@ -26,7 +30,6 @@ const ReactImageTop = ({ UrlArray, size }: ReactImageProps) => {
   return (
     <img
       src={src}
-      data-h2-display="base(block) base:dark(none)"
       data-h2-position="base(absolute)"
       data-h2-location="base(0, 0, auto, auto)"
       data-h2-transform="base(skew(3deg))"
@@ -41,6 +44,11 @@ const ReactImageTop = ({ UrlArray, size }: ReactImageProps) => {
             "data-h2-width": "base(60%) p-tablet(auto)",
           })}
       alt=""
+      data-h2-display={
+        imageCase === "light"
+          ? "base(block) base:dark(none)"
+          : "base(none) base:dark(block)"
+      }
     />
   );
 };
@@ -123,10 +131,12 @@ const FlourishContainer = ({
           <ReactImageTop
             UrlArray={[deskTopGraphicsLight2Webp, desktopGraphicsLight2]}
             size={size}
+            imageCase="light"
           />
           <ReactImageTop
             UrlArray={[deskTopGraphicsDark2Webp, desktopGraphicsDark2]}
             size={size}
+            imageCase="dark"
           />
         </>
       )}
