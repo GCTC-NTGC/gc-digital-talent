@@ -1,12 +1,98 @@
 import React from "react";
+import { useImage } from "react-image";
 
 import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
+import deskTopGraphicsLight2Webp from "~/assets/img/webp/Desktop_Graphics_light_2.webp";
 import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.png";
+import deskTopGraphicsLight3Webp from "~/assets/img/webp/Desktop_Graphics_light_3.webp";
 import desktopGraphicsDark2 from "~/assets/img/Desktop_Graphics_dark_2.png";
+import deskTopGraphicsDark2Webp from "~/assets/img/webp/Desktop_Graphics_dark_2.webp";
 import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
+import deskTopGraphicsDark3Webp from "~/assets/img/webp/Desktop_Graphics_dark_3.webp";
 
 type Side = "top" | "bottom";
 type Size = "sm" | "lg";
+
+interface ReactImageProps {
+  UrlArray: string[];
+  size: Size;
+}
+
+const ReactImageTop = ({ UrlArray, size }: ReactImageProps) => {
+  const { src } = useImage({
+    srcList: UrlArray,
+  });
+
+  return (
+    <img
+      src={src}
+      data-h2-display="base(block) base:dark(none)"
+      data-h2-position="base(absolute)"
+      data-h2-location="base(0, 0, auto, auto)"
+      data-h2-transform="base(skew(3deg))"
+      data-h2-max-width="base(initial)"
+      {...(size === "lg"
+        ? {
+            "data-h2-height": "base(auto) p-tablet(50%)",
+            "data-h2-width": "base(150%) p-tablet(auto)",
+          }
+        : {
+            "data-h2-height": "base(auto) p-tablet(20%)",
+            "data-h2-width": "base(60%) p-tablet(auto)",
+          })}
+      alt=""
+    />
+  );
+};
+
+const ReactImageBottomLight = ({ UrlArray, size }: ReactImageProps) => {
+  const { src } = useImage({
+    srcList: UrlArray,
+  });
+
+  return (
+    <img
+      src={src}
+      data-h2-display="base(block) base:dark(none)"
+      data-h2-position="base(absolute)"
+      data-h2-location="base(auto, auto, 0, 0)"
+      data-h2-transform="base(skew(3deg))"
+      data-h2-max-width="base(initial)"
+      {...(size === "lg"
+        ? {
+            "data-h2-height": "base(auto) desktop(90%)",
+            "data-h2-width": "base(150%) p-tablet(100%) desktop(auto)",
+          }
+        : {
+            "data-h2-height": "base(auto) desktop(30%)",
+            "data-h2-width": "base(45%) p-tablet(32%) desktop(auto)",
+          })}
+      alt=""
+    />
+  );
+};
+
+const ReactImageBottomDark = ({
+  UrlArray,
+}: Pick<ReactImageProps, "UrlArray">) => {
+  const { src } = useImage({
+    srcList: UrlArray,
+  });
+
+  return (
+    <img
+      src={src}
+      data-h2-display="base(none) base:dark(block)"
+      data-h2-position="base(absolute)"
+      data-h2-location="base(auto, auto, 0, 0)"
+      data-h2-transform="base(skew(3deg))"
+      data-h2-height="base(auto) desktop(90%)"
+      data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
+      data-h2-max-width="base(initial)"
+      alt=""
+    />
+  );
+};
 
 interface FlourishContainerProps {
   children: React.ReactNode;
@@ -34,74 +120,24 @@ const FlourishContainer = ({
     >
       {show.includes("top") && (
         <>
-          <img
-            data-h2-display="base(block) base:dark(none)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0, 0, auto, auto)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-max-width="base(initial)"
-            {...(size === "lg"
-              ? {
-                  "data-h2-height": "base(auto) p-tablet(50%)",
-                  "data-h2-width": "base(150%) p-tablet(auto)",
-                }
-              : {
-                  "data-h2-height": "base(auto) p-tablet(20%)",
-                  "data-h2-width": "base(60%) p-tablet(auto)",
-                })}
-            src={desktopGraphicsLight2}
-            alt=""
+          <ReactImageTop
+            UrlArray={[deskTopGraphicsLight2Webp, desktopGraphicsLight2]}
+            size={size}
           />
-          <img
-            data-h2-display="base(none) base:dark(block)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0, 0, auto, auto)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-max-width="base(initial)"
-            {...(size === "lg"
-              ? {
-                  "data-h2-height": "base(auto) p-tablet(50%)",
-                  "data-h2-width": "base(150%) p-tablet(auto)",
-                }
-              : {
-                  "data-h2-height": "base(auto) p-tablet(20%)",
-                  "data-h2-width": "base(60%) p-tablet(auto)",
-                })}
-            src={desktopGraphicsDark2}
-            alt=""
+          <ReactImageTop
+            UrlArray={[deskTopGraphicsDark2Webp, desktopGraphicsDark2]}
+            size={size}
           />
         </>
       )}
       {show.includes("bottom") && (
         <>
-          <img
-            data-h2-display="base(block) base:dark(none)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(auto, auto, 0, 0)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-max-width="base(initial)"
-            {...(size === "lg"
-              ? {
-                  "data-h2-height": "base(auto) desktop(90%)",
-                  "data-h2-width": "base(150%) p-tablet(100%) desktop(auto)",
-                }
-              : {
-                  "data-h2-height": "base(auto) desktop(30%)",
-                  "data-h2-width": "base(45%) p-tablet(32%) desktop(auto)",
-                })}
-            src={desktopGraphicsLight3}
-            alt=""
+          <ReactImageBottomLight
+            UrlArray={[deskTopGraphicsLight3Webp, desktopGraphicsLight3]}
+            size={size}
           />
-          <img
-            data-h2-display="base(none) base:dark(block)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(auto, auto, 0, 0)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-height="base(auto) desktop(90%)"
-            data-h2-width="base(150%) p-tablet(100%) desktop(auto)"
-            data-h2-max-width="base(initial)"
-            src={desktopGraphicsDark3}
-            alt=""
+          <ReactImageBottomDark
+            UrlArray={[deskTopGraphicsDark3Webp, desktopGraphicsDark3]}
           />
         </>
       )}
