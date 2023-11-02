@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Heading, Well } from "@gc-digital-talent/ui";
 
 import SkillPicker from "~/components/SkillPicker";
 import { Skill } from "~/api/generated";
@@ -47,9 +48,9 @@ const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
 
   return (
     <div data-h2-margin="base(x1.5, 0)">
-      <h3
-        data-h2-font-size="base(h6, 1)"
-        data-h2-font-weight="base(700)"
+      <Heading
+        level="h3"
+        size="h6"
         data-h2-margin="base(x3, 0, x1, 0)"
         id={linkId}
       >
@@ -58,7 +59,7 @@ const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
           id: "eFvsOG",
           description: "Title for the skill filters on search page.",
         })}
-      </h3>
+      </Heading>
       <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
@@ -74,23 +75,21 @@ const AddSkillsToFilter = ({ allSkills, linkId }: AddSkillsToFilterProps) => {
         selectedSkills={addedSkills}
       />
       {addedSkills && addedSkills.length > 0 && (
-        <span
-          data-h2-display="base(block)"
-          data-h2-margin="base(x.5, 0, 0, 0)"
-          data-h2-border="base(1px solid primary.darker)"
-          data-h2-radius="base(input)"
-          data-h2-background-color="base(primary.lightest)"
-          data-h2-padding="base(x.75)"
-          data-h2-color="base(primary.darker)"
-          data-h2-font-size="base(caption)"
+        <Well
+          color="primary"
+          data-h2-margin="base(x1 0)"
+          data-h2-padding="base(x.5)"
         >
-          {intl.formatMessage({
-            defaultMessage:
-              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
-            id: "kLGIuJ",
-            description: "Context for skills selection filter in search form.",
-          })}
-        </span>
+          <p data-h2-font-size="base(caption)">
+            {intl.formatMessage({
+              defaultMessage:
+                "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
+              id: "kLGIuJ",
+              description:
+                "Context for skills selection filter in search form.",
+            })}
+          </p>
+        </Well>
       )}
     </div>
   );

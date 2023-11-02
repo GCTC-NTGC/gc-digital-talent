@@ -1,6 +1,6 @@
 import React from "react";
 
-type Color = "default" | "success" | "warning" | "error";
+type Color = "default" | "primary" | "success" | "warning" | "error";
 
 const colorMap = new Map<Color, Record<string, string>>([
   [
@@ -8,6 +8,13 @@ const colorMap = new Map<Color, Record<string, string>>([
     {
       "data-h2-background-color": "base(background.dark.3)",
       "data-h2-border": "base(1px solid background.darker)",
+    },
+  ],
+  [
+    "primary",
+    {
+      "data-h2-background-color": "base(primary.lightest)",
+      "data-h2-border": "base(1px solid primary.darker)",
     },
   ],
   [

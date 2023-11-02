@@ -32,6 +32,45 @@ export const getFullNameLabel = (
   return `${firstName} ${lastName}`;
 };
 
+export const getFullNameAndEmailLabel = (
+  firstName: string | null | undefined,
+  lastName: string | null | undefined,
+  email: string | null | undefined,
+  intl: IntlShape,
+): string => {
+  const emailDefined =
+    email ??
+    intl.formatMessage({
+      defaultMessage: "No email provided",
+      id: "1JCjTP",
+      description: "Fallback for email value",
+    });
+
+  if (!firstName && !lastName) {
+    return `${intl.formatMessage({
+      defaultMessage: "No name provided",
+      id: "n80lVV",
+      description: "Fallback for name value",
+    })} - ${emailDefined}`;
+  }
+
+  if (!firstName) {
+    return `${intl.formatMessage({
+      defaultMessage: "No first name provided",
+      id: "ZLPqdF",
+      description: "Fallback for first name value",
+    })} ${lastName} - ${emailDefined}`;
+  }
+  if (!lastName) {
+    return `${firstName} ${intl.formatMessage({
+      defaultMessage: "No last name provided",
+      id: "r7lf0k",
+      description: "Fallback for last name value",
+    })} - ${emailDefined}`;
+  }
+  return `${firstName} ${lastName} - ${emailDefined}`;
+};
+
 export const getFullNameHtml = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,

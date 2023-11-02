@@ -11,7 +11,7 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";

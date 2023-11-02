@@ -221,6 +221,26 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
+  assessmentResults: [AssessmentResult]
+    @hasMany
+    @canOnParent(ability: "viewAssessmentResults")
+}
+
+type AssessmentResult {
+  id: ID!
+  assessmentStep: AssessmentStep @belongsTo
+  poolCandidate: PoolCandidate @belongsTo
+  poolSkill: PoolSkill @belongsTo
+  assessmentResultType: AssessmentResultType
+    @rename(attribute: "assessment_result_type")
+  assessmentDecision: AssessmentDecision
+    @rename(attribute: "assessment_decision")
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+    @rename(attribute: "other_justification_notes")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
+  skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
 type PoolSkill {
@@ -260,6 +280,10 @@ type PoolCandidate {
     @with(relation: "educationRequirementEducationExperiences")
     @with(relation: "educationRequirementPersonalExperiences")
     @with(relation: "educationRequirementWorkExperiences")
+  # record of decision
+  assessmentResults: [AssessmentResult]
+    @hasMany
+    @canOnParent(ability: "viewAssessmentResults")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1375,6 +1399,42 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
+input CreateAssessmentResultInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\CreateAssessmentResultInputValidator"
+  ) {
+  assessmentStepId: UUID! @rename(attribute: "assessment_step_id")
+  poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
+  poolSkillId: UUID @rename(attribute: "pool_skill_id")
+  assessmentResultType: AssessmentResultType
+    @rename(attribute: "assessment_result_type")
+  assessmentDecision: AssessmentDecision
+    @rename(attribute: "assessment_decision")
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+    @rename(attribute: "other_justification_notes")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
+  skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+}
+
+input UpdateAssessmentResultInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\UpdateAssessmentResultInputValidator"
+  ) {
+  id: UUID!
+  assessmentResultType: AssessmentResultType
+    @rename(attribute: "assessment_result_type")
+  assessmentDecision: AssessmentDecision
+    @rename(attribute: "assessment_decision")
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+    @rename(attribute: "other_justification_notes")
+  assessmentDecisionLevel: AssessmentDecisionLevel
+    @rename(attribute: "assessment_decision_level")
+  skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+}
+
 input PoolSkillBelongsToMany {
   sync: [UUID!]
 }
@@ -1720,6 +1780,15 @@ type Mutation {
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard
+    @can(ability: "update", find: "id")
+  createAssessmentResult(
+    createAssessmentResult: CreateAssessmentResultInput! @spread
+  ): AssessmentResult @create @guard @can(ability: "create", injectArgs: true)
+  updateAssessmentResult(
+    updateAssessmentResult: UpdateAssessmentResultInput! @spread
+  ): AssessmentResult @update @guard @can(ability: "update", find: "id")
+  deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
+    @delete
     @can(ability: "update", find: "id")
 }
 

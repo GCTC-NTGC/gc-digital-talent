@@ -79,6 +79,7 @@ return [
         'directiveForm' => 'directiveForm',
         'applicantProfile' => 'applicantProfile',
         'teamRole' => 'teamRole',
+        'assessmentResult' => 'assessmentResult',
     ],
 
     /*
@@ -403,6 +404,19 @@ return [
             'en' => 'Delete any directive form',
             'fr' => 'Supprimer tout formulaire de directive',
         ],
+
+        'view-any-assessmentResult' => [
+            'en' => 'View assessment results for any pool',
+            'fr' => 'Voir les résultats de l\'évaluation pour n\'importe quel bassin',
+        ],
+        'view-team-assessmentResult' => [
+            'en' => 'View assessment results for pools run by your team only',
+            'fr' => 'Visualiser les résultats des évaluations pour les pools gérés par votre équipe uniquement',
+        ],
+        'update-team-assessmentResult' => [
+            'en' => 'Mutate assessment result objects',
+            'fr' => 'Modifier les objets de résultats d\'évaluation',
+        ],
     ],
 
     /*
@@ -625,6 +639,9 @@ return [
             'applicantProfile' => [
                 'team' => ['view'],
             ],
+            'assessmentResult' => [
+                'team' => ['view', 'update'],
+            ],
         ],
 
         'request_responder' => [
@@ -702,6 +719,9 @@ return [
             ],
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
+            ],
+            'assessmentResult' => [
+                'any' => ['view'],
             ],
         ],
     ],

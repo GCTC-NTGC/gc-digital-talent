@@ -1,40 +1,55 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import pick from "lodash/pick";
+import { Meta, StoryFn } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 
 import {
+  getStaticSkills,
   fakeClassifications,
   fakePools,
-  fakeUsers,
 } from "@gc-digital-talent/fake-data";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import { Classification } from "~/api/generated";
+import { SearchForm } from "./SearchForm";
 
-import {
-  SearchContainerProps,
-  SearchContainerComponent,
-} from "./SearchContainer";
+faker.seed(0);
+
+const mockPools = fakePools(10);
+const poolResponse = fakePools(3);
+const mockClassifications = fakeClassifications();
+const skills = getStaticSkills();
 
 export default {
-  component: SearchContainerComponent,
+  component: SearchForm,
   title: "Forms/Search Form",
+  decorators: [MockGraphqlDecorator],
   args: {
-    classifications: fakeClassifications() as Classification[],
-    pool: pick(fakePools()[0], ["name", "description"]),
-    poolOwner: pick(fakeUsers()[0], ["firstName", "lastName"]),
-    candidateCount: 10,
-    updatePending: { control: false },
-    candidateFilter: action("updateCandidateFilter"),
-    updateCandidateFilter: action("updateCandidateFilter"),
-    updateInitialValues: action("updateInitialValues"),
-    onUpdateApplicantFilter: action("updateApplicantFilter"),
-    handleSubmit: action("handleSubmit"),
+    pools: mockPools,
+    classifications: mockClassifications,
+    skills,
   },
-} as Meta;
+} as Meta<typeof SearchForm>;
 
-const Template: Story<SearchContainerProps> = (args) => {
-  return <SearchContainerComponent {...args} />;
-};
+const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
 
 export const Default = Template.bind({});
+
+export const WithResults = Template.bind({});
+WithResults.parameters = {
+  apiResponsesConfig: {
+    latency: {
+      min: 0,
+      max: 0,
+    },
+  },
+  apiResponses: {
+    CountApplicantsAndCountPoolCandidatesByPool: {
+      data: {
+        countApplicants: faker.number.int({ max: 50 }),
+        countPoolCandidatesByPool: poolResponse.map((pool) => ({
+          pool,
+          candidateCount: faker.number.int({ max: 10 }),
+        })),
+      },
+    },
+  },
+};

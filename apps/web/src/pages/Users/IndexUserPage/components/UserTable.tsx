@@ -3,13 +3,16 @@ import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { getLanguage, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import { FromArray } from "~/types/utility";

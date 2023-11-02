@@ -3,6 +3,7 @@ import {
   MINIMAL_VIEWPORTS,
 } from "@storybook/addon-viewport";
 import {
+  FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
@@ -66,6 +67,7 @@ export const globalTypes = {
 };
 
 export const decorators = [
+  FeatureFlagDecorator,
   HelmetDecorator,
   ReducedMotionDecorator,
   MockGraphqlDecorator,

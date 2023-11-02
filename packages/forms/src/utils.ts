@@ -11,20 +11,10 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { getId, notEmpty } from "@gc-digital-talent/helpers";
+import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import { Node } from "./components/RichTextInput/types";
-
-/**
- * Filters out empty data from data response.
- * @param data
- * @returns T[]
- */
-export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>>): T[] {
-  return data?.filter(notEmpty) ?? [];
-}
-
 /**
  * Filters out empty data from data response, and returns list of ids.
  * @param data
