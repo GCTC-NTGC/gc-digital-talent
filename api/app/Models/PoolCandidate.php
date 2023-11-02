@@ -152,6 +152,11 @@ class PoolCandidate extends Model
             ->withTimestamps();
     }
 
+    public function assessmentResults(): HasMany
+    {
+        return $this->hasMany(AssessmentResult::class);
+    }
+
     public function getEducationRequirementExperiencesAttribute()
     {
         $collection = collect();

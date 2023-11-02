@@ -145,6 +145,9 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   deleteAssessmentStep(id: UUID!): AssessmentStep
+  createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
+  updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
+  deleteAssessmentResult(id: UUID!): AssessmentResult
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -327,6 +330,20 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
+  assessmentResults: [AssessmentResult]
+}
+
+type AssessmentResult {
+  id: ID!
+  assessmentStep: AssessmentStep
+  poolCandidate: PoolCandidate
+  poolSkill: PoolSkill
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
 }
 
 type PoolSkill {
@@ -356,6 +373,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
+  assessmentResults: [AssessmentResult]
 }
 
 type PoolCandidateWithSkillCount {
@@ -1160,6 +1178,28 @@ input AssessmentStepInput {
   sortOrder: Int
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
+}
+
+input CreateAssessmentResultInput {
+  assessmentStepId: UUID!
+  poolCandidateId: UUID!
+  poolSkillId: UUID
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
+}
+
+input UpdateAssessmentResultInput {
+  id: UUID!
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -2182,4 +2222,33 @@ enum AssessmentStepType {
   REFERENCE_CHECK
   APPLICATION_SCREENING
   ADDITIONAL_ASSESSMENT
+}
+
+enum AssessmentResultType {
+  EDUCATION
+  SKILL
+}
+
+enum AssessmentDecision {
+  NOT_SURE
+  SUCCESSFUL
+  UNSUCCESSFUL
+}
+
+enum AssessmentResultJustification {
+  EDUCATION_ACCEPTED_INFORMATION
+  EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY
+  EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE
+  EDUCATION_FAILED_NOT_RELEVANT
+  EDUCATION_FAILED_REQUIREMENT_NOT_MET
+  SKILL_ACCEPTED
+  SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED
+  FAILED_NOT_ENOUGH_INFORMATION
+  FAILED_OTHER
+}
+
+enum AssessmentDecisionLevel {
+  AT_REQUIRED
+  ABOVE_REQUIRED
+  ABOVE_AND_BEYOND_REQUIRED
 }

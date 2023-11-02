@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  insertBetween,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
@@ -21,7 +25,7 @@ import {
   getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
+import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   GovEmployeeType,
   OperationalRequirement,

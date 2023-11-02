@@ -108,15 +108,16 @@ const ResponsiveTable = <TData extends object>({
     data,
     rowSelect,
   );
-  const { state, initialState, updaters } = useControlledTableState({
-    columnIds,
-    initialState: {
-      hiddenColumnIds,
-      searchState: search?.initialState,
-      sortState: sort?.initialState,
-      paginationState: pagination?.initialState,
-    },
-  });
+  const { state, initialState, initialParamState, updaters } =
+    useControlledTableState({
+      columnIds,
+      initialState: {
+        hiddenColumnIds,
+        searchState: search?.initialState,
+        sortState: sort?.initialState,
+        paginationState: pagination?.initialState,
+      },
+    });
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
@@ -129,10 +130,12 @@ const ResponsiveTable = <TData extends object>({
   const table = useReactTable({
     data,
     columns: memoizedColumns,
+    initialState,
     state: {
       ...state,
       rowSelection,
     },
+    autoResetPageIndex: false,
     enableGlobalFilter: isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
@@ -183,7 +186,9 @@ const ResponsiveTable = <TData extends object>({
         (previous) => {
           const newParams = new URLSearchParams(previous);
 
-          if (isEqual(sortingState, sort?.initialState ?? [])) {
+          const initialSortState =
+            sort?.initialState ?? INITIAL_STATE.sortState;
+          if (isEqual(sortingState, initialSortState)) {
             newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
           } else {
             newParams.set(
@@ -201,7 +206,10 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (paginationState.pageSize === pagination?.initialState?.pageSize) {
+          const initialPageSize =
+            pagination?.initialState?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize;
+          if (paginationState.pageSize === initialPageSize) {
             newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
           } else {
             newParams.set(
@@ -210,11 +218,10 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (
-            paginationState.pageIndex === pagination?.initialState?.pageIndex
-              ? pagination.initialState.pageIndex + 1
-              : 0
-          ) {
+          const initialPageIndex =
+            pagination?.initialState?.pageIndex ??
+            INITIAL_STATE.paginationState.pageIndex;
+          if (paginationState.pageIndex === initialPageIndex) {
             newParams.delete(SEARCH_PARAM_KEY.PAGE);
           } else {
             newParams.set(
@@ -223,7 +230,9 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (isEqual(search?.initialState, searchState)) {
+          const initialSearchState =
+            search?.initialState ?? INITIAL_STATE.searchState;
+          if (isEqual(initialSearchState, searchState)) {
             newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
             newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
           } else if (columnFilterState.length > 0) {
@@ -289,7 +298,7 @@ const ResponsiveTable = <TData extends object>({
           <SearchForm
             id={`${id}-search`}
             table={table}
-            state={initialState.searchState}
+            state={initialParamState.searchState}
             searchBy={searchColumns}
             {...search}
           />

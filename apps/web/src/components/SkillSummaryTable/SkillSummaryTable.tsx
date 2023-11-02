@@ -20,7 +20,7 @@ import {
   Skill,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
