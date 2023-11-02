@@ -1,10 +1,37 @@
 import React from "react";
+import { useImage } from "react-image";
+
+interface ReactImageProps {
+  UrlArray: string[];
+  alt: string;
+}
+
+const ReactImage = ({ UrlArray, alt }: ReactImageProps) => {
+  const { src } = useImage({
+    srcList: UrlArray,
+  });
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      data-h2-position="base(absolute)"
+      data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
+      data-h2-width="base(auto)"
+      data-h2-left="base(50%) l-tablet(60%)"
+      data-h2-top="p-tablet(50%) l-tablet(0)"
+      data-h2-bottom="base(-7%)"
+      data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
+      data-h2-max-width="base(200%) p-tablet(100%)"
+    />
+  );
+};
 
 interface HomeHeroProps {
   children: React.ReactNode;
   callToAction?: React.ReactNode;
   img: {
-    src: string;
+    src: { webp: string; fallback: string };
     alt: string;
   };
 }
@@ -44,18 +71,7 @@ const HomeHero = ({
         </div>
       ) : null}
     </div>
-    <img
-      alt={alt}
-      src={src}
-      data-h2-position="base(absolute)"
-      data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
-      data-h2-width="base(auto)"
-      data-h2-left="base(50%) l-tablet(60%)"
-      data-h2-top="p-tablet(50%) l-tablet(0)"
-      data-h2-bottom="base(-7%)"
-      data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
-      data-h2-max-width="base(200%) p-tablet(100%)"
-    />
+    <ReactImage UrlArray={[src.webp, src.fallback]} alt={alt} />
   </div>
 );
 

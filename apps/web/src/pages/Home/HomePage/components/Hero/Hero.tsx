@@ -9,16 +9,25 @@ import HomeHero from "~/components/Hero/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
+import hero1LandscapeWebp from "~/assets/img/webp/hero-1-landscape.webp";
 import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
+import hero2LandscapeWebp from "~/assets/img/webp/hero-2-landscape.webp";
 import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
+import hero3LandscapeWebp from "~/assets/img/webp/hero-3-landscape.webp";
 import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
+import hero4LandscapeWebp from "~/assets/img/webp/hero-4-landscape.webp";
 
-const landscapeRandomize = (index?: number | undefined) => {
-  const items = [
-    hero1Landscape,
-    hero2Landscape,
-    hero3Landscape,
-    hero4Landscape,
+type ImageSourceObject = {
+  webp: string;
+  fallback: string;
+};
+
+const landscapeRandomize = (index?: number | undefined): ImageSourceObject => {
+  const items: ImageSourceObject[] = [
+    { webp: hero1LandscapeWebp, fallback: hero1Landscape },
+    { webp: hero2LandscapeWebp, fallback: hero2Landscape },
+    { webp: hero3LandscapeWebp, fallback: hero3Landscape },
+    { webp: hero4LandscapeWebp, fallback: hero4Landscape },
   ];
   return items[index ?? Math.floor(Math.random() * items.length)];
 };
