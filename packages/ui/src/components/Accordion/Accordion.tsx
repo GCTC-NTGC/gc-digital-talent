@@ -37,8 +37,8 @@ const Root = React.forwardRef<
             "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
           }
         : {
-            "data-h2-border-bottom":
-              "base:selectors[>.Accordion__Item:nth-of-type(n+1)](thin solid gray)",
+            "data-h2-border-top":
+              "base:selectors[>.Accordion__Item + .Accordion__Item](thin solid gray)",
             "data-h2-overflow": "base(hidden)",
             "data-h2-radius": "base(s)",
             "data-h2-shadow": "base(l)",
@@ -204,6 +204,7 @@ const Content = React.forwardRef<
 >(({ children, ...rest }, forwardedRef) => (
   <AccordionPrimitive.Content
     className="Accordion__Content"
+    data-h2-color="base(black)"
     ref={forwardedRef}
     {...rest}
   >
