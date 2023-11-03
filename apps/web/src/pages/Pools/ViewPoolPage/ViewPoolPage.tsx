@@ -17,6 +17,7 @@ import {
   PoolStatus,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -78,6 +79,7 @@ export const ViewPool = ({
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -202,7 +204,7 @@ export const ViewPool = ({
                     "Title for card for actions related to a process' assessment plan",
                 })}
               </Heading>
-              {getAssessmentPlanStatusPill(pool, intl)}
+              {recordOfDecisionFlag && getAssessmentPlanStatusPill(pool, intl)}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -214,25 +216,34 @@ export const ViewPool = ({
               })}
             </p>
             <ProcessCard.Footer>
-              <Link
-                mode="inline"
-                color="secondary"
-                href={paths.assessmentPlanBuilder(pool.id)}
-              >
-                {assessmentStatus === "submitted"
-                  ? intl.formatMessage({
-                      defaultMessage: "View assessment plan",
-                      id: "1X7JVN",
-                      description:
-                        "Link text to view a specific pool assessment",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Edit assessment plan",
-                      id: "Q3adCp",
-                      description:
-                        "Link text to edit a specific pool assessment",
-                    })}
-              </Link>
+              {recordOfDecisionFlag ? (
+                <Link
+                  mode="inline"
+                  color="secondary"
+                  href={paths.assessmentPlanBuilder(pool.id)}
+                >
+                  {assessmentStatus === "submitted"
+                    ? intl.formatMessage({
+                        defaultMessage: "View assessment plan",
+                        id: "1X7JVN",
+                        description:
+                          "Link text to view a specific pool assessment",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Edit assessment plan",
+                        id: "Q3adCp",
+                        description:
+                          "Link text to edit a specific pool assessment",
+                      })}
+                </Link>
+              ) : (
+                intl.formatMessage({
+                  defaultMessage: "Coming soon",
+                  id: "/IMv2G",
+                  description:
+                    "Message displayed when a feature is in development and not ready yet",
+                })
+              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
           <ProcessCard.Root data-h2-grid-column="l-tablet(span 2)">
