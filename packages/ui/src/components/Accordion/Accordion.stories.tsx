@@ -30,30 +30,53 @@ export default {
   },
 };
 
+const themes: Array<string> = ["light", "dark"];
+
 const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
-    <Accordion.Root {...rest}>
-      <Accordion.Item value="one">
-        <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle" size="sm">
-          Accordion One
-        </Accordion.Trigger>
-        <Accordion.Content>{children}</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item value="two">
-        <Accordion.Trigger
-          icon={Cog8ToothIcon}
-          subtitle="Subtitle"
-          context="Some additional context"
-        >
-          Accordion Two
-        </Accordion.Trigger>
-        <Accordion.Content>{children}</Accordion.Content>
-      </Accordion.Item>
-      <Accordion.Item value="three">
-        <Accordion.Trigger size="lg">Accordion Three</Accordion.Trigger>
-        <Accordion.Content>{children}</Accordion.Content>
-      </Accordion.Item>
-    </Accordion.Root>
+    <>
+      {themes.map((theme) => (
+        <div key={theme} data-h2={theme}>
+          <div
+            {...(theme === "light"
+              ? {
+                  "data-h2-background-color": "base(white)",
+                }
+              : {
+                  "data-h2-background-color": "base(background)",
+                })}
+            data-h2-padding="base(x2 x2 x1 x2)"
+          >
+            <Accordion.Root {...rest}>
+              <Accordion.Item value="one">
+                <Accordion.Trigger
+                  icon={AcademicCapIcon}
+                  subtitle="Subtitle"
+                  size="sm"
+                >
+                  Accordion One
+                </Accordion.Trigger>
+                <Accordion.Content>{children}</Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="two">
+                <Accordion.Trigger
+                  icon={Cog8ToothIcon}
+                  subtitle="Subtitle"
+                  context="Some additional context"
+                >
+                  Accordion Two
+                </Accordion.Trigger>
+                <Accordion.Content>{children}</Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="three">
+                <Accordion.Trigger size="lg">Accordion Three</Accordion.Trigger>
+                <Accordion.Content>{children}</Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          </div>
+        </div>
+      ))}
+    </>
   );
 };
 
