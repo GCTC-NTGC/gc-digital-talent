@@ -50,6 +50,7 @@ const Root = React.forwardRef<
     <AccordionPrimitive.Root
       ref={forwardedRef}
       data-h2-display="base(flex)"
+      data-h2-margin="base(x2 0)"
       data-h2-flex-direction="base(column)"
       {...styles}
       {...rest}
@@ -98,16 +99,28 @@ const Trigger = React.forwardRef<
   ) => {
     const Heading = as;
     const Icon = icon;
-    let iconStrokeWidth = { "data-h2-stroke-width": "base(3)" };
+    let iconStyles = {
+      "data-h2-stroke-width": "base(3)",
+      "data-h2-height": "base(x.8)",
+      "data-h2-width": "base(x.8)",
+    };
     let headingSize = { "data-h2-font-size": "base(h6, 1)" };
 
     if (size === "sm") {
-      iconStrokeWidth = { "data-h2-stroke-width": "base(2.5)" };
+      iconStyles = {
+        "data-h2-stroke-width": "base(2.5)",
+        "data-h2-height": "base(x.65)",
+        "data-h2-width": "base(x.65)",
+      };
       headingSize = { "data-h2-font-size": "base(body, 1)" };
     }
 
     if (size === "lg") {
-      iconStrokeWidth = { "data-h2-stroke-width": "base(3.5)" };
+      iconStyles = {
+        "data-h2-stroke-width": "base(3.5)",
+        "data-h2-height": "base(x.95)",
+        "data-h2-width": "base(x.95)",
+      };
       headingSize = { "data-h2-font-size": "base(h5, 1)" };
     }
 
@@ -141,14 +154,11 @@ const Trigger = React.forwardRef<
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
             data-h2-flex-shrink="base(0)"
-            data-h2-radius="base(circle)"
           >
             <ChevronDownIcon
               className="Accordion__Chevron__Icon"
               data-h2-transition="base(transform 150ms ease)"
-              data-h2-height="base(x1)"
-              data-h2-width="base(x1)"
-              {...iconStrokeWidth}
+              {...iconStyles}
             />
           </span>
 
