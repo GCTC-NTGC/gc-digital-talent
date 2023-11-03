@@ -14,18 +14,18 @@ import { toast } from "@gc-digital-talent/toast";
 import { Role, User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import { UpdateUserFunc } from "../types";
+import { UpdateUserRolesFunc } from "../types";
 
 interface RemoveIndividualRoleDialogProps {
   user: User;
   role: Role;
-  onUpdateUser: UpdateUserFunc;
+  onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const RemoveIndividualRoleDialog = ({
   user,
   role,
-  onUpdateUser,
+  onUpdateUserRoles,
 }: RemoveIndividualRoleDialogProps) => {
   const intl = useIntl();
   const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
@@ -33,7 +33,8 @@ const RemoveIndividualRoleDialog = ({
 
   const handleRemove = async () => {
     setIsDeleting(true);
-    return onUpdateUser(user.id, {
+    return onUpdateUserRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         detach: {
           roles: [role.id],

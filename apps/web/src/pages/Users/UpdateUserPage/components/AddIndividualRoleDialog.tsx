@@ -12,13 +12,12 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-
 import {
-  Role,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
-  User,
-} from "~/api/generated";
+  UpdateUserRolesInput,
+  UpdateUserRolesMutation,
+} from "@gc-digital-talent/graphql";
+
+import { Role, User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
@@ -29,8 +28,8 @@ interface AddIndividualRoleDialogProps {
   user: User;
   availableRoles: Array<Role>;
   onAddRoles: (
-    submitData: UpdateUserAsAdminInput,
-  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+    submitData: UpdateUserRolesInput,
+  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
 const AddIndividualRoleDialog = ({
@@ -55,6 +54,7 @@ const AddIndividualRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,

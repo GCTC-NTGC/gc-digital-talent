@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PoolSkill
@@ -39,5 +40,10 @@ class PoolSkill extends Model
     {
         return $this->belongsToMany(AssessmentStep::class, 'assessment_step_pool_skill')
             ->withTimestamps();
+    }
+
+    public function assessmentResults(): HasMany
+    {
+        return $this->hasMany(AssessmentResult::class);
     }
 }

@@ -2,12 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AssessmentResultType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\ApplicantFilter;
+use App\Models\AssessmentResult;
+use App\Models\AssessmentStep;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
@@ -174,6 +177,9 @@ class DatabaseSeeder extends Seeder
         PoolCandidateSearchRequest::factory()->count(50)->create([
             'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true),
         ]);
+
+        // Create some AssessmentResults, and some bespoke to one pool
+        $this->seedAssessmentResults($digitalTalentPool);
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
@@ -269,5 +275,59 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }
+    }
+
+    private function seedAssessmentResults(Pool $pool)
+    {
+        // regular random
+        $assessmentSteps = AssessmentStep::inRandomOrder()->with('pool')->limit(10)->get();
+
+        foreach ($assessmentSteps as $assessmentStep) {
+            $poolSkillIds = $assessmentStep->pool->poolSkills()->pluck('id')->toArray();
+            $poolCandidate = PoolCandidate::factory()->create([
+                'pool_id' => $assessmentStep->pool_id,
+            ]);
+
+            AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
+                'assessment_step_id' => $assessmentStep->id,
+                'pool_candidate_id' => $poolCandidate->id,
+            ]);
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+                'assessment_step_id' => $assessmentStep->id,
+                'pool_candidate_id' => $poolCandidate->id,
+                'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[0] : null,
+            ]);
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+                'assessment_step_id' => $assessmentStep->id,
+                'pool_candidate_id' => $poolCandidate->id,
+                'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[1] : null,
+            ]);
+        }
+
+        // specific pool
+        $poolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
+        ]);
+        $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();
+        $dcmAssessment1 = AssessmentStep::factory()->create([
+            'pool_id' => $pool->id,
+        ]);
+        $dcmAssessment2 = AssessmentStep::factory()->create([
+            'pool_id' => $pool->id,
+        ]);
+        AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
+            'assessment_step_id' => $dcmAssessment1->id,
+            'pool_candidate_id' => $poolCandidate->id,
+        ]);
+        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+            'assessment_step_id' => $dcmAssessment2->id,
+            'pool_candidate_id' => $poolCandidate->id,
+            'pool_skill_id' => $dcmPoolSkills[0],
+        ]);
+        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+            'assessment_step_id' => $dcmAssessment2->id,
+            'pool_candidate_id' => $poolCandidate->id,
+            'pool_skill_id' => $dcmPoolSkills[1],
+        ]);
     }
 }

@@ -146,6 +146,8 @@ class RolePermissionTest extends TestCase
             'update-team-applicationStatus',
             'view-team-teamMembers',
             'view-team-applicantProfile',
+            'view-team-assessmentResult',
+            'update-team-assessmentResult',
         ];
 
         $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));
@@ -222,6 +224,7 @@ class RolePermissionTest extends TestCase
             'update-any-team',
             'delete-any-team',
             'assign-any-role',
+            'view-any-assessmentResult',
         ], true));
 
         $this->cleanup();

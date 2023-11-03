@@ -3,8 +3,11 @@
 namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
+use App\Enums\AssessmentResultType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
+use App\Models\AssessmentResult;
+use App\Models\AssessmentStep;
 use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -127,6 +130,39 @@ class PoolCandidateFactory extends Factory
                 'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
                 'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
+        });
+    }
+
+    /** Add assessment results to the pool candidate
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withAssessmentResults()
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) {
+            $poolSkillIds = $poolCandidate->pool->poolSkills()->pluck('id')->toArray();
+
+            AssessmentResult::factory()
+                ->withResultType(AssessmentResultType::EDUCATION)
+                ->count(1)
+                ->create([
+                    'assessment_step_id' => AssessmentStep::factory()->create([
+                        'pool_id' => $poolCandidate->pool_id,
+                    ]),
+                    'pool_candidate_id' => $poolCandidate->id,
+                ]);
+
+            AssessmentResult::factory()
+                ->withResultType(AssessmentResultType::SKILL)
+                ->count(4)
+                ->create([
+                    'assessment_step_id' => AssessmentStep::factory()->create([
+                        'pool_id' => $poolCandidate->pool_id,
+                    ]),
+                    'pool_candidate_id' => $poolCandidate->id,
+                    'pool_skill_id' => count($poolSkillIds) > 0 ?
+                        array_rand(array_flip($poolSkillIds)) : null,
+                ]);
         });
     }
 }
