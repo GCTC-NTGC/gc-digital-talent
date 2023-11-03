@@ -3293,6 +3293,10 @@
     "defaultMessage": "Sélectionnez une famille de compétences ou plus",
     "description": "Placeholder displayed on the skill form skill families field."
   },
+  "GOCEuh": {
+    "defaultMessage": "La mise à jour du sujet a été réussie!",
+    "description": "Message displayed to user when subject field has been updated successfully."
+  },
   "GQsJAi": {
     "defaultMessage": "Lorsque vous vous connectez à votre compte, vous commencez par cette page. Vous pouvez utiliser l'outil <strong><a>pour suivre vos candidatures</a></strong> sur cette page afin de revoir votre demande au Programme d'apprentissage en TI pour les personnes autochtones et de suivre votre statut dans le Programme.",
     "description": "Third paragraph for profile and applications notification welcoming an IAP user"
@@ -4487,6 +4491,10 @@
   "NrivlZ": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Display text for edit experience form in breadcrumbs"
+  },
+  "NuT+Rx": {
+    "defaultMessage": "Procéder à la mise à jour du sujet",
+    "description": "Heading label for update a user's subject form"
   },
   "NwpZNj": {
     "defaultMessage": "<heavyPrimary>Publiée</heavyPrimary>",
