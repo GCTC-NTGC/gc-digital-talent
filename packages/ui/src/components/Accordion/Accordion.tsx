@@ -39,8 +39,8 @@ const Root = React.forwardRef<
         : {
             "data-h2-border-bottom":
               "base:selectors[>.Accordion__Item:nth-of-type(n+1)](thin solid gray)",
-            "data-h2-radius":
-              "base(s) base:selectors[>.Accordion__Item:first-of-type](s s 0 0) base:selectors[>.Accordion__Item:last-child](0 0 s s)",
+            "data-h2-overflow": "base(hidden)",
+            "data-h2-radius": "base(s)",
             "data-h2-shadow": "base(l)",
           }),
     };
@@ -50,7 +50,6 @@ const Root = React.forwardRef<
     <AccordionPrimitive.Root
       ref={forwardedRef}
       data-h2-display="base(flex)"
-      data-h2-margin="base(x2 0)"
       data-h2-flex-direction="base(column)"
       {...styles}
       {...rest}
