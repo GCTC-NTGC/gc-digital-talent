@@ -1,9 +1,9 @@
 import React from "react";
 
-import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.png";
-import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.png";
-import desktopGraphicsDark2 from "~/assets/img/Desktop_Graphics_dark_2.png";
-import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.png";
+import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.webp";
+import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.webp";
+import desktopGraphicsDark2 from "~/assets/img/Desktop_Graphics_dark_2.webp";
+import desktopGraphicsDark3 from "~/assets/img/Desktop_Graphics_dark_3.webp";
 
 type Side = "top" | "bottom";
 type Size = "sm" | "lg";

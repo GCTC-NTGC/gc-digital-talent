@@ -1,7 +1,7 @@
 import React from "react";
 
-import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.png";
-import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.png";
+import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
+import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.webp";
 
 interface SkewedContainerProps {
   children: React.ReactNode;

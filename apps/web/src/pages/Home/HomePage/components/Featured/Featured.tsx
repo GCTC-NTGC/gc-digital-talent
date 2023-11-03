@@ -7,9 +7,9 @@ import { Heading } from "@gc-digital-talent/ui";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
-import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
+import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
 // import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
-import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
+import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.webp";
 
 const Featured = () => {
   const intl = useIntl();

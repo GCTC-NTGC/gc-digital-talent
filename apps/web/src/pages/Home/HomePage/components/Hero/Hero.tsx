@@ -8,10 +8,10 @@ import { Heading, Link } from "@gc-digital-talent/ui";
 import HomeHero from "~/components/Hero/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import hero1Landscape from "~/assets/img/hero-1-landscape.jpg";
-import hero2Landscape from "~/assets/img/hero-2-landscape.jpg";
-import hero3Landscape from "~/assets/img/hero-3-landscape.jpg";
-import hero4Landscape from "~/assets/img/hero-4-landscape.jpg";
+import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
+import hero2Landscape from "~/assets/img/hero-2-landscape.webp";
+import hero3Landscape from "~/assets/img/hero-3-landscape.webp";
+import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const items = [
