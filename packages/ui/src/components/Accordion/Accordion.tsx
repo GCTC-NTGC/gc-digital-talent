@@ -18,7 +18,7 @@ type RootProps = React.ComponentPropsWithoutRef<
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   RootProps
->(({ mode = "card", spaced, ...rest }, forwardedRef) => {
+>(({ mode = "simple", spaced, ...rest }, forwardedRef) => {
   let styles: Record<string, string> = {
     "data-h2-padding":
       "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.5)",

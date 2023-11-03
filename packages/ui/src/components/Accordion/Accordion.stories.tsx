@@ -64,16 +64,16 @@ Default.args = {
   children: <Text />,
 };
 
-export const Simple = Template.bind({});
-Simple.args = {
+export const Card = Template.bind({});
+Card.args = {
   type: "single",
-  mode: "simple",
+  mode: "card",
   collapsible: true,
   children: <Text />,
 };
 
-export const Spaced = Template.bind({});
-Spaced.args = {
+export const CardSpaced = Template.bind({});
+CardSpaced.args = {
   type: "single",
   mode: "card",
   spaced: true,
@@ -92,11 +92,12 @@ DefaultOpen.args = {
 export const Nested = Template.bind({});
 Nested.args = {
   type: "single",
+  mode: "card",
   collapsible: true,
   children: (
     <>
       <Text />
-      <Accordion.Root type="single" collapsible mode="simple">
+      <Accordion.Root type="single" collapsible>
         <Accordion.Item value="two">
           <Accordion.Trigger>Accordion Two</Accordion.Trigger>
           <Accordion.Content>

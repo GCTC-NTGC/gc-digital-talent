@@ -22,18 +22,12 @@ const SkillAccordion = ({ skills, nullMessage }: SkillAccordionProps) => {
   }
 
   return (
-    <Accordion.Root type="single" mode="simple" collapsible>
+    <Accordion.Root type="single" collapsible>
       {skills.map((skill) => (
         <Accordion.Item key={skill.id} value={skill.id}>
-          <Accordion.Header
-            headingAs="h5"
-            data-h2-font-size="base(copy)"
-            data-h2-margin="base(0)"
-          >
-            <Accordion.Trigger data-h2-font-weight="base(700)">
-              {getLocalizedName(skill.name, intl)}
-            </Accordion.Trigger>
-          </Accordion.Header>
+          <Accordion.Trigger as="h5" size="sm">
+            {getLocalizedName(skill.name, intl)}
+          </Accordion.Trigger>
           <Accordion.Content>
             {getLocalizedName(skill.description, intl)}
           </Accordion.Content>
