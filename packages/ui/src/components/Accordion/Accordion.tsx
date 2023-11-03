@@ -130,11 +130,7 @@ const Trigger = React.forwardRef<
           className="Accordion__Trigger"
           data-h2-align-items="base(flex-start)"
           data-h2-background-color="base(transparent) base:focus-visible(focus)"
-          data-h2-color={`
-            base(black) base:focus-visible(black)
-            base:selectors[.Accordion__Subtitle](black.light) base:focus-visible:selectors[.Accordion__Subtitle](black)
-            base:selectors[.Accordion__Chevron](black.light) base:focus-visible:selectors[.Accordion__Chevron](black)
-          `}
+          data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
           data-h2-cursor="base(pointer)"
           data-h2-display="base(flex)"
           data-h2-gap="base(0, x.5)"
