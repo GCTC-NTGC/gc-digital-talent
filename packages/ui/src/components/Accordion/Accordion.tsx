@@ -187,10 +187,8 @@ const Trigger = React.forwardRef<
               data-h2-display="base(flex)"
               data-h2-gap="base(0 x.25)"
             >
-              {context && (
-                <span data-h2-font-size="base(caption)">{context}</span>
-              )}
-              {Icon && <Icon data-h2-width="base(x1)" />}
+              {context && <span data-h2-font-size="base(body)">{context}</span>}
+              {Icon && <Icon {...iconStyles} />}
             </span>
           )}
         </AccordionPrimitive.Trigger>
