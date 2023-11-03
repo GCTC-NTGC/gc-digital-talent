@@ -133,6 +133,7 @@ const Trigger = React.forwardRef<
           data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
           data-h2-cursor="base(pointer)"
           data-h2-display="base(flex)"
+          data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
           data-h2-gap="base(0, x.5)"
           data-h2-outline="base(none)"
           data-h2-justify-content="base(flex-start)"
