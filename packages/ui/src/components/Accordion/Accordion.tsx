@@ -7,7 +7,6 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
-import rootStyleMap from "./styles";
 
 type RootProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Root
@@ -20,16 +19,30 @@ const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   RootProps
 >(({ mode = "card", spaced, ...rest }, forwardedRef) => {
-  let styles = rootStyleMap?.get(mode);
+  let styles: Record<string, string> = {
+    "data-h2-padding":
+      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.5)",
+  };
 
-  // Override specific styles when spaced
-  if (spaced && mode === "card") {
+  if (mode === "card") {
     styles = {
-      ...styles,
-      "data-h2-border-bottom": undefined,
-      "data-h2-gap": "base(x1 0)",
-      "data-h2-radius": "base:selectors[>.Accordion__Item](s)",
-      "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
+      "data-h2-background-color":
+        "base:selectors[>.Accordion__Item](foreground)",
+      "data-h2-padding":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.5)",
+      ...(spaced
+        ? {
+            "data-h2-gap": "base(x1 0)",
+            "data-h2-radius": "base:selectors[>.Accordion__Item](s)",
+            "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
+          }
+        : {
+            "data-h2-border-bottom":
+              "base:selectors[>.Accordion__Item:nth-of-type(n+1)](thin solid gray)",
+            "data-h2-radius":
+              "base(s) base:selectors[>.Accordion__Item:first-of-type](s s 0 0) base:selectors[>.Accordion__Item:last-child](0 0 s s)",
+            "data-h2-shadow": "base(l)",
+          }),
     };
   }
 
