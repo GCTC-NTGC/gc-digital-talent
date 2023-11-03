@@ -34,7 +34,7 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle">
+        <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle" size="sm">
           Accordion One
         </Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
@@ -50,7 +50,7 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        <Accordion.Trigger size="lg">Accordion Three</Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>

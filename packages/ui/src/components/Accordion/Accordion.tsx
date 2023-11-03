@@ -72,6 +72,7 @@ const Item = React.forwardRef<
 export interface AccordionHeaderProps
   extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
   as?: HeadingRank | "p";
+  size?: "sm" | "md" | "lg";
   icon?: IconType;
   subtitle?: React.ReactNode;
   context?: React.ReactNode;
@@ -83,11 +84,32 @@ const Trigger = React.forwardRef<
   AccordionHeaderProps
 >(
   (
-    { as = "h2", subtitle, icon, context, titleProps, children, ...rest },
+    {
+      as = "h2",
+      size = "md",
+      subtitle,
+      icon,
+      context,
+      titleProps,
+      children,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const Heading = as;
     const Icon = icon;
+    let iconStrokeWidth = { "data-h2-stroke-width": "base(3)" };
+    let headingSize = { "data-h2-font-size": "base(h6, 1)" };
+
+    if (size === "sm") {
+      iconStrokeWidth = { "data-h2-stroke-width": "base(2.5)" };
+      headingSize = { "data-h2-font-size": "base(body, 1)" };
+    }
+
+    if (size === "lg") {
+      iconStrokeWidth = { "data-h2-stroke-width": "base(3.5)" };
+      headingSize = { "data-h2-font-size": "base(h5, 1)" };
+    }
 
     return (
       <AccordionPrimitive.Header className="Accordion__Header" {...titleProps}>
@@ -96,7 +118,11 @@ const Trigger = React.forwardRef<
           className="Accordion__Trigger"
           data-h2-align-items="base(flex-start)"
           data-h2-background-color="base(transparent) base:focus-visible(focus)"
-          data-h2-color="base(black) base:focus-visible(black) base:selectors[.Accordion__Subtitle](black.light) base:focus-visible:selectors[.Accordion__Subtitle](black)"
+          data-h2-color={`
+            base(black) base:focus-visible(black)
+            base:selectors[.Accordion__Subtitle](black.light) base:focus-visible:selectors[.Accordion__Subtitle](black)
+            base:selectors[.Accordion__Chevron](black.light) base:focus-visible:selectors[.Accordion__Chevron](black)
+          `}
           data-h2-cursor="base(pointer)"
           data-h2-display="base(flex)"
           data-h2-gap="base(0, x.5)"
@@ -120,7 +146,9 @@ const Trigger = React.forwardRef<
             <ChevronDownIcon
               className="Accordion__Chevron__Icon"
               data-h2-transition="base(transform 150ms ease)"
+              data-h2-height="base(x1)"
               data-h2-width="base(x1)"
+              {...iconStrokeWidth}
             />
           </span>
 
@@ -131,16 +159,16 @@ const Trigger = React.forwardRef<
             data-h2-gap="base(x.25 0)"
           >
             <Heading
-              data-h2-font-size="base(body)"
               data-h2-margin="base(0)"
               data-h2-font-weight="base(700)"
+              {...headingSize}
             >
               {children}
             </Heading>
             {subtitle && (
               <span
                 className="Accordion__Subtitle"
-                data-h2-font-size="base(copy)"
+                data-h2-font-size="base(body)"
               >
                 {subtitle}
               </span>
