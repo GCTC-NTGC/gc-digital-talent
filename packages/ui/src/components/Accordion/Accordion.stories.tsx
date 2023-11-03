@@ -6,7 +6,6 @@ import { faker } from "@faker-js/faker";
 
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
-import StandardHeader from "./StandardHeader";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -35,21 +34,23 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
     <Accordion.Root {...rest}>
       <Accordion.Item value="one">
-        <StandardHeader Icon={AcademicCapIcon} subtitle="Subtitle">
+        <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle">
           Accordion One
-        </StandardHeader>
+        </Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="two">
-        <StandardHeader Icon={Cog8ToothIcon} subtitle="Subtitle">
+        <Accordion.Trigger
+          icon={Cog8ToothIcon}
+          subtitle="Subtitle"
+          context="Some additional context"
+        >
           Accordion Two
-        </StandardHeader>
+        </Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
       <Accordion.Item value="three">
-        <Accordion.Header headingAs="h3">
-          <Accordion.Trigger>Accordion Three</Accordion.Trigger>
-        </Accordion.Header>
+        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
         <Accordion.Content>{children}</Accordion.Content>
       </Accordion.Item>
     </Accordion.Root>
@@ -71,6 +72,15 @@ Simple.args = {
   children: <Text />,
 };
 
+export const Spaced = Template.bind({});
+Spaced.args = {
+  type: "single",
+  mode: "card",
+  spaced: true,
+  collapsible: true,
+  children: <Text />,
+};
+
 export const DefaultOpen = Template.bind({});
 DefaultOpen.args = {
   defaultValue: "one",
@@ -88,9 +98,7 @@ Nested.args = {
       <Text />
       <Accordion.Root type="single" collapsible mode="simple">
         <Accordion.Item value="two">
-          <Accordion.Header>
-            <Accordion.Trigger>Accordion Two</Accordion.Trigger>
-          </Accordion.Header>
+          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
           <Accordion.Content>
             <Text />
           </Accordion.Content>

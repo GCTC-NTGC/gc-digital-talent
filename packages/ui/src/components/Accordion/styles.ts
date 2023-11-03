@@ -2,27 +2,13 @@ import { AccordionMode, AccordionStyles } from "./types";
 
 const cardStyles: AccordionStyles = {
   "data-h2-background-color": "base:selectors[>.Accordion__Item](foreground)",
-  "data-h2-color":
-    "base:selectors[>.Accordion__Item .Accordion__Separator](gray) base:selectors[>.Accordion__Item .Accordion__Chevron](black)",
-  "data-h2-box-shadow": `
-    base:selectors[>.Accordion__Item > .Accordion__Header](x.5 0 0 0 secondary inset)
-    base:selectors[>.Accordion__Item > .Accordion__Content](x.5 0 0 0 secondary inset)
-    base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Header](x.5 0 0 0 primary inset)
-    base:selectors[>.Accordion__Item[data-state='open'] > .Accordion__Content](x.5 0 0 0 primary inset)
-  `,
-  "data-h2-height":
-    "base:selectors[>.Accordion__Item .Accordion__Separator](1px)",
-  "data-h2-margin": `
-    base:selectors[>.Accordion__Item](x.5, 0)
-    base:selectors[>.Accordion__Item > .Accordion__Content > .Accordion__Separator](0)
-  `,
-  "data-h2-padding": `
-    base:selectors[>.Accordion__Item > .Accordion__Header > .Accordion__Trigger](x1 x1.5)
-    base:selectors[>.Accordion__Item > .Accordion__Content](0 x2 x1 x3.5)
-  `,
+  "data-h2-border-bottom":
+    "base:selectors[>.Accordion__Item:nth-of-type(n+1)](thin solid gray)",
+  "data-h2-padding":
+    "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.5)",
   "data-h2-radius":
-    "base:selectors[>.Accordion__Item](0px, rounded, rounded, 0px)",
-  "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
+    "base(s) base:selectors[>.Accordion__Item:first-of-type](s s 0 0) base:selectors[>.Accordion__Item:last-child](0 0 s s)",
+  "data-h2-shadow": "base(l)",
 };
 
 const simpleStyles: AccordionStyles = {
@@ -39,9 +25,9 @@ const simpleStyles: AccordionStyles = {
   `,
 };
 
-const styleMap: Map<AccordionMode, AccordionStyles> = new Map([
+const rootStyleMap: Map<AccordionMode, AccordionStyles> = new Map([
   ["card", cardStyles],
   ["simple", simpleStyles],
 ]);
 
-export default styleMap;
+export default rootStyleMap;

@@ -2,27 +2,46 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
-import type { HeadingRank } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
-import styleMap from "./styles";
+import rootStyleMap from "./styles";
 
 type RootProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Root
 > & {
   mode?: AccordionMode;
+  spaced?: boolean;
 };
 
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   RootProps
->(({ mode = "card", ...rest }, forwardedRef) => {
-  const styles = styleMap?.get(mode);
+>(({ mode = "card", spaced, ...rest }, forwardedRef) => {
+  let styles = rootStyleMap?.get(mode);
 
-  return <AccordionPrimitive.Root {...styles} {...rest} ref={forwardedRef} />;
+  // Override specific styles when spaced
+  if (spaced && mode === "card") {
+    styles = {
+      ...styles,
+      "data-h2-border-bottom": undefined,
+      "data-h2-gap": "base(x1 0)",
+      "data-h2-radius": "base:selectors[>.Accordion__Item](s)",
+      "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
+    };
+  }
+
+  return (
+    <AccordionPrimitive.Root
+      ref={forwardedRef}
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      {...styles}
+      {...rest}
+    />
+  );
 });
 
 const Item = React.forwardRef<
@@ -37,90 +56,101 @@ const Item = React.forwardRef<
   />
 ));
 
-const StyledHeader = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Header>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
->((props, forwardedRef) => (
-  <AccordionPrimitive.Header
-    className="Accordion__Header"
-    ref={forwardedRef}
-    {...props}
-  />
-));
-
-type AccordionHeaderPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Header
->;
 export interface AccordionHeaderProps
-  extends AccordionHeaderPrimitivePropsWithoutRef {
-  headingAs?: HeadingRank;
+  extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
+  as?: HeadingRank | "p";
+  icon?: IconType;
+  subtitle?: React.ReactNode;
+  context?: React.ReactNode;
+  titleProps?: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>;
 }
-
-const Header = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Header>,
-  AccordionHeaderProps
->(({ headingAs = "h2", children, ...rest }, forwardedRef) => {
-  const Heading = headingAs;
-  return (
-    <StyledHeader asChild ref={forwardedRef} {...rest}>
-      <Heading data-h2-line-height="base(1)">{children}</Heading>
-    </StyledHeader>
-  );
-});
-
-const StyledTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->((props, forwardedRef) => (
-  <AccordionPrimitive.Trigger
-    className="Accordion__Trigger"
-    data-h2-align-items="base(flex-start)"
-    data-h2-background-color="base(transparent) base:focus-visible:children[.Accordion__Chevron](focus)"
-    data-h2-color="base(black) base:focus-visible:children[.Accordion__Chevron](black)"
-    data-h2-cursor="base(pointer)"
-    data-h2-display="base(flex)"
-    data-h2-gap="base(0, x1)"
-    data-h2-outline="base(none)"
-    data-h2-justify-content="base(flex-start)"
-    data-h2-text-align="base(left)"
-    data-h2-width="base(100%)"
-    data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
-    data-h2-transform="
-      base:children[.Accordion__Chevron__Icon](rotate(0deg))
-      base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(-180deg))"
-    ref={forwardedRef}
-    {...props}
-  />
-));
-
-type AccordionTriggerPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Trigger
->;
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  AccordionTriggerPrimitivePropsWithoutRef
->(({ children, ...rest }, forwardedRef) => {
-  return (
-    <StyledTrigger ref={forwardedRef} {...rest}>
-      <div
-        className="Accordion__Chevron"
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-flex-shrink="base(0)"
-        data-h2-radius="base(circle)"
-      >
-        <ChevronDownIcon
-          className="Accordion__Chevron__Icon"
-          data-h2-transition="base(transform 150ms ease)"
-          data-h2-width="base(x1)"
-        />
-      </div>
+  AccordionHeaderProps
+>(
+  (
+    { as = "h2", subtitle, icon, context, titleProps, children, ...rest },
+    forwardedRef,
+  ) => {
+    const Heading = as;
+    const Icon = icon;
 
-      {children}
-    </StyledTrigger>
-  );
-});
+    return (
+      <AccordionPrimitive.Header className="Accordion__Header" {...titleProps}>
+        <AccordionPrimitive.Trigger
+          ref={forwardedRef}
+          className="Accordion__Trigger"
+          data-h2-align-items="base(flex-start)"
+          data-h2-background-color="base(transparent) base:focus-visible(focus)"
+          data-h2-color="base(black) base:focus-visible(black) base:selectors[.Accordion__Subtitle](black.light) base:focus-visible:selectors[.Accordion__Subtitle](black)"
+          data-h2-cursor="base(pointer)"
+          data-h2-display="base(flex)"
+          data-h2-gap="base(0, x.5)"
+          data-h2-outline="base(none)"
+          data-h2-justify-content="base(flex-start)"
+          data-h2-text-align="base(left)"
+          data-h2-width="base(100%)"
+          data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
+          data-h2-transform="
+            base:children[.Accordion__Chevron__Icon](rotate(0deg))
+            base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(-180deg))"
+          {...rest}
+        >
+          <span
+            className="Accordion__Chevron"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
+            data-h2-flex-shrink="base(0)"
+            data-h2-radius="base(circle)"
+          >
+            <ChevronDownIcon
+              className="Accordion__Chevron__Icon"
+              data-h2-transition="base(transform 150ms ease)"
+              data-h2-width="base(x1)"
+            />
+          </span>
+
+          <span
+            data-h2-flex-grow="base(1)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.25 0)"
+          >
+            <Heading
+              data-h2-font-size="base(body)"
+              data-h2-margin="base(0)"
+              data-h2-font-weight="base(700)"
+            >
+              {children}
+            </Heading>
+            {subtitle && (
+              <span
+                className="Accordion__Subtitle"
+                data-h2-font-size="base(copy)"
+              >
+                {subtitle}
+              </span>
+            )}
+          </span>
+
+          {(Icon || context) && (
+            <span
+              data-h2-align-items="base(center)"
+              data-h2-display="base(flex)"
+              data-h2-gap="base(0 x.25)"
+            >
+              {context && (
+                <span data-h2-font-size="base(caption)">{context}</span>
+              )}
+              {Icon && <Icon data-h2-width="base(x1)" />}
+            </span>
+          )}
+        </AccordionPrimitive.Trigger>
+      </AccordionPrimitive.Header>
+    );
+  },
+);
 
 const Content = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
@@ -131,52 +161,9 @@ const Content = React.forwardRef<
     ref={forwardedRef}
     {...rest}
   >
-    <>
-      <hr
-        className="Accordion__Separator"
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-width="base(100%)"
-        data-h2-border="base(none)"
-      />
-      {children}
-    </>
+    {children}
   </AccordionPrimitive.Content>
 ));
-
-type AnimatedContentProps = React.ComponentPropsWithoutRef<typeof Content> & {
-  isOpen: boolean;
-};
-
-const animationVariants = {
-  open: {
-    height: "auto",
-    opacity: 1,
-  },
-  closed: {
-    height: 0,
-    opacity: 0,
-  },
-};
-
-const AnimatedContent = React.forwardRef<
-  React.ElementRef<typeof Content>,
-  AnimatedContentProps
->(({ isOpen, children, ...rest }, forwardedRef) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <Content asChild forceMount ref={forwardedRef} {...rest}>
-      <motion.div
-        className="Accordion__Content"
-        animate={isOpen ? "open" : "closed"}
-        variants={shouldReduceMotion ? {} : animationVariants}
-        transition={{ duration: 0.2, type: "tween" }}
-      >
-        {children}
-      </motion.div>
-    </Content>
-  );
-});
 
 /**
  * @name Accordion
@@ -197,12 +184,6 @@ const Accordion = {
    */
   Item,
   /**
-   * @name Header
-   * @desc Wraps an Accordion.Trigger. Use the asChild prop to update it to the appropriate heading level for your page.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#header)
-   */
-  Header,
-  /**
    * @name Trigger
    * @desc Toggles the collapsed state of its associated item. It should be nested inside of an Accordion.Header.
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#trigger)
@@ -214,11 +195,6 @@ const Accordion = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/accordion#content)
    */
   Content,
-  /**
-   * @name AnimatedContent
-   * @description
-   */
-  AnimatedContent,
 };
 
 export default Accordion;
