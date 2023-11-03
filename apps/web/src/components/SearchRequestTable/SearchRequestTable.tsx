@@ -27,9 +27,9 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   classificationAccessor,
   classificationsCell,
-  detailsAccessor,
-  notesAccessor,
-  statusAccessor,
+  detailsCell,
+  notesCell,
+  statusCell,
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
@@ -222,7 +222,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }),
       enableColumnFilter: false,
       cell: ({ row: { original: searchRequest } }) =>
-        statusAccessor(searchRequest.status, intl),
+        statusCell(searchRequest.status, intl),
     }),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate, intl),
@@ -242,14 +242,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       enableSorting: false,
       header: intl.formatMessage(adminMessages.notes),
       cell: ({ row: { original: searchRequest } }) =>
-        notesAccessor(searchRequest, intl),
+        notesCell(searchRequest, intl),
     }),
     columnHelper.accessor("additionalComments", {
       id: "additionalComments",
       enableSorting: false,
       header: intl.formatMessage(adminMessages.details),
       cell: ({ row: { original: searchRequest } }) =>
-        detailsAccessor(searchRequest, intl),
+        detailsCell(searchRequest, intl),
     }),
   ] as ColumnDef<PoolCandidateSearchRequest>[];
 

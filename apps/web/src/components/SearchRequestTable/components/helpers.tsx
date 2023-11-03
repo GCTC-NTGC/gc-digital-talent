@@ -54,7 +54,7 @@ export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
   ) : null;
 }
 
-export const notesAccessor = (
+export const notesCell = (
   searchRequest: PoolCandidateSearchRequest,
   intl: IntlShape,
 ) =>
@@ -75,7 +75,7 @@ export const notesAccessor = (
     />
   ) : null;
 
-export const detailsAccessor = (
+export const detailsCell = (
   searchRequest: PoolCandidateSearchRequest,
   intl: IntlShape,
 ) =>
@@ -96,7 +96,7 @@ export const detailsAccessor = (
     />
   ) : null;
 
-export const statusAccessor = (
+export const statusCell = (
   status: PoolCandidateSearchStatus | null | undefined,
   intl: IntlShape,
 ) =>
