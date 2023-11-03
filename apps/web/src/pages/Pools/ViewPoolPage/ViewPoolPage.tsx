@@ -41,6 +41,7 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ExtendProcessDialog from "./components/ExtendProcessDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
+import { getAssessmentPlanStatusPill } from "../AssessmentPlanBuilderPage/utils";
 
 export interface ViewPoolProps {
   pool: Pool;
@@ -103,17 +104,6 @@ export const ViewPool = ({
     defaultMessage: "Manage and view information about your process. ",
     id: "pM43Xu",
     description: "Subtitle for the individual pool page",
-  });
-
-  /** TO DO: Replace this message and link with
-   * appropriate values once assessment plan feature
-   * has been developed (#7916)
-   */
-  const comingSoon = intl.formatMessage({
-    defaultMessage: "Coming soon",
-    id: "/IMv2G",
-    description:
-      "Message displayed when a feature is in development and not ready yet",
   });
 
   return (
@@ -212,14 +202,7 @@ export const ViewPool = ({
                     "Title for card for actions related to a process' assessment plan",
                 })}
               </Heading>
-              <Pill
-                bold
-                mode="outline"
-                color="black"
-                data-h2-flex-shrink="base(0)"
-              >
-                {comingSoon}
-              </Pill>
+              {getAssessmentPlanStatusPill(pool, intl)}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -231,9 +214,12 @@ export const ViewPool = ({
               })}
             </p>
             <ProcessCard.Footer>
-              <Link mode="inline" color="secondary" href="#">
-                {comingSoon}
-                {/* {assessmentStatus === "submitted"
+              <Link
+                mode="inline"
+                color="secondary"
+                href={paths.assessmentPlanBuilder(pool.id)}
+              >
+                {assessmentStatus === "submitted"
                   ? intl.formatMessage({
                       defaultMessage: "View assessment plan",
                       id: "1X7JVN",
@@ -245,7 +231,7 @@ export const ViewPool = ({
                       id: "Q3adCp",
                       description:
                         "Link text to edit a specific pool assessment",
-                    })} */}
+                    })}
               </Link>
             </ProcessCard.Footer>
           </ProcessCard.Root>
