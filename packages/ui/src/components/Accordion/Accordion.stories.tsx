@@ -3,9 +3,11 @@ import type { StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
+import { action } from "@storybook/addon-actions";
 
 import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
+import Button from "../Button";
 
 const { Item, Trigger, Content, Root } = Accordion;
 
@@ -80,6 +82,54 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   );
 };
 
+const ACCORDION_VALUES = ["one", "two", "three"];
+
+type ControlledProps = Omit<
+  React.ComponentPropsWithoutRef<typeof Accordion.Root>,
+  "type" | "value" | "onValueChange" | "defaultValue"
+>;
+
+const ControlledTemplate: StoryFn<ControlledProps> = ({
+  children,
+  ...rest
+}) => {
+  const [value, setValue] = React.useState<string[]>([]);
+  const someOpen = value.length > 0;
+
+  const toggleAll = () => {
+    const newValue = someOpen ? [] : ACCORDION_VALUES;
+    action("expand/collapse all")(newValue);
+    setValue(newValue);
+  };
+
+  return (
+    <>
+      <Button onClick={toggleAll}>
+        {someOpen ? "Collapse" : "Expand"} all
+      </Button>
+      <Accordion.Root
+        type="multiple"
+        value={value}
+        onValueChange={setValue}
+        {...rest}
+      >
+        <Accordion.Item value="one">
+          <Accordion.Trigger>Accordion One</Accordion.Trigger>
+          <Accordion.Content>{children}</Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="two">
+          <Accordion.Trigger>Accordion Two</Accordion.Trigger>
+          <Accordion.Content>{children}</Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="three">
+          <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+          <Accordion.Content>{children}</Accordion.Content>
+        </Accordion.Item>
+      </Accordion.Root>
+    </>
+  );
+};
+
 export const Default = Template.bind({});
 Default.args = {
   type: "single",
@@ -130,4 +180,9 @@ Nested.args = {
       </Accordion.Root>
     </>
   ),
+};
+
+export const Controlled = ControlledTemplate.bind({});
+Controlled.args = {
+  children: <Text />,
 };
