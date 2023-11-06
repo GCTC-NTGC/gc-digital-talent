@@ -2,7 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
 import React from "react";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import type { HeadingRank, IconType } from "../../types";
@@ -142,7 +142,7 @@ const Trigger = React.forwardRef<
           data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
           data-h2-transform="
             base:children[.Accordion__Chevron__Icon](rotate(0deg))
-            base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(-180deg))"
+            base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(90deg))"
           {...rest}
         >
           <span
@@ -151,7 +151,7 @@ const Trigger = React.forwardRef<
             data-h2-align-items="base(center)"
             data-h2-flex-shrink="base(0)"
           >
-            <ChevronDownIcon
+            <ChevronRightIcon
               className="Accordion__Chevron__Icon"
               data-h2-transition="base(transform 150ms ease)"
               {...iconStyles}
