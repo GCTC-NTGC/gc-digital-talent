@@ -8,8 +8,15 @@ import {
   getLocalizedName,
   getPoolCandidateSearchPositionType,
 } from "@gc-digital-talent/i18n";
-import { Pending, NotFound, Heading, Link } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  NotFound,
+  Heading,
+  Link,
+  Separator,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import {
@@ -213,6 +220,7 @@ export const ViewSearchRequest = ({
     wasEmpty,
     jobTitle,
     positionType,
+    reason,
   } = searchRequest;
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
@@ -259,6 +267,21 @@ export const ViewSearchRequest = ({
           data-h2-padding="base(x1)"
           data-h2-background-color="base(gray.lightest)"
         >
+          <FilterBlock
+            title={intl.formatMessage({
+              defaultMessage: "Reason for talent request",
+              id: "QSzKMC",
+              description: "Label for an opportunity's job title.",
+            })}
+            content={
+              reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
+            }
+          />
+          <Separator
+            orientation="horizontal"
+            data-h2-background-color="base(gray.lighter)"
+            data-h2-margin-bottom="base(x1)"
+          />
           <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
