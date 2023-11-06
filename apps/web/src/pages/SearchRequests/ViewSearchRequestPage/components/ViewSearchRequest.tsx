@@ -270,8 +270,8 @@ export const ViewSearchRequest = ({
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Reason for talent request",
-              id: "QSzKMC",
-              description: "Label for an opportunity's job title.",
+              id: "tm1XMt",
+              description: "Label for a the reason for submitting the request.",
             })}
             content={
               reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
