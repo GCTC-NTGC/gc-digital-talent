@@ -39,7 +39,7 @@ export const getCellStyles: GetCellStyles = ({
 
       ...(shrinkCol && {
         "data-h2-flex-shrink": "base(0)",
-        "data-h2-width": "base(auto)",
+        "data-h2-width": "l-tablet(auto)",
       }),
 
       // Custom styles for row selection cell
