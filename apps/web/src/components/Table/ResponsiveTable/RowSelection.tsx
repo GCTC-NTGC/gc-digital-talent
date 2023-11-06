@@ -237,7 +237,8 @@ const Actions = ({
 
             {download?.selection && (
               <span
-                data-h2-align-items="base(center) l-tablet(flex-start)"
+                data-h2-align-items="base(center)"
+                data-h2-display="base(flex)"
                 data-h2-gap="base(0 x.25)"
               >
                 <span
@@ -246,31 +247,26 @@ const Actions = ({
                 >
                   &bull;
                 </span>
-                <span
-                  data-h2-position="base(relative)"
-                  data-h2-align-items="base(center) l-tablet(flex-start)"
-                  data-h2-padding="base(x.25)"
+                <DownloadCsv
+                  data-h2-font-weight="base(400)"
+                  {...download.selection.csv}
+                  {...actionButtonStyles}
                 >
-                  <DownloadCsv
-                    data-h2-font-weight="base(400)"
-                    {...download.selection.csv}
-                    {...actionButtonStyles}
-                  >
-                    {download.selection.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        id: "mxOuYK",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                  </DownloadCsv>
-                </span>
+                  {download.selection.label ||
+                    intl.formatMessage({
+                      defaultMessage: "Download CSV",
+                      id: "mxOuYK",
+                      description:
+                        "Text label for button to download a csv file of items in a table.",
+                    })}
+                </DownloadCsv>
               </span>
             )}
 
-            {print?.onPrint && (
+            {(print?.onPrint || print?.component) && (
               <span
-                data-h2-align-items="base(center) l-tablet(flex-start)"
+                data-h2-align-items="base(center)"
+                data-h2-display="base(flex)"
                 data-h2-gap="base(0 x.25)"
               >
                 <span
@@ -279,15 +275,17 @@ const Actions = ({
                 >
                   &bull;
                 </span>
-                <Button onClick={print.onPrint} {...actionButtonStyles}>
-                  {print.label ||
-                    intl.formatMessage({
-                      defaultMessage: "Print selection",
-                      id: "KrrW7D",
-                      description:
-                        "Text label for button to print items in a table.",
-                    })}
-                </Button>
+                {print.component ?? (
+                  <Button onClick={print.onPrint} {...actionButtonStyles}>
+                    {print.label ||
+                      intl.formatMessage({
+                        defaultMessage: "Print selection",
+                        id: "KrrW7D",
+                        description:
+                          "Text label for button to print items in a table.",
+                      })}
+                  </Button>
+                )}
               </span>
             )}
           </Section>

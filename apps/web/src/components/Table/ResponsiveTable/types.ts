@@ -102,8 +102,9 @@ export type DatasetDownload = {
 
 /** Controls the print button in `RowSelection.Actions` */
 export type DatasetPrint = {
-  onPrint: ButtonClickEvent;
+  onPrint?: ButtonClickEvent;
   label?: React.ReactNode;
+  component?: React.ReactElement;
 };
 
 export type PaginationDef = {

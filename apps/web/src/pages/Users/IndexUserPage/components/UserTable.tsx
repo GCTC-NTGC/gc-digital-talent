@@ -7,11 +7,17 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 
-import { User, useAllUsersPaginatedQuery } from "@gc-digital-talent/graphql";
+import {
+  User,
+  useAllUsersPaginatedQuery,
+  useSelectedUsersQuery,
+} from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLanguage } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
@@ -25,6 +31,9 @@ import {
   transformSortStateToOrderByClause,
   transformUserInput,
 } from "./utils";
+import useSelectedRows from "../../../../hooks/useSelectedRows";
+import useUserCsvData from "../hooks/useUserCsvData";
+import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -42,6 +51,9 @@ const UserTable = ({ title }: UserTableProps) => {
   const paths = useRoutes();
   const [paginationState, setPaginationState] = React.useState<PaginationState>(
     INITIAL_STATE.paginationState,
+  );
+  const { selectedRows, setSelectedRows, hasSelected } = useSelectedRows<User>(
+    [],
   );
   const [searchState, setSearchState] = React.useState<SearchState>(
     INITIAL_STATE.searchState,
@@ -198,6 +210,44 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
+  const selectedApplicantIds = selectedRows.map((user) => user.id);
+  const [
+    {
+      data: selectedUsersData,
+      fetching: selectedUsersFetching,
+      error: selectedUsersError,
+    },
+  ] = useSelectedUsersQuery({
+    variables: {
+      ids: selectedApplicantIds,
+    },
+    pause: !hasSelected,
+  });
+
+  const selectedApplicants =
+    selectedUsersData?.applicants.filter(notEmpty) ?? [];
+
+  const csv = useUserCsvData(selectedApplicants);
+
+  const handlePrint = (onPrint: () => void) => {
+    if (
+      selectedUsersFetching ||
+      !!selectedUsersError ||
+      !selectedUsersData?.applicants.length
+    ) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Download failed: No rows selected",
+          id: "k4xm25",
+          description:
+            "Alert message displayed when a user attempts to print without selecting items first",
+        }),
+      );
+    } else if (onPrint) {
+      onPrint();
+    }
+  };
+
   return (
     <Table<User>
       data={filteredData}
@@ -211,6 +261,47 @@ const UserTable = ({ title }: UserTableProps) => {
         "updatedDate",
         "rolesAndPermissions",
       ]}
+      rowSelect={{
+        onRowSelection: setSelectedRows,
+        cell: ({ row }) =>
+          rowSelectCell({
+            row,
+            label: getFullNameLabel(
+              row.original.firstName,
+              row.original.lastName,
+              intl,
+            ),
+          }),
+      }}
+      download={{
+        selection: {
+          csv: {
+            ...csv,
+            fileName: intl.formatMessage(
+              {
+                defaultMessage: "users_{date}.csv",
+                id: "mYuXWF",
+                description: "Filename for user CSV file download",
+              },
+              {
+                date: new Date().toISOString(),
+              },
+            ),
+          },
+        },
+      }}
+      print={{
+        component: (
+          <span>
+            <UserProfilePrintButton
+              users={selectedApplicants}
+              beforePrint={handlePrint}
+              color="white"
+              mode="inline"
+            />
+          </span>
+        ),
+      }}
       pagination={{
         internal: false,
         total: data?.usersPaginated?.paginatorInfo.total,
