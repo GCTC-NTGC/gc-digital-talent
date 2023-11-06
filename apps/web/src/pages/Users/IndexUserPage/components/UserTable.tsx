@@ -6,13 +6,8 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useLocation } from "react-router-dom";
 
-import {
-  User,
-  UserFilterInput,
-  useAllUsersPaginatedQuery,
-} from "@gc-digital-talent/graphql";
+import { User, useAllUsersPaginatedQuery } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLanguage } from "@gc-digital-talent/i18n";
 
@@ -22,15 +17,21 @@ import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  INITIAL_STATE,
-  SEARCH_PARAM_KEY,
-} from "~/components/Table/ResponsiveTable/constants";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import accessors from "~/components/Table/accessors";
 
-import { rolesAccessor, transformUserInput } from "./utils";
+import {
+  rolesAccessor,
+  transformSortStateToOrderByClause,
+  transformUserInput,
+} from "./utils";
 
 const columnHelper = createColumnHelper<User>();
+
+const defaultState = {
+  ...INITIAL_STATE,
+  sortState: [{ id: "createdDate", desc: false }],
+};
 
 interface UserTableProps {
   title: React.ReactNode;
@@ -45,6 +46,9 @@ const UserTable = ({ title }: UserTableProps) => {
   const [searchState, setSearchState] = React.useState<SearchState>(
     INITIAL_STATE.searchState,
   );
+  const [sortState, setSortState] = React.useState<SortingState | undefined>([
+    { id: "createdDate", desc: false },
+  ]);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -101,6 +105,7 @@ const UserTable = ({ title }: UserTableProps) => {
         id: "rolesAndPermissions",
         header: intl.formatMessage(adminMessages.rolesAndPermissions),
         enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor("telephone", {
@@ -152,7 +157,6 @@ const UserTable = ({ title }: UserTableProps) => {
       {
         id: "createdDate",
         enableColumnFilter: false,
-        sortingFn: "datetime",
         header: intl.formatMessage({
           defaultMessage: "Created",
           id: "zAqJMe",
@@ -165,7 +169,6 @@ const UserTable = ({ title }: UserTableProps) => {
       {
         id: "updatedDate",
         enableColumnFilter: false,
-        sortingFn: "datetime",
         header: intl.formatMessage({
           defaultMessage: "Updated",
           id: "R2sSy9",
@@ -184,6 +187,9 @@ const UserTable = ({ title }: UserTableProps) => {
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      orderBy: searchState
+        ? transformSortStateToOrderByClause(sortState)
+        : undefined,
     },
   });
 
@@ -223,6 +229,11 @@ const UserTable = ({ title }: UserTableProps) => {
         onChange: ({ term, type }: SearchState) => {
           handleSearchStateChange({ term, type });
         },
+      }}
+      sort={{
+        internal: false,
+        onSortChange: setSortState,
+        initialState: defaultState.sortState,
       }}
     />
   );

@@ -1,9 +1,12 @@
 import { IntlShape } from "react-intl";
+import { SortingState } from "@tanstack/react-table";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   InputMaybe,
+  OrderByClause,
   RoleAssignment,
+  SortOrder,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
@@ -59,4 +62,31 @@ export function transformUserInput(
     roles: filterState?.roles,
     trashed: filterState?.trashed,
   };
+}
+
+export function transformSortStateToOrderByClause(
+  sortingRule?: SortingState,
+): OrderByClause | OrderByClause[] | undefined {
+  const columnMap = new Map<string, string>([
+    ["id", "id"],
+    ["candidateName", "first_name"],
+    ["email", "email"],
+    ["telephone", "telephone"],
+    ["preferredLang", "preferred_lang"],
+    ["createdDate", "created_at"],
+    ["updatedDate", "updated_at"],
+  ]);
+
+  const orderBy = sortingRule
+    ?.map((rule) => {
+      const columnName = columnMap.get(rule.id);
+      if (!columnName) return undefined;
+      return {
+        column: columnName,
+        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+      };
+    })
+    .filter(notEmpty);
+
+  return orderBy?.length ? orderBy : undefined;
 }
