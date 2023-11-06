@@ -1,19 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateActivityLogTable extends Migration
 {
     public function up()
     {
         Schema::connection(config('activitylog.database_connection'))->create(config('activitylog.table_name'), function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->string('log_name')->nullable();
             $table->text('description');
-            $table->nullableMorphs('subject', 'subject');
-            $table->nullableMorphs('causer', 'causer');
+            $table->nullableUuidMorphs('subject', 'subject');
+            $table->nullableUuidMorphs('causer', 'causer');
             $table->json('properties')->nullable();
             $table->timestamps();
             $table->index('log_name');
