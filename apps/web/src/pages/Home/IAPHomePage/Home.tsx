@@ -14,7 +14,7 @@ import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
 import feathers from "~/assets/img/feathers.png";
 import manOnComputer from "~/assets/img/man-on-computer.jpg";
 import gloves from "~/assets/img/gloves.png";
-import applicant from "~/assets/img/applicant.jpg";
+import applicant from "~/assets/img/applicant.webp";
 import ulu from "~/assets/img/ulu.png";
 import quoteBg from "~/assets/img/quote-bg.jpg";
 import sash from "~/assets/img/sash.jpg";
