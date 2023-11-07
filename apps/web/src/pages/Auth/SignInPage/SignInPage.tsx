@@ -175,9 +175,9 @@ const SignInPage = () => {
                   "Heading for Frequently Asked Questions section on sign in page",
               })}
             </Heading>
-            <Accordion.Root type="single" collapsible>
+            <Accordion.Root type="single" size="sm" collapsible>
               <Accordion.Item value="one">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
                       "What if I deleted the app or changed phone and I don't have the recovery codes?",
@@ -204,7 +204,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="two">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
                       "Can you remove the two-factor authentication from my account so I can reset it?",
@@ -231,7 +231,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="three">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
                       "What can I do if my authenticator codes are no longer being accepted?",
@@ -258,7 +258,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="four">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage: "Already have a GCKey account?",
                     id: "ACa+rP",
@@ -288,7 +288,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="five">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage: "What is a GCKey?",
                     id: "w3vO23",
@@ -309,7 +309,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="six">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
                       "Who do I contact if I have questions about GCKey?",
@@ -391,7 +391,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="seven">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage: "Which authenticator app should I install?",
                     id: "YWxGL/",
@@ -412,7 +412,7 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="eight">
-                <Accordion.Trigger as="h4" size="sm">
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
                       "Can I use SMS or email authentication instead of an app?",

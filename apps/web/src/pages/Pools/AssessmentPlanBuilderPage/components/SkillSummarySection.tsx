@@ -35,9 +35,9 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
             "introduction to the skill summary section in the assessment plan builder",
         })}
       </p>
-      <Accordion.Root type="multiple">
+      <Accordion.Root type="multiple" size="sm">
         <Accordion.Item value="one">
-          <Accordion.Trigger as="h4" size="sm">
+          <Accordion.Trigger as="h4">
             {intl.formatMessage({
               defaultMessage:
                 "Why are most behavioral skills left out of the initial application?",

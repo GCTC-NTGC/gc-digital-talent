@@ -37,9 +37,9 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             "introduction to the organize section in the assessment plan builder",
         })}
       </p>
-      <Accordion.Root type="multiple">
+      <Accordion.Root type="multiple" size="sm">
         <Accordion.Item value="one">
-          <Accordion.Trigger as="h4" size="sm">
+          <Accordion.Trigger as="h4">
             {intl.formatMessage({
               defaultMessage: "How many assessments should I include?",
               id: "WhQFXx",
@@ -69,7 +69,7 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="two">
-          <Accordion.Trigger as="h4" size="sm">
+          <Accordion.Trigger as="h4">
             {intl.formatMessage(
               {
                 defaultMessage:

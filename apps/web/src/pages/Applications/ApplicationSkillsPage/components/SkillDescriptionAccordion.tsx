@@ -20,10 +20,10 @@ const SkillDescriptionAccordion = ({
   }
 
   return (
-    <Accordion.Root type="single" collapsible>
+    <Accordion.Root type="single" size="sm" collapsible>
       {skills.map((skill) => (
         <Accordion.Item key={skill.id} value={skill.id}>
-          <Accordion.Trigger as="h4" size="sm">
+          <Accordion.Trigger as="h4">
             {getLocalizedName(skill.name, intl)}
           </Accordion.Trigger>
           <Accordion.Content>

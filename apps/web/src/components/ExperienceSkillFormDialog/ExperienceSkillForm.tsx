@@ -200,9 +200,9 @@ const ExperienceSkillForm = ({
           })}
         </p>
         <div data-h2-margin="base(x1 0)">
-          <Accordion.Root type="single" collapsible>
+          <Accordion.Root type="single" size="sm" collapsible>
             <Accordion.Item value="skillQuestions">
-              <Accordion.Trigger as="h3" size="sm">
+              <Accordion.Trigger as="h3">
                 {intl.formatMessage({
                   defaultMessage: "How to best describe a skill experience",
                   id: "1/Q9jX",
