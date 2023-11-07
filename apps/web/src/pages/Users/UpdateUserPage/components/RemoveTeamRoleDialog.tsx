@@ -10,14 +10,12 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
-  Role,
-  Team,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
-  User,
-} from "~/api/generated";
+  UpdateUserRolesInput,
+  UpdateUserRolesMutation,
+} from "@gc-digital-talent/graphql";
+
+import { Role, Team, User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface RemoveTeamRoleDialogProps {
@@ -25,8 +23,8 @@ interface RemoveTeamRoleDialogProps {
   roles: Role[];
   team: Team;
   onRemoveRoles: (
-    submitData: UpdateUserAsAdminInput,
-  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+    submitData: UpdateUserRolesInput,
+  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
 const RemoveTeamRoleDialog = ({
@@ -42,6 +40,7 @@ const RemoveTeamRoleDialog = ({
   const handleRemove = async () => {
     setIsDeleting(true);
     return onRemoveRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         detach: {
           roles: roles.map((r) => r.id),

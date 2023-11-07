@@ -20,6 +20,8 @@ import {
   emptyToUndefined,
   uniqueItems,
   groupBy,
+  pickMap,
+  unpackMaybes,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 
@@ -44,4 +46,6 @@ export {
   isUuidError,
   useIsSmallScreen,
   groupBy,
+  pickMap,
+  unpackMaybes,
 };

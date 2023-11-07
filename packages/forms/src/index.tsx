@@ -40,7 +40,6 @@ import BasicForm, {
 import ErrorSummary from "./components/ErrorSummary";
 import UnsavedChanges from "./components/UnsavedChanges";
 import {
-  unpackMaybes,
   unpackIds,
   enumToOptions,
   enumToOptionsWorkRegionSorted,
@@ -106,7 +105,6 @@ export type {
 };
 
 export {
-  unpackMaybes,
   unpackIds,
   enumToOptions,
   enumToOptionsWorkRegionSorted,

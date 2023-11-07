@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class AssessmentStep
@@ -52,5 +53,10 @@ class AssessmentStep extends Model
     {
         return $this->belongsToMany(PoolSkill::class, 'assessment_step_pool_skill')
             ->withTimestamps();
+    }
+
+    public function assessmentResults(): HasMany
+    {
+        return $this->hasMany(AssessmentResult::class);
     }
 }

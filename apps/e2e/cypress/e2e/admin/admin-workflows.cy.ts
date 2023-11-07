@@ -84,7 +84,9 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("textbox", { name: /Telephone/i })
       .clear()
       .type("+10123456789");
-    cy.findByRole("button", { name: /Submit/i }).click();
+    cy.findAllByRole("button", { name: /Submit/i })
+      .eq(0)
+      .click();
 
     cy.wait("@gqlUpdateUserAsAdminMutation");
 

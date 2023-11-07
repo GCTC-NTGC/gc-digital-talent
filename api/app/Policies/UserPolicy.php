@@ -61,22 +61,30 @@ class UserPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model, array $request = null)
+    public function update(User $user, User $model)
     {
-        // TODO: This implementation means that assigning roles or updating sub also requires the `update` permission, which doesn't strictly match our permissions spreadsheet :(
-        /**
-         * If a user is assigning a role or updating 'sub', check for extra permissions and fail early
-         */
-        $updateRolesAllowedIfRequested = ! $request || ! isset($request['roleAssignmentsInput']) || $user->isAbleTo('assign-any-role');
-        $updateSubAllowedIfRequested = ! $request || ! isset($request['sub']) || $user->isAbleTo('update-any-userSub');
+        return $user->isAbleTo('update-any-user') ||
+            ($user->isAbleTo('update-own-user') && $user->id === $model->id);
+    }
 
-        if ($updateRolesAllowedIfRequested && $updateSubAllowedIfRequested) {
-            if ($user->isAbleTo('update-any-user') || ($user->isAbleTo('update-own-user') && $user->id === $model->id)) {
-                return true;
-            }
-        }
+    /**
+     * Determine whether the user can update sub.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateSub(User $user)
+    {
+        return $user->isAbleTo('update-any-userSub');
+    }
 
-        return false;
+    /**
+     * Determine whether the user can update roles.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateRoles(User $user)
+    {
+        return $user->isAbleTo('assign-any-role');
     }
 
     /**

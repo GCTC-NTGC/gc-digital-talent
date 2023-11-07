@@ -43,6 +43,12 @@ const ImproveTechnicalSkills = ({
 
   const pageId = "improve-technical-skills";
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "5 technical skills you'd like to train",
+    description: "Page title for the improve technical skills page",
+    id: "aIMh6f",
+  });
+
   const crumbs = [
     {
       label: intl.formatMessage({
@@ -69,19 +75,10 @@ const ImproveTechnicalSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "5 technical skills you'd like to train",
-        id: "AIb8zR",
-      }),
+      label: pageTitle,
       url: paths.improveTechnicalSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "5 technical skills you'd like to train",
-    description: "Page title for the improve technical skills page",
-    id: "aIMh6f",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

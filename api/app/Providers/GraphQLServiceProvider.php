@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentDecisionLevel;
+use App\Enums\AssessmentResultJustification;
+use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
@@ -586,6 +590,42 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'AssessmentStepType',
                     'values' => array_column(AssessmentStepType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentResultType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentResultType',
+                    'values' => array_column(AssessmentResultType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentDecision',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentDecision',
+                    'values' => array_column(AssessmentDecision::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentResultJustification',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentResultJustification',
+                    'values' => array_column(AssessmentResultJustification::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'AssessmentDecisionLevel',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentDecisionLevel',
+                    'values' => array_column(AssessmentDecisionLevel::cases(), 'name'),
                 ]);
             }
         );

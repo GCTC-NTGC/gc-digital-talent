@@ -15,7 +15,8 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
-import { Repeater, Submit, unpackMaybes } from "@gc-digital-talent/forms";
+import { Repeater, Submit } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getBehaviouralSkillLevel,
   getLocalizedName,

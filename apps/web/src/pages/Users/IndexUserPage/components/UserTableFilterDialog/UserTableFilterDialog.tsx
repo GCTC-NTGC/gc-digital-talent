@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useFormContext, SubmitHandler } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/24/outline/AdjustmentsVerticalIcon";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {
   BasicForm,
@@ -133,7 +134,8 @@ const UserTableFilterDialog = ({
                   name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
-                    id: "GsBRWL",
+                    id: "iUAe/2",
+                    description: "Label for language ability field",
                   })}
                   options={optionsData.languageAbility}
                 />
@@ -151,10 +153,7 @@ const UserTableFilterDialog = ({
                 <MultiSelectField
                   id="operationalRequirement"
                   name="operationalRequirement"
-                  label={formatMessage({
-                    defaultMessage: "Work Preferences",
-                    id: "1XyQqX",
-                  })}
+                  label={formatMessage(navigationMessages.workPreferences)}
                   options={optionsData.operationalRequirement}
                 />
               </div>
@@ -162,10 +161,7 @@ const UserTableFilterDialog = ({
                 <MultiSelectField
                   id="workRegion"
                   name="workRegion"
-                  label={formatMessage({
-                    defaultMessage: "Work Locations",
-                    id: "qhhPj5",
-                  })}
+                  label={formatMessage(navigationMessages.workLocation)}
                   options={optionsData.workRegion}
                   doNotSort
                 />
@@ -176,8 +172,9 @@ const UserTableFilterDialog = ({
                   id="employmentDuration"
                   name="employmentDuration"
                   label={formatMessage({
-                    defaultMessage: "Duration Preferences",
-                    id: "hmfQmT",
+                    defaultMessage: "Duration preferences",
+                    id: "2ingb6",
+                    description: "Label for the employment duration field",
                   })}
                   options={optionsData.employmentDuration}
                 />
@@ -188,8 +185,9 @@ const UserTableFilterDialog = ({
                   id="profileComplete"
                   name="profileComplete"
                   label={formatMessage({
-                    defaultMessage: "Profile Complete",
-                    id: "OPG1Q0",
+                    defaultMessage: "Profile complete",
+                    id: "h7IJnu",
+                    description: "Label for the profile complete field",
                   })}
                   options={optionsData.profileComplete}
                 />
@@ -199,8 +197,9 @@ const UserTableFilterDialog = ({
                   id="skills"
                   name="skills"
                   label={formatMessage({
-                    defaultMessage: "Skill Filter",
-                    id: "GGaxMx",
+                    defaultMessage: "Skill filter",
+                    id: "lxDj4o",
+                    description: "Label for the skills field",
                   })}
                   options={optionsData.skills}
                   isLoading={rawGraphqlResults.skills.fetching}
@@ -212,8 +211,9 @@ const UserTableFilterDialog = ({
                   id="govEmployee"
                   name="govEmployee"
                   label={formatMessage({
-                    defaultMessage: "Government Employee",
-                    id: "YojrdC",
+                    defaultMessage: "Government employee",
+                    id: "bOA3EH",
+                    description: "Label for the government employee field",
                   })}
                   options={optionsData.govEmployee}
                 />
@@ -234,7 +234,8 @@ const UserTableFilterDialog = ({
                   name="trashed"
                   label={formatMessage({
                     defaultMessage: "Deleted",
-                    id: "KQvWvD",
+                    id: "CzK1qY",
+                    description: "Label for the trashed field",
                   })}
                   options={optionsData.trashed}
                 />

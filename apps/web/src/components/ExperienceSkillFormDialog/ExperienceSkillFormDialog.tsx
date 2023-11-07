@@ -81,7 +81,9 @@ const ExperienceSkillFormDialog = ({
           {intl.formatMessage(
             {
               defaultMessage: "Link an experience to {skillName}",
-              id: "KnvA3d",
+              id: "cP9CaK",
+              description:
+                "Instructional text for connecting an experience with a skill",
             },
             {
               skillName: getLocalizedName(skill?.name, intl),

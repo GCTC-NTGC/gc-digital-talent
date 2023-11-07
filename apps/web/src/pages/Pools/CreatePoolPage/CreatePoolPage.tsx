@@ -5,7 +5,8 @@ import { useIntl } from "react-intl";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
+import { Select, Submit } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
   formMessages,

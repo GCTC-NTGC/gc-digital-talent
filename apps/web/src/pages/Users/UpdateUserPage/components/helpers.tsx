@@ -7,7 +7,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
-import { TeamAssignment, UpdateUserFunc, UpdateUserHandler } from "../types";
+import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 
@@ -36,13 +36,13 @@ export function teamRolesCell(displayNames: string[]) {
 export function actionCell(
   role: Role,
   user: User,
-  onUpdateUser: UpdateUserFunc,
+  onUpdateUserRoles: UpdateUserRolesFunc,
 ) {
   return (
     <RemoveIndividualRoleDialog
       role={role}
       user={user}
-      onUpdateUser={onUpdateUser}
+      onUpdateUserRoles={onUpdateUserRoles}
     />
   );
 }
@@ -50,7 +50,7 @@ export function actionCell(
 export function teamActionCell(
   teamAssignment: TeamAssignment,
   user: User,
-  handleUserUpdate: UpdateUserHandler,
+  onUpdateUserRoles: UpdateUserRolesFunc,
   availableRoles: Role[],
 ) {
   return (
@@ -59,14 +59,14 @@ export function teamActionCell(
         initialRoles={teamAssignment.roles}
         user={user}
         team={teamAssignment.team}
-        onEditRoles={handleUserUpdate}
+        onEditRoles={onUpdateUserRoles}
         allRoles={availableRoles}
       />
       <RemoveTeamRoleDialog
         roles={teamAssignment.roles}
         user={user}
         team={teamAssignment.team}
-        onRemoveRoles={handleUserUpdate}
+        onRemoveRoles={onUpdateUserRoles}
       />
     </div>
   );

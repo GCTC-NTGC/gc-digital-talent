@@ -169,6 +169,9 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
 
   return (
     <td
+      // Seems like a false positive, cell is the implicit role for this element
+      // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
+      // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
       role="cell"
       data-h2-vertical-align="base(middle)"
       data-h2-max-width="base(100%) l-tablet(none)"
