@@ -11,7 +11,7 @@ import { screen } from "@testing-library/react";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
-import SearchRequestsTable from "./SearchRequestsTableApi";
+import SearchRequestTable from "./SearchRequestTable";
 
 const requestsData = fakeSearchRequests();
 const requestOne = requestsData[0];
@@ -43,7 +43,7 @@ const mockClient = {
 const renderSearchRequestsTable = () =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <SearchRequestsTable title="Title" />
+      <SearchRequestTable title="Title" />
     </GraphqlProvider>,
   );
 
@@ -66,7 +66,7 @@ describe("SearchRequestsTable", () => {
 
     // Table header buttons exist
     expect(
-      screen.getByRole("button", { name: /All columns/ }),
+      screen.getByRole("button", { name: /Filter by/ }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Filters/ })).toBeInTheDocument();
     expect(

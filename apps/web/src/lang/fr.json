@@ -1491,10 +1491,6 @@
     "defaultMessage": "Renseignements sur le candidat",
     "description": "Heading displayed above the pool candidate application page."
   },
-  "6AhLsc": {
-    "defaultMessage": "Demander le titre du poste",
-    "description": "Title displayed for the search request table request job title column."
-  },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
@@ -7475,10 +7471,6 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
-  "f24Z8p": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the search request table id column."
-  },
   "fA79sM": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
@@ -9387,6 +9379,10 @@
     "defaultMessage": "Votre incidence (anglais)",
     "description": "Label for a process' English impact"
   },
+  "pnjDCS": {
+    "defaultMessage": "Chercher les demandes",
+    "description": "Label for the search request table search input"
+  },
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
@@ -9842,6 +9838,10 @@
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
+  },
+  "sl1kbp": {
+    "defaultMessage": "détails pour {name}",
+    "description": "Link text suffix to read more details for a search request"
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",

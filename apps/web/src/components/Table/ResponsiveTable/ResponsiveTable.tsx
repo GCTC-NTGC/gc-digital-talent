@@ -10,8 +10,9 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import isEmpty from "lodash/isEmpty";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
@@ -32,6 +33,7 @@ import type {
   AddDef,
   DatasetDownload,
   DatasetPrint,
+  FilterDef,
   PaginationDef,
   RowSelectDef,
   SearchDef,
@@ -40,7 +42,7 @@ import type {
 } from "./types";
 import { getColumnHeader, sortingStateToOrderByClause } from "./utils";
 
-interface TableProps<TData> {
+interface TableProps<TData, TFilters> {
   /** Accessible name for the table */
   caption: React.ReactNode;
   /** Data to be displayed within the table */
@@ -69,13 +71,12 @@ interface TableProps<TData> {
   download?: DatasetDownload;
   /** Enable the "add item" button */
   add?: AddDef;
-  /** Filter component */
-  filterComponent?: React.ReactNode;
+  filter?: FilterDef<TFilters>;
   /** Should this sync state in the URL? */
   urlSync?: boolean;
 }
 
-const ResponsiveTable = <TData extends object>({
+const ResponsiveTable = <TData extends object, TFilters = object>({
   caption,
   data,
   columns,
@@ -90,9 +91,9 @@ const ResponsiveTable = <TData extends object>({
   print,
   add,
   pagination,
-  filterComponent,
+  filter,
   urlSync = true,
-}: TableProps<TData>) => {
+}: TableProps<TData, TFilters>) => {
   const id = React.useId();
   const intl = useIntl();
   const [, setSearchParams] = useSearchParams();
@@ -188,7 +189,10 @@ const ResponsiveTable = <TData extends object>({
 
           const initialSortState =
             sort?.initialState ?? INITIAL_STATE.sortState;
-          if (isEqual(sortingState, initialSortState)) {
+          if (
+            isEqual(sortingState, initialSortState) ||
+            isEmpty(sortingState)
+          ) {
             newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
           } else {
             newParams.set(
@@ -197,7 +201,7 @@ const ResponsiveTable = <TData extends object>({
             );
           }
 
-          if (isEqual(hiddenColumnIds, newHiddenIds)) {
+          if (isEqual(hiddenColumnIds, newHiddenIds) || isEmpty(sortingState)) {
             newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
           } else {
             newParams.set(
@@ -253,6 +257,15 @@ const ResponsiveTable = <TData extends object>({
             }
           }
 
+          if (empty(filter?.state) || isEmpty(filter?.state)) {
+            newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+          } else {
+            newParams.set(
+              SEARCH_PARAM_KEY.FILTERS,
+              JSON.stringify(filter?.state),
+            );
+          }
+
           return newParams;
         },
         { replace: true },
@@ -271,6 +284,7 @@ const ResponsiveTable = <TData extends object>({
     pagination?.initialState?.pageSize,
     pagination?.initialState?.pageIndex,
     urlSync,
+    filter?.state,
   ]);
 
   React.useEffect(() => {
@@ -280,7 +294,7 @@ const ResponsiveTable = <TData extends object>({
   }, [sortingState, sort?.onSortChange, sort]);
 
   const hasNoData = !isLoading && (!data || data.length === 0);
-  const hasNoVisibleRows = table.getRowModel().rows.length <= 0;
+  const hasNoVisibleRows = !isLoading && table.getRowModel().rows.length <= 0;
   const captionId = `${id}-caption`;
   const hidableColumns = table
     .getAllLeafColumns()
@@ -303,7 +317,7 @@ const ResponsiveTable = <TData extends object>({
             {...search}
           />
         )}
-        {filterComponent && <Table.Control>{filterComponent}</Table.Control>}
+        {filter?.component && <Table.Control>{filter.component}</Table.Control>}
         {hidableColumns.length > 0 ? (
           <Table.Control>
             <ColumnDialog table={table} />
