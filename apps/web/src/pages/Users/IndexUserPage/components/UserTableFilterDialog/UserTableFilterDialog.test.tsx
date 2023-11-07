@@ -150,7 +150,7 @@ describe("UserTableFilterDialog", () => {
         // Static filters.
         await selectFilterOption(/languages/i);
         await selectFilterOption(/work preferences/i);
-        await selectFilterOption(/work locations/i);
+        await selectFilterOption(/work location/i);
         await selectFilterOption(/duration/i);
         await selectFilterOption(/profile complete/i);
         await selectFilterOption(/government employee/i);
@@ -188,14 +188,14 @@ describe("UserTableFilterDialog", () => {
     renderButton({ isOpenDefault: true });
 
     expect(screen.queryByText("Telework")).not.toBeInTheDocument();
-    await selectFilterOption(/work locations/i);
+    await selectFilterOption(/work location/i);
     expect(screen.getByText("Telework")).toBeVisible();
   });
 
   describe("data persistence", () => {
     it("doesn't persist form data changes when modal closed with X", async () => {
       renderButton({ isOpenDefault: true });
-      selectFilterOption(/work locations/i);
+      selectFilterOption(/work location/i);
       await closeDialog();
 
       await openDialog();
@@ -204,7 +204,7 @@ describe("UserTableFilterDialog", () => {
 
     it("persists form data when modal submitted and re-opened", async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i);
+      await selectFilterOption(/work location/i);
       await submitFilters();
       await openDialog();
       expect(screen.getByText("Telework")).toBeVisible();
@@ -214,7 +214,7 @@ describe("UserTableFilterDialog", () => {
   describe("prior state", () => {
     it("clears prior state when cleared and submitted", async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i);
+      await selectFilterOption(/work location/i);
       await submitFilters();
 
       await openDialog();
@@ -228,7 +228,7 @@ describe("UserTableFilterDialog", () => {
 
     it("keeps prior state when cleared but not submitted", async () => {
       renderButton({ isOpenDefault: true });
-      await selectFilterOption(/work locations/i);
+      await selectFilterOption(/work location/i);
       await submitFilters();
 
       await openDialog();

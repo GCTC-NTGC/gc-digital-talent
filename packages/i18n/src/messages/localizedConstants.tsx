@@ -1711,15 +1711,18 @@ export const getPublishingGroup = (
 const abbreviations = defineMessages({
   AS: {
     defaultMessage: "Administrative Services",
-    id: "6svHxg",
+    id: "o9qR1R",
+    description: "Full name of abbreviation for AS classification",
   },
   GC: {
     defaultMessage: "Government of Canada",
-    id: "t9i8Ml",
+    id: "sMi0QI",
+    description: "Full name of abbreviation for GC",
   },
   IT: {
     defaultMessage: "Information Technology",
-    id: "nLW9zq",
+    id: "n3Gt3n",
+    description: "Full name of abbreviation for IT",
   },
 });
 

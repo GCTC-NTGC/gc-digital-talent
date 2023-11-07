@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
-import SearchRequestsTable from "./SearchRequestsTableApi";
+import SearchRequestTable from "./SearchRequestTable";
 
 const requestsData = fakeSearchRequests();
 const mockPaginatorInfo = {
@@ -18,10 +18,9 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Search Requests Table Api",
-  component: SearchRequestsTable,
+  title: "Tables/Search Request Table",
+  component: SearchRequestTable,
   parameters: {
-    themeKey: "admin",
     apiResponses: {
       getPoolCandidateSearchRequestsPaginated: {
         data: {
@@ -33,21 +32,15 @@ export default {
       },
     },
   },
-} as Meta<typeof SearchRequestsTable>;
+} as Meta<typeof SearchRequestTable>;
 
-const Template: StoryFn<typeof SearchRequestsTable> = (args) => {
-  const { initialFilterInput, title } = args;
+const Template: StoryFn<typeof SearchRequestTable> = (args) => {
+  const { title } = args;
 
-  return (
-    <SearchRequestsTable
-      initialFilterInput={initialFilterInput}
-      title={title}
-    />
-  );
+  return <SearchRequestTable title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  initialFilterInput: undefined,
   title: "Search Requests",
 };

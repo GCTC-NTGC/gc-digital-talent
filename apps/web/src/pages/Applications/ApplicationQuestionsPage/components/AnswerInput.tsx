@@ -34,7 +34,11 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
         rows={TEXT_AREA_ROWS}
         wordLimit={TEXT_AREA_MAX_WORDS}
         label={intl.formatMessage(
-          { defaultMessage: "Answer to question {number}", id: "3BU43Q" },
+          {
+            defaultMessage: "Answer to question {number}",
+            id: "clAZjC",
+            description: "Label for answer to specific question field",
+          },
           {
             number: index + 1,
           },
