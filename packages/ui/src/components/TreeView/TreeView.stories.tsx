@@ -31,9 +31,9 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
       <TreeView.Item>
         <Accordion.Root
           type="single"
+          mode="card"
           collapsible
           data-h2-margin="base(0, 0)"
-          spaced
         >
           <Accordion.Item value="one">
             <Accordion.Trigger>Accordion Title</Accordion.Trigger>

@@ -8,41 +8,76 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import type { HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
 
-type RootProps = React.ComponentPropsWithoutRef<
+export type RootProps = React.ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Root
 > & {
   mode?: AccordionMode;
-  spaced?: boolean;
+  size?: "sm" | "md" | "lg";
 };
 
 const Root = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
   RootProps
->(({ mode = "simple", spaced, ...rest }, forwardedRef) => {
-  let styles: Record<string, string> = {
-    "data-h2-padding":
-      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.5)",
+>(({ mode = "simple", size = "md", ...rest }, forwardedRef) => {
+  let baseStyles: Record<string, string> = {
+    "data-h2-height":
+      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.8)",
+    "data-h2-width":
+      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.8)",
+    "data-h2-stroke-width":
+      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1.5)",
+    "data-h2-font-size":
+      "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h6, 1)",
+    "data-h2-padding": `
+      base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+      base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
+   `,
   };
 
+  if (size === "sm") {
+    baseStyles = {
+      "data-h2-height":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.75)",
+      "data-h2-width":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.75)",
+      "data-h2-stroke-width":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
+      "data-h2-font-size":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](body, 1)",
+      "data-h2-padding": `
+        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
+     `,
+    };
+  }
+
+  if (size === "lg") {
+    baseStyles = {
+      "data-h2-height":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.95)",
+      "data-h2-width":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.95)",
+      "data-h2-stroke-width":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
+      "data-h2-font-size":
+        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h5, 1)",
+      "data-h2-padding": `
+         base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+         base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
+      `,
+    };
+  }
+
   if (mode === "card") {
-    styles = {
+    baseStyles = {
+      ...baseStyles,
       "data-h2-background-color":
         "base:selectors[>.Accordion__Item](foreground)",
-      "data-h2-padding":
-        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1) base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.5)",
-      ...(spaced
-        ? {
-            "data-h2-gap": "base(x1 0)",
-            "data-h2-radius": "base:selectors[>.Accordion__Item](s)",
-            "data-h2-shadow": "base:selectors[>.Accordion__Item](l)",
-          }
-        : {
-            "data-h2-border-top":
-              "base:selectors[>.Accordion__Item + .Accordion__Item](thin solid gray)",
-            "data-h2-overflow": "base(hidden)",
-            "data-h2-radius": "base(s)",
-            "data-h2-shadow": "base(l)",
-          }),
+      "data-h2-border-top":
+        "base:selectors[>.Accordion__Item + .Accordion__Item](thin solid gray)",
+      "data-h2-overflow": "base(hidden)",
+      "data-h2-radius": "base(s)",
+      "data-h2-shadow": "base(l)",
     };
   }
 
@@ -51,7 +86,11 @@ const Root = React.forwardRef<
       ref={forwardedRef}
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      {...styles}
+      {...(mode !== "card" && {
+        "data-h2-margin":
+          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](0 -x1)",
+      })}
+      {...baseStyles}
       {...rest}
     />
   );
@@ -72,7 +111,6 @@ const Item = React.forwardRef<
 export interface AccordionHeaderProps
   extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
   as?: HeadingRank | "p";
-  size?: "sm" | "md" | "lg";
   icon?: IconType;
   subtitle?: React.ReactNode;
   context?: React.ReactNode;
@@ -84,44 +122,11 @@ const Trigger = React.forwardRef<
   AccordionHeaderProps
 >(
   (
-    {
-      as = "h2",
-      size = "md",
-      subtitle,
-      icon,
-      context,
-      titleProps,
-      children,
-      ...rest
-    },
+    { as = "h2", subtitle, icon, context, titleProps, children, ...rest },
     forwardedRef,
   ) => {
     const Heading = as;
     const Icon = icon;
-    let iconStyles = {
-      "data-h2-stroke-width": "base(3)",
-      "data-h2-height": "base(x.8)",
-      "data-h2-width": "base(x.8)",
-    };
-    let headingSize = { "data-h2-font-size": "base(h6, 1)" };
-
-    if (size === "sm") {
-      iconStyles = {
-        "data-h2-stroke-width": "base(2.5)",
-        "data-h2-height": "base(x.65)",
-        "data-h2-width": "base(x.65)",
-      };
-      headingSize = { "data-h2-font-size": "base(body, 1)" };
-    }
-
-    if (size === "lg") {
-      iconStyles = {
-        "data-h2-stroke-width": "base(3.5)",
-        "data-h2-height": "base(x.95)",
-        "data-h2-width": "base(x.95)",
-      };
-      headingSize = { "data-h2-font-size": "base(h5, 1)" };
-    }
 
     return (
       <AccordionPrimitive.Header className="Accordion__Header" {...titleProps}>
@@ -141,8 +146,8 @@ const Trigger = React.forwardRef<
           data-h2-width="base(100%)"
           data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
           data-h2-transform="
-            base:children[.Accordion__Chevron__Icon](rotate(0deg))
-            base:selectors[[data-state='open']]:children[.Accordion__Chevron__Icon](rotate(90deg))"
+            base:children[.Accordion__Icon--chevron](rotate(0deg))
+            base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(90deg))"
           {...rest}
         >
           <span
@@ -152,9 +157,8 @@ const Trigger = React.forwardRef<
             data-h2-flex-shrink="base(0)"
           >
             <ChevronRightIcon
-              className="Accordion__Chevron__Icon"
+              className="Accordion__Icon Accordion__Icon--chevron"
               data-h2-transition="base(transform 150ms ease)"
-              {...iconStyles}
             />
           </span>
 
@@ -165,9 +169,9 @@ const Trigger = React.forwardRef<
             data-h2-gap="base(x.25 0)"
           >
             <Heading
+              className="Accordion__Heading"
               data-h2-margin="base(0)"
               data-h2-font-weight="base(700)"
-              {...headingSize}
             >
               {children}
             </Heading>
@@ -188,7 +192,7 @@ const Trigger = React.forwardRef<
               data-h2-gap="base(0 x.25)"
             >
               {context && <span data-h2-font-size="base(body)">{context}</span>}
-              {Icon && <Icon {...iconStyles} />}
+              {Icon && <Icon className="Accordion__Icon" />}
             </span>
           )}
         </AccordionPrimitive.Trigger>

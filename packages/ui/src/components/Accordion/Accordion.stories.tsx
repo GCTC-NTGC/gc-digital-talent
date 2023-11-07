@@ -1,5 +1,5 @@
 import React from "react";
-import type { StoryFn } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
@@ -25,12 +25,31 @@ export default {
     Trigger,
     Content,
   },
+  args: {
+    mode: "simple",
+    size: "md",
+    type: "multiple",
+  },
+  argTypes: {
+    mode: {
+      control: { type: "radio" },
+      options: ["simple", "card"],
+    },
+    size: {
+      control: { type: "radio" },
+      options: ["sm", "md", "lg"],
+    },
+    type: {
+      control: { type: "radio" },
+      options: ["single", "multiple"],
+    },
+  },
   parameters: {
     docs: {
       page: AccordionDocs,
     },
   },
-};
+} as Meta<typeof Accordion.Root>;
 
 const themes: Array<string> = ["light", "dark"];
 
@@ -51,11 +70,7 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
           >
             <Accordion.Root {...rest}>
               <Accordion.Item value="one">
-                <Accordion.Trigger
-                  icon={AcademicCapIcon}
-                  subtitle="Subtitle"
-                  size="sm"
-                >
+                <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle">
                   Accordion One
                 </Accordion.Trigger>
                 <Accordion.Content>{children}</Accordion.Content>
@@ -71,7 +86,7 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
                 <Accordion.Content>{children}</Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="three">
-                <Accordion.Trigger size="lg">Accordion Three</Accordion.Trigger>
+                <Accordion.Trigger>Accordion Three</Accordion.Trigger>
                 <Accordion.Content>{children}</Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
@@ -135,21 +150,13 @@ Default.args = {
   type: "single",
   collapsible: true,
   children: <Text />,
+  size: "md",
 };
 
 export const Card = Template.bind({});
 Card.args = {
   type: "single",
   mode: "card",
-  collapsible: true,
-  children: <Text />,
-};
-
-export const CardSpaced = Template.bind({});
-CardSpaced.args = {
-  type: "single",
-  mode: "card",
-  spaced: true,
   collapsible: true,
   children: <Text />,
 };
