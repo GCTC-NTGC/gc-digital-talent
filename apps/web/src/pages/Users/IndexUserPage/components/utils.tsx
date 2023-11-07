@@ -5,12 +5,23 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   InputMaybe,
   OrderByClause,
+  PositionDuration,
   RoleAssignment,
   SortOrder,
+  Trashed,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+
+import {
+  durationToEnumPositionDuration,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+} from "~/utils/userUtils";
+
+import { FormValues } from "./UserTableFilterDialog/UserTableFilterDialog";
 
 export function rolesAccessor(
   roleAssignments: RoleAssignment[],
@@ -89,4 +100,71 @@ export function transformSortStateToOrderByClause(
     .filter(notEmpty);
 
   return orderBy?.length ? orderBy : undefined;
+}
+
+export function transformFormValuesToUserFilterInput(
+  data: FormValues,
+): UserFilterInput {
+  return {
+    applicantFilter: {
+      languageAbility: data.languageAbility[0]
+        ? stringToEnumLanguage(data.languageAbility[0])
+        : undefined,
+      locationPreferences: data.workRegion.map((region) => {
+        return stringToEnumLocation(region);
+      }),
+      operationalRequirements: data.operationalRequirement.map(
+        (requirement) => {
+          return stringToEnumOperational(requirement);
+        },
+      ),
+      skills: data.skills.map((skill) => {
+        const skillString = skill;
+        return { id: skillString };
+      }),
+      positionDuration:
+        data.employmentDuration[0] === "TERM" // either filter for TEMPORARY or do nothing
+          ? [durationToEnumPositionDuration(data.employmentDuration[0])]
+          : undefined,
+    },
+    isGovEmployee: data.govEmployee[0] ? true : undefined,
+    isProfileComplete: data.profileComplete[0] ? true : undefined,
+    poolFilters: data.pools.map((pool) => {
+      const poolString = pool;
+      return { poolId: poolString };
+    }),
+    roles: data.roles,
+    trashed: data.trashed[0] ? Trashed.Only : undefined,
+  };
+}
+
+export function transformUserFilterInputToFormValues(
+  input: UserFilterInput | undefined,
+): FormValues {
+  return {
+    languageAbility: input?.applicantFilter?.languageAbility
+      ? [input?.applicantFilter?.languageAbility]
+      : [],
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    employmentDuration:
+      input?.applicantFilter?.positionDuration &&
+      input.applicantFilter.positionDuration.includes(
+        PositionDuration.Temporary,
+      )
+        ? ["TERM"]
+        : [],
+    govEmployee: input?.isGovEmployee ? ["true"] : [],
+    profileComplete: input?.isProfileComplete ? ["true"] : [],
+    pools:
+      input?.poolFilters
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.poolId) ?? [],
+    roles: input?.roles?.filter(notEmpty) ?? [],
+    trashed: input?.trashed ? ["true"] : [],
+  };
 }

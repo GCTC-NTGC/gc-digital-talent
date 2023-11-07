@@ -6,9 +6,12 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
+import isEqual from "lodash/isEqual";
+import { SubmitHandler } from "react-hook-form";
 
 import {
   User,
+  UserFilterInput,
   useAllUsersPaginatedQuery,
   useSelectedUsersQuery,
 } from "@gc-digital-talent/graphql";
@@ -23,23 +26,45 @@ import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import accessors from "~/components/Table/accessors";
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import {
   rolesAccessor,
+  transformFormValuesToUserFilterInput,
   transformSortStateToOrderByClause,
+  transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import useSelectedRows from "../../../../hooks/useSelectedRows";
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
+import UserTableFilters, {
+  FormValues,
+} from "./UserTableFilterDialog/UserTableFilterDialog";
 
 const columnHelper = createColumnHelper<User>();
 
 const defaultState = {
   ...INITIAL_STATE,
   sortState: [{ id: "createdDate", desc: false }],
+  // Note: lodash/isEqual is comparing undefined
+  // so we need to actually set it here
+  filters: {
+    applicantFilter: {
+      languageAbility: undefined,
+      locationPreferences: [],
+      operationalRequirements: [],
+      positionDuration: undefined,
+      skills: [],
+    },
+    isGovEmployee: undefined,
+    isProfileComplete: undefined,
+    poolFilters: [],
+  },
 };
 
 interface UserTableProps {
@@ -49,6 +74,13 @@ interface UserTableProps {
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: UserFilterInput = React.useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+    [filtersEncoded],
+  );
+  const filterRef = React.useRef<UserFilterInput | undefined>(initialFilters);
   const [paginationState, setPaginationState] = React.useState<PaginationState>(
     INITIAL_STATE.paginationState,
   );
@@ -61,6 +93,8 @@ const UserTable = ({ title }: UserTableProps) => {
   const [sortState, setSortState] = React.useState<SortingState | undefined>([
     { id: "createdDate", desc: false },
   ]);
+  const [filterState, setFilterState] =
+    React.useState<UserFilterInput>(initialFilters);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -81,6 +115,14 @@ const UserTable = ({ title }: UserTableProps) => {
       term: term ?? INITIAL_STATE.searchState.term,
       type: type ?? INITIAL_STATE.searchState.type,
     });
+  };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToUserFilterInput(data);
+    setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
   };
 
   const columns = [
@@ -194,7 +236,7 @@ const UserTable = ({ title }: UserTableProps) => {
   const [{ data, fetching }] = useAllUsersPaginatedQuery({
     variables: {
       where: transformUserInput(
-        undefined,
+        filterState,
         searchState?.term,
         searchState?.type,
       ),
@@ -250,7 +292,7 @@ const UserTable = ({ title }: UserTableProps) => {
   };
 
   return (
-    <Table<User>
+    <Table<User, UserFilterInput>
       data={filteredData}
       caption={title}
       columns={columns}
@@ -326,6 +368,17 @@ const UserTable = ({ title }: UserTableProps) => {
         internal: false,
         onSortChange: setSortState,
         initialState: defaultState.sortState,
+      }}
+      filter={{
+        state: filterRef.current,
+        component: (
+          <UserTableFilters
+            onSubmit={handleFilterSubmit}
+            initialFilters={transformUserFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );
