@@ -90,6 +90,13 @@ const transformSearchRequestInput = (
   };
 };
 
+const sortInitialState = [
+  {
+    id: "requestedDate",
+    desc: true,
+  },
+];
+
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -109,7 +116,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     INITIAL_STATE.searchState,
   );
   const [sortState, setSortState] = useState<SortingState | undefined>(
-    INITIAL_STATE.sortState,
+    sortInitialState,
   );
   const [filterState, setFilterState] =
     useState<PoolCandidateSearchRequestInput>(initialFilters);
@@ -312,12 +319,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: [
-          {
-            id: "requestedDate",
-            desc: true,
-          },
-        ],
+        initialState: sortInitialState,
       }}
       pagination={{
         internal: false,
