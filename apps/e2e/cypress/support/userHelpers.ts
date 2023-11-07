@@ -75,7 +75,8 @@ export function addRolesToUser(
     const roleIds = $roles
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
-    cy.updateUser(userId, {
+    cy.updateUserRoles({
+      userId: userId,
       roleAssignmentsInput: {
         attach: {
           roles: roleIds,

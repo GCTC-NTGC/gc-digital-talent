@@ -54,6 +54,7 @@ query getSearchFormDataAcrossAllPools {
   publishedPools {
     id
     owner {
+      id
       email
       firstName
       lastName

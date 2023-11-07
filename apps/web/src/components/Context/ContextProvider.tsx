@@ -8,6 +8,7 @@ import {
   AuthorizationProvider,
 } from "@gc-digital-talent/auth";
 import ClientProvider from "@gc-digital-talent/client";
+import { FeatureFlagProvider } from "@gc-digital-talent/env";
 import {
   LanguageProvider,
   LocaleProvider,
@@ -22,25 +23,27 @@ interface ContextContainerProps {
 }
 
 const ContextContainer = ({ messages, children }: ContextContainerProps) => (
-  <HelmetProvider>
-    <LocaleProvider>
-      <AuthenticationProvider>
-        <LanguageProvider messages={messages}>
-          <ThemeProvider>
-            <ClientProvider>
-              <AppInsightsProvider>
-                <AuthorizationProvider>
-                  <MotionConfig reducedMotion="user">
-                    <Announcer>{children}</Announcer>
-                  </MotionConfig>
-                </AuthorizationProvider>
-              </AppInsightsProvider>
-            </ClientProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </AuthenticationProvider>
-    </LocaleProvider>
-  </HelmetProvider>
+  <FeatureFlagProvider>
+    <HelmetProvider>
+      <LocaleProvider>
+        <AuthenticationProvider>
+          <LanguageProvider messages={messages}>
+            <ThemeProvider>
+              <ClientProvider>
+                <AppInsightsProvider>
+                  <AuthorizationProvider>
+                    <MotionConfig reducedMotion="user">
+                      <Announcer>{children}</Announcer>
+                    </MotionConfig>
+                  </AuthorizationProvider>
+                </AppInsightsProvider>
+              </ClientProvider>
+            </ThemeProvider>
+          </LanguageProvider>
+        </AuthenticationProvider>
+      </LocaleProvider>
+    </HelmetProvider>
+  </FeatureFlagProvider>
 );
 
 export default ContextContainer;

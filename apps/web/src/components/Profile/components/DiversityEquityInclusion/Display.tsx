@@ -7,7 +7,7 @@ import {
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import CommunityIcon from "./CommunityIcon";
 

@@ -43,6 +43,12 @@ const ImproveBehaviouralSkills = ({
 
   const pageId = "improve-behavioural-skills";
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "3 behavioural skills you'd like to improve",
+    description: "Page title for the improve behavioural skills page",
+    id: "6+TjHb",
+  });
+
   const crumbs = [
     {
       label: intl.formatMessage({
@@ -69,19 +75,10 @@ const ImproveBehaviouralSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "3 behavioural skills you'd like to improve",
-        id: "WlNgZ3",
-      }),
+      label: pageTitle,
       url: paths.improveBehaviouralSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "3 behavioural skills you'd like to improve",
-    description: "Page title for the improve behavioural skills page",
-    id: "6+TjHb",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:
