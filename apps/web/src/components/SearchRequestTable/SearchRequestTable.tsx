@@ -130,6 +130,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor("jobTitle", {
       id: "jobTitle",
       header: intl.formatMessage(adminMessages.jobTitle),
+      meta: {
+        isRowTitle: true,
+      },
       cell: ({ row: { original: searchRequest }, getValue }) =>
         cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
     }),
@@ -151,6 +154,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         cell: ({ row: { original: pool } }) =>
           classificationsCell(
             pool.applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+            intl,
           ),
       },
     ),

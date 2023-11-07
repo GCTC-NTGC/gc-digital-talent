@@ -11,7 +11,10 @@ import {
 import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getPoolCandidateSearchStatus } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
 
 export function classificationAccessor(
   classifications: Maybe<Maybe<Classification>[]>,
@@ -24,6 +27,7 @@ export function classificationAccessor(
 
 export function classificationsCell(
   classifications: Maybe<Maybe<Classification>[]>,
+  intl: IntlShape,
 ) {
   const filteredClassifications = classifications
     ? classifications.filter(notEmpty)
@@ -39,7 +43,11 @@ export function classificationsCell(
       </Pill>
     );
   });
-  return pillsArray.length > 0 ? <span>{pillsArray}</span> : null;
+  return pillsArray.length > 0 ? (
+    <span>{pillsArray}</span>
+  ) : (
+    intl.formatMessage(commonMessages.notProvided)
+  );
 }
 
 export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
