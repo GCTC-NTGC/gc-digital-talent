@@ -8,19 +8,19 @@ import { Link, Pending } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
-import iapHeroImg from "~/assets/img/iap-hero.jpg";
+import iapHeroImg from "~/assets/img/iap-hero.webp";
 import logoImg from "~/assets/img/iap-logo.svg";
-import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
-import feathers from "~/assets/img/feathers.png";
-import manOnComputer from "~/assets/img/man-on-computer.jpg";
-import gloves from "~/assets/img/gloves.png";
+import womanSmiling from "~/assets/img/indigenous-woman-smiling.webp";
+import feathers from "~/assets/img/feathers.webp";
+import manOnComputer from "~/assets/img/man-on-computer.webp";
+import gloves from "~/assets/img/gloves.webp";
 import applicant from "~/assets/img/applicant.webp";
 import ulu from "~/assets/img/ulu.png";
 import quoteBg from "~/assets/img/quote-bg.jpg";
 import sash from "~/assets/img/sash.jpg";
-import lowerBack from "~/assets/img/lower-back.jpg";
+import lowerBack from "~/assets/img/lower-back.webp";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
-import indigenousWoman from "~/assets/img/indigenous-woman.png";
+import indigenousWoman from "~/assets/img/indigenous-woman.webp";
 import {
   useIapPublishedPoolsQuery,
   PublishingGroup,
