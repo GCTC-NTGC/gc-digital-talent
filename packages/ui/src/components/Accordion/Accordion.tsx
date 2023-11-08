@@ -40,7 +40,7 @@ const Root = React.forwardRef<
         }
       : {
           "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.3)
           `,
         };
@@ -67,7 +67,7 @@ const Root = React.forwardRef<
           }
         : {
             "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
               base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.25)
           `,
           };
@@ -95,7 +95,7 @@ const Root = React.forwardRef<
           }
         : {
             "data-h2-padding": `
-          base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+          base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
           base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.45)
       `,
           };

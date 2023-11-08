@@ -247,7 +247,7 @@ const DirectivePage = () => {
             })}
           </Heading>
           <div>
-            <Accordion.Root type="multiple">
+            <Accordion.Root type="multiple" mode="card">
               <Accordion.Item value="planning-reporting">
                 <Accordion.Trigger as="h3">
                   {intl.formatMessage({

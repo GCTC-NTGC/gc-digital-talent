@@ -75,6 +75,7 @@ const DiversityEquityInclusion = ({
       </ul>
       <Accordion.Root
         type="single"
+        size="sm"
         value={accordionOpen}
         onValueChange={(value: AccordionItems) => setAccordionOpen(value)}
         collapsible

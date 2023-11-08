@@ -62,6 +62,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
       </Heading>
       <Accordion.Root
         type="multiple"
+        size="sm"
         value={currentAccordionItems}
         onValueChange={(value: AccordionItems) =>
           setCurrentAccordionItems(value)

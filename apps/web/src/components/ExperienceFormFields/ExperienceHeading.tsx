@@ -76,6 +76,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
           </p>
           <Accordion.Root
             type="single"
+            size="sm"
             value={accordionState}
             onValueChange={(value: AccordionStates) => setAccordionState(value)}
             collapsible

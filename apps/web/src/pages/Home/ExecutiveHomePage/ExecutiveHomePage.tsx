@@ -355,7 +355,12 @@ export const HomePage = ({ pools }: HomePageProps) => {
             description: "Heading for EXposition services",
           })}
         </Heading>
-        <Accordion.Root type="single" collapsible data-h2-margin="base(x1 0)">
+        <Accordion.Root
+          type="single"
+          mode="card"
+          collapsible
+          data-h2-margin="base(x1 0)"
+        >
           <Accordion.Item value="digital-community-support">
             <Accordion.Trigger as="h4">
               {intl.formatMessage({
