@@ -115,8 +115,8 @@ const Content = React.forwardRef<
     <div
       id={context?.contentId}
       ref={forwardedRef}
-      data-h2-background="base(white) base:dark(black)"
-      data-h2-color="base(black) base:dark(white)"
+      data-h2-background="base(foreground)"
+      data-h2-color="base(black)"
       data-h2-padding="base(x1)"
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(m)"
