@@ -172,8 +172,9 @@ const Actions = ({
       data-h2-padding="base(x1)"
       data-h2-background-color="base(black)"
       data-h2-color="base(white)"
-      data-h2-position="base(relative)"
+      data-h2-position="base(sticky)"
       data-h2-justify-content="base(space-between)"
+      data-h2-left="base(0)"
     >
       <Column>
         {isLoading ? (
