@@ -183,7 +183,7 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
     action("onRowSelection")(rows);
     setLoading(true);
     await mockApi(rows)
-      .then((res) => {
+      .then(() => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })

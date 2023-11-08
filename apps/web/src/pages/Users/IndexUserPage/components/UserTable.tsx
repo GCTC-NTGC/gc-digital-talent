@@ -244,7 +244,6 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
   ] as ColumnDef<User>[];
 
-  console.log({ paginationState, initialState });
   const [{ data, fetching }] = useAllUsersPaginatedQuery({
     variables: {
       where: transformUserInput(
