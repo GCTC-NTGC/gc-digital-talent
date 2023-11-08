@@ -42,9 +42,7 @@ describe("Admin Workflow Tests", () => {
 
     searchForUser("Applicant", "applicant@test.com");
 
-    cy.findByRole("table")
-      .findByRole("row", { name: /applicant test/i })
-      .findByRole("link", { name: /view applicant test/i })
+    cy.findByRole("link", { name: /view applicant test/i })
       .should("exist")
       .and("be.visible")
       .click();
