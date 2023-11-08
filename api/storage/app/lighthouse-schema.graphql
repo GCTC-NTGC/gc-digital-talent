@@ -1165,7 +1165,6 @@ input UpdatePoolInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-  sortOrder: Int
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
