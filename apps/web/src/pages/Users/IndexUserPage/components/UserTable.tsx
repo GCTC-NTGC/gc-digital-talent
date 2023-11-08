@@ -19,7 +19,9 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLanguage } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
@@ -71,6 +73,8 @@ interface UserTableProps {
   title: React.ReactNode;
 }
 
+const initialState = getTableStateFromSearchParams(defaultState);
+
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -82,17 +86,21 @@ const UserTable = ({ title }: UserTableProps) => {
   );
   const filterRef = React.useRef<UserFilterInput | undefined>(initialFilters);
   const [paginationState, setPaginationState] = React.useState<PaginationState>(
-    INITIAL_STATE.paginationState,
+    initialState.paginationState
+      ? {
+          ...initialState.paginationState,
+          pageIndex: initialState.paginationState.pageIndex + 1,
+        }
+      : INITIAL_STATE.paginationState,
   );
-  const { selectedRows, setSelectedRows, hasSelected } = useSelectedRows<User>(
-    [],
-  );
+  const { selectedRows, setSelectedRows, hasSelected } =
+    useSelectedRows<string>([]);
   const [searchState, setSearchState] = React.useState<SearchState>(
-    INITIAL_STATE.searchState,
+    initialState.searchState ?? INITIAL_STATE.searchState,
   );
-  const [sortState, setSortState] = React.useState<SortingState | undefined>([
-    { id: "createdDate", desc: false },
-  ]);
+  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+    initialState.sortState ?? [{ id: "createdDate", desc: false }],
+  );
   const [filterState, setFilterState] =
     React.useState<UserFilterInput>(initialFilters);
 
@@ -236,6 +244,7 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
   ] as ColumnDef<User>[];
 
+  console.log({ paginationState, initialState });
   const [{ data, fetching }] = useAllUsersPaginatedQuery({
     variables: {
       where: transformUserInput(
@@ -245,7 +254,7 @@ const UserTable = ({ title }: UserTableProps) => {
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: searchState
+      orderBy: sortState
         ? transformSortStateToOrderByClause(sortState)
         : undefined,
     },
@@ -256,7 +265,6 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const selectedApplicantIds = selectedRows.map((user) => user.id);
   const [
     {
       data: selectedUsersData,
@@ -265,7 +273,7 @@ const UserTable = ({ title }: UserTableProps) => {
     },
   ] = useSelectedUsersQuery({
     variables: {
-      ids: selectedApplicantIds,
+      ids: selectedRows,
     },
     pause: !hasSelected,
   });

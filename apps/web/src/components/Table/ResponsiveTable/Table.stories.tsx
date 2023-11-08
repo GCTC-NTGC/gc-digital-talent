@@ -131,6 +131,7 @@ Empty.args = {
 export const RowSelection = Template.bind({});
 RowSelection.args = {
   rowSelect: {
+    getRowId: (row) => row.id,
     onRowSelection: (rows) => action("onRowSelection")(rows),
     cell: rowSelectCell,
   },
@@ -178,12 +179,13 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       .finally(() => setLoading(false));
   };
 
-  const handleRowSelection = async (rows: User[]) => {
+  const handleRowSelection = async (rows: string[]) => {
     action("onRowSelection")(rows);
     setLoading(true);
     await mockApi(rows)
       .then((res) => {
-        setRowSelection(res);
+        const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
+        setRowSelection(newSelection);
       })
       .finally(() => setLoading(false));
   };
@@ -213,6 +215,7 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       isLoading={isLoading}
       data={filteredData}
       rowSelect={{
+        getRowId: (row) => row.id,
         onRowSelection: handleRowSelection,
         cell: rowSelectCell,
       }}

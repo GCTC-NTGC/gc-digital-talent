@@ -373,7 +373,6 @@ type UseRowSelectionReturn = [
 ];
 
 export const useRowSelection = <T,>(
-  data: T[],
   rowSelect?: RowSelectDef<T>,
 ): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
@@ -381,16 +380,16 @@ export const useRowSelection = <T,>(
   const rowSelectionCallback = React.useCallback(
     (newRowSelection: RowSelectionState) => {
       if (rowSelect?.onRowSelection) {
-        const selectedRows = Object.values(newRowSelection)
-          .map((value, index) => {
-            return value ? data[index] : undefined;
+        const selectedRows = Object.keys(newRowSelection)
+          .map((value) => {
+            return newRowSelection[value] ? value : undefined;
           })
           .filter(notEmpty);
 
         rowSelect.onRowSelection(selectedRows);
       }
     },
-    [data, rowSelect],
+    [rowSelect],
   );
 
   const handleRowSelection = (
