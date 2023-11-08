@@ -503,6 +503,10 @@
     "defaultMessage": "PAPA",
     "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
   },
+  "I6ztce": {
+    "defaultMessage": "Intérêt général",
+    "description": "Option for searching candidates for interest only"
+  },
   "IANM2P": {
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
@@ -550,6 +554,10 @@
   "Jpq6MK": {
     "defaultMessage": "Région de Québec (excluant Gatineau)",
     "description": "The work region of Canada described as Quebec."
+  },
+  "K/npC7": {
+    "defaultMessage": "Pour les besoins à venir (la classification ou le financement n’a pas encore été mis(e) en place",
+    "description": "Option for searching candidates for an upcoming staffing need"
   },
   "K80psp": {
     "defaultMessage": "Autre",
@@ -1198,6 +1206,14 @@
   "h3lIyO": {
     "defaultMessage": "Français",
     "description": "The language French."
+  },
+  "h6da9P": {
+    "defaultMessage": "Recherche une embauche immédiate (approbation, poste ou financement en place) ",
+    "description": "Option for searching candidates for an immediate hire"
+  },
+  "hMHSRw": {
+    "defaultMessage": "Nécessaire en vertu de la Directive sur les talents numériques (recherche de talent précontractuel pour le questionnaire sur l’établissement de contrats pour des services numériques)",
+    "description": "Option for searching candidates because it was required by the directive"
   },
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",

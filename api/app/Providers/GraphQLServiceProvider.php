@@ -48,6 +48,7 @@ use App\Enums\Language;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
@@ -307,6 +308,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PoolCandidateSearchPositionType',
                     'values' => array_column(PoolCandidateSearchPositionType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolCandidateSearchRequestReason',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolCandidateSearchRequestReason',
+                    'values' => array_column(PoolCandidateSearchRequestReason::cases(), 'name'),
                 ]);
             }
         );
