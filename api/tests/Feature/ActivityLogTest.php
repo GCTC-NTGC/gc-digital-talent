@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Department;
 use App\Models\Pool;
@@ -200,6 +201,7 @@ class ActivityLogTest extends TestCase
                     'jobTitle' => 'CEO',
                     'managerJobTitle' => 'Manager',
                     'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
+                    'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
                     'applicantFilter' => [
                         'create' => [
                             'hasDiploma' => true,
