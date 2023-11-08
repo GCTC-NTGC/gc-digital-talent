@@ -101,7 +101,13 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <Heading
+        size="h2"
+        data-h2-font-weight="base(400)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
+        {pageInfo.title}
+      </Heading>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage(
           {
@@ -143,7 +149,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
       </p>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base(gray)"
         data-h2-margin="base(x2, 0)"
         decorative
       />

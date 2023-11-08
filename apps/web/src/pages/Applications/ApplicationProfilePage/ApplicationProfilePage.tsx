@@ -101,7 +101,13 @@ export const ApplicationProfile = ({
 
   return (
     <ProfileFormProvider>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <Heading
+        size="h2"
+        data-h2-font-weight="base(400)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
+        {pageInfo.title}
+      </Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:
@@ -114,7 +120,7 @@ export const ApplicationProfile = ({
         data-h2-margin="base(x2, 0)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1, 0)"
+        data-h2-gap="base(x2, 0)"
       >
         <PersonalInformation {...sectionProps} />
         <WorkPreferences {...sectionProps} />
@@ -124,7 +130,7 @@ export const ApplicationProfile = ({
       </div>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base(gray)"
         data-h2-margin="base(x2, 0)"
         decorative
       />
