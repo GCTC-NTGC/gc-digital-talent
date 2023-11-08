@@ -23,7 +23,7 @@ const Profile = () => {
       <p
         data-h2-font-size="base(h6, 1.4)"
         data-h2-font-weight="base(300)"
-        data-h2-color="base(white)"
+        data-h2-color="base:all(white)"
         data-h2-margin="base(0, 0, x2, 0)"
         data-h2-max-width="p-tablet(50%)"
         data-h2-text-align="base(center) p-tablet(left)"

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Models\ApplicantFilter;
 use App\Models\Department;
@@ -40,6 +41,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'request_status_changed_at' => $this->faker->boolean() ? $this->faker->dateTimeBetween($startDate = '-1 months', $endDate = 'now') : null,
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->faker->randomElement(PoolCandidateSearchPositionType::cases())->name,
+            'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
         ];
     }
 

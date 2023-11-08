@@ -53,7 +53,7 @@ export const SupportPage = () => {
       <div
         data-h2-position="base(relative)"
         data-h2-padding="base(x4, 0)"
-        data-h2-background-color="base(black.03) base:dark(black.90)"
+        data-h2-background-color="base(background)"
       >
         <img
           alt=""
@@ -68,7 +68,7 @@ export const SupportPage = () => {
             data-h2-padding="base(x2)"
             data-h2-radius="base(rounded)"
             data-h2-shadow="base(large)"
-            data-h2-background-color="base(white)"
+            data-h2-background-color="base(foreground)"
           >
             <SupportForm />
           </div>

@@ -116,8 +116,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
       />
 
       <div
-        data-h2-background-color="base(black.03) base:dark(black.90)"
-        data-h2-color="base(black) base:dark(white)"
+        data-h2-background-color="base(background)"
+        data-h2-color="base(black)"
         data-h2-border-bottom="base(1px solid black.50)"
         data-h2-position="base(relative)"
       >
@@ -208,7 +208,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
         />
       </div>
       <div
-        data-h2-background-color="base:dark(black.light)"
+        data-h2-background-color="base(white) base:dark(white)"
         data-h2-color="base(black) base:dark(white)"
         data-h2-padding="base(x3, 0) p-tablet(x4, 0) l-tablet(x6, 0)"
       >
