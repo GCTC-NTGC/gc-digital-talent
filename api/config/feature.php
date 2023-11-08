@@ -35,7 +35,7 @@ return [
     |
     */
 
-    'status_notifications' => (bool) env('FEATURE_DIRECTIVE_FORMS', false),
+    'directive_forms' => (bool) env('FEATURE_DIRECTIVE_FORMS', false),
 
     /*
     |--------------------------------------------------------------------------
