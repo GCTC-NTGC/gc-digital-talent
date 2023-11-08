@@ -309,6 +309,7 @@ const UserTable = ({ title }: UserTableProps) => {
       ]}
       rowSelect={{
         onRowSelection: setSelectedRows,
+        getRowId: (row) => row.id,
         cell: ({ row }) =>
           rowSelectCell({
             row,

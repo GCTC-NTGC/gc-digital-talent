@@ -136,6 +136,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       ...state,
       rowSelection,
     },
+    getRowId: rowSelect?.getRowId,
     autoResetPageIndex: false,
     enableGlobalFilter: isInternalSearch,
     enableRowSelection: !!rowSelect,
@@ -293,9 +294,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     }
   }, [sortingState, sort?.onSortChange, sort]);
 
-  React.useEffect(() => {
-    table.resetRowSelection();
-  }, [data, table]);
+  // React.useEffect(() => {
+  //   table.resetRowSelection();
+  // }, [data, table]);
 
   const hasNoData = !isLoading && (!data || data.length === 0);
   const hasNoVisibleRows = !isLoading && table.getRowModel().rows.length <= 0;
