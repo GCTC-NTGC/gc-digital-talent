@@ -18,9 +18,9 @@ import FlourishContainer from "~/components/FlourishContainer/FlourishContainer"
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import managerHero from "~/assets/img/manager-hero.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
-import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.jpg";
-import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.jpg";
-import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.jpg";
+import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
+import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
+import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const HomePage = () => {

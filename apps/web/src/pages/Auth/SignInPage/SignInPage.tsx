@@ -14,10 +14,10 @@ import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import step1Image from "~/assets/img/sign-in-steps-1.jpg";
-import step2Image from "~/assets/img/sign-in-steps-2.jpg";
-import step3Image from "~/assets/img/sign-in-steps-3.jpg";
-import step4Image from "~/assets/img/sign-in-steps-4.jpg";
+import step1Image from "~/assets/img/sign-in-steps-1.webp";
+import step2Image from "~/assets/img/sign-in-steps-2.webp";
+import step3Image from "~/assets/img/sign-in-steps-3.webp";
+import step4Image from "~/assets/img/sign-in-steps-4.webp";
 import Instructions from "~/components/Instructions";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
