@@ -223,7 +223,7 @@ const HomePage = () => {
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
-          data-h2-color="base(white)"
+          data-h2-color="base:all(white)"
           data-h2-margin="base(0, 0, x2, 0)"
           data-h2-max-width="p-tablet(50%)"
         >
@@ -270,7 +270,7 @@ const HomePage = () => {
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="base(1fr) p-tablet(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1) p-tablet(x2)"
+          data-h2-gap="base(x1)"
           data-h2-padding="base(x2, 0, 0, 0)"
         >
           <FeatureBlock
