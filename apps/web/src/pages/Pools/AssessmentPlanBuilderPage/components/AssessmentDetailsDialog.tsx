@@ -17,6 +17,7 @@ import {
   Checklist,
   CheckboxOption,
   Option,
+  Field,
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
@@ -654,6 +655,17 @@ const AssessmentDetailsDialog = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                 />
+                {!assessedSkillsItems.length ? (
+                  <Field.Error>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "There are no skills selected. Please use the 'Advertisement information' page to add some skills.",
+                      id: "aZUxFF",
+                      description:
+                        "Error message when there aren't any skills to select",
+                    })}
+                  </Field.Error>
+                ) : null}
               </div>
             </form>
           </FormProvider>
