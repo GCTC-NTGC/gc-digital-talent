@@ -71,7 +71,8 @@ const TopTechnicalSkills = ({
     {
       label: intl.formatMessage({
         defaultMessage: "Top 10 technical skills",
-        id: "v1Ya0+",
+        id: "Aymigb",
+        description: "Title for the top 10 technical skills page",
       }),
       url: paths.topTechnicalSkills(),
     },

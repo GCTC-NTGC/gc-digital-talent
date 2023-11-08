@@ -108,6 +108,13 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
           base:focus-visible:all(focus)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-border-color": `
+          base:all(gray.darkest)
+          base:all:focus-visible(focus)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-border-color": `
@@ -223,11 +230,27 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
           base:all:focus-visible(black)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-border-color": `
+          base:all(gray.darkest)
+          base:all:hover(black)
+          base:all:focus-visible(black)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-border-color": `
           base(gray.lightest)
           base:hover(white)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-border-color": `
+          base:all(gray.lightest)
+          base:all:hover(white)
           base:all:focus-visible(black)`,
       };
     }
@@ -288,9 +311,19 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
         "data-h2-border-color": "base(transparent)",
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-border-color": "base:all(transparent)",
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-border-color": "base(transparent)",
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-border-color": "base:all(transparent)",
       };
     }
   }
@@ -413,6 +446,15 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
           base:children[>span:last-child](foreground)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-border-color": `
+          base:all:children[>span:first-child](gray.darkest)
+          base:all:focus-visible:children[>span:first-child](focus)
+
+          base:all:children[>span:last-child](foreground)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-border-color": `
@@ -420,6 +462,15 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
           base:all:focus-visible:children[>span:first-child](focus)
 
           base:children[>span:last-child](foreground)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-border-color": `
+          base:all:children[>span:first-child](gray.lightest)
+          base:all:focus-visible:children[>span:first-child](focus)
+
+          base:all:children[>span:last-child](foreground)`,
       };
     }
   }

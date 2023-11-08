@@ -14,7 +14,7 @@ const Text = (props: TextProps) => (
 
 const RequirementCard = (props: React.HTMLProps<HTMLDivElement>) => (
   <div
-    data-h2-background-color="base(white)"
+    data-h2-background-color="base(foreground)"
     data-h2-radius="base(rounded)"
     data-h2-padding="base(x1.25)"
     data-h2-shadow="base(s)"
@@ -89,7 +89,8 @@ const EducationRequirements = ({
       </RequirementCard>
       <span
         aria-hidden="true"
-        data-h2-background-color="base(white)"
+        data-h2-background-color="base(secondary)"
+        data-h2-color="base:all(black)"
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(center)"

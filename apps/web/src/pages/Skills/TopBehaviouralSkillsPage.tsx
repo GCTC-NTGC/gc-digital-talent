@@ -43,6 +43,12 @@ const TopBehaviouralSkills = ({
 
   const pageId = "top-behavioural-skills";
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Your top 5 behavioural skills",
+    description: "Page title for the top behavioural skills page",
+    id: "6IitrN",
+  });
+
   const crumbs = [
     {
       label: intl.formatMessage({
@@ -69,19 +75,10 @@ const TopBehaviouralSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Top 5 behavioural skills",
-        id: "XmYbWb",
-      }),
+      label: pageTitle,
       url: paths.topBehaviouralSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Your top 5 behavioural skills",
-    description: "Page title for the top behavioural skills page",
-    id: "6IitrN",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

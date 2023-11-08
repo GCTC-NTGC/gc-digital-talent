@@ -64,6 +64,7 @@ module.exports = {
         idWhitelist: ["\\."],
       },
     ],
+    "formatjs/enforce-description": ["error", "literal"],
     camelcase: "warn",
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
@@ -74,20 +75,27 @@ module.exports = {
       "error",
       {
         "newlines-between": "always",
-        "distinctGroup": false,
-        groups: ["builtin", "external", "unknown", "internal", ["parent", "sibling"], "index"],
+        distinctGroup: false,
+        groups: [
+          "builtin",
+          "external",
+          "unknown",
+          "internal",
+          ["parent", "sibling"],
+          "index",
+        ],
         pathGroups: [
           {
-            "pattern": "@gc-digital-talent/**",
-            "group": "unknown",
+            pattern: "@gc-digital-talent/**",
+            group: "unknown",
           },
           {
-            "pattern": "~/**",
-            "group": "internal"
-          }
+            pattern: "~/**",
+            group: "internal",
+          },
         ],
-        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"]
-      }
+        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"],
+      },
     ],
     "react/display-name": "off",
     "react/prop-types": "off",

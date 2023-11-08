@@ -103,7 +103,8 @@ function TableFooter({
               activeColor="white"
               ariaLabel={intl.formatMessage({
                 defaultMessage: "Table results",
-                id: "hlcd+5",
+                id: "XV4LKY",
+                description: "Aria label for pagination",
               })}
             />
           </div>

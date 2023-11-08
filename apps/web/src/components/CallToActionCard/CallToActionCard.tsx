@@ -24,8 +24,8 @@ const CallToActionCard = ({
   ...rest
 }: CallToActionCardProps) => (
   <div
-    data-h2-background-color="base(white) base:dark(black.light)"
-    data-h2-color="base(black) base:dark(white)"
+    data-h2-background-color="base(foreground)"
+    data-h2-color="base(black)"
     data-h2-shadow="base(large)"
     data-h2-padding="base(x1)"
     data-h2-radius="base(rounded)"

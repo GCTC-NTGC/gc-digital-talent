@@ -31,6 +31,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  * @property Illuminate\Support\Carbon $request_status_changed_at
+ * @property string $reason
  */
 class PoolCandidateSearchRequest extends Model
 {

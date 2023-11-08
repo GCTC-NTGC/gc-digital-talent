@@ -58,6 +58,7 @@ const TrackApplicationsCard = ({
   const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
   return (
     <div
+      data-h2-background-color="base(foreground)"
       data-h2-border-left="base(x.5 solid primary)"
       data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
