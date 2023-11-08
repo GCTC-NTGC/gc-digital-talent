@@ -28,11 +28,22 @@ const Root = React.forwardRef<
       "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1.5)",
     "data-h2-font-size":
       "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h6, 1)",
-    "data-h2-padding": `
-      base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-      base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
-   `,
   };
+
+  let paddingStyles: Record<string, string> =
+    mode === "card"
+      ? {
+          "data-h2-padding": `
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
+          `,
+        }
+      : {
+          "data-h2-padding": `
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.3)
+          `,
+        };
 
   if (size === "sm") {
     baseStyles = {
@@ -44,11 +55,22 @@ const Root = React.forwardRef<
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
       "data-h2-font-size":
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](body, 1)",
-      "data-h2-padding": `
+    };
+
+    paddingStyles =
+      mode === "card"
+        ? {
+            "data-h2-padding": `
         base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
         base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
-     `,
-    };
+          `,
+          }
+        : {
+            "data-h2-padding": `
+              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.25)
+          `,
+          };
   }
 
   if (size === "lg") {
@@ -61,11 +83,22 @@ const Root = React.forwardRef<
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
       "data-h2-font-size":
         "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h5, 1)",
-      "data-h2-padding": `
-         base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-         base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
-      `,
     };
+
+    paddingStyles =
+      mode === "card"
+        ? {
+            "data-h2-padding": `
+        base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
+        base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
+      `,
+          }
+        : {
+            "data-h2-padding": `
+          base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1 0)
+          base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.45)
+      `,
+          };
   }
 
   if (mode === "card") {
@@ -86,11 +119,8 @@ const Root = React.forwardRef<
       ref={forwardedRef}
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      {...(mode !== "card" && {
-        "data-h2-margin":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](0 -x1)",
-      })}
       {...baseStyles}
+      {...paddingStyles}
       {...rest}
     />
   );
