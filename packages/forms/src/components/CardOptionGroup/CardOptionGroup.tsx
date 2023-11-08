@@ -169,7 +169,13 @@ const CardOptionGroup = ({
         aria-describedby={ariaDescribedBy}
         {...rest}
       >
-        <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
+        <Field.Legend
+          required={!!rules.required}
+          data-h2-color="base(black)"
+          data-h2-margin-bottom="base(x.5)"
+        >
+          {legend}
+        </Field.Legend>
         {items.map(
           ({
             value,
@@ -212,6 +218,7 @@ const CardOptionGroup = ({
                   data-h2-margin-bottom="base(x.25)"
                   htmlFor={id}
                   data-h2-cursor="base(pointer)"
+                  data-h2-color="base(black)"
                 >
                   <Icon data-h2-height="base(x1)" data-h2-width="base(x1)" />
                   <span>{label}</span>
