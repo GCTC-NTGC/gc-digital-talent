@@ -508,7 +508,8 @@ const ApplicationReview = ({
                 >
                   {intl.formatMessage({
                     defaultMessage: "Submit my application",
-                    id: "bO9PB4",
+                    id: "yKr1Ji",
+                    description: "Label for submitting an application",
                   })}
                 </Button>
                 <Link mode="inline" href={cancelPath}>

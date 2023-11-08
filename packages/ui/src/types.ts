@@ -8,7 +8,9 @@ export type Color =
   | "warning"
   | "error"
   | "black"
-  | "white";
+  | "blackFixed"
+  | "white"
+  | "whiteFixed";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 

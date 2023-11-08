@@ -98,7 +98,13 @@ const DiversityEquityInclusion = ({
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x0.5)">
+            <Separator
+              orientation="horizontal"
+              decorative
+              data-h2-background-color="base:all(gray.lighter)"
+              data-h2-margin="base(x1, 0, x1, 0)"
+            />
+            <p data-h2-padding-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
                   "While the language around these categories is in need of updating, the Government of Canada will sometimes use these categories in hiring to make sure that it is meeting the aims of employment equity.",

@@ -244,6 +244,39 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   }
 }
 
+mutation UpdateUserSub($updateUserSubInput: UpdateUserSubInput!) {
+  updateUserSub(updateUserSubInput: $updateUserSubInput) {
+    id
+    sub
+  }
+}
+
+mutation UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+  updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+    id
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        isTeamBased
+        displayName {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+}
+
 mutation DeleteUser($id: ID!) {
   deleteUser(id: $id) {
     id

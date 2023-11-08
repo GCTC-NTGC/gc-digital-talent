@@ -23,14 +23,14 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-background-color="base(white) base:dark(black.lighter)"
+      data-h2-background-color="base(foreground)"
       data-h2-radius="base(rounded)"
       data-h2-overflow="base(hidden)"
       data-h2-shadow="base(large)"
     >
       <div
-        data-h2-color="base(white)"
-        data-h2-background-color="base(black.darker)"
+        data-h2-color="base:all(white)"
+        data-h2-background-color="base:all(black.darker)"
         data-h2-padding="base(x1)"
       >
         <Heading

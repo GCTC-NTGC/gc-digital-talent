@@ -129,7 +129,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               />
               <div
                 data-h2-text-align="base(center) p-tablet(left)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
               >
                 <h1
                   data-h2-font-size="base(h3, 1.2)"
@@ -197,8 +197,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-radius="base(100rem)"
                         data-h2-height="base(x8)"
                         data-h2-width="base(x8)"
-                        data-h2-background-color="base(primary)"
-                        data-h2-opacity="base(10%)"
+                        data-h2-background-color="base(primary.1) base:dark(primary.light.3)"
                         data-h2-position="base(absolute)"
                         data-h2-location="base(-x1.5, -x1, auto, auto)"
                       />
@@ -206,8 +205,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-radius="base(100rem)"
                         data-h2-height="base(x15)"
                         data-h2-width="base(x15)"
-                        data-h2-background-color="base(secondary)"
-                        data-h2-opacity="base(10%)"
+                        data-h2-background-color="base(secondary.1) base:dark(secondary.light.3)"
                         data-h2-position="base(absolute)"
                         data-h2-location="base(auto, auto, -x3, -x5.5)"
                       />
@@ -318,10 +316,10 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-position="base(relative)"
                   >
                     <RadiatingCircles
+                      data-h2-color="base(secondary.light.5) base:dark(secondary.light)"
                       data-h2-position="base(absolute)"
                       data-h2-width="base(110%)"
                       data-h2-location="base(-x2, -x12, auto, auto)"
-                      data-h2-opacity="base(20%)"
                     />
                     <img
                       src={manOnComputer}
@@ -435,7 +433,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                     <Triangle
                       data-h2-position="base(absolute)"
                       data-h2-width="base(120%)"
-                      data-h2-color="base(secondary)"
+                      data-h2-color="base(secondary) base:dark(secondary.light)"
                       data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                     />
                     <img
@@ -553,7 +551,7 @@ export const Home = ({ latestPool }: HomeProps) => {
           <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
-              data-h2-color="base(white)"
+              data-h2-color="base:all(white)"
               data-h2-text-align="base(center)"
             >
               {intl.formatMessage({
@@ -615,7 +613,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                   >
                     <Heading
                       light
-                      data-h2-color="base(white)"
+                      data-h2-color="base:all(white)"
                       data-h2-font-size="base(h3, 1)"
                     >
                       <span data-h2-display="base(block)">
@@ -634,7 +632,10 @@ export const Home = ({ latestPool }: HomeProps) => {
                         })}
                       </span>
                     </Heading>
-                    <p data-h2-color="base(white)" data-h2-margin="base(x1, 0)">
+                    <p
+                      data-h2-color="base:all(white)"
+                      data-h2-margin="base(x1, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage:
                           "Apply today to start your journey to a career in Information Technology.",
@@ -687,7 +688,10 @@ export const Home = ({ latestPool }: HomeProps) => {
               data-h2-margin="base(0, 0, x3, 0)"
             >
               <Banner>
-                <Heading color="white" data-h2-font-size="base(h3)">
+                <Heading
+                  data-h2-color="base:all(white)"
+                  data-h2-font-size="base(h3)"
+                >
                   {intl.formatMessage({
                     defaultMessage: "Coming Soon!",
                     id: "q5FQbu",
@@ -697,7 +701,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Banner>
               <Heading
                 light
-                color="white"
+                data-h2-color="base:all(white)"
                 data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
               >
                 {intl.formatMessage({
@@ -707,7 +711,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading as="h3" color="white">
+              <Heading as="h3" data-h2-color="base:all(white)">
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -717,7 +721,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Heading>
               <p
                 data-h2-margin="base(x1, auto, 0, auto)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
                 data-h2-max-width="base(38rem)"
               >
                 {intl.formatMessage({
@@ -814,7 +818,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading as="h3" color="white">
+              <Heading as="h3" data-h2-color="base:all(white)">
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",
@@ -824,7 +828,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Heading>
               <p
                 data-h2-margin="base(x1, auto, 0, auto)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
                 data-h2-max-width="base(38rem)"
               >
                 {intl.formatMessage({
@@ -956,9 +960,9 @@ export const Home = ({ latestPool }: HomeProps) => {
                   >
                     <div
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
-                      data-h2-color="base(white)"
+                      data-h2-color="base:all(white)"
                     >
-                      <Heading color="white" light>
+                      <Heading data-h2-color="base:all(white)" light>
                         {intl.formatMessage({
                           defaultMessage: "About the Indigenous Talent Portal",
                           id: "loDwKe",

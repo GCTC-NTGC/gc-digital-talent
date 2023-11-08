@@ -790,16 +790,6 @@ type Query {
     @deprecated(
       reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659."
     )
-  latestPoolCandidateSearchRequests(
-    limit: Int @limit
-  ): [PoolCandidateSearchRequest]!
-    @all
-    @orderBy(column: "created_at", direction: DESC)
-    @guard
-    @can(ability: "viewAny")
-    @deprecated(
-      reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7655."
-    )
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
@@ -909,7 +899,6 @@ When updating a User, all fields are optional
 input UpdateUserAsAdminInput
   @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
   id: ID
-  sub: String
 
   # Personal info
   email: Email @lowerCase
@@ -972,8 +961,16 @@ input UpdateUserAsAdminInput
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+}
 
-  roleAssignmentsInput: RoleAssignmentHasMany
+input UpdateUserSubInput {
+  userId: UUID! @rename(attribute: "id")
+  sub: String!
+}
+
+input UpdateUserRolesInput {
+  userId: UUID! @rename(attribute: "id")
+  roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
 input UpdateUserAsUserInput
@@ -1513,6 +1510,7 @@ input UpdateApplicationInput {
 }
 
 type Mutation {
+  # User mutations
   createUser(user: CreateUserInput! @spread): User
     @create
     @guard
@@ -1526,6 +1524,14 @@ type Mutation {
     @update
     @guard
     @can(ability: "update", find: "id", injectArgs: true)
+  updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
+    @update(model: "User")
+    @can(ability: "updateSub", model: "User")
+  updateUserRoles(
+    updateUserRolesInput: UpdateUserRolesInput! @spread
+  ): UserAuthInfo
+    @update(model: "User")
+    @can(ability: "updateRoles", model: "User")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
@@ -1534,6 +1540,7 @@ type Mutation {
     @restore
     @guard
     @can(ability: "restore", find: "id")
+
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate

@@ -7,6 +7,8 @@ import {
   GetMeDocument,
   ListRolesDocument,
   UpdateUserAsAdminDocument,
+  UpdateUserRolesMutation,
+  UpdateUserRolesDocument,
 } from "@gc-digital-talent/graphql";
 
 import { getGqlString } from "./graphql-test-utils";
@@ -73,6 +75,19 @@ Cypress.Commands.add("updateUser", (id, user) => {
       },
     },
   }).then((data) => cy.wrap(data.updateUserAsAdmin));
+});
+
+Cypress.Commands.add("updateUserRoles", ({ userId, roleAssignmentsInput }) => {
+  cy.graphqlRequest<UpdateUserRolesMutation>({
+    operationName: "UpdateUserRoles",
+    query: getGqlString(UpdateUserRolesDocument),
+    variables: {
+      updateUserRolesInput: {
+        userId: userId,
+        roleAssignmentsInput: roleAssignmentsInput,
+      },
+    },
+  }).then((data) => cy.wrap(data.updateUserRoles));
 });
 
 Cypress.Commands.add("getMe", () => {

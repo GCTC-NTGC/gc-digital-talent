@@ -159,7 +159,8 @@ export const CreateSkillForm = ({
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
-                    id: "aPqZsz",
+                    id: "3owqTQ",
+                    description: "Description for rule pattern on key field",
                   }),
                 },
               }}

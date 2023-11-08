@@ -177,6 +177,18 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:focus-visible:children[.counter](focus)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-color": `
+          base:all(white)
+          base:all:hover(black)
+          base:all:focus-visible:all(black)
+
+          base:all:children[.counter](gray.darkest)
+          base:all:hover:children[.counter](white)
+          base:all:focus-visible:children[.counter](focus)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-color": `
@@ -187,6 +199,18 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:children[.counter](gray.lightest)
           base:hover:children[.counter](black)
           base:focus-visible:children[.counter](focus)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-color": `
+          base:all(black)
+          base:all:hover(white)
+          base:all:focus-visible(black)
+
+          base:all:children[.counter](gray.lightest)
+          base:all:hover:children[.counter](black)
+          base:all:focus-visible:children[.counter](focus)`,
       };
     }
   }
@@ -333,6 +357,19 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:focus-visible:children[.counter](focus)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-color": `
+          base:all(gray.darkest)
+          base:all:hover(secondary.darker)
+          base:all:focus-visible(black)
+
+          base:all:iap:focus-visible(black)
+
+          base:all:children[.counter](white)
+          base:all:focus-visible:children[.counter](focus)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-color": `
@@ -346,6 +383,20 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
 
           base:children[.counter](black)
           base:focus-visible:children[.counter](focus)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-color": `
+          base:all(gray.lightest)
+          base:all:hover(secondary.lighter)
+          base:all:focus-visible(black)
+
+          base:all:iap:hover(secondary.lightest)
+          base:all:iap:focus-visible(black)
+
+          base:all:children[.counter](black)
+          base:all:focus-visible:children[.counter](focus)`,
       };
     }
   }
@@ -518,6 +569,19 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:all:focus-visible:children[.counter](black)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-color": `
+          base:all(black)
+
+          base:all:children[>span:first-child](white)
+          base:all:hover:children[>span:first-child](black)
+          base:all:focus-visible:children[>span:first-child](black)
+
+          base:all:children[.counter](white)
+          base:all:focus-visible:children[.counter](black)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-color": `
@@ -528,6 +592,19 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:all:focus-visible:children[>span:first-child](black)
 
           base:children[.counter](black)
+          base:all:focus-visible:children[.counter](black)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-color": `
+          base:all(black)
+
+          base:all:children[>span:first-child](black)
+          base:all:hover:children[>span:first-child](white)
+          base:all:focus-visible:children[>span:first-child](black)
+
+          base:all:children[.counter](black)
           base:all:focus-visible:children[.counter](black)`,
       };
     }

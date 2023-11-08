@@ -127,6 +127,18 @@ const h2ChipColors = {
       "data-h2-color": "base(gray.darker)",
     },
   },
+  blackFixed: {
+    solid: {
+      "data-h2-border": "base:all(1px solid gray.light)",
+      "data-h2-background-color": "base:all(gray.light)",
+      "data-h2-color": "base:all(black)",
+    },
+    outline: {
+      "data-h2-border": "base:all(1px solid gray.darker)",
+      "data-h2-background-color": "base:all(gray.lightest)",
+      "data-h2-color": "base:all(gray.darker)",
+    },
+  },
 };
 
 const colorMap: Record<
@@ -142,7 +154,9 @@ const colorMap: Record<
   warning: h2ChipColors.warning,
   error: h2ChipColors.error,
   black: h2ChipColors.black,
+  blackFixed: h2ChipColors.blackFixed,
   white: h2ChipColors.black,
+  whiteFixed: h2ChipColors.black,
 };
 
 const sizeMap: Record<PillSize, Record<string, string>> = {

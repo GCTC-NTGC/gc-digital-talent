@@ -14,6 +14,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
+import {
+  UpdateUserRolesInput,
+  UpdateUserSubInput,
+  useUpdateUserRolesMutation,
+  useUpdateUserSubMutation,
+} from "@gc-digital-talent/graphql";
 
 import {
   useListRolesQuery,
@@ -36,6 +42,7 @@ import adminMessages from "~/messages/adminMessages";
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
+import UpdateUserSubForm from "./components/UpdateUserSubForm";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -46,7 +53,6 @@ type FormValues = Pick<
   | "preferredLanguageForInterview"
   | "preferredLanguageForExam"
   | "telephone"
-  | "sub"
 >;
 interface UpdateUserFormProps {
   initialUser: User;
@@ -73,12 +79,10 @@ export const UpdateUserForm = ({
     telephone: emptyToNull(values.telephone),
     // empty string will violate uniqueness constraints
     email: emptyToNull(values.email),
-    sub: emptyToNull(values.sub),
   });
 
   const dataToFormValues = (data: User): FormValues => ({
     ...data,
-    sub: data.authInfo?.sub,
   });
 
   const methods = useForm<FormValues>({
@@ -235,23 +239,6 @@ export const UpdateUserForm = ({
               label: intl.formatMessage(getLanguage(value)),
             }))}
           />
-          <Input
-            id="sub"
-            label={intl.formatMessage({
-              defaultMessage: "Subject",
-              id: "m4rXNt",
-              description: "Label displayed on the user form subject field.",
-            })}
-            type="text"
-            name="sub"
-            context={intl.formatMessage({
-              defaultMessage:
-                "The 'subject' is a string that uniquely identifies a user's sign in identity.",
-              id: "WLcP98",
-              description:
-                "Additional context describing the purpose of the users's 'subject' field.",
-            })}
-          />
           <div data-h2-align-self="base(flex-start)">
             <Submit />
           </div>
@@ -282,6 +269,9 @@ const UpdateUserPage = () => {
   });
 
   const [, executeUpdateMutation] = useUpdateUserAsAdminMutation();
+  const [, executeUpdateRolesMutation] = useUpdateUserRolesMutation();
+  const [, executeUpdateSubMutation] = useUpdateUserSubMutation();
+
   const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
@@ -311,11 +301,32 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
+  const handleUpdateUserRoles = (data: UpdateUserRolesInput) =>
+    executeUpdateRolesMutation({
+      updateUserRolesInput: {
+        ...data,
+      },
+    }).then((result) => {
+      if (result.data?.updateUserRoles) {
+        return result.data.updateUserRoles;
+      }
+      return Promise.reject(result.error);
+    });
+
+  const handleUpdateUserSub = (data: UpdateUserSubInput) =>
+    executeUpdateSubMutation({
+      updateUserSubInput: {
+        ...data,
+      },
+    }).then((result) => {
+      if (result.data?.updateUserSub) {
+        return result.data.updateUserSub;
+      }
+      return Promise.reject(result.error);
+    });
+
   const [, executeDeleteMutation] = useDeleteUserMutation();
   const handleDeleteUser = (id: string) =>
-    /* We must pick only the fields belonging to UpdateUserInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
     executeDeleteMutation({
       id,
     }).then((result) => {
@@ -382,18 +393,22 @@ const UpdateUserPage = () => {
               initialUser={userData.user}
               handleUpdateUser={handleUpdateUser}
             />
+            <UpdateUserSubForm
+              user={userData.user}
+              onUpdateSub={handleUpdateUserSub}
+            />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
               {intl.formatMessage(adminMessages.rolesAndPermissions)}
             </Heading>
             <UserRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
-              onUpdateUser={handleUpdateUser}
+              onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
               user={userData.user}
               availableRoles={availableRoles || []}
-              onUpdateUser={handleUpdateUser}
+              onUpdateUserRoles={handleUpdateUserRoles}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
               {intl.formatMessage({
