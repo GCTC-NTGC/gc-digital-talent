@@ -15,12 +15,27 @@ export default {
 
 const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <CardOptionGroup {...args} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(1fr 1fr)"
+    >
+      <div data-h2="light" data-h2-background="base(background)">
+        <Form onSubmit={action("Submit Form")}>
+          <CardOptionGroup {...args} name="light" idPrefix="light" />
+          <p data-h2-margin-top="base(x1)">
+            <Submit />
+          </p>
+        </Form>
+      </div>
+      <div data-h2="dark" data-h2-background="base(background)">
+        <Form onSubmit={action("Submit Form")}>
+          <CardOptionGroup {...args} name="dark" idPrefix="dark" />
+          <p data-h2-margin-top="base(x1)">
+            <Submit />
+          </p>
+        </Form>
+      </div>
+    </div>
   );
 };
 
