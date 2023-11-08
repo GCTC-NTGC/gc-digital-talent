@@ -193,7 +193,6 @@ const CardOptionGroup = ({
                   // hide the input - this radio group does not show the radio buttons
                   data-h2-position="base(absolute)"
                   data-h2-opacity="base(0)"
-                  data-h2-cursor="base(pointer)"
                   data-h2-height="base(0)"
                   data-h2-width="base(0)"
                   // style the sibling label when focused and/or checked
@@ -210,7 +209,9 @@ const CardOptionGroup = ({
                   data-h2-padding="base(x.5)"
                   data-h2-shadow="base(s)"
                   data-h2-radius="base(s)"
+                  data-h2-margin-bottom="base(x.25)"
                   htmlFor={id}
+                  data-h2-cursor="base(pointer)"
                 >
                   <Icon data-h2-height="base(x1)" data-h2-width="base(x1)" />
                   <span>{label}</span>
