@@ -1347,6 +1347,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
 }
@@ -1396,6 +1402,11 @@ input AssessmentStepInput {
     )
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
+  title: LocalizedStringInput
+  poolSkills: [UUID!]
 }
 
 input CreateAssessmentResultInput
@@ -1779,6 +1790,11 @@ type Mutation {
   swapAssessmentStepOrder(stepA: UUID!, stepB: UUID!): [AssessmentStep]
     @guard
     @can(ability: "update", find: "stepA")
+  syncPoolScreeningQuestions(
+    poolId: UUID!
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
+  ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard

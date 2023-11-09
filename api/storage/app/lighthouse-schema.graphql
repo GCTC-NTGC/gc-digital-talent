@@ -143,6 +143,7 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   swapAssessmentStepOrder(stepA: UUID!, stepB: UUID!): [AssessmentStep]
+  syncPoolScreeningQuestions(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
@@ -1136,6 +1137,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID]
 }
@@ -1168,6 +1175,11 @@ input AssessmentStepInput {
   type: AssessmentStepType
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
+  title: LocalizedStringInput
+  poolSkills: [UUID!]
 }
 
 input CreateAssessmentResultInput {
