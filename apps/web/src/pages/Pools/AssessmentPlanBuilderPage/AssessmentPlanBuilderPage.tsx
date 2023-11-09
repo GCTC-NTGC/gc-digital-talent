@@ -5,6 +5,7 @@ import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocu
 import { Scalars } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
+  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
@@ -17,6 +18,7 @@ import {
   Sidebar,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -143,6 +145,7 @@ export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const routes = useRoutes();
+  const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -188,30 +191,60 @@ export const AssessmentPlanBuilderPage = () => {
     },
   ];
 
+  // RequireAuth in router can't check team roles
+  const authorizedToSeeThePage: boolean =
+    authorization.roleAssignments?.some(
+      (authorizedRoleAssignment) =>
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+    ) ?? false;
+
+  // figure out what content should be displayed
+  const content = (): React.ReactNode => {
+    if (queryData?.pool && authorizedToSeeThePage) {
+      return (
+        <AssessmentPlanBuilder
+          pool={queryData.pool}
+          pageIsLoading={queryFetching}
+        />
+      );
+    }
+    if (!queryData?.pool) {
+      return (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
+                description: "Message displayed for pool not found.",
+              },
+              { poolId },
+            )}
+          </p>
+        </NotFound>
+      );
+    }
+    if (!authorizedToSeeThePage) {
+      return intl.formatMessage({
+        description:
+          "Heading for the message saying the page to view is not authorized.",
+        defaultMessage: "Sorry, you are not authorized to view this page.",
+        id: "jPLaDk",
+      });
+    }
+
+    // shouldn't drop through to this
+    return intl.formatMessage(errorMessages.unknown);
+  };
+
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={queryFetching} error={queryError}>
-        {queryData?.pool ? (
-          <AssessmentPlanBuilder
-            pool={queryData.pool}
-            pageIsLoading={queryFetching}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Pool {poolId} not found.",
-                  id: "Sb2fEr",
-                  description: "Message displayed for pool not found.",
-                },
-                { poolId },
-              )}
-            </p>
-          </NotFound>
-        )}
+      <Pending
+        fetching={queryFetching || !authorization.isLoaded}
+        error={queryError}
+      >
+        {content()}
       </Pending>
     </AdminContentWrapper>
   );

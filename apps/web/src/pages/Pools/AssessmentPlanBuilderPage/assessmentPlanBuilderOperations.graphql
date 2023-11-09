@@ -54,6 +54,10 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       }
       sortOrder
     }
+    team {
+      id
+      name
+    }
   }
 }
 
