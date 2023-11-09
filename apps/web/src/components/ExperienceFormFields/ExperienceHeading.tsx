@@ -8,12 +8,7 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 
-import {
-  Accordion,
-  DefinitionList,
-  Heading,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
+import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 
 import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 
@@ -81,13 +76,13 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
           </p>
           <Accordion.Root
             type="single"
-            mode="simple"
+            size="sm"
             value={accordionState}
             onValueChange={(value: AccordionStates) => setAccordionState(value)}
             collapsible
           >
             <Accordion.Item value="learn-more">
-              <StandardAccordionHeader headingAs="h3">
+              <Accordion.Trigger as="h3">
                 {accordionState === "learn-more"
                   ? intl.formatMessage({
                       defaultMessage:
@@ -104,7 +99,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                         "Button text to open section describing experience types",
                     })}
                 {}
-              </StandardAccordionHeader>
+              </Accordion.Trigger>
               <Accordion.Content>
                 <p data-h2-margin-top="base(x1)">
                   {intl.formatMessage({

@@ -6,13 +6,7 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
-import {
-  Heading,
-  Link,
-  Accordion,
-  CardFlat,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
+import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -253,16 +247,16 @@ const DirectivePage = () => {
             })}
           </Heading>
           <div>
-            <Accordion.Root type="multiple">
+            <Accordion.Root type="multiple" mode="card">
               <Accordion.Item value="planning-reporting">
-                <StandardAccordionHeader headingAs="h3">
+                <Accordion.Trigger as="h3">
                   {intl.formatMessage({
                     defaultMessage: "Planning and reporting",
                     id: "cktAfD",
                     description:
                       "Heading for the directives planning and reporting component",
                   })}
-                </StandardAccordionHeader>
+                </Accordion.Trigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -276,14 +270,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-talent-sourcing">
-                <StandardAccordionHeader headingAs="h3">
+                <Accordion.Trigger as="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital talent sourcing",
                     id: "C03OK7",
                     description:
                       "Heading for the directives digital talent and sourcing component",
                   })}
-                </StandardAccordionHeader>
+                </Accordion.Trigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -297,14 +291,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-talent-development">
-                <StandardAccordionHeader headingAs="h3">
+                <Accordion.Trigger as="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital talent development",
                     id: "mpa5Fd",
                     description:
                       "Heading for the directives digital talent and development component",
                   })}
-                </StandardAccordionHeader>
+                </Accordion.Trigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -318,14 +312,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="digital-executive-roles-structures">
-                <StandardAccordionHeader headingAs="h3">
+                <Accordion.Trigger as="h3">
                   {intl.formatMessage({
                     defaultMessage: "Digital executive roles and structures",
                     id: "e/nr9L",
                     description:
                       "Heading for the directives digital executive roles and structures component",
                   })}
-                </StandardAccordionHeader>
+                </Accordion.Trigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({
@@ -339,14 +333,14 @@ const DirectivePage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="enabling-conditions">
-                <StandardAccordionHeader headingAs="h3">
+                <Accordion.Trigger as="h3">
                   {intl.formatMessage({
                     defaultMessage: "Enabling conditions",
                     id: "8yB2Bm",
                     description:
                       "Heading for the directives digital enabling conditions component",
                   })}
-                </StandardAccordionHeader>
+                </Accordion.Trigger>
                 <Accordion.Content>
                   <p>
                     {intl.formatMessage({

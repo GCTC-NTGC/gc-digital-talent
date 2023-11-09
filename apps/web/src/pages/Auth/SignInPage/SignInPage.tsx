@@ -5,7 +5,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -177,144 +177,102 @@ const SignInPage = () => {
             </Heading>
             <Accordion.Root
               type="single"
-              mode="simple"
+              size="sm"
               collapsible
-              data-h2-margin-left="base(-x1)"
+              data-h2-margin="base(x1 0)"
             >
               <Accordion.Item value="one">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What if I deleted the app or changed phone and I don't have the recovery codes?",
-                      id: "m+IDnG",
-                      description:
-                        "First of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "What if I deleted the app or changed phone and I don't have the recovery codes?",
+                    id: "m+IDnG",
+                    description:
+                      "First of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
                 <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-                      id: "KpR9l5",
-                      description:
-                        "First answer of the Frequently Asked Questions for logging in",
-                    },
-                    {
-                      helpLink,
-                    },
-                  )}
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
+                        id: "KpR9l5",
+                        description:
+                          "First answer of the Frequently Asked Questions for logging in",
+                      },
+                      {
+                        helpLink,
+                      },
+                    )}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="two">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can you remove the two-factor authentication from my account so I can reset it?",
-                      id: "Val79M",
-                      description:
-                        "Second of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Can you remove the two-factor authentication from my account so I can reset it?",
+                    id: "Val79M",
+                    description:
+                      "Second of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
                 <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "We cannot remove the two factor authentication from your account, but you can contact our <helpLink>Help Desk</helpLink> and they can assist you with account recovery.",
-                      id: "G1bgOX",
-                      description:
-                        "First answer of the Frequently Asked Questions for logging in",
-                    },
-                    {
-                      helpLink,
-                    },
-                  )}
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "We cannot remove the two factor authentication from your account, but you can contact our <helpLink>Help Desk</helpLink> and they can assist you with account recovery.",
+                        id: "G1bgOX",
+                        description:
+                          "First answer of the Frequently Asked Questions for logging in",
+                      },
+                      {
+                        helpLink,
+                      },
+                    )}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="three">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What can I do if my authenticator codes are no longer being accepted?",
-                      id: "5myYda",
-                      description:
-                        "Third of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "What can I do if my authenticator codes are no longer being accepted?",
+                    id: "5myYda",
+                    description:
+                      "Third of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
                 <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Please contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-                      id: "qQgtWZ",
-                      description:
-                        "Third answer of the Frequently Asked Questions for logging in",
-                    },
-                    {
-                      helpLink,
-                    },
-                  )}
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Please contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
+                        id: "qQgtWZ",
+                        description:
+                          "Third answer of the Frequently Asked Questions for logging in",
+                      },
+                      {
+                        helpLink,
+                      },
+                    )}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="four">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Already have a GCKey account?",
-                      id: "ACa+rP",
-                      description:
-                        "Fourth of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage: "Already have a GCKey account?",
+                    id: "ACa+rP",
+                    description:
+                      "Fourth of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
                 <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  <p>
+                  <p data-h2-margin-bottom="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "If you already have a GCKey account you can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
@@ -323,7 +281,7 @@ const SignInPage = () => {
                         "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1",
                     })}
                   </p>
-                  <p data-h2-margin-top="base(x0.5)">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
@@ -335,60 +293,38 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="five">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "What is a GCKey?",
-                      id: "w3vO23",
-                      description:
-                        "Fifth of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
-                    defaultMessage:
-                      "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
-                    id: "1NliRt",
+                    defaultMessage: "What is a GCKey?",
+                    id: "w3vO23",
                     description:
-                      "Fifth answer of the Frequently Asked Questions for logging in",
+                      "Fifth of the Frequently Asked Questions for logging in",
                   })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
+                      id: "1NliRt",
+                      description:
+                        "Fifth answer of the Frequently Asked Questions for logging in",
+                    })}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="six">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Who do I contact if I have questions about GCKey?",
-                      id: "13Cbkq",
-                      description:
-                        "Sixth of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Who do I contact if I have questions about GCKey?",
+                    id: "13Cbkq",
+                    description:
+                      "Sixth of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
                 <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  <p>
+                  <p data-h2-margin-bottom="base(x0.5)">
                     {intl.formatMessage({
                       defaultMessage:
                         "If you have questions about GCKey, please contact the GCKey team at:",
@@ -397,7 +333,7 @@ const SignInPage = () => {
                         "Sixth answer of the Frequently Asked Questions for logging in - intro sentence",
                     })}
                   </p>
-                  <p data-h2-margin-top="base(x0.5)">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: "Canada and the United States",
                       id: "8NNqcv",
@@ -460,67 +396,46 @@ const SignInPage = () => {
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="seven">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
+                <Accordion.Trigger as="h4">
+                  {intl.formatMessage({
+                    defaultMessage: "Which authenticator app should I install?",
+                    id: "YWxGL/",
+                    description:
+                      "Seventh of the Frequently Asked Questions for logging in",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Which authenticator app should I install?",
-                      id: "YWxGL/",
+                        "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+                      id: "DL/hpF",
                       description:
-                        "Seventh of the Frequently Asked Questions for logging in",
+                        "Seventh answer of the Frequently Asked Questions for logging in",
                     })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-                    id: "DL/hpF",
-                    description:
-                      "Seventh answer of the Frequently Asked Questions for logging in",
-                  })}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
               <Accordion.Item value="eight">
-                <Accordion.Header
-                  headingAs="h4"
-                  data-h2-font-size="base(copy)"
-                  data-h2-text-decoration="base(underline)"
-                >
-                  <Accordion.Trigger data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can I use SMS or email authentication instead of an app?",
-                      id: "ClrNAj",
-                      description:
-                        "Eighth of the Frequently Asked Questions for logging in",
-                    })}
-                  </Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content>
-                  <Separator
-                    orientation="horizontal"
-                    decorative
-                    data-h2-background-color="base(gray.lighter)"
-                    data-h2-margin="base(x0.5, 0, x1, 0)"
-                  />
+                <Accordion.Trigger as="h4">
                   {intl.formatMessage({
                     defaultMessage:
-                      "Currently, our site only supports authentication through an authenticator app.",
-                    id: "CIkGjy",
+                      "Can I use SMS or email authentication instead of an app?",
+                    id: "ClrNAj",
                     description:
-                      "Eighth answer of the Frequently Asked Questions for logging in",
+                      "Eighth of the Frequently Asked Questions for logging in",
                   })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Currently, our site only supports authentication through an authenticator app.",
+                      id: "CIkGjy",
+                      description:
+                        "Eighth answer of the Frequently Asked Questions for logging in",
+                    })}
+                  </p>
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>

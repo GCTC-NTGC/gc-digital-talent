@@ -4,14 +4,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
-import {
-  Accordion,
-  Heading,
-  Link,
-  Separator,
-  StandardAccordionHeader,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 
 import { PoolCandidate, Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -101,7 +94,6 @@ const TrackApplications = ({
       <div>
         <Accordion.Root
           type="multiple"
-          mode="simple"
           value={currentAccordionItems}
           onValueChange={(newValue: AccordionItems) => {
             setCurrentAccordionItems(newValue);
@@ -109,8 +101,8 @@ const TrackApplications = ({
         >
           {/* applications in progress */}
           <Accordion.Item value="in_progress">
-            <StandardAccordionHeader
-              headingAs="h3"
+            <Accordion.Trigger
+              as="h3"
               subtitle={intl.formatMessage({
                 defaultMessage:
                   "This section contains your drafts and submitted applications that are still being processed.",
@@ -144,14 +136,8 @@ const TrackApplications = ({
                       applicationCount: inProgressApplications.length ?? "0",
                     },
                   )}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x1, 0, x1, 0)"
-              />
               {inProgressApplications.length > 0 ? (
                 inProgressApplications.map((activeRecruitment) => (
                   <TrackApplicationsCard
@@ -189,8 +175,8 @@ const TrackApplications = ({
           </Accordion.Item>
           {/* past applications */}
           <Accordion.Item value="past">
-            <StandardAccordionHeader
-              headingAs="h3"
+            <Accordion.Trigger
+              as="h3"
               subtitle={intl.formatMessage({
                 defaultMessage:
                   "This section contains old applications that have been fully assessed, as well as applications that have missed the submission deadline.",
@@ -224,14 +210,8 @@ const TrackApplications = ({
                       applicationCount: pastApplications.length ?? "0",
                     },
                   )}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x1, 0, x1, 0)"
-              />
               {pastApplications.length > 0 ? (
                 pastApplications.map((pastApplication) => (
                   <TrackApplicationsCard
