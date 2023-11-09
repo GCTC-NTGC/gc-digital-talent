@@ -487,6 +487,7 @@ type PoolCandidateSearchRequest {
   wasEmpty: Boolean
   managerJobTitle: String
   positionType: PoolCandidateSearchPositionType
+  reason: PoolCandidateSearchRequestReason
 }
 
 type SkillFamily {
@@ -966,6 +967,7 @@ input CreatePoolCandidateSearchRequestInput {
   wasEmpty: Boolean
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
+  reason: PoolCandidateSearchRequestReason!
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1978,6 +1980,13 @@ enum PoolCandidateSearchStatus {
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
+}
+
+enum PoolCandidateSearchRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
 }
 
 enum SkillCategory {
