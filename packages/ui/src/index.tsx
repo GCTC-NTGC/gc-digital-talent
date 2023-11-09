@@ -6,9 +6,6 @@ import {
   ButtonLinkMode,
 } from "./types";
 import Accordion from "./components/Accordion";
-import StandardAccordionHeader, {
-  StandardHeaderProps as StandardAccordionHeaderProps,
-} from "./components/Accordion/StandardHeader";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
@@ -112,7 +109,6 @@ export type {
   SideMenuProps,
   SideMenuItemProps,
   SpoilerProps,
-  StandardAccordionHeaderProps,
   StepperProps,
   StepType,
   TocAnchorLinkProps,
@@ -126,7 +122,6 @@ export type {
 
 export {
   Accordion,
-  StandardAccordionHeader,
   Alert,
   AlertDialog,
   Announcer,

@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import {
-  Accordion,
-  Heading,
-  StandardAccordionHeader,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 
 import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
@@ -72,7 +67,7 @@ const ExperienceSkills = ({
           description: "Title for skills on Experience form",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x2, 0)">
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "Featured skills allow you to highlight how you used or developed particularly important skillsets during your experience. When applying to an opportunity on the platform, you’ll be asked to link the essential skills required for that job to your experiences in the same way, allowing you to build a holistic picture of your skill development. Skills you link during an application will also appear here for later editing.",
@@ -82,13 +77,12 @@ const ExperienceSkills = ({
       </p>
       <Accordion.Root
         type="single"
-        mode="simple"
         value={accordionState}
         onValueChange={(value: AccordionStates) => setAccordionState(value)}
         collapsible
       >
         <Accordion.Item value="learn-more">
-          <StandardAccordionHeader headingAs="h3">
+          <Accordion.Trigger as="h3">
             {accordionState === "learn-more"
               ? intl.formatMessage({
                   defaultMessage:
@@ -104,7 +98,7 @@ const ExperienceSkills = ({
                   description:
                     "Button text to open accordion describing skill experience",
                 })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
             <p data-h2-margin-top="base(x1)">
               {intl.formatMessage({
