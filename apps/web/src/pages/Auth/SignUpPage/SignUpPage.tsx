@@ -305,7 +305,12 @@ const SignUpPage = () => {
                   "Heading for Frequently Asked Questions section on sign in page",
               })}
             </Heading>
-            <Accordion.Root type="single" size="sm" collapsible>
+            <Accordion.Root
+              type="single"
+              size="sm"
+              collapsible
+              data-h2-margin="base(x1 0)"
+            >
               <Accordion.Item value="one">
                 <Accordion.Trigger as="h4">
                   {intl.formatMessage({
