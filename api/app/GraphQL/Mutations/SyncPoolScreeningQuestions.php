@@ -33,7 +33,7 @@ final class SyncPoolScreeningQuestions
                     array_push($incomingQuestionIds, $incomingQuestion['id']);
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
-                        throw new Exception('Screening question with id "'.$incomingQuestion['id'].'" does not exist.');
+                        throw new Exception('ScreeningQuestionNotExist');
                     }
 
                     $questionToUpdate->question = $incomingQuestion['question'];
@@ -66,7 +66,7 @@ final class SyncPoolScreeningQuestions
                 foreach ($incomingAssessmentStep['poolSkills'] as $skillID) {
                     $skill = PoolSkill::find($skillID);
                     if ($skill === null || $skill->pool_id !== $pool->id) {
-                        throw new Exception('PoolSkill with id "'.$skillID.'" does not exist for given pool.');
+                        throw new Exception('PoolSkillNotValid');
                     }
                 }
                 $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']);

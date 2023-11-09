@@ -18,12 +18,12 @@ final class SwapAssessmentStepOrder
 
         // Ensure the steps belong to the same pool
         if ($stepA->pool_id !== $stepB->pool_id) {
-            throw ValidationException::withMessages(['AssessmentSteps must belong to the same pool.']);
+            throw ValidationException::withMessages(['AssessmentStepsSamePool']);
         }
 
         // Don't swap the reserved first two spots
         if ($stepA->sort_order < 3 || $stepB->sort_order < 3) {
-            throw ValidationException::withMessages(['One or both of the given steps cannot be swapped.']);
+            throw ValidationException::withMessages(['AssessmentStepCannotSwap']);
         }
 
         $temp = $stepA->sort_order;
