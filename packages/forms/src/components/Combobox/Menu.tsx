@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 import { motion, useReducedMotion } from "framer-motion";
+import omit from "lodash/omit";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import { HTMLSpanProps } from "./types";
-import omit from "lodash/omit";
 
 type WrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
