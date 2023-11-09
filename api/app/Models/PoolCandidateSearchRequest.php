@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -34,6 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PoolCandidateSearchRequest extends Model
 {
     use HasFactory;
+    use LogsActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -46,6 +49,25 @@ class PoolCandidateSearchRequest extends Model
     protected $casts = [
         'request_status_changed_at' => 'datetime',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*',
+                'applicantFilter.has_diploma',
+                'applicantFilter.has_disability',
+                'applicantFilter.is_indigenous',
+                'applicantFilter.is_visible_minority',
+                'applicantFilter.is_woman',
+                'applicantFilter.language_ability',
+                'applicantFilter.location_preferences',
+                'applicantFilter.operational_requirements',
+                'applicantFilter.position_duration',
+                'applicantFilter.qualified_streams',
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     /**
      * Model relations
