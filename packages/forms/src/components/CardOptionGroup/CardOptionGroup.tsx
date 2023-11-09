@@ -9,7 +9,8 @@ import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
-type IconColor = Exclude<Color, "white">;
+// some colors are inappropriate for icons
+type IconColor = Exclude<Color, "blackFixed" | "white" | "whiteFixed">;
 
 export type CardOption = {
   /** form value */
