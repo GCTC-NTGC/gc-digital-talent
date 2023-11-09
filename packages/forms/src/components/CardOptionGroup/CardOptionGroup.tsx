@@ -143,12 +143,11 @@ const CardOptionGroup = ({
         id={idPrefix}
         aria-describedby={ariaDescribedBy}
         {...rest}
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x.25)"
       >
-        <Field.Legend
-          required={!!rules.required}
-          data-h2-color="base(black)"
-          data-h2-margin-bottom="base(x.5)"
-        >
+        <Field.Legend required={!!rules.required} data-h2-color="base(black)">
           {legend}
         </Field.Legend>
         {items.map(
@@ -163,7 +162,7 @@ const CardOptionGroup = ({
             const isSelected = selectedValue === value;
             const Icon = isSelected ? selectedIcon : unselectedIcon;
             return (
-              <div key={value}>
+              <React.Fragment key={value}>
                 <input
                   id={id}
                   {...register(name, rules)}
@@ -177,7 +176,7 @@ const CardOptionGroup = ({
                   data-h2-height="base(0)"
                   data-h2-width="base(0)"
                   // style the sibling label when focused and/or checked
-                  data-h2-background-color="base:focus-visible:children[+ label](focus)"
+                  data-h2-background-color="base:children[+ label](foreground) base:focus-visible:children[+ label](focus)"
                   data-h2-font-weight="base:selectors[:checked]:children[+ label](700)"
                   data-h2-border="base:selectors[:checked]:children[+ label](2px solid black)"
                   // color the sibling label's icon when focused and/or checked
@@ -185,12 +184,11 @@ const CardOptionGroup = ({
                 />
                 <Field.Label
                   data-h2-display="base(flex)"
+                  data-h2-padding="base(x.5)"
                   data-h2-align-items="base(center)"
                   data-h2-gap="base(x.5)"
-                  data-h2-padding="base(x.5)"
-                  data-h2-shadow="base(s)"
+                  data-h2-shadow="base(large)"
                   data-h2-radius="base(s)"
-                  data-h2-margin-bottom="base(x.25)"
                   htmlFor={id}
                   data-h2-cursor="base(pointer)"
                   data-h2-color="base(black)"
@@ -198,7 +196,7 @@ const CardOptionGroup = ({
                   <Icon data-h2-height="base(x1)" data-h2-width="base(x1)" />
                   <span>{label}</span>
                 </Field.Label>
-              </div>
+              </React.Fragment>
             );
           },
         )}

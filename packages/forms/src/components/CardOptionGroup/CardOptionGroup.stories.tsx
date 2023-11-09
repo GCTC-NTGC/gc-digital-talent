@@ -13,6 +13,8 @@ export default {
   title: "Form/CardOptionGroup",
 };
 
+const themes = ["light", "dark"];
+
 const colors: Array<CardOption["selectedIconColor"]> = [
   "primary",
   "secondary",
@@ -31,32 +33,26 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(1fr 1fr)"
     >
-      <div data-h2="light" data-h2-background="base(background)">
-        <Form onSubmit={action("Submit Form")}>
-          <CardOptionGroup
-            {...args}
-            name="light"
-            idPrefix="light"
-            rules={{ required: "This field is required" }}
-          />
-          <p data-h2-margin-top="base(x1)">
-            <Submit />
-          </p>
-        </Form>
-      </div>
-      <div data-h2="dark" data-h2-background="base(background)">
-        <Form onSubmit={action("Submit Form")}>
-          <CardOptionGroup
-            {...args}
-            name="dark"
-            idPrefix="dark"
-            rules={{ required: "This field is also required" }}
-          />
-          <p data-h2-margin-top="base(x1)">
-            <Submit />
-          </p>
-        </Form>
-      </div>
+      {themes.map((theme) => (
+        <div
+          data-h2={theme}
+          data-h2-background="base(background)"
+          data-h2-padding="base(x1)"
+          key={theme}
+        >
+          <Form onSubmit={action("Submit Form")}>
+            <CardOptionGroup
+              {...args}
+              name={theme}
+              idPrefix={theme}
+              rules={{ required: "This field is required" }}
+            />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      ))}
     </div>
   );
 };
