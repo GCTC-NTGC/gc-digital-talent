@@ -69,9 +69,7 @@ describe("Admin Workflow Tests", () => {
     cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
-    cy.findByRole("table")
-      .findByRole("row", { name: /applicant/i })
-      .findByRole("link", { name: /Edit/i })
+    cy.findByRole("link", { name: /edit applicant/i })
       .should("exist")
       .should("be.visible")
       .click();
@@ -112,9 +110,7 @@ describe("Admin Workflow Tests", () => {
 
     searchForUser("Applicant", "applicant@test.com");
 
-    cy.findByRole("table")
-      .findByRole("row", { name: /applicant/i })
-      .findByRole("button", { name: /select/i })
+    cy.findByRole("button", { name: /select applicant/i })
       .should("be.visible")
       .click();
 
