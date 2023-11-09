@@ -1478,6 +1478,11 @@ const poolStream = defineMessages({
     id: "xr36aa",
     description: "Pool Stream described as Information and Data Functions.",
   },
+  [PoolStream.ExecutiveGroup]: {
+    defaultMessage: "Executive Group",
+    id: "6yqQBg",
+    description: "Pool Stream described as Executive Group.",
+  },
 });
 
 export const getPoolStream = (

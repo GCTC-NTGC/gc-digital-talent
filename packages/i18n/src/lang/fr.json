@@ -259,6 +259,10 @@
     "defaultMessage": "Septembre",
     "description": "Name of the ninth month"
   },
+  "6yqQBg": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Pool Stream described as Executive Group."
+  },
   "76QTNv": {
     "defaultMessage": "La demande a déjà été soumise.",
     "description": "Error message that the given application is already submitted."
