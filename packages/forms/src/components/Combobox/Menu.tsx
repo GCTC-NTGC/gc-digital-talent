@@ -8,6 +8,7 @@ import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import useCommonInputStyles from "../../hooks/useCommonInputStyles";
 import { HTMLSpanProps } from "./types";
+import omit from "lodash/omit";
 
 type WrapperProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -133,7 +134,8 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       {...(active && {
         "data-h2-background-color": "base(focus)",
       })}
-      {...rest}
+      {...omit(rest, "aria-selected")}
+      aria-selected={selected ? "true" : "false"}
     >
       {selected && (
         <CheckIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />
