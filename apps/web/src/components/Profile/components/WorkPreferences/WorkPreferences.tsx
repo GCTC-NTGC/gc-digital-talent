@@ -77,6 +77,7 @@ const WorkPreferences = ({
         color={icon.color}
         level={pool ? "h3" : "h2"}
         size={pool ? "h5" : "h3"}
+        data-h2-font-weight="base(400)"
         toggle={
           !isNull ? (
             <ToggleForm.Trigger

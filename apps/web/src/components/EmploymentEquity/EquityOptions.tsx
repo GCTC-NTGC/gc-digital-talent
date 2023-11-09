@@ -113,8 +113,7 @@ const EquityOptions = ({
   return (
     <>
       <Heading
-        data-h2-margin="base(0)"
-        data-h2-padding-bottom="base(x1)"
+        data-h2-margin="base(x2, 0, x1, 0)"
         level={inApplication ? "h4" : "h3"}
         size={inApplication ? "h6" : "h4"}
       >
@@ -141,7 +140,7 @@ const EquityOptions = ({
         </div>
       )}
       {hasItems ? (
-        <>
+        <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
           {isIndigenous && (
             <IndigenousEquityOption
               disabled={isDisabled}
@@ -193,7 +192,7 @@ const EquityOptions = ({
               title={intl.formatMessage(getEmploymentEquityStatement("woman"))}
             />
           )}
-        </>
+        </div>
       ) : (
         <Well>
           <p data-h2-text-align="base(center)">
@@ -246,7 +245,7 @@ const EquityOptions = ({
           </Accordion.Trigger>
           <Accordion.Content>
             {itemsAvailable || !hasItems ? (
-              <>
+              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 {!isIndigenous ? (
                   <IndigenousEquityOption
                     disabled={isDisabled}
@@ -328,7 +327,7 @@ const EquityOptions = ({
                     })}
                   />
                 )}
-              </>
+              </div>
             ) : (
               <Well>
                 <p data-h2-margin="base(0)">
