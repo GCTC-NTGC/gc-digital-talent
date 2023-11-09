@@ -1,17 +1,29 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import SolidTrashIcon from "@heroicons/react/24/solid/TrashIcon";
-import OutlineTrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
+import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import CardOptionGroup from "./CardOptionGroup";
+import CardOptionGroup, { CardOption } from "./CardOptionGroup";
 
 export default {
   component: CardOptionGroup,
   title: "Form/CardOptionGroup",
 };
+
+const colors: Array<CardOption["selectedIconColor"]> = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "quaternary",
+  "quinary",
+  "success",
+  "warning",
+  "error",
+  "black",
+];
 
 const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
   return (
@@ -21,7 +33,12 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
     >
       <div data-h2="light" data-h2-background="base(background)">
         <Form onSubmit={action("Submit Form")}>
-          <CardOptionGroup {...args} name="light" idPrefix="light" />
+          <CardOptionGroup
+            {...args}
+            name="light"
+            idPrefix="light"
+            rules={{ required: "This field is required" }}
+          />
           <p data-h2-margin-top="base(x1)">
             <Submit />
           </p>
@@ -29,7 +46,12 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
       </div>
       <div data-h2="dark" data-h2-background="base(background)">
         <Form onSubmit={action("Submit Form")}>
-          <CardOptionGroup {...args} name="dark" idPrefix="dark" />
+          <CardOptionGroup
+            {...args}
+            name="dark"
+            idPrefix="dark"
+            rules={{ required: "This field is also required" }}
+          />
           <p data-h2-margin-top="base(x1)">
             <Submit />
           </p>
@@ -39,26 +61,16 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
   );
 };
 
-export const BasicCardOptionGroup = TemplateCardOptionGroup.bind({});
-BasicCardOptionGroup.args = {
-  idPrefix: "CardOptiongroup",
+export const Default = TemplateCardOptionGroup.bind({});
+Default.args = {
+  idPrefix: "CardOptionGroup",
   legend: "Which item do you want to check?",
-  name: "CardOptiongroup",
-  items: [
-    {
-      value: "one",
-      label: "Box One",
-      unselectedIcon: OutlineTrashIcon,
-      selectedIcon: SolidTrashIcon,
-      selectedIconColor: "warning",
-    },
-    {
-      value: "two",
-      label: "Box Two",
-      unselectedIcon: OutlineTrashIcon,
-      selectedIcon: SolidTrashIcon,
-      selectedIconColor: "error",
-    },
-    // { value: "three", label: "Box Three" },
-  ],
+  name: "CardOptionGroup",
+  items: colors.map<CardOption>((color) => ({
+    value: color,
+    label: color,
+    unselectedIcon: OutlineHandThumbUpIcon,
+    selectedIcon: SolidHandThumbUpIcon,
+    selectedIconColor: color,
+  })),
 };

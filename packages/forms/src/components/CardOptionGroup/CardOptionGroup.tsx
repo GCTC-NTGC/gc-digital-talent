@@ -9,102 +9,77 @@ import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
+type IconColor = Exclude<Color, "white">;
+
 export type CardOption = {
+  /** form value */
   value: string;
+  /** label beside the icon */
   label: string | React.ReactNode;
+  /** icon when unselected - usually the outline version of the selected icon */
   unselectedIcon: IconType;
+  /** icon when selected - usually the solid version of the unselected icon */
   selectedIcon: IconType;
-  selectedIconColor: Color;
+  /** icon color when selected */
+  selectedIconColor: IconColor;
 };
 
-const getIconStyle = (color: Color): Record<string, string> => {
-  if (color === "primary") {
-    return {
-      "data-h2-color": `
+const siblingIconColor: Record<IconColor, Record<string, string>> = {
+  primary: {
+    "data-h2-color": `
           base:children[+ label>svg](black)
           base:selectors[:checked]:children[+ label>svg](primary.dark)
           base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "secondary") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](secondary.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "tertiary") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](tertiary.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "quaternary") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](quaternary.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "quinary") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](quinary.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "success") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](success.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "warning") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](warning.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "error") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](error.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "black") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](black.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
-  if (color === "white") {
-    return {
-      "data-h2-color": `
-          base:children[+ label>svg](black)
-          base:selectors[:checked]:children[+ label>svg](white.dark)
-          base:focus-visible:children[+ label>svg](black)`,
-    };
-  }
+  },
 
-  return {
+  secondary: {
     "data-h2-color": `
-      base:children[+ label>svg](black)
-      base:selectors[:checked]:children[+ label>svg](black.dark)
-      base:focus-visible:children[+ label>svg](black)`,
-  };
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](secondary.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  tertiary: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](tertiary.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  quaternary: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](quaternary.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  quinary: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](quinary.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  success: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](success.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  warning: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](warning.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  error: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](error.dark)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
+  black: {
+    "data-h2-color": `
+        base:children[+ label>svg](black)
+        base:selectors[:checked]:children[+ label>svg](black)
+        base:focus-visible:children[+ label>svg](black)`,
+  },
 };
 
 export type CardOptionGroupProps = Omit<CommonInputProps, "id" | "label"> &
@@ -206,7 +181,7 @@ const CardOptionGroup = ({
                   data-h2-font-weight="base:selectors[:checked]:children[+ label](700)"
                   data-h2-border="base:selectors[:checked]:children[+ label](2px solid black)"
                   // color the sibling label's icon when focused and/or checked
-                  {...getIconStyle(selectedIconColor)}
+                  {...siblingIconColor[selectedIconColor]}
                 />
                 <Field.Label
                   data-h2-display="base(flex)"
