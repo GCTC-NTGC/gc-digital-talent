@@ -32,7 +32,6 @@ type Query {
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659.")
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7655.")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -82,6 +81,8 @@ type Mutation {
   createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
+  updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
+  updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
@@ -486,6 +487,7 @@ type PoolCandidateSearchRequest {
   wasEmpty: Boolean
   managerJobTitle: String
   positionType: PoolCandidateSearchPositionType
+  reason: PoolCandidateSearchRequestReason
 }
 
 type SkillFamily {
@@ -749,7 +751,6 @@ input CreateUserInput {
 "When updating a User, all fields are optional"
 input UpdateUserAsAdminInput {
   id: ID
-  sub: String
   email: Email
   firstName: String
   lastName: String
@@ -790,7 +791,16 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roleAssignmentsInput: RoleAssignmentHasMany
+}
+
+input UpdateUserSubInput {
+  userId: UUID!
+  sub: String!
+}
+
+input UpdateUserRolesInput {
+  userId: UUID!
+  roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
 input UpdateUserAsUserInput {
@@ -957,6 +967,7 @@ input CreatePoolCandidateSearchRequestInput {
   wasEmpty: Boolean
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
+  reason: PoolCandidateSearchRequestReason!
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1844,6 +1855,7 @@ enum PoolStream {
   SECURITY
   SOFTWARE_SOLUTIONS
   INFORMATION_DATA_FUNCTIONS
+  EXECUTIVE_GROUP
 }
 
 enum PoolStatus {
@@ -1969,6 +1981,13 @@ enum PoolCandidateSearchStatus {
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
+}
+
+enum PoolCandidateSearchRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
 }
 
 enum SkillCategory {

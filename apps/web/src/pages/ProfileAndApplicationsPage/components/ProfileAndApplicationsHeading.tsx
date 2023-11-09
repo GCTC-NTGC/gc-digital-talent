@@ -154,20 +154,20 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         },
         {
           a1: (chunks: React.ReactNode) =>
-            buildLink(paths.profile(user.id), chunks, "white"),
+            buildLink(paths.profile(user.id), chunks, "whiteFixed"),
           a2: (chunks: React.ReactNode) =>
             buildLink(
               paths.careerTimelineAndRecruitment(user.id),
               chunks,
-              "white",
+              "whiteFixed",
             ),
           a3: (chunks: React.ReactNode) =>
-            buildLink(paths.skillLibrary(), chunks, "white"),
+            buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
           a4: (chunks: React.ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
               chunks,
-              "white",
+              "whiteFixed",
               "h4",
             ),
         },

@@ -12,7 +12,6 @@ import {
   Heading,
   Link,
   Pending,
-  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
@@ -93,7 +92,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+          <div data-h2-padding="base(x2, 0, x1, 0) p-tablet(x3, 0, x1, 0)">
             <ul
               data-h2-margin="base(0)"
               data-h2-padding="base(0)"
@@ -109,6 +108,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         ) : (
           <div
             data-h2-padding="base(x1)"
+            data-h2-margin="base(x1, 0, x1, 0)"
             data-h2-radius="base(s)"
             data-h2-shadow="base(medium)"
             data-h2-background="base(foreground)"
@@ -134,14 +134,14 @@ export const HomePage = ({ pools }: HomePageProps) => {
         )}
       </SkewedContainer>
       <div
-        data-h2-background="base(white) base:dark(black.light)"
+        data-h2-background="base(background)"
         data-h2-padding="base(x3 0)"
-        data-h2-border-top="base(solid 1px gray.lighter)"
+        data-h2-border-top="base:all(solid 1px gray.lighter)"
         data-h2-margin-top="base(-x1) l-tablet(-x3)"
         data-h2-position="base(relative)"
         data-h2-z-index="base(3)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
           <Heading
             level="h2"
             Icon={PuzzlePieceIcon}
@@ -158,7 +158,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
             data-h2-gap="base(x2) p-tablet(x3)"
-            data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
+            data-h2-padding="base(x2, 0, 0, 0) p-tablet(x2, 0, x3, 0)"
           >
             <CardFlat
               color="tertiary"
@@ -280,7 +280,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
-          data-h2-color="base(white)"
+          data-h2-color="base:all(white)"
           data-h2-margin="base(0, 0, x2, 0)"
           data-h2-max-width="p-tablet(50%)"
         >
@@ -325,7 +325,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading level="h3">
+        <Heading level="h3" size="h4">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
@@ -348,7 +348,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading level="h3">
+        <Heading level="h3" size="h4">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",
@@ -357,30 +357,20 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </Heading>
         <Accordion.Root
-          mode="simple"
           type="single"
+          mode="card"
           collapsible
           data-h2-margin="base(x1 0)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
         >
-          <Accordion.Item
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="digital-community-support"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="digital-community-support">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Digital community support",
                 id: "pHIcBU",
                 description:
                   "Button text to open section describing digital community support",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -392,15 +382,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="id-digital-talents"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="id-digital-talents">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage:
                   "Identification of digital talents - Talent management roundtable discussions",
@@ -408,7 +391,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 description:
                   "Button text to open section describing identification of digital talents",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -420,22 +403,15 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="referral-services"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="referral-services">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Referrals services",
                 id: "9Vzxgu",
                 description:
                   "Button text to open section describing referrals services",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -447,22 +423,15 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="digital-community-mentorship-program"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="digital-community-mentorship-program">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Digital Community Mentorship Program",
                 id: "c+P41C",
                 description:
                   "Button text to open section describing mentorship program",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({

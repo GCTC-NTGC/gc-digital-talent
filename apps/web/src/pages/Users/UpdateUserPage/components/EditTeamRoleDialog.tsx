@@ -12,15 +12,12 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-
 import {
-  Role,
-  User,
-  Team,
-  Scalars,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
-} from "~/api/generated";
+  UpdateUserRolesInput,
+  UpdateUserRolesMutation,
+} from "@gc-digital-talent/graphql";
+
+import { Role, User, Team, Scalars } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
@@ -33,8 +30,8 @@ interface EditTeamRoleDialogProps {
   allRoles: Array<Role>;
   team: Team;
   onEditRoles: (
-    submitData: UpdateUserAsAdminInput,
-  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+    submitData: UpdateUserRolesInput,
+  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
 const EditTeamRoleDialog = ({
@@ -62,6 +59,7 @@ const EditTeamRoleDialog = ({
 
   const handleEditRoles = async (formValues: FormValues) => {
     return onEditRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         sync: {
           roles: formValues.roles,

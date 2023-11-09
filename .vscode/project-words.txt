@@ -1,3 +1,4 @@
+Activitylog
 alertdialog
 Analyser
 archivable
@@ -5,6 +6,7 @@ Assertable
 atag
 Authenticatable
 Authorizable
+behavioural
 Behavioural
 BEHAVIOURAL
 Canonicalizing
@@ -62,6 +64,7 @@ recrutementgiti
 rolepermission
 roundtable
 skillset
+Spatie
 spinbutton
 subcomponents
 subquery

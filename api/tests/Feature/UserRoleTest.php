@@ -207,19 +207,17 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                updateUserAsAdmin(id:$id, user:$user) {
-                    authInfo {
-                        roleAssignments {
-                            role { id }
-                        }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
                     }
                 }
               }
         ',
             [
-                'id' => $user->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$newRole->id],
@@ -232,12 +230,10 @@ class UserRoleTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'updateUserAsAdmin' => [
-                    'authInfo' => [
-                        'roleAssignments' => [
-                            [
-                                'role' => ['id' => $newRole->id],
-                            ],
+                'updateUserRoles' => [
+                    'roleAssignments' => [
+                        [
+                            'role' => ['id' => $newRole->id],
                         ],
                     ],
                 ],
@@ -257,20 +253,18 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                    updateUserAsAdmin(id:$id, user:$user) {
-                        authInfo {
-                            roleAssignments {
-                                role { id }
-                                team { id }
-                            }
-                        }
-                  }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
+                    }
+                }
                 }
             ',
             [
-                'id' => $user->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$newRole->id],
@@ -301,20 +295,18 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                     updateUserAsAdmin(id:$id, user:$user) {
-                        authInfo {
-                            roleAssignments {
-                                role { id }
-                                team { id }
-                            }
-                        }
-                   }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
+                    }
                 }
-             ',
+                }
+            ',
             [
-                'id' => $user->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$role->id],
@@ -325,7 +317,7 @@ class UserRoleTest extends TestCase
             ]
         )->assertJson([
             'errors' => [
-                ['message' => 'Validation failed for the field [updateUserAsAdmin].'],
+                ['message' => 'Validation failed for the field [updateUserRoles].'],
             ],
         ]);
     }
@@ -339,20 +331,18 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                    mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                        updateUserAsAdmin(id:$id, user:$user) {
-                            authInfo {
-                                roleAssignments {
-                                    role { id }
-                                    team { id }
-                                }
-                            }
-                      }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
                     }
-                ',
+                }
+                }
+            ',
             [
-                'id' => $user->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$role->id],
@@ -362,7 +352,7 @@ class UserRoleTest extends TestCase
             ]
         )->assertJson([
             'errors' => [
-                ['message' => 'Validation failed for the field [updateUserAsAdmin].'],
+                ['message' => 'Validation failed for the field [updateUserRoles].'],
             ],
         ]);
     }
@@ -450,20 +440,18 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                     updateUserAsAdmin(id:$id, user:$user) {
-                        authInfo {
-                            roleAssignments {
-                                role { id }
-                                team { id }
-                            }
-                        }
-                   }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
+                    }
                 }
-             ',
+                }
+            ',
             [
-                'id' => $otherUser->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $otherUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$newRole->id],
@@ -490,20 +478,18 @@ class UserRoleTest extends TestCase
         $this->actingAs($this->baseUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                 mutation updateUserAsAdmin($id:ID!, $user:UpdateUserAsAdminInput!) {
-                     updateUserAsAdmin(id:$id, user:$user) {
-                        authInfo {
-                            roleAssignments {
-                                role { id }
-                                team { id }
-                            }
-                        }
-                   }
+            mutation updateUserRoles($updateUserRolesInput:UpdateUserRolesInput!) {
+                updateUserRoles(updateUserRolesInput:$updateUserRolesInput) {
+                    roleAssignments {
+                        role { id }
+                        team { id }
+                    }
                 }
-             ',
+                }
+            ',
             [
-                'id' => $this->baseUser->id,
-                'user' => [
+                'updateUserRolesInput' => [
+                    'userId' => $this->baseUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
                             'roles' => [$newRole->id],

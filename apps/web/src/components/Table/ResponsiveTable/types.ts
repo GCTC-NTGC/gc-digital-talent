@@ -67,6 +67,11 @@ export type SortDef = {
   onSortChange?: (sortState: SortingState) => void;
 };
 
+export type FilterDef<TFilterState = object> = {
+  state?: TFilterState;
+  component: React.ReactNode;
+};
+
 export type AddLinkProps = {
   label: React.ReactNode;
   href: string;

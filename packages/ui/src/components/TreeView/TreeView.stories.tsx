@@ -6,7 +6,6 @@ import Button from "../Button";
 import Accordion from "../Accordion";
 import Card from "../Card";
 import Alert from "../Alert";
-import StandardHeader from "../Accordion/StandardHeader";
 import TreeView from "./TreeView";
 
 faker.seed(0);
@@ -30,9 +29,14 @@ const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
         </Alert.Root>
       </TreeView.Item>
       <TreeView.Item>
-        <Accordion.Root type="single" collapsible data-h2-margin="base(0, 0)">
+        <Accordion.Root
+          type="single"
+          mode="card"
+          collapsible
+          data-h2-margin="base(0, 0)"
+        >
           <Accordion.Item value="one">
-            <StandardHeader>Accordion Title</StandardHeader>
+            <Accordion.Trigger>Accordion Title</Accordion.Trigger>
             <Accordion.Content>
               <p>{faker.lorem.sentences(5)}</p>
             </Accordion.Content>

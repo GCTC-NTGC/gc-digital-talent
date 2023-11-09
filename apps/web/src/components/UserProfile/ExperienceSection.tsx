@@ -163,7 +163,7 @@ const ExperienceSection = ({
       </Tabs.Content>
       <Tabs.Content value="2">
         {sortedBySkills.length ? (
-          <Accordion.Root type="multiple">
+          <Accordion.Root type="multiple" mode="card">
             {sortedBySkills.map((skill) => (
               <SkillAccordion
                 key={skill.id}

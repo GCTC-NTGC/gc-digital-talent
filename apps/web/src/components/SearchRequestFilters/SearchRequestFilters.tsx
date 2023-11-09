@@ -143,7 +143,8 @@ const ApplicantFilters = ({
     ? intl.formatMessage(getLanguageAbility(applicantFilter?.languageAbility))
     : intl.formatMessage({
         defaultMessage: "Any language",
-        id: "0/8x/z",
+        id: "/jDW4V",
+        description: "Label for the any language option",
       });
 
   const workLocationIds: string[] =
@@ -412,7 +413,8 @@ const SearchRequestFilters = ({
       )
     : intl.formatMessage({
         defaultMessage: "Any language",
-        id: "0/8x/z",
+        id: "/jDW4V",
+        description: "Label for the any language option",
       });
 
   return (

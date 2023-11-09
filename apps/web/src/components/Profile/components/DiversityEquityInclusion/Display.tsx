@@ -76,7 +76,7 @@ const Display = ({
       </ul>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base:all(gray.lighter)"
         data-h2-margin="base(x1, 0)"
         decorative
       />

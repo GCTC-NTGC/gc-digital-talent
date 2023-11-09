@@ -120,18 +120,17 @@ const AssessmentStepFieldset = ({
           type="multiple"
           mode="simple"
           data-h2-margin-top="base(x.5)"
+          size="sm"
         >
           <Accordion.Item value="one">
-            <Accordion.Header headingAs="h5" data-h2-font-size="base(h6)">
-              <Accordion.Trigger data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Screening questions",
-                  id: "V62J5w",
-                  description:
-                    "title of 'screening questions' section of the assessment builder",
-                })}
-              </Accordion.Trigger>
-            </Accordion.Header>
+            <Accordion.Trigger as="h5">
+              {intl.formatMessage({
+                defaultMessage: "Screening questions",
+                id: "V62J5w",
+                description:
+                  "title of 'screening questions' section of the assessment builder",
+              })}
+            </Accordion.Trigger>
             <Accordion.Content>
               <Heading
                 level="h6"

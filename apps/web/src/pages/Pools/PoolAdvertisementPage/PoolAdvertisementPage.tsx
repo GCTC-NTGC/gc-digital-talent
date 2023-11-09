@@ -15,7 +15,6 @@ import {
   Heading,
   Pill,
   Link,
-  StandardAccordionHeader,
   Alert,
 } from "@gc-digital-talent/ui";
 import {
@@ -337,43 +336,41 @@ export const PoolPoster = ({
                   {applyBtn}
                 </div>
               </div>
-              <Accordion.Root mode="simple" type="single" collapsible>
+              <Accordion.Root type="single" collapsible>
                 <Accordion.Item value="when">
-                  <StandardAccordionHeader>
+                  <Accordion.Trigger>
                     {intl.formatMessage({
                       defaultMessage: "What are pool recruitments?",
                       id: "KYFarS",
                       description:
                         "Title for accordion describing pool recruitments",
                     })}
-                  </StandardAccordionHeader>
+                  </Accordion.Trigger>
                   <Accordion.Content>
-                    <div data-h2-margin-top="base(x1)">
-                      <Text>
-                        {intl.formatMessage({
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                        id: "kH4Jsf",
+                        description:
+                          "Description of pool recruitment, paragraph one",
+                      })}
+                    </Text>
+                    <Text>
+                      {intl.formatMessage(
+                        {
                           defaultMessage:
-                            "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                          id: "kH4Jsf",
+                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
+                          id: "7b0U9u",
                           description:
-                            "Description of pool recruitment, paragraph one",
-                        })}
-                      </Text>
-                      <Text>
-                        {intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
-                            id: "7b0U9u",
-                            description:
-                              "Description of pool recruitment, paragraph two",
-                          },
-                          {
-                            abbreviation: (text: React.ReactNode) =>
-                              wrapAbbr(text, intl),
-                          },
-                        )}
-                      </Text>
-                    </div>
+                            "Description of pool recruitment, paragraph two",
+                        },
+                        {
+                          abbreviation: (text: React.ReactNode) =>
+                            wrapAbbr(text, intl),
+                        },
+                      )}
+                    </Text>
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (

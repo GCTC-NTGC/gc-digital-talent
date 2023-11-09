@@ -6,9 +6,11 @@ import { useIntl } from "react-intl";
 import {
   Checkbox,
   Input,
+  RadioGroup,
   Select,
   Submit,
   TextArea,
+  enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Link, Pending } from "@gc-digital-talent/ui";
@@ -36,7 +38,9 @@ import {
   ApplicantFilter,
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
+  PoolCandidateSearchRequestReason,
 } from "@gc-digital-talent/graphql";
+import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -47,6 +51,12 @@ import {
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
 
+const directiveLink = (chunks: React.ReactNode, href: string) => (
+  <Link href={href} newTab>
+    {chunks}
+  </Link>
+);
+
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -54,6 +64,7 @@ type FormValues = {
   jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
   managerJobTitle?: CreatePoolCandidateSearchRequestInput["managerJobTitle"];
   positionType?: boolean;
+  reason: CreatePoolCandidateSearchRequestInput["reason"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
   applicantFilter?: {
     qualifiedClassifications?: {
@@ -131,6 +142,7 @@ export const RequestForm = ({
       jobTitle: values.jobTitle ?? "",
       managerJobTitle: values.managerJobTitle ?? "",
       positionType: positionTypeMassaged,
+      reason: values.reason,
       additionalComments: values.additionalComments,
       wasEmpty: candidateCount === 0,
       applicantFilter: {
@@ -339,6 +351,54 @@ export const RequestForm = ({
               />
             </div>
           </div>
+          <h2
+            data-h2-font-size="base(h4)"
+            data-h2-font-weight="base(700)"
+            data-h2-margin="base(x2, 0, x1, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Reason for the talent request",
+              id: "8EbhWx",
+              description:
+                "Form header for filling in the reason why the user is submitting the request.",
+            })}
+          </h2>
+          <RadioGroup
+            id="reason"
+            name="reason"
+            idPrefix="reason"
+            legend={intl.formatMessage({
+              defaultMessage:
+                "Select the option that best represents your reason for submitting this talent request",
+              id: "cXszfI",
+              description:
+                "Legend for the options related to the reason for submitting a request.",
+            })}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            items={enumToOptions(PoolCandidateSearchRequestReason, [
+              PoolCandidateSearchRequestReason.ImmediateHire,
+              PoolCandidateSearchRequestReason.UpcomingNeed,
+              PoolCandidateSearchRequestReason.GeneralInterest,
+              PoolCandidateSearchRequestReason.UpcomingNeed,
+            ]).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getSearchRequestReason(value)),
+            }))}
+          />
+          <p data-h2-margin="base(x1 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Learn more about the <directiveLink>Directive on Digital Talent</directiveLink>.",
+                id: "gZaILA",
+                description: "Link to more information on the directive.",
+              },
+              {
+                directiveLink: (chunks: React.ReactNode) =>
+                  directiveLink(chunks, paths.directive()),
+              },
+            )}
+          </p>
           <div>
             <h2
               data-h2-font-size="base(h4)"
