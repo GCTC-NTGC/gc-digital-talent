@@ -31,7 +31,6 @@ const siblingIconColor: Record<IconColor, Record<string, string>> = {
           base:selectors[:checked]:children[+ label>svg](primary.dark)
           base:focus-visible:children[+ label>svg](black)`,
   },
-
   secondary: {
     "data-h2-color": `
         base:children[+ label>svg](black)
