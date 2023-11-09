@@ -20,6 +20,7 @@ export const SEARCH_PARAM_KEY = {
   SORT_RULE: "sr",
   PAGE_SIZE: "ps",
   PAGE: "p",
+  FILTERS: "f",
 } as const;
 
 // eslint-disable-next-line import/no-unused-modules

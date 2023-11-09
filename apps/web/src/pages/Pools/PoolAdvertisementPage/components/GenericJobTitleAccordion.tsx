@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, StandardAccordionHeader } from "@gc-digital-talent/ui";
+import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { GenericJobTitle } from "~/api/generated";
@@ -21,7 +21,7 @@ const GenericJobTitleAccordion = ({
 
   return (
     <Accordion.Item value={genericJobTitle?.id}>
-      <StandardAccordionHeader>
+      <Accordion.Trigger>
         {intl.formatMessage(
           {
             defaultMessage: "What does {classification} {genericTitle} mean?",
@@ -34,11 +34,9 @@ const GenericJobTitleAccordion = ({
             genericTitle: getLocalizedName(genericJobTitle.name, intl),
           },
         )}
-      </StandardAccordionHeader>
+      </Accordion.Trigger>
       <Accordion.Content>
-        <div data-h2-margin-top="base(x1)">
-          <ClassificationDefinition name={genericJobTitle.key} />
-        </div>
+        <ClassificationDefinition name={genericJobTitle.key} />
       </Accordion.Content>
     </Accordion.Item>
   );

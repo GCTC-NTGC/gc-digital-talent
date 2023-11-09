@@ -50,7 +50,8 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
             {
               defaultMessage:
                 "Conditions of Employment ({operationalRequirementFilterCount})",
-              id: "ky585k",
+              id: "73m8PA",
+              description: "Label for operational requirements filter link",
             },
             { operationalRequirementFilterCount },
           )}

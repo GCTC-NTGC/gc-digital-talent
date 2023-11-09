@@ -6,12 +6,7 @@ import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
-import {
-  Accordion,
-  DefinitionList,
-  Heading,
-  StandardAccordionHeader,
-} from "@gc-digital-talent/ui";
+import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -90,9 +85,9 @@ const ApplicationCareerTimelineAdd = ({
             "Instructions on how to add an experience to your career timeline",
         })}
       </p>
-      <Accordion.Root type="multiple" mode="simple">
+      <Accordion.Root type="multiple">
         <Accordion.Item value="learn-more">
-          <StandardAccordionHeader headingAs="h3">
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage:
                 "Learn more about the types of experience you can add",
@@ -100,7 +95,7 @@ const ApplicationCareerTimelineAdd = ({
               description:
                 "Button text to open section describing experience types",
             })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
             <p data-h2-margin-top="base(x1)">
               {intl.formatMessage({

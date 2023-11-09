@@ -33,6 +33,7 @@ import {
   EvaluatedLanguageAbility,
   PoolSkillType,
   AssessmentStepType,
+  PoolCandidateSearchRequestReason,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1711,15 +1712,18 @@ export const getPublishingGroup = (
 const abbreviations = defineMessages({
   AS: {
     defaultMessage: "Administrative Services",
-    id: "6svHxg",
+    id: "o9qR1R",
+    description: "Full name of abbreviation for AS classification",
   },
   GC: {
     defaultMessage: "Government of Canada",
-    id: "t9i8Ml",
+    id: "sMi0QI",
+    description: "Full name of abbreviation for GC",
   },
   IT: {
     defaultMessage: "Information Technology",
-    id: "nLW9zq",
+    id: "n3Gt3n",
+    description: "Full name of abbreviation for IT",
   },
 });
 
@@ -2014,4 +2018,41 @@ export const getAssessmentStepType = (
     assessmentStepTypes,
     assessmentStepTypeId,
     `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
+  );
+
+const searchRequestReasons = defineMessages({
+  [PoolCandidateSearchRequestReason.GeneralInterest]: {
+    defaultMessage: "General interest",
+    id: "I6ztce",
+    description: "Option for searching candidates for interest only",
+  },
+  [PoolCandidateSearchRequestReason.ImmediateHire]: {
+    defaultMessage:
+      "Looking for immediate hire (approval, position and funding in place)",
+    id: "h6da9P",
+    description: "Option for searching candidates for an immediate hire",
+  },
+  [PoolCandidateSearchRequestReason.RequiredByDirective]: {
+    defaultMessage:
+      "Required under the Directive on Digital Talent (pre-contracting talent search for Digital Services Contracting Questionnaire)",
+    id: "hMHSRw",
+    description:
+      "Option for searching candidates because it was required by the directive",
+  },
+  [PoolCandidateSearchRequestReason.UpcomingNeed]: {
+    defaultMessage:
+      "For upcoming need (classification or funding not yet in place)",
+    id: "K/npC7",
+    description:
+      "Option for searching candidates for an upcoming staffing need",
+  },
+});
+
+export const getSearchRequestReason = (
+  searchRequestReasonId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    searchRequestReasons,
+    searchRequestReasonId,
+    `Invalid Search Request Reason '${searchRequestReasonId}'`,
   );

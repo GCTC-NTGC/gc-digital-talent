@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, StandardAccordionHeader } from "@gc-digital-talent/ui";
+import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Skill } from "~/api/generated";
@@ -20,15 +20,12 @@ const SkillDescriptionAccordion = ({
   }
 
   return (
-    <Accordion.Root type="single" mode="simple" collapsible>
+    <Accordion.Root type="single" size="sm" collapsible>
       {skills.map((skill) => (
         <Accordion.Item key={skill.id} value={skill.id}>
-          <StandardAccordionHeader
-            headingAs="h4"
-            titleProps={{ "data-h2-font-size": "base(copy)" }}
-          >
+          <Accordion.Trigger as="h4">
             {getLocalizedName(skill.name, intl)}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
             <p>{getLocalizedName(skill.description, intl)}</p>
           </Accordion.Content>

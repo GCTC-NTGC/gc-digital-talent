@@ -71,7 +71,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
         </>
       }
     >
-      <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+      <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
         {intl.formatMessage({
           defaultMessage: "GC Digital Talent",
           id: "MS9dB9",

@@ -20,7 +20,6 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
     <>
       <div
         data-h2-background-color="base:all(black)"
-        data-h2-color="base(white)"
         data-h2-padding="base(x1, 0)"
       >
         <nav

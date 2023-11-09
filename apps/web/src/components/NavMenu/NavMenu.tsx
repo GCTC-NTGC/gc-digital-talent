@@ -11,7 +11,6 @@ const ListItem = ({ children }: { children?: React.ReactNode }) => (
     <span
       data-h2-display="base(block)"
       data-h2-margin="base(0, 0, x.5, 0) p-tablet(0)"
-      data-h2-text-decoration="base:hover(none)"
     >
       {children}
     </span>
@@ -22,7 +21,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
   const intl = useIntl();
   return (
     <div
-      data-h2-background-color="base(foreground)"
+      data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-padding="base(x1, 0)"
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
