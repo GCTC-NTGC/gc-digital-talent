@@ -88,5 +88,15 @@ class AssessmentStep extends Model
             }
             $step['sort_order'] = $sortOrder;
         });
+
+        static::deleted(function (AssessmentStep $step) {
+            // If this was the screening question step delete all screening questions as well
+            if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
+                $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
+                foreach ($questions as $question) {
+                    $question->forceDelete();
+                }
+            }
+        });
     }
 }
