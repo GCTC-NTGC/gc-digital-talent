@@ -277,24 +277,55 @@ export const getArmedForcesStatusesProfile = (
     `Invalid status '${armedForcesId}'`,
   );
 
-const educationRequirementOptions = defineMessages({
-  [EducationRequirementOption.AppliedWork]: {
-    defaultMessage: "Applied work experience",
-    description: "Option for education requirement, applied work experience",
-    id: "4S30lt",
-  },
-  [EducationRequirementOption.Education]: {
-    defaultMessage: "2-year post-secondary",
-    description: "Option for education requirement, 2-year post-secondary",
-    id: "TiIkSF",
-  },
-});
+const educationRequirementOptions = (classificationGroup?: string) =>
+  classificationGroup === "EX"
+    ? defineMessages({
+        [EducationRequirementOption.AppliedWork]: {
+          defaultMessage: "Applied work experience",
+          description:
+            "Option for education requirement, applied work experience",
+          id: "4S30lt",
+        },
+        [EducationRequirementOption.Education]: {
+          defaultMessage: "Graduation with degree",
+          id: "aTHtqQ",
+          description:
+            "Option for education requirement, graduation with degree",
+        },
+        [EducationRequirementOption.ProfessionalDesignation]: {
+          defaultMessage: "Professional designation",
+          id: "TblXEE",
+          description:
+            "Option for education requirement, professional designation",
+        },
+      })
+    : defineMessages({
+        [EducationRequirementOption.AppliedWork]: {
+          defaultMessage: "Applied work experience",
+          description:
+            "Option for education requirement, applied work experience",
+          id: "4S30lt",
+        },
+        [EducationRequirementOption.Education]: {
+          defaultMessage: "2-year post-secondary",
+          description:
+            "Option for education requirement, 2-year post-secondary",
+          id: "TiIkSF",
+        },
+        [EducationRequirementOption.ProfessionalDesignation]: {
+          defaultMessage: "Professional designation",
+          id: "TblXEE",
+          description:
+            "Option for education requirement, professional designation",
+        },
+      });
 
 export const getEducationRequirementOption = (
   educationRequirementOptionId: string,
+  classificationGroup?: string,
 ): MessageDescriptor =>
   getOrThrowError(
-    educationRequirementOptions,
+    educationRequirementOptions(classificationGroup),
     educationRequirementOptionId,
     `Invalid Education Requirement Option '${educationRequirementOptionId}'`,
   );
