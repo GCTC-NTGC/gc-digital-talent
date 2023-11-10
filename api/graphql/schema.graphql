@@ -1787,9 +1787,10 @@ type Mutation {
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
   ): AssessmentStep @update @guard @can(ability: "update", find: "id")
-  swapAssessmentStepOrder(stepA: UUID!, stepB: UUID!): [AssessmentStep]
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
     @guard
-    @can(ability: "update", find: "stepA")
+    @can(ability: "update", find: "stepIdA")
+    @can(ability: "update", find: "stepIdB")
   syncPoolScreeningQuestions(
     poolId: UUID!
     screeningQuestions: [SyncScreeningQuestionsInput]

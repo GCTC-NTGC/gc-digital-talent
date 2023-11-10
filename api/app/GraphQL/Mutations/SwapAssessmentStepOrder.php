@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\AssessmentStep;
+use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class SwapAssessmentStepOrder
@@ -13,8 +14,8 @@ final class SwapAssessmentStepOrder
      */
     public function __invoke($_, array $args)
     {
-        $stepA = AssessmentStep::find($args['stepA']);
-        $stepB = AssessmentStep::find($args['stepB']);
+        $stepA = AssessmentStep::find($args['stepIdA']);
+        $stepB = AssessmentStep::find($args['stepIdB']);
 
         // Ensure the steps belong to the same pool
         if ($stepA->pool_id !== $stepB->pool_id) {
@@ -26,11 +27,18 @@ final class SwapAssessmentStepOrder
             throw ValidationException::withMessages(['AssessmentStepCannotSwap']);
         }
 
-        $temp = $stepA->sort_order;
-        $stepA->sort_order = $stepB->sort_order;
-        $stepB->sort_order = $temp;
-        $stepA->save();
-        $stepB->save();
+        DB::beginTransaction();
+        try {
+            $temp = $stepA->sort_order;
+            $stepA->sort_order = $stepB->sort_order;
+            $stepB->sort_order = $temp;
+            $stepA->save();
+            $stepB->save();
+            DB::commit();
+        } catch (\Throwable $error) {
+            DB::rollBack();
+            throw $error;
+        }
 
         return [$stepA, $stepB];
     }
