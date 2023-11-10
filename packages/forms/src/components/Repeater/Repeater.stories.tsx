@@ -21,6 +21,8 @@ type StoryProps = RepeaterProps &
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
+    editDisabledIndexes?: Array<number>;
+    deleteDisabledIndexes?: Array<number>;
   };
 
 export default {
@@ -42,6 +44,8 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
     hideIndex,
     maxItems,
     moveDisabledIndexes,
+    editDisabledIndexes,
+    deleteDisabledIndexes,
     ...rootProps
   } = props;
   const { control } = useFormContext();
@@ -90,6 +94,8 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             action("edit")("Opens edit form dialog.");
           }}
           moveDisabledIndexes={moveDisabledIndexes}
+          isEditDisabled={!!editDisabledIndexes?.includes(index)}
+          isDeleteDisabled={!!deleteDisabledIndexes?.includes(index)}
         >
           <div
             data-h2-display="base(grid)"
@@ -184,6 +190,8 @@ export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
   moveDisabledIndexes: [1],
+  editDisabledIndexes: [2],
+  deleteDisabledIndexes: [3],
   defaultValues: [
     {
       en: "Question 1 (EN)",

@@ -94,6 +94,10 @@ export interface RepeaterFieldsetProps {
   customEditButton?: React.ReactNode;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
+  /** Disables editing the item */
+  isEditDisabled?: boolean;
+  /** Disables deleting the item */
+  isDeleteDisabled?: boolean;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -112,6 +116,8 @@ const Fieldset = ({
   onEdit,
   customEditButton,
   moveDisabledIndexes = [],
+  isEditDisabled = false,
+  isDeleteDisabled = false,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -311,7 +317,7 @@ const Fieldset = ({
               >
                 {onEdit && (
                   <ActionButton
-                    disabled={disabled}
+                    disabled={disabled || isEditDisabled}
                     animate={false}
                     onClick={handleEdit}
                     aria-label={intl.formatMessage(formMessages.repeaterEdit, {
@@ -323,7 +329,7 @@ const Fieldset = ({
                 )}
                 {customEditButton && <div>{customEditButton}</div>}
                 <ActionButton
-                  disabled={disabled}
+                  disabled={disabled || isDeleteDisabled}
                   animate={false}
                   onClick={handleRemove}
                   aria-label={intl.formatMessage(formMessages.repeaterRemove, {
