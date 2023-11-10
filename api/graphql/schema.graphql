@@ -1791,7 +1791,7 @@ type Mutation {
     @guard
     @can(ability: "update", find: "stepIdA")
     @can(ability: "update", find: "stepIdB")
-  syncPoolScreeningQuestions(
+  createOrUpdateScreeningQuestionAssessmentStep(
     poolId: UUID!
     screeningQuestions: [SyncScreeningQuestionsInput]
     assessmentStep: ScreeningQuestionAssessmentStepInput
