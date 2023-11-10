@@ -1123,6 +1123,10 @@ input DepartmentBelongsToMany {
 
 input CreateTeamInput {
   name: String!
+    @rules(
+      apply: ["unique:teams,name"]
+      messages: [{ rule: "unique", message: "TeamNameInUse" }]
+    )
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
@@ -1131,6 +1135,10 @@ input CreateTeamInput {
 
 input UpdateTeamInput {
   name: String
+    @rules(
+      apply: ["unique:teams,name"]
+      messages: [{ rule: "unique", message: "TeamNameInUse" }]
+    )
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
@@ -1215,6 +1223,10 @@ input SkillKeywordsInput {
 
 input CreateSkillInput {
   key: KeyString!
+    @rules(
+      apply: ["unique:skills,key"]
+      messages: [{ rule: "unique", message: "SkillKeyStringInUse" }]
+    )
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
