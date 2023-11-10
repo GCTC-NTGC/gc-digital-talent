@@ -299,7 +299,7 @@ const AccessibilityStatementPage = () => {
               )}
             </p>
             <TableOfContents.Section id={sections[0].id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading size="h2">
                 {sections[0].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -318,7 +318,7 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[1].id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading size="h2">
                 {sections[1].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -333,11 +333,20 @@ const AccessibilityStatementPage = () => {
                   { wcagLink },
                 )}
               </p>
+              <Heading level="h3">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Making our products accessible and usable by all",
+                  id: "agcOO1",
+                  description:
+                    "Heading for the items we consider for accessibility.",
+                })}
+              </Heading>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
-                  id: "d8FGfc",
+                  id: "ASYJlr",
                   defaultMessage:
-                    "<strong>Making our products accessible and usable by all.</strong> Our web application should adjust smoothly to various screen sizes and allow our users to access the platform on devices that meet their needs. Every feature we build needs to be accessible, but like making a great plate of nachos, you need the right ingredients to even get started. We start with these practical ingredients:",
+                    "Our web application should adjust smoothly to various screen sizes and allow our users to access the platform on devices that meet their needs. Every feature we build needs to be accessible, but like making a great plate of nachos, you need the right ingredients to even get started. We start with these practical ingredients:",
                   description:
                     "Lead in text for list of items we consider for accessibility",
                 })}
@@ -440,12 +449,19 @@ const AccessibilityStatementPage = () => {
                   </ul>
                 </li>
               </ul>
+              <Heading level="h3">
+                {intl.formatMessage({
+                  defaultMessage: "Testing with real users",
+                  id: "7+GPYf",
+                  description: "Heading for how we test accessibility.",
+                })}
+              </Heading>
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "<strong>Testing with Real Users.</strong> Before we consider anything to be ready for release, we work with <fableLink>Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
-                    id: "HCWGjZ",
+                      "Before we consider anything to be ready for release, we work with <fableLink>Fable Tech Labs</fableLink> to get our products and features evaluated by users who require adaptive technologies to access the web. This is an important step to make sure our products work for real people.",
+                    id: "gEnOmo",
                     description:
                       "Text describing our user testing for accessibility",
                   },
@@ -454,7 +470,7 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[2].id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading size="h2">
                 {sections[2].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -484,7 +500,7 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[3].id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading size="h2">
                 {sections[3].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
