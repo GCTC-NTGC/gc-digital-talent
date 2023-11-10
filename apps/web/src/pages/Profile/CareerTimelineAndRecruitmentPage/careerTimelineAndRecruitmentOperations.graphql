@@ -152,17 +152,3 @@ query getAllApplicantExperiences($id: UUID!) {
     }
   }
 }
-
-query getAllApplicantExperiencesAndPoolSkills($userId: UUID!, $poolId: UUID!) {
-  user(id: $userId) {
-    ...applicantExperiences
-  }
-  pool(id: $poolId) {
-    essentialSkills {
-      ...poolSkills
-    }
-    nonessentialSkills {
-      ...poolSkills
-    }
-  }
-}
