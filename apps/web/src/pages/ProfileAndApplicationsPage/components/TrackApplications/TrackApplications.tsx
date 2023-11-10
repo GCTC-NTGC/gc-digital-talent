@@ -49,6 +49,7 @@ const TrackApplications = ({
       <div>
         <Heading
           level="h2"
+          size="h3"
           data-h2-font-weight="base(400)"
           Icon={FolderOpenIcon}
           color="primary"
@@ -149,7 +150,6 @@ const TrackApplications = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >
@@ -223,7 +223,6 @@ const TrackApplications = ({
               ) : (
                 <Well data-h2-text-align="base(center)">
                   <p
-                    data-h2-font-size="base(h6)"
                     data-h2-font-weight="base(700)"
                     data-h2-margin="base(0, 0, x.25, 0)"
                   >

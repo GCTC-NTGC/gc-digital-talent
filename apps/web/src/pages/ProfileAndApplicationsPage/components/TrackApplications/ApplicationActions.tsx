@@ -30,7 +30,12 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="l-tablet(0, 0, 0, auto)">
-      <Link mode="inline" href={paths.application(application.id)}>
+      <Link
+        mode="inline"
+        fontSize="caption"
+        color="black"
+        href={paths.application(application.id)}
+      >
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -62,7 +67,8 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
     <Link
       href={paths.application(application.id)}
       mode="inline"
-      data-h2-font-size="base(caption)"
+      fontSize="caption"
+      color="black"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review your application to the {title} job",
@@ -73,7 +79,6 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           title,
         },
       )}
-      data-h2-color="base(black.light)"
     >
       {intl.formatMessage(
         {
@@ -109,8 +114,8 @@ const SeeAdvertisementAction = ({
     <Link
       mode="inline"
       href={paths.pool(advertisement.id)}
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review the {title} job advertisement",
@@ -152,8 +157,8 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
       href={paths.support()}
       state={{ referrer: window.location.href }}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Get support for the {title} job",
@@ -191,8 +196,8 @@ const CopyApplicationIdAction = ({
   return (
     <Button
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
@@ -265,8 +270,8 @@ const VisitCareerTimelineAction = ({
     <Link
       href={recruitmentSectionUrl}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Manage the {title} recruitment",
@@ -310,8 +315,8 @@ const ManageAvailabilityAction = ({
     <Link
       href={paths.profile(userID)}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage:
@@ -354,8 +359,8 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <Button
           mode="inline"
           type="button"
-          data-h2-color="base(error.dark)"
-          data-h2-font-size="base(caption)"
+          color="error"
+          fontSize="caption"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Delete your application to the {title} job",
@@ -449,7 +454,7 @@ const ArchiveAction = ({
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button mode="inline" type="button" color="secondary">
+        <Button mode="inline" type="button" fontSize="caption" color="black">
           {intl.formatMessage(
             {
               defaultMessage: "Archive<hidden> application {name}</hidden>",
