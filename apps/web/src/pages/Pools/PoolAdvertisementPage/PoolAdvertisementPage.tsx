@@ -321,11 +321,13 @@ export const PoolPoster = ({
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
-                data-h2-margin="base(0, 0, x1, 0)"
                 data-h2-flex-wrap="base(wrap)"
               >
                 <div data-h2-flex-grow="base(1)">
-                  <TableOfContents.Heading data-h2-margin="base(0)">
+                  <TableOfContents.Heading
+                    size="h3"
+                    data-h2-margin="base(0, 0, x1, 0)"
+                  >
                     {sections.summary.title}
                   </TableOfContents.Heading>
                 </div>
@@ -336,7 +338,7 @@ export const PoolPoster = ({
                   {applyBtn}
                 </div>
               </div>
-              <Accordion.Root type="single" collapsible>
+              <Accordion.Root size="sm" type="single" collapsible>
                 <Accordion.Item value="when">
                   <Accordion.Trigger>
                     {intl.formatMessage({
@@ -468,11 +470,14 @@ export const PoolPoster = ({
             )}
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
                 {pool.yourImpact && (
-                  <div data-h2-margin-top="base(x1)">
+                  <div>
                     <RichTextRenderer
                       node={htmlToRichTextJSON(
                         getLocalizedName(pool.yourImpact, intl),
@@ -482,7 +487,12 @@ export const PoolPoster = ({
                 )}
                 {pool.keyTasks && (
                   <>
-                    <Heading level="h3" size="h4">
+                    <Heading
+                      level="h3"
+                      size="h4"
+                      data-h2-font-weight="base(700)"
+                      data-h2-margin="base(x2, 0, x1, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage: "Common tasks in this role",
                         id: "ATO0GK",
@@ -502,10 +512,18 @@ export const PoolPoster = ({
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.experienceSkills.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.experienceSkills.title}
               </TableOfContents.Heading>
-              <Heading level="h3" size="h4">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x2, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Minimum experience or education",
                   id: "v6boy9",
@@ -529,7 +547,12 @@ export const PoolPoster = ({
                 isIAP={pool.publishingGroup === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
-              <Heading level="h3" size="h4">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x2, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
                   id: "706kTz",
@@ -546,7 +569,7 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
               </Text>
-              <Heading level="h4" size="h6">
+              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage: "Required technical skills",
                   id: "9V8bnL",
@@ -573,7 +596,7 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required technical skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage: "Optional technical skills",
                   id: "CzrCfC",
@@ -600,7 +623,7 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no optional technical skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage: "Required behavioural skills",
                   id: "t9HxQm",
@@ -627,7 +650,7 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required behavioural skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage: "Optional behavioural skills",
                   id: "LeVJmQ",
@@ -656,7 +679,10 @@ export const PoolPoster = ({
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.locationLangSecurity.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.locationLangSecurity.title}
               </TableOfContents.Heading>
               <Text>
@@ -747,7 +773,10 @@ export const PoolPoster = ({
             </TableOfContents.Section>
             {contactEmail && (
               <TableOfContents.Section id={sections.contact.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.contact.title}
                 </TableOfContents.Heading>
                 <Text>
@@ -770,7 +799,10 @@ export const PoolPoster = ({
             )}
             {showWhatToExpect && (
               <TableOfContents.Section id={sections.whatToExpect.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.whatToExpect.title}
                 </TableOfContents.Heading>
                 <div data-h2-margin-top="base(x1)">
@@ -783,7 +815,10 @@ export const PoolPoster = ({
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.whoCanApply.title}
               </TableOfContents.Heading>
               <Text>
@@ -805,7 +840,10 @@ export const PoolPoster = ({
             </TableOfContents.Section>
             {canApply && (
               <TableOfContents.Section id={sections.apply.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.apply.title}
                 </TableOfContents.Heading>
                 <Text>
