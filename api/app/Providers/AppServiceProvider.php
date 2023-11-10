@@ -31,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
             'educationExperience' => \App\Models\EducationExperience::class,
             'personalExperience' => \App\Models\PersonalExperience::class,
             'workExperience' => \App\Models\WorkExperience::class,
-            'poolsSkills' => \App\Models\Pool::class,
         ]);
         // enable below for database debugging
         // DB::listen(function ($query) {

@@ -255,12 +255,13 @@
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
   },
-  "6svHxg": {
-    "defaultMessage": "Services administratifs"
-  },
   "6tekaa": {
     "defaultMessage": "Septembre",
     "description": "Name of the ninth month"
+  },
+  "6yqQBg": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Pool Stream described as Executive Group."
   },
   "76QTNv": {
     "defaultMessage": "La demande a déjà été soumise.",
@@ -506,6 +507,10 @@
     "defaultMessage": "PAPA",
     "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
   },
+  "I6ztce": {
+    "defaultMessage": "Intérêt général",
+    "description": "Option for searching candidates for interest only"
+  },
   "IANM2P": {
     "defaultMessage": "Période indéterminée",
     "description": "The pool candidate's status is Placed Indeterminate."
@@ -553,6 +558,10 @@
   "Jpq6MK": {
     "defaultMessage": "Région de Québec (excluant Gatineau)",
     "description": "The work region of Canada described as Quebec."
+  },
+  "K/npC7": {
+    "defaultMessage": "Pour les besoins à venir (la classification ou le financement n’a pas encore été mis(e) en place",
+    "description": "Option for searching candidates for an upcoming staffing need"
   },
   "K80psp": {
     "defaultMessage": "Autre",
@@ -1202,6 +1211,14 @@
     "defaultMessage": "Français",
     "description": "The language French."
   },
+  "h6da9P": {
+    "defaultMessage": "Recherche une embauche immédiate (approbation, poste ou financement en place) ",
+    "description": "Option for searching candidates for an immediate hire"
+  },
+  "hMHSRw": {
+    "defaultMessage": "Nécessaire en vertu de la Directive sur les talents numériques (recherche de talent précontractuel pour le questionnaire sur l’établissement de contrats pour des services numériques)",
+    "description": "Option for searching candidates because it was required by the directive"
+  },
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
@@ -1370,8 +1387,9 @@
     "defaultMessage": "Juillet",
     "description": "Name of the seventh month"
   },
-  "nLW9zq": {
-    "defaultMessage": "Technologie de l’information"
+  "n3Gt3n": {
+    "defaultMessage": "Technologie de l’information",
+    "description": "Full name of abbreviation for IT"
   },
   "nPKPFa": {
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
@@ -1400,6 +1418,10 @@
   "o7GBkR": {
     "defaultMessage": "Archivé",
     "description": "Archived pool advertisement status"
+  },
+  "o9qR1R": {
+    "defaultMessage": "Services administratifs",
+    "description": "Full name of abbreviation for AS classification"
   },
   "oANrhM": {
     "defaultMessage": "Collectivité",
@@ -1525,6 +1547,10 @@
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
   },
+  "sMi0QI": {
+    "defaultMessage": "Gouvernement du Canada",
+    "description": "Full name of abbreviation for GC"
+  },
   "sNUWqY": {
     "defaultMessage": "Bourses postdoctorales",
     "description": "Post Doctoral Fellowship selection for education type input"
@@ -1564,9 +1590,6 @@
   "t4F/0R": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
     "description": "Error message that the pool advertisement must have a security clearance."
-  },
-  "t9i8Ml": {
-    "defaultMessage": "Gouvernement du Canada"
   },
   "tEUGpL": {
     "defaultMessage": "Liste",

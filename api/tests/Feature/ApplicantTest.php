@@ -1050,8 +1050,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
-                applicant(id: $id) {
+            query user($id: UUID!) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1061,7 +1061,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 10,
                     ],
                 ],
@@ -1072,8 +1072,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
-                applicant(id: $id) {
+            query user($id: UUID!) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1083,7 +1083,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 20,
                     ],
                 ],
@@ -1094,8 +1094,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
-                applicant(id: $id) {
+            query user($id: UUID!) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1105,7 +1105,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 30,
                     ],
                 ],
@@ -1116,8 +1116,8 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
-                applicant(id: $id) {
+            query user($id: UUID!) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1127,7 +1127,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 40,
                     ],
                 ],

@@ -172,8 +172,9 @@ const Actions = ({
       data-h2-padding="base(x1)"
       data-h2-background-color="base(black)"
       data-h2-color="base(white)"
-      data-h2-position="base(relative)"
+      data-h2-position="base(sticky)"
       data-h2-justify-content="base(space-between)"
+      data-h2-left="base(0)"
     >
       <Column>
         {isLoading ? (
@@ -236,36 +237,39 @@ const Actions = ({
             </span>
 
             {download?.selection && (
-              <>
-                <span data-h2-display="base(none) l-tablet(block)">
-                  <Bullet data-h2-display="base(none) l-tablet(block)" />
-                </span>
+              <span
+                data-h2-align-items="base(center)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x.25)"
+              >
                 <span
-                  data-h2-position="base(relative)"
-                  data-h2-align-items="base(center) l-tablet(flex-start)"
+                  aria-hidden
+                  data-h2-display="base(none) l-tablet(inline-block)"
                 >
-                  <DownloadCsv
-                    data-h2-font-weight="base(400)"
-                    {...download.selection.csv}
-                    {...actionButtonStyles}
-                  >
-                    {download.selection.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Download CSV",
-                        id: "mxOuYK",
-                        description:
-                          "Text label for button to download a csv file of items in a table.",
-                      })}
-                  </DownloadCsv>
+                  &bull;
                 </span>
-              </>
+                <DownloadCsv
+                  data-h2-font-weight="base(400)"
+                  {...download.selection.csv}
+                  {...actionButtonStyles}
+                >
+                  {download.selection.label ||
+                    intl.formatMessage({
+                      defaultMessage: "Download CSV",
+                      id: "mxOuYK",
+                      description:
+                        "Text label for button to download a csv file of items in a table.",
+                    })}
+                </DownloadCsv>
+              </span>
             )}
 
-            {print?.onPrint && (
-              <>
-                <span data-h2-display="base(none) l-tablet(block)">
-                  <Bullet data-h2-display="base(none) l-tablet(block)" />
-                </span>
+            {(print?.onPrint || print?.component) && (
+              <span
+                data-h2-align-items="base(center)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x.25)"
+              >
                 <span
                   data-h2-position="base(relative)"
                   data-h2-align-items="base(center) l-tablet(flex-start)"
@@ -284,7 +288,18 @@ const Actions = ({
                     </Button>
                   )}
                 </span>
-              </>
+                {print.component ?? (
+                  <Button onClick={print.onPrint} {...actionButtonStyles}>
+                    {print.label ||
+                      intl.formatMessage({
+                        defaultMessage: "Print selection",
+                        id: "KrrW7D",
+                        description:
+                          "Text label for button to print items in a table.",
+                      })}
+                  </Button>
+                )}
+              </span>
             )}
           </Section>
         )}
@@ -371,7 +386,6 @@ type UseRowSelectionReturn = [
 ];
 
 export const useRowSelection = <T,>(
-  data: T[],
   rowSelect?: RowSelectDef<T>,
 ): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
@@ -379,16 +393,16 @@ export const useRowSelection = <T,>(
   const rowSelectionCallback = React.useCallback(
     (newRowSelection: RowSelectionState) => {
       if (rowSelect?.onRowSelection) {
-        const selectedRows = Object.values(newRowSelection)
-          .map((value, index) => {
-            return value ? data[index] : undefined;
+        const selectedRows = Object.keys(newRowSelection)
+          .map((value) => {
+            return newRowSelection[value] ? value : undefined;
           })
           .filter(notEmpty);
 
         rowSelect.onRowSelection(selectedRows);
       }
     },
-    [data, rowSelect],
+    [rowSelect],
   );
 
   const handleRowSelection = (

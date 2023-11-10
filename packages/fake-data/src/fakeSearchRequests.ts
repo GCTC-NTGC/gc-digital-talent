@@ -4,6 +4,7 @@ import {
   ApplicantFilter,
   Department,
   PoolCandidateSearchPositionType,
+  PoolCandidateSearchRequestReason,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
@@ -24,6 +25,9 @@ const generateSearchRequest = (
     managerJobTitle: faker.person.jobTitle(),
     positionType: faker.helpers.arrayElement<PoolCandidateSearchPositionType>(
       Object.values(PoolCandidateSearchPositionType),
+    ),
+    reason: faker.helpers.arrayElement<PoolCandidateSearchRequestReason>(
+      Object.values(PoolCandidateSearchRequestReason),
     ),
     additionalComments: faker.lorem.sentences(5),
     applicantFilter:

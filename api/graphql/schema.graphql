@@ -413,6 +413,7 @@ type PoolCandidateSearchRequest {
   managerJobTitle: String @rename(attribute: "manager_job_title")
   positionType: PoolCandidateSearchPositionType
     @rename(attribute: "position_type")
+  reason: PoolCandidateSearchRequestReason
 }
 
 type SkillFamily {
@@ -664,13 +665,6 @@ type Query {
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
     @can(ability: "view", resolved: true)
-  applicant(id: UUID! @eq): User
-    @find(model: "User")
-    @guard
-    @can(ability: "view", query: true, model: "User")
-    @deprecated(
-      reason: "applicant is deprecated. Use user instead. Remove in #7651."
-    )
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
@@ -782,14 +776,6 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]!
-    @all
-    @guard
-    @can(ability: "viewAny")
-    @orderBy(column: "created_at", direction: DESC)
-    @deprecated(
-      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659."
-    )
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
@@ -1170,6 +1156,7 @@ input CreatePoolCandidateSearchRequestInput {
   managerJobTitle: String! @rename(attribute: "manager_job_title")
   positionType: PoolCandidateSearchPositionType!
     @rename(attribute: "position_type")
+  reason: PoolCandidateSearchRequestReason!
 }
 
 input UpdatePoolCandidateSearchRequestInput {

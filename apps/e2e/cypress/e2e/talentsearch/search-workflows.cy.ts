@@ -303,6 +303,10 @@ describe("Talent Search Workflow Tests", () => {
       name: /What is the job title for this position\?/i,
     }).type("Test Job Title");
 
+    cy.findByRole("radio", {
+      name: /general interest/i,
+    }).click();
+
     cy.findByRole("textbox", { name: /Additional Comments/i }).type(
       "Test Comments",
     );

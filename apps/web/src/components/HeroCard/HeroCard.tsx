@@ -16,12 +16,12 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   tertiary: {
-    "data-h2-background-color": "base(tertiary.light)",
+    "data-h2-background-color": "base:all(tertiary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quaternary: {
     "data-h2-background-color":
-      "base(quaternary.light) base:dark:iap(quaternary.light)",
+      "base:all(quaternary.light) base:dark:iap(quaternary.light)",
     "data-h2-color": "base:all(black) base:all:iap(white)",
   },
   quinary: {
@@ -42,7 +42,7 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
   const Wrapper = asNav ? "nav" : "div";
   return (
     <Wrapper
-      data-h2-background-color="base:all(white)"
+      data-h2-background-color="base(foreground)"
       data-h2-radius="base(s)"
       data-h2-shadow="base(m)"
       data-h2-flex-grow="base(1)"
@@ -61,7 +61,7 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
           to={href}
           data-h2-transform="base:hover:children[svg](translate(20%, 0))"
           data-h2-transition="base:children[svg](transform .2s ease)"
-          data-h2-color="base(black) base:hover(black)"
+          data-h2-color="base:all(black) base:all:hover(black)"
           data-h2-text-decoration="base(underline)"
           data-h2-width="base(100%)"
         >

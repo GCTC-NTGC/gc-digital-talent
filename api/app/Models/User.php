@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -73,9 +76,11 @@ class User extends Model implements Authenticatable, LaratrustUser
 {
     use AuthenticatableTrait;
     use Authorizable;
+    use CausesActivity;
     use HasFactory;
     use HasRelationships;
     use HasRolesAndPermissions;
+    use LogsActivity;
     use Notifiable;
     use SoftDeletes;
 
@@ -92,6 +97,14 @@ class User extends Model implements Authenticatable, LaratrustUser
         'email',
         'sub',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function pools(): HasMany
     {

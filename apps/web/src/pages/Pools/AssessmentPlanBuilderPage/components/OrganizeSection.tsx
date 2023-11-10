@@ -37,22 +37,16 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
             "introduction to the organize section in the assessment plan builder",
         })}
       </p>
-      <Accordion.Root type="multiple" mode="simple">
+      <Accordion.Root type="multiple" size="sm">
         <Accordion.Item value="one">
-          <Accordion.Header
-            headingAs="h4"
-            data-h2-font-size="base(copy)"
-            data-h2-text-decoration="base(underline)"
-          >
-            <Accordion.Trigger data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "How many assessments should I include?",
-                id: "WhQFXx",
-                description:
-                  "first question in the organize section in the assessment plan builder",
-              })}
-            </Accordion.Trigger>
-          </Accordion.Header>
+          <Accordion.Trigger as="h4">
+            {intl.formatMessage({
+              defaultMessage: "How many assessments should I include?",
+              id: "WhQFXx",
+              description:
+                "first question in the organize section in the assessment plan builder",
+            })}
+          </Accordion.Trigger>
           <Accordion.Content>
             <p>
               {intl.formatMessage({
@@ -75,26 +69,20 @@ const OrganizeSection = ({ pool }: OrganizeSectionProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="two">
-          <Accordion.Header
-            headingAs="h4"
-            data-h2-font-size="base(copy)"
-            data-h2-text-decoration="base(underline)"
-          >
-            <Accordion.Trigger data-h2-font-weight="base(700)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "What if I need more than {maxSteps} assessment methods?",
-                  id: "LphzpW",
-                  description:
-                    "second question in the organize section in the assessment plan builder",
-                },
-                {
-                  maxSteps: MAX_ASSESSMENT_STEPS,
-                },
-              )}
-            </Accordion.Trigger>
-          </Accordion.Header>
+          <Accordion.Trigger as="h4">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "What if I need more than {maxSteps} assessment methods?",
+                id: "LphzpW",
+                description:
+                  "second question in the organize section in the assessment plan builder",
+              },
+              {
+                maxSteps: MAX_ASSESSMENT_STEPS,
+              },
+            )}
+          </Accordion.Trigger>
           <Accordion.Content>
             <p>
               {intl.formatMessage(

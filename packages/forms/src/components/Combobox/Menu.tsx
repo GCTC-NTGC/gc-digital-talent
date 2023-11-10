@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 import { motion, useReducedMotion } from "framer-motion";
+import omit from "lodash/omit";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
@@ -114,6 +115,7 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   ({ active, selected, children, ...rest }, forwardedRef) => (
     <li
       ref={forwardedRef}
+      role="option"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-gap="base(0 x.25)"
@@ -133,7 +135,8 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
       {...(active && {
         "data-h2-background-color": "base(focus)",
       })}
-      {...rest}
+      {...omit(rest, "aria-selected")}
+      aria-selected={selected ? "true" : "false"}
     >
       {selected && (
         <CheckIcon data-h2-height="base(1rem)" data-h2-width="base(1rem)" />

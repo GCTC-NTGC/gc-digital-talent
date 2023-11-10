@@ -20,16 +20,16 @@
     "wonka": "^6.3.4"
   },
   "devDependencies": {
-    "@formatjs/ts-transformer": "^3.13.6",
+    "@formatjs/ts-transformer": "^3.13.7",
     "@storybook/addon-a11y": "^7.5.2",
-    "@storybook/addon-essentials": "^7.5.2",
+    "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-links": "^7.5.2",
-    "@storybook/addon-viewport": "^7.5.2",
+    "@storybook/addon-viewport": "^7.5.3",
     "@storybook/addons": "^7.5.2",
-    "@storybook/react-webpack5": "^7.5.2",
+    "@storybook/react-webpack5": "^7.5.3",
     "hydrogen-webpack-plugin": "*",
     "react": "^18.2.0",
-    "storybook": "^7.5.2",
+    "storybook": "^7.5.3",
     "storybook-addon-intl": "^3.2.0",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^4.1.0"

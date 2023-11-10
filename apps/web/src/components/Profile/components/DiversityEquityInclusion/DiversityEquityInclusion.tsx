@@ -2,13 +2,7 @@ import React from "react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
-import {
-  Accordion,
-  Heading,
-  Separator,
-  StandardAccordionHeader,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
@@ -81,13 +75,13 @@ const DiversityEquityInclusion = ({
       </ul>
       <Accordion.Root
         type="single"
-        mode="simple"
+        size="sm"
         value={accordionOpen}
         onValueChange={(value: AccordionItems) => setAccordionOpen(value)}
         collapsible
       >
         <Accordion.Item value="information">
-          <StandardAccordionHeader headingAs="h3">
+          <Accordion.Trigger as="h3">
             {accordionOpen === "information"
               ? intl.formatMessage({
                   defaultMessage:
@@ -102,14 +96,8 @@ const DiversityEquityInclusion = ({
                   description:
                     "Heading for opening the accordion with information on employment equity",
                 })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1, 0, x1, 0)"
-            />
             <p data-h2-padding-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
@@ -119,7 +107,7 @@ const DiversityEquityInclusion = ({
                   "Description of how the Government of Canada uses employment equity categories in hiring.",
               })}
             </p>
-            <p data-h2-padding-bottom="base(x0.5)">
+            <p data-h2-margin-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
                   "These four groups are <strong>women, Aboriginal peoples, persons with disabilities,</strong> and <strong>members of visible minorities</strong>.",
@@ -128,7 +116,7 @@ const DiversityEquityInclusion = ({
                   "Second paragraph for employment equity information.",
               })}
             </p>
-            <p data-h2-padding-bottom="base(x0.5)">
+            <p data-h2-margin-bottom="base(x0.5)">
               {intl.formatMessage({
                 defaultMessage:
                   "If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so.",
@@ -138,7 +126,7 @@ const DiversityEquityInclusion = ({
               })}
             </p>
             <p
-              data-h2-padding-bottom="base(x0.5)"
+              data-h2-margin-bottom="base(x0.5)"
               data-h2-font-weight="base(700)"
             >
               {intl.formatMessage({

@@ -145,27 +145,10 @@ fragment applicationTimelineAndRecruitment on PoolCandidate {
 }
 
 query getAllApplicantExperiences($id: UUID!) {
-  applicant(id: $id) {
+  user(id: $id) {
     ...applicantExperiences
     poolCandidates {
       ...applicationTimelineAndRecruitment
-    }
-  }
-}
-
-query getAllApplicantExperiencesAndPoolSkills(
-  $applicantId: UUID!
-  $poolId: UUID!
-) {
-  applicant(id: $applicantId) {
-    ...applicantExperiences
-  }
-  pool(id: $poolId) {
-    essentialSkills {
-      ...poolSkills
-    }
-    nonessentialSkills {
-      ...poolSkills
     }
   }
 }
