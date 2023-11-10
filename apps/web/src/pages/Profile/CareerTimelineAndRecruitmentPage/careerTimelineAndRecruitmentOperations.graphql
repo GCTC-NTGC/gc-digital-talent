@@ -145,7 +145,7 @@ fragment applicationTimelineAndRecruitment on PoolCandidate {
 }
 
 query getAllApplicantExperiences($id: UUID!) {
-  applicant(id: $id) {
+  user(id: $id) {
     ...applicantExperiences
     poolCandidates {
       ...applicationTimelineAndRecruitment
@@ -153,11 +153,8 @@ query getAllApplicantExperiences($id: UUID!) {
   }
 }
 
-query getAllApplicantExperiencesAndPoolSkills(
-  $applicantId: UUID!
-  $poolId: UUID!
-) {
-  applicant(id: $applicantId) {
+query getAllApplicantExperiencesAndPoolSkills($userId: UUID!, $poolId: UUID!) {
+  user(id: $userId) {
     ...applicantExperiences
   }
   pool(id: $poolId) {
