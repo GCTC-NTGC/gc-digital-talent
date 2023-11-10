@@ -102,7 +102,7 @@ const QualifiedRecruitmentCard = ({
       </div>
       <p
         data-h2-color="base(secondary.darker)"
-        data-h2-margin="base(x.5 0 x1 0)"
+        data-h2-margin="base(x.25 0 x1 0)"
       >
         {getRecruitmentType(candidate.pool.publishingGroup, intl)}
       </p>
@@ -200,7 +200,7 @@ const QualifiedRecruitmentCard = ({
               <Heading
                 level={incrementHeadingRank(contentHeadingLevel)}
                 Icon={GlobeAmericasIcon}
-                data-h2-margin="base(x1 0 x.5 0)"
+                data-h2-margin="base(x1, 0, x.5, 0)"
                 data-h2-font-size="base(copy)"
                 data-h2-font-weight="base(700)"
                 color="secondary"
@@ -225,7 +225,7 @@ const QualifiedRecruitmentCard = ({
               <Heading
                 level={incrementHeadingRank(contentHeadingLevel)}
                 Icon={CpuChipIcon}
-                data-h2-margin="base(x1 0 x.5 0)"
+                data-h2-margin="base(x1, 0, x.5, 0)"
                 data-h2-font-size="base(copy)"
                 data-h2-font-weight="base(700)"
                 color="secondary"
@@ -248,7 +248,7 @@ const QualifiedRecruitmentCard = ({
       <Separator
         orientation="horizontal"
         decorative
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base(gray)"
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
@@ -265,7 +265,7 @@ const QualifiedRecruitmentCard = ({
           data-h2-flex-direction="base(column) p-tablet(row)"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
+          data-h2-gap="base(x.5 0) p-tablet(0 x.25)"
           data-h2-text-align="base(center) p-tablet(inherit)"
         >
           {availability.text && (
@@ -275,6 +275,7 @@ const QualifiedRecruitmentCard = ({
               data-h2-gap="base(0 x.25)"
               data-h2-line-height="base(1)"
               data-h2-flex-grow="base(0)"
+              data-h2-font-size="base(caption)"
             >
               {AvailabilityIcon ? (
                 <AvailabilityIcon
@@ -297,6 +298,7 @@ const QualifiedRecruitmentCard = ({
           <Button
             mode="inline"
             color="black"
+            fontSize="caption"
             icon={linkCopied ? CheckIcon : undefined}
             onClick={() => {
               navigator.clipboard.writeText(candidate.id);
