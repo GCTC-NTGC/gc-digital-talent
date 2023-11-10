@@ -776,14 +776,6 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]!
-    @all
-    @guard
-    @can(ability: "viewAny")
-    @orderBy(column: "created_at", direction: DESC)
-    @deprecated(
-      reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659."
-    )
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
