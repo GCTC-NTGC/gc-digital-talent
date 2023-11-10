@@ -294,18 +294,18 @@ const ApplicationReview = ({
           <TreeView.Head>
             <Card title="" color="white" bold data-h2-margin-bottom="base(x1)">
               <p>
-                {classificationGroup
+                {classificationGroup === "EX"
                   ? intl.formatMessage({
                       defaultMessage:
-                        "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
-                      id: "rCpVpZ",
+                        "You've indicated that you meet the <strong>minimum experience or education requirement (graduation with degree)</strong> with the following experiences on your career timeline:",
+                      id: "p5qn9H",
                       description:
                         "Message on education requirements card on the application review page.",
                     })
                   : intl.formatMessage({
                       defaultMessage:
-                        "You've indicated that you meet the <strong>minimum experience or education requirement (graduation with degree)</strong> with the following experiences on your career timeline:",
-                      id: "p5qn9H",
+                        "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
+                      id: "rCpVpZ",
                       description:
                         "Message on education requirements card on the application review page.",
                     })}

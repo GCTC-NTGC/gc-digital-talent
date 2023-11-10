@@ -16,8 +16,10 @@ const stepHasError = (
   return (
     !application.educationRequirementOption ||
     !application.educationRequirementExperiences ||
-    (application.educationRequirementOption ===
-      EducationRequirementOption.AppliedWork &&
+    ((application.educationRequirementOption ===
+      EducationRequirementOption.AppliedWork ||
+      application.educationRequirementOption ===
+        EducationRequirementOption.ProfessionalDesignation) &&
       application.educationRequirementExperiences.length === 0) ||
     (application.educationRequirementOption ===
       EducationRequirementOption.Education &&
