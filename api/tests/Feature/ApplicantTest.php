@@ -1050,7 +1050,7 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
+            query user($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1072,7 +1072,7 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
+            query user($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1094,7 +1094,7 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
+            query user($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
@@ -1116,7 +1116,7 @@ class ApplicantTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            query applicant($id: UUID!) {
+            query user($id: UUID!) {
                 applicant(id: $id) {
                     priorityWeight
                 }
