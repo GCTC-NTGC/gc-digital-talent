@@ -123,10 +123,6 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
-  "+pgXHm": {
-    "defaultMessage": "Créé",
-    "description": "Title displayed for the User table Date Created column"
-  },
   "+rZvoD": {
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
     "description": "Text for first sign up -> create step."
@@ -186,10 +182,6 @@
   "/81xCT": {
     "defaultMessage": "« Je suis métis(se) »",
     "description": "Label text for Métis community declaration"
-  },
-  "/8fQ9Y": {
-    "defaultMessage": "Lien vers le courriel de l'utilisateur",
-    "description": "Descriptive title for an anchor link"
   },
   "/8qCuC": {
     "defaultMessage": "Déterminer les défis et les obstacles systémiques potentiels dans la recherche de talents numériques",
@@ -2663,10 +2655,6 @@
     "defaultMessage": "Des nouvelles possibilités sont à venir!",
     "description": "Heading for message when there are no executive opportunities available"
   },
-  "CjkBMT": {
-    "defaultMessage": "Téléphone",
-    "description": "Label for user table search dropdown (phone)."
-  },
   "Cjp2F6": {
     "defaultMessage": "Informations sur le bassin",
     "description": "Title for the pool info page"
@@ -3990,6 +3978,10 @@
   "KifUVY": {
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
     "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "KjbjQU": {
+    "defaultMessage": "Voir",
+    "description": "Title displayed for a tables View column."
   },
   "Kklz7F": {
     "defaultMessage": "Vous avez atteint le nombre maximal ({maxItems}) de questions de présélection par offre d’emploi.",
@@ -5795,10 +5787,6 @@
     "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
     "description": "Description for the notes about this request section of the single search request view."
   },
-  "VlI1K4": {
-    "defaultMessage": "Tous les utilisateurs",
-    "description": "Title for the admin users table"
-  },
   "VldclB": {
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
     "description": "CSV Header, Education Requirement Experiences column"
@@ -6498,6 +6486,10 @@
   "ZaCyXP": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition services"
+  },
+  "ZatPPs": {
+    "defaultMessage": "Chercher les utilisateurs",
+    "description": "Label for the user table search input"
   },
   "Zbk4zf": {
     "defaultMessage": "Choisir un statut :",
@@ -7966,10 +7958,6 @@
   "ha+vp4": {
     "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
     "description": "Task based informatics professional services contract supply method"
-  },
-  "hci1jW": {
-    "defaultMessage": "Voir",
-    "description": "Title displayed for the User table View column."
   },
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
@@ -9498,10 +9486,6 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
-  },
-  "qYH0du": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the User table Edit column."
   },
   "qYWmzA": {
     "defaultMessage": "Volet",
