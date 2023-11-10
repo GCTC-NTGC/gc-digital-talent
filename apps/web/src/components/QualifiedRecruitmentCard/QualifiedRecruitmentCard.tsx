@@ -71,7 +71,7 @@ const QualifiedRecruitmentCard = ({
       data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
       data-h2-radius="base(0 rounded rounded 0)"
-      data-h2-background-color="base(white) base:dark(black)"
+      data-h2-background-color="base(foreground)"
     >
       <div
         data-h2-display="base(flex)"

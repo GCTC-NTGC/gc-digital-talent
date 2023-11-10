@@ -14,4 +14,5 @@ enum PoolStream
     case SECURITY;
     case SOFTWARE_SOLUTIONS;
     case INFORMATION_DATA_FUNCTIONS;
+    case EXECUTIVE_GROUP;
 }

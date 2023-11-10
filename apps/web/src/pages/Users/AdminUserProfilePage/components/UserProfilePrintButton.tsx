@@ -71,7 +71,12 @@ const UserProfilePrintButton = ({
     <>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button color={color} mode={mode} utilityIcon={ChevronDownIcon}>
+          <Button
+            color={color}
+            mode={mode}
+            utilityIcon={ChevronDownIcon}
+            data-h2-font-weight="base(400)"
+          >
             {intl.formatMessage({
               defaultMessage: "Print profile",
               id: "Yr0nVZ",

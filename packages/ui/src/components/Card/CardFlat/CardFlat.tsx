@@ -41,9 +41,20 @@ const colorMap: Record<CardColor, Record<string, string>> = {
   black: {
     "data-h2-border-left": "base(x.5 solid black)",
   },
+  blackFixed: {
+    "data-h2-border-left": "base:all(x.5 solid black)",
+  },
 };
 
 const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
+  let fontColor = {
+    "data-h2-color": "base(black)",
+  };
+  if (color === "blackFixed") {
+    fontColor = {
+      "data-h2-color": "base:all(black)",
+    };
+  }
   return (
     <div
       {...colorMap[color]}
@@ -55,14 +66,14 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
         level="h3"
         size="h2"
         data-h2-font-size="base(h6)"
-        data-h2-color="base(black)"
+        {...fontColor}
         data-h2-margin="base(0, 0, 0, 0)"
       >
         {title}
       </Heading>
       {children && (
         <div
-          data-h2-color="base(black)"
+          {...fontColor}
           data-h2-flex-grow="base(1)"
           data-h2-margin-top="base(x.5)"
         >

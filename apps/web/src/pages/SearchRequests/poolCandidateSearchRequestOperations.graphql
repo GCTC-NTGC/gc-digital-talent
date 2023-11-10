@@ -13,6 +13,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   jobTitle
   managerJobTitle
   positionType
+  reason
   wasEmpty
   additionalComments
   poolCandidateFilter {
@@ -101,12 +102,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     qualifiedStreams
   }
 }
-query getPoolCandidateSearchRequests {
-  poolCandidateSearchRequests {
-    ...poolCandidateSearchRequest
-  }
-}
-
 query getPoolCandidateSearchRequest($id: ID!) {
   poolCandidateSearchRequest(id: $id) {
     ...poolCandidateSearchRequest

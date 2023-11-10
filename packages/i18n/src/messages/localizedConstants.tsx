@@ -33,6 +33,7 @@ import {
   EvaluatedLanguageAbility,
   PoolSkillType,
   AssessmentStepType,
+  PoolCandidateSearchRequestReason,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -1508,6 +1509,11 @@ const poolStream = defineMessages({
     id: "xr36aa",
     description: "Pool Stream described as Information and Data Functions.",
   },
+  [PoolStream.ExecutiveGroup]: {
+    defaultMessage: "Executive Group",
+    id: "6yqQBg",
+    description: "Pool Stream described as Executive Group.",
+  },
 });
 
 export const getPoolStream = (
@@ -2048,4 +2054,41 @@ export const getAssessmentStepType = (
     assessmentStepTypes,
     assessmentStepTypeId,
     `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
+  );
+
+const searchRequestReasons = defineMessages({
+  [PoolCandidateSearchRequestReason.GeneralInterest]: {
+    defaultMessage: "General interest",
+    id: "I6ztce",
+    description: "Option for searching candidates for interest only",
+  },
+  [PoolCandidateSearchRequestReason.ImmediateHire]: {
+    defaultMessage:
+      "Looking for immediate hire (approval, position and funding in place)",
+    id: "h6da9P",
+    description: "Option for searching candidates for an immediate hire",
+  },
+  [PoolCandidateSearchRequestReason.RequiredByDirective]: {
+    defaultMessage:
+      "Required under the Directive on Digital Talent (pre-contracting talent search for Digital Services Contracting Questionnaire)",
+    id: "hMHSRw",
+    description:
+      "Option for searching candidates because it was required by the directive",
+  },
+  [PoolCandidateSearchRequestReason.UpcomingNeed]: {
+    defaultMessage:
+      "For upcoming need (classification or funding not yet in place)",
+    id: "K/npC7",
+    description:
+      "Option for searching candidates for an upcoming staffing need",
+  },
+});
+
+export const getSearchRequestReason = (
+  searchRequestReasonId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    searchRequestReasons,
+    searchRequestReasonId,
+    `Invalid Search Request Reason '${searchRequestReasonId}'`,
   );

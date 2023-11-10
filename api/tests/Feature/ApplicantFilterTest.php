@@ -357,6 +357,7 @@ class ApplicantFilterTest extends TestCase
                     managerJobTitle
                     positionType
                     status
+                    reason
                     department {
                         id
                     }
@@ -373,6 +374,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter),
                     ],
@@ -387,6 +389,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'status' => PoolCandidateSearchStatus::NEW->name,
                     'department' => [
                         'id' => $request->department_id,
@@ -509,6 +512,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter),
                     ],

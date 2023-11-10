@@ -25,7 +25,7 @@ import RowSelection, {
   rowSelectCell,
 } from "./RowSelection";
 import useControlledTableState, {
-  useTableStateFromSearchParams,
+  getTableStateFromSearchParams,
 } from "./useControlledTableState";
 import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
@@ -105,10 +105,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = useRowSelection<TData>(
-    data,
-    rowSelect,
-  );
+  const [rowSelection, setRowSelection] = useRowSelection<TData>(rowSelect);
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
       columnIds,
@@ -136,6 +133,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       ...state,
       rowSelection,
     },
+    getRowId: rowSelect?.getRowId,
     autoResetPageIndex: false,
     enableGlobalFilter: isInternalSearch,
     enableRowSelection: !!rowSelect,
@@ -381,7 +379,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
 export default ResponsiveTable;
 export {
-  useTableStateFromSearchParams,
+  getTableStateFromSearchParams,
   rowSelectCell,
   sortingStateToOrderByClause,
 };

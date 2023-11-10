@@ -31,7 +31,7 @@ const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
 );
 const Card = (props: React.HTMLProps<HTMLDivElement>) => (
   <div
-    data-h2-background-color="base(white)"
+    data-h2-background-color="base(foreground)"
     data-h2-radius="base(rounded)"
     data-h2-padding="base(x1.25)"
     data-h2-shadow="base(s)"
