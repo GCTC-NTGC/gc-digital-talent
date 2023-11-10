@@ -10,7 +10,7 @@ use App\Models\ScreeningQuestion;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-final class createOrUpdateScreeningQuestionAssessmentStep
+final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
     /**
      * @param  null  $_
