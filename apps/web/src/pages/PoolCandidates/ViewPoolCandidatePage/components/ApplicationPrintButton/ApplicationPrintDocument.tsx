@@ -159,6 +159,10 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
+  const classificationGroup = relevantPoolCandidate?.pool.classifications
+    ? relevantPoolCandidate.pool.classifications[0]?.group
+    : "";
+
   return (
     <div style={{ display: "none" }}>
       <div data-h2 ref={ref}>
@@ -200,6 +204,7 @@ const ApplicationPrintDocument = React.forwardRef<
                       ? intl.formatMessage(
                           getEducationRequirementOption(
                             relevantPoolCandidate.educationRequirementOption,
+                            classificationGroup,
                           ),
                         )
                       : intl.formatMessage(commonMessages.notAvailable)}
