@@ -53,14 +53,4 @@ class ScreeningQuestion extends Model
     {
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
-
-    /**
-     * Boot function for using with User Events
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-    }
 }
