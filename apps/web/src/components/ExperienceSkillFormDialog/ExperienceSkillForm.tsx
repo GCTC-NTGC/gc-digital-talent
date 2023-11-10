@@ -7,7 +7,6 @@ import {
   Button,
   Heading,
   Accordion,
-  StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
@@ -201,19 +200,16 @@ const ExperienceSkillForm = ({
           })}
         </p>
         <div data-h2-margin="base(x1 0)">
-          <Accordion.Root type="single" collapsible mode="simple">
+          <Accordion.Root type="single" size="sm" collapsible>
             <Accordion.Item value="skillQuestions">
-              <StandardAccordionHeader
-                headingAs="h3"
-                titleProps={{ "data-h2-font-size": "base(copy)" }}
-              >
+              <Accordion.Trigger as="h3">
                 {intl.formatMessage({
                   defaultMessage: "How to best describe a skill experience",
                   id: "1/Q9jX",
                   description:
                     "Title for instructions on how to describe a skill",
                 })}
-              </StandardAccordionHeader>
+              </Accordion.Trigger>
               <Accordion.Content>
                 <ul>
                   <li>

@@ -15,14 +15,14 @@ interface CareerTimelineSectionProps {
   experiences?: Experience[];
   editParam?: string;
   headingLevel?: HeadingRank;
-  applicantId?: string;
+  userId?: string;
 }
 
 const CareerTimelineSection = ({
   experiences,
   editParam,
   headingLevel = "h3",
-  applicantId,
+  userId,
 }: CareerTimelineSectionProps) => {
   const intl = useIntl();
 
@@ -52,12 +52,12 @@ const CareerTimelineSection = ({
         />
 
         <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
-        {applicantId ? (
+        {userId ? (
           <div
             data-h2-flex-item="base(1of1) p-tablet(content)"
             data-h2-align-self="base(flex-end)"
           >
-            <AddExperienceDialog applicantId={applicantId} />
+            <AddExperienceDialog userId={userId} />
           </div>
         ) : null}
       </div>

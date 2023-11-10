@@ -12,7 +12,6 @@ import {
   Heading,
   Link,
   Pending,
-  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
@@ -358,31 +357,20 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </Heading>
         <Accordion.Root
-          mode="simple"
           type="single"
+          mode="card"
           collapsible
           data-h2-margin="base(x1 0)"
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
         >
-          <Accordion.Item
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="digital-community-support"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="digital-community-support">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Digital community support",
                 id: "pHIcBU",
                 description:
                   "Button text to open section describing digital community support",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -394,16 +382,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="id-digital-talents"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="id-digital-talents">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage:
                   "Identification of digital talents - Talent management roundtable discussions",
@@ -411,7 +391,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 description:
                   "Button text to open section describing identification of digital talents",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -423,23 +403,15 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="referral-services"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="referral-services">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Referrals services",
                 id: "9Vzxgu",
                 description:
                   "Button text to open section describing referrals services",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({
@@ -451,23 +423,15 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </Accordion.Content>
           </Accordion.Item>
-          <Accordion.Item
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            value="digital-community-mentorship-program"
-          >
-            <StandardAccordionHeader
-              headingAs="h4"
-              data-h2-padding="base(x.5 x.25)"
-            >
+          <Accordion.Item value="digital-community-mentorship-program">
+            <Accordion.Trigger as="h4">
               {intl.formatMessage({
                 defaultMessage: "Digital Community Mentorship Program",
                 id: "c+P41C",
                 description:
                   "Button text to open section describing mentorship program",
               })}
-            </StandardAccordionHeader>
+            </Accordion.Trigger>
             <Accordion.Content>
               <p>
                 {intl.formatMessage({

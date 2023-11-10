@@ -33,7 +33,7 @@ const updateState = <State>(
   }
 };
 
-export const useTableStateFromSearchParams = (
+export const getTableStateFromSearchParams = (
   initialState?: Partial<InitialState>,
 ): Partial<InitialState> => {
   const params = new URLSearchParams(window.location.search);
@@ -133,7 +133,7 @@ const useControlledTableState: UseControlledTableState = ({
   initialState,
   columnIds,
 }) => {
-  const initialStateFromParams = useTableStateFromSearchParams(initialState);
+  const initialStateFromParams = getTableStateFromSearchParams(initialState);
 
   const [globalFilter, setGlobalFilter] = useState<string>(
     initialStateFromParams.searchState?.term ?? "",

@@ -20,6 +20,7 @@
     "mll-lab/laravel-graphiql": "^3.0",
     "nuwave/lighthouse": "^6.15",
     "santigarcor/laratrust": "^8.0",
+    "spatie/laravel-activitylog": "^4.7",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
     "web-token/jwt-core": "^3.1"
   },
