@@ -23,7 +23,7 @@ scalar Boolean
 
 """
 The `Int` scalar type represents non-fractional signed whole numeric
-values. Int can represent values between -(2^31) and 2^31 - 1. 
+values. Int can represent values between -(2^31) and 2^31 - 1.
 """
 scalar Int
 
@@ -416,6 +416,7 @@ enum ApplicationStep {
 enum EducationRequirementOption {
   APPLIED_WORK
   EDUCATION
+  PROFESSIONAL_DESIGNATION
 }
 
 enum LanguageAbility {

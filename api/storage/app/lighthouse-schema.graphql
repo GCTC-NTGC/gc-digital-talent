@@ -1919,6 +1919,7 @@ enum ApplicationStep {
 enum EducationRequirementOption {
   APPLIED_WORK
   EDUCATION
+  PROFESSIONAL_DESIGNATION
 }
 
 enum LanguageAbility {
