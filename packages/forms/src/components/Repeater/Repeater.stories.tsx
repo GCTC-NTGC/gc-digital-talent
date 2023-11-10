@@ -14,7 +14,10 @@ import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &
-  Pick<RepeaterFieldsetProps, "hideLegend" | "hideIndex"> & {
+  Pick<
+    RepeaterFieldsetProps,
+    "hideLegend" | "hideIndex" | "moveDisabledIndexes"
+  > & {
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
@@ -33,7 +36,14 @@ const defaultArgs = {
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const intl = useIntl();
-  const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
+  const {
+    name,
+    hideLegend,
+    hideIndex,
+    maxItems,
+    moveDisabledIndexes,
+    ...rootProps
+  } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -79,6 +89,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           onEdit={() => {
             action("edit")("Opens edit form dialog.");
           }}
+          moveDisabledIndexes={moveDisabledIndexes}
         >
           <div
             data-h2-display="base(grid)"
@@ -172,7 +183,7 @@ WithMaxItems.args = {
 export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
-  maxItems: 4,
+  moveDisabledIndexes: [1],
   defaultValues: [
     {
       en: "Question 1 (EN)",
@@ -185,6 +196,14 @@ WithLockedItems.args = {
     {
       en: "Question 3 (EN)",
       fr: "Question 3 (FR)",
+    },
+    {
+      en: "Question 4 (EN)",
+      fr: "Question 4 (FR)",
+    },
+    {
+      en: "Question 5 (EN)",
+      fr: "Question 5 (FR)",
     },
   ],
 };

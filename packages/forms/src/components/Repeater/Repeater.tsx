@@ -5,6 +5,7 @@ import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
 import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 import { useFormContext } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -91,6 +92,8 @@ export interface RepeaterFieldsetProps {
   onEdit?: (index: number) => void;
   /** Add a custom edit button */
   customEditButton?: React.ReactNode;
+  /** All indexes that should be prevented from moving */
+  moveDisabledIndexes?: Array<number>;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -108,6 +111,7 @@ const Fieldset = ({
   disabled,
   onEdit,
   customEditButton,
+  moveDisabledIndexes = [],
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -124,9 +128,24 @@ const Fieldset = ({
 
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
-  const isFirstItem = disabled || index <= 0;
-  const isLastItem = disabled || index === total - 1;
+  const disableDecrement =
+    disabled || // the whole item is disabled
+    index <= 0 || // is the first item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index - 1 === disabledIndex, // has a move-disabled item previous
+    );
 
+  const disableIncrement =
+    disabled || // the whole item is disabled
+    index === total - 1 || // is the last item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index + 1 === disabledIndex, // has a move-disabled item following
+    );
+  const isMoveDisabled = moveDisabledIndexes.includes(index);
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
     if (announce) {
@@ -208,56 +227,82 @@ const Fieldset = ({
                 data-h2-justify-content="base(center)"
                 data-h2-gap="base(x.5)"
               >
-                {/* UP ARROW */}
-                <ActionButton
-                  disabled={isFirstItem}
-                  onClick={decrement}
-                  decrement
-                  animate={!shouldReduceMotion}
-                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                    from: position,
-                    to: position - 1,
-                  })}
-                  {...(isFirstItem
-                    ? { "data-h2-padding-left": "base(x.25)" }
-                    : {})}
-                >
-                  {!isFirstItem ? (
-                    <ArrowUpIcon data-h2-width="base(x.75)" />
-                  ) : (
-                    <span data-h2-width="base(x.75)" aria-hidden>
-                      &bull;
-                    </span>
-                  )}
-                </ActionButton>
-                {/* INDEX */}
-                {!hideIndex && (
-                  <span
-                    aria-hidden="true"
-                    data-h2-text-align="base(center)"
-                    data-h2-font-weight="base(700)"
-                  >
-                    {index + 1}
-                  </span>
+                {!isMoveDisabled ? (
+                  <>
+                    {/* UP ARROW */}
+                    <ActionButton
+                      disabled={disableDecrement}
+                      onClick={decrement}
+                      decrement
+                      animate={!shouldReduceMotion}
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position - 1,
+                        },
+                      )}
+                      {...(disableDecrement
+                        ? { "data-h2-padding-left": "base(x.25)" }
+                        : {})}
+                    >
+                      {!disableDecrement ? (
+                        <ArrowUpIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        <span data-h2-width="base(x.75)" aria-hidden>
+                          &bull;
+                        </span>
+                      )}
+                    </ActionButton>
+                    {/* INDEX */}
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                    {/* DOWN ARROW */}
+                    <ActionButton
+                      disabled={disableIncrement}
+                      onClick={increment}
+                      animate={!shouldReduceMotion}
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position + 1,
+                        },
+                      )}
+                    >
+                      {!disableIncrement ? (
+                        <ArrowDownIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        <span data-h2-width="base(x.75)" aria-hidden>
+                          &bull;
+                        </span>
+                      )}
+                    </ActionButton>
+                  </>
+                ) : (
+                  <>
+                    <LockClosedIcon
+                      data-h2-margin-left="base(x.5)"
+                      data-h2-width="base(x.75)"
+                    />
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                  </>
                 )}
-                {/* DOWN ARROW */}
-                <ActionButton
-                  disabled={isLastItem}
-                  onClick={increment}
-                  animate={!shouldReduceMotion}
-                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                    from: position,
-                    to: position + 1,
-                  })}
-                >
-                  {!isLastItem ? (
-                    <ArrowDownIcon data-h2-width="base(x.75)" />
-                  ) : (
-                    <span data-h2-width="base(x.75)" aria-hidden>
-                      &bull;
-                    </span>
-                  )}
-                </ActionButton>
               </div>
               <div
                 data-h2-display="base(flex)"
