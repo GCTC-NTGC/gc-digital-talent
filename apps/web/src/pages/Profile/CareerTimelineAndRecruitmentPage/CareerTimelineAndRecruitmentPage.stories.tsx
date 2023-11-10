@@ -11,7 +11,7 @@ import AddExperienceDialog from "./components/AddExperienceDialog";
 export default {
   title: "Pages/Career timeline and recruitment",
   args: {
-    applicantId: "test",
+    userId: "test",
   },
 } as ComponentMeta<typeof CareerTimelineAndRecruitment>;
 

@@ -16,7 +16,7 @@ import { Scalars } from "~/api/generated";
 import { ExperienceType } from "~/types/experience";
 
 type AddExperienceDialogProps = {
-  applicantId: Scalars["UUID"];
+  userId: Scalars["UUID"];
   defaultOpen?: boolean;
 };
 
@@ -30,7 +30,7 @@ interface ExperienceSection {
 }
 
 const AddExperienceDialog = ({
-  applicantId,
+  userId,
   defaultOpen = false,
 }: AddExperienceDialogProps): JSX.Element => {
   const intl = useIntl();
@@ -55,7 +55,7 @@ const AddExperienceDialog = ({
         id: "WkD8tV",
         description: "Button text to add a work experience to the profile",
       }),
-      buttonPath: paths.createWork(applicantId),
+      buttonPath: paths.createWork(userId),
       experienceType: "work",
     },
 
@@ -78,7 +78,7 @@ const AddExperienceDialog = ({
         description:
           "Button text to add an education experience to the profile",
       }),
-      buttonPath: paths.createEducation(applicantId),
+      buttonPath: paths.createEducation(userId),
       experienceType: "education",
     },
 
@@ -100,7 +100,7 @@ const AddExperienceDialog = ({
         id: "AKRd34",
         description: "Button text to add a community experience to the profile",
       }),
-      buttonPath: paths.createCommunity(applicantId),
+      buttonPath: paths.createCommunity(userId),
       experienceType: "community",
     },
 
@@ -122,7 +122,7 @@ const AddExperienceDialog = ({
         id: "L6UnSl",
         description: "Button text to add a personal experience to the profile",
       }),
-      buttonPath: paths.createPersonal(applicantId),
+      buttonPath: paths.createPersonal(userId),
       experienceType: "personal",
     },
 
@@ -144,7 +144,7 @@ const AddExperienceDialog = ({
         id: "CSg8cH",
         description: "Button text to add an award to the profile",
       }),
-      buttonPath: paths.createAward(applicantId),
+      buttonPath: paths.createAward(userId),
       experienceType: "award",
     },
   ];
