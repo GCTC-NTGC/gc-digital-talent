@@ -18,7 +18,6 @@ type StoryProps = RepeaterProps &
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
-    numOfLockedItems?: number;
   };
 
 export default {
@@ -34,14 +33,7 @@ const defaultArgs = {
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const intl = useIntl();
-  const {
-    name,
-    hideLegend,
-    hideIndex,
-    maxItems,
-    numOfLockedItems,
-    ...rootProps
-  } = props;
+  const { name, hideLegend, hideIndex, maxItems, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -84,7 +76,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           legend={`Screening Question ${index + 1}`}
           hideLegend={hideLegend}
           hideIndex={hideIndex}
-          numOfLockedItems={numOfLockedItems}
           onEdit={() => {
             action("edit")("Opens edit form dialog.");
           }}
@@ -182,7 +173,6 @@ export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
   maxItems: 4,
-  numOfLockedItems: 1,
   defaultValues: [
     {
       en: "Question 1 (EN)",
@@ -203,7 +193,6 @@ export const WithEditButton = Template.bind({});
 WithEditButton.args = {
   ...defaultArgs,
   maxItems: 4,
-  numOfLockedItems: 1,
   defaultValues: [
     {
       en: "Question 1 (EN)",

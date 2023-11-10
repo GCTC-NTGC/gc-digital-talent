@@ -5,7 +5,6 @@ import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
 import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
-import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 import { useFormContext } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -83,8 +82,6 @@ export interface RepeaterFieldsetProps {
   hideIndex?: boolean;
   /** Disables deleting, moving and editing fields */
   disabled?: boolean;
-  /** Locks item position (removes append and decrement actions) */
-  numOfLockedItems?: number;
   children: React.ReactNode;
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
@@ -109,7 +106,6 @@ const Fieldset = ({
   onRemove,
   children,
   disabled,
-  numOfLockedItems,
   onEdit,
   customEditButton,
 }: RepeaterFieldsetProps) => {
@@ -130,11 +126,6 @@ const Fieldset = ({
   const position = index + 1;
   const isFirstItem = disabled || index <= 0;
   const isLastItem = disabled || index === total - 1;
-
-  const isLocked = numOfLockedItems ? index + 1 <= numOfLockedItems : false;
-  const previousItemLocked = numOfLockedItems
-    ? numOfLockedItems + 1 === index + 1
-    : false;
 
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
@@ -217,82 +208,56 @@ const Fieldset = ({
                 data-h2-justify-content="base(center)"
                 data-h2-gap="base(x.5)"
               >
-                {!isLocked ? (
-                  <>
-                    {/* UP ARROW */}
-                    <ActionButton
-                      disabled={isFirstItem || previousItemLocked}
-                      onClick={decrement}
-                      decrement
-                      animate={!shouldReduceMotion}
-                      aria-label={intl.formatMessage(
-                        formMessages.repeaterMove,
-                        {
-                          from: position,
-                          to: position - 1,
-                        },
-                      )}
-                      {...(isFirstItem
-                        ? { "data-h2-padding-left": "base(x.25)" }
-                        : {})}
-                    >
-                      {!isFirstItem && !previousItemLocked ? (
-                        <ArrowUpIcon data-h2-width="base(x.75)" />
-                      ) : (
-                        <span data-h2-width="base(x.75)" aria-hidden>
-                          &bull;
-                        </span>
-                      )}
-                    </ActionButton>
-                    {/* INDEX */}
-                    {!hideIndex && (
-                      <span
-                        aria-hidden="true"
-                        data-h2-text-align="base(center)"
-                        data-h2-font-weight="base(700)"
-                      >
-                        {index + 1}
-                      </span>
-                    )}
-                    {/* DOWN ARROW */}
-                    <ActionButton
-                      disabled={isLastItem}
-                      onClick={increment}
-                      animate={!shouldReduceMotion}
-                      aria-label={intl.formatMessage(
-                        formMessages.repeaterMove,
-                        {
-                          from: position,
-                          to: position + 1,
-                        },
-                      )}
-                    >
-                      {!isLastItem ? (
-                        <ArrowDownIcon data-h2-width="base(x.75)" />
-                      ) : (
-                        <span data-h2-width="base(x.75)" aria-hidden>
-                          &bull;
-                        </span>
-                      )}
-                    </ActionButton>
-                  </>
-                ) : (
-                  <>
-                    <LockClosedIcon
-                      data-h2-margin-left="base(x.5)"
-                      data-h2-width="base(x.75)"
-                    />
-                    {!hideIndex && (
-                      <span
-                        aria-hidden="true"
-                        data-h2-text-align="base(center)"
-                        data-h2-font-weight="base(700)"
-                      >
-                        {index + 1}
-                      </span>
-                    )}
-                  </>
+                {/* UP ARROW */}
+                <ActionButton
+                  disabled={isFirstItem}
+                  onClick={decrement}
+                  decrement
+                  animate={!shouldReduceMotion}
+                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                    from: position,
+                    to: position - 1,
+                  })}
+                  {...(isFirstItem
+                    ? { "data-h2-padding-left": "base(x.25)" }
+                    : {})}
+                >
+                  {!isFirstItem ? (
+                    <ArrowUpIcon data-h2-width="base(x.75)" />
+                  ) : (
+                    <span data-h2-width="base(x.75)" aria-hidden>
+                      &bull;
+                    </span>
+                  )}
+                </ActionButton>
+                {/* INDEX */}
+                {!hideIndex && (
+                  <span
+                    aria-hidden="true"
+                    data-h2-text-align="base(center)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {index + 1}
+                  </span>
                 )}
+                {/* DOWN ARROW */}
+                <ActionButton
+                  disabled={isLastItem}
+                  onClick={increment}
+                  animate={!shouldReduceMotion}
+                  aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                    from: position,
+                    to: position + 1,
+                  })}
+                >
+                  {!isLastItem ? (
+                    <ArrowDownIcon data-h2-width="base(x.75)" />
+                  ) : (
+                    <span data-h2-width="base(x.75)" aria-hidden>
+                      &bull;
+                    </span>
+                  )}
+                </ActionButton>
               </div>
               <div
                 data-h2-display="base(flex)"
@@ -313,7 +278,7 @@ const Fieldset = ({
                 )}
                 {customEditButton && <div>{customEditButton}</div>}
                 <ActionButton
-                  disabled={disabled || isLocked}
+                  disabled={disabled}
                   animate={false}
                   onClick={handleRemove}
                   aria-label={intl.formatMessage(formMessages.repeaterRemove, {
