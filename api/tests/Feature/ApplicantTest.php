@@ -1051,7 +1051,7 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query user($id: UUID!) {
-                applicant(id: $id) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1061,7 +1061,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 10,
                     ],
                 ],
@@ -1073,7 +1073,7 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query user($id: UUID!) {
-                applicant(id: $id) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1083,7 +1083,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 20,
                     ],
                 ],
@@ -1095,7 +1095,7 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query user($id: UUID!) {
-                applicant(id: $id) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1105,7 +1105,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 30,
                     ],
                 ],
@@ -1117,7 +1117,7 @@ class ApplicantTest extends TestCase
                 /** @lang GraphQL */
                 '
             query user($id: UUID!) {
-                applicant(id: $id) {
+                user(id: $id) {
                     priorityWeight
                 }
             }
@@ -1127,7 +1127,7 @@ class ApplicantTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'applicant' => [
+                    'user' => [
                         'priorityWeight' => 40,
                     ],
                 ],
