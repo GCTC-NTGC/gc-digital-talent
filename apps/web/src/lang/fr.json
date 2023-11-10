@@ -1611,6 +1611,10 @@
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
   },
+  "7+GPYf": {
+    "defaultMessage": "Des évaluations avec de réels utilisateurs",
+    "description": "Heading for how we test accessibility."
+  },
   "706kTz": {
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Title for skill requirements section of a pool advertisement"
@@ -2178,6 +2182,10 @@
   "ASNC88": {
     "defaultMessage": "Exigence en matière de sécurité",
     "description": "Label displayed on the edit pool form security requirement field."
+  },
+  "ASYJlr": {
+    "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
+    "description": "Lead in text for list of items we consider for accessibility"
   },
   "ATO0GK": {
     "defaultMessage": "Tâches courantes dans ce poste",
@@ -3430,10 +3438,6 @@
   "HBuWZ0": {
     "defaultMessage": "Titre de l’emploi",
     "description": "Title for job title for a position"
-  },
-  "HCWGjZ": {
-    "defaultMessage": "<strong>Des évaluations avec de réels utilisateurs.</strong> Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
-    "description": "Text describing our user testing for accessibility"
   },
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
@@ -6671,6 +6675,10 @@
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
   },
+  "agcOO1": {
+    "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
+    "description": "Heading for the items we consider for accessibility."
+  },
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
@@ -7090,10 +7098,6 @@
   "d8CQJr": {
     "defaultMessage": " Création réussie de la famille de compétences!",
     "description": "Message displayed to user after skill family is created successfully."
-  },
-  "d8FGfc": {
-    "defaultMessage": "<strong>Rendre nos produits accessibles et utilisables par tous.</strong> Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
-    "description": "Lead in text for list of items we consider for accessibility"
   },
   "d8j/Sr": {
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
@@ -7678,6 +7682,10 @@
   "gC74ro": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
+  },
+  "gEnOmo": {
+    "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
+    "description": "Text describing our user testing for accessibility"
   },
   "gHMj31": {
     "defaultMessage": "Aucune expérience trouvée",
