@@ -6683,6 +6683,10 @@
     "defaultMessage": "bassin_candidats_{date}.csv",
     "description": "Filename for pool candidate CSV file download"
   },
+  "aZUxFF": {
+    "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
+    "description": "Error message when there aren't any skills to select"
+  },
   "aaFVT3": {
     "defaultMessage": "Qu’avez-vous accompli, créé ou réalisé en utilisant cette compétence?",
     "description": "Question list item in link featured skills section of experience form (accomplish)."
