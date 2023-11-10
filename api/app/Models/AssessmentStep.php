@@ -94,7 +94,7 @@ class AssessmentStep extends Model
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
                 $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
                 foreach ($questions as $question) {
-                    $question->forceDelete();
+                    $question->delete();
                 }
             }
         });

@@ -53,7 +53,7 @@ final class SyncPoolScreeningQuestions
             // Remove old questions which aren't included in the sync request
             foreach ($existingQuestions as $existing) {
                 if (! in_array($existing->id, $incomingQuestionIds)) {
-                    $existing->forceDelete();
+                    $existing->delete();
                 }
             }
 
