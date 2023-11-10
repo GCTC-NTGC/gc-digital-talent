@@ -189,10 +189,10 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         // test viewing collection of search requests
         $this->actingAs($baseUser, 'api')
-            ->graphQL('query { poolCandidateSearchRequests { id } }')
+            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
-            ->graphQL('query { poolCandidateSearchRequests { id } }')
+            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
             ->assertJsonFragment(['id' => $searchRequest1->id]);
 
         // test updating a search request
