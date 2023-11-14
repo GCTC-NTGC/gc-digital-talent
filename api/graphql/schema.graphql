@@ -1094,6 +1094,10 @@ input DepartmentBelongsToMany {
 
 input CreateTeamInput {
   name: String!
+    @rules(
+      apply: ["unique:teams,name"]
+      messages: [{ rule: "unique", message: "TeamNameInUse" }]
+    )
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
@@ -1186,6 +1190,10 @@ input SkillKeywordsInput {
 
 input CreateSkillInput {
   key: KeyString!
+    @rules(
+      apply: ["unique:skills,key"]
+      messages: [{ rule: "unique", message: "SkillKeyStringInUse" }]
+    )
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
@@ -1547,7 +1555,7 @@ type Mutation {
   updateDepartment(
     id: ID!
     department: UpdateDepartmentInput! @spread
-  ): Department @update @can(ability: "update", find: "id")
+  ): Department @update @can(ability: "update", find: "id") @validator
   deleteDepartment(id: ID! @whereKey): Department
     @delete
     @guard
@@ -1720,6 +1728,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+    @validator
   deleteTeam(id: UUID! @whereKey): Team
     @delete
     @guard
