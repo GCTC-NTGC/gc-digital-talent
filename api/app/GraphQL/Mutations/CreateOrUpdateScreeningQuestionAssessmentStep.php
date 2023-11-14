@@ -9,6 +9,7 @@ use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
@@ -26,6 +27,10 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
             $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
+            // Log::debug("Here");
+            // Log::debug($incomingQuestions);
+            // Log::debug($args['screeningQuestions']);
+            // Log::debug(array_column($args['screeningQuestions'], 'sync'));
 
             // Create/update incoming questions based on the existence of an id
             foreach ($incomingQuestions as $incomingQuestion) {
@@ -62,14 +67,14 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                 ['pool_id' => $pool->id, 'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name],
                 [...(isset($incomingAssessmentStep['title']) ? ['title' => $incomingAssessmentStep['title']] : [])]
             );
-            if (is_array($incomingAssessmentStep['poolSkills'])) {
-                foreach ($incomingAssessmentStep['poolSkills'] as $skillID) {
+            if (isset($incomingAssessmentStep['poolSkills']['sync'])) {
+                foreach ($incomingAssessmentStep['poolSkills']['sync'] as $skillID) {
                     $skill = PoolSkill::find($skillID);
                     if ($skill === null || $skill->pool_id !== $pool->id) {
                         throw new Exception('PoolSkillNotValid');
                     }
                 }
-                $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']);
+                $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']['sync']);
             }
 
             DB::commit();

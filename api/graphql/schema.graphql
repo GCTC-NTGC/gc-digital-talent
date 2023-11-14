@@ -1406,7 +1406,7 @@ input AssessmentStepInput {
 
 input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
-  poolSkills: [UUID!]
+  poolSkills: PoolSkillBelongsToMany
 }
 
 input CreateAssessmentResultInput
