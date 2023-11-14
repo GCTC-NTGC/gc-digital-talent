@@ -6,4 +6,5 @@ enum AssessmentResultType
 {
     case EDUCATION;
     case SKILL;
+    case OTHER;
 }
