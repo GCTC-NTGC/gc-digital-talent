@@ -1111,6 +1111,10 @@
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
   },
+  "ctpoN9": {
+    "defaultMessage": "Ce nom d’équipe est déjà utilisé",
+    "description": "Error message that the given team name is already in use."
+  },
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -1726,6 +1730,10 @@
   "xNESdj": {
     "defaultMessage": "Février",
     "description": "Name of the second month"
+  },
+  "xSecEX": {
+    "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
+    "description": "Error message that the given skill key is already in use."
   },
   "xaCwEO": {
     "defaultMessage": "Métis",

@@ -27,3 +27,4 @@ global-components:
   Submit: button[type="submit"]
   TextArea: textarea
   BasicForm: form
+  CardOptionGroup: fieldset

@@ -742,13 +742,6 @@ type Query {
   classifications: [Classification]! @all @can(ability: "viewAny")
   department(id: UUID! @eq): Department @find @can(ability: "view")
   departments: [Department]! @all @can(ability: "viewAny")
-  poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
-    @find
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @deprecated(
-      reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657."
-    )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
@@ -756,13 +749,6 @@ type Query {
     @throttle(name: "graphql")
     @deprecated(
       reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
-    )
-  applicantFilter(id: ID! @eq): ApplicantFilter
-    @find
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @deprecated(
-      reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653."
     )
   applicantFilters: [ApplicantFilter]!
     @all
@@ -1108,6 +1094,10 @@ input DepartmentBelongsToMany {
 
 input CreateTeamInput {
   name: String!
+    @rules(
+      apply: ["unique:teams,name"]
+      messages: [{ rule: "unique", message: "TeamNameInUse" }]
+    )
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
@@ -1200,6 +1190,10 @@ input SkillKeywordsInput {
 
 input CreateSkillInput {
   key: KeyString!
+    @rules(
+      apply: ["unique:skills,key"]
+      messages: [{ rule: "unique", message: "SkillKeyStringInUse" }]
+    )
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
@@ -1561,7 +1555,7 @@ type Mutation {
   updateDepartment(
     id: ID!
     department: UpdateDepartmentInput! @spread
-  ): Department @update @can(ability: "update", find: "id")
+  ): Department @update @can(ability: "update", find: "id") @validator
   deleteDepartment(id: ID! @whereKey): Department
     @delete
     @guard
@@ -1734,6 +1728,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+    @validator
   deleteTeam(id: UUID! @whereKey): Team
     @delete
     @guard
