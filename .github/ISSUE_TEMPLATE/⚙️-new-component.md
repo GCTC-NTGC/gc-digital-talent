@@ -2,7 +2,7 @@
 name: "⚙️ New component"
 about: An issue template for component epics.
 title: "⚙️ "
-labels: design, updates in progress
+labels: feature
 assignees: ""
 ---
 
