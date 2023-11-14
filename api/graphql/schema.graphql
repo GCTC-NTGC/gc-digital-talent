@@ -757,13 +757,6 @@ type Query {
     @deprecated(
       reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
     )
-  applicantFilter(id: ID! @eq): ApplicantFilter
-    @find
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @deprecated(
-      reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653."
-    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard
