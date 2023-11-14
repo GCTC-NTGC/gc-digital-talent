@@ -1103,7 +1103,10 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input UpdateDepartmentInput {
+input UpdateDepartmentInput
+  @validator(
+    class: "App\\GraphQL\\Validators\\UpdateDepartmentInputValidator"
+  ) {
   departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
 }
