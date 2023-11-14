@@ -1,41 +1,11 @@
-const VIEWPORTS = {
-  pTablet: {
-    name: "Portrait Tablet",
-    styles: {
-      width: "768px",
-      height: "1024px",
-    },
-  },
-  lTablet: {
-    name: "Landscape Tablet",
-    styles: {
-      width: "1080px",
-      height: "600px",
-    },
-  },
-  laptop: {
-    name: "Laptop",
-    styles: {
-      width: "1280px",
-      height: "800px",
-    },
-  },
-  desktop: {
-    name: "Desktop",
-    styles: {
-      width: "1600px",
-      height: "900px",
-    },
-  },
-};
-
-type VIEWPORT = "pTablet" | "lTablet" | "laptop" | "desktop";
-type DIMENSION = {
+type Viewport = "pTablet" | "lTablet" | "laptop" | "desktop";
+type Dimension = {
   width: number;
   height: number;
 };
+type DimensionTuple = [number, number]; // [width, height];
 
-export const VIEWPORT_DIMENSIONS: Record<VIEWPORT, DIMENSION> = {
+export const DIMENSIONS: Record<Viewport, Dimension> = {
   pTablet: {
     width: 768,
     height: 1024,
@@ -54,4 +24,38 @@ export const VIEWPORT_DIMENSIONS: Record<VIEWPORT, DIMENSION> = {
   },
 };
 
-export default VIEWPORTS;
+export const VIEWPORTS = {
+  pTablet: {
+    name: "Portrait Tablet",
+    styles: {
+      width: `${DIMENSIONS.lTablet.width}px`,
+      height: `${DIMENSIONS.lTablet.height}px`,
+    },
+  },
+  lTablet: {
+    name: "Landscape Tablet",
+    styles: {
+      width: `${DIMENSIONS.pTablet.width}px`,
+      height: `${DIMENSIONS.pTablet.height}px`,
+    },
+  },
+  laptop: {
+    name: "Laptop",
+    styles: {
+      width: `${DIMENSIONS.laptop.width}px`,
+      height: `${DIMENSIONS.laptop.height}px`,
+    },
+  },
+  desktop: {
+    name: "Desktop",
+    styles: {
+      width: `${DIMENSIONS.desktop.width}px`,
+      height: `${DIMENSIONS.desktop.height}px`,
+    },
+  },
+};
+
+export const CHROMATIC_VIEWPORTS: DimensionTuple = [
+  DIMENSIONS.pTablet.width,
+  DIMENSIONS.desktop.width,
+];
