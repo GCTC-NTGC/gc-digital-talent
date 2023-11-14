@@ -6,7 +6,7 @@ import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";
 
 import { HomePage } from "./ExecutiveHomePage";
 
-const mockPools = fakePools();
+const mockPools = fakePools(4);
 const classification = fakeClassifications()[0];
 
 const defaultParameters = {
