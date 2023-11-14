@@ -1,7 +1,6 @@
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
-import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
@@ -23,7 +22,6 @@ export {
   fakeRoles,
   fakePoolCandidates,
   fakeSearchRequests,
-  fakePoolCandidateFilters,
   fakeApplicantFilters,
   fakeSkillFamilies,
   fakeSkills,
