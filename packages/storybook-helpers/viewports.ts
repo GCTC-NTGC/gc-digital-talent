@@ -1,11 +1,26 @@
-type Viewport = "pTablet" | "lTablet" | "laptop" | "desktop";
+export const VIEWPORT = {
+  PHONE: "phone",
+  P_TABLET: "pTablet",
+  L_TABLET: "lTablet",
+  LAPTOP: "laptop",
+  DESKTOP: "desktop",
+} as const;
+
+// eslint-disable-next-line import/no-unused-modules
+export type Viewport = (typeof VIEWPORT)[keyof typeof VIEWPORT];
+
 type Dimension = {
   width: number;
   height: number;
 };
+
 type DimensionTuple = [number, number]; // [width, height];
 
 export const DIMENSIONS: Record<Viewport, Dimension> = {
+  phone: {
+    width: 375,
+    height: 667,
+  },
   pTablet: {
     width: 768,
     height: 1024,
@@ -25,18 +40,25 @@ export const DIMENSIONS: Record<Viewport, Dimension> = {
 };
 
 export const VIEWPORTS = {
+  phone: {
+    name: "Phone",
+    styles: {
+      width: `${DIMENSIONS.phone.width}px`,
+      height: `${DIMENSIONS.phone.height}px`,
+    },
+  },
   pTablet: {
     name: "Portrait Tablet",
     styles: {
-      width: `${DIMENSIONS.lTablet.width}px`,
-      height: `${DIMENSIONS.lTablet.height}px`,
+      width: `${DIMENSIONS.pTablet.width}px`,
+      height: `${DIMENSIONS.pTablet.height}px`,
     },
   },
   lTablet: {
     name: "Landscape Tablet",
     styles: {
-      width: `${DIMENSIONS.pTablet.width}px`,
-      height: `${DIMENSIONS.pTablet.height}px`,
+      width: `${DIMENSIONS.lTablet.width}px`,
+      height: `${DIMENSIONS.lTablet.height}px`,
     },
   },
   laptop: {
@@ -56,6 +78,6 @@ export const VIEWPORTS = {
 };
 
 export const CHROMATIC_VIEWPORTS: DimensionTuple = [
-  DIMENSIONS.pTablet.width,
+  DIMENSIONS.phone.width,
   DIMENSIONS.desktop.width,
 ];

@@ -9,7 +9,7 @@ import ThemeDecorator, {
   themeMode,
 } from "./decorators/ThemeDecorator";
 
-import { CHROMATIC_VIEWPORTS, VIEWPORTS } from "./viewports";
+import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
 export {
   FeatureFlagDecorator,
@@ -21,6 +21,7 @@ export {
   ThemeDecorator,
   themeKey,
   themeMode,
+  VIEWPORT,
   VIEWPORTS,
   CHROMATIC_VIEWPORTS,
 };
