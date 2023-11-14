@@ -1,5 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
-import jwtDecode, { JwtPayload } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Client,
