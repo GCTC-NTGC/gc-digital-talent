@@ -176,7 +176,7 @@ const CardOptionGroup = ({
                   data-h2-height="base(0)"
                   data-h2-width="base(0)"
                   // style the sibling label when focused and/or checked
-                  data-h2-background-color="base:children[+ label](foreground) base:focus-visible:children[+ label](focus)"
+                  data-h2-background-color="base:children[+ label](foreground) base:selectors[:checked]:children[+ label](foreground.dark.20) base:focus-visible:children[+ label](focus)"
                   data-h2-font-weight="base:selectors[:checked]:children[+ label](700)"
                   data-h2-border="base:selectors[:checked]:children[+ label](2px solid black)"
                   // color the sibling label's icon when focused and/or checked
