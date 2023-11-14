@@ -9,7 +9,6 @@ use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 final class CreateOrUpdateScreeningQuestionAssessmentStep
 {
@@ -27,10 +26,6 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
             $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
-            // Log::debug("Here");
-            // Log::debug($incomingQuestions);
-            // Log::debug($args['screeningQuestions']);
-            // Log::debug(array_column($args['screeningQuestions'], 'sync'));
 
             // Create/update incoming questions based on the existence of an id
             foreach ($incomingQuestions as $incomingQuestion) {
