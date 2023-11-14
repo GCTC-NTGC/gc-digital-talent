@@ -135,6 +135,10 @@
     "defaultMessage": "Niveau 3 : Conseiller technique",
     "description": "The name of the Technical advisor role."
   },
+  "2bzpLi": {
+    "defaultMessage": "La question donnée à l'écran n'existe pas.",
+    "description": "Error message that the screening question could not be found."
+  },
   "2eBm5y": {
     "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
     "description": "Successful Completion with credential selection for education status input"
@@ -501,6 +505,10 @@
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
+  },
+  "Hu321P": {
+    "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
+    "description": "Error message that a given pool skill is not valid."
   },
   "I6gM/P": {
     "defaultMessage": "PAPA",
@@ -958,6 +966,10 @@
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
   },
+  "XUR5dD": {
+    "defaultMessage": "Les étapes d'évaluation doivent appartenir au même bassin.",
+    "description": "Error message that the assessment steps must belong to the same pool."
+  },
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
@@ -1301,6 +1313,10 @@
   "kwaeXP": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
     "description": "The operational requirement described as occasional overtime."
+  },
+  "l+x5JF": {
+    "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
+    "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
