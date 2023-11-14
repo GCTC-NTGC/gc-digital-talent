@@ -1103,10 +1103,7 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input UpdateDepartmentInput
-  @validator(
-    class: "App\\GraphQL\\Validators\\UpdateDepartmentInputValidator"
-  ) {
+input UpdateDepartmentInput {
   departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
 }
@@ -1136,8 +1133,7 @@ input CreateTeamInput {
   contactEmail: Email @rename(attribute: "contact_email")
 }
 
-input UpdateTeamInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateTeamInputValidator") {
+input UpdateTeamInput {
   name: String
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
@@ -1588,7 +1584,7 @@ type Mutation {
   updateDepartment(
     id: ID!
     department: UpdateDepartmentInput! @spread
-  ): Department @update @can(ability: "update", find: "id")
+  ): Department @update @can(ability: "update", find: "id") @validator
   deleteDepartment(id: ID! @whereKey): Department
     @delete
     @guard
@@ -1761,6 +1757,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+    @validator
   deleteTeam(id: UUID! @whereKey): Team
     @delete
     @guard

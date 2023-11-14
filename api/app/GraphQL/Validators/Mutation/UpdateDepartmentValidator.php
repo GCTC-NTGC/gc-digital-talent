@@ -1,11 +1,11 @@
 <?php
 
-namespace App\GraphQL\Validators;
+namespace App\GraphQL\Validators\Mutation;
 
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateTeamInputValidator extends Validator
+final class UpdateDepartmentValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -15,9 +15,9 @@ final class UpdateTeamInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'name' => [
+            'department.departmentNumber' => [
                 'sometimes',
-                Rule::unique('teams', 'name')->ignore($this->arg('id'), 'id'),
+                Rule::unique('departments', 'department_number')->ignore($this->arg('id'), 'id'),
             ],
         ];
     }
@@ -28,7 +28,7 @@ final class UpdateTeamInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'name.unique' => 'TeamNameInUse',
+            'department.departmentNumber.unique' => 'DepartmentNumberInUse',
         ];
     }
 }
