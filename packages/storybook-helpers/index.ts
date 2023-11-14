@@ -10,6 +10,7 @@ import ThemeDecorator, {
 } from "./decorators/ThemeDecorator";
 
 import { widthOf, heightOf } from "./utils";
+import VIEWPORTS, { VIEWPORT_DIMENSIONS } from "./viewports";
 
 export {
   FeatureFlagDecorator,
@@ -21,6 +22,8 @@ export {
   ThemeDecorator,
   themeKey,
   themeMode,
+  VIEWPORTS,
+  VIEWPORT_DIMENSIONS,
 };
 
 export { widthOf, heightOf };
