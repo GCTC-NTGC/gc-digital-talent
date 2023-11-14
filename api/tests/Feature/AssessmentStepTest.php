@@ -105,7 +105,6 @@ class AssessmentStepTest extends TestCase
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
                         'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
-                        'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
                             'fr' => 'fr',
@@ -119,7 +118,7 @@ class AssessmentStepTest extends TestCase
                     'en' => 'en',
                     'fr' => 'fr',
                 ],
-                'sortOrder' => 1,
+                'sortOrder' => 3,
             ]);
     }
 
@@ -140,7 +139,6 @@ class AssessmentStepTest extends TestCase
                     'id' => $assessment->id,
                     'assessmentStep' => [
                         'type' => AssessmentStepType::PSC_EXAM->name,
-                        'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
                             'fr' => 'fr',
@@ -155,7 +153,7 @@ class AssessmentStepTest extends TestCase
                     'en' => 'en',
                     'fr' => 'fr',
                 ],
-                'sortOrder' => 1,
+                'sortOrder' => 3,
             ]);
     }
 
@@ -206,7 +204,6 @@ class AssessmentStepTest extends TestCase
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
                         'type' => AssessmentStepType::PSC_EXAM->name,
-                        'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
                             'fr' => 'fr',
@@ -258,7 +255,6 @@ class AssessmentStepTest extends TestCase
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
                         'type' => AssessmentStepType::APPLICATION_SCREENING->name,
-                        'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
                             'fr' => 'fr',
@@ -275,7 +271,6 @@ class AssessmentStepTest extends TestCase
                     'poolId' => $this->pool->id,
                     'assessmentStep' => [
                         'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                        'sortOrder' => 1,
                         'title' => [
                             'en' => 'en',
                             'fr' => 'fr',

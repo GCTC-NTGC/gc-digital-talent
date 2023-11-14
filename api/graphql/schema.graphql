@@ -1325,6 +1325,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
 }
@@ -1372,7 +1378,11 @@ input AssessmentStepInput {
       apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
       messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
     )
-  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1766,6 +1776,15 @@ type Mutation {
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
   ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
+    @guard
+    @can(ability: "update", find: "stepIdA")
+    @can(ability: "update", find: "stepIdB")
+  createOrUpdateScreeningQuestionAssessmentStep(
+    poolId: UUID!
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
+  ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard
