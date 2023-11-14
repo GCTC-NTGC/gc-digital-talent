@@ -9,7 +9,6 @@ import ThemeDecorator, {
   themeMode,
 } from "./decorators/ThemeDecorator";
 
-import { widthOf, heightOf } from "./utils";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS } from "./viewports";
 
 export {
@@ -25,5 +24,3 @@ export {
   VIEWPORTS,
   CHROMATIC_VIEWPORTS,
 };
-
-export { widthOf, heightOf };
