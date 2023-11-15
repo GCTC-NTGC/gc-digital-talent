@@ -1,10 +1,10 @@
 import React from "react";
 
 import { IndigenousCommunity } from "~/api/generated";
-import firstNationsIcon from "~/assets/img/first-nations-true.png";
-import inuitIcon from "~/assets/img/inuit-true.png";
-import metisIcon from "~/assets/img/metis-true.png";
-import otherIcon from "~/assets/img/other-true.png";
+import firstNationsIcon from "~/assets/img/first-nations-true.webp";
+import inuitIcon from "~/assets/img/inuit-true.webp";
+import metisIcon from "~/assets/img/metis-true.webp";
+import otherIcon from "~/assets/img/other-true.webp";
 
 const communityIconMap = new Map<IndigenousCommunity, string>([
   [IndigenousCommunity.Inuit, inuitIcon],

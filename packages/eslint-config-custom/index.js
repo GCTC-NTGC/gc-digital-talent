@@ -200,6 +200,14 @@ module.exports = {
         name: "@heroicons/react/20/solid",
         message: "Please import the individual icons, not the entire set.",
       },
+      {
+        name: "jpg",
+        message: "Please use WebP as the image format.",
+      },
+      {
+        name: "png",
+        message: "Please use WebP as the image format.",
+      },
     ],
     "react/forbid-elements": [1, { forbid: ["a"] }],
     "no-restricted-syntax": [

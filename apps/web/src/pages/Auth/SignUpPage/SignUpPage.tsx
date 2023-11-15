@@ -15,14 +15,14 @@ import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import createStep1Image from "~/assets/img/sign-up-create-step-1.jpg";
-import createStep2Image from "~/assets/img/sign-up-create-step-2.jpg";
-import createStep3Image from "~/assets/img/sign-up-create-step-3.jpg";
-import createStep4Image from "~/assets/img/sign-up-create-step-4.jpg";
-import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.jpg";
-import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.jpg";
-import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.jpg";
-import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.jpg";
+import createStep1Image from "~/assets/img/sign-up-create-step-1.webp";
+import createStep2Image from "~/assets/img/sign-up-create-step-2.webp";
+import createStep3Image from "~/assets/img/sign-up-create-step-3.webp";
+import createStep4Image from "~/assets/img/sign-up-create-step-4.webp";
+import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.webp";
+import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.webp";
+import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.webp";
+import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.webp";
 import Instructions from "~/components/Instructions";
 
 const buildLink = (path: string, chunks: React.ReactNode) => (

@@ -8,7 +8,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import heroImg from "~/assets/img/accessibility-statement-header.jpg";
+import heroImg from "~/assets/img/accessibility-statement-header.webp";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link

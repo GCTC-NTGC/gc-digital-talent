@@ -10,8 +10,8 @@ import { useLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
 import useErrorMessages from "~/hooks/useErrorMessages";
-import darkPug from "~/assets/img/404_pug_dark.png";
-import lightPug from "~/assets/img/404_pug_light.png";
+import darkPug from "~/assets/img/404_pug_dark.webp";
+import lightPug from "~/assets/img/404_pug_light.webp";
 
 const ErrorPage = () => {
   const intl = useIntl();
