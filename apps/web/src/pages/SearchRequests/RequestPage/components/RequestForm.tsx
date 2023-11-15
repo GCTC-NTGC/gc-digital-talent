@@ -501,7 +501,7 @@ export const RequestForm = ({
             data-h2-height="base(1px)"
             data-h2-border="base(none)"
             data-h2-background="base(gray)"
-            data-h2-margin="base(x2, 0)"
+            data-h2-margin="base(x1, 0, x2, 0)"
           />
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(

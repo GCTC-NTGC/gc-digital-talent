@@ -491,7 +491,7 @@ export const PoolPoster = ({
                       level="h3"
                       size="h4"
                       data-h2-font-weight="base(700)"
-                      data-h2-margin="base(x2, 0, x1, 0)"
+                      data-h2-margin="base(x3, 0, x1, 0)"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Common tasks in this role",
@@ -522,7 +522,7 @@ export const PoolPoster = ({
                 level="h3"
                 size="h4"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Minimum experience or education",
@@ -551,7 +551,7 @@ export const PoolPoster = ({
                 level="h3"
                 size="h4"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
@@ -569,7 +569,11 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
               </Text>
-              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Required technical skills",
                   id: "9V8bnL",
@@ -577,7 +581,7 @@ export const PoolPoster = ({
                     "Title for required technical skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "The following skills are essential to this role and must be demonstrated as a part of your application.",
@@ -585,7 +589,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how required technical skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={essentialSkills.TECHNICAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -596,7 +600,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required technical skills",
                 })}
               />
-              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Optional technical skills",
                   id: "CzrCfC",
@@ -604,7 +612,7 @@ export const PoolPoster = ({
                     "Title for optional technical skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
@@ -612,7 +620,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how optional technical skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={nonEssentialSkills.TECHNICAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -623,7 +631,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no optional technical skills",
                 })}
               />
-              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Required behavioural skills",
                   id: "t9HxQm",
@@ -631,7 +643,7 @@ export const PoolPoster = ({
                     "Title for required behavioural skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "The following skills are required for this role, but aren't required as a part of your application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
@@ -639,7 +651,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how required behavioural skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={essentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -650,7 +662,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required behavioural skills",
                 })}
               />
-              <Heading level="h4" size="h6" data-h2-margin="base(x2, 0, x1, 0)">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Optional behavioural skills",
                   id: "LeVJmQ",
@@ -658,7 +674,7 @@ export const PoolPoster = ({
                     "Title for optional behavioural skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
@@ -666,7 +682,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how optional behavioural skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={nonEssentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
