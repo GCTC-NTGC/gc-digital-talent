@@ -2,14 +2,14 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 
-import firstNationsOn from "~/assets/img/first-nations-true.png";
-import firstNationsOff from "~/assets/img/first-nations-false.png";
-import inuitOn from "~/assets/img/inuit-true.png";
-import inuitOff from "~/assets/img/inuit-false.png";
-import metisOn from "~/assets/img/metis-true.png";
-import metisOff from "~/assets/img/metis-false.png";
-import otherOn from "~/assets/img/other-true.png";
-import otherOff from "~/assets/img/other-false.png";
+import firstNationsOn from "~/assets/img/first-nations-true.webp";
+import firstNationsOff from "~/assets/img/first-nations-false.webp";
+import inuitOn from "~/assets/img/inuit-true.webp";
+import inuitOff from "~/assets/img/inuit-false.webp";
+import metisOn from "~/assets/img/metis-true.webp";
+import metisOff from "~/assets/img/metis-false.webp";
+import otherOn from "~/assets/img/other-true.webp";
+import otherOff from "~/assets/img/other-false.webp";
 
 import { partOfCommunity } from "./utils";
 

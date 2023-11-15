@@ -9,10 +9,10 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { User, IndigenousCommunity } from "~/api/generated";
-import firstNationsIcon from "~/assets/img/first-nations-true.png";
-import inuitIcon from "~/assets/img/inuit-true.png";
-import metisIcon from "~/assets/img/metis-true.png";
-import otherIcon from "~/assets/img/other-true.png";
+import firstNationsIcon from "~/assets/img/first-nations-true.webp";
+import inuitIcon from "~/assets/img/inuit-true.webp";
+import metisIcon from "~/assets/img/metis-true.webp";
+import otherIcon from "~/assets/img/other-true.webp";
 import { anyCriteriaSelected } from "~/validators/profile/diversityEquityInclusion";
 
 const DiversityEquityInclusionSection = ({
