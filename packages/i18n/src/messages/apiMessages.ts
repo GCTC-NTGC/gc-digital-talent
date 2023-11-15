@@ -41,6 +41,18 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the given skill family key is already in use.",
     },
+    SkillKeyStringInUse: {
+      defaultMessage: "This skill key string is already in use",
+      id: "xSecEX",
+      description: "Error message that the given skill key is already in use.",
+    },
+
+    // team validation
+    TeamNameInUse: {
+      defaultMessage: "This team name is already in use",
+      id: "ctpoN9",
+      description: "Error message that the given team name is already in use.",
+    },
 
     // department validation
     DepartmentNumberInUse: {
@@ -93,6 +105,31 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "mhZmff",
       description:
         "Error message that the given application must already be submitted.",
+    },
+
+    // assessmentStep updating
+    AssessmentStepsSamePool: {
+      defaultMessage: "AssessmentSteps must belong to the same pool.",
+      id: "XUR5dD",
+      description:
+        "Error message that the assessment steps must belong to the same pool.",
+    },
+    AssessmentStepCannotSwap: {
+      defaultMessage: "One or both of the given steps cannot be swapped.",
+      id: "l+x5JF",
+      description:
+        "Error message that one of the assessment steps cannot have its sort order changed.",
+    },
+    ScreeningQuestionNotExist: {
+      defaultMessage: "Given screening question does not exist.",
+      id: "2bzpLi",
+      description:
+        "Error message that the screening question could not be found.",
+    },
+    PoolSkillNotValid: {
+      defaultMessage: "PoolSkill does not exist for given pool.",
+      id: "Hu321P",
+      description: "Error message that a given pool skill is not valid.",
     },
 
     // pool updating
