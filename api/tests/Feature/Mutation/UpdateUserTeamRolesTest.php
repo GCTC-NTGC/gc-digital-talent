@@ -5,6 +5,7 @@ use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -161,7 +162,7 @@ class UpdateUserTeamRolesTest extends TestCase
     public function testAllTeamMembersCanBeReadFromResponse()
     {
         $otherUser = User::factory()->asPoolOperator($this->team->name)->create();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
             mutation updateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
@@ -175,7 +176,6 @@ class UpdateUserTeamRolesTest extends TestCase
               }
         ',
             [
-
                 'teamRoleAssignments' => [
                     'teamId' => $this->team->id,
                     'userId' => $this->applicant->id,
@@ -186,32 +186,35 @@ class UpdateUserTeamRolesTest extends TestCase
                     ],
                 ],
             ]
-        )->assertJson([
-            'data' => [
-                'updateUserTeamRoles' => [
-                    'id' => $this->team->id,
-                    'roleAssignments' => [
-                        [
+        );
 
-                            'role' => [
-                                'name' => EnumsRole::POOL_OPERATOR->value,
-                            ],
-                            'user' => [
-                                'id' => $otherUser->id,
-                            ],
-                        ],
-                        [
-                            'role' => [
-                                'name' => EnumsRole::POOL_OPERATOR->value,
-                            ],
-                            'user' => [
-                                'id' => $this->applicant->id,
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ]);
+        // check the response
+        // assert the team, the number of role assignments, and their containing role/user
+        // OR conditional used to account for users being returned in varying order
+        $response->assertJson(
+            fn (AssertableJson $json) => $json
+                ->where('data.updateUserTeamRoles.id', $this->team->id)
+                ->has('data.updateUserTeamRoles.roleAssignments', 2)
+                ->has(
+                    'data.updateUserTeamRoles.roleAssignments.0',
+                    fn (AssertableJson $json) => $json
+                        ->where('role.name', EnumsRole::POOL_OPERATOR->value)
+                        ->where(
+                            'user.id',
+                            fn (string $id) => str($id)->is($otherUser->id) || str($id)->is($this->applicant->id)
+                        )
+                )
+                ->has(
+                    'data.updateUserTeamRoles.roleAssignments.1',
+                    fn (AssertableJson $json) => $json
+                        ->where('role.name', EnumsRole::POOL_OPERATOR->value)
+                        ->where(
+                            'user.id',
+                            fn (string $id) => str($id)->is($otherUser->id) || str($id)->is($this->applicant->id)
+                        )
+                )
+                ->etc()
+        );
     }
 
     public function testOnlyAdminsAndCommunityManagersHavePermissionEvenToEditSelf()
