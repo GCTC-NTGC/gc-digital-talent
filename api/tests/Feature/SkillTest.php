@@ -179,6 +179,49 @@ class SkillTest extends TestCase
             ->assertJsonFragment(['name' => $variables['skill']['name']]);
     }
 
+    /**
+     * Test that non-unique keys fail
+     *
+     * @return void
+     */
+    public function test_create_non_unique_skill_key()
+    {
+        $variables = [
+            'skill' => [
+                'key' => 'newkey',
+                'name' => [
+                    'en' => 'Non-unique (EN)',
+                    'fr' => 'Non-unique (FR)',
+                ],
+                'category' => 'TECHNICAL',
+            ],
+        ];
+
+        $mutation =
+            /** @lang GraphQL */
+            '
+            mutation Create($skill: CreateSkillInput!) {
+                createSkill(skill: $skill) {
+                    id
+                    name {
+                        en
+                        fr
+                    }
+                    category
+                }
+            }
+        ';
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertJsonFragment(['name' => $variables['skill']['name']]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, $variables)
+            ->assertJsonFragment(['skill.key' => ['SkillKeyStringInUse']])
+            ->assertGraphQLErrorMessage('Validation failed for the field [createSkill].');
+    }
+
     public function testExperienceRelationshipsSkipSoftDeletedPivots(): void
     {
         Skill::factory()->count(1)->create();
