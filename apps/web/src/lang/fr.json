@@ -123,10 +123,6 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
-  "+pgXHm": {
-    "defaultMessage": "Créé",
-    "description": "Title displayed for the User table Date Created column"
-  },
   "+rZvoD": {
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
     "description": "Text for first sign up -> create step."
@@ -186,10 +182,6 @@
   "/81xCT": {
     "defaultMessage": "« Je suis métis(se) »",
     "description": "Label text for Métis community declaration"
-  },
-  "/8fQ9Y": {
-    "defaultMessage": "Lien vers le courriel de l'utilisateur",
-    "description": "Descriptive title for an anchor link"
   },
   "/8qCuC": {
     "defaultMessage": "Déterminer les défis et les obstacles systémiques potentiels dans la recherche de talents numériques",
@@ -1623,6 +1615,10 @@
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
   },
+  "7+GPYf": {
+    "defaultMessage": "Des évaluations avec de réels utilisateurs",
+    "description": "Heading for how we test accessibility."
+  },
   "706kTz": {
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Title for skill requirements section of a pool advertisement"
@@ -2195,6 +2191,10 @@
     "defaultMessage": "Exigence en matière de sécurité",
     "description": "Label displayed on the edit pool form security requirement field."
   },
+  "ASYJlr": {
+    "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
+    "description": "Lead in text for list of items we consider for accessibility"
+  },
   "ATO0GK": {
     "defaultMessage": "Tâches courantes dans ce poste",
     "description": "Title for key tasks on a pool advertisement."
@@ -2670,10 +2670,6 @@
   "Cia2li": {
     "defaultMessage": "Des nouvelles possibilités sont à venir!",
     "description": "Heading for message when there are no executive opportunities available"
-  },
-  "CjkBMT": {
-    "defaultMessage": "Téléphone",
-    "description": "Label for user table search dropdown (phone)."
   },
   "Cjp2F6": {
     "defaultMessage": "Informations sur le bassin",
@@ -3451,10 +3447,6 @@
     "defaultMessage": "Titre de l’emploi",
     "description": "Title for job title for a position"
   },
-  "HCWGjZ": {
-    "defaultMessage": "<strong>Des évaluations avec de réels utilisateurs.</strong> Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
-    "description": "Text describing our user testing for accessibility"
-  },
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
     "description": "Label for the expiry status field"
@@ -3999,6 +3991,10 @@
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
     "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
   },
+  "KjbjQU": {
+    "defaultMessage": "Voir",
+    "description": "Title displayed for a tables View column."
+  },
   "Kklz7F": {
     "defaultMessage": "Vous avez atteint le nombre maximal ({maxItems}) de questions de présélection par offre d’emploi.",
     "description": "Message displayed when a user adds the maximum number of questions"
@@ -4184,7 +4180,7 @@
     "description": "Tab name for a list of behavioural skills"
   },
   "LnISTX": {
-    "defaultMessage": "{title} Les exigent un minimum d’expérience ou un diplôme pertinent.",
+    "defaultMessage": "{title} exigent un minimum d’expérience ou un diplôme pertinent.",
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
   "LoKxJe": {
@@ -5815,10 +5811,6 @@
     "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
     "description": "Description for the notes about this request section of the single search request view."
   },
-  "VlI1K4": {
-    "defaultMessage": "Tous les utilisateurs",
-    "description": "Title for the admin users table"
-  },
   "VldclB": {
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
     "description": "CSV Header, Education Requirement Experiences column"
@@ -6519,6 +6511,10 @@
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition services"
   },
+  "ZatPPs": {
+    "defaultMessage": "Chercher les utilisateurs",
+    "description": "Label for the user table search input"
+  },
   "Zbk4zf": {
     "defaultMessage": "Choisir un statut :",
     "description": "Third section of text on the change candidate status dialog"
@@ -6702,6 +6698,10 @@
   "aemElP": {
     "defaultMessage": "Je suis actuellement actif dans cette expérience.",
     "description": "Label displayed on Personal Experience form for current experience input"
+  },
+  "agcOO1": {
+    "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
+    "description": "Heading for the items we consider for accessibility."
   },
   "agiL8L": {
     "defaultMessage": "Afficher les candidatures en cours ({applicationCount})",
@@ -7122,10 +7122,6 @@
   "d8CQJr": {
     "defaultMessage": " Création réussie de la famille de compétences!",
     "description": "Message displayed to user after skill family is created successfully."
-  },
-  "d8FGfc": {
-    "defaultMessage": "<strong>Rendre nos produits accessibles et utilisables par tous.</strong> Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
-    "description": "Lead in text for list of items we consider for accessibility"
   },
   "d8j/Sr": {
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
@@ -7715,6 +7711,10 @@
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb title for the browse pools page."
   },
+  "gEnOmo": {
+    "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
+    "description": "Text describing our user testing for accessibility"
+  },
   "gHMj31": {
     "defaultMessage": "Aucune expérience trouvée",
     "description": "Null state messages for career timeline list when no experiences are found."
@@ -7994,10 +7994,6 @@
   "ha+vp4": {
     "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
     "description": "Task based informatics professional services contract supply method"
-  },
-  "hci1jW": {
-    "defaultMessage": "Voir",
-    "description": "Title displayed for the User table View column."
   },
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
@@ -9538,10 +9534,6 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
-  },
-  "qYH0du": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the User table Edit column."
   },
   "qYWmzA": {
     "defaultMessage": "Volet",
