@@ -36,6 +36,7 @@ const RequestPage = () => {
           id: "9Jkoms",
           description: "Title displayed on hero for Search and Request pages.",
         })}
+        subtitle="Submit your filtered request for talent."
       >
         <div
           data-h2-background-color="base(foreground)"
