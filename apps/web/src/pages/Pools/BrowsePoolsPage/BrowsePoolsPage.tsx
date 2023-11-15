@@ -18,11 +18,11 @@ import {
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import browseHeroImg from "~/assets/img/browse_header.jpg";
-import flourishTopLight from "~/assets/img/browse_top_light.png";
-import flourishBottomLight from "~/assets/img/browse_bottom_light.png";
-import flourishTopDark from "~/assets/img/browse_top_dark.png";
-import flourishBottomDark from "~/assets/img/browse_bottom_dark.png";
+import browseHeroImg from "~/assets/img/browse_header.webp";
+import flourishTopLight from "~/assets/img/browse_top_light.webp";
+import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
+import flourishTopDark from "~/assets/img/browse_top_dark.webp";
+import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 import CallToActionCard from "~/components/CallToActionCard/CallToActionCard";
 
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";

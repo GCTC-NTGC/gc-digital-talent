@@ -12,61 +12,11 @@ import isEqual from "lodash/isEqual";
 
 import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import Field from "../Field";
 import { flattenErrors } from "../../utils";
-
-/**
- * Generic button to apply styles to a
- * fieldset action button
- */
-export const ActionButton = ({
-  decrement = false,
-  animate = true,
-  disabled,
-  ...rest
-}: React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
-  decrement?: boolean;
-  animate?: boolean;
-}) => {
-  const transform = decrement
-    ? {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(-20%)) base:focus-visible:children[svg](translateY(-20%))",
-      }
-    : {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(20%)) base:focus-visible:children[svg](translateY(20%))",
-      };
-  return (
-    <button
-      type="button"
-      data-h2-border="base(none)"
-      data-h2-radius="base(50%)"
-      data-h2-cursor="base(pointer)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-padding="base(x.5)"
-      data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
-      data-h2-transition="base:children[svg](transform 200ms ease)"
-      data-h2-font-weight="base(700)"
-      {...(disabled
-        ? {
-            disabled: true,
-            "data-h2-color": "base(black.lightest)",
-            "data-h2-background-color": "base(foreground)",
-          }
-        : {
-            "data-h2-color": "base(black)",
-            ...(animate ? transform : {}),
-          })}
-      {...rest}
-    />
-  );
-};
+import ActionButton, { ActionButtonProps } from "./ActionButton";
 
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
@@ -81,19 +31,25 @@ export interface RepeaterFieldsetProps {
   hideLegend?: boolean;
   /** Set if the fieldset index is displayed to the user (default: false) */
   hideIndex?: boolean;
-  /** Disables deleting, moving and editing fields */
+  /** Disables removing, moving and editing fields */
   disabled?: boolean;
-  /** Locks item position (removes append and decrement actions) */
-  numOfLockedItems?: number;
   children: React.ReactNode;
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
   /** Callback when the item is removed from the array */
-  onRemove: (index: number) => void;
+  onRemove?: (index: number) => void;
   /** Callback function when edit button is clicked */
   onEdit?: (index: number) => void;
   /** Add a custom edit button */
-  customEditButton?: React.ReactNode;
+  customEditButton?: React.ReactElement<ActionButtonProps>;
+  /** Add a custom remove button */
+  customRemoveButton?: React.ReactElement<ActionButtonProps>;
+  /** All indexes that should be prevented from moving */
+  moveDisabledIndexes?: Array<number>;
+  /** Disables editing the item */
+  editDisabled?: boolean;
+  /** Disables removing the item */
+  removeDisabled?: boolean;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -108,10 +64,13 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
-  disabled,
-  numOfLockedItems,
+  disabled: fieldSetDisabled,
   onEdit,
   customEditButton,
+  customRemoveButton,
+  moveDisabledIndexes = [],
+  editDisabled = false,
+  removeDisabled = false,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -128,14 +87,24 @@ const Fieldset = ({
 
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
-  const isFirstItem = disabled || index <= 0;
-  const isLastItem = disabled || index === total - 1;
+  const disableDecrement =
+    fieldSetDisabled || // the whole fieldset is disabled
+    index <= 0 || // is the first item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index - 1 === disabledIndex, // has a move-disabled item previous
+    );
 
-  const isLocked = numOfLockedItems ? index + 1 <= numOfLockedItems : false;
-  const previousItemLocked = numOfLockedItems
-    ? numOfLockedItems + 1 === index + 1
-    : false;
-
+  const disableIncrement =
+    fieldSetDisabled || // the whole fieldset is disabled
+    index === total - 1 || // is the last item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index + 1 === disabledIndex, // has a move-disabled item following
+    );
+  const isMoveDisabled = moveDisabledIndexes.includes(index);
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
     if (announce) {
@@ -149,13 +118,17 @@ const Fieldset = ({
   };
 
   const handleRemove = () => {
-    onRemove(index);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceRemove, {
-          index: position,
-        }),
-      );
+    if (onRemove) {
+      onRemove(index);
+      if (announce) {
+        announce(
+          intl.formatMessage(formMessages.repeaterAnnounceRemove, {
+            index: position,
+          }),
+        );
+      }
+    } else {
+      defaultLogger.debug("No onRemove for handler to call.");
     }
   };
 
@@ -171,6 +144,80 @@ const Fieldset = ({
     handleMove(index, index + 1);
   };
 
+  // replaces a button when it should be disabled.
+  const disabledIcon = (
+    <span aria-hidden data-h2-width="base(x.75)">
+      &bull;
+    </span>
+  );
+
+  // edit button might be custom or default or null
+  const showDisabledEditButton = fieldSetDisabled || editDisabled;
+  let editButton: React.ReactNode = null;
+  if (customEditButton) {
+    // if a custom button was provided, use that and maybe disable it
+    if (!showDisabledEditButton) {
+      editButton = customEditButton;
+    } else {
+      editButton = (
+        <ActionButton
+          disabled
+          aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+            index: position,
+          })}
+        >
+          {disabledIcon}
+        </ActionButton>
+      );
+    }
+  } else if (onEdit) {
+    // no custom button, but we have a handler so show the default button
+    editButton = (
+      <ActionButton
+        disabled={showDisabledEditButton}
+        onClick={handleEdit}
+        aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+          index: position,
+        })}
+      >
+        <PencilSquareIcon data-h2-width="base(x.75)" />
+      </ActionButton>
+    );
+  }
+
+  // remove button might be custom or default or null
+  const showDisabledRemoveButton = fieldSetDisabled || removeDisabled;
+  let removeButton: React.ReactNode = null;
+  if (customRemoveButton) {
+    // if a custom button was provided, use that and maybe disable it
+    if (!showDisabledRemoveButton) {
+      removeButton = customRemoveButton;
+    } else {
+      removeButton = (
+        <ActionButton
+          disabled
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index: position,
+          })}
+        >
+          {disabledIcon}
+        </ActionButton>
+      );
+    }
+  } else if (onRemove) {
+    // no custom button, but we have a handler so show the default button
+    removeButton = (
+      <ActionButton
+        disabled={showDisabledRemoveButton}
+        onClick={handleRemove}
+        aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+          index: position,
+        })}
+      >
+        <TrashIcon data-h2-width="base(x.75)" />
+      </ActionButton>
+    );
+  }
   return (
     <MotionFieldset
       layout
@@ -217,14 +264,13 @@ const Fieldset = ({
                 data-h2-justify-content="base(center)"
                 data-h2-gap="base(x.5)"
               >
-                {!isLocked ? (
+                {!isMoveDisabled ? (
                   <>
                     {/* UP ARROW */}
                     <ActionButton
-                      disabled={isFirstItem || previousItemLocked}
+                      disabled={disableDecrement}
                       onClick={decrement}
-                      decrement
-                      animate={!shouldReduceMotion}
+                      animation={!shouldReduceMotion ? "translate-up" : "none"}
                       aria-label={intl.formatMessage(
                         formMessages.repeaterMove,
                         {
@@ -232,16 +278,14 @@ const Fieldset = ({
                           to: position - 1,
                         },
                       )}
-                      {...(isFirstItem
+                      {...(disableDecrement
                         ? { "data-h2-padding-left": "base(x.25)" }
                         : {})}
                     >
-                      {!isFirstItem && !previousItemLocked ? (
+                      {!disableDecrement ? (
                         <ArrowUpIcon data-h2-width="base(x.75)" />
                       ) : (
-                        <span data-h2-width="base(x.75)" aria-hidden>
-                          &bull;
-                        </span>
+                        disabledIcon
                       )}
                     </ActionButton>
                     {/* INDEX */}
@@ -256,9 +300,11 @@ const Fieldset = ({
                     )}
                     {/* DOWN ARROW */}
                     <ActionButton
-                      disabled={isLastItem}
+                      disabled={disableIncrement}
                       onClick={increment}
-                      animate={!shouldReduceMotion}
+                      animation={
+                        !shouldReduceMotion ? "translate-down" : "none"
+                      }
                       aria-label={intl.formatMessage(
                         formMessages.repeaterMove,
                         {
@@ -267,12 +313,10 @@ const Fieldset = ({
                         },
                       )}
                     >
-                      {!isLastItem ? (
+                      {!disableIncrement ? (
                         <ArrowDownIcon data-h2-width="base(x.75)" />
                       ) : (
-                        <span data-h2-width="base(x.75)" aria-hidden>
-                          &bull;
-                        </span>
+                        disabledIcon
                       )}
                     </ActionButton>
                   </>
@@ -299,29 +343,8 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
-                {onEdit && (
-                  <ActionButton
-                    disabled={disabled}
-                    animate={false}
-                    onClick={handleEdit}
-                    aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-                      index: position,
-                    })}
-                  >
-                    <PencilSquareIcon data-h2-width="base(x.75)" />
-                  </ActionButton>
-                )}
-                {customEditButton && <div>{customEditButton}</div>}
-                <ActionButton
-                  disabled={disabled || isLocked}
-                  animate={false}
-                  onClick={handleRemove}
-                  aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-                    index: position,
-                  })}
-                >
-                  <TrashIcon data-h2-width="base(x.75)" />
-                </ActionButton>
+                {editButton}
+                {removeButton}
               </div>
             </div>
             <div data-h2-width="base(100%)">
