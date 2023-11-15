@@ -17,14 +17,14 @@ const CareerTimelineAndRecruitmentPage = () => {
     variables: { id: userAuthInfo?.id || "" },
   });
 
-  const experiences = data?.applicant?.experiences?.filter(notEmpty);
-  const applications = data?.applicant?.poolCandidates?.filter(notEmpty);
+  const experiences = data?.user?.experiences?.filter(notEmpty);
+  const applications = data?.user?.poolCandidates?.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.applicant ? (
+      {data?.user ? (
         <CareerTimelineAndRecruitment
-          applicantId={data?.applicant.id}
+          userId={data?.user.id}
           experiences={experiences || []}
           applications={applications || []}
         />

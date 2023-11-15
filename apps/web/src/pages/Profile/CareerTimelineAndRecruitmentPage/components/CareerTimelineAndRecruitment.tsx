@@ -41,7 +41,7 @@ export type ExperienceForDate =
   | WorkExperience;
 
 interface CareerTimelineAndRecruitmentProps {
-  applicantId: string;
+  userId: string;
   experiences?: MergedExperiences;
   applications: Application[];
   missingSkills?: {
@@ -54,7 +54,7 @@ const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
   missingSkills,
-  applicantId,
+  userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -79,7 +79,7 @@ const CareerTimelineAndRecruitment = ({
     },
     {
       label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-      url: paths.careerTimelineAndRecruitment(applicantId),
+      url: paths.careerTimelineAndRecruitment(userId),
     },
   ];
 
@@ -162,7 +162,7 @@ const CareerTimelineAndRecruitment = ({
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
                   experiences={experiences}
-                  applicantId={applicantId}
+                  userId={userId}
                 />
               </div>
             </TableOfContents.Section>

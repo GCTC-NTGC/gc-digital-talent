@@ -11,7 +11,6 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
-  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   userPublicProfiles: [UserPublicProfile]! @deprecated(reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!")
   countApplicants(where: ApplicantFilterInput): Int!
@@ -26,12 +25,9 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657.")
   poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659.")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -143,6 +139,8 @@ type Mutation {
   deleteUserSkill(id: UUID!): UserSkill
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
+  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
@@ -1146,6 +1144,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID]
 }
@@ -1176,7 +1180,11 @@ input UpdatePoolInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }

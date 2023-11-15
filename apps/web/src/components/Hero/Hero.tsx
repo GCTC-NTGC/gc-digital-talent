@@ -133,7 +133,13 @@ const Hero = ({
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(3, relative)"
         >
-          <div data-h2-color="base:all(white)" {...textAlignment}>
+          <div
+            data-h2-color="base:all(white)"
+            {...textAlignment}
+            {...(showImg && {
+              "data-h2-margin-right": "l-tablet(x18)",
+            })}
+          >
             <Heading
               ref={headingRef}
               tabIndex={-1}
