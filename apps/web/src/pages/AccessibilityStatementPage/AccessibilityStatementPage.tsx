@@ -299,7 +299,10 @@ const AccessibilityStatementPage = () => {
               )}
             </p>
             <TableOfContents.Section id={sections[0].id}>
-              <TableOfContents.Heading size="h2">
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections[0].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -318,7 +321,10 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[1].id}>
-              <TableOfContents.Heading size="h2">
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections[1].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -333,7 +339,12 @@ const AccessibilityStatementPage = () => {
                   { wcagLink },
                 )}
               </p>
-              <Heading level="h3">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage:
                     "Making our products accessible and usable by all",
@@ -449,7 +460,12 @@ const AccessibilityStatementPage = () => {
                   </ul>
                 </li>
               </ul>
-              <Heading level="h3">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Testing with real users",
                   id: "7+GPYf",
@@ -470,7 +486,10 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[2].id}>
-              <TableOfContents.Heading size="h2">
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections[2].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
@@ -500,7 +519,10 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[3].id}>
-              <TableOfContents.Heading size="h2">
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections[3].title}
               </TableOfContents.Heading>
               <p data-h2-margin="base(x1 0)">
