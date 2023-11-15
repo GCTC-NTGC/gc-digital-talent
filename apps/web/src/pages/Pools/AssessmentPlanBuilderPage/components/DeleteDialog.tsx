@@ -5,17 +5,16 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 type DeleteDialogProps = {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
   onDelete: () => void;
+  trigger: React.ReactNode;
 };
 
 const DeleteDialog = ({
-  isOpen,
-  setIsOpen,
   onDelete,
+  trigger,
 }: DeleteDialogProps): JSX.Element => {
   const intl = useIntl();
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const Footer = React.useMemo(
     () => (
       <>
@@ -49,6 +48,7 @@ const DeleteDialog = ({
   );
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
+      <Dialog.Trigger>{trigger}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
           {intl.formatMessage({

@@ -50,8 +50,6 @@ const OrganizeSection = ({
 }: OrganizeSectionProps) => {
   const intl = useIntl();
   const addId = React.useId();
-  const [isNewStepDialogOpen, setIsNewStepDialogOpen] =
-    React.useState<boolean>(false);
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
     useDeleteAssessmentStepMutation();
@@ -157,6 +155,16 @@ const OrganizeSection = ({
         ),
       );
   };
+  // first index is application screening and can never be moved
+  const moveDisabledIndexes = [0];
+  // screening question step optionally exists
+  const indexOfScreeningQuestionStep = initialAssessmentSteps.findIndex(
+    (step) => step.type === AssessmentStepType.ScreeningQuestionsAtApplication,
+  );
+  // screening question can never be moved
+  if (indexOfScreeningQuestionStep >= 0) {
+    moveDisabledIndexes.push(indexOfScreeningQuestionStep);
+  }
 
   const formDisabled =
     pool.status !== PoolStatus.Draft ||
@@ -164,11 +172,7 @@ const OrganizeSection = ({
     swapFetching ||
     pageLoading;
   const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
-  const alreadyHasAScreeningQuestionsStep = !!pool.assessmentSteps?.find(
-    (assessmentStep) =>
-      assessmentStep?.type ===
-      AssessmentStepType.ScreeningQuestionsAtApplication,
-  );
+  const alreadyHasAScreeningQuestionsStep = indexOfScreeningQuestionStep >= 0;
 
   return (
     <>
@@ -300,8 +304,6 @@ const OrganizeSection = ({
                             id: null,
                             poolId: pool.id,
                           }}
-                          isOpen={isNewStepDialogOpen}
-                          setIsOpen={setIsNewStepDialogOpen}
                         />
                       ),
                     }
@@ -316,10 +318,11 @@ const OrganizeSection = ({
                       index={index}
                       assessmentStep={assessmentStep}
                       total={fields.length}
-                      formDisabled={formDisabled}
+                      fieldsetDisabled={formDisabled}
                       pool={pool}
                       onRemove={() => remove(index)}
                       onMove={move}
+                      moveDisabledIndexes={moveDisabledIndexes}
                     />
                   );
                 })}

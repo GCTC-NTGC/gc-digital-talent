@@ -73,21 +73,18 @@ interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
   allPoolSkills: PoolSkill[];
   disallowStepTypes?: AssessmentStepType[];
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  trigger?: React.ReactNode;
+  trigger: React.ReactNode;
 }
 
 const AssessmentDetailsDialog = ({
   initialValues,
   allPoolSkills,
   disallowStepTypes = [],
-  isOpen,
-  setIsOpen,
   trigger,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const [
     { fetching: createAssessmentStepFetching },

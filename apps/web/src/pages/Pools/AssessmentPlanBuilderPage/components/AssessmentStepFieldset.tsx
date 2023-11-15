@@ -1,5 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
+import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Repeater } from "@gc-digital-talent/forms";
 import {
@@ -8,8 +10,10 @@ import {
   Pool,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { formMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { RepeaterFieldsetProps } from "@gc-digital-talent/forms/src/components/Repeater/Repeater";
+import ActionButton from "@gc-digital-talent/forms/src/components/Repeater/ActionButton";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -19,24 +23,24 @@ type AssessmentStepFieldsetProps = {
   index: number;
   assessmentStep: AssessmentStep;
   total: number;
-  formDisabled: boolean;
+  fieldsetDisabled: boolean;
   pool: Pool;
   onRemove: () => void;
   onMove: (fromIndex: number, toIndex: number) => void;
+  moveDisabledIndexes: RepeaterFieldsetProps["moveDisabledIndexes"];
 };
 
 const AssessmentStepFieldset = ({
   index,
   assessmentStep,
   total,
-  formDisabled,
+  fieldsetDisabled,
   pool,
   onRemove,
   onMove,
+  moveDisabledIndexes,
 }: AssessmentStepFieldsetProps) => {
   const intl = useIntl();
-  const [isEditOpen, setIsEditOpen] = React.useState<boolean>(false);
-  const [isDeleteOpen, setIsDeleteOpen] = React.useState<boolean>(false);
   const skillNames =
     assessmentStep.poolSkills
       ?.filter(notEmpty)
@@ -50,8 +54,9 @@ const AssessmentStepFieldset = ({
       : -1,
   );
 
-  const disabled =
-    formDisabled ||
+  const editDisabled =
+    assessmentStep.type === AssessmentStepType.ApplicationScreening;
+  const removeDisabled =
     assessmentStep.type === AssessmentStepType.ApplicationScreening;
 
   return (
@@ -60,8 +65,7 @@ const AssessmentStepFieldset = ({
       index={index}
       total={total}
       onMove={onMove} // immediately fire event
-      onRemove={() => setIsDeleteOpen(true)} // confirm through dialog before firing event
-      disabled={disabled}
+      disabled={fieldsetDisabled}
       legend={intl.formatMessage(
         {
           defaultMessage: "Assessment plan step {index}",
@@ -73,7 +77,49 @@ const AssessmentStepFieldset = ({
         },
       )}
       hideLegend
-      onEdit={() => setIsEditOpen(true)}
+      editDisabled={editDisabled}
+      removeDisabled={removeDisabled}
+      moveDisabledIndexes={moveDisabledIndexes}
+      customEditButton={
+        <AssessmentDetailsDialog
+          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+          initialValues={{
+            id: assessmentStep.id,
+            poolId: pool.id,
+            typeOfAssessment: assessmentStep.type,
+            assessmentTitleEn: assessmentStep?.title?.en,
+            assessmentTitleFr: assessmentStep?.title?.fr,
+            assessedSkills:
+              assessmentStep?.poolSkills
+                ?.map((poolSkill) => poolSkill?.id)
+                ?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
+          }}
+          trigger={
+            <ActionButton
+              aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+                index,
+              })}
+            >
+              <PencilSquareIcon data-h2-width="base(x.75)" />
+            </ActionButton>
+          }
+        />
+      }
+      customRemoveButton={
+        <DeleteDialog
+          onDelete={onRemove}
+          trigger={
+            <ActionButton
+              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+                index,
+              })}
+            >
+              <TrashIcon data-h2-width="base(x.75)" />
+            </ActionButton>
+          }
+        />
+      }
     >
       <input type="hidden" name={`assessmentSteps.${index}.id`} />
 
@@ -176,31 +222,6 @@ const AssessmentStepFieldset = ({
           </Accordion.Item>
         </Accordion.Root>
       ) : null}
-
-      <AssessmentDetailsDialog
-        allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-        initialValues={{
-          id: assessmentStep.id,
-          poolId: pool.id,
-          typeOfAssessment: assessmentStep.type,
-          assessmentTitleEn: assessmentStep?.title?.en,
-          assessmentTitleFr: assessmentStep?.title?.fr,
-          assessedSkills:
-            assessmentStep?.poolSkills
-              ?.map((poolSkill) => poolSkill?.id)
-              ?.filter(notEmpty) ?? [],
-          screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
-        }}
-        isOpen={isEditOpen}
-        setIsOpen={setIsEditOpen}
-        // no good way to associate edit button in repeater fieldset with dialog
-      />
-
-      <DeleteDialog
-        isOpen={isDeleteOpen}
-        setIsOpen={setIsDeleteOpen}
-        onDelete={onRemove}
-      />
     </Repeater.Fieldset>
   );
 };
