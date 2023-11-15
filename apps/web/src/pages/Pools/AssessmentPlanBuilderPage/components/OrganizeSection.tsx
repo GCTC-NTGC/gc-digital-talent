@@ -11,7 +11,7 @@ import {
   Pool,
   PoolStatus,
   useDeleteAssessmentStepMutation,
-  useUpdateAssessmentStepMutation,
+  useSwapAssessmentStepOrderMutation,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Repeater } from "@gc-digital-talent/forms";
@@ -55,8 +55,8 @@ const OrganizeSection = ({
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
     useDeleteAssessmentStepMutation();
-  const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdateAssessmentStepMutation();
+  const [{ fetching: swapFetching }, executeSwapMutation] =
+    useSwapAssessmentStepOrderMutation();
 
   const initialAssessmentSteps = pool.assessmentSteps?.filter(notEmpty) ?? [];
   initialAssessmentSteps.sort((a, b) =>
@@ -110,42 +110,32 @@ const OrganizeSection = ({
       .catch(() =>
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Not all assessment steps changes saved.",
-            id: "cNeFmG",
+            defaultMessage: "Error: saving assessment step failed.",
+            id: "DnXch4",
             description:
-              "Error message displayed after all some steps were not changed",
+              "Message displayed to user after assessment step fails to be saved.",
           }),
         ),
       );
   };
 
   const move = (indexFrom: number, indexTo: number) => {
-    const modifiedArray = [...initialAssessmentSteps];
-    modifiedArray.splice(indexTo, 0, modifiedArray.splice(indexFrom, 1)[0]); // https://stackoverflow.com/a/5306832
+    const id1 = initialAssessmentSteps[indexFrom].id;
+    const id2 = initialAssessmentSteps[indexTo].id;
 
-    const toBeMovedItems = modifiedArray
-      .map((assessmentStep, index) => ({
-        id: assessmentStep.id,
-        oldSortOrder: assessmentStep.sortOrder,
-        newSortOrder: index + 1,
-      }))
-      .filter((item) => item.oldSortOrder !== item.newSortOrder);
-
-    const updatePromises = toBeMovedItems.map((item) =>
-      executeUpdateMutation({
-        id: item.id,
-        assessmentStep: {
-          sortOrder: item.newSortOrder,
-        },
-      }).then((res) => {
-        if (res.data?.updateAssessmentStep?.id) {
+    executeSwapMutation({
+      stepIdA: id1,
+      stepIdB: id2,
+    })
+      .then((res) => {
+        if (
+          res.data?.swapAssessmentStepOrder?.length === 2 &&
+          res.data.swapAssessmentStepOrder.every((step) => !!step?.id)
+        ) {
           return Promise.resolve();
         }
         return Promise.reject();
-      }),
-    );
-
-    Promise.all(updatePromises)
+      })
       .then(() => {
         fieldArrayMove(indexFrom, indexTo); // optimistic UI update
         toast.success(
@@ -171,7 +161,7 @@ const OrganizeSection = ({
   const formDisabled =
     pool.status !== PoolStatus.Draft ||
     deleteFetching ||
-    updateFetching ||
+    swapFetching ||
     pageLoading;
   const canAdd = fields.length < ASSESSMENT_STEPS_MAX_STEPS;
   const alreadyHasAScreeningQuestionsStep = !!pool.assessmentSteps?.find(
@@ -309,7 +299,6 @@ const OrganizeSection = ({
                           initialValues={{
                             id: null,
                             poolId: pool.id,
-                            sortOrder: fields.length + 1,
                           }}
                           isOpen={isNewStepDialogOpen}
                           setIsOpen={setIsNewStepDialogOpen}

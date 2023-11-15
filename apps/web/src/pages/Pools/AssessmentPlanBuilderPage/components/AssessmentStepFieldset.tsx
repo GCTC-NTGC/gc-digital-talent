@@ -182,7 +182,6 @@ const AssessmentStepFieldset = ({
         initialValues={{
           id: assessmentStep.id,
           poolId: pool.id,
-          sortOrder: assessmentStep.sortOrder,
           typeOfAssessment: assessmentStep.type,
           assessmentTitleEn: assessmentStep?.title?.en,
           assessmentTitleFr: assessmentStep?.title?.fr,

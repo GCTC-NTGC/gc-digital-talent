@@ -21,19 +21,16 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   AssessmentStepType,
-  CreateScreeningQuestionInput,
   Maybe,
   PoolSkill,
   Scalars,
   ScreeningQuestion,
-  UpdateScreeningQuestionInput,
   useCreateAssessmentStepMutation,
+  useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
-  useUpdatePoolMutation,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -49,7 +46,6 @@ type DialogAction = "create" | "update";
 type FormValues = {
   id?: Maybe<Scalars["ID"]>;
   poolId?: Maybe<Scalars["ID"]>;
-  sortOrder?: Maybe<number>;
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
@@ -101,8 +97,10 @@ const AssessmentDetailsDialog = ({
     { fetching: updateAssessmentStepFetching },
     executeUpdateAssessmentStepMutation,
   ] = useUpdateAssessmentStepMutation();
-  const [{ fetching: updatePoolFetching }, executeUpdatePoolMutation] =
-    useUpdatePoolMutation();
+  const [
+    { fetching: createOrUpdateScreeningQuestionAssessmentStepMutationFetching },
+    executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
+  ] = useCreateOrUpdateScreeningQuestionAssessmentStepMutation();
 
   if (initialValues.screeningQuestions) {
     initialValues.screeningQuestions.sort((a, b) =>
@@ -192,7 +190,6 @@ const AssessmentDetailsDialog = ({
       poolId: values.poolId,
       assessmentStep: {
         type: values.typeOfAssessment,
-        sortOrder: values.sortOrder,
         title: {
           en: values.assessmentTitleEn,
           fr: values.assessmentTitleFr,
@@ -219,7 +216,6 @@ const AssessmentDetailsDialog = ({
       id: values.id,
       assessmentStep: {
         type: values.typeOfAssessment,
-        sortOrder: values.sortOrder,
         title: {
           en: values.assessmentTitleEn,
           fr: values.assessmentTitleFr,
@@ -239,68 +235,34 @@ const AssessmentDetailsDialog = ({
     );
   };
 
-  const submitUpdateScreeningQuestionMutation = (
+  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = (
     values: FormValues,
   ): Promise<void> => {
-    if (!values.poolId) {
-      return Promise.reject();
-    }
-
-    // what does the list look like now?
-    const newScreeningQuestions =
-      values.screeningQuestionFieldArray?.map(
-        ({ screeningQuestion }, index) => ({
-          index,
-          screeningQuestion,
-        }),
-      ) ?? [];
-
-    // original ID no longer exists in new lists - delete it
-    const toBeDeletedIds = initialValues.screeningQuestions
-      ?.filter((existingQuestion) => {
-        return !newScreeningQuestions.some(
-          ({ screeningQuestion }) =>
-            screeningQuestion.id === existingQuestion?.id,
-        );
-      })
-      .map<Scalars["ID"]>((q) => q.id);
-
-    // question in new list doesn't have an ID yet - create it
-    const toBeCreatedInputs = newScreeningQuestions
-      .filter(({ screeningQuestion }) => !screeningQuestion.id)
-      .map<CreateScreeningQuestionInput>(({ index, screeningQuestion }) => ({
-        question: {
-          en: screeningQuestion.en,
-          fr: screeningQuestion.fr,
-        },
-        sortOrder: index + 1,
-      }));
-
-    // question in new list already has an ID - submit for update
-    const toBeUpdatedInputs = newScreeningQuestions
-      .filter(({ screeningQuestion }) => notEmpty(screeningQuestion.id))
-      .map<UpdateScreeningQuestionInput>(({ index, screeningQuestion }) => ({
-        id: screeningQuestion.id ?? "",
-        question: {
-          en: screeningQuestion.en,
-          fr: screeningQuestion.fr,
-        },
-        sortOrder: index + 1,
-      }));
-
     const mutationParameters = {
-      id: values.poolId,
-      pool: {
-        screeningQuestions: {
-          update: toBeUpdatedInputs,
-          create: toBeCreatedInputs,
-          delete: toBeDeletedIds,
+      poolId: values.poolId,
+      screeningQuestions: values.screeningQuestionFieldArray?.map(
+        ({ screeningQuestion }, index) => ({
+          question: {
+            en: screeningQuestion.en,
+            fr: screeningQuestion.fr,
+          },
+          sortOrder: index + 1,
+        }),
+      ),
+      assessmentStep: {
+        title: {
+          en: values.assessmentTitleEn,
+          fr: values.assessmentTitleFr,
+        },
+        poolSkills: {
+          sync: values.assessedSkills,
         },
       },
     };
-
-    return executeUpdatePoolMutation(mutationParameters).then((res) => {
-      if (res?.data?.updatePool?.id) {
+    return executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
+      mutationParameters,
+    ).then((res) => {
+      if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
       return Promise.reject();
@@ -308,19 +270,18 @@ const AssessmentDetailsDialog = ({
   };
 
   const submitForm = (values: FormValues) => {
-    const assessmentStepPromise =
-      dialogAction === "update"
-        ? submitUpdateAssessmentStepMutation(values)
-        : submitCreateAssessmentStepMutation(values);
+    let mutationPromise: Promise<void> | null = null;
 
-    const combinedPromise =
-      dialogMode === "screening_question"
-        ? assessmentStepPromise.then(() =>
-            submitUpdateScreeningQuestionMutation(values),
-          )
-        : assessmentStepPromise;
+    if (dialogMode === "screening_question") {
+      mutationPromise =
+        submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation(values);
+    } else if (dialogAction === "update") {
+      mutationPromise = submitUpdateAssessmentStepMutation(values);
+    } else {
+      mutationPromise = submitCreateAssessmentStepMutation(values);
+    }
 
-    combinedPromise
+    mutationPromise
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -383,6 +344,11 @@ const AssessmentDetailsDialog = ({
       label: intl.formatMessage(getAssessmentStepType(stepType)),
     }));
 
+  const dialogBusy =
+    updateAssessmentStepFetching ||
+    createAssessmentStepFetching ||
+    createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
@@ -405,7 +371,6 @@ const AssessmentDetailsDialog = ({
             <form onSubmit={handleSubmit(submitForm)}>
               <input type="hidden" {...methods.register("id")} />
               <input type="hidden" {...methods.register("poolId")} />
-              <input type="hidden" {...methods.register("sortOrder")} />
               <div
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
@@ -674,11 +639,7 @@ const AssessmentDetailsDialog = ({
             <Button
               color="secondary"
               onClick={handleSubmit(submitForm)}
-              disabled={
-                updateAssessmentStepFetching ||
-                createAssessmentStepFetching ||
-                updatePoolFetching
-              }
+              disabled={dialogBusy}
             >
               {intl.formatMessage({
                 defaultMessage: "Save assessment details",
@@ -687,15 +648,7 @@ const AssessmentDetailsDialog = ({
               })}
             </Button>
             <Dialog.Close>
-              <Button
-                mode="inline"
-                color="warning"
-                disabled={
-                  updateAssessmentStepFetching ||
-                  createAssessmentStepFetching ||
-                  updatePoolFetching
-                }
-              >
+              <Button mode="inline" color="warning" disabled={dialogBusy}>
                 {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>

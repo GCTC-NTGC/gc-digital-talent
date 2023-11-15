@@ -61,6 +61,13 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
   }
 }
 
+# swap existing assessment steps
+mutation swapAssessmentStepOrder($stepIdA: UUID!, $stepIdB: UUID!) {
+  swapAssessmentStepOrder(stepIdA: $stepIdA, stepIdB: $stepIdB) {
+    id
+  }
+}
+
 # update an existing assessment step
 mutation updateAssessmentStep(
   $id: UUID!
@@ -71,12 +78,27 @@ mutation updateAssessmentStep(
   }
 }
 
-# create a new assessment step
+# create a new regular assessment step
 mutation createAssessmentStep(
   $poolId: UUID!
   $assessmentStep: AssessmentStepInput
 ) {
   createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+    id
+  }
+}
+
+# create a new screening question assessment step
+mutation createOrUpdateScreeningQuestionAssessmentStep(
+  $poolId: UUID!
+  $screeningQuestions: [SyncScreeningQuestionsInput]
+  $assessmentStep: ScreeningQuestionAssessmentStepInput
+) {
+  createOrUpdateScreeningQuestionAssessmentStep(
+    poolId: $poolId
+    screeningQuestions: $screeningQuestions
+    assessmentStep: $assessmentStep
+  ) {
     id
   }
 }
