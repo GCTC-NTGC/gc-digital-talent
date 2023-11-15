@@ -4,6 +4,7 @@ use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
@@ -399,5 +400,31 @@ class AssessmentResultTest extends TestCase
                 ]
             )
             ->assertGraphQLValidationError('createAssessmentResult.poolSkillId', 'SkillAssessmentResultMissingSkill');
+    }
+
+    // test screening question result and no skills
+    public function testScreeningQuestionResult(): void
+    {
+        $parentAssessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $this->pool->id,
+            'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+        ]);
+        $parentPoolCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+        ]);
+
+        // no pool skill id passed in
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL(
+                $this->createAssessmentResult,
+                [
+                    'createAssessmentResult' => [
+                        'assessmentStepId' => $parentAssessmentStep->id,
+                        'poolCandidateId' => $parentPoolCandidate->id,
+                        'assessmentResultType' => AssessmentResultType::OTHER->name, // not skill/education like a polygraph
+                    ],
+                ]
+            )
+            ->assertSuccessful();
     }
 }
