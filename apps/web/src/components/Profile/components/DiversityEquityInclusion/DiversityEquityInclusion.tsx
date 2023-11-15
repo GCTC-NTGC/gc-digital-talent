@@ -38,7 +38,7 @@ const DiversityEquityInclusion = ({
         Icon={UsersIcon}
         color="secondary"
         level={pool ? "h3" : "h2"}
-        size={pool ? "h5" : "h3"}
+        size={pool ? "h4" : "h3"}
       >
         {intl.formatMessage(title)}
       </Heading>

@@ -173,7 +173,7 @@ const LinkCareerTimeline = ({
       case EducationRequirementOption.AppliedWork:
         return (
           <>
-            <p data-h2-margin="base(0, 0, x1, 0)">
+            <p data-h2-margin="base(0, 0, x.5, 0)">
               {intl.formatMessage({
                 defaultMessage: "Please select experiences in:",
                 id: "6Q1N7Z",
@@ -181,7 +181,7 @@ const LinkCareerTimeline = ({
                   "Message before skills list in application education page.",
               })}
             </p>
-            <ul data-h2-margin="base(0, 0, x.75, 0)">
+            <ul data-h2-margin="base(0, 0, x1, 0)">
               {Object.values(essentialExperienceMessages).map((value) => (
                 <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
                   {intl.formatMessage(value)}
@@ -192,7 +192,7 @@ const LinkCareerTimeline = ({
               <Well>
                 <p
                   data-h2-text-align="base(center)"
-                  data-h2-margin-bottom="base(x1)"
+                  data-h2-margin-bottom="base(x.5)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -225,12 +225,12 @@ const LinkCareerTimeline = ({
       // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
       case EducationRequirementOption.Education:
         return (
-          <div>
+          <div data-h2-margin="base(x1, 0, 0, 0)">
             {experienceItems.educationExperiences.length === 0 ? (
               <Well>
                 <p
                   data-h2-text-align="base(center)"
-                  data-h2-margin-bottom="base(x1)"
+                  data-h2-margin-bottom="base(x.5)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -264,7 +264,7 @@ const LinkCareerTimeline = ({
       // Otherwise, show null state
       default:
         return (
-          <Well>
+          <Well data-h2-margin="base(x1, 0, 0, 0)">
             <p data-h2-text-align="base(center)">
               {intl.formatMessage({
                 defaultMessage: "Please select an option to continue.",
@@ -281,8 +281,8 @@ const LinkCareerTimeline = ({
     <>
       <Heading
         level="h6"
-        data-h2-margin="base(x2, 0, x1, 0)"
-        data-h2-font-weight="base(800)"
+        data-h2-margin="base(x2, 0, x.5, 0)"
+        data-h2-font-weight="base(700)"
       >
         {intl.formatMessage({
           defaultMessage: "Link your career timeline",
@@ -291,7 +291,7 @@ const LinkCareerTimeline = ({
             "Heading for checklist section in application education page.",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x1, 0)">
+      <p data-h2-margin="base(0, 0, x.5, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Once you’ve selected the criteria you meet, this section asks you to tell us which of the specific items in your career timeline meet that option. If you need to add something to your career timeline, you can do so by returning to the career timeline step in the application.",

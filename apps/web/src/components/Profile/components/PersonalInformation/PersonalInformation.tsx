@@ -70,7 +70,7 @@ const PersonalInformation = ({
         Icon={icon.icon}
         color={icon.color}
         level={pool ? "h3" : "h2"}
-        size={pool ? "h5" : "h3"}
+        size={pool ? "h4" : "h3"}
         data-h2-font-weight="base(400)"
         toggle={
           !isNull ? (

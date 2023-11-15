@@ -426,13 +426,19 @@ const ApplicationEducation = ({
 
   return (
     <>
-      <Heading data-h2-margin="base(0, 0, x2, 0)">{pageInfo.title}</Heading>
+      <Heading
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
+        size="h3"
+      >
+        {pageInfo.title}
+      </Heading>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Heading
             level="h6"
-            data-h2-margin="base(0, 0, x1, 0)"
-            data-h2-font-weight="base(800)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
+            data-h2-font-weight="base(700)"
           >
             {intl.formatMessage({
               defaultMessage: "Select which criteria you meet",
@@ -486,12 +492,12 @@ const ApplicationEducation = ({
           <Separator
             orientation="horizontal"
             decorative
-            data-h2-background="base(black.light)"
+            data-h2-background="base(gray)"
             data-h2-margin="base(x2, 0, x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
-            data-h2-gap="base(x.25, x.5)"
+            data-h2-gap="base(x1)"
             data-h2-flex-wrap="base(wrap)"
             data-h2-flex-direction="base(column) l-tablet(row)"
             data-h2-align-items="base(flex-start) l-tablet(center)"

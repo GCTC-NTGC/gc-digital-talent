@@ -102,7 +102,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         >
           <Heading
             level={headingLevel}
-            size="h4"
+            size="h5"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             data-h2-padding-left="base(x4.5) p-tablet(0)"
@@ -160,7 +160,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </IconLabel>
         </div>
         <div data-h2-margin-top="base(x1)">
-          <div data-h2-margin-bottom="base(x.5)">
+          <div data-h2-margin-bottom="base(x.25)">
             <IconLabel
               icon={BoltIcon}
               label={intl.formatMessage({

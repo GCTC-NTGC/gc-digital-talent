@@ -102,7 +102,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   return (
     <>
       <Heading
-        size="h2"
+        size="h3"
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0, 0, x1, 0)"
       >
@@ -155,7 +155,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
       />
       <div
         data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
+        data-h2-gap="base(x1)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"

@@ -20,7 +20,7 @@ const SkillDescriptionAccordion = ({
   }
 
   return (
-    <Accordion.Root type="single" size="sm" collapsible>
+    <Accordion.Root mode="card" type="single" size="sm" collapsible>
       {skills.map((skill) => (
         <Accordion.Item key={skill.id} value={skill.id}>
           <Accordion.Trigger as="h4">
