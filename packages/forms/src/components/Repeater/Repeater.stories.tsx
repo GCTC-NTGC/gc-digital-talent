@@ -3,15 +3,17 @@ import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import FaceSmileIcon from "@heroicons/react/24/solid/FaceSmileIcon";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
-import { Announcer } from "@gc-digital-talent/ui";
+import { Announcer, Button, Dialog } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
+import ActionButton from "./ActionButton";
 
 type StoryProps = RepeaterProps &
   Pick<
@@ -22,7 +24,9 @@ type StoryProps = RepeaterProps &
     name: string;
     maxItems?: number;
     editDisabledIndexes?: Array<number>;
-    deleteDisabledIndexes?: Array<number>;
+    removeDisabledIndexes?: Array<number>;
+    customEditButton?: RepeaterFieldsetProps["customEditButton"];
+    customRemoveButton?: RepeaterFieldsetProps["customRemoveButton"];
   };
 
 export default {
@@ -45,7 +49,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
     maxItems,
     moveDisabledIndexes,
     editDisabledIndexes,
-    deleteDisabledIndexes,
+    removeDisabledIndexes,
     ...rootProps
   } = props;
   const { control } = useFormContext();
@@ -94,8 +98,8 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             action("edit")("Opens edit form dialog.");
           }}
           moveDisabledIndexes={moveDisabledIndexes}
-          isEditDisabled={!!editDisabledIndexes?.includes(index)}
-          isDeleteDisabled={!!deleteDisabledIndexes?.includes(index)}
+          editDisabled={!!editDisabledIndexes?.includes(index)}
+          removeDisabled={!!removeDisabledIndexes?.includes(index)}
         >
           <div
             data-h2-display="base(grid)"
@@ -150,6 +154,135 @@ const Template: StoryFn<StoryProps> = (args) => {
   );
 };
 
+const FieldsWithDialogs = (props: Omit<StoryProps, "defaultValues">) => {
+  const {
+    name,
+    hideLegend,
+    hideIndex,
+    maxItems,
+    moveDisabledIndexes,
+    editDisabledIndexes,
+    removeDisabledIndexes,
+    ...rootProps
+  } = props;
+  const { control } = useFormContext();
+  const { remove, move, append, fields } = useFieldArray({
+    control,
+    name,
+    rules: {
+      required: "Please add at least 1 item.",
+    },
+  });
+  const canAdd = maxItems ? fields.length < maxItems : true;
+
+  return (
+    <Repeater.Root
+      {...rootProps}
+      name={name}
+      trackUnsaved
+      addButtonProps={{
+        disabled: !canAdd,
+      }}
+      onAdd={() => {
+        const newValues = {
+          en: "",
+          fr: "",
+        };
+        append(newValues);
+        action("add")(newValues);
+      }}
+      maxItems={maxItems}
+      total={fields.length}
+      showApproachingLimit
+      showUnsavedChanges
+    >
+      {fields.map((item, index) => (
+        <Repeater.Fieldset
+          key={item.id}
+          index={index}
+          name={name}
+          total={fields.length}
+          onMove={move}
+          onRemove={remove}
+          legend={`Screening Question ${index + 1}`}
+          hideLegend={hideLegend}
+          hideIndex={hideIndex}
+          onEdit={() => {
+            action("edit")("Opens edit form dialog.");
+          }}
+          moveDisabledIndexes={moveDisabledIndexes}
+          editDisabled={!!editDisabledIndexes?.includes(index)}
+          removeDisabled={!!removeDisabledIndexes?.includes(index)}
+          customEditButton={
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <ActionButton aria-label="Custom edit button">
+                  <FaceSmileIcon data-h2-width="base(x.75)" />
+                </ActionButton>
+              </Dialog.Trigger>
+              <Dialog.Content>
+                <Dialog.Header>Custom edit button</Dialog.Header>
+                <Dialog.Body>
+                  <p>This is a custom edit dialog</p>
+                  <Dialog.Footer>
+                    <Dialog.Close>
+                      <Button color="primary">Close</Button>
+                    </Dialog.Close>
+                  </Dialog.Footer>
+                </Dialog.Body>
+              </Dialog.Content>
+            </Dialog.Root>
+          }
+          customRemoveButton={
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <ActionButton aria-label="Custom remove button">
+                  <FaceSmileIcon data-h2-width="base(x.75)" />
+                </ActionButton>
+              </Dialog.Trigger>
+              <Dialog.Content>
+                <Dialog.Header>Custom remove button</Dialog.Header>
+                <Dialog.Body>
+                  <p>This is a custom remove dialog</p>
+                  <Dialog.Footer>
+                    <Dialog.Close>
+                      <Button color="primary">Close</Button>
+                    </Dialog.Close>
+                  </Dialog.Footer>
+                </Dialog.Body>
+              </Dialog.Content>
+            </Dialog.Root>
+          }
+        >
+          data here
+        </Repeater.Fieldset>
+      ))}
+    </Repeater.Root>
+  );
+};
+
+const TemplateWithDialogs: StoryFn<StoryProps> = (args) => {
+  const { defaultValues, name, ...fieldProps } = args;
+  const handleSubmit = (data: unknown) => {
+    action("Submit form")(data);
+  };
+
+  return (
+    <Announcer>
+      <BasicForm
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: {
+            [name]: defaultValues,
+          },
+        }}
+      >
+        <FieldsWithDialogs name={name} {...fieldProps} />
+      </BasicForm>
+    </Announcer>
+  );
+};
+
 export const Default = Template.bind({});
 Default.args = defaultArgs;
 
@@ -191,7 +324,7 @@ WithLockedItems.args = {
   ...defaultArgs,
   moveDisabledIndexes: [1],
   editDisabledIndexes: [2],
-  deleteDisabledIndexes: [3],
+  removeDisabledIndexes: [3],
   defaultValues: [
     {
       en: "Question 1 (EN)",
@@ -216,25 +349,8 @@ WithLockedItems.args = {
   ],
 };
 
-export const WithEditButton = Template.bind({});
-WithEditButton.args = {
-  ...defaultArgs,
-  maxItems: 4,
-  defaultValues: [
-    {
-      en: "Question 1 (EN)",
-      fr: "Question 1 (FR)",
-    },
-    {
-      en: "Question 2 (EN)",
-      fr: "Question 2 (FR)",
-    },
-    {
-      en: "Question 3 (EN)",
-      fr: "Question 3 (FR)",
-    },
-  ],
-};
+export const WithCustomEditAndRemoveButtons = TemplateWithDialogs.bind({});
+WithCustomEditAndRemoveButtons.args = WithLockedItems.args;
 
 export const HiddenIndex = Template.bind({});
 HiddenIndex.args = {

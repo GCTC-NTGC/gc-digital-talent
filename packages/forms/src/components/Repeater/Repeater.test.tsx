@@ -54,7 +54,7 @@ const RepeaterWrapper = ({
 
   const handleRemove = (index: number) => {
     remove(index);
-    repeaterFieldsetProps.onRemove(index);
+    repeaterFieldsetProps.onRemove?.(index);
   };
 
   const handleMove = (from: number, to: number) => {
