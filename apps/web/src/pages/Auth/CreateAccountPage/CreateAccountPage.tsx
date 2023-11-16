@@ -119,7 +119,12 @@ export const CreateAccountForm = ({
           description:
             "Title for the create account page for applicant profiles.",
         })}
-        subtitle="Let's begin with some basic account information."
+        subtitle={intl.formatMessage({
+          defaultMessage: "Let's begin with some basic account information.",
+          id: "f9UKuz",
+          description:
+            "Subtitle for the create account page for applicant profiles.",
+        })}
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <Alert.Root type="success" live={false}>

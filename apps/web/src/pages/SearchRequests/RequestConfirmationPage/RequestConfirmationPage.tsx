@@ -79,9 +79,8 @@ const RequestConfirmationPage = () => {
         <Alert.Root type="success" live={false} data-h2-margin="base(x3, 0)">
           <Alert.Title>
             {intl.formatMessage({
-              defaultMessage:
-                "We have received your request and will review it as soon as possible.",
-              id: "lA+c8E",
+              defaultMessage: "We have received your request",
+              id: "7DYnwq",
               description:
                 "Paragraph one, message to user the request was received",
             })}

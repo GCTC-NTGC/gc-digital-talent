@@ -365,8 +365,13 @@ const ApplicationReview = ({
         })}
       >
         <p data-h2-margin="base(x1, 0)">
-          This section outlines your responses on how your experience meets the
-          skill requirements for these positions.
+          {intl.formatMessage({
+            defaultMessage:
+              "This section outlines your responses on how your experience meets the skill requirements for these positions.",
+            id: "ymHPWF",
+            description:
+              "Instructional text under the Skill Requirements section",
+          })}
         </p>
         <div>
           {categorizedEssentialSkills[SkillCategory.Technical]?.map(

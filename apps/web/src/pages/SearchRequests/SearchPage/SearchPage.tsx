@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
 
@@ -37,9 +36,14 @@ const SearchPage = () => {
       />
       <Hero
         title={title}
-        subtitle="Discover talent using a set of comprehensive filters, including classification, languages, and skills."
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Discover talent using a set of comprehensive filters, including classification, languages, and skills.",
+          id: "69BfF3",
+          description: "Subtitle for the search page",
+        })}
         crumbs={crumbs}
-      ></Hero>
+      />
       <SearchFormApi />
     </>
   );

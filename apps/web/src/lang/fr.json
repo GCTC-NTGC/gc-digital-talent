@@ -7887,10 +7887,6 @@
     "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill to the users library"
   },
-  "hEa14D": {
-    "defaultMessage": "Nous l’avons à partir d’ici!",
-    "description": "Lead in text for the page content on the request confirmation page"
-  },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
@@ -8546,10 +8542,6 @@
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
-  },
-  "lA+c8E": {
-    "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
-    "description": "Paragraph one, message to user the request was received"
   },
   "lB/SWR": {
     "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
@@ -10846,10 +10838,6 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
-  },
-  "zMuDSL": {
-    "defaultMessage": "Cherchez-vous à embaucher un talent numérique?",
-    "description": "Heading on find talent page posing question to users."
   },
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",
