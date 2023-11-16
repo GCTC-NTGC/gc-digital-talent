@@ -396,15 +396,6 @@ const UserInformationPage = React.lazy(() =>
   ),
 );
 
-const UserPlacementPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserPlacementPage" */ "../pages/Users/UserPlacementPage/UserPlacementPage"
-      ),
-  ),
-);
-
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
   lazyRetry(
@@ -1296,21 +1287,6 @@ const createRoute = (
                           loginPath={loginPath}
                         >
                           <AdminUserProfilePage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "placement",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UserPlacementPage />
                         </RequireAuth>
                       ),
                     },

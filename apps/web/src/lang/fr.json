@@ -263,10 +263,6 @@
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
   },
-  "/WvEvL": {
-    "defaultMessage": "Information relative au stage",
-    "description": "Page title for the user placement information page"
-  },
   "/Y7x+s": {
     "defaultMessage": "Créer un bassin",
     "description": "Heading displayed above the Create Pool form."
@@ -3538,10 +3534,6 @@
   "I/fGUN": {
     "defaultMessage": "Analyste (<abbreviation>TI-02</abbreviation>)",
     "description": "Title for the 'IT-02 Analyst' classification"
-  },
-  "I0VGC0": {
-    "defaultMessage": "Placement",
-    "description": "User placement breadcrumb text"
   },
   "I5q1n6": {
     "defaultMessage": "Soumettre aux fins de publication",
