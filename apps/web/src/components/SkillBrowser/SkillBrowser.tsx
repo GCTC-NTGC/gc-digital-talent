@@ -5,6 +5,7 @@ import get from "lodash/get";
 
 import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
+import { normalizeString } from "@gc-digital-talent/helpers";
 
 import { BaseSkillBrowserProps } from "./types";
 import {
@@ -46,8 +47,17 @@ const SkillBrowser = ({
   const [category, family] = watch([inputNames.category, inputNames.family]);
 
   const filteredFamilies = React.useMemo(() => {
-    return getFilteredFamilies({ skills, category });
-  }, [skills, category]);
+    return getFilteredFamilies({ skills, category }).sort(
+      (familyA, familyB) => {
+        const a = normalizeString(getLocalizedName(familyA.name, intl));
+        const b = normalizeString(getLocalizedName(familyB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [skills, category, intl]);
 
   const filteredSkills = React.useMemo(() => {
     return getFilteredSkills({ skills, family, category });
@@ -97,6 +107,7 @@ const SkillBrowser = ({
           name={inputNames.family}
           nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           trackUnsaved={false}
+          doNotSort
           label={intl.formatMessage({
             defaultMessage: "Skill family",
             id: "6ofORn",
