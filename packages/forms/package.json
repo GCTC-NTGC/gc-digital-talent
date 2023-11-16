@@ -38,7 +38,7 @@
     "@tiptap/react": "^2.1.12",
     "@tiptap/starter-kit": "^2.1.12",
     "date-fns": "^2.30.0",
-    "downshift": "^8.2.2",
+    "downshift": "^8.2.3",
     "framer-motion": "^10.16.5",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0",
