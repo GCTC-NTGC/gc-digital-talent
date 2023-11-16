@@ -1,5 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
+import { SortingState } from "@tanstack/react-table";
 
 import {
   commonMessages,
@@ -11,13 +12,16 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
+import { QueryPoolCandidatesPaginatedOrderByRelationOrderByClause } from "@gc-digital-talent/graphql";
 
 import {
   CandidateSuspendedFilter,
   Language,
+  OrderByClause,
   PoolCandidate,
   PoolCandidateStatus,
   ProvinceOrTerritory,
+  SortOrder,
   User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -277,4 +281,58 @@ export function handleRowSelectedChange<T>(
     // row not provided, remove all rows from selected list
     setSelectedRows([]);
   }
+}
+
+export function transformSortStateToOrderByClause(
+  sortingRule?: SortingState,
+): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
+  //  if (
+  //   sortingRule?.fil ||
+  //   sortingRule?.column.sortColumnName === "suspended_at"
+  // ) {
+  //   return {
+  //     column: sortingRule.column.sortColumnName,
+  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //     user: undefined,
+  //   };
+  // }
+  // if (
+  //   sortingRule?.column.sortColumnName &&
+  //   [
+  //     "FIRST_NAME",
+  //     "EMAIL",
+  //     "PREFERRED_LANG",
+  //     "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+  //     "PREFERRED_LANGUAGE_FOR_EXAM",
+  //     "CURRENT_CITY",
+  //   ].includes(sortingRule.column.sortColumnName)
+  // ) {
+  //   return {
+  //     column: undefined,
+  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //     user: {
+  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+  //       column: sortingRule.column
+  //         .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+  //     },
+  //   };
+  // }
+  // if (
+  //   sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
+  //   filterState?.applicantFilter?.skills &&
+  //   filterState.applicantFilter.skills.length > 0
+  // ) {
+  //   return {
+  //     column: "skill_count",
+  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //     user: undefined,
+  //   };
+  // }
+  // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
+  // default tertiary sort is submitted_at,
+  return {
+    column: "submitted_at",
+    order: SortOrder.Asc,
+    user: undefined,
+  };
 }

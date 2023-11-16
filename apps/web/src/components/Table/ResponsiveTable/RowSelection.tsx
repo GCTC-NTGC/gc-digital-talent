@@ -271,22 +271,10 @@ const Actions = ({
                 data-h2-gap="base(0 x.25)"
               >
                 <span
-                  data-h2-position="base(relative)"
-                  data-h2-align-items="base(center) l-tablet(flex-start)"
+                  aria-hidden
+                  data-h2-display="base(none) l-tablet(inline-block)"
                 >
-                  {print.button ? (
-                    print.button
-                  ) : (
-                    <Button onClick={print.onPrint} {...actionButtonStyles}>
-                      {print.label ||
-                        intl.formatMessage({
-                          defaultMessage: "Print selection",
-                          id: "KrrW7D",
-                          description:
-                            "Text label for button to print items in a table.",
-                        })}
-                    </Button>
-                  )}
+                  &bull;
                 </span>
                 {print.component ?? (
                   <Button onClick={print.onPrint} {...actionButtonStyles}>

@@ -1,11 +1,14 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
   CellContext,
   ColumnDef,
+  PaginationState,
+  SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
+import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
@@ -21,9 +24,6 @@ import { FromArray } from "~/types/utility";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  OrderByRelationWithColumnAggregateFunction,
-  PoolCandidateWithSkillCountPaginator,
-  QueryPoolCandidatesPaginatedOrderByUserColumn,
   SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
@@ -37,8 +37,10 @@ import {
   PublishingGroup,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { TABLE_DEFAULTS } from "~/components/Table/ApiManagedTable/helpers";
-import useTableState from "~/hooks/useTableState";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -50,7 +52,10 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
@@ -66,6 +71,7 @@ import {
   preferredLanguageAccessorNew,
   priorityAccessorNew,
   statusAccessorNew,
+  transformSortStateToOrderByClause,
   userNameAccessor,
   viewPoolCandidateAccessor,
 } from "./helpers";
@@ -73,10 +79,6 @@ import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
-
-type Data = NonNullable<
-  FromArray<PoolCandidateWithSkillCountPaginator["data"]>
->;
 
 function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
@@ -129,8 +131,8 @@ function transformPoolCandidateSearchInputToFormValues(
 }
 
 const defaultState = {
-  ...TABLE_DEFAULTS,
-  hiddenColumnIds: ["candidacyStatus", "notes"],
+  ...INITIAL_STATE,
+  // hiddenColumnIds: ["candidacyStatus", "notes"],
   filters: {
     applicantFilter: {
       operationalRequirements: [],
@@ -147,6 +149,8 @@ const defaultState = {
   },
 };
 
+const initialState = getTableStateFromSearchParams(defaultState);
+
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
@@ -158,136 +162,64 @@ const PoolCandidatesTable = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
-  // Note: Need to memoize to prevent infinite
-  // update depth
-  const memoizedDefaultState = useMemo(
-    () => ({
-      ...defaultState,
-      filters: {
-        ...defaultState.filters,
-        applicantFilter: {
-          ...defaultState.filters.applicantFilter,
-          ...initialFilterInput?.applicantFilter,
-        },
-        poolCandidateStatus: initialFilterInput?.poolCandidateStatus,
-        expiryStatus: initialFilterInput?.expiryStatus
-          ? initialFilterInput.expiryStatus
-          : CandidateExpiryFilter.Active,
-        suspendedStatus: initialFilterInput?.suspendedStatus
-          ? initialFilterInput.suspendedStatus
-          : CandidateSuspendedFilter.Active,
-        isGovEmployee: undefined,
-      },
-    }),
-    [initialFilterInput],
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: PoolCandidateSearchInput = React.useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+    [filtersEncoded, initialFilterInput],
   );
 
-  const [tableState, setTableState] = useTableState<
-    Data,
-    PoolCandidateSearchInput
-  >(memoizedDefaultState);
-  const {
-    pageSize,
-    currentPage,
-    sortBy: sortingRule,
-    hiddenColumnIds,
-    searchState,
-    filters: applicantFilterInput,
-  } = tableState;
+  const filterRef = React.useRef<PoolCandidateSearchInput | undefined>(
+    initialFilters,
+  );
+  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+    initialState.paginationState
+      ? {
+          ...initialState.paginationState,
+          pageIndex: initialState.paginationState.pageIndex + 1,
+        }
+      : INITIAL_STATE.paginationState,
+  );
 
   const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<PoolCandidateWithSkillCount>([]);
+    useSelectedRows<string>([]);
 
-  // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
-  // this smooths the table sort value into appropriate API calls
-  const sortOrder = useMemo(() => {
-    if (
-      sortingRule?.column.sortColumnName === "submitted_at" ||
-      sortingRule?.column.sortColumnName === "suspended_at"
-    ) {
-      return {
-        column: sortingRule.column.sortColumnName,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: undefined,
-      };
-    }
-    if (
-      sortingRule?.column.sortColumnName &&
-      [
-        "FIRST_NAME",
-        "EMAIL",
-        "PREFERRED_LANG",
-        "PREFERRED_LANGUAGE_FOR_INTERVIEW",
-        "PREFERRED_LANGUAGE_FOR_EXAM",
-        "CURRENT_CITY",
-      ].includes(sortingRule.column.sortColumnName)
-    ) {
-      return {
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: sortingRule.column
-            .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
-        },
-      };
-    }
-    if (
-      sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
-      applicantFilterInput?.applicantFilter?.skills &&
-      applicantFilterInput.applicantFilter.skills.length > 0
-    ) {
-      return {
-        column: "skill_count",
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: undefined,
-      };
-    }
-    // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-    // default tertiary sort is submitted_at,
-    return {
-      column: "submitted_at",
-      order: SortOrder.Asc,
-      user: undefined,
-    };
-  }, [sortingRule, applicantFilterInput]);
+  const [searchState, setSearchState] = React.useState<SearchState>(
+    initialState.searchState ?? INITIAL_STATE.searchState,
+  );
 
-  // merge search bar input with fancy filter state
-  const addSearchToPoolCandidateFilterInput = (
-    fancyFilterState: PoolCandidateSearchInput | undefined,
-    searchBarTerm: string | undefined,
-    searchType: string | undefined,
-  ): InputMaybe<PoolCandidateSearchInput> => {
-    if (
-      fancyFilterState === undefined &&
-      searchBarTerm === undefined &&
-      searchType === undefined
-    ) {
-      return undefined;
-    }
+  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+    initialState.sortState ?? [{ id: "createdDate", desc: false }],
+  );
 
-    return {
-      // search bar
-      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
-      email: searchType === "email" ? searchBarTerm : undefined,
-      name: searchType === "name" ? searchBarTerm : undefined,
-      notes: searchType === "notes" ? searchBarTerm : undefined,
+  const [filterState, setFilterState] =
+    React.useState<PoolCandidateSearchInput>(initialFilters);
 
-      // from fancy filter
-      applicantFilter: {
-        ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
-      },
-      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
-      priorityWeight: fancyFilterState?.priorityWeight,
-      expiryStatus: fancyFilterState?.expiryStatus,
-      suspendedStatus: fancyFilterState?.suspendedStatus,
-      isGovEmployee: fancyFilterState?.isGovEmployee,
-      publishingGroups: fancyFilterState?.publishingGroups,
-    };
+  const handlePaginationStateChange = ({
+    pageIndex,
+    pageSize,
+  }: PaginationState) => {
+    setPaginationState((previous) => ({
+      pageIndex:
+        previous.pageSize === pageSize
+          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          : 0,
+      pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
+    }));
   };
 
-  const handlePoolCandidateFilterSubmit: SubmitHandler<FormValues> = (data) => {
+  const handleSearchStateChange = ({ term, type }: SearchState) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    setSearchState({
+      term: term ?? INITIAL_STATE.searchState.term,
+      type: type ?? INITIAL_STATE.searchState.type,
+    });
+  };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = {
       applicantFilter: {
         languageAbility: data.languageAbility[0]
@@ -338,46 +270,132 @@ const PoolCandidatesTable = ({
       publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
-    setTableState({
-      filters: transformedData,
-      currentPage: defaultState.currentPage,
-    });
+    setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
   };
 
-  // useEffect(() => {
-  //   setSelectedRows([]);
-  // }, [currentPage, pageSize, searchState, setSelectedRows, sortingRule]);
+  // // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
+  // // this smooths the table sort value into appropriate API calls
+  // const sortOrder = useMemo(() => {
+  //   if (
+  //     sortingRule?.column.sortColumnName === "submitted_at" ||
+  //     sortingRule?.column.sortColumnName === "suspended_at"
+  //   ) {
+  //     return {
+  //       column: sortingRule.column.sortColumnName,
+  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //       user: undefined,
+  //     };
+  //   }
+  //   if (
+  //     sortingRule?.column.sortColumnName &&
+  //     [
+  //       "FIRST_NAME",
+  //       "EMAIL",
+  //       "PREFERRED_LANG",
+  //       "PREFERRED_LANGUAGE_FOR_INTERVIEW",
+  //       "PREFERRED_LANGUAGE_FOR_EXAM",
+  //       "CURRENT_CITY",
+  //     ].includes(sortingRule.column.sortColumnName)
+  //   ) {
+  //     return {
+  //       column: undefined,
+  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //       user: {
+  //         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+  //         column: sortingRule.column
+  //           .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+  //       },
+  //     };
+  //   }
+  //   if (
+  //     sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
+  //     filterState?.applicantFilter?.skills &&
+  //     filterState.applicantFilter.skills.length > 0
+  //   ) {
+  //     return {
+  //       column: "skill_count",
+  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  //       user: undefined,
+  //     };
+  //   }
+  //   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
+  //   // default tertiary sort is submitted_at,
+  //   return {
+  //     column: "submitted_at",
+  //     order: SortOrder.Asc,
+  //     user: undefined,
+  //   };
+  // }, [sortingRule, applicantFilterInput]);
 
-  const [result] = useGetPoolCandidatesPaginatedQuery({
+  // merge search bar input with fancy filter state
+  const addSearchToPoolCandidateFilterInput = (
+    fancyFilterState: PoolCandidateSearchInput | undefined,
+    searchBarTerm: string | undefined,
+    searchType: string | undefined,
+  ): InputMaybe<PoolCandidateSearchInput> => {
+    if (
+      fancyFilterState === undefined &&
+      searchBarTerm === undefined &&
+      searchType === undefined
+    ) {
+      return undefined;
+    }
+
+    return {
+      // search bar
+      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      email: searchType === "email" ? searchBarTerm : undefined,
+      name: searchType === "name" ? searchBarTerm : undefined,
+      notes: searchType === "notes" ? searchBarTerm : undefined,
+
+      // from fancy filter
+      applicantFilter: {
+        ...fancyFilterState?.applicantFilter,
+        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
+      },
+      poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
+      priorityWeight: fancyFilterState?.priorityWeight,
+      expiryStatus: fancyFilterState?.expiryStatus,
+      suspendedStatus: fancyFilterState?.suspendedStatus,
+      isGovEmployee: fancyFilterState?.isGovEmployee,
+      publishingGroups: fancyFilterState?.publishingGroups,
+    };
+  };
+
+  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
     variables: {
       where: addSearchToPoolCandidateFilterInput(
-        applicantFilterInput,
+        filterState,
         searchState?.term,
         searchState?.type,
       ),
-      page: currentPage,
-      first: pageSize,
-      sortingInput: sortOrder,
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      sortingInput: sortState
+        ? transformSortStateToOrderByClause(sortState)
+        : {
+            column: "submitted_at",
+            order: SortOrder.Asc,
+            user: undefined,
+          },
     },
   });
 
-  const { data, fetching, error } = result;
+  const filteredData: Array<PoolCandidateWithSkillCount> = React.useMemo(() => {
+    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+    return poolCandidates.filter(notEmpty);
+  }, [data?.poolCandidatesPaginated.data]);
 
-  const candidateData = data?.poolCandidatesPaginated.data ?? [];
-  const filteredData = candidateData.filter(notEmpty);
-  const paginationInfo = data?.poolCandidatesPaginated.paginatorInfo;
-
-  console.log(paginationInfo);
-
-  const [
-    { data: allSkillsData, fetching: fetchingSkills, error: skillsError },
-  ] = useGetSkillsQuery();
+  const [{ data: allSkillsData, fetching: fetchingSkills }] =
+    useGetSkillsQuery();
   const allSkills = allSkillsData?.skills.filter(notEmpty);
-  const filteredSkillIds = applicantFilterInput?.applicantFilter?.skills
+  const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const selectedCandidateIds = selectedRows.map((user) => user.id);
   const [
     {
       data: selectedCandidatesData,
@@ -386,7 +404,7 @@ const PoolCandidatesTable = ({
     },
   ] = useGetSelectedPoolCandidatesQuery({
     variables: {
-      ids: selectedCandidateIds,
+      ids: selectedRows,
     },
     pause: !hasSelected,
   });
@@ -395,27 +413,6 @@ const PoolCandidatesTable = ({
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
 
   const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
-
-  const initialFilters = useMemo(
-    () => transformPoolCandidateSearchInputToFormValues(applicantFilterInput),
-    [applicantFilterInput],
-  );
-
-  const handleSearchStateChange = ({
-    term,
-    type,
-  }: {
-    term?: string | undefined;
-    type?: string | undefined;
-  }) => {
-    setTableState({
-      currentPage: 1,
-      searchState: {
-        term: term ?? defaultState.searchState.term,
-        type: type ?? defaultState.searchState.type,
-      },
-    });
-  };
 
   const handlePrint = (onPrint: () => void) => {
     if (
@@ -597,94 +594,91 @@ const PoolCandidatesTable = ({
     }),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
+  console.log("test");
+
   return (
-    <div data-h2-margin="base(x1, 0)">
-      <h2
-        id="pool-candidate-table-heading"
-        data-h2-visually-hidden="base(invisible)"
-      >
-        {intl.formatMessage({
-          defaultMessage: "All Pool Candidates",
-          id: "z0QI6A",
-          description: "Title for the admin pool candidates table",
-        })}
-      </h2>
-      <Pending
-        fetching={fetching || fetchingSkills}
-        error={error || skillsError}
-      >
-        <Table<PoolCandidateWithSkillCount>
-          caption={title}
-          data={filteredData}
-          columns={newColumns}
-          hiddenColumnIds={["candidacyStatus", "notes"]}
-          search={{
-            internal: true,
-            label: intl.formatMessage({
-              defaultMessage: "Search pool candidates",
-              id: "6+H2T9",
-              description: "Label for the pool candidates table search input",
-            }),
-            onChange: (newState: SearchState) => {
-              handleSearchStateChange(newState);
-            },
-          }}
-          filterComponent={
-            <PoolCandidateTableFilterDialog
-              onSubmit={handlePoolCandidateFilterSubmit}
-              initialFilters={initialFilters}
-            />
-          }
-          rowSelect={{
-            allLabel: intl.formatMessage(tableMessages.rowSelection),
-            cell: ({
-              row,
-            }: CellContext<PoolCandidateWithSkillCount, unknown>) =>
-              rowSelectCell({
-                row,
-                label: `${row.original.poolCandidate.user.firstName} ${row.original.poolCandidate.user.lastName}`,
-              }),
-            onRowSelection: async (rows: PoolCandidateWithSkillCount[]) => {
-              await setSelectedRows(rows);
-            },
-          }}
-          download={{
-            selection: {
-              csv: {
-                ...csv,
-                fileName: intl.formatMessage(
-                  {
-                    defaultMessage: "pool_candidates_{date}.csv",
-                    id: "aWsXoR",
-                    description:
-                      "Filename for pool candidate CSV file download",
-                  },
-                  {
-                    date: new Date().toISOString(),
-                  },
-                ),
-              },
-            },
-          }}
-          print={{
-            onPrint: () => {},
-            button: (
-              <UserProfilePrintButton
-                users={selectedCandidates}
-                beforePrint={handlePrint}
-                color="white"
-                mode="inline"
-              />
+    <Table<PoolCandidateWithSkillCount>
+      caption={title}
+      data={filteredData}
+      columns={newColumns}
+      isLoading={fetching || fetchingSkills}
+      // hiddenColumnIds={["candidacyStatus", "notes"]}
+      search={{
+        internal: false,
+        label: intl.formatMessage({
+          defaultMessage: "Search pool candidates",
+          id: "6+H2T9",
+          description: "Label for the pool candidates table search input",
+        }),
+        onChange: (newState: SearchState) => {
+          handleSearchStateChange(newState);
+        },
+      }}
+      sort={{
+        internal: false,
+        onSortChange: setSortState,
+        initialState: defaultState.sortState,
+      }}
+      filter={{
+        state: filterRef.current,
+        component: (
+          <PoolCandidateTableFilterDialog
+            onSubmit={handleFilterSubmit}
+            initialFilters={transformPoolCandidateSearchInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
+      }}
+      rowSelect={{
+        onRowSelection: setSelectedRows,
+        getRowId: (row) => row.id,
+        cell: ({ row }) =>
+          rowSelectCell({
+            row,
+            label: getFullNameLabel(
+              row.original.poolCandidate.user.firstName,
+              row.original.poolCandidate.user.lastName,
+              intl,
             ),
-          }}
-          // pagination={{
-          //   internal: true,
-          //   total: paginationInfo?.total,
-          //   pageSizes: [10, 20, 50],
-          // }}
-        />
-      </Pending>
-    </div>
+          }),
+      }}
+      download={{
+        selection: {
+          csv: {
+            ...csv,
+            fileName: intl.formatMessage(
+              {
+                defaultMessage: "pool_candidates_{date}.csv",
+                id: "aWsXoR",
+                description: "Filename for pool candidate CSV file download",
+              },
+              {
+                date: new Date().toISOString(),
+              },
+            ),
+          },
+        },
+      }}
+      print={{
+        component: (
+          <UserProfilePrintButton
+            users={selectedCandidates}
+            beforePrint={handlePrint}
+            color="white"
+            mode="inline"
+          />
+        ),
+      }}
+      pagination={{
+        internal: false,
+        total: data?.poolCandidatesPaginated?.paginatorInfo.total,
+        pageSizes: [10, 20, 50],
+        onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
+          handlePaginationStateChange({ pageIndex, pageSize });
+        },
+      }}
+    />
   );
 };
 
