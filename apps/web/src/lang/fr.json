@@ -483,6 +483,10 @@
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
   },
+  "0a8nPa": {
+    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin.",
+    "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
   "0aU6BD": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
@@ -7258,10 +7262,6 @@
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
-  },
-  "drwKS5": {
-    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
-    "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
   "dssZUt": {
     "defaultMessage": "Nom de famille",
