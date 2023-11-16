@@ -50,7 +50,6 @@ export const parameters = {
     defaultRichTextElements,
   },
   viewport: {
-    // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
     viewports: VIEWPORTS,
   },
 };
