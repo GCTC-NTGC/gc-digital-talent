@@ -14,7 +14,7 @@
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
     "shelljs": "^0.8.5",
-    "ts-loader": "^9.5.0",
+    "ts-loader": "^9.5.1",
     "webpack": "^5.89.0",
     "webpack-shell-plugin-next": "^2.3.1"
   }

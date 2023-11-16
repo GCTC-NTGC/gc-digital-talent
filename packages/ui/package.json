@@ -41,7 +41,7 @@
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-toggle-group": "^1.0.3",
     "chromatic": "^7.6.0",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.5",
     "lodash": "4.17.21",
     "react-csv": "2.2.2",
     "react-dom": "^18.2.0",
@@ -51,7 +51,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.2.0",
+    "@faker-js/faker": "^8.3.1",
     "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/storybook-helpers": "*",
     "@storybook/addon-actions": "^7.5.3",
@@ -61,7 +61,7 @@
     "@testing-library/react": "^14.1.0",
     "@testing-library/user-event": "^14.5.1",
     "@types/jest": "^29.5.8",
-    "@types/lodash": "4.14.200",
+    "@types/lodash": "4.14.201",
     "@types/react": "^18.2.34",
     "@types/react-csv": "^1.1.8",
     "@types/react-dom": "^18.2.15",
