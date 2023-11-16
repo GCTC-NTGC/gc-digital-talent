@@ -34,7 +34,7 @@ jobs:
       - name: Error if changes
         if: steps.check_changes.outputs.changed != 0
         # See: https://github.com/actions/github-script
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             core.setFailed('Please update api/storage/app/lighthouse-schema.graphql')
