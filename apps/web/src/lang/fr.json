@@ -171,10 +171,6 @@
     "defaultMessage": "Fournissez vos renseignements",
     "description": "How it works, step 2 heading"
   },
-  "/78DsY": {
-    "defaultMessage": "Vous n’avez sélectionné aucune compétence.",
-    "description": "Text that appears after skill picker when no skills are selected"
-  },
   "/7RNZm": {
     "defaultMessage": "Chercher les {title}",
     "description": "Label for search input"
@@ -770,10 +766,6 @@
   "293bsq": {
     "defaultMessage": "Gestion d’un processus de recrutement",
     "description": "Heading for pool operator dashboard links"
-  },
-  "2Ckihd": {
-    "defaultMessage": "Trouvé <primary>{skillCount}</primary> compétences.",
-    "description": "The number of skills found within the skill picker."
   },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
@@ -1603,10 +1595,6 @@
     "defaultMessage": "En savoir plus<hidden> le Programme d’apprentissage en TI pour les populations autochtones</hidden>",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples"
   },
-  "6uce1H": {
-    "defaultMessage": "Toutes les compétences",
-    "description": "Label for the skill picker family filter"
-  },
   "6wCHq2": {
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
@@ -1979,10 +1967,6 @@
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
   },
-  "9CkDfr": {
-    "defaultMessage": "Aucune compétence trouvée.",
-    "description": "Message displayed when no skills were found in skill picker search"
-  },
   "9DCx2n": {
     "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
     "description": "Education level message when candidate does not have a diploma found on the request page."
@@ -2174,10 +2158,6 @@
   "ARSDO1": {
     "defaultMessage": "Localisation, langue et sécurité.",
     "description": "Title for the location, language and security section of a pool advertisement"
-  },
-  "ARqO1j": {
-    "defaultMessage": "Chercher les compétences par mot-clé",
-    "description": "Label for the skills search bar."
   },
   "ASNC88": {
     "defaultMessage": "Exigence en matière de sécurité",
@@ -4167,10 +4147,6 @@
     "defaultMessage": "Annuler",
     "description": "Button text to close employment equity form."
   },
-  "LjkK5G": {
-    "defaultMessage": "Compétences comportementales",
-    "description": "Tab name for a list of behavioural skills"
-  },
   "LnISTX": {
     "defaultMessage": "{title} exigent un minimum d’expérience ou un diplôme pertinent.",
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
@@ -4242,10 +4218,6 @@
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
-  },
-  "MO80Mu": {
-    "defaultMessage": "Ajouter cette compétence<hidden> : {skillName}</hidden>",
-    "description": "Button label to add the adjacent skill on skill result block."
   },
   "MS9dB9": {
     "defaultMessage": "Talents numériques du GC",
@@ -4739,10 +4711,6 @@
     "defaultMessage": "Filtrer les expériences par type",
     "description": "Label for selector to choose experience filter options"
   },
-  "PF4ya+": {
-    "defaultMessage": "p. ex. Python, JavaScript, etc.",
-    "description": "Placeholder for the skills search bar."
-  },
   "PFoM2I": {
     "defaultMessage": "Éducation et certificats",
     "description": "Title for education experience section"
@@ -4914,10 +4882,6 @@
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
     "description": "Heading for the digital Services contracting form"
-  },
-  "QXYMUG": {
-    "defaultMessage": "Aucune définition fournie<hidden> pour {skillName}</hidden>",
-    "description": "Message displayed when a skill has no definition"
   },
   "QYlwuE": {
     "defaultMessage": "Vous avez mis à jour l’exigence relative aux études que vous devez remplir",
@@ -5198,10 +5162,6 @@
   "SFk84j": {
     "defaultMessage": "Informations sur l’utilisateur",
     "description": "Link text for the user information page link"
-  },
-  "SGcina": {
-    "defaultMessage": "Masquer la définition<hidden> pour {skillName}</hidden>",
-    "description": "Text displayed when skill block is open."
   },
   "SH3WsZ": {
     "defaultMessage": "Sauvegarder la note spéciale",
@@ -5859,10 +5819,6 @@
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
   },
-  "W6Jh6N": {
-    "defaultMessage": "Retirer cette compétence<hidden> : {skillName}</hidden>",
-    "description": "Button label to remove the adjacent skill on skill result block."
-  },
   "W9DTVh": {
     "defaultMessage": "Nom au complet",
     "description": "Title for the full name block in the manager info section of the single search request view."
@@ -5990,10 +5946,6 @@
   "WtX9b3": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Breadcrumb link text for the browse pools page"
-  },
-  "WtwED/": {
-    "defaultMessage": "Voir la définition<hidden> pour {skillName}</hidden>",
-    "description": "Text displayed when skill block is open."
   },
   "WuMMRK": {
     "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
@@ -8531,10 +8483,6 @@
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
   },
-  "kxseH4": {
-    "defaultMessage": "Compétences techniques",
-    "description": "Tab name for a list of technical skills"
-  },
   "l+cu8R": {
     "defaultMessage": "Statut",
     "description": "Title displayed for the Pool Candidates table Status column."
@@ -8546,10 +8494,6 @@
   "l62TJM": {
     "defaultMessage": "Disponibilité",
     "description": "CSV Header, Availability column"
-  },
-  "l7Hif/": {
-    "defaultMessage": "Compétences sélectionnées",
-    "description": "Section header for a list of skills selected"
   },
   "l9AK3C": {
     "defaultMessage": "ou",
@@ -9362,10 +9306,6 @@
   "pf3KKo": {
     "defaultMessage": "Poursuivre l’ébauche",
     "description": "Link text to continue a application draft"
-  },
-  "pg1S01": {
-    "defaultMessage": "Sauter la liste des compétences.",
-    "description": "Link text to skip the list of add skill links"
   },
   "pgPBbf": {
     "defaultMessage": "51 à 100",
