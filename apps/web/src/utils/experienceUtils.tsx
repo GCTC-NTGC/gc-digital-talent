@@ -222,6 +222,12 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for additional details input/section",
     }),
+    howIUsed: intl.formatMessage({
+      defaultMessage: "How I used",
+      id: "jH5egG",
+      description:
+        "Label displayed on experience form/card for how a skill was applied section",
+    }),
   };
 };
 
