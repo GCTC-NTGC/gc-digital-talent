@@ -13,7 +13,7 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Link, Pending } from "@gc-digital-talent/ui";
+import { Heading, Link, Pending } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -259,8 +259,9 @@ export const RequestForm = ({
 
   return (
     <section>
-      <h2
-        data-h2-font-size="base(h6)"
+      <Heading
+        level="h2"
+        size="h6"
         data-h2-font-weight="base(700)"
         data-h2-margin="base(0, 0, x.5, 0)"
       >
@@ -270,7 +271,7 @@ export const RequestForm = ({
           description:
             "Form header for filling in contact information section.",
         })}
-      </h2>
+      </Heading>
       <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
@@ -351,8 +352,9 @@ export const RequestForm = ({
               />
             </div>
           </div>
-          <h2
-            data-h2-font-size="base(h6)"
+          <Heading
+            level="h2"
+            size="h6"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
@@ -362,7 +364,7 @@ export const RequestForm = ({
               description:
                 "Form header for filling in the reason why the user is submitting the request.",
             })}
-          </h2>
+          </Heading>
           <RadioGroup
             id="reason"
             name="reason"
@@ -400,8 +402,9 @@ export const RequestForm = ({
             )}
           </p>
           <div>
-            <h2
-              data-h2-font-size="base(h6)"
+            <Heading
+              level="h2"
+              size="h6"
               data-h2-font-weight="base(700)"
               data-h2-margin="base(x2, 0, x1, 0)"
             >
@@ -411,7 +414,7 @@ export const RequestForm = ({
                 description:
                   "Form header for filling in job opportunity information section.",
               })}
-            </h2>
+            </Heading>
             <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Checkbox
@@ -482,8 +485,9 @@ export const RequestForm = ({
               rows={8}
             />
           </div>
-          <h2
-            data-h2-font-size="base(h6)"
+          <Heading
+            level="h2"
+            size="h6"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
@@ -492,7 +496,7 @@ export const RequestForm = ({
               id: "emx1cK",
               description: "Title of Summary of filters section",
             })}
-          </h2>
+          </Heading>
           <SearchRequestFilters
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
