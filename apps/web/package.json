@@ -62,7 +62,7 @@
     "urql": "3.0.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.2",
+    "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.2",
     "@babel/preset-react": "^7.22.15",
     "@faker-js/faker": "^8.2.0",
