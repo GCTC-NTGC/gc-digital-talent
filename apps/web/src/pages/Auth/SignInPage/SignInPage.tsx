@@ -76,6 +76,7 @@ const SignInPage = () => {
                 Icon={SparklesIcon}
                 color="warning"
                 level="h2"
+                size="h3"
                 data-h2-margin="base(0, 0, x1, 0)"
                 data-h2-font-weight="base(400)"
               >
@@ -106,6 +107,7 @@ const SignInPage = () => {
                 Icon={ArrowLeftOnRectangleIcon}
                 color="primary"
                 level="h2"
+                size="h3"
                 data-h2-margin="base(x3, 0, x1, 0)"
                 data-h2-font-weight="base(400)"
               >
@@ -168,6 +170,7 @@ const SignInPage = () => {
                 Icon={InformationCircleIcon}
                 color="tertiary"
                 level="h2"
+                size="h3"
                 data-h2-margin="base(x3, 0, x1, 0)"
                 data-h2-font-weight="base(400)"
               >
@@ -181,6 +184,7 @@ const SignInPage = () => {
               <Accordion.Root
                 type="single"
                 size="sm"
+                mode="card"
                 collapsible
                 data-h2-margin="base(x1 0)"
               >
@@ -524,36 +528,31 @@ const SignInPage = () => {
             </>
           )}
           <hr
-            data-h2-margin="base(x3, 0)"
+            data-h2-margin="base(x2, 0)"
             data-h2-border="base(none)"
             data-h2-height="base(1px)"
             data-h2-background-color="base(gray)"
           />
           <div
             data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
+            data-h2-flex-direction="base(row)"
             data-h2-align-items="base(center)"
-            data-h2-justify-content="base(space-between)"
             data-h2-gap="base(x1)"
           >
-            <p>
-              <Link href={paths.register()} mode="inline">
-                {intl.formatMessage({
-                  defaultMessage: "Sign up instead",
-                  id: "aqkSW2",
-                  description: "Link text to register instead of signing in",
-                })}
-              </Link>
-            </p>
-            <p>
-              <Link href={loginPath} mode="solid" color="primary" external>
-                {intl.formatMessage({
-                  defaultMessage: "Continue to GCKey and sign in",
-                  id: "4sLCWZ",
-                  description: "GCKey sign in link text on the sign in page",
-                })}
-              </Link>
-            </p>
+            <Link href={loginPath} mode="solid" color="secondary" external>
+              {intl.formatMessage({
+                defaultMessage: "Continue to GCKey and sign in",
+                id: "4sLCWZ",
+                description: "GCKey sign in link text on the sign in page",
+              })}
+            </Link>
+            <Link href={paths.register()} mode="inline">
+              {intl.formatMessage({
+                defaultMessage: "Sign up instead",
+                id: "aqkSW2",
+                description: "Link text to register instead of signing in",
+              })}
+            </Link>
           </div>
         </div>
       </div>

@@ -82,6 +82,7 @@ const SignUpPage = () => {
                 Icon={MapIcon}
                 color="primary"
                 level="h2"
+                size="h3"
                 data-h2-font-weight="base(400)"
                 data-h2-margin="base(0, 0, x1, 0)"
               >
@@ -92,11 +93,7 @@ const SignUpPage = () => {
                     "Heading at the top of the sign up page for applicant profiles",
                 })}
               </Heading>
-              <ul
-                data-h2-margin="base(x1, 0)"
-                data-h2-padding-left="base(x1)"
-                data-h2-list-style="base(inside)"
-              >
+              <ul data-h2-margin="base(x1, 0)" data-h2-padding-left="base(x1)">
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
@@ -138,7 +135,7 @@ const SignUpPage = () => {
                   })}
                 </li>
               </ul>
-              <Link href={loginPath} mode="solid" color="primary" external>
+              <Link href={loginPath} mode="solid" color="secondary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and sign up",
                   id: "Nd1bIG",
@@ -147,8 +144,9 @@ const SignUpPage = () => {
               </Link>
               <Heading
                 level="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 1: Creating a GCKey account",
@@ -161,7 +159,7 @@ const SignUpPage = () => {
                 level="h4"
                 size="h6"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x2, 0, x.5, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Steps to create your GCKey account",
@@ -209,8 +207,9 @@ const SignUpPage = () => {
               </Instructions.List>
               <Heading
                 level="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -224,7 +223,7 @@ const SignUpPage = () => {
                 level="h4"
                 size="h6"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x2, 0, x.5, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Why set up a two-factor authentication?",
@@ -245,7 +244,7 @@ const SignUpPage = () => {
                 level="h4"
                 size="h6"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x2, 0, x.5, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "You will need an authenticator app.",
@@ -265,7 +264,7 @@ const SignUpPage = () => {
                 level="h4"
                 size="h6"
                 data-h2-font-weight="base(700)"
-                data-h2-margin="base(x2, 0, x1, 0)"
+                data-h2-margin="base(x2, 0, x.5, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -313,6 +312,7 @@ const SignUpPage = () => {
                 Icon={InformationCircleIcon}
                 color="tertiary"
                 level="h2"
+                size="h3"
                 data-h2-font-weight="base(400)"
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
@@ -326,6 +326,7 @@ const SignUpPage = () => {
               <Accordion.Root
                 type="single"
                 size="sm"
+                mode="card"
                 collapsible
                 data-h2-margin="base(x1 0)"
               >
@@ -664,7 +665,7 @@ const SignUpPage = () => {
             </>
           )}
           <hr
-            data-h2-margin="base(x3, 0)"
+            data-h2-margin="base(x2, 0)"
             data-h2-border="base(none)"
             data-h2-height="base(1px)"
             data-h2-background-color="base(gray)"
@@ -673,27 +674,22 @@ const SignUpPage = () => {
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column) l-tablet(row)"
             data-h2-align-items="base(center)"
-            data-h2-justify-content="base(space-between)"
             data-h2-gap="base(x1)"
           >
-            <p>
-              <Link href={loginPath} mode="inline" external>
-                {intl.formatMessage({
-                  defaultMessage: "Sign in instead",
-                  id: "Ovlh3a",
-                  description: "Sign in link text on the registration page.",
-                })}
-              </Link>
-            </p>
-            <p>
-              <Link href={loginPath} mode="solid" color="primary" external>
-                {intl.formatMessage({
-                  defaultMessage: "Continue to GCKey and sign up",
-                  id: "Nd1bIG",
-                  description: "GCKey sign up link text on the sign up page",
-                })}
-              </Link>
-            </p>
+            <Link href={loginPath} mode="solid" color="secondary" external>
+              {intl.formatMessage({
+                defaultMessage: "Continue to GCKey and sign up",
+                id: "Nd1bIG",
+                description: "GCKey sign up link text on the sign up page",
+              })}
+            </Link>
+            <Link href={loginPath} mode="inline" external>
+              {intl.formatMessage({
+                defaultMessage: "Sign in instead",
+                id: "Ovlh3a",
+                description: "Sign in link text on the registration page.",
+              })}
+            </Link>
           </div>
         </div>
       </div>
