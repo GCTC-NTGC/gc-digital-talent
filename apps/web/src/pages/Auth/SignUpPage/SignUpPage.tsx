@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
-import ShieldCheckIcon from "@heroicons/react/24/outline/ShieldCheckIcon";
 
 import { Accordion, Heading, Link } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";

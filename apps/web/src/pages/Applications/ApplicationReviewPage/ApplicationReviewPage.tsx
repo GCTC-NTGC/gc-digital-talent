@@ -6,12 +6,10 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import {
   Button,
-  Card,
   Heading,
   Link,
   Pending,
   ThrowNotFound,
-  TreeView,
   Well,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -30,7 +28,6 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
-import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
 import SkillTree from "../ApplicationSkillsPage/components/SkillTree";

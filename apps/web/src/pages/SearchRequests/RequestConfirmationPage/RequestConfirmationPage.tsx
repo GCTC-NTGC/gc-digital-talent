@@ -20,12 +20,6 @@ type RequestConfirmationParams = {
   requestId: Scalars["ID"];
 };
 
-const Text = ({ children, ...rest }: React.HTMLProps<HTMLParagraphElement>) => (
-  <p data-h2-margin="base(x1, 0)" {...rest}>
-    {children}
-  </p>
-);
-
 const mailLink = (chunks: React.ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
     {chunks}

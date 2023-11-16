@@ -38,9 +38,9 @@ const RequestPage = () => {
         })}
         subtitle={intl.formatMessage({
           defaultMessage: "Submit your filtered request for talent.",
-          id: "qpYwU6",
+          id: "TU9sk7",
           description:
-            "Subtitle displayed on her for Search and Request pages.",
+            "Subtitle displayed on hero for Search and Request pages.",
         })}
       >
         <div
