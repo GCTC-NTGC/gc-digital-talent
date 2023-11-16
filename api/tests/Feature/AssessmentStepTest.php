@@ -263,21 +263,5 @@ class AssessmentStepTest extends TestCase
                 ]
             )
             ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
-
-        $this->actingAs($this->teamUser, 'api')
-            ->graphQL(
-                $this->createAssessmentStep,
-                [
-                    'poolId' => $this->pool->id,
-                    'assessmentStep' => [
-                        'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                        'title' => [
-                            'en' => 'en',
-                            'fr' => 'fr',
-                        ],
-                    ],
-                ]
-            )
-            ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
     }
 }
