@@ -353,7 +353,7 @@ const AccessibilityStatementPage = () => {
                     "Heading for the items we consider for accessibility.",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x1, 0, x.5, 0)">
                 {intl.formatMessage({
                   id: "ASYJlr",
                   defaultMessage:
@@ -370,7 +370,7 @@ const AccessibilityStatementPage = () => {
                     description:
                       "Intro to list of items designers consider for accessibility",
                   })}
-                  <ul>
+                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
@@ -414,7 +414,7 @@ const AccessibilityStatementPage = () => {
                     description:
                       "Intro to list of items developers consider for accessibility",
                   })}
-                  <ul>
+                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
                     <li>
                       {intl.formatMessage(
                         {
@@ -472,7 +472,7 @@ const AccessibilityStatementPage = () => {
                   description: "Heading for how we test accessibility.",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p>
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -492,7 +492,7 @@ const AccessibilityStatementPage = () => {
               >
                 {sections[2].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Despite all efforts to make our website fully accessible, if you encounter a problem we missed, or require a different format, we encourage you to contact us at:",
@@ -501,7 +501,7 @@ const AccessibilityStatementPage = () => {
                     "Lead in text for accessibility contact information",
                 })}
               </p>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 <Link
                   external
                   href="mailto:gctalent-talentgc@support-soutien.gc.ca"
@@ -509,7 +509,7 @@ const AccessibilityStatementPage = () => {
                   gctalent-talentgc@support-soutien.gc.ca
                 </Link>
               </p>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "We try to reply to inquiries within five business days. We also welcome your feedback on our accessibility efforts.",
@@ -525,7 +525,7 @@ const AccessibilityStatementPage = () => {
               >
                 {sections[3].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage(
                   {
                     id: "WSo3Y/",
@@ -543,7 +543,7 @@ const AccessibilityStatementPage = () => {
                   },
                 )}
               </p>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Not all complaints will go directly to the Accessibility Commissioner. There are some exceptions:",
@@ -552,7 +552,7 @@ const AccessibilityStatementPage = () => {
                     "Disclaimer about accessibility complaint exceptions.",
                 })}
               </p>
-              <ul>
+              <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
                 <li>
                   {intl.formatMessage(
                     {
@@ -618,7 +618,7 @@ const AccessibilityStatementPage = () => {
                   )}
                 </li>
               </ul>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are not happy with how we respond to your complaint, reach out to the CHRC at the coordinates below:",
@@ -627,7 +627,7 @@ const AccessibilityStatementPage = () => {
                     "Description of what to do if users are not content with complaint response",
                 })}
               </p>
-              <ul data-h2-list-style="base(none)">
+              <ul data-h2-margin="base:children[> li](x.25, 0)">
                 <li>
                   {intl.formatMessage(
                     {
@@ -698,7 +698,7 @@ const AccessibilityStatementPage = () => {
                   )}
                 </li>
               </ul>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "This statement was prepared on November 8, 2022.",
