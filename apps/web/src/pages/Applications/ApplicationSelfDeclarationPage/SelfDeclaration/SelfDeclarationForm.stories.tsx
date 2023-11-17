@@ -1,9 +1,8 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
-import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
+import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
@@ -28,12 +27,7 @@ const Template: ComponentStory<typeof ApplicationSelfDeclaration> = () => (
   />
 );
 
-const VIEWPORTS = [
-  widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone
-  heightOf(INITIAL_VIEWPORTS.ipad12p), // Most common viewport size that falls within chromatic range
-];
-
 export const Default = Template.bind({});
 Default.parameters = {
-  chromatic: { viewports: VIEWPORTS },
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
 };
