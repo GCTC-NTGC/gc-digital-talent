@@ -19,7 +19,7 @@ const Template: StoryFn<typeof Board.Root> = () => (
       <Board.List>
         {ITEMS.map((item) => (
           <Board.ListItem key={`col-1-${item}`}>
-            <a href="#">{item}</a>
+            <button type="button">{item}</button>
           </Board.ListItem>
         ))}
       </Board.List>
@@ -35,7 +35,7 @@ const Template: StoryFn<typeof Board.Root> = () => (
       <Board.List>
         {ITEMS.slice(0, 10).map((item) => (
           <Board.ListItem key={`col-1-${item}`}>
-            <a href="#">{item}</a>
+            <button type="button">{item}</button>
           </Board.ListItem>
         ))}
       </Board.List>
@@ -45,7 +45,7 @@ const Template: StoryFn<typeof Board.Root> = () => (
       <Board.List>
         {ITEMS.map((item) => (
           <Board.ListItem key={`col-1-${item}`}>
-            <a href="#">{item}</a>
+            <button type="button">{item}</button>
           </Board.ListItem>
         ))}
       </Board.List>
@@ -55,7 +55,7 @@ const Template: StoryFn<typeof Board.Root> = () => (
       <Board.List>
         {ITEMS.slice(0, 5).map((item) => (
           <Board.ListItem key={`col-1-${item}`}>
-            <a href="#">{item}</a>
+            <button type="button">{item}</button>
           </Board.ListItem>
         ))}
       </Board.List>
@@ -65,7 +65,7 @@ const Template: StoryFn<typeof Board.Root> = () => (
       <Board.List>
         {ITEMS.slice(0, 20).map((item) => (
           <Board.ListItem key={`col-1-${item}`}>
-            <a href="#">{item}</a>
+            <button type="button">{item}</button>
           </Board.ListItem>
         ))}
       </Board.List>
