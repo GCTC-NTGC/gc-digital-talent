@@ -479,6 +479,10 @@
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
   },
+  "0a8nPa": {
+    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin.",
+    "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
   "0aU6BD": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
@@ -839,6 +843,10 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
+  "2iXmbY": {
+    "defaultMessage": "Agencement <link>acceptable</link> d’études, de formation et/ou d’expérience",
+    "description": "Descriptive text explaining valid a applied work experience for the EX classification group."
+  },
   "2ingb6": {
     "defaultMessage": "Préférences de durée",
     "description": "Label for the employment duration field"
@@ -926,6 +934,10 @@
   "3AwFyW": {
     "defaultMessage": "Si vous avez accepté un emploi récemment ou que vous ne souhaitez tout simplement plus que votre candidature soit prise en compte pour les possibilités, vous pouvez désactiver votre disponibilité dans le cadre de ce processus de recrutement. <strong>Ainsi, votre nom <emphasize>ne sera pas</emphasize> retiré du recrutement</strong> en soi, et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
     "description": "Text describing what it means to disable your availability and that you can reverse the decision"
+  },
+  "3BLgOa": {
+    "defaultMessage": "<strong>Je réponds à l’option d’obtention d’un diplôme</strong>",
+    "description": "Radio group option for education requirement filter in application education form."
   },
   "3Bcg0F": {
     "defaultMessage": "Cette annonce n’exige pas qu’on y joigne une note spéciale.",
@@ -2647,6 +2659,10 @@
     "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
     "description": "Message displayed to user after the request status fails to be updated."
   },
+  "Cf8mWv": {
+    "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
+    "description": "Radio group option for education requirement filter in application education form."
+  },
   "CfNtWn": {
     "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
     "description": "Message displayed to users when there are no screening questions for a process"
@@ -2798,6 +2814,10 @@
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
     "description": "Link text for the application review page."
+  },
+  "DYhY7Y": {
+    "defaultMessage": "<degreeLink>Grade</degreeLink> d’un <postSecondaryLink>établissement d’enseignement postsecondaire reconnu</postSecondaryLink>",
+    "description": "Description for the EX graduation with degree requirement."
   },
   "DZ775N": {
     "defaultMessage": "Expérience ajoutée avec succès!",
@@ -2966,6 +2986,10 @@
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
+  },
+  "EYPaLh": {
+    "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en advantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
+    "description": "External link message for the EX graduation with degree requirement."
   },
   "EdUZaX": {
     "defaultMessage": "Candidats",
@@ -4010,6 +4034,10 @@
   "KqAp09": {
     "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
+  },
+  "KqEyqD": {
+    "defaultMessage": "Désignation professionnelle",
+    "description": "Title for the professional designation requirement."
   },
   "KrrW7D": {
     "defaultMessage": "Imprimer la sélection",
@@ -7251,10 +7279,6 @@
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
   },
-  "drwKS5": {
-    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin. Utilisez le bouton de révision pour gérer un candidat.",
-    "description": "Descriptive text about the list of pool candidates in the admin portal."
-  },
   "dssZUt": {
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
@@ -8186,6 +8210,10 @@
   "ijUT7N": {
     "defaultMessage": "Réponse aux demandes en matière de talents",
     "description": "Heading for request responder dashboard links"
+  },
+  "ijg+sm": {
+    "defaultMessage": "Obtention d’un diplôme",
+    "description": "Title for the EX graduation with degree requirement."
   },
   "ikYbDD": {
     "defaultMessage": "L’étape suivante est la partie la plus importante de votre candidature. Il vous sera demandé de dire comment vous répondez aux exigences de compétences pour ce rôle.",
@@ -9274,6 +9302,10 @@
   "p4KrU2": {
     "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez ouvrir une séance dans votre profil Talents numériques du GC à l’aide de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme auparavant. Si vous n’êtes pas certain d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez d’ouvrir une séance. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez également le réinitialiser.",
     "description": "Eighth answer of the Frequently Asked Questions for sign up"
+  },
+  "p5qn9H": {
+    "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
+    "description": "Message on education requirements card on the application review page."
   },
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -10746,6 +10778,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "ynGRwF": {
+    "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
+    "description": "Description for the professional designation requirement."
   },
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",

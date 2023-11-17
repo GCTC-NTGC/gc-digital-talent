@@ -3,11 +3,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
-import uniqueId from "lodash/uniqueId";
 
 import {
   Button,
-  Link,
   Heading,
   Pending,
   Separator,
@@ -23,7 +21,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { Radio } from "@gc-digital-talent/forms/src/components/RadioGroup";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -43,6 +40,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplicationId from "../useApplicationId";
+import { getEducationRequirementOptions } from "./utils";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -55,9 +53,7 @@ type EducationRequirementExperiences = {
 type PageAction = "continue" | "cancel";
 
 type FormValues = {
-  educationRequirement:
-    | EducationRequirementOption.AppliedWork
-    | EducationRequirementOption.Education;
+  educationRequirement: EducationRequirementOption;
   educationRequirementExperiences: string[]; // List of ids
   action: PageAction;
 };
@@ -160,9 +156,11 @@ const ApplicationEducation = ({
     const isValid =
       formValues.educationRequirement &&
       formValues.educationRequirementExperiences &&
-      ((formValues.educationRequirement ===
-        EducationRequirementOption.AppliedWork &&
-        formValues.educationRequirementExperiences.length > 0) ||
+      (formValues.educationRequirement ===
+        EducationRequirementOption.AppliedWork ||
+        (formValues.educationRequirement ===
+          EducationRequirementOption.ProfessionalDesignation &&
+          formValues.educationRequirementExperiences.length > 0) ||
         (formValues.educationRequirement ===
           EducationRequirementOption.Education &&
           experiences.filter(
@@ -299,131 +297,6 @@ const ApplicationEducation = ({
     }
   };
 
-  const qualityStandardsLink = (chunks: React.ReactNode) => {
-    const href =
-      locale === "en"
-        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
-        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
-    return (
-      <Link href={href} newTab external>
-        {chunks}
-      </Link>
-    );
-  };
-
-  const appliedWorkListMessages = [
-    applicationMessages.onTheJobLearning,
-    applicationMessages.nonConventionalTraining,
-    applicationMessages.formalEducation,
-    isIAP
-      ? applicationMessages.otherExperience
-      : applicationMessages.otherFieldExperience,
-  ];
-
-  const educationRequirementOptions: Radio[] = [
-    {
-      value: EducationRequirementOption.AppliedWork,
-      label: isIAP
-        ? intl.formatMessage({
-            defaultMessage:
-              "<strong>I meet the applied experience option</strong>",
-            id: "kukr/B",
-            description:
-              "Radio group option for education requirement filter in application education form - IAP variant.",
-          })
-        : intl.formatMessage({
-            defaultMessage:
-              "<strong>I meet the applied work experience option</strong>",
-            id: "SNwPLZ",
-            description:
-              "Radio group option for education requirement filter in application education form.",
-          }),
-      contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.5, x1)">
-          <p>{intl.formatMessage(applicationMessages.appliedWorkExperience)}</p>
-          <ul>
-            {Object.values(appliedWorkListMessages).map((value) => (
-              <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
-                {intl.formatMessage(value)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ),
-    },
-    {
-      value: EducationRequirementOption.Education,
-      label: isIAP
-        ? intl.formatMessage({
-            defaultMessage:
-              "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
-            id: "8IIIER",
-            description:
-              "Radio group option for education requirement filter in IAP application education form.",
-          })
-        : intl.formatMessage({
-            defaultMessage:
-              "<strong>I meet the 2-year post-secondary option</strong>",
-            id: "j+jnML",
-            description:
-              "Radio group option for education requirement filter in application education form.",
-          }),
-      contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.15, x1)">
-          <p>
-            {isIAP
-              ? intl.formatMessage({
-                  defaultMessage:
-                    "Successful completion of a standard high school diploma or GED equivalent.",
-                  id: "nIJlba",
-                  description:
-                    "Message under radio button in IAP application education page.",
-                })
-              : intl.formatMessage(applicationMessages.postSecondaryEducation, {
-                  link: qualityStandardsLink,
-                })}
-          </p>
-        </div>
-      ),
-    },
-  ];
-
-  // TODO: Think of a better name
-  const educationRequirementOptionsPM: Radio[] = [
-    {
-      value: EducationRequirementOption.AppliedWork,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the applied work experience option</strong>",
-        id: "SNwPLZ",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
-      contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.5, x1)">
-          <p>{intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}</p>
-        </div>
-      ),
-    },
-    {
-      value: EducationRequirementOption.Education,
-      label: intl.formatMessage({
-        defaultMessage:
-          "<strong>I meet the secondary school diploma option</strong>",
-        id: "qN9zOb",
-        description:
-          "Radio group option for education requirement filter in application education form.",
-      }),
-      contentBelow: (
-        <div data-h2-margin="base(x.15, 0, x.15, x1)">
-          <p>
-            {intl.formatMessage(applicationMessages.secondarySchoolDescription)}
-          </p>
-        </div>
-      ),
-    },
-  ];
-
   return (
     <>
       <Heading data-h2-margin="base(0, 0, x2, 0)">{pageInfo.title}</Heading>
@@ -469,11 +342,12 @@ const ApplicationEducation = ({
                   })
             }
             name="educationRequirement"
-            items={
-              classificationGroup === "PM"
-                ? educationRequirementOptionsPM
-                : educationRequirementOptions
-            }
+            items={getEducationRequirementOptions(
+              intl,
+              locale,
+              classificationGroup,
+              isIAP,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

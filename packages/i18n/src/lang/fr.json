@@ -879,6 +879,10 @@
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
   },
+  "TblXEE": {
+    "defaultMessage": "Désignation professionnelle",
+    "description": "Option for education requirement, professional designation"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -1058,6 +1062,10 @@
   "aMkZ80": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
+  },
+  "aTHtqQ": {
+    "defaultMessage": "Obtention d’un diplôme",
+    "description": "Option for education requirement, graduation with degree"
   },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
