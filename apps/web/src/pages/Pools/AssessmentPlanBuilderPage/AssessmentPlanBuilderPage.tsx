@@ -29,6 +29,7 @@ import {
   useGetAssessmentPlanBuilderDataQuery,
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
+import { routeErrorMessages } from "~/hooks/useErrorMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
@@ -226,12 +227,8 @@ export const AssessmentPlanBuilderPage = () => {
       );
     }
     if (!authorizedToSeeThePage) {
-      return intl.formatMessage({
-        description:
-          "Heading for the message saying the page to view is not authorized.",
-        defaultMessage: "Sorry, you are not authorized to view this page.",
-        id: "jPLaDk",
-      });
+      // reuse error from routing errors
+      return intl.formatMessage(routeErrorMessages.unauthorizedTitle);
     }
 
     // shouldn't drop through to this
