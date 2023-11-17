@@ -1,41 +1,174 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 
 import Collapsible from "../Collapsible";
 import Counter from "../Button/Counter";
+import useControllableState from "../../hooks/useControllableState";
+import { BoardProvider, useBoardContext } from "./BoardProvider";
+import { ARROW_KEY } from "./constants";
+import { findColumns, isArrowKey } from "./utils";
+import { BoardColumn } from "./types";
 
-const Root = React.forwardRef<HTMLDivElement, React.HTMLProps<HTMLDivElement>>(
-  ({ children, ...rest }, forwardedRef) => {
+type RootProps = React.HTMLProps<HTMLDivElement> & {
+  defaultItem?: number;
+  item?: number;
+  onItemChange?: (newItem: number) => void;
+  defaultColumn?: number;
+  column?: number;
+  onColumnChange?: (newColumn: number) => void;
+};
+
+const Root = React.forwardRef<HTMLDivElement, RootProps>(
+  (
+    {
+      children,
+      defaultItem,
+      item: itemProp,
+      onItemChange,
+      defaultColumn,
+      column: colProp,
+      onColumnChange,
+      ...rest
+    },
+    forwardedRef,
+  ) => {
+    const id = React.useId();
+    const rootId = `board-${id}`;
+    const rootRef = React.useRef<HTMLDivElement>(null);
+    const [columns, setColumns] = React.useState<BoardColumn[]>([]);
+    const [columnIndex = 0, setColumnIndex] = useControllableState<number>({
+      controlledProp: colProp,
+      defaultValue: defaultColumn,
+      onChange: onColumnChange,
+    });
+    const [itemIndex = 0, setItemIndex] = useControllableState<number>({
+      controlledProp: itemProp,
+      defaultValue: defaultItem,
+      onChange: onItemChange,
+    });
+
+    React.useEffect(() => {
+      setColumns(findColumns(rootRef.current));
+    }, []);
+
+    const selectItem = (newItem: number, newColumn?: number) => {
+      const targetColumnIndex = newColumn ?? columnIndex;
+      const targetColumn = columns[targetColumnIndex];
+      const { items } = targetColumn;
+      const targetItem = items[newItem];
+
+      if (targetItem) {
+        setColumnIndex(targetColumnIndex);
+        setItemIndex(newItem);
+        targetItem.focus();
+      }
+    };
+
+    const incrementItem = () => {
+      const { items } = columns[columnIndex];
+      let targetItem = itemIndex + 1;
+      const lastIndex = items.length - 1;
+      if (targetItem > lastIndex) targetItem = lastIndex;
+
+      selectItem(targetItem);
+    };
+
+    const decrementItem = () => {
+      let targetIndex = itemIndex - 1;
+      if (targetIndex < 0) targetIndex = 0;
+
+      selectItem(targetIndex);
+    };
+
+    const incrementColumn = () => {
+      let targetIndex = columnIndex + 1;
+      const lastIndex = columns.length - 1;
+      if (targetIndex > lastIndex) targetIndex = lastIndex;
+      const lastItemIndex = columns[targetIndex].items.length - 1;
+
+      selectItem(
+        lastItemIndex < itemIndex ? lastItemIndex : itemIndex,
+        targetIndex,
+      );
+    };
+
+    const decrementColumn = () => {
+      let targetColumn = columnIndex - 1;
+      if (targetColumn < 0) targetColumn = 0;
+      const lastItemIndex = columns[targetColumn].items.length - 1;
+      const targetItem = lastItemIndex < itemIndex ? lastItemIndex : itemIndex;
+
+      selectItem(targetItem, targetColumn);
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (isArrowKey(event.key)) {
+        switch (event.key) {
+          case ARROW_KEY.DOWN:
+            incrementItem();
+            break;
+          case ARROW_KEY.UP:
+            decrementItem();
+            break;
+          case ARROW_KEY.LEFT:
+            decrementColumn();
+            break;
+          case ARROW_KEY.RIGHT:
+            incrementColumn();
+            break;
+          default:
+          // Not an arrow key
+        }
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
     return (
-      <div
-        ref={forwardedRef}
-        data-h2-position="base(relative)"
-        data-h2-radius="base(s)"
-        data-h2-background="base(foreground)"
-        data-h2-width="base(100%)"
-        {...rest}
+      <BoardProvider
+        selectedColumn={columnIndex}
+        selectedItem={itemIndex}
+        onColumnChange={setColumnIndex}
+        onItemChange={setItemIndex}
+        columns={columns}
       >
         <div
-          data-h2-align-items="base(flex-start)"
-          data-h2-display="base(flex)"
-          data-h2-gap="base(0 x.5)"
-          data-h2-justify-content="base(flex-start)"
-          data-h2-overflow-x="base(scroll)"
-          data-h2-padding="base(x1)"
+          ref={forwardedRef}
+          onKeyDown={handleKeyDown}
           data-h2-position="base(relative)"
-          data-h2-z-index="base(1)"
-        >
-          {children}
-        </div>
-        <div
-          data-h2-position="base(absolute)"
-          data-h2-pointer-events="base(none)"
-          data-h2-z-index="base(2)"
-          data-h2-inset="base(0)"
-          data-h2-shadow="base(inset)"
           data-h2-radius="base(s)"
-        />
-      </div>
+          data-h2-background="base(foreground)"
+          data-h2-width="base(100%)"
+          {...rest}
+        >
+          <div
+            id={rootId}
+            ref={rootRef}
+            data-h2-align-items="base(flex-start)"
+            data-h2-display="base(flex)"
+            data-h2-gap="base(0 x.5)"
+            data-h2-justify-content="base(flex-start)"
+            data-h2-overflow-x="base(scroll)"
+            data-h2-padding="base(x1)"
+            data-h2-position="base(relative)"
+            data-h2-z-index="base(1)"
+          >
+            {children}
+          </div>
+          <div
+            data-h2-position="base(absolute)"
+            data-h2-pointer-events="base(none)"
+            data-h2-z-index="base(2)"
+            data-h2-inset="base(0)"
+            data-h2-shadow="base(inset)"
+            data-h2-radius="base(s)"
+          />
+        </div>
+      </BoardProvider>
     );
   },
 );
@@ -47,6 +180,7 @@ const Column = React.forwardRef<
   return (
     <div
       ref={forwardedRef}
+      className="Board__Column"
       data-h2-background="base(foreground)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
@@ -185,9 +319,22 @@ const ListItem = React.forwardRef<
   HTMLLIElement,
   React.HTMLProps<HTMLLIElement>
 >(({ children, ...rest }, forwardedRef) => {
+  const ctx = useBoardContext();
+
   return (
-    <li ref={forwardedRef} data-h2-padding="base(x.25 0)" {...rest}>
-      {children}
+    <li
+      ref={forwardedRef}
+      className="Board__Item"
+      tabIndex={-1}
+      onClick={ctx?.handleClickItem}
+      data-h2-outline="base(none)"
+      data-h2-padding="base(x.25 0)"
+      data-h2-background-color="base:focus-visible:children[div](primary.30)"
+      {...rest}
+    >
+      <div data-h2-radius="base(s)" data-h2-padding="base(x.125)">
+        {children}
+      </div>
     </li>
   );
 });
