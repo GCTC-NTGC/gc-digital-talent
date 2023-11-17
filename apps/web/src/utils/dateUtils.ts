@@ -12,8 +12,8 @@ import { Maybe, Scalars } from "~/api/generated";
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   let dateString = date;
 
-  // handle accidental passing in nulls
-  if (date === null) {
+  // handle accidental passing in nulls/undefined/empty string
+  if (date === null || date === undefined || date === "") {
     return intl.formatMessage(commonMessages.notAvailable);
   }
 
