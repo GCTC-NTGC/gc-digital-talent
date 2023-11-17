@@ -189,7 +189,7 @@ const PoolCandidatesTable = ({
   );
 
   const [sortState, setSortState] = React.useState<SortingState | undefined>(
-    initialState.sortState ?? [{ id: "createdDate", desc: false }],
+    initialState.sortState ?? [{ id: "submitted_at", desc: true }],
   );
 
   const [filterState, setFilterState] =
@@ -365,75 +365,7 @@ const PoolCandidatesTable = ({
     };
   };
 
-  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
-    variables: {
-      where: addSearchToPoolCandidateFilterInput(
-        filterState,
-        searchState?.term,
-        searchState?.type,
-      ),
-      page: paginationState.pageIndex,
-      first: paginationState.pageSize,
-      sortingInput: sortState
-        ? transformSortStateToOrderByClause(sortState)
-        : {
-            column: "submitted_at",
-            order: SortOrder.Asc,
-            user: undefined,
-          },
-    },
-  });
-
-  const filteredData: Array<PoolCandidateWithSkillCount> = React.useMemo(() => {
-    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
-    return poolCandidates.filter(notEmpty);
-  }, [data?.poolCandidatesPaginated.data]);
-
-  const [{ data: allSkillsData, fetching: fetchingSkills }] =
-    useGetSkillsQuery();
-  const allSkills = allSkillsData?.skills.filter(notEmpty);
-  const filteredSkillIds = filterState?.applicantFilter?.skills
-    ?.filter(notEmpty)
-    .map((skill) => skill.id);
-
-  const [
-    {
-      data: selectedCandidatesData,
-      fetching: selectedCandidatesFetching,
-      error: selectedCandidatesError,
-    },
-  ] = useGetSelectedPoolCandidatesQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
-
-  const selectedCandidates =
-    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
-
-  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
-
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedCandidatesFetching ||
-      !!selectedCandidatesError ||
-      !selectedCandidatesData?.poolCandidates.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
-  };
-
-  const newColumns = [
+  const columns = [
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
@@ -594,15 +526,77 @@ const PoolCandidatesTable = ({
     }),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
+  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
+    variables: {
+      where: addSearchToPoolCandidateFilterInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      sortingInput: transformSortStateToOrderByClause(sortState),
+    },
+  });
+
+  const filteredData: Array<PoolCandidateWithSkillCount> = React.useMemo(() => {
+    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+    return poolCandidates.filter(notEmpty);
+  }, [data?.poolCandidatesPaginated.data]);
+
+  const [{ data: allSkillsData, fetching: fetchingSkills }] =
+    useGetSkillsQuery();
+  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const filteredSkillIds = filterState?.applicantFilter?.skills
+    ?.filter(notEmpty)
+    .map((skill) => skill.id);
+
+  const [
+    {
+      data: selectedCandidatesData,
+      fetching: selectedCandidatesFetching,
+      error: selectedCandidatesError,
+    },
+  ] = useGetSelectedPoolCandidatesQuery({
+    variables: {
+      ids: selectedRows,
+    },
+    pause: !hasSelected,
+  });
+
+  const selectedCandidates =
+    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
+
+  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
+
+  const handlePrint = (onPrint: () => void) => {
+    if (
+      selectedCandidatesFetching ||
+      !!selectedCandidatesError ||
+      !selectedCandidatesData?.poolCandidates.length
+    ) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Download failed: No rows selected",
+          id: "k4xm25",
+          description:
+            "Alert message displayed when a user attempts to print without selecting items first",
+        }),
+      );
+    } else if (onPrint) {
+      onPrint();
+    }
+  };
+
   console.log("test");
 
   return (
     <Table<PoolCandidateWithSkillCount>
       caption={title}
       data={filteredData}
-      columns={newColumns}
+      columns={columns}
       isLoading={fetching || fetchingSkills}
-      // hiddenColumnIds={["candidacyStatus", "notes"]}
+      hiddenColumnIds={["candidacyStatus", "notes"]}
       search={{
         internal: false,
         label: intl.formatMessage({

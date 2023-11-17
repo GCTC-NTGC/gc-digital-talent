@@ -12,7 +12,11 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
-import { QueryPoolCandidatesPaginatedOrderByRelationOrderByClause } from "@gc-digital-talent/graphql";
+import {
+  OrderByRelationWithColumnAggregateFunction,
+  QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
+  QueryPoolCandidatesPaginatedOrderByUserColumn,
+} from "@gc-digital-talent/graphql";
 
 import {
   CandidateSuspendedFilter,
@@ -286,37 +290,52 @@ export function handleRowSelectedChange<T>(
 export function transformSortStateToOrderByClause(
   sortingRule?: SortingState,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
-  //  if (
-  //   sortingRule?.fil ||
-  //   sortingRule?.column.sortColumnName === "suspended_at"
-  // ) {
-  //   return {
-  //     column: sortingRule.column.sortColumnName,
-  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //     user: undefined,
-  //   };
-  // }
-  // if (
-  //   sortingRule?.column.sortColumnName &&
-  //   [
-  //     "FIRST_NAME",
-  //     "EMAIL",
-  //     "PREFERRED_LANG",
-  //     "PREFERRED_LANGUAGE_FOR_INTERVIEW",
-  //     "PREFERRED_LANGUAGE_FOR_EXAM",
-  //     "CURRENT_CITY",
-  //   ].includes(sortingRule.column.sortColumnName)
-  // ) {
-  //   return {
-  //     column: undefined,
-  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //     user: {
-  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-  //       column: sortingRule.column
-  //         .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
-  //     },
-  //   };
-  // }
+  const columnMap = new Map<string, string>([
+    ["dateReceived", "submitted_at"],
+    ["candidacyStatus", "suspended_at"],
+    ["candidateName", "first_name"],
+    ["email", "email"],
+    ["preferredLang", "preferred_lang"],
+    ["preferredLang", "preferred_lang_for_interview"],
+    ["preferredLang", "preferred_lang_for_exam"],
+    ["preferredLang", "preferred_lang"],
+    ["currentLocation", "current_city"],
+  ]);
+
+  const submittedAtRule = sortingRule?.includes({
+    id: "dateReceived",
+    desc: true,
+  });
+  const suspendedAtRule = sortingRule?.includes({
+    id: "candidacyStatus",
+    desc: true,
+  });
+  if (submittedAtRule || suspendedAtRule) {
+    console.log("sort1");
+    return {
+      column: submittedAtRule ? "submitted_at" : "suspended_at",
+      order: submittedAtRule ? SortOrder.Desc : SortOrder.Asc,
+      user: undefined,
+    };
+  }
+  if (
+    sortingRule &&
+    sortingRule.includes({
+      id: "candidateName" || "email" || "preferredLang" || "currentLocation",
+      desc: true,
+    })
+  ) {
+    console.log("sort2");
+    return {
+      column: undefined,
+      order: sortingRule[0].id ? SortOrder.Desc : SortOrder.Asc,
+      user: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: sortingRule[0]
+          .id as QueryPoolCandidatesPaginatedOrderByUserColumn,
+      },
+    };
+  }
   // if (
   //   sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
   //   filterState?.applicantFilter?.skills &&
