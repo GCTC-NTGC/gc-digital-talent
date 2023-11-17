@@ -38,7 +38,6 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
     const id = React.useId();
     const rootId = `board-${id}`;
     const rootRef = React.useRef<HTMLDivElement>(null);
-    const [blurred, setBlurred] = React.useState<HTMLElement | null>(null);
     const [columns, setColumns] = React.useState<BoardColumn[]>([]);
     const [columnIndex = 0, setColumnIndex] = useControllableState<number>({
       controlledProp: colProp,
@@ -55,7 +54,11 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       setColumns(findColumns(rootRef.current));
     }, []);
 
-    const selectItem = (newItem: number, newColumn?: number) => {
+    const selectItem = (
+      newItem: number,
+      newColumn?: number,
+      preventFocus?: boolean,
+    ) => {
       const targetColumnIndex = newColumn ?? columnIndex;
       const targetColumn = columns[targetColumnIndex];
       const { items } = targetColumn;
@@ -64,7 +67,9 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       if (targetItem) {
         setColumnIndex(targetColumnIndex);
         setItemIndex(newItem);
-        targetItem.focus();
+        if (!preventFocus) {
+          targetItem.focus();
+        }
       }
     };
 
@@ -130,28 +135,25 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 
     const handleFocus = (event: React.FocusEvent) => {
       const target = event.target as HTMLElement;
+      let targetItem: HTMLElement | null = target;
+      if (target.classList.contains("Board__List")) {
+        targetItem = target.querySelector(".Board__Item");
+      } else if (target.nodeName) {
+        targetItem = target.closest(".Board__Item");
+      }
 
-      const reverse = blurred?.parentElement?.isEqualNode(target);
-
-      if (target?.classList.contains("Board__List")) {
-        columns.every((column, colIndex) => {
-          const columnList = column.element.querySelector(".Board__List");
-          if (document.activeElement?.isSameNode(columnList)) {
-            const targetColumnIndex = reverse ? colIndex - 1 : colIndex;
-            selectItem(itemIndex, targetColumnIndex);
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
+      columns.every((column, colIndex) => {
+        let continueSearch: boolean = true;
+        column.items.every((item, index) => {
+          if (item.isSameNode(targetItem)) {
+            selectItem(index, colIndex, true);
+            continueSearch = false;
           }
-
           return true;
         });
-      }
-    };
 
-    const handleBlur = (event: React.FocusEvent) => {
-      const target = event.target as HTMLElement;
-      setBlurred(target);
+        return continueSearch;
+      });
     };
 
     return (
@@ -167,7 +169,6 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           ref={forwardedRef}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          onBlur={handleBlur}
           data-h2-position="base(relative)"
           data-h2-radius="base(s)"
           data-h2-background="base(foreground)"
