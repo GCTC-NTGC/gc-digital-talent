@@ -3,6 +3,7 @@ import React from "react";
 import { BoardColumn } from "./types";
 
 type ControlledContext = {
+  id: string;
   selectedItem: number;
   selectedColumn: number;
   onItemChange?: (newItem: number) => void;
@@ -26,6 +27,7 @@ type BoardProviderProps = {
 
 export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
   const {
+    id,
     selectedItem,
     selectedColumn,
     onItemChange,
@@ -73,6 +75,7 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
 
   const value = React.useMemo(
     () => ({
+      id,
       selectedItem,
       selectedColumn,
       onItemChange,
@@ -81,6 +84,7 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
       handleClickItem,
     }),
     [
+      id,
       selectedItem,
       selectedColumn,
       onItemChange,

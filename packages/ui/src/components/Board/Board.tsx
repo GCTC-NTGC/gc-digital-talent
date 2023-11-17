@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
@@ -38,6 +38,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
     const id = React.useId();
     const rootId = `board-${id}`;
     const rootRef = React.useRef<HTMLDivElement>(null);
+    const [blurred, setBlurred] = React.useState<HTMLElement | null>(null);
     const [columns, setColumns] = React.useState<BoardColumn[]>([]);
     const [columnIndex = 0, setColumnIndex] = useControllableState<number>({
       controlledProp: colProp,
@@ -122,14 +123,40 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
           default:
           // Not an arrow key
         }
+        event.preventDefault();
+        event.stopPropagation();
       }
+    };
 
-      event.preventDefault();
-      event.stopPropagation();
+    const handleFocus = (event: React.FocusEvent) => {
+      const target = event.target as HTMLElement;
+
+      const reverse = blurred?.parentElement?.isEqualNode(target);
+
+      if (target?.classList.contains("Board__List")) {
+        columns.every((column, colIndex) => {
+          const columnList = column.element.querySelector(".Board__List");
+          if (document.activeElement?.isSameNode(columnList)) {
+            const targetColumnIndex = reverse ? colIndex - 1 : colIndex;
+            selectItem(itemIndex, targetColumnIndex);
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+          }
+
+          return true;
+        });
+      }
+    };
+
+    const handleBlur = (event: React.FocusEvent) => {
+      const target = event.target as HTMLElement;
+      setBlurred(target);
     };
 
     return (
       <BoardProvider
+        id={id}
         selectedColumn={columnIndex}
         selectedItem={itemIndex}
         onColumnChange={setColumnIndex}
@@ -139,6 +166,8 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
         <div
           ref={forwardedRef}
           onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           data-h2-position="base(relative)"
           data-h2-radius="base(s)"
           data-h2-background="base(foreground)"
@@ -205,6 +234,7 @@ const ColumnHeader = React.forwardRef<HTMLDivElement, ColumnHeaderProps>(
     return (
       <div
         ref={forwardedRef}
+        className="Board__ColumnHeader"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(0 x.5)"
@@ -299,6 +329,11 @@ const List = React.forwardRef<
   return (
     <ul
       ref={forwardedRef}
+      className="Board__List"
+      // Note: Scrollable regions should be tabbable
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={0}
+      data-h2-outline="base:focus-visible(primary.30 solid x.125)"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-list-style="base(none)"

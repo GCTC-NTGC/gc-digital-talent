@@ -29,9 +29,20 @@ export function findColumns(rootEl: HTMLDivElement | null): BoardColumn[] {
     const itemNodes = column.querySelectorAll<HTMLLIElement>(".Board__Item");
     const items = Array.from(itemNodes);
 
+    // Note: Added IDs for a11y
+    const header = column.querySelector<HTMLElement>(".Board__ColumnHeader");
+    const list = column.querySelector<HTMLElement>(".Board__List");
+    if (header) {
+      const headerId = `${rootEl?.id}-${colIndex}-header`;
+      header.id = headerId;
+      if (list) {
+        list.setAttribute("aria-labelledby", headerId);
+      }
+    }
+
     items.forEach((itemEl, index) => {
       const item = itemEl;
-      item.id = `${rootEl?.id}-${colIndex}-${index}`;
+      item.id = `${rootEl?.id}-${colIndex}-${index}-item`;
     });
 
     cols = [
