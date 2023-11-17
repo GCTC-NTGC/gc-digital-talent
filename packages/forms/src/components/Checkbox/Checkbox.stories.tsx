@@ -2,6 +2,8 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
@@ -60,6 +62,6 @@ LongTextCheckbox.args = {
 
 LongTextCheckbox.parameters = {
   viewport: {
-    defaultViewport: "mobile1",
+    defaultViewport: VIEWPORT.PHONE,
   },
 };

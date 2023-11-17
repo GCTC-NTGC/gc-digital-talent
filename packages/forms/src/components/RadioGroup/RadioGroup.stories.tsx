@@ -2,6 +2,8 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import RadioGroup from "./RadioGroup";
@@ -79,7 +81,7 @@ RadioGroupOfElements.args = {
 export const LargeRadioGroup = TemplateRadioGroup.bind({});
 LargeRadioGroup.parameters = {
   viewport: {
-    defaultViewport: "iphone6p",
+    defaultViewport: VIEWPORT.PHONE,
   },
 };
 LargeRadioGroup.args = {
