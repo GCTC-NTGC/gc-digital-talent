@@ -690,7 +690,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wasPublished", "notArchived"])
     @can(ability: "viewAnyPublished", model: "Pool")
-  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
     @can(ability: "view", resolved: true)
