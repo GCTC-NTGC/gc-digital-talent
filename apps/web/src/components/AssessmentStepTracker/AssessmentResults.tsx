@@ -26,7 +26,7 @@ const Priority = ({ type }: PriorityProps) => {
       data-h2-color="base(white) base:dark(black)"
       data-h2-padding="base(0 x.125)"
       data-h2-radius="base(rounded)"
-      data-h2-margin-left="base(x.35)"
+      data-h2-line-height="base(0.6rem)"
       data-h2-font-size="base(0.6rem)"
       data-h2-font-weight="base(700)"
       data-h2-transition="base(all .2s ease)"
@@ -75,6 +75,7 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.25)"
+        data-h2-padding="base(x.125 0)"
         data-h2-width="base(100%)"
       >
         <BookmarkIcon
@@ -82,19 +83,20 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
           data-h2-color="base(gray)"
           data-h2-flex-shrink="base(0)"
         />
-        <Link
-          mode="text"
-          color="black"
-          data-h2-flex-grow="base(1)"
-          href={paths.poolCandidateApplication(result.poolCandidate.id)}
-        >
-          {ordinal}.{" "}
-          {getFullNameLabel(
-            result.poolCandidate.user.firstName,
-            result.poolCandidate.user.lastName,
-            intl,
-          )}
-        </Link>
+        <span data-h2-flex-grow="base(1)">
+          <Link
+            mode="text"
+            color="black"
+            href={paths.poolCandidateApplication(result.poolCandidate.id)}
+          >
+            {ordinal}.{" "}
+            {getFullNameLabel(
+              result.poolCandidate.user.firstName,
+              result.poolCandidate.user.lastName,
+              intl,
+            )}
+          </Link>
+        </span>
         <span
           data-h2-flex-shrink="base(0)"
           data-h2-display="base(flex)"
