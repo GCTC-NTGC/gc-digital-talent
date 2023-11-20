@@ -259,6 +259,10 @@ export const ViewPoolCandidate = ({
     );
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
+    const classificationGroup = snapshotCandidate?.pool.classifications
+      ? snapshotCandidate.pool.classifications[0]?.group
+      : "";
+
     mainContent = (
       <>
         {subTitle}
@@ -284,6 +288,7 @@ export const ViewPoolCandidate = ({
                   snapshotCandidate?.educationRequirementOption
                     ? getEducationRequirementOption(
                         snapshotCandidate.educationRequirementOption,
+                        classificationGroup,
                       )
                     : commonMessages.notAvailable,
                 ),

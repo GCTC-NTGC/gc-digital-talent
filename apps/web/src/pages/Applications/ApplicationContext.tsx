@@ -2,14 +2,18 @@ import React from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
-import { isIAPPool, getClassificationGroup } from "~/utils/poolUtils";
+import {
+  isIAPPool,
+  getClassificationGroup,
+  ClassificationGroup,
+} from "~/utils/poolUtils";
 import { PoolCandidate } from "~/api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
-  classificationGroup?: string;
+  classificationGroup?: ClassificationGroup;
 }
 
 const defaultContext: ApplicationContextState = {

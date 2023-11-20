@@ -139,18 +139,18 @@ server {
     }
 
     # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" {
-        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest))$" /tc-report/_site/$1 break;
+    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" {
+        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" /tc-report/_site/$1 break;
     }
 
     # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
+        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
     }
 
      # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" {
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest))$" /apps/web/dist/$1 break;
+    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
+        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html

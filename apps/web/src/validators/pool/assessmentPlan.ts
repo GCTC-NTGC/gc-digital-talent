@@ -26,8 +26,12 @@ export function deriveAssessmentPlanStatus(
   const thereAreUnassessedPoolSkills = allPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),
   );
+  const thereAreAssessmentStepsWithNoSkills = pool.assessmentSteps.some(
+    (assessmentStep) => !assessmentStep?.poolSkills?.length,
+  );
 
-  if (!thereAreUnassessedPoolSkills) return "complete";
+  if (!thereAreUnassessedPoolSkills && !thereAreAssessmentStepsWithNoSkills)
+    return "complete";
 
   return "incomplete";
 }

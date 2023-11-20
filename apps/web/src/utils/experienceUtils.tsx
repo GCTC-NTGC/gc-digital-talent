@@ -640,7 +640,9 @@ export const getExperienceDate = (
   }
 
   if (isAwardExperience(experience)) {
-    return formattedDate(experience.awardedDate ?? "", intl);
+    return experience.awardedDate
+      ? formattedDate(experience.awardedDate, intl)
+      : undefined;
   }
 
   const { startDate, endDate } = experience;
