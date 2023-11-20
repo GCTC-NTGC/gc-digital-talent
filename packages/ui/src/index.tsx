@@ -9,8 +9,9 @@ import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, { type ButtonProps } from "./components/Button";
+import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Board from "./components/Board/Board";
 import Card, {
   CardBasic,
   CardFlat,
@@ -126,6 +127,7 @@ export {
   AlertDialog,
   Announcer,
   useAnnouncer,
+  Board,
   Breadcrumbs,
   Button,
   Card,
