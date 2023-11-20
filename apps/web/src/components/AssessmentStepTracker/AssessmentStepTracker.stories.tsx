@@ -72,7 +72,7 @@ mockPool = {
 
 export default {
   component: AssessmentStepTracker,
-  title: "Components/AssessmentStepTracker",
+  title: "Components/Assessment Step Tracker",
 };
 
 const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (
