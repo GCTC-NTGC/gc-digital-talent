@@ -31,7 +31,6 @@ import {
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
-import { PoolCompleteness } from "~/types/pool";
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
@@ -43,7 +42,6 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ExtendProcessDialog from "./components/ExtendProcessDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
-import { getAssessmentPlanStatusPill } from "../AssessmentPlanBuilderPage/utils";
 
 export interface ViewPoolProps {
   pool: Pool;
@@ -72,8 +70,7 @@ export const ViewPool = ({
   const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const assessmentStatus = "incomplete" as PoolCompleteness;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(
@@ -209,7 +206,16 @@ export const ViewPool = ({
                     "Title for card for actions related to a process' assessment plan",
                 })}
               </Heading>
-              {recordOfDecisionFlag && getAssessmentPlanStatusPill(pool, intl)}
+              {recordOfDecisionFlag && (
+                <Pill
+                  bold
+                  mode="outline"
+                  color={assessmentBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {intl.formatMessage(assessmentBadge.label)}
+                </Pill>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
