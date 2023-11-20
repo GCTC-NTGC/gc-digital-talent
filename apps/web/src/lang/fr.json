@@ -1479,6 +1479,10 @@
     "defaultMessage": "Renseignements sur le candidat",
     "description": "Heading displayed above the pool candidate application page."
   },
+  "69BfF3": {
+    "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
+    "description": "Subtitle for the search page"
+  },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
     "description": "Link text to continue a specific application"
@@ -1650,6 +1654,10 @@
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for citizenship status"
+  },
+  "7DYnwq": {
+    "defaultMessage": "Nous avons reçu votre demande",
+    "description": "Paragraph one, message to user the request was received"
   },
   "7ET77N": {
     "defaultMessage": "Parlons compétences",
@@ -7471,6 +7479,10 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
+  "f9UKuz": {
+    "defaultMessage": "Commençons par quelques renseignements de base sur votre compte.",
+    "description": "Subtitle for the create account page for applicant profiles."
+  },
   "fA79sM": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
@@ -9503,6 +9515,10 @@
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
   },
+  "qpYwU6": {
+    "defaultMessage": "Soumettez votre demande filtrée pour obtenir un talent.",
+    "description": "Subtitle displayed on her for Search and Request pages."
+  },
   "qrDCTV": {
     "defaultMessage": "Catégorie",
     "description": "Title displayed for the Pool Candidates table Priority column."
@@ -10734,6 +10750,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "ymHPWF": {
+    "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
+    "description": "Instructional text under the Skill Requirements section"
   },
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
