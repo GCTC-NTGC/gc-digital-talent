@@ -10,13 +10,13 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import poolMessages from "~/messages/poolMessages";
-import { deriveAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 export const getAssessmentPlanStatusPill = (
   pool: Pool,
   intl: IntlShape,
 ): React.ReactNode => {
-  const assessmentPlanStatus = deriveAssessmentPlanStatus(pool);
+  const assessmentPlanStatus = getAssessmentPlanStatus(pool);
   switch (assessmentPlanStatus) {
     case "complete":
       return (

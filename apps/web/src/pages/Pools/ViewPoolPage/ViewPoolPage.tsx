@@ -34,6 +34,7 @@ import {
 import { PoolCompleteness } from "~/types/pool";
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -107,6 +108,10 @@ export const ViewPool = ({
     id: "pM43Xu",
     description: "Subtitle for the individual pool page",
   });
+
+  const isReadyToPublish =
+    getAdvertisementStatus(pool) === "complete" &&
+    getAssessmentPlanStatus(pool) === "complete";
 
   return (
     <>
@@ -342,7 +347,9 @@ export const ViewPool = ({
             )}
             <ProcessCard.Footer>
               {!canPublish && pool.status === PoolStatus.Draft && (
-                <SubmitForPublishingDialog isReadyToPublish={pool.isComplete} />
+                <SubmitForPublishingDialog
+                  isReadyToPublish={isReadyToPublish}
+                />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
@@ -377,13 +384,15 @@ export const ViewPool = ({
                   onDelete={onDelete}
                 />
               )}
-              {pool.status === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                />
-              )}
+              {pool.status === PoolStatus.Draft &&
+                canPublish &&
+                isReadyToPublish && (
+                  <PublishProcessDialog
+                    {...commonDialogProps}
+                    closingDate={pool.closingDate}
+                    onPublish={onPublish}
+                  />
+                )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>

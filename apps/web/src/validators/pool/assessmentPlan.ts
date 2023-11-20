@@ -1,18 +1,18 @@
+/* eslint-disable import/prefer-default-export */
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-export type AssessmentPlanStatus = "complete" | "incomplete" | "submitted";
+import { PoolCompleteness } from "~/types/pool";
 
-type PartialPool = Pool;
+export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
+  if (!pool || !pool.poolSkills || !pool.assessmentSteps) {
+    return "incomplete";
+  }
 
-export function deriveAssessmentPlanStatus(
-  pool: PartialPool,
-): AssessmentPlanStatus | null {
-  if (!pool || !pool.poolSkills || !pool.assessmentSteps) return null;
-
-  if (pool.publishedAt && parseDateTimeUtc(pool.publishedAt) > new Date())
+  if (pool.publishedAt && new Date() > parseDateTimeUtc(pool.publishedAt)) {
     return "submitted";
+  }
 
   const allPoolSkillIds = pool.poolSkills
     .filter(notEmpty)
@@ -30,8 +30,9 @@ export function deriveAssessmentPlanStatus(
     (assessmentStep) => !assessmentStep?.poolSkills?.length,
   );
 
-  if (!thereAreUnassessedPoolSkills && !thereAreAssessmentStepsWithNoSkills)
+  if (!thereAreUnassessedPoolSkills && !thereAreAssessmentStepsWithNoSkills) {
     return "complete";
+  }
 
   return "incomplete";
 }
