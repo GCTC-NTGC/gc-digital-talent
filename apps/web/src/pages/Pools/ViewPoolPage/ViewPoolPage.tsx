@@ -384,15 +384,14 @@ export const ViewPool = ({
                   onDelete={onDelete}
                 />
               )}
-              {pool.status === PoolStatus.Draft &&
-                canPublish &&
-                isReadyToPublish && (
-                  <PublishProcessDialog
-                    {...commonDialogProps}
-                    closingDate={pool.closingDate}
-                    onPublish={onPublish}
-                  />
-                )}
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
+                />
+              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>
