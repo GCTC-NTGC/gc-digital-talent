@@ -36,6 +36,7 @@ const SkillBrowser = ({
   const {
     watch,
     resetField,
+    setValue,
     register,
     formState: { errors },
   } = useFormContext();
@@ -44,7 +45,11 @@ const SkillBrowser = ({
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const [category, family] = watch([inputNames.category, inputNames.family]);
+  const [category, family, skillValue] = watch([
+    inputNames.category,
+    inputNames.family,
+    name,
+  ]);
 
   const filteredFamilies = React.useMemo(() => {
     return getFilteredFamilies({ skills, category }).sort(
@@ -71,6 +76,12 @@ const SkillBrowser = ({
     resetField(inputNames.family);
   }, [category, inputNames.family, resetField]);
 
+  React.useEffect(() => {
+    if (skillValue?.length > 0 && !family) {
+      setValue(inputNames.family, "all");
+    }
+  }, [skillValue, family]);
+
   const categoryOptions = getCategoryOptions(skills, intl);
   const familyOptions = getFamilyOptions(skills, intl, category);
 
@@ -94,6 +105,7 @@ const SkillBrowser = ({
             name={inputNames.category}
             nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             trackUnsaved={false}
+            doNotSort
             label={intl.formatMessage({
               defaultMessage: "Skill category",
               id: "piZjS+",
