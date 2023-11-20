@@ -1,6 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import { isEqual } from "lodash";
 
 import {
   commonMessages,
@@ -302,40 +303,39 @@ export function transformSortStateToOrderByClause(
     ["currentLocation", "current_city"],
   ]);
 
-  const submittedAtRule = sortingRule?.includes({
-    id: "dateReceived",
-    desc: true,
-  });
-  const suspendedAtRule = sortingRule?.includes({
-    id: "candidacyStatus",
-    desc: true,
-  });
+  const submittedAtRule = sortingRule?.find((rule) =>
+    isEqual(rule, { id: "dateReceived", desc: true }),
+  );
+  const suspendedAtRule = sortingRule?.find((rule) =>
+    isEqual(rule, { id: "candidacyStatus", desc: true }),
+  );
+
   if (submittedAtRule || suspendedAtRule) {
     console.log("sort1");
     return {
       column: submittedAtRule ? "submitted_at" : "suspended_at",
-      order: submittedAtRule ? SortOrder.Desc : SortOrder.Asc,
+      order: submittedAtRule?.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };
   }
-  if (
-    sortingRule &&
-    sortingRule.includes({
-      id: "candidateName" || "email" || "preferredLang" || "currentLocation",
-      desc: true,
-    })
-  ) {
-    console.log("sort2");
-    return {
-      column: undefined,
-      order: sortingRule[0].id ? SortOrder.Desc : SortOrder.Asc,
-      user: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: sortingRule[0]
-          .id as QueryPoolCandidatesPaginatedOrderByUserColumn,
-      },
-    };
-  }
+  // if (
+  //   sortingRule &&
+  //   sortingRule.includes({
+  //     id: "candidateName" || "email" || "preferredLang" || "currentLocation",
+  //     desc: true,
+  //   })
+  // ) {
+  //   console.log("sort2");
+  //   return {
+  //     column: undefined,
+  //     order: sortingRule[0].id ? SortOrder.Desc : SortOrder.Asc,
+  //     user: {
+  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+  //       column: sortingRule[0]
+  //         .id as QueryPoolCandidatesPaginatedOrderByUserColumn,
+  //     },
+  //   };
+  // }
   // if (
   //   sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
   //   filterState?.applicantFilter?.skills &&
@@ -349,6 +349,7 @@ export function transformSortStateToOrderByClause(
   // }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
   // default tertiary sort is submitted_at,
+  console.log("sort0");
   return {
     column: "submitted_at",
     order: SortOrder.Asc,
