@@ -15,15 +15,17 @@ import {
 import {
   AssessmentStep,
   AssessmentStepType,
+  Maybe,
   PoolSkill,
   PoolSkillType,
   Skill,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
+
+import { assessmentStepDisplayName } from "../utils";
 
 const columnHelper = createColumnHelper<PoolSkill>();
 
@@ -95,7 +97,7 @@ const XCircleIconElement = (
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: AssessmentStepType,
+  assessmentStepType: Maybe<AssessmentStepType>,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {
@@ -104,7 +106,9 @@ const CheckIconElement = (
   const { name } = skill;
   const localizedName = getLocalizedName(name, intl);
   const assessmentStepTypeLocalized = intl.formatMessage(
-    getAssessmentStepType(assessmentStepType),
+    assessmentStepType
+      ? getAssessmentStepType(assessmentStepType)
+      : commonMessages.nameNotLoaded,
   );
 
   return (
@@ -127,39 +131,27 @@ const CheckIconElement = (
   );
 };
 
+const plannedAssessmentCell = (
+  poolSkill: PoolSkill,
+  assessmentSteps: AssessmentStep[],
+): JSX.Element | null => {
+  return assessmentSteps.some(
+    (assessmentStep) =>
+      assessmentStep.poolSkills?.some(
+        (assessmentStepPoolSkill) =>
+          assessmentStepPoolSkill?.id === poolSkill.id,
+      ),
+  )
+    ? CheckCircleIconElement(poolSkill.skill)
+    : XCircleIconElement(poolSkill.skill);
+};
+
 const SkillSummaryTable = ({
   title,
   poolSkills,
   assessmentSteps,
 }: SkillSummaryTableProps) => {
   const intl = useIntl();
-
-  const generateAssessmentStepHeader = (
-    assessmentStep: AssessmentStep,
-  ): string => {
-    if (assessmentStep.title && assessmentStep.type) {
-      return `${getLocalizedName(
-        assessmentStep.title,
-        intl,
-      )} (${intl.formatMessage(getAssessmentStepType(assessmentStep.type))})`;
-    }
-
-    if (!assessmentStep.title && assessmentStep.type) {
-      return intl.formatMessage(getAssessmentStepType(assessmentStep.type));
-    }
-
-    if (assessmentStep.title && !assessmentStep.type) {
-      return getLocalizedName(assessmentStep.title, intl);
-    }
-
-    return intl.formatMessage(commonMessages.notAvailable);
-  };
-
-  const plannedAssessmentCell = (poolSkill: PoolSkill): JSX.Element | null => {
-    return poolSkill.assessmentSteps && poolSkill.assessmentSteps.length > 0
-      ? CheckCircleIconElement(poolSkill.skill)
-      : XCircleIconElement(poolSkill.skill);
-  };
 
   const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
     if (poolSkill?.type) {
@@ -189,17 +181,11 @@ const SkillSummaryTable = ({
       return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
     }
 
-    const poolSkillsAssessmentTypes = poolSkill.assessmentSteps
-      ? poolSkill.assessmentSteps.map((instance) =>
-          instance && instance.type ? instance.type : undefined,
-        )
-      : [];
-    const filteredPoolSkillsAssessments = unpackMaybes(
-      poolSkillsAssessmentTypes,
-    );
     if (
-      assessmentStep.type &&
-      filteredPoolSkillsAssessments.includes(assessmentStep.type)
+      assessmentStep.poolSkills?.some(
+        (assessmentStepPoolSkill) =>
+          assessmentStepPoolSkill?.id === poolSkill.id,
+      )
     ) {
       return CheckIconElement(poolSkill.skill, assessmentStep.type);
     }
@@ -216,7 +202,7 @@ const SkillSummaryTable = ({
           "Title for a column that displays a complete or not state.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(plannedAssessmentCell(poolSkill)),
+        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps)),
       enableHiding: false,
     }),
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
@@ -259,18 +245,18 @@ const SkillSummaryTable = ({
 
   let columns = initialColumns;
   // ensure array of assessments is sorted by sortOrder, if null bump to end, then add them to the core columns
-  const sortedAssessmentSteps = assessmentSteps.sort((a, b) => {
+  assessmentSteps.sort((a, b) => {
     const aPosition = a.sortOrder ?? 100;
     const bPosition = b.sortOrder ?? 100;
     return aPosition > bPosition ? 1 : -1;
   });
-  sortedAssessmentSteps.forEach((element) => {
-    const headerName = generateAssessmentStepHeader(element);
+  assessmentSteps.forEach((assessmentStep) => {
+    const headerName = assessmentStepDisplayName(assessmentStep, intl);
     const newColumn = columnHelper.display({
-      id: element.type ?? element.id,
+      id: assessmentStep.type ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentStepCell(poolSkill, element)),
+        cells.jsx(assessmentStepCell(poolSkill, assessmentStep)),
       enableHiding: false,
     });
     columns = [...columns, newColumn];

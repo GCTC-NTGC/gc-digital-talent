@@ -1375,7 +1375,7 @@ input UpdatePoolInput {
 input AssessmentStepInput {
   type: AssessmentStepType
     @rules(
-      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      apply: ["notIn:APPLICATION_SCREENING"]
       messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
     )
   title: LocalizedStringInput
