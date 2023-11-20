@@ -88,6 +88,6 @@ export const Empty = Template.bind({});
 Empty.args = {
   pool: {
     ...mockPool,
-    poolCandidates: [],
+    assessmentSteps,
   },
 };
