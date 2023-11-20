@@ -80,7 +80,7 @@ const SkillBrowser = ({
     if (skillValue?.length > 0 && !family) {
       setValue(inputNames.family, "all");
     }
-  }, [skillValue, family]);
+  }, [skillValue, family, setValue, inputNames.family]);
 
   const categoryOptions = getCategoryOptions(skills, intl);
   const familyOptions = getFamilyOptions(skills, intl, category);
