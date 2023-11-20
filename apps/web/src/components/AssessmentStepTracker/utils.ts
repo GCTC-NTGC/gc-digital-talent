@@ -1,51 +1,110 @@
+import { IntlShape } from "react-intl";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+
 import {
+  AssessmentDecision,
+  AssessmentResult,
   AssessmentStep,
-  Pool,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { IconType } from "@gc-digital-talent/ui";
 
 export type CandidatesByStep = {
   step: AssessmentStep;
   candidates: PoolCandidate[];
 };
 
-export const groupPoolCandidatesByStep = (pool: Pool): CandidatesByStep[] => {
-  const steps =
-    pool.assessmentSteps
-      ?.sort((stepA, stepB) => {
-        return (stepA?.sortOrder ?? 0) - (stepB?.sortOrder ?? 0);
-      })
-      .filter(notEmpty) ?? [];
+export type ResultStatus = "toAssess" | "success" | "failure";
 
-  let groupedCandidates: CandidatesByStep[] = [];
-  let availableCandidates: PoolCandidate[] =
-    pool.poolCandidates?.filter(notEmpty) ?? [];
+type ResultStatusInfo = {
+  colorStyle: Record<string, string>;
+  icon: IconType;
+  name: string;
+};
 
-  steps.forEach((step) => {
-    const candidatesInStep = availableCandidates.filter((candidate) => {
-      return candidate.assessmentResults?.some(
-        (result) => result?.assessmentStep?.id === step.id,
-      );
-    });
-
-    groupedCandidates = [
-      ...groupedCandidates,
-      {
-        step,
-        candidates: candidatesInStep,
+export const getResultStatusInfo = (
+  status: ResultStatus,
+  intl: IntlShape,
+): ResultStatusInfo => {
+  if (status === "failure") {
+    return {
+      icon: XCircleIcon,
+      colorStyle: {
+        "data-h2-color": "base(error)",
       },
-    ];
+      name: intl.formatMessage({
+        defaultMessage: "Screened out",
+        id: "3xCX4b",
+        description:
+          "Message displayed when candidate has been screened out at a specific assessment step",
+      }),
+    };
+  }
+  if (status === "success") {
+    return {
+      icon: CheckCircleIcon,
+      colorStyle: {
+        "data-h2-color": "base(success)",
+      },
+      name: intl.formatMessage({
+        defaultMessage: "Screened in",
+        id: "3W/NbE",
+        description:
+          "Message displayed when candidate has been screened in at a specific assessment step",
+      }),
+    };
+  }
 
-    // Remove candidates from available array
-    availableCandidates = availableCandidates.filter((available) =>
-      candidatesInStep.some(
-        (candidateInStep) => candidateInStep.id === available.id,
-      ),
-    );
-  });
+  return {
+    icon: ExclamationCircleIcon,
+    colorStyle: {
+      "data-h2-color": "base(warning)",
+    },
+    name: intl.formatMessage({
+      defaultMessage: "To assess",
+      id: "/+naWC",
+      description:
+        "Message displayed when candidate has yet to be assessed at a specific assessment step",
+    }),
+  };
+};
 
-  return groupedCandidates.sort((groupA, groupB) => {
-    return (groupB.step.sortOrder ?? 0) - (groupA.step.sortOrder ?? 0);
-  });
+export type ResultStatusCounts = Record<ResultStatus, number>;
+
+export const getResultStatusCount = (results: AssessmentResult[]) => {
+  const stepAccumulation: ResultStatusCounts = {
+    toAssess: 0,
+    success: 0,
+    failure: 0,
+  };
+
+  return results.reduce(
+    (accumulator: ResultStatusCounts, assessmentResult: AssessmentResult) => {
+      if (
+        assessmentResult?.assessmentDecision === AssessmentDecision.Successful
+      ) {
+        return {
+          ...accumulator,
+          success: accumulator.success + 1,
+        };
+      }
+
+      if (
+        assessmentResult?.assessmentDecision === AssessmentDecision.Unsuccessful
+      ) {
+        return {
+          ...accumulator,
+          failure: accumulator.success + 1,
+        };
+      }
+
+      return {
+        ...accumulator,
+        toAssess: accumulator.toAssess + 1,
+      };
+    },
+    stepAccumulation,
+  );
 };

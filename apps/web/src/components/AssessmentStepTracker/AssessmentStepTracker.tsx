@@ -4,11 +4,12 @@ import { useIntl } from "react-intl";
 import { Pool } from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { groupPoolCandidatesByStep } from "./utils";
+import ResultsDetails from "./ResultsDetails";
+import AssessmentResults from "./AssessmentResults";
 
 interface AssessmentStepTrackerProps {
   pool: Pool;
@@ -17,11 +18,9 @@ interface AssessmentStepTrackerProps {
 const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
 
-  const groupedCandidates = groupPoolCandidatesByStep(pool);
-
   return (
     <Board.Root>
-      {groupedCandidates.map(({ step, candidates }, index) => (
+      {pool.assessmentSteps?.filter(notEmpty).map((step, index) => (
         <Board.Column key={step.id}>
           <Board.ColumnHeader
             prefix={intl.formatMessage(applicationMessages.numberedStep, {
@@ -30,17 +29,10 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
           >
             {getLocalizedName(step.title, intl)}
           </Board.ColumnHeader>
-          <Board.List>
-            {candidates.map((candidate) => (
-              <Board.ListItem key={candidate.id}>
-                {getFullNameLabel(
-                  candidate.user.firstName,
-                  candidate.user.lastName,
-                  intl,
-                )}
-              </Board.ListItem>
-            ))}
-          </Board.List>
+          <ResultsDetails step={step} />
+          <AssessmentResults
+            results={step.assessmentResults?.filter(notEmpty) ?? []}
+          />
         </Board.Column>
       ))}
     </Board.Root>
