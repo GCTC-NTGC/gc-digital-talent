@@ -3584,7 +3584,7 @@
     "description": "Sub title for pool closing date"
   },
   "ID6PLP": {
-    "defaultMessage": "<strong>Non </strong>, c’est une compétence que j’ai utilisée dans le passé.",
+    "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
     "description": "Option for when a skill was only used in the past"
   },
   "IDNjBI": {
@@ -10812,7 +10812,7 @@
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
   "yiqfHr": {
-    "defaultMessage": "<strong>Oui </strong>, J’utilise cette compétence dans mon rôle actuel.",
+    "defaultMessage": "<strong>Oui</strong>, J’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
   },
   "ynGRwF": {
