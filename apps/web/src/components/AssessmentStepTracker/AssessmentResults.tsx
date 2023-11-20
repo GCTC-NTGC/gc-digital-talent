@@ -77,7 +77,11 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
         data-h2-gap="base(0 x.25)"
         data-h2-width="base(100%)"
       >
-        <BookmarkIcon {...iconStyles} data-h2-flex-shrink="base(0)" />
+        <BookmarkIcon
+          {...iconStyles}
+          data-h2-color="base(gray)"
+          data-h2-flex-shrink="base(0)"
+        />
         <Link
           mode="text"
           color="black"
