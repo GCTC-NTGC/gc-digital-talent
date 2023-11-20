@@ -264,10 +264,23 @@ type InfoProps = {
   counter?: number;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (newOpen: boolean) => void;
 };
 
-const Info = ({ title, counter, children, defaultOpen = false }: InfoProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+const Info = ({
+  title,
+  counter,
+  children,
+  defaultOpen = true,
+  onOpenChange,
+  open,
+}: InfoProps) => {
+  const [isOpen, setIsOpen] = useControllableState<boolean>({
+    controlledProp: open,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
 
   return (
     <Collapsible.Root
@@ -303,14 +316,14 @@ const Info = ({ title, counter, children, defaultOpen = false }: InfoProps) => {
           />
           <span className="Info__Trigger__Title">{title}</span>
         </span>
-        {counter && (
+        {counter && counter >= 0 ? (
           <Counter
             count={counter}
             data-h2-radius="base(x.5)"
             data-h2-background="base(gray.lightest)"
             data-h2-padding="base(x.125 x.5)"
           />
-        )}
+        ) : null}
       </Collapsible.Trigger>
       <Collapsible.Content
         data-h2-background="base(background)"
