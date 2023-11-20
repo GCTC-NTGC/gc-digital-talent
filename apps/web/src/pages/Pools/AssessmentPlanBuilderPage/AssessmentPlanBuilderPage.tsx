@@ -5,6 +5,7 @@ import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocu
 import { Scalars } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
+  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
@@ -17,6 +18,7 @@ import {
   Sidebar,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -27,6 +29,7 @@ import {
   useGetAssessmentPlanBuilderDataQuery,
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
+import { routeErrorMessages } from "~/hooks/useErrorMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
@@ -47,11 +50,20 @@ const pageSubtitle = {
 };
 export interface AssessmentPlanBuilderProps {
   pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
+  pageIsLoading: boolean;
 }
 
-export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
+export const AssessmentPlanBuilder = ({
+  pool,
+  pageIsLoading,
+}: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  pool.poolSkills?.sort((a, b) => {
+    const aName = getLocalizedName(a?.skill?.name, intl);
+    const bName = getLocalizedName(b?.skill?.name, intl);
+    return aName.localeCompare(bName);
+  });
 
   return (
     <>
@@ -82,7 +94,7 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <OrganizeSection pool={pool} />
+            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
             <Separator
               orientation="horizontal"
@@ -97,13 +109,19 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
               data-h2-flex-direction="base(column) l-tablet(row)"
               data-h2-align-items="base(flex-start) l-tablet(center)"
             >
-              {/* TODO: switch to submit button */}
-              {intl.formatMessage({
-                defaultMessage: "Save plan and go back",
-                id: "Rbp02p",
-                description:
-                  "Text on a button to save the assessment plan and return to the pool page",
-              })}
+              <Link
+                mode="solid"
+                color="secondary"
+                href={routes.poolView(pool.id)}
+              >
+                {/* Doesn't actually save anything */}
+                {intl.formatMessage({
+                  defaultMessage: "Save plan and go back",
+                  id: "Rbp02p",
+                  description:
+                    "Text on a button to save the assessment plan and return to the pool page",
+                })}
+              </Link>
               <Link
                 type="button"
                 mode="inline"
@@ -128,6 +146,7 @@ export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const routes = useRoutes();
+  const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -173,27 +192,56 @@ export const AssessmentPlanBuilderPage = () => {
     },
   ];
 
+  // RequireAuth in router can't check team roles
+  const authorizedToSeeThePage: boolean =
+    authorization.roleAssignments?.some(
+      (authorizedRoleAssignment) =>
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+    ) ?? false;
+
+  // figure out what content should be displayed
+  const content = (): React.ReactNode => {
+    if (queryData?.pool && authorizedToSeeThePage) {
+      return (
+        <AssessmentPlanBuilder
+          pool={queryData.pool}
+          pageIsLoading={queryFetching}
+        />
+      );
+    }
+    if (!queryData?.pool) {
+      return (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
+                description: "Message displayed for pool not found.",
+              },
+              { poolId },
+            )}
+          </p>
+        </NotFound>
+      );
+    }
+    if (!authorizedToSeeThePage) {
+      // reuse error from routing errors
+      return intl.formatMessage(routeErrorMessages.unauthorizedTitle);
+    }
+
+    // shouldn't drop through to this
+    return intl.formatMessage(errorMessages.unknown);
+  };
+
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={queryFetching} error={queryError}>
-        {queryData?.pool ? (
-          <AssessmentPlanBuilder pool={queryData.pool} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Pool {poolId} not found.",
-                  id: "Sb2fEr",
-                  description: "Message displayed for pool not found.",
-                },
-                { poolId },
-              )}
-            </p>
-          </NotFound>
-        )}
+      <Pending
+        fetching={queryFetching || !authorization.isLoaded}
+        error={queryError}
+      >
+        {content()}
       </Pending>
     </AdminContentWrapper>
   );
