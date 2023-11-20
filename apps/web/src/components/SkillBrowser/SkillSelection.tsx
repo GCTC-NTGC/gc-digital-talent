@@ -112,6 +112,7 @@ const SkillSelection = ({
           <Select
             id="skill-category"
             name="category"
+            doNotSort
             nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             trackUnsaved={false}
             label={intl.formatMessage({
@@ -127,6 +128,7 @@ const SkillSelection = ({
           name="family"
           nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           trackUnsaved={false}
+          doNotSort
           label={intl.formatMessage({
             defaultMessage: "Skill family",
             id: "6ofORn",
