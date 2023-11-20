@@ -6,17 +6,9 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import {
   AssessmentDecision,
   AssessmentResult,
-  AssessmentStep,
-  PoolCandidate,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
-
-export type CandidatesByStep = {
-  step: AssessmentStep;
-  candidates: PoolCandidate[];
-};
-
-export type ResultStatus = "toAssess" | "success" | "failure";
 
 type ResultStatusInfo = {
   colorStyle: Record<string, string>;
@@ -25,10 +17,25 @@ type ResultStatusInfo = {
 };
 
 export const getResultStatusInfo = (
-  status: ResultStatus,
+  decision: Maybe<AssessmentDecision>,
   intl: IntlShape,
 ): ResultStatusInfo => {
-  if (status === "failure") {
+  if (!decision || decision === AssessmentDecision.NotSure) {
+    return {
+      icon: ExclamationCircleIcon,
+      colorStyle: {
+        "data-h2-color": "base(warning)",
+      },
+      name: intl.formatMessage({
+        defaultMessage: "To assess",
+        id: "/+naWC",
+        description:
+          "Message displayed when candidate has yet to be assessed at a specific assessment step",
+      }),
+    };
+  }
+
+  if (decision === AssessmentDecision.Unsuccessful) {
     return {
       icon: XCircleIcon,
       colorStyle: {
@@ -42,69 +49,60 @@ export const getResultStatusInfo = (
       }),
     };
   }
-  if (status === "success") {
-    return {
-      icon: CheckCircleIcon,
-      colorStyle: {
-        "data-h2-color": "base(success)",
-      },
-      name: intl.formatMessage({
-        defaultMessage: "Screened in",
-        id: "3W/NbE",
-        description:
-          "Message displayed when candidate has been screened in at a specific assessment step",
-      }),
-    };
-  }
 
   return {
-    icon: ExclamationCircleIcon,
+    icon: CheckCircleIcon,
     colorStyle: {
-      "data-h2-color": "base(warning)",
+      "data-h2-color": "base(success)",
     },
     name: intl.formatMessage({
-      defaultMessage: "To assess",
-      id: "/+naWC",
+      defaultMessage: "Screened in",
+      id: "3W/NbE",
       description:
-        "Message displayed when candidate has yet to be assessed at a specific assessment step",
+        "Message displayed when candidate has been screened in at a specific assessment step",
     }),
   };
 };
 
-export type ResultStatusCounts = Record<ResultStatus, number>;
+export type ResultStatusCounts = Record<AssessmentDecision, number>;
 
 export const getResultStatusCount = (results: AssessmentResult[]) => {
   const stepAccumulation: ResultStatusCounts = {
-    toAssess: 0,
-    success: 0,
-    failure: 0,
+    [AssessmentDecision.NotSure]: 0,
+    [AssessmentDecision.Successful]: 0,
+    [AssessmentDecision.Unsuccessful]: 0,
   };
 
   return results.reduce(
     (accumulator: ResultStatusCounts, assessmentResult: AssessmentResult) => {
-      if (
-        assessmentResult?.assessmentDecision === AssessmentDecision.Successful
-      ) {
-        return {
-          ...accumulator,
-          success: accumulator.success + 1,
-        };
-      }
-
-      if (
-        assessmentResult?.assessmentDecision === AssessmentDecision.Unsuccessful
-      ) {
-        return {
-          ...accumulator,
-          failure: accumulator.success + 1,
-        };
-      }
-
+      const decision: AssessmentDecision =
+        assessmentResult.assessmentDecision ?? AssessmentDecision.NotSure;
       return {
         ...accumulator,
-        toAssess: accumulator.toAssess + 1,
+        [decision]: accumulator[decision] + 1,
       };
     },
     stepAccumulation,
   );
+};
+
+export const decisionOrder: AssessmentDecision[] = [
+  AssessmentDecision.NotSure,
+  AssessmentDecision.Successful,
+  AssessmentDecision.Unsuccessful,
+];
+
+export const sortResults = (
+  results: AssessmentResult[],
+): AssessmentResult[] => {
+  return results.sort((resultA, resultB) => {
+    return (
+      decisionOrder.indexOf(
+        resultA.assessmentDecision ?? AssessmentDecision.NotSure,
+      ) -
+      decisionOrder.indexOf(
+        resultB.assessmentDecision ?? AssessmentDecision.NotSure,
+      )
+    );
+  });
 };

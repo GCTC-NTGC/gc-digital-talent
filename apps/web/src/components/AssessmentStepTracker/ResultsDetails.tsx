@@ -1,26 +1,26 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { AssessmentStep } from "@gc-digital-talent/graphql";
+import { AssessmentDecision, AssessmentStep } from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
-  ResultStatus,
   getResultStatusInfo,
   getResultStatusCount,
+  decisionOrder,
 } from "./utils";
 
 interface StatusCountProps {
-  status: ResultStatus;
+  decision: AssessmentDecision;
   counter: number;
 }
 
-const StatusCount = ({ status, counter }: StatusCountProps) => {
+const StatusCount = ({ decision, counter }: StatusCountProps) => {
   const intl = useIntl();
-  const { icon, name, colorStyle } = getResultStatusInfo(status, intl);
+  const { icon, name, colorStyle } = getResultStatusInfo(decision, intl);
   const Icon = icon;
 
   return (
@@ -30,7 +30,7 @@ const StatusCount = ({ status, counter }: StatusCountProps) => {
       data-h2-gap="base(0 x.25)"
       data-h2-width="base(100%)"
       data-h2-justify-content="base(space-between)"
-      data-h2-padding="base(x.5 x.35)"
+      data-h2-padding="base(x.25 0)"
       data-h2-font-size="base(caption)"
     >
       <span
@@ -100,14 +100,14 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
             )
       }
     >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.25 0)"
-      >
-        <StatusCount status="toAssess" counter={stepCounts.toAssess} />
-        <StatusCount status="success" counter={stepCounts.success} />
-        <StatusCount status="failure" counter={stepCounts.failure} />
+      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+        {decisionOrder.map((decision) => (
+          <StatusCount
+            key={decision}
+            decision={decision}
+            counter={stepCounts[decision]}
+          />
+        ))}
       </div>
     </Board.Info>
   );

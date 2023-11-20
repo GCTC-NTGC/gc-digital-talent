@@ -377,11 +377,15 @@ const ListItem = React.forwardRef<
       tabIndex={-1}
       onClick={ctx?.handleClickItem}
       data-h2-outline="base(none)"
-      data-h2-padding="base(x.25 0)"
-      data-h2-background-color="base:focus-visible:children[div](primary.30)"
+      data-h2-padding="base(x.5 0)"
+      data-h2-background-color="base:focus-visible:children[.Board__Item__Wrapper](primary.30)"
       {...rest}
     >
-      <div data-h2-radius="base(s)" data-h2-padding="base(x.125)">
+      <div
+        className="Board__Item__Wrapper"
+        data-h2-radius="base(s)"
+        data-h2-padding="base(x.125)"
+      >
         {children}
       </div>
     </li>
