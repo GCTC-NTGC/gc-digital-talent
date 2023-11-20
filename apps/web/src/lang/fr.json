@@ -10812,7 +10812,7 @@
     "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
   "yiqfHr": {
-    "defaultMessage": "<strong>Oui</strong>, J’utilise cette compétence dans mon rôle actuel.",
+    "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
   },
   "ynGRwF": {
