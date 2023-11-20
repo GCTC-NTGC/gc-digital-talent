@@ -8,8 +8,8 @@ import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
-  getResultStatusInfo,
-  getResultStatusCount,
+  getDecisionInfo,
+  getResultDecisionCount,
   decisionOrder,
 } from "./utils";
 
@@ -20,7 +20,7 @@ interface StatusCountProps {
 
 const StatusCount = ({ decision, counter }: StatusCountProps) => {
   const intl = useIntl();
-  const { icon, name, colorStyle } = getResultStatusInfo(decision, intl);
+  const { icon, name, colorStyle } = getDecisionInfo(decision, intl);
   const Icon = icon;
 
   return (
@@ -68,7 +68,7 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const intl = useIntl();
   const assessmentResults = step.assessmentResults?.filter(notEmpty);
-  const stepCounts = getResultStatusCount(assessmentResults ?? []);
+  const stepCounts = getResultDecisionCount(assessmentResults ?? []);
   const stepTitle = getLocalizedName(step.title, intl);
 
   return (

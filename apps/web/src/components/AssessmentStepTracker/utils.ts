@@ -10,16 +10,16 @@ import {
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 
-type ResultStatusInfo = {
+type DecisionInfo = {
   colorStyle: Record<string, string>;
   icon: IconType;
   name: string;
 };
 
-export const getResultStatusInfo = (
+export const getDecisionInfo = (
   decision: Maybe<AssessmentDecision>,
   intl: IntlShape,
-): ResultStatusInfo => {
+): DecisionInfo => {
   if (!decision || decision === AssessmentDecision.NotSure) {
     return {
       icon: ExclamationCircleIcon,
@@ -64,17 +64,17 @@ export const getResultStatusInfo = (
   };
 };
 
-export type ResultStatusCounts = Record<AssessmentDecision, number>;
+export type ResultDecisionCounts = Record<AssessmentDecision, number>;
 
-export const getResultStatusCount = (results: AssessmentResult[]) => {
-  const stepAccumulation: ResultStatusCounts = {
+export const getResultDecisionCount = (results: AssessmentResult[]) => {
+  const stepAccumulation: ResultDecisionCounts = {
     [AssessmentDecision.NotSure]: 0,
     [AssessmentDecision.Successful]: 0,
     [AssessmentDecision.Unsuccessful]: 0,
   };
 
   return results.reduce(
-    (accumulator: ResultStatusCounts, assessmentResult: AssessmentResult) => {
+    (accumulator: ResultDecisionCounts, assessmentResult: AssessmentResult) => {
       const decision: AssessmentDecision =
         assessmentResult.assessmentDecision ?? AssessmentDecision.NotSure;
       return {

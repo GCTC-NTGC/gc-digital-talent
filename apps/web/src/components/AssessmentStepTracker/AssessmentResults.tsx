@@ -11,7 +11,7 @@ import { Board, Link } from "@gc-digital-talent/ui";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import useRoutes from "../../hooks/useRoutes";
-import { getResultStatusInfo, sortResults } from "./utils";
+import { getDecisionInfo, sortResults } from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -58,7 +58,7 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
   // We should always have one, but if not, don't show anything
   if (!result.poolCandidate) return null;
 
-  const { icon, colorStyle, name } = getResultStatusInfo(
+  const { icon, colorStyle, name } = getDecisionInfo(
     result.assessmentDecision,
     intl,
   );
