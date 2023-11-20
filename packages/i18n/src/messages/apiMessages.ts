@@ -46,6 +46,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "xSecEX",
       description: "Error message that the given skill key is already in use.",
     },
+    DuplicateUserSkill: {
+      defaultMessage:
+        "The skill you selected is already linked to your profile.",
+      id: "wUJqDi",
+      description:
+        "Error message that the skill selected is already linked to the user profile.",
+    },
 
     // team validation
     TeamNameInUse: {
