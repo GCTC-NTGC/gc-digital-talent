@@ -4,6 +4,8 @@
 import React from "react";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import Collapsible from "../Collapsible";
 import Counter from "../Button/Counter";
 import useControllableState from "../../hooks/useControllableState";
@@ -54,6 +56,14 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       setColumns(findColumns(rootRef.current));
     }, []);
 
+    /**
+     * "Select" an item, focusing it and setting
+     * column and item index
+     *
+     * @param {number} newItem - The new item index
+     * @param {number} newColumn - The new column index
+     * @param {boolean} preventFocus - If true, select the item but do not focus it
+     */
     const selectItem = (
       newItem: number,
       newColumn?: number,
@@ -73,6 +83,12 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       }
     };
 
+    /**
+     * Increment item
+     *
+     * Increase the item index by 1,
+     * if it exists in the current column
+     */
     const incrementItem = () => {
       const { items } = columns[columnIndex];
       let targetItem = itemIndex + 1;
@@ -82,6 +98,12 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       selectItem(targetItem);
     };
 
+    /**
+     * Decrement item
+     *
+     * Decrease the item index by 1,
+     * if it exists in the current column
+     */
     const decrementItem = () => {
       let targetIndex = itemIndex - 1;
       if (targetIndex < 0) targetIndex = 0;
@@ -89,9 +111,16 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       selectItem(targetIndex);
     };
 
+    /**
+     * Increment column
+     *
+     * Increase the column index by 1,
+     * if it exists in the current column
+     */
     const incrementColumn = () => {
       let targetIndex = columnIndex + 1;
       const lastIndex = columns.length - 1;
+      // Persist current index, selecting last item if column length less than index
       if (targetIndex > lastIndex) targetIndex = lastIndex;
       const lastItemIndex = columns[targetIndex].items.length - 1;
 
@@ -101,9 +130,16 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       );
     };
 
+    /**
+     * Decrement column
+     *
+     * Decrease the column index by 1,
+     * if it exists in the current column
+     */
     const decrementColumn = () => {
       let targetColumn = columnIndex - 1;
       if (targetColumn < 0) targetColumn = 0;
+      // Persist current index, selecting last item if column length less than index
       const lastItemIndex = columns[targetColumn].items.length - 1;
       const targetItem = lastItemIndex < itemIndex ? lastItemIndex : itemIndex;
 
@@ -133,27 +169,39 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       }
     };
 
+    /**
+     * Handle
+     *
+     * Update the internal state when the user
+     * changes the focus manually
+     */
     const handleFocus = (event: React.FocusEvent) => {
       const target = event.target as HTMLElement;
-      let targetItem: HTMLElement | null = target;
+      let targetItem: HTMLElement | null | undefined = target
+        .closest<HTMLElement>(".Board__Column")
+        ?.querySelector<HTMLElement>(".Board__Item");
       if (target.classList.contains("Board__List")) {
-        targetItem = target.querySelector(".Board__Item");
-      } else if (target.nodeName) {
-        targetItem = target.closest(".Board__Item");
+        // If it is a list, get the first item
+        targetItem = target.querySelector<HTMLElement>(".Board__Item");
+      } else if (target.classList.contains("Board__Item")) {
+        // If we focused an item, do nothing
+        targetItem = null;
       }
 
-      columns.every((column, colIndex) => {
-        let continueSearch: boolean = true;
-        column.items.every((item, index) => {
-          if (item.isSameNode(targetItem)) {
-            selectItem(index, colIndex, true);
-            continueSearch = false;
-          }
-          return true;
-        });
+      if (notEmpty(targetItem)) {
+        columns.every((column, colIndex) => {
+          let continueSearch: boolean = true;
+          column.items.every((item, index) => {
+            if (notEmpty(targetItem) && item.isSameNode(targetItem)) {
+              selectItem(index, colIndex, true);
+              continueSearch = false;
+            }
+            return true;
+          });
 
-        return continueSearch;
-      });
+          return continueSearch;
+        });
+      }
     };
 
     return (
