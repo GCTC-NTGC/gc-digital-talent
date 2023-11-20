@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
-import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
@@ -27,10 +27,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
+import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import {
@@ -60,6 +57,7 @@ import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
+import DeadlineDialog from "./components/DeadlineDialog";
 
 type SectionContent = {
   id: string;
@@ -402,19 +400,37 @@ export const PoolPoster = ({
                   }
                 />
                 <DataRow
-                  Icon={CalendarDaysIcon}
+                  Icon={CalendarIcon}
                   label={intl.formatMessage({
-                    defaultMessage: "Apply before:",
-                    id: "NSois3",
+                    defaultMessage: "Deadline:",
+                    id: "l9CTjM",
                     description: "Label for pool advertisement closing date",
                   })}
                   value={
                     pool.closingDate
-                      ? relativeClosingDate({
-                          closingDate: parseDateTimeUtc(pool.closingDate),
-                          intl,
-                        })
+                      ? intl.formatMessage(
+                          {
+                            defaultMessage: "Apply on or before {closingDate}",
+                            id: "LjYzkS",
+                            description:
+                              "Message to apply to the pool before deadline",
+                          },
+                          {
+                            closingDate: formatDate({
+                              date: parseDateTimeUtc(pool.closingDate),
+                              formatString: "PPP",
+                              intl,
+                            }),
+                          },
+                        )
                       : notAvailable
+                  }
+                  suffix={
+                    pool.closingDate ? (
+                      <DeadlineDialog
+                        deadline={parseDateTimeUtc(pool.closingDate)}
+                      />
+                    ) : null
                   }
                 />
                 <DataRow
