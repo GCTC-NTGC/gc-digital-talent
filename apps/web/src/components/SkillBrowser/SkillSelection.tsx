@@ -20,6 +20,7 @@ import useRoutes from "~/hooks/useRoutes";
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
 import {
+  formatOption,
   getCategoryOptions,
   getFamilyOptions,
   getFilteredFamilies,
@@ -131,10 +132,11 @@ const SkillSelection = ({
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: `${getLocalizedName(
-                skillFamily.name,
+              label: formatOption(
+                getLocalizedName(skillFamily.name, intl),
+                getSkillFamilySkillCount(skills, skillFamily),
                 intl,
-              )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
+              ),
             })),
           ]}
         />
