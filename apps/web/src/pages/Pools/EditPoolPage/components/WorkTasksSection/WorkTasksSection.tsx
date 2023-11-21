@@ -164,7 +164,7 @@ const WorkTasksSection = ({
                       description:
                         "Text on a button to save the pool work tasks",
                     })}
-                    color="tertiary"
+                    color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />

@@ -159,6 +159,10 @@ const ApplicationReview = ({
     application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
+
+  const classificationGroup = application.pool.classifications
+    ? application.pool.classifications[0]?.group
+    : undefined;
   return (
     <section>
       <Heading
@@ -287,13 +291,21 @@ const ApplicationReview = ({
         })}
       >
         <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
-            id: "rCpVpZ",
-            description:
-              "Message on education requirements card on the application review page.",
-          })}
+          {classificationGroup === "EX"
+            ? intl.formatMessage({
+                defaultMessage:
+                  "You've indicated that you meet the <strong>minimum experience or education requirement (graduation with degree)</strong> with the following experiences on your career timeline:",
+                id: "p5qn9H",
+                description:
+                  "Message on education requirements card on the application review page.",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
+                id: "rCpVpZ",
+                description:
+                  "Message on education requirements card on the application review page.",
+              })}
         </p>
         <div
           data-h2-display="base(grid)"

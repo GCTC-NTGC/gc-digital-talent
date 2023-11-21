@@ -1,8 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
-import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
+import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
 
 import { PoolStatus, PublishingGroup } from "~/api/generated";
@@ -25,14 +24,9 @@ export default {
 
 const Template: Story = () => <BrowsePools pools={mockPools} />;
 
-const VIEWPORTS = [
-  widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone
-  heightOf(INITIAL_VIEWPORTS.ipad12p), // Most common viewport size that falls within chromatic range
-];
-
 export const Default = Template.bind({});
 Default.parameters = {
-  chromatic: { viewports: VIEWPORTS },
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
   hasDarkMode: true,
   themeKey: "default",
 };

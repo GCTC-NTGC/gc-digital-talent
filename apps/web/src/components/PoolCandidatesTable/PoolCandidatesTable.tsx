@@ -713,8 +713,8 @@ const PoolCandidatesTable = ({
             allSkills?.filter(
               (skill) => filteredSkillIds?.includes(skill.id),
             ) ?? [],
-            user.experiences?.filter(notEmpty) ?? [],
             skillCount,
+            user.id,
             `${user.firstName} ${user.lastName}`,
           ),
       },

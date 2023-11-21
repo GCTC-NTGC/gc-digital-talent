@@ -181,7 +181,7 @@ export const CreatePoolForm = ({
               />
               <div data-h2-align-self="base(flex-start)">
                 <Submit
-                  color="tertiary"
+                  color="secondary"
                   text={intl.formatMessage({
                     defaultMessage: "Create new pool",
                     id: "TLl20s",

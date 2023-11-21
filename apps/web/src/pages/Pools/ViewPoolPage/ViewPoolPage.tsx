@@ -17,6 +17,7 @@ import {
   PoolStatus,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -30,9 +31,9 @@ import {
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
-import { PoolCompleteness } from "~/types/pool";
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -69,14 +70,14 @@ export const ViewPool = ({
   const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const assessmentStatus = "incomplete" as PoolCompleteness;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -105,16 +106,9 @@ export const ViewPool = ({
     description: "Subtitle for the individual pool page",
   });
 
-  /** TO DO: Replace this message and link with
-   * appropriate values once assessment plan feature
-   * has been developed (#7916)
-   */
-  const comingSoon = intl.formatMessage({
-    defaultMessage: "Coming soon",
-    id: "/IMv2G",
-    description:
-      "Message displayed when a feature is in development and not ready yet",
-  });
+  const isReadyToPublish =
+    getAdvertisementStatus(pool) === "complete" &&
+    getAssessmentPlanStatus(pool) === "complete";
 
   return (
     <>
@@ -212,14 +206,16 @@ export const ViewPool = ({
                     "Title for card for actions related to a process' assessment plan",
                 })}
               </Heading>
-              <Pill
-                bold
-                mode="outline"
-                color="black"
-                data-h2-flex-shrink="base(0)"
-              >
-                {comingSoon}
-              </Pill>
+              {recordOfDecisionFlag && (
+                <Pill
+                  bold
+                  mode="outline"
+                  color={assessmentBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {intl.formatMessage(assessmentBadge.label)}
+                </Pill>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -231,22 +227,34 @@ export const ViewPool = ({
               })}
             </p>
             <ProcessCard.Footer>
-              <Link mode="inline" color="secondary" href="#">
-                {comingSoon}
-                {/* {assessmentStatus === "submitted"
-                  ? intl.formatMessage({
-                      defaultMessage: "View assessment plan",
-                      id: "1X7JVN",
-                      description:
-                        "Link text to view a specific pool assessment",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Edit assessment plan",
-                      id: "Q3adCp",
-                      description:
-                        "Link text to edit a specific pool assessment",
-                    })} */}
-              </Link>
+              {recordOfDecisionFlag ? (
+                <Link
+                  mode="inline"
+                  color="secondary"
+                  href={paths.assessmentPlanBuilder(pool.id)}
+                >
+                  {assessmentStatus === "submitted"
+                    ? intl.formatMessage({
+                        defaultMessage: "View assessment plan",
+                        id: "1X7JVN",
+                        description:
+                          "Link text to view a specific pool assessment",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Edit assessment plan",
+                        id: "Q3adCp",
+                        description:
+                          "Link text to edit a specific pool assessment",
+                      })}
+                </Link>
+              ) : (
+                intl.formatMessage({
+                  defaultMessage: "Coming soon",
+                  id: "/IMv2G",
+                  description:
+                    "Message displayed when a feature is in development and not ready yet",
+                })
+              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
           <ProcessCard.Root data-h2-grid-column="l-tablet(span 2)">
@@ -345,7 +353,9 @@ export const ViewPool = ({
             )}
             <ProcessCard.Footer>
               {!canPublish && pool.status === PoolStatus.Draft && (
-                <SubmitForPublishingDialog isReadyToPublish={pool.isComplete} />
+                <SubmitForPublishingDialog
+                  isReadyToPublish={isReadyToPublish}
+                />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
@@ -385,6 +395,7 @@ export const ViewPool = ({
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
                   onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
                 />
               )}
             </ProcessCard.Footer>

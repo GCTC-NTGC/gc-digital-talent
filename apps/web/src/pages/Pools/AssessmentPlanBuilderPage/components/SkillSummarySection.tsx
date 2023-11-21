@@ -2,11 +2,11 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { PAGE_SECTION_ID } from "../navigation";
+import SkillSummaryTable from "./SkillSummaryTable";
 
 const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
@@ -78,18 +78,11 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
         </Accordion.Item>
       </Accordion.Root>
       <div data-h2-margin-top="base(x1)">
-        {/* TODO: replace with skill summary table */}
-        {pool.assessmentSteps
-          ?.filter(notEmpty)
-          .sort((a: AssessmentStep, b: AssessmentStep) =>
-            (a.sortOrder ?? 0) > (b.sortOrder ?? 0) ? 1 : -1,
-          )
-          .map((step: AssessmentStep) => (
-            <div key={step.id}>
-              <p>{step.type}</p>
-              <p>{getLocalizedName(step.title, intl)}</p>
-            </div>
-          ))}
+        <SkillSummaryTable
+          poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+          assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
+          title={intl.formatMessage(sectionTitle)}
+        />
       </div>
     </>
   );

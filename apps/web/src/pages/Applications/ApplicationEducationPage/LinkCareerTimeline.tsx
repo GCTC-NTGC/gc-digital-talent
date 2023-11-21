@@ -171,6 +171,7 @@ const LinkCareerTimeline = ({
     switch (watchEducationRequirement) {
       // If "I meet the applied work experience" option is selected, checkboxes are displayed for every experience.
       case EducationRequirementOption.AppliedWork:
+      case EducationRequirementOption.ProfessionalDesignation:
         return (
           <>
             <p data-h2-margin="base(0, 0, x.5, 0)">

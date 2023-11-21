@@ -16,7 +16,6 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
@@ -1930,6 +1929,7 @@ enum ApplicationStep {
 enum EducationRequirementOption {
   APPLIED_WORK
   EDUCATION
+  PROFESSIONAL_DESIGNATION
 }
 
 enum LanguageAbility {
