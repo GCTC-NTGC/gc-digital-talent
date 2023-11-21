@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import {
   Checklist,
+  Field,
   RadioGroup,
   Select,
   enumToOptions,
@@ -25,9 +26,9 @@ import {
 
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
+import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 
 import FilterBlock from "./FilterBlock";
-import AddSkillsToFilter from "./AddSkillsToFilter";
 import AdvancedFilters from "./AdvancedFilters";
 import { getClassificationLabel } from "../utils";
 import { classificationAriaLabels, classificationLabels } from "../labels";
@@ -133,7 +134,31 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
           />
         </div>
       </FilterBlock>
-      <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
+      <FilterBlock
+        id="skills"
+        title={intl.formatMessage({
+          defaultMessage: "Skills selection",
+          id: "eFvsOG",
+          description: "Title for the skill filters on search page.",
+        })}
+        text={intl.formatMessage({
+          defaultMessage:
+            "Help us match you to the best candidates by sharing more information with our team on the exact skills you are looking for.",
+          id: "R75HsV",
+          description:
+            "Describing the purpose of the skill filters on the Search page.",
+        })}
+      >
+        <SkillBrowser skills={skills || []} name="skills" />
+        <Field.Context data-h2-margin-top="base(x.25)">
+          {intl.formatMessage({
+            defaultMessage:
+              "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected skills",
+            id: "kLGIuJ",
+            description: "Context for skills selection filter in search form.",
+          })}
+        </Field.Context>
+      </FilterBlock>
       <FilterBlock
         id="workingLanguageFilter"
         title={intl.formatMessage({

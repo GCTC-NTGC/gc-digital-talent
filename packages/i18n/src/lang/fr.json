@@ -1731,6 +1731,10 @@
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
   },
+  "wUJqDi": {
+    "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
+    "description": "Error message that the skill selected is already linked to the user profile."
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
