@@ -5399,6 +5399,10 @@
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
   },
+  "TU9sk7": {
+    "defaultMessage": "Soumettez votre demande filtrée pour obtenir un talent.",
+    "description": "Subtitle displayed on hero for Search and Request pages."
+  },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
