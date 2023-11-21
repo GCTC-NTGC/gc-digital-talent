@@ -5,6 +5,8 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import {
   ArmedForcesStatus,
   AssessmentResult,
+  AssessmentStepType,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { Board, Link } from "@gc-digital-talent/ui";
 
@@ -52,9 +54,14 @@ const Priority = ({ type }: PriorityProps) => {
 interface AssessmentResultProps {
   result: AssessmentResult;
   ordinal: number;
+  isApplicationStep: boolean;
 }
 
-const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
+const AssessmentResult = ({
+  result,
+  ordinal,
+  isApplicationStep,
+}: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -63,6 +70,7 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
 
   const { icon, colorStyle, name } = getDecisionInfo(
     result.assessmentDecision,
+    isApplicationStep,
     intl,
   );
   const Icon = icon;
@@ -120,14 +128,23 @@ const AssessmentResult = ({ result, ordinal }: AssessmentResultProps) => {
 
 interface AssessmentResultsProps {
   results: AssessmentResult[];
+  stepType: Maybe<AssessmentStepType>;
 }
-const AssessmentResults = ({ results }: AssessmentResultsProps) => {
+
+const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
   const sortedResults = sortResults(results);
+  const isApplicationStep =
+    stepType === AssessmentStepType.ApplicationScreening;
 
   return (
     <Board.List>
       {sortedResults.map((result, index) => (
-        <AssessmentResult key={result.id} result={result} ordinal={index + 1} />
+        <AssessmentResult
+          key={result.id}
+          result={result}
+          ordinal={index + 1}
+          isApplicationStep={isApplicationStep}
+        />
       ))}
     </Board.List>
   );

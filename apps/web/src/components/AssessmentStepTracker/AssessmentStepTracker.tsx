@@ -31,6 +31,7 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
           </Board.ColumnHeader>
           <ResultsDetails step={step} />
           <AssessmentResults
+            stepType={step.type}
             results={step.assessmentResults?.filter(notEmpty) ?? []}
           />
         </Board.Column>

@@ -1,7 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { AssessmentDecision, AssessmentStep } from "@gc-digital-talent/graphql";
+import {
+  AssessmentDecision,
+  AssessmentStep,
+  AssessmentStepType,
+} from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
@@ -14,13 +18,22 @@ import {
 } from "./utils";
 
 interface StatusCountProps {
-  decision: AssessmentDecision;
   counter: number;
+  decision: AssessmentDecision;
+  isApplicationStep: boolean;
 }
 
-const StatusCount = ({ decision, counter }: StatusCountProps) => {
+const StatusCount = ({
+  decision,
+  counter,
+  isApplicationStep,
+}: StatusCountProps) => {
   const intl = useIntl();
-  const { icon, name, colorStyle } = getDecisionInfo(decision, intl);
+  const { icon, name, colorStyle } = getDecisionInfo(
+    decision,
+    isApplicationStep,
+    intl,
+  );
   const Icon = icon;
 
   return (
@@ -70,6 +83,8 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
   const assessmentResults = step.assessmentResults?.filter(notEmpty);
   const stepCounts = getResultDecisionCount(assessmentResults ?? []);
   const stepTitle = getLocalizedName(step.title, intl);
+  const isApplicationStep =
+    step.type === AssessmentStepType.ApplicationScreening;
 
   return (
     <Board.Info
@@ -106,6 +121,7 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
             key={decision}
             decision={decision}
             counter={stepCounts[decision]}
+            isApplicationStep={isApplicationStep}
           />
         ))}
       </div>

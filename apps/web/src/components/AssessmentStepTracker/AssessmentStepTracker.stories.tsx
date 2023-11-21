@@ -13,6 +13,7 @@ import {
   AssessmentResultJustification,
   AssessmentResultType,
   AssessmentStep,
+  AssessmentStepType,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
 
@@ -20,7 +21,15 @@ import AssessmentStepTracker from "./AssessmentStepTracker";
 
 faker.seed(0);
 
-const assessmentSteps: AssessmentStep[] = fakeAssessmentSteps(3);
+let assessmentSteps: AssessmentStep[] = fakeAssessmentSteps(3);
+assessmentSteps = [
+  {
+    ...assessmentSteps[0],
+    type: AssessmentStepType.ApplicationScreening,
+  },
+  ...assessmentSteps.slice(1, 3),
+];
+
 const candidates: PoolCandidate[] = fakePoolCandidates(20).map((candidate) => {
   const furthestStep = faker.number.int({ min: 1, max: 3 });
   return {

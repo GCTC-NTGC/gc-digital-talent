@@ -19,6 +19,7 @@ type DecisionInfo = {
 
 export const getDecisionInfo = (
   decision: Maybe<AssessmentDecision>,
+  isApplicationStep: boolean,
   intl: IntlShape,
 ): DecisionInfo => {
   if (!decision || decision === AssessmentDecision.NotSure) {
@@ -42,12 +43,19 @@ export const getDecisionInfo = (
       colorStyle: {
         "data-h2-color": "base(error)",
       },
-      name: intl.formatMessage({
-        defaultMessage: "Screened out",
-        id: "3xCX4b",
-        description:
-          "Message displayed when candidate has been screened out at a specific assessment step",
-      }),
+      name: isApplicationStep
+        ? intl.formatMessage({
+            defaultMessage: "Screened out",
+            id: "3xCX4b",
+            description:
+              "Message displayed when candidate has been screened out at a specific assessment step",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Successful",
+            id: "Whq2Xl",
+            description:
+              "Message displayed when candidate has successfully passed an assessment step",
+          }),
     };
   }
 
@@ -56,12 +64,19 @@ export const getDecisionInfo = (
     colorStyle: {
       "data-h2-color": "base(success)",
     },
-    name: intl.formatMessage({
-      defaultMessage: "Screened in",
-      id: "3W/NbE",
-      description:
-        "Message displayed when candidate has been screened in at a specific assessment step",
-    }),
+    name: isApplicationStep
+      ? intl.formatMessage({
+          defaultMessage: "Screened in",
+          id: "3W/NbE",
+          description:
+            "Message displayed when candidate has been screened in at a specific assessment step",
+        })
+      : intl.formatMessage({
+          defaultMessage: "Unsuccessful",
+          id: "TIAla1",
+          description:
+            "Message displayed when candidate has not passed an assessment step",
+        }),
   };
 };
 
