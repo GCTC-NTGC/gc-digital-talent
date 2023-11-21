@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators\Mutation;
 
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use App\Rules\AssessmentStepComplete;
+use App\Rules\PoolSkillIsAssessed;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class PublishPoolValidator extends Validator
@@ -16,13 +17,19 @@ final class PublishPoolValidator extends Validator
     public function rules(): array
     {
         $completenessRules = (new PoolIsCompleteValidator)->rules();
+        // requirements for a pool to be promoted from "complete" to "published"
         $publishingRules = [
             'assessment_steps.*.id' => [
                 'uuid',
                 'exists:assessment_steps,id',
                 new AssessmentStepComplete,
             ],
-        ]; // requirements for a pool to be promoted from "complete" to "published"
+            'pool_skills.*.id' => [
+                'uuid',
+                'exists:pool_skill,id',
+                new PoolSkillIsAssessed,
+            ],
+        ];
 
         return array_merge($completenessRules, $publishingRules);
     }

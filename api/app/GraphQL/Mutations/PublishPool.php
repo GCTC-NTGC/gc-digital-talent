@@ -27,6 +27,7 @@ final class PublishPool
                     $query->withTrashed();
                 },
                 'assessmentSteps',
+                'poolSkills',
             ]);
         $poolValidation = new PublishPoolValidator;
         $validator = Validator::make($pool->toArray(), $poolValidation->rules(), $poolValidation->messages()); // First validate pool before updating.
