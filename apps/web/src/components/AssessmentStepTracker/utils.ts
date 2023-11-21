@@ -4,6 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import {
+  ArmedForcesStatus,
   AssessmentDecision,
   AssessmentResult,
   Maybe,
@@ -96,13 +97,30 @@ export const sortResults = (
   results: AssessmentResult[],
 ): AssessmentResult[] => {
   return results.sort((resultA, resultB) => {
+    const decisionA = decisionOrder.indexOf(
+      resultA.assessmentDecision ?? AssessmentDecision.NotSure,
+    );
+    const isPriorityA = Number(
+      resultA.poolCandidate?.user.hasPriorityEntitlement,
+    );
+    const isVetA = Number(
+      resultA.poolCandidate?.user.armedForcesStatus ===
+        ArmedForcesStatus.Veteran,
+    );
+
+    const decisionB = decisionOrder.indexOf(
+      resultB.assessmentDecision ?? AssessmentDecision.NotSure,
+    );
+    const isPriorityB = Number(
+      resultB.poolCandidate?.user.hasPriorityEntitlement,
+    );
+    const isVetB = Number(
+      resultB.poolCandidate?.user.armedForcesStatus ===
+        ArmedForcesStatus.Veteran,
+    );
+
     return (
-      decisionOrder.indexOf(
-        resultA.assessmentDecision ?? AssessmentDecision.NotSure,
-      ) -
-      decisionOrder.indexOf(
-        resultB.assessmentDecision ?? AssessmentDecision.NotSure,
-      )
+      decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
     );
   });
 };
