@@ -161,7 +161,7 @@ const WhatToExpectSection = ({
                       description:
                         "Text on a button to save the pool what to expect",
                     })}
-                    color="tertiary"
+                    color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />

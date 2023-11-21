@@ -14,6 +14,7 @@ import { ProcessDialogProps } from "./types";
 type PublishProcessDialogProps = ProcessDialogProps & {
   closingDate: Pool["closingDate"];
   onPublish: () => Promise<void>;
+  isReadyToPublish: boolean;
 };
 
 const PublishProcessDialog = ({
@@ -21,6 +22,7 @@ const PublishProcessDialog = ({
   closingDate,
   isFetching,
   onPublish,
+  isReadyToPublish,
 }: PublishProcessDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const intl = useIntl();
@@ -55,7 +57,7 @@ const PublishProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="inline">
+        <Button color="primary" disabled={!isReadyToPublish}>
           {title}
         </Button>
       </Dialog.Trigger>

@@ -188,7 +188,7 @@ const SpecialNoteSection = ({
                       description:
                         "Text on a button to save the pool special note",
                     })}
-                    color="tertiary"
+                    color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />
