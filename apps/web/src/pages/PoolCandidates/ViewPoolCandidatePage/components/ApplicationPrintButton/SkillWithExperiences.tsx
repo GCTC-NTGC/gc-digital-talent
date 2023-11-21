@@ -39,7 +39,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const getRelevantSkillRecord = (
+const getRelevantSkillRecordDetails = (
   experience: Experience,
   sectionSkill: Skill,
 ): string | null => {
@@ -48,14 +48,7 @@ const getRelevantSkillRecord = (
     (skill) => skill.id === sectionSkill.id,
   );
 
-  if (
-    applicableSkill &&
-    applicableSkill.experienceSkillRecord &&
-    applicableSkill.experienceSkillRecord.details
-  ) {
-    return applicableSkill.experienceSkillRecord.details;
-  }
-  return null;
+  return applicableSkill?.experienceSkillRecord?.details ?? null;
 };
 
 export interface SkillWithExperiencesProps {
@@ -105,7 +98,7 @@ const SkillWithExperiences = ({
           <p>
             {experienceFormLabels.howIUsed}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecord(experience, sectionSkill) ??
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
               intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>{details}</p>
@@ -137,7 +130,7 @@ const SkillWithExperiences = ({
           <p>
             {experienceFormLabels.howIUsed}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecord(experience, sectionSkill) ??
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
               intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>
@@ -170,7 +163,7 @@ const SkillWithExperiences = ({
           <p>
             {experienceFormLabels.howIUsed}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecord(experience, sectionSkill) ??
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
               intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>
@@ -191,7 +184,7 @@ const SkillWithExperiences = ({
           <p>
             {experienceFormLabels.howIUsed}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecord(experience, sectionSkill) ??
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
               intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>
@@ -221,7 +214,7 @@ const SkillWithExperiences = ({
         <p>
           {experienceFormLabels.howIUsed}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {getRelevantSkillRecord(experience, sectionSkill) ??
+          {getRelevantSkillRecordDetails(experience, sectionSkill) ??
             intl.formatMessage(commonMessages.notAvailable)}
         </p>
         <p>
