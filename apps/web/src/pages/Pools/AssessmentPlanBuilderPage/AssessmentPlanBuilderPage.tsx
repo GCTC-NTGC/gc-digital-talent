@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { Scalars } from "@gc-digital-talent/graphql";
@@ -14,6 +14,7 @@ import {
   Link,
   NotFound,
   Pending,
+  Pill,
   Separator,
   Sidebar,
 } from "@gc-digital-talent/ui";
@@ -30,24 +31,25 @@ import {
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
-import { getAssessmentPlanStatusPill } from "./utils";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = {
+const pageTitle = defineMessage({
   defaultMessage: "Assessment plan",
   id: "fkYYe3",
   description: "Title for the assessment plan builder",
-};
+});
 
-const pageSubtitle = {
+const pageSubtitle = defineMessage({
   defaultMessage:
     "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every skill is assessed at least once to complete your assessment plan.",
   id: "SSZY5w",
   description: "Subtitle for the assessment plan builder",
-};
+});
 export interface AssessmentPlanBuilderProps {
   pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
   pageIsLoading: boolean;
@@ -65,6 +67,9 @@ export const AssessmentPlanBuilder = ({
     return aName.localeCompare(bName);
   });
 
+  const assessmentStatus = getAssessmentPlanStatus(pool);
+  const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
+
   return (
     <>
       <SEO
@@ -75,7 +80,14 @@ export const AssessmentPlanBuilder = ({
         <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
           {intl.formatMessage(pageTitle)}
           <div data-h2-flex-grow="base(2)" />
-          {getAssessmentPlanStatusPill(pool, intl)}
+          <Pill
+            bold
+            mode="outline"
+            color={assessmentBadge.color}
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(assessmentBadge.label)}
+          </Pill>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
         <Separator
