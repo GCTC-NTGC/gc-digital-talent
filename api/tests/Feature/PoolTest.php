@@ -1,6 +1,8 @@
 <?php
 
+use App\Enums\AssessmentStepType;
 use App\Enums\PoolStatus;
+use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
@@ -719,5 +721,57 @@ class PoolTest extends TestCase
                 ]
             )
             ->assertJsonFragment(['isComplete' => false]);
+    }
+
+    public function testAssessmentStepValidation(): void
+    {
+        Classification::factory()->create();
+        Skill::factory()->count(5)->create();
+        $completePool = Pool::factory()->published()->create([
+            'closing_date' => config('constants.far_future_date'),
+            'published_at' => null,
+        ]);
+
+        $step = AssessmentStep::factory()->create(
+            [
+                'pool_id' => $completePool->id,
+                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
+            ]
+        );
+
+        // assert cannot publish due to the additional assessment step not having any pool skills
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                        mutation PublishPool($id: ID!) {
+                            publishPool(id: $id) {
+                                id
+                            }
+                        }
+                ',
+            [
+                'id' => $completePool->id,
+            ]
+        )
+            ->assertGraphQLErrorMessage('AssessmentStepMissingSkills');
+
+        $step->type = AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
+        $step->save();
+
+        // assert can publish if it is a screening questions step that is missing skills
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                        mutation PublishPool($id: ID!) {
+                            publishPool(id: $id) {
+                                id
+                            }
+                        }
+                ',
+            [
+                'id' => $completePool->id,
+            ]
+        )
+            ->assertSuccessful();
     }
 }

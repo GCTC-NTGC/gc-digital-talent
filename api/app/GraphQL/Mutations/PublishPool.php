@@ -26,6 +26,7 @@ final class PublishPool
                 'nonessentialSkills' => function ($query) {
                     $query->withTrashed();
                 },
+                'assessmentSteps',
             ]);
         $poolValidation = new PublishPoolValidator;
         $validator = Validator::make($pool->toArray(), $poolValidation->rules(), $poolValidation->messages()); // First validate pool before updating.
