@@ -72,30 +72,33 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 id: "IOtzp7",
                 description: "Second paragraph for pool deadlines dialog",
               })}
-            </p>
-            <p data-h2-font-weight="base(700)">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "{time} on {date}",
-                  id: "TomxAe",
-                  description:
-                    "A datetime formatted as a certain time on a certain date",
-                },
-                {
-                  time: formatDate({
-                    date: deadline,
-                    formatString: "p zzzz",
-                    intl,
-                    timeZone: "Canada/Pacific",
-                  }),
-                  date: formatDate({
-                    date: deadline,
-                    formatString: "MMMM do",
-                    intl,
-                    timeZone: "Canada/Pacific",
-                  }),
-                },
-              )}
+              <div
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x.5 0 0 x.75)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "{time} on {date}",
+                    id: "TomxAe",
+                    description:
+                      "A datetime formatted as a certain time on a certain date",
+                  },
+                  {
+                    time: formatDate({
+                      date: deadline,
+                      formatString: "p zzzz",
+                      intl,
+                      timeZone: "Canada/Pacific",
+                    }),
+                    date: formatDate({
+                      date: deadline,
+                      formatString: "MMMM do",
+                      intl,
+                      timeZone: "Canada/Pacific",
+                    }),
+                  },
+                )}
+              </div>
             </p>
             <p>
               {intl.formatMessage({
@@ -104,30 +107,33 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 id: "kzd/yK",
                 description: "Third paragraph for pool deadlines dialog",
               })}
-            </p>
-            <p data-h2-font-weight="base(700)">
-              {intl.formatMessage(
-                {
-                  defaultMessage: "{time} on {date}",
-                  id: "TomxAe",
-                  description:
-                    "A datetime formatted as a certain time on a certain date",
-                },
-                {
-                  time: formatDate({
-                    date: deadline,
-                    formatString: "p zzzz",
-                    intl,
-                    timeZone: localTimeZone,
-                  }),
-                  date: formatDate({
-                    date: deadline,
-                    formatString: "MMMM do",
-                    intl,
-                    timeZone: localTimeZone,
-                  }),
-                },
-              )}
+              <div
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x.5 0 0 x.75)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "{time} on {date}",
+                    id: "TomxAe",
+                    description:
+                      "A datetime formatted as a certain time on a certain date",
+                  },
+                  {
+                    time: formatDate({
+                      date: deadline,
+                      formatString: "p zzzz",
+                      intl,
+                      timeZone: localTimeZone,
+                    }),
+                    date: formatDate({
+                      date: deadline,
+                      formatString: "MMMM do",
+                      intl,
+                      timeZone: localTimeZone,
+                    }),
+                  },
+                )}
+              </div>
             </p>
             <p>
               {intl.formatMessage(
