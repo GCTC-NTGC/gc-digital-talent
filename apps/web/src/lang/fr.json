@@ -2411,6 +2411,10 @@
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
     "description": "First paragraph for extend pool closing date dialog"
   },
+  "BRpssM": {
+    "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
+    "description": "First message for the general resources section."
+  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -2506,6 +2510,10 @@
   "BzKGyK": {
     "defaultMessage": "Langue de communication",
     "description": "Label for communication language"
+  },
+  "C+7Yb0": {
+    "defaultMessage": "Des ressources adaptées à des groupes d'utilisateurs spécifiques sont disponibles dans la rubrique Ressources propres à un groupe.",
+    "description": "Second message for the general resources section."
   },
   "C+hP/v": {
     "defaultMessage": "Candidature retirée",
@@ -2714,6 +2722,10 @@
   "CwjLDi": {
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
+  },
+  "Cy/1R0": {
+    "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
+    "description": "Body message for digital initiative procurment section."
   },
   "CzK1qY": {
     "defaultMessage": "Supprimé",
@@ -3695,6 +3707,10 @@
     "defaultMessage": "Dissimuler les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
+  "Iz8E+y": {
+    "defaultMessage": "Ces ressources sont conçues pour aider les responsables des initiatives numériques à assumer leurs responsabilités dans le cadre de la Directive sur les talents numériques. Ce guide de mise en œuvre explique pourquoi la Directive est nécessaire et ce qu'il faut faire. Utiliser l'arbre décisionnel pour naviguer dans les exigences de déclaration.",
+    "description": "Body message for digital initiative managers section."
+  },
   "Izo/vB": {
     "defaultMessage": "Collectivité des gestionnaires",
     "description": "Page title for the managers homepage"
@@ -4270,6 +4286,10 @@
   "MWZgsB": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
+  },
+  "MZHzIW": {
+    "defaultMessage": "Ressources générales",
+    "description": "Heading for section for the general resources section."
   },
   "MZJYQd": {
     "defaultMessage": "Contact et soutien",
@@ -5446,6 +5466,10 @@
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
+  },
+  "Tvsi5A": {
+    "defaultMessage": "Gestionnaires de l'initiative sur le numérique",
+    "description": "Title for group-specific resource card"
   },
   "TwSvmH": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
@@ -7459,6 +7483,10 @@
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
   },
+  "ewckox": {
+    "defaultMessage": "Ressources propres à un groupe",
+    "description": "Heading for section for the group-specific resources section."
+  },
   "exYii8": {
     "defaultMessage": "{skillName} (Utiles)",
     "description": "CSV Header, Asset skill column."
@@ -8991,6 +9019,10 @@
     "defaultMessage": "Aucun nom fourni",
     "description": "Fallback for name value"
   },
+  "n92mcX": {
+    "defaultMessage": "Responsables de l’approvisionnement",
+    "description": "Title for procurement officer resource card"
+  },
   "n9YPWe": {
     "defaultMessage": "Statut du bassin",
     "description": "Label displayed on the status field of the change candidate status dialog"
@@ -9334,6 +9366,10 @@
   "pPVkYX": {
     "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-02 Analyst' classification"
+  },
+  "pQwNEB": {
+    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ces ressources sont conçues pour aider les conseillers en ressources humaines à assumer ces responsabilités.",
+    "description": "Body message for digital initiative human resources section."
   },
   "pV+oii": {
     "defaultMessage": "Qu’avez-vous accompli, créé ou livré grâce à cette compétence?",
@@ -10478,6 +10514,10 @@
   "x+PMFn": {
     "defaultMessage": "En apprendre davantage sur l'ouverture de séance et l'authentification",
     "description": "Heading for opening the sign in and authentication accordion in account and privacy"
+  },
+  "x+kUrO": {
+    "defaultMessage": "Conseillers en ressources humaines",
+    "description": "Title for group-specific resource card"
   },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
