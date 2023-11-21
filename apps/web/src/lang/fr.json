@@ -3424,7 +3424,7 @@
     "description": "Link text to create a new team in the admin portal"
   },
   "H+83NU": {
-    "defaultMessage": "Vous avez des questions? <link>Contactez-nous! </link>.",
+    "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
   },
   "H/aUwM": {
@@ -3620,7 +3620,7 @@
     "description": "The affirmative option to answer a question"
   },
   "IOtzp7": {
-    "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le:",
+    "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
   },
   "IT6Djp": {
@@ -4204,7 +4204,7 @@
     "description": "Button text to close employment equity form."
   },
   "LjYzkS": {
-    "defaultMessage": "Postulez le ou avant le{closingDate}",
+    "defaultMessage": "Postulez le ou avant le {closingDate}",
     "description": "Message to apply to the pool before deadline"
   },
   "LjkK5G": {
@@ -8876,7 +8876,7 @@
     "description": "Question 4 for clarifying skill details"
   },
   "mQkyM8": {
-    "defaultMessage": "Au sujet des dates limites des demandes ",
+    "defaultMessage": "Au sujet des dates limites des demandes",
     "description": "Heading for the pool deadlines dialog"
   },
   "mR9A3a": {
