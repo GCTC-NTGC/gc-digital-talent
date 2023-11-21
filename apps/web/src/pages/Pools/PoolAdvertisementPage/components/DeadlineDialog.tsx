@@ -2,13 +2,17 @@ import React from "react";
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
-import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
-const generateLink = (href: string, chunks: React.ReactNode) => (
-  <Link newTab external href={href}>
+const generateLink = (
+  href: LinkProps["href"],
+  state: LinkProps["state"],
+  chunks: React.ReactNode,
+) => (
+  <Link newTab external href={href} state={state}>
     {chunks}
   </Link>
 );
@@ -134,7 +138,11 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 },
                 {
                   link: (chunks: React.ReactNode) =>
-                    generateLink(routes.support(), chunks),
+                    generateLink(
+                      routes.support(),
+                      { referrer: window.location.href },
+                      chunks,
+                    ),
                 },
               )}
             </p>
