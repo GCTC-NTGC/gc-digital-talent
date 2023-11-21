@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
-  CellContext,
   ColumnDef,
   PaginationState,
   SortingState,
@@ -11,7 +10,6 @@ import {
 import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLanguage,
@@ -20,11 +18,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import { FromArray } from "~/types/utility";
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  SortOrder,
   useGetPoolCandidatesPaginatedQuery,
   useGetSelectedPoolCandidatesQuery,
   Pool,
@@ -277,60 +273,6 @@ const PoolCandidatesTable = ({
     }
   };
 
-  // // a bit more complicated API call as it has multiple sorts as well as sorts based off a connected database table
-  // // this smooths the table sort value into appropriate API calls
-  // const sortOrder = useMemo(() => {
-  //   if (
-  //     sortingRule?.column.sortColumnName === "submitted_at" ||
-  //     sortingRule?.column.sortColumnName === "suspended_at"
-  //   ) {
-  //     return {
-  //       column: sortingRule.column.sortColumnName,
-  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //       user: undefined,
-  //     };
-  //   }
-  //   if (
-  //     sortingRule?.column.sortColumnName &&
-  //     [
-  //       "FIRST_NAME",
-  //       "EMAIL",
-  //       "PREFERRED_LANG",
-  //       "PREFERRED_LANGUAGE_FOR_INTERVIEW",
-  //       "PREFERRED_LANGUAGE_FOR_EXAM",
-  //       "CURRENT_CITY",
-  //     ].includes(sortingRule.column.sortColumnName)
-  //   ) {
-  //     return {
-  //       column: undefined,
-  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //       user: {
-  //         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-  //         column: sortingRule.column
-  //           .sortColumnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
-  //       },
-  //     };
-  //   }
-  //   if (
-  //     sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
-  //     filterState?.applicantFilter?.skills &&
-  //     filterState.applicantFilter.skills.length > 0
-  //   ) {
-  //     return {
-  //       column: "skill_count",
-  //       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //       user: undefined,
-  //     };
-  //   }
-  //   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-  //   // default tertiary sort is submitted_at,
-  //   return {
-  //     column: "submitted_at",
-  //     order: SortOrder.Asc,
-  //     user: undefined,
-  //   };
-  // }, [sortingRule, applicantFilterInput]);
-
   // merge search bar input with fancy filter state
   const addSearchToPoolCandidateFilterInput = (
     fancyFilterState: PoolCandidateSearchInput | undefined,
@@ -375,7 +317,7 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: transformSortStateToOrderByClause(sortState),
+      sortingInput: transformSortStateToOrderByClause(sortState, filterState),
     },
   });
 
@@ -591,8 +533,6 @@ const PoolCandidatesTable = ({
       },
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
-
-  console.log("test");
 
   return (
     <Table<PoolCandidateWithSkillCount>

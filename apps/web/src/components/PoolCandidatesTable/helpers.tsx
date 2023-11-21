@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 
 import {
   commonMessages,
@@ -15,6 +15,7 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
 import {
   OrderByRelationWithColumnAggregateFunction,
+  PoolCandidateSearchInput,
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
 } from "@gc-digital-talent/graphql";
@@ -22,7 +23,6 @@ import {
 import {
   CandidateSuspendedFilter,
   Language,
-  OrderByClause,
   PoolCandidate,
   PoolCandidateStatus,
   ProvinceOrTerritory,
@@ -289,67 +289,71 @@ export function handleRowSelectedChange<T>(
 }
 
 export function transformSortStateToOrderByClause(
-  sortingRule?: SortingState,
+  sortingRules?: SortingState,
+  filterState?: PoolCandidateSearchInput,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["candidateName", "first_name"],
-    ["email", "email"],
-    ["preferredLang", "preferred_lang"],
-    ["preferredLang", "preferred_lang_for_interview"],
-    ["preferredLang", "preferred_lang_for_exam"],
-    ["preferredLang", "preferred_lang"],
-    ["currentLocation", "current_city"],
+    ["candidateName", "FIRST_NAME"],
+    ["email", "EMAIL"],
+    ["preferredLang", "PREFERRED_LANG"],
+    ["preferredLang", "PREFERRED_LANGUAGE_FOR_INTERVIEW"],
+    ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
+    ["currentLocation", "CURRENT_CITY"],
+    ["skillCount", "skill_count"],
   ]);
 
-  const submittedAtRule = sortingRule?.find((rule) =>
-    isEqual(rule, { id: "dateReceived", desc: true }),
-  );
-  const suspendedAtRule = sortingRule?.find((rule) =>
-    isEqual(rule, { id: "candidacyStatus", desc: true }),
-  );
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
 
-  if (submittedAtRule || suspendedAtRule) {
-    console.log("sort1");
+  if (
+    sortingRule &&
+    isEqual(sortingRule.id, "dateReceived" || "candidacyStatus")
+  ) {
+    const columnName = columnMap.get(sortingRule.id);
     return {
-      column: submittedAtRule ? "submitted_at" : "suspended_at",
-      order: submittedAtRule?.desc ? SortOrder.Desc : SortOrder.Asc,
+      column: columnName,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };
   }
-  // if (
-  //   sortingRule &&
-  //   sortingRule.includes({
-  //     id: "candidateName" || "email" || "preferredLang" || "currentLocation",
-  //     desc: true,
-  //   })
-  // ) {
-  //   console.log("sort2");
-  //   return {
-  //     column: undefined,
-  //     order: sortingRule[0].id ? SortOrder.Desc : SortOrder.Asc,
-  //     user: {
-  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-  //       column: sortingRule[0]
-  //         .id as QueryPoolCandidatesPaginatedOrderByUserColumn,
-  //     },
-  //   };
-  // }
-  // if (
-  //   sortingRule?.column.sortColumnName === "SKILL_COUNT" &&
-  //   filterState?.applicantFilter?.skills &&
-  //   filterState.applicantFilter.skills.length > 0
-  // ) {
-  //   return {
-  //     column: "skill_count",
-  //     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  //     user: undefined,
-  //   };
-  // }
+
+  if (
+    sortingRule &&
+    isEqual(
+      sortingRule.id,
+      "candidateName" || "email" || "preferredLang" || "currentLocation",
+    )
+  ) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: columnName as QueryPoolCandidatesPaginatedOrderByUserColumn,
+      },
+    };
+  }
+
+  if (
+    sortingRule &&
+    isEqual(sortingRule.id, "skillCount") &&
+    filterState?.applicantFilter?.skills &&
+    filterState.applicantFilter.skills.length > 0
+  ) {
+    return {
+      column: "skill_count",
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: undefined,
+    };
+  }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
   // default tertiary sort is submitted_at,
-  console.log("sort0");
+
   return {
     column: "submitted_at",
     order: SortOrder.Asc,
