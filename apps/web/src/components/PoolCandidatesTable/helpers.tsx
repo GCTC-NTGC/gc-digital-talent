@@ -1,7 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
-import isEqual from "lodash/isEqual";
 
 import {
   commonMessages,
@@ -311,7 +310,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    isEqual(sortingRule.id, "dateReceived" || "candidacyStatus")
+    ["dateReceived", "candidacyStatus"].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -323,9 +322,8 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    isEqual(
+    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
       sortingRule.id,
-      "candidateName" || "email" || "preferredLang" || "currentLocation",
     )
   ) {
     const columnName = columnMap.get(sortingRule.id);
@@ -341,7 +339,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    isEqual(sortingRule.id, "skillCount") &&
+    sortingRule.id === "skillCount" &&
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {
