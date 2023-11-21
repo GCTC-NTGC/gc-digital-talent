@@ -265,8 +265,9 @@ const Column = React.forwardRef<
       data-h2-radius="base(s)"
       data-h2-shadow="base(l)"
       data-h2-flex-shrink="base(0)"
-      data-h2-min-height="base(50vh)"
-      data-h2-max-height="base(90vh)"
+      data-h2-min-height="base(x12)"
+      // Quick maths to get the board to appear on any viewport height
+      data-h2-max-height="base(calc(90vh - x2))"
       data-h2-width="base(100%) p-tablet(x14)"
       {...rest}
     >
