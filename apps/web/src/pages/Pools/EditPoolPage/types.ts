@@ -24,6 +24,5 @@ export type SectionKey =
   | "assetSkills"
   | "educationRequirements"
   | "otherRequirements"
-  | "screeningQuestions"
   | "whatToExpect"
   | "specialNote";

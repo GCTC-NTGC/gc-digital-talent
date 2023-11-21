@@ -28,12 +28,8 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader
-        subtitle={poolTitle}
-        icon={currentPage?.icon}
-        navItems={pages}
-      >
-        {currentPage?.title}
+      <PageHeader subtitle={currentPage?.subtitle} navItems={pages}>
+        {poolTitle}
       </PageHeader>
     </>
   );
