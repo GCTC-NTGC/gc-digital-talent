@@ -11,6 +11,7 @@ import { BaseSkillBrowserProps } from "./types";
 import skillBrowserMessages from "./messages";
 import {
   INPUT_NAME,
+  formatOption,
   getCategoryOptions,
   getFamilyOptions,
   getFilteredFamilies,
@@ -109,11 +110,7 @@ const SkillBrowser = ({
             )}
             trackUnsaved={false}
             doNotSort
-            label={intl.formatMessage({
-              defaultMessage: "Skill category",
-              id: "piZjS+",
-              description: "Label for the skill category filter field",
-            })}
+            label={intl.formatMessage(skillBrowserMessages.skillCategory)}
             options={categoryOptions}
           />
         )}
@@ -130,10 +127,11 @@ const SkillBrowser = ({
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: `${getLocalizedName(
-                skillFamily.name,
+              label: formatOption(
+                getLocalizedName(skillFamily.name, intl),
+                getSkillFamilySkillCount(skills, skillFamily),
                 intl,
-              )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
+              ),
             })),
           ]}
         />
