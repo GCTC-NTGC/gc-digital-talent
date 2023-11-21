@@ -181,69 +181,79 @@ const GeneralResources = () => {
               id: "Tvsi5A",
               description: "Title for group-specific resource card",
             })}
-            data-h2-padding="base(0)"
+            noPadding
           >
-            <img
-              src={managers}
-              alt={intl.formatMessage({
-                defaultMessage: "Woman smiling looking at laptop.",
-                id: "6CXPF8",
-                description: "Alt text for managers image on directive page.",
-              })}
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
-            />
-            <div data-h2-margin="base(0, x1)">
-              <p data-h2-margin="base(0, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These resources are designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required. Use the decision tree to navigate the reporting requirements.",
-                  id: "Iz8E+y",
-                  description:
-                    "Body message for digital initiative managers section.",
-                })}
-              </p>
-              <Link
-                mode="inline"
-                color="primary"
-                block
-                external
-                href={
-                  localeState.locale === "en"
-                    ? guidanceManagerPdfEn
-                    : guidanceManagerPdfFr
-                }
-                icon={ArrowDownOnSquareIcon}
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Download the implementation guidance for managers (PDF)",
-                  id: "UDwyjC",
-                  description:
-                    "Button text to download guidance for managers pdf.",
-                })}
-              </Link>
-              <Link
-                mode="inline"
-                color="primary"
-                block
-                external
-                href={
-                  localeState.locale === "en"
-                    ? guidanceManagerDocxEn
-                    : guidanceManagerDocxFr
-                }
-                icon={ArrowDownOnSquareIcon}
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Download the implementation guidance for managers (plain text)",
-                  id: "s6J6d7",
-                  description:
-                    "Button text to download guidance for managers plain text.",
-                })}
-              </Link>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-height="base(100%)"
+            >
+              <div>
+                <img
+                  src={managers}
+                  alt={intl.formatMessage({
+                    defaultMessage: "Woman smiling looking at laptop.",
+                    id: "6CXPF8",
+                    description:
+                      "Alt text for managers image on directive page.",
+                  })}
+                  data-h2-display="base(none) p-tablet(block)"
+                />
+
+                <p data-h2-margin="base(x1)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "These resources are designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required. Use the decision tree to navigate the reporting requirements.",
+                    id: "Iz8E+y",
+                    description:
+                      "Body message for digital initiative managers section.",
+                  })}
+                </p>
+              </div>
+              <div data-h2-margin="base(0, x1, x2, x1)">
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={
+                    localeState.locale === "en"
+                      ? guidanceManagerPdfEn
+                      : guidanceManagerPdfFr
+                  }
+                  icon={ArrowDownOnSquareIcon}
+                  data-h2-margin="base(0, 0, x1, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for managers (PDF)",
+                    id: "UDwyjC",
+                    description:
+                      "Button text to download guidance for managers pdf.",
+                  })}
+                </Link>
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={
+                    localeState.locale === "en"
+                      ? guidanceManagerDocxEn
+                      : guidanceManagerDocxFr
+                  }
+                  icon={ArrowDownOnSquareIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for managers (plain text)",
+                    id: "s6J6d7",
+                    description:
+                      "Button text to download guidance for managers plain text.",
+                  })}
+                </Link>
+              </div>
             </div>
           </Card>
           <Card
@@ -253,60 +263,71 @@ const GeneralResources = () => {
               id: "x+kUrO",
               description: "Title for group-specific resource card",
             })}
+            noPadding
           >
-            <img
-              src={hr}
-              alt={intl.formatMessage({
-                defaultMessage: "Man smiling looking at laptop.",
-                id: "gERrO1",
-                description:
-                  "Alt text for human resources image on directive page.",
-              })}
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
-            />
-            <p data-h2-margin="base(0, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. These resources are designed to help HR advisors in carrying out these responsibilities.",
-                id: "pQwNEB",
-                description:
-                  "Body message for digital initiative human resources section.",
-              })}
-            </p>
-            <Link
-              mode="inline"
-              color="primary"
-              block
-              external
-              href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
-              icon={ArrowDownOnSquareIcon}
-              data-h2-margin="base(0, 0, x1, 0)"
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-height="base(100%)"
             >
-              {intl.formatMessage({
-                defaultMessage:
-                  "Download the implementation guidance for HR advisors (PDF)",
-                id: "jm2mI1",
-                description:
-                  "Button text to download guidance for human resources pdf.",
-              })}
-            </Link>
-            <Link
-              mode="inline"
-              color="primary"
-              block
-              external
-              href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
-              icon={ArrowDownOnSquareIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage:
-                  "Download the implementation guidance for HR advisors (plain text)",
-                id: "QOn1f3",
-                description:
-                  "Button text to download guidance for human resources plain text.",
-              })}
-            </Link>
+              <div>
+                <img
+                  src={hr}
+                  alt={intl.formatMessage({
+                    defaultMessage: "Man smiling looking at laptop.",
+                    id: "gERrO1",
+                    description:
+                      "Alt text for human resources image on directive page.",
+                  })}
+                  data-h2-display="base(none) p-tablet(block)"
+                />
+                <p data-h2-margin="base(x1)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. These resources are designed to help HR advisors in carrying out these responsibilities.",
+                    id: "pQwNEB",
+                    description:
+                      "Body message for digital initiative human resources section.",
+                  })}
+                </p>
+              </div>
+              <div data-h2-margin="base(0, x1, x2, x1)">
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
+                  icon={ArrowDownOnSquareIcon}
+                  data-h2-margin="base(0, 0, x1, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for HR advisors (PDF)",
+                    id: "jm2mI1",
+                    description:
+                      "Button text to download guidance for human resources pdf.",
+                  })}
+                </Link>
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
+                  icon={ArrowDownOnSquareIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for HR advisors (plain text)",
+                    id: "QOn1f3",
+                    description:
+                      "Button text to download guidance for human resources plain text.",
+                  })}
+                </Link>
+              </div>
+            </div>
           </Card>
           <Card
             color="black"
@@ -315,66 +336,79 @@ const GeneralResources = () => {
               id: "n92mcX",
               description: "Title for procurement officer resource card",
             })}
+            noPadding
           >
-            <img
-              src={procurment}
-              alt={intl.formatMessage({
-                defaultMessage: "Person working at laptop.",
-                id: "qjcMVC",
-                description:
-                  "Alt text for human resources image on directive page.",
-              })}
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
-            />
-            <p data-h2-margin="base(0, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to digital initiative leads. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
-                id: "Cy/1R0",
-                description:
-                  "Body message for digital initiative procurment section.",
-              })}
-            </p>
-            <Link
-              mode="inline"
-              color="primary"
-              block
-              external
-              href={
-                localeState.locale === "en" ? procurmentPdfEn : procurmentPdfFr
-              }
-              icon={ArrowDownOnSquareIcon}
-              data-h2-margin="base(0, 0, x1, 0)"
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-height="base(100%)"
             >
-              {intl.formatMessage({
-                defaultMessage:
-                  "Download the implementation guidance for procurement officers (PDF)",
-                id: "g213vl",
-                description:
-                  "Button text to download guidance for procurment pdf.",
-              })}
-            </Link>
-            <Link
-              mode="inline"
-              color="primary"
-              block
-              external
-              href={
-                localeState.locale === "en"
-                  ? procurmentDocxEn
-                  : procurmentDocxFr
-              }
-              icon={ArrowDownOnSquareIcon}
-            >
-              {intl.formatMessage({
-                defaultMessage:
-                  "Download the implementation guidance for procurement officers (plain text)",
-                id: "+k6bTa",
-                description:
-                  "Button text to download guidance for procurment plain text.",
-              })}
-            </Link>
+              <div>
+                <img
+                  src={procurment}
+                  alt={intl.formatMessage({
+                    defaultMessage: "Person working at laptop.",
+                    id: "qjcMVC",
+                    description:
+                      "Alt text for human resources image on directive page.",
+                  })}
+                  data-h2-display="base(none) p-tablet(block)"
+                />
+                <p data-h2-margin="base(x1)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to digital initiative leads. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
+                    id: "Cy/1R0",
+                    description:
+                      "Body message for digital initiative procurment section.",
+                  })}
+                </p>
+              </div>
+              <div data-h2-margin="base(0, x1, x2, x1)">
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={
+                    localeState.locale === "en"
+                      ? procurmentPdfEn
+                      : procurmentPdfFr
+                  }
+                  icon={ArrowDownOnSquareIcon}
+                  data-h2-margin="base(0, 0, x1, 0)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for procurement officers (PDF)",
+                    id: "g213vl",
+                    description:
+                      "Button text to download guidance for procurment pdf.",
+                  })}
+                </Link>
+                <Link
+                  mode="inline"
+                  color="primary"
+                  block
+                  external
+                  href={
+                    localeState.locale === "en"
+                      ? procurmentDocxEn
+                      : procurmentDocxFr
+                  }
+                  icon={ArrowDownOnSquareIcon}
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for procurement officers (plain text)",
+                    id: "+k6bTa",
+                    description:
+                      "Button text to download guidance for procurment plain text.",
+                  })}
+                </Link>
+              </div>
+            </div>
           </Card>
         </div>
       </section>
