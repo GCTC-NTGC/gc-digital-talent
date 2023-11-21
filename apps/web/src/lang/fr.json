@@ -7591,10 +7591,6 @@
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
   },
-  "fivWMs": {
-    "defaultMessage": "Courriel",
-    "description": "Label for user table search dropdown (email)."
-  },
   "fkYYe3": {
     "defaultMessage": "Plan d’évaluation",
     "description": "Title for the assessment plan builder"
