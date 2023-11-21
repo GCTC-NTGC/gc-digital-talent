@@ -421,7 +421,7 @@ class AssessmentResultTest extends TestCase
                     'createAssessmentResult' => [
                         'assessmentStepId' => $parentAssessmentStep->id,
                         'poolCandidateId' => $parentPoolCandidate->id,
-                        'assessmentResultType' => AssessmentResultType::OTHER->name, // not skill/education like a polygraph
+                        'assessmentResultType' => AssessmentResultType::NON_ASSESSED->name, // not skill/education like a polygraph
                     ],
                 ]
             )
