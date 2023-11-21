@@ -8,7 +8,7 @@ import { formatDate } from "@gc-digital-talent/date-helpers";
 import useRoutes from "~/hooks/useRoutes";
 
 const generateLink = (href: string, chunks: React.ReactNode) => (
-  <Link newTab external href={href} color="black">
+  <Link newTab external href={href}>
     {chunks}
   </Link>
 );
@@ -31,9 +31,8 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
           color="secondary"
           icon={InformationCircleIcon}
           aria-label={intl.formatMessage({
-            defaultMessage:
-              "Select this button to open a dialog explaining the details behind how application deadlines work.",
-            id: "SkCjIP",
+            defaultMessage: "Learn about how application deadlines work.",
+            id: "8YKsal",
             description:
               "Info button label for pool application deadline details.",
           })}
