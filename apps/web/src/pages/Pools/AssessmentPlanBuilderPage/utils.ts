@@ -5,18 +5,14 @@ import { AssessmentStep } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getAssessmentStepType,
-  getLocale,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 export const assessmentStepDisplayName = (
   assessmentStep: AssessmentStep,
   intl: IntlShape,
 ): string => {
-  const locale = getLocale(intl);
-  // don't want "N/A" from getLocalizedName
-  const localizedTitle = assessmentStep?.title
-    ? assessmentStep.title[locale]
-    : null;
+  const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);
   if (localizedTitle && assessmentStep.type) {
     return `${localizedTitle} (${intl.formatMessage(
       getAssessmentStepType(assessmentStep.type),
