@@ -8315,6 +8315,10 @@
     "defaultMessage": "Retourner à la bibliothèque des compétences",
     "description": "Link text to navigate from skill showcase to the skill library page"
   },
+  "jH5egG": {
+    "defaultMessage": "Comment j’ai utilisé",
+    "description": "Label displayed on experience form/card for how a skill was applied section"
+  },
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
