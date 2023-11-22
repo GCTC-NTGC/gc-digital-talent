@@ -659,6 +659,10 @@
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
   },
+  "1X7JVN": {
+    "defaultMessage": "Consulter le plan d’évaluation",
+    "description": "Link text to view a specific pool assessment"
+  },
   "1XRfYd": {
     "defaultMessage": "Mettez en valeur jusqu’à 10 compétences techniques qui mettent en valeur vos points forts.",
     "description": "Page description for the top technical skills page"
@@ -914,10 +918,6 @@
   "33wMLU": {
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
-  },
-  "36k+Da": {
-    "defaultMessage": "Nom",
-    "description": "Label for user table search dropdown (name)."
   },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
@@ -1470,6 +1470,10 @@
   "5yv4Ko": {
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
+  },
+  "6+H2T9": {
+    "defaultMessage": "Chercher les candidats du bassin",
+    "description": "Label for the pool candidates table search input"
   },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
@@ -4879,6 +4883,10 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
   },
+  "Q3adCp": {
+    "defaultMessage": "Modifier le plan d’évaluation",
+    "description": "Link text to edit a specific pool assessment"
+  },
   "Q6ws0E": {
     "defaultMessage": "Il semblerait que vous soyez sur une page qui n'existe pas ou qui a été déplacée.",
     "description": "Body text for the 404 page not found page."
@@ -5238,6 +5246,10 @@
   "SQJgGP": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
+  },
+  "SSZY5w": {
+    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
+    "description": "Subtitle for the assessment plan builder"
   },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
@@ -7607,9 +7619,9 @@
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
   },
-  "fivWMs": {
-    "defaultMessage": "Courriel",
-    "description": "Label for user table search dropdown (email)."
+  "fkYYe3": {
+    "defaultMessage": "Plan d’évaluation",
+    "description": "Title for the assessment plan builder"
   },
   "foidJi": {
     "defaultMessage": "Bien que votre identifiant ne puisse pas être récupéré, vous pouvez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
@@ -8326,6 +8338,10 @@
   "jH5V6M": {
     "defaultMessage": "Retourner à la bibliothèque des compétences",
     "description": "Link text to navigate from skill showcase to the skill library page"
+  },
+  "jH5egG": {
+    "defaultMessage": "Comment j’ai utilisé",
+    "description": "Label displayed on experience form/card for how a skill was applied section"
   },
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
@@ -10830,10 +10846,6 @@
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
     "description": "Label for applicant's employee status"
-  },
-  "z0QI6A": {
-    "defaultMessage": "Tous les candidats du bassin",
-    "description": "Title for the admin pool candidates table"
   },
   "z3QvIv": {
     "defaultMessage": "Outres compétences",

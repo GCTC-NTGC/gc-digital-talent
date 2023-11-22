@@ -39,6 +39,18 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+const getRelevantSkillRecordDetails = (
+  experience: Experience,
+  sectionSkill: Skill,
+): string | null => {
+  const experienceSkills = experience.skills ?? [];
+  const applicableSkill = experienceSkills.find(
+    (skill) => skill.id === sectionSkill.id,
+  );
+
+  return applicableSkill?.experienceSkillRecord?.details ?? null;
+};
+
 export interface SkillWithExperiencesProps {
   skill: Skill;
   experiences: Experience[];
@@ -59,6 +71,7 @@ const SkillWithExperiences = ({
       | EducationExperience
       | PersonalExperience
       | WorkExperience,
+    sectionSkill: Skill,
   ): JSX.Element => {
     if (isAwardExperience(experience)) {
       const { title, issuedBy, awardedDate, awardedTo, details } = experience;
@@ -81,6 +94,12 @@ const SkillWithExperiences = ({
             {awardedTo
               ? intl.formatMessage(getAwardedTo(awardedTo))
               : intl.formatMessage(commonMessages.notAvailable)}
+          </p>
+          <p>
+            {experienceFormLabels.howIUsed}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+              intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>{details}</p>
           <p>
@@ -107,6 +126,12 @@ const SkillWithExperiences = ({
             {experienceFormLabels.project}
             {intl.formatMessage(commonMessages.dividingColon)}
             {project ?? intl.formatMessage(commonMessages.notAvailable)}
+          </p>
+          <p>
+            {experienceFormLabels.howIUsed}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+              intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>
             {experienceFormLabels.details}
@@ -136,6 +161,12 @@ const SkillWithExperiences = ({
               : intl.formatMessage(commonMessages.notAvailable)}
           </p>
           <p>
+            {experienceFormLabels.howIUsed}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+              intl.formatMessage(commonMessages.notAvailable)}
+          </p>
+          <p>
             {experienceFormLabels.details}
             {intl.formatMessage(commonMessages.dividingColon)}
             {details ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -150,6 +181,12 @@ const SkillWithExperiences = ({
           <p>{title || ""}</p>
           <p>{getDateRange({ endDate, startDate, intl })}</p>
           <p>{description}</p>
+          <p>
+            {experienceFormLabels.howIUsed}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+              intl.formatMessage(commonMessages.notAvailable)}
+          </p>
           <p>
             {experienceFormLabels.details}
             {intl.formatMessage(commonMessages.dividingColon)}
@@ -175,6 +212,12 @@ const SkillWithExperiences = ({
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </p>
         <p>
+          {experienceFormLabels.howIUsed}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
           {experienceFormLabels.details}
           {intl.formatMessage(commonMessages.dividingColon)}
           {details ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -194,7 +237,9 @@ const SkillWithExperiences = ({
       <ul>
         {skillExperiences.map((experience) => {
           return (
-            <li key={experience.id}>{experienceListForSkill(experience)}</li>
+            <li key={experience.id}>
+              {experienceListForSkill(experience, skill)}
+            </li>
           );
         })}
       </ul>
