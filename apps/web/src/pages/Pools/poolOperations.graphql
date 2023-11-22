@@ -198,5 +198,14 @@ query GetProcessInfo($id: UUID!) {
       id
       name
     }
+    poolSkills {
+      id
+    }
+    assessmentSteps {
+      id
+      poolSkills {
+        id
+      }
+    }
   }
 }
