@@ -14,7 +14,9 @@ const InstructionsSection = () => {
       <Heading
         Icon={FlagIcon}
         level="h2"
+        size="h3"
         color="secondary"
+        data-h2-font-weight="base(400)"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.INSTRUCTIONS))}

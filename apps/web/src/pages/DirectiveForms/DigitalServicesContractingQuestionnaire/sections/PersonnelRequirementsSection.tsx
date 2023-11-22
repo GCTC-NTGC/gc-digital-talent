@@ -30,7 +30,7 @@ const PersonnelRequirementsSection = ({
       id={PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS}
       data-h2-padding-top="base(x2)"
     >
-      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h4">
+      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h4" size="h5">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
         )}
