@@ -4068,7 +4068,7 @@
     "description": "Application step for screening questions, introduction description, paragraph one"
   },
   "L6MgeM": {
-    "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23 h 59 heure du Pacifique</strong> , à la date précisée.",
+    "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong> , à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
   },
   "L6UnSl": {
