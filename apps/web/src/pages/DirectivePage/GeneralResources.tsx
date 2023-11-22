@@ -117,6 +117,7 @@ const GeneralResources = () => {
               color="secondary"
               block
               external
+              download
               href={
                 localeState.locale === "en"
                   ? decisionTreePdfEn
@@ -137,6 +138,7 @@ const GeneralResources = () => {
               color="secondary"
               block
               external
+              download
               href={
                 localeState.locale === "en"
                   ? decisionTreeDocxEn
@@ -217,6 +219,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={
                     localeState.locale === "en"
                       ? guidanceManagerPdfEn
@@ -224,6 +227,7 @@ const GeneralResources = () => {
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(0, 0, x1, 0)"
+                  data-h2-display="base(flex)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -238,6 +242,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={
                     localeState.locale === "en"
                       ? guidanceManagerDocxEn
@@ -298,6 +303,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(0, 0, x1, 0)"
@@ -315,6 +321,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
                   icon={ArrowDownOnSquareIcon}
                 >
@@ -371,6 +378,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={
                     localeState.locale === "en"
                       ? procurementPdfEn
@@ -392,6 +400,7 @@ const GeneralResources = () => {
                   color="primary"
                   block
                   external
+                  download
                   href={
                     localeState.locale === "en"
                       ? procurementDocxEn
