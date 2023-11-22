@@ -2244,7 +2244,6 @@ enum AssessmentStepType {
 enum AssessmentResultType {
   EDUCATION
   SKILL
-  NON_ASSESSED
 }
 
 enum AssessmentDecision {
