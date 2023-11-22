@@ -23,11 +23,11 @@ import hrPdfEn from "~/assets/documents/Guidance_HR_PDF_EN.pdf";
 import hrPdfFr from "~/assets/documents/Orientation_RH_PDF_FR.pdf";
 import hrDocxEn from "~/assets/documents/Guidance_HR_text_EN.docx";
 import hrDocxFr from "~/assets/documents/Orientation_RH_texte_FR.docx";
-import procurment from "~/assets/img/Procurment_officer_image.webp";
-import procurmentPdfEn from "~/assets/documents/Guidance_Procurement_PDF_EN.pdf";
-import procurmentPdfFr from "~/assets/documents/Orientation_approvisionnement_PDF_FR.pdf";
-import procurmentDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
-import procurmentDocxFr from "~/assets/documents/Orientation_approvisionnement_texte_FR.docx";
+import procurement from "~/assets/img/Procurment_officer_image.webp";
+import procurementPdfEn from "~/assets/documents/Guidance_Procurement_PDF_EN.pdf";
+import procurementPdfFr from "~/assets/documents/Orientation_approvisionnement_PDF_FR.pdf";
+import procurementDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
+import procurementDocxFr from "~/assets/documents/Orientation_approvisionnement_texte_FR.docx";
 
 const GeneralResources = () => {
   const intl = useIntl();
@@ -346,7 +346,7 @@ const GeneralResources = () => {
             >
               <div>
                 <img
-                  src={procurment}
+                  src={procurement}
                   alt={intl.formatMessage({
                     defaultMessage: "Person working at laptop.",
                     id: "qjcMVC",
@@ -359,9 +359,9 @@ const GeneralResources = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to digital initiative leads. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
-                    id: "Cy/1R0",
+                    id: "b8mC0r",
                     description:
-                      "Body message for digital initiative procurment section.",
+                      "Body message for digital initiative procurement section.",
                   })}
                 </p>
               </div>
@@ -373,8 +373,8 @@ const GeneralResources = () => {
                   external
                   href={
                     localeState.locale === "en"
-                      ? procurmentPdfEn
-                      : procurmentPdfFr
+                      ? procurementPdfEn
+                      : procurementPdfFr
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(0, 0, x1, 0)"
@@ -382,9 +382,9 @@ const GeneralResources = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Download the implementation guidance for procurement officers (PDF)",
-                    id: "g213vl",
+                    id: "hfMJ+Q",
                     description:
-                      "Button text to download guidance for procurment pdf.",
+                      "Button text to download guidance for procurement pdf.",
                   })}
                 </Link>
                 <Link
@@ -394,17 +394,17 @@ const GeneralResources = () => {
                   external
                   href={
                     localeState.locale === "en"
-                      ? procurmentDocxEn
-                      : procurmentDocxFr
+                      ? procurementDocxEn
+                      : procurementDocxFr
                   }
                   icon={ArrowDownOnSquareIcon}
                 >
                   {intl.formatMessage({
                     defaultMessage:
                       "Download the implementation guidance for procurement officers (plain text)",
-                    id: "+k6bTa",
+                    id: "P2Hudh",
                     description:
-                      "Button text to download guidance for procurment plain text.",
+                      "Button text to download guidance for procurement plain text.",
                   })}
                 </Link>
               </div>
