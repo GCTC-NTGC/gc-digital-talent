@@ -32,7 +32,8 @@ export type ButtonLinkMode =
   | "inline"
   | "cta"
   | "text"
-  | "placeholder";
+  | "placeholder"
+  | "icon_only";
 
 export type ButtonLinkProps = {
   color?: Color;

@@ -214,7 +214,12 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       };
     }
   }
-  if (mode === "inline" || mode === "text" || mode === "placeholder") {
+  if (
+    mode === "inline" ||
+    mode === "text" ||
+    mode === "placeholder" ||
+    mode === "icon_only"
+  ) {
     if (disabled) {
       if (color === "white") {
         return {

@@ -31,7 +31,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
     <Dialog.Root>
       <Dialog.Trigger>
         <Button
-          mode="inline"
+          mode="icon_only"
           color="secondary"
           icon={InformationCircleIcon}
           aria-label={intl.formatMessage({

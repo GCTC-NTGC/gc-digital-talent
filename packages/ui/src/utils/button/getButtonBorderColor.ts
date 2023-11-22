@@ -255,7 +255,7 @@ const getBorderColor: ButtonBorderColor = ({ mode, color, disabled }) => {
       };
     }
   }
-  if (mode === "inline" || mode === "text") {
+  if (mode === "inline" || mode === "text" || mode === "icon_only") {
     if (disabled) {
       if (color === "white") {
         return {

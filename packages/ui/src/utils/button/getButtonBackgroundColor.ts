@@ -651,6 +651,111 @@ const getBackgroundColor: ButtonBackgroundColor = ({
       };
     }
   }
+  if (mode === "icon_only") {
+    if (disabled) {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)`,
+      };
+    }
+    if (color === "primary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(primary.lightest)`,
+      };
+    }
+    if (color === "secondary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(secondary.lightest)`,
+      };
+    }
+    if (color === "tertiary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(tertiary.lightest)`,
+      };
+    }
+    if (color === "quaternary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(quaternary.lightest)`,
+      };
+    }
+    if (color === "quinary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(quinary.lightest)`,
+      };
+    }
+    if (color === "success") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(success.lightest)`,
+      };
+    }
+    if (color === "warning") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(warning.lightest)`,
+      };
+    }
+    if (color === "error") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(error.lightest)`,
+      };
+    }
+    if (color === "black") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(gray.lightest)`,
+      };
+    }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+          base:hover(gray.darkest)`,
+      };
+    }
+    if (color === "white") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(gray.darkest)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+          base:hover(gray.darkest)`,
+      };
+    }
+  }
   return {
     "data-h2-background-color": "base(transparent)",
   };

@@ -168,6 +168,18 @@ const ButtonLinkContent = ({
       </>
     );
   }
+  if (mode === "icon_only") {
+    return (
+      <span
+        data-h2-display="base(flex) base:children[>*](inline-block)"
+        data-h2-padding="base(calc(x.125))"
+        data-h2-align-self="base(stretch)"
+        data-h2-align-items="base(center)"
+      >
+        {Icon && <Icon {...iconSize} data-h2-vertical-align="base(middle)" />}
+      </span>
+    );
+  }
   return (
     <span {...contentDisplay} {...rest}>
       {Icon && (
