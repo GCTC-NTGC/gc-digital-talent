@@ -21,6 +21,5 @@ class UatSeeder extends Seeder
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(TeamSeeder::class);
-        $this->call(PoolSeederUat::class);
     }
 }
