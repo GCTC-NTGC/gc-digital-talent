@@ -234,10 +234,10 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
     },
     AssessmentStepMissingSkills: {
       defaultMessage:
-        "Each assessment must include one or more skill for evaluation",
+        "Each assessment must include one or more skills for evaluation",
       description:
         "Error message that the pool advertisement assessments are lacking a skill",
-      id: "yV0Q02",
+      id: "7QH2G/",
     },
     PoolSkillsWithoutAssessments: {
       defaultMessage: "Each skill must be included in an assessment",
