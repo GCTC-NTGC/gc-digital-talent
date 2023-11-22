@@ -149,7 +149,12 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                     }),
                   },
                 )
-              : nullMessage}
+              : intl.formatMessage({
+                  defaultMessage: "(To be determined)",
+                  description:
+                    "Message displayed when a pool has no expiry date yet",
+                  id: "Hd0nHP",
+                })}
           </IconLabel>
           <IconLabel
             icon={CurrencyDollarIcon}

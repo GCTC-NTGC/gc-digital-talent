@@ -34,7 +34,7 @@ describe("PoolCard", () => {
 
     expect(screen.getByText(/required skills/i)).toBeInTheDocument();
     expect(screen.getByText(/salary range/i)).toBeInTheDocument();
-    expect(screen.getByText(/apply by/i)).toBeInTheDocument();
+    expect(screen.getByText(/deadline/i)).toBeInTheDocument();
     expect(screen.getByText(/apply to this recruitment/i)).toBeInTheDocument();
 
     // check that the skill chips appeared
