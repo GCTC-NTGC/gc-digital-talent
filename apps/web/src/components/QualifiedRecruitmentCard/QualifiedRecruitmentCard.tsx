@@ -169,13 +169,7 @@ const QualifiedRecruitmentCard = ({
             </span>
           </Button>
         </Collapsible.Trigger>
-        <Collapsible.Content data-h2-padding-left="base(x1.5)">
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
+        <Collapsible.Content data-h2-padding-left="base(x1.25)">
           <Heading
             level={contentHeadingLevel}
             size="h6"
@@ -269,19 +263,13 @@ const QualifiedRecruitmentCard = ({
           data-h2-text-align="base(center) p-tablet(inherit)"
         >
           {availability.text && (
-            <p
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(flex-start) p-tablet(center)"
-              data-h2-gap="base(0 x.25)"
-              data-h2-line-height="base(1)"
-              data-h2-flex-grow="base(0)"
-              data-h2-font-size="base(caption)"
-            >
+            <p data-h2-font-size="base(caption)">
               {AvailabilityIcon ? (
                 <AvailabilityIcon
                   data-h2-height="base(auto)"
-                  data-h2-width="base(1em)"
-                  data-h2-flex-shrink="base(0)"
+                  data-h2-width="base(x.5)"
+                  data-h2-display="base(inline-block)"
+                  data-h2-margin="base(3px, x.25, 0, 0)"
                   {...availability.color}
                 />
               ) : null}
