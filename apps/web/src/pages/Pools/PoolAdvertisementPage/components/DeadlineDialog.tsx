@@ -76,7 +76,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
-                {intl.formatMessage(
+                {`${intl.formatMessage(
                   {
                     defaultMessage: "{time} on {date}",
                     id: "TomxAe",
@@ -97,7 +97,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                       timeZone: "Canada/Pacific",
                     }),
                   },
-                )}
+                )}.`}
               </div>
             </p>
             <p>
@@ -111,7 +111,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
-                {intl.formatMessage(
+                {`${intl.formatMessage(
                   {
                     defaultMessage: "{time} on {date}",
                     id: "TomxAe",
@@ -132,7 +132,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                       timeZone: localTimeZone,
                     }),
                   },
-                )}
+                )}.`}
               </div>
             </p>
             <p>
