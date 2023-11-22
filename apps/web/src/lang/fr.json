@@ -919,10 +919,6 @@
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
   },
-  "36k+Da": {
-    "defaultMessage": "Nom",
-    "description": "Label for user table search dropdown (name)."
-  },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
@@ -1474,6 +1470,10 @@
   "5yv4Ko": {
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
+  },
+  "6+H2T9": {
+    "defaultMessage": "Chercher les candidats du bassin",
+    "description": "Label for the pool candidates table search input"
   },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
@@ -7607,10 +7607,6 @@
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
   },
-  "fivWMs": {
-    "defaultMessage": "Courriel",
-    "description": "Label for user table search dropdown (email)."
-  },
   "fkYYe3": {
     "defaultMessage": "Plan d’évaluation",
     "description": "Title for the assessment plan builder"
@@ -10822,10 +10818,6 @@
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
     "description": "Label for applicant's employee status"
-  },
-  "z0QI6A": {
-    "defaultMessage": "Tous les candidats du bassin",
-    "description": "Title for the admin pool candidates table"
   },
   "z3QvIv": {
     "defaultMessage": "Outres compétences",

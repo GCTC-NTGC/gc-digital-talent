@@ -119,6 +119,7 @@ type HeadCellProps<T> = {
 const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
   const isRowSelect = header.column.columnDef.meta?.isRowSelect;
   const shouldShrink = header.column.columnDef.meta?.shrink;
+  const sortingLocked = header.column.columnDef.meta?.sortingLocked;
   return (
     <th
       role="columnheader"
@@ -136,7 +137,7 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
       {...rest}
     >
       {header.isPlaceholder ? null : (
-        <SortButton column={header.column}>
+        <SortButton column={header.column} locked={sortingLocked}>
           {flexRender(header.column.columnDef.header, header.getContext())}
         </SortButton>
       )}
