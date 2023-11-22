@@ -4,15 +4,17 @@ import type { Column } from "@tanstack/react-table";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import ArrowsUpDownIcon from "@heroicons/react/20/solid/ArrowsUpDownIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 
 type SortButtonProps<T> = {
   column: Column<T, unknown>;
   children: React.ReactNode;
+  locked?: boolean;
 };
 
-const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
+const SortButton = <T,>({ column, locked, children }: SortButtonProps<T>) => {
   const intl = useIntl();
 
   if (!column.getCanSort()) {
@@ -39,7 +41,8 @@ const SortButton = <T,>({ column, children }: SortButtonProps<T>) => {
           : "base(none) base:hover(underline)"
       }
       data-h2-text-align="base(left)"
-      icon={icon}
+      disabled={locked}
+      icon={locked ? LockClosedIcon : icon}
     >
       {sortDirection && (
         <span data-h2-visually-hidden="base(invisible)">
