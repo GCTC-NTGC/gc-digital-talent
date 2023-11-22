@@ -26,26 +26,25 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
-  User,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import cells from "../Table/cells";
 
-export const statusAccessorNew = (
+export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
   intl: IntlShape,
 ) => {
+  if (!status) return null;
+
   if (status === PoolCandidateStatus.NewApplication) {
     return (
       <span
         data-h2-color="base(tertiary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : ""}
+        {intl.formatMessage(getPoolCandidateStatus(status as string))}
       </span>
     );
   }
@@ -60,42 +59,34 @@ export const statusAccessorNew = (
   ) {
     return (
       <span data-h2-font-weight="base(700)">
-        {status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : ""}
+        {intl.formatMessage(getPoolCandidateStatus(status as string))}
       </span>
     );
   }
   return (
-    <span>
-      {status
-        ? intl.formatMessage(getPoolCandidateStatus(status as string))
-        : ""}
-    </span>
+    <span>{intl.formatMessage(getPoolCandidateStatus(status as string))}</span>
   );
 };
 
-export const priorityAccessorNew = (
+export const priorityCell = (
   priority: number | null | undefined,
   intl: IntlShape,
 ) => {
+  if (!priority) return null;
+
   if (priority === 10 || priority === 20) {
     return (
       <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
-        {priority
-          ? intl.formatMessage(getPoolCandidatePriorities(priority))
-          : ""}
+        {intl.formatMessage(getPoolCandidatePriorities(priority))}
       </span>
     );
   }
   return (
-    <span>
-      {priority ? intl.formatMessage(getPoolCandidatePriorities(priority)) : ""}
-    </span>
+    <span>{intl.formatMessage(getPoolCandidatePriorities(priority))}</span>
   );
 };
 
-export const viewPoolCandidateAccessor = (
+export const viewPoolCandidateCell = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
@@ -168,7 +159,7 @@ export const viewPoolCandidateAccessor = (
   );
 };
 
-export const candidacyStatusAccessorNew = (
+export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
   intl: IntlShape,
 ) => {
@@ -186,27 +177,19 @@ export const candidacyStatusAccessorNew = (
   if (suspendedAt) {
     const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
     const currentTime = new Date();
-    return (
-      <span>
-        {intl.formatMessage(
-          getCandidateSuspendedFilterStatus(
-            getSuspendedStatus(parsedSuspendedTime, currentTime),
-          ),
-        )}
-      </span>
+    return intl.formatMessage(
+      getCandidateSuspendedFilterStatus(
+        getSuspendedStatus(parsedSuspendedTime, currentTime),
+      ),
     );
   }
 
-  return (
-    <span>
-      {intl.formatMessage(
-        getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
-      )}
-    </span>
+  return intl.formatMessage(
+    getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
   );
 };
 
-export const notesAccessorNew = (candidate: PoolCandidate, intl: IntlShape) =>
+export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
   candidate?.notes ? (
     <Spoiler
       text={candidate.notes}
@@ -228,19 +211,15 @@ export const notesAccessorNew = (candidate: PoolCandidate, intl: IntlShape) =>
     />
   ) : null;
 
-export function userNameAccessor(user: User) {
-  const firstName = user && user.firstName ? user.firstName.toLowerCase() : "";
-  const lastName = user && user.lastName ? user.lastName.toLowerCase() : "";
-  return `${firstName} ${lastName}`;
-}
-
 // callbacks extracted to separate function to stabilize memoized component
-export const preferredLanguageAccessorNew = (
+export const preferredLanguageAccessor = (
   language: Language | null | undefined,
   intl: IntlShape,
 ) => (
   <span>
-    {language ? intl.formatMessage(getLanguage(language as string)) : ""}
+    {intl.formatMessage(
+      language ? getLanguage(language) : commonMessages.notFound,
+    )}
   </span>
 );
 

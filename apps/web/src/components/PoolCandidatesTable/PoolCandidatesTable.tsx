@@ -45,13 +45,14 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
+import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import PoolCandidateTableFilterDialog, {
@@ -61,15 +62,13 @@ import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
-  candidacyStatusAccessorNew,
+  candidacyStatusAccessor,
   currentLocationAccessor,
-  notesAccessorNew,
-  preferredLanguageAccessorNew,
-  priorityAccessorNew,
-  statusAccessorNew,
+  notesCell,
+  priorityCell,
+  statusCell,
   transformSortStateToOrderByClause,
-  userNameAccessor,
-  viewPoolCandidateAccessor,
+  viewPoolCandidateCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -384,7 +383,7 @@ const PoolCandidatesTable = ({
           row: {
             original: { poolCandidate },
           },
-        }) => statusAccessorNew(poolCandidate.status, intl),
+        }) => statusCell(poolCandidate.status, intl),
       },
     ),
     columnHelper.accessor(
@@ -403,19 +402,17 @@ const PoolCandidatesTable = ({
               poolCandidate: { user },
             },
           },
-        }) => priorityAccessorNew(user.priorityWeight, intl),
+        }) => priorityCell(user.priorityWeight, intl),
       },
     ),
-    columnHelper.display({
-      // TODO: Should this be an accessor instead of a display type?
-      id: "candidacyStatus",
-      header: intl.formatMessage(tableMessages.candidacyStatus),
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => candidacyStatusAccessorNew(poolCandidate.suspendedAt, intl),
-    }),
+    columnHelper.accessor(
+      ({ poolCandidate }) =>
+        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
+      {
+        id: "candidacyStatus",
+        header: intl.formatMessage(tableMessages.candidacyStatus),
+      },
+    ),
     columnHelper.display({
       id: "view",
       header: intl.formatMessage(tableMessages.view),
@@ -423,10 +420,11 @@ const PoolCandidatesTable = ({
         row: {
           original: { poolCandidate },
         },
-      }) => viewPoolCandidateAccessor(poolCandidate, paths, intl),
+      }) => viewPoolCandidateCell(poolCandidate, paths, intl),
     }),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) => userNameAccessor(user),
+      ({ poolCandidate: { user } }) =>
+        getFullNameLabel(user.firstName, user.lastName, intl),
       {
         id: "candidateName",
         header: intl.formatMessage(tableMessages.candidateName),
@@ -437,7 +435,10 @@ const PoolCandidatesTable = ({
               poolCandidate: { user },
             },
           },
-        }) => `${user?.firstName} ${user?.lastName}`,
+        }) => getFullNameHtml(user.firstName, user.lastName, intl),
+        meta: {
+          isRowTitle: true,
+        },
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
@@ -448,7 +449,7 @@ const PoolCandidatesTable = ({
         row: {
           original: { poolCandidate },
         },
-      }) => notesAccessorNew(poolCandidate, intl),
+      }) => notesCell(poolCandidate, intl),
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
@@ -460,13 +461,6 @@ const PoolCandidatesTable = ({
       {
         id: "preferredLang",
         header: intl.formatMessage(tableMessages.preferredLang),
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { user },
-            },
-          },
-        }) => preferredLanguageAccessorNew(user.preferredLang, intl),
       },
     ),
     columnHelper.display({
@@ -498,7 +492,7 @@ const PoolCandidatesTable = ({
             poolCandidate: { user },
           },
         },
-      }) => user.email,
+      }) => cells.email(user.email),
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
@@ -506,14 +500,6 @@ const PoolCandidatesTable = ({
       {
         id: "currentLocation",
         header: intl.formatMessage(tableMessages.currentLocation),
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { user },
-            },
-          },
-        }) =>
-          currentLocationAccessor(user.currentCity, user.currentProvince, intl),
       },
     ),
     columnHelper.accessor(
@@ -523,13 +509,6 @@ const PoolCandidatesTable = ({
         enableColumnFilter: false,
         header: intl.formatMessage(tableMessages.dateReceived),
         sortingFn: "datetime",
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { submittedAt },
-            },
-          },
-        }) => submittedAt,
       },
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
