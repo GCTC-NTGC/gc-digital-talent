@@ -113,7 +113,7 @@ const SkillTree = ({
             trigger={
               <Button
                 type="button"
-                color="tertiary"
+                color="secondary"
                 mode="placeholder"
                 data-h2-width="base(100%)"
               >
