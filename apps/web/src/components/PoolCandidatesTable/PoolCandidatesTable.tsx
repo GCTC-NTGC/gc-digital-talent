@@ -377,13 +377,15 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "status",
-        sortingFn: normalizedText,
         header: intl.formatMessage(tableMessages.status),
         cell: ({
           row: {
             original: { poolCandidate },
           },
         }) => statusCell(poolCandidate.status, intl),
+        meta: {
+          sortingLocked: true,
+        },
       },
     ),
     columnHelper.accessor(
@@ -403,6 +405,9 @@ const PoolCandidatesTable = ({
             },
           },
         }) => priorityCell(user.priorityWeight, intl),
+        meta: {
+          sortingLocked: true,
+        },
       },
     ),
     columnHelper.accessor(
