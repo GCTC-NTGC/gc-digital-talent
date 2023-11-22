@@ -43,8 +43,8 @@ import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
-import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
 import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
