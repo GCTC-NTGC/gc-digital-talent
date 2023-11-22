@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Pool } from "@gc-digital-talent/graphql";
+import { AssessmentStepType, Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { PoolCompleteness } from "~/types/pool";
@@ -26,9 +26,15 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
   const thereAreUnassessedPoolSkills = allPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),
   );
-  const thereAreAssessmentStepsWithNoSkills = pool.assessmentSteps.some(
-    (assessmentStep) => !assessmentStep?.poolSkills?.length,
+
+  // disregard screening question step for step validation
+  const assessmentStepsWithoutScreeningQuestion = pool.assessmentSteps.filter(
+    (step) => step?.type !== AssessmentStepType.ScreeningQuestionsAtApplication,
   );
+  const thereAreAssessmentStepsWithNoSkills =
+    assessmentStepsWithoutScreeningQuestion.some(
+      (assessmentStep) => !assessmentStep?.poolSkills?.length,
+    );
 
   if (!thereAreUnassessedPoolSkills && !thereAreAssessmentStepsWithNoSkills) {
     return "complete";

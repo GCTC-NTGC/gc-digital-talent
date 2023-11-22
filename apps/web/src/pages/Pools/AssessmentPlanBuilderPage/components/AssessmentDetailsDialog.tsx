@@ -59,6 +59,7 @@ type FormValues = {
     };
   }>;
   assessedSkills?: Maybe<Array<Scalars["ID"]>>;
+  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]>>;
 };
 
 type InitialValues = Omit<
@@ -252,7 +253,11 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync:
+            values.assessedSkillsScreeningQuestions?.length &&
+            values.assessedSkillsScreeningQuestions.length > 0
+              ? values.assessedSkillsScreeningQuestions
+              : null,
         },
       },
     };
@@ -607,16 +612,29 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                 </div>
-                <Checklist
-                  idPrefix="assessedSkills"
-                  id="assessedSkills"
-                  name="assessedSkills"
-                  legend={intl.formatMessage(labels.assessedSkills)}
-                  items={assessedSkillsItems}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
+                {selectedTypeOfAssessment ===
+                  AssessmentStepType.ScreeningQuestionsAtApplication && (
+                  <Checklist
+                    idPrefix="assessedSkillsScreeningQuestions"
+                    id="assessedSkillsScreeningQuestions"
+                    name="assessedSkillsScreeningQuestions"
+                    legend={intl.formatMessage(labels.assessedSkills)}
+                    items={assessedSkillsItems}
+                  />
+                )}
+                {selectedTypeOfAssessment !==
+                  AssessmentStepType.ScreeningQuestionsAtApplication && (
+                  <Checklist
+                    idPrefix="assessedSkills"
+                    id="assessedSkills"
+                    name="assessedSkills"
+                    legend={intl.formatMessage(labels.assessedSkills)}
+                    items={assessedSkillsItems}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                )}
                 {!assessedSkillsItems.length ? (
                   <Field.Error>
                     {intl.formatMessage({
