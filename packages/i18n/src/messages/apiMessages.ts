@@ -114,6 +114,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the given application must already be submitted.",
     },
 
+    ApplicationDeleteFailed: {
+      defaultMessage: "Error: deleting application failed",
+      id: "M3c9Yo",
+      description:
+        "Message displayed to user after application fails to get deleted.",
+    },
+
     // assessmentStep updating
     AssessmentStepsSamePool: {
       defaultMessage: "AssessmentSteps must belong to the same pool.",
