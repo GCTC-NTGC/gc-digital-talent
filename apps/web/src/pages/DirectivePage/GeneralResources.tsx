@@ -77,13 +77,7 @@ const GeneralResources = () => {
           >
             <img
               src={trainingSession}
-              alt={intl.formatMessage({
-                defaultMessage:
-                  "Person presenting graphics and training two people.",
-                id: "caw9wn",
-                description:
-                  "Alt text for training session image on directive page.",
-              })}
+              alt=""
               data-h2-display="base(none) p-tablet(block)"
               data-h2-margin="base(0, 0, x1, 0)"
             />
@@ -103,12 +97,7 @@ const GeneralResources = () => {
           >
             <img
               src={decisionTree}
-              alt={intl.formatMessage({
-                defaultMessage: "Person looking at decision tree.",
-                id: "a+/JZt",
-                description:
-                  "Alt text for training session image on directive page.",
-              })}
+              alt=""
               data-h2-display="base(none) p-tablet(block)"
               data-h2-margin="base(0, 0, x1, 0)"
             />
@@ -194,12 +183,7 @@ const GeneralResources = () => {
               <div>
                 <img
                   src={managers}
-                  alt={intl.formatMessage({
-                    defaultMessage: "Woman smiling looking at laptop.",
-                    id: "6CXPF8",
-                    description:
-                      "Alt text for managers image on directive page.",
-                  })}
+                  alt=""
                   data-h2-display="base(none) p-tablet(block)"
                 />
 
@@ -279,12 +263,7 @@ const GeneralResources = () => {
               <div>
                 <img
                   src={hr}
-                  alt={intl.formatMessage({
-                    defaultMessage: "Man smiling looking at laptop.",
-                    id: "gERrO1",
-                    description:
-                      "Alt text for human resources image on directive page.",
-                  })}
+                  alt=""
                   data-h2-display="base(none) p-tablet(block)"
                 />
                 <p data-h2-margin="base(x1)">
@@ -354,12 +333,7 @@ const GeneralResources = () => {
               <div>
                 <img
                   src={procurement}
-                  alt={intl.formatMessage({
-                    defaultMessage: "Person working at laptop.",
-                    id: "qjcMVC",
-                    description:
-                      "Alt text for human resources image on directive page.",
-                  })}
+                  alt=""
                   data-h2-display="base(none) p-tablet(block)"
                 />
                 <p data-h2-margin="base(x1)">
