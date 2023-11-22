@@ -17,11 +17,13 @@ const TechnologicalChangeSection = () => {
   const labels = useLabels();
 
   return (
-    <TableOfContents.Section
-      id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}
-      data-h2-padding-top="base(x2)"
-    >
-      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+    <TableOfContents.Section id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}>
+      <Heading
+        data-h2-margin="base(x3, 0, x1, 0)"
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(700)"
+      >
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
         )}

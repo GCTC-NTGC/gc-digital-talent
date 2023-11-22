@@ -25,7 +25,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1 0)"
+      data-h2-gap="base(x.5 0)"
     >
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (

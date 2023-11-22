@@ -36,6 +36,12 @@ const RequestPage = () => {
           id: "9Jkoms",
           description: "Title displayed on hero for Search and Request pages.",
         })}
+        subtitle={intl.formatMessage({
+          defaultMessage: "Submit your filtered request for talent.",
+          id: "TU9sk7",
+          description:
+            "Subtitle displayed on hero for Search and Request pages.",
+        })}
       >
         <div
           data-h2-background-color="base(foreground)"

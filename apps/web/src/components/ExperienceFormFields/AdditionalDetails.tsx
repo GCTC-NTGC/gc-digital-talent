@@ -27,17 +27,22 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
 
   return (
     <>
-      <Heading level="h3" size="h5">
+      <Heading
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Highlight additional details",
           id: "u+r0gl",
           description: "Heading for the tasks section of the experience form",
         })}
       </Heading>
-      <div data-h2-margin="base(0, 0, x2, 0)">
+      <div>
         {derivedType ? (
           <>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p data-h2-margin="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",

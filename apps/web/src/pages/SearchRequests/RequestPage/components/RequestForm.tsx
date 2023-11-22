@@ -13,7 +13,7 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Link, Pending } from "@gc-digital-talent/ui";
+import { Heading, Link, Pending } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -259,10 +259,11 @@ export const RequestForm = ({
 
   return (
     <section>
-      <h2
-        data-h2-font-size="base(h4)"
+      <Heading
+        level="h2"
+        size="h6"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-margin="base(0, 0, x.5, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Your contact information",
@@ -270,7 +271,7 @@ export const RequestForm = ({
           description:
             "Form header for filling in contact information section.",
         })}
-      </h2>
+      </Heading>
       <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
@@ -351,8 +352,9 @@ export const RequestForm = ({
               />
             </div>
           </div>
-          <h2
-            data-h2-font-size="base(h4)"
+          <Heading
+            level="h2"
+            size="h6"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
@@ -362,7 +364,7 @@ export const RequestForm = ({
               description:
                 "Form header for filling in the reason why the user is submitting the request.",
             })}
-          </h2>
+          </Heading>
           <RadioGroup
             id="reason"
             name="reason"
@@ -400,8 +402,9 @@ export const RequestForm = ({
             )}
           </p>
           <div>
-            <h2
-              data-h2-font-size="base(h4)"
+            <Heading
+              level="h2"
+              size="h6"
               data-h2-font-weight="base(700)"
               data-h2-margin="base(x2, 0, x1, 0)"
             >
@@ -411,7 +414,7 @@ export const RequestForm = ({
                 description:
                   "Form header for filling in job opportunity information section.",
               })}
-            </h2>
+            </Heading>
             <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                 <Checkbox
@@ -449,7 +452,7 @@ export const RequestForm = ({
                 />
               </div>
             </div>
-            <p data-h2-margin="base(x2, 0, 0, 0)">
+            <p data-h2-margin="base(x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",
@@ -482,8 +485,9 @@ export const RequestForm = ({
               rows={8}
             />
           </div>
-          <h2
-            data-h2-font-size="base(h4)"
+          <Heading
+            level="h2"
+            size="h6"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
@@ -492,15 +496,18 @@ export const RequestForm = ({
               id: "emx1cK",
               description: "Title of Summary of filters section",
             })}
-          </h2>
+          </Heading>
           <SearchRequestFilters
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
           />
-          <p
-            data-h2-margin="base(x2, 0, x1, 0)"
-            data-h2-font-weight="base(600)"
-          >
+          <hr
+            data-h2-height="base(1px)"
+            data-h2-border="base(none)"
+            data-h2-background="base(gray)"
+            data-h2-margin="base(x1, 0, x2, 0)"
+          />
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -514,47 +521,37 @@ export const RequestForm = ({
               },
             )}
           </p>
-          <hr
-            data-h2-height="base(1px)"
-            data-h2-border="base(none)"
-            data-h2-background="base(gray.lighter)"
-            data-h2-margin="base(x2, 0)"
-          />
-          <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(center, x2, 0)">
-            <div
-              data-h2-text-align="base(center) p-tablet(left)"
-              data-h2-flex-item="base(1of1) p-tablet(1of2)"
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-gap="base(x1)"
+            data-h2-align-items="base(center)"
+          >
+            <Submit
+              color="primary"
+              mode="solid"
+              text={intl.formatMessage({
+                defaultMessage: "Submit Request",
+                id: "eTTlR0",
+                description: "Submit button text on request form.",
+              })}
+            />
+            <Link
+              mode="inline"
+              data-h2-margin="base(0, x.5, 0, 0)"
+              href={paths.search()}
+              state={{
+                ...state,
+              }}
             >
-              <Link
-                mode="inline"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                href={paths.search()}
-                state={{
-                  ...state,
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Back",
-                  id: "L8k+lC",
-                  description:
-                    "Back button located next to the submit button on the request form.",
-                })}
-              </Link>
-            </div>
-            <div
-              data-h2-text-align="base(center) p-tablet(right)"
-              data-h2-flex-item="base(1of1) p-tablet(1of2)"
-            >
-              <Submit
-                color="primary"
-                mode="solid"
-                text={intl.formatMessage({
-                  defaultMessage: "Submit Request",
-                  id: "eTTlR0",
-                  description: "Submit button text on request form.",
-                })}
-              />
-            </div>
+              {intl.formatMessage({
+                defaultMessage: "Back",
+                id: "L8k+lC",
+                description:
+                  "Back button located next to the submit button on the request form.",
+              })}
+            </Link>
           </div>
         </form>
       </FormProvider>

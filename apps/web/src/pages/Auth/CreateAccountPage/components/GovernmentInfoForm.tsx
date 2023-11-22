@@ -370,7 +370,6 @@ export const GovernmentInfoFormFields = ({
             data-h2-display="base(grid)"
             data-h2-gap="base(x1)"
             data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-            data-h2-margin="base(x1 0)"
           >
             <Select
               id="currentClassificationGroup"

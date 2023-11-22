@@ -26,17 +26,22 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
 
   return (
     <>
-      <Heading level="h3" size="h5">
+      <Heading
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Provide a few details",
           id: "jIMP76",
           description: "Heading for the details section of the experience form",
         })}
       </Heading>
-      <div data-h2-margin="base(0, 0, x2, 0)">
+      <div>
         {derivedType ? (
           <>
-            <p>
+            <p data-h2-margin="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
                   "Provide a few standardized details about your experience to help managers better understand how it’s played a role in your career journey.",

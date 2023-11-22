@@ -52,7 +52,7 @@ export const SupportPage = () => {
       />
       <div
         data-h2-position="base(relative)"
-        data-h2-padding="base(x4, 0)"
+        data-h2-padding="base(x3, 0)"
         data-h2-background-color="base(background)"
       >
         <img

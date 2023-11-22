@@ -149,7 +149,11 @@ export const ApplicationSelfDeclaration = ({
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)" data-h2-margin-bottom="base(x1)">
+      <Heading
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
+        size="h3"
+      >
         {pageInfo.title}
       </Heading>
       <p data-h2-margin-bottom="base(x1)">
@@ -221,7 +225,7 @@ export const ApplicationSelfDeclaration = ({
                 </div>
                 <div
                   data-h2-display="base(flex)"
-                  data-h2-gap="base(x.25, x.5)"
+                  data-h2-gap="base(x1)"
                   data-h2-flex-wrap="base(wrap)"
                   data-h2-flex-direction="base(column) l-tablet(row)"
                   data-h2-align-items="base(flex-start) l-tablet(center)"
@@ -315,7 +319,7 @@ export const ApplicationSelfDeclaration = ({
           <Separator
             orientation="horizontal"
             decorative
-            data-h2-background-color="base(secondary)"
+            data-h2-background-color="base(gray)"
             data-h2-margin="base(x2, 0)"
           />
           <HelpLink />
