@@ -627,6 +627,10 @@
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
   },
+  "M3c9Yo": {
+    "defaultMessage": "Erreur : la suppression de la candidature a échoué",
+    "description": "Message displayed to user after application fails to get deleted."
+  },
   "MBnBcY": {
     "defaultMessage": "Vitrine des compétences",
     "description": "Name of the skill showcase page"

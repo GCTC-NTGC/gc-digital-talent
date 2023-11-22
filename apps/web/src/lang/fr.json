@@ -4227,10 +4227,6 @@
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
   },
-  "M3c9Yo": {
-    "defaultMessage": "Erreur : la suppression de la candidature a échoué",
-    "description": "Message displayed to user after application fails to get deleted."
-  },
   "M7bb1V": {
     "defaultMessage": "Ministère",
     "description": "Label for applicant's Government of Canada department"
