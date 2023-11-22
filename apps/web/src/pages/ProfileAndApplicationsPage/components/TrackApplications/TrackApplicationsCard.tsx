@@ -4,9 +4,14 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
-import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidate,
+  PoolCandidateStatus,
+  useDeleteApplicationMutation,
+} from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -14,7 +19,6 @@ import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
 import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
-import useMutations from "./useMutations";
 import { getApplicationDateInfo } from "./utils";
 
 type Application = Omit<
@@ -178,7 +182,6 @@ const TrackApplicationsCard = ({
     </div>
   );
 };
-
 interface TrackApplicationsCardApiProps {
   application: Application;
 }
@@ -186,12 +189,30 @@ interface TrackApplicationsCardApiProps {
 const TrackApplicationsCardApi = ({
   application,
 }: TrackApplicationsCardApiProps) => {
-  const mutations = useMutations();
+  const [, executeDeleteMutation] = useDeleteApplicationMutation();
+  const intl = useIntl();
+
+  const deleteApplication = () => {
+    executeDeleteMutation({
+      id: application.id,
+    }).then((result) => {
+      if (result.data?.deleteApplication) {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Application deleted successfully!",
+            id: "xdGPxT",
+            description:
+              "Message displayed to user after application is deleted successfully.",
+          }),
+        );
+      }
+    });
+  };
 
   return (
     <TrackApplicationsCard
       application={application}
-      onDelete={() => mutations.delete(application.id)}
+      onDelete={deleteApplication}
     />
   );
 };
