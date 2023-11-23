@@ -9,9 +9,3 @@ mutation DeleteApplication($id: ID!) {
     id
   }
 }
-
-mutation ArchiveApplication($id: ID!) {
-  archiveApplication(id: $id) {
-    id
-  }
-}

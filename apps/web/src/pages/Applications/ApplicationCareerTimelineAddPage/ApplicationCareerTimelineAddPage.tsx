@@ -75,7 +75,13 @@ const ApplicationCareerTimelineAdd = ({
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <Heading
+        data-h2-margin-top="base(0)"
+        size="h3"
+        data-h2-font-weight="base(400)"
+      >
+        {pageInfo.title}
+      </Heading>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
@@ -85,7 +91,7 @@ const ApplicationCareerTimelineAdd = ({
             "Instructions on how to add an experience to your career timeline",
         })}
       </p>
-      <Accordion.Root type="multiple">
+      <Accordion.Root size="sm" type="multiple">
         <Accordion.Item value="learn-more">
           <Accordion.Trigger as="h3">
             {intl.formatMessage({

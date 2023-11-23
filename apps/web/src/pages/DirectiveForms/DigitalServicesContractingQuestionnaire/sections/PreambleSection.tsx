@@ -30,15 +30,23 @@ const PreambleSection = () => {
         id={PAGE_SECTION_ID.PREAMBLE}
         data-h2-padding-top="base(x2)"
       >
-        <Heading Icon={LightBulbIcon} level="h2" color="primary">
+        <Heading
+          Icon={LightBulbIcon}
+          level="h2"
+          size="h3"
+          color="primary"
+          data-h2-font-weight="base(400)"
+        >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.PREAMBLE))}
         </Heading>
       </TableOfContents.Section>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY}
-        data-h2-padding-top="base(x1)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+      <TableOfContents.Section id={PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY}>
+        <Heading
+          data-h2-margin="base(x3, 0, x1, 0)"
+          level="h3"
+          size="h4"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage(
             getSectionTitle(PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY),
           )}
@@ -117,11 +125,13 @@ const PreambleSection = () => {
           </li>
         </ul>
       </TableOfContents.Section>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.WHY_COLLECT}
-        data-h2-padding-top="base(x2)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+      <TableOfContents.Section id={PAGE_SECTION_ID.WHY_COLLECT}>
+        <Heading
+          data-h2-margin="base(x3, 0, x1, 0)"
+          level="h3"
+          size="h4"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.WHY_COLLECT))}
         </Heading>
         <p>
@@ -181,11 +191,13 @@ const PreambleSection = () => {
           </li>
         </ul>
       </TableOfContents.Section>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.REQUIREMENTS}
-        data-h2-padding-top="base(x2)"
-      >
-        <Heading data-h2-margin="base(0, 0, x1, 0)" level="h3">
+      <TableOfContents.Section id={PAGE_SECTION_ID.REQUIREMENTS}>
+        <Heading
+          data-h2-margin="base(x3, 0, x1, 0)"
+          level="h3"
+          size="h4"
+          data-h2-font-weight="base(700)"
+        >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.REQUIREMENTS))}
         </Heading>
         <p>

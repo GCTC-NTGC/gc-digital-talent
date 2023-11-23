@@ -145,13 +145,14 @@ const Hero = ({
               tabIndex={-1}
               data-h2-outline="base(none)"
               level="h1"
+              size="h2"
               data-h2-margin="base(0)"
             >
               {title}
             </Heading>
             {subtitle && (
               <p
-                data-h2-font-size="base(h4, 1.4)"
+                data-h2-font-size="base(h5, 1.4)"
                 data-h2-margin="base(x1, 0, 0, 0)"
               >
                 {subtitle}

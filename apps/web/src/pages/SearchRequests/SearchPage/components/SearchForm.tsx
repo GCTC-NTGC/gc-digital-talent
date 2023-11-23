@@ -97,14 +97,15 @@ export const SearchForm = ({
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <div
             data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(repeat(5, 1fr))"
+            data-h2-grid-template-columns="base(1fr) p-tablet(1fr x15)"
             data-h2-gap="base(x2)"
           >
-            <div data-h2-grid-column="p-tablet(span 3)">
+            <div>
               <Heading
                 data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-font-weight="base(300)"
+                data-h2-font-weight="base(400)"
                 level="h2"
+                size="h3"
               >
                 {intl.formatMessage({
                   defaultMessage: "How to use this tool",
@@ -116,6 +117,15 @@ export const SearchForm = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
+                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. Candidates are assessed for their skills and grouped into pools to meet your staffing needs.",
+                  id: "F+LDbs",
+                  description:
+                    "Content displayed in the find talent page explaining the page and what it offers to users.",
+                })}
+              </p>
+              <p data-h2-margin-top="base(x.5)">
+                {intl.formatMessage({
+                  defaultMessage:
                     "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
                   id: "1pCzp1",
                   description:
@@ -124,10 +134,7 @@ export const SearchForm = ({
               </p>
               <FormFields skills={skills} classifications={classifications} />
             </div>
-            <div
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-grid-column="p-tablet(span 2)"
-            >
+            <div data-h2-display="base(none) p-tablet(block)">
               <EstimatedCandidates
                 candidateCount={candidateCount}
                 updatePending={fetching}
@@ -138,7 +145,7 @@ export const SearchForm = ({
             decorative
             orientation="horizontal"
             data-h2-margin="base(x2, 0)"
-            data-h2-background-color="base(gray.lighter)"
+            data-h2-background-color="base(gray)"
           />
           <Heading level="h3" size="h4" id="results">
             {intl.formatMessage(
@@ -162,7 +169,6 @@ export const SearchForm = ({
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1 0)"
           >
             {results?.length && candidateCount > 0 ? (
               results.map(({ pool, candidateCount: resultsCount }) => (

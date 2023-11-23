@@ -84,6 +84,7 @@ const RecruitmentAvailabilityDialog = ({
         <Button
           mode="inline"
           color="black"
+          fontSize="caption"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Change your availability for {title}.",
