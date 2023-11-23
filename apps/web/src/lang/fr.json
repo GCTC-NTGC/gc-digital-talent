@@ -2988,7 +2988,7 @@
     "description": "Link text for editing a users top behavioural skills"
   },
   "EYPaLh": {
-    "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en advantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
+    "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
   "EdUZaX": {
@@ -7756,7 +7756,7 @@
     "description": "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_"
   },
   "gZaILA": {
-    "defaultMessage": "Apprenez-en advantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
+    "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
     "description": "Link to more information on the directive."
   },
   "gbquTr": {
