@@ -24,10 +24,8 @@ const StyledOverlay = React.forwardRef<
   />
 ));
 
-type ContentRef = React.ElementRef<typeof DialogPrimitive.Content>;
-
 const StyledContent = React.forwardRef<
-  ContentRef,
+  React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, forwardedRef) => {
   const scrollBarDetectRef = React.useRef<HTMLDivElement | null>(null);
