@@ -78,7 +78,11 @@ const ApplicationInformation = ({
             description: "Heading for the information of an application",
           })}
         </Heading>
-        <div data-h2-display="base(flex)" data-h2-gap="base(0 x.5)">
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(flex-end)"
+          data-h2-gap="base(0 x.5)"
+        >
           <ApplicationPrintButton
             mode="inline"
             color="secondary"
