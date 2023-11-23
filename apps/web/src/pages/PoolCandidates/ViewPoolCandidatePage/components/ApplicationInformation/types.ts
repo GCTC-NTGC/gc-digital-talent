@@ -1,6 +1,3 @@
-import React from "react";
-import { MessageDescriptor } from "react-intl";
-
 export const SECTION_KEY = {
   CONTACT: "contact",
   SCREENING: "screening",
