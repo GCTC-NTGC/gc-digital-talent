@@ -75,7 +75,12 @@ const Checkbox = ({
               {...register(name, rules)}
               {...rest}
             />
-            <span data-h2-margin-top="base(-x.125)">{label}</span>
+            <span
+              data-h2-font-size="base(body)"
+              data-h2-margin-top="base(-x.125)"
+            >
+              {label}
+            </span>
             {!asFieldset && !inCheckList && (
               <Field.Required required={!!rules.required} />
             )}

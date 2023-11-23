@@ -17,7 +17,7 @@ const TemplateRadioGroup: StoryFn<typeof RadioGroup> = (args) => {
   return (
     <div
       data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(50% 50%)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
       <div data-h2="light">
         <div data-h2-background="base(background)" data-h2-padding="base(x2)">

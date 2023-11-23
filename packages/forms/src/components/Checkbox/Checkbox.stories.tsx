@@ -17,12 +17,31 @@ export default {
 
 const TemplateCheckbox: Story<CheckboxProps> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <Checkbox {...args} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form onSubmit={action("Submit Form")}>
+            <Checkbox {...args} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form onSubmit={action("Submit Form")}>
+            <Checkbox {...args} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -48,7 +67,9 @@ CheckboxWithBoundingBox.args = {
 CheckboxElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
-  label: <span data-h2-background-color="base(error)">Red Selection</span>,
+  label: (
+    <span data-h2-background-color="base(error.lighter)">Red Selection</span>
+  ),
 };
 
 LongTextCheckbox.args = {
