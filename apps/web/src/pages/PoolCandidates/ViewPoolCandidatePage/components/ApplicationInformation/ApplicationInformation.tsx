@@ -14,6 +14,7 @@ import LanguageProfileDisplay from "~/components/Profile/components/LanguageProf
 import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill } from "~/utils/skillUtils";
+import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import { SECTION_KEY } from "./types";
@@ -288,12 +289,21 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <Heading
-              level="h4"
-              size="h6"
-              data-h2-font-size="base(body)"
-              data-h2-margin-top="base(0)"
-            >
+            <p data-h2-margin-bottom="base(x1">
+              {intl.formatMessage(applicationMessages.confirmationLead)}
+            </p>
+            <ul>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationReview)}
+              </li>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationCommunity)}
+              </li>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationTrue)}
+              </li>
+            </ul>
+            <Heading level="h4" size="h6" data-h2-font-size="base(body)">
               {intl.formatMessage({
                 defaultMessage: "Signed",
                 id: "fEcEv3",
