@@ -11,6 +11,7 @@ import {
   TreeView,
   Heading,
   CardBasic,
+  Sidebar,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -251,29 +252,32 @@ export const ViewPoolCandidate = ({
 
   let mainContent: React.ReactNode;
   if (showRichSnapshot) {
+    const snapshotCandidate = parsedSnapshot?.poolCandidates
+      ?.filter(notEmpty)
+      .find(({ id }) => id === poolCandidate.id);
+    const categorizedEssentialSkills = categorizeSkill(
+      poolCandidate.pool.essentialSkills,
+    );
+    const categorizedAssetSkills = categorizeSkill(
+      poolCandidate.pool.nonessentialSkills,
+    );
+    const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
+
+    const classificationGroup = snapshotCandidate?.pool.classifications
+      ? snapshotCandidate.pool.classifications[0]?.group
+      : "";
+
     if (features.recordOfDecision) {
       mainContent = (
-        <ApplicationInformation
-          snapshot={parsedSnapshot}
-          application={poolCandidate}
-        />
+        <>
+          <ApplicationInformation
+            snapshot={parsedSnapshot}
+            application={poolCandidate}
+          />
+          <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
+        </>
       );
     } else {
-      const snapshotCandidate = parsedSnapshot?.poolCandidates
-        ?.filter(notEmpty)
-        .find(({ id }) => id === poolCandidate.id);
-      const categorizedEssentialSkills = categorizeSkill(
-        poolCandidate.pool.essentialSkills,
-      );
-      const categorizedAssetSkills = categorizeSkill(
-        poolCandidate.pool.nonessentialSkills,
-      );
-      const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
-
-      const classificationGroup = snapshotCandidate?.pool.classifications
-        ? snapshotCandidate.pool.classifications[0]?.group
-        : "";
-
       mainContent = (
         <>
           {subTitle}
@@ -746,7 +750,9 @@ export const ViewPoolCandidate = ({
           </TableOfContents.Wrapper>
         </>
       ) : (
-        mainContent
+        <Sidebar.Wrapper>
+          <Sidebar.Content>{mainContent}</Sidebar.Content>
+        </Sidebar.Wrapper>
       )}
     </>
   );
