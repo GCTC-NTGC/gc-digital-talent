@@ -60,8 +60,14 @@ const ApplicationSkillsIntroduction = ({
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <Heading
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
+        size="h3"
+      >
+        {pageInfo.title}
+      </Heading>
+      <p data-h2-margin="base(x1, 0, x.5, 0)">
         {intl.formatMessage({
           defaultMessage:
             "The next step is the most important piece of your application where you'll be asked to talk about how you meet the skill requirements for this role.",
@@ -70,7 +76,7 @@ const ApplicationSkillsIntroduction = ({
             "Application step for skill requirements, introduction, description, paragraph one",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "In the same way that you selected items from your career timeline to confirm the experience and education requirements, we'll ask you to describe one or more experiences from your career timeline where you actively used the required skill.",
@@ -82,12 +88,12 @@ const ApplicationSkillsIntroduction = ({
       <Separator
         orientation="horizontal"
         decorative
-        data-h2-background="base(black.light)"
+        data-h2-background="base(gray)"
         data-h2-margin="base(x2, 0)"
       />
       <div
         data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
+        data-h2-gap="base(x1)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"

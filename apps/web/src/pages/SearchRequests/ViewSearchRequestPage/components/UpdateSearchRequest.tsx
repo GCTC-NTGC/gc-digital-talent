@@ -209,6 +209,7 @@ export const UpdateSearchRequestForm = ({
                   PoolCandidateSearchStatus.InProgress,
                   PoolCandidateSearchStatus.Waiting,
                   PoolCandidateSearchStatus.Done,
+                  PoolCandidateSearchStatus.DoneNoCandidates,
                 ]).map(({ value }) => ({
                   value,
                   label: intl.formatMessage(

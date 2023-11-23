@@ -55,7 +55,7 @@ function buildLink(
   color?: LinkProps["color"],
 ): React.ReactElement {
   return (
-    <Link href={href} fontSize="h4" mode="text" color={color}>
+    <Link href={href} fontSize="h5" mode="text" color={color}>
       {chunks}
     </Link>
   );
@@ -168,7 +168,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               "track-applications-section",
               chunks,
               "whiteFixed",
-              "h4",
+              "h5",
             ),
         },
       )}

@@ -127,7 +127,9 @@ const AssessmentStepFieldset = ({
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ? (
+      {skillNames.length ||
+      assessmentStep.type ===
+        AssessmentStepType.ScreeningQuestionsAtApplication ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"

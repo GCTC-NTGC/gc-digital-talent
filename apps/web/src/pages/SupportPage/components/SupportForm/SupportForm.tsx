@@ -10,7 +10,7 @@ import {
   apiMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Pending, Button, Link } from "@gc-digital-talent/ui";
+import { Heading, Pending, Button, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { useGetMeQuery, User } from "~/api/generated";
@@ -49,14 +49,19 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
   return (
     <section>
-      <h2 data-h2-font-weight="base(700)" data-h2-text-align="base(center)">
+      <Heading
+        level="h2"
+        size="h3"
+        data-h2-font-weight="base(400)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "We've received your message.",
           id: "iiEGjW",
           description: "Support form success title",
         })}
-      </h2>
-      <p data-h2-margin="base(x1, 0)">
+      </Heading>
+      <p data-h2-margin="base(x1, 0, x.5, 0)">
         {intl.formatMessage({
           defaultMessage:
             "We'll do our best to get back to you with a response within the next two business days.",
@@ -64,7 +69,7 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph one",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p data-h2-margin="base(x.5, 0, x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Please check your email for a summary of your submission.",
@@ -80,19 +85,19 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
           description: "Support form success paragraph three",
         })}
       </p> */}
-      <div data-h2-text-align="base(center)">
-        <Button
-          onClick={() => {
-            onFormToggle(true);
-          }}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Submit a new message",
-            id: "CZ3wxJ",
-            description: "Support form success action",
-          })}
-        </Button>
-      </div>
+      <Button
+        color="secondary"
+        mode="solid"
+        onClick={() => {
+          onFormToggle(true);
+        }}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Submit a new message",
+          id: "CZ3wxJ",
+          description: "Support form success action",
+        })}
+      </Button>
     </section>
   );
 };
@@ -125,13 +130,18 @@ const SupportForm = ({
   };
   return showSupportForm ? (
     <section>
-      <h2 data-h2-font-weight="base(700)">
+      <Heading
+        level="h2"
+        size="h3"
+        data-h2-font-weight="base(400)"
+        data-h2-margin="base(0, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Reach out to us",
           id: "oXYnZN",
           description: "Support form title",
         })}
-      </h2>
+      </Heading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
@@ -232,7 +242,7 @@ const SupportForm = ({
               trackUnsaved={false}
             />
             <div data-h2-align-self="base(flex-start)">
-              <Submit color="primary" />
+              <Submit color="secondary" />
             </div>
           </form>
         </FormProvider>
@@ -263,6 +273,11 @@ const SupportFormApi = () => {
           }),
         );
         return Promise.resolve(response.status);
+      }
+      if (response.status === 422) {
+        // status code 422 = missing params.
+        toast.error(intl.formatMessage(errorMessages.unknown));
+        return Promise.reject(response.status);
       }
       if (response.status === 429) {
         toast.error(<>{intl.formatMessage(apiMessages.RATE_LIMIT)}</>, {

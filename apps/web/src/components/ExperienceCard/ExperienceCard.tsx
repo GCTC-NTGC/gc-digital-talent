@@ -138,7 +138,7 @@ const ExperienceCard = ({
           data-h2-margin="base(0)"
           data-h2-font-weight="base(400)"
         >
-          {titleHtml}
+          <span>{titleHtml}</span>
         </Heading>
         {showEdit && edit}
       </div>
@@ -146,7 +146,7 @@ const ExperienceCard = ({
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.5)"
-        data-h2-margin="base(x1 0)"
+        data-h2-margin="base(x.25, 0, x1, 0)"
         data-h2-color="base(black.light)"
       >
         <span>{typeMessage}</span>
