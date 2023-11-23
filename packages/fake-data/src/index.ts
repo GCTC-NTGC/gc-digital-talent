@@ -1,3 +1,4 @@
+import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
@@ -15,6 +16,7 @@ import fakeUserSkills from "./fakeUserSkills";
 // Faker Generated Data
 export {
   fakeApplicants,
+  fakeAssessmentSteps,
   fakeClassifications,
   fakeDepartments,
   fakeExperiences,

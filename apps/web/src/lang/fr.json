@@ -155,6 +155,10 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "/+naWC": {
+    "defaultMessage": "À évaluer",
+    "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
+  },
   "//mFwp": {
     "defaultMessage": "Quelles sont les tâches que l’entrepreneur doit accomplir dans le cadre du contrat?",
     "description": "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -1003,6 +1007,10 @@
     "defaultMessage": "Courriel :",
     "description": "Display text for the email field on users"
   },
+  "3W/NbE": {
+    "defaultMessage": "Sélectionné(e)",
+    "description": "Message displayed when candidate has been screened in at a specific assessment step"
+  },
   "3aiqQT": {
     "defaultMessage": "Sélectionnez une date de clôture pour votre processus. L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
     "description": "Describes what the selecting a closing date for a process."
@@ -1058,6 +1066,10 @@
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
+  },
+  "3xCX4b": {
+    "defaultMessage": "Rejeté(e)",
+    "description": "Message displayed when candidate has been screened out at a specific assessment step"
   },
   "3yg5j7": {
     "defaultMessage": "Notre premier processus exécutif (EX) pour un poste EX-03 sera publié sur la plateforme des talents numériques du GC en novembre 2023. Gardez l’œil ouvert pour une possibilité d’emploi où vous pourrez soumettre votre candidature pour devenir un leader du numérique au sein du gouvernement.",
@@ -3947,6 +3959,10 @@
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
     "description": "List item one, things developers consider for accessibility"
   },
+  "KXy+Ei": {
+    "defaultMessage": "AC",
+    "description": "Short form code representing 'veteran'"
+  },
   "KYFarS": {
     "defaultMessage": "Que sont les recrutements en bassin?",
     "description": "Title for accordion describing pool recruitments"
@@ -5367,6 +5383,10 @@
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
   },
+  "TIAla1": {
+    "defaultMessage": "Non réussi",
+    "description": "Message displayed when candidate has not passed an assessment step"
+  },
   "TJ+5Xn": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
     "description": "Description of how application profiles work for managers."
@@ -5971,6 +5991,10 @@
     "defaultMessage": "Combien d’évaluations devrais-je inclure?",
     "description": "first question in the organize section in the assessment plan builder"
   },
+  "Whq2Xl": {
+    "defaultMessage": "Réussi",
+    "description": "Message displayed when candidate has successfully passed an assessment step"
+  },
   "Wi4tia": {
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
     "description": "Intro to list of items developers consider for accessibility"
@@ -6282,6 +6306,10 @@
   "YNLJcX": {
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
+  },
+  "YNXjg7": {
+    "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
+    "description": "Button text to show the distribution of step statuses"
   },
   "YRZ5Cx": {
     "defaultMessage": "Méthodes d'approvisionnement",
@@ -9131,6 +9159,10 @@
     "defaultMessage": "Ministère :",
     "description": "Label for applicant's Government of Canada department"
   },
+  "nzF0AE": {
+    "defaultMessage": "P",
+    "description": "Short form code representing 'priority entitlement'"
+  },
   "nzcwrW": {
     "defaultMessage": "Les apprentis seront jumelés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
     "description": "First paragraph what will you learn at the program"
@@ -10778,6 +10810,10 @@
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
     "description": "Title for warning message when the user has few assessments to the assessment plan"
+  },
+  "yq7+BB": {
+    "defaultMessage": "Dissimuler la répartition <hidden> de {stepTitle}</hidden>",
+    "description": "Button text to hide the distribution of step statuses"
   },
   "ysKXVP": {
     "defaultMessage": "Groupes de publication",
