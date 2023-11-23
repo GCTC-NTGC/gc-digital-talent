@@ -275,6 +275,10 @@
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
   },
+  "7QH2G/": {
+    "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
+    "description": "Error message that the pool advertisement assessments are lacking a skill"
+  },
   "7TuiE1": {
     "defaultMessage": "A",
     "description": "The evaluated language ability level of A"
@@ -1334,6 +1338,10 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "kDw+xr": {
+    "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
+    "description": "Error message that the pool advertisement skills are lacking an assessment"
   },
   "kKdcZT": {
     "defaultMessage": "Bilingue avancé",
