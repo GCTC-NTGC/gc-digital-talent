@@ -27,6 +27,8 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
+use Laravel\Scout\Searchable;
+
 
 /**
  * Class User
@@ -83,6 +85,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     use LogsActivity;
     use Notifiable;
     use SoftDeletes;
+    use Searchable;
 
     protected $keyType = 'string';
 
@@ -97,6 +100,22 @@ class User extends Model implements Authenticatable, LaratrustUser
         'email',
         'sub',
     ];
+
+
+    public function searchableAs(): string
+    {
+        return 'users_searchable_index';
+    }
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        $array = $this->toArray();
+        return $array;
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
