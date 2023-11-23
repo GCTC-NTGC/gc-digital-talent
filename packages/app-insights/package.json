@@ -29,7 +29,7 @@
     "eslint-config-custom": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
-    "tsup": "^7.2.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.1.3"
   }
 }
