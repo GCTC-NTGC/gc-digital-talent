@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.9.0",
+    "@types/node": "^20.9.4",
     "axe-core": "^4.8.2",
     "cy-verify-downloads": "^0.2.2",
     "cypress": "^13.5.1",
