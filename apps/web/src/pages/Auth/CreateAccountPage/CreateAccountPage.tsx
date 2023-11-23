@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 
-import { Alert, Pending } from "@gc-digital-talent/ui";
+import { Alert, Heading, Pending } from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
@@ -112,24 +112,22 @@ export const CreateAccountForm = ({
         })}
       />
       <Hero
+        centered
         title={intl.formatMessage({
           defaultMessage: "Welcome to GC Digital Talent",
           id: "WVTDgX",
           description:
             "Title for the create account page for applicant profiles.",
         })}
-      />
-      <section>
-        <div
-          data-h2-width="base(100%) p-tablet(75%) l-tablet(50%)"
-          data-h2-padding="base(0, x2) p-tablet(0)"
-          style={{ margin: "auto" }}
-        >
-          <Alert.Root
-            type="success"
-            live={false}
-            data-h2-margin="base(x3, 0, 0, 0)"
-          >
+        subtitle={intl.formatMessage({
+          defaultMessage: "Let's begin with some basic account information.",
+          id: "f9UKuz",
+          description:
+            "Subtitle for the create account page for applicant profiles.",
+        })}
+      >
+        <section data-h2-padding="base(0, 0, x3, 0)">
+          <Alert.Root type="success" live={false}>
             <Alert.Title>
               {intl.formatMessage({
                 defaultMessage: "You've successfully signed in",
@@ -148,123 +146,137 @@ export const CreateAccountForm = ({
               })}
             </p>
           </Alert.Root>
-          <BasicForm
-            onSubmit={handleSubmit}
-            cacheKey={cacheKey}
-            labels={labels}
+          <div
+            data-h2-background-color="base(foreground)"
+            data-h2-radius="base(rounded)"
+            data-h2-padding="base(x1) p-tablet(x2)"
+            data-h2-shadow="base(large)"
           >
-            <h2 data-h2-margin="base(x2, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage: "Getting started",
-                id: "o/YTo0",
-                description: "Main heading in create account page.",
-              })}
-            </h2>
-            <p data-h2-padding="base(0, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-                id: "x6saT3",
-                description:
-                  "Message after main heading in create account page.",
-              })}
-            </p>
-            <div>
-              <div
-                data-h2-display="base(flex)"
+            <BasicForm
+              onSubmit={handleSubmit}
+              cacheKey={cacheKey}
+              labels={labels}
+            >
+              <Heading
+                level="h2"
+                size="h3"
+                data-h2-font-weight="base(400)"
                 data-h2-margin="base(0, 0, x1, 0)"
               >
-                <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
+                {intl.formatMessage({
+                  defaultMessage: "Getting started",
+                  id: "o/YTo0",
+                  description: "Main heading in create account page.",
+                })}
+              </Heading>
+              <p data-h2-padding="base(0, 0, x1, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+                  id: "x6saT3",
+                  description:
+                    "Message after main heading in create account page.",
+                })}
+              </p>
+              <div>
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-margin="base(0, 0, x1, 0)"
+                >
+                  <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      type="text"
+                      label={labels.firstName}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                  <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      label={labels.lastName}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                </div>
+                <div data-h2-margin="base(0, 0, x1, 0)">
                   <Input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    label={labels.firstName}
+                    id="email"
+                    type="email"
+                    name="email"
+                    label={labels.email}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
                   />
                 </div>
-                <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    label={labels.lastName}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-              </div>
-              <div data-h2-margin="base(0, 0, x1, 0)">
-                <Input
-                  id="email"
-                  type="email"
-                  name="email"
-                  label={labels.email}
+                <RadioGroup
+                  idPrefix="required-lang-preferences"
+                  legend={labels.preferredLang}
+                  id="preferredLang"
+                  name="preferredLang"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
+                  items={enumToOptions(Language).map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getLanguage(value)),
+                  }))}
+                  defaultSelected={Language.En}
                 />
-              </div>
-              <RadioGroup
-                idPrefix="required-lang-preferences"
-                legend={labels.preferredLang}
-                id="preferredLang"
-                name="preferredLang"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-                items={enumToOptions(Language).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getLanguage(value)),
-                }))}
-                defaultSelected={Language.En}
-              />
-              <p data-h2-margin="base(x2, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
-                  id: "XijxiY",
-                  description:
-                    "First message before is a government of canada radio group in create account form.",
-                })}
-              </p>
-              <p data-h2-margin="base(0, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
-                  id: "5U4C61",
-                  description:
-                    "Second message before is a government of canada radio group in create account form.",
-                })}
-              </p>
-              <GovernmentInfoFormFields
-                labels={labels}
-                departments={departments}
-                classifications={classifications}
-              />
-              <div
-                data-h2-margin="base(x2, 0)"
-                data-h2-padding="base(x2, 0)"
-                data-h2-border-top="base(1px solid gray.light)"
-                data-h2-display="base(flex)"
-                data-h2-justify-content="base(flex-end)"
-              >
-                <Submit
-                  mode="solid"
-                  color="primary"
-                  text={intl.formatMessage({
-                    defaultMessage: "Save and go to my profile",
-                    id: "H3Za3e",
+                <p data-h2-margin="base(x1, 0, x.5, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
+                    id: "XijxiY",
                     description:
-                      "Button label for submit button on create account form.",
+                      "First message before is a government of canada radio group in create account form.",
                   })}
+                </p>
+                <p data-h2-margin="base(0, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
+                    id: "5U4C61",
+                    description:
+                      "Second message before is a government of canada radio group in create account form.",
+                  })}
+                </p>
+                <GovernmentInfoFormFields
+                  labels={labels}
+                  departments={departments}
+                  classifications={classifications}
                 />
+                <div
+                  data-h2-margin="base(x2, 0, 0, 0)"
+                  data-h2-padding="base(x2, 0, 0, 0)"
+                  data-h2-border-top="base(1px solid gray)"
+                  data-h2-display="base(flex)"
+                  data-h2-justify-content="base(flex-start)"
+                >
+                  <Submit
+                    mode="solid"
+                    color="secondary"
+                    text={intl.formatMessage({
+                      defaultMessage: "Save and go to my profile",
+                      id: "H3Za3e",
+                      description:
+                        "Button label for submit button on create account form.",
+                    })}
+                  />
+                </div>
               </div>
-            </div>
-          </BasicForm>
-        </div>
-      </section>
+            </BasicForm>
+          </div>
+        </section>
+      </Hero>
     </>
   );
 };

@@ -1,7 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { AlertDialog, Alert, Button, Link } from "@gc-digital-talent/ui";
+import {
+  AlertDialog,
+  Alert,
+  Button,
+  Heading,
+  Link,
+} from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 
@@ -56,14 +62,18 @@ const SignedOutPage = () => {
             })}
           </p>
         </Alert.Root>
-        <h2 data-h2-margin="base(x3, 0, x1, 0)">
+        <Heading
+          data-h2-margin="base(x3, 0, x1, 0)"
+          size="h3"
+          data-h2-font-weight="base(400)"
+        >
           {intl.formatMessage({
             defaultMessage: "Quick Links",
             id: "Igrveg",
             description:
               "Title displayed for helpful links on logged out page.",
           })}
-        </h2>
+        </Heading>
         <p>
           {intl.formatMessage({
             defaultMessage:
@@ -73,8 +83,8 @@ const SignedOutPage = () => {
               "Description of the links presented on the logged out page.",
           })}
         </p>
-        <div data-h2-margin="base(x1, 0, 0, 0)">
-          <ul>
+        <div data-h2-margin="base(x.5, 0, 0, 0)">
+          <ul data-h2-padding="base(0, 0, 0, x1)">
             <li>
               <Link href={paths.home()}>
                 {intl.formatMessage({

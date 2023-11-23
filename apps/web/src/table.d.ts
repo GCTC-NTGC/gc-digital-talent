@@ -16,5 +16,7 @@ declare module "@tanstack/table-core" {
     searchHeader?: React.ReactNode;
     /** Allows the column to shrink below the min width (x8) */
     shrink?: boolean;
+    /** Mark this column as locked sorting (user cannot control) */
+    sortingLocked?: boolean;
   }
 }

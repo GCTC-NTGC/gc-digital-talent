@@ -257,18 +257,13 @@ interface HeaderProps extends HeadingProps {
 const Header = React.forwardRef<HTMLHeadingElement, HeaderProps>(
   ({ toggle, ...headingProps }, forwardedRef) => {
     return (
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-      >
+      <div data-h2-flex-grid="base(center, x2)">
         <Heading
           ref={forwardedRef}
-          data-h2-margin="base(0)"
+          data-h2-flex-item="base(fill)"
           {...headingProps}
         />
-        <div data-h2-flex-shrink="base(0)">{toggle}</div>
+        <div data-h2-flex-item="base(content)">{toggle}</div>
       </div>
     );
   },

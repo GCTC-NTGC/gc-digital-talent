@@ -131,7 +131,9 @@ const CareerTimelineAndRecruitment = ({
               <Heading
                 Icon={BookmarkSquareIcon}
                 color="tertiary"
-                data-h2-margin-top="base(0)"
+                size="h3"
+                data-h2-margin="base(0, 0, x1, 0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage(titles.manageYourCareerTimeline)}
               </Heading>
@@ -157,7 +159,7 @@ const CareerTimelineAndRecruitment = ({
                   />
                 </div>
               )}
-              <div data-h2-margin-top="base(x2)">
+              <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
                   experiences={experiences}
                   userId={userId}
@@ -172,6 +174,8 @@ const CareerTimelineAndRecruitment = ({
                 <Heading
                   Icon={IdentificationIcon}
                   color="secondary"
+                  data-h2-font-weight="base(400)"
+                  size="h3"
                   data-h2-flex-item="base(1of1) p-tablet(fill)"
                 >
                   {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
@@ -188,7 +192,7 @@ const CareerTimelineAndRecruitment = ({
                   })}
                 </Link>
               </div>
-              <p data-h2-margin="base(x1, 0, x2, 0)">
+              <p data-h2-margin="base(x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",

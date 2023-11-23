@@ -76,7 +76,7 @@ const SkillTree = ({
   ) : null;
 
   return (
-    <TreeView.Root data-h2-margin="base(x2, 0)">
+    <TreeView.Root data-h2-margin="base(x1, 0, 0, 0)">
       <TreeView.Head>
         <CardBasic>
           <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
@@ -111,7 +111,12 @@ const SkillTree = ({
             skill={skill}
             availableExperiences={availableExperiences}
             trigger={
-              <Button type="button" color="secondary" mode="solid">
+              <Button
+                type="button"
+                color="secondary"
+                mode="placeholder"
+                data-h2-width="base(100%)"
+              >
                 {intl.formatMessage(
                   {
                     defaultMessage:

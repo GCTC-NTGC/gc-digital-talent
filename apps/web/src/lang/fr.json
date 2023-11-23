@@ -919,10 +919,6 @@
     "defaultMessage": "Changer votre disponibilité",
     "description": "Button text to open form to change availability in a generic recruitment"
   },
-  "36k+Da": {
-    "defaultMessage": "Nom",
-    "description": "Label for user table search dropdown (name)."
-  },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
@@ -1475,6 +1471,10 @@
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
   },
+  "6+H2T9": {
+    "defaultMessage": "Chercher les candidats du bassin",
+    "description": "Label for the pool candidates table search input"
+  },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
@@ -1490,6 +1490,10 @@
   "69/cNW": {
     "defaultMessage": "Renseignements sur le candidat",
     "description": "Heading displayed above the pool candidate application page."
+  },
+  "69BfF3": {
+    "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
+    "description": "Subtitle for the search page"
   },
   "6B7e8/": {
     "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
@@ -1658,6 +1662,10 @@
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for citizenship status"
+  },
+  "7DYnwq": {
+    "defaultMessage": "Nous avons reçu votre demande",
+    "description": "Paragraph one, message to user the request was received"
   },
   "7ET77N": {
     "defaultMessage": "Parlons compétences",
@@ -5391,6 +5399,10 @@
     "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
     "description": "Text blurb, asking about classification and level in the government info form"
   },
+  "TU9sk7": {
+    "defaultMessage": "Soumettez votre demande filtrée pour obtenir un talent.",
+    "description": "Subtitle displayed on hero for Search and Request pages."
+  },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
@@ -7487,6 +7499,10 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
+  "f9UKuz": {
+    "defaultMessage": "Commençons par quelques renseignements de base sur votre compte.",
+    "description": "Subtitle for the create account page for applicant profiles."
+  },
   "fA79sM": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
@@ -7590,10 +7606,6 @@
   "fhgZRX": {
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
-  },
-  "fivWMs": {
-    "defaultMessage": "Courriel",
-    "description": "Label for user table search dropdown (email)."
   },
   "fkYYe3": {
     "defaultMessage": "Plan d’évaluation",
@@ -7906,10 +7918,6 @@
   "hBf/ab": {
     "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill to the users library"
-  },
-  "hEa14D": {
-    "defaultMessage": "Nous l’avons à partir d’ici!",
-    "description": "Lead in text for the page content on the request confirmation page"
   },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
@@ -8578,10 +8586,6 @@
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
-  },
-  "lA+c8E": {
-    "defaultMessage": "Nous avons reçu votre demande et la réviserons le plus tôt possible.",
-    "description": "Paragraph one, message to user the request was received"
   },
   "lB/SWR": {
     "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
@@ -10775,6 +10779,10 @@
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
   },
+  "ymHPWF": {
+    "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
+    "description": "Instructional text under the Skill Requirements section"
+  },
   "ynGRwF": {
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
     "description": "Description for the professional designation requirement."
@@ -10810,10 +10818,6 @@
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
     "description": "Label for applicant's employee status"
-  },
-  "z0QI6A": {
-    "defaultMessage": "Tous les candidats du bassin",
-    "description": "Title for the admin pool candidates table"
   },
   "z3QvIv": {
     "defaultMessage": "Outres compétences",
@@ -10882,10 +10886,6 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
-  },
-  "zMuDSL": {
-    "defaultMessage": "Cherchez-vous à embaucher un talent numérique?",
-    "description": "Heading on find talent page posing question to users."
   },
   "zS2PN+": {
     "defaultMessage": "Toutes les catégories ({count})",

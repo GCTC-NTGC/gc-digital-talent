@@ -60,7 +60,12 @@ const ExperienceSkills = ({
 
   return (
     <section>
-      <Heading level="h3" size="h5">
+      <Heading
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Link featured skills",
           id: "/I7wrY",
@@ -77,12 +82,13 @@ const ExperienceSkills = ({
       </p>
       <Accordion.Root
         type="single"
+        size="sm"
         value={accordionState}
         onValueChange={(value: AccordionStates) => setAccordionState(value)}
         collapsible
       >
         <Accordion.Item value="learn-more">
-          <Accordion.Trigger as="h3">
+          <Accordion.Trigger>
             {accordionState === "learn-more"
               ? intl.formatMessage({
                   defaultMessage:
@@ -100,7 +106,7 @@ const ExperienceSkills = ({
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-top="base(x1)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "When linking an experience, try answering one or more of these questions:",
@@ -153,7 +159,7 @@ const ExperienceSkills = ({
       {derivedType ? (
         <div
           data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
+          data-h2-gap="base(x.5)"
           data-h2-flex-direction="base(column)"
           data-h2-flex-wrap="p-tablet(wrap)"
           data-h2-margin-top="base(x1)"
@@ -181,7 +187,7 @@ const ExperienceSkills = ({
           ) : (
             <Well>
               <p
-                data-h2-margin-bottom="base(x1)"
+                data-h2-margin-bottom="base(x.5)"
                 data-h2-text-align="base(center)"
                 data-h2-font-weight="base(bold)"
               >

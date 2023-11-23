@@ -168,8 +168,15 @@ export const ApplicationSkills = ({
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(space-between)"
         data-h2-align-items="base(flex-start) p-tablet(center)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
-        <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+        <Heading
+          data-h2-margin="base(0)"
+          data-h2-font-weight="base(400)"
+          size="h3"
+        >
+          {pageInfo.title}
+        </Heading>
         <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
@@ -198,7 +205,12 @@ export const ApplicationSkills = ({
       </p>
       {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading level="h3" size="h5">
+          <Heading
+            level="h3"
+            size="h4"
+            data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(700)"
+          >
             {intl.formatMessage({
               defaultMessage: "Required technical skills",
               id: "OCrKtT",
@@ -227,7 +239,12 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading level="h3" size="h5">
+          <Heading
+            level="h3"
+            size="h4"
+            data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(700)"
+          >
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
               id: "OZe0NZ",
@@ -248,7 +265,12 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedEssentialSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading level="h3" size="h5">
+          <Heading
+            level="h3"
+            size="h4"
+            data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(700)"
+          >
             {intl.formatMessage({
               defaultMessage: "Required behavioural skills",
               id: "zv4Vyd",
@@ -270,7 +292,12 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading level="h3" size="h5">
+          <Heading
+            level="h3"
+            size="h4"
+            data-h2-margin="base(x3, 0, x1, 0)"
+            data-h2-font-weight="base(700)"
+          >
             {intl.formatMessage({
               defaultMessage: "Optional behavioural skills",
               id: "BqeIyx",
@@ -303,12 +330,12 @@ export const ApplicationSkills = ({
           <Separator
             orientation="horizontal"
             decorative
-            data-h2-background="base(black.light)"
+            data-h2-background="base(gray)"
             data-h2-margin="base(x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
-            data-h2-gap="base(x.25, x.5)"
+            data-h2-gap="base(x1)"
             data-h2-flex-wrap="base(wrap)"
             data-h2-flex-direction="base(column) l-tablet(row)"
             data-h2-align-items="base(flex-start) l-tablet(center)"
