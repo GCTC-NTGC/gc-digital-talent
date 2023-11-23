@@ -220,6 +220,20 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the pool advertisement must have publishing group filled.",
     },
+    AssessmentStepMissingSkills: {
+      defaultMessage:
+        "Each assessment must include one or more skills for evaluation",
+      description:
+        "Error message that the pool advertisement assessments are lacking a skill",
+      id: "7QH2G/",
+    },
+    PoolSkillsWithoutAssessments: {
+      defaultMessage: "Each skill must be included in an assessment",
+      description:
+        "Error message that the pool advertisement skills are lacking an assessment",
+      id: "kDw+xr",
+    },
+
     APPLICATION_EXISTS: {
       defaultMessage: "You have already applied to this pool",
       description:
