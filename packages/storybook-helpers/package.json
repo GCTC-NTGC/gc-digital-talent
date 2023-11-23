@@ -10,7 +10,7 @@
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/theme": "*",
     "@storybook/react": "^7.5.1",
-    "chromatic": "^9.0.0",
+    "chromatic": "^9.1.0",
     "framer-motion": "^10.16.5",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
