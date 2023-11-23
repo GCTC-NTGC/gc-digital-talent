@@ -5383,6 +5383,10 @@
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
   },
+  "TIAla1": {
+    "defaultMessage": "Non réussi",
+    "description": "Message displayed when candidate has not passed an assessment step"
+  },
   "TJ+5Xn": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
     "description": "Description of how application profiles work for managers."
@@ -5982,6 +5986,10 @@
   "WhQFXx": {
     "defaultMessage": "Combien d’évaluations devrais-je inclure?",
     "description": "first question in the organize section in the assessment plan builder"
+  },
+  "Whq2Xl": {
+    "defaultMessage": "Réussi",
+    "description": "Message displayed when candidate has successfully passed an assessment step"
   },
   "Wi4tia": {
     "defaultMessage": "Nos développeurs prêtent une attention particulière aux éléments suivants : ",
