@@ -54,22 +54,51 @@ type DefaultValueDateInputArgs = DateInputArgs & {
 const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   return (
-    <Form
-      options={{
-        mode: "onSubmit",
-        defaultValues: defaultValue
-          ? {
-              [rest.name]: defaultValue,
-            }
-          : undefined,
-      }}
-      onSubmit={(data) => action("Submit Form")(data)}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
     >
-      <DateInput {...rest} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{
+              mode: "onSubmit",
+              defaultValues: defaultValue
+                ? {
+                    [rest.name]: defaultValue,
+                  }
+                : undefined,
+            }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <DateInput {...rest} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{
+              mode: "onSubmit",
+              defaultValues: defaultValue
+                ? {
+                    [rest.name]: defaultValue,
+                  }
+                : undefined,
+            }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <DateInput {...rest} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -135,13 +164,37 @@ const ValidationDependantInputs = ({
 
 const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   return (
-    <Form
-      options={{ mode: "onSubmit" }}
-      onSubmit={(data) => action("Submit Form")(data)}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
     >
-      <ValidationDependantInputs {...args} />
-      <Submit />
-    </Form>
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{ mode: "onSubmit" }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <ValidationDependantInputs {...args} />
+            <p data-h2-margin="base(x1, 0, 0, 0)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{ mode: "onSubmit" }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <ValidationDependantInputs {...args} />
+            <p data-h2-margin="base(x1, 0, 0, 0)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -157,7 +210,7 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   return inputDate && isAfter(new Date(), inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
-    <p data-h2-margin="base(x1, 0)">
+    <p data-h2-color="base(black)" data-h2-margin="base(x1, 0)">
       Please select a date in the past to continue.
     </p>
   );
@@ -166,14 +219,39 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
 const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   const { name, ...rest } = args;
   return (
-    <Form
-      options={{ mode: "onSubmit" }}
-      onSubmit={(data) => action("Submit Form")(data)}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
     >
-      <DateInput name={name} {...rest} />
-      <RenderDependantInput name={name} />
-      <Submit />
-    </Form>
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{ mode: "onSubmit" }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <DateInput name={name} {...rest} />
+            <RenderDependantInput name={name} />
+            <p data-h2-margin="base(x1, 0, 0, 0)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            options={{ mode: "onSubmit" }}
+            onSubmit={(data) => action("Submit Form")(data)}
+          >
+            <DateInput name={name} {...rest} />
+            <RenderDependantInput name={name} />
+            <p data-h2-margin="base(x1, 0, 0, 0)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -201,26 +279,63 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   }, [mockQuery]);
 
   return (
-    <Pending fetching={fetching}>
-      <Form
-        options={{
-          mode: "onSubmit",
-          defaultValues: {
-            [rest.name]: pool?.closingDate
-              ? formatDate({
-                  date: parseISO(pool?.closingDate),
-                  formatString: DATE_FORMAT_STRING,
-                  intl,
-                })
-              : undefined,
-          },
-        }}
-        onSubmit={(data) => action("Submit Form")(data)}
-      >
-        <DateInput {...rest} />
-        <Submit />
-      </Form>
-    </Pending>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
+    >
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Pending fetching={fetching}>
+            <Form
+              options={{
+                mode: "onSubmit",
+                defaultValues: {
+                  [rest.name]: pool?.closingDate
+                    ? formatDate({
+                        date: parseISO(pool?.closingDate),
+                        formatString: DATE_FORMAT_STRING,
+                        intl,
+                      })
+                    : undefined,
+                },
+              }}
+              onSubmit={(data) => action("Submit Form")(data)}
+            >
+              <DateInput {...rest} />
+              <p data-h2-margin="base(x1, 0, 0, 0)">
+                <Submit />
+              </p>
+            </Form>
+          </Pending>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Pending fetching={fetching}>
+            <Form
+              options={{
+                mode: "onSubmit",
+                defaultValues: {
+                  [rest.name]: pool?.closingDate
+                    ? formatDate({
+                        date: parseISO(pool?.closingDate),
+                        formatString: DATE_FORMAT_STRING,
+                        intl,
+                      })
+                    : undefined,
+                },
+              }}
+              onSubmit={(data) => action("Submit Form")(data)}
+            >
+              <DateInput {...rest} />
+              <p data-h2-margin="base(x1, 0, 0, 0)">
+                <Submit />
+              </p>
+            </Form>
+          </Pending>
+        </div>
+      </div>
+    </div>
   );
 };
 

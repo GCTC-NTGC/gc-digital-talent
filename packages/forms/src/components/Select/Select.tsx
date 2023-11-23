@@ -93,7 +93,7 @@ const Select = ({
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
-  const baseStyles = useCommonInputStyles();
+  const baseStyles = useCommonInputStyles("select");
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -128,7 +128,7 @@ const Select = ({
         {...register(name, rules)}
         {...rest}
       >
-        <option value="" disabled>
+        <option data-h2-color="base(gray.dark)" value="" disabled>
           {nullSelection}
         </option>
         {optionsModified.map((option) =>

@@ -33,15 +33,37 @@ const Template: StoryFn<SelectProps> = (args) => {
     label: getLocalizedName(name, intl) || "",
   }));
   return (
-    <Form
-      onSubmit={action("Submit Form")}
-      options={{ defaultValues: { groups: "" } }}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
     >
-      <Select {...args} options={departmentOptions} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            onSubmit={action("Submit Form")}
+            options={{ defaultValues: { groups: "" } }}
+          >
+            <Select {...args} options={departmentOptions} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            onSubmit={action("Submit Form")}
+            options={{ defaultValues: { groups: "" } }}
+          >
+            <Select {...args} options={departmentOptions} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -87,15 +109,41 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
   }));
 
   return (
-    <Form
-      onSubmit={action("Submit Form")}
-      options={{ defaultValues: { groups: "" } }}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
     >
-      <div>
-        <Select {...args} options={groupOptions} />
-        <Submit />
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            onSubmit={action("Submit Form")}
+            options={{ defaultValues: { groups: "" } }}
+          >
+            <div>
+              <Select {...args} options={groupOptions} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </div>
+          </Form>
+        </div>
       </div>
-    </Form>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form
+            onSubmit={action("Submit Form")}
+            options={{ defaultValues: { groups: "" } }}
+          >
+            <div>
+              <Select {...args} options={groupOptions} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </div>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 };
 

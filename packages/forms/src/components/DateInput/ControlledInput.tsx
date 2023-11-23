@@ -35,6 +35,7 @@ const ControlledInput = ({
 }: ControlledInputProps) => {
   const intl = useIntl();
   const inputStyles = useCommonInputStyles();
+  const selectStyles = useCommonInputStyles("select");
   const { year, month, day } = splitSegments(
     defaultValues ? defaultValues[name] : undefined,
   );
@@ -108,10 +109,10 @@ const ControlledInput = ({
             onChange={handleMonthChange}
             defaultValue={month || ""}
             data-h2-width="base(100%)"
-            {...inputStyles}
+            {...selectStyles}
             {...stateStyles}
           >
-            <option value="">
+            <option data-h2-color="base(gray.dark)" value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (
