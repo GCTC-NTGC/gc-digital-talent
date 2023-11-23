@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             // Add the searchable column of type tsvector
-            $table->tsvector('searchable')->nullable();
+            $table->text('searchable')->nullable();
         });
 
         // Update the tsvector column with the data for existing rows
@@ -30,12 +30,30 @@ return new class extends Migration
         coalesce(verbal_level, \'\') || \' \' ||
         coalesce(estimated_language_ability, \'\') || \' \' ||
         coalesce(location_exemptions, \'\') || \' \' ||
-        coalesce(priority_number, \'\')
-        )
-        ');
+        coalesce(priority_number, \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(notes), \' \') FROM Pool_Candidates WHERE Pool_Candidates.user_id = users.id), \'\') ||
+
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(role), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT  ARRAY_TO_STRING(ARRAY_AGG(organization), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT  ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
+
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(thesis_title), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
+
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(description), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
+
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM award_experiences WHERE award_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \')details FROM award_experiences WHERE award_experiences.user_id = users.id), \'\') ||
+
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM community_experiences WHERE community_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \')details FROM community_experiences WHERE community_experiences.user_id = users.id), \'\')
+        )');
+
 
         // Create a GIN index on the tsvector column for efficient full-text search
-        \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
+        \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(to_tsvector(\'english\', searchable))');
 
     }
 
