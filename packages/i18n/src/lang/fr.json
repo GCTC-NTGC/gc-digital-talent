@@ -271,6 +271,10 @@
     "defaultMessage": "La demande a déjà été soumise.",
     "description": "Error message that the given application is already submitted."
   },
+  "7D58wn": {
+    "defaultMessage": "Vous ne pouvez pas archiver un bassin à moins que le statut indique qu'il soit fermé.",
+    "description": "Error message when attempting to archive a pool with an invalid status."
+  },
   "7Gg5er": {
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
@@ -1254,6 +1258,10 @@
   "hd7hdn": {
     "defaultMessage": "avertissement",
     "description": "Message for the warning status"
+  },
+  "hpBnAk": {
+    "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
+    "description": "Error message when attempting to un-archive a pool with an invalid status."
   },
   "i3Jl6C": {
     "defaultMessage": " : ",
