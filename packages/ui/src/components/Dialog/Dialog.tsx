@@ -57,16 +57,12 @@ const StyledContent = React.forwardRef<
        * `targetIsScrollable`: Checks to see if the visible height of the container
        * exceeds the total scroll height
        *
-       * `scrollWidth`: If this is 0, the scrollbar is likely not there or hidden
-       *
        */
-      // Note: 16 is a rough estimate of scrollbar width, this is not exact!
       const targetIsScrollbar =
-        target.clientWidth - event.detail.originalEvent.clientX < 16;
+        target.offsetWidth - event.detail.originalEvent.clientX < 16;
       const targetIsScrollable = target.clientHeight - target.scrollHeight < 0;
-      const scrollWidth = target.offsetWidth - target.clientWidth;
 
-      if (targetIsScrollbar && targetIsScrollable && !scrollWidth) {
+      if (targetIsScrollbar && targetIsScrollable) {
         event.preventDefault();
         return;
       }
