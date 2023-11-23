@@ -433,96 +433,10 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   );
 };
 
-interface ArchiveActionProps extends ActionProps {
-  application: Application;
-  onArchive: () => void;
-}
-
-const ArchiveAction = ({
-  show,
-  application,
-  onArchive,
-}: ArchiveActionProps) => {
-  const intl = useIntl();
-
-  if (!show) {
-    return null;
-  }
-
-  const name = getFullPoolTitleHtml(intl, application.pool);
-
-  return (
-    <AlertDialog.Root>
-      <AlertDialog.Trigger>
-        <Button mode="inline" type="button" fontSize="caption" color="black">
-          {intl.formatMessage(
-            {
-              defaultMessage: "Archive<hidden> application {name}</hidden>",
-              id: "6B7e8/",
-              description: "Link text to continue a specific application",
-            },
-            {
-              name,
-            },
-          )}
-        </Button>
-      </AlertDialog.Trigger>
-      <AlertDialog.Content>
-        <AlertDialog.Title>
-          {intl.formatMessage({
-            defaultMessage: "Archive Application",
-            id: "yiJYdP",
-            description:
-              "Title for the modal that appears when a user attempts to archive an application",
-          })}
-        </AlertDialog.Title>
-        <AlertDialog.Description>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Are you sure you would like to archive application {name}?",
-              id: "Z0PCOW",
-              description:
-                "Question displayed when user attempts to archive an application",
-            },
-            { name },
-          )}
-        </AlertDialog.Description>
-        <AlertDialog.Footer>
-          <AlertDialog.Cancel>
-            <Button color="primary" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "r6DZ71",
-                description: "Link text to cancel archiving application.",
-              })}
-            </Button>
-          </AlertDialog.Cancel>
-          <AlertDialog.Action>
-            <Button
-              mode="solid"
-              color="secondary"
-              type="button"
-              onClick={onArchive}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Archive",
-                id: "PXfQOZ",
-                description: "Link text to archive application.",
-              })}
-            </Button>
-          </AlertDialog.Action>
-        </AlertDialog.Footer>
-      </AlertDialog.Content>
-    </AlertDialog.Root>
-  );
-};
-
 export default {
   ContinueAction,
   SeeAdvertisementAction,
   DeleteAction,
-  ArchiveAction,
   SupportAction,
   ViewAction,
   CopyApplicationIdAction,

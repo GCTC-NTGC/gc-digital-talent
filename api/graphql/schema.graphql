@@ -1708,9 +1708,6 @@ type Mutation {
     @can(ability: "archiveAndUnarchive", find: "id")
 
   # Application mutations
-  archiveApplication(id: ID!): PoolCandidate
-    @guard
-    @can(ability: "archive", find: "id")
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @can(ability: "suspend", find: "id")
