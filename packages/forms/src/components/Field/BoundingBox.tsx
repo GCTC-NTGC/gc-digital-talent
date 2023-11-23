@@ -26,7 +26,7 @@ const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
             "data-h2-padding": "base(0)",
           }
         : {
-            "data-h2-background": "base(white) base:dark(black.light)",
+            "data-h2-background": "base(foreground)",
           })}
       {...rest}
     />
