@@ -9,7 +9,7 @@ class SupportController extends Controller
 {
     public function createTicket(Request $request)
     {
-        if (!config('freshdesk.api.tickets_endpoint') || !config('freshdesk.api.key')) {
+        if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
             return response([
                 'apiResponse' => 'Missing parameters',
             ], 422);
