@@ -10,6 +10,7 @@ const useCommonInputStyles: UseCommonInputStyles = () => {
     "data-h2-outline-offset": "base(2px)",
     "data-h2-padding": "base(x.5)",
     "data-h2-radius": "base(rounded)",
+    "data-h2-color": "base(black)",
   };
 };
 

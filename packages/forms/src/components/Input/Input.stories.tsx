@@ -28,13 +28,30 @@ export default {
 const TemplateInput: Story<InputProps & { maxWidth: string }> = (args) => {
   const { maxWidth, ...rest } = args;
   return (
-    <div style={{ maxWidth }}>
-      <Form onSubmit={action("Submit Form")}>
-        <Input {...rest} />
-        <p data-h2-margin-top="base(x1)">
-          <Submit />
-        </p>
-      </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(50% 50%)"
+    >
+      <div data-h2="light">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form onSubmit={action("Submit Form")}>
+            <Input {...rest} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
+      <div data-h2="dark">
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Form onSubmit={action("Submit Form")}>
+            <Input {...rest} />
+            <p data-h2-margin-top="base(x1)">
+              <Submit />
+            </p>
+          </Form>
+        </div>
+      </div>
     </div>
   );
 };
