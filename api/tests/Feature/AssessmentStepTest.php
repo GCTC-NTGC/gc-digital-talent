@@ -95,6 +95,24 @@ class AssessmentStepTest extends TestCase
         }
     ';
 
+    protected $createOrUpdateScreeningQuestionAssessmentStep =
+    /** @lang GraphQL */
+    '
+        mutation createOrUpdateScreeningQuestionAssessmentStep(
+            $poolId: UUID!,
+            $screeningQuestions: [SyncScreeningQuestionsInput],
+            $assessmentStep: ScreeningQuestionAssessmentStepInput
+            ) {
+                createOrUpdateScreeningQuestionAssessmentStep(
+                    poolId: $poolId,
+                    screeningQuestions: $screeningQuestions,
+                    assessmentStep: $assessmentStep
+                    ) {
+                    id
+                }
+            }
+    ';
+
     // test creating an assessment
     public function testCreatingAssessmentStep(): void
     {
@@ -263,21 +281,55 @@ class AssessmentStepTest extends TestCase
                 ]
             )
             ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
+    }
 
-        $this->actingAs($this->teamUser, 'api')
-            ->graphQL(
-                $this->createAssessmentStep,
-                [
-                    'poolId' => $this->pool->id,
-                    'assessmentStep' => [
-                        'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                        'title' => [
-                            'en' => 'en',
-                            'fr' => 'fr',
+    // test screening questions and pool skills
+    public function testScreeningQuestionsAndSkills(): void
+    {
+        Skill::factory()->count(3)->create();
+        $testPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team->id,
+        ]);
+        $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
+
+        // can sync up screening questions and connect no pool skills
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            [
+                'poolId' => $testPool->id,
+                'screeningQuestions' => [
+                    [
+                        'id' => $screeningQuestion->id,
+                        'question' => [
+                            'en' => 'en?',
+                            'fr' => 'fr?',
                         ],
                     ],
-                ]
-            )
-            ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
+                ],
+                'assessmentStep' => [
+                    'title' => [
+                        'en' => 'title en',
+                        'fr' => 'title fr',
+                    ],
+                    'poolSkills' => [
+                        'sync' => null,
+                    ],
+                ],
+            ])
+            ->assertSuccessful();
+
+        // only one screening question now attached
+        $testPool->refresh();
+        assertEquals(1, count($testPool->screeningQuestions));
+
+        $totalSteps = AssessmentStep::where('pool_id', $testPool->id)->get();
+        $screeningStep = AssessmentStep::where('pool_id', $testPool->id)
+            ->where('type', AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)
+            ->with('poolSkills')
+            ->first();
+
+        // assert two assessments steps exist, and the screening question step is not attached to any skills
+        assertEquals(2, count($totalSteps));
+        assertEquals(0, count($screeningStep->poolSkills));
     }
 }

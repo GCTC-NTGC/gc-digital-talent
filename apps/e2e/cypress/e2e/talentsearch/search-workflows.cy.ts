@@ -235,9 +235,14 @@ describe("Talent Search Workflow Tests", () => {
 
     // skills selection, not currently used in search
     cy.get<Skill>("@testSkill").then((skill) => {
-      cy.findByRole("button", {
-        name: `Add this skill : ${skill.name.en}`,
-      }).click();
+      cy.findByRole("combobox", { name: /skill family/i }).then((dropdown) => {
+        cy.wrap(dropdown).select(1); // All skills
+        searchRejectsMySingleCandidate();
+      });
+
+      cy.findByRole("combobox", { name: /skill$/i }).then((combobox) => {
+        cy.wrap(combobox).type(`${skill.name.en}{DownArrow}{Enter}`);
+      });
       // skill selection does not trigger an api request
       searchFindsMySingleCandidate();
     });

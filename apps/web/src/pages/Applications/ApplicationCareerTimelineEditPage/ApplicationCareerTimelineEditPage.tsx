@@ -92,8 +92,14 @@ const ApplicationCareerTimelineEdit = ({
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
-      <p data-h2-margin="base(0)">
+      <Heading
+        data-h2-margin-top="base(0)"
+        size="h3"
+        data-h2-font-weight="base(400)"
+      >
+        {pageInfo.title}
+      </Heading>
+      <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage:
             "From here you can edit this experience. Don't forget, work experiences should focus on describing  your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",

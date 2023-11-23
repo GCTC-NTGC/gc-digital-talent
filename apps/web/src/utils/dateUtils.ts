@@ -5,11 +5,17 @@ import {
   formatDate,
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { Maybe, Scalars } from "~/api/generated";
 
 export function formattedDate(date: Scalars["Date"], intl: IntlShape) {
   let dateString = date;
+
+  // handle accidental passing in nulls/undefined/empty string
+  if (date === null || date === undefined || date === "") {
+    return intl.formatMessage(commonMessages.notAvailable);
+  }
 
   // fix what comes out of the snapshots
   if (dateString.length === "yyyy-MM-ddT00:00:00.000000Z".length)

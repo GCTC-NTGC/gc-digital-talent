@@ -46,6 +46,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "xSecEX",
       description: "Error message that the given skill key is already in use.",
     },
+    DuplicateUserSkill: {
+      defaultMessage:
+        "The skill you selected is already linked to your profile.",
+      id: "wUJqDi",
+      description:
+        "Error message that the skill selected is already linked to the user profile.",
+    },
 
     // team validation
     TeamNameInUse: {
@@ -63,23 +70,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
     },
 
     // application validation
-    AlreadyArchived: {
-      defaultMessage: "Application is already archived.",
-      id: "A+dFlE",
-      description:
-        "Error message that the given application is already archived.",
-    },
     AlreadySubmitted: {
       defaultMessage: "Application is already submitted.",
       id: "76QTNv",
       description:
         "Error message that the given application is already submitted.",
-    },
-    "pool candidates status InvalidValueArchival": {
-      defaultMessage:
-        "This application cannot be archived. You can only archive expired applications.",
-      id: "TjeaLS",
-      description: "Error message that the application cannot be archived.",
     },
     "pool candidates status InvalidValueDeletion": {
       defaultMessage:

@@ -779,6 +779,11 @@ const poolCandidateSearchStatuses = defineMessages({
     id: "prkkM+",
     description: "The search status is Done.",
   },
+  [PoolCandidateSearchStatus.DoneNoCandidates]: {
+    defaultMessage: "Done - no candidates found",
+    id: "Mau9e6",
+    description: "The search status is done with no candidates found",
+  },
 });
 
 export const getPoolCandidateSearchStatus = (

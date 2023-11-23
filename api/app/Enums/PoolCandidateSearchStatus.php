@@ -8,4 +8,5 @@ enum PoolCandidateSearchStatus
     case IN_PROGRESS;
     case WAITING;
     case DONE;
+    case DONE_NO_CANDIDATES;
 }

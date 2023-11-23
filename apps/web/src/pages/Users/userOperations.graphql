@@ -376,6 +376,15 @@ query GetViewUserData($id: UUID!) {
           level
         }
         stream
+        publishingGroup
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
       }
     }
     department {

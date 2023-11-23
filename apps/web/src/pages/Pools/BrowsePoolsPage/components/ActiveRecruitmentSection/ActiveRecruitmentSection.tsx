@@ -24,9 +24,11 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
     <>
       <Heading
         level="h2"
+        size="h3"
+        data-h2-font-weight="base(400)"
         Icon={RocketLaunchIcon}
         color="secondary"
-        data-h2-margin="base(0, 0, x0.5, 0)"
+        data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Active talent recruitment processes",
@@ -34,7 +36,7 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p data-h2-margin="base(x.5, 0)">
         {intl.formatMessage({
           id: "C7sYnb",
           defaultMessage:
@@ -52,7 +54,7 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
             "Description of how the application process works, paragraph two",
         })}
       </p>
-      <div data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)">
+      <div data-h2-padding="base(x1, 0, 0, 0)">
         {pools.length ? (
           <ul
             data-h2-margin="base(0)"

@@ -222,6 +222,12 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for additional details input/section",
     }),
+    howIUsed: intl.formatMessage({
+      defaultMessage: "How I used",
+      id: "jH5egG",
+      description:
+        "Label displayed on experience form/card for how a skill was applied section",
+    }),
   };
 };
 
@@ -640,7 +646,9 @@ export const getExperienceDate = (
   }
 
   if (isAwardExperience(experience)) {
-    return formattedDate(experience.awardedDate ?? "", intl);
+    return experience.awardedDate
+      ? formattedDate(experience.awardedDate, intl)
+      : undefined;
   }
 
   const { startDate, endDate } = experience;

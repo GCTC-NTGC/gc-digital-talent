@@ -690,7 +690,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wasPublished", "notArchived"])
     @can(ability: "viewAnyPublished", model: "Pool")
-  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
     @can(ability: "view", resolved: true)
@@ -1375,7 +1374,7 @@ input UpdatePoolInput {
 input AssessmentStepInput {
   type: AssessmentStepType
     @rules(
-      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      apply: ["notIn:APPLICATION_SCREENING"]
       messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
     )
   title: LocalizedStringInput
@@ -1709,9 +1708,6 @@ type Mutation {
     @can(ability: "archiveAndUnarchive", find: "id")
 
   # Application mutations
-  archiveApplication(id: ID!): PoolCandidate
-    @guard
-    @can(ability: "archive", find: "id")
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @can(ability: "suspend", find: "id")

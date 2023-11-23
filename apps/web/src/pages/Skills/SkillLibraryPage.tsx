@@ -136,11 +136,11 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               <TableOfContents.Heading
                 icon={GlobeAmericasIcon}
                 color="primary"
-                data-h2-margin-top="base(0)"
+                data-h2-margin="base(0, 0, x1, 0)"
               >
                 {sections.behavioural.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to manage all the behavioural skills linked to your profile, experiences, and showcase. Click on a skill's name to view further details.",
@@ -148,7 +148,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
                   description: "Description on how to use behavioural skills",
                 })}
               </p>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Behavioural skills refer to the key interpersonal and personal attributes that are necessary for specific jobs across the organization. These competencies generally refer to the way a person acts, communicates and interacts with others.",
@@ -170,7 +170,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               >
                 {sections.technical.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to manage all the technical skills linked to your profile, experiences, and showcase. Click on a skill's name to view further details.",
@@ -178,7 +178,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
                   description: "Description on how to use technical skills",
                 })}
               </p>
-              <p data-h2-margin="base(x1 0)">
+              <p data-h2-margin="base(x.5, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Technical skills refer to the technical knowledge and abilities that are relevant to specific jobs or roles across the organization. Technical skills are usually acquired through specific learning or work experience in applying the knowledge and skill.",
