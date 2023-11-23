@@ -29,7 +29,7 @@ export const InstructionStep = ({
             data-h2-height="base(auto)"
             data-h2-width="base(x1.5)"
             data-h2-overflow="base(visible)"
-            data-h2-padding-left="base(x0.5)"
+            data-h2-padding="base(0, x0.25)"
           />
         )}
       </div>
@@ -38,6 +38,7 @@ export const InstructionStep = ({
         data-h2-flex="base(1)"
         data-h2-text-indent="base(-1em)"
         data-h2-padding-left="base(1em)"
+        data-h2-margin="base(x.5, 0, 0, 0)"
       >
         {children}
       </div>

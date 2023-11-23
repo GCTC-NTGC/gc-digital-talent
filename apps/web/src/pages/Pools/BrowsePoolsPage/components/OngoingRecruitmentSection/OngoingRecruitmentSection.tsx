@@ -977,10 +977,12 @@ const OngoingRecruitmentSection = ({
     <>
       <Heading
         level="h2"
+        size="h3"
+        data-h2-font-weight="base(400)"
         id="ongoingRecruitments"
         Icon={CpuChipIcon}
         color="primary"
-        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Apply to ongoing recruitment",
@@ -988,7 +990,7 @@ const OngoingRecruitmentSection = ({
           description: "title for section with ongoing pool advertisements",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(x.5, 0)" data-h2-font-weight="base(700)">
         {intl.formatMessage({
           id: "Uzx5dR",
           defaultMessage:
@@ -1093,7 +1095,11 @@ const OngoingRecruitmentSection = ({
             })}
       </p>
       {streamsToShow.length ? (
-        <Accordion.Root type="multiple" data-h2-margin="base(x2 0)">
+        <Accordion.Root
+          mode="card"
+          type="multiple"
+          data-h2-margin="base(x.5, 0, 0, 0)"
+        >
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
               <Accordion.Trigger

@@ -128,7 +128,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       />
       <div
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-margin-top="base(x2)"
+        data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>
           <TableOfContents.Sidebar>

@@ -123,7 +123,7 @@ const AdvancedFilters = () => {
         level="h3"
         size="h6"
         data-h2-font-weight="base(700)"
-        data-h2-margin="base(x3, 0, x1, 0)"
+        data-h2-margin="base(x2, 0, x.5, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Advanced filters",
@@ -131,7 +131,7 @@ const AdvancedFilters = () => {
           description: "Title for the additional filters",
         })}
       </Heading>
-      <Accordion.Root type="multiple">
+      <Accordion.Root type="multiple" size="sm">
         <Accordion.Item value="educationRequirement">
           <Accordion.Trigger
             as="h4"

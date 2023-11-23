@@ -24,8 +24,10 @@ const About = () => {
           <div data-h2-color="base:all(black)">
             <Heading
               level="h2"
+              size="h3"
+              data-h2-font-weight="base(400)"
               Icon={NewspaperIcon}
-              data-h2-margin="base(0, 0, x0.5, 0)"
+              data-h2-margin="base(0)"
             >
               {intl.formatMessage({
                 defaultMessage: "Learn more",
@@ -37,7 +39,7 @@ const About = () => {
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
               data-h2-gap="base(x2) p-tablet(x3)"
-              data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
+              data-h2-padding="base(x2, 0, 0, 0)"
             >
               <CardFlat
                 color="blackFixed"

@@ -14,7 +14,7 @@ const DataRow = ({ Icon, label, value, suffix }: DataRowProps) => (
     <Separator
       orientation="horizontal"
       decorative
-      data-h2-background-color="base(gray.lighter)"
+      data-h2-background-color="base(gray)"
       data-h2-margin="base(x1, 0)"
     />
     <div

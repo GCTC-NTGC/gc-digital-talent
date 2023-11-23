@@ -635,6 +635,10 @@
     "defaultMessage": "B",
     "description": "The evaluated language ability level of B"
   },
+  "Mau9e6": {
+    "defaultMessage": "Fait - aucun candidat trouvé",
+    "description": "The search status is done with no candidates found"
+  },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
     "description": "Error message that at least one Essential Skill is required"
