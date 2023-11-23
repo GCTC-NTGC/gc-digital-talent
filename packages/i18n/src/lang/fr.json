@@ -339,10 +339,6 @@
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
   },
-  "A+dFlE": {
-    "defaultMessage": "La demande a déjà été archivée.",
-    "description": "Error message that the given application is already archived."
-  },
   "A1fb/r": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Message displayed when user attempts to apply to a pool without the language requirement"
@@ -890,10 +886,6 @@
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
-  },
-  "TjeaLS": {
-    "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
-    "description": "Error message that the application cannot be archived."
   },
   "TmCCgR": {
     "defaultMessage": "cela m'oblige à d'avoir un permis de conduire valide ou un degré de mobilité personnelle habituellement associée à la possession d'un permis de conduire valide.",

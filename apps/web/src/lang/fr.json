@@ -1495,10 +1495,6 @@
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
   },
-  "6B7e8/": {
-    "defaultMessage": "Archiver<hidden> la candidature{name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
   "6EOrWk": {
     "defaultMessage": "Accueil",
     "description": "Title for homepage on the talent cloud admin portal."
@@ -3907,10 +3903,6 @@
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
   },
-  "KEhCJX": {
-    "defaultMessage": "Candidature archivée!",
-    "description": "Message displayed to user after application is archived successfully."
-  },
   "KFdDjj": {
     "defaultMessage": "25 000 $ à 50 000 $",
     "description": "Contract value range between twenty-five-thousand and fifty-thousand"
@@ -4790,10 +4782,6 @@
   "PVzyQl": {
     "defaultMessage": "Date de début/fin",
     "description": "Label for the start/end date for an experience"
-  },
-  "PXfQOZ": {
-    "defaultMessage": "Archiver",
-    "description": "Link text to archive application."
   },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
@@ -6414,10 +6402,6 @@
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
-  },
-  "Z0PCOW": {
-    "defaultMessage": "Êtes-vous certain de vouloir archiver la candidature {name}?",
-    "description": "Question displayed when user attempts to archive an application"
   },
   "Z3+zWD": {
     "defaultMessage": "Compétences techniques ({count})",
@@ -8071,10 +8055,6 @@
     "defaultMessage": "Ministère",
     "description": "Title displayed on the search request table department column."
   },
-  "i3IjQt": {
-    "defaultMessage": "Erreur : l’archivage de la candidature a échoué",
-    "description": "Message displayed to user after application fails to get archived."
-  },
   "i4CKlO": {
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
@@ -9579,10 +9559,6 @@
     "defaultMessage": "Vitrine de compétences",
     "description": "Title for the skill showcase page"
   },
-  "r6DZ71": {
-    "defaultMessage": "Annuler",
-    "description": "Link text to cancel archiving application."
-  },
   "r6L5aI": {
     "defaultMessage": "Auto-déclaration",
     "description": "label for the Indigenous self-declaration input"
@@ -10770,10 +10746,6 @@
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for career timeline section of the application review page."
-  },
-  "yiJYdP": {
-    "defaultMessage": "Archiver la candidature",
-    "description": "Titre du modèle qui apparaît lorsqu’un utilisateur tente d’archiver une candidature"
   },
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
