@@ -5,8 +5,10 @@ import isPast from "date-fns/isPast";
 
 import {
   commonMessages,
+  getLocalizedName,
   getPoolCandidateStatus,
   getPoolStream,
+  getPublishingGroup,
 } from "@gc-digital-talent/i18n";
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -17,6 +19,7 @@ import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
 
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
@@ -53,6 +56,44 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
           "Title of the 'Pool' column for the table on view-user page",
       }),
     }),
+    columnHelper.accessor(
+      (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
+      {
+        id: "team",
+        header: intl.formatMessage({
+          defaultMessage: "Team",
+          id: "fCXZ4R",
+          description: "Title displayed for the Pool table Team column",
+        }),
+        sortingFn: normalizedText,
+        cell: ({ row: { original: poolCandidate } }) =>
+          viewTeamLinkCell(
+            paths.teamView(
+              poolCandidate.pool.team?.id ? poolCandidate.pool.team?.id : "",
+            ),
+            poolCandidate.pool.team?.displayName,
+            intl,
+          ),
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        intl.formatMessage(
+          row.pool.publishingGroup
+            ? getPublishingGroup(row.pool.publishingGroup)
+            : commonMessages.notFound,
+        ),
+      {
+        id: "publishingGroup",
+        sortingFn: normalizedText,
+        header: intl.formatMessage({
+          defaultMessage: "Publishing group",
+          id: "rYgaTA",
+          description:
+            "Title displayed for the Pool table publishing group column.",
+        }),
+      },
+    ),
     columnHelper.accessor(
       (row) => intl.formatMessage(getPoolCandidateStatus(row.status as string)),
       {

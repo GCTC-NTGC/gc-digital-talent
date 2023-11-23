@@ -124,31 +124,31 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.WORK_PREFERENCES}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x3)"
             >
               <WorkPreferences {...sectionProps} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.DEI}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x3)"
             >
               <DiversityEquityInclusion {...sectionProps} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.GOVERNMENT}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x3)"
             >
               <GovernmentInformation {...sectionProps} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.LANGUAGE}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x3)"
             >
               <LanguageProfile {...sectionProps} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-              data-h2-padding-top="base(x2)"
+              data-h2-padding-top="base(x3)"
             >
               <AccountAndPrivacy {...sectionProps} />
             </TableOfContents.Section>

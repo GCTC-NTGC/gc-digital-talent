@@ -13,6 +13,7 @@ import {
   IconType,
   Separator,
   Button,
+  ButtonLinkMode,
 } from "@gc-digital-talent/ui";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import { Repeater, Submit } from "@gc-digital-talent/forms";
@@ -34,29 +35,6 @@ import {
   useCreateUserSkillMutation,
   useUpdateUserSkillMutation,
 } from "~/api/generated";
-
-const addButtonStyling = (canAdd: boolean) =>
-  !canAdd
-    ? {
-        "data-h2-background": "base(background)",
-        "data-h2-border-style": "base(dashed)",
-        "data-h2-border-color": "base(gray.dark)",
-        "data-h2-color": "base(gray.dark)",
-        "data-h2-display": "base(flex)",
-        "data-h2-justify-content": "base(center)",
-        "data-h2-width": "base(100%)",
-      }
-    : {
-        "data-h2-background":
-          "base(background) base:hover(secondary.10) base:focus-visible(focus)",
-        "data-h2-border-style": "base(dashed) base:focus-visible(solid)",
-        "data-h2-border-color":
-          "base(secondary.darker) base:focus-visible(focus)",
-        "data-h2-color": "base(secondary.darker) base:focus-visible(black)",
-        "data-h2-display": "base(flex)",
-        "data-h2-justify-content": "base(center)",
-        "data-h2-width": "base(100%)",
-      };
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -192,6 +170,7 @@ const UpdateSkillShowcase = ({
   const triggerProps = canAdd
     ? {
         id: addId,
+        mode: "placeholder" as ButtonLinkMode,
         label: intl.formatMessage(
           {
             defaultMessage: "Add a new item ({numOfSkills}/{maxSkills})",
@@ -206,6 +185,7 @@ const UpdateSkillShowcase = ({
         ),
       }
     : {
+        mode: "placeholder" as ButtonLinkMode,
         label: intl.formatMessage(
           {
             defaultMessage:
@@ -275,7 +255,6 @@ const UpdateSkillShowcase = ({
                             onSave={handleSave}
                             showCategory={false}
                             noToast
-                            {...addButtonStyling(canAdd)}
                           />
                         ),
                       }}
@@ -335,7 +314,7 @@ const UpdateSkillShowcase = ({
                       orientation="horizontal"
                       decorative
                       data-h2-margin="base(x2, 0, x2, 0)"
-                      data-h2-background-color="base(black.lightest)"
+                      data-h2-background-color="base(gray)"
                     />
                     <div
                       data-h2-display="base(flex)"
