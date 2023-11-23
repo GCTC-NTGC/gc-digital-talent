@@ -289,7 +289,7 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x1">
+            <p data-h2-margin-bottom="base(x1)">
               {intl.formatMessage(applicationMessages.confirmationLead)}
             </p>
             <ul>
