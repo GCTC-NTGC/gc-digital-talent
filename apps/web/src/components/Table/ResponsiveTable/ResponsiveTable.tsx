@@ -241,7 +241,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         }
       }
 
-      if (empty(filter?.state) || isEmpty(filter?.state)) {
+      if (
+        empty(filter?.state) ||
+        isEmpty(filter?.state) ||
+        isEqual(filter?.initialState, filter?.state)
+      ) {
         newParams.delete(SEARCH_PARAM_KEY.FILTERS);
       } else {
         newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
@@ -270,6 +274,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     pagination?.initialState?.pageIndex,
     urlSync,
     filter?.state,
+    filter?.initialState,
   ]);
 
   React.useEffect(() => {
