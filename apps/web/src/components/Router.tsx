@@ -19,6 +19,7 @@ import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
 import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
+import ScreeningAndEvaluationPage from "~/pages/Pools/AssessmentEvaluation/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
 /** Home */
 const HomePage = React.lazy(() =>
@@ -528,6 +529,14 @@ const AssessmentPlanBuilderPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+      ),
+  ),
+);
+const AssessmentEvaluationLayout = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "assessmentEvaluationLayout" */ "../pages/Pools/AssessmentEvaluation/AssessmentEvaluationLayout"
       ),
   ),
 );
@@ -1528,6 +1537,32 @@ const createRoute = (
                       ),
                     },
                   ],
+                },
+              ],
+            },
+            {
+              path: "pools/:poolId/screening",
+              element: featureFlags.recordOfDecision ? (
+                <RequireAuth
+                  roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                  loginPath={loginPath}
+                >
+                  <AssessmentEvaluationLayout />
+                </RequireAuth>
+              ) : (
+                <AdminErrorPage />
+              ),
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <ScreeningAndEvaluationPage />
+                    </RequireAuth>
+                  ),
                 },
               ],
             },
