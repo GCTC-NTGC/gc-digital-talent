@@ -12,6 +12,7 @@ import {
   Heading,
   CardBasic,
   Sidebar,
+  Accordion,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -274,6 +275,23 @@ export const ViewPoolCandidate = ({
             snapshot={parsedSnapshot}
             application={poolCandidate}
           />
+          <div data-h2-margin="base(x2 0)">
+            <Accordion.Root type="single" mode="card" collapsible>
+              <Accordion.Item value="otherRecruitments">
+                <Accordion.Trigger>
+                  {intl.formatMessage({
+                    defaultMessage: "Other recruitments",
+                    id: "kZs3Nk",
+                    description:
+                      "Heading for table of a users other applications and recruitments",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <PoolStatusTable user={poolCandidate.user} pools={pools} />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          </div>
           <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
         </>
       );
