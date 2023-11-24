@@ -515,7 +515,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('You cannot archive a pool unless it is in the closed status.');
+            ->assertGraphQLErrorMessage('ArchivePoolInvalidStatus');
     }
 
     public function testCanUnarchiveArchived(): void
@@ -555,7 +555,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertGraphQLErrorMessage('You cannot un-archive a pool unless it is in the archived status.');
+            ->assertGraphQLErrorMessage('UnarchivePoolInvalidStatus');
     }
 
     public function testCannotPublishWithDeletedSkill(): void

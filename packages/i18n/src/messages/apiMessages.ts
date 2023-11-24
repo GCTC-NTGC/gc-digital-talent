@@ -142,6 +142,22 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the pool closing date isn't in the future.",
     },
 
+    // pool archiving
+    ArchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot archive a pool unless it is in the closed status.",
+      id: "7D58wn",
+      description:
+        "Error message when attempting to archive a pool with an invalid status.",
+    },
+    UnarchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot un-archive a pool unless it is in the archived status.",
+      id: "hpBnAk",
+      description:
+        "Error message when attempting to un-archive a pool with an invalid status.",
+    },
+
     // pool publishing validation
     EnglishWorkTasksRequired: {
       defaultMessage: "You are missing a required field: English - Your work",
