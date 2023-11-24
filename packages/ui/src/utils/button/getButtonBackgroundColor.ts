@@ -664,7 +664,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(primary.lightest)`,
+          base:all:hover(primary.lightest)`,
       };
     }
     if (color === "secondary") {
@@ -672,7 +672,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(secondary.lightest)`,
+          base:all:hover(secondary.lightest)`,
       };
     }
     if (color === "tertiary") {
@@ -680,7 +680,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(tertiary.lightest)`,
+          base:all:hover(tertiary.lightest)`,
       };
     }
     if (color === "quaternary") {
@@ -688,7 +688,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(quaternary.lightest)`,
+          base:all:hover(quaternary.lightest)`,
       };
     }
     if (color === "quinary") {
@@ -696,7 +696,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(quinary.lightest)`,
+          base:all:hover(quinary.lightest)`,
       };
     }
     if (color === "success") {
@@ -704,7 +704,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(success.lightest)`,
+          base:all:hover(success.lightest)`,
       };
     }
     if (color === "warning") {
@@ -712,7 +712,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(warning.lightest)`,
+          base:all:hover(warning.lightest)`,
       };
     }
     if (color === "error") {
@@ -720,7 +720,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(error.lightest)`,
+          base:all:hover(error.lightest)`,
       };
     }
     if (color === "black") {
@@ -728,7 +728,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(gray.lightest)`,
+          base:all:hover(gray.lightest)`,
       };
     }
     if (color === "blackFixed") {
@@ -736,7 +736,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base:all(transparent)
           base:all:focus-visible(focus)
-          base:hover(gray.darkest)`,
+          base:all:hover(gray.darkest)`,
       };
     }
     if (color === "white") {
@@ -744,7 +744,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:hover(gray.darkest)`,
+          base:all:hover(gray.darkest)`,
       };
     }
     if (color === "whiteFixed") {
@@ -752,7 +752,7 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base:all(transparent)
           base:all:focus-visible(focus)
-          base:hover(gray.darkest)`,
+          base:all:hover(gray.darkest)`,
       };
     }
   }
