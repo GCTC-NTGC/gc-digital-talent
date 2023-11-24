@@ -70,23 +70,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
     },
 
     // application validation
-    AlreadyArchived: {
-      defaultMessage: "Application is already archived.",
-      id: "A+dFlE",
-      description:
-        "Error message that the given application is already archived.",
-    },
     AlreadySubmitted: {
       defaultMessage: "Application is already submitted.",
       id: "76QTNv",
       description:
         "Error message that the given application is already submitted.",
-    },
-    "pool candidates status InvalidValueArchival": {
-      defaultMessage:
-        "This application cannot be archived. You can only archive expired applications.",
-      id: "TjeaLS",
-      description: "Error message that the application cannot be archived.",
     },
     "pool candidates status InvalidValueDeletion": {
       defaultMessage:
@@ -112,6 +100,13 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "mhZmff",
       description:
         "Error message that the given application must already be submitted.",
+    },
+
+    ApplicationDeleteFailed: {
+      defaultMessage: "Error: deleting application failed",
+      id: "M3c9Yo",
+      description:
+        "Message displayed to user after application fails to get deleted.",
     },
 
     // assessmentStep updating
@@ -145,6 +140,22 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "qmEyxS",
       description:
         "Error message that the pool closing date isn't in the future.",
+    },
+
+    // pool archiving
+    ArchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot archive a pool unless it is in the closed status.",
+      id: "7D58wn",
+      description:
+        "Error message when attempting to archive a pool with an invalid status.",
+    },
+    UnarchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot un-archive a pool unless it is in the archived status.",
+      id: "hpBnAk",
+      description:
+        "Error message when attempting to un-archive a pool with an invalid status.",
     },
 
     // pool publishing validation
@@ -232,6 +243,20 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the pool advertisement must have publishing group filled.",
     },
+    AssessmentStepMissingSkills: {
+      defaultMessage:
+        "Each assessment must include one or more skills for evaluation",
+      description:
+        "Error message that the pool advertisement assessments are lacking a skill",
+      id: "7QH2G/",
+    },
+    PoolSkillsWithoutAssessments: {
+      defaultMessage: "Each skill must be included in an assessment",
+      description:
+        "Error message that the pool advertisement skills are lacking an assessment",
+      id: "kDw+xr",
+    },
+
     APPLICATION_EXISTS: {
       defaultMessage: "You have already applied to this pool",
       description:

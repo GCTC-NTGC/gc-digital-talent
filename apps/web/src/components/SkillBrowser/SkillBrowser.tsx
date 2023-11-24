@@ -3,13 +3,15 @@ import { useIntl } from "react-intl";
 import { FieldError, RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 
-import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
 
 import { BaseSkillBrowserProps } from "./types";
+import skillBrowserMessages from "./messages";
 import {
   INPUT_NAME,
+  formatOption,
   getCategoryOptions,
   getFamilyOptions,
   getFilteredFamilies,
@@ -103,36 +105,33 @@ const SkillBrowser = ({
           <Select
             id={inputNames.category}
             name={inputNames.category}
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            nullSelection={intl.formatMessage(
+              skillBrowserMessages.skillCategoryPlaceholder,
+            )}
             trackUnsaved={false}
             doNotSort
-            label={intl.formatMessage({
-              defaultMessage: "Skill category",
-              id: "piZjS+",
-              description: "Label for the skill category filter field",
-            })}
+            label={intl.formatMessage(skillBrowserMessages.skillCategory)}
             options={categoryOptions}
           />
         )}
         <Select
           id={inputNames.family}
           name={inputNames.family}
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          nullSelection={intl.formatMessage(
+            skillBrowserMessages.skillFamilyPlaceholder,
+          )}
           trackUnsaved={false}
           doNotSort
-          label={intl.formatMessage({
-            defaultMessage: "Skill family",
-            id: "6ofORn",
-            description: "Label for the skill family filter field",
-          })}
+          label={intl.formatMessage(skillBrowserMessages.skillFamily)}
           options={[
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: `${getLocalizedName(
-                skillFamily.name,
+              label: formatOption(
+                getLocalizedName(skillFamily.name, intl),
+                getSkillFamilySkillCount(skills, skillFamily),
                 intl,
-              )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
+              ),
             })),
           ]}
         />
@@ -145,11 +144,7 @@ const SkillBrowser = ({
           trackUnsaved={false}
           total={filteredSkills.length}
           rules={rules}
-          label={intl.formatMessage({
-            defaultMessage: "Skill",
-            id: "+K/smr",
-            description: "Label for the skill select field",
-          })}
+          label={intl.formatMessage(skillBrowserMessages.skill)}
           options={filteredSkills.map((currentSkill) => ({
             value: currentSkill.id,
             label: getLocalizedName(currentSkill.name, intl),
