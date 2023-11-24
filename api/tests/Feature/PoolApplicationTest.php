@@ -78,7 +78,9 @@ class PoolApplicationTest extends TestCase
     /** @lang GraphQL */
     '
         mutation deleteApplication($id: ID!) {
-            deleteApplication(id: $id)
+            deleteApplication(id: $id) {
+                id
+            }
         }
     ';
 
@@ -638,11 +640,11 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->deleteMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
-        // run deletion mutation and assert it returns true, indicating success
+        // run deletion mutation and assert it returns the id, indicating success
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->deleteMutationDocument, $variables)->assertJson([
                 'data' => [
-                    'deleteApplication' => 'true',
+                    'deleteApplication' => ['id' => $newPoolCandidate->id],
                 ],
             ]);
 

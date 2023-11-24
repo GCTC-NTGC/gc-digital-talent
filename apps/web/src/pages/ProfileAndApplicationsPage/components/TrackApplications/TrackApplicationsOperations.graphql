@@ -5,5 +5,7 @@ mutation changeApplicationSuspendedAt($id: ID!, $isSuspended: Boolean!) {
 }
 
 mutation DeleteApplication($id: ID!) {
-  deleteApplication(id: $id)
+  deleteApplication(id: $id) {
+    id
+  }
 }
