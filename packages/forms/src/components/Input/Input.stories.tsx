@@ -11,22 +11,10 @@ import type { InputProps } from ".";
 export default {
   component: Input,
   title: "Form/Input",
-  args: {
-    maxWidth: "20rem",
-  },
-  argTypes: {
-    maxWidth: {
-      name: "Max Width",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as Meta;
 
-const TemplateInput: Story<InputProps & { maxWidth: string }> = (args) => {
-  const { maxWidth, ...rest } = args;
+const TemplateInput: Story<InputProps> = (args) => {
+  const { ...rest } = args;
   return (
     <div
       data-h2-display="base(grid)"

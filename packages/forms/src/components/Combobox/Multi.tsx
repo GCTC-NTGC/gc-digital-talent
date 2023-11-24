@@ -302,8 +302,8 @@ const Multi = ({
               type="button"
               mode="inline"
               color="black"
+              fontSize="caption"
               onClick={handleReset}
-              data-h2-font-size="base(caption)"
               data-h2-font-weight="base(400)"
             >
               {intl.formatMessage(formMessages.clearSelectedCombobox)}
