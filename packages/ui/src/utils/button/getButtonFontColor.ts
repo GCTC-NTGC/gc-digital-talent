@@ -226,6 +226,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
             base:focus-visible:children[.counter](focus)`,
         };
       }
+      if (color === "whiteFixed") {
+        return {
+          "data-h2-color": `
+            base:all(gray.light)
+            base:all:focus-visible(black)
+
+            base:children[.counter](black)
+            base:focus-visible:children[.counter](focus)`,
+        };
+      }
       return {
         "data-h2-color": `
           base(gray.darker)

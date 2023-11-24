@@ -83,7 +83,9 @@ const ControlledInput = ({
   return (
     <div>
       <MenuBar {...{ editor }} />
-      <EditorContent {...{ content, editor }} />
+      <div data-h2-color="base(black)">
+        <EditorContent {...{ content, editor }} />
+      </div>
       <Footer {...{ editor, wordLimit, name }} />
     </div>
   );

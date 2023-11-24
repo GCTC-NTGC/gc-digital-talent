@@ -106,7 +106,7 @@ const ButtonLinkContent = ({
   let iconMargin = {
     "data-h2-margin-top": "base(0)",
   };
-  if (mode === "text") {
+  if (mode === "text" && fontSize !== "caption") {
     iconMargin = {
       "data-h2-margin-top": "base(-x.2)",
     };
