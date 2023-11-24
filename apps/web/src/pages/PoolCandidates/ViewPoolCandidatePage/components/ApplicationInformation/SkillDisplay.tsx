@@ -2,9 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Experience, Skill } from "@gc-digital-talent/graphql";
-import { Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { Heading, ScrollToLink, Separator, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import { getExperienceName } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { getExperienceSkills } from "~/utils/skillUtils";
 
@@ -42,11 +43,39 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
         >
           {skillExperiences.map((experience) => (
             <ExperienceCard
+              id={`skill-${skill.id}-experience-${experience.id}`}
               key={experience.id}
               experience={experience}
               headingLevel="h5"
               showEdit={false}
-              showSkills={false}
+              showSkills={skill}
+              hideDetails
+              view={
+                <ScrollToLink
+                  to={`experience-${experience.id}`}
+                  mode="inline"
+                  color="tertiary"
+                  aria-label={intl
+                    .formatMessage(
+                      {
+                        defaultMessage: "View {experienceName} experience",
+                        id: "4QgMvQ",
+                        description:
+                          "Assistive technology link text to view a specific experience",
+                      },
+                      {
+                        experienceName: getExperienceName(experience, intl),
+                      },
+                    )
+                    .toString()}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "View experience",
+                    id: "hKofhr",
+                    description: "Link text to view a specific experience",
+                  })}
+                </ScrollToLink>
+              }
             />
           ))}
         </div>
