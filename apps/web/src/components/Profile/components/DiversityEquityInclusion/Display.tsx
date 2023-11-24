@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
 import {
+  commonMessages,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
@@ -30,8 +31,12 @@ const Display = ({
     ) || [];
   const isIndigenous =
     indigenousCommunities && indigenousCommunities.length > 0;
+  const hasClaimedEquityGroup =
+    isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
-  return (
+  // if (!hasClaimedEquityGroup) return null;
+
+  return hasClaimedEquityGroup ? (
     <>
       <ul>
         {isWoman && (
@@ -90,6 +95,8 @@ const Display = ({
         })}
       </p>
     </>
+  ) : (
+    <p>{intl.formatMessage(commonMessages.notProvided)}</p>
   );
 };
 
