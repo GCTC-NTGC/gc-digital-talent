@@ -58,8 +58,8 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                   aria-label={intl
                     .formatMessage(
                       {
-                        defaultMessage: "View {experienceName} experience",
-                        id: "4QgMvQ",
+                        defaultMessage: "View experience for {experienceName}",
+                        id: "MsLKAj",
                         description:
                           "Assistive technology link text to view a specific experience",
                       },
