@@ -166,108 +166,95 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   } = table.getState();
 
   React.useEffect(() => {
-    let searchState: SearchState = {
-      term: String(globalFilterState),
-    };
-    if (columnFilterState.length) {
-      searchState = {
-        term: String(columnFilterState[0].value),
-        type: columnFilterState[0].id,
-      };
-    }
-
-    const newHiddenIds = Object.keys(columnVisibilityState)
-      .map((colId) => (columnVisibilityState[colId] ? undefined : colId))
-      .filter(notEmpty);
-
     if (urlSync) {
-      setSearchParams(
-        (previous) => {
-          const newParams = new URLSearchParams(previous);
+      const currentParams = new URLSearchParams(window.location.search);
+      const newParams = new URLSearchParams(window.location.search);
 
-          const initialSortState =
-            sort?.initialState ?? INITIAL_STATE.sortState;
-          if (
-            isEqual(sortingState, initialSortState) ||
-            isEmpty(sortingState)
-          ) {
-            newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.SORT_RULE,
-              JSON.stringify(sortingState),
-            );
-          }
+      let searchState: SearchState = {
+        term: String(globalFilterState),
+      };
+      if (columnFilterState.length) {
+        searchState = {
+          term: String(columnFilterState[0].value),
+          type: columnFilterState[0].id,
+        };
+      }
 
-          if (isEqual(hiddenColumnIds, newHiddenIds) || isEmpty(sortingState)) {
-            newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
-              newHiddenIds.join(","),
-            );
-          }
+      const newHiddenIds = Object.keys(columnVisibilityState)
+        .map((colId) => (columnVisibilityState[colId] ? undefined : colId))
+        .filter(notEmpty);
 
-          const initialPageSize =
-            pagination?.initialState?.pageSize ??
-            INITIAL_STATE.paginationState.pageSize;
-          if (paginationState.pageSize === initialPageSize) {
-            newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.PAGE_SIZE,
-              String(paginationState.pageSize),
-            );
-          }
+      const initialSortState = sort?.initialState ?? INITIAL_STATE.sortState;
+      if (isEqual(sortingState, initialSortState) || isEmpty(sortingState)) {
+        newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.SORT_RULE, JSON.stringify(sortingState));
+      }
 
-          const initialPageIndex =
-            pagination?.initialState?.pageIndex ??
-            INITIAL_STATE.paginationState.pageIndex;
-          if (paginationState.pageIndex === initialPageIndex) {
-            newParams.delete(SEARCH_PARAM_KEY.PAGE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.PAGE,
-              String(paginationState.pageIndex + 1),
-            );
-          }
+      if (isEqual(hiddenColumnIds, newHiddenIds) || isEmpty(sortingState)) {
+        newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.HIDDEN_COLUMNS, newHiddenIds.join(","));
+      }
 
-          const initialSearchState =
-            search?.initialState ?? INITIAL_STATE.searchState;
-          if (isEqual(initialSearchState, searchState)) {
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
-          } else if (columnFilterState.length > 0) {
-            newParams.set(
-              SEARCH_PARAM_KEY.SEARCH_COLUMN,
-              columnFilterState[0].id,
-            );
-            newParams.set(
-              SEARCH_PARAM_KEY.SEARCH_TERM,
-              String(columnFilterState[0].value),
-            );
-          } else {
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
-            if (globalFilterState) {
-              newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
-            } else {
-              newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
-            }
-          }
+      const initialPageSize =
+        pagination?.initialState?.pageSize ??
+        INITIAL_STATE.paginationState.pageSize;
+      if (paginationState.pageSize === initialPageSize) {
+        newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
+      } else {
+        newParams.set(
+          SEARCH_PARAM_KEY.PAGE_SIZE,
+          String(paginationState.pageSize),
+        );
+      }
 
-          if (empty(filter?.state) || isEmpty(filter?.state)) {
-            newParams.delete(SEARCH_PARAM_KEY.FILTERS);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.FILTERS,
-              JSON.stringify(filter?.state),
-            );
-          }
+      const initialPageIndex =
+        pagination?.initialState?.pageIndex ??
+        INITIAL_STATE.paginationState.pageIndex;
+      if (paginationState.pageIndex === initialPageIndex) {
+        newParams.delete(SEARCH_PARAM_KEY.PAGE);
+      } else {
+        newParams.set(
+          SEARCH_PARAM_KEY.PAGE,
+          String(paginationState.pageIndex + 1),
+        );
+      }
 
-          return newParams;
-        },
-        { replace: true },
-      );
+      const initialSearchState =
+        search?.initialState ?? INITIAL_STATE.searchState;
+      if (isEqual(initialSearchState, searchState)) {
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+      } else if (columnFilterState.length > 0) {
+        newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, columnFilterState[0].id);
+        newParams.set(
+          SEARCH_PARAM_KEY.SEARCH_TERM,
+          String(columnFilterState[0].value),
+        );
+      } else {
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+        if (globalFilterState) {
+          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
+        } else {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+        }
+      }
+
+      if (empty(filter?.state) || isEmpty(filter?.state)) {
+        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
+      }
+
+      if (
+        !isEqual(
+          Object.fromEntries(currentParams),
+          Object.fromEntries(newParams),
+        )
+      ) {
+        setSearchParams(newParams, { replace: true });
+      }
     }
   }, [
     sortingState,
