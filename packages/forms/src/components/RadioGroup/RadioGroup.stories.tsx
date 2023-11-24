@@ -13,32 +13,26 @@ export default {
   title: "Form/RadioGroup",
 };
 
+const themes = ["light", "dark"];
+
 const TemplateRadioGroup: StoryFn<typeof RadioGroup> = (args) => {
   return (
     <div
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <div data-h2="light">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form onSubmit={action("Submit Form")}>
-            <RadioGroup {...args} />
-            <p data-h2-margin-top="base(x1)">
-              <Submit />
-            </p>
-          </Form>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <RadioGroup {...args} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
         </div>
-      </div>
-      <div data-h2="dark">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form onSubmit={action("Submit Form")}>
-            <RadioGroup {...args} />
-            <p data-h2-margin-top="base(x1)">
-              <Submit />
-            </p>
-          </Form>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

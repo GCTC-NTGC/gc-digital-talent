@@ -37,7 +37,7 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
         <div
           data-h2={theme}
           data-h2-background="base(background)"
-          data-h2-padding="base(x1)"
+          data-h2-padding="base(x2)"
           key={theme}
         >
           <Form onSubmit={action("Submit Form")}>

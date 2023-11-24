@@ -25,6 +25,8 @@ export default {
   },
 };
 
+const themes = ["light", "dark"];
+
 const Template: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
@@ -35,34 +37,23 @@ const Template: StoryFn<SelectProps> = (args) => {
   return (
     <div
       data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(50% 50%)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <div data-h2="light">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form
-            onSubmit={action("Submit Form")}
-            options={{ defaultValues: { groups: "" } }}
-          >
-            <Select {...args} options={departmentOptions} />
-            <p data-h2-margin-top="base(x1)">
-              <Submit />
-            </p>
-          </Form>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form
+              onSubmit={action("Submit Form")}
+              options={{ defaultValues: { groups: "" } }}
+            >
+              <Select {...args} options={departmentOptions} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
         </div>
-      </div>
-      <div data-h2="dark">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form
-            onSubmit={action("Submit Form")}
-            options={{ defaultValues: { groups: "" } }}
-          >
-            <Select {...args} options={departmentOptions} />
-            <p data-h2-margin-top="base(x1)">
-              <Submit />
-            </p>
-          </Form>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
@@ -111,38 +102,25 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
   return (
     <div
       data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(50% 50%)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <div data-h2="light">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form
-            onSubmit={action("Submit Form")}
-            options={{ defaultValues: { groups: "" } }}
-          >
-            <div>
-              <Select {...args} options={groupOptions} />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </div>
-          </Form>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form
+              onSubmit={action("Submit Form")}
+              options={{ defaultValues: { groups: "" } }}
+            >
+              <div>
+                <Select {...args} options={groupOptions} />
+                <p data-h2-margin-top="base(x1)">
+                  <Submit />
+                </p>
+              </div>
+            </Form>
+          </div>
         </div>
-      </div>
-      <div data-h2="dark">
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Form
-            onSubmit={action("Submit Form")}
-            options={{ defaultValues: { groups: "" } }}
-          >
-            <div>
-              <Select {...args} options={groupOptions} />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </div>
-          </Form>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
