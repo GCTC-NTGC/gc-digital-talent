@@ -287,7 +287,12 @@ const ApplicationInformation = ({
           </Accordion.Trigger>
           <Accordion.Content>
             <p data-h2-margin-bottom="base(x1)">
-              {intl.formatMessage(applicationMessages.confirmationLead)}
+              {intl.formatMessage({
+                defaultMessage: "The applicant has confirmed that:",
+                id: "iYD0eJ",
+                description:
+                  "Lead-in for list of application confirmation list",
+              })}
             </p>
             <ul>
               <li>
