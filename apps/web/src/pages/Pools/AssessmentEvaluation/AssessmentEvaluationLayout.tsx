@@ -35,8 +35,8 @@ const AssessmentEvaluationHeader = ({
         icon: UserIcon,
         title: intl.formatMessage({
           defaultMessage: "Process information",
-          id: "VzI9wM",
-          description: "Title for the process page",
+          id: "R5sGKY",
+          description: "Title for the pool info page",
         }),
         link: {
           url: "#",
