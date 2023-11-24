@@ -1,8 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { Pool } from "@gc-digital-talent/graphql";
@@ -32,7 +30,6 @@ const AssessmentEvaluationHeader = ({
     [
       "process",
       {
-        icon: UserIcon,
         title: intl.formatMessage({
           defaultMessage: "Process information",
           id: "R5sGKY",
@@ -46,7 +43,6 @@ const AssessmentEvaluationHeader = ({
     [
       "screening",
       {
-        icon: UserIcon,
         title: intl.formatMessage({
           defaultMessage: "Screening and evaluation",
           id: "l+5AnB",
@@ -60,7 +56,6 @@ const AssessmentEvaluationHeader = ({
     [
       "candidates",
       {
-        icon: Cog8ToothIcon,
         title: intl.formatMessage({
           defaultMessage: "Qualified candidates",
           id: "pgm0uZ",
