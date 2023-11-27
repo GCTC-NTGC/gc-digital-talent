@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -60,6 +61,9 @@ export const DepartmentTable = ({
 
   const data = departments.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<Department>
       data={data}
@@ -89,6 +93,7 @@ export const DepartmentTable = ({
             id: "ZbpbD6",
             description: "Heading displayed above the Create Department form.",
           }),
+          from: currentUrl,
         },
       }}
     />
