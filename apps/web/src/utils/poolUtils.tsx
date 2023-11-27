@@ -19,6 +19,7 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   PublishingGroup,
@@ -208,56 +209,124 @@ export const getFullPoolTitleLabel = (
 
 export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
   const paths = useRoutes();
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
-  return new Map<PageNavKeys, PageNavInfo>([
-    [
-      "view",
-      {
-        icon: ClipboardDocumentIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Process information",
-          id: "R5sGKY",
-          description: "Title for the pool info page",
-        }),
-        link: {
-          url: paths.poolView(pool.id),
-        },
-      },
-    ],
-    [
-      "edit",
-      {
-        icon: Cog8ToothIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Advertisement information",
-          id: "rwQPZE",
-          description: "Page title for process' advertisement information page",
-        }),
-        link: {
-          url: paths.poolUpdate(pool.id),
-        },
-      },
-    ],
-    [
-      "candidates",
-      {
-        icon: UserGroupIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Candidates",
-          id: "X4TOhW",
-          description: "Page title for the admin pool candidates index page",
-        }),
-        link: {
-          url: paths.poolCandidateTable(pool.id),
-          label: intl.formatMessage({
-            defaultMessage: "View Candidates",
-            id: "Rl+0Er",
-            description: "Title for the edit pool page",
-          }),
-        },
-      },
-    ],
-  ]);
+  return recordOfDecisionFlag
+    ? new Map<PageNavKeys, PageNavInfo>([
+        [
+          "view",
+          {
+            icon: ClipboardDocumentIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Process information",
+              id: "R5sGKY",
+              description: "Title for the pool info page",
+            }),
+            link: {
+              url: paths.poolView(pool.id),
+            },
+          },
+        ],
+        [
+          "edit",
+          {
+            icon: Cog8ToothIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Advertisement information",
+              id: "rwQPZE",
+              description:
+                "Page title for process' advertisement information page",
+            }),
+            link: {
+              url: paths.poolUpdate(pool.id),
+            },
+          },
+        ],
+        [
+          "screening",
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Screening and evaluation",
+              id: "IEGaTJ",
+              description: "Title for the screening and evaluation page",
+            }),
+            link: {
+              url: paths.screeningAndEvaluation(pool.id),
+            },
+          },
+        ],
+        [
+          "candidates",
+          {
+            icon: UserGroupIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Candidates",
+              id: "X4TOhW",
+              description:
+                "Page title for the admin pool candidates index page",
+            }),
+            link: {
+              url: paths.poolCandidateTable(pool.id),
+              label: intl.formatMessage({
+                defaultMessage: "View Candidates",
+                id: "Rl+0Er",
+                description: "Title for the edit pool page",
+              }),
+            },
+          },
+        ],
+      ])
+    : new Map<PageNavKeys, PageNavInfo>([
+        [
+          "view",
+          {
+            icon: ClipboardDocumentIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Process information",
+              id: "R5sGKY",
+              description: "Title for the pool info page",
+            }),
+            link: {
+              url: paths.poolView(pool.id),
+            },
+          },
+        ],
+        [
+          "edit",
+          {
+            icon: Cog8ToothIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Advertisement information",
+              id: "rwQPZE",
+              description:
+                "Page title for process' advertisement information page",
+            }),
+            link: {
+              url: paths.poolUpdate(pool.id),
+            },
+          },
+        ],
+        [
+          "candidates",
+          {
+            icon: UserGroupIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Candidates",
+              id: "X4TOhW",
+              description:
+                "Page title for the admin pool candidates index page",
+            }),
+            link: {
+              url: paths.poolCandidateTable(pool.id),
+              label: intl.formatMessage({
+                defaultMessage: "View Candidates",
+                id: "Rl+0Er",
+                description: "Title for the edit pool page",
+              }),
+            },
+          },
+        ],
+      ]);
 };
 
 export const isOngoingPublishingGroup = (

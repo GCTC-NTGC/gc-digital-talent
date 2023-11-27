@@ -532,14 +532,6 @@ const AssessmentPlanBuilderPage = React.lazy(() =>
       ),
   ),
 );
-const AssessmentEvaluationLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "assessmentEvaluationLayout" */ "../pages/Pools/AssessmentEvaluation/AssessmentEvaluationLayout"
-      ),
-  ),
-);
 const PoolLayout = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1521,6 +1513,22 @@ const createRoute = (
                       ],
                     },
                     {
+                      path: "screening",
+                      element: featureFlags.recordOfDecision ? (
+                        <RequireAuth
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
+                          loginPath={loginPath}
+                        >
+                          <ScreeningAndEvaluationPage />
+                        </RequireAuth>
+                      ) : (
+                        <AdminErrorPage />
+                      ),
+                    },
+                    {
                       path: "plan",
                       element: featureFlags.recordOfDecision ? (
                         <RequireAuth
@@ -1537,32 +1545,6 @@ const createRoute = (
                       ),
                     },
                   ],
-                },
-              ],
-            },
-            {
-              path: "pools/:poolId/screening",
-              element: featureFlags.recordOfDecision ? (
-                <RequireAuth
-                  roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
-                  loginPath={loginPath}
-                >
-                  <AssessmentEvaluationLayout />
-                </RequireAuth>
-              ) : (
-                <AdminErrorPage />
-              ),
-              children: [
-                {
-                  index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <ScreeningAndEvaluationPage />
-                    </RequireAuth>
-                  ),
                 },
               ],
             },
