@@ -14,11 +14,16 @@ export type SwitchProps = {
   name: CommonInputProps["name"];
   label: CommonInputProps["label"];
   rules?: CommonInputProps["rules"];
+  // Display an icon in the handle for the switch
   icon?: {
+    // Default icon displayed in the handle
     default: IconType;
+    // Overrides the default icon when the switch is checked
     checked?: IconType;
   };
+  // Hide the label visually (will be an `aria-label`)
   hideLabel?: boolean;
+  // Changes the background color when the switch is checked
   color?: SwitchColor;
 };
 
@@ -27,7 +32,7 @@ const Switch = React.forwardRef<
   SwitchProps
 >(
   (
-    { id, name, label, rules, icon, hideLabel = false, color = "success" },
+    { id, name, label, rules, icon, hideLabel = false, color = "primary" },
     forwardedRef,
   ) => {
     const {
