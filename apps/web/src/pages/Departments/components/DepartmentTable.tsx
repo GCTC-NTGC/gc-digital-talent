@@ -30,7 +30,7 @@ export const DepartmentTable = ({
   const columns = [
     columnHelper.accessor("departmentNumber", {
       id: "departmentNumber",
-      filterFn: "equals",
+      filterFn: "weakEquals",
       header: intl.formatMessage({
         defaultMessage: "Department #",
         id: "QOvS1b",
