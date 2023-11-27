@@ -33,12 +33,12 @@ const DiversityEquityInclusion = ({
   return (
     <>
       <Heading
-        data-h2-margin="base(0)"
-        data-h2-padding-bottom="base(x1)"
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
         Icon={UsersIcon}
         color="secondary"
         level={pool ? "h3" : "h2"}
-        size={pool ? "h5" : "h3"}
+        size={pool ? "h4" : "h3"}
       >
         {intl.formatMessage(title)}
       </Heading>

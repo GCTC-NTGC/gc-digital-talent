@@ -7,9 +7,9 @@ import { Heading } from "@gc-digital-talent/ui";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
-import glassesOnBooks from "~/assets/img/glasses-on-books.jpg";
-// import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.jpg";
-import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.jpg";
+import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
+// import digitalAmbitionImg from "~/assets/img/check_it_out_digital_ambition.webp";
+import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.webp";
 
 const Featured = () => {
   const intl = useIntl();
@@ -110,7 +110,9 @@ const Featured = () => {
     <FlourishContainer>
       <Heading
         level="h2"
-        data-h2-margin="base(0, 0, x0.5, 0)"
+        size="h3"
+        data-h2-font-weight="base(400)"
+        data-h2-margin="base(0)"
         color="quinary"
         Icon={MagnifyingGlassCircleIcon}
       >
@@ -123,7 +125,7 @@ const Featured = () => {
       <div
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
-        data-h2-gap="base(x1) p-tablet(x2) laptop(x3)"
+        data-h2-gap="base(x1)"
         data-h2-padding="base(x2, 0, 0, 0)"
       >
         {featured.map((item) => (

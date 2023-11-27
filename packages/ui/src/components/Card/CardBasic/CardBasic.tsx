@@ -7,7 +7,7 @@ const CardBasic = (props: CardBasicProps) => (
     data-h2-background-color="base(foreground)"
     data-h2-padding="base(x1)"
     data-h2-radius="base(rounded)"
-    data-h2-shadow="base(medium)"
+    data-h2-shadow="base(larger)"
     {...props}
   />
 );

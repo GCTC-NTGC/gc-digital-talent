@@ -690,7 +690,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wasPublished", "notArchived"])
     @can(ability: "viewAnyPublished", model: "Pool")
-  poolByKey(key: String! @eq): Pool @find @can(ability: "view", query: true)
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
     @can(ability: "view", resolved: true)
@@ -742,13 +741,6 @@ type Query {
   classifications: [Classification]! @all @can(ability: "viewAny")
   department(id: UUID! @eq): Department @find @can(ability: "view")
   departments: [Department]! @all @can(ability: "viewAny")
-  poolCandidateFilter(id: UUID! @eq): PoolCandidateFilter
-    @find
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @deprecated(
-      reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657."
-    )
   poolCandidateFilters: [PoolCandidateFilter]!
     @all
     @guard
@@ -756,13 +748,6 @@ type Query {
     @throttle(name: "graphql")
     @deprecated(
       reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
-    )
-  applicantFilter(id: ID! @eq): ApplicantFilter
-    @find
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @deprecated(
-      reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653."
     )
   applicantFilters: [ApplicantFilter]!
     @all
@@ -1108,6 +1093,10 @@ input DepartmentBelongsToMany {
 
 input CreateTeamInput {
   name: String!
+    @rules(
+      apply: ["unique:teams,name"]
+      messages: [{ rule: "unique", message: "TeamNameInUse" }]
+    )
   displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
@@ -1200,6 +1189,10 @@ input SkillKeywordsInput {
 
 input CreateSkillInput {
   key: KeyString!
+    @rules(
+      apply: ["unique:skills,key"]
+      messages: [{ rule: "unique", message: "SkillKeyStringInUse" }]
+    )
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
@@ -1331,6 +1324,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
 }
@@ -1375,10 +1374,14 @@ input UpdatePoolInput {
 input AssessmentStepInput {
   type: AssessmentStepType
     @rules(
-      apply: ["notIn:SCREENING_QUESTIONS_AT_APPLICATION,APPLICATION_SCREENING"]
+      apply: ["notIn:APPLICATION_SCREENING"]
       messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
     )
-  sortOrder: Int @rename(attribute: "sort_order")
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1561,7 +1564,7 @@ type Mutation {
   updateDepartment(
     id: ID!
     department: UpdateDepartmentInput! @spread
-  ): Department @update @can(ability: "update", find: "id")
+  ): Department @update @can(ability: "update", find: "id") @validator
   deleteDepartment(id: ID! @whereKey): Department
     @delete
     @guard
@@ -1705,15 +1708,12 @@ type Mutation {
     @can(ability: "archiveAndUnarchive", find: "id")
 
   # Application mutations
-  archiveApplication(id: ID!): PoolCandidate
-    @guard
-    @can(ability: "archive", find: "id")
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @can(ability: "suspend", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
     @can(ability: "createDraft")
-  deleteApplication(id: ID!): Boolean
+  deleteApplication(id: ID!): PoolCandidate
     @guard
     @can(ability: "delete", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
@@ -1734,6 +1734,7 @@ type Mutation {
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
     @can(ability: "update")
+    @validator
   deleteTeam(id: UUID! @whereKey): Team
     @delete
     @guard
@@ -1771,6 +1772,15 @@ type Mutation {
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
   ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
+    @guard
+    @can(ability: "update", find: "stepIdA")
+    @can(ability: "update", find: "stepIdB")
+  createOrUpdateScreeningQuestionAssessmentStep(
+    poolId: UUID!
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
+  ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard

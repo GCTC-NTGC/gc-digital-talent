@@ -6,12 +6,10 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import {
   Button,
-  Card,
   Heading,
   Link,
   Pending,
   ThrowNotFound,
-  TreeView,
   Well,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -30,7 +28,6 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
-import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
 import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
@@ -162,11 +159,21 @@ const ApplicationReview = ({
     application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
+
+  const classificationGroup = application.pool.classifications
+    ? application.pool.classifications[0]?.group
+    : undefined;
   return (
     <section>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <Heading
+        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-font-weight="base(400)"
+        size="h3"
+      >
+        {pageInfo.title}
+      </Heading>
       <div data-h2-margin-bottom="base(x2)">
-        <p data-h2-margin-bottom="base(x1)">
+        <p data-h2-margin="base(x1, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
               "Before continuing, it’s important that you understand the following notes about your application:",
@@ -174,7 +181,7 @@ const ApplicationReview = ({
             description: "Starting message for the application review page.",
           })}
         </p>
-        <ul>
+        <ul data-h2-padding="base(0, 0, 0, x1)">
           <li>
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
@@ -225,36 +232,33 @@ const ApplicationReview = ({
             "Edit link text for career timeline section of the application review page.",
         })}
       >
-        <TreeView.Root>
-          <TreeView.Head>
-            <Card title="" color="white" bold data-h2-margin-bottom="base(x1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
-                  id: "eCkRlc",
-                  description:
-                    "Blurb for career timeline section of the application review page.",
-                })}
-              </p>
-            </Card>
-          </TreeView.Head>
+        <p data-h2-margin="base(x1, 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
+            id: "eCkRlc",
+            description:
+              "Blurb for career timeline section of the application review page.",
+          })}
+        </p>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="base(100%)"
+          data-h2-gap="base(x.5)"
+        >
           {hasSomeExperience ? (
             nonEmptyExperiences.map((experience) => (
-              <TreeView.Item key={experience.id}>
-                <ExperienceCard
-                  key={experience.id}
-                  experience={experience}
-                  headingLevel="h4"
-                  showSkills={[
-                    ...(application.pool.essentialSkills?.filter(notEmpty) ??
-                      []),
-                    ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
-                      []),
-                  ]}
-                  showEdit={false}
-                />
-              </TreeView.Item>
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h4"
+                showSkills={[
+                  ...(application.pool.essentialSkills?.filter(notEmpty) ?? []),
+                  ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
+                    []),
+                ]}
+                showEdit={false}
+              />
             ))
           ) : (
             <Well>
@@ -269,7 +273,7 @@ const ApplicationReview = ({
               </p>
             </Well>
           )}
-        </TreeView.Root>
+        </div>
       </ReviewSection>
       <ReviewSection
         title={intl.formatMessage({
@@ -286,24 +290,42 @@ const ApplicationReview = ({
             "Edit link text for education requirements section of the application review page.",
         })}
       >
-        <TreeView.Root>
-          <TreeView.Head>
-            <Card title="" color="white" bold data-h2-margin-bottom="base(x1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
-                  id: "rCpVpZ",
-                  description:
-                    "Message on education requirements card on the application review page.",
-                })}
-              </p>
-            </Card>
-          </TreeView.Head>
+        <p data-h2-margin="base(x1, 0)">
+          {classificationGroup === "EX"
+            ? intl.formatMessage({
+                defaultMessage:
+                  "You've indicated that you meet the <strong>minimum experience or education requirement (graduation with degree)</strong> with the following experiences on your career timeline:",
+                id: "p5qn9H",
+                description:
+                  "Message on education requirements card on the application review page.",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "You've indicated that you meet the <strong>minimum experience or education requirement (2 years of post-secondary)</strong> with the following experiences on your career timeline:",
+                id: "rCpVpZ",
+                description:
+                  "Message on education requirements card on the application review page.",
+              })}
+        </p>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="base(100%)"
+          data-h2-gap="base(x.5)"
+        >
           {educationRequirementExperiences?.length > 0 ? (
-            <ExperienceTreeItems
-              experiences={educationRequirementExperiences}
-            />
+            educationRequirementExperiences.map((experience) => (
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h4"
+                showSkills={[
+                  ...(application.pool.essentialSkills?.filter(notEmpty) ?? []),
+                  ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
+                    []),
+                ]}
+                showEdit={false}
+              />
+            ))
           ) : (
             <div>
               {application.educationRequirementOption === null ||
@@ -334,7 +356,7 @@ const ApplicationReview = ({
               )}
             </div>
           )}
-        </TreeView.Root>
+        </div>
       </ReviewSection>
       <ReviewSection
         title={intl.formatMessage({
@@ -351,7 +373,16 @@ const ApplicationReview = ({
             "Edit link text for skill requirements section of the application review page.",
         })}
       >
-        <div data-h2-margin-top="base(-x2)">
+        <p data-h2-margin="base(x1, 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "This section outlines your responses on how your experience meets the skill requirements for these positions.",
+            id: "ymHPWF",
+            description:
+              "Instructional text under the Skill Requirements section",
+          })}
+        </p>
+        <div>
           {categorizedEssentialSkills[SkillCategory.Technical]?.map(
             (requiredTechnicalSkill) => (
               <SkillTree
@@ -384,7 +415,7 @@ const ApplicationReview = ({
         >
           {screeningQuestionResponses.length > 0 ? (
             <div>
-              <p data-h2-margin-bottom="base(x1)">
+              <p data-h2-margin="base(x1, 0, x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "You’ve answered the following screening questions:",
@@ -393,12 +424,12 @@ const ApplicationReview = ({
                     "Message in screening questions section of the application review page.",
                 })}
               </p>
-              <ul>
+              <ul data-h2-padding="base(0, 0, 0, x1)">
                 {screeningQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x1)">
+                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
                     <p
                       data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.5)"
+                      data-h2-margin-bottom="base(x.25)"
                     >
                       {response.screeningQuestion?.question
                         ? response.screeningQuestion.question[locale]
@@ -425,8 +456,13 @@ const ApplicationReview = ({
         </ReviewSection>
       )}
 
-      <section data-h2-margin-bottom="base(x3)">
-        <Heading level="h3" data-h2-margin="base(0, 0, x1, 0)">
+      <section data-h2-margin="base(x3, 0, 0, 0)">
+        <Heading
+          level="h3"
+          size="h4"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(0, 0, x1, 0)"
+        >
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
             id: "fhgZRX",
@@ -437,7 +473,7 @@ const ApplicationReview = ({
         <div>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
-              <p data-h2-margin-bottom="base(x1)">
+              <p data-h2-margin="base(x1, 0, x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage: `You made it! By signing your name, you confirm that:`,
                   id: "pH8wF2",
@@ -445,7 +481,7 @@ const ApplicationReview = ({
                     "Instructions for sign and submit section of application review page.",
                 })}
               </p>
-              <ul>
+              <ul data-h2-padding="base(0, 0, 0, x1)">
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage({
@@ -495,7 +531,7 @@ const ApplicationReview = ({
               </div>
               <div
                 data-h2-display="base(flex)"
-                data-h2-gap="base(x.25, x.5)"
+                data-h2-gap="base(x1)"
                 data-h2-flex-wrap="base(wrap)"
                 data-h2-flex-direction="base(column) l-tablet(row)"
                 data-h2-align-items="base(flex-start) l-tablet(center)"

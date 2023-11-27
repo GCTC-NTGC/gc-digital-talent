@@ -26,6 +26,15 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
             level
           }
           stream
+          publishingGroup
+          team {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
+          }
         }
       }
     }

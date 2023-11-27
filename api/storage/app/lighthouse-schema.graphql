@@ -16,7 +16,6 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
@@ -25,9 +24,7 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657.")
   poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
@@ -124,10 +121,9 @@ type Mutation {
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
-  archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-  deleteApplication(id: ID!): Boolean
+  deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
@@ -141,6 +137,8 @@ type Mutation {
   deleteUserSkill(id: UUID!): UserSkill
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
+  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
@@ -1144,6 +1142,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID]
 }
@@ -1174,7 +1178,11 @@ input UpdatePoolInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-  sortOrder: Int
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1920,6 +1928,7 @@ enum ApplicationStep {
 enum EducationRequirementOption {
   APPLIED_WORK
   EDUCATION
+  PROFESSIONAL_DESIGNATION
 }
 
 enum LanguageAbility {
@@ -1974,6 +1983,7 @@ enum PoolCandidateSearchStatus {
   IN_PROGRESS
   WAITING
   DONE
+  DONE_NO_CANDIDATES
 }
 
 enum PoolCandidateSearchPositionType {

@@ -231,7 +231,7 @@ const PoolNameSection = ({
                       id: "bbIDc9",
                       description: "Text on a button to save the pool name",
                     })}
-                    color="tertiary"
+                    color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />

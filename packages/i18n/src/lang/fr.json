@@ -135,6 +135,10 @@
     "defaultMessage": "Niveau 3 : Conseiller technique",
     "description": "The name of the Technical advisor role."
   },
+  "2bzpLi": {
+    "defaultMessage": "La question donnée à l'écran n'existe pas.",
+    "description": "Error message that the screening question could not be found."
+  },
   "2eBm5y": {
     "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
     "description": "Successful Completion with credential selection for education status input"
@@ -267,9 +271,17 @@
     "defaultMessage": "La demande a déjà été soumise.",
     "description": "Error message that the given application is already submitted."
   },
+  "7D58wn": {
+    "defaultMessage": "Vous ne pouvez pas archiver un bassin à moins que le statut indique qu'il soit fermé.",
+    "description": "Error message when attempting to archive a pool with an invalid status."
+  },
   "7Gg5er": {
     "defaultMessage": "Déplacements selon les besoins",
     "description": "The operational requirement described as travel as required. (short-form for limited space)"
+  },
+  "7QH2G/": {
+    "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
+    "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
   "7TuiE1": {
     "defaultMessage": "A",
@@ -334,10 +346,6 @@
   "9zyjjw": {
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
-  },
-  "A+dFlE": {
-    "defaultMessage": "La demande a déjà été archivée.",
-    "description": "Error message that the given application is already archived."
   },
   "A1fb/r": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
@@ -503,6 +511,10 @@
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
   },
+  "Hu321P": {
+    "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
+    "description": "Error message that a given pool skill is not valid."
+  },
   "I6gM/P": {
     "defaultMessage": "PAPA",
     "description": "The publishing group called IT Apprenticeship Program for Indigenous Peoples"
@@ -619,6 +631,10 @@
     "defaultMessage": "Secret ou plus élevée",
     "description": "Secret security clearance"
   },
+  "M3c9Yo": {
+    "defaultMessage": "Erreur : la suppression de la candidature a échoué",
+    "description": "Message displayed to user after application fails to get deleted."
+  },
   "MBnBcY": {
     "defaultMessage": "Vitrine des compétences",
     "description": "Name of the skill showcase page"
@@ -626,6 +642,10 @@
   "MUjjf9": {
     "defaultMessage": "B",
     "description": "The evaluated language ability level of B"
+  },
+  "Mau9e6": {
+    "defaultMessage": "Fait - aucun candidat trouvé",
+    "description": "The search status is done with no candidates found"
   },
   "Mco0Km": {
     "defaultMessage": "Vous devez posséder au moins une compétence essentielle.",
@@ -871,13 +891,13 @@
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
   },
+  "TblXEE": {
+    "defaultMessage": "Désignation professionnelle",
+    "description": "Option for education requirement, professional designation"
+  },
   "TiIkSF": {
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
-  },
-  "TjeaLS": {
-    "defaultMessage": "Cette demande ne peut pas être archivée. Vous ne pouvez archiver que les demandes ayant expiré.",
-    "description": "Error message that the application cannot be archived."
   },
   "TmCCgR": {
     "defaultMessage": "cela m'oblige à d'avoir un permis de conduire valide ou un degré de mobilité personnelle habituellement associée à la possession d'un permis de conduire valide.",
@@ -967,6 +987,10 @@
     "defaultMessage": "Expiré",
     "description": "The pool candidate's status is Expired."
   },
+  "XUR5dD": {
+    "defaultMessage": "Les étapes d'évaluation doivent appartenir au même bassin.",
+    "description": "Error message that the assessment steps must belong to the same pool."
+  },
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
@@ -1047,6 +1071,10 @@
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
   },
+  "aTHtqQ": {
+    "defaultMessage": "Obtention d’un diplôme",
+    "description": "Option for education requirement, graduation with degree"
+  },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
@@ -1110,6 +1138,10 @@
   "csLjMi": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message that the given skill closing date must be after today."
+  },
+  "ctpoN9": {
+    "defaultMessage": "Ce nom d’équipe est déjà utilisé",
+    "description": "Error message that the given team name is already in use."
   },
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
@@ -1227,6 +1259,10 @@
     "defaultMessage": "avertissement",
     "description": "Message for the warning status"
   },
+  "hpBnAk": {
+    "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
+    "description": "Error message when attempting to un-archive a pool with an invalid status."
+  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -1307,6 +1343,10 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
+  "kDw+xr": {
+    "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
+    "description": "Error message that the pool advertisement skills are lacking an assessment"
+  },
   "kKdcZT": {
     "defaultMessage": "Bilingue avancé",
     "description": "The language requirement is bilingual advanced."
@@ -1318,6 +1358,10 @@
   "kwaeXP": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
     "description": "The operational requirement described as occasional overtime."
+  },
+  "l+x5JF": {
+    "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
+    "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
@@ -1703,6 +1747,10 @@
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
   },
+  "wUJqDi": {
+    "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
+    "description": "Error message that the skill selected is already linked to the user profile."
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
@@ -1726,6 +1774,10 @@
   "xNESdj": {
     "defaultMessage": "Février",
     "description": "Name of the second month"
+  },
+  "xSecEX": {
+    "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
+    "description": "Error message that the given skill key is already in use."
   },
   "xaCwEO": {
     "defaultMessage": "Métis",

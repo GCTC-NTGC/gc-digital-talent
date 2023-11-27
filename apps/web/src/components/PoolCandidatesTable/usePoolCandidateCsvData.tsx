@@ -515,7 +515,10 @@ const usePoolCandidateCsvData = (
           hasDisability: yesOrNo(user.hasDisability, intl),
           educationRequirementOption: educationRequirementOption
             ? intl.formatMessage(
-                getEducationRequirementOption(educationRequirementOption),
+                getEducationRequirementOption(
+                  educationRequirementOption,
+                  user.currentClassification?.group,
+                ),
               )
             : "",
           educationRequirementExperiences: getExperienceTitles(

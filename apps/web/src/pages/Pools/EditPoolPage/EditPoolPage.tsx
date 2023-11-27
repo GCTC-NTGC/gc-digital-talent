@@ -14,6 +14,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
@@ -104,6 +105,7 @@ export const EditPoolForm = ({
   const paths = useRoutes();
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the ScreeningQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
@@ -239,15 +241,17 @@ export const EditPoolForm = ({
           "Shorter version of the title for the special note section",
       }),
     },
-    screeningQuestions: {
-      id: "screening-questions",
-      hasError: false, // Optional
-      title: intl.formatMessage({
-        defaultMessage: "Screening questions",
-        id: "c+QwbR",
-        description: "Subtitle for the pool screening questions",
-      }),
-    },
+  };
+
+  // remove once RoD flag is gone
+  const screeningQuestionMetadata: EditPoolSectionMetadata = {
+    id: "screening-questions",
+    hasError: false, // Optional
+    title: intl.formatMessage({
+      defaultMessage: "Screening questions",
+      id: "c+QwbR",
+      description: "Subtitle for the pool screening questions",
+    }),
   };
 
   const backMessage = defineMessage({
@@ -293,7 +297,10 @@ export const EditPoolForm = ({
               data-h2-padding-left="base(x.5)"
               data-h2-list-style-type="base(none)"
             >
-              {Object.values(sectionMetadata).map((meta) => (
+              {[
+                ...Object.values(sectionMetadata),
+                ...(!recordOfDecisionFlag ? [screeningQuestionMetadata] : []), // remove when RoD flag is gone
+              ].map((meta) => (
                 <TableOfContents.ListItem key={meta.id}>
                   <StatusItem
                     asListItem={false}
@@ -391,11 +398,13 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-              <ScreeningQuestions
-                pool={pool}
-                sectionMetadata={sectionMetadata.screeningQuestions}
-                onSave={onSave}
-              />
+              {!recordOfDecisionFlag && (
+                <ScreeningQuestions
+                  pool={pool}
+                  sectionMetadata={screeningQuestionMetadata}
+                  onSave={onSave}
+                />
+              )}
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

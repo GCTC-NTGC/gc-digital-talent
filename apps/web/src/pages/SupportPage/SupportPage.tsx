@@ -6,9 +6,9 @@ import { useTheme } from "@gc-digital-talent/theme";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import flourishTopLight from "~/assets/img/support_top_light.png";
-import flourishTopDark from "~/assets/img/support_top_dark.png";
-import supportHeroImg from "~/assets/img/support_header.png";
+import flourishTopLight from "~/assets/img/support_top_light.webp";
+import flourishTopDark from "~/assets/img/support_top_dark.webp";
+import supportHeroImg from "~/assets/img/support_header.webp";
 
 import SupportForm from "./components/SupportForm/SupportForm";
 
@@ -52,7 +52,7 @@ export const SupportPage = () => {
       />
       <div
         data-h2-position="base(relative)"
-        data-h2-padding="base(x4, 0)"
+        data-h2-padding="base(x3, 0)"
         data-h2-background-color="base(background)"
       >
         <img

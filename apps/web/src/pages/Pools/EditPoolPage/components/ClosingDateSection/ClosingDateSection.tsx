@@ -168,7 +168,7 @@ const ClosingDateSection = ({
                       description:
                         "Text on a button to save the pool closing date",
                     })}
-                    color="tertiary"
+                    color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
                   />

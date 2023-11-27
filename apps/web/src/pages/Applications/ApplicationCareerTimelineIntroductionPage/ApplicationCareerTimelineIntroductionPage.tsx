@@ -62,7 +62,13 @@ const ApplicationCareerTimelineIntroduction = ({
 
   return (
     <>
-      <Heading data-h2-margin-top="base(0)">{pageInfo.title}</Heading>
+      <Heading
+        data-h2-margin-top="base(0)"
+        size="h3"
+        data-h2-font-weight="base(400)"
+      >
+        {pageInfo.title}
+      </Heading>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
@@ -92,13 +98,13 @@ const ApplicationCareerTimelineIntroduction = ({
       </p>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base(gray)"
         data-h2-margin="base(x2, 0)"
         decorative
       />
       <div
         data-h2-display="base(flex)"
-        data-h2-gap="base(x.25, x.5)"
+        data-h2-gap="base(x1)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"

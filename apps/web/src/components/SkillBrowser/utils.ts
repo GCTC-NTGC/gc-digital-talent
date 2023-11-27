@@ -299,8 +299,8 @@ export const getCategoryOptions = (
       value: "all",
       label: intl.formatMessage(
         {
-          defaultMessage: "All categories ({count})",
-          id: "zS2PN+",
+          defaultMessage: "All categories ({count} skills)",
+          id: "OqKTJQ",
           description: "Label for removing the skill category filter",
         },
         {
@@ -312,8 +312,8 @@ export const getCategoryOptions = (
       value: SkillCategory.Behavioural,
       label: intl.formatMessage(
         {
-          defaultMessage: "Behavioural skills ({count})",
-          id: "ElOtG0",
+          defaultMessage: "Behavioural skills ({count} skills)",
+          id: "+ayqFd",
           description: "Tab name for a list of behavioural skills",
         },
         {
@@ -325,8 +325,8 @@ export const getCategoryOptions = (
       value: SkillCategory.Technical,
       label: intl.formatMessage(
         {
-          defaultMessage: "Technical skills ({count})",
-          id: "Z3+zWD",
+          defaultMessage: "Technical skills ({count} skills)",
+          id: "4LQLyh",
           description: "Tab name for a list of technical skills",
         },
         {
@@ -348,8 +348,8 @@ export const getFamilyOptions = (
       value: "all",
       label: intl.formatMessage(
         {
-          defaultMessage: "All skill families ({count})",
-          id: "mzQAMK",
+          defaultMessage: "All skills ({count} skills)",
+          id: "Id9nfM",
           description: "Label for removing the skill family filter",
         },
         {
@@ -368,8 +368,8 @@ export const getFamilyOptions = (
         value: "library",
         label: intl.formatMessage(
           {
-            defaultMessage: "My library ({count})",
-            id: "P5tK5j",
+            defaultMessage: "My library ({count} skills)",
+            id: "hzZc5Y",
             description:
               "Label for filtering skills by ones already added to the users library",
           },
@@ -383,3 +383,14 @@ export const getFamilyOptions = (
 
   return familyOptions;
 };
+
+export const formatOption = (label: string, count: number, intl: IntlShape) =>
+  intl.formatMessage(
+    {
+      defaultMessage: "{label} ({count} skills)",
+      id: "MmDHBS",
+      description:
+        "Label for options when selecting skill filters where {count} is the number of skills associated with the filter",
+    },
+    { label, count },
+  );
