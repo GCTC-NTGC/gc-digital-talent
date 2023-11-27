@@ -1,9 +1,17 @@
 import React from "react";
 
-import Context, { ContextProps } from "./Context";
+import { Well, WellProps } from "@gc-digital-talent/ui";
 
-const Error = (props: Omit<ContextProps, "color">) => {
-  return <Context role="alert" aria-live="polite" color="error" {...props} />;
+const Error = (props: Omit<WellProps, "color">) => {
+  return (
+    <Well
+      role="alert"
+      aria-live="polite"
+      fontSize="caption"
+      color="error"
+      {...props}
+    />
+  );
 };
 
 export default Error;

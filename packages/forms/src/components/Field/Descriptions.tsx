@@ -1,10 +1,10 @@
 import React from "react";
 import { FieldError } from "react-hook-form";
 
+import { Well } from "@gc-digital-talent/ui";
+
 import { DescriptionIds } from "../../hooks/useInputDescribedBy";
 import { CommonInputProps } from "../../types";
-import Context from "./Context";
-import Error from "./Error";
 
 export interface DescriptionsProps {
   context?: CommonInputProps["context"];
@@ -14,8 +14,16 @@ export interface DescriptionsProps {
 
 const Descriptions = ({ context, error, ids }: DescriptionsProps) => (
   <>
-    {context && <Context id={ids?.context}>{context}</Context>}
-    {error && <Error id={ids?.error}>{error?.toString()}</Error>}
+    {context && (
+      <Well id={ids?.context} color="default" fontSize="caption">
+        {context}
+      </Well>
+    )}
+    {error && (
+      <Well id={ids?.error} color="error" fontSize="caption">
+        {error?.toString()}
+      </Well>
+    )}
   </>
 );
 

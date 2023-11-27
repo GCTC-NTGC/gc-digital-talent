@@ -18,26 +18,37 @@ export default {
   },
 } as Meta;
 
+const themes = ["light", "dark"];
+
 const Template: Story = (args) => {
   const { content } = args;
   return (
     <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1, 0)"
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <Well>
-        <p>Default: {content}</p>
-      </Well>
-      <Well color="success">
-        <p>Success: {content}</p>
-      </Well>
-      <Well color="warning">
-        <p>Warning: {content}</p>
-      </Well>
-      <Well color="error">
-        <p>Error: {content}</p>
-      </Well>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div
+            data-h2-background="base(background)"
+            data-h2-padding="base(x2)"
+            data-h2-margin-top="base:children[>div:not(:first-child)](x.25)"
+          >
+            <Well>
+              <p>Default: {content}</p>
+            </Well>
+            <Well color="success">
+              <p>Success: {content}</p>
+            </Well>
+            <Well color="warning">
+              <p>Warning: {content}</p>
+            </Well>
+            <Well color="error">
+              <p>Error: {content}</p>
+            </Well>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
