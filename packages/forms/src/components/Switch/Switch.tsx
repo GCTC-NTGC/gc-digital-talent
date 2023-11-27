@@ -2,10 +2,9 @@ import React from "react";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 
-import { Color, IconType } from "@gc-digital-talent/ui";
+import { IconType } from "@gc-digital-talent/ui";
 
 import { CommonInputProps } from "../../types";
-import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import getStyles, { SwitchColor } from "./styles";
 import Field from "../Field";
