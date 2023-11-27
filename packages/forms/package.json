@@ -33,6 +33,7 @@
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "2.0.18",
     "@hookform/error-message": "^2.0.1",
+    "@radix-ui/react-switch": "^1.0.3",
     "@tiptap/extension-character-count": "^2.1.12",
     "@tiptap/extension-link": "^2.1.12",
     "@tiptap/react": "^2.1.12",
