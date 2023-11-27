@@ -137,11 +137,12 @@ const RadioGroup = ({
                       type="radio"
                       disabled={disabled}
                       defaultChecked={defaultSelected === value}
+                      data-h2-margin-top="base(x.26)"
                       {...(contentBelow && {
                         "aria-describedby": `${id}-content-below`,
                       })}
                     />
-                    <span data-h2-margin-top="base(-x.125)">{label}</span>
+                    <span data-h2-font-size="base(body)">{label}</span>
                   </Field.Label>
                   {contentBelow && (
                     <div id={`${id}-content-below`}>{contentBelow}</div>
