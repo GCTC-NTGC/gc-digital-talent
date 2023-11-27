@@ -19,7 +19,7 @@ import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
 import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
-import ScreeningAndEvaluationPage from "~/pages/Pools/AssessmentEvaluation/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
+import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
 /** Home */
 const HomePage = React.lazy(() =>
