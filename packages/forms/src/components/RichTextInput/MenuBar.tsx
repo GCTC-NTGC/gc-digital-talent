@@ -26,9 +26,8 @@ const MenuBar = ({ editor }: MenuBarProps) => {
       data-h2-gap="base(x.5)"
       data-h2-radius="base(rounded rounded 0 0)"
       data-h2-justify-content="base(space-between)"
-      data-h2-border-top="base(1px solid gray)"
-      data-h2-border-right="base(1px solid gray)"
-      data-h2-border-left="base(1px solid gray)"
+      data-h2-border="base(1px solid gray)"
+      data-h2-border-bottom="base(none)"
     >
       <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
         <MenuButton
