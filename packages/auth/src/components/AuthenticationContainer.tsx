@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
-import { defaultLogger } from "@gc-digital-talent/logger";
+import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
 
 import {
   ACCESS_TOKEN,
@@ -91,13 +91,14 @@ const refreshTokenSet = async (
   // Local storage should be most up to date, especially if a refresh happened in a different tab.
   // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
   // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
-  defaultLogger.notice("Attempting to refresh the auth token set");
+  const logger = defaultLogger;
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
   if (refreshToken === null) {
+    logger.notice("No refresh token available.  Can't refresh.");
     return null;
   }
-
+  defaultLogger.notice("Attempting to refresh the auth token set");
   const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
   if (response.ok) {
     const responseBody: {
@@ -106,6 +107,7 @@ const refreshTokenSet = async (
       expires_in: string | null;
       id_token: string | null;
     } = await response.json();
+    logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
 
     const newTokens: TokenSet = {
       accessToken: responseBody.access_token,
@@ -124,6 +126,8 @@ const refreshTokenSet = async (
       }
       return newTokens;
     }
+  } else {
+    logger.notice("Failed to refresh auth state.");
   }
   return null;
 };
@@ -160,6 +164,7 @@ const AuthenticationContainer = ({
   logoutRedirectUri,
   children,
 }: AuthenticationContainerProps) => {
+  const logger = useLogger();
   const [existingTokens, setTokens] = useState({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
@@ -167,10 +172,13 @@ const AuthenticationContainer = ({
   });
 
   const newTokens = getTokensFromLocation();
+  logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
+    logger.debug("Running newTokens useEffect");
     if (newTokens?.accessToken) {
+      logger.debug("Running newTokens useEffect - set tokens in localStorage");
       setTokens({
         accessToken: newTokens.accessToken,
         refreshToken: newTokens.refreshToken,
@@ -185,7 +193,12 @@ const AuthenticationContainer = ({
       }
       clearQueryParams();
     }
-  }, [newTokens?.accessToken, newTokens?.refreshToken, newTokens?.idToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
+  }, [
+    newTokens?.accessToken,
+    newTokens?.refreshToken,
+    newTokens?.idToken,
+    logger,
+  ]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
   // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? existingTokens;
