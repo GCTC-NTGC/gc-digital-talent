@@ -204,6 +204,7 @@ return [
         App\Providers\BearerTokenServiceProvider::class,
         App\Providers\NotifyServiceProvider::class,
         ScoutEngines\Postgres\PostgresEngineServiceProvider::class,
+        \Laravel\Scout\ScoutServiceProvider::class,
 
     ],
 
