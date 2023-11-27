@@ -7688,7 +7688,7 @@
     "description": "Label for email field"
   },
   "g1MMTj": {
-    "defaultMessage": "Envoyez un texto par téléphone (TTY/ATS)",
+    "defaultMessage": "Téléimprimeur (ATS/ATME)",
     "description": "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'"
   },
   "g5JeNf": {
@@ -9756,7 +9756,7 @@
     "description": "Current Location label and colon"
   },
   "s2OefW": {
-    "defaultMessage": "Texte sur le téléphone (téléimprimeur/ATS)",
+    "defaultMessage": "Téléimprimeur (ATS/ATME)",
     "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
   },
   "s5hTYo": {
