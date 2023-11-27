@@ -31,6 +31,7 @@ import Select, {
   type Option,
 } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
+import Switch, { type SwitchProps } from "./components/Switch/Switch";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
 import BasicForm, {
@@ -70,6 +71,7 @@ export {
   Select,
   MultiSelectFieldBase,
   Submit,
+  Switch,
   TextArea,
   WordCounter,
   BasicForm,
@@ -92,6 +94,7 @@ export type {
   MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
+  SwitchProps,
   TextAreaProps,
   WordCounterProps,
   BasicFormProps,
