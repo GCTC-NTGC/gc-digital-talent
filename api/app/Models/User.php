@@ -102,10 +102,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     ];
 
 
-    public function searchableAs(): string
-    {
-        return 'users_searchable_index';
-    }
     /**
      * Get the indexable data array for the model.
      *
@@ -645,12 +641,18 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
-
-    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
+   public static function scopeGeneralSearch(Builder $query, ?string $search)
     {
         if ($search) {
            // Use Scout's search method to perform the search
-            return $query->search($search);
+            $model = new self; // Create an instance of the model
+
+            $searchResults =  $model->search($search);
+
+            // Merge any additional conditions or constraints you want
+            // Example:  $eloquentBuilder->where('column', '=', 'value');
+
+            return $searchResults;
         }
 
         return $query;
