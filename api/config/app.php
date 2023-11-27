@@ -203,6 +203,7 @@ return [
         App\Providers\GraphQLServiceProvider::class,
         App\Providers\BearerTokenServiceProvider::class,
         App\Providers\NotifyServiceProvider::class,
+        ScoutEngines\Postgres\PostgresEngineServiceProvider::class,
 
     ],
 
@@ -263,5 +264,18 @@ return [
         'Notify' => App\Facades\Notify::class,
 
     ],
-
+    'pgsql' => [
+       // Connection to use. See config/database.php
+    'connection' => env('DB_CONNECTION', 'pgsql'),
+    // You may want to update index documents directly in PostgreSQL (i.e. via triggers).
+    // In this case you can set this value to false.
+    'maintain_index' => true,
+    // You can explicitly specify what PostgreSQL text search config to use by scout.
+    // Use \dF in psql to see all available configurations in your database.
+    'config' => 'english',
+    // You may set the default querying method
+    // Possible values: plainquery, phrasequery, tsquery
+    // plainquery is used if this option is omitted.
+    'search_using' => 'tsquery'
+    ],
 ];
