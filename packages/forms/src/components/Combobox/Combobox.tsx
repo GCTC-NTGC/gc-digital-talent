@@ -61,6 +61,7 @@ const Combobox = ({
 }: ComboboxProps) => {
   const intl = useIntl();
   const {
+    watch,
     control,
     setValue,
     formState: { errors, defaultValues },
@@ -72,6 +73,7 @@ const Combobox = ({
   const error = errors[name]?.message as FieldError;
   const isRequired = !!rules?.required;
   const defaultValue = defaultValues && defaultValues[name];
+  const currentValue = watch(name);
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -143,14 +145,14 @@ const Combobox = ({
               onSelectedChange={(items) => {
                 setValue(name, items?.map((item) => item.value));
               }}
-              value={getMultiDefaultValue(options, defaultValue)}
+              value={getMultiDefaultValue(options, defaultValue, currentValue)}
               {...sharedProps}
             />
           ) : (
             <Single
               onInputChange={onSearch}
               onSelectedChange={(item) => setValue(name, item?.value)}
-              value={getSingleDefaultValue(options, defaultValue)}
+              value={getSingleDefaultValue(options, defaultValue, currentValue)}
               {...sharedProps}
             />
           )
