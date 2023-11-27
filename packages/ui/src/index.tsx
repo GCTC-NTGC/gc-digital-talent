@@ -63,7 +63,6 @@ import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
-import Switch from "./components/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
   TocHeadingProps,
@@ -161,7 +160,6 @@ export {
   SideMenuContentWrapper,
   Spoiler,
   Stepper,
-  Switch,
   TableOfContents,
   Tabs,
   ToggleGroup,
