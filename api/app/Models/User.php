@@ -113,8 +113,16 @@ class User extends Model implements Authenticatable, LaratrustUser
      */
     public function toSearchableArray(): array
     {
-        $array = $this->toArray();
-        return $array;
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'telephone' => $this->telephone,
+            'preferred_lang' => $this->preferred_lang,
+            'current_province' => $this->current_province,
+            'current_city' => $this->current_city,
+        ];
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -641,15 +649,8 @@ class User extends Model implements Authenticatable, LaratrustUser
     public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
-            $query->where(function ($query) use ($search) {
-                self::scopeName($query, $search);
-                $query->orWhere(function ($query) use ($search) {
-                    self::scopeEmail($query, $search);
-                });
-                $query->orWhere(function ($query) use ($search) {
-                    self::scopeTelephone($query, $search);
-                });
-            });
+           // Use Scout's search method to perform the search
+            return $query->search($search);
         }
 
         return $query;
