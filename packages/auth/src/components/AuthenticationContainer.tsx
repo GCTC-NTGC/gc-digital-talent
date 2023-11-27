@@ -1,6 +1,6 @@
 // Note: We need snake case for tokens
 /* eslint-disable camelcase */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
@@ -14,22 +14,16 @@ import {
 
 export interface AuthenticationState {
   loggedIn: boolean;
-  accessToken: string | null;
-  refreshToken: string | null;
-  idToken: string | null;
   logout: (postLogoutUri?: string) => void;
-  refreshTokenSet: () => Promise<TokenSet | null>;
+  refreshTokenSet: () => Promise<void>;
 }
 
 const defaultAuthState = {
   loggedIn: false,
-  accessToken: null,
-  refreshToken: null,
-  idToken: null,
   logout: () => {
     /** do nothing */
   },
-  refreshTokenSet: () => Promise.resolve(null),
+  refreshTokenSet: () => Promise.resolve(),
 };
 
 interface TokenSet {
@@ -83,55 +77,6 @@ const logoutAndRefreshPage = (
   }
 };
 
-const refreshTokenSet = async (
-  refreshPath: string,
-  // refreshToken: string,
-  setTokens: (tokens: TokenSet) => void,
-): Promise<TokenSet | null> => {
-  // Local storage should be most up to date, especially if a refresh happened in a different tab.
-  // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
-  // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
-  const logger = defaultLogger;
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-
-  if (refreshToken === null) {
-    logger.notice("No refresh token available.  Can't refresh.");
-    return null;
-  }
-  defaultLogger.notice("Attempting to refresh the auth token set");
-  const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
-  if (response.ok) {
-    const responseBody: {
-      access_token: string;
-      refresh_token: string;
-      expires_in: string | null;
-      id_token: string | null;
-    } = await response.json();
-    logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
-
-    const newTokens: TokenSet = {
-      accessToken: responseBody.access_token,
-      refreshToken: responseBody.refresh_token,
-      idToken: responseBody.id_token,
-    };
-
-    if (newTokens.accessToken) {
-      setTokens(newTokens);
-      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
-      if (newTokens?.refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
-      }
-      if (newTokens?.idToken) {
-        localStorage.setItem(ID_TOKEN, newTokens.idToken);
-      }
-      return newTokens;
-    }
-  } else {
-    logger.notice("Failed to refresh auth state.");
-  }
-  return null;
-};
-
 function getTokensFromLocation(): TokenSet | null {
   const params = new URLSearchParams(window.location.search);
   const accessToken: string | null = params.get("access_token") ?? null;
@@ -165,48 +110,38 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
-  const [existingTokens, setTokens] = useState({
+  const existingTokens = {
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
     idToken: localStorage.getItem(ID_TOKEN),
-  });
+  };
 
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
+  if (newTokens?.accessToken) {
+    logger.debug("Running newTokens - set tokens in localStorage");
+
+    localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
+    if (newTokens?.refreshToken) {
+      localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
+    }
+    if (newTokens?.idToken) {
+      localStorage.setItem(ID_TOKEN, newTokens.idToken);
+    }
+  }
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
-    logger.debug("Running newTokens useEffect");
     if (newTokens?.accessToken) {
-      logger.debug("Running newTokens useEffect - set tokens in localStorage");
-      setTokens({
-        accessToken: newTokens.accessToken,
-        refreshToken: newTokens.refreshToken,
-        idToken: newTokens.idToken,
-      });
-      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
-      if (newTokens?.refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
-      }
-      if (newTokens?.idToken) {
-        localStorage.setItem(ID_TOKEN, newTokens.idToken);
-      }
+      logger.debug("Running newTokens clearQueryParams");
       clearQueryParams();
     }
-  }, [
-    newTokens?.accessToken,
-    newTokens?.refreshToken,
-    newTokens?.idToken,
-    logger,
-  ]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
+  }, [newTokens?.accessToken, logger]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
   // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? existingTokens;
   const state = useMemo<AuthenticationState>(() => {
     return {
-      accessToken: tokens.accessToken,
-      idToken: tokens.idToken,
-      refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
         ? (postLogoutUri) =>
@@ -214,21 +149,60 @@ const AuthenticationContainer = ({
         : () => {
             /* If not logged in, logout does nothing. */
           },
-      refreshTokenSet: () =>
-        tokens.refreshToken
-          ? refreshTokenSet(
-              tokenRefreshPath,
-              /* tokens.refreshToken, */ setTokens,
-            )
-          : Promise.resolve(null),
+      refreshTokenSet: async () => {
+        // Local storage should be most up to date, especially if a refresh happened in a different tab.
+        // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
+        // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
+
+        if (tokens.refreshToken === null) {
+          logger.notice("No refresh token available.  Can't refresh.");
+          return;
+        }
+        defaultLogger.notice("Attempting to refresh the auth token set");
+        const response = await fetch(
+          `${tokenRefreshPath}?refresh_token=${tokens.refreshToken}`,
+        );
+        if (response.ok) {
+          const responseBody: {
+            access_token: string;
+            refresh_token: string;
+            expires_in: string | null;
+            id_token: string | null;
+          } = await response.json();
+          logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
+
+          const refreshedTokens: TokenSet = {
+            accessToken: responseBody.access_token,
+            refreshToken: responseBody.refresh_token,
+            idToken: responseBody.id_token,
+          };
+
+          if (refreshedTokens.accessToken) {
+            // setTokens(newTokens);
+            localStorage.setItem(ACCESS_TOKEN, refreshedTokens.accessToken);
+            if (refreshedTokens?.refreshToken) {
+              localStorage.setItem(REFRESH_TOKEN, refreshedTokens.refreshToken);
+            }
+            if (refreshedTokens?.idToken) {
+              localStorage.setItem(ID_TOKEN, refreshedTokens.idToken);
+            }
+          }
+        } else {
+          logger.notice("Failed to refresh auth state.");
+          logoutAndRefreshPage(
+            logoutUri,
+            logoutRedirectUri /* , postLogoutUri */,
+          );
+        }
+      },
     };
   }, [
     tokens.accessToken,
-    tokens.idToken,
     tokens.refreshToken,
     logoutUri,
     logoutRedirectUri,
     tokenRefreshPath,
+    logger,
   ]);
 
   return (

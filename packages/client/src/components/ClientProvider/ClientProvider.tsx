@@ -146,14 +146,10 @@ const ClientProvider = ({
               async refreshAuth() {
                 // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
                 // let's try to use a refresh token to get new tokens
-                let refreshedAuthState;
+
                 const refreshToken = localStorage.getItem(REFRESH_TOKEN);
                 if (refreshToken) {
-                  refreshedAuthState = await authRef.current.refreshTokenSet();
-                }
-
-                if (!refreshedAuthState) {
-                  authRef.current.logout(window.location.pathname);
+                  await authRef.current.refreshTokenSet();
                 }
               },
             };
