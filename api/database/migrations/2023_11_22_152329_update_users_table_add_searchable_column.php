@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            // Add the searchable column of type tsvector
-            $table->text('searchable')->nullable();
-        });
+
+         // add searchable column
+        \DB::statement('ALTER TABLE users ADD COLUMN searchable TSVECTOR');
 
         // Update the tsvector column with the data for existing rows
 
@@ -53,7 +52,7 @@ return new class extends Migration
 
 
         // Create a GIN index on the tsvector column for efficient full-text search
-        \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(to_tsvector(\'english\', searchable))');
+        \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
 
     }
 
