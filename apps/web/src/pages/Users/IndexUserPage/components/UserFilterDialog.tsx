@@ -66,7 +66,6 @@ const UserFilterDialog = ({
 
   const [{ data, fetching }] = useGetFilterDataQuery({ context });
 
-  const classifications = unpackMaybes(data?.classifications);
   const pools = unpackMaybes(data?.pools);
   const skills = unpackMaybes(data?.skills);
   const roles = unpackMaybes(data?.roles);
@@ -76,9 +75,9 @@ const UserFilterDialog = ({
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(6, 1fr))"
+        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       >
-        <div data-h2-grid-column="l-tablet(span 6)">
+        <div data-h2-grid-column="l-tablet(span 2)">
           <Combobox
             id="pools"
             name="pools"
@@ -91,77 +90,55 @@ const UserFilterDialog = ({
             }))}
           />
         </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
-          <Select
-            id="languageAbility"
-            name="languageAbility"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            label={intl.formatMessage({
-              defaultMessage: "Languages",
-              id: "iUAe/2",
-              description: "Label for language ability field",
-            })}
-            options={enumToOptions(LanguageAbility).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguageAbility(value)),
-            }))}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
-          <Combobox
-            id="classifications"
-            name="classifications"
-            {...{ fetching }}
-            label={intl.formatMessage(adminMessages.classifications)}
-            options={classifications.map(({ group, level }) => ({
-              value: `${group}-${level}`,
-              label: `${group}-0${level}`,
-            }))}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
-          <Select
-            id="employmentDuration"
-            name="employmentDuration"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            label={intl.formatMessage({
-              defaultMessage: "Duration preferences",
-              id: "2ingb6",
-              description: "Label for the employment duration field",
-            })}
-            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEmploymentDuration(value, "short")),
-            }))}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 3)">
-          <Checklist
-            idPrefix="operationalRequirement"
-            name="operationalRequirement"
-            legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={OperationalRequirementV2.map((value) => ({
-              value,
-              label: intl.formatMessage(
-                getOperationalRequirement(value, "short"),
-              ),
-            }))}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 3)">
-          <Checklist
-            idPrefix="workRegion"
-            name="workRegion"
-            legend={intl.formatMessage(navigationMessages.workLocation)}
-            items={enumToOptionsWorkRegionSorted(WorkRegion).map(
-              ({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }),
-            )}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <Select
+          id="languageAbility"
+          name="languageAbility"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          label={intl.formatMessage({
+            defaultMessage: "Languages",
+            id: "iUAe/2",
+            description: "Label for language ability field",
+          })}
+          options={enumToOptions(LanguageAbility).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getLanguageAbility(value)),
+          }))}
+        />
+        <Select
+          id="employmentDuration"
+          name="employmentDuration"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          label={intl.formatMessage({
+            defaultMessage: "Duration preferences",
+            id: "2ingb6",
+            description: "Label for the employment duration field",
+          })}
+          options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getEmploymentDuration(value, "short")),
+          }))}
+        />
+        <Checklist
+          idPrefix="operationalRequirement"
+          name="operationalRequirement"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={OperationalRequirementV2.map((value) => ({
+            value,
+            label: intl.formatMessage(
+              getOperationalRequirement(value, "short"),
+            ),
+          }))}
+        />
+        <Checklist
+          idPrefix="workRegion"
+          name="workRegion"
+          legend={intl.formatMessage(navigationMessages.workLocation)}
+          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getWorkRegion(value)),
+          }))}
+        />
+        <div>
           <Checkbox
             id="profileComplete"
             name="profileComplete"
@@ -174,8 +151,6 @@ const UserFilterDialog = ({
               description: "Label for the profile complete field",
             })}
           />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
           <Checkbox
             id="govEmployee"
             name="govEmployee"
@@ -188,8 +163,6 @@ const UserFilterDialog = ({
               description: "Label for the government employee field",
             })}
           />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
           <Checkbox
             id="trashed"
             name="trashed"
@@ -203,25 +176,23 @@ const UserFilterDialog = ({
             })}
           />
         </div>
+        <Checklist
+          idPrefix="roles"
+          name="roles"
+          legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
+          items={roles
+            .filter(
+              (role) =>
+                role?.name === ROLE_NAME.PlatformAdmin ||
+                role?.name === ROLE_NAME.PoolOperator ||
+                role?.name === ROLE_NAME.RequestResponder,
+            )
+            .map((role) => ({
+              value: role.id,
+              label: getLocalizedName(role.displayName, intl),
+            }))}
+        />
         <div data-h2-grid-column="l-tablet(span 2)">
-          <Checklist
-            idPrefix="roles"
-            name="roles"
-            legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
-            items={roles
-              .filter(
-                (role) =>
-                  role?.name === ROLE_NAME.PlatformAdmin ||
-                  role?.name === ROLE_NAME.PoolOperator ||
-                  role?.name === ROLE_NAME.RequestResponder,
-              )
-              .map((role) => ({
-                value: role.id,
-                label: getLocalizedName(role.displayName, intl),
-              }))}
-          />
-        </div>
-        <div data-h2-grid-column="l-tablet(span 4)">
           <Combobox
             id="skills"
             name="skills"
