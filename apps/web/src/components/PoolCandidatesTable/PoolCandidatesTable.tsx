@@ -55,9 +55,6 @@ import Table, {
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
 import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
-import PoolCandidateTableFilterDialog, {
-  FormValues,
-} from "./PoolCandidateTableFilterDialog";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
@@ -73,12 +70,16 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
+import PoolCandidateFilterDialog, {
+  FormValues,
+} from "./PoolCandidateFilterDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
+  console.log(input);
   return {
     publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
@@ -86,9 +87,7 @@ function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility
-      ? [input?.applicantFilter?.languageAbility]
-      : [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirement:
@@ -107,7 +106,7 @@ function transformPoolCandidateSearchInputToFormValues(
           ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
         ]
       : [],
-    hasDiploma: input?.applicantFilter?.hasDiploma ? ["true"] : [],
+    hasDiploma: input?.applicantFilter?.hasDiploma ? "true" : "",
     pools:
       input?.applicantFilter?.pools
         ?.filter(notEmpty)
@@ -117,12 +116,12 @@ function transformPoolCandidateSearchInputToFormValues(
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
     expiryStatus: input?.expiryStatus
-      ? [input.expiryStatus]
-      : [CandidateExpiryFilter.Active],
+      ? input.expiryStatus
+      : CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus
-      ? [input.suspendedStatus]
-      : [CandidateSuspendedFilter.Active],
-    govEmployee: input?.isGovEmployee ? ["true"] : [],
+      ? input.suspendedStatus
+      : CandidateSuspendedFilter.Active,
+    govEmployee: input?.isGovEmployee ? "true" : "",
   };
 }
 
@@ -218,8 +217,8 @@ const PoolCandidatesTable = ({
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     const transformedData = {
       applicantFilter: {
-        languageAbility: data.languageAbility[0]
-          ? stringToEnumLanguage(data.languageAbility[0])
+        languageAbility: data.languageAbility
+          ? stringToEnumLanguage(data.languageAbility)
           : undefined,
         qualifiedClassifications: data.classifications.map((classification) => {
           const splitString = classification.split("-");
@@ -234,7 +233,7 @@ const PoolCandidatesTable = ({
         locationPreferences: data.workRegion.map((region) => {
           return stringToEnumLocation(region);
         }),
-        hasDiploma: data.hasDiploma[0] ? true : undefined,
+        hasDiploma: data.hasDiploma ? true : undefined,
         equity: {
           ...(data.equity.includes("isWoman") && { isWoman: true }),
           ...(data.equity.includes("hasDisability") && { hasDisability: true }),
@@ -256,13 +255,13 @@ const PoolCandidatesTable = ({
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);
       }),
-      expiryStatus: data.expiryStatus[0]
-        ? stringToEnumCandidateExpiry(data.expiryStatus[0])
+      expiryStatus: data.expiryStatus
+        ? stringToEnumCandidateExpiry(data.expiryStatus)
         : undefined,
-      suspendedStatus: data.suspendedStatus[0]
-        ? stringToEnumCandidateSuspended(data.suspendedStatus[0])
+      suspendedStatus: data.suspendedStatus
+        ? stringToEnumCandidateSuspended(data.suspendedStatus)
         : undefined,
-      isGovEmployee: data.govEmployee[0] ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+      isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
       publishingGroups: data.publishingGroups as PublishingGroup[],
     };
 
@@ -545,9 +544,9 @@ const PoolCandidatesTable = ({
         initialState: initialFilterInput,
         state: filterRef.current,
         component: (
-          <PoolCandidateTableFilterDialog
+          <PoolCandidateFilterDialog
             onSubmit={handleFilterSubmit}
-            initialFilters={transformPoolCandidateSearchInputToFormValues(
+            defaultValues={transformPoolCandidateSearchInputToFormValues(
               initialFilters,
             )}
           />
