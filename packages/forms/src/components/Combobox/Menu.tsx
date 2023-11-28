@@ -40,7 +40,7 @@ const Message = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
       ref={forwardedRef}
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
-      data-h2-color="base(black.light)"
+      data-h2-color="base(black.light) base:dark(gray.light)"
       data-h2-gap="base(0 x.25)"
       data-h2-padding="base(x.25, x.5)"
       {...props}
