@@ -688,7 +688,8 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:all:hover(quaternary.lightest)`,
+          base:hover(quaternary.darkest)
+          base:dark:hover(quaternary.lightest)`,
       };
     }
     if (color === "quinary") {
@@ -712,7 +713,8 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:all:hover(warning.lightest)`,
+          base:hover(warning.darkest)
+          base:dark:hover(warning.lightest)`,
       };
     }
     if (color === "error") {
@@ -744,7 +746,8 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base(transparent)
           base:focus-visible(focus)
-          base:all:hover(gray.darkest)`,
+          base:hover(gray.lightest)
+          base:dark:hover(gray.darkest)`,
       };
     }
     if (color === "whiteFixed") {
@@ -752,7 +755,8 @@ const getBackgroundColor: ButtonBackgroundColor = ({
         "data-h2-background-color": `
           base:all(transparent)
           base:all:focus-visible(focus)
-          base:all:hover(gray.darkest)`,
+          base:hover(gray.lightest)
+          base:dark:hover(gray.darkest)`,
       };
     }
   }

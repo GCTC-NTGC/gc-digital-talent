@@ -665,11 +665,13 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(quaternary.darker)
-          base:all:hover(quaternary.darkest)
+          base:hover(quaternary.lightest)
+          base:dark:hover(quaternary.darkest)
           base:all:focus-visible(black)
 
           base:iap:dark(quaternary.lightest)
-          base:iap:all:hover(black)
+          base:iap:hover(quaternary.lightest)
+          base:iap:dark:hover(white)
           base:iap:dark:focus-visible(white)`,
       };
     }
@@ -697,7 +699,8 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(warning.darker)
-          base:all:hover(warning.darkest)
+          base:hover(warning.lightest)
+          base:dark:hover(warning.darkest)
           base:all:focus-visible(black)`,
       };
     }
@@ -736,10 +739,11 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       return {
         "data-h2-color": `
           base(gray.lightest)
+          base:hover(secondary.darker)
           base:all:hover(secondary.lighter)
           base:all:focus-visible(black)
 
-          base:iap:all:hover(white)
+          base:iap:hover(black)
           base:iap:all:focus-visible(black)`,
       };
     }
@@ -750,7 +754,7 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:all:hover(secondary.lighter)
           base:all:focus-visible(black)
 
-          base:iap:all:hover(white)
+          base:iap:all:hover(black)
           base:iap:all:focus-visible(black)`,
       };
     }
