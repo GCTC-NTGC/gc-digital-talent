@@ -119,8 +119,7 @@ const AuthenticationContainer = ({
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
   if (newTokens?.accessToken) {
-    logger.debug("Running newTokens - set tokens in localStorage");
-
+    logger.debug("set new tokens from location in localStorage");
     localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
     if (newTokens?.refreshToken) {
       localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
@@ -130,7 +129,7 @@ const AuthenticationContainer = ({
     }
   }
 
-  // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
+  // We have saved it in local storage , then clear query parameters.
   useEffect(() => {
     if (newTokens?.accessToken) {
       logger.debug("Running newTokens clearQueryParams");
@@ -138,7 +137,7 @@ const AuthenticationContainer = ({
     }
   }, [newTokens?.accessToken, logger]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
+  // If tokens were just found in the url, then get them from newTokens instead of local storage, which we haven't reloaded yet
   const tokens = newTokens ?? existingTokens;
   const state = useMemo<AuthenticationState>(() => {
     return {
@@ -150,10 +149,6 @@ const AuthenticationContainer = ({
             /* If not logged in, logout does nothing. */
           },
       refreshTokenSet: async () => {
-        // Local storage should be most up to date, especially if a refresh happened in a different tab.
-        // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
-        // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
-
         if (tokens.refreshToken === null) {
           logger.notice("No refresh token available.  Can't refresh.");
           return;
@@ -178,7 +173,6 @@ const AuthenticationContainer = ({
           };
 
           if (refreshedTokens.accessToken) {
-            // setTokens(newTokens);
             localStorage.setItem(ACCESS_TOKEN, refreshedTokens.accessToken);
             if (refreshedTokens?.refreshToken) {
               localStorage.setItem(REFRESH_TOKEN, refreshedTokens.refreshToken);
@@ -189,10 +183,7 @@ const AuthenticationContainer = ({
           }
         } else {
           logger.notice("Failed to refresh auth state.");
-          logoutAndRefreshPage(
-            logoutUri,
-            logoutRedirectUri /* , postLogoutUri */,
-          );
+          logoutAndRefreshPage(logoutUri, logoutRedirectUri);
         }
       },
     };

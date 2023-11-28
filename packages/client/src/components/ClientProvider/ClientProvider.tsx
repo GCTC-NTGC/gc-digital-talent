@@ -30,24 +30,6 @@ import specialErrorExchange from "../../exchanges/specialErrorExchange";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
-interface AuthState {
-  accessToken: string | null;
-  refreshToken: string | null;
-  idToken: string | null;
-}
-
-const willAuthError = (authState: AuthState | null) => {
-  let tokenIsKnownToBeExpired = false;
-  if (authState?.accessToken) {
-    const decoded = jwtDecode<JwtPayload>(authState.accessToken);
-    if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
-  }
-
-  if (tokenIsKnownToBeExpired) return true;
-
-  return false;
-};
-
 const ClientProvider = ({
   client,
   children,
@@ -168,6 +150,5 @@ export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
-  willAuthError,
   extractErrorMessages,
 };
