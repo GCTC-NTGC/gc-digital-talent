@@ -3,8 +3,6 @@ import { StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 import { action } from "@storybook/addon-actions";
 
-// import { Combobox } from "@gc-digital-talent/forms";
-
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
