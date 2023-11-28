@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -107,6 +108,9 @@ export const TeamTable = ({
 
   const data = teams.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<Team>
       caption={title}
@@ -137,6 +141,7 @@ export const TeamTable = ({
             id: "GtrrJ3",
             description: "Link text to create a new team in the admin portal",
           }),
+          from: currentUrl,
         },
       }}
     />

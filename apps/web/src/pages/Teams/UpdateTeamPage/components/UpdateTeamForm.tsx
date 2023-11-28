@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 import kebabCase from "lodash/kebabCase";
@@ -76,10 +76,13 @@ const UpdateTeamForm = ({
   const paths = useRoutes();
   const navigate = useNavigate();
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.teamTable();
+
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
     return onSubmit(team.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.teamTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Team updated successfully!",
