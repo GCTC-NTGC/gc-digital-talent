@@ -8,7 +8,7 @@ type PageNavLink = {
 };
 
 export type PageNavInfo = {
-  icon: IconType;
+  icon?: IconType;
   title: string;
   link: PageNavLink;
 };
