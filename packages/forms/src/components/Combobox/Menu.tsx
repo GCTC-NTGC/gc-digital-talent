@@ -7,7 +7,7 @@ import omit from "lodash/omit";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useCommonInputStyles";
 import { HTMLSpanProps } from "./types";
 
 type WrapperProps = React.DetailedHTMLProps<
@@ -16,7 +16,7 @@ type WrapperProps = React.DetailedHTMLProps<
 >;
 
 const Wrapper = (props: WrapperProps) => {
-  const baseStyles = useCommonInputStyles();
+  const baseStyles = useInputStyles();
   return (
     <div
       {...baseStyles}

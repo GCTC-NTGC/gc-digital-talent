@@ -6,7 +6,7 @@ import {
   UseFormStateReturn,
 } from "react-hook-form";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useCommonInputStyles";
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
@@ -37,7 +37,7 @@ const ControlledInput = ({
   wordLimit,
   trackUnsaved,
 }: ControlledInputProps) => {
-  const inputStyles = useCommonInputStyles();
+  const inputStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const content = defaultValues ? defaultValues[name] : undefined;
 

@@ -1,8 +1,8 @@
 import { StyleRecord } from "../types";
 
-type UseCommonInputStyles = (type?: string) => StyleRecord;
+type UseInputStyles = (inputType?: "default" | "select") => StyleRecord;
 
-const useCommonInputStyles: UseCommonInputStyles = (type) => {
+const useInputStyles: UseInputStyles = (inputType) => {
   const defaults = {
     "data-h2-border-style": "base(solid)",
     "data-h2-border-width": "base(1px)",
@@ -13,7 +13,7 @@ const useCommonInputStyles: UseCommonInputStyles = (type) => {
   };
   let padding = { "data-h2-padding": "base(x.5)" };
   let selectIcon = {};
-  if (type === "select") {
+  if (inputType === "select") {
     padding = {
       "data-h2-padding": "base(x.5, x1.5, x.5, x.5)",
     };
@@ -29,4 +29,4 @@ const useCommonInputStyles: UseCommonInputStyles = (type) => {
   return { ...defaults, ...padding, ...selectIcon };
 };
 
-export default useCommonInputStyles;
+export default useInputStyles;

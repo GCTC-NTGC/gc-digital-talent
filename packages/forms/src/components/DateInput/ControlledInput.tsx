@@ -9,7 +9,7 @@ import { useIntl } from "react-intl";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useCommonInputStyles";
 import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
@@ -34,8 +34,8 @@ const ControlledInput = ({
   stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
-  const inputStyles = useCommonInputStyles();
-  const selectStyles = useCommonInputStyles("select");
+  const inputStyles = useInputStyles();
+  const selectStyles = useInputStyles("select");
   const { year, month, day } = splitSegments(
     defaultValues ? defaultValues[name] : undefined,
   );
