@@ -122,106 +122,6 @@ const PoolCandidateFilterDialog = ({
               ),
           }))}
         />
-        <Select
-          id="languageAbility"
-          name="languageAbility"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          label={intl.formatMessage({
-            defaultMessage: "Languages",
-            id: "iUAe/2",
-            description: "Label for language ability field",
-          })}
-          options={enumToOptions(LanguageAbility).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguageAbility(value)),
-          }))}
-        />
-        <Combobox
-          id="classifications"
-          name="classifications"
-          {...{ fetching }}
-          isMulti
-          label={intl.formatMessage(adminMessages.classifications)}
-          options={classifications.map(({ group, level }) => ({
-            value: `${group}-${level}`,
-            label: `${group}-0${level}`,
-          }))}
-        />
-        <Checklist
-          idPrefix="stream"
-          name="stream"
-          legend={intl.formatMessage(adminMessages.streams)}
-          items={enumToOptions(PoolStream).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStream(value)),
-          }))}
-        />
-        <Checklist
-          idPrefix="operationalRequirement"
-          name="operationalRequirement"
-          legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={OperationalRequirementV2.map((value) => ({
-            value,
-            label: intl.formatMessage(
-              getOperationalRequirement(value, "short"),
-            ),
-          }))}
-        />
-        <Checklist
-          idPrefix="workRegion"
-          name="workRegion"
-          legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getWorkRegion(value)),
-          }))}
-        />
-        <Checkbox
-          id="hasDiploma"
-          name="hasDiploma"
-          value="true"
-          label={intl.formatMessage({
-            defaultMessage: "Has Diploma",
-            id: "o0XhkM",
-            description: "Label for the has diploma field",
-          })}
-        />
-        <Checkbox
-          id="govEmployee"
-          name="govEmployee"
-          value="true"
-          label={intl.formatMessage({
-            defaultMessage: "Government employee",
-            id: "bOA3EH",
-            description: "Label for the government employee field",
-          })}
-        />
-        <RadioGroup
-          idPrefix="expiryStatus"
-          name="expiryStatus"
-          legend={intl.formatMessage({
-            defaultMessage: "Expiry status",
-            description: "Label for the expiry status field",
-            id: "HDiUEc",
-          })}
-          items={enumToOptions(CandidateExpiryFilter).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
-          }))}
-        />
-        <RadioGroup
-          idPrefix="suspendedStatus"
-          name="suspendedStatus"
-          legend={intl.formatMessage({
-            defaultMessage: "Candidacy status",
-            description: "Label for the candidacy status field",
-            id: "NxrKpM",
-          })}
-          items={enumToOptions(CandidateSuspendedFilter).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getCandidateSuspendedFilterStatus(value)),
-          }))}
-        />
         <Checklist
           idPrefix="equity"
           name="equity"
@@ -246,16 +146,6 @@ const PoolCandidateFilterDialog = ({
             ),
           ]}
         />
-        <Combobox
-          id="poolCandidateStatus"
-          name="poolCandidateStatus"
-          isMulti
-          label={intl.formatMessage(adminMessages.status)}
-          options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolCandidateStatus(value)),
-          }))}
-        />
         <Checklist
           idPrefix="priorityWeight"
           name="priorityWeight"
@@ -274,6 +164,134 @@ const PoolCandidateFilterDialog = ({
             ),
           }))}
         />
+        <Combobox
+          id="classifications"
+          name="classifications"
+          {...{ fetching }}
+          isMulti
+          label={intl.formatMessage(adminMessages.classifications)}
+          options={classifications.map(({ group, level }) => ({
+            value: `${group}-${level}`,
+            label: `${group}-0${level}`,
+          }))}
+        />
+        <Combobox
+          id="stream"
+          name="stream"
+          isMulti
+          label={intl.formatMessage(adminMessages.streams)}
+          options={enumToOptions(PoolStream).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getPoolStream(value)),
+          }))}
+        />
+        <Combobox
+          id="poolCandidateStatus"
+          name="poolCandidateStatus"
+          isMulti
+          label={intl.formatMessage(adminMessages.status)}
+          options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getPoolCandidateStatus(value)),
+          }))}
+        />
+        <Checklist
+          idPrefix="operationalRequirement"
+          name="operationalRequirement"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={OperationalRequirementV2.map((value) => ({
+            value,
+            label: intl.formatMessage(
+              getOperationalRequirement(value, "short"),
+            ),
+          }))}
+        />
+        <Checklist
+          idPrefix="workRegion"
+          name="workRegion"
+          legend={intl.formatMessage(navigationMessages.workLocation)}
+          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getWorkRegion(value)),
+          }))}
+        />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <RadioGroup
+            idPrefix="expiryStatus"
+            name="expiryStatus"
+            legend={intl.formatMessage({
+              defaultMessage: "Expiry status",
+              description: "Label for the expiry status field",
+              id: "HDiUEc",
+            })}
+            items={enumToOptions(CandidateExpiryFilter).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
+            }))}
+          />
+          <RadioGroup
+            idPrefix="suspendedStatus"
+            name="suspendedStatus"
+            legend={intl.formatMessage({
+              defaultMessage: "Candidacy status",
+              description: "Label for the candidacy status field",
+              id: "NxrKpM",
+            })}
+            items={enumToOptions(CandidateSuspendedFilter).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(
+                getCandidateSuspendedFilterStatus(value),
+              ),
+            }))}
+          />
+        </div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5)"
+          data-h2-align-self="l-tablet(center)"
+        >
+          <Checkbox
+            id="hasDiploma"
+            name="hasDiploma"
+            value="true"
+            label={intl.formatMessage({
+              defaultMessage: "Has Diploma",
+              id: "o0XhkM",
+              description: "Label for the has diploma field",
+            })}
+          />
+          <Checkbox
+            id="govEmployee"
+            name="govEmployee"
+            value="true"
+            label={intl.formatMessage({
+              defaultMessage: "Government employee",
+              id: "bOA3EH",
+              description: "Label for the government employee field",
+            })}
+          />
+        </div>
+        <div data-h2-grid-column="l-tablet(span 2)">
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            label={intl.formatMessage({
+              defaultMessage: "Languages",
+              id: "iUAe/2",
+              description: "Label for language ability field",
+            })}
+            options={enumToOptions(LanguageAbility).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getLanguageAbility(value)),
+            }))}
+          />
+        </div>
         <div data-h2-grid-column="l-tablet(span 3)">
           <Combobox
             id="skills"
