@@ -87,7 +87,7 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
       >
-        <Link mode="inline" href={paths.teamTable()}>
+        <Link mode="inline" href={navigateTo}>
           {intl.formatMessage({
             defaultMessage: "Cancel and go back to teams",
             id: "i0IT1I",

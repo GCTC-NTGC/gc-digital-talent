@@ -42,6 +42,10 @@ export const TeamTable = ({
 }: TeamTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   const columns = [
     columnHelper.display({
       id: "actions",
@@ -66,7 +70,7 @@ export const TeamTable = ({
         description: "Title displayed for the teams table team column.",
       }),
       cell: ({ row: { original: team }, getValue }) =>
-        viewCell(paths.teamView(team.id), getValue(), intl),
+        viewCell(paths.teamView(team.id), getValue(), intl, currentUrl),
       meta: {
         isRowTitle: true,
       },
@@ -107,9 +111,6 @@ export const TeamTable = ({
   ] as ColumnDef<Team>[];
 
   const data = teams.filter(notEmpty);
-
-  const { pathname, search, hash } = useLocation();
-  const currentUrl = `${pathname}${search}${hash}`;
 
   return (
     <Table<Team>
