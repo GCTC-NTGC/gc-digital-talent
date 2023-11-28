@@ -285,10 +285,10 @@ const PoolCandidatesTable = ({
     ) {
       return undefined;
     }
-
     return {
       // search bar
-      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      generalSearch:
+        searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,

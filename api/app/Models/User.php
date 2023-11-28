@@ -115,9 +115,12 @@ class User extends Model implements Authenticatable, LaratrustUser
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'telephone' => $this->telephone,
-            'preferred_lang' => $this->preferred_lang,
             'current_province' => $this->current_province,
             'current_city' => $this->current_city,
+            'notes' => $this->poolCandidates->pluck('notes')->flatten()->toArray(),
+            'work_experiences' => $this->workExperiences->pluck('title')->flatten()->toArray(),
+            'role' => $this->workExperiences->pluck('role')->flatten()->toArray(),
+            'organization' => $this->workExperiences->pluck('organization')->flatten()->toArray(),
         ];
     }
 
@@ -641,22 +644,28 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
-   public static function scopeGeneralSearch(Builder $query, ?string $search)
+   public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
-        if ($search) {
-           // Use Scout's search method to perform the search
-            $model = new self; // Create an instance of the model
 
-            $searchResults =  $model->search($search);
+    if ($searchTerms && is_array($searchTerms)) {
 
-            // Merge any additional conditions or constraints you want
-            // Example:  $eloquentBuilder->where('column', '=', 'value');
+        $searchResults = [];
 
-            return $searchResults;
+        foreach ($searchTerms as $searchTerm) {
+            // Use Scout's search method to perform the search and get results
+            $results = self::search($searchTerm)->usingPlainQuery()->get();
+            $searchResults = array_merge($searchResults, $results->all());
         }
 
-        return $query;
+        // Extract unique IDs from the search results
+        $searchResultIds = array_unique(array_column($searchResults, 'id'));
+
+        // Use Eloquent builder to filter results based on unique IDs
+        $query->whereIn('id', $searchResultIds);
     }
+    return $query;
+}
+
 
     public static function scopeName(Builder $query, ?string $name): Builder
     {
