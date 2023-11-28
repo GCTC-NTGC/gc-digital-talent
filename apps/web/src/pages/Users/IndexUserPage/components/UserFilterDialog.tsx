@@ -1,12 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
 import { OperationContext } from "urql";
 
 import {
   EmploymentDuration,
   OperationalRequirementV2,
-  commonMessages,
   getEmploymentDuration,
   getLanguageAbility,
   getLocalizedName,
@@ -26,12 +24,14 @@ import {
 import {
   LanguageAbility,
   WorkRegion,
-  useGetFilterDataQuery,
+  useUserFilterDataQuery,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import FilterDialog from "~/components/FilterDialog/FilterDialog";
+import FilterDialog, {
+  CommonFilterDialogProps,
+} from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
@@ -53,10 +53,7 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-interface UserFilterDialogProps {
-  onSubmit: SubmitHandler<FormValues>;
-  defaultValues: Partial<FormValues>;
-}
+type UserFilterDialogProps = CommonFilterDialogProps<FormValues>;
 
 const UserFilterDialog = ({
   onSubmit,
@@ -64,7 +61,7 @@ const UserFilterDialog = ({
 }: UserFilterDialogProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching }] = useGetFilterDataQuery({ context });
+  const [{ data, fetching }] = useUserFilterDataQuery({ context });
 
   const pools = unpackMaybes(data?.pools);
   const skills = unpackMaybes(data?.skills);
@@ -90,108 +87,121 @@ const UserFilterDialog = ({
             }))}
           />
         </div>
-        <Select
-          id="languageAbility"
-          name="languageAbility"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          label={intl.formatMessage({
-            defaultMessage: "Languages",
-            id: "iUAe/2",
-            description: "Label for language ability field",
-          })}
-          options={enumToOptions(LanguageAbility).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguageAbility(value)),
-          }))}
-        />
-        <Select
-          id="employmentDuration"
-          name="employmentDuration"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          label={intl.formatMessage({
-            defaultMessage: "Duration preferences",
-            id: "2ingb6",
-            description: "Label for the employment duration field",
-          })}
-          options={enumToOptions(EmploymentDuration).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getEmploymentDuration(value, "short")),
-          }))}
-        />
-        <Checklist
-          idPrefix="operationalRequirement"
-          name="operationalRequirement"
-          legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={OperationalRequirementV2.map((value) => ({
-            value,
-            label: intl.formatMessage(
-              getOperationalRequirement(value, "short"),
-            ),
-          }))}
-        />
-        <Checklist
-          idPrefix="workRegion"
-          name="workRegion"
-          legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getWorkRegion(value)),
-          }))}
-        />
-        <div>
-          <Checkbox
-            id="profileComplete"
-            name="profileComplete"
-            value="true"
-            label={intl.formatMessage(commonMessages.yes)}
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Profile complete",
-              id: "h7IJnu",
-              description: "Label for the profile complete field",
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            label={intl.formatMessage({
+              defaultMessage: "Languages",
+              id: "iUAe/2",
+              description: "Label for language ability field",
             })}
+            options={enumToOptions(LanguageAbility).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getLanguageAbility(value)),
+            }))}
           />
-          <Checkbox
-            id="govEmployee"
-            name="govEmployee"
-            value="true"
-            label={intl.formatMessage(commonMessages.yes)}
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Government employee",
-              id: "bOA3EH",
-              description: "Label for the government employee field",
+          <Select
+            id="employmentDuration"
+            name="employmentDuration"
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            label={intl.formatMessage({
+              defaultMessage: "Duration preferences",
+              id: "2ingb6",
+              description: "Label for the employment duration field",
             })}
+            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getEmploymentDuration(value, "short")),
+            }))}
           />
-          <Checkbox
-            id="trashed"
-            name="trashed"
-            value="true"
-            label={intl.formatMessage(commonMessages.yes)}
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Deleted",
-              id: "CzK1qY",
-              description: "Label for the trashed field",
-            })}
+          <Checklist
+            idPrefix="workRegion"
+            name="workRegion"
+            legend={intl.formatMessage(navigationMessages.workLocation)}
+            items={enumToOptionsWorkRegionSorted(WorkRegion).map(
+              ({ value }) => ({
+                value,
+                label: intl.formatMessage(getWorkRegion(value)),
+              }),
+            )}
           />
         </div>
-        <Checklist
-          idPrefix="roles"
-          name="roles"
-          legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
-          items={roles
-            .filter(
-              (role) =>
-                role?.name === ROLE_NAME.PlatformAdmin ||
-                role?.name === ROLE_NAME.PoolOperator ||
-                role?.name === ROLE_NAME.RequestResponder,
-            )
-            .map((role) => ({
-              value: role.id,
-              label: getLocalizedName(role.displayName, intl),
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Checklist
+            idPrefix="roles"
+            name="roles"
+            legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
+            items={roles
+              .filter(
+                (role) =>
+                  role?.name === ROLE_NAME.PlatformAdmin ||
+                  role?.name === ROLE_NAME.PoolOperator ||
+                  role?.name === ROLE_NAME.RequestResponder,
+              )
+              .map((role) => ({
+                value: role.id,
+                label: getLocalizedName(role.displayName, intl),
+              }))}
+          />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-gap="base(x.5)"
+          >
+            <Checkbox
+              id="profileComplete"
+              name="profileComplete"
+              value="true"
+              label={intl.formatMessage({
+                defaultMessage: "Profile complete",
+                id: "h7IJnu",
+                description: "Label for the profile complete field",
+              })}
+            />
+            <Checkbox
+              id="govEmployee"
+              name="govEmployee"
+              value="true"
+              label={intl.formatMessage({
+                defaultMessage: "Government employee",
+                id: "bOA3EH",
+                description: "Label for the government employee field",
+              })}
+            />
+            <Checkbox
+              id="trashed"
+              name="trashed"
+              value="true"
+              label={intl.formatMessage({
+                defaultMessage: "Deleted",
+                id: "CzK1qY",
+                description: "Label for the trashed field",
+              })}
+            />
+          </div>
+          <Checklist
+            idPrefix="operationalRequirement"
+            name="operationalRequirement"
+            legend={intl.formatMessage(navigationMessages.workPreferences)}
+            items={OperationalRequirementV2.map((value) => ({
+              value,
+              label: intl.formatMessage(
+                getOperationalRequirement(value, "short"),
+              ),
             }))}
-        />
+          />
+        </div>
         <div data-h2-grid-column="l-tablet(span 2)">
           <Combobox
             id="skills"
