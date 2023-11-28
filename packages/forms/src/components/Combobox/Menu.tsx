@@ -127,7 +127,7 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         })}
       {...(selected &&
         !active && {
-          "data-h2-color": "base(primary.darker)",
+          "data-h2-color": "base(primary.darker) base:dark(primary.lightest)",
         })}
       {...(selected && {
         "data-h2-font-weight": "base(700)",

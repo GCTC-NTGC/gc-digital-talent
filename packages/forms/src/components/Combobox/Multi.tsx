@@ -291,7 +291,7 @@ const Multi = ({
         >
           <p
             data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light)"
+            data-h2-color="base(black.light) base:dark(gray.light)"
           >
             {intl.formatMessage(formMessages.itemsSelectedCombobox, {
               count: selectedItems.length,
