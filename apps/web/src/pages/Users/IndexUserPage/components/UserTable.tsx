@@ -44,9 +44,7 @@ import {
 } from "./utils";
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
-import UserTableFilters, {
-  FormValues,
-} from "./UserTableFilterDialog/UserTableFilterDialog";
+import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -383,11 +381,9 @@ const UserTable = ({ title }: UserTableProps) => {
       filter={{
         state: filterRef.current,
         component: (
-          <UserTableFilters
+          <UserFilterDialog
             onSubmit={handleFilterSubmit}
-            initialFilters={transformUserFilterInputToFormValues(
-              initialFilters,
-            )}
+            defaultValues={transformUserFilterInputToFormValues(initialFilters)}
           />
         ),
       }}

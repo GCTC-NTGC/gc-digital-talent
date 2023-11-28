@@ -45,12 +45,6 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     return value && notEmpty(value);
   }).length;
 
-  console.log({
-    values,
-    toArray: Object.values(values),
-    filterCount,
-  });
-
   const handleSubmit: SubmitHandler<TFieldValues> = async (
     newValues: TFieldValues,
   ) => {

@@ -21,7 +21,7 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 
-import { FormValues } from "./UserTableFilterDialog/UserTableFilterDialog";
+import { FormValues } from "./UserFilterDialog";
 
 export function rolesAccessor(
   roleAssignments: RoleAssignment[],
@@ -107,8 +107,8 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility[0]
-        ? stringToEnumLanguage(data.languageAbility[0])
+      languageAbility: data.languageAbility
+        ? stringToEnumLanguage(data.languageAbility)
         : undefined,
       locationPreferences: data.workRegion.map((region) => {
         return stringToEnumLocation(region);
@@ -123,8 +123,8 @@ export function transformFormValuesToUserFilterInput(
         return { id: skillString };
       }),
       positionDuration:
-        data.employmentDuration[0] === "TERM" // either filter for TEMPORARY or do nothing
-          ? [durationToEnumPositionDuration(data.employmentDuration[0])]
+        data.employmentDuration === "TERM" // either filter for TEMPORARY or do nothing
+          ? [durationToEnumPositionDuration(data.employmentDuration)]
           : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
@@ -142,9 +142,7 @@ export function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    languageAbility: input?.applicantFilter?.languageAbility
-      ? [input?.applicantFilter?.languageAbility]
-      : [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirement:
@@ -156,15 +154,15 @@ export function transformUserFilterInputToFormValues(
       input.applicantFilter.positionDuration.includes(
         PositionDuration.Temporary,
       )
-        ? ["TERM"]
-        : [],
-    govEmployee: input?.isGovEmployee ? ["true"] : [],
-    profileComplete: input?.isProfileComplete ? ["true"] : [],
+        ? "TERM"
+        : "",
+    govEmployee: input?.isGovEmployee ? "true" : "",
+    profileComplete: input?.isProfileComplete ? "true" : "",
     pools:
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
     roles: input?.roles?.filter(notEmpty) ?? [],
-    trashed: input?.trashed ? ["true"] : [],
+    trashed: input?.trashed ? "true" : "",
   };
 }
