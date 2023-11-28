@@ -18,9 +18,9 @@ import {
 } from "@gc-digital-talent/fake-data";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import useFilterOptions from "./useFilterOptions";
+import useCandidateFilterOptions from "./useCandidateFilterOptions";
 
-describe("useFilterOptions", () => {
+describe("useCandidateFilterOptions", () => {
   function renderHookWithProviders({
     msDelay = 0,
     responseData = {},
@@ -42,7 +42,7 @@ describe("useFilterOptions", () => {
         <GraphqlProvider value={mockClient}>{children}</GraphqlProvider>
       </IntlProvider>
     );
-    const { result } = renderHook(() => useFilterOptions(), {
+    const { result } = renderHook(() => useCandidateFilterOptions(), {
       wrapper,
     });
 
@@ -158,7 +158,7 @@ describe("useFilterOptions", () => {
               ...fakeRoles(),
               {
                 id: "platform-admin",
-                name: ROLE_NAME.PlatformAdmin, // filtering roles done in useFilterOptions
+                name: ROLE_NAME.PlatformAdmin, // filtering roles done in useCandidateFilterOptions
               },
             ],
           },

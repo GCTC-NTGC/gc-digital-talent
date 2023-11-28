@@ -179,10 +179,6 @@
     "defaultMessage": "Fournissez vos renseignements",
     "description": "How it works, step 2 heading"
   },
-  "/7RNZm": {
-    "defaultMessage": "Chercher les {title}",
-    "description": "Label for search input"
-  },
   "/81xCT": {
     "defaultMessage": "« Je suis métis(se) »",
     "description": "Label text for Métis community declaration"
@@ -282,10 +278,6 @@
   "/ar49+": {
     "defaultMessage": "S’engager à apprendre tout au long du programme, tant au travail qu’en suivant un programme de formation en ligne",
     "description": "IAP Requirement list item five"
-  },
-  "/bwX1a": {
-    "defaultMessage": "Il est possible de trier les en-têtes de colonnes avec boutons",
-    "description": "Text displayed to instruct users how to sort table rows"
   },
   "/esEW+": {
     "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
@@ -1743,10 +1735,6 @@
     "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises.",
     "description": "Description of pool recruitment, paragraph two"
   },
-  "7d/ot8": {
-    "defaultMessage": "Basculer tout",
-    "description": "Label displayed on the Table Columns toggle fieldset."
-  },
   "7fJqJP": {
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
@@ -2390,10 +2378,6 @@
   "B9dbbl": {
     "defaultMessage": "Lorsque vous liez une expérience, essayez de répondre à au moins l’une de ces questions :",
     "description": "Lead-in text for the list of skill experience questions"
-  },
-  "BBH/2J": {
-    "defaultMessage": "Toutes les colonnes",
-    "description": "Text in table search form column dropdown when no column is selected."
   },
   "BDo1aH": {
     "defaultMessage": "Ministère",
@@ -4863,10 +4847,6 @@
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
   },
-  "PxGgR1": {
-    "defaultMessage": "tout",
-    "description": "Header label for the row-selection column in tables."
-  },
   "PzijvH": {
     "defaultMessage": "Volets/Titres de postes",
     "description": "Label displayed on the pool form stream/job title field."
@@ -6142,10 +6122,6 @@
   "XTaRza": {
     "defaultMessage": "Préférences en matière de travail",
     "description": "Heading for the work preferences section on the application profile"
-  },
-  "XV4LKY": {
-    "defaultMessage": "Résultats du tableau",
-    "description": "Aria label for pagination"
   },
   "XVI4qU": {
     "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
