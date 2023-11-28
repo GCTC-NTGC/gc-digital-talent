@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
+import { useReactToPrint } from "react-to-print";
 
 import {
   Alert,
@@ -15,6 +16,9 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { Scalars } from "~/api/generated";
+import printStyles from "~/styles/printStyles";
+
+import RequestConfirmationPrintDocument from "./components/RequestConfirmationPrintDocument";
 
 type RequestConfirmationParams = {
   requestId: Scalars["ID"];
@@ -55,6 +59,17 @@ const RequestConfirmationPage = () => {
     defaultMessage: "Successful request",
     id: "DcpFle",
     description: "Page title for the request confirmation page.",
+  });
+
+  const componentRef = useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    pageStyle: printStyles,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Request submitted",
+      id: "0zo274",
+      description: "Link text for request confirmation breadcrumb",
+    }),
   });
 
   return requestId ? (
@@ -132,7 +147,7 @@ const RequestConfirmationPage = () => {
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(row)"
           >
-            <Button mode="solid" color="primary" onClick={() => window.print()}>
+            <Button mode="solid" color="primary" onClick={handlePrint}>
               {intl.formatMessage({
                 defaultMessage: "Print this information",
                 id: "idu0MU",
@@ -140,6 +155,10 @@ const RequestConfirmationPage = () => {
                   "Button text to print the request confirmation page",
               })}
             </Button>
+            <RequestConfirmationPrintDocument
+              requestId={requestId}
+              ref={componentRef}
+            />
             <Link mode="inline" href={paths.search()} color="secondary">
               {intl.formatMessage({
                 defaultMessage: "Create a new talent request",
