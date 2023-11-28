@@ -8711,10 +8711,6 @@
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
   },
-  "lxDj4o": {
-    "defaultMessage": "Filtre de compétences",
-    "description": "Label for the skills field"
-  },
   "m+411R": {
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
