@@ -79,7 +79,6 @@ const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
-  console.log(input);
   return {
     publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
