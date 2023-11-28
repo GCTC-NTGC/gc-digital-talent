@@ -12,8 +12,14 @@ import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVertic
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-type FilterDialogProps<TFieldValues extends FieldValues> = {
+// Used by specific dialogs
+export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
+  defaultValues: Partial<TFieldValues>;
+};
+
+type FilterDialogProps<TFieldValues extends FieldValues> = {
+  onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
   defaultOpen?: boolean;
   children: React.ReactNode;
@@ -77,7 +83,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           })}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content wide>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

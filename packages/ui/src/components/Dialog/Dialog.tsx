@@ -31,7 +31,6 @@ const StyledContent = React.forwardRef<
   <DialogPrimitive.Content
     ref={forwardedRef}
     data-h2-font-family="base(sans)"
-    data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
     data-h2-position="base(relative)"
     data-h2-width="base(90vw)"
@@ -81,6 +80,7 @@ const StyledClose = React.forwardRef<
 
 interface DialogProps extends DialogPrimitiveContentProps {
   container?: HTMLElement;
+  wide?: boolean;
   closeLabel?: string;
 }
 
@@ -91,43 +91,58 @@ type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
 const Content = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DialogProps
->(({ container, closeLabel, children, ...props }, forwardedRef) => {
-  const intl = useIntl();
+>(
+  (
+    { container, closeLabel, wide = false, children, ...props },
+    forwardedRef,
+  ) => {
+    const intl = useIntl();
 
-  return (
-    <DialogPrimitive.Portal container={container}>
-      <StyledOverlay>
-        <StyledContent ref={forwardedRef} {...props}>
-          <StyledClose>
-            <button
-              type="button"
-              data-h2-background-color="base(transparent) base:hover(white.15) base:focus-visible(focus)"
-              data-h2-outline="base:focus-visible(1px solid focus)"
-              data-h2-outline-offset="base(4px)"
-              data-h2-border="base(none)"
-              data-h2-color="base(white) base:focus-visible(black)"
-              data-h2-cursor="base(pointer)"
-              data-h2-line-height="base(0)"
-              data-h2-location="base(x.5, x.5, auto, auto)"
-              data-h2-padding="base(x.5)"
-              data-h2-position="base(absolute)"
-              data-h2-radius="base(circle)"
-              data-h2-z-index="base(9)"
-              aria-label={
-                closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
-              }
-            >
-              <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
-            </button>
-          </StyledClose>
-          <div data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))">
-            {children}
-          </div>
-        </StyledContent>
-      </StyledOverlay>
-    </DialogPrimitive.Portal>
-  );
-});
+    return (
+      <DialogPrimitive.Portal container={container}>
+        <StyledOverlay>
+          <StyledContent
+            ref={forwardedRef}
+            {...(wide
+              ? {
+                  "data-h2-max-width": "base(x42)",
+                }
+              : {
+                  "data-h2-max-width": "base(x32)",
+                })}
+            {...props}
+          >
+            <StyledClose>
+              <button
+                type="button"
+                data-h2-background-color="base(transparent) base:hover(white.15) base:focus-visible(focus)"
+                data-h2-outline="base:focus-visible(1px solid focus)"
+                data-h2-outline-offset="base(4px)"
+                data-h2-border="base(none)"
+                data-h2-color="base(white) base:focus-visible(black)"
+                data-h2-cursor="base(pointer)"
+                data-h2-line-height="base(0)"
+                data-h2-location="base(x.5, x.5, auto, auto)"
+                data-h2-padding="base(x.5)"
+                data-h2-position="base(absolute)"
+                data-h2-radius="base(circle)"
+                data-h2-z-index="base(9)"
+                aria-label={
+                  closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
+                }
+              >
+                <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
+              </button>
+            </StyledClose>
+            <div data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))">
+              {children}
+            </div>
+          </StyledContent>
+        </StyledOverlay>
+      </DialogPrimitive.Portal>
+    );
+  },
+);
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Trigger>,
