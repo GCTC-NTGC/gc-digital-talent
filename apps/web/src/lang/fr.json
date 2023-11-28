@@ -5607,6 +5607,10 @@
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
   },
+  "Uea7/1": {
+    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
+    "description": "Description of how a user can contact someone for answers/information on their existing request"
+  },
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
