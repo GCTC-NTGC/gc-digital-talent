@@ -15,7 +15,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 // Used by specific dialogs
 export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
-  defaultValues: Partial<TFieldValues>;
+  defaultValues?: Partial<TFieldValues>;
 };
 
 type FilterDialogProps<TFieldValues extends FieldValues> = {

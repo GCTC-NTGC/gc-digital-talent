@@ -24,13 +24,11 @@ import {
   stringToEnumStream,
 } from "~/utils/requestUtils";
 
-type Option = { value: string; label: string };
-
 export type FormValues = {
-  status: Option["value"][];
-  departments: Option["value"][];
-  classifications: Option["value"][];
-  streams: Option["value"][];
+  status?: string[];
+  departments?: string[];
+  classifications?: string[];
+  streams?: string[];
 };
 
 const context: Partial<OperationContext> = {
@@ -89,18 +87,19 @@ export function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,
 ): PoolCandidateSearchRequestInput {
   return {
-    status: data.status.length
+    status: data.status?.length
       ? data.status.map(stringToEnumRequestStatus)
       : undefined,
-    departments: data.departments.length ? data.departments : undefined,
-    classifications: data.classifications.length
+    departments: data.departments?.length ? data.departments : undefined,
+    classifications: data.classifications?.length
       ? data.classifications
       : undefined,
-    streams: data.streams.length
+    streams: data.streams?.length
       ? data.streams.map(stringToEnumStream)
       : undefined,
   };
 }
+
 export function transformSortStateToOrderByClause(
   sortingRule: SortingState,
 ): OrderByClause | OrderByClause[] | undefined {
@@ -125,4 +124,15 @@ export function transformSortStateToOrderByClause(
     .filter(notEmpty);
 
   return orderBy.length ? orderBy : undefined;
+}
+
+export function transformSearchRequestFilterInputToFormValues(
+  input: PoolCandidateSearchRequestInput | undefined,
+): FormValues {
+  return {
+    status: input?.status?.filter(notEmpty) ?? [],
+    departments: input?.departments?.filter(notEmpty) ?? [],
+    classifications: input?.classifications?.filter(notEmpty) ?? [],
+    streams: input?.streams?.filter(notEmpty) ?? [],
+  };
 }
