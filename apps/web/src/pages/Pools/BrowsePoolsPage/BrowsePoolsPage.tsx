@@ -65,7 +65,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
     (p) =>
       p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
       (p.publishingGroup === PublishingGroup.ItJobs ||
-        p.publishingGroup === PublishingGroup.ExecutiveJobs), // and which are meant to be published on the IT Jobs page
+        p.publishingGroup === PublishingGroup.ExecutiveJobs),
   );
 
   const ongoingRecruitmentPools = pools.filter(
