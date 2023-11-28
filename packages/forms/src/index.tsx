@@ -51,7 +51,7 @@ import {
   objectsToSortedOptions,
   htmlToRichTextJSON,
 } from "./utils";
-import useInputStyles from "./hooks/useCommonInputStyles";
+import useInputStyles from "./hooks/useInputStyles";
 
 export {
   DATE_SEGMENT,

@@ -7,7 +7,7 @@ import omit from "lodash/omit";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import useInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import { HTMLSpanProps } from "./types";
 
 type WrapperProps = React.DetailedHTMLProps<

@@ -1,6 +1,6 @@
 import React from "react";
 
-import useInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 
 type BoundingBoxProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLDivElement>,

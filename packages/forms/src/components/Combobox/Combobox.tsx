@@ -9,7 +9,7 @@ import { formMessages } from "@gc-digital-talent/i18n";
 import useFieldState from "../../hooks/useFieldState";
 import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import {

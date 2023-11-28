@@ -9,7 +9,7 @@ import { useIntl } from "react-intl";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import useInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
