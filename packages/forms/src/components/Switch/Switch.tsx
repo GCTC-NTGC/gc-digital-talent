@@ -101,18 +101,25 @@ const Switch = React.forwardRef<
               >
                 <SwitchPrimitive.Thumb
                   data-h2-background-color="base(white)"
-                  data-h2-color="base:selectors[>svg](black)"
-                  data-h2-display="base(block)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
                   data-h2-height="base(x1)"
-                  data-h2-width="base(x1)"
+                  data-h2-justify-content="base(center)"
                   data-h2-radius="base(9999px)"
                   data-h2-shadow="base(s)"
                   data-h2-transition="base(transform 100ms ease-in-out)"
                   data-h2-transform="
                   base(translateX(0))
                   base:selectors[[data-state='checked']](translateX(x1))"
+                  data-h2-width="base(x1)"
                 >
-                  {Icon && <Icon />}
+                  {Icon && (
+                    <Icon
+                      data-h2-color="base(black)"
+                      data-h2-height="base(x.75)"
+                      data-h2-width="base(x.75)"
+                    />
+                  )}
                 </SwitchPrimitive.Thumb>
               </SwitchPrimitive.Root>
             </div>
