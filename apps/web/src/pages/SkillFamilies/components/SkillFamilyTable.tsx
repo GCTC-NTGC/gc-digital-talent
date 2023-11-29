@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -75,6 +76,9 @@ export const SkillFamilyTable = ({
 
   const data = skillFamilies.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<SkillFamily>
       caption={title}
@@ -106,6 +110,7 @@ export const SkillFamilyTable = ({
             description:
               "Heading displayed above the Create Skill Family form.",
           }),
+          from: currentUrl,
         },
       }}
     />
