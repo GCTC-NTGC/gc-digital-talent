@@ -2,7 +2,7 @@ import React from "react";
 
 import { Well, WellProps } from "@gc-digital-talent/ui";
 
-const Error = (props: Omit<WellProps, "color">) => {
+const Error = (props: Omit<WellProps, "color" | "fontSize">) => {
   return (
     <Well
       role="alert"

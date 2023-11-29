@@ -45,7 +45,11 @@ const colorMap = new Map<Color, Record<string, string>>([
   ],
 ]);
 
-export interface WellProps extends React.HTMLProps<HTMLDivElement> {
+export interface WellProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   children: React.ReactNode;
   color?: Color;
   fontSize?: "caption" | "body";

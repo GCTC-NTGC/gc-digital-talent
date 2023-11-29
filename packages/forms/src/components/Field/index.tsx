@@ -1,5 +1,5 @@
 import BoundingBox from "./BoundingBox";
-import Context, { ContextProps } from "./Context";
+import Context from "./Context";
 import Descriptions, { DescriptionsProps } from "./Descriptions";
 import Error from "./Error";
 import Fieldset from "./Fieldset";
@@ -21,7 +21,6 @@ export default {
 };
 
 export type {
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,

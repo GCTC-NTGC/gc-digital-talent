@@ -12,12 +12,12 @@ type MenuButtonProps = {
 };
 
 const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
-  ({ ...rest }, ref) => (
+  ({ active, ...rest }, ref) => (
     <Button
       ref={ref}
       mode="text"
       type="button"
-      color="whiteFixed"
+      color={active ? "secondary" : "whiteFixed"}
       fontSize="caption"
       {...rest}
     />

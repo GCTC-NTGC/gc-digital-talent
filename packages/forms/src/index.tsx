@@ -8,7 +8,6 @@ import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -96,7 +95,6 @@ export type {
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
