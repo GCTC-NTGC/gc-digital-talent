@@ -1323,6 +1323,10 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
     "description": "Message displayed to user after user fails to get updated."
   },
+  "5FK/4R": {
+    "defaultMessage": "Échéancier de carrière",
+    "description": "Heading for the users experiences"
+  },
   "5G+j56": {
     "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
     "description": "Label for priority number input"
@@ -2779,6 +2783,10 @@
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
   },
+  "DC2A59": {
+    "defaultMessage": "Affiche toutes <hidden>les sections de </hidden> l’information sur la demande",
+    "description": "Button text to open all application information accordions"
+  },
   "DHfumB": {
     "defaultMessage": "Employé du gouvernement",
     "description": "CSV Header, Government Employee column"
@@ -3138,6 +3146,10 @@
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
+  },
+  "FNvBxZ": {
+    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique de la carrière du candidat/de la candidate dans la section sur l’échéancier.",
+    "description": "Lead-in text for application information"
   },
   "FRcbbi": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
@@ -4311,6 +4323,10 @@
     "defaultMessage": "Communiquez avec nous",
     "description": "Link text to contact the the team about gaining hiring experience"
   },
+  "MsLKAj": {
+    "defaultMessage": "Veuillez consulter l’expérience pour {experienceName}",
+    "description": "Assistive technology link text to view a specific experience"
+  },
   "MtONBT": {
     "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
     "description": "Employee Status in Government Info Form"
@@ -4683,6 +4699,10 @@
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
   },
+  "OoZdlh": {
+    "defaultMessage": "Réduire toutes <hidden>les sections de </hidden>l’information sur la demande",
+    "description": "Button text to close all application information accordions"
+  },
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
@@ -5018,6 +5038,10 @@
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
+  },
+  "R/z71a": {
+    "defaultMessage": "Information sur la demande ",
+    "description": "Heading for the information of an application"
   },
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
@@ -7931,6 +7955,10 @@
     "defaultMessage": "Statut du bassin",
     "description": "Title of the 'Pool status' section of the view-user page"
   },
+  "hKofhr": {
+    "defaultMessage": "Consulter l’expérience",
+    "description": "Link text to view a specific experience"
+  },
   "hL3EY7": {
     "defaultMessage": "Changements technologiques",
     "description": "Heading for the Technological change section on the digital services contracting questionnaire"
@@ -8174,6 +8202,10 @@
   "iXdeVu": {
     "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
     "description": "Descriptive text about how optional behavioural skills are used in the application process"
+  },
+  "iYD0eJ": {
+    "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
+    "description": "Lead-in for list of application confirmation list"
   },
   "iZ922O": {
     "defaultMessage": "Fournir des renseignements sur chaque type de personnel requis dans le cadre du contrat. En ajouter s’il y a lieu.",
@@ -8542,6 +8574,10 @@
   "kZWII8": {
     "defaultMessage": "Étape du plan d’évaluation {index}",
     "description": "Legend for assessment plan step fieldset"
+  },
+  "kZs3Nk": {
+    "defaultMessage": "Autres recrutements",
+    "description": "Heading for table of a users other applications and recruitments"
   },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
