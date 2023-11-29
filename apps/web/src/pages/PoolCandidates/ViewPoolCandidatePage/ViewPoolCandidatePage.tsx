@@ -271,12 +271,6 @@ export const ViewPoolCandidate = ({
     if (features.recordOfDecision) {
       mainContent = (
         <>
-          {/**
-           * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
-           *
-           * This is here to keep tests passing
-           */}
-          <ApplicationStatusForm id={poolCandidate.id} />
           <ApplicationInformation
             snapshot={parsedSnapshot}
             application={poolCandidate}
@@ -775,7 +769,15 @@ export const ViewPoolCandidate = ({
         </>
       ) : (
         <Sidebar.Wrapper>
-          <Sidebar.Content>{mainContent}</Sidebar.Content>
+          <Sidebar.Content>
+            {/**
+             * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
+             *
+             * This is here to keep tests passing
+             */}
+            <ApplicationStatusForm id={poolCandidate.id} />
+            {mainContent}
+          </Sidebar.Content>
         </Sidebar.Wrapper>
       )}
     </>
