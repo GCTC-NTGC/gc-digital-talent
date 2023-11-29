@@ -16,7 +16,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
-import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
+import useCandidateFilterOptions from "~/components/Table/useCandidateFilterOptions/useCandidateFilterOptions";
 import adminMessages from "~/messages/adminMessages";
 
 type Option = { value: string; label: string };
@@ -45,7 +45,7 @@ const Footer = () => {
     reset,
     formState: { isSubmitting },
   } = useFormContext();
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -84,7 +84,7 @@ const PoolCandidateTableFilterDialog = ({
   activeFilters,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
   const { formatMessage, locale } = useIntl();
-  const { optionsData, rawGraphqlResults } = useFilterOptions();
+  const { optionsData, rawGraphqlResults } = useCandidateFilterOptions();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -315,7 +315,7 @@ const PoolCandidateTableFilters = ({
   initialFilters,
   ...rest
 }: PoolCandidateTableFiltersProps) => {
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const initialStateActiveFilters = initialFilters ?? emptyFormValues;
   const [activeFilters, setActiveFilters] = useState<FormValues>(
     initialStateActiveFilters,

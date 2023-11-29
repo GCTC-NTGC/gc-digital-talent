@@ -70,6 +70,7 @@ export type SortDef = {
 };
 
 export type FilterDef<TFilterState = object> = {
+  initialState?: TFilterState;
   state?: TFilterState;
   component: React.ReactNode;
 };
