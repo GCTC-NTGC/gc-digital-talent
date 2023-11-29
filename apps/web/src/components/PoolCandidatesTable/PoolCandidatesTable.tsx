@@ -542,6 +542,7 @@ const PoolCandidatesTable = ({
         initialState: defaultState.sortState,
       }}
       filter={{
+        initialState: initialFilterInput,
         state: filterRef.current,
         component: (
           <PoolCandidateTableFilterDialog
