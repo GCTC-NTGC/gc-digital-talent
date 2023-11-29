@@ -78,6 +78,7 @@ const SwitchInput = React.forwardRef<
                 })}
                 {...(disabled && {
                   "aria-disabled": "true",
+                  disabled: true,
                 })}
                 aria-describedby={ariaDescribedBy}
                 {...rest}
