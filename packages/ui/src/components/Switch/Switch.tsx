@@ -8,9 +8,6 @@ import useControllableState from "../../hooks/useControllableState";
 export type SwitchProps = React.ComponentPropsWithoutRef<
   typeof SwitchPrimitive.Root
 > & {
-  checked?: boolean;
-  onCheckedChange?: (newChecked: boolean) => void;
-  defaultChecked?: boolean;
   disabled?: boolean;
   // Display an icon in the handle for the switch
   icon?: {
