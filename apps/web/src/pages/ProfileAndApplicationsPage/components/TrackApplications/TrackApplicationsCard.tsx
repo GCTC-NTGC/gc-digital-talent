@@ -10,7 +10,6 @@ import {
   useDeleteApplicationMutation,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
@@ -19,7 +18,7 @@ import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
 import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
-import { getApplicationDateInfo } from "./utils";
+import { getApplicationDeadlineMessage } from "./utils";
 
 type Application = Omit<
   PoolCandidate,
@@ -57,7 +56,10 @@ const TrackApplicationsCard = ({
       )
     : getStatusPillInfo(application.status, application.suspendedAt, intl);
 
-  const applicationDateInfo = getApplicationDateInfo(application, intl);
+  const applicationDeadlineMessage = getApplicationDeadlineMessage(
+    application,
+    intl,
+  );
   const { userAuthInfo } = useAuthorization();
   const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
   return (
@@ -85,11 +87,7 @@ const TrackApplicationsCard = ({
           </Heading>
           <div data-h2-display="base:children[>span](block) l-tablet:children[>span](inline-block)">
             <span data-h2-color="base(black.light)">
-              {applicationDateInfo.message}
-              {intl.formatMessage(commonMessages.dividingColon)}
-              <span data-h2-color={applicationDateInfo.color}>
-                {applicationDateInfo.date}
-              </span>
+              {applicationDeadlineMessage}
             </span>
           </div>
         </div>

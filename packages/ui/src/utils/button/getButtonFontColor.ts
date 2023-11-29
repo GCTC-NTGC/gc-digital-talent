@@ -609,6 +609,156 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
       };
     }
   }
+  if (mode === "icon_only") {
+    if (disabled) {
+      if (color === "white") {
+        return {
+          "data-h2-color": `
+            base(gray.lighter)
+            base:all:focus-visible(black)
+
+            base:children[.counter](black)
+            base:focus-visible:children[.counter](focus)`,
+        };
+      }
+      return {
+        "data-h2-color": `
+          base(gray.darker)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "primary") {
+      return {
+        "data-h2-color": `
+          base(primary.darker)
+          base:all:hover(primary.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "secondary") {
+      return {
+        "data-h2-color": `
+          base(secondary.darker)
+          base:all:hover(secondary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(secondary.lightest)
+          base:iap:all:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "tertiary") {
+      return {
+        "data-h2-color": `
+          base(tertiary.darker)
+          base:dark(tertiary.lightest)
+          base:hover(tertiary.darkest)
+          base:all:hover(black)
+          base:all:focus-visible(black)
+
+          base:iap:dark(tertiary.lightest)
+          base:iap:all:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "quaternary") {
+      return {
+        "data-h2-color": `
+          base(quaternary.darker)
+          base:hover(quaternary.lightest)
+          base:dark:hover(quaternary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(quaternary.lightest)
+          base:iap:hover(quaternary.lightest)
+          base:iap:dark:hover(white)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "quinary") {
+      return {
+        "data-h2-color": `
+          base(quinary.darker)
+          base:all:hover(quinary.darkest)
+          base:all:focus-visible(black)
+
+          base:iap:dark(quinary.lightest)
+          base:iap:all:hover(black)
+          base:iap:dark:focus-visible(white)`,
+      };
+    }
+    if (color === "success") {
+      return {
+        "data-h2-color": `
+          base(success.darker)
+          base:all:hover(success.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "warning") {
+      return {
+        "data-h2-color": `
+          base(warning.darker)
+          base:hover(warning.lightest)
+          base:dark:hover(warning.darkest)
+          base:all:focus-visible(black)`,
+      };
+    }
+    if (color === "error") {
+      return {
+        "data-h2-color": `
+          base(error.darker)
+          base:all:hover(error.darkest)
+          base:all:focus-visible(black)
+          base:dark(error.lightest)`,
+      };
+    }
+    if (color === "black") {
+      return {
+        "data-h2-color": `
+          base(gray.darkest)
+          base:all:hover(secondary.darker)
+          base:all:focus-visible(black)
+
+          base:iap:all:hover(secondary.darker)
+          base:iap:all:focus-visible(black)`,
+      };
+    }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-color": `
+          base:all(gray.darkest)
+          base:all:hover(secondary.darker)
+          base:all:focus-visible(black)
+
+          base:iap:all:hover(secondary.darker)
+          base:iap:all:focus-visible(black)`,
+      };
+    }
+    if (color === "white") {
+      return {
+        "data-h2-color": `
+          base(gray.lightest)
+          base:hover(secondary.darker)
+          base:all:hover(secondary.lighter)
+          base:all:focus-visible(black)
+
+          base:iap:hover(black)
+          base:iap:all:focus-visible(black)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-color": `
+          base:all(gray.lightest)
+          base:all:hover(secondary.lighter)
+          base:all:focus-visible(black)
+
+          base:iap:all:hover(black)
+          base:iap:all:focus-visible(black)`,
+      };
+    }
+  }
   return {
     "data-h2-color": "base(transparent)",
   };

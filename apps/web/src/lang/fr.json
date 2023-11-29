@@ -1911,6 +1911,10 @@
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
     "description": "First section of text on the add user to pool dialog"
   },
+  "8YKsal": {
+    "defaultMessage": "Apprenez comment les dates limites des demandes fonctionnent.",
+    "description": "Info button label for pool application deadline details."
+  },
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
@@ -3387,10 +3391,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
   },
-  "Gp+70V": {
-    "defaultMessage": "Postulez d’ici le :",
-    "description": "Label for the pool expiry date"
-  },
   "GplLic": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
@@ -3410,6 +3410,10 @@
   "GtrrJ3": {
     "defaultMessage": "Créer une équipe ",
     "description": "Link text to create a new team in the admin portal"
+  },
+  "H+83NU": {
+    "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
+    "description": "Fourth paragraph for pool deadlines dialog"
   },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
@@ -3610,6 +3614,10 @@
   "IKkBm7": {
     "defaultMessage": "Oui",
     "description": "The affirmative option to answer a question"
+  },
+  "IOtzp7": {
+    "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
+    "description": "Second paragraph for pool deadlines dialog"
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -4071,6 +4079,10 @@
     "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
     "description": "Application step for screening questions, introduction description, paragraph one"
   },
+  "L6MgeM": {
+    "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
+    "description": "First paragraph for the pool deadlines dialog"
+  },
   "L6UnSl": {
     "defaultMessage": "Ajoutez votre expérience personnelle",
     "description": "Button text to add a personal experience to the profile"
@@ -4190,6 +4202,10 @@
   "LjE48l": {
     "defaultMessage": "Annuler",
     "description": "Button text to close employment equity form."
+  },
+  "LjYzkS": {
+    "defaultMessage": "Postulez le ou avant le {closingDate}",
+    "description": "Message to apply to the pool before deadline"
   },
   "LnISTX": {
     "defaultMessage": "{title} exigent un minimum d’expérience ou un diplôme pertinent.",
@@ -4426,10 +4442,6 @@
   "NSHPIJ": {
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
-  },
-  "NSois3": {
-    "defaultMessage": "Présenter une demande avant :",
-    "description": "Label for pool advertisement closing date"
   },
   "NT0U2K": {
     "defaultMessage": "Hors site, lieu précis",
@@ -5454,6 +5466,10 @@
   "TmDejD": {
     "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
     "description": "Third paragraph describing the directive on digital talent"
+  },
+  "TomxAe": {
+    "defaultMessage": "{time} le {date}",
+    "description": "A datetime formatted as a certain time on a certain date"
   },
   "TrO4uL": {
     "defaultMessage": "Échelle salariale :",
@@ -6574,10 +6590,6 @@
   "a+bWz1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill form description (French) field."
-  },
-  "a+j1+H": {
-    "defaultMessage": "Formulez votre demande d’ici le",
-    "description": "Label for showing the closing date of a job posting."
   },
   "a0VxCM": {
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
@@ -8575,6 +8587,10 @@
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
   },
+  "kzd/yK": {
+    "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
+    "description": "Third paragraph for pool deadlines dialog"
+  },
   "l+cu8R": {
     "defaultMessage": "Statut",
     "description": "Title displayed for the Pool Candidates table Status column."
@@ -8590,6 +8606,10 @@
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
+  },
+  "l9CTjM": {
+    "defaultMessage": "Date limite :",
+    "description": "Label for pool advertisement closing date"
   },
   "lB/SWR": {
     "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
@@ -8830,6 +8850,10 @@
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
+  },
+  "mQkyM8": {
+    "defaultMessage": "Au sujet des dates limites des demandes",
+    "description": "Heading for the pool deadlines dialog"
   },
   "mR9A3a": {
     "defaultMessage": "Contrat",
