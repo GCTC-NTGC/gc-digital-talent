@@ -49,6 +49,7 @@ interface ExperienceCardProps {
   // Override the edit path if needed
   editPath?: string;
   editMode?: EditMode;
+  // Allows passing in a link to view a specific experience
   view?: React.ReactNode;
   onSave?: () => void;
   linkTo?: Skill;
