@@ -100,56 +100,18 @@ return [
 
     'identify' => env('SCOUT_IDENTIFY', false),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Algolia Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure your Algolia settings. Algolia is a cloud hosted
-    | search engine which works great with Scout out of the box. Just plug
-    | in your application ID and admin API key to get started searching.
-    |
-    */
-
-    'algolia' => [
-        'id' => env('ALGOLIA_APP_ID', ''),
-        'secret' => env('ALGOLIA_SECRET', ''),
+    'pgsql' => [
+        // Connection to use. See config/database.php
+        'connection' => env('DB_CONNECTION', 'pgsql'),
+        // You may want to update index documents directly in PostgreSQL (i.e. via triggers).
+        // In this case you can set this value to false.
+        'maintain_index' => true,
+        // You can explicitly specify what PostgreSQL text search config to use by scout.
+        // Use \dF in psql to see all available configurations in your database.
+        'config' => 'english',
+        // You may set the default querying method
+        // Possible values: plainquery, phrasequery, tsquery
+        // plainquery is used if this option is omitted.
+        'search_using' => 'tsquery',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Meilisearch Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure your Meilisearch settings. Meilisearch is an open
-    | source search engine with minimal configuration. Below, you can state
-    | the host and key information for your own Meilisearch installation.
-    |
-    | See: https://www.meilisearch.com/docs/learn/configuration/instance_options#all-instance-options
-    |
-    */
-
-    'meilisearch' => [
-        'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
-        'key' => env('MEILISEARCH_KEY'),
-        'index-settings' => [
-            // 'users' => [
-            //     'filterableAttributes'=> ['id', 'name', 'email'],
-            // ],
-        ],
-    ],
-'pgsql' => [
-    // Connection to use. See config/database.php
-    'connection' => env('DB_CONNECTION', 'pgsql'),
-    // You may want to update index documents directly in PostgreSQL (i.e. via triggers).
-    // In this case you can set this value to false.
-    'maintain_index' => true,
-    // You can explicitly specify what PostgreSQL text search config to use by scout.
-    // Use \dF in psql to see all available configurations in your database.
-    'config' => 'english',
-    // You may set the default querying method
-    // Possible values: plainquery, phrasequery, tsquery
-    // plainquery is used if this option is omitted.
-    'search_using' => 'tsquery'
-],
 ];

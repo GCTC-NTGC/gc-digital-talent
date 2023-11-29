@@ -357,6 +357,7 @@ class PoolCandidate extends Model
                 User::scopeGeneralSearch($query, $searchTerms);
             });
         });
+
         return $query;
     }
 

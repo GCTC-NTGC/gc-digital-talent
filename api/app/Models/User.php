@@ -23,12 +23,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
-use Laravel\Scout\Searchable;
-
 
 /**
  * Class User
@@ -644,27 +643,26 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
-   public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
+
+    public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
+        if ($searchTerms && is_array($searchTerms)) {
+            $searchResults = [];
+            foreach ($searchTerms as $searchTerm) {
+                // Use Scout's search method to perform the search and get results
+                $results = self::search($searchTerm)->usingPlainQuery()->get();
+                $searchResults = array_merge($searchResults, $results->all());
+            }
 
-    if ($searchTerms && is_array($searchTerms)) {
+            // Extract unique IDs from the search results
+            $searchResultIds = array_unique(array_column($searchResults, 'id'));
 
-        $searchResults = [];
-
-        foreach ($searchTerms as $searchTerm) {
-            // Use Scout's search method to perform the search and get results
-            $results = self::search($searchTerm)->usingPlainQuery()->get();
-            $searchResults = array_merge($searchResults, $results->all());
+            // Use Eloquent builder to filter results based on unique IDs
+            $query->whereIn('id', $searchResultIds);
         }
 
-        // Extract unique IDs from the search results
-        $searchResultIds = array_unique(array_column($searchResults, 'id'));
-
-        // Use Eloquent builder to filter results based on unique IDs
-        $query->whereIn('id', $searchResultIds);
+        return $query;
     }
-    return $query;
-}
 
 
     public static function scopeName(Builder $query, ?string $name): Builder
