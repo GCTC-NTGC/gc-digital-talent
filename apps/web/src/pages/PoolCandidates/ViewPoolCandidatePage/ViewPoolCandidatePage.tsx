@@ -272,8 +272,9 @@ export const ViewPoolCandidate = ({
       mainContent = (
         <>
           <ApplicationInformation
+            pool={poolCandidate.pool}
             snapshot={parsedSnapshot}
-            application={poolCandidate}
+            application={snapshotCandidate}
           />
           <div data-h2-margin="base(x2 0)">
             <Accordion.Root type="single" mode="card" collapsible>

@@ -2,7 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import { PoolCandidate, SkillCategory, User } from "@gc-digital-talent/graphql";
+import {
+  Pool,
+  PoolCandidate,
+  SkillCategory,
+  User,
+} from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -22,11 +27,13 @@ import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 
 interface ApplicationInformationProps {
-  application: PoolCandidate;
+  pool: Pool;
+  application?: PoolCandidate | null;
   snapshot: User;
 }
 
 const ApplicationInformation = ({
+  pool,
   snapshot,
   application,
 }: ApplicationInformationProps) => {
@@ -40,18 +47,14 @@ const ApplicationInformation = ({
   };
 
   const screeningQuestionResponses = unpackMaybes(
-    application.screeningQuestionResponses ?? [],
+    application?.screeningQuestionResponses ?? [],
   );
 
-  const categorizedEssentialSkills = categorizeSkill(
-    application.pool.essentialSkills,
-  );
+  const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
   const technicalEssentialSkills = unpackMaybes(
     categorizedEssentialSkills[SkillCategory.Technical],
   );
-  const categorizedAssetSkills = categorizeSkill(
-    application.pool.nonessentialSkills,
-  );
+  const categorizedAssetSkills = categorizeSkill(pool.nonessentialSkills);
   const technicalAssetSkills = unpackMaybes(
     categorizedAssetSkills[SkillCategory.Technical],
   );
@@ -81,12 +84,14 @@ const ApplicationInformation = ({
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(0 x.5)"
         >
-          <ApplicationPrintButton
-            mode="inline"
-            color="secondary"
-            pool={application.pool}
-            user={snapshot}
-          />
+          {application && (
+            <ApplicationPrintButton
+              mode="inline"
+              color="secondary"
+              pool={application.pool}
+              user={snapshot}
+            />
+          )}
           <Button mode="inline" color="secondary" onClick={toggleSections}>
             {hasOpenSections
               ? intl.formatMessage({
@@ -115,7 +120,7 @@ const ApplicationInformation = ({
             description: "Lead-in text for application information",
           },
           {
-            submittedAt: application.submittedAt
+            submittedAt: application?.submittedAt
               ? formatDate({
                   date: parseDateTimeUtc(application.submittedAt),
                   formatString: "PPPP",

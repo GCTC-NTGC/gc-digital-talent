@@ -12,7 +12,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 
 interface EducationRequirementsDisplayProps {
-  application: PoolCandidate;
+  application?: PoolCandidate | null;
 }
 
 const EducationRequirementsDisplay = ({
