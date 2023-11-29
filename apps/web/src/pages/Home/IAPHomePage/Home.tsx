@@ -489,7 +489,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                   </p>
                   <img
                     src={ulu}
-                    alt=""
+                    alt={intl.formatMessage({
+                      defaultMessage: "Ulu, an Inuit tool used by Inuit women.",
+                      id: "IIZNzj",
+                      description:
+                        "Indigenous Apprenticeship ulu image text alternative",
+                    })}
                     data-h2-display="base(none) p-tablet(block)"
                     data-h2-position="base(absolute)"
                     data-h2-width="base(x20)"
