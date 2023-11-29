@@ -21,42 +21,42 @@ const getStyles = (
   if (color === "primary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](primary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](primary)",
     };
   } else if (color === "secondary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](secondary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](secondary)",
     };
   } else if (color === "tertiary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](tertiary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](tertiary)",
     };
   } else if (color === "quaternary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](quaternary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](quaternary)",
     };
   } else if (color === "quinary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](quinary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](quinary)",
     };
   } else if (color === "success") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](success)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](success)",
     };
   } else if (color === "warning") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](warning)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](warning)",
     };
   } else if (color === "error") {
     colorStyle = {
       "data-h2-background-color":
-        "base(gray) base:focus-visible(focus) base:selectors[[data-state='checked']](error)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](error)",
     };
   }
 
