@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Validators\Mutation\DeleteApplicationValidator;
 use App\Models\PoolCandidate;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -24,14 +25,12 @@ final class DeleteApplication
             throw new ValidationException($validator->errors()->first(), $validator);
         }
 
-        // execute hard delete and verify model was deleted by checking again by id returns null
-        $application->forceDelete();
-        $application = PoolCandidate::find($args['id']);
-        if ($application !== null) {
-            throw ValidationException::withMessages(['failed to delete']);
+        // execute hard delete and verify model was deleted by checking that is not true
+        $success = $application->forceDelete();
+        if (! $success) {
+            throw ValidationException::withMessages([ApiErrorEnums::APPLICATION_DELETE_FAILED]);
         }
 
-        // true returning indicates successful deletion for graphQL response
-        return true;
+        return $application;
     }
 }

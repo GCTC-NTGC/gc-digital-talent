@@ -74,21 +74,13 @@ class PoolApplicationTest extends TestCase
         }
     ';
 
-    protected $archiveMutationDocument =
-    /** @lang GraphQL */
-    '
-        mutation archiveApplication($id: ID!) {
-            archiveApplication(id: $id) {
-                archivedAt
-            }
-        }
-    ';
-
     protected $deleteMutationDocument =
     /** @lang GraphQL */
     '
         mutation deleteApplication($id: ID!) {
-            deleteApplication(id: $id)
+            deleteApplication(id: $id) {
+                id
+            }
         }
     ';
 
@@ -261,215 +253,6 @@ class PoolApplicationTest extends TestCase
             ->assertJson($result);
     }
 
-    public function testArchivingApplication(): void
-    {
-        // Create pool candidates
-        $archivableApplication = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
-            'submitted_at' => config('constants.past_date'),
-            'user_id' => $this->applicantUser->id,
-        ]);
-
-        // this one is archived
-        $notArchivableApplication = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::EXPIRED->name,
-            'archived_at' => config('constants.past_date'),
-            'submitted_at' => config('constants.past_date'),
-            'user_id' => $this->applicantUser->id,
-        ]);
-
-        // This user does not own the application so cannot archive
-        $this->graphQL($this->archiveMutationDocument, ['id' => $archivableApplication->id])
-            ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
-
-        // Request responders may not archive applications they do not own
-        $this->actingAs($this->responderUser, 'api')
-            ->graphQL($this->archiveMutationDocument, ['id' => $archivableApplication->id])
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
-        // Owner can archive
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($this->archiveMutationDocument, ['id' => $archivableApplication->id])
-            ->assertJson(
-                fn (AssertableJson $json) => $json->has(
-                    'data',
-                    fn ($json) => $json->has(
-                        'archiveApplication',
-                        fn ($json) => $json->whereType('archivedAt', 'string')
-                    )
-                )
-            );
-
-        // Owner cannot archive certain applications
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($this->archiveMutationDocument, ['id' => $notArchivableApplication->id])
-            ->assertJson([
-                'errors' => [[
-                    'message' => 'AlreadyArchived',
-                ]],
-            ]);
-    }
-
-    public function testArchivingApplicationStatuses(): void
-    {
-        // array of statuses that should fail the test, as they should not allow archiving
-        $statusesThatShouldFail = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name,
-            PoolCandidateStatus::SCREENED_IN->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name,
-            PoolCandidateStatus::DRAFT->name,
-            PoolCandidateStatus::DRAFT_EXPIRED->name,
-            PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-        ];
-
-        $shared = [
-            'user_id' => $this->applicantUser->id,
-            'expiry_date' => config('constants.far_future_date'),
-        ];
-        $sharedSubmitted = [
-            ...$shared,
-            'submitted_at' => config('constants.past_date'),
-        ];
-
-        // Create pool candidates
-        // submitted at statuses for ones other than draft/draft-expired, and future expiry dates for unexpired
-        $candidateOne = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[0],
-            ...$sharedSubmitted,
-        ]);
-        $candidateTwo = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[1],
-            ...$sharedSubmitted,
-        ]);
-        $candidateThree = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[2],
-            ...$sharedSubmitted,
-        ]);
-        $candidateFour = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[3],
-            ...$sharedSubmitted,
-        ]);
-        $candidateFive = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[4],
-            ...$sharedSubmitted,
-        ]);
-        $candidateSix = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[5],
-            ...$sharedSubmitted,
-        ]);
-        $candidateSeven = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[6],
-            ...$sharedSubmitted,
-        ]);
-        // these two are draft and draft-expired so no submitted_at and the latter expired
-        $candidateEight = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[7],
-            ...$shared,
-        ]);
-        $candidateNine = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[8],
-            ...$shared,
-        ]);
-        $candidateTen = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[9],
-            ...$sharedSubmitted,
-        ]);
-        $candidateEleven = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[10],
-            ...$sharedSubmitted,
-        ]);
-        $candidateTwelve = PoolCandidate::factory()->create([
-            'pool_candidate_status' => $statusesThatShouldFail[11],
-            ...$sharedSubmitted,
-        ]);
-
-        $result = [
-            'errors' => [[
-                'message' => 'pool candidate status InvalidValueArchival',
-            ]],
-        ];
-
-        // Assert un-expired object cannot be archived, 12 different ones that should fail
-        // just running through each of them one at a time
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateOne->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateTwo->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateThree->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateFour->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateFive->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateSix->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateSeven->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateEight->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateNine->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateTen->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateEleven->id]
-            )->assertJson($result);
-
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL(
-                $this->archiveMutationDocument,
-                ['id' => $candidateTwelve->id]
-            )->assertJson($result);
-    }
-
     public function testApplicationSubmit(): void
     {
         // pool with no essential skills
@@ -521,7 +304,6 @@ class PoolApplicationTest extends TestCase
         $this->applicantUser->save();
 
         // assert complete user can submit application
-        // mimicking testArchivingApplication() where the returned value is always dynamic therefore must test returned structure and type
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->submitMutationDocument, $submitArgs)
             ->assertJson(
@@ -858,11 +640,11 @@ class PoolApplicationTest extends TestCase
             ->graphQL($this->deleteMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
-        // run deletion mutation and assert it returns true, indicating success
+        // run deletion mutation and assert it returns the id, indicating success
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($this->deleteMutationDocument, $variables)->assertJson([
                 'data' => [
-                    'deleteApplication' => 'true',
+                    'deleteApplication' => ['id' => $newPoolCandidate->id],
                 ],
             ]);
 
