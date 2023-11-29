@@ -34,8 +34,6 @@ const Display = ({
   const hasClaimedEquityGroup =
     isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
-  // if (!hasClaimedEquityGroup) return null;
-
   return hasClaimedEquityGroup ? (
     <>
       <ul>
