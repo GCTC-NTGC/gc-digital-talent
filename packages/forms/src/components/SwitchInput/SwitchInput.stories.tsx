@@ -8,15 +8,15 @@ import { Color } from "@gc-digital-talent/ui";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import Switch, { SwitchProps } from "./Switch";
+import SwitchInput, { SwitchInputProps } from "./SwitchInput";
 
-type SwitchArgs = SwitchProps & {
+type SwitchInputArgs = SwitchInputProps & {
   defaultValues?: Record<string, boolean>;
 };
 
 export default {
-  component: Switch,
-  title: "Form/Switch",
+  component: SwitchInput,
+  title: "Form/Switch Input",
 };
 
 const colors: Array<Color> = [
@@ -40,7 +40,7 @@ const allSelected = colors.reduce((accumulator, color) => {
   };
 }, {});
 
-const Template: StoryFn<SwitchArgs> = (args) => {
+const Template: StoryFn<SwitchInputArgs> = (args) => {
   const { defaultValues, ...rest } = args;
   return (
     <Form
@@ -73,7 +73,7 @@ const Template: StoryFn<SwitchArgs> = (args) => {
                     data-h2-align-items="base(center)"
                     data-h2-gap="base(x1)"
                   >
-                    <Switch
+                    <SwitchInput
                       {...rest}
                       id={`${theme}${color}`}
                       name={`${theme}${color}`}
