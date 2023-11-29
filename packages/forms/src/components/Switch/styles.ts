@@ -5,8 +5,18 @@ export type SwitchColor = Omit<
   "black" | "white" | "blackFixed" | "whiteFixed"
 >;
 
-const getStyles = (color: SwitchColor): Record<string, string> => {
+const getStyles = (
+  color: SwitchColor,
+  disabled?: boolean,
+): Record<string, string> => {
   let colorStyle: Record<string, string> = {};
+
+  if (disabled) {
+    return {
+      "data-h2-background-color":
+        "base(gray.lighter) base:focus-visible(focus) base:selectors[[data-state='checked']](gray)",
+    };
+  }
 
   if (color === "primary") {
     colorStyle = {

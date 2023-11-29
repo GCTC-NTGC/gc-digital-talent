@@ -32,6 +32,14 @@ const colors: Array<Color> = [
 
 const themes: Array<string> = ["light", "dark"];
 
+const allSelected = colors.reduce((accumulator, color) => {
+  return {
+    ...accumulator,
+    [`dark${color}`]: true,
+    [`light${color}`]: true,
+  };
+}, {});
+
 const Template: StoryFn<SwitchArgs> = (args) => {
   const { defaultValues, ...rest } = args;
   return (
@@ -103,18 +111,31 @@ HiddenLabel.args = {
 
 export const DefaultValue = Template.bind({});
 DefaultValue.args = {
-  defaultValues: colors.reduce((accumulator, color) => {
-    return {
-      ...accumulator,
-      [`dark${color}`]: true,
-      [`light${color}`]: true,
-    };
-  }, {}),
+  defaultValues: allSelected,
 };
 
 export const Required = Template.bind({});
 Required.args = {
   rules: {
     required: "This field is required",
+  },
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+  icon: {
+    default: CheckIcon,
+    checked: XMarkIcon,
+  },
+};
+
+export const DisabledChecked = Template.bind({});
+DisabledChecked.args = {
+  disabled: true,
+  defaultValues: allSelected,
+  icon: {
+    default: CheckIcon,
+    checked: XMarkIcon,
   },
 };

@@ -14,6 +14,7 @@ export type SwitchProps = {
   name: CommonInputProps["name"];
   label: CommonInputProps["label"];
   rules?: CommonInputProps["rules"];
+  disabled?: boolean;
   // Display an icon in the handle for the switch
   icon?: {
     // Default icon displayed in the handle
@@ -32,7 +33,16 @@ const Switch = React.forwardRef<
   SwitchProps
 >(
   (
-    { id, name, label, rules, icon, hideLabel = false, color = "primary" },
+    {
+      id,
+      name,
+      label,
+      rules,
+      icon,
+      disabled,
+      hideLabel = false,
+      color = "primary",
+    },
     forwardedRef,
   ) => {
     const {
@@ -49,15 +59,17 @@ const Switch = React.forwardRef<
         error,
       },
     });
-    const styles = getStyles(color);
+    const styles = getStyles(color, disabled);
     let Icon: IconType;
     if (icon) {
       Icon = checked && icon.checked ? icon.checked : icon.default;
     }
 
     const toggle = (newChecked: boolean) => {
-      setValue(name, newChecked);
-      setChecked(newChecked);
+      if (!disabled) {
+        setValue(name, newChecked);
+        setChecked(newChecked);
+      }
     };
 
     return (
@@ -91,6 +103,9 @@ const Switch = React.forwardRef<
                 {...(hideLabel && {
                   "aria-label": label?.toString(),
                 })}
+                {...(disabled && {
+                  "aria-disabled": "true",
+                })}
                 aria-describedby={ariaDescribedBy}
                 data-h2-transition="base(background-color, 100ms, ease-in-out)"
                 data-h2-outline="base(none)"
@@ -115,9 +130,15 @@ const Switch = React.forwardRef<
                 >
                   {Icon && (
                     <Icon
-                      data-h2-color="base(black)"
                       data-h2-height="base(x.75)"
                       data-h2-width="base(x.75)"
+                      {...(disabled
+                        ? {
+                            "data-h2-color": "base(gray)",
+                          }
+                        : {
+                            "data-h2-color": "base(black)",
+                          })}
                     />
                   )}
                 </SwitchPrimitive.Thumb>
