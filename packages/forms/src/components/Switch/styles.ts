@@ -21,7 +21,7 @@ const getStyles = (
   if (color === "primary") {
     colorStyle = {
       "data-h2-background-color":
-        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](primary)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](primary.light)",
     };
   } else if (color === "secondary") {
     colorStyle = {
@@ -46,7 +46,7 @@ const getStyles = (
   } else if (color === "success") {
     colorStyle = {
       "data-h2-background-color":
-        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](success)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](success.light)",
     };
   } else if (color === "warning") {
     colorStyle = {
@@ -56,7 +56,7 @@ const getStyles = (
   } else if (color === "error") {
     colorStyle = {
       "data-h2-background-color":
-        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](error)",
+        "base(background.dark) base:focus-visible(focus) base:selectors[[data-state='checked']](error.light)",
     };
   }
 
