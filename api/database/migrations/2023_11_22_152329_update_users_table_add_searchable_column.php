@@ -22,28 +22,26 @@ return new class extends Migration
         coalesce(last_name, \'\') || \' \' ||
         coalesce(telephone, \'\') || \' \' ||
         coalesce(preferred_lang, \'\') || \' \' ||
-        coalesce(current_province, \'\') || \' \' ||
         coalesce(current_city, \'\') || \' \' ||
-        coalesce(comprehension_level, \'\') || \' \' ||
-        coalesce(written_level, \'\') || \' \' ||
-        coalesce(verbal_level, \'\') || \' \' ||
-        coalesce(estimated_language_ability, \'\') || \' \' ||
-        coalesce(location_exemptions, \'\') || \' \' ||
-        coalesce(priority_number, \'\') ||
+
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(notes), \' \') FROM Pool_Candidates WHERE Pool_Candidates.user_id = users.id), \'\') ||
 
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(role), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT  ARRAY_TO_STRING(ARRAY_AGG(organization), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT  ARRAY_TO_STRING(ARRAY_AGG(division), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT  ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM work_experiences  WHERE work_experiences.user_id = users.id), \'\') ||
 
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(thesis_title), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(institution), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(area_of_study), \' \') FROM education_experiences WHERE education_experiences.user_id = users.id), \'\') ||
 
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(description), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \') FROM personal_experiences WHERE personal_experiences.user_id = users.id), \'\') ||
 
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM award_experiences WHERE award_experiences.user_id = users.id), \'\') ||
+        coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(issued_by), \' \') FROM award_experiences WHERE award_experiences.user_id = users.id), \'\') ||
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(details), \' \')details FROM award_experiences WHERE award_experiences.user_id = users.id), \'\') ||
 
         coalesce((SELECT ARRAY_TO_STRING(ARRAY_AGG(title), \' \') FROM community_experiences WHERE community_experiences.user_id = users.id), \'\') ||
