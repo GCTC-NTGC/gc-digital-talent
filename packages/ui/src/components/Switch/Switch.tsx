@@ -29,7 +29,7 @@ const Switch = React.forwardRef<
 >(
   (
     {
-      color,
+      color = "primary",
       icon,
       disabled,
       checked: checkedProp,
