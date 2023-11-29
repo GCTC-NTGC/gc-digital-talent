@@ -93,7 +93,8 @@ const Switch = React.forwardRef<
               data-h2-width="base(x.75)"
               {...(disabled
                 ? {
-                    "data-h2-color": "base(gray)",
+                    "data-h2-color":
+                      "base(gray) base:selectors[[data-state='checked']](gray.darker)",
                   }
                 : {
                     "data-h2-color": "base(black)",

@@ -14,7 +14,7 @@ const getStyles = (
   if (disabled) {
     return {
       "data-h2-background-color":
-        "base(gray.lighter) base:focus-visible(focus) base:selectors[[data-state='checked']](gray)",
+        "base(gray.light) base:focus-visible(focus) base:selectors[[data-state='checked']](gray.dark)",
     };
   }
 
