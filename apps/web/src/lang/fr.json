@@ -4708,7 +4708,7 @@
     "description": "Heading for the add employment equity option to profile dialogs"
   },
   "OoZdlh": {
-    "defaultMessage": "Réduire toutes <hidden>les sections de </hidden>l’information sur la demande",
+    "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
   },
   "OpKC2i": {
@@ -5040,7 +5040,7 @@
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
   },
   "R/z71a": {
-    "defaultMessage": "Information sur la demande ",
+    "defaultMessage": "Information sur la demande",
     "description": "Heading for the information of an application"
   },
   "R1yINv": {
