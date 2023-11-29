@@ -11,7 +11,7 @@ import {
   MultiSelectField,
 } from "@gc-digital-talent/forms";
 
-import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
+import useCandidateFilterOptions from "~/components/Table/useCandidateFilterOptions/useCandidateFilterOptions";
 import adminMessages from "~/messages/adminMessages";
 
 import "./UserTableFilterDialog.css";
@@ -37,7 +37,7 @@ const Footer = () => {
     reset,
     formState: { isSubmitting },
   } = useFormContext();
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -81,7 +81,7 @@ const UserTableFilterDialog = ({
   onOpenChange,
 }: UserTableFilterDialogProps): JSX.Element => {
   const { formatMessage } = useIntl();
-  const { optionsData, rawGraphqlResults } = useFilterOptions();
+  const { optionsData, rawGraphqlResults } = useCandidateFilterOptions();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -266,7 +266,7 @@ const UserTableFilters = ({
   ...rest
 }: UserTableFiltersProps) => {
   const [isOpen, setOpen] = React.useState<boolean>(isOpenDefault);
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const initialStateActiveFilters = initialFilters ?? emptyFormValues;
   const [activeFilters, setActiveFilters] = useState<FormValues>(
     initialStateActiveFilters,

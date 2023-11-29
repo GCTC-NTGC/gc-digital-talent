@@ -18,7 +18,7 @@ final class ArchivePool
     {
         $pool = Pool::find($args['id']);
         if ($pool->getStatusAttribute() !== PoolStatus::CLOSED->name) {
-            throw ValidationException::withMessages(['You cannot archive a pool unless it is in the closed status.']);
+            throw ValidationException::withMessages(['ArchivePoolInvalidStatus']);
         }
         $pool->update(['archived_at' => Carbon::now()]);
 

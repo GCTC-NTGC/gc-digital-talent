@@ -12,17 +12,15 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getLocalizedName,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
+import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
 import {
+  formatOption,
   getCategoryOptions,
   getFamilyOptions,
   getFilteredFamilies,
@@ -113,35 +111,32 @@ const SkillSelection = ({
             id="skill-category"
             name="category"
             doNotSort
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            nullSelection={intl.formatMessage(
+              skillBrowserMessages.skillCategoryPlaceholder,
+            )}
             trackUnsaved={false}
-            label={intl.formatMessage({
-              defaultMessage: "Skill category",
-              id: "piZjS+",
-              description: "Label for the skill category filter field",
-            })}
+            label={intl.formatMessage(skillBrowserMessages.skillCategory)}
             options={categoryOptions}
           />
         )}
         <Select
           id="skill-family"
           name="family"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          nullSelection={intl.formatMessage(
+            skillBrowserMessages.skillFamilyPlaceholder,
+          )}
           trackUnsaved={false}
           doNotSort
-          label={intl.formatMessage({
-            defaultMessage: "Skill family",
-            id: "6ofORn",
-            description: "Label for the skill family filter field",
-          })}
+          label={intl.formatMessage(skillBrowserMessages.skillFamily)}
           options={[
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: `${getLocalizedName(
-                skillFamily.name,
+              label: formatOption(
+                getLocalizedName(skillFamily.name, intl),
+                getSkillFamilySkillCount(skills, skillFamily),
                 intl,
-              )} (${getSkillFamilySkillCount(skills, skillFamily)})`,
+              ),
             })),
           ]}
         />
@@ -155,11 +150,7 @@ const SkillSelection = ({
               rules={{ required: intl.formatMessage(errorMessages.required) }}
               trackUnsaved={false}
               total={filteredSkills.length}
-              label={intl.formatMessage({
-                defaultMessage: "Skill",
-                id: "+K/smr",
-                description: "Label for the skill select field",
-              })}
+              label={intl.formatMessage(skillBrowserMessages.skill)}
               options={filteredSkills.map((currentSkill) => ({
                 value: currentSkill.id,
                 label: getLocalizedName(currentSkill.name, intl),
@@ -169,12 +160,7 @@ const SkillSelection = ({
           {!selectedSkill && (
             <Well>
               <p data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  id: "HrRgTT",
-                  defaultMessage: "Please select a skill to continue.",
-                  description:
-                    "Help text to tell users to select a skill before submitting",
-                })}
+                {intl.formatMessage(skillBrowserMessages.nullSkill)}
               </p>
             </Well>
           )}
@@ -185,12 +171,9 @@ const SkillSelection = ({
           <input
             type="hidden"
             {...register("skill", {
-              required: intl.formatMessage({
-                defaultMessage: "Select a skill family and skill to continue.",
-                id: "jYPyWq",
-                description:
-                  "Error message when a user attempts to add a skill before selecting one",
-              }),
+              required: intl.formatMessage(
+                skillBrowserMessages.nullSkillFamily,
+              ),
             })}
           />
           {skillError && <Field.Error>{skillError?.toString()}</Field.Error>}
@@ -221,20 +204,8 @@ const SkillSelection = ({
               />
               <span>
                 {isExpanded
-                  ? intl.formatMessage({
-                      defaultMessage:
-                        "Hide information on what to do if you can't find a skill",
-                      id: "AxRGK2",
-                      description:
-                        "Button text to hide help information about skills",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "Find out what to do if you can't find a skill",
-                      id: "mAN6yW",
-                      description:
-                        "Button text to show help information about skills",
-                    })}
+                  ? intl.formatMessage(skillBrowserMessages.hideSkillInfo)
+                  : intl.formatMessage(skillBrowserMessages.showSkillInfo)}
               </span>
             </span>
           </Button>

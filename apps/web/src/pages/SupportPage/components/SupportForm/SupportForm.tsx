@@ -274,6 +274,11 @@ const SupportFormApi = () => {
         );
         return Promise.resolve(response.status);
       }
+      if (response.status === 422) {
+        // status code 422 = missing params.
+        toast.error(intl.formatMessage(errorMessages.unknown));
+        return Promise.reject(response.status);
+      }
       if (response.status === 429) {
         toast.error(<>{intl.formatMessage(apiMessages.RATE_LIMIT)}</>, {
           autoClose: 20000,

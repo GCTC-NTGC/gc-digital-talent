@@ -17,7 +17,7 @@ const StyledOverlay = React.forwardRef<
     data-h2-position="base(fixed)"
     data-h2-background-color="base(black.light.9)"
     data-h2-location="base(0)"
-    data-h2-overflow="base(visible auto)"
+    data-h2-overflow="base(auto)"
     style={{ placeItems: "center", zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
@@ -29,6 +29,7 @@ const StyledContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, forwardedRef) => (
   <DialogPrimitive.Content
+    ref={forwardedRef}
     data-h2-font-family="base(sans)"
     data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
@@ -37,8 +38,37 @@ const StyledContent = React.forwardRef<
     style={{
       zIndex: 9999,
     }}
-    ref={forwardedRef}
     {...props}
+    onPointerDownOutside={(event) => {
+      const target = event.target as HTMLElement;
+
+      /**
+       * Roughly determine if the user is attempting to interact
+       * with a hidden scrollbar.
+       *
+       * Note: 16 is a rough estimate of the width of these scrollbars
+       * it is not entirely accurate since they change based on your operating system.
+       * This may create a small dead zone of 1-3px where clicking the overlay will not
+       * close the dialog. This is a trade off to allow users to scroll without a wheel.
+       *
+       * `targetIsScrollbar`: Checks to see if the click ocurred within 16px
+       * edge of the screen
+       *
+       * `targetIsScrollable`: Checks to see if the visible height of the container
+       * exceeds the total scroll height
+       *
+       */
+      const targetIsScrollbar =
+        target.offsetWidth - event.detail.originalEvent.clientX < 16;
+      const targetIsScrollable = target.clientHeight - target.scrollHeight < 0;
+
+      if (targetIsScrollbar && targetIsScrollable) {
+        event.preventDefault();
+        return;
+      }
+
+      props.onPointerDownOutside?.(event);
+    }}
   />
 ));
 

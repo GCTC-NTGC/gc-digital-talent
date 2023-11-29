@@ -23,6 +23,6 @@ export interface EditPoolSectionMetadata {
   hasError?: boolean;
 }
 
-export type PageNavKeys = "view" | "edit" | "candidates";
+export type PageNavKeys = "view" | "edit" | "screening" | "candidates";
 
 export type PoolCompleteness = "incomplete" | "complete" | "submitted";
