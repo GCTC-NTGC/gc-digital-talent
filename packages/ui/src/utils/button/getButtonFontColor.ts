@@ -271,6 +271,21 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:focus-visible:children[.counter](focus)`,
       };
     }
+    if (color === "secondaryDarkFixed") {
+      return {
+        "data-h2-color": `
+          base:all(secondary.lighter)
+          base:all:hover(secondary.lightest)
+          base:all:focus-visible(black)
+
+          base:iap:all(secondary.lightest)
+          base:iap:all:hover(black)
+          base:iap:all:focus-visible(white)
+
+          base:all:children[.counter](black)
+          base:focus-visible:children[.counter](focus)`,
+      };
+    }
     if (color === "tertiary") {
       return {
         "data-h2-color": `

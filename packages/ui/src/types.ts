@@ -1,6 +1,7 @@
 export type Color =
   | "primary"
   | "secondary"
+  | "secondaryDarkFixed"
   | "tertiary"
   | "quaternary"
   | "quinary"
