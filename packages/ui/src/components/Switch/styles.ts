@@ -1,4 +1,4 @@
-import { Color } from "@gc-digital-talent/ui";
+import { Color } from "../../types";
 
 export type SwitchColor = Omit<
   Color,
