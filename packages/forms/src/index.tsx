@@ -8,7 +8,6 @@ import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -54,7 +53,7 @@ import {
   objectsToSortedOptions,
   htmlToRichTextJSON,
 } from "./utils";
-import useCommonInputStyles from "./hooks/useCommonInputStyles";
+import useInputStyles from "./hooks/useInputStyles";
 
 export {
   DATE_SEGMENT,
@@ -101,7 +100,6 @@ export type {
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -119,6 +117,6 @@ export {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
-  useCommonInputStyles,
+  useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
 };

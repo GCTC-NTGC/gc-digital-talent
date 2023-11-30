@@ -20,7 +20,7 @@ import type { CommonInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 
 type Option = { value: string | number; label: string };
 type Group<T> = {
@@ -207,7 +207,7 @@ const MultiSelectFieldBase = ({
   const {
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useCommonInputStyles();
+  const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

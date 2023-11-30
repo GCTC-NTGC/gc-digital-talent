@@ -58,6 +58,9 @@ export const iconStyles: Record<Color, Record<string, string>> = {
   secondary: {
     "data-h2-color": "base(secondary)",
   },
+  secondaryDarkFixed: {
+    "data-h2-color": "base(secondary)",
+  },
   tertiary: {
     "data-h2-color": "base(tertiary)",
   },
