@@ -12,7 +12,6 @@ import {
   Heading,
   DropdownMenu,
   Button,
-  StandardAccordionHeader,
 } from "@gc-digital-talent/ui";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -113,9 +112,9 @@ const OngoingRecruitmentSection = ({
     PoolStream | "ALL"
   >("ALL");
 
-  const { user, isLoaded } = useAuthorization();
+  const { userAuthInfo, isLoaded } = useAuthorization();
   const [{ data: skillsData }] = useMySkillsQuery({
-    pause: !isLoaded || !user,
+    pause: !isLoaded || !userAuthInfo,
   });
 
   const mySkillIdsWithDuplicates = skillsData?.me?.experiences
@@ -978,10 +977,12 @@ const OngoingRecruitmentSection = ({
     <>
       <Heading
         level="h2"
+        size="h3"
+        data-h2-font-weight="base(400)"
         id="ongoingRecruitments"
         Icon={CpuChipIcon}
         color="primary"
-        data-h2-margin="base(0, 0, x1, 0)"
+        data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Apply to ongoing recruitment",
@@ -989,7 +990,7 @@ const OngoingRecruitmentSection = ({
           description: "title for section with ongoing pool advertisements",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(x.5, 0)" data-h2-font-weight="base(700)">
         {intl.formatMessage({
           id: "Uzx5dR",
           defaultMessage:
@@ -1094,12 +1095,16 @@ const OngoingRecruitmentSection = ({
             })}
       </p>
       {streamsToShow.length ? (
-        <Accordion.Root type="multiple">
+        <Accordion.Root
+          mode="card"
+          type="multiple"
+          data-h2-margin="base(x.5, 0, 0, 0)"
+        >
           {streamsToShow.map((stream) => (
             <Accordion.Item value={stream.key} key={stream.key}>
-              <StandardAccordionHeader
+              <Accordion.Trigger
                 subtitle={stream.summary}
-                headingAs="h3"
+                as="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
                     <Pill color="success" mode="outline">
@@ -1116,7 +1121,7 @@ const OngoingRecruitmentSection = ({
                 }
               >
                 {stream.title}
-              </StandardAccordionHeader>
+              </Accordion.Trigger>
               <Accordion.Content>
                 <div
                   data-h2-display="base(grid)"

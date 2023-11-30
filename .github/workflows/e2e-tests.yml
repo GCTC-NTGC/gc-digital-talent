@@ -54,7 +54,7 @@ jobs:
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh -c
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -63,7 +63,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v6.5.0
+        uses: cypress-io/github-action@v6.6.0
         with:
           spec: "**/*.cy.ts"
           browser: electron

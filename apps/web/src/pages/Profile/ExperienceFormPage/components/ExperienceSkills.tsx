@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import {
-  Accordion,
-  Heading,
-  StandardAccordionHeader,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 
 import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
@@ -65,14 +60,19 @@ const ExperienceSkills = ({
 
   return (
     <section>
-      <Heading level="h3" size="h5">
+      <Heading
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(700)"
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage({
           defaultMessage: "Link featured skills",
           id: "/I7wrY",
           description: "Title for skills on Experience form",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x2, 0)">
+      <p data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "Featured skills allow you to highlight how you used or developed particularly important skillsets during your experience. When applying to an opportunity on the platform, you’ll be asked to link the essential skills required for that job to your experiences in the same way, allowing you to build a holistic picture of your skill development. Skills you link during an application will also appear here for later editing.",
@@ -82,13 +82,13 @@ const ExperienceSkills = ({
       </p>
       <Accordion.Root
         type="single"
-        mode="simple"
+        size="sm"
         value={accordionState}
         onValueChange={(value: AccordionStates) => setAccordionState(value)}
         collapsible
       >
         <Accordion.Item value="learn-more">
-          <StandardAccordionHeader headingAs="h3">
+          <Accordion.Trigger>
             {accordionState === "learn-more"
               ? intl.formatMessage({
                   defaultMessage:
@@ -104,9 +104,9 @@ const ExperienceSkills = ({
                   description:
                     "Button text to open accordion describing skill experience",
                 })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-top="base(x1)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "When linking an experience, try answering one or more of these questions:",
@@ -159,7 +159,7 @@ const ExperienceSkills = ({
       {derivedType ? (
         <div
           data-h2-display="base(flex)"
-          data-h2-gap="base(x1)"
+          data-h2-gap="base(x.5)"
           data-h2-flex-direction="base(column)"
           data-h2-flex-wrap="p-tablet(wrap)"
           data-h2-margin-top="base(x1)"
@@ -187,7 +187,7 @@ const ExperienceSkills = ({
           ) : (
             <Well>
               <p
-                data-h2-margin-bottom="base(x1)"
+                data-h2-margin-bottom="base(x.5)"
                 data-h2-text-align="base(center)"
                 data-h2-font-weight="base(bold)"
               >

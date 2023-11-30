@@ -94,7 +94,7 @@ const Hero = ({
           <div
             data-h2-height="base(x30)"
             data-h2-width="base(x30)"
-            data-h2-background-color="base(secondary.darker)"
+            data-h2-background-color="base:all(secondary.darker)"
             data-h2-radius="base(circle)"
           >
             &nbsp;
@@ -109,20 +109,20 @@ const Hero = ({
           <div
             data-h2-height="base(x30)"
             data-h2-width="base(x30)"
-            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-border="base:all(x.25 solid secondary.darker)"
             data-h2-radius="base(circle)"
           />
           <div
             data-h2-height="base(x25)"
             data-h2-width="base(x25)"
-            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-border="base:all(x.25 solid secondary.darker)"
             data-h2-radius="base(circle)"
             data-h2-position="base(center)"
           />
           <div
             data-h2-height="base(x20)"
             data-h2-width="base(x20)"
-            data-h2-border="base(x.25 solid secondary.darker)"
+            data-h2-border="base:all(x.25 solid secondary.darker)"
             data-h2-radius="base(circle)"
             data-h2-position="base(center)"
           >
@@ -133,19 +133,26 @@ const Hero = ({
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(3, relative)"
         >
-          <div data-h2-color="base(white)" {...textAlignment}>
+          <div
+            data-h2-color="base:all(white)"
+            {...textAlignment}
+            {...(showImg && {
+              "data-h2-margin-right": "l-tablet(x18)",
+            })}
+          >
             <Heading
               ref={headingRef}
               tabIndex={-1}
               data-h2-outline="base(none)"
               level="h1"
+              size="h2"
               data-h2-margin="base(0)"
             >
               {title}
             </Heading>
             {subtitle && (
               <p
-                data-h2-font-size="base(h4, 1.4)"
+                data-h2-font-size="base(h5, 1.4)"
                 data-h2-margin="base(x1, 0, 0, 0)"
               >
                 {subtitle}

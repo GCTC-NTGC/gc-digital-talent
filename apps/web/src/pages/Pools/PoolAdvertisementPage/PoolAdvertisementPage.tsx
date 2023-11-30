@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
-import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
@@ -15,7 +15,6 @@ import {
   Heading,
   Pill,
   Link,
-  StandardAccordionHeader,
   Alert,
 } from "@gc-digital-talent/ui";
 import {
@@ -28,10 +27,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
+import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import {
@@ -61,6 +57,7 @@ import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
+import DeadlineDialog from "./components/DeadlineDialog";
 
 type SectionContent = {
   id: string;
@@ -322,11 +319,13 @@ export const PoolPoster = ({
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
-                data-h2-margin="base(0, 0, x1, 0)"
                 data-h2-flex-wrap="base(wrap)"
               >
                 <div data-h2-flex-grow="base(1)">
-                  <TableOfContents.Heading data-h2-margin="base(0)">
+                  <TableOfContents.Heading
+                    size="h3"
+                    data-h2-margin="base(0, 0, x1, 0)"
+                  >
                     {sections.summary.title}
                   </TableOfContents.Heading>
                 </div>
@@ -337,43 +336,41 @@ export const PoolPoster = ({
                   {applyBtn}
                 </div>
               </div>
-              <Accordion.Root mode="simple" type="single" collapsible>
+              <Accordion.Root size="sm" type="single" collapsible>
                 <Accordion.Item value="when">
-                  <StandardAccordionHeader>
+                  <Accordion.Trigger>
                     {intl.formatMessage({
                       defaultMessage: "What are pool recruitments?",
                       id: "KYFarS",
                       description:
                         "Title for accordion describing pool recruitments",
                     })}
-                  </StandardAccordionHeader>
+                  </Accordion.Trigger>
                   <Accordion.Content>
-                    <div data-h2-margin-top="base(x1)">
-                      <Text>
-                        {intl.formatMessage({
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
+                        id: "kH4Jsf",
+                        description:
+                          "Description of pool recruitment, paragraph one",
+                      })}
+                    </Text>
+                    <Text>
+                      {intl.formatMessage(
+                        {
                           defaultMessage:
-                            "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                          id: "kH4Jsf",
+                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
+                          id: "7b0U9u",
                           description:
-                            "Description of pool recruitment, paragraph one",
-                        })}
-                      </Text>
-                      <Text>
-                        {intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
-                            id: "7b0U9u",
-                            description:
-                              "Description of pool recruitment, paragraph two",
-                          },
-                          {
-                            abbreviation: (text: React.ReactNode) =>
-                              wrapAbbr(text, intl),
-                          },
-                        )}
-                      </Text>
-                    </div>
+                            "Description of pool recruitment, paragraph two",
+                        },
+                        {
+                          abbreviation: (text: React.ReactNode) =>
+                            wrapAbbr(text, intl),
+                        },
+                      )}
+                    </Text>
                   </Accordion.Content>
                 </Accordion.Item>
                 {genericJobTitles.length ? (
@@ -405,19 +402,37 @@ export const PoolPoster = ({
                   }
                 />
                 <DataRow
-                  Icon={CalendarDaysIcon}
+                  Icon={CalendarIcon}
                   label={intl.formatMessage({
-                    defaultMessage: "Apply before:",
-                    id: "NSois3",
+                    defaultMessage: "Deadline:",
+                    id: "l9CTjM",
                     description: "Label for pool advertisement closing date",
                   })}
                   value={
                     pool.closingDate
-                      ? relativeClosingDate({
-                          closingDate: parseDateTimeUtc(pool.closingDate),
-                          intl,
-                        })
+                      ? intl.formatMessage(
+                          {
+                            defaultMessage: "Apply on or before {closingDate}",
+                            id: "LjYzkS",
+                            description:
+                              "Message to apply to the pool before deadline",
+                          },
+                          {
+                            closingDate: formatDate({
+                              date: parseDateTimeUtc(pool.closingDate),
+                              formatString: "PPP",
+                              intl,
+                            }),
+                          },
+                        )
                       : notAvailable
+                  }
+                  suffix={
+                    pool.closingDate ? (
+                      <DeadlineDialog
+                        deadline={parseDateTimeUtc(pool.closingDate)}
+                      />
+                    ) : null
                   }
                 />
                 <DataRow
@@ -471,11 +486,14 @@ export const PoolPoster = ({
             )}
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.impactTasks.title}
                 </TableOfContents.Heading>
                 {pool.yourImpact && (
-                  <div data-h2-margin-top="base(x1)">
+                  <div>
                     <RichTextRenderer
                       node={htmlToRichTextJSON(
                         getLocalizedName(pool.yourImpact, intl),
@@ -485,7 +503,12 @@ export const PoolPoster = ({
                 )}
                 {pool.keyTasks && (
                   <>
-                    <Heading level="h3" size="h4">
+                    <Heading
+                      level="h3"
+                      size="h4"
+                      data-h2-font-weight="base(700)"
+                      data-h2-margin="base(x3, 0, x1, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage: "Common tasks in this role",
                         id: "ATO0GK",
@@ -505,10 +528,18 @@ export const PoolPoster = ({
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.experienceSkills.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.experienceSkills.title}
               </TableOfContents.Heading>
-              <Heading level="h3" size="h4">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Minimum experience or education",
                   id: "v6boy9",
@@ -532,7 +563,12 @@ export const PoolPoster = ({
                 isIAP={pool.publishingGroup === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
-              <Heading level="h3" size="h4">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
                   id: "706kTz",
@@ -549,7 +585,11 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
               </Text>
-              <Heading level="h4" size="h6">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Required technical skills",
                   id: "9V8bnL",
@@ -557,7 +597,7 @@ export const PoolPoster = ({
                     "Title for required technical skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "The following skills are essential to this role and must be demonstrated as a part of your application.",
@@ -565,7 +605,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how required technical skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={essentialSkills.TECHNICAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -576,7 +616,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required technical skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Optional technical skills",
                   id: "CzrCfC",
@@ -584,7 +628,7 @@ export const PoolPoster = ({
                     "Title for optional technical skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
@@ -592,7 +636,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how optional technical skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={nonEssentialSkills.TECHNICAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -603,7 +647,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no optional technical skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Required behavioural skills",
                   id: "t9HxQm",
@@ -611,7 +659,7 @@ export const PoolPoster = ({
                     "Title for required behavioural skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "The following skills are required for this role, but aren't required as a part of your application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
@@ -619,7 +667,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how required behavioural skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={essentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -630,7 +678,11 @@ export const PoolPoster = ({
                     "Message displayed when a pool advertisement has no required behavioural skills",
                 })}
               />
-              <Heading level="h4" size="h6">
+              <Heading
+                level="h4"
+                size="h6"
+                data-h2-margin="base(x2, 0, x.5, 0)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Optional behavioural skills",
                   id: "LeVJmQ",
@@ -638,7 +690,7 @@ export const PoolPoster = ({
                     "Title for optional behavioural skills section of a pool advertisement",
                 })}
               </Heading>
-              <Text>
+              <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
@@ -646,7 +698,7 @@ export const PoolPoster = ({
                   description:
                     "Descriptive text about how optional behavioural skills are used in the application process",
                 })}
-              </Text>
+              </p>
               <SkillAccordion
                 skills={nonEssentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
                 nullMessage={intl.formatMessage({
@@ -659,7 +711,10 @@ export const PoolPoster = ({
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.locationLangSecurity.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.locationLangSecurity.title}
               </TableOfContents.Heading>
               <Text>
@@ -750,7 +805,10 @@ export const PoolPoster = ({
             </TableOfContents.Section>
             {contactEmail && (
               <TableOfContents.Section id={sections.contact.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.contact.title}
                 </TableOfContents.Heading>
                 <Text>
@@ -773,7 +831,10 @@ export const PoolPoster = ({
             )}
             {showWhatToExpect && (
               <TableOfContents.Section id={sections.whatToExpect.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.whatToExpect.title}
                 </TableOfContents.Heading>
                 <div data-h2-margin-top="base(x1)">
@@ -786,7 +847,10 @@ export const PoolPoster = ({
               </TableOfContents.Section>
             )}
             <TableOfContents.Section id={sections.whoCanApply.id}>
-              <TableOfContents.Heading>
+              <TableOfContents.Heading
+                size="h3"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
                 {sections.whoCanApply.title}
               </TableOfContents.Heading>
               <Text>
@@ -808,7 +872,10 @@ export const PoolPoster = ({
             </TableOfContents.Section>
             {canApply && (
               <TableOfContents.Section id={sections.apply.id}>
-                <TableOfContents.Heading>
+                <TableOfContents.Heading
+                  size="h3"
+                  data-h2-margin="base(x3, 0, x1, 0)"
+                >
                   {sections.apply.title}
                 </TableOfContents.Heading>
                 <Text>

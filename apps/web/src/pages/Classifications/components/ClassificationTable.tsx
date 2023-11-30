@@ -2,6 +2,7 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -16,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Classification>();
 
@@ -41,6 +43,7 @@ export const ClassificationTable = ({
       meta: {
         isRowTitle: true,
       },
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Name",
         id: "HUCIzc",
@@ -104,6 +107,9 @@ export const ClassificationTable = ({
 
   const data = classifications.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<Classification>
       caption={title}
@@ -135,6 +141,7 @@ export const ClassificationTable = ({
             description:
               "Heading displayed above the Create Classification form.",
           }),
+          from: currentUrl,
         },
       }}
     />

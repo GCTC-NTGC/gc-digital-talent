@@ -10,6 +10,7 @@ import {
   hasRole,
 } from "@gc-digital-talent/auth";
 import { useLocale } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import NavMenu from "~/components/NavMenu/NavMenu";
@@ -31,7 +32,7 @@ const Layout = () => {
   const paths = useRoutes();
   useLayoutTheme("default");
 
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
 
   const [searchParams] = useSearchParams();
@@ -71,8 +72,9 @@ const Layout = () => {
     </MenuLink>,
   ];
 
-  if (loggedIn && user) {
-    const userRoleNames = user?.roleAssignments?.map((a) => a.role?.name);
+  if (loggedIn && userAuthInfo) {
+    const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+    const userRoleNames = roleAssignments.map((a) => a.role?.name);
 
     if (
       [
@@ -101,7 +103,7 @@ const Layout = () => {
       </SignOutConfirmation>,
     ];
 
-    if (hasRole(ROLE_NAME.Applicant, user.roleAssignments)) {
+    if (hasRole(ROLE_NAME.Applicant, userAuthInfo.roleAssignments)) {
       authLinks = [
         <MenuLink
           key="profile-applications"
@@ -142,7 +144,7 @@ const Layout = () => {
         data-h2-flex-direction="base(column)"
         data-h2-min-height="base(100vh)"
         data-h2-margin="base(0)"
-        data-h2-color="base(black) base:dark(white)"
+        data-h2-color="base(black)"
       >
         <div>
           <Header />
@@ -150,7 +152,7 @@ const Layout = () => {
           {!iapPersonality ? (
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           ) : (
-            <IAPNavMenu {...{ loggedIn, user }} />
+            <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
           )}
         </div>
         <main id="main">

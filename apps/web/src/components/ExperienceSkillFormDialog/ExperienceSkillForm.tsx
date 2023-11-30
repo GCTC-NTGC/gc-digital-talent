@@ -7,7 +7,6 @@ import {
   Button,
   Heading,
   Accordion,
-  StandardAccordionHeader,
   Well,
 } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
@@ -184,7 +183,7 @@ const ExperienceSkillForm = ({
             label: getExperienceName(experienceOption, intl),
           }))}
         />
-        <Heading level="h2" size="h6">
+        <Heading level="h2" size="h6" data-h2-margin="base(x2, 0, x.5, 0)">
           {intl.formatMessage({
             defaultMessage:
               "Describe how this skill applied to this experience",
@@ -200,22 +199,19 @@ const ExperienceSkillForm = ({
             description: "Instructions on how to describe a skill",
           })}
         </p>
-        <div data-h2-margin="base(x1 0)">
-          <Accordion.Root type="single" collapsible mode="simple">
+        <div data-h2-margin="base(x.5, 0)">
+          <Accordion.Root type="single" size="sm" collapsible>
             <Accordion.Item value="skillQuestions">
-              <StandardAccordionHeader
-                headingAs="h3"
-                titleProps={{ "data-h2-font-size": "base(copy)" }}
-              >
+              <Accordion.Trigger as="h3">
                 {intl.formatMessage({
                   defaultMessage: "How to best describe a skill experience",
                   id: "1/Q9jX",
                   description:
                     "Title for instructions on how to describe a skill",
                 })}
-              </StandardAccordionHeader>
+              </Accordion.Trigger>
               <Accordion.Content>
-                <ul>
+                <ul data-h2-padding="base(0, 0, 0, x1)">
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
@@ -280,50 +276,58 @@ const ExperienceSkillForm = ({
           />
         )}
         <Dialog.Footer>
-          <Dialog.Close>
-            <Button type="button" mode="inline" color="secondary">
-              {intl.formatMessage(formMessages.cancelGoBack)}
-            </Button>
-          </Dialog.Close>
-          {defaultValues.experience && (
+          <div
+            data-h2-width="base(100%)"
+            data-h2-display="base(flex)"
+            data-h2-flex-wrap="base(wrap)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x1)"
+          >
             <Button
               type="submit"
-              mode="inline"
-              color="error"
-              disabled={executing || isSubmitting}
+              mode="solid"
+              color="primary"
+              disabled={isSubmitting}
               {...actionProps}
-              onClick={() => setValue("action", "remove")}
+              onClick={() => setValue("action", "connect")}
             >
-              {intl.formatMessage({
-                defaultMessage: "Remove this experience",
-                id: "1G1iMu",
-                description:
-                  "Button to remove the link between experience and skill",
-              })}
+              {defaultValues.experience
+                ? intl.formatMessage({
+                    defaultMessage: "Update this experience",
+                    id: "AANjDd",
+                    description:
+                      "Button to submit the link experience to skill form",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Add this experience",
+                    id: "W+T8Mm",
+                    description:
+                      "Button to submit the link experience to skill form",
+                  })}
             </Button>
-          )}
-          <Button
-            type="submit"
-            mode="solid"
-            color="primary"
-            disabled={isSubmitting}
-            {...actionProps}
-            onClick={() => setValue("action", "connect")}
-          >
-            {defaultValues.experience
-              ? intl.formatMessage({
-                  defaultMessage: "Update this experience",
-                  id: "AANjDd",
+            <Dialog.Close>
+              <Button type="button" mode="inline" color="secondary">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
+            {defaultValues.experience && (
+              <Button
+                type="submit"
+                mode="inline"
+                color="error"
+                disabled={executing || isSubmitting}
+                {...actionProps}
+                onClick={() => setValue("action", "remove")}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Remove this experience",
+                  id: "1G1iMu",
                   description:
-                    "Button to submit the link experience to skill form",
-                })
-              : intl.formatMessage({
-                  defaultMessage: "Add this experience",
-                  id: "W+T8Mm",
-                  description:
-                    "Button to submit the link experience to skill form",
+                    "Button to remove the link between experience and skill",
                 })}
-          </Button>
+              </Button>
+            )}
+          </div>
         </Dialog.Footer>
       </form>
     </FormProvider>

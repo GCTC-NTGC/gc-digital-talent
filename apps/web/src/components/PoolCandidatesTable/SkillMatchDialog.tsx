@@ -1,26 +1,71 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
-import { Experience, Maybe, Skill } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Maybe, Skill } from "@gc-digital-talent/graphql";
+import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
+import { Scalars, useGetSkillMatchDialogDataQuery } from "~/api/generated";
+
+interface SkillMatchDialogBodyProps {
+  intl: IntlShape;
+  filteredSkills: Skill[];
+  userId: Scalars["ID"];
+}
+
+const SkillMatchDialogBody = ({
+  intl,
+  filteredSkills,
+  userId,
+}: SkillMatchDialogBodyProps) => {
+  const [{ data, fetching, error }] = useGetSkillMatchDialogDataQuery({
+    variables: {
+      id: userId,
+    },
+  });
+  const experiences = data?.user?.experiences?.filter(notEmpty) ?? [];
+
+  return (
+    <Pending fetching={fetching} error={error} inline>
+      {filteredSkills.map((skill) => (
+        <SkillTree
+          key={skill.id}
+          headingAs="h3"
+          skill={skill}
+          experiences={experiences}
+          showDisclaimer
+          disclaimerMessage={intl.formatMessage({
+            defaultMessage: "There are no experiences attached to this skill",
+            id: "pJqoQF",
+            description:
+              "Disclaimer displayed in the skill tree on the skill match dialog.",
+          })}
+          hideConnectButton
+          hideEdit
+        />
+      ))}
+    </Pending>
+  );
+};
 
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
-  experiences: Experience[];
   skillsCount: Maybe<number>;
+  userId: Scalars["ID"];
   poolCandidateName: string;
 }
 
 const SkillMatchDialog = ({
   filteredSkills,
-  experiences,
   skillsCount,
+  userId,
   poolCandidateName,
 }: SkillMatchDialogProps) => {
   const intl = useIntl();
   const filteredSkillsTotal = filteredSkills.length;
+
+  const [isOpen, setOpen] = React.useState(false);
 
   if (filteredSkills.length === 0)
     return (
@@ -45,7 +90,7 @@ const SkillMatchDialog = ({
     );
 
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button
           color="black"
@@ -86,24 +131,13 @@ const SkillMatchDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          {filteredSkills.map((skill) => (
-            <SkillTree
-              key={skill.id}
-              headingAs="h3"
-              skill={skill}
-              experiences={experiences}
-              showDisclaimer
-              disclaimerMessage={intl.formatMessage({
-                defaultMessage:
-                  "There are no experiences attached to this skill",
-                id: "pJqoQF",
-                description:
-                  "Disclaimer displayed in the skill tree on the skill match dialog.",
-              })}
-              hideConnectButton
-              hideEdit
+          {isOpen && (
+            <SkillMatchDialogBody
+              intl={intl}
+              filteredSkills={filteredSkills}
+              userId={userId}
             />
-          ))}
+          )}
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
             <Dialog.Close>
               <Button color="secondary" mode="inline">
@@ -124,15 +158,15 @@ const SkillMatchDialog = ({
 
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
-  experiences: Experience[],
   skillCount: Maybe<number>,
+  userId: Scalars["ID"],
   poolCandidateName: string,
 ) {
   return (
     <SkillMatchDialog
       filteredSkills={filteredSkills}
-      experiences={experiences}
       skillsCount={skillCount}
+      userId={userId}
       poolCandidateName={poolCandidateName}
     />
   );

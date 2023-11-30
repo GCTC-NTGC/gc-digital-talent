@@ -11,13 +11,13 @@ type Layout = "compact" | "hero";
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
   black: {
-    "data-h2-color": "base(black.light) base:hover(primary)",
+    "data-h2-color": "base(black.light)",
   },
   error: {
-    "data-h2-color": "base(error)",
+    "data-h2-color": "base(error.dark)",
   },
   success: {
-    "data-h2-color": "base(success)",
+    "data-h2-color": "base(success.dark)",
   },
   warning: {
     "data-h2-color": "base(warning.dark)",

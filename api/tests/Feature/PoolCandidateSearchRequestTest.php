@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolCandidateSearchPositionType;
+use App\Enums\PoolCandidateSearchRequestReason;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
@@ -41,6 +42,7 @@ class PoolCandidateSearchRequestTest extends TestCase
             'jobTitle' => 'Job Title',
             'managerJobTitle' => 'Manager',
             'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
+            'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
         ];
 
         return array_merge($defaultInput, $additionalInput);
@@ -78,7 +80,7 @@ class PoolCandidateSearchRequestTest extends TestCase
     {
         $this->seed(DepartmentSeeder::class);
         $departmentId = Department::inRandomOrder()->first()->id;
-        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
+        $errorMessage = "Variable \"\$input\" got invalid value {\"fullName\":\"Test\",\"email\":\"test@domain.com\",\"jobTitle\":\"Job Title\",\"managerJobTitle\":\"Manager\",\"positionType\":\"INDIVIDUAL_CONTRIBUTOR\",\"reason\":\"GENERAL_INTEREST\",\"department\":{\"connect\":\"$departmentId\"}}; Field \"applicantFilter\" of required type \"ApplicantFilterBelongsTo!\" was not provided.";
 
         $this->runCreateMutation([
             'department' => [
@@ -187,10 +189,10 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         // test viewing collection of search requests
         $this->actingAs($baseUser, 'api')
-            ->graphQL('query { poolCandidateSearchRequests { id } }')
+            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $this->actingAs($requestResponder, 'api')
-            ->graphQL('query { poolCandidateSearchRequests { id } }')
+            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
             ->assertJsonFragment(['id' => $searchRequest1->id]);
 
         // test updating a search request

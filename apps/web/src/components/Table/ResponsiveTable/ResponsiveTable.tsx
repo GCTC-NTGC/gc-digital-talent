@@ -10,8 +10,9 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import isEmpty from "lodash/isEmpty";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
@@ -24,7 +25,7 @@ import RowSelection, {
   rowSelectCell,
 } from "./RowSelection";
 import useControlledTableState, {
-  useTableStateFromSearchParams,
+  getTableStateFromSearchParams,
 } from "./useControlledTableState";
 import TablePagination from "./TablePagination";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
@@ -32,6 +33,7 @@ import type {
   AddDef,
   DatasetDownload,
   DatasetPrint,
+  FilterDef,
   PaginationDef,
   RowSelectDef,
   SearchDef,
@@ -40,7 +42,7 @@ import type {
 } from "./types";
 import { getColumnHeader, sortingStateToOrderByClause } from "./utils";
 
-interface TableProps<TData> {
+interface TableProps<TData, TFilters> {
   /** Accessible name for the table */
   caption: React.ReactNode;
   /** Data to be displayed within the table */
@@ -69,13 +71,12 @@ interface TableProps<TData> {
   download?: DatasetDownload;
   /** Enable the "add item" button */
   add?: AddDef;
-  /** Filter component */
-  filterComponent?: React.ReactNode;
+  filter?: FilterDef<TFilters>;
   /** Should this sync state in the URL? */
   urlSync?: boolean;
 }
 
-const ResponsiveTable = <TData extends object>({
+const ResponsiveTable = <TData extends object, TFilters = object>({
   caption,
   data,
   columns,
@@ -90,9 +91,9 @@ const ResponsiveTable = <TData extends object>({
   print,
   add,
   pagination,
-  filterComponent,
+  filter,
   urlSync = true,
-}: TableProps<TData>) => {
+}: TableProps<TData, TFilters>) => {
   const id = React.useId();
   const intl = useIntl();
   const [, setSearchParams] = useSearchParams();
@@ -104,19 +105,17 @@ const ResponsiveTable = <TData extends object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = useRowSelection<TData>(
-    data,
-    rowSelect,
-  );
-  const { state, initialState, updaters } = useControlledTableState({
-    columnIds,
-    initialState: {
-      hiddenColumnIds,
-      searchState: search?.initialState,
-      sortState: sort?.initialState,
-      paginationState: pagination?.initialState,
-    },
-  });
+  const [rowSelection, setRowSelection] = useRowSelection<TData>(rowSelect);
+  const { state, initialState, initialParamState, updaters } =
+    useControlledTableState({
+      columnIds,
+      initialState: {
+        hiddenColumnIds,
+        searchState: search?.initialState,
+        sortState: sort?.initialState,
+        paginationState: pagination?.initialState,
+      },
+    });
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
@@ -129,10 +128,13 @@ const ResponsiveTable = <TData extends object>({
   const table = useReactTable({
     data,
     columns: memoizedColumns,
+    initialState,
     state: {
       ...state,
       rowSelection,
     },
+    getRowId: rowSelect?.getRowId,
+    autoResetPageIndex: false,
     enableGlobalFilter: isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
@@ -164,90 +166,99 @@ const ResponsiveTable = <TData extends object>({
   } = table.getState();
 
   React.useEffect(() => {
-    let searchState: SearchState = {
-      term: String(globalFilterState),
-    };
-    if (columnFilterState.length) {
-      searchState = {
-        term: String(columnFilterState[0].value),
-        type: columnFilterState[0].id,
-      };
-    }
-
-    const newHiddenIds = Object.keys(columnVisibilityState)
-      .map((colId) => (columnVisibilityState[colId] ? undefined : colId))
-      .filter(notEmpty);
-
     if (urlSync) {
-      setSearchParams(
-        (previous) => {
-          const newParams = new URLSearchParams(previous);
+      const currentParams = new URLSearchParams(window.location.search);
+      const newParams = new URLSearchParams(window.location.search);
 
-          if (isEqual(sortingState, sort?.initialState ?? [])) {
-            newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.SORT_RULE,
-              JSON.stringify(sortingState),
-            );
-          }
+      let searchState: SearchState = {
+        term: String(globalFilterState),
+      };
+      if (columnFilterState.length) {
+        searchState = {
+          term: String(columnFilterState[0].value),
+          type: columnFilterState[0].id,
+        };
+      }
 
-          if (isEqual(hiddenColumnIds, newHiddenIds)) {
-            newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
-              newHiddenIds.join(","),
-            );
-          }
+      const newHiddenIds = Object.keys(columnVisibilityState)
+        .map((colId) => (columnVisibilityState[colId] ? undefined : colId))
+        .filter(notEmpty);
 
-          if (paginationState.pageSize === pagination?.initialState?.pageSize) {
-            newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.PAGE_SIZE,
-              String(paginationState.pageSize),
-            );
-          }
+      const initialSortState = sort?.initialState ?? INITIAL_STATE.sortState;
+      if (isEqual(sortingState, initialSortState) || isEmpty(sortingState)) {
+        newParams.delete(SEARCH_PARAM_KEY.SORT_RULE);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.SORT_RULE, JSON.stringify(sortingState));
+      }
 
-          if (
-            paginationState.pageIndex === pagination?.initialState?.pageIndex
-              ? pagination.initialState.pageIndex + 1
-              : 0
-          ) {
-            newParams.delete(SEARCH_PARAM_KEY.PAGE);
-          } else {
-            newParams.set(
-              SEARCH_PARAM_KEY.PAGE,
-              String(paginationState.pageIndex + 1),
-            );
-          }
+      if (isEqual(hiddenColumnIds, newHiddenIds) || isEmpty(newHiddenIds)) {
+        newParams.delete(SEARCH_PARAM_KEY.HIDDEN_COLUMNS);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.HIDDEN_COLUMNS, newHiddenIds.join(","));
+      }
 
-          if (isEqual(search?.initialState, searchState)) {
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
-          } else if (columnFilterState.length > 0) {
-            newParams.set(
-              SEARCH_PARAM_KEY.SEARCH_COLUMN,
-              columnFilterState[0].id,
-            );
-            newParams.set(
-              SEARCH_PARAM_KEY.SEARCH_TERM,
-              String(columnFilterState[0].value),
-            );
-          } else {
-            newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
-            if (globalFilterState) {
-              newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
-            } else {
-              newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
-            }
-          }
+      const initialPageSize =
+        pagination?.initialState?.pageSize ??
+        INITIAL_STATE.paginationState.pageSize;
+      if (paginationState.pageSize === initialPageSize) {
+        newParams.delete(SEARCH_PARAM_KEY.PAGE_SIZE);
+      } else {
+        newParams.set(
+          SEARCH_PARAM_KEY.PAGE_SIZE,
+          String(paginationState.pageSize),
+        );
+      }
 
-          return newParams;
-        },
-        { replace: true },
-      );
+      const initialPageIndex =
+        pagination?.initialState?.pageIndex ??
+        INITIAL_STATE.paginationState.pageIndex;
+      if (paginationState.pageIndex === initialPageIndex) {
+        newParams.delete(SEARCH_PARAM_KEY.PAGE);
+      } else {
+        newParams.set(
+          SEARCH_PARAM_KEY.PAGE,
+          String(paginationState.pageIndex + 1),
+        );
+      }
+
+      const initialSearchState =
+        search?.initialState ?? INITIAL_STATE.searchState;
+      if (isEqual(initialSearchState, searchState)) {
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+      } else if (columnFilterState.length > 0) {
+        newParams.set(SEARCH_PARAM_KEY.SEARCH_COLUMN, columnFilterState[0].id);
+        newParams.set(
+          SEARCH_PARAM_KEY.SEARCH_TERM,
+          String(columnFilterState[0].value),
+        );
+      } else {
+        newParams.delete(SEARCH_PARAM_KEY.SEARCH_COLUMN);
+        if (globalFilterState) {
+          newParams.set(SEARCH_PARAM_KEY.SEARCH_TERM, globalFilterState);
+        } else {
+          newParams.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+        }
+      }
+
+      if (
+        empty(filter?.state) ||
+        isEmpty(filter?.state) ||
+        isEqual(filter?.initialState, filter?.state)
+      ) {
+        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+      } else {
+        newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
+      }
+
+      if (
+        !isEqual(
+          Object.fromEntries(currentParams),
+          Object.fromEntries(newParams),
+        )
+      ) {
+        setSearchParams(newParams, { replace: true });
+      }
     }
   }, [
     sortingState,
@@ -262,6 +273,8 @@ const ResponsiveTable = <TData extends object>({
     pagination?.initialState?.pageSize,
     pagination?.initialState?.pageIndex,
     urlSync,
+    filter?.state,
+    filter?.initialState,
   ]);
 
   React.useEffect(() => {
@@ -271,7 +284,7 @@ const ResponsiveTable = <TData extends object>({
   }, [sortingState, sort?.onSortChange, sort]);
 
   const hasNoData = !isLoading && (!data || data.length === 0);
-  const hasNoVisibleRows = table.getRowModel().rows.length <= 0;
+  const hasNoVisibleRows = !isLoading && table.getRowModel().rows.length <= 0;
   const captionId = `${id}-caption`;
   const hidableColumns = table
     .getAllLeafColumns()
@@ -289,12 +302,12 @@ const ResponsiveTable = <TData extends object>({
           <SearchForm
             id={`${id}-search`}
             table={table}
-            state={initialState.searchState}
+            state={initialParamState.searchState}
             searchBy={searchColumns}
             {...search}
           />
         )}
-        {filterComponent && <Table.Control>{filterComponent}</Table.Control>}
+        {filter?.component && <Table.Control>{filter.component}</Table.Control>}
         {hidableColumns.length > 0 ? (
           <Table.Control>
             <ColumnDialog table={table} />
@@ -358,7 +371,7 @@ const ResponsiveTable = <TData extends object>({
 
 export default ResponsiveTable;
 export {
-  useTableStateFromSearchParams,
+  getTableStateFromSearchParams,
   rowSelectCell,
   sortingStateToOrderByClause,
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
+import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
 import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -102,8 +102,8 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         >
           <Heading
             level={headingLevel}
-            size="h2"
-            data-h2-font-size="base(h4, 1.2)"
+            size="h5"
+            data-h2-font-weight="base(700)"
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             data-h2-padding-left="base(x4.5) p-tablet(0)"
             data-h2-hyphens="base(auto)"
@@ -127,19 +127,28 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-margin-top="base(x1) base:children[>p:last-child](x1) l-tablet:children[>p:last-child](0px)"
         >
           <IconLabel
-            icon={CalendarDaysIcon}
+            icon={CalendarIcon}
             label={intl.formatMessage({
-              id: "Gp+70V",
-              defaultMessage: "Apply by: ",
-              description: "Label for the pool expiry date",
+              defaultMessage: "Deadline:",
+              id: "l9CTjM",
+              description: "Label for pool advertisement closing date",
             })}
           >
             {pool.closingDate
-              ? formatDate({
-                  date: parseDateTimeUtc(pool.closingDate),
-                  formatString: "PPP p",
-                  intl,
-                })
+              ? intl.formatMessage(
+                  {
+                    defaultMessage: "Apply on or before {closingDate}",
+                    id: "LjYzkS",
+                    description: "Message to apply to the pool before deadline",
+                  },
+                  {
+                    closingDate: formatDate({
+                      date: parseDateTimeUtc(pool.closingDate),
+                      formatString: "PPP",
+                      intl,
+                    }),
+                  },
+                )
               : intl.formatMessage({
                   defaultMessage: "(To be determined)",
                   description:
@@ -160,7 +169,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </IconLabel>
         </div>
         <div data-h2-margin-top="base(x1)">
-          <div data-h2-margin-bottom="base(x.5)">
+          <div data-h2-margin-bottom="base(x.25)">
             <IconLabel
               icon={BoltIcon}
               label={intl.formatMessage({

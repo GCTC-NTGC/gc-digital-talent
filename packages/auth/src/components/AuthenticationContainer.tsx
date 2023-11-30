@@ -1,7 +1,7 @@
 // Note: We need snake case for tokens
 /* eslint-disable camelcase */
 import React, { useEffect, useMemo, useState } from "react";
-import jwtDecode, { JwtPayload } from "jwt-decode";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { defaultLogger } from "@gc-digital-talent/logger";
 

@@ -30,7 +30,12 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
 
   return (
     <div data-h2-margin="l-tablet(0, 0, 0, auto)">
-      <Link mode="inline" href={paths.application(application.id)}>
+      <Link
+        mode="inline"
+        fontSize="caption"
+        color="black"
+        href={paths.application(application.id)}
+      >
         {intl.formatMessage(
           {
             defaultMessage: "Continue this application<hidden> {name}</hidden>",
@@ -62,7 +67,8 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
     <Link
       href={paths.application(application.id)}
       mode="inline"
-      data-h2-font-size="base(caption)"
+      fontSize="caption"
+      color="black"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review your application to the {title} job",
@@ -73,7 +79,6 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
           title,
         },
       )}
-      data-h2-color="base(black.light)"
     >
       {intl.formatMessage(
         {
@@ -109,8 +114,8 @@ const SeeAdvertisementAction = ({
     <Link
       mode="inline"
       href={paths.pool(advertisement.id)}
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Review the {title} job advertisement",
@@ -150,9 +155,10 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
   return (
     <Link
       href={paths.support()}
+      state={{ referrer: window.location.href }}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Get support for the {title} job",
@@ -190,8 +196,8 @@ const CopyApplicationIdAction = ({
   return (
     <Button
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
@@ -264,8 +270,8 @@ const VisitCareerTimelineAction = ({
     <Link
       href={recruitmentSectionUrl}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Manage the {title} recruitment",
@@ -309,8 +315,8 @@ const ManageAvailabilityAction = ({
     <Link
       href={paths.profile(userID)}
       mode="inline"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
+      color="black"
+      fontSize="caption"
       aria-label={intl.formatMessage(
         {
           defaultMessage:
@@ -353,8 +359,8 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <Button
           mode="inline"
           type="button"
-          data-h2-color="base(error.dark)"
-          data-h2-font-size="base(caption)"
+          color="error"
+          fontSize="caption"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Delete your application to the {title} job",
@@ -427,96 +433,10 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
   );
 };
 
-interface ArchiveActionProps extends ActionProps {
-  application: Application;
-  onArchive: () => void;
-}
-
-const ArchiveAction = ({
-  show,
-  application,
-  onArchive,
-}: ArchiveActionProps) => {
-  const intl = useIntl();
-
-  if (!show) {
-    return null;
-  }
-
-  const name = getFullPoolTitleHtml(intl, application.pool);
-
-  return (
-    <AlertDialog.Root>
-      <AlertDialog.Trigger>
-        <Button mode="inline" type="button" color="secondary">
-          {intl.formatMessage(
-            {
-              defaultMessage: "Archive<hidden> application {name}</hidden>",
-              id: "6B7e8/",
-              description: "Link text to continue a specific application",
-            },
-            {
-              name,
-            },
-          )}
-        </Button>
-      </AlertDialog.Trigger>
-      <AlertDialog.Content>
-        <AlertDialog.Title>
-          {intl.formatMessage({
-            defaultMessage: "Archive Application",
-            id: "yiJYdP",
-            description:
-              "Title for the modal that appears when a user attempts to archive an application",
-          })}
-        </AlertDialog.Title>
-        <AlertDialog.Description>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Are you sure you would like to archive application {name}?",
-              id: "Z0PCOW",
-              description:
-                "Question displayed when user attempts to archive an application",
-            },
-            { name },
-          )}
-        </AlertDialog.Description>
-        <AlertDialog.Footer>
-          <AlertDialog.Cancel>
-            <Button color="primary" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "r6DZ71",
-                description: "Link text to cancel archiving application.",
-              })}
-            </Button>
-          </AlertDialog.Cancel>
-          <AlertDialog.Action>
-            <Button
-              mode="solid"
-              color="secondary"
-              type="button"
-              onClick={onArchive}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Archive",
-                id: "PXfQOZ",
-                description: "Link text to archive application.",
-              })}
-            </Button>
-          </AlertDialog.Action>
-        </AlertDialog.Footer>
-      </AlertDialog.Content>
-    </AlertDialog.Root>
-  );
-};
-
 export default {
   ContinueAction,
   SeeAdvertisementAction,
   DeleteAction,
-  ArchiveAction,
   SupportAction,
   ViewAction,
   CopyApplicationIdAction,

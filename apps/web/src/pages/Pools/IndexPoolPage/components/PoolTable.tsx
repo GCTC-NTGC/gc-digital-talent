@@ -3,7 +3,7 @@ import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
@@ -11,7 +11,6 @@ import {
   getLocalizedName,
   getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 import { Pool, useAllPoolsQuery } from "~/api/generated";
@@ -19,6 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import {
   classificationAccessor,
@@ -52,6 +52,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Pool Name",
         id: "HocLRh",
@@ -72,6 +73,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         ),
       {
         id: "publishingGroup",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Publishing group",
           id: "rYgaTA",
@@ -97,6 +99,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         ),
       {
         id: "status",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Status",
           id: "ioqFVF",
@@ -129,6 +132,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "fCXZ4R",
           description: "Title displayed for the Pool table Team column",
         }),
+        sortingFn: normalizedText,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
             paths.teamView(pool.team?.id ? pool.team?.id : ""),

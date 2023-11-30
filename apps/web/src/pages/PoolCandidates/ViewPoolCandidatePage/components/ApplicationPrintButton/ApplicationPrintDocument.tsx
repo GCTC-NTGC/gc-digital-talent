@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  insertBetween,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
@@ -23,7 +27,7 @@ import {
   getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions, unpackMaybes } from "@gc-digital-talent/forms";
+import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   GovEmployeeType,
   OperationalRequirement,
@@ -155,6 +159,10 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
+  const classificationGroup = relevantPoolCandidate?.pool.classifications
+    ? relevantPoolCandidate.pool.classifications[0]?.group
+    : "";
+
   return (
     <div style={{ display: "none" }}>
       <div data-h2 ref={ref}>
@@ -196,6 +204,7 @@ const ApplicationPrintDocument = React.forwardRef<
                       ? intl.formatMessage(
                           getEducationRequirementOption(
                             relevantPoolCandidate.educationRequirementOption,
+                            classificationGroup,
                           ),
                         )
                       : intl.formatMessage(commonMessages.notAvailable)}

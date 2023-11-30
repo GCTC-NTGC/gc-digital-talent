@@ -5,7 +5,8 @@ import { useIntl } from "react-intl";
 import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit, unpackMaybes } from "@gc-digital-talent/forms";
+import { Select, Submit } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
   formMessages,
@@ -180,7 +181,7 @@ export const CreatePoolForm = ({
               />
               <div data-h2-align-self="base(flex-start)">
                 <Submit
-                  color="tertiary"
+                  color="secondary"
                   text={intl.formatMessage({
                     defaultMessage: "Create new pool",
                     id: "TLl20s",
@@ -230,7 +231,9 @@ const CreatePoolPage = () => {
   const userIdQuery = userIdQueryUntyped || "";
 
   const classificationsData = unpackMaybes(lookupData?.classifications);
-  const teamsArray = roleAssignmentsToTeams(lookupData?.me?.roleAssignments);
+  const roleAssignments =
+    unpackMaybes(lookupData?.me?.authInfo?.roleAssignments) ?? [];
+  const teamsArray = roleAssignmentsToTeams(roleAssignments);
 
   const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (

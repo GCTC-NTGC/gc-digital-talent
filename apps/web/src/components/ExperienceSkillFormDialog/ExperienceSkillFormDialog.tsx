@@ -67,7 +67,7 @@ const ExperienceSkillFormDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         {trigger || (
-          <Button icon={PencilSquareIcon} color="secondary" mode="inline">
+          <Button icon={PencilSquareIcon} color="tertiary" mode="inline">
             {intl.formatMessage({
               defaultMessage: "Edit",
               id: "vXwT4K",
@@ -81,7 +81,9 @@ const ExperienceSkillFormDialog = ({
           {intl.formatMessage(
             {
               defaultMessage: "Link an experience to {skillName}",
-              id: "KnvA3d",
+              id: "cP9CaK",
+              description:
+                "Instructional text for connecting an experience with a skill",
             },
             {
               skillName: getLocalizedName(skill?.name, intl),

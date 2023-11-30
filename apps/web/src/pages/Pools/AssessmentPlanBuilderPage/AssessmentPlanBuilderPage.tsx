@@ -1,10 +1,11 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
+  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
@@ -13,10 +14,12 @@ import {
   Link,
   NotFound,
   Pending,
+  Pill,
   Separator,
   Sidebar,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -27,31 +30,45 @@ import {
   useGetAssessmentPlanBuilderDataQuery,
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
+import { routeErrorMessages } from "~/hooks/useErrorMessages";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
-import { getAssessmentPlanStatusPill } from "./utils";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = {
+const pageTitle = defineMessage({
   defaultMessage: "Assessment plan",
   id: "fkYYe3",
   description: "Title for the assessment plan builder",
-};
+});
 
-const pageSubtitle = {
+const pageSubtitle = defineMessage({
   defaultMessage:
     "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every skill is assessed at least once to complete your assessment plan.",
   id: "SSZY5w",
   description: "Subtitle for the assessment plan builder",
-};
+});
 export interface AssessmentPlanBuilderProps {
   pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
+  pageIsLoading: boolean;
 }
 
-export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
+export const AssessmentPlanBuilder = ({
+  pool,
+  pageIsLoading,
+}: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  pool.poolSkills?.sort((a, b) => {
+    const aName = getLocalizedName(a?.skill?.name, intl);
+    const bName = getLocalizedName(b?.skill?.name, intl);
+    return aName.localeCompare(bName);
+  });
+
+  const assessmentStatus = getAssessmentPlanStatus(pool);
+  const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
 
   return (
     <>
@@ -63,7 +80,14 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
         <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
           {intl.formatMessage(pageTitle)}
           <div data-h2-flex-grow="base(2)" />
-          {getAssessmentPlanStatusPill(pool, intl)}
+          <Pill
+            bold
+            mode="outline"
+            color={assessmentBadge.color}
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(assessmentBadge.label)}
+          </Pill>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
         <Separator
@@ -82,7 +106,7 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <OrganizeSection pool={pool} />
+            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
             <Separator
               orientation="horizontal"
@@ -97,13 +121,19 @@ export const AssessmentPlanBuilder = ({ pool }: AssessmentPlanBuilderProps) => {
               data-h2-flex-direction="base(column) l-tablet(row)"
               data-h2-align-items="base(flex-start) l-tablet(center)"
             >
-              {/* TODO: switch to submit button */}
-              {intl.formatMessage({
-                defaultMessage: "Save plan and go back",
-                id: "Rbp02p",
-                description:
-                  "Text on a button to save the assessment plan and return to the pool page",
-              })}
+              <Link
+                mode="solid"
+                color="secondary"
+                href={routes.poolView(pool.id)}
+              >
+                {/* Doesn't actually save anything */}
+                {intl.formatMessage({
+                  defaultMessage: "Save plan and go back",
+                  id: "Rbp02p",
+                  description:
+                    "Text on a button to save the assessment plan and return to the pool page",
+                })}
+              </Link>
               <Link
                 type="button"
                 mode="inline"
@@ -128,6 +158,7 @@ export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const routes = useRoutes();
+  const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -173,27 +204,56 @@ export const AssessmentPlanBuilderPage = () => {
     },
   ];
 
+  // RequireAuth in router can't check team roles
+  const authorizedToSeeThePage: boolean =
+    authorization.roleAssignments?.some(
+      (authorizedRoleAssignment) =>
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+    ) ?? false;
+
+  // figure out what content should be displayed
+  const content = (): React.ReactNode => {
+    if (queryData?.pool && authorizedToSeeThePage) {
+      return (
+        <AssessmentPlanBuilder
+          pool={queryData.pool}
+          pageIsLoading={queryFetching}
+        />
+      );
+    }
+    if (!queryData?.pool) {
+      return (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Pool {poolId} not found.",
+                id: "Sb2fEr",
+                description: "Message displayed for pool not found.",
+              },
+              { poolId },
+            )}
+          </p>
+        </NotFound>
+      );
+    }
+    if (!authorizedToSeeThePage) {
+      // reuse error from routing errors
+      return intl.formatMessage(routeErrorMessages.unauthorizedTitle);
+    }
+
+    // shouldn't drop through to this
+    return intl.formatMessage(errorMessages.unknown);
+  };
+
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={queryFetching} error={queryError}>
-        {queryData?.pool ? (
-          <AssessmentPlanBuilder pool={queryData.pool} />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Pool {poolId} not found.",
-                  id: "Sb2fEr",
-                  description: "Message displayed for pool not found.",
-                },
-                { poolId },
-              )}
-            </p>
-          </NotFound>
-        )}
+      <Pending
+        fetching={queryFetching || !authorization.isLoaded}
+        error={queryError}
+      >
+        {content()}
       </Pending>
     </AdminContentWrapper>
   );

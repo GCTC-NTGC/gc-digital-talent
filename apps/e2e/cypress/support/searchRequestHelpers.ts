@@ -1,3 +1,4 @@
+import { PoolCandidateSearchRequestReason } from "@gc-digital-talent/graphql";
 import {
   PoolCandidateSearchPositionType,
   WorkRegion,
@@ -26,6 +27,7 @@ export function createSearchRequest({
     managerJobTitle: "",
     positionType: PoolCandidateSearchPositionType.IndividualContributor,
     additionalComments: "Cypress additional comments",
+    reason: PoolCandidateSearchRequestReason.GeneralInterest,
     applicantFilter: {
       create: {
         hasDiploma: true,

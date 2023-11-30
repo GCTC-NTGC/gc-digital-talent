@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -11,6 +12,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
 
@@ -28,7 +30,7 @@ export const DepartmentTable = ({
   const columns = [
     columnHelper.accessor("departmentNumber", {
       id: "departmentNumber",
-      filterFn: "equals",
+      filterFn: "weakEquals",
       header: intl.formatMessage({
         defaultMessage: "Department #",
         id: "QOvS1b",
@@ -38,6 +40,7 @@ export const DepartmentTable = ({
     }),
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Name",
         id: "2wmzS1",
@@ -57,6 +60,9 @@ export const DepartmentTable = ({
   ] as ColumnDef<Department>[];
 
   const data = departments.filter(notEmpty);
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   return (
     <Table<Department>
@@ -87,6 +93,7 @@ export const DepartmentTable = ({
             id: "ZbpbD6",
             description: "Heading displayed above the Create Department form.",
           }),
+          from: currentUrl,
         },
       }}
     />

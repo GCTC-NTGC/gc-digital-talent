@@ -41,6 +41,25 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the given skill family key is already in use.",
     },
+    SkillKeyStringInUse: {
+      defaultMessage: "This skill key string is already in use",
+      id: "xSecEX",
+      description: "Error message that the given skill key is already in use.",
+    },
+    DuplicateUserSkill: {
+      defaultMessage:
+        "The skill you selected is already linked to your profile.",
+      id: "wUJqDi",
+      description:
+        "Error message that the skill selected is already linked to the user profile.",
+    },
+
+    // team validation
+    TeamNameInUse: {
+      defaultMessage: "This team name is already in use",
+      id: "ctpoN9",
+      description: "Error message that the given team name is already in use.",
+    },
 
     // department validation
     DepartmentNumberInUse: {
@@ -51,23 +70,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
     },
 
     // application validation
-    AlreadyArchived: {
-      defaultMessage: "Application is already archived.",
-      id: "A+dFlE",
-      description:
-        "Error message that the given application is already archived.",
-    },
     AlreadySubmitted: {
       defaultMessage: "Application is already submitted.",
       id: "76QTNv",
       description:
         "Error message that the given application is already submitted.",
-    },
-    "pool candidates status InvalidValueArchival": {
-      defaultMessage:
-        "This application cannot be archived. You can only archive expired applications.",
-      id: "TjeaLS",
-      description: "Error message that the application cannot be archived.",
     },
     "pool candidates status InvalidValueDeletion": {
       defaultMessage:
@@ -95,12 +102,60 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Error message that the given application must already be submitted.",
     },
 
+    ApplicationDeleteFailed: {
+      defaultMessage: "Error: deleting application failed",
+      id: "M3c9Yo",
+      description:
+        "Message displayed to user after application fails to get deleted.",
+    },
+
+    // assessmentStep updating
+    AssessmentStepsSamePool: {
+      defaultMessage: "AssessmentSteps must belong to the same pool.",
+      id: "XUR5dD",
+      description:
+        "Error message that the assessment steps must belong to the same pool.",
+    },
+    AssessmentStepCannotSwap: {
+      defaultMessage: "One or both of the given steps cannot be swapped.",
+      id: "l+x5JF",
+      description:
+        "Error message that one of the assessment steps cannot have its sort order changed.",
+    },
+    ScreeningQuestionNotExist: {
+      defaultMessage: "Given screening question does not exist.",
+      id: "2bzpLi",
+      description:
+        "Error message that the screening question could not be found.",
+    },
+    PoolSkillNotValid: {
+      defaultMessage: "PoolSkill does not exist for given pool.",
+      id: "Hu321P",
+      description: "Error message that a given pool skill is not valid.",
+    },
+
     // pool updating
     UpdatePoolClosingDate: {
       defaultMessage: "The pool must have a closing date after today.",
       id: "qmEyxS",
       description:
         "Error message that the pool closing date isn't in the future.",
+    },
+
+    // pool archiving
+    ArchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot archive a pool unless it is in the closed status.",
+      id: "7D58wn",
+      description:
+        "Error message when attempting to archive a pool with an invalid status.",
+    },
+    UnarchivePoolInvalidStatus: {
+      defaultMessage:
+        "You cannot un-archive a pool unless it is in the archived status.",
+      id: "hpBnAk",
+      description:
+        "Error message when attempting to un-archive a pool with an invalid status.",
     },
 
     // pool publishing validation
@@ -188,6 +243,20 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the pool advertisement must have publishing group filled.",
     },
+    AssessmentStepMissingSkills: {
+      defaultMessage:
+        "Each assessment must include one or more skills for evaluation",
+      description:
+        "Error message that the pool advertisement assessments are lacking a skill",
+      id: "7QH2G/",
+    },
+    PoolSkillsWithoutAssessments: {
+      defaultMessage: "Each skill must be included in an assessment",
+      description:
+        "Error message that the pool advertisement skills are lacking an assessment",
+      id: "kDw+xr",
+    },
+
     APPLICATION_EXISTS: {
       defaultMessage: "You have already applied to this pool",
       description:

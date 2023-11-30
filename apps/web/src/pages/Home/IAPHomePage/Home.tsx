@@ -8,19 +8,19 @@ import { Link, Pending } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import useQuote from "~/hooks/useQuote";
-import iapHeroImg from "~/assets/img/iap-hero.jpg";
+import iapHeroImg from "~/assets/img/iap-hero.webp";
 import logoImg from "~/assets/img/iap-logo.svg";
-import womanSmiling from "~/assets/img/indigenous-woman-smiling.jpg";
-import feathers from "~/assets/img/feathers.png";
-import manOnComputer from "~/assets/img/man-on-computer.jpg";
-import gloves from "~/assets/img/gloves.png";
-import applicant from "~/assets/img/applicant.jpg";
-import ulu from "~/assets/img/ulu.png";
-import quoteBg from "~/assets/img/quote-bg.jpg";
-import sash from "~/assets/img/sash.jpg";
-import lowerBack from "~/assets/img/lower-back.jpg";
+import womanSmiling from "~/assets/img/indigenous-woman-smiling.webp";
+import feathers from "~/assets/img/feathers.webp";
+import manOnComputer from "~/assets/img/man-on-computer.webp";
+import gloves from "~/assets/img/gloves.webp";
+import applicant from "~/assets/img/applicant.webp";
+import ulu from "~/assets/img/ulu.webp";
+import quoteBg from "~/assets/img/quote-bg.webp";
+import sash from "~/assets/img/sash.webp";
+import lowerBack from "~/assets/img/lower-back.webp";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
-import indigenousWoman from "~/assets/img/indigenous-woman.png";
+import indigenousWoman from "~/assets/img/indigenous-woman.webp";
 import {
   useIapPublishedPoolsQuery,
   PublishingGroup,
@@ -91,17 +91,13 @@ export const Home = ({ latestPool }: HomeProps) => {
             data-h2-width="base(100%)"
             data-h2-order="base(2)"
             src={iapHeroImg}
-            alt={
-              locale
-                ? ""
-                : intl.formatMessage({
-                    defaultMessage:
-                      "Group of Indigenous people standing with a painted hand drum.",
-                    id: "71+GZq",
-                    description:
-                      "Indigenous Apprenticeship hero image text alternative",
-                  })
-            }
+            alt={intl.formatMessage({
+              defaultMessage:
+                "Group of Indigenous people standing with a painted hand drum.",
+              id: "71+GZq",
+              description:
+                "Indigenous Apprenticeship hero image text alternative",
+            })}
           />
           <div
             data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
@@ -129,7 +125,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               />
               <div
                 data-h2-text-align="base(center) p-tablet(left)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
               >
                 <h1
                   data-h2-font-size="base(h3, 1.2)"
@@ -197,8 +193,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-radius="base(100rem)"
                         data-h2-height="base(x8)"
                         data-h2-width="base(x8)"
-                        data-h2-background-color="base(primary)"
-                        data-h2-opacity="base(10%)"
+                        data-h2-background-color="base(primary.1) base:dark(primary.light.3)"
                         data-h2-position="base(absolute)"
                         data-h2-location="base(-x1.5, -x1, auto, auto)"
                       />
@@ -206,24 +201,19 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-radius="base(100rem)"
                         data-h2-height="base(x15)"
                         data-h2-width="base(x15)"
-                        data-h2-background-color="base(secondary)"
-                        data-h2-opacity="base(10%)"
+                        data-h2-background-color="base(secondary.1) base:dark(secondary.light.3)"
                         data-h2-position="base(absolute)"
                         data-h2-location="base(auto, auto, -x3, -x5.5)"
                       />
                       <img
                         src={womanSmiling}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage:
-                                  "Indigenous woman wearing a jean jacket which contains several different pins.",
-                                id: "cErFoy",
-                                description:
-                                  "Indigenous Apprenticeship woman smiling image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage:
+                            "Indigenous woman wearing a jean jacket which contains several different pins.",
+                          id: "cErFoy",
+                          description:
+                            "Indigenous Apprenticeship woman smiling image text alternative",
+                        })}
                         data-h2-min-height="base(60vh) p-tablet(initial)"
                         data-h2-height="p-tablet(100%)"
                         data-h2-width="p-tablet(100%)"
@@ -234,16 +224,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                       />
                       <img
                         src={feathers}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage: "Two feathers tied together.",
-                                id: "0D8Efk",
-                                description:
-                                  "Indigenous Apprenticeship feathers image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage: "Two feathers tied together.",
+                          id: "0D8Efk",
+                          description:
+                            "Indigenous Apprenticeship feathers image text alternative",
+                        })}
                         data-h2-position="base(absolute)"
                         data-h2-width="base(150%)"
                         data-h2-location="base(auto, -15%, 0, auto)"
@@ -318,24 +304,19 @@ export const Home = ({ latestPool }: HomeProps) => {
                     data-h2-position="base(relative)"
                   >
                     <RadiatingCircles
+                      data-h2-color="base(secondary.light.5) base:dark(secondary.light)"
                       data-h2-position="base(absolute)"
                       data-h2-width="base(110%)"
                       data-h2-location="base(-x2, -x12, auto, auto)"
-                      data-h2-opacity="base(20%)"
                     />
                     <img
                       src={manOnComputer}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Indigenous man working at a computer.",
-                              id: "XDgkwV",
-                              description:
-                                "Indigenous Apprenticeship man on computer image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage: "Indigenous man working at a computer.",
+                        id: "XDgkwV",
+                        description:
+                          "Indigenous Apprenticeship man on computer image text alternative",
+                      })}
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="p-tablet(100%)"
                       data-h2-width="p-tablet(100%)"
@@ -346,17 +327,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={gloves}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Métis style gloves with floral beading.",
-                              id: "aPLL9Z",
-                              description:
-                                "Indigenous Apprenticeship gloves image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Métis style gloves with floral beading.",
+                        id: "aPLL9Z",
+                        description:
+                          "Indigenous Apprenticeship gloves image text alternative",
+                      })}
                       data-h2-position="base(absolute)"
                       data-h2-width="base(140%)"
                       data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
@@ -435,22 +412,18 @@ export const Home = ({ latestPool }: HomeProps) => {
                     <Triangle
                       data-h2-position="base(absolute)"
                       data-h2-width="base(120%)"
-                      data-h2-color="base(secondary)"
+                      data-h2-color="base(secondary) base:dark(secondary.light)"
                       data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                     />
                     <img
                       src={applicant}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Indigenous woman smiling, wearing a brown sweater and glasses.",
-                              id: "X6+rc1",
-                              description:
-                                "Indigenous Apprenticeship applicant image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Indigenous woman smiling, wearing a brown sweater and glasses.",
+                        id: "X6+rc1",
+                        description:
+                          "Indigenous Apprenticeship applicant image text alternative",
+                      })}
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="p-tablet(100%)"
                       data-h2-width="p-tablet(100%)"
@@ -461,17 +434,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={ulu}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Ulu, an Inuit tool used by Inuit women.",
-                              id: "IIZNzj",
-                              description:
-                                "Indigenous Apprenticeship ulu image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Ulu, an Inuit tool used by Inuit women.",
+                        id: "IIZNzj",
+                        description:
+                          "Indigenous Apprenticeship ulu image text alternative",
+                      })}
                       data-h2-display="base(block) p-tablet(none)"
                       data-h2-position="base(absolute)"
                       data-h2-width="base(x20)"
@@ -520,7 +489,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                   </p>
                   <img
                     src={ulu}
-                    alt=""
+                    alt={intl.formatMessage({
+                      defaultMessage: "Ulu, an Inuit tool used by Inuit women.",
+                      id: "IIZNzj",
+                      description:
+                        "Indigenous Apprenticeship ulu image text alternative",
+                    })}
                     data-h2-display="base(none) p-tablet(block)"
                     data-h2-position="base(absolute)"
                     data-h2-width="base(x20)"
@@ -553,7 +527,7 @@ export const Home = ({ latestPool }: HomeProps) => {
           <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
-              data-h2-color="base(white)"
+              data-h2-color="base:all(white)"
               data-h2-text-align="base(center)"
             >
               {intl.formatMessage({
@@ -585,17 +559,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <div data-h2-position="base(relative)">
                   <img
                     src={lowerBack}
-                    alt={
-                      locale
-                        ? ""
-                        : intl.formatMessage({
-                            defaultMessage:
-                              "Male Traditional dancer in regalia.",
-                            id: "9VPBwR",
-                            description:
-                              "Indigenous Apprenticeship lower back image text alternative",
-                          })
-                    }
+                    alt={intl.formatMessage({
+                      defaultMessage: "Male Traditional dancer in regalia.",
+                      id: "9VPBwR",
+                      description:
+                        "Indigenous Apprenticeship lower back image text alternative",
+                    })}
                     style={{
                       position: "absolute",
                       inset: "0",
@@ -615,7 +584,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                   >
                     <Heading
                       light
-                      data-h2-color="base(white)"
+                      data-h2-color="base:all(white)"
                       data-h2-font-size="base(h3, 1)"
                     >
                       <span data-h2-display="base(block)">
@@ -634,7 +603,10 @@ export const Home = ({ latestPool }: HomeProps) => {
                         })}
                       </span>
                     </Heading>
-                    <p data-h2-color="base(white)" data-h2-margin="base(x1, 0)">
+                    <p
+                      data-h2-color="base:all(white)"
+                      data-h2-margin="base(x1, 0)"
+                    >
                       {intl.formatMessage({
                         defaultMessage:
                           "Apply today to start your journey to a career in Information Technology.",
@@ -687,7 +659,10 @@ export const Home = ({ latestPool }: HomeProps) => {
               data-h2-margin="base(0, 0, x3, 0)"
             >
               <Banner>
-                <Heading color="white" data-h2-font-size="base(h3)">
+                <Heading
+                  data-h2-color="base:all(white)"
+                  data-h2-font-size="base(h3)"
+                >
                   {intl.formatMessage({
                     defaultMessage: "Coming Soon!",
                     id: "q5FQbu",
@@ -697,7 +672,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Banner>
               <Heading
                 light
-                color="white"
+                data-h2-color="base:all(white)"
                 data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
               >
                 {intl.formatMessage({
@@ -707,7 +682,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading as="h3" color="white">
+              <Heading as="h3" data-h2-color="base:all(white)">
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -717,7 +692,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Heading>
               <p
                 data-h2-margin="base(x1, auto, 0, auto)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
                 data-h2-max-width="base(38rem)"
               >
                 {intl.formatMessage({
@@ -814,7 +789,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading as="h3" color="white">
+              <Heading as="h3" data-h2-color="base:all(white)">
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",
@@ -824,7 +799,7 @@ export const Home = ({ latestPool }: HomeProps) => {
               </Heading>
               <p
                 data-h2-margin="base(x1, auto, 0, auto)"
-                data-h2-color="base(white)"
+                data-h2-color="base:all(white)"
                 data-h2-max-width="base(38rem)"
               >
                 {intl.formatMessage({
@@ -956,9 +931,9 @@ export const Home = ({ latestPool }: HomeProps) => {
                   >
                     <div
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
-                      data-h2-color="base(white)"
+                      data-h2-color="base:all(white)"
                     >
-                      <Heading color="white" light>
+                      <Heading data-h2-color="base:all(white)" light>
                         {intl.formatMessage({
                           defaultMessage: "About the Indigenous Talent Portal",
                           id: "loDwKe",
@@ -991,17 +966,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-position="p-tablet(absolute)"
                         data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
                         src={indigenousWoman}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage:
-                                  "Indigenous woman wearing a red shirt working on a laptop.",
-                                id: "dY3Qr4",
-                                description:
-                                  "Indigenous Apprenticeship woman on laptop image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage:
+                            "Indigenous woman wearing a red shirt working on a laptop.",
+                          id: "dY3Qr4",
+                          description:
+                            "Indigenous Apprenticeship woman on laptop image text alternative",
+                        })}
                       />
                     </div>
                   </div>

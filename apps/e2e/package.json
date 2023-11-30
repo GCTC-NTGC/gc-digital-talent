@@ -5,24 +5,23 @@
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open --e2e",
     "e2e:run": "npm run e2e:run:all",
-    "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.js\"",
-    "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.js\" --no-exit --headed"
+    "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.ts\"",
+    "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.ts\" --no-exit --headed"
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "*",
-    "@gc-digital-talent/web": "*"
+    "@gc-digital-talent/graphql": "*"
   },
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.10.1",
     "axe-core": "^4.8.2",
-    "cy-verify-downloads": "^0.2.1",
-    "cypress": "^13.3.1",
+    "cy-verify-downloads": "^0.2.2",
+    "cypress": "^13.6.0",
     "cypress-axe": "^1.5.0",
-    "cypress-multi-reporters": "^1.6.3",
-    "cypress-terminal-report": "^5.3.7",
+    "cypress-terminal-report": "^5.3.9",
     "eslint-plugin-cypress": "^2.15.1",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "tsconfig": "*",
     "typescript": "4.9.5"
   }

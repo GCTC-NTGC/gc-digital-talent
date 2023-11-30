@@ -38,10 +38,16 @@ const TopBehaviouralSkills = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "top-behavioural-skills";
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Your top 5 behavioural skills",
+    description: "Page title for the top behavioural skills page",
+    id: "6IitrN",
+  });
 
   const crumbs = [
     {
@@ -69,19 +75,10 @@ const TopBehaviouralSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Top 5 behavioural skills",
-        id: "XmYbWb",
-      }),
+      label: pageTitle,
       url: paths.topBehaviouralSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Your top 5 behavioural skills",
-    description: "Page title for the top behavioural skills page",
-    id: "6IitrN",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:
@@ -109,7 +106,7 @@ const TopBehaviouralSkills = ({
 
   const handleUpdateUserSkillRankings = (formValues: FormValues) => {
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         topBehaviouralSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
@@ -147,7 +144,7 @@ const TopBehaviouralSkills = ({
   ) => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         topBehaviouralSkillsRanked: mergedSkillIds,
       },
@@ -178,7 +175,7 @@ const TopBehaviouralSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={user?.id}
+      userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
       skills={skills}
@@ -186,6 +183,7 @@ const TopBehaviouralSkills = ({
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
+      maxItems={MAX_SKILL_COUNT}
     />
   );
 };

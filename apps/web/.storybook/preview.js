@@ -1,8 +1,5 @@
 import {
-  INITIAL_VIEWPORTS,
-  MINIMAL_VIEWPORTS,
-} from "@storybook/addon-viewport";
-import {
+  FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
@@ -10,6 +7,7 @@ import {
   ThemeDecorator,
   themeKey,
   themeMode,
+  VIEWPORTS
 } from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
 import "@gc-digital-talent/forms/dist/index.css";
@@ -52,11 +50,7 @@ export const parameters = {
     defaultRichTextElements,
   },
   viewport: {
-    // for possible values: https://github.com/storybookjs/storybook/blob/master/addons/viewport/src/defaults.ts
-    viewports: {
-      ...INITIAL_VIEWPORTS,
-      ...MINIMAL_VIEWPORTS,
-    },
+    viewports: VIEWPORTS,
   },
 };
 
@@ -66,6 +60,7 @@ export const globalTypes = {
 };
 
 export const decorators = [
+  FeatureFlagDecorator,
   HelmetDecorator,
   ReducedMotionDecorator,
   MockGraphqlDecorator,

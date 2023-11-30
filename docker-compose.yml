@@ -26,7 +26,7 @@ services:
 
   webserver:
     # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
-    image: mcr.microsoft.com/appsvc/php:8.1-fpm-xdebug_20221027.1.tuxprod
+    image: mcr.microsoft.com/appsvc/php:8.2-fpm-xdebug_20230908.3.tuxprod
     restart: always
     volumes:
       - ./:/home/site/wwwroot

@@ -38,10 +38,16 @@ const ImproveBehaviouralSkills = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "improve-behavioural-skills";
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "3 behavioural skills you'd like to improve",
+    description: "Page title for the improve behavioural skills page",
+    id: "6+TjHb",
+  });
 
   const crumbs = [
     {
@@ -69,19 +75,10 @@ const ImproveBehaviouralSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "3 behavioural skills you'd like to improve",
-        id: "WlNgZ3",
-      }),
+      label: pageTitle,
       url: paths.improveBehaviouralSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "3 behavioural skills you'd like to improve",
-    description: "Page title for the improve behavioural skills page",
-    id: "6+TjHb",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:
@@ -109,7 +106,7 @@ const ImproveBehaviouralSkills = ({
 
   const handleUpdateUserSkillRankings = (formValues: FormValues) => {
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
@@ -147,7 +144,7 @@ const ImproveBehaviouralSkills = ({
   ) => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: mergedSkillIds,
       },
@@ -178,7 +175,7 @@ const ImproveBehaviouralSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={user?.id}
+      userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
       skills={skills}
@@ -186,6 +183,7 @@ const ImproveBehaviouralSkills = ({
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
+      maxItems={MAX_SKILL_COUNT}
     />
   );
 };

@@ -106,7 +106,7 @@ const ButtonLinkContent = ({
   let iconMargin = {
     "data-h2-margin-top": "base(0)",
   };
-  if (mode === "text") {
+  if (mode === "text" && fontSize !== "caption") {
     iconMargin = {
       "data-h2-margin-top": "base(-x.2)",
     };
@@ -166,6 +166,18 @@ const ButtonLinkContent = ({
           {counter && <Counter count={counter} />}
         </span>
       </>
+    );
+  }
+  if (mode === "icon_only") {
+    return (
+      <span
+        data-h2-display="base(flex) base:children[>*](inline-block)"
+        data-h2-padding="base(calc(x.125))"
+        data-h2-align-self="base(stretch)"
+        data-h2-align-items="base(center)"
+      >
+        {Icon && <Icon {...iconSize} data-h2-vertical-align="base(middle)" />}
+      </span>
     );
   }
   return (

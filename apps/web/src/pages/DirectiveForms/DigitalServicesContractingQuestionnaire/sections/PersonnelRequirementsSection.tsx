@@ -30,7 +30,7 @@ const PersonnelRequirementsSection = ({
       id={PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS}
       data-h2-padding-top="base(x2)"
     >
-      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h4">
+      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h4" size="h5">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
         )}
@@ -45,6 +45,8 @@ const PersonnelRequirementsSection = ({
       </p>
       <Repeater.Root
         data-h2-margin-bottom="base(1rem)"
+        name="personnelRequirements"
+        total={fields.length}
         onAdd={() => {
           append({});
         }}
@@ -58,6 +60,7 @@ const PersonnelRequirementsSection = ({
           fields.map((item, index) => (
             <Repeater.Fieldset
               key={item.id}
+              name="personnelRequirements"
               index={index}
               total={fields.length}
               onMove={move}

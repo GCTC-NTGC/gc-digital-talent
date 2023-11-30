@@ -1,7 +1,7 @@
 import React from "react";
 
-import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.png";
-import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.png";
+import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
+import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.webp";
 
 interface SkewedContainerProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => (
     <div
       data-h2-height="base(100%)"
       data-h2-width="base(100%)"
-      data-h2-background-color="base(white) base:dark(black.light)"
+      data-h2-background-color="base(background)"
       data-h2-position="base(absolute)"
       data-h2-transform="base(skewY(-3deg))"
       data-h2-overflow="base(hidden)"

@@ -4,9 +4,13 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
-import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidate,
+  PoolCandidateStatus,
+  useDeleteApplicationMutation,
+} from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -14,8 +18,7 @@ import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
 import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
-import useMutations from "./useMutations";
-import { getApplicationDateInfo } from "./utils";
+import { getApplicationDeadlineMessage } from "./utils";
 
 type Application = Omit<
   PoolCandidate,
@@ -53,11 +56,15 @@ const TrackApplicationsCard = ({
       )
     : getStatusPillInfo(application.status, application.suspendedAt, intl);
 
-  const applicationDateInfo = getApplicationDateInfo(application, intl);
-  const { user } = useAuthorization();
+  const applicationDeadlineMessage = getApplicationDeadlineMessage(
+    application,
+    intl,
+  );
+  const { userAuthInfo } = useAuthorization();
   const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
   return (
     <div
+      data-h2-background-color="base(foreground)"
       data-h2-border-left="base(x.5 solid primary)"
       data-h2-padding="base(x1 x1 x.5 x1)"
       data-h2-shadow="base(larger)"
@@ -80,11 +87,7 @@ const TrackApplicationsCard = ({
           </Heading>
           <div data-h2-display="base:children[>span](block) l-tablet:children[>span](inline-block)">
             <span data-h2-color="base(black.light)">
-              {applicationDateInfo.message}
-              {intl.formatMessage(commonMessages.dividingColon)}
-              <span data-h2-color={applicationDateInfo.color}>
-                {applicationDateInfo.date}
-              </span>
+              {applicationDeadlineMessage}
             </span>
           </div>
         </div>
@@ -137,7 +140,7 @@ const TrackApplicationsCard = ({
       <Separator
         orientation="horizontal"
         decorative
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base(gray)"
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
@@ -158,7 +161,7 @@ const TrackApplicationsCard = ({
 
         <ApplicationActions.VisitCareerTimelineAction
           show={isApplicantQualified}
-          userID={user?.id ?? ""}
+          userID={userAuthInfo?.id ?? ""}
           application={application}
         />
         <ApplicationActions.SupportAction show application={application} />
@@ -177,7 +180,6 @@ const TrackApplicationsCard = ({
     </div>
   );
 };
-
 interface TrackApplicationsCardApiProps {
   application: Application;
 }
@@ -185,12 +187,30 @@ interface TrackApplicationsCardApiProps {
 const TrackApplicationsCardApi = ({
   application,
 }: TrackApplicationsCardApiProps) => {
-  const mutations = useMutations();
+  const [, executeDeleteMutation] = useDeleteApplicationMutation();
+  const intl = useIntl();
+
+  const deleteApplication = () => {
+    executeDeleteMutation({
+      id: application.id,
+    }).then((result) => {
+      if (result.data?.deleteApplication) {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Application deleted successfully!",
+            id: "xdGPxT",
+            description:
+              "Message displayed to user after application is deleted successfully.",
+          }),
+        );
+      }
+    });
+  };
 
   return (
     <TrackApplicationsCard
       application={application}
-      onDelete={() => mutations.delete(application.id)}
+      onDelete={deleteApplication}
     />
   );
 };

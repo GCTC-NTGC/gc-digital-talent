@@ -16,6 +16,7 @@ import {
   UpdatePoolCandidateSearchRequestInput,
   UpdatePoolInput,
   UpdateUserAsAdminInput,
+  UpdateUserRolesInput,
   User,
 } from "@gc-digital-talent/graphql";
 
@@ -202,6 +203,14 @@ declare global {
        * @example cy.createUser('UUID', { firstName: 'John', lastName: 'Doe', ... })
        */
       updateUser(id: string, user: UpdateUserAsAdminInput): Chainable<User>;
+      /**
+       * Update a specific user's roles.
+       * @param {UpdateUserRolesInput} updateUserRolesInput - Object containing role assignments and userId
+       * @example cy.updateUserRoles({ userId, roleAssignmentsInput })
+       */
+      updateUserRoles(
+        updateUserRolesInput: UpdateUserRolesInput,
+      ): Chainable<User>;
       /**
        * Custom command to get the current user.
        * @example cy.getMe().then(user => {})

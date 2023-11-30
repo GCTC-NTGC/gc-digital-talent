@@ -69,8 +69,11 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "pools", poolId, "edit"),
     assessmentPlanBuilder: (poolId: string) =>
       path.join(adminUrl, "pools", poolId, "plan"),
+    screeningAndEvaluation: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "screening"),
 
     // Admin - Pool Candidates
+    poolCandidates: () => path.join(adminUrl, "pool-candidates"),
     poolCandidateTable: (poolId: string) =>
       path.join(adminUrl, "pools", poolId, "pool-candidates"),
     poolCandidateCreate: (poolId: string) =>
@@ -95,8 +98,6 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "users", userId, "profile"),
     userUpdate: (userId: string) =>
       path.join(adminUrl, "users", userId, "edit"),
-    userPlacement: (userId: string) =>
-      path.join(adminUrl, "users", userId, "placement"),
 
     // Admin - Teams
     teamTable: () => path.join(adminUrl, "teams"),

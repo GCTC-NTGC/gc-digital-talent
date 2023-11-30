@@ -14,14 +14,12 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-
 import {
-  Role,
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
-  User,
-  useListTeamsQuery,
-} from "~/api/generated";
+  UpdateUserRolesInput,
+  UpdateUserRolesMutation,
+} from "@gc-digital-talent/graphql";
+
+import { Role, User, useListTeamsQuery } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
@@ -33,8 +31,8 @@ interface AddTeamRoleDialogProps {
   user: User;
   availableRoles: Array<Role>;
   onAddRoles: (
-    submitData: UpdateUserAsAdminInput,
-  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+    submitData: UpdateUserRolesInput,
+  ) => Promise<UpdateUserRolesMutation["updateUserRoles"]>;
 }
 
 const AddTeamRoleDialog = ({
@@ -62,6 +60,7 @@ const AddTeamRoleDialog = ({
 
   const handleAddRoles = async (formValues: FormValues) => {
     return onAddRoles({
+      userId: user.id,
       roleAssignmentsInput: {
         attach: {
           roles: formValues.roles,
@@ -96,13 +95,13 @@ const AddTeamRoleDialog = ({
 
   const teamId = watch("team");
   useEffect(() => {
-    const roleAssignments = user.roleAssignments || [];
+    const roleAssignments = user?.authInfo?.roleAssignments || [];
     const activeRoleIds = roleAssignments
-      .filter((ra) => ra.team?.id === teamId)
-      .map((r) => r.role?.id)
+      .filter((ra) => ra?.team?.id === teamId)
+      .map((r) => r?.role?.id)
       .filter(notEmpty);
     setValue("roles", activeRoleIds);
-  }, [user.roleAssignments, teamId, setValue]);
+  }, [user?.authInfo?.roleAssignments, teamId, setValue]);
 
   const [{ data: teamsData }] = useListTeamsQuery();
 

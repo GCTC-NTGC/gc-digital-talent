@@ -43,6 +43,18 @@ const h2ChipColors = {
       "data-h2-color": "base(secondary.darker)",
     },
   },
+  secondaryDarkFixed: {
+    solid: {
+      "data-h2-border": "base(1px solid secondary)",
+      "data-h2-background-color": "base(secondary)",
+      "data-h2-color": "base:all(white) base:iap:all(black)",
+    },
+    outline: {
+      "data-h2-border": "base:all(1px solid secondary.lighter)",
+      "data-h2-background-color": "base:all(secondary.darkest)",
+      "data-h2-color": "base:all(secondary.lighter)",
+    },
+  },
   tertiary: {
     solid: {
       "data-h2-border": "base(1px solid tertiary)",
@@ -127,6 +139,18 @@ const h2ChipColors = {
       "data-h2-color": "base(gray.darker)",
     },
   },
+  blackFixed: {
+    solid: {
+      "data-h2-border": "base:all(1px solid gray.light)",
+      "data-h2-background-color": "base:all(gray.light)",
+      "data-h2-color": "base:all(black)",
+    },
+    outline: {
+      "data-h2-border": "base:all(1px solid gray.darker)",
+      "data-h2-background-color": "base:all(gray.lightest)",
+      "data-h2-color": "base:all(gray.darker)",
+    },
+  },
 };
 
 const colorMap: Record<
@@ -135,6 +159,7 @@ const colorMap: Record<
 > = {
   primary: h2ChipColors.primary,
   secondary: h2ChipColors.secondary,
+  secondaryDarkFixed: h2ChipColors.secondaryDarkFixed,
   tertiary: h2ChipColors.tertiary,
   quaternary: h2ChipColors.quaternary,
   quinary: h2ChipColors.quinary,
@@ -142,7 +167,9 @@ const colorMap: Record<
   warning: h2ChipColors.warning,
   error: h2ChipColors.error,
   black: h2ChipColors.black,
+  blackFixed: h2ChipColors.blackFixed,
   white: h2ChipColors.black,
+  whiteFixed: h2ChipColors.black,
 };
 
 const sizeMap: Record<PillSize, Record<string, string>> = {

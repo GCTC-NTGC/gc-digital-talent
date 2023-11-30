@@ -120,7 +120,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         data-h2-justify-content="p-tablet(space-between)"
         data-h2-margin-bottom="base(x1)"
       >
-        <Heading data-h2-margin="base(0)" data-h2-line-height="base(1)">
+        <Heading
+          data-h2-margin="base(0)"
+          data-h2-font-weight="base(400)"
+          size="h3"
+        >
           {pageInfo.title}
         </Heading>
         <Link
@@ -136,7 +140,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           })}
         </Link>
       </div>
-      <p data-h2-margin="base(x1, 0)">
+      <p data-h2-margin="base(x1, 0, x3, 0)">
         {intl.formatMessage({
           defaultMessage:
             'Don\'t forget to take a break if you need to! Using the "Save and quit for now" button, you can record your progress and return to questions you might be stuck on later.',
@@ -157,7 +161,12 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         {screeningQuestions.length ? (
           screeningQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
-              <Heading level="h3" size="h4">
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x2, 0, x1, 0)"
+              >
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",

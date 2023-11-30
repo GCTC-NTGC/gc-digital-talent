@@ -2,6 +2,8 @@ import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import RadioGroup from "./RadioGroup";
@@ -11,14 +13,27 @@ export default {
   title: "Form/RadioGroup",
 };
 
+const themes = ["light", "dark"];
+
 const TemplateRadioGroup: StoryFn<typeof RadioGroup> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <RadioGroup {...args} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <RadioGroup {...args} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -61,7 +76,11 @@ RadioGroupOfElements.args = {
   items: [
     {
       value: "one",
-      label: <span data-h2-background-color="base(error)">Red Selection</span>,
+      label: (
+        <span data-h2-background-color="base(error.lighter)">
+          Red Selection
+        </span>
+      ),
     },
     {
       value: "two",
@@ -79,7 +98,7 @@ RadioGroupOfElements.args = {
 export const LargeRadioGroup = TemplateRadioGroup.bind({});
 LargeRadioGroup.parameters = {
   viewport: {
-    defaultViewport: "iphone6p",
+    defaultViewport: VIEWPORT.PHONE,
   },
 };
 LargeRadioGroup.args = {

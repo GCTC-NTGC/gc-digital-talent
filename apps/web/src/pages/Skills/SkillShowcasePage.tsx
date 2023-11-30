@@ -161,7 +161,7 @@ export const SkillShowcase = ({
                 })}
               </p>
               <div
-                data-h2-margin="base(x2 0 x3 0)"
+                data-h2-margin="base(x1 0 x3 0)"
                 data-h2-display="base(grid)"
                 data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
                 data-h2-gap="base(x.5)"
@@ -245,7 +245,7 @@ export const SkillShowcase = ({
                 })}
               </p>
               <div
-                data-h2-margin="base(x2 0 x3 0)"
+                data-h2-margin="base(x1 0 x3 0)"
                 data-h2-display="base(grid)"
                 data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
                 data-h2-gap="base(x.5)"

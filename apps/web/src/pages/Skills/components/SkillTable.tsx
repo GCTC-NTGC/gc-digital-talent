@@ -2,6 +2,7 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { useLocation } from "react-router-dom";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -12,6 +13,7 @@ import { Skill, useAllSkillsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 import {
   categoryAccessor,
@@ -43,14 +45,20 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         id: "BOeBpE",
         description: "Title displayed for the skill table Name column.",
       }),
+      sortingFn: normalizedText,
       meta: {
         isRowTitle: true,
+      },
+      cell: ({ row: { original: skill } }) => {
+        const skillName = getLocalizedName(skill.name, intl);
+        return cells.edit(skill.id, paths.skillTable(), skillName, skillName);
       },
     }),
     columnHelper.accessor(
       (skill) => getLocalizedName(skill.description, intl, true),
       {
         id: "description",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "9yGJ6k",
@@ -61,6 +69,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     ),
     columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
       id: "keywords",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Keywords",
         id: "I7rxxQ",
@@ -69,12 +78,14 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     }),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
       id: "skillFamilies",
+      sortingFn: normalizedText,
       header: intl.formatMessage(adminMessages.skillFamilies),
       cell: ({ row: { original: skill } }) =>
         skillFamiliesCell(skill.families, intl),
     }),
     columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
       id: "category",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Category",
         id: "m5RwGF",
@@ -82,26 +93,19 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           "Title displayed for the Skill Family table Category column.",
       }),
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
-      cell: ({ row: { original: skill } }) =>
-        cells.edit(
-          skill.id,
-          paths.skillTable(),
-          getLocalizedName(skill.name, intl),
-        ),
-    }),
   ] as ColumnDef<Skill>[];
 
   const data = skills.filter(notEmpty);
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   return (
     <Table<Skill>
       caption={title}
       data={data}
       columns={columns}
-      hiddenColumnIds={["id"]}
+      hiddenColumnIds={["id", "keywords"]}
       pagination={{
         internal: true,
         total: data.length,
@@ -109,6 +113,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
       }}
       sort={{
         internal: true,
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
@@ -126,6 +131,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
             id: "lFrPv1",
             description: "Heading displayed above the Create Skill form.",
           }),
+          from: currentUrl,
         },
       }}
     />

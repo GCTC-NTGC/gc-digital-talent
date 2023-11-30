@@ -2,14 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Well,
-  Heading,
-  Accordion,
-  StandardAccordionHeader,
-  Separator,
-  Loading,
-} from "@gc-digital-talent/ui";
+import { Well, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getEmploymentEquityGroup,
@@ -120,8 +113,7 @@ const EquityOptions = ({
   return (
     <>
       <Heading
-        data-h2-margin="base(0)"
-        data-h2-padding-bottom="base(x1)"
+        data-h2-margin="base(x2, 0, x1, 0)"
         level={inApplication ? "h4" : "h3"}
         size={inApplication ? "h6" : "h4"}
       >
@@ -148,7 +140,7 @@ const EquityOptions = ({
         </div>
       )}
       {hasItems ? (
-        <>
+        <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
           {isIndigenous && (
             <IndigenousEquityOption
               disabled={isDisabled}
@@ -200,7 +192,7 @@ const EquityOptions = ({
               title={intl.formatMessage(getEmploymentEquityStatement("woman"))}
             />
           )}
-        </>
+        </div>
       ) : (
         <Well>
           <p data-h2-text-align="base(center)">
@@ -216,7 +208,6 @@ const EquityOptions = ({
       )}
       <Accordion.Root
         type="single"
-        mode="simple"
         value={accordionOpen}
         onValueChange={(value: AccordionItems) => setAccordionOpen(value)}
         collapsible
@@ -225,7 +216,7 @@ const EquityOptions = ({
           value="available_options"
           data-h2-padding-top="base(x1)"
         >
-          <StandardAccordionHeader headingAs="h4">
+          <Accordion.Trigger as="h4">
             {accordionOpen
               ? intl.formatMessage(
                   {
@@ -251,16 +242,10 @@ const EquityOptions = ({
                     optionCount: countRemainingOptions,
                   },
                 )}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1, 0, x1, 0)"
-            />
             {itemsAvailable || !hasItems ? (
-              <>
+              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 {!isIndigenous ? (
                   <IndigenousEquityOption
                     disabled={isDisabled}
@@ -342,7 +327,7 @@ const EquityOptions = ({
                     })}
                   />
                 )}
-              </>
+              </div>
             ) : (
               <Well>
                 <p data-h2-margin="base(0)">

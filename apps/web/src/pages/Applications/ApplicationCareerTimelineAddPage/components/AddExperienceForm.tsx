@@ -43,7 +43,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
   const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const methods = useForm<ExperienceExperienceFormValues>({
     shouldFocusError: false,
   });
@@ -64,7 +64,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     formValues,
   ) => {
     const submitData = formValuesToSubmitData(formValues, [], type);
-    const args = getMutationArgs(user?.id || "", submitData);
+    const args = getMutationArgs(userAuthInfo?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
@@ -118,7 +118,14 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <ErrorSummary experienceType={type} />
-        <Heading level="h3">{experienceFormLabels.selectType}</Heading>
+        <Heading
+          level="h3"
+          size="h4"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(x3, 0, x1, 0)"
+        >
+          {experienceFormLabels.selectType}
+        </Heading>
         <Select
           label={experienceFormLabels.type}
           name="experienceType"
@@ -154,12 +161,12 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background="base(black.light)"
+          data-h2-background="base(gray)"
           data-h2-margin="base(x2, 0)"
         />
         <div
           data-h2-display="base(flex)"
-          data-h2-gap="base(x.25, x.5)"
+          data-h2-gap="base(x1)"
           data-h2-flex-wrap="base(wrap)"
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"

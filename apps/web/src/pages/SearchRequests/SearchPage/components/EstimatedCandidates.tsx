@@ -74,7 +74,7 @@ const EstimatedCandidates = ({
         data-h2-location="p-tablet(0, auto, auto, auto)"
       >
         <div
-          data-h2-background-color="base(white)"
+          data-h2-background-color="base(foreground)"
           data-h2-overflow="base(hidden)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(l)"
@@ -86,8 +86,8 @@ const EstimatedCandidates = ({
           >
             <p
               data-h2-text-align="base(center)"
-              data-h2-color="base(black)"
-              data-h2-font-size="base(h5, 1.3)"
+              data-h2-color="base:all(black)"
+              data-h2-font-size="base(h6, 1.3)"
               data-h2-font-weight="base(700)"
             >
               {intl.formatMessage({

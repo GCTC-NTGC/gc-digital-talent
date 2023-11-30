@@ -166,59 +166,6 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
-     * Test that querying a single ApplicantFilter returns the right one, with correct attributes.
-     *
-     * @return void
-     */
-    public function testQueryApplicantFilterById()
-    {
-        $filters = ApplicantFilter::factory()->count(3)->create();
-
-        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query ($id: ID!) {
-                applicantFilter(id: $id) {
-                    id
-                    hasDiploma
-                    equity {
-                        isWoman
-                        hasDisability
-                        isIndigenous
-                        isVisibleMinority
-                    }
-                    languageAbility
-                    operationalRequirements
-                    locationPreferences
-                    positionDuration
-                }
-            }
-        ',
-            [
-                'id' => $filters[1]->id,
-            ]
-        );
-        $response->assertJson([
-            'data' => [
-                'applicantFilter' => [
-                    'id' => $filters[1]->id,
-                    'hasDiploma' => $filters[1]->has_diploma,
-                    'equity' => [
-                        'isWoman' => $filters[1]->is_woman,
-                        'hasDisability' => $filters[1]->has_disability,
-                        'isIndigenous' => $filters[1]->is_indigenous,
-                        'isVisibleMinority' => $filters[1]->is_visible_minority,
-                    ],
-                    'languageAbility' => $filters[1]->language_ability,
-                    'operationalRequirements' => $filters[1]->operational_requirements,
-                    'locationPreferences' => $filters[1]->location_preferences,
-                    'positionDuration' => $filters[1]->position_duration,
-                ],
-            ],
-        ]);
-    }
-
-    /**
      * Test that factory creates relationships correctly.
      */
     public function testFactoryRelationships()
@@ -357,6 +304,7 @@ class ApplicantFilterTest extends TestCase
                     managerJobTitle
                     positionType
                     status
+                    reason
                     department {
                         id
                     }
@@ -373,6 +321,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter),
                     ],
@@ -387,6 +336,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'status' => PoolCandidateSearchStatus::NEW->name,
                     'department' => [
                         'id' => $request->department_id,
@@ -509,6 +459,7 @@ class ApplicantFilterTest extends TestCase
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
+                    'reason' => $request->reason,
                     'applicantFilter' => [
                         'create' => $this->filterToCreateInput($filter),
                     ],

@@ -3,7 +3,10 @@
 query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
-    sub
+    authInfo {
+      id
+      sub
+    }
     firstName
     lastName
     email
@@ -15,7 +18,6 @@ query getProfile($userId: UUID!) {
     currentCity
     citizenship
     armedForcesStatus
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual

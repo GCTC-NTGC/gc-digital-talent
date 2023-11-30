@@ -38,10 +38,16 @@ const ImproveTechnicalSkills = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
-  const { user } = useAuthorization();
+  const { userAuthInfo } = useAuthorization();
   const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "improve-technical-skills";
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "5 technical skills you'd like to train",
+    description: "Page title for the improve technical skills page",
+    id: "aIMh6f",
+  });
 
   const crumbs = [
     {
@@ -69,19 +75,10 @@ const ImproveTechnicalSkills = ({
       url: paths.skillShowcase(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "5 technical skills you'd like to train",
-        id: "AIb8zR",
-      }),
+      label: pageTitle,
       url: paths.improveTechnicalSkills(),
     },
   ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "5 technical skills you'd like to train",
-    description: "Page title for the improve technical skills page",
-    id: "aIMh6f",
-  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:
@@ -109,7 +106,7 @@ const ImproveTechnicalSkills = ({
 
   const handleUpdateUserSkillRankings = (formValues: FormValues) => {
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveTechnicalSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
@@ -147,7 +144,7 @@ const ImproveTechnicalSkills = ({
   ) => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
     executeMutation({
-      userId: user?.id,
+      userId: userAuthInfo?.id,
       userSkillRanking: {
         improveTechnicalSkillsRanked: mergedSkillIds,
       },
@@ -178,7 +175,7 @@ const ImproveTechnicalSkills = ({
 
   return (
     <UpdateSkillShowcase
-      userId={user?.id}
+      userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
       skills={skills}
@@ -186,6 +183,7 @@ const ImproveTechnicalSkills = ({
       initialSkills={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
+      maxItems={MAX_SKILL_COUNT}
     />
   );
 };

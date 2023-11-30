@@ -16,4 +16,7 @@ class ApiErrorEnums
     const ESSENTIAL_SKILLS_CONTAINS_DELETED = 'EssentialSkillsContainsDeleted';
 
     const NONESSENTIAL_SKILLS_CONTAINS_DELETED = 'NonEssentialSkillsContainsDeleted';
+
+    // application messages
+    const APPLICATION_DELETE_FAILED = 'ApplicationDeleteFailed';
 }

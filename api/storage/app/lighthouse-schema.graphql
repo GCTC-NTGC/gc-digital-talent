@@ -1,4 +1,5 @@
 type Query {
+  myAuth: UserAuthInfo
   me: User
   user(
     id: UUID!
@@ -10,13 +11,11 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
-  applicant(id: UUID!): User @deprecated(reason: "applicant is deprecated. Use user instead. Remove in #7651.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   userPublicProfiles: [UserPublicProfile]! @deprecated(reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
@@ -25,13 +24,9 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilter(id: UUID!): PoolCandidateFilter @deprecated(reason: "poolCandidateFilter is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7657.")
   poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
-  applicantFilter(id: ID!): ApplicantFilter @deprecated(reason: "applicantFilter is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7653.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  poolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "poolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7659.")
-  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]! @deprecated(reason: "latestPoolCandidateSearchRequests is deprecated. Use poolCandidateSearchRequestsPaginated instead. Remove in #7655.")
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -81,6 +76,8 @@ type Mutation {
   createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
+  updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
+  updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
@@ -124,10 +121,9 @@ type Mutation {
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
-  archiveApplication(id: ID!): PoolCandidate
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-  deleteApplication(id: ID!): Boolean
+  deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
   createTeam(team: CreateTeamInput!): Team
@@ -141,7 +137,12 @@ type Mutation {
   deleteUserSkill(id: UUID!): UserSkill
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
+  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
+  createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
+  updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
+  deleteAssessmentResult(id: UUID!): AssessmentResult
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -176,9 +177,16 @@ type LocalizedString {
   fr: String
 }
 
+type UserAuthInfo {
+  id: UUID!
+  sub: String
+  roleAssignments: [RoleAssignment]
+  createdDate: DateTime
+  deletedDate: DateTime
+}
+
 type User {
   id: ID!
-  sub: String
   createdDate: DateTime
   updatedDate: DateTime
   deletedDate: DateTime
@@ -193,7 +201,6 @@ type User {
   currentCity: String
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
-  languageAbility: LanguageAbility @deprecated(reason: "languageAbility is deprecated. Use lookingFor<Language> instead. Remove in #7661.")
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -233,7 +240,7 @@ type User {
   improveBehaviouralSkillsRanking: [UserSkill]
   isProfileComplete: Boolean
   priorityWeight: Int
-  roleAssignments: [RoleAssignment!]
+  authInfo: UserAuthInfo
   unreadNotifications: [Notification!]
   notifications: [Notification!]
 }
@@ -318,6 +325,20 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
+  assessmentResults: [AssessmentResult]
+}
+
+type AssessmentResult {
+  id: ID!
+  assessmentStep: AssessmentStep
+  poolCandidate: PoolCandidate
+  poolSkill: PoolSkill
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
 }
 
 type PoolSkill {
@@ -347,6 +368,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
+  assessmentResults: [AssessmentResult]
 }
 
 type PoolCandidateWithSkillCount {
@@ -461,6 +483,7 @@ type PoolCandidateSearchRequest {
   wasEmpty: Boolean
   managerJobTitle: String
   positionType: PoolCandidateSearchPositionType
+  reason: PoolCandidateSearchRequestReason
 }
 
 type SkillFamily {
@@ -724,7 +747,6 @@ input CreateUserInput {
 "When updating a User, all fields are optional"
 input UpdateUserAsAdminInput {
   id: ID
-  sub: String
   email: Email
   firstName: String
   lastName: String
@@ -765,7 +787,16 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  roleAssignmentsInput: RoleAssignmentHasMany
+}
+
+input UpdateUserSubInput {
+  userId: UUID!
+  sub: String!
+}
+
+input UpdateUserRolesInput {
+  userId: UUID!
+  roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
 input UpdateUserAsUserInput {
@@ -932,6 +963,7 @@ input CreatePoolCandidateSearchRequestInput {
   wasEmpty: Boolean
   managerJobTitle: String!
   positionType: PoolCandidateSearchPositionType!
+  reason: PoolCandidateSearchRequestReason!
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1110,6 +1142,12 @@ input UpdateScreeningQuestionsHasMany {
   delete: [ID!]
 }
 
+input SyncScreeningQuestionsInput {
+  id: ID
+  question: LocalizedStringInput!
+  sortOrder: Int
+}
+
 input SyncEssentialPoolSkills {
   sync: [ID]
 }
@@ -1140,9 +1178,35 @@ input UpdatePoolInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-  sortOrder: Int
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
+}
+
+input ScreeningQuestionAssessmentStepInput {
+  title: LocalizedStringInput
+  poolSkills: PoolSkillBelongsToMany
+}
+
+input CreateAssessmentResultInput {
+  assessmentStepId: UUID!
+  poolCandidateId: UUID!
+  poolSkillId: UUID
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
+}
+
+input UpdateAssessmentResultInput {
+  id: UUID!
+  assessmentResultType: AssessmentResultType
+  assessmentDecision: AssessmentDecision
+  justifications: [AssessmentResultJustification]
+  otherJustificationNotes: String
+  assessmentDecisionLevel: AssessmentDecisionLevel
+  skillDecisionNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -1797,6 +1861,7 @@ enum PoolStream {
   SECURITY
   SOFTWARE_SOLUTIONS
   INFORMATION_DATA_FUNCTIONS
+  EXECUTIVE_GROUP
 }
 
 enum PoolStatus {
@@ -1863,6 +1928,7 @@ enum ApplicationStep {
 enum EducationRequirementOption {
   APPLIED_WORK
   EDUCATION
+  PROFESSIONAL_DESIGNATION
 }
 
 enum LanguageAbility {
@@ -1917,11 +1983,19 @@ enum PoolCandidateSearchStatus {
   IN_PROGRESS
   WAITING
   DONE
+  DONE_NO_CANDIDATES
 }
 
 enum PoolCandidateSearchPositionType {
   INDIVIDUAL_CONTRIBUTOR
   TEAM_LEAD
+}
+
+enum PoolCandidateSearchRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
 }
 
 enum SkillCategory {
@@ -2165,4 +2239,33 @@ enum AssessmentStepType {
   REFERENCE_CHECK
   APPLICATION_SCREENING
   ADDITIONAL_ASSESSMENT
+}
+
+enum AssessmentResultType {
+  EDUCATION
+  SKILL
+}
+
+enum AssessmentDecision {
+  NOT_SURE
+  SUCCESSFUL
+  UNSUCCESSFUL
+}
+
+enum AssessmentResultJustification {
+  EDUCATION_ACCEPTED_INFORMATION
+  EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY
+  EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE
+  EDUCATION_FAILED_NOT_RELEVANT
+  EDUCATION_FAILED_REQUIREMENT_NOT_MET
+  SKILL_ACCEPTED
+  SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED
+  FAILED_NOT_ENOUGH_INFORMATION
+  FAILED_OTHER
+}
+
+enum AssessmentDecisionLevel {
+  AT_REQUIRED
+  ABOVE_REQUIRED
+  ABOVE_AND_BEYOND_REQUIRED
 }

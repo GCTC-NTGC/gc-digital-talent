@@ -19,6 +19,7 @@ import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
 import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
+import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
 /** Home */
 const HomePage = React.lazy(() =>
@@ -396,15 +397,6 @@ const UserInformationPage = React.lazy(() =>
   ),
 );
 
-const UserPlacementPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserPlacementPage" */ "../pages/Users/UserPlacementPage/UserPlacementPage"
-      ),
-  ),
-);
-
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
   lazyRetry(
@@ -482,6 +474,14 @@ const UpdateClassificationPage = React.lazy(() =>
 );
 
 /** Pool Candidates */
+const AllPoolCandidatesPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAllPoolCandidatesPage" */ "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+      ),
+  ),
+);
 const IndexPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1235,7 +1235,11 @@ const createRoute = (
                   index: true,
                   element: (
                     <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
+                      roles={[
+                        ROLE_NAME.PoolOperator,
+                        ROLE_NAME.RequestResponder,
+                        ROLE_NAME.PlatformAdmin,
+                      ]}
                       loginPath={loginPath}
                     >
                       <IndexUserPage />
@@ -1284,21 +1288,6 @@ const createRoute = (
                           loginPath={loginPath}
                         >
                           <AdminUserProfilePage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "placement",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UserPlacementPage />
                         </RequireAuth>
                       ),
                     },
@@ -1524,6 +1513,22 @@ const createRoute = (
                       ],
                     },
                     {
+                      path: "screening",
+                      element: featureFlags.recordOfDecision ? (
+                        <RequireAuth
+                          roles={[
+                            ROLE_NAME.PoolOperator,
+                            ROLE_NAME.PlatformAdmin,
+                          ]}
+                          loginPath={loginPath}
+                        >
+                          <ScreeningAndEvaluationPage />
+                        </RequireAuth>
+                      ) : (
+                        <AdminErrorPage />
+                      ),
+                    },
+                    {
                       path: "plan",
                       element: featureFlags.recordOfDecision ? (
                         <RequireAuth
@@ -1544,10 +1549,29 @@ const createRoute = (
               ],
             },
             {
+              path: "pool-candidates",
+              element: (
+                <RequireAuth
+                  roles={[
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
+                  ]}
+                  loginPath={loginPath}
+                >
+                  <AllPoolCandidatesPage />
+                </RequireAuth>
+              ),
+            },
+            {
               path: "candidates/:poolCandidateId/application",
               element: (
                 <RequireAuth
-                  roles={[ROLE_NAME.PoolOperator]}
+                  roles={[
+                    ROLE_NAME.PoolOperator,
+                    ROLE_NAME.RequestResponder,
+                    ROLE_NAME.PlatformAdmin,
+                  ]}
                   loginPath={loginPath}
                 >
                   <ViewPoolCandidatePage />

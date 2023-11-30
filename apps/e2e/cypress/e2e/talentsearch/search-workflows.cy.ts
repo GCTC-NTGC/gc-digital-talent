@@ -127,7 +127,7 @@ describe("Talent Search Workflow Tests", () => {
 
     // use new test user to submit an application
     cy.get<User>("@testUser").then((testUser) => {
-      cy.loginBySubject(testUser.sub);
+      cy.loginBySubject(testUser.authInfo.sub);
       cy.getMe().then((testUser) => {
         cy.get<Pool>("@publishedTestPool1").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
@@ -150,7 +150,6 @@ describe("Talent Search Workflow Tests", () => {
     cy.visit("/en/search");
 
     // first request is without any filters
-    cy.wait("@gqlgetSearchFormDataAcrossAllPoolsQuery");
     searchFindsMySingleCandidate();
 
     // classification filter - fail
@@ -236,9 +235,14 @@ describe("Talent Search Workflow Tests", () => {
 
     // skills selection, not currently used in search
     cy.get<Skill>("@testSkill").then((skill) => {
-      cy.findByRole("button", {
-        name: `Add this skill : ${skill.name.en}`,
-      }).click();
+      cy.findByRole("combobox", { name: /skill family/i }).then((dropdown) => {
+        cy.wrap(dropdown).select(1); // All skills
+        searchRejectsMySingleCandidate();
+      });
+
+      cy.findByRole("combobox", { name: /skill$/i }).then((combobox) => {
+        cy.wrap(combobox).type(`${skill.name.en}{DownArrow}{Enter}`);
+      });
       // skill selection does not trigger an api request
       searchFindsMySingleCandidate();
     });
@@ -303,6 +307,10 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("textbox", {
       name: /What is the job title for this position\?/i,
     }).type("Test Job Title");
+
+    cy.findByRole("radio", {
+      name: /general interest/i,
+    }).click();
 
     cy.findByRole("textbox", { name: /Additional Comments/i }).type(
       "Test Comments",

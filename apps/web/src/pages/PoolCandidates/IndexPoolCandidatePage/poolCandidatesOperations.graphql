@@ -19,7 +19,6 @@ fragment poolCandidateTable on PoolCandidate {
     armedForcesStatus
 
     # Language
-    languageAbility
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
@@ -65,72 +64,6 @@ fragment poolCandidateTable on PoolCandidate {
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
-    # Experiences
-    experiences {
-      id
-      __typename
-      user {
-        id
-        email
-      }
-      details
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        category
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-      }
-    }
     positionDuration
     priorityWeight
   }
@@ -141,6 +74,74 @@ fragment poolCandidateTable on PoolCandidate {
   notes
   archivedAt
   suspendedAt
+}
+
+fragment skillMatchDialog on User {
+  experiences {
+    id
+    __typename
+    user {
+      id
+      email
+    }
+    details
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
 }
 
 fragment poolCandidateForm on PoolCandidate {
@@ -495,6 +496,12 @@ query getPoolCandidatesByPool($id: UUID!) {
     poolCandidates {
       ...poolCandidateTable
     }
+  }
+}
+
+query getSkillMatchDialogData($id: UUID!) {
+  user(id: $id) {
+    ...skillMatchDialog
   }
 }
 

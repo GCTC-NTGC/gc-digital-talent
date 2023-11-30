@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class Pool
@@ -45,6 +47,7 @@ use Illuminate\Support\Facades\Validator;
 class Pool extends Model
 {
     use HasFactory;
+    use LogsActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -91,6 +94,14 @@ class Pool extends Model
         'operational_requirements',
         'archived_at',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function user(): BelongsTo
     {

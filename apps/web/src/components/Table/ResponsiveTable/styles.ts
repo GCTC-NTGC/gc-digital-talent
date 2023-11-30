@@ -35,11 +35,12 @@ export const getCellStyles: GetCellStyles = ({
           // Not a title or selection
           "data-h2-display": "base(block) l-tablet(table-cell)",
           "data-h2-order": "base(3)",
+          "data-h2-width": "base(100%) l-tablet(auto)",
         }),
 
       ...(shrinkCol && {
         "data-h2-flex-shrink": "base(0)",
-        "data-h2-width": "base(auto)",
+        "data-h2-width": "l-tablet(auto)",
       }),
 
       // Custom styles for row selection cell

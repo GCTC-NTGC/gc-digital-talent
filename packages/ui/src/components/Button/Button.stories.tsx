@@ -49,6 +49,7 @@ const modes: Array<ButtonLinkMode> = [
   "text",
   "inline",
   "cta",
+  "icon_only",
 ];
 
 const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
@@ -72,9 +73,11 @@ const Template: Story = () => {
                       key={`${theme}-${mode}`}
                       {...(color === "white" && {
                         "data-h2-background-color": "base(black)",
+                        "data-h2-font-color": "base(white)",
                       })}
                       {...(color !== "white" && {
                         "data-h2-background-color": "base(background)",
+                        "data-h2-font-color": "base(black)",
                       })}
                       data-h2-padding="base(x2 x2 x1 x2)"
                     >
@@ -83,17 +86,23 @@ const Template: Story = () => {
                         color={color}
                         icon={InformationCircleIcon}
                         counter={99}
+                        aria-label={
+                          mode === "icon_only" ? "Example label" : undefined
+                        }
                       >
                         Example label
                       </Button>
+                      <p>{`${theme} ${mode} ${color}`}</p>
                     </div>
                     <div
                       key=""
                       {...(color === "white" && {
                         "data-h2-background-color": "base(black)",
+                        "data-h2-font-color": "base(white)",
                       })}
                       {...(color !== "white" && {
                         "data-h2-background-color": "base(background)",
+                        "data-h2-font-color": "base(black)",
                       })}
                       data-h2-padding="base(x1 x2 x2 x2)"
                     >
@@ -102,10 +111,14 @@ const Template: Story = () => {
                         color={color}
                         icon={InformationCircleIcon}
                         counter={99}
+                        aria-label={
+                          mode === "icon_only" ? "Example label" : undefined
+                        }
                         disabled
                       >
                         Example label
                       </Button>
+                      <p>{`${theme} ${mode} ${color} disabled`}</p>
                     </div>
                   </>
                 ))}

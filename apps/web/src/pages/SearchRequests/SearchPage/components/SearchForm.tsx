@@ -1,554 +1,209 @@
-import React, { useImperativeHandle } from "react";
-import { FormProvider, useForm, UseFormTrigger } from "react-hook-form";
-import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
-import debounce from "lodash/debounce";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 import {
-  Checklist,
-  RadioGroup,
-  Select,
-  enumToOptions,
-  unpackMaybes,
-  enumToOptionsWorkRegionSorted,
-} from "@gc-digital-talent/forms";
-import {
-  getLanguageAbility,
-  getEmploymentEquityGroup,
-  getWorkRegion,
-  EmploymentDuration,
-  getPoolStream,
-  errorMessages,
-} from "@gc-digital-talent/i18n";
-import { hasKey, notEmpty } from "@gc-digital-talent/helpers";
-
-import {
-  LanguageAbility,
+  Classification,
+  Pool,
   ApplicantFilterInput,
-  WorkRegion,
-  PoolStream,
   Skill,
-  PositionDuration,
-  Maybe,
-} from "~/api/generated";
-import { SimpleClassification, SimplePool } from "~/types/pool";
-import { poolMatchesClassification } from "~/utils/poolUtils";
-import {
-  FormValues,
-  LocationState,
-  NullSelection,
-  Option,
-} from "~/types/searchRequest";
+  useGetSearchFormDataAcrossAllPoolsQuery,
+} from "@gc-digital-talent/graphql";
+import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 
-import AdvancedFilters from "./AdvancedFilters";
-import AddSkillsToFilter from "./AddSkillsToFilter";
-import FilterBlock from "./FilterBlock";
+import { FormValues } from "~/types/searchRequest";
+import useRoutes from "~/hooks/useRoutes";
 
-const positionDurationToEmploymentDuration = (
-  durations: Maybe<PositionDuration>[],
-): string => {
-  if (durations && durations.includes(PositionDuration.Temporary)) {
-    return EmploymentDuration.Term;
-  }
-  return EmploymentDuration.Indeterminate;
-};
+import { getAvailableClassifications, formValuesToData } from "../utils";
+import { useCandidateCount, useInitialFilters } from "../hooks";
+import FormFields from "./FormFields";
+import EstimatedCandidates from "./EstimatedCandidates";
+import SearchFilterAdvice from "./SearchFilterAdvice";
+import NoResults from "./NoResults";
+import SearchResultCard from "./SearchResultCard";
 
-const dataToFormValues = (
-  data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<SimpleClassification[]>,
-  pools?: SimplePool[],
-): FormValues => {
-  const dataPoolsSafe = data.pools ? data.pools : [];
-  const poolsSafe = pools ? pools.filter(notEmpty) : [];
-
-  const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
-  return {
-    classification: selectedClassifications
-      ? `${selectedClassifications[0].group}-0${selectedClassifications[0].level}`
-      : "",
-    languageAbility: data?.languageAbility
-      ? data?.languageAbility
-      : "NULL_SELECTION",
-    employmentEquity: data.equity
-      ? [
-          ...(data.equity.hasDisability ? ["hasDisability"] : []),
-          ...(data.equity.isIndigenous ? ["isIndigenous"] : []),
-          ...(data.equity.isVisibleMinority ? ["isVisibleMinority"] : []),
-          ...(data.equity.isWoman ? ["isWoman"] : []),
-        ]
-      : [],
-    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
-    skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    stream: dataPoolsSafe[0]
-      ? poolMap.get(dataPoolsSafe[0].id)?.stream || ""
-      : "",
-    locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
-    operationalRequirements:
-      data.operationalRequirements?.filter(notEmpty) ?? [],
-    employmentDuration: data.positionDuration
-      ? positionDurationToEmploymentDuration(data.positionDuration)
-      : "",
-  };
-};
-
-function mapObjectsByKey<T>(
-  keyFunction: (t: T) => string,
-  objects: T[],
-): Map<string, T> {
-  return objects.reduce((map, obj) => {
-    map.set(keyFunction(obj), obj);
-    return map;
-  }, new Map());
-}
-
-const classificationToKey = (classification: SimpleClassification) =>
-  `${classification.group}-0${classification.level}`;
-
-interface SearchFormProps {
-  classifications: SimpleClassification[];
-  skills?: Skill[];
-  pools?: SimplePool[];
-  onUpdateApplicantFilter: (filter: ApplicantFilterInput) => void;
-}
-
-export interface SearchFormRef {
-  triggerValidation: UseFormTrigger<FormValues>;
-}
-
-const classificationLabels: Record<string, MessageDescriptor> = defineMessages({
-  "IT-01": {
-    defaultMessage: "IT-01: Technician ($60,000 to $78,000)",
-    id: "ZuyuPO",
-    description: "IT-01 classification label including titles and salaries",
-  },
-  "IT-02": {
-    defaultMessage: "IT-02: Analyst ($75,000 to $91,000)",
-    id: "UN2Ncr",
-    description: "IT-02 classification label including titles and salaries",
-  },
-  "IT-03": {
-    defaultMessage:
-      "IT-03: Technical Advisor or Team Leader ($88,000 to $110,000)",
-    id: "Aa8SIB",
-    description: "IT-03 classification label including titles and salaries",
-  },
-  "IT-04": {
-    defaultMessage: "IT-04: Senior Advisor or Manager ($101,000 to $126,000)",
-    id: "5YzNJj",
-    description: "IT-04 classification label including titles and salaries",
-  },
-});
-
-const classificationAriaLabels: Record<string, MessageDescriptor> =
-  defineMessages({
-    "IT-01": {
-      defaultMessage: "Technician I T 1 ($60,000 to $78,000)",
-      id: "1c+inU",
-      description:
-        "IT-01 classification aria label including titles and salaries",
-    },
-    "IT-02": {
-      defaultMessage: "Analyst I T 2 ($75,000 to $91,000)",
-      id: "BkHx2X",
-      description:
-        "IT-02 classification aria label including titles and salaries",
-    },
-    "IT-03": {
-      defaultMessage:
-        "Technical Advisor or Team Leader I T 3 ($88,000 to $110,000)",
-      id: "++WV3O",
-      description:
-        "IT-03 classification aria label including titles and salaries",
-    },
-    "IT-04": {
-      defaultMessage: "Senior Advisor or Manager I T 4 ($101,000 to $126,000)",
-      id: "Ix0KgU",
-      description:
-        "IT-04 classification aria label including titles and salaries",
-    },
-  });
-
-const durationSelectionToEnum = (
-  selection: string | null,
-): PositionDuration[] | null => {
-  if (selection && selection === EmploymentDuration.Term) {
-    return [PositionDuration.Temporary];
-  }
-  if (selection && selection === EmploymentDuration.Indeterminate) {
-    return [PositionDuration.Permanent];
-  }
-  return null;
-};
-
-const SearchForm = React.forwardRef<SearchFormRef, SearchFormProps>(
-  ({ classifications, skills, pools, onUpdateApplicantFilter }, ref) => {
-    const intl = useIntl();
-    const location = useLocation();
-
-    const classificationMap = React.useMemo(() => {
-      return mapObjectsByKey(classificationToKey, classifications);
-    }, [classifications]);
-
-    // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-    const state = location.state as LocationState;
-    const initialValues = React.useMemo(
-      () => (state ? state.applicantFilter : {}),
-      [state],
-    );
-
-    const methods = useForm<FormValues>({
-      defaultValues: dataToFormValues(
-        initialValues ?? {},
-        state?.selectedClassifications,
-        pools,
-      ),
-      mode: "onSubmit",
-      reValidateMode: "onSubmit",
-    });
-    const { watch, trigger } = methods;
-
-    useImperativeHandle(
-      ref,
-      () => ({
-        triggerValidation: trigger,
-      }),
-      [trigger],
-    );
-
-    React.useEffect(() => {
-      const formValuesToData = (values: FormValues): ApplicantFilterInput => {
-        const selectedClassification = values.classification
-          ? classificationMap.get(values.classification)
-          : undefined;
-        return {
-          qualifiedClassifications: [selectedClassification],
-          skills: values.skills
-            ? values.skills
-                .filter((id) => !!id)
-                .map((id) => ({
-                  id,
-                }))
-            : [],
-          operationalRequirements: values.operationalRequirements
-            ? unpackMaybes(values.operationalRequirements)
-            : [],
-          hasDiploma: values.educationRequirement === "has_diploma",
-          equity: {
-            hasDisability:
-              values.employmentEquity &&
-              values.employmentEquity?.includes("hasDisability"),
-            isIndigenous:
-              values.employmentEquity &&
-              values.employmentEquity?.includes("isIndigenous"),
-            isVisibleMinority:
-              values.employmentEquity &&
-              values.employmentEquity?.includes("isVisibleMinority"),
-            isWoman:
-              values.employmentEquity &&
-              values.employmentEquity?.includes("isWoman"),
-          },
-          ...(values.languageAbility !== NullSelection
-            ? { languageAbility: values.languageAbility as LanguageAbility }
-            : {}), // Ensure null in FormValues is converted to undefined
-          positionDuration: values.employmentDuration
-            ? durationSelectionToEnum(values.employmentDuration)
-            : null,
-          locationPreferences: values.locationPreferences || [],
-          qualifiedStreams: values.stream ? [values.stream] : undefined,
-          pools: pools
-            ? pools
-                .filter(notEmpty)
-                .filter(
-                  (pool) =>
-                    selectedClassification === undefined || // If a classification hasn't been selected yet, do not filter out any pools.
-                    poolMatchesClassification(pool, selectedClassification),
-                )
-                .filter(
-                  (pool) =>
-                    values.stream === "" || // If a stream hasn't been selected yet, do not filter out any pools.
-                    pool.stream === values.stream,
-                )
-            : [],
-        };
-      };
-
-      const debounceUpdate = debounce((values: ApplicantFilterInput) => {
-        if (onUpdateApplicantFilter) {
-          onUpdateApplicantFilter(values);
-        }
-      }, 200);
-
-      const subscription = watch((newValues) => {
-        const values = formValuesToData(newValues as FormValues);
-        debounceUpdate(values);
-      });
-
-      return () => subscription.unsubscribe();
-    }, [watch, classificationMap, onUpdateApplicantFilter, pools, state]);
-
-    const getClassificationLabel = React.useCallback(
-      (
-        group: string,
-        level: number,
-        labels: Record<string, MessageDescriptor>,
-      ): string => {
-        const key = `${group}-0${level}`;
-        return !hasKey(classificationLabels, key)
-          ? key
-          : intl.formatMessage(labels[key]);
-      },
-      [intl],
-    );
-
-    const classificationOptions: Option<string>[] = React.useMemo(
-      () =>
-        classifications.map(({ group, level }) => ({
-          value: classificationToKey({ group, level }),
-          label: getClassificationLabel(group, level, classificationLabels),
-          ariaLabel: getClassificationLabel(
-            group,
-            level,
-            classificationAriaLabels,
-          ),
-        })),
-      [classifications, getClassificationLabel],
-    );
-    const streamOptions: Option<PoolStream>[] = enumToOptions(PoolStream)
-      .map(({ value }) => ({
-        value: value as PoolStream,
-        label: intl.formatMessage(getPoolStream(value)),
-      }))
-      // Avoid showing the ATIP stream as an option, since we don't have pools with candidates yet.
-      // TODO: remove this when ATIP pools are ready. See ticket https://github.com/GCTC-NTGC/gc-digital-talent/issues/7601
-      .filter(({ value }) => value !== PoolStream.AccessInformationPrivacy);
-
-    return (
-      <FormProvider {...methods}>
-        <form>
-          <FilterBlock
-            id="classificationsFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Classification filter",
-              id: "TxVbLI",
-              description:
-                "Heading for classification filter of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "We use this filter to match candidates who express interest in a classification level, or certain expected salaries in these classifications.",
-              id: "dxv7Jx",
-              description:
-                "Message describing the classification filter of the search form.",
-            })}
-          >
-            <Select
-              id="classifications"
-              label={intl.formatMessage({
-                defaultMessage: "Classification filter",
-                id: "V8v+/g",
-                description: "Label for classification filter in search form.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select a classification",
-                id: "HHEQgM",
-                description:
-                  "Placeholder for classification filter in search form.",
-              })}
-              name="classification"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a classification",
-                id: "HHEQgM",
-                description:
-                  "Placeholder for classification filter in search form.",
-              })}
-              options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              trackUnsaved={false}
-            />
-            <Select
-              id="stream"
-              label={intl.formatMessage({
-                defaultMessage: "Stream",
-                id: "qYWmzA",
-                description: "Label for stream filter in search form.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select a job stream",
-                id: "QJ5uDV",
-                description: "Placeholder for stream filter in search form.",
-              })}
-              name="stream"
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a job stream",
-                id: "QJ5uDV",
-                description: "Placeholder for stream filter in search form.",
-              })}
-              options={streamOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <AddSkillsToFilter allSkills={skills ?? []} linkId="skillFilter" />
-          <FilterBlock
-            id="workingLanguageFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Working language ability",
-              id: "p72C40",
-              description:
-                "Heading for working language ability section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "Select the working language ability the candidate needs for this position. The selected working language ability will be compared to the one chosen by candidates in their applications. To note, candidates who selected Bilingual may not have Government of Canada second language evaluation results.",
-              id: "+PLUZ8",
-              description:
-                "Message describing the work language ability filter in the search form.",
-            })}
-          >
-            <RadioGroup
-              idPrefix="languageAbility"
-              legend={intl.formatMessage({
-                defaultMessage: "Language",
-                id: "sk9CeW",
-                description:
-                  "Legend for the Working Language Ability radio buttons",
-              })}
-              name="languageAbility"
-              items={[
-                {
-                  value: NullSelection,
-                  label: intl.formatMessage({
-                    defaultMessage: "Any language (English or French)",
-                    id: "YyHN1i",
-                    description:
-                      "No preference for language ability - will accept English or French",
-                  }),
-                },
-                ...enumToOptions(LanguageAbility).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getLanguageAbility(value)),
-                })),
-              ]}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
-            id="employmentEquityFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Employment equity",
-              id: "ITkmBQ",
-              description:
-                "Heading for employment equity section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",
-              id: "dlRmxI",
-              description:
-                "Message describing the employment equity filter in the search form.",
-            })}
-          >
-            <Checklist
-              idPrefix="employmentEquity"
-              legend={intl.formatMessage({
-                defaultMessage: "Employment equity groups",
-                id: "m3qn9l",
-                description: "Legend for the employment equity checklist",
-              })}
-              name="employmentEquity"
-              context={intl.formatMessage({
-                defaultMessage:
-                  "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected EE groups",
-                id: "UXsUvN",
-                description:
-                  "Context for employment equity filter in search form.",
-              })}
-              items={[
-                {
-                  value: "isWoman",
-                  label: intl.formatMessage(getEmploymentEquityGroup("woman")),
-                },
-                {
-                  value: "isIndigenous",
-                  label: intl.formatMessage(
-                    getEmploymentEquityGroup("indigenous"),
-                  ),
-                },
-                {
-                  value: "isVisibleMinority",
-                  label: intl.formatMessage(
-                    getEmploymentEquityGroup("minority"),
-                  ),
-                },
-                {
-                  value: "hasDisability",
-                  label: intl.formatMessage(
-                    getEmploymentEquityGroup("disability"),
-                  ),
-                },
-              ]}
-              trackUnsaved={false}
-            />
-          </FilterBlock>
-          <FilterBlock
-            id="locationPreferencesFilter"
-            title={intl.formatMessage({
-              defaultMessage: "Work location",
-              id: "uP+q43",
-              description:
-                "Heading for work location section of the search form.",
-            })}
-            text={intl.formatMessage({
-              defaultMessage:
-                "If you have more detailed work location requirement, let us know in the comment section of the submission form. You can select more than one region.",
-              id: "sM+4cP",
-              description:
-                "Message describing the work location filter in the search form.",
-            })}
-          >
-            <Checklist
-              idPrefix="locationPreferences"
-              id="locationPreferences"
-              name="locationPreferences"
-              context={intl.formatMessage({
-                defaultMessage:
-                  "<strong>Note:</strong> Results will include any candidate that matches <strong>1 or more</strong> of the selected regions",
-                id: "7mb9oA",
-                description:
-                  "Context for the work region/location preferences filter in the search form.",
-              })}
-              legend={intl.formatMessage({
-                defaultMessage: "Region",
-                id: "F+WFWB",
-                description: "Label for work location filter in search form.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select a location",
-                id: "bo+d/M",
-                description:
-                  "Placeholder for work location filter in search form.",
-              })}
-              items={enumToOptionsWorkRegionSorted(WorkRegion).map(
-                ({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getWorkRegion(value)),
-                }),
-              )}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </FilterBlock>
-
-          <AdvancedFilters />
-        </form>
-      </FormProvider>
-    );
-  },
+const testId = (chunks: React.ReactNode) => (
+  <span data-testid="candidateCount">{chunks}</span>
 );
 
-export default SearchForm;
+interface SearchFormProps {
+  pools: Pool[];
+  classifications: Classification[];
+  skills: Skill[];
+}
+
+export const SearchForm = ({
+  pools,
+  classifications,
+  skills,
+}: SearchFormProps) => {
+  const intl = useIntl();
+  const navigate = useNavigate();
+  const paths = useRoutes();
+  const { defaultValues, initialFilters } = useInitialFilters(pools);
+
+  const [applicantFilter, setApplicantFilter] =
+    React.useState<ApplicantFilterInput>(initialFilters);
+
+  const { fetching, candidateCount, results } =
+    useCandidateCount(applicantFilter);
+
+  const methods = useForm<FormValues>({
+    defaultValues,
+    mode: "onSubmit",
+    reValidateMode: "onBlur",
+  });
+  const { watch } = methods;
+
+  React.useEffect(() => {
+    const subscription = watch((newValues) => {
+      const newFilters = formValuesToData(
+        newValues as FormValues,
+        pools,
+        classifications,
+      );
+      setApplicantFilter(newFilters);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [classifications, pools, watch]);
+
+  const handleSubmit = (values: FormValues) => {
+    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    const selectedPool = pools.find((pool) => pool.id === values.pool);
+
+    navigate(paths.request(), {
+      state: {
+        applicantFilter: {
+          ...applicantFilter,
+          pools: poolIds,
+        },
+        candidateCount: values.count,
+        selectedClassifications: selectedPool
+          ? selectedPool.classifications?.filter(notEmpty)
+          : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
+      },
+    });
+  };
+
+  return (
+    <div
+      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+      data-h2-margin-bottom="base(x3)"
+    >
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-grid-template-columns="base(1fr) p-tablet(1fr x15)"
+            data-h2-gap="base(x2)"
+          >
+            <div>
+              <Heading
+                data-h2-margin="base(x3, 0, x1, 0)"
+                data-h2-font-weight="base(400)"
+                level="h2"
+                size="h3"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "How to use this tool",
+                  id: "HvD7jI",
+                  description:
+                    "Heading displayed in the How To area of the hero section of the Search page.",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. Candidates are assessed for their skills and grouped into pools to meet your staffing needs.",
+                  id: "F+LDbs",
+                  description:
+                    "Content displayed in the find talent page explaining the page and what it offers to users.",
+                })}
+              </p>
+              <p data-h2-margin-top="base(x.5)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "1pCzp1",
+                  description:
+                    "Content displayed in the How To area of the hero section of the Search page.",
+                })}
+              </p>
+              <FormFields skills={skills} classifications={classifications} />
+            </div>
+            <div data-h2-display="base(none) p-tablet(block)">
+              <EstimatedCandidates
+                candidateCount={candidateCount}
+                updatePending={fetching}
+              />
+            </div>
+          </div>
+          <Separator
+            decorative
+            orientation="horizontal"
+            data-h2-margin="base(x2, 0)"
+            data-h2-background-color="base(gray)"
+          />
+          <Heading level="h3" size="h4" id="results">
+            {intl.formatMessage(
+              {
+                defaultMessage: `{totalCandidateCount, plural,
+                  =0 {Results: <testId>{totalCandidateCount}</testId> matching candidates}
+                  =1 {Results: <testId>{totalCandidateCount}</testId> matching candidate}
+                  other {Results: <testId>{totalCandidateCount}</testId> matching candidates}
+                }`,
+                id: "eeWkWi",
+                description:
+                  "Heading for total matching candidates in results section of search page.",
+              },
+              {
+                testId,
+                totalCandidateCount: candidateCount,
+              },
+            )}
+          </Heading>
+          <SearchFilterAdvice filters={applicantFilter} />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+          >
+            {results?.length && candidateCount > 0 ? (
+              results.map(({ pool, candidateCount: resultsCount }) => (
+                <SearchResultCard
+                  key={pool.id}
+                  candidateCount={resultsCount}
+                  pool={pool}
+                />
+              ))
+            ) : (
+              <NoResults />
+            )}
+          </div>
+        </form>
+      </FormProvider>
+    </div>
+  );
+};
+
+const SearchFormAPI = () => {
+  const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
+
+  const skills = unpackMaybes<Skill>(data?.skills);
+  const pools = unpackMaybes<Pool>(data?.publishedPools);
+  const classifications = getAvailableClassifications(pools);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      <SearchForm
+        skills={skills}
+        pools={pools}
+        classifications={classifications}
+      />
+    </Pending>
+  );
+};
+
+export default SearchFormAPI;

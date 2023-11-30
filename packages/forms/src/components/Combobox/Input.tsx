@@ -45,7 +45,7 @@ const Wrapper = React.forwardRef<HTMLDivElement, DivHTMLProps>(
       data-h2-flex-grow="base(1)"
       data-h2-width="base(100%)"
       data-h2-position="base(relative)"
-      data-h2-margin="base(x.125, 0)"
+      data-h2-margin="base(0, 0, x.125, 0)"
       {...props}
     />
   ),
@@ -145,7 +145,7 @@ const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
 const Separator = () => (
   <span data-h2-padding="base(x.25 0)">
     <SeparatorPrimitive
-      data-h2-background-color="base(black.lightest)"
+      data-h2-background-color="base(gray)"
       orientation="vertical"
       decorative
     />

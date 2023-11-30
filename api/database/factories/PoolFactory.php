@@ -166,16 +166,20 @@ class PoolFactory extends Factory
         });
     }
 
-    /** Add assessment steps to the pool
+    /** Add assessment steps to the pool with pool skills for a complete assessment plan
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
     public function withAssessments()
     {
         return $this->afterCreating(function (Pool $pool) {
-            AssessmentStep::factory()
-                ->count(3)
+            $step1 = AssessmentStep::factory()
                 ->create(['pool_id' => $pool->id]);
+            $step2 = AssessmentStep::factory()
+                ->create(['pool_id' => $pool->id]);
+            $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
+            $step1->poolSkills()->sync(array_slice($poolSkillArray, 0, 5, true));
+            $step2->poolSkills()->sync(array_slice($poolSkillArray, 5, 5, true));
         });
     }
 }

@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
+import VersionLink from "./VersionLink";
 
 interface FooterProps {
   width?: string;
@@ -21,6 +22,7 @@ const Footer = ({ width }: FooterProps) => {
         id: "AWiMVP",
         description: "Label for the support link in the Footer.",
       }),
+      state: { referrer: window.location.href },
     },
     {
       href: `/${intl.locale}/terms-and-conditions`,
@@ -70,7 +72,7 @@ const Footer = ({ width }: FooterProps) => {
   return (
     <footer
       className="footer"
-      data-h2-background-color="base(foreground)"
+      data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-top="base(1px solid black.20)"
       data-h2-padding="base(x2, 0)"
       data-h2-margin="base(auto, 0, 0, 0)"
@@ -104,24 +106,27 @@ const Footer = ({ width }: FooterProps) => {
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
               <p
-                data-h2-color="base(black.70) base:dark(white.70)"
+                data-h2-color="base(black.70)"
                 data-h2-font-size="base(caption)"
               >
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Date Modified: {modifiedDate}",
-                    id: "Fc/i3e",
-                    description:
-                      "Header for the sites last date modification found in the footer.",
-                  },
-                  {
-                    modifiedDate: new Date(
-                      process.env.BUILD_DATE ?? "1970-01-01",
-                    )
-                      .toISOString()
-                      .slice(0, 10),
-                  },
-                )}
+                <span>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Date Modified: {modifiedDate}",
+                      id: "Fc/i3e",
+                      description:
+                        "Header for the sites last date modification found in the footer.",
+                    },
+                    {
+                      modifiedDate: new Date(
+                        process.env.BUILD_DATE ?? "1970-01-01",
+                      )
+                        .toISOString()
+                        .slice(0, 10),
+                    },
+                  )}
+                </span>
+                <VersionLink />
               </p>
             </div>
           </div>

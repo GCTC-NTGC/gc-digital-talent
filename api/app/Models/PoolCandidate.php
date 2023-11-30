@@ -20,6 +20,8 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class PoolCandidate
@@ -43,6 +45,7 @@ use Illuminate\Support\Str;
 class PoolCandidate extends Model
 {
     use HasFactory;
+    use LogsActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -84,6 +87,14 @@ class PoolCandidate extends Model
     protected static function booted(): void
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 
     public function user(): BelongsTo
@@ -150,6 +161,11 @@ class PoolCandidate extends Model
             'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
+    }
+
+    public function assessmentResults(): HasMany
+    {
+        return $this->hasMany(AssessmentResult::class);
     }
 
     public function getEducationRequirementExperiencesAttribute()

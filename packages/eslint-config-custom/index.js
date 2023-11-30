@@ -64,6 +64,7 @@ module.exports = {
         idWhitelist: ["\\."],
       },
     ],
+    "formatjs/enforce-description": ["error", "literal"],
     camelcase: "warn",
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
@@ -74,20 +75,27 @@ module.exports = {
       "error",
       {
         "newlines-between": "always",
-        "distinctGroup": false,
-        groups: ["builtin", "external", "unknown", "internal", ["parent", "sibling"], "index"],
+        distinctGroup: false,
+        groups: [
+          "builtin",
+          "external",
+          "unknown",
+          "internal",
+          ["parent", "sibling"],
+          "index",
+        ],
         pathGroups: [
           {
-            "pattern": "@gc-digital-talent/**",
-            "group": "unknown",
+            pattern: "@gc-digital-talent/**",
+            group: "unknown",
           },
           {
-            "pattern": "~/**",
-            "group": "internal"
-          }
+            pattern: "~/**",
+            group: "internal",
+          },
         ],
-        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"]
-      }
+        pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"],
+      },
     ],
     "react/display-name": "off",
     "react/prop-types": "off",
@@ -191,6 +199,14 @@ module.exports = {
       {
         name: "@heroicons/react/20/solid",
         message: "Please import the individual icons, not the entire set.",
+      },
+      {
+        name: "jpg",
+        message: "Please use WebP as the image format.",
+      },
+      {
+        name: "png",
+        message: "Please use WebP as the image format.",
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a"] }],

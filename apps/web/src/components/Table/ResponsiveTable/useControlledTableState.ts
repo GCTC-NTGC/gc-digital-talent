@@ -33,7 +33,7 @@ const updateState = <State>(
   }
 };
 
-export const useTableStateFromSearchParams = (
+export const getTableStateFromSearchParams = (
   initialState?: Partial<InitialState>,
 ): Partial<InitialState> => {
   const params = new URLSearchParams(window.location.search);
@@ -99,7 +99,8 @@ export const useTableStateFromSearchParams = (
 };
 
 type UseControlledTableStateReturn = {
-  initialState: Partial<InitialState>;
+  initialParamState: Partial<InitialState>;
+  initialState: Partial<TableState>;
   state: Partial<TableState>;
   updaters: {
     onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
@@ -132,7 +133,7 @@ const useControlledTableState: UseControlledTableState = ({
   initialState,
   columnIds,
 }) => {
-  const initialStateFromParams = useTableStateFromSearchParams(initialState);
+  const initialStateFromParams = getTableStateFromSearchParams(initialState);
 
   const [globalFilter, setGlobalFilter] = useState<string>(
     initialStateFromParams.searchState?.term ?? "",
@@ -174,6 +175,26 @@ const useControlledTableState: UseControlledTableState = ({
   const handlePaginationChange = (updater: Updater<PaginationState>) =>
     updateState(setPagination, updater);
 
+  const memoizedInitialState: Partial<TableState> = useMemo(
+    () => ({
+      columnFilters: getColumnFilters(initialStateFromParams.searchState),
+      globalFilter: initialStateFromParams.searchState?.term,
+      columnVisibility: getColumnVisibility(
+        columnIds,
+        initialStateFromParams.hiddenColumnIds,
+      ),
+      pagination: initialStateFromParams.paginationState,
+      sorting: initialStateFromParams.sortState ?? INITIAL_STATE.sortState,
+    }),
+    [
+      columnIds,
+      initialStateFromParams.hiddenColumnIds,
+      initialStateFromParams.paginationState,
+      initialStateFromParams.searchState,
+      initialStateFromParams.sortState,
+    ],
+  );
+
   const memoizedState: Partial<TableState> = useMemo(
     () => ({
       columnFilters,
@@ -186,7 +207,8 @@ const useControlledTableState: UseControlledTableState = ({
   );
 
   return {
-    initialState: initialStateFromParams,
+    initialParamState: initialStateFromParams,
+    initialState: memoizedInitialState,
     state: memoizedState,
     updaters: {
       onColumnFiltersChange: handleColumnFiltersChange,

@@ -6,9 +6,9 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthentication } from "@gc-digital-talent/auth";
 import { empty } from "@gc-digital-talent/helpers";
-import { Loading } from "@gc-digital-talent/ui";
+import { useMyEmailQuery } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -21,7 +21,9 @@ const CreateAccountRedirect = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
-  const { email, isLoaded: authorizationLoaded } = useAuthorization();
+  const [lookUpResult] = useMyEmailQuery();
+  const { data: lookupData, fetching, stale } = lookUpResult;
+  const email = lookupData?.me?.email;
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 
@@ -33,7 +35,7 @@ const CreateAccountRedirect = () => {
      *  - User has no email associated with account
      *  - User is not trying to go to the welcome page directly already
      */
-    if (loggedIn && authorizationLoaded && empty(email) && isToCreateAccount) {
+    if (loggedIn && !fetching && !stale && empty(email) && isToCreateAccount) {
       navigate(
         {
           pathname: paths.createAccount(),
@@ -46,22 +48,14 @@ const CreateAccountRedirect = () => {
     }
   }, [
     loggedIn,
-    authorizationLoaded,
+    fetching,
+    stale,
     email,
     isToCreateAccount,
     pathname,
     navigate,
     paths,
   ]);
-
-  /**
-   * Show the loading spinner
-   * while we get the user roles/email
-   * to check
-   */
-  if (!authorizationLoaded) {
-    return <Loading />;
-  }
 
   return <Outlet />;
 };

@@ -5,11 +5,13 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { UpdateUserRolesInput } from "@gc-digital-talent/graphql";
 
-import { Role, UpdateUserAsAdminInput, User } from "~/api/generated";
+import { Role, User } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { normalizedText } from "~/components/Table/sortingFns";
 
-import { UpdateUserFunc } from "../types";
+import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 import { actionCell, roleCell } from "./helpers";
 
@@ -18,13 +20,13 @@ const columnHelper = createColumnHelper<Role>();
 interface IndividualRoleTableProps {
   user: User;
   availableRoles: Array<Role>;
-  onUpdateUser: UpdateUserFunc;
+  onUpdateUserRoles: UpdateUserRolesFunc;
 }
 
 const IndividualRoleTable = ({
   user,
   availableRoles,
-  onUpdateUser,
+  onUpdateUserRoles,
 }: IndividualRoleTableProps) => {
   const intl = useIntl();
   const columns = [
@@ -36,10 +38,11 @@ const IndividualRoleTable = ({
         description: "Title displayed for the team table actions column",
       }),
       cell: ({ row: { original: role } }) =>
-        actionCell(role, user, onUpdateUser),
+        actionCell(role, user, onUpdateUserRoles),
     }),
     columnHelper.accessor((role) => getLocalizedName(role.displayName, intl), {
       id: "role",
+      sortingFn: normalizedText,
       header: intl.formatMessage({
         defaultMessage: "Role",
         id: "uBmoxQ",
@@ -50,16 +53,16 @@ const IndividualRoleTable = ({
   ] as ColumnDef<Role>[];
 
   const data = useMemo(() => {
-    const roles = user.roleAssignments
+    const roles = user?.authInfo?.roleAssignments
       ?.filter(notEmpty)
       .filter((assignment) => !assignment.role?.isTeamBased)
       .map((assignment) => assignment.role)
       .filter(notEmpty);
     return roles || [];
-  }, [user.roleAssignments]);
+  }, [user?.authInfo?.roleAssignments]);
 
-  const handleAddRoles = async (values: UpdateUserAsAdminInput) => {
-    return onUpdateUser(user.id, values);
+  const handleAddRoles = async (values: UpdateUserRolesInput) => {
+    return onUpdateUserRoles(values);
   };
 
   const pageTitle = intl.formatMessage({

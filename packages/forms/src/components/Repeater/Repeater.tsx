@@ -1,86 +1,62 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
-import ChevronUpIcon from "@heroicons/react/24/solid/ChevronUpIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
+import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
+import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
+import { useFormContext } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 
-import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import Field from "../Field";
-
-/**
- * Generic button to apply styles to a
- * fieldset action button
- */
-const ActionButton = ({
-  decrement = false,
-  animate = true,
-  disabled,
-  ...rest
-}: React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
-> & {
-  decrement?: boolean;
-  animate?: boolean;
-}) => {
-  const transform = decrement
-    ? {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(-20%)) base:focus-visible:children[svg](translateY(-20%))",
-      }
-    : {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(20%)) base:focus-visible:children[svg](translateY(20%))",
-      };
-  return (
-    <button
-      type="button"
-      data-h2-border="base(none)"
-      data-h2-cursor="base(pointer)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-padding="base(x.5)"
-      data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
-      data-h2-transition="base:children[svg](transform 200ms ease)"
-      {...(disabled
-        ? { disabled: true, "data-h2-color": "base(black.lightest)" }
-        : {
-            "data-h2-color": "base(black)",
-            ...(animate ? transform : {}),
-          })}
-      {...rest}
-    />
-  );
-};
+import { flattenErrors } from "../../utils";
+import ActionButton, { ActionButtonProps } from "./ActionButton";
 
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
   index: number;
+  /** A string specifying a name for the input control. */
+  name: string;
   /** Current total number of fields (eg: fields.length) */
   total: number;
-  /** Callback function when this item's index is changed' */
-  onMove: (from: number, to: number) => void;
-  /** Callback when the item is removed from the array */
-  onRemove: (index: number) => void;
   /** The legend for the fieldset (required but hidden by default) */
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
   hideLegend?: boolean;
   /** Set if the fieldset index is displayed to the user (default: false) */
   hideIndex?: boolean;
-  /** Disables deleting, moving and editing fields */
+  /** Disables removing, moving and editing fields */
   disabled?: boolean;
   children: React.ReactNode;
+  /** Callback function when this item's index is changed' */
+  onMove: (from: number, to: number) => void;
+  /** Callback when the item is removed from the array */
+  onRemove?: (index: number) => void;
+  /** Callback function when edit button is clicked */
+  onEdit?: (index: number) => void;
+  /** Add a custom edit button */
+  customEditButton?: React.ReactElement<ActionButtonProps>;
+  /** Add a custom remove button */
+  customRemoveButton?: React.ReactElement<ActionButtonProps>;
+  /** All indexes that should be prevented from moving */
+  moveDisabledIndexes?: Array<number>;
+  /** Disables editing the item */
+  editDisabled?: boolean;
+  /** Disables removing the item */
+  removeDisabled?: boolean;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
 
 const Fieldset = ({
   index,
+  name,
   total,
   legend,
   hideLegend = false,
@@ -88,14 +64,47 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
-  disabled,
+  disabled: fieldSetDisabled,
+  onEdit,
+  customEditButton,
+  customRemoveButton,
+  moveDisabledIndexes = [],
+  editDisabled = false,
+  removeDisabled = false,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
+
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const fieldErrors = flattenErrors(errors);
+  const hasError = !!fieldErrors.find((fieldName) =>
+    fieldName.includes(`${name}.${index}`),
+  );
+
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
+  const disableDecrement =
+    fieldSetDisabled || // the whole fieldset is disabled
+    index <= 0 || // is the first item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index - 1 === disabledIndex, // has a move-disabled item previous
+    );
 
+  const disableIncrement =
+    fieldSetDisabled || // the whole fieldset is disabled
+    index === total - 1 || // is the last item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index + 1 === disabledIndex, // has a move-disabled item following
+    );
+  const isMoveDisabled = moveDisabledIndexes.includes(index);
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
     if (announce) {
@@ -109,14 +118,22 @@ const Fieldset = ({
   };
 
   const handleRemove = () => {
-    onRemove(index);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceRemove, {
-          index: position,
-        }),
-      );
+    if (onRemove) {
+      onRemove(index);
+      if (announce) {
+        announce(
+          intl.formatMessage(formMessages.repeaterAnnounceRemove, {
+            index: position,
+          }),
+        );
+      }
+    } else {
+      defaultLogger.debug("No onRemove for handler to call.");
     }
+  };
+
+  const handleEdit = () => {
+    if (onEdit) onEdit(index);
   };
 
   const decrement = () => {
@@ -127,6 +144,80 @@ const Fieldset = ({
     handleMove(index, index + 1);
   };
 
+  // replaces a button when it should be disabled.
+  const disabledIcon = (
+    <span data-h2-color="base(gray)" aria-hidden data-h2-width="base(x.75)">
+      &bull;
+    </span>
+  );
+
+  // edit button might be custom or default or null
+  const showDisabledEditButton = fieldSetDisabled || editDisabled;
+  let editButton: React.ReactNode = null;
+  if (customEditButton) {
+    // if a custom button was provided, use that and maybe disable it
+    if (!showDisabledEditButton) {
+      editButton = customEditButton;
+    } else {
+      editButton = (
+        <ActionButton
+          disabled
+          aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+            index: position,
+          })}
+        >
+          {disabledIcon}
+        </ActionButton>
+      );
+    }
+  } else if (onEdit) {
+    // no custom button, but we have a handler so show the default button
+    editButton = (
+      <ActionButton
+        disabled={showDisabledEditButton}
+        onClick={handleEdit}
+        aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+          index: position,
+        })}
+      >
+        <PencilSquareIcon data-h2-width="base(x.75)" />
+      </ActionButton>
+    );
+  }
+
+  // remove button might be custom or default or null
+  const showDisabledRemoveButton = fieldSetDisabled || removeDisabled;
+  let removeButton: React.ReactNode = null;
+  if (customRemoveButton) {
+    // if a custom button was provided, use that and maybe disable it
+    if (!showDisabledRemoveButton) {
+      removeButton = customRemoveButton;
+    } else {
+      removeButton = (
+        <ActionButton
+          disabled
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index: position,
+          })}
+        >
+          {disabledIcon}
+        </ActionButton>
+      );
+    }
+  } else if (onRemove) {
+    // no custom button, but we have a handler so show the default button
+    removeButton = (
+      <ActionButton
+        disabled={showDisabledRemoveButton}
+        onClick={handleRemove}
+        aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+          index: position,
+        })}
+      >
+        <TrashIcon data-h2-width="base(x.75)" />
+      </ActionButton>
+    );
+  }
   return (
     <MotionFieldset
       layout
@@ -145,98 +236,134 @@ const Fieldset = ({
       </Field.Legend>
       <Field.BoundingBox flat>
         <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(0, x.25)"
+          {...(!hasError
+            ? { "data-h2-border-top": "base(x.5 solid secondary)" }
+            : { "data-h2-border-top": "base(x.5 solid error)" })}
+          data-h2-shadow="base(medium)"
+          data-h2-radius="base(s)"
         >
           <div
-            data-h2-background-color="base(foreground)"
-            data-h2-flex-grow="base(1)"
-            data-h2-padding="base(x1)"
-            data-h2-shadow="base(medium)"
-            data-h2-radius="base(s)"
-            data-h2-order="base(2)"
-          >
-            {
-              /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
-              !hideLegend && (
-                <p
-                  aria-hidden="true"
-                  role="presentation"
-                  data-h2-margin="base(0, 0, x.5, 0)"
-                  data-h2-color="base(inherit)"
-                  data-h2-font-weight="base(800)"
-                >
-                  {legend}
-                </p>
-              )
-            }
-            {children}
-          </div>
-          <div
-            data-h2-flex-shrink="base(0)"
+            data-h2-padding="base(x.5, x1, x1, x1)"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.25, 0)"
-            data-h2-order="base(1)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-gap="base(x.5)"
+            data-h2-background-color="base(foreground)"
           >
             <div
               data-h2-background-color="base(foreground)"
               data-h2-display="base(flex)"
-              data-h2-radius="base(s)"
-              data-h2-shadow="base(medium)"
-              data-h2-flex-direction="base(column)"
+              data-h2-justify-content="base(space-between)"
               data-h2-align-items="base(center)"
-              data-h2-overflow="base(hidden)"
+              data-h2-width="base(100%)"
             >
-              <ActionButton
-                disabled={disabled || index <= 0}
-                onClick={decrement}
-                decrement
-                animate={!shouldReduceMotion}
-                aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                  from: position,
-                  to: position - 1,
-                })}
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-margin-left="base(-x.5)"
+                data-h2-justify-content="base(center)"
+                data-h2-gap="base(x.5)"
               >
-                <ChevronUpIcon data-h2-width="base(x1)" />
-              </ActionButton>
-              {!hideIndex && (
-                <span
-                  aria-hidden="true"
-                  data-h2-text-align="base(center)"
-                  data-h2-font-weight="base(700)"
-                  data-h2-margin="base(x.25, 0)"
-                >
-                  {index + 1}
-                </span>
-              )}
-              <ActionButton
-                disabled={disabled || index === total - 1}
-                onClick={increment}
-                animate={!shouldReduceMotion}
-                aria-label={intl.formatMessage(formMessages.repeaterMove, {
-                  from: position,
-                  to: position + 1,
-                })}
+                {!isMoveDisabled ? (
+                  <>
+                    {/* UP ARROW */}
+                    <ActionButton
+                      disabled={disableDecrement}
+                      onClick={decrement}
+                      animation={!shouldReduceMotion ? "translate-up" : "none"}
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position - 1,
+                        },
+                      )}
+                      {...(disableDecrement
+                        ? { "data-h2-padding-left": "base(x.25)" }
+                        : {})}
+                    >
+                      {!disableDecrement ? (
+                        <ArrowUpIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        disabledIcon
+                      )}
+                    </ActionButton>
+                    {/* INDEX */}
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                    {/* DOWN ARROW */}
+                    <ActionButton
+                      disabled={disableIncrement}
+                      onClick={increment}
+                      animation={
+                        !shouldReduceMotion ? "translate-down" : "none"
+                      }
+                      aria-label={intl.formatMessage(
+                        formMessages.repeaterMove,
+                        {
+                          from: position,
+                          to: position + 1,
+                        },
+                      )}
+                    >
+                      {!disableIncrement ? (
+                        <ArrowDownIcon data-h2-width="base(x.75)" />
+                      ) : (
+                        disabledIcon
+                      )}
+                    </ActionButton>
+                  </>
+                ) : (
+                  <>
+                    <LockClosedIcon
+                      data-h2-margin-left="base(x.5)"
+                      data-h2-width="base(x.75)"
+                    />
+                    {!hideIndex && (
+                      <span
+                        aria-hidden="true"
+                        data-h2-text-align="base(center)"
+                        data-h2-font-weight="base(700)"
+                      >
+                        {index + 1}
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-margin-right="base(-x.5)"
               >
-                <ChevronDownIcon data-h2-width="base(x1)" />
-              </ActionButton>
+                {editButton}
+                {removeButton}
+              </div>
             </div>
-            <ActionButton
-              data-h2-background-color="base(foreground)"
-              disabled={disabled}
-              animate={false}
-              onClick={handleRemove}
-              data-h2-shadow="base(medium)"
-              data-h2-radius="base(s)"
-              data-h2-color="base(error) base:focus(black) base:selectors[:disabled](error.3)"
-              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-                index: position,
-              })}
-            >
-              <TrashIcon data-h2-width="base(x1)" />
-            </ActionButton>
+            <div data-h2-width="base(100%)">
+              {
+                /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
+                !hideLegend && (
+                  <p
+                    aria-hidden="true"
+                    role="presentation"
+                    data-h2-margin="base(0, 0, x.5, 0)"
+                    data-h2-color="base(inherit)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {legend}
+                  </p>
+                )
+              }
+              {children}
+            </div>
           </div>
         </div>
       </Field.BoundingBox>
@@ -245,6 +372,10 @@ const Fieldset = ({
 };
 
 export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
+  /** A string specifying a name for the input control. */
+  name: string;
+  /** Determine if it should track unsaved changes and render it */
+  trackUnsaved?: boolean;
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText?: React.ReactNode;
@@ -253,6 +384,10 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
     React.ComponentPropsWithoutRef<typeof Button>,
     "children" | "type"
   >;
+  /** Current total number of fields (eg: fields.length) */
+  total: number;
+  /* Maximum number of items */
+  maxItems?: number;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
@@ -261,25 +396,70 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
     button: React.ReactNode;
     id: string;
   };
+  showUnsavedChanges?: boolean;
+  showApproachingLimit?: boolean;
+  /** Custom error message that overrides default root error message */
+  customErrorMessage?: React.ReactNode;
+  /** Custom null message when no items have been added */
+  customNullMessage?: React.ReactNode;
+  /** Max items message when maximum amount of items have been added */
+  maxItemsMessage?: React.ReactNode;
 }
 
 const Root = ({
+  name,
   onAdd,
   addText,
   addButtonProps,
   children,
   showAdd = true,
+  maxItems,
+  total,
   customButton,
+  showUnsavedChanges,
+  showApproachingLimit,
+  customErrorMessage,
+  customNullMessage,
+  maxItemsMessage,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
 
+  const {
+    formState: { errors, defaultValues, isDirty },
+    watch,
+  } = useFormContext();
+
+  // Check if any changes have been made to repeater length or repeater items.
+  const originalItems = defaultValues?.[name];
+  const currentItems = watch(name);
+
+  const changedItems = originalItems?.filter(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (original: any, index: string | number) => {
+      const current = currentItems[index];
+      return !current || !isEqual(original, current);
+    },
+  );
+  const hasUnsavedChanges =
+    showUnsavedChanges &&
+    (isDirty ||
+      (changedItems?.length && currentItems.length !== originalItems?.length));
+
+  // Grab root error message from field errors list
+  const hasError = errors?.[name] ? true : undefined;
+  const errorMessage = errors?.[name]?.root?.message as string;
+
+  const approachingLimit =
+    showApproachingLimit && maxItems ? total + 1 === maxItems : false;
+
   return (
     <div
+      id={`${name}.root`}
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5, 0)"
+      data-h2-gap="base(x.25, 0)"
       {...rest}
     >
       <Link
@@ -293,7 +473,68 @@ const Root = ({
       >
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
-      {children}
+      {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
+      {approachingLimit && (
+        <Well
+          data-h2-margin-bottom="base(x.5)"
+          data-h2-text-align="base(center)"
+        >
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+            {intl.formatMessage(formMessages.approachingLimit)}
+          </p>
+          <p>{intl.formatMessage(formMessages.approachingLimitDetails)}</p>
+        </Well>
+      )}
+      {total === 0 && (
+        <Well
+          data-h2-margin-bottom="base(x.5)"
+          data-h2-text-align="base(center)"
+          data-h2-color="base(black)"
+        >
+          {customNullMessage ?? (
+            <>
+              <p
+                data-h2-font-weight="base(700)"
+                data-h2-margin-bottom="base(x.5)"
+              >
+                {intl.formatMessage(formMessages.repeaterNull)}
+              </p>
+              <p>{intl.formatMessage(formMessages.repeaterNullDetails)}</p>
+            </>
+          )}
+        </Well>
+      )}
+      {hasError && (
+        <Field.Error
+          id={name}
+          data-h2-border-style="base(solid)"
+          data-h2-border-width="base(1px)"
+          data-h2-font-size="base(caption)"
+          data-h2-padding="base(x.5)"
+          data-h2-radius="base(rounded)"
+          data-h2-text-align="base(center)"
+          data-h2-margin-bottom="base(x.5)"
+        >
+          <p data-h2-font-weight="base(700)">
+            {intl.formatMessage(formMessages.repeaterDefaultError)}
+          </p>
+          {errorMessage && (
+            <p data-h2-margin-top="base(x.5)">
+              {customErrorMessage ?? errorMessage}
+            </p>
+          )}
+        </Field.Error>
+      )}
+      {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
+      {hasUnsavedChanges ? (
+        <Well
+          data-h2-margin-bottom="base(x.5)"
+          data-h2-text-align="base(center)"
+          data-h2-color="base(black)"
+        >
+          {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
+        </Well>
+      ) : null}
       {showAdd && !customButton ? (
         <Button
           id={addId}
@@ -305,7 +546,12 @@ const Root = ({
           onClick={onAdd}
           {...addButtonProps}
         >
-          {addText}
+          {maxItems && total === maxItems ? (
+            <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
+          ) : (
+            addText || intl.formatMessage(formMessages.repeaterAddItem)
+          )}{" "}
+          {maxItems && `(${total}/${maxItems})`}
         </Button>
       ) : (
         customButton?.button

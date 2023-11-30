@@ -2,6 +2,8 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
+import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
@@ -13,14 +15,27 @@ export default {
   title: "Form/Checkbox",
 } as Meta;
 
+const themes = ["light", "dark"];
+
 const TemplateCheckbox: Story<CheckboxProps> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <Checkbox {...args} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <Checkbox {...args} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -46,7 +61,9 @@ CheckboxWithBoundingBox.args = {
 CheckboxElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
-  label: <span data-h2-background-color="base(error)">Red Selection</span>,
+  label: (
+    <span data-h2-background-color="base(error.lighter)">Red Selection</span>
+  ),
 };
 
 LongTextCheckbox.args = {
@@ -60,6 +77,6 @@ LongTextCheckbox.args = {
 
 LongTextCheckbox.parameters = {
   viewport: {
-    defaultViewport: "mobile1",
+    defaultViewport: VIEWPORT.PHONE,
   },
 };

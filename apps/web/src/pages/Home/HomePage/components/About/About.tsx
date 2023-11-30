@@ -13,7 +13,7 @@ const About = () => {
   return (
     <div
       data-h2-background="base(home-footer-linear)"
-      data-h2-layer="base(1, relative)"
+      data-h2-layer="base(2, relative)"
       data-h2-margin="base(-3%, 0, 0, 0)"
     >
       <div
@@ -21,11 +21,13 @@ const About = () => {
         data-h2-padding="base(calc((3rem * var(--h2-line-height-copy)) + 3%), 0, x3, 0) p-tablet(calc((4rem * var(--h2-line-height-copy)) + 3%), 0, x4, 0) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%), 0, x6, 0)"
       >
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-          <div data-h2-color="base(black)">
+          <div data-h2-color="base:all(black)">
             <Heading
               level="h2"
+              size="h3"
+              data-h2-font-weight="base(400)"
               Icon={NewspaperIcon}
-              data-h2-margin="base(0, 0, x0.5, 0)"
+              data-h2-margin="base(0)"
             >
               {intl.formatMessage({
                 defaultMessage: "Learn more",
@@ -37,10 +39,10 @@ const About = () => {
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
               data-h2-gap="base(x2) p-tablet(x3)"
-              data-h2-padding="base(x2, 0, 0, 0) p-tablet(x3, 0, 0, 0)"
+              data-h2-padding="base(x2, 0, 0, 0)"
             >
               <CardFlat
-                color="black"
+                color="blackFixed"
                 title={intl.formatMessage({
                   defaultMessage: "Office of the Chief Information Officer",
                   id: "i9cA5V",
@@ -82,7 +84,7 @@ const About = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="black"
+                color="blackFixed"
                 title={intl.formatMessage({
                   defaultMessage: "Digital Community Management",
                   id: "JRlnNk",
@@ -122,7 +124,7 @@ const About = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="black"
+                color="blackFixed"
                 title={intl.formatMessage({
                   defaultMessage: "From concept to code",
                   id: "kHypfJ",

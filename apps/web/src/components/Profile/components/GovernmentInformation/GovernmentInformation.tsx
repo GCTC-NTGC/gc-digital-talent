@@ -78,7 +78,7 @@ const GovernmentInformation = ({
         Icon={icon.icon}
         color={icon.color}
         level={pool ? "h3" : "h2"}
-        size={pool ? "h5" : "h3"}
+        size={pool ? "h4" : "h3"}
         toggle={
           !isNull ? (
             <ToggleForm.Trigger

@@ -10,10 +10,13 @@ import {
   MultiSelectField,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-import { getPublishingGroup } from "@gc-digital-talent/i18n";
+import {
+  getPublishingGroup,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
-import useFilterOptions from "~/components/Table/ApiManagedTable/useFilterOptions";
+import useCandidateFilterOptions from "~/components/Table/useCandidateFilterOptions/useCandidateFilterOptions";
 import adminMessages from "~/messages/adminMessages";
 
 type Option = { value: string; label: string };
@@ -42,7 +45,7 @@ const Footer = () => {
     reset,
     formState: { isSubmitting },
   } = useFormContext();
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const handleClear = () => {
     reset(emptyFormValues);
   };
@@ -81,7 +84,7 @@ const PoolCandidateTableFilterDialog = ({
   activeFilters,
 }: PoolCandidateTableFilterDialogProps): JSX.Element => {
   const { formatMessage, locale } = useIntl();
-  const { optionsData, rawGraphqlResults } = useFilterOptions();
+  const { optionsData, rawGraphqlResults } = useCandidateFilterOptions();
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
@@ -149,7 +152,8 @@ const PoolCandidateTableFilterDialog = ({
                   name="languageAbility"
                   label={formatMessage({
                     defaultMessage: "Languages",
-                    id: "GsBRWL",
+                    id: "iUAe/2",
+                    description: "Label for language ability field",
                   })}
                   options={optionsData.languageAbility}
                 />
@@ -167,10 +171,7 @@ const PoolCandidateTableFilterDialog = ({
                 <MultiSelectField
                   id="stream"
                   name="stream"
-                  label={formatMessage({
-                    defaultMessage: "Streams",
-                    id: "GwbTAz",
-                  })}
+                  label={formatMessage(adminMessages.streams)}
                   options={optionsData.stream}
                 />
               </div>
@@ -178,10 +179,7 @@ const PoolCandidateTableFilterDialog = ({
                 <MultiSelectField
                   id="operationalRequirement"
                   name="operationalRequirement"
-                  label={formatMessage({
-                    defaultMessage: "Work Preferences",
-                    id: "1XyQqX",
-                  })}
+                  label={formatMessage(navigationMessages.workPreferences)}
                   options={optionsData.operationalRequirement}
                 />
               </div>
@@ -189,10 +187,7 @@ const PoolCandidateTableFilterDialog = ({
                 <MultiSelectField
                   id="workRegion"
                   name="workRegion"
-                  label={formatMessage({
-                    defaultMessage: "Work Locations",
-                    id: "qhhPj5",
-                  })}
+                  label={formatMessage(navigationMessages.workLocation)}
                   options={optionsData.workRegion}
                   doNotSort
                 />
@@ -204,7 +199,8 @@ const PoolCandidateTableFilterDialog = ({
                   name="hasDiploma"
                   label={formatMessage({
                     defaultMessage: "Has Diploma",
-                    id: "+tzO5t",
+                    id: "o0XhkM",
+                    description: "Label for the has diploma field",
                   })}
                   options={optionsData.hasDiploma}
                 />
@@ -215,9 +211,9 @@ const PoolCandidateTableFilterDialog = ({
                   id="expiryStatus"
                   name="expiryStatus"
                   label={formatMessage({
-                    defaultMessage: "Expiry Status",
-                    description: "Expiry status",
-                    id: "TQU5g8",
+                    defaultMessage: "Expiry status",
+                    description: "Label for the expiry status field",
+                    id: "HDiUEc",
                   })}
                   options={optionsData.expiryStatus}
                 />
@@ -228,9 +224,9 @@ const PoolCandidateTableFilterDialog = ({
                   id="suspendedStatus"
                   name="suspendedStatus"
                   label={formatMessage({
-                    defaultMessage: "Candidacy Status",
-                    description: "Candidacy status label",
-                    id: "/LGiVB",
+                    defaultMessage: "Candidacy status",
+                    description: "Label for the candidacy status field",
+                    id: "NxrKpM",
                   })}
                   options={optionsData.suspendedStatus}
                 />
@@ -240,8 +236,9 @@ const PoolCandidateTableFilterDialog = ({
                   id="equity"
                   name="equity"
                   label={formatMessage({
-                    defaultMessage: "Employment Equity",
-                    id: "Gr3BwB",
+                    defaultMessage: "Employment equity",
+                    id: "9e6Xph",
+                    description: "Label for the employment equity field",
                   })}
                   options={optionsData.equity}
                 />
@@ -250,10 +247,7 @@ const PoolCandidateTableFilterDialog = ({
                 <MultiSelectField
                   id="poolCandidateStatus"
                   name="poolCandidateStatus"
-                  label={formatMessage({
-                    defaultMessage: "Status",
-                    id: "tzMNF3",
-                  })}
+                  label={formatMessage(adminMessages.status)}
                   options={optionsData.poolCandidateStatus}
                 />
               </div>
@@ -262,8 +256,9 @@ const PoolCandidateTableFilterDialog = ({
                   id="skills"
                   name="skills"
                   label={formatMessage({
-                    defaultMessage: "Skill Filter",
-                    id: "GGaxMx",
+                    defaultMessage: "Skill filter",
+                    id: "lxDj4o",
+                    description: "Label for the skills field",
                   })}
                   options={optionsData.skills}
                   isLoading={rawGraphqlResults.skills.fetching}
@@ -275,8 +270,9 @@ const PoolCandidateTableFilterDialog = ({
                   id="govEmployee"
                   name="govEmployee"
                   label={formatMessage({
-                    defaultMessage: "Government Employee",
-                    id: "YojrdC",
+                    defaultMessage: "Government employee",
+                    id: "bOA3EH",
+                    description: "Label for the government employee field",
                   })}
                   options={optionsData.govEmployee}
                 />
@@ -319,7 +315,7 @@ const PoolCandidateTableFilters = ({
   initialFilters,
   ...rest
 }: PoolCandidateTableFiltersProps) => {
-  const { emptyFormValues } = useFilterOptions();
+  const { emptyFormValues } = useCandidateFilterOptions();
   const initialStateActiveFilters = initialFilters ?? emptyFormValues;
   const [activeFilters, setActiveFilters] = useState<FormValues>(
     initialStateActiveFilters,

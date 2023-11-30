@@ -1,3 +1,4 @@
+import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
 import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
 import OverlayOrDialogDecorator from "./decorators/OverlayOrDialogDecorator";
@@ -8,9 +9,10 @@ import ThemeDecorator, {
   themeMode,
 } from "./decorators/ThemeDecorator";
 
-import { widthOf, heightOf } from "./utils";
+import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
 export {
+  FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   OverlayOrDialogDecorator,
@@ -19,6 +21,7 @@ export {
   ThemeDecorator,
   themeKey,
   themeMode,
+  VIEWPORT,
+  VIEWPORTS,
+  CHROMATIC_VIEWPORTS,
 };
-
-export { widthOf, heightOf };

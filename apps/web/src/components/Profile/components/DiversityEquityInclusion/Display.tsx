@@ -7,7 +7,7 @@ import {
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import CommunityIcon from "./CommunityIcon";
 
@@ -76,7 +76,7 @@ const Display = ({
       </ul>
       <Separator
         orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
+        data-h2-background-color="base:all(gray.lighter)"
         data-h2-margin="base(x1, 0)"
         decorative
       />

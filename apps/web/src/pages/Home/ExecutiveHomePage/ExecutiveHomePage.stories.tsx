@@ -1,22 +1,16 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
-import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
+import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";
 
 import { HomePage } from "./ExecutiveHomePage";
 
-const mockPools = fakePools();
+const mockPools = fakePools(4);
 const classification = fakeClassifications()[0];
 
-const VIEWPORTS = [
-  widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone
-  heightOf(INITIAL_VIEWPORTS.ipad12p), // Most common viewport size that falls within chromatic range
-];
-
 const defaultParameters = {
-  chromatic: { viewports: VIEWPORTS },
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
   hasDarkMode: true,
   themeKey: "default",
 };

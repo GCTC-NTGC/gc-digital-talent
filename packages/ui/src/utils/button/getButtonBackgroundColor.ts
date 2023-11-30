@@ -188,6 +188,18 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:all:focus-visible:children[.counter](black)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(gray.darkest)
+          base:all:hover(gray.lighter)
+          base:all:focus-visible:all(focus)
+
+          base:all:children[.counter](white)
+          base:all:hover:children[.counter](black)
+          base:all:focus-visible:children[.counter](black)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-background-color": `
@@ -197,6 +209,18 @@ const getBackgroundColor: ButtonBackgroundColor = ({
 
           base:children[.counter](black)
           base:hover:children[.counter](white)
+          base:all:focus-visible:children[.counter](black)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(gray.lightest)
+          base:all:hover(gray.darker)
+          base:all:focus-visible:all(focus)
+
+          base:all:children[.counter](black)
+          base:all:hover:children[.counter](white)
           base:all:focus-visible:children[.counter](black)`,
       };
     }
@@ -345,6 +369,19 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:dark:iap:focus-visible:children[.counter](white)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+
+          base:all:children[.counter](gray.darkest)
+          base:all:hover:children[.counter](secondary.darker)
+          base:all:focus-visible:children[.counter](black)
+
+          base:all:iap:hover:children[.counter](secondary.dark)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-background-color": `
@@ -356,6 +393,20 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:all:focus-visible:children[.counter](black)
 
           base:iap:hover:children[.counter](secondary.lightest)
+          base:all:iap:focus-visible:children[.counter](black)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+
+          base:all:children[.counter](gray.lightest)
+          base:all:hover:children[.counter](secondary.lighter)
+          base:all:focus-visible:children[.counter](black)
+
+          base:all:iap:hover:children[.counter](secondary.lightest)
           base:all:iap:focus-visible:children[.counter](black)`,
       };
     }
@@ -557,6 +608,20 @@ const getBackgroundColor: ButtonBackgroundColor = ({
           base:all:focus-visible:children[.counter](focus)`,
       };
     }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:children[>span:first-child](gray.darkest)
+          base:all:hover:children[>span:first-child](gray.lighter)
+          base:all:focus-visible:children[>span:first-child](focus)
+
+          base:all:children[>span:last-child](foreground)
+
+          base:all:children[.counter](gray.darkest)
+          base:all:focus-visible:children[.counter](focus)`,
+      };
+    }
     if (color === "white") {
       return {
         "data-h2-background-color": `
@@ -569,6 +634,129 @@ const getBackgroundColor: ButtonBackgroundColor = ({
 
           base:children[.counter](gray.lightest)
           base:all:focus-visible:children[.counter](focus)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:children[>span:first-child](gray.lightest)
+          base:all:hover:children[>span:first-child](gray.darker)
+          base:all:focus-visible:children[>span:first-child](focus)
+
+          base:all:children[>span:last-child](foreground)
+
+          base:all:children[.counter](gray.lightest)
+          base:all:focus-visible:children[.counter](focus)`,
+      };
+    }
+  }
+  if (mode === "icon_only") {
+    if (disabled) {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)`,
+      };
+    }
+    if (color === "primary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(primary.lightest)`,
+      };
+    }
+    if (color === "secondary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(secondary.lightest)`,
+      };
+    }
+    if (color === "tertiary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(tertiary.lightest)`,
+      };
+    }
+    if (color === "quaternary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(quaternary.darkest)
+          base:dark:hover(quaternary.lightest)`,
+      };
+    }
+    if (color === "quinary") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(quinary.lightest)`,
+      };
+    }
+    if (color === "success") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(success.lightest)`,
+      };
+    }
+    if (color === "warning") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(warning.darkest)
+          base:dark:hover(warning.lightest)`,
+      };
+    }
+    if (color === "error") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(error.lightest)`,
+      };
+    }
+    if (color === "black") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:all:hover(gray.lightest)`,
+      };
+    }
+    if (color === "blackFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+          base:all:hover(gray.darkest)`,
+      };
+    }
+    if (color === "white") {
+      return {
+        "data-h2-background-color": `
+          base(transparent)
+          base:focus-visible(focus)
+          base:hover(gray.lightest)
+          base:dark:hover(gray.darkest)`,
+      };
+    }
+    if (color === "whiteFixed") {
+      return {
+        "data-h2-background-color": `
+          base:all(transparent)
+          base:all:focus-visible(focus)
+          base:hover(gray.lightest)
+          base:dark:hover(gray.darkest)`,
       };
     }
   }

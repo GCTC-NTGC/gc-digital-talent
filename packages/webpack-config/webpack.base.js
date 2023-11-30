@@ -19,7 +19,27 @@ const meta = {
   type: "website",
 };
 
+const gitCommand = (cmd) => {
+  let result;
+  try {
+    result = require("child_process").execSync("git " + cmd);
+  } catch (err) {
+    console.log(err);
+  }
+
+  if (result) {
+    result = result.toString().trim();
+  }
+
+  return result;
+};
+
 module.exports = (basePath) => {
+  let version, commitHash;
+  if (gitCommand("--version")) {
+    version = gitCommand("describe --abbrev=0");
+    commitHash = gitCommand("rev-parse --short HEAD");
+  }
   return {
     plugins: [
       // process and copy CSS files
@@ -54,6 +74,8 @@ module.exports = (basePath) => {
           TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(
             process.env.TALENTSEARCH_SUPPORT_EMAIL,
           ),
+          VERSION: version ? JSON.stringify(version) : undefined,
+          COMMIT_HASH: commitHash ? JSON.stringify(commitHash) : undefined,
         },
       }),
 
@@ -120,7 +142,7 @@ module.exports = (basePath) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
           type: "asset/resource",
         },
         {

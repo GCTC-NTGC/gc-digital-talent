@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -11,6 +12,7 @@ import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<SkillFamily>();
 
@@ -35,6 +37,7 @@ export const SkillFamilyTable = ({
       (skillFamily) => getLocalizedName(skillFamily.name, intl),
       {
         id: "name",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Name",
           id: "VphXhu",
@@ -50,6 +53,7 @@ export const SkillFamilyTable = ({
       (skillFamily) => getLocalizedName(skillFamily.description, intl, true),
       {
         id: "description",
+        sortingFn: normalizedText,
         header: intl.formatMessage({
           defaultMessage: "Description",
           id: "XSo129",
@@ -71,6 +75,9 @@ export const SkillFamilyTable = ({
   ] as ColumnDef<SkillFamily>[];
 
   const data = skillFamilies.filter(notEmpty);
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   return (
     <Table<SkillFamily>
@@ -103,6 +110,7 @@ export const SkillFamilyTable = ({
             description:
               "Heading displayed above the Create Skill Family form.",
           }),
+          from: currentUrl,
         },
       }}
     />

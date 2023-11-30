@@ -162,7 +162,7 @@ const StepNavigation = ({
       <form onSubmit={methods.handleSubmit(handleNavigation)}>
         <div
           data-h2-display="base(flex)"
-          data-h2-gap="base(x.25, x.5)"
+          data-h2-gap="base(x1)"
           data-h2-flex-wrap="base(wrap)"
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"

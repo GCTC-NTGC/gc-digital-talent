@@ -1,25 +1,29 @@
-/* eslint-disable react/forbid-elements */
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { LanguageAbility, Maybe, PositionDuration } from "~/api/generated";
+import { LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
+import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-const SearchFilterAdvice = ({
-  operationalRequirementFilterCount,
-  educationSelection,
-  workingLanguage,
-  employmentDuration,
-  equityFiltersActive,
-  skillCount,
-}: {
-  operationalRequirementFilterCount: number;
-  educationSelection: Maybe<boolean>;
-  workingLanguage: Maybe<LanguageAbility>;
-  employmentDuration: Maybe<Maybe<PositionDuration>[]>;
-  equityFiltersActive: number;
-  skillCount: number;
-}) => {
+interface SearchFilterAdviceProps {
+  filters: ApplicantFilterInput;
+}
+
+const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
   const intl = useIntl();
+
+  const operationalRequirementFilterCount =
+    filters?.operationalRequirements?.length ?? 0;
+  const educationSelection = filters?.hasDiploma;
+  const workingLanguage = filters?.languageAbility;
+  const employmentDuration = filters?.positionDuration;
+  const skillCount = filters?.skills?.length ?? 0;
+
+  const activeEquityFilters = Object.values(filters?.equity ?? {})
+    .filter(notEmpty)
+    .filter((field) => !!field);
+  const equityFiltersActive = activeEquityFilters.length;
+
   if (
     operationalRequirementFilterCount === 0 &&
     !educationSelection &&
@@ -31,25 +35,27 @@ const SearchFilterAdvice = ({
     return null;
   }
 
+  const linkProps: LinkProps = {
+    color: "primary",
+    mode: "inline",
+  };
+
   const recommendations = [];
   if (operationalRequirementFilterCount > 0) {
     recommendations.push({
       key: "operationalRequirements",
       link: (
-        <a
-          href="#operationalRequirementFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="operationalRequirementFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage:
                 "Conditions of Employment ({operationalRequirementFilterCount})",
-              id: "ky585k",
+              id: "73m8PA",
+              description: "Label for operational requirements filter link",
             },
             { operationalRequirementFilterCount },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -58,17 +64,13 @@ const SearchFilterAdvice = ({
     recommendations.push({
       key: "educationRequirementFilter",
       link: (
-        <a
-          href="#educationRequirementFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="educationRequirementFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Diploma required",
             description: "Diploma required",
             id: "w1/0Cd",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -77,17 +79,13 @@ const SearchFilterAdvice = ({
     recommendations.push({
       key: "workingLanguageFilter",
       link: (
-        <a
-          href="#workingLanguageFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="workingLanguageFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Language ability",
             description: "Language ability",
             id: "mKzQwr",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -96,17 +94,13 @@ const SearchFilterAdvice = ({
     recommendations.push({
       key: "employmentDurationFilter",
       link: (
-        <a
-          href="#employmentDurationFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="employmentDurationFilter" {...linkProps}>
           {intl.formatMessage({
             defaultMessage: "Employment duration",
             description: "Employment duration",
             id: "hRe0yl",
           })}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -115,11 +109,7 @@ const SearchFilterAdvice = ({
     recommendations.push({
       key: "employmentEquityFilter",
       link: (
-        <a
-          href="#employmentEquityFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="employmentEquityFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Employment equity ({equityFiltersActive})",
@@ -128,7 +118,7 @@ const SearchFilterAdvice = ({
             },
             { equityFiltersActive },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }
@@ -137,11 +127,7 @@ const SearchFilterAdvice = ({
     recommendations.push({
       key: "skillFilter",
       link: (
-        <a
-          href="#skillFilter"
-          data-h2-color="base(primary)"
-          data-h2-font-weight="base(700)"
-        >
+        <ScrollToLink to="skillFilter" {...linkProps}>
           {intl.formatMessage(
             {
               defaultMessage: "Skills selected ({skillCount})",
@@ -150,7 +136,7 @@ const SearchFilterAdvice = ({
             },
             { skillCount },
           )}
-        </a>
+        </ScrollToLink>
       ),
     });
   }

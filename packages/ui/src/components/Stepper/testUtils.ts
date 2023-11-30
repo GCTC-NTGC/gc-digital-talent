@@ -2,7 +2,6 @@ import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 import BanknotesIcon from "@heroicons/react/20/solid/BanknotesIcon";
 import CakeIcon from "@heroicons/react/20/solid/CakeIcon";
 import DevicePhoneMobileIcon from "@heroicons/react/20/solid/DevicePhoneMobileIcon";
-import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
 
 import { StepType } from "./types";
 
@@ -35,7 +34,6 @@ export const defaultSteps: Array<StepType> = [
   {
     href: "/step-five",
     label: "Step Five",
-    icon: EnvelopeIcon,
     disabled: true,
   },
 ];

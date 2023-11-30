@@ -33,6 +33,7 @@ import {
   EvaluatedLanguageAbility,
   PoolSkillType,
   AssessmentStepType,
+  PoolCandidateSearchRequestReason,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -277,24 +278,55 @@ export const getArmedForcesStatusesProfile = (
     `Invalid status '${armedForcesId}'`,
   );
 
-const educationRequirementOptions = defineMessages({
-  [EducationRequirementOption.AppliedWork]: {
-    defaultMessage: "Applied work experience",
-    description: "Option for education requirement, applied work experience",
-    id: "4S30lt",
-  },
-  [EducationRequirementOption.Education]: {
-    defaultMessage: "2-year post-secondary",
-    description: "Option for education requirement, 2-year post-secondary",
-    id: "TiIkSF",
-  },
-});
+const educationRequirementOptions = (classificationGroup?: string) =>
+  classificationGroup === "EX"
+    ? defineMessages({
+        [EducationRequirementOption.AppliedWork]: {
+          defaultMessage: "Applied work experience",
+          description:
+            "Option for education requirement, applied work experience",
+          id: "4S30lt",
+        },
+        [EducationRequirementOption.Education]: {
+          defaultMessage: "Graduation with degree",
+          id: "aTHtqQ",
+          description:
+            "Option for education requirement, graduation with degree",
+        },
+        [EducationRequirementOption.ProfessionalDesignation]: {
+          defaultMessage: "Professional designation",
+          id: "TblXEE",
+          description:
+            "Option for education requirement, professional designation",
+        },
+      })
+    : defineMessages({
+        [EducationRequirementOption.AppliedWork]: {
+          defaultMessage: "Applied work experience",
+          description:
+            "Option for education requirement, applied work experience",
+          id: "4S30lt",
+        },
+        [EducationRequirementOption.Education]: {
+          defaultMessage: "2-year post-secondary",
+          description:
+            "Option for education requirement, 2-year post-secondary",
+          id: "TiIkSF",
+        },
+        [EducationRequirementOption.ProfessionalDesignation]: {
+          defaultMessage: "Professional designation",
+          id: "TblXEE",
+          description:
+            "Option for education requirement, professional designation",
+        },
+      });
 
 export const getEducationRequirementOption = (
   educationRequirementOptionId: string,
+  classificationGroup?: string,
 ): MessageDescriptor =>
   getOrThrowError(
-    educationRequirementOptions,
+    educationRequirementOptions(classificationGroup),
     educationRequirementOptionId,
     `Invalid Education Requirement Option '${educationRequirementOptionId}'`,
   );
@@ -747,6 +779,11 @@ const poolCandidateSearchStatuses = defineMessages({
     id: "prkkM+",
     description: "The search status is Done.",
   },
+  [PoolCandidateSearchStatus.DoneNoCandidates]: {
+    defaultMessage: "Done - no candidates found",
+    id: "Mau9e6",
+    description: "The search status is done with no candidates found",
+  },
 });
 
 export const getPoolCandidateSearchStatus = (
@@ -1037,24 +1074,24 @@ const educationTypeMessages = defineMessages({
     description: "Diploma selection for education type input",
   },
   [EducationType.BachelorsDegree]: {
-    defaultMessage: "Bachelors Degree",
-    id: "6F1rsN",
-    description: "Bachelors Degree selection for education type input",
+    defaultMessage: "Bachelor's Degree",
+    id: "dRvWzH",
+    description: "Bachelor's Degree selection for education type input",
   },
   [EducationType.MastersDegree]: {
-    defaultMessage: "Masters Degree",
-    id: "nv2kXl",
-    description: "Masters Degree selection for education type input",
+    defaultMessage: "Master's Degree",
+    id: "9SP4JF",
+    description: "Master's Degree selection for education type input",
   },
   [EducationType.Phd]: {
-    defaultMessage: "Phd",
-    id: "qfQx7T",
-    description: "Phd selection for education type input",
+    defaultMessage: "PhD",
+    id: "L+9K9B",
+    description: "PhD selection for education type input",
   },
   [EducationType.PostDoctoralFellowship]: {
-    defaultMessage: "Post Doctoral Fellowship",
-    id: "sNUWqY",
-    description: "Post Doctoral Fellowship selection for education type input",
+    defaultMessage: "Postdoctoral Fellowship",
+    id: "CtgfAw",
+    description: "Postdoctoral Fellowship selection for education type input",
   },
   [EducationType.OnlineCourse]: {
     defaultMessage: "Online Course",
@@ -1477,6 +1514,11 @@ const poolStream = defineMessages({
     id: "xr36aa",
     description: "Pool Stream described as Information and Data Functions.",
   },
+  [PoolStream.ExecutiveGroup]: {
+    defaultMessage: "Executive Group",
+    id: "6yqQBg",
+    description: "Pool Stream described as Executive Group.",
+  },
 });
 
 export const getPoolStream = (
@@ -1711,15 +1753,18 @@ export const getPublishingGroup = (
 const abbreviations = defineMessages({
   AS: {
     defaultMessage: "Administrative Services",
-    id: "6svHxg",
+    id: "o9qR1R",
+    description: "Full name of abbreviation for AS classification",
   },
   GC: {
     defaultMessage: "Government of Canada",
-    id: "t9i8Ml",
+    id: "sMi0QI",
+    description: "Full name of abbreviation for GC",
   },
   IT: {
     defaultMessage: "Information Technology",
-    id: "nLW9zq",
+    id: "n3Gt3n",
+    description: "Full name of abbreviation for IT",
   },
 });
 
@@ -2014,4 +2059,41 @@ export const getAssessmentStepType = (
     assessmentStepTypes,
     assessmentStepTypeId,
     `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
+  );
+
+const searchRequestReasons = defineMessages({
+  [PoolCandidateSearchRequestReason.GeneralInterest]: {
+    defaultMessage: "General interest",
+    id: "I6ztce",
+    description: "Option for searching candidates for interest only",
+  },
+  [PoolCandidateSearchRequestReason.ImmediateHire]: {
+    defaultMessage:
+      "Looking for immediate hire (approval, position and funding in place)",
+    id: "h6da9P",
+    description: "Option for searching candidates for an immediate hire",
+  },
+  [PoolCandidateSearchRequestReason.RequiredByDirective]: {
+    defaultMessage:
+      "Required under the Directive on Digital Talent (pre-contracting talent search for Digital Services Contracting Questionnaire)",
+    id: "hMHSRw",
+    description:
+      "Option for searching candidates because it was required by the directive",
+  },
+  [PoolCandidateSearchRequestReason.UpcomingNeed]: {
+    defaultMessage:
+      "For upcoming need (classification or funding not yet in place)",
+    id: "K/npC7",
+    description:
+      "Option for searching candidates for an upcoming staffing need",
+  },
+});
+
+export const getSearchRequestReason = (
+  searchRequestReasonId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    searchRequestReasons,
+    searchRequestReasonId,
+    `Invalid Search Request Reason '${searchRequestReasonId}'`,
   );

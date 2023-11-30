@@ -36,7 +36,6 @@ export function createApplicant({
     armedForcesStatus: ArmedForcesStatus.NonCaf,
     citizenship: CitizenshipStatus.Citizen,
     lookingForEnglish: true,
-    //languageAbility: LanguageAbility.English,
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,
@@ -76,7 +75,8 @@ export function addRolesToUser(
     const roleIds = $roles
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
-    cy.updateUser(userId, {
+    cy.updateUserRoles({
+      userId: userId,
       roleAssignmentsInput: {
         attach: {
           roles: roleIds,

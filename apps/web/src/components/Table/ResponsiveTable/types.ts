@@ -27,7 +27,9 @@ export type RowSelectDef<T> = {
   /** Render method for the table cell (`td`) */
   cell: ({ row }: CellContext<T, unknown>) => JSX.Element;
   /** Callback method for when a row is (de)selected */
-  onRowSelection?: (rows: T[]) => void;
+  onRowSelection?: (rows: string[]) => void;
+  /** Determine the ID of the row selected (if index is not sufficient) */
+  getRowId: (row: T) => string;
 };
 
 export interface SearchFormProps<TData extends RowData> {
@@ -67,9 +69,16 @@ export type SortDef = {
   onSortChange?: (sortState: SortingState) => void;
 };
 
+export type FilterDef<TFilterState = object> = {
+  initialState?: TFilterState;
+  state?: TFilterState;
+  component: React.ReactNode;
+};
+
 export type AddLinkProps = {
   label: React.ReactNode;
   href: string;
+  from?: string;
 };
 
 export type AddDef = {
@@ -102,8 +111,9 @@ export type DatasetDownload = {
 
 /** Controls the print button in `RowSelection.Actions` */
 export type DatasetPrint = {
-  onPrint: ButtonClickEvent;
+  onPrint?: ButtonClickEvent;
   label?: React.ReactNode;
+  component?: React.ReactElement;
 };
 
 export type PaginationDef = {

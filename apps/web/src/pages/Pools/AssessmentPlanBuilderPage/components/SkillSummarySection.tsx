@@ -2,11 +2,11 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
+import { Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { PAGE_SECTION_ID } from "../navigation";
+import SkillSummaryTable from "./SkillSummaryTable";
 
 const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
@@ -35,23 +35,17 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
             "introduction to the skill summary section in the assessment plan builder",
         })}
       </p>
-      <Accordion.Root type="multiple" mode="simple">
+      <Accordion.Root type="multiple" size="sm">
         <Accordion.Item value="one">
-          <Accordion.Header
-            headingAs="h4"
-            data-h2-font-size="base(copy)"
-            data-h2-text-decoration="base(underline)"
-          >
-            <Accordion.Trigger data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Why are most behavioral skills left out of the initial application?",
-                id: "dVZRH3",
-                description:
-                  "first question in the skill summary section in the assessment plan builder",
-              })}
-            </Accordion.Trigger>
-          </Accordion.Header>
+          <Accordion.Trigger as="h4">
+            {intl.formatMessage({
+              defaultMessage:
+                "Why are most behavioral skills left out of the initial application?",
+              id: "dVZRH3",
+              description:
+                "first question in the skill summary section in the assessment plan builder",
+            })}
+          </Accordion.Trigger>
           <Accordion.Content>
             <p>
               {intl.formatMessage({
@@ -84,18 +78,11 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
         </Accordion.Item>
       </Accordion.Root>
       <div data-h2-margin-top="base(x1)">
-        {/* TODO: replace with skill summary table */}
-        {pool.assessmentSteps
-          ?.filter(notEmpty)
-          .sort((a: AssessmentStep, b: AssessmentStep) =>
-            (a.sortOrder ?? 0) > (b.sortOrder ?? 0) ? 1 : -1,
-          )
-          .map((step: AssessmentStep) => (
-            <div key={step.id}>
-              <p>{step.type}</p>
-              <p>{getLocalizedName(step.title, intl)}</p>
-            </div>
-          ))}
+        <SkillSummaryTable
+          poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+          assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
+          title={intl.formatMessage(sectionTitle)}
+        />
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 export type Color =
   | "primary"
   | "secondary"
+  | "secondaryDarkFixed"
   | "tertiary"
   | "quaternary"
   | "quinary"
@@ -8,7 +9,9 @@ export type Color =
   | "warning"
   | "error"
   | "black"
-  | "white";
+  | "blackFixed"
+  | "white"
+  | "whiteFixed";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
@@ -30,7 +33,8 @@ export type ButtonLinkMode =
   | "inline"
   | "cta"
   | "text"
-  | "placeholder";
+  | "placeholder"
+  | "icon_only";
 
 export type ButtonLinkProps = {
   color?: Color;

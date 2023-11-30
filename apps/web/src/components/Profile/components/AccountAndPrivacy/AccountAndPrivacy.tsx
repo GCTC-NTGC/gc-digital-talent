@@ -2,16 +2,9 @@ import React from "react";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useIntl } from "react-intl";
 
-import {
-  Accordion,
-  Heading,
-  Link,
-  Separator,
-  StandardAccordionHeader,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";
@@ -63,21 +56,21 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         Icon={LockClosedIcon}
         color="secondary"
         level={pool ? "h3" : "h2"}
-        size={pool ? "h5" : "h3"}
+        size={pool ? "h4" : "h3"}
       >
         {intl.formatMessage(title)}
       </Heading>
       <Accordion.Root
         type="multiple"
-        mode="simple"
+        size="sm"
         value={currentAccordionItems}
         onValueChange={(value: AccordionItems) =>
           setCurrentAccordionItems(value)
         }
       >
         <Accordion.Item value="sign_in_authentication">
-          <StandardAccordionHeader
-            headingAs="h3"
+          <Accordion.Trigger
+            as="h3"
             subtitle={intl.formatMessage({
               defaultMessage:
                 "Find out about GCKey and find links to account information.",
@@ -100,15 +93,9 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                   description:
                     "Heading for opening the sign in and authentication accordion in account and privacy",
                 })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1, 0, x1, 0)"
-            />
-            <p data-h2-padding-bottom="base(x1)">
+            <p data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
                 defaultMessage:
                   "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage related data on the GCKey website and it will automatically reflect here when you access your account.",
@@ -133,8 +120,8 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value="recruitment_availability">
-          <StandardAccordionHeader
-            headingAs="h3"
+          <Accordion.Trigger
+            as="h3"
             subtitle={intl.formatMessage({
               defaultMessage:
                 "See how your data is accessed and manage availability and communication.",
@@ -156,15 +143,9 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                   description:
                     "Heading for opening the recruitment availability accordion in account and privacy",
                 })}
-          </StandardAccordionHeader>
+          </Accordion.Trigger>
           <Accordion.Content>
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1, 0, x1, 0)"
-            />
-            <p data-h2-padding-bottom="base(x0.5)">
+            <p data-h2-margin-bottom="base(x0.5)">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -178,7 +159,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 },
               )}
             </p>
-            <p data-h2-padding-bottom="base(x1)">
+            <p data-h2-margin-bottom="base(x1)">
               {intl.formatMessage(
                 {
                   defaultMessage:

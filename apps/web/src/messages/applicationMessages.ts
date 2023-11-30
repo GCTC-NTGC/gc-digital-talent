@@ -97,6 +97,13 @@ const messages = defineMessages({
     description:
       "Descriptive text explaining valid a applied work experience for the PM classification group.",
   },
+  appliedWorkExpEXGroup: {
+    defaultMessage:
+      "<link>Acceptable</link> combination of education, training and/or experience.",
+    id: "2iXmbY",
+    description:
+      "Descriptive text explaining valid a applied work experience for the EX classification group.",
+  },
   secondarySchoolHeading: {
     defaultMessage: "Secondary school diploma",
     id: "zdeoxH",
@@ -108,6 +115,25 @@ const messages = defineMessages({
     id: "9QZYMX",
     description:
       "Description for the education requirement option secondary school diploma.",
+  },
+  professionalDesignation: {
+    defaultMessage:
+      "<link>Eligibility</link> for a recognized professional designation in one of the provinces or territories of Canada.",
+    id: "ynGRwF",
+    description: "Description for the professional designation requirement.",
+  },
+  graduationWithDegree: {
+    defaultMessage:
+      "Graduation with a <degreeLink>degree</degreeLink> from a <postSecondaryLink>recognized post-secondary institution</postSecondaryLink>.",
+    id: "DYhY7Y",
+    description: "Description for the EX graduation with degree requirement.",
+  },
+  foreignDegree: {
+    defaultMessage:
+      "Have a degree from outside Canada? <foreignDegreeLink>Learn more about foreign degree equivalencies.</foreignDegreeLink>",
+    id: "EYPaLh",
+    description:
+      "External link message for the EX graduation with degree requirement.",
   },
 });
 

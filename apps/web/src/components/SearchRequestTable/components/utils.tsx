@@ -1,6 +1,7 @@
 import mapValues from "lodash/mapValues";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { SortingState } from "@tanstack/react-table";
 
 import {
   getPoolStream,
@@ -13,7 +14,24 @@ import {
   PoolStream,
   PoolCandidateSearchStatus,
   useGetFilterDataForRequestsQuery,
+  PoolCandidateSearchRequestInput,
+  OrderByClause,
+  SortOrder,
 } from "@gc-digital-talent/graphql";
+
+import {
+  stringToEnumRequestStatus,
+  stringToEnumStream,
+} from "~/utils/requestUtils";
+
+type Option = { value: string; label: string };
+
+export type FormValues = {
+  status: Option["value"][];
+  departments: Option["value"][];
+  classifications: Option["value"][];
+  streams: Option["value"][];
+};
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Classification", "Department"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -30,6 +48,7 @@ export default function useFilterOptions() {
       PoolCandidateSearchStatus.InProgress,
       PoolCandidateSearchStatus.Waiting,
       PoolCandidateSearchStatus.Done,
+      PoolCandidateSearchStatus.DoneNoCandidates,
     ]).map(({ value }) => ({
       value,
       label: intl.formatMessage(getPoolCandidateSearchStatus(value)),
@@ -64,4 +83,46 @@ export default function useFilterOptions() {
       classifications: filterRes,
     },
   };
+}
+
+export function transformFormValuesToSearchRequestFilterInput(
+  data: FormValues,
+): PoolCandidateSearchRequestInput {
+  return {
+    status: data.status.length
+      ? data.status.map(stringToEnumRequestStatus)
+      : undefined,
+    departments: data.departments.length ? data.departments : undefined,
+    classifications: data.classifications.length
+      ? data.classifications
+      : undefined,
+    streams: data.streams.length
+      ? data.streams.map(stringToEnumStream)
+      : undefined,
+  };
+}
+export function transformSortStateToOrderByClause(
+  sortingRule: SortingState,
+): OrderByClause | OrderByClause[] | undefined {
+  const columnMap = new Map<string, string>([
+    ["id", "id"],
+    ["manager", "full_name"],
+    ["jobTitle", "job_title"],
+    ["email", "email"],
+    ["status", "request_status"],
+    ["requestedDate", "created_at"],
+  ]);
+
+  const orderBy = sortingRule
+    .map((rule) => {
+      const columnName = columnMap.get(rule.id);
+      if (!columnName) return undefined;
+      return {
+        column: columnName,
+        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+      };
+    })
+    .filter(notEmpty);
+
+  return orderBy.length ? orderBy : undefined;
 }

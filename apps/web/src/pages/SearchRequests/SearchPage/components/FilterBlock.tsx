@@ -19,28 +19,20 @@ const FilterBlock = ({
 }: FilterBlockProps) => {
   const Heading = headingLevel;
   return (
-    <div>
+    <>
       {title && (
         <Heading
           id={id}
           data-h2-font-size="base(h6, 1)"
           data-h2-font-weight="base(700)"
-          data-h2-margin="base(x3, 0, x1, 0)"
+          data-h2-margin="base(x2, 0, x.5, 0)"
         >
           {title}
         </Heading>
       )}
-      <p data-h2-margin="base(0, 0, x1, 0)">{text}</p>
-      {children && (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
-          {children}
-        </div>
-      )}
-    </div>
+      <p data-h2-margin="base(x.5, 0, x1, 0)">{text}</p>
+      {children}
+    </>
   );
 };
 

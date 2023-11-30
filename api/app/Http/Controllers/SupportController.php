@@ -9,6 +9,11 @@ class SupportController extends Controller
 {
     public function createTicket(Request $request)
     {
+        if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
+            return response([
+                'apiResponse' => 'Missing parameters',
+            ], 422);
+        }
         $parameters = [
             'description' => $request->input('description'),
             'subject' => $request->input('subject'),
@@ -18,6 +23,9 @@ class SupportController extends Controller
             'status' => 2, // Required by Freshdesk API. Status of the ticket. The default value is 2.
             'tags' => [config('freshdesk.api.ticket_tag')],
         ];
+        if ($request->input('previous_url')) {
+            $parameters['custom_fields']['cf_page_url'] = (string) $request->input('previous_url');
+        }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }
