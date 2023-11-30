@@ -1,15 +1,9 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 
-import { widthOf, heightOf } from "@gc-digital-talent/storybook-helpers";
+import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import Example from "./Example";
-
-const VIEWPORTS = [
-  widthOf(INITIAL_VIEWPORTS.iphonex), // Modern iPhone
-  heightOf(INITIAL_VIEWPORTS.ipad12p), // Most common viewport size that falls within chromatic range
-];
 
 type PagePropsAndCustomArgs = React.ComponentProps<typeof Example> & {
   footer?: string;
@@ -24,7 +18,7 @@ const meta = {
     </>
   ),
   parameters: {
-    chromatic: { viewports: VIEWPORTS },
+    chromatic: { viewports: CHROMATIC_VIEWPORTS },
   },
 } satisfies Meta<PagePropsAndCustomArgs>;
 export default meta;
