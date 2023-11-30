@@ -125,7 +125,7 @@ const Pagination = ({
       <div
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.25)"
+        data-h2-gap="base(0, x.5)"
       >
         <span>
           {intl.formatMessage(
@@ -151,10 +151,11 @@ const Pagination = ({
               <DropdownMenu.Trigger>
                 <Button
                   mode="inline"
+                  fontSize="caption"
                   color={color}
                   utilityIcon={ChevronDownIcon}
-                  data-h2-font-size="base(caption)"
                   data-h2-font-weight="base(400)"
+                  data-h2-margin-top="base(-1px)"
                 >
                   {intl.formatMessage(
                     {

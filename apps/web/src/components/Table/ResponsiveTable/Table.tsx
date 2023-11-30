@@ -38,6 +38,7 @@ type TableProps = React.DetailedHTMLProps<
 const Table = ({ children, ...rest }: TableProps) => (
   <table
     role="table"
+    data-h2-background-color="base(foreground)"
     data-h2-border-collapse="base(collapse)"
     data-h2-display="base(block) l-tablet(table)"
     data-h2-width="base(100%)"
@@ -96,7 +97,7 @@ const Row = (props: RowProps) => (
   <tr
     role="row"
     data-h2-display="base(flex) l-tablet(table-row)"
-    data-h2-background-color="base:selectors[*:nth-child(even)](black.lightest.10) base:selectors[*:nth-child(odd)](foreground)"
+    data-h2-background-color="base:selectors[*:nth-child(even)](background.dark.50) base:dark:selectors[*:nth-child(even)](white.3) base:selectors[*:nth-child(odd)](foreground)"
     data-h2-border-bottom="base(1px solid gray.light)"
     data-h2-flex-direction="base(row)"
     data-h2-flex-wrap="base(wrap)"
@@ -123,7 +124,7 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
   return (
     <th
       role="columnheader"
-      data-h2-background-color="base(black)"
+      data-h2-background-color="base(background.darkest) base:dark(background.darker)"
       data-h2-color="base(white)"
       data-h2-display="base(none) l-tablet(table-cell)"
       data-h2-font-size="base(caption)"
@@ -176,6 +177,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       role="cell"
       data-h2-vertical-align="base(middle)"
       data-h2-max-width="base(100%) l-tablet(none)"
+      data-h2-color="base(black)"
       {...cellStyles.td}
       {...styles.cell}
       {...rest}
