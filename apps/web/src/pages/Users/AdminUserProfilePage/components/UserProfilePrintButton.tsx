@@ -13,6 +13,7 @@ import {
 import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import { ButtonLinkProps } from "@gc-digital-talent/ui/src/types";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
@@ -20,6 +21,7 @@ interface UserProfilePrintButtonProps {
   users: User[] | PoolCandidate[];
   color: Color;
   mode: ButtonLinkMode;
+  fontSize?: "caption" | "body";
   beforePrint?: (handlePrint: () => void) => void;
 }
 
@@ -27,6 +29,7 @@ const UserProfilePrintButton = ({
   users,
   color,
   mode,
+  fontSize = "body",
   beforePrint,
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
@@ -67,6 +70,11 @@ const UserProfilePrintButton = ({
     }
   }, [isAnonymous, handlePrint, beforePrint]);
 
+  let margin = {};
+  if (fontSize === "caption") {
+    margin = { "data-h2-margin-top": "base(-2px)" };
+  }
+
   return (
     <>
       <DropdownMenu.Root>
@@ -74,8 +82,10 @@ const UserProfilePrintButton = ({
           <Button
             color={color}
             mode={mode}
+            fontSize={fontSize}
             utilityIcon={ChevronDownIcon}
             data-h2-font-weight="base(400)"
+            {...margin}
           >
             {intl.formatMessage({
               defaultMessage: "Print profile",

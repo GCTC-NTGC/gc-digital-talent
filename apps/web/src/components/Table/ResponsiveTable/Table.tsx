@@ -124,8 +124,8 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
   return (
     <th
       role="columnheader"
-      data-h2-background-color="base(background.darkest) base:dark(background.darker)"
-      data-h2-color="base(white)"
+      data-h2-background-color="base(background.darkest) base:dark(white)"
+      data-h2-color="base:all(white)"
       data-h2-display="base(none) l-tablet(table-cell)"
       data-h2-font-size="base(caption)"
       data-h2-vertical-align="base(middle)"

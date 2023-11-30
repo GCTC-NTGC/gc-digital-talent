@@ -130,9 +130,10 @@ const Bullet = (props: Omit<BulletProps, "children">) => (
 );
 
 // Simple common props for action buttons
-const actionButtonStyles: Pick<ButtonProps, "mode" | "color"> = {
+const actionButtonStyles: Pick<ButtonProps, "mode" | "color" | "fontSize"> = {
   mode: "inline",
-  color: "white",
+  color: "whiteFixed",
+  fontSize: "caption",
 };
 
 interface ActionsProps {
@@ -170,8 +171,8 @@ const Actions = ({
       data-h2-align-items="base(center) l-tablet(flex-start)"
       data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
       data-h2-padding="base(x.5, x1)"
-      data-h2-background-color="base(background.darkest) base:dark(background.darker)"
-      data-h2-color="base(white)"
+      data-h2-background-color="base(background.darkest) base:dark(white)"
+      data-h2-color="base:all(white)"
       data-h2-position="base(sticky)"
       data-h2-justify-content="base(space-between)"
       data-h2-left="base(0)"
@@ -225,7 +226,7 @@ const Actions = ({
                 data-h2-display="base(flex)"
                 data-h2-align-items="base(center)"
                 onClick={onClear}
-                color="white"
+                color="whiteFixed"
                 fontSize="caption"
                 mode="inline"
               >
@@ -248,7 +249,6 @@ const Actions = ({
                 </span>
                 <DownloadCsv
                   data-h2-font-weight="base(400)"
-                  fontSize="caption"
                   {...download.selection.csv}
                   {...actionButtonStyles}
                 >
@@ -267,13 +267,10 @@ const Actions = ({
               <span
                 data-h2-align-items="base(center)"
                 data-h2-display="base(flex)"
-                data-h2-gap="base(0 x.25)"
+                data-h2-gap="base(0 x.5)"
               >
-                <span
-                  aria-hidden
-                  data-h2-display="base(none) l-tablet(inline-block)"
-                >
-                  &bull;
+                <span data-h2-display="base(none) l-tablet(block)">
+                  <Bullet data-h2-display="base(none) l-tablet(block)" />
                 </span>
                 {print.component ?? (
                   <Button onClick={print.onPrint} {...actionButtonStyles}>
@@ -294,11 +291,7 @@ const Actions = ({
       {download?.all && (
         <Column>
           {!isLoading && (
-            <DownloadCsv
-              {...download.all.csv}
-              {...actionButtonStyles}
-              fontSize="caption"
-            >
+            <DownloadCsv {...download.all.csv} {...actionButtonStyles}>
               {download.all.label ||
                 intl.formatMessage({
                   defaultMessage: "Download full dataset",
