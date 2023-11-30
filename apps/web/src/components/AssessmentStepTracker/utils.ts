@@ -51,10 +51,10 @@ export const getDecisionInfo = (
               "Message displayed when candidate has been screened out at a specific assessment step",
           })
         : intl.formatMessage({
-            defaultMessage: "Successful",
-            id: "Whq2Xl",
+            defaultMessage: "Unsuccessful",
+            id: "TIAla1",
             description:
-              "Message displayed when candidate has successfully passed an assessment step",
+              "Message displayed when candidate has not passed an assessment step",
           }),
     };
   }
@@ -72,10 +72,10 @@ export const getDecisionInfo = (
             "Message displayed when candidate has been screened in at a specific assessment step",
         })
       : intl.formatMessage({
-          defaultMessage: "Unsuccessful",
-          id: "TIAla1",
+          defaultMessage: "Successful",
+          id: "Whq2Xl",
           description:
-            "Message displayed when candidate has not passed an assessment step",
+            "Message displayed when candidate has successfully passed an assessment step",
         }),
   };
 };
