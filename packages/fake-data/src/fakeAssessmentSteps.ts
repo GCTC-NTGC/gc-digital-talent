@@ -1,13 +1,23 @@
 import { faker } from "@faker-js/faker";
 
-import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStep,
+  AssessmentStepType,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 
-const generateAssessmentStep = (amount: number): AssessmentStep => {
+const generateAssessmentStep = (
+  amount: number,
+  type?: Maybe<AssessmentStepType>,
+): AssessmentStep => {
   return {
     id: faker.string.uuid(),
-    type: faker.helpers.arrayElement<AssessmentStepType>(
-      Object.values(AssessmentStepType),
-    ),
+    type:
+      type === undefined
+        ? faker.helpers.arrayElement<AssessmentStepType>(
+            Object.values(AssessmentStepType),
+          )
+        : type,
     sortOrder: faker.number.int({
       max: amount,
     }),
@@ -19,10 +29,13 @@ const generateAssessmentStep = (amount: number): AssessmentStep => {
   };
 };
 
-export default (numToGenerate?: number): AssessmentStep[] => {
+export default (
+  numToGenerate?: number,
+  type?: Maybe<AssessmentStepType>,
+): AssessmentStep[] => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate || 20;
   return [...Array(amountToGenerate)].map(() =>
-    generateAssessmentStep(amountToGenerate),
+    generateAssessmentStep(amountToGenerate, type),
   );
 };

@@ -11,6 +11,7 @@ import {
   User,
 } from "@gc-digital-talent/graphql";
 
+import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 
@@ -22,6 +23,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
     ),
+    educationRequirementExperiences: fakeExperiences(1),
     expiryDate: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()

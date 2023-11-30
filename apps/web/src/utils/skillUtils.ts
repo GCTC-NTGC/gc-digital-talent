@@ -222,12 +222,12 @@ export const differentiateMissingSkills = (
  */
 export const getExperienceSkills = (
   experiences: Experience[],
-  skill: Skill,
+  skill?: Skill,
 ): Experience[] => {
   return experiences.filter(
     (experience) =>
       experience.skills?.some(
-        (experienceSkill) => experienceSkill.id === skill.id,
+        (experienceSkill) => experienceSkill.id === skill?.id,
       ),
   );
 };

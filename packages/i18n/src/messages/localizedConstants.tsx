@@ -34,6 +34,9 @@ import {
   PoolSkillType,
   AssessmentStepType,
   PoolCandidateSearchRequestReason,
+  AssessmentDecision,
+  AssessmentResultJustification,
+  AssessmentDecisionLevel,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -2096,4 +2099,129 @@ export const getSearchRequestReason = (
     searchRequestReasons,
     searchRequestReasonId,
     `Invalid Search Request Reason '${searchRequestReasonId}'`,
+  );
+
+const assessmentDecisions = defineMessages({
+  [AssessmentDecision.NotSure]: {
+    defaultMessage: "Not sure",
+    id: "D8JhKX",
+    description: "Option for assessment decision when manager is not sure.",
+  },
+  [AssessmentDecision.Successful]: {
+    defaultMessage: "Demonstrated",
+    id: "5wKh/o",
+    description:
+      "Option for assessment decision when candidate has successful assessment.",
+  },
+  [AssessmentDecision.Unsuccessful]: {
+    defaultMessage: "Not demonstrated",
+    id: "oxUjS3",
+    description:
+      "Option for assessment decision when candidate has unsuccessful assessment.",
+  },
+});
+
+export const getAssessmentDecision = (
+  assessmentDecisionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentDecisions,
+    assessmentDecisionId,
+    `Invalid Search Request Reason '${assessmentDecisionId}'`,
+  );
+
+const assessmentJustifications = defineMessages({
+  [AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience]:
+    {
+      defaultMessage:
+        "Combination of education and work experience equivalency is accepted",
+      id: "faKvwp",
+      description:
+        "Option for justification when assessment decision is successful.",
+    },
+  [AssessmentResultJustification.EducationAcceptedInformation]: {
+    defaultMessage: "Education information is accepted",
+    id: "aj4GLs",
+    description:
+      "Option for justification when assessment decision is successful.",
+  },
+  [AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency]: {
+    defaultMessage: "Work experience equivalency is accepted",
+    id: "ILQGq/",
+    description:
+      "Option for justification when assessment decision is successful.",
+  },
+  [AssessmentResultJustification.EducationFailedNotRelevant]: {
+    defaultMessage: "Not the right field or specialization.",
+    id: "Wjpl9+",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.EducationFailedRequirementNotMet]: {
+    defaultMessage:
+      "Not enough education or experience to meet the requirement.",
+    id: "kSQNt5",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.SkillAccepted]: {
+    defaultMessage: "**Replace with skill accepted text**",
+    id: "0Wjj/R",
+    description:
+      "Option for justification when assessment decision is successful.",
+  },
+  [AssessmentResultJustification.SkillFailedInsufficientlyDemonstrated]: {
+    defaultMessage: "Not sufficiently demonstrated to meet the requirement.",
+    id: "VXC0uU",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.FailedNotEnoughInformation]: {
+    defaultMessage: "Not enough information provided.",
+    id: "eRPkNo",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.FailedOther]: {
+    defaultMessage: "Other reason for screening out.",
+    id: "A1WCb/",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+});
+
+export const getAssessmentJustification = (
+  assessmentJustificationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentJustifications,
+    assessmentJustificationId,
+    `Invalid Search Request Reason '${assessmentJustificationId}'`,
+  );
+
+const assessmentDecisionLevels = defineMessages({
+  [AssessmentDecisionLevel.AboveAndBeyondRequired]: {
+    defaultMessage: "Significantly above required level",
+    id: "+3THj+",
+    description: "Option for skill assessment decision level.",
+  },
+  [AssessmentDecisionLevel.AboveRequired]: {
+    defaultMessage: "Above required level",
+    id: "NhJY9U",
+    description: "Option for skill assessment decision level.",
+  },
+  [AssessmentDecisionLevel.AtRequired]: {
+    defaultMessage: "At required level",
+    id: "aaJPpO",
+    description: "Option for skill assessment decision level.",
+  },
+});
+
+export const getAssessmentDecisionLevel = (
+  assessmentDecisionLevelId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentDecisionLevels,
+    assessmentDecisionLevelId,
+    `Invalid Search Request Reason '${assessmentDecisionLevelId}'`,
   );
