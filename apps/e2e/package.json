@@ -23,6 +23,6 @@
     "eslint-plugin-cypress": "^2.15.1",
     "prettier": "^3.1.0",
     "tsconfig": "*",
-    "typescript": "4.9.5"
+    "typescript": "5.3.2"
   }
 }
