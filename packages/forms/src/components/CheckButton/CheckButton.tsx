@@ -19,10 +19,8 @@ const borderMap = {
 
 const colorMap = {
   black: {
-    "data-h2-color": "base(black) base:dark:hover(white)",
-    "data-h2-background-color":
-      "base(transparent) base:all:hover(primary.lightest)",
-    "data-h2-border-color": "base:dark:children[span]:hover(white)",
+    "data-h2-color": "base(black)",
+    "data-h2-background-color": "base(transparent) base:hover(black.3)",
   },
   white: {
     "data-h2-color": "base(gray.light)",
