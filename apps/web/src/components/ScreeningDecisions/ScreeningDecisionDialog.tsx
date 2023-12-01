@@ -46,6 +46,12 @@ import ScreeningDecisionDialogForm, {
   FormValues,
 } from "./ScreeningDecisionDialogForm";
 import useHeaders from "./useHeaders";
+import {
+  convertFormValuesToApiCreateInput,
+  convertFormValuesToApiUpdateInput,
+  FormValuesToApiCreateInputArgs,
+  FormValuesToApiUpdateInputArgs,
+} from "./utils";
 
 const AssessmentStepTypeSection = ({
   type,
@@ -386,18 +392,25 @@ const ScreeningDecisionDialogApi = ({
   };
 
   return (
-    // <ScreeningDecisionDialog
-    //   poolCandidate={} // TODO: Add pool candidate here
-    //   skill={} // TODO: Add skill here
-    //   assessmentStep={} // TODO: Add assessment step here
-    //   initialValues={} // TODO: Add assessment result initial values
-    //   onSubmit={(formValues) =>
-    //     assessmentResultId
-    //       ? handleUpdateAssessment(formValues)
-    //       : handleCreateAssessment(formValues)
-    //   }
-    // />
-    <div />
+    <ScreeningDecisionDialog
+      poolCandidate={{} as PoolCandidate} // TODO: Add pool candidate here
+      skill={{} as Skill} // TODO: Add skill here
+      assessmentStep={{} as AssessmentStep} // TODO: Add assessment step here
+      initialValues={{} as FormValues} // TODO: Add assessment result initial values
+      onSubmit={(formValues) =>
+        assessmentResultId
+          ? handleUpdateAssessment(
+              convertFormValuesToApiUpdateInput({
+                formValues,
+              } as FormValuesToApiUpdateInputArgs),
+            )
+          : handleCreateAssessment(
+              convertFormValuesToApiCreateInput({
+                formValues,
+              } as FormValuesToApiCreateInputArgs),
+            )
+      }
+    />
   );
 };
 
