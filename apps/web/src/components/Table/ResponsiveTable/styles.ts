@@ -58,7 +58,7 @@ export const getCellStyles: GetCellStyles = ({
       "data-h2-display": "base(inline)",
       ...(isRowTitle && {
         "data-h2-font-size": "base(h6) l-tablet(inherit)",
-        "data-h2-font-weight": "base(800) l-tablet(inherit)",
+        "data-h2-font-weight": "base(700) l-tablet(inherit)",
         "data-h2-color": "base(secondary.darker) l-tablet(inherit)",
       }),
     },
@@ -67,7 +67,7 @@ export const getCellStyles: GetCellStyles = ({
 
 const row = {
   "data-h2-padding": `
-    base(x.25 x.5) l-tablet(0 x.5)
+    base(x.75, x1) l-tablet(0 x.5)
     base:selectors[>*](x.25 0)
     l-tablet:selectors[>*](x.5)
     l-tablet:selectors[>*:first-child](x.5 x.5 x.5 x1)
