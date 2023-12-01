@@ -19,15 +19,8 @@ const themes: Array<string> = ["light", "dark"];
 const Template: StoryFn<typeof Tabs.Root> = (args) => (
   <div>
     {themes.map((theme) => (
-      <div
-        key={theme}
-        data-h2={theme}
-        data-h2-max-width="base(100%)"
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-      >
+      <div key={theme} data-h2={theme}>
         <div
-          data-h2-margin="base(-1rem)"
           data-h2-background="base(background)"
           data-h2-padding="base(x1 0)"
           data-h2-max-width="base(100%)"
