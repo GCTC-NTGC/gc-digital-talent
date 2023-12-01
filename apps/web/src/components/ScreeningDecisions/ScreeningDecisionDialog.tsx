@@ -3,14 +3,13 @@ import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 
 import {
-  AssessmentResult,
   AssessmentStep,
-  AssessmentStepType,
+  CreateAssessmentResultInput,
   Experience,
-  Maybe,
   PoolCandidate,
   Skill,
   SkillCategory,
+  UpdateAssessmentResultInput,
   UserSkill,
 } from "@gc-digital-talent/graphql";
 import {
@@ -25,26 +24,35 @@ import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  getAssessmentStepType,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
   getLocalizedName,
   getTechnicalSkillLevel,
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
+import {
+  useCreateAssessmentResultMutation,
+  useUpdateAssessmentResultMutation,
+} from "~/api/generated";
 
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import useDialogType, { DialogType } from "./useDialogType";
-import ScreeningDecisionDialogForm from "./ScreeningDecisionDialogForm";
+import ScreeningDecisionDialogForm, {
+  FormValues,
+} from "./ScreeningDecisionDialogForm";
+import useHeaders from "./useHeaders";
 
 const AssessmentStepTypeSection = ({
   type,
   userSkill,
 }: {
   type: DialogType;
-  userSkill: UserSkill;
+  userSkill?: UserSkill;
 }) => {
   const intl = useIntl();
   switch (type) {
@@ -77,22 +85,38 @@ const AssessmentStepTypeSection = ({
             <Accordion.Root type="single" collapsible>
               <Accordion.Item value="skill">
                 <Accordion.Trigger>
-                  {intl.formatMessage({
-                    defaultMessage: `See definitions for "{skill}" and "{skillLevel}"`,
-                    id: "+xjIMK",
-                    description:
-                      "Accordian title for skill and skill level header on screening decision dialog.",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: `See definitions for "{skillName}" and "{skillLevel}"`,
+                      id: "o5zW6Y",
+                      description:
+                        "Accordion title for skill and skill level header on screening decision dialog.",
+                    },
+                    {
+                      skillName: getLocalizedName(userSkill?.skill.name, intl),
+                      skillLevel: userSkill?.skillLevel,
+                    },
+                  )}
                 </Accordion.Trigger>
-                <Accordion.Content>
-                  <div data-h2-margin-bottom="base(x1)">
-                    <p>{getLocalizedName(userSkill.skill.name, intl)}</p>
-                    <p>{getLocalizedName(userSkill.skill.description, intl)}</p>
+                <Accordion.Content data-h2-text-align="base(left)">
+                  <div data-h2-margin="base(x1, 0)">
+                    <p
+                      data-h2-margin-bottom="base(x1)"
+                      data-h2-font-weight="base(bold)"
+                    >
+                      {getLocalizedName(userSkill?.skill.name, intl)}
+                    </p>
+                    <p>
+                      {getLocalizedName(userSkill?.skill.description, intl)}
+                    </p>
                   </div>
                   <div>
-                    {userSkill.skillLevel && (
+                    {userSkill?.skillLevel && (
                       <>
-                        <p>
+                        <p
+                          data-h2-margin-bottom="base(x1)"
+                          data-h2-font-weight="base(bold)"
+                        >
                           {intl.formatMessage(
                             userSkill.skill.category === SkillCategory.Technical
                               ? getTechnicalSkillLevel(userSkill.skillLevel)
@@ -120,6 +144,41 @@ const AssessmentStepTypeSection = ({
         </div>
       );
   }
+};
+
+const ScreeningQuestions = ({
+  poolCandidate,
+}: {
+  poolCandidate: PoolCandidate;
+}) => {
+  const intl = useIntl();
+  const screeningQuestions =
+    poolCandidate.pool.screeningQuestions?.filter(notEmpty) || [];
+  const screeningQuestionResponses =
+    poolCandidate.screeningQuestionResponses?.filter(notEmpty) || [];
+  return (
+    <Accordion.Root type="multiple" data-h2-margin-bottom="base(x1)">
+      {screeningQuestions.length &&
+        screeningQuestions.map((screeningQuestion) => (
+          <Accordion.Item
+            value={screeningQuestion.id}
+            key={screeningQuestion.id}
+          >
+            <Accordion.Trigger>
+              {getLocalizedName(screeningQuestion.question, intl)}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {
+                screeningQuestionResponses.filter(
+                  (response) =>
+                    response.screeningQuestion?.id === screeningQuestion.id,
+                )[0].answer
+              }
+            </Accordion.Content>
+          </Accordion.Item>
+        ))}
+    </Accordion.Root>
+  );
 };
 
 const SupportingEvidence = ({
@@ -150,27 +209,41 @@ const SupportingEvidence = ({
   );
 };
 
-type FormValues = {
-  assessmentDecision: AssessmentResult["assessmentDecision"];
-  justifications: AssessmentResult["justifications"];
-};
-
 interface ScreeningDecisionDialogProps {
   assessmentStep?: AssessmentStep;
   poolCandidate: PoolCandidate;
-  skill?: Skill;
+  skill: Skill;
+  initialValues?: FormValues;
   onSubmit: SubmitHandler<FormValues>;
 }
 
-const ScreeningDecisionDialog = ({
+export const ScreeningDecisionDialog = ({
   assessmentStep,
   poolCandidate,
   skill,
+  initialValues,
   onSubmit,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const dialogType = useDialogType(assessmentStep);
-  const labels = useLabels({ type: assessmentStep?.type });
+
+  const userSkill = poolCandidate.user.userSkills
+    ?.filter(notEmpty)
+    .filter((usrSkill) => usrSkill.skill.id === skill.id)[0];
+
+  const headers = useHeaders({
+    type: dialogType,
+    title: intl.formatMessage(
+      assessmentStep?.type
+        ? getAssessmentStepType(assessmentStep?.type)
+        : commonMessages.notApplicable,
+    ),
+    customTitle: getLocalizedName(assessmentStep?.title, intl),
+    candidateName: poolCandidate.user.firstName,
+    skillName: getLocalizedName(userSkill?.skill.name, intl),
+    skillLevel: userSkill?.skillLevel,
+  });
+  const labels = useLabels();
   const [isOpen, setIsOpen] = React.useState(true);
 
   const experiences =
@@ -198,13 +271,26 @@ const ScreeningDecisionDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header subtitle={labels.subtitle}>{labels.title}</Dialog.Header>
+        <Dialog.Header subtitle={headers.subtitle}>
+          {headers.title}
+        </Dialog.Header>
         <Dialog.Body>
           <div>
-            <AssessmentStepTypeSection type={assessmentStep?.type} />
-            <SupportingEvidence experiences={experiences} skill={skill} />
+            <AssessmentStepTypeSection
+              type={dialogType}
+              userSkill={userSkill}
+            />
+            {dialogType === "SCREENING_QUESTIONS" ? (
+              <ScreeningQuestions poolCandidate={poolCandidate} />
+            ) : (
+              <SupportingEvidence experiences={experiences} skill={skill} />
+            )}
             <div data-h2-margin="base(x1, 0)">
-              <BasicForm onSubmit={onSubmit} labels={labels}>
+              <BasicForm
+                onSubmit={onSubmit}
+                labels={labels}
+                options={{ defaultValues: initialValues }}
+              >
                 <ScreeningDecisionDialogForm dialogType={dialogType} />
                 <Dialog.Footer
                   data-h2-display="base(flex)"
@@ -238,4 +324,81 @@ const ScreeningDecisionDialog = ({
   );
 };
 
-export default ScreeningDecisionDialog;
+const ScreeningDecisionDialogApi = ({
+  assessmentResultId,
+}: {
+  assessmentResultId: string;
+}) => {
+  const intl = useIntl();
+  const [, executeCreateMutation] = useCreateAssessmentResultMutation();
+  const [, executeUpdateMutation] = useUpdateAssessmentResultMutation();
+
+  const toastSuccess = () =>
+    toast.success(
+      intl.formatMessage({
+        defaultMessage: "Assessment successfully saved.",
+        id: "+jknvj",
+        description:
+          "Message displayed to user if the assessment result was saved successfully.",
+      }),
+    );
+  const toastError = () =>
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Failed to save the assessment",
+        id: "xcsYTa",
+        description:
+          "Message displayed to user if assessment result fails to get created/updated.",
+      }),
+    );
+
+  const handleCreateAssessment = async (
+    createAssessmentResult: CreateAssessmentResultInput,
+  ) => {
+    await executeCreateMutation({ createAssessmentResult })
+      .then((result) => {
+        if (result.data?.createAssessmentResult?.id) {
+          toastSuccess();
+          // Do something
+        } else {
+          toastError();
+        }
+      })
+      .catch(() => {
+        toastError();
+      });
+  };
+  const handleUpdateAssessment = async (
+    updateAssessmentResult: UpdateAssessmentResultInput,
+  ) => {
+    await executeUpdateMutation({ updateAssessmentResult })
+      .then((result) => {
+        if (result.data?.updateAssessmentResult?.id) {
+          toastSuccess();
+          // Do something
+        } else {
+          toastError();
+        }
+      })
+      .catch(() => {
+        toastError();
+      });
+  };
+
+  return (
+    // <ScreeningDecisionDialog
+    //   poolCandidate={} // TODO: Add pool candidate here
+    //   skill={} // TODO: Add skill here
+    //   assessmentStep={} // TODO: Add assessment step here
+    //   initialValues={} // TODO: Add assessment result initial values
+    //   onSubmit={(formValues) =>
+    //     assessmentResultId
+    //       ? handleUpdateAssessment(formValues)
+    //       : handleCreateAssessment(formValues)
+    //   }
+    // />
+    <div />
+  );
+};
+
+export default ScreeningDecisionDialogApi;

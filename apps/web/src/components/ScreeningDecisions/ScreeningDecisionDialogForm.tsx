@@ -6,6 +6,7 @@ import {
   AssessmentDecision,
   AssessmentResult,
   AssessmentResultJustification,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -17,11 +18,13 @@ import useOptions from "./useOptions";
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
-type FormValues = {
+export type FormValues = {
   assessmentDecision: AssessmentResult["assessmentDecision"];
   justifications: AssessmentResult["justifications"];
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
   otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
+  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
+  notesForThisAssessment: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
 };
 
 interface ScreeningDecisionDialogFormProps {
@@ -43,12 +46,24 @@ const ScreeningDecisionDialogForm = ({
   const { assessmentDecisionItems, successfulOptions, unsuccessfulOptions } =
     options;
 
-  const otherReasonSelected = watchJustifications?.includes(
-    AssessmentResultJustification.FailedOther,
-  );
+  const otherReasonSelected =
+    watchJustifications &&
+    watchJustifications.includes(AssessmentResultJustification.FailedOther);
 
   return (
     <>
+      {dialogType === "GENERIC" && (
+        <div data-h2-margin-bottom="base(x1)">
+          <TextArea
+            id="notesForThisAssessment"
+            name="notesForThisAssessment"
+            rows={TEXT_AREA_ROWS}
+            wordLimit={TEXT_AREA_MAX_WORDS}
+            label={labels.notesForThisAssessment}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+        </div>
+      )}
       <div data-h2-margin-bottom="base(x1)">
         <CardOptionGroup
           idPrefix="assessmentDecision"
@@ -75,24 +90,28 @@ const ScreeningDecisionDialogForm = ({
               />
             </div>
           ) : (
-            <div data-h2-margin-bottom="base(x1)">
-              <CardOptionGroup
-                idPrefix="assessmentDecisionLevel"
-                name="assessmentDecisionLevel"
-                legend={labels.assessmentDecisionLevel}
-                items={successfulOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <TextArea
-                id="otherJustificationNotes"
-                name="otherJustificationNotes"
-                rows={TEXT_AREA_ROWS}
-                wordLimit={TEXT_AREA_MAX_WORDS}
-                label={labels.decisionNotes}
-              />
-            </div>
+            <>
+              <div data-h2-margin-bottom="base(x1)">
+                <CardOptionGroup
+                  idPrefix="assessmentDecisionLevel"
+                  name="assessmentDecisionLevel"
+                  legend={labels.assessmentDecisionLevel}
+                  items={successfulOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+              <div data-h2-margin-bottom="base(x1)">
+                <TextArea
+                  id="otherJustificationNotes"
+                  name="otherJustificationNotes"
+                  rows={TEXT_AREA_ROWS}
+                  wordLimit={TEXT_AREA_MAX_WORDS}
+                  label={labels.decisionNotes}
+                />
+              </div>
+            </>
           )}
         </div>
       )}
@@ -110,7 +129,7 @@ const ScreeningDecisionDialogForm = ({
             />
           </div>
           {otherReasonSelected && (
-            <div data-h2-margin-bottom="base(x1)">
+            <div data-h2-margin="base(x1, 0)">
               <TextArea
                 id="otherJustificationNotes"
                 name="otherJustificationNotes"

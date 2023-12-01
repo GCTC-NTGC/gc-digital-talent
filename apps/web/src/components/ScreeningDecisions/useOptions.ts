@@ -28,6 +28,12 @@ import OutlineEducationWorkIcon from "./Icons/outline/EducationWorkIcon";
 import SolidEducationWorkIcon from "./Icons/solid/EducationWorkIcon";
 import OutlineWorkIcon from "./Icons/outline/WorkIcon";
 import SolidWorkIcon from "./Icons/solid/WorkIcon";
+import OutlineOneBarIcon from "./Icons/outline/OneBarIcon";
+import SolidOneBarIcon from "./Icons/solid/OneBarIcon";
+import OutlineTwoBarsIcon from "./Icons/outline/TwoBarsIcon";
+import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
+import OutlineThreeBarsIcon from "./Icons/outline/ThreeBarsIcon";
+import SolidThreeBarsIcon from "./Icons/solid/ThreeBarsIcon";
 import { DialogType } from "./useDialogType";
 
 const useOptions = (
@@ -113,18 +119,18 @@ const useOptions = (
             label: intl.formatMessage(
               getAssessmentDecisionLevel(AssessmentDecisionLevel.AtRequired),
             ),
-            selectedIcon: SolidEducationIcon,
+            selectedIcon: SolidOneBarIcon,
             selectedIconColor: "success",
-            unselectedIcon: OutlineEducationIcon,
+            unselectedIcon: OutlineOneBarIcon,
             value: AssessmentDecisionLevel.AtRequired,
           },
           {
             label: intl.formatMessage(
               getAssessmentDecisionLevel(AssessmentDecisionLevel.AboveRequired),
             ),
-            selectedIcon: SolidEducationWorkIcon,
+            selectedIcon: SolidTwoBarsIcon,
             selectedIconColor: "success",
-            unselectedIcon: OutlineEducationWorkIcon,
+            unselectedIcon: OutlineTwoBarsIcon,
             value: AssessmentDecisionLevel.AboveRequired,
           },
           {
@@ -133,14 +139,13 @@ const useOptions = (
                 AssessmentDecisionLevel.AboveAndBeyondRequired,
               ),
             ),
-            selectedIcon: SolidWorkIcon,
+            selectedIcon: SolidThreeBarsIcon,
             selectedIconColor: "success",
-            unselectedIcon: OutlineWorkIcon,
+            unselectedIcon: OutlineThreeBarsIcon,
             value: AssessmentDecisionLevel.AboveAndBeyondRequired,
           },
         ];
 
-  console.log(dialogType);
   const justifications =
     dialogType === "EDUCATION"
       ? [
