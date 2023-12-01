@@ -100,6 +100,10 @@ class User extends Model implements Authenticatable, LaratrustUser
         'sub',
     ];
 
+    protected $hidden = [
+        'searchable',
+    ];
+
 
     /**
      * Get the indexable data array for the model.
@@ -108,6 +112,41 @@ class User extends Model implements Authenticatable, LaratrustUser
      */
     public function toSearchableArray(): array
     {
+        $notes = $this->poolCandidates->pluck('notes')->toArray();
+        $notes = count($notes) > 0 ? $notes : [];
+
+        $roles = $this->workExperiences->pluck('role')->toArray();
+        $roles = count($roles) > 0 ? $roles : [];
+        $organizations = $this->workExperiences->pluck('organization')->toArray();
+        $organizations = count($organizations) > 0 ? $organizations : [];
+        $divisions = $this->workExperiences->pluck('division')->toArray();
+        $divisions = count($divisions) > 0 ? $organizations : [];
+        $details = $this->workExperiences->pluck('details')->toArray();
+        $details = count($details) > 0 ? $details : [];
+
+        $thesis_titles = $this->educationExperiences->pluck('thesis_title')->toArray();
+        $thesis_titles = count($thesis_titles) > 0 ? $thesis_titles : [];
+        $education_details = $this->educationExperiences->pluck('details')->toArray();
+        $education_details = count($education_details) > 0 ? $education_details : [];
+
+        $personal_titles = $this->personalExperiences->pluck('title')->toArray();
+        $personal_titles = count($personal_titles) > 0 ? $personal_titles : [];
+        $personal_descriptions = $this->personalExperiences->pluck('description')->toArray();
+        $personal_descriptions = count($personal_descriptions) > 0 ? $personal_descriptions : [];
+
+        $community_titles = $this->communityExperiences->pluck('title')->toArray();
+        $community_titles = count($community_titles) > 0 ? $community_titles : [];
+        $community_details = $this->communityExperiences->pluck('details')->toArray();
+        $community_details = count($community_details) > 0 ? $community_details : [];
+
+        $award_titles = $this->awardExperiences->pluck('title')->toArray();
+        $award_titles = count($award_titles) > 0 ? $award_titles : [];
+        $award_details = $this->awardExperiences->pluck('details')->toArray();
+        $award_details = count($award_details) > 0 ? $award_details : [];
+        $issued_by = $this->awardExperiences->pluck('issued_by')->toArray();
+        $issued_by = count($issued_by) > 0 ? $issued_by : [];
+
+
         return [
             'id' => $this->id,
             'email' => $this->email,
@@ -116,11 +155,22 @@ class User extends Model implements Authenticatable, LaratrustUser
             'telephone' => $this->telephone,
             'current_province' => $this->current_province,
             'current_city' => $this->current_city,
-            'notes' => $this->poolCandidates->pluck('notes')->flatten()->toArray(),
-            'work_experiences' => $this->workExperiences->pluck('title')->flatten()->toArray(),
-            'role' => $this->workExperiences->pluck('role')->flatten()->toArray(),
-            'organization' => $this->workExperiences->pluck('organization')->flatten()->toArray(),
+            'notes' => implode(' ', $notes),
+            'details' => implode(' ', $details),
+            'roles' => implode(' ', $roles),
+            'organizations' => implode(' ', $organizations),
+            'divisions' => implode(' ', $divisions),
+            'personal_titles' => implode(' ', $personal_titles),
+            'personal_descriptions' => implode(' ', $personal_descriptions),
+            'education_details' => implode(' ', $education_details),
+            'thesis_titles' => implode(' ', $thesis_titles),
+            'issued_by' => implode(' ', $issued_by),
+            'award_titles' => implode(' ', $award_titles),
+            'award_details' => implode(' ', $award_details),
+            'community_titles' => implode(' ', $community_titles),
+            'community_details' => implode(' ', $community_details),
         ];
+
     }
 
     public function getActivitylogOptions(): LogOptions
