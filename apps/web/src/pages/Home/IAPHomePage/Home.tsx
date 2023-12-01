@@ -91,17 +91,13 @@ export const Home = ({ latestPool }: HomeProps) => {
             data-h2-width="base(100%)"
             data-h2-order="base(2)"
             src={iapHeroImg}
-            alt={
-              locale
-                ? ""
-                : intl.formatMessage({
-                    defaultMessage:
-                      "Group of Indigenous people standing with a painted hand drum.",
-                    id: "71+GZq",
-                    description:
-                      "Indigenous Apprenticeship hero image text alternative",
-                  })
-            }
+            alt={intl.formatMessage({
+              defaultMessage:
+                "Group of Indigenous people standing with a painted hand drum.",
+              id: "71+GZq",
+              description:
+                "Indigenous Apprenticeship hero image text alternative",
+            })}
           />
           <div
             data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
@@ -211,17 +207,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                       />
                       <img
                         src={womanSmiling}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage:
-                                  "Indigenous woman wearing a jean jacket which contains several different pins.",
-                                id: "cErFoy",
-                                description:
-                                  "Indigenous Apprenticeship woman smiling image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage:
+                            "Indigenous woman wearing a jean jacket which contains several different pins.",
+                          id: "cErFoy",
+                          description:
+                            "Indigenous Apprenticeship woman smiling image text alternative",
+                        })}
                         data-h2-min-height="base(60vh) p-tablet(initial)"
                         data-h2-height="p-tablet(100%)"
                         data-h2-width="p-tablet(100%)"
@@ -232,16 +224,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                       />
                       <img
                         src={feathers}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage: "Two feathers tied together.",
-                                id: "0D8Efk",
-                                description:
-                                  "Indigenous Apprenticeship feathers image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage: "Two feathers tied together.",
+                          id: "0D8Efk",
+                          description:
+                            "Indigenous Apprenticeship feathers image text alternative",
+                        })}
                         data-h2-position="base(absolute)"
                         data-h2-width="base(150%)"
                         data-h2-location="base(auto, -15%, 0, auto)"
@@ -323,17 +311,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={manOnComputer}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Indigenous man working at a computer.",
-                              id: "XDgkwV",
-                              description:
-                                "Indigenous Apprenticeship man on computer image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage: "Indigenous man working at a computer.",
+                        id: "XDgkwV",
+                        description:
+                          "Indigenous Apprenticeship man on computer image text alternative",
+                      })}
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="p-tablet(100%)"
                       data-h2-width="p-tablet(100%)"
@@ -344,17 +327,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={gloves}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Métis style gloves with floral beading.",
-                              id: "aPLL9Z",
-                              description:
-                                "Indigenous Apprenticeship gloves image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Métis style gloves with floral beading.",
+                        id: "aPLL9Z",
+                        description:
+                          "Indigenous Apprenticeship gloves image text alternative",
+                      })}
                       data-h2-position="base(absolute)"
                       data-h2-width="base(140%)"
                       data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
@@ -438,17 +417,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={applicant}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Indigenous woman smiling, wearing a brown sweater and glasses.",
-                              id: "X6+rc1",
-                              description:
-                                "Indigenous Apprenticeship applicant image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Indigenous woman smiling, wearing a brown sweater and glasses.",
+                        id: "X6+rc1",
+                        description:
+                          "Indigenous Apprenticeship applicant image text alternative",
+                      })}
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="p-tablet(100%)"
                       data-h2-width="p-tablet(100%)"
@@ -459,17 +434,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                     />
                     <img
                       src={ulu}
-                      alt={
-                        locale
-                          ? ""
-                          : intl.formatMessage({
-                              defaultMessage:
-                                "Ulu, an Inuit tool used by Inuit women.",
-                              id: "IIZNzj",
-                              description:
-                                "Indigenous Apprenticeship ulu image text alternative",
-                            })
-                      }
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Ulu, an Inuit tool used by Inuit women.",
+                        id: "IIZNzj",
+                        description:
+                          "Indigenous Apprenticeship ulu image text alternative",
+                      })}
                       data-h2-display="base(block) p-tablet(none)"
                       data-h2-position="base(absolute)"
                       data-h2-width="base(x20)"
@@ -518,7 +489,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                   </p>
                   <img
                     src={ulu}
-                    alt=""
+                    alt={intl.formatMessage({
+                      defaultMessage: "Ulu, an Inuit tool used by Inuit women.",
+                      id: "IIZNzj",
+                      description:
+                        "Indigenous Apprenticeship ulu image text alternative",
+                    })}
                     data-h2-display="base(none) p-tablet(block)"
                     data-h2-position="base(absolute)"
                     data-h2-width="base(x20)"
@@ -583,17 +559,12 @@ export const Home = ({ latestPool }: HomeProps) => {
                 <div data-h2-position="base(relative)">
                   <img
                     src={lowerBack}
-                    alt={
-                      locale
-                        ? ""
-                        : intl.formatMessage({
-                            defaultMessage:
-                              "Male Traditional dancer in regalia.",
-                            id: "9VPBwR",
-                            description:
-                              "Indigenous Apprenticeship lower back image text alternative",
-                          })
-                    }
+                    alt={intl.formatMessage({
+                      defaultMessage: "Male Traditional dancer in regalia.",
+                      id: "9VPBwR",
+                      description:
+                        "Indigenous Apprenticeship lower back image text alternative",
+                    })}
                     style={{
                       position: "absolute",
                       inset: "0",
@@ -995,17 +966,13 @@ export const Home = ({ latestPool }: HomeProps) => {
                         data-h2-position="p-tablet(absolute)"
                         data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
                         src={indigenousWoman}
-                        alt={
-                          locale
-                            ? ""
-                            : intl.formatMessage({
-                                defaultMessage:
-                                  "Indigenous woman wearing a red shirt working on a laptop.",
-                                id: "dY3Qr4",
-                                description:
-                                  "Indigenous Apprenticeship woman on laptop image text alternative",
-                              })
-                        }
+                        alt={intl.formatMessage({
+                          defaultMessage:
+                            "Indigenous woman wearing a red shirt working on a laptop.",
+                          id: "dY3Qr4",
+                          description:
+                            "Indigenous Apprenticeship woman on laptop image text alternative",
+                        })}
                       />
                     </div>
                   </div>

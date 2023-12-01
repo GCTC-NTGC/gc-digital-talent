@@ -13,15 +13,14 @@ const borderMap = {
     "data-h2-border": "base(1px solid black)",
   },
   white: {
-    "data-h2-border": "base(1px solid gray.light)",
+    "data-h2-border": "base(1px solid gray.light) base:dark(black)",
   },
 };
 
 const colorMap = {
   black: {
     "data-h2-color": "base(black)",
-    "data-h2-background-color":
-      "base(transparent) base:hover(primary.light.25)",
+    "data-h2-background-color": "base(transparent) base:hover(black.3)",
   },
   white: {
     "data-h2-color": "base(gray.light)",
@@ -75,6 +74,7 @@ const CheckButton = ({
       <span
         className="check-button__inner"
         data-h2-padding="base(x.125)"
+        data-h2-background-color="base(foreground)"
         {...borderMap[color]}
       >
         <Icon className="check-button__icon" data-h2-display="base(block)" />

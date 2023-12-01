@@ -106,7 +106,19 @@ export default {
   },
 } as Meta<typeof Table<User>>;
 
-const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
+const themes = ["light", "dark"];
+
+const Template: StoryFn<typeof Table<User>> = (args) => (
+  <div data-h2-display="base(grid)" data-h2-grid-template-columns="base(100%)">
+    {themes.map((theme) => (
+      <div data-h2={theme} key={theme}>
+        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+          <Table {...args} />
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -210,21 +222,32 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   });
 
   return (
-    <Table
-      {...args}
-      isLoading={isLoading}
-      data={filteredData}
-      rowSelect={{
-        getRowId: (row) => row.id,
-        onRowSelection: handleRowSelection,
-        cell: rowSelectCell,
-      }}
-      search={{
-        ...defaultSearchProps,
-        internal: false,
-        onChange: handleSearchChange,
-      }}
-    />
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Table
+              {...args}
+              isLoading={isLoading}
+              data={filteredData}
+              rowSelect={{
+                getRowId: (row) => row.id,
+                onRowSelection: handleRowSelection,
+                cell: rowSelectCell,
+              }}
+              search={{
+                ...defaultSearchProps,
+                internal: false,
+                onChange: handleSearchChange,
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

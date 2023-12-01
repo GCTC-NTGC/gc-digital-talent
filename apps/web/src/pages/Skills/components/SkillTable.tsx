@@ -2,6 +2,7 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { useLocation } from "react-router-dom";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -96,6 +97,9 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
 
   const data = skills.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<Skill>
       caption={title}
@@ -127,6 +131,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
             id: "lFrPv1",
             description: "Heading displayed above the Create Skill form.",
           }),
+          from: currentUrl,
         },
       }}
     />

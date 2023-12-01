@@ -348,8 +348,9 @@ const UserTable = ({ title }: UserTableProps) => {
             <UserProfilePrintButton
               users={selectedApplicants}
               beforePrint={handlePrint}
-              color="white"
+              color="whiteFixed"
               mode="inline"
+              fontSize="caption"
             />
           </span>
         ),

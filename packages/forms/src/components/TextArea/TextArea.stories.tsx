@@ -15,31 +15,32 @@ export default {
     id: "description",
     name: "description",
     label: "Description",
-    maxWidth: "20rem",
-  },
-  argTypes: {
-    maxWidth: {
-      name: "Max Width",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
   },
 };
+
+const themes = ["light", "dark"];
 
 const TemplateTextArea: StoryFn<TextAreaProps & { maxWidth: string }> = (
   args,
 ) => {
-  const { maxWidth, ...rest } = args;
+  const { ...rest } = args;
   return (
-    <div style={{ maxWidth }}>
-      <Form onSubmit={action("Submit Form")}>
-        <TextArea {...rest} />
-        <p data-h2-margin-top="base(x1)">
-          <Submit />
-        </p>
-      </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <TextArea {...rest} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

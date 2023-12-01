@@ -5,6 +5,7 @@ import add from "date-fns/add";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import parseISO from "date-fns/parseISO";
+import en from "date-fns/locale/en-CA";
 import fr from "date-fns/locale/fr";
 import formatInTimeZone from "date-fns-tz/formatInTimeZone";
 import toDate from "date-fns-tz/toDate";
@@ -47,7 +48,7 @@ export const formatDate = ({
   timeZone,
 }: FormatDateOptions): string => {
   const strLocale = getLocale(intl);
-  const locale = strLocale === "fr" ? fr : undefined;
+  const locale: Locale = strLocale === "fr" ? fr : en;
 
   // A date formatting function that can use time zones optionally
   const result = timeZone

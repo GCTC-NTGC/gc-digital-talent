@@ -7,7 +7,7 @@ import omit from "lodash/omit";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import { HTMLSpanProps } from "./types";
 
 type WrapperProps = React.DetailedHTMLProps<
@@ -16,7 +16,7 @@ type WrapperProps = React.DetailedHTMLProps<
 >;
 
 const Wrapper = (props: WrapperProps) => {
-  const baseStyles = useCommonInputStyles();
+  const baseStyles = useInputStyles();
   return (
     <div
       {...baseStyles}
@@ -40,7 +40,7 @@ const Message = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
       ref={forwardedRef}
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
-      data-h2-color="base(black.light)"
+      data-h2-color="base(black.light) base:dark(gray.light)"
       data-h2-gap="base(0 x.25)"
       data-h2-padding="base(x.25, x.5)"
       {...props}
@@ -127,7 +127,7 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
         })}
       {...(selected &&
         !active && {
-          "data-h2-color": "base(primary.darker)",
+          "data-h2-color": "base(primary.darker) base:dark(primary.lightest)",
         })}
       {...(selected && {
         "data-h2-font-weight": "base(700)",

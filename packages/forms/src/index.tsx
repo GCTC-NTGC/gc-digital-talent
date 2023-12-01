@@ -8,7 +8,6 @@ import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -25,6 +24,9 @@ import RichTextInput from "./components/RichTextInput/RichTextInput";
 import RichTextRenderer from "./components/RichTextInput/RichTextRenderer";
 import Select, { type SelectProps, type Option } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
+import SwitchInput, {
+  type SwitchInputProps,
+} from "./components/SwitchInput/SwitchInput";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
 import BasicForm, {
@@ -45,7 +47,7 @@ import {
   objectsToSortedOptions,
   htmlToRichTextJSON,
 } from "./utils";
-import useCommonInputStyles from "./hooks/useCommonInputStyles";
+import useInputStyles from "./hooks/useInputStyles";
 
 export {
   DATE_SEGMENT,
@@ -62,6 +64,7 @@ export {
   RichTextRenderer,
   Select,
   Submit,
+  SwitchInput,
   TextArea,
   WordCounter,
   BasicForm,
@@ -83,11 +86,11 @@ export type {
   SelectProps,
   Option,
   SubmitProps,
+  SwitchInputProps,
   TextAreaProps,
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -105,6 +108,6 @@ export {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
-  useCommonInputStyles,
+  useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
 };

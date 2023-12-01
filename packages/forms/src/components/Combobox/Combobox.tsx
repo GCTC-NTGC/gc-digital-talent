@@ -9,7 +9,7 @@ import { formMessages } from "@gc-digital-talent/i18n";
 import useFieldState from "../../hooks/useFieldState";
 import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import {
@@ -66,7 +66,7 @@ const Combobox = ({
     setValue,
     formState: { errors, defaultValues },
   } = useFormContext();
-  const baseStyles = useCommonInputStyles();
+  const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
