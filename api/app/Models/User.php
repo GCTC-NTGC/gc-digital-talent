@@ -134,8 +134,12 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         $thesis_titles = $this->educationExperiences->pluck('thesis_title')->toArray();
         $thesis_titles = count($thesis_titles) > 0 ? $thesis_titles : [];
+        $institution = $this->educationExperiences->pluck('institution')->toArray();
+        $institution = count($institution) > 0 ? $institution : [];
         $education_details = $this->educationExperiences->pluck('details')->toArray();
         $education_details = count($education_details) > 0 ? $education_details : [];
+        $area_of_study = $this->educationExperiences->pluck('area_of_study')->toArray();
+        $area_of_study = count($area_of_study) > 0 ? $area_of_study : [];
 
         $personal_titles = $this->personalExperiences->pluck('title')->toArray();
         $personal_titles = count($personal_titles) > 0 ? $personal_titles : [];
@@ -172,6 +176,8 @@ class User extends Model implements Authenticatable, LaratrustUser
             'personal_descriptions' => implode(' ', $personal_descriptions),
             'education_details' => implode(' ', $education_details),
             'thesis_titles' => implode(' ', $thesis_titles),
+            'institution' => implode(' ', $institution),
+            'area_of_study' => implode(' ', $area_of_study),
             'issued_by' => implode(' ', $issued_by),
             'award_titles' => implode(' ', $award_titles),
             'award_details' => implode(' ', $award_details),
