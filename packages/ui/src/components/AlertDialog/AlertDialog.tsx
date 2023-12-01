@@ -26,6 +26,7 @@ const StyledContent = React.forwardRef<
     data-h2-font-family="base(sans)"
     data-h2-background-color="base(foreground)"
     data-h2-border="base(1px solid black.2)"
+    data-h2-color="base(black)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
     data-h2-position="base(fixed)"

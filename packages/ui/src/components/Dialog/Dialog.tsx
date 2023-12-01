@@ -219,6 +219,7 @@ const Body = ({ children }: DialogBodyProps) => (
     data-h2-padding="base(x1)"
     data-h2-radius="base(0 0 rounded rounded)"
     data-h2-border="base(1px solid black.2)"
+    data-h2-color="base(black)"
   >
     {children}
   </div>
