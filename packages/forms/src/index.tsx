@@ -16,7 +16,6 @@ import Field, {
   WrapperProps,
 } from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
-import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, {
   type RadioGroupProps,
   type Radio,
@@ -24,12 +23,7 @@ import RadioGroup, {
 import Repeater from "./components/Repeater/Repeater";
 import RichTextInput from "./components/RichTextInput/RichTextInput";
 import RichTextRenderer from "./components/RichTextInput/RichTextRenderer";
-import Select, {
-  MultiSelectFieldBase,
-  type MultiSelectFieldBaseProps,
-  type SelectProps,
-  type Option,
-} from "./components/Select";
+import Select, { type SelectProps, type Option } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
@@ -62,13 +56,11 @@ export {
   Combobox,
   Field,
   Input,
-  MultiSelectField,
   Repeater,
   RadioGroup,
   RichTextInput,
   RichTextRenderer,
   Select,
-  MultiSelectFieldBase,
   Submit,
   TextArea,
   WordCounter,
@@ -89,7 +81,6 @@ export type {
   Radio,
   RadioGroupProps,
   SelectProps,
-  MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
   TextAreaProps,

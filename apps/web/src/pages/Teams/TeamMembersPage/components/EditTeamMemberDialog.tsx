@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -171,9 +171,10 @@ const EditTeamMemberDialog = ({
                     },
                   ]}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
+                  isMulti
                   label={intl.formatMessage({
                     defaultMessage: "Membership roles",
                     id: "cOJVBW",
