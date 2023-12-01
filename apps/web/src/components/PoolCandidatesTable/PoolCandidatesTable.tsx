@@ -588,8 +588,9 @@ const PoolCandidatesTable = ({
           <UserProfilePrintButton
             users={selectedCandidates}
             beforePrint={handlePrint}
-            color="white"
+            color="whiteFixed"
             mode="inline"
+            fontSize="caption"
           />
         ),
       }}
