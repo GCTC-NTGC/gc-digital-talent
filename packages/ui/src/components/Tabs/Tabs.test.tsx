@@ -10,6 +10,10 @@ import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Tabs from ".";
 
+// Mock scroll into view func
+const scrollIntoViewMock = jest.fn();
+Element.prototype.scrollIntoView = scrollIntoViewMock();
+
 type TabsRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof Tabs.Root
 >;
