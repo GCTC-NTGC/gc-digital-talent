@@ -122,10 +122,9 @@ export function transformFormValuesToUserFilterInput(
         const skillString = skill;
         return { id: skillString };
       }),
-      positionDuration:
-        data.employmentDuration === "TERM" // either filter for TEMPORARY or do nothing
-          ? [durationToEnumPositionDuration(data.employmentDuration)]
-          : undefined,
+      positionDuration: data.employmentDuration
+        ? [durationToEnumPositionDuration(data.employmentDuration)]
+        : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
@@ -155,7 +154,7 @@ export function transformUserFilterInputToFormValues(
         PositionDuration.Temporary,
       )
         ? "TERM"
-        : "",
+        : "INDETERMINATE",
     govEmployee: input?.isGovEmployee ? "true" : "",
     profileComplete: input?.isProfileComplete ? "true" : "",
     pools:
