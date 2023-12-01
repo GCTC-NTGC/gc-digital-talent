@@ -2727,10 +2727,6 @@
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
   },
-  "b8mC0r": {
-    "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
-    "description": "Body message for digital initiative procurement section."
-  },
   "CzK1qY": {
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
@@ -4271,6 +4267,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Application title"
   },
+  "MSitul": {
+    "defaultMessage": "Présentation des séances de formation à venir très bientôt.",
+    "description": "Message under training session image on directive page."
+  },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
     "description": "Description of a users technical skills to be improved for admins"
@@ -4727,6 +4727,10 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
+  "P2Hudh": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
+    "description": "Button text to download guidance for procurement plain text."
+  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -4926,6 +4930,10 @@
   "QNMqSh": {
     "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
     "description": "Subtitle for a section explaining sign in steps"
+  },
+  "QOn1f3": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
+    "description": "Button text to download guidance for human resources plain text."
   },
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
@@ -5538,6 +5546,10 @@
   "UDMUHH": {
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal experience section"
+  },
+  "UDwyjC": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
+    "description": "Button text to download guidance for managers pdf."
   },
   "UEsexn": {
     "defaultMessage": "Renseignements sur le gestionnaire",
@@ -6399,6 +6411,10 @@
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
   },
+  "Yw09wC": {
+    "defaultMessage": "Télécharger l’arbre de décision sur les exigences en matière d’établissement de rapports (texte clair)",
+    "description": "Button text to download reporting requirements decision tree plain text."
+  },
   "YwO4XP": {
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
@@ -6778,6 +6794,10 @@
   "b8XLn5": {
     "defaultMessage": "Confirmation du préambule",
     "description": "Preamble confirmation label of the _digital services contracting questionnaire_"
+  },
+  "b8mC0r": {
+    "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
+    "description": "Body message for digital initiative procurement section."
   },
   "bBz/OJ": {
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
@@ -8015,6 +8035,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Link to the homepage for GC Digital Talent."
   },
+  "hfMJ+Q": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (PDF)",
+    "description": "Button text to download guidance for procurement pdf."
+  },
   "hgxH8y": {
     "defaultMessage": "Groupe",
     "description": "Label displayed for the classification form group field."
@@ -8442,6 +8466,10 @@
   "jiUwae": {
     "defaultMessage": "Prolonger la date",
     "description": "Text on a button to extend the expiry date the pool"
+  },
+  "jm2mI1": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
+    "description": "Button text to download guidance for human resources pdf."
   },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
@@ -9147,6 +9175,10 @@
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
   },
+  "nrJ4qt": {
+    "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
+    "description": "Button text to download reporting requirements decision tree pdf."
+  },
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
     "description": "CSV Header, Essential skill column."
@@ -9774,6 +9806,10 @@
   "s5iy2Z": {
     "defaultMessage": "Incidence et tâches",
     "description": "Title for the impact and tasks section of a pool advertisement"
+  },
+  "s6J6d7": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
+    "description": "Button text to download guidance for managers plain text."
   },
   "s7F24X": {
     "defaultMessage": "Préférences relatives au travail",
