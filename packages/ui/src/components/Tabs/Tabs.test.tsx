@@ -10,10 +10,6 @@ import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Tabs from ".";
 
-// Mock scroll into view func
-const scrollIntoViewMock = jest.fn();
-Element.prototype.scrollIntoView = scrollIntoViewMock();
-
 type TabsRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
   typeof Tabs.Root
 >;
@@ -41,6 +37,7 @@ const renderTabs = ({ ...rest }: TabsRootPrimitivePropsWithoutRef) => {
 
 describe("Tabs", () => {
   const user = userEvent.setup();
+  window.HTMLElement.prototype.scrollIntoView = jest.fn();
 
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderTabs({});
