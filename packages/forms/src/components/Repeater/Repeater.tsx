@@ -146,7 +146,7 @@ const Fieldset = ({
 
   // replaces a button when it should be disabled.
   const disabledIcon = (
-    <span aria-hidden data-h2-width="base(x.75)">
+    <span data-h2-color="base(gray)" aria-hidden data-h2-width="base(x.75)">
       &bull;
     </span>
   );
@@ -356,7 +356,7 @@ const Fieldset = ({
                     role="presentation"
                     data-h2-margin="base(0, 0, x.5, 0)"
                     data-h2-color="base(inherit)"
-                    data-h2-font-weight="base(800)"
+                    data-h2-font-weight="base(700)"
                   >
                     {legend}
                   </p>
@@ -487,8 +487,9 @@ const Root = ({
       )}
       {total === 0 && (
         <Well
-          data-h2-margin-bottom="base(x1)"
+          data-h2-margin-bottom="base(x.5)"
           data-h2-text-align="base(center)"
+          data-h2-color="base(black)"
         >
           {customNullMessage ?? (
             <>
@@ -527,8 +528,9 @@ const Root = ({
       {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
       {hasUnsavedChanges ? (
         <Well
-          data-h2-margin-bottom="base(x1)"
+          data-h2-margin-bottom="base(x.5)"
           data-h2-text-align="base(center)"
+          data-h2-color="base(black)"
         >
           {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
         </Well>

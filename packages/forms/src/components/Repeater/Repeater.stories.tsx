@@ -40,6 +40,8 @@ const defaultArgs = {
   addText: "Add screening question",
 };
 
+const themes = ["light", "dark"];
+
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const intl = useIntl();
   const {
@@ -63,69 +65,80 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const canAdd = maxItems ? fields.length < maxItems : true;
 
   return (
-    <Repeater.Root
-      {...rootProps}
-      name={name}
-      trackUnsaved
-      addButtonProps={{
-        disabled: !canAdd,
-      }}
-      onAdd={() => {
-        const newValues = {
-          en: "",
-          fr: "",
-        };
-        append(newValues);
-        action("add")(newValues);
-      }}
-      maxItems={maxItems}
-      total={fields.length}
-      showApproachingLimit
-      showUnsavedChanges
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      {fields.map((item, index) => (
-        <Repeater.Fieldset
-          key={item.id}
-          index={index}
-          name={name}
-          total={fields.length}
-          onMove={move}
-          onRemove={remove}
-          legend={`Screening Question ${index + 1}`}
-          hideLegend={hideLegend}
-          hideIndex={hideIndex}
-          onEdit={() => {
-            action("edit")("Opens edit form dialog.");
-          }}
-          moveDisabledIndexes={moveDisabledIndexes}
-          editDisabled={!!editDisabledIndexes?.includes(index)}
-          removeDisabled={!!removeDisabledIndexes?.includes(index)}
-        >
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr 1fr)"
-            data-h2-gap="base(x.5)"
-          >
-            <TextArea
-              id={`${name}.${index}.en`}
-              name={`${name}.${index}.en`}
-              label="Question (EN)"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Repeater.Root
+              {...rootProps}
+              name={name}
+              trackUnsaved
+              addButtonProps={{
+                disabled: !canAdd,
               }}
-            />
-            <TextArea
-              id={`${name}.${index}.fr`}
-              name={`${name}.${index}.fr`}
-              label="Question (FR)"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
+              onAdd={() => {
+                const newValues = {
+                  en: "",
+                  fr: "",
+                };
+                append(newValues);
+                action("add")(newValues);
               }}
-            />
+              maxItems={maxItems}
+              total={fields.length}
+              showApproachingLimit
+              showUnsavedChanges
+            >
+              {fields.map((item, index) => (
+                <Repeater.Fieldset
+                  key={item.id}
+                  index={index}
+                  name={name}
+                  total={fields.length}
+                  onMove={move}
+                  onRemove={remove}
+                  legend={`Screening Question ${index + 1}`}
+                  hideLegend={hideLegend}
+                  hideIndex={hideIndex}
+                  onEdit={() => {
+                    action("edit")("Opens edit form dialog.");
+                  }}
+                  moveDisabledIndexes={moveDisabledIndexes}
+                  editDisabled={!!editDisabledIndexes?.includes(index)}
+                  removeDisabled={!!removeDisabledIndexes?.includes(index)}
+                >
+                  <div
+                    data-h2-display="base(grid)"
+                    data-h2-grid-template-columns="base(1fr 1fr)"
+                    data-h2-gap="base(x.5)"
+                  >
+                    <TextArea
+                      id={`${name}.${index}.en`}
+                      name={`${name}.${index}.en`}
+                      label="Question (EN)"
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                    <TextArea
+                      id={`${name}.${index}.fr`}
+                      name={`${name}.${index}.fr`}
+                      label="Question (FR)"
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                </Repeater.Fieldset>
+              ))}
+            </Repeater.Root>
           </div>
-        </Repeater.Fieldset>
+        </div>
       ))}
-    </Repeater.Root>
+    </div>
   );
 };
 

@@ -25,6 +25,8 @@ export default {
   },
 };
 
+const themes = ["light", "dark"];
+
 const Template: StoryFn<SelectProps> = (args) => {
   const intl = useIntl();
   const departments = fakeDepartments();
@@ -33,15 +35,26 @@ const Template: StoryFn<SelectProps> = (args) => {
     label: getLocalizedName(name, intl) || "",
   }));
   return (
-    <Form
-      onSubmit={action("Submit Form")}
-      options={{ defaultValues: { groups: "" } }}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <Select {...args} options={departmentOptions} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form
+              onSubmit={action("Submit Form")}
+              options={{ defaultValues: { groups: "" } }}
+            >
+              <Select {...args} options={departmentOptions} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -87,15 +100,28 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
   }));
 
   return (
-    <Form
-      onSubmit={action("Submit Form")}
-      options={{ defaultValues: { groups: "" } }}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <div>
-        <Select {...args} options={groupOptions} />
-        <Submit />
-      </div>
-    </Form>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form
+              onSubmit={action("Submit Form")}
+              options={{ defaultValues: { groups: "" } }}
+            >
+              <div>
+                <Select {...args} options={groupOptions} />
+                <p data-h2-margin-top="base(x1)">
+                  <Submit />
+                </p>
+              </div>
+            </Form>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

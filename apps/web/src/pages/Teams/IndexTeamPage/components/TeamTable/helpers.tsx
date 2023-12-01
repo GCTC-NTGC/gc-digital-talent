@@ -8,9 +8,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { MyRoleTeam } from "./types";
 
-export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
+export function viewCell(
+  url: string,
+  label: Maybe<string>,
+  intl: IntlShape,
+  currentUrl?: string,
+) {
   return (
-    <Link href={url} color="black">
+    <Link href={url} color="black" state={{ from: currentUrl ?? null }}>
       {label ||
         intl.formatMessage({
           defaultMessage: "No name provided",

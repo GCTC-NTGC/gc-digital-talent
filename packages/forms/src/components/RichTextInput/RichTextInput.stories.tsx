@@ -35,41 +35,59 @@ type DefaultValueRichTextInputArgs = RichTextInputArgs & {
   defaultValue?: string;
 };
 
+const themes = ["light", "dark"];
+
 const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   const [output, setOutput] = React.useState<string>(
     defaultValue ? String(defaultValue) : "",
   );
   return (
-    <>
-      <Form
-        options={{
-          mode: "onSubmit",
-          defaultValues: defaultValue
-            ? {
-                [rest.name]: defaultValue,
-              }
-            : undefined,
-        }}
-        onSubmit={(data) => {
-          action("Submit Form")(data);
-          setOutput(String(data.richText));
-        }}
-      >
-        <RichTextInput {...rest} />
-        <p data-h2-margin-top="base(x1)">
-          <Submit />
-        </p>
-      </Form>
-      <Heading>Preview</Heading>
-      <div
-        data-h2-radius="base(s)"
-        data-h2-border="base(thin solid black)"
-        data-h2-padding="base(0 x1)"
-      >
-        <RichTextRenderer node={htmlToRichTextJSON(output)} />
-      </div>
-    </>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form
+              options={{
+                mode: "onSubmit",
+                defaultValues: defaultValue
+                  ? {
+                      [rest.name]: defaultValue,
+                    }
+                  : undefined,
+              }}
+              onSubmit={(data) => {
+                action("Submit Form")(data);
+                setOutput(String(data.richText));
+              }}
+            >
+              <RichTextInput {...rest} />
+              <p data-h2-margin="base(x1, 0)">
+                <Submit />
+              </p>
+            </Form>
+            <Heading
+              size="h6"
+              data-h2-color="base(black)"
+              data-h2-font-weight="base(700)"
+            >
+              Preview
+            </Heading>
+            <div
+              data-h2-radius="base(s)"
+              data-h2-padding="base(x1)"
+              data-h2-shadow="base(larger)"
+              data-h2-background-color="base(foreground)"
+            >
+              <RichTextRenderer node={htmlToRichTextJSON(output)} />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

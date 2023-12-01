@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
@@ -91,13 +91,16 @@ export const UpdateSkillFamilyForm = ({
   });
   const { handleSubmit } = methods;
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.skillFamilyTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateSkillFamily(
       initialSkillFamily.id,
       formValuesToSubmitData(data),
     )
       .then(() => {
-        navigate(paths.skillFamilyTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill family updated successfully!",

@@ -2,6 +2,7 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
+import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -106,6 +107,9 @@ export const ClassificationTable = ({
 
   const data = classifications.filter(notEmpty);
 
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   return (
     <Table<Classification>
       caption={title}
@@ -137,6 +141,7 @@ export const ClassificationTable = ({
             description:
               "Heading displayed above the Create Classification form.",
           }),
+          from: currentUrl,
         },
       }}
     />

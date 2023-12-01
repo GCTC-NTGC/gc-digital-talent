@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
@@ -48,13 +48,16 @@ export const UpdateDepartmentForm = ({
   });
   const { handleSubmit } = methods;
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.departmentTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateDepartment(initialDepartment.id, {
       departmentNumber: Number(data.departmentNumber),
       name: data.name,
     })
       .then(() => {
-        navigate(paths.departmentTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",

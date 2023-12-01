@@ -11,14 +11,27 @@ export default {
   title: "Form/Checklist",
 };
 
+const themes = ["light", "dark"];
+
 const TemplateChecklist: StoryFn<typeof Checklist> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <Checklist {...args} />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <Checklist {...args} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -62,10 +75,7 @@ ChecklistOfLabelElements.args = {
     {
       value: "one",
       label: (
-        <span
-          data-h2-background-color="base(error)"
-          data-h2-color="base(white)"
-        >
+        <span data-h2-background-color="base(error.lighter)">
           Red Selection
         </span>
       ),

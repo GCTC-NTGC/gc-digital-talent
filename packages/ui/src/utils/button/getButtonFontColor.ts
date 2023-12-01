@@ -226,6 +226,16 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
             base:focus-visible:children[.counter](focus)`,
         };
       }
+      if (color === "whiteFixed") {
+        return {
+          "data-h2-color": `
+            base:all(gray.light)
+            base:all:focus-visible(black)
+
+            base:children[.counter](black)
+            base:focus-visible:children[.counter](focus)`,
+        };
+      }
       return {
         "data-h2-color": `
           base(gray.darker)
@@ -258,6 +268,21 @@ const getFontColor: ButtonFontColor = ({ mode, color, disabled }) => {
           base:iap:dark:focus-visible(white)
 
           base:children[.counter](white)
+          base:focus-visible:children[.counter](focus)`,
+      };
+    }
+    if (color === "secondaryDarkFixed") {
+      return {
+        "data-h2-color": `
+          base:all(secondary.lighter)
+          base:all:hover(secondary.lightest)
+          base:all:focus-visible(black)
+
+          base:iap:all(secondary.lightest)
+          base:iap:all:hover(black)
+          base:iap:all:focus-visible(white)
+
+          base:all:children[.counter](black)
           base:focus-visible:children[.counter](focus)`,
       };
     }
