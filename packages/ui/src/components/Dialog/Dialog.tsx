@@ -120,7 +120,10 @@ const Content = React.forwardRef<
               <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
             </button>
           </StyledClose>
-          <div data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))">
+          <div
+            data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
+            data-h2-radius="base(rounded)"
+          >
             {children}
           </div>
         </StyledContent>
