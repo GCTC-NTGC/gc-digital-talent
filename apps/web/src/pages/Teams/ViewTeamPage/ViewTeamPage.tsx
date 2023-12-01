@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
@@ -76,6 +77,9 @@ const ViewTeamPage = () => {
       : []),
   ];
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? routes.teamTable();
+
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <Pending fetching={fetching} error={error}>
@@ -99,7 +103,7 @@ const ViewTeamPage = () => {
         )}
       </Pending>
       <p data-h2-margin="base(x2, 0, 0, 0)">
-        <Link mode="solid" color="secondary" href={routes.teamTable()}>
+        <Link mode="solid" color="secondary" href={navigateTo}>
           {intl.formatMessage({
             defaultMessage: "Back to teams",
             id: "LocjmN",

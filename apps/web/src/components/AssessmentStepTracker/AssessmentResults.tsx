@@ -4,7 +4,7 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   ArmedForcesStatus,
-  AssessmentResult,
+  AssessmentResult as AssessmentResultType,
   AssessmentStepType,
   Maybe,
 } from "@gc-digital-talent/graphql";
@@ -52,7 +52,7 @@ const Priority = ({ type }: PriorityProps) => {
 };
 
 interface AssessmentResultProps {
-  result: AssessmentResult;
+  result: AssessmentResultType;
   ordinal: number;
   isApplicationStep: boolean;
 }
@@ -127,7 +127,7 @@ const AssessmentResult = ({
 };
 
 interface AssessmentResultsProps {
-  results: AssessmentResult[];
+  results: AssessmentResultType[];
   stepType: Maybe<AssessmentStepType>;
 }
 

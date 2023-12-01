@@ -219,6 +219,7 @@ const AddAction = ({ add }: AddActionProps) => (
           mode="solid"
           href={add.linkProps.href}
           block
+          state={{ from: add.linkProps.from ?? null }}
         >
           {add.linkProps.label}
         </Link>

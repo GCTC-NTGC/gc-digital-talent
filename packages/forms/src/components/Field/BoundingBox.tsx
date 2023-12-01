@@ -1,6 +1,6 @@
 import React from "react";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 
 type BoundingBoxProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLDivElement>,
@@ -10,7 +10,7 @@ type BoundingBoxProps = React.DetailedHTMLProps<
 };
 
 const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
-  const styles = useCommonInputStyles();
+  const styles = useInputStyles();
 
   return (
     <div
@@ -26,7 +26,7 @@ const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
             "data-h2-padding": "base(0)",
           }
         : {
-            "data-h2-background": "base(white) base:dark(black.light)",
+            "data-h2-background": "base(foreground)",
           })}
       {...rest}
     />

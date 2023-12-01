@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import {
@@ -124,6 +125,9 @@ export const UpdateSearchRequestForm = ({
       });
   };
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.searchRequestTable();
+
   return (
     <div>
       <div
@@ -245,7 +249,7 @@ export const UpdateSearchRequestForm = ({
         </FormProvider>
       </div>
       <div data-h2-margin="base(0, 0, x1, 0)">
-        <Link href={paths.searchRequestTable()} mode="inline" color="secondary">
+        <Link href={navigateTo} mode="inline" color="secondary">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
             id: "O8nHiQ",
