@@ -13,7 +13,6 @@ import {
 import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
-import { ButtonLinkProps } from "@gc-digital-talent/ui/src/types";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
