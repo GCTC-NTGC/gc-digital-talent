@@ -112,6 +112,14 @@ class User extends Model implements Authenticatable, LaratrustUser
      */
     public function toSearchableArray(): array
     {
+        $this->loadMissing([
+            'poolCandidates',
+            'workExperiences',
+            'educationExperiences',
+            'personalExperiences',
+            'communityExperiences',
+            'awardExperiences',
+        ]);
         $notes = $this->poolCandidates->pluck('notes')->toArray();
         $notes = count($notes) > 0 ? $notes : [];
 

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class UserSeederLocal extends Seeder
 {
@@ -104,5 +105,10 @@ class UserSeederLocal extends Seeder
                 'email' => 'noroles@test.com',
                 'sub' => 'noroles@test.com',
             ]);
+
+        // after seeding re-index the users in the search index
+        Artisan::call('scout:import', ['model' => User::class]);
+
     }
+
 }
