@@ -36,7 +36,6 @@ import {
   getWorkRegion,
   navigationMessages,
   poolCandidatePriorities,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import FilterDialog, {
@@ -280,7 +279,12 @@ const PoolCandidateFilterDialog = ({
           <Select
             id="languageAbility"
             name="languageAbility"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            enableNull
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Any language",
+              id: "qp68Mh",
+              description: "Option label for allowing any language",
+            })}
             label={intl.formatMessage({
               defaultMessage: "Languages",
               id: "iUAe/2",
