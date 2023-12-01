@@ -104,8 +104,8 @@ const ScreeningDecisionDialogForm = ({
               </div>
               <div data-h2-margin-bottom="base(x1)">
                 <TextArea
-                  id="otherJustificationNotes"
-                  name="otherJustificationNotes"
+                  id="skillDecisionNotes"
+                  name="skillDecisionNotes"
                   rows={TEXT_AREA_ROWS}
                   wordLimit={TEXT_AREA_MAX_WORDS}
                   label={labels.decisionNotes}
