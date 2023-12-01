@@ -90,15 +90,12 @@ const ClientProvider = ({
             return {
               addAuthToOperation: (operation) => {
                 const accessToken = localStorage.getItem(ACCESS_TOKEN);
-                if (!accessToken) {
-                  logger.debug("No access token to add to operation");
-                  return operation;
-                }
                 if (accessToken) {
                   return utils.appendHeaders(operation, {
                     Authorization: `Bearer ${accessToken}`,
                   });
                 }
+                logger.debug("No access token to add to operation");
                 return operation;
               },
               willAuthError() {
