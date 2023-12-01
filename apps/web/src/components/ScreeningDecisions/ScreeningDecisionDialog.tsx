@@ -56,9 +56,11 @@ import {
 const AssessmentStepTypeSection = ({
   type,
   userSkill,
+  classificationGroup,
 }: {
   type: DialogType;
   userSkill?: UserSkill;
+  classificationGroup?: string;
 }) => {
   const intl = useIntl();
   switch (type) {
@@ -75,9 +77,23 @@ const AssessmentStepTypeSection = ({
           </p>
           <Well
             data-h2-margin-bottom="base(x1)"
-            data-h2-text-align="base(center)"
+            data-h2-text-align="base(left)"
           >
-            **REPLACE WITH EDUCATION REQUIREMENT STATEMENT**
+            {classificationGroup === "EX"
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "minimum experience or education requirement (graduation with degree)",
+                  id: "Up2D3q",
+                  description:
+                    "Message on education requirements section of screening decision dialog.",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "minimum experience or education requirement (2 years of post-secondary)",
+                  id: "kCbOcK",
+                  description:
+                    "Message on education requirements section of screening decision dialog.",
+                })}
           </Well>
         </div>
       );
@@ -264,6 +280,10 @@ export const ScreeningDecisionDialog = ({
     setIsOpen(newIsOpen);
   };
 
+  const classificationGroup = poolCandidate.pool.classifications
+    ? poolCandidate.pool.classifications[0]?.group
+    : undefined;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -285,6 +305,7 @@ export const ScreeningDecisionDialog = ({
             <AssessmentStepTypeSection
               type={dialogType}
               userSkill={userSkill}
+              classificationGroup={classificationGroup}
             />
             {dialogType === "SCREENING_QUESTIONS" ? (
               <ScreeningQuestions poolCandidate={poolCandidate} />
