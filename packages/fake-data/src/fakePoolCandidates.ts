@@ -16,9 +16,17 @@ import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
+  const pool = faker.helpers.arrayElement<Pool>(pools);
+  const screeningQuestionResponses = pool.screeningQuestions?.map(
+    (screeningQuestion) => ({
+      id: faker.string.uuid(),
+      answer: faker.lorem.sentence(),
+      screeningQuestion,
+    }),
+  );
   return {
     id: faker.string.uuid(),
-    pool: faker.helpers.arrayElement(pools),
+    pool,
     user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
@@ -36,6 +44,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     ),
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
+    screeningQuestionResponses,
   };
 };
 

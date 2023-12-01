@@ -13,11 +13,10 @@ const generateAssessmentStep = (
   return {
     id: faker.string.uuid(),
     type:
-      type === undefined
-        ? faker.helpers.arrayElement<AssessmentStepType>(
-            Object.values(AssessmentStepType),
-          )
-        : type,
+      type ||
+      faker.helpers.arrayElement<AssessmentStepType>(
+        Object.values(AssessmentStepType),
+      ),
     sortOrder: faker.number.int({
       max: amount,
     }),
