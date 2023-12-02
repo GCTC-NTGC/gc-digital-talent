@@ -37,6 +37,12 @@ const publishedExecJobsPool: Pool = {
   status: PoolStatus.Published,
 };
 
+const publishedIAPJobsPool: Pool = {
+  id: "publishedIAPJobsPool",
+  publishingGroup: PublishingGroup.Iap,
+  status: PoolStatus.Published,
+};
+
 describe("BrowsePoolsPage", () => {
   function renderBrowsePoolsPage({
     pools,
@@ -98,23 +104,27 @@ describe("BrowsePoolsPage", () => {
     );
   });
 
-  it("should only show IT jobs", async () => {
+  it("should only show IT and Executive jobs", async () => {
     renderBrowsePoolsPage({
-      pools: [publishedItJobsPool, publishedExecJobsPool],
+      pools: [publishedItJobsPool, publishedExecJobsPool, publishedIAPJobsPool],
     });
 
     const links = screen.queryAllByRole("link", {
       name: /Apply to this recruitment/i,
     });
 
-    expect(links).toHaveLength(1);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),
     );
-    expect(links[0]).not.toHaveAttribute(
+    expect(links[1]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedExecJobsPool.id),
+    );
+    expect(links[0] && links[1]).not.toHaveAttribute(
+      "href",
+      expect.stringContaining(publishedIAPJobsPool.id),
     );
   });
 });
