@@ -19,14 +19,12 @@ import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   const pool = faker.helpers.arrayElement(pools);
-  const screeningQuestionResponses: ScreeningQuestionResponse[] =
-    pool.screeningQuestions?.map(
-      (screeningQuestion: ScreeningQuestionResponse) => ({
-        id: faker.string.uuid(),
-        answer: faker.lorem.sentence(),
-        screeningQuestion,
-      }),
-    ) || [];
+  const screeningQuestionResponses =
+    pool.screeningQuestions?.map((screeningQuestion) => ({
+      id: faker.string.uuid(),
+      answer: faker.lorem.sentence(),
+      screeningQuestion,
+    })) || [];
   return {
     id: faker.string.uuid(),
     pool,
