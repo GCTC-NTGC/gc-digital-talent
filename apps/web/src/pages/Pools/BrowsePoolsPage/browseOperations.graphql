@@ -1,6 +1,7 @@
 query browsePools($closingAfter: DateTime) {
   publishedPools(closingAfter: $closingAfter) {
     id
+    __typename
     name {
       en
       fr
@@ -90,17 +91,9 @@ query browsePools($closingAfter: DateTime) {
   }
 }
 
-query browsePool($id: UUID!) {
-  pool(id: $id) {
-    id
-    name {
-      en
-      fr
-    }
-  }
-}
 query mySkills {
   me {
+    id
     experiences {
       id
       skills {

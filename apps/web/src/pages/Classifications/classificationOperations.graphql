@@ -22,6 +22,7 @@ query GetClassifications {
 
 mutation createClassification($classification: CreateClassificationInput!) {
   createClassification(classification: $classification) {
+    id
     name {
       en
       fr
@@ -38,6 +39,7 @@ mutation updateClassification(
   $classification: UpdateClassificationInput!
 ) {
   updateClassification(id: $id, classification: $classification) {
+    id
     name {
       en
       fr

@@ -50,6 +50,7 @@ mutation CreateDigitalContractingQuestionnaire(
 query GetDigitalContractingQuestionnaire($id: UUID!) {
   digitalContractingQuestionnaire(id: $id) {
     department {
+      id
       name {
         en
         fr
@@ -95,6 +96,7 @@ query GetDigitalContractingQuestionnaire($id: UUID!) {
       resourceType
       skillRequirements {
         skill {
+          id
           name {
             en
             fr

@@ -156,6 +156,7 @@ mutation UpdateUserAboutMe($id: ID!, $user: UpdateUserAsUserInput!) {
 
 query MyEmail {
   me {
+    id
     email
   }
 }
