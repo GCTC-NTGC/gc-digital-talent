@@ -6447,6 +6447,10 @@
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
   },
+  "Z4iL1M": {
+    "defaultMessage": "Ajouter une compétence à ce processus",
+    "description": "Title for the find a skill dialog within a pool"
+  },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
     "description": "Default edit link text for application review page"

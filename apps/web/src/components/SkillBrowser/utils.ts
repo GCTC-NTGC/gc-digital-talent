@@ -85,8 +85,8 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
       }),
       title: intl.formatMessage({
         defaultMessage: "Add a skill to this process",
-        id: "+/ie0/",
-        description: "Title for the find a skill dialog within an experience",
+        id: "Z4iL1M",
+        description: "Title for the find a skill dialog within a pool",
       }),
       subtitle: null,
     };
