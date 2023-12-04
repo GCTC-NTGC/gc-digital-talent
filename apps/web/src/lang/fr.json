@@ -831,6 +831,10 @@
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
   },
+  "2etyqD": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les conseillers en RH",
+    "description": "Label above download guidance for human resources pdf and text."
+  },
   "2f+IKU": {
     "defaultMessage": "Valeur monétaire du contrat",
     "description": "Title for _contract value_ fieldset in the _digital services contracting questionnaire_"
@@ -862,6 +866,10 @@
   "2lNHxh": {
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
+  },
+  "2lZuxx": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for procurement pdf."
   },
   "2n0e2i": {
     "defaultMessage": "Trier les expériences par ordre de",
@@ -4763,10 +4771,6 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
-  "P2Hudh": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
-    "description": "Button text to download guidance for procurement plain text."
-  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -4955,10 +4959,6 @@
     "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
     "description": "Subtitle for a section explaining sign in steps"
   },
-  "QOn1f3": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
-    "description": "Button text to download guidance for human resources plain text."
-  },
   "QOvS1b": {
     "defaultMessage": "Numéro de ministère",
     "description": "Title displayed for the Department table Department # column."
@@ -5022,6 +5022,10 @@
   "QjOom4": {
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
+  },
+  "QjXLW4": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les agents d’approvisionnement",
+    "description": "Label above download guidance for procurement pdf and text."
   },
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
@@ -5479,6 +5483,10 @@
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
     "description": "Legend for considered position languages check list in language information form"
   },
+  "TiY6v4": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for procurement plain text."
+  },
   "TiutAx": {
     "defaultMessage": "Raison de l’octroi de contrats",
     "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
@@ -5582,10 +5590,6 @@
   "UDMUHH": {
     "defaultMessage": "Apprentissage personnel",
     "description": "Title for personal experience section"
-  },
-  "UDwyjC": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
-    "description": "Button text to download guidance for managers pdf."
   },
   "UEsexn": {
     "defaultMessage": "Renseignements sur le gestionnaire",
@@ -5886,6 +5890,10 @@
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
     "description": "Advance contract award notice contract solicitation procedure"
+  },
+  "VnjZMU": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for managers plain text."
   },
   "VphXhu": {
     "defaultMessage": "Nom",
@@ -7451,6 +7459,10 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
   },
+  "eNFq24": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for human resources plain text."
+  },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
     "description": "Text for final sign in step."
@@ -8067,10 +8079,6 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Link to the homepage for GC Digital Talent."
   },
-  "hfMJ+Q": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (PDF)",
-    "description": "Button text to download guidance for procurement pdf."
-  },
   "hgxH8y": {
     "defaultMessage": "Groupe",
     "description": "Label displayed for the classification form group field."
@@ -8503,10 +8511,6 @@
     "defaultMessage": "Prolonger la date",
     "description": "Text on a button to extend the expiry date the pool"
   },
-  "jm2mI1": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
-    "description": "Button text to download guidance for human resources pdf."
-  },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
@@ -8786,6 +8790,10 @@
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
+  },
+  "lu+49Z": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for human resources pdf."
   },
   "luZnRG": {
     "defaultMessage": "Description (anglais)",
@@ -9138,6 +9146,10 @@
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
+  },
+  "nJB8I6": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for managers pdf."
   },
   "nKCUhO": {
     "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",
@@ -9851,10 +9863,6 @@
     "defaultMessage": "Incidence et tâches",
     "description": "Title for the impact and tasks section of a pool advertisement"
   },
-  "s6J6d7": {
-    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
-    "description": "Button text to download guidance for managers plain text."
-  },
   "s7F24X": {
     "defaultMessage": "Préférences relatives au travail",
     "description": "Title for the work preferences snapshot section"
@@ -10522,6 +10530,10 @@
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
     "description": "Support form subject field bug option label"
+  },
+  "wJ9hiY": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les gestionnaires",
+    "description": "label above download guidance for managers pdf and text."
   },
   "wNJSJ7": {
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
