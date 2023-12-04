@@ -67,7 +67,7 @@ const ClientProvider = ({
               SkillKeywords: () => null,
             },
             logger(sev, msg) {
-              console.log(sev, msg);
+              logger.info(`Severity: ${sev}: ${msg}`);
             },
           }),
           mapExchange({
