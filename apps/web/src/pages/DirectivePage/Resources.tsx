@@ -29,7 +29,7 @@ import procurementPdfFr from "~/assets/documents/Orientation_approvisionnement_P
 import procurementDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
 import procurementDocxFr from "~/assets/documents/Orientation_approvisionnement_texte_FR.docx";
 
-const GeneralResources = () => {
+const Resources = () => {
   const intl = useIntl();
   const localeState = useLocale();
   return (
@@ -423,4 +423,4 @@ const GeneralResources = () => {
   );
 };
 
-export default GeneralResources;
+export default Resources;
