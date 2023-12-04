@@ -50,7 +50,6 @@ export type FormValues = {
   stream: string[];
   operationalRequirement: string[];
   workRegion: string[];
-  hasDiploma: string;
   equity: string[];
   poolCandidateStatus: string[];
   priorityWeight: string[];
@@ -248,33 +247,16 @@ const PoolCandidateFilterDialog = ({
             }))}
           />
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5)"
-          data-h2-align-self="l-tablet(center)"
-        >
-          <Checkbox
-            id="hasDiploma"
-            name="hasDiploma"
-            value="true"
-            label={intl.formatMessage({
-              defaultMessage: "Has Diploma",
-              id: "o0XhkM",
-              description: "Label for the has diploma field",
-            })}
-          />
-          <Checkbox
-            id="govEmployee"
-            name="govEmployee"
-            value="true"
-            label={intl.formatMessage({
-              defaultMessage: "Government employee",
-              id: "bOA3EH",
-              description: "Label for the government employee field",
-            })}
-          />
-        </div>
+        <Checkbox
+          id="govEmployee"
+          name="govEmployee"
+          value="true"
+          label={intl.formatMessage({
+            defaultMessage: "Government employee",
+            id: "bOA3EH",
+            description: "Label for the government employee field",
+          })}
+        />
         <div data-h2-grid-column="l-tablet(span 2)">
           <Select
             id="languageAbility"

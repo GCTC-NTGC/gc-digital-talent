@@ -105,7 +105,6 @@ function transformPoolCandidateSearchInputToFormValues(
           ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
         ]
       : [],
-    hasDiploma: input?.applicantFilter?.hasDiploma ? "true" : "",
     pools:
       input?.applicantFilter?.pools
         ?.filter(notEmpty)
@@ -232,7 +231,6 @@ const PoolCandidatesTable = ({
         locationPreferences: data.workRegion.map((region) => {
           return stringToEnumLocation(region);
         }),
-        hasDiploma: data.hasDiploma ? true : undefined,
         equity: {
           ...(data.equity.includes("isWoman") && { isWoman: true }),
           ...(data.equity.includes("hasDisability") && { hasDisability: true }),
