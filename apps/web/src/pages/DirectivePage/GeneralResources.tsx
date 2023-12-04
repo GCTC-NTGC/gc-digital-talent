@@ -198,9 +198,17 @@ const GeneralResources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
+                <p data-h2-font-weight="base(bold)">
+                  {intl.formatMessage({
+                    defaultMessage: "Implementation guidance for managers",
+                    id: "wJ9hiY",
+                    description:
+                      "label above download guidance for managers pdf and text.",
+                  })}
+                </p>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
@@ -210,20 +218,19 @@ const GeneralResources = () => {
                       : guidanceManagerPdfFr
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(0, 0, x1, 0)"
-                  data-h2-display="base(flex)"
+                  data-h2-margin="base(x1, 0, x1, 0)"
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for managers (PDF)",
-                    id: "UDwyjC",
+                    defaultMessage: "Download (PDF)",
+                    id: "nJB8I6",
                     description:
                       "Button text to download guidance for managers pdf.",
                   })}
                 </Link>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
@@ -233,11 +240,11 @@ const GeneralResources = () => {
                       : guidanceManagerDocxFr
                   }
                   icon={ArrowDownOnSquareIcon}
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for managers (plain text)",
-                    id: "s6J6d7",
+                    defaultMessage: "Download (plain text)",
+                    id: "VnjZMU",
                     description:
                       "Button text to download guidance for managers plain text.",
                   })}
@@ -277,37 +284,45 @@ const GeneralResources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
+                <p data-h2-font-weight="base(bold)">
+                  {intl.formatMessage({
+                    defaultMessage: "Implementation guidance for HR advisors",
+                    id: "2etyqD",
+                    description:
+                      "Label above download guidance for human resources pdf and text.",
+                  })}
+                </p>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
                   href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(0, 0, x1, 0)"
+                  data-h2-margin="base(x1, 0, x1, 0)"
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for HR advisors (PDF)",
-                    id: "jm2mI1",
+                    defaultMessage: "Download (PDF)",
+                    id: "lu+49Z",
                     description:
                       "Button text to download guidance for human resources pdf.",
                   })}
                 </Link>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
                   href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
                   icon={ArrowDownOnSquareIcon}
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for HR advisors (plain text)",
-                    id: "QOn1f3",
+                    defaultMessage: "Download (plain text)",
+                    id: "eNFq24",
                     description:
                       "Button text to download guidance for human resources plain text.",
                   })}
@@ -347,9 +362,18 @@ const GeneralResources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
+                <p data-h2-font-weight="base(bold)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Implementation guidance for procurement officers",
+                    id: "QjXLW4",
+                    description:
+                      "Label above download guidance for procurement pdf and text.",
+                  })}
+                </p>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
@@ -359,19 +383,19 @@ const GeneralResources = () => {
                       : procurementPdfFr
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-margin="base(0, 0, x1, 0)"
+                  data-h2-margin="base(x1, 0, x1, 0)"
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for procurement officers (PDF)",
-                    id: "hfMJ+Q",
+                    defaultMessage: "Download (PDF)",
+                    id: "2lZuxx",
                     description:
                       "Button text to download guidance for procurement pdf.",
                   })}
                 </Link>
                 <Link
                   mode="inline"
-                  color="primary"
+                  color="secondary"
                   block
                   external
                   download
@@ -381,11 +405,11 @@ const GeneralResources = () => {
                       : procurementDocxFr
                   }
                   icon={ArrowDownOnSquareIcon}
+                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Download the implementation guidance for procurement officers (plain text)",
-                    id: "P2Hudh",
+                    defaultMessage: "Download (plain text)",
+                    id: "TiY6v4",
                     description:
                       "Button text to download guidance for procurement plain text.",
                   })}
