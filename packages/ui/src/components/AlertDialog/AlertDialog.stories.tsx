@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, ComponentMeta } from "@storybook/react";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
@@ -17,8 +17,13 @@ export default {
   },
 } as ComponentMeta<typeof AlertDialog.Root>;
 
-const Template: ComponentStory<typeof AlertDialog.Root> = ({ defaultOpen }) => {
+type Args = React.ComponentProps<typeof AlertDialog.Root> & {
+  theme: "dark" | "light";
+};
+
+const Template: StoryFn<Args> = (args) => {
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
+  const { defaultOpen, theme } = args;
   return (
     <>
       <AlertDialog.Root defaultOpen={defaultOpen}>
@@ -49,25 +54,47 @@ const Template: ComponentStory<typeof AlertDialog.Root> = ({ defaultOpen }) => {
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog.Root>
-      <div ref={setContainer} />
+      <div ref={setContainer} data-h2={theme} />
     </>
   );
 };
 
-export const Default = Template.bind({});
-Default.decorators = [OverlayOrDialogDecorator];
-Default.args = {
+export const DefaultLight = Template.bind({});
+DefaultLight.decorators = [OverlayOrDialogDecorator];
+DefaultLight.args = {
   defaultOpen: true,
+  theme: "light",
 };
 
-export const NotOpen = Template.bind({});
-NotOpen.decorators = [
+export const DefaultDark = Template.bind({});
+DefaultDark.decorators = [OverlayOrDialogDecorator];
+DefaultDark.args = {
+  defaultOpen: true,
+  theme: "dark",
+};
+
+export const NotOpenLight = Template.bind({});
+NotOpenLight.decorators = [
   (Story) => (
     <div style={{ width: "100%", height: "auto", margin: "1rem 0" }}>
       <Story />
     </div>
   ),
 ];
-NotOpen.args = {
+NotOpenLight.args = {
   defaultOpen: false,
+  theme: "light",
+};
+
+export const NotOpenDark = Template.bind({});
+NotOpenDark.decorators = [
+  (Story) => (
+    <div style={{ width: "100%", height: "auto", margin: "1rem 0" }}>
+      <Story />
+    </div>
+  ),
+];
+NotOpenDark.args = {
+  defaultOpen: false,
+  theme: "dark",
 };

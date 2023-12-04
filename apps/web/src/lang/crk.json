@@ -398,5 +398,13 @@
   "dY3Qr4": {
     "defaultMessage": "iskwêw postiskam mihkwasâkay ê-atoskêt mamâhtâwi-âpacihcikanisihk.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
+  },
+  "CKsQyK": {
+    "defaultMessage": "wihci-waskawêwin êkwa kapêsiwin",
+    "description": "Title of the accessibility and accommodations information dialog"
+  },
+  "jO8i+2": {
+    "defaultMessage": "kinitawiyihtên cî nânitaw ka-kapêsiyan, ahpô kîspin kotak kîkway kinohtê-nistohtên ôma ohci? kîspin kinitawiyihtên nânitaw ka-kapêsiyan ôki kâ-atoskâtahkik iyiniw atoskêw ka-pîkiskwâtâwak <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
   }
 }
