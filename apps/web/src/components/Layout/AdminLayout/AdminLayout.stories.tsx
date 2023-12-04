@@ -16,7 +16,7 @@ import AdminLayout from "./AdminLayout";
 const availableRoles = Object.values(ROLE_NAME);
 
 type AdminLayoutArgs = {
-  isLoggedIn: boolean;
+  loggedIn: boolean;
   roles: RoleName[];
 };
 
@@ -24,7 +24,7 @@ export default {
   component: AdminLayout,
   title: "Components/Layout/Admin Layout",
   args: {
-    isLoggedIn: true,
+    loggedIn: true,
     roles: availableRoles,
   },
   argTypes: {
@@ -36,16 +36,16 @@ export default {
 } as Meta<AdminLayoutArgs>;
 
 const Template: StoryFn<AdminLayoutArgs> = (args) => {
-  const { isLoggedIn, roles } = args;
+  const { loggedIn, roles } = args;
   const authenticationState = useAuthentication();
   const authorizationState = useAuthorization();
 
   const mockAuthenticationState = React.useMemo(
     () => ({
       ...authenticationState,
-      isLoggedIn,
+      loggedIn,
     }),
-    [isLoggedIn, authenticationState],
+    [loggedIn, authenticationState],
   );
   const mockAuthorizationState = React.useMemo(
     () => ({
@@ -72,11 +72,11 @@ const Template: StoryFn<AdminLayoutArgs> = (args) => {
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  isLoggedIn: true,
+  loggedIn: true,
 };
 
 export const LoggedOut = Template.bind({});
 LoggedOut.args = {
-  isLoggedIn: false,
+  loggedIn: false,
   roles: [],
 };
