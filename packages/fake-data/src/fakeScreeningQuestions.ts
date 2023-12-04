@@ -5,8 +5,6 @@ import { ScreeningQuestion } from "@gc-digital-talent/graphql";
 import toLocalizedString from "./fakeLocalizedString";
 
 export default (): ScreeningQuestion[] => {
-  faker.seed(0); // repeatable results
-
   return [
     {
       id: faker.string.uuid(),
