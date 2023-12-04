@@ -18,6 +18,11 @@ generates:
         PhoneNumber: string
       gqlImport: urql#gql
       maybeValue: T | null | undefined
+  ./src/introspection.json:
+    plugins:
+      - introspection
+    config:
+      minify: true
 hooks:
   afterOneFileWrite:
     - prettier --write

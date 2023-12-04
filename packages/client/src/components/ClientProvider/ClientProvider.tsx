@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { authExchange } from "@urql/exchange-auth";
+import { cacheExchange } from "@urql/exchange-graphcache";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import {
   Client,
   createClient,
-  cacheExchange,
   fetchExchange,
   Provider,
   mapExchange,
@@ -19,6 +19,7 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
+import * as introspectedSchema from "@gc-digital-talent/graphql/src/introspection.json";
 
 import {
   buildValidationErrorMessageNode,
@@ -52,9 +53,23 @@ const ClientProvider = ({
       client ??
       createClient({
         url: apiUri,
-        requestPolicy: "cache-and-network",
         exchanges: [
-          cacheExchange,
+          cacheExchange({
+            schema: introspectedSchema,
+            keys: {
+              /**
+               * `null` represents types with no guaranteed unique value
+               * so they cannot be cached. This suppresses the warnings from `urql`.
+               */
+              ExperienceSkillRecord: () => null,
+              LocalizedString: () => null,
+              CandidateSearchPoolResult: () => null,
+              SkillKeywords: () => null,
+            },
+            logger(sev, msg) {
+              console.log(sev, msg);
+            },
+          }),
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
