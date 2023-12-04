@@ -43,7 +43,7 @@ const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
         {...(disabled
           ? {
               disabled: true,
-              "data-h2-color": "base(black.lightest)",
+              "data-h2-color": "base(gray.dark) base:dark(gray)",
               "data-h2-background-color": "base(foreground)",
             }
           : {

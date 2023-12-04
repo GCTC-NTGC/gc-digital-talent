@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -33,6 +33,9 @@ export const CreateClassificationForm = ({
   const { handleSubmit, watch } = methods;
   const watchMinSalary = watch("minSalary");
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.classificationTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const classification: FormValues = {
       ...data,
@@ -43,7 +46,7 @@ export const CreateClassificationForm = ({
     };
     return handleCreateClassification(classification)
       .then(() => {
-        navigate(paths.classificationTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification created successfully!",

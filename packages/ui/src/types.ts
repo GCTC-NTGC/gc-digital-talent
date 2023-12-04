@@ -1,6 +1,7 @@
 export type Color =
   | "primary"
   | "secondary"
+  | "secondaryDarkFixed"
   | "tertiary"
   | "quaternary"
   | "quinary"
@@ -32,7 +33,8 @@ export type ButtonLinkMode =
   | "inline"
   | "cta"
   | "text"
-  | "placeholder";
+  | "placeholder"
+  | "icon_only";
 
 export type ButtonLinkProps = {
   color?: Color;

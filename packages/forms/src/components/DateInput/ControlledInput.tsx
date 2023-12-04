@@ -9,7 +9,7 @@ import { useIntl } from "react-intl";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import useCommonInputStyles from "../../hooks/useCommonInputStyles";
+import useInputStyles from "../../hooks/useInputStyles";
 import { DateSegment, DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
@@ -34,7 +34,8 @@ const ControlledInput = ({
   stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
-  const inputStyles = useCommonInputStyles();
+  const inputStyles = useInputStyles();
+  const selectStyles = useInputStyles("select");
   const { year, month, day } = splitSegments(
     defaultValues ? defaultValues[name] : undefined,
   );
@@ -108,10 +109,10 @@ const ControlledInput = ({
             onChange={handleMonthChange}
             defaultValue={month || ""}
             data-h2-width="base(100%)"
-            {...inputStyles}
+            {...selectStyles}
             {...stateStyles}
           >
-            <option value="">
+            <option data-h2-color="base(gray.dark)" value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (

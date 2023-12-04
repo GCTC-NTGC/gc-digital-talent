@@ -70,6 +70,7 @@ export type SortDef = {
 };
 
 export type FilterDef<TFilterState = object> = {
+  initialState?: TFilterState;
   state?: TFilterState;
   component: React.ReactNode;
 };
@@ -77,6 +78,7 @@ export type FilterDef<TFilterState = object> = {
 export type AddLinkProps = {
   label: React.ReactNode;
   href: string;
+  from?: string;
 };
 
 export type AddDef = {

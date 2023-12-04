@@ -51,6 +51,16 @@ const getBaseStyle: ButtonBaseStyle = ({ mode }) => {
       "data-h2-border-style": "base:children[>span](solid)",
     };
   }
+  if (mode === "icon_only") {
+    return {
+      "data-h2-padding": "base(0)",
+      "data-h2-radius": "base(100%)",
+      "data-h2-outline": "base(none)",
+      "data-h2-transition": "base(all .2s ease)",
+      "data-h2-border-width": "base(0px)",
+      "data-h2-border-style": "base(solid)",
+    };
+  }
   return {
     "data-h2-padding": "base(0)",
     "data-h2-radius": "base(0)",

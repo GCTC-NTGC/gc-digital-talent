@@ -15,11 +15,10 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
   ({ active, ...rest }, ref) => (
     <Button
       ref={ref}
-      mode="solid"
+      mode="text"
       type="button"
-      color={active ? "white" : "black"}
-      data-h2-padding="base(x.125 x.25)"
-      data-h2-font-size="base(caption)"
+      color={active ? "secondaryDarkFixed" : "whiteFixed"}
+      fontSize="caption"
       {...rest}
     />
   ),

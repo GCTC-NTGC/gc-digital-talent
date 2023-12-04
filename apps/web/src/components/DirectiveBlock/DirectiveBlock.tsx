@@ -15,7 +15,9 @@ const DirectiveBlock = () => {
       <Heading
         Icon={MagnifyingGlassCircleIcon}
         color="tertiary"
-        data-h2-margin-top="base(x3)"
+        data-h2-margin-top="base(x5)"
+        size="h3"
+        data-h2-font-weight="base(400)"
       >
         {intl.formatMessage({
           defaultMessage: "Directive on Digital Talent",

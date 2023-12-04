@@ -32,6 +32,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             color="primary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
+            size="h3"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Edit an experience",
@@ -57,6 +59,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             color="primary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
+            size="h3"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
               defaultMessage: "Add a new experience",
@@ -101,7 +105,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 {}
               </Accordion.Trigger>
               <Accordion.Content>
-                <p data-h2-margin-top="base(x1)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your career timeline:",

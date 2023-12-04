@@ -64,7 +64,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const activeRecruitmentPools = pools.filter(
     (p) =>
       p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
+      (p.publishingGroup === PublishingGroup.ItJobs ||
+        p.publishingGroup === PublishingGroup.ExecutiveJobs),
   );
 
   const ongoingRecruitmentPools = pools.filter(
@@ -120,6 +121,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
         data-h2-color="base(black)"
         data-h2-border-bottom="base(1px solid black.50)"
         data-h2-position="base(relative)"
+        data-h2-padding="base(x3, 0)"
       >
         <img
           alt=""
@@ -131,7 +133,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
           style={{ zIndex: 1 }}
         >
-          <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+          <div>
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
           {executiveTeaser && (
@@ -142,7 +144,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 description: "Heading for the teaser of executive processes",
               })}
               link={profileLink}
-              data-h2-margin="base(x3, 0) p-tablet(x4, 0)"
+              data-h2-margin="base(x1, 0, 0, 0)"
             >
               <p>
                 {intl.formatMessage({
@@ -156,7 +158,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
             </CallToActionCard>
           )}
           {ongoingRecruitmentPools.length > 0 && (
-            <div data-h2-padding="base(x3, 0, 0, 0) p-tablet(x4, 0, 0, 0)">
+            <div>
               <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
             </div>
           )}
@@ -179,7 +181,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                     })
               }
               link={profileLink}
-              data-h2-margin="base(x3, 0) p-tablet(x4, 0)"
+              data-h2-margin="base(x1, 0, 0, 0)"
             >
               <p>
                 {loggedIn
@@ -210,7 +212,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
       <div
         data-h2-background-color="base(white) base:dark(white)"
         data-h2-color="base(black) base:dark(white)"
-        data-h2-padding="base(x3, 0) p-tablet(x4, 0) l-tablet(x6, 0)"
+        data-h2-padding="base(x3, 0)"
       >
         <div
           data-h2-position="base(relative)"

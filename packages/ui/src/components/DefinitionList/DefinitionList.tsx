@@ -6,21 +6,22 @@ type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
 const colorMap: Record<Color, Record<string, string>> = {
   primary: {
-    "data-h2-color": "base(primary.dark) base:children[svg](primary.dark)",
+    "data-h2-color": "base(primary.darker) base:children[svg](primary.darker)",
   },
   secondary: {
     "data-h2-color":
       "base(secondary.darker) base:children[svg](secondary.darker)",
   },
   tertiary: {
-    "data-h2-color": "base(tertiary.dark) base:children[svg](tertiary.dark)",
+    "data-h2-color":
+      "base(tertiary.darker) base:children[svg](tertiary.darker)",
   },
   quaternary: {
     "data-h2-color":
       "base(quaternary.darker) base:children[svg](quaternary.darker)",
   },
   quinary: {
-    "data-h2-color": "base(quinary.dark) base:children[svg](quinary.dark)",
+    "data-h2-color": "base(quinary.darker) base:children[svg](quinary.darker)",
   },
 };
 
@@ -51,20 +52,21 @@ const Item = ({
       <dt
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"
-        data-h2-gap="base(0, x.25)"
+        data-h2-gap="base(0, x.5)"
         data-h2-font-weight="base(700)"
-        data-h2-font-size="base(1.2rem)"
-        data-h2-line-height="base(1)"
         {...colorMap[color]}
         {...titleProps}
       >
-        {Icon && <Icon data-h2-width="base(1em)" data-h2-height="base(1em)" />}
+        {Icon && (
+          <Icon data-h2-width="base(x.75)" data-h2-height="base(x.75)" />
+        )}
         <span>{title}</span>
       </dt>
       <dd
+        data-h2-display="base(block)"
         {...(Icon
           ? {
-              "data-h2-margin": "base(0, 0, x.5, calc(1.2rem + x.25))",
+              "data-h2-margin": "base(0, 0, x.5, calc(x.75 + x.5))",
             }
           : {
               "data-h2-margin": "base(0, 0, x.5, 0)",

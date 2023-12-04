@@ -1,0 +1,14 @@
+query GetAssessmentEvaluationPoolWithCandidates($poolId: UUID!) {
+  pool(id: $poolId) {
+    id
+    poolCandidates {
+      id
+      pool {
+        id
+      }
+      user {
+        id
+      }
+    }
+  }
+}

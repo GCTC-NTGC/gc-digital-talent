@@ -15,9 +15,9 @@ const StyledOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     data-h2-display="base(grid)"
     data-h2-position="base(fixed)"
-    data-h2-background-color="base(black.light.9)"
+    data-h2-background-color="base(black.light.9) base:dark(black.light.9)"
     data-h2-location="base(0)"
-    data-h2-overflow="base(visible auto)"
+    data-h2-overflow="base(auto)"
     style={{ placeItems: "center", zIndex: 9998 }}
     ref={forwardedRef}
     {...props}
@@ -29,6 +29,7 @@ const StyledContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, forwardedRef) => (
   <DialogPrimitive.Content
+    ref={forwardedRef}
     data-h2-font-family="base(sans)"
     data-h2-max-width="base(48rem)"
     data-h2-margin="base(x3, auto)"
@@ -37,8 +38,37 @@ const StyledContent = React.forwardRef<
     style={{
       zIndex: 9999,
     }}
-    ref={forwardedRef}
     {...props}
+    onPointerDownOutside={(event) => {
+      const target = event.target as HTMLElement;
+
+      /**
+       * Roughly determine if the user is attempting to interact
+       * with a hidden scrollbar.
+       *
+       * Note: 16 is a rough estimate of the width of these scrollbars
+       * it is not entirely accurate since they change based on your operating system.
+       * This may create a small dead zone of 1-3px where clicking the overlay will not
+       * close the dialog. This is a trade off to allow users to scroll without a wheel.
+       *
+       * `targetIsScrollbar`: Checks to see if the click ocurred within 16px
+       * edge of the screen
+       *
+       * `targetIsScrollable`: Checks to see if the visible height of the container
+       * exceeds the total scroll height
+       *
+       */
+      const targetIsScrollbar =
+        target.offsetWidth - event.detail.originalEvent.clientX < 16;
+      const targetIsScrollable = target.clientHeight - target.scrollHeight < 0;
+
+      if (targetIsScrollbar && targetIsScrollable) {
+        event.preventDefault();
+        return;
+      }
+
+      props.onPointerDownOutside?.(event);
+    }}
   />
 ));
 
@@ -71,11 +101,11 @@ const Content = React.forwardRef<
           <StyledClose>
             <button
               type="button"
-              data-h2-background-color="base(transparent) base:hover(white.15) base:focus-visible(focus)"
+              data-h2-background-color="base(transparent) base:all:hover(white.15) base:all:focus-visible(focus)"
               data-h2-outline="base:focus-visible(1px solid focus)"
               data-h2-outline-offset="base(4px)"
               data-h2-border="base(none)"
-              data-h2-color="base(white) base:focus-visible(black)"
+              data-h2-color="base:all(white) base:all:focus-visible(black)"
               data-h2-cursor="base(pointer)"
               data-h2-line-height="base(0)"
               data-h2-location="base(x.5, x.5, auto, auto)"
@@ -90,7 +120,10 @@ const Content = React.forwardRef<
               <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
             </button>
           </StyledClose>
-          <div data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))">
+          <div
+            data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
+            data-h2-radius="base(rounded)"
+          >
             {children}
           </div>
         </StyledContent>
@@ -142,8 +175,8 @@ const Header = ({ subtitle, children }: DialogHeaderProps) => (
       data-h2-padding="base(x1)"
       data-h2-position="base(relative)"
       data-h2-overflow="base(hidden)"
-      data-h2-background="base(black)"
-      data-h2-color="base(white)"
+      data-h2-background="base:all(black)"
+      data-h2-color="base:all(white)"
       data-h2-radius="base(rounded rounded 0 0)"
     >
       <div data-h2-position="base(relative)">
@@ -164,7 +197,7 @@ const Footer = ({ children, ...rest }: DialogFooterProps) => (
     <hr
       data-h2-border="base(none)"
       data-h2-height="base(1px)"
-      data-h2-background="base(gray.lighter)"
+      data-h2-background="base(black.2)"
       data-h2-margin="base(0 0 x1 0)"
     />
     <div
@@ -188,6 +221,8 @@ const Body = ({ children }: DialogBodyProps) => (
     data-h2-background="base(foreground)"
     data-h2-padding="base(x1)"
     data-h2-radius="base(0 0 rounded rounded)"
+    data-h2-border="base(1px solid black.2)"
+    data-h2-color="base(black)"
   >
     {children}
   </div>

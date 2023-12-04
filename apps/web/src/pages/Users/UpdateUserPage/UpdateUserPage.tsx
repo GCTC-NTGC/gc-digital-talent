@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext } from "urql";
@@ -90,10 +90,13 @@ export const UpdateUserForm = ({
   });
   const { handleSubmit } = methods;
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.userTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.userTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",

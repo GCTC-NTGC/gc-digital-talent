@@ -1,10 +1,10 @@
 import React from "react";
 import { FieldError } from "react-hook-form";
 
-import { DescriptionIds } from "../../hooks/useInputDescribedBy";
-import { CommonInputProps } from "../../types";
 import Context from "./Context";
 import Error from "./Error";
+import { DescriptionIds } from "../../hooks/useInputDescribedBy";
+import { CommonInputProps } from "../../types";
 
 export interface DescriptionsProps {
   context?: CommonInputProps["context"];

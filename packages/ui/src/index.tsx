@@ -9,8 +9,9 @@ import Accordion from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Button, { type ButtonProps } from "./components/Button";
+import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Board from "./components/Board/Board";
 import Card, {
   CardBasic,
   CardFlat,
@@ -62,7 +63,7 @@ import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
 import { StepType } from "./components/Stepper/types";
-import Switch from "./components/Switch";
+import Switch, { SwitchProps } from "./components/Switch/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
   TocHeadingProps,
@@ -111,6 +112,7 @@ export type {
   SpoilerProps,
   StepperProps,
   StepType,
+  SwitchProps,
   TocAnchorLinkProps,
   TocHeadingProps,
   TocSectionProps,
@@ -126,6 +128,7 @@ export {
   AlertDialog,
   Announcer,
   useAnnouncer,
+  Board,
   Breadcrumbs,
   Button,
   Card,

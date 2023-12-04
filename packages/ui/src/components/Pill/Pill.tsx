@@ -43,6 +43,18 @@ const h2ChipColors = {
       "data-h2-color": "base(secondary.darker)",
     },
   },
+  secondaryDarkFixed: {
+    solid: {
+      "data-h2-border": "base(1px solid secondary)",
+      "data-h2-background-color": "base(secondary)",
+      "data-h2-color": "base:all(white) base:iap:all(black)",
+    },
+    outline: {
+      "data-h2-border": "base:all(1px solid secondary.lighter)",
+      "data-h2-background-color": "base:all(secondary.darkest)",
+      "data-h2-color": "base:all(secondary.lighter)",
+    },
+  },
   tertiary: {
     solid: {
       "data-h2-border": "base(1px solid tertiary)",
@@ -147,6 +159,7 @@ const colorMap: Record<
 > = {
   primary: h2ChipColors.primary,
   secondary: h2ChipColors.secondary,
+  secondaryDarkFixed: h2ChipColors.secondaryDarkFixed,
   tertiary: h2ChipColors.tertiary,
   quaternary: h2ChipColors.quaternary,
   quinary: h2ChipColors.quinary,

@@ -291,7 +291,7 @@ const Multi = ({
         >
           <p
             data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light)"
+            data-h2-color="base(black.light) base:dark(gray.light)"
           >
             {intl.formatMessage(formMessages.itemsSelectedCombobox, {
               count: selectedItems.length,
@@ -302,8 +302,8 @@ const Multi = ({
               type="button"
               mode="inline"
               color="black"
+              fontSize="caption"
               onClick={handleReset}
-              data-h2-font-size="base(caption)"
               data-h2-font-weight="base(400)"
             >
               {intl.formatMessage(formMessages.clearSelectedCombobox)}

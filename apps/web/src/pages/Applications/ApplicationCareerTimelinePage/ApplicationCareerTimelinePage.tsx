@@ -251,7 +251,11 @@ export const ApplicationCareerTimeline = ({
         data-h2-justify-content="base(space-between)"
         data-h2-align-items="base(flex-start) p-tablet(center)"
       >
-        <Heading data-h2-margin-top="base(0)">
+        <Heading
+          data-h2-margin="base(0)"
+          size="h3"
+          data-h2-font-weight="base(400)"
+        >
           {hasSomeExperience
             ? pageInfo.title
             : intl.formatMessage({
@@ -271,7 +275,7 @@ export const ApplicationCareerTimeline = ({
       </div>
       {hasSomeExperience ? (
         <>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x1, 0, x.5, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "This step allows you to edit any career timeline information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your career timeline yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
@@ -280,14 +284,14 @@ export const ApplicationCareerTimeline = ({
                 "Application step to continue working on career timeline, paragraph one",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0)">
             {intl.formatMessage({
               defaultMessage: "Your career timeline currently includes:",
               id: "ce3IeQ",
               description: "Title for list of experiences",
             })}
           </p>
-          <ul data-h2-margin="base(x0.5, 0, x1, 0)">
+          <ul data-h2-margin="base(x0.5, 0, x2, 0)">
             {Object.keys(experiencesByType).map((experienceType) => {
               return (
                 <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
@@ -404,12 +408,12 @@ export const ApplicationCareerTimeline = ({
           <Separator
             orientation="horizontal"
             decorative
-            data-h2-background="base(black.light)"
-            data-h2-margin="base(x1, 0, x2, 0)"
+            data-h2-background="base(gray)"
+            data-h2-margin="base(x2, 0)"
           />
           <div
             data-h2-display="base(flex)"
-            data-h2-gap="base(x.25, x.5)"
+            data-h2-gap="base(x1)"
             data-h2-flex-wrap="base(wrap)"
             data-h2-flex-direction="base(column) l-tablet(row)"
             data-h2-align-items="base(flex-start) l-tablet(center)"

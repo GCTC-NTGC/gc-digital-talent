@@ -542,6 +542,7 @@ const PoolCandidatesTable = ({
         initialState: defaultState.sortState,
       }}
       filter={{
+        initialState: initialFilterInput,
         state: filterRef.current,
         component: (
           <PoolCandidateTableFilterDialog
@@ -587,15 +588,16 @@ const PoolCandidatesTable = ({
           <UserProfilePrintButton
             users={selectedCandidates}
             beforePrint={handlePrint}
-            color="white"
+            color="whiteFixed"
             mode="inline"
+            fontSize="caption"
           />
         ),
       }}
       pagination={{
         internal: false,
         total: data?.poolCandidatesPaginated?.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },

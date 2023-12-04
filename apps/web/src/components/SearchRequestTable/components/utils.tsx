@@ -48,6 +48,7 @@ export default function useFilterOptions() {
       PoolCandidateSearchStatus.InProgress,
       PoolCandidateSearchStatus.Waiting,
       PoolCandidateSearchStatus.Done,
+      PoolCandidateSearchStatus.DoneNoCandidates,
     ]).map(({ value }) => ({
       value,
       label: intl.formatMessage(getPoolCandidateSearchStatus(value)),

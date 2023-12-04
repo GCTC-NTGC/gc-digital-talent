@@ -38,6 +38,12 @@ const siblingIconColor: Record<IconColor, Record<string, string>> = {
         base:selectors[:checked]:children[+ label>svg](secondary.dark)
         base:focus-visible:children[+ label>svg](black)`,
   },
+  secondaryDarkFixed: {
+    "data-h2-color": `
+        base:all:children[+ label>svg](white)
+        base:all:selectors[:checked]:children[+ label>svg](secondary.light)
+        base:all:focus-visible:children[+ label>svg](black)`,
+  },
   tertiary: {
     "data-h2-color": `
         base:children[+ label>svg](black)
@@ -147,7 +153,11 @@ const CardOptionGroup = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.25)"
       >
-        <Field.Legend required={!!rules.required} data-h2-color="base(black)">
+        <Field.Legend
+          required={!!rules.required}
+          data-h2-color="base(black)"
+          data-h2-margin-bottom="base(x.25)"
+        >
           {legend}
         </Field.Legend>
         {items.map(
@@ -192,6 +202,7 @@ const CardOptionGroup = ({
                   htmlFor={id}
                   data-h2-cursor="base(pointer)"
                   data-h2-color="base(black)"
+                  data-h2-font-size="base(body)"
                 >
                   <Icon data-h2-height="base(x1)" data-h2-width="base(x1)" />
                   <span>{label}</span>

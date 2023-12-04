@@ -779,6 +779,11 @@ const poolCandidateSearchStatuses = defineMessages({
     id: "prkkM+",
     description: "The search status is Done.",
   },
+  [PoolCandidateSearchStatus.DoneNoCandidates]: {
+    defaultMessage: "Done - no candidates found",
+    id: "Mau9e6",
+    description: "The search status is done with no candidates found",
+  },
 });
 
 export const getPoolCandidateSearchStatus = (
@@ -1069,24 +1074,24 @@ const educationTypeMessages = defineMessages({
     description: "Diploma selection for education type input",
   },
   [EducationType.BachelorsDegree]: {
-    defaultMessage: "Bachelors Degree",
-    id: "6F1rsN",
-    description: "Bachelors Degree selection for education type input",
+    defaultMessage: "Bachelor's Degree",
+    id: "dRvWzH",
+    description: "Bachelor's Degree selection for education type input",
   },
   [EducationType.MastersDegree]: {
-    defaultMessage: "Masters Degree",
-    id: "nv2kXl",
-    description: "Masters Degree selection for education type input",
+    defaultMessage: "Master's Degree",
+    id: "9SP4JF",
+    description: "Master's Degree selection for education type input",
   },
   [EducationType.Phd]: {
-    defaultMessage: "Phd",
-    id: "qfQx7T",
-    description: "Phd selection for education type input",
+    defaultMessage: "PhD",
+    id: "L+9K9B",
+    description: "PhD selection for education type input",
   },
   [EducationType.PostDoctoralFellowship]: {
-    defaultMessage: "Post Doctoral Fellowship",
-    id: "sNUWqY",
-    description: "Post Doctoral Fellowship selection for education type input",
+    defaultMessage: "Postdoctoral Fellowship",
+    id: "CtgfAw",
+    description: "Postdoctoral Fellowship selection for education type input",
   },
   [EducationType.OnlineCourse]: {
     defaultMessage: "Online Course",

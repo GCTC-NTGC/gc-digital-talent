@@ -203,6 +203,7 @@ query GetProcessInfo($id: UUID!) {
     }
     assessmentSteps {
       id
+      type
       poolSkills {
         id
       }
