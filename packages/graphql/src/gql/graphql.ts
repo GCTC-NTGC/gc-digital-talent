@@ -2754,6 +2754,63 @@ export type AdminDashboardQueryQuery = {
   } | null;
 };
 
+export type CreateAccount_QueryFragmentFragment = {
+  __typename?: "Query";
+  departments: Array<{
+    __typename?: "Department";
+    id: string;
+    departmentNumber: number;
+    name: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    };
+  } | null>;
+  classifications: Array<{
+    __typename?: "Classification";
+    id: string;
+    group: string;
+    level: number;
+    minSalary?: number | null;
+    maxSalary?: number | null;
+    name?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+  } | null>;
+} & { " $fragmentName"?: "CreateAccount_QueryFragmentFragment" };
+
+export type CreateAccount_QueryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CreateAccount_QueryQuery = {
+  __typename?: "Query";
+  me?: { __typename?: "User"; email?: string | null } | null;
+} & {
+  " $fragmentRefs"?: {
+    CreateAccount_QueryFragmentFragment: CreateAccount_QueryFragmentFragment;
+  };
+};
+
+export type CreateAccount_MutationMutationVariables = Exact<{
+  id: Scalars["ID"]["input"];
+  user: UpdateUserAsUserInput;
+}>;
+
+export type CreateAccount_MutationMutation = {
+  __typename?: "Mutation";
+  updateUserAsUser?: { __typename?: "User"; id: string } | null;
+};
+
+export type CreateAccount_EmailQueryQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type CreateAccount_EmailQueryQuery = {
+  __typename?: "Query";
+  me?: { __typename?: "User"; email?: string | null } | null;
+};
+
 export type AuthorizationQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AuthorizationQueryQuery = {
@@ -2771,6 +2828,74 @@ export type AuthorizationQueryQuery = {
   } | null;
 };
 
+export const CreateAccount_QueryFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "CreateAccount_QueryFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Query" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "departments" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "departmentNumber" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "name" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "classifications" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "name" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "group" } },
+                { kind: "Field", name: { kind: "Name", value: "level" } },
+                { kind: "Field", name: { kind: "Name", value: "minSalary" } },
+                { kind: "Field", name: { kind: "Name", value: "maxSalary" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CreateAccount_QueryFragmentFragment, unknown>;
 export const AdminDashboardQueryDocument = {
   kind: "Document",
   definitions: [
@@ -2800,6 +2925,196 @@ export const AdminDashboardQueryDocument = {
 } as unknown as DocumentNode<
   AdminDashboardQueryQuery,
   AdminDashboardQueryQueryVariables
+>;
+export const CreateAccount_QueryDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "CreateAccount_Query" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "FragmentSpread",
+            name: { kind: "Name", value: "CreateAccount_QueryFragment" },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "CreateAccount_QueryFragment" },
+      typeCondition: {
+        kind: "NamedType",
+        name: { kind: "Name", value: "Query" },
+      },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "departments" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "departmentNumber" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "name" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "classifications" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "name" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "group" } },
+                { kind: "Field", name: { kind: "Name", value: "level" } },
+                { kind: "Field", name: { kind: "Name", value: "minSalary" } },
+                { kind: "Field", name: { kind: "Name", value: "maxSalary" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateAccount_QueryQuery,
+  CreateAccount_QueryQueryVariables
+>;
+export const CreateAccount_MutationDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "CreateAccount_Mutation" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "user" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "UpdateUserAsUserInput" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "updateUserAsUser" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "user" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "user" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateAccount_MutationMutation,
+  CreateAccount_MutationMutationVariables
+>;
+export const CreateAccount_EmailQueryDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "CreateAccount_EmailQuery" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "email" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  CreateAccount_EmailQueryQuery,
+  CreateAccount_EmailQueryQueryVariables
 >;
 export const AuthorizationQueryDocument = {
   kind: "Document",

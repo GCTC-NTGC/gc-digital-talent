@@ -4,8 +4,8 @@ import {
   GetMeQuery,
   Maybe,
   Pool,
-  UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
+  UpdateUserAsUserMutation,
 } from "~/api/generated";
 import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
@@ -26,7 +26,7 @@ export interface SectionProps {
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,
-  ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
+  ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
   pool: Maybe<Pool>;
 }
 

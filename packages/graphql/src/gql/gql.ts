@@ -15,6 +15,14 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n":
     types.AdminDashboardQueryDocument,
+  "\n  fragment CreateAccount_QueryFragment on Query {\n    departments {\n      id\n      departmentNumber\n      name {\n        en\n        fr\n      }\n    }\n    classifications {\n      id\n      name {\n        en\n        fr\n      }\n      group\n      level\n      minSalary\n      maxSalary\n    }\n  }\n":
+    types.CreateAccount_QueryFragmentFragmentDoc,
+  "\n  query CreateAccount_Query {\n    ...CreateAccount_QueryFragment\n    me {\n      email\n    }\n  }\n":
+    types.CreateAccount_QueryDocument,
+  "\n  mutation CreateAccount_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {\n    updateUserAsUser(id: $id, user: $user) {\n      id\n    }\n  }\n":
+    types.CreateAccount_MutationDocument,
+  "\n  query CreateAccount_EmailQuery {\n    me {\n      email\n    }\n  }\n":
+    types.CreateAccount_EmailQueryDocument,
   "\n  query authorizationQuery {\n    myAuth {\n      id\n      deletedDate\n      roleAssignments {\n        id\n        role {\n          id\n          name\n        }\n        team {\n          id\n          name\n        }\n      }\n    }\n  }\n":
     types.AuthorizationQueryDocument,
 };
@@ -39,6 +47,30 @@ export function graphql(source: string): unknown;
 export function graphql(
   source: "\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n",
 ): (typeof documents)["\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  fragment CreateAccount_QueryFragment on Query {\n    departments {\n      id\n      departmentNumber\n      name {\n        en\n        fr\n      }\n    }\n    classifications {\n      id\n      name {\n        en\n        fr\n      }\n      group\n      level\n      minSalary\n      maxSalary\n    }\n  }\n",
+): (typeof documents)["\n  fragment CreateAccount_QueryFragment on Query {\n    departments {\n      id\n      departmentNumber\n      name {\n        en\n        fr\n      }\n    }\n    classifications {\n      id\n      name {\n        en\n        fr\n      }\n      group\n      level\n      minSalary\n      maxSalary\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query CreateAccount_Query {\n    ...CreateAccount_QueryFragment\n    me {\n      email\n    }\n  }\n",
+): (typeof documents)["\n  query CreateAccount_Query {\n    ...CreateAccount_QueryFragment\n    me {\n      email\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  mutation CreateAccount_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {\n    updateUserAsUser(id: $id, user: $user) {\n      id\n    }\n  }\n",
+): (typeof documents)["\n  mutation CreateAccount_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {\n    updateUserAsUser(id: $id, user: $user) {\n      id\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query CreateAccount_EmailQuery {\n    me {\n      email\n    }\n  }\n",
+): (typeof documents)["\n  query CreateAccount_EmailQuery {\n    me {\n      email\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -65,7 +65,9 @@ module.exports = {
       },
     ],
     "formatjs/enforce-description": ["error", "literal"],
-    camelcase: "warn",
+    camelcase: ["warn", {
+      allow: ["\w*Query$", "\w*Fragment$", "\w*Mutation$"]
+    }],
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
