@@ -106,7 +106,9 @@ describe("Static pages", () => {
 
       cy.findAllByRole("link", {
         name: /\btélécharger le guide\b/i,
-      }).click();
+      })
+        .first()
+        .click();
       cy.verifyDownload("Orientation_sur_les_conditions_habilitantes_FR.docx", {
         contains: true,
       });
