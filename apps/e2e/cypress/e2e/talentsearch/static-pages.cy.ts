@@ -104,7 +104,7 @@ describe("Static pages", () => {
       // Open accordion
       cy.findByRole("button", { name: /conditions favorables/i }).click();
 
-      cy.findByRole("link", { name: /télécharger le guide\b/i }).click();
+      cy.findByRole("link", { name: /\btélécharger le guide\b/i }).click();
       cy.verifyDownload("Orientation_sur_les_conditions_habilitantes_FR.docx", {
         contains: true,
       });
