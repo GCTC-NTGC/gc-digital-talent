@@ -5,7 +5,7 @@ import { RoleName } from "../const";
 
 const hasRole = (
   checkRole: RoleName,
-  userRoles: Maybe<Array<Maybe<RoleAssignment>>>,
+  userRoles: Maybe<Array<Maybe<RoleAssignment> | undefined>> | undefined,
 ): boolean => {
   return !!userRoles
     ?.filter(notEmpty)

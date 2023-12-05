@@ -16,7 +16,7 @@ import {
 } from "~/api/generated";
 
 const firstId = (
-  collection: Maybe<Maybe<Classification>[]>,
+  collection: Maybe<Maybe<Classification>[]> | undefined,
 ): Scalars["ID"] | undefined => {
   if (!collection) return undefined;
 
@@ -31,7 +31,7 @@ export type FormValues = {
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
-  publishingGroup: Maybe<PublishingGroup>;
+  publishingGroup?: Maybe<PublishingGroup>;
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({

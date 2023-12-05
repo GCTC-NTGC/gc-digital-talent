@@ -128,7 +128,7 @@ const AssessmentResult = ({
 
 interface AssessmentResultsProps {
   results: AssessmentResultType[];
-  stepType: Maybe<AssessmentStepType>;
+  stepType: Maybe<AssessmentStepType> | undefined;
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {

@@ -234,27 +234,31 @@ export const RequestForm = ({
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
     qualifiedClassifications:
-      applicantFilter?.qualifiedClassifications?.map(
-        (qualifiedClassification) => {
+      applicantFilter?.qualifiedClassifications
+        ?.map((qualifiedClassification) => {
           return classifications.find((classification) => {
             return (
               classification.group === qualifiedClassification?.group &&
               classification.level === qualifiedClassification.level
             );
           });
-        },
-      ) ?? [],
+        })
+        .filter(notEmpty) ?? [],
     skills:
-      applicantFilter?.skills?.map((skillId) => {
-        return skills.find((skill) => {
-          return skill && skillId && skill.id === skillId.id;
+      applicantFilter?.skills
+        ?.map((skillId) => {
+          return skills.find((skill) => {
+            return skill && skillId && skill.id === skillId.id;
+          });
+        })
+        .filter(notEmpty) ?? [],
+    pools: applicantFilter?.pools
+      ?.map((poolId) => {
+        return pools.find((pool) => {
+          return pool && poolId && pool.id === poolId.id;
         });
-      }) ?? [],
-    pools: applicantFilter?.pools?.map((poolId) => {
-      return pools.find((pool) => {
-        return pool && poolId && pool.id === poolId.id;
-      });
-    }),
+      })
+      .filter(notEmpty),
   };
 
   return (

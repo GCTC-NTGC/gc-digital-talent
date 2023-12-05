@@ -97,7 +97,7 @@ const XCircleIconElement = (
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<AssessmentStepType>,
+  assessmentStepType: Maybe<AssessmentStepType> | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {

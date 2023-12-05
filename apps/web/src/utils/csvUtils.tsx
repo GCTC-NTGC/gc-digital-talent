@@ -42,7 +42,7 @@ import experienceMessages from "~/messages/experienceMessages";
  * @param intl react-intl object
  * @returns React.ReactNode  "yes" or "no"
  */
-export const yesOrNo = (value: Maybe<boolean>, intl: IntlShape) => {
+export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
   if (empty(value)) {
     return "";
   }
@@ -95,9 +95,9 @@ const sanitizeJustifications = (values: string[] | undefined) => {
  * @returns
  */
 export const getLookingForLanguage = (
-  english: Maybe<boolean>,
-  french: Maybe<boolean>,
-  bilingual: Maybe<boolean>,
+  english: Maybe<boolean> | undefined,
+  french: Maybe<boolean> | undefined,
+  bilingual: Maybe<boolean> | undefined,
   intl: IntlShape,
 ) => {
   if (english && !french && !bilingual) {
@@ -365,7 +365,7 @@ export const skillKeyAndJustifications = (
  * @returns string
  */
 export const getExperienceTitles = (
-  experiences: Maybe<Maybe<Experience>[]>,
+  experiences: Maybe<Maybe<Experience>[]> | undefined,
   intl: IntlShape,
 ) => {
   const titles = experiences
@@ -381,7 +381,7 @@ export const getExperienceTitles = (
  * @param screeningQuestionResponses[]
  */
 export const getScreeningQuestionResponses = (
-  responses: Maybe<Maybe<ScreeningQuestionResponse>[]>,
+  responses: Maybe<Maybe<ScreeningQuestionResponse>[]> | undefined,
 ) => {
   let data: Record<string, string> = {};
 
@@ -404,7 +404,7 @@ export const getScreeningQuestionResponses = (
  * @param IndigenousCommunity[]
  */
 export const getIndigenousCommunities = (
-  communities: Maybe<Maybe<IndigenousCommunity>[]>,
+  communities: Maybe<Maybe<IndigenousCommunity>[]> | undefined,
   intl: IntlShape,
 ) => {
   const communityNames = communities

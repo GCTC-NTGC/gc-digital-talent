@@ -40,7 +40,10 @@ export const actionCell = (
   </div>
 );
 
-export function emailLinkCell(email: Maybe<string>, intl: IntlShape) {
+export function emailLinkCell(
+  email: Maybe<string> | undefined,
+  intl: IntlShape,
+) {
   if (email) {
     return (
       <Link color="black" external href={`mailto:${email}`}>

@@ -5,7 +5,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Maybe, Scalars } from "~/api/generated";
 
 function dateAccessor(
-  value: Maybe<Scalars["DateTime"]>,
+  value: Maybe<Scalars["DateTime"]> | undefined,
   intl: IntlShape,
 ): string {
   return value

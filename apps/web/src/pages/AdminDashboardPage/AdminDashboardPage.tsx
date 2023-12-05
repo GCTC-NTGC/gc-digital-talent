@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
 import CloudIcon from "@heroicons/react/20/solid/CloudIcon";
 import HomeIconOutline from "@heroicons/react/24/outline/HomeIcon";
@@ -13,11 +14,11 @@ import PuzzlePieceIcon from "@heroicons/react/20/solid/PuzzlePieceIcon";
 
 import { Heading, Pending } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
+import { User, graphql } from "@gc-digital-talent/graphql";
 
 import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { User, useMeQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
@@ -236,8 +237,20 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   );
 };
 
+const adminDashboardQuery = graphql(/* GraphQL */ `
+  query adminDashboardQuery {
+    me {
+      id
+      firstName
+      lastName
+    }
+  }
+`);
+
 const DashboardPageApi = () => {
-  const [{ data, fetching, error }] = useMeQuery();
+  const [{ data, fetching, error }] = useQuery({
+    query: adminDashboardQuery,
+  });
 
   return (
     <Pending fetching={fetching} error={error}>

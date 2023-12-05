@@ -18,7 +18,7 @@ import {
 } from "~/api/generated";
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -27,7 +27,7 @@ export function classificationAccessor(
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications

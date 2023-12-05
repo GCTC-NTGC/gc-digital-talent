@@ -192,7 +192,7 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedClassifications: [selectedClassification],
+    qualifiedClassifications: [selectedClassification].filter(notEmpty),
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)

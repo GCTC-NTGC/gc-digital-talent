@@ -128,11 +128,11 @@ export const formDateStringToDate = (value: string, fallback?: Date) => {
 
 // Convert a DateTime from one zone to another
 export const convertDateTimeZone = (
-  sourceDateTime: Scalars["DateTime"],
+  sourceDateTime: Scalars["DateTime"]["input"],
   sourceTimeZone: string,
   targetTimeZone: string,
   targetFormatString?: string,
-): Scalars["DateTime"] => {
+): Scalars["DateTime"]["output"] => {
   const dateObject = toDate(sourceDateTime, { timeZone: sourceTimeZone });
   const scalarDateTime = formatInTimeZone(
     dateObject,
@@ -144,13 +144,13 @@ export const convertDateTimeZone = (
 
 // Convert a DateTime scalar to a Date by stripping off the time
 export const convertDateTimeToDate = (
-  d: Scalars["DateTime"],
-): Scalars["Date"] => {
+  d: Scalars["DateTime"]["input"],
+): Scalars["Date"]["output"] => {
   return d.substring(0, DATE_FORMAT_STRING.length);
 };
 
 // Parse an API scalar DateTime as UTC to a native Date object
-export const parseDateTimeUtc = (d: Scalars["DateTime"]): Date =>
+export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date =>
   toDate(d, { timeZone: "UTC" });
 
 /**

@@ -19,7 +19,7 @@ type DecisionInfo = {
 };
 
 export const getDecisionInfo = (
-  decision: Maybe<AssessmentDecision>,
+  decision: Maybe<AssessmentDecision> | undefined,
   isApplicationStep: boolean,
   intl: IntlShape,
 ): DecisionInfo => {

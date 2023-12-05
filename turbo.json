@@ -16,7 +16,11 @@
       "inputs": [
         "../../api/storage/app/lighthouse-schema.graphql",
         "src/**/*.graphql",
-        "../../packages/**/src/**/*.graphql"
+        "../../packages/**/src/**/*.graphql",
+        "../../packages/**/src/**/*.ts",
+        "../../packages/**/src/**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.tsx"
       ],
       "outputs": ["src/api/generated.ts", "src/index.ts"],
       "outputMode": "new-only"

@@ -55,7 +55,7 @@ const SkillMatchDialogBody = ({
 
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
-  skillsCount: Maybe<number>;
+  skillsCount: Maybe<number> | undefined;
   userId: Scalars["ID"];
   poolCandidateName: string;
 }
@@ -162,7 +162,7 @@ const SkillMatchDialog = ({
 
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
-  skillCount: Maybe<number>,
+  skillCount: Maybe<number> | undefined,
   userId: Scalars["ID"],
   poolCandidateName: string,
 ) {

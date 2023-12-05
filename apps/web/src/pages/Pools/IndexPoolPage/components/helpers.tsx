@@ -44,8 +44,8 @@ export function viewCell(url: string, pool: Pool, intl: IntlShape) {
 }
 
 export function viewTeamLinkCell(
-  url: Maybe<string>,
-  displayName: Maybe<LocalizedString>,
+  url: Maybe<string> | undefined,
+  displayName: Maybe<LocalizedString> | undefined,
   intl: IntlShape,
 ) {
   return url ? (
@@ -73,7 +73,7 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -117,7 +117,7 @@ export function classificationSortFn(rowA: Pool, rowB: Pool) {
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
 ) {
   const filteredClassifications = classifications
     ? classifications.filter(notEmpty)

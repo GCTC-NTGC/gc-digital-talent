@@ -95,7 +95,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>>,
+  skills: Maybe<Array<Skill>> | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -115,8 +115,8 @@ export function filterUserSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>>,
-): Record<SkillCategory, Maybe<Array<Skill>>> {
+  skills: Maybe<Array<Skill>> | undefined,
+): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -131,7 +131,7 @@ export function categorizeSkill(
 
 export function categorizeUserSkill(
   userSkills: Maybe<Array<UserSkill>>,
-): Record<SkillCategory, Maybe<Array<UserSkill>>> {
+): Record<SkillCategory, Maybe<Array<UserSkill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterUserSkillsByCategory(
       userSkills,

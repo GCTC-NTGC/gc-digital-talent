@@ -32,8 +32,8 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const experienceLabels = getExperienceFormLabels(intl);
 
   const normalizedDateRange = (
-    startDate: Maybe<string>,
-    endDate: Maybe<string>,
+    startDate: Maybe<string> | undefined,
+    endDate: Maybe<string> | undefined,
   ) => {
     return getDateRange({
       startDate,
@@ -42,7 +42,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     });
   };
 
-  const renderSkills = (skills: Maybe<Skill[]>) =>
+  const renderSkills = (skills: Maybe<Skill[]> | undefined) =>
     skills ? (
       <ul>
         {skills?.map((skill) => (

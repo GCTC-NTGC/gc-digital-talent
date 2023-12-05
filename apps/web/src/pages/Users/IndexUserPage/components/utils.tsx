@@ -49,7 +49,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<UserFilterInput> {
+): InputMaybe<UserFilterInput> | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -110,21 +110,25 @@ export function transformFormValuesToUserFilterInput(
       languageAbility: data.languageAbility[0]
         ? stringToEnumLanguage(data.languageAbility[0])
         : undefined,
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
+      locationPreferences: data.workRegion
+        .map((region) => {
+          return stringToEnumLocation(region);
+        })
+        .filter(notEmpty),
+      operationalRequirements: data.operationalRequirement
+        .map((requirement) => {
           return stringToEnumOperational(requirement);
-        },
-      ),
+        })
+        .filter(notEmpty),
       skills: data.skills.map((skill) => {
         const skillString = skill;
         return { id: skillString };
       }),
       positionDuration:
         data.employmentDuration[0] === "TERM" // either filter for TEMPORARY or do nothing
-          ? [durationToEnumPositionDuration(data.employmentDuration[0])]
+          ? [durationToEnumPositionDuration(data.employmentDuration[0])].filter(
+              notEmpty,
+            )
           : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,

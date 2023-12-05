@@ -63,7 +63,7 @@ export const getColumnHeader = <T>(
 export const sortingStateToOrderByClause = (
   sortingState: SortingState,
   columnMap?: Map<string, string>,
-): InputMaybe<OrderByClause | OrderByClause[]> => {
+): InputMaybe<OrderByClause | OrderByClause[]> | undefined => {
   if (!sortingState) return undefined;
 
   return sortingState.map((rule) => ({

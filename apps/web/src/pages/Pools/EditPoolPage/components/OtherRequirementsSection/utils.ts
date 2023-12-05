@@ -7,7 +7,7 @@ export enum LocationOption {
   SpecificLocation = "SPECIFIC_LOCATION",
 }
 
-export const getLocationOption = (isRemote: Maybe<boolean>) => {
+export const getLocationOption = (isRemote: Maybe<boolean> | undefined) => {
   if (empty(isRemote) || isRemote) {
     return LocationOption.RemoteOptional;
   }

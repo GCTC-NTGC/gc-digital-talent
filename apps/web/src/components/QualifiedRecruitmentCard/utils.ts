@@ -45,7 +45,7 @@ type StatusPillInfo = {
 };
 
 export const getStatusPillInfo = (
-  status: Maybe<PoolCandidateStatus>,
+  status: Maybe<PoolCandidateStatus> | undefined,
   suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusPillInfo => {

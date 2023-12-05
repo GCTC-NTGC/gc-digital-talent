@@ -21,7 +21,7 @@ export function categoryAccessor(
 }
 
 export function skillFamiliesCell(
-  skillFamilies: Maybe<Maybe<SkillFamily>[]>,
+  skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
   intl: IntlShape,
 ) {
   const families = skillFamilies
