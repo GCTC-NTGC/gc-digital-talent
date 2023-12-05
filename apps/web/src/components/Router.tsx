@@ -13,7 +13,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
-import AdminLayout from "~/components/Layout/AdminLayout";
+import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";

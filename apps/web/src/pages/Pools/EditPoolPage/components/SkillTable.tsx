@@ -108,7 +108,7 @@ const SkillTable = ({
           ? {
               component: (
                 <SkillBrowserDialog
-                  context="experience"
+                  context="pool"
                   showCategory={false}
                   skills={availableSkills}
                   onSave={async (value) => {
