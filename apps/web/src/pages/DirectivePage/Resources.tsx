@@ -217,6 +217,13 @@ const Resources = () => {
                       ? guidanceManagerPdfEn
                       : guidanceManagerPdfFr
                   }
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for managers (PDF)",
+                    id: "FdXLKJ",
+                    description:
+                      "Aria label for download guidance for managers pdf link.",
+                  })}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
@@ -234,6 +241,13 @@ const Resources = () => {
                   block
                   external
                   download
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for managers (plain text)",
+                    id: "thgFzS",
+                    description:
+                      "Aria label for download guidance for managers plain text link.",
+                  })}
                   href={
                     localeState.locale === "en"
                       ? guidanceManagerDocxEn
@@ -298,6 +312,13 @@ const Resources = () => {
                   block
                   external
                   download
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for HR advisors (PDF)",
+                    id: "9gEfud",
+                    description:
+                      "Aria label for download guidance for human resources pdf link.",
+                  })}
                   href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
@@ -316,6 +337,13 @@ const Resources = () => {
                   block
                   external
                   download
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for HR advisors (plain text)",
+                    id: "eEXEtz",
+                    description:
+                      "Aria label for download guidance for human resources plain text link.",
+                  })}
                   href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
@@ -382,6 +410,13 @@ const Resources = () => {
                       ? procurementPdfEn
                       : procurementPdfFr
                   }
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for procurement officers (PDF)",
+                    id: "TKD+D2",
+                    description:
+                      "Aria label for download guidance for procurement officers pdf link.",
+                  })}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
@@ -399,6 +434,13 @@ const Resources = () => {
                   block
                   external
                   download
+                  aria-label={intl.formatMessage({
+                    defaultMessage:
+                      "Download the implementation guidance for procurement officers (plain text)",
+                    id: "FtxUlB",
+                    description:
+                      "Aria label for download guidance for procurement officers plain text link.",
+                  })}
                   href={
                     localeState.locale === "en"
                       ? procurementDocxEn

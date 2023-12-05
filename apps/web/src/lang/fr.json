@@ -2091,6 +2091,10 @@
     "defaultMessage": "Équité en matière d’emploi",
     "description": "Label for the employment equity field"
   },
+  "9gEfud": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
+    "description": "Aria label for download guidance for human resources pdf link."
+  },
   "9gpVCX": {
     "defaultMessage": "Prêt à être embauché",
     "description": "Status for an application where user user is ready to hire"
@@ -3207,6 +3211,10 @@
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
   },
+  "FdXLKJ": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
+    "description": "Aria label for download guidance for managers pdf link."
+  },
   "FffxNt": {
     "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
     "description": "Subtitle for Assessment details dialog"
@@ -3250,6 +3258,10 @@
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "FtxUlB": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
+    "description": "Aria label for download guidance for procurement officers plain text link."
   },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
@@ -5427,6 +5439,10 @@
     "defaultMessage": "Vous pouvez vous server du bouton \"Lier une expérience\" qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
   },
+  "TKD+D2": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (PDF)",
+    "description": "Aria label for download guidance for procurement officers pdf link."
+  },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
@@ -7426,6 +7442,10 @@
   "eCkRlc": {
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
     "description": "Blurb for career timeline section of the application review page."
+  },
+  "eEXEtz": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
+    "description": "Aria label for download guidance for human resources plain text link."
   },
   "eFCDP4": {
     "defaultMessage": "Modifiez vos options de préférences de travail.",
@@ -10130,6 +10150,10 @@
   "tgGPyx": {
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
+  },
+  "thgFzS": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
+    "description": "Aria label for download guidance for managers plain text link."
   },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
