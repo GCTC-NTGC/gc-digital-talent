@@ -2,11 +2,15 @@ import { IntlShape } from "react-intl";
 import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import {
+  PoolCandidateStatus,
+  ApplicationStep,
+  Maybe,
+  PoolCandidate,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";

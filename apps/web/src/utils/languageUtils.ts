@@ -1,6 +1,6 @@
 import { MessageDescriptor } from "react-intl";
 
-import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
+import { User, Pool, PoolLanguage } from "~/api/generated";
 
 export type PartialUser = Pick<User, "lookingForBilingual">;
 

@@ -12,9 +12,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { UserSkill, SkillLevel } from "@gc-digital-talent/graphql";
 
 import {
+  UserSkill,
+  SkillLevel,
   Experience,
   Maybe,
   Skill,

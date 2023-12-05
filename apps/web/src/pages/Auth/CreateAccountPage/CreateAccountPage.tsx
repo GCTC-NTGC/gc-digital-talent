@@ -14,11 +14,9 @@ import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-import { useMyEmailQuery } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero/Hero";
-import SEO from "~/components/SEO/SEO";
 import {
+  useMyEmailQuery,
   Language,
   GovEmployeeType,
   Classification,
@@ -27,6 +25,8 @@ import {
   useGetCreateAccountFormDataQuery,
   Department,
 } from "~/api/generated";
+import Hero from "~/components/Hero/Hero";
+import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
 import {

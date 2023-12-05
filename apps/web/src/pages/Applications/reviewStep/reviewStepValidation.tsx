@@ -1,4 +1,4 @@
-import { User, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
+import { User, Pool, PoolCandidate } from "~/api/generated";
 
 const stepHasError = (
   _user: User,

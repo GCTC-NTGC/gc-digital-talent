@@ -11,6 +11,11 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
+import { RadioGroup } from "@gc-digital-talent/forms";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   ApplicationStep,
   EducationRequirementOption,
@@ -18,12 +23,7 @@ import {
   useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
-} from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
+} from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   isAwardExperience,

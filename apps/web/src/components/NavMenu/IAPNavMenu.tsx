@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { MenuLink } from "@gc-digital-talent/ui";
-import { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
 
+import { Maybe, UserAuthInfo } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 

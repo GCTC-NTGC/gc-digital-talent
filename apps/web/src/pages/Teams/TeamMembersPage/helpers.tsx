@@ -2,11 +2,11 @@ import React from "react";
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 
-import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Maybe, Role, Team } from "~/api/generated";
 import { TeamMember } from "~/utils/teamUtils";
 
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";

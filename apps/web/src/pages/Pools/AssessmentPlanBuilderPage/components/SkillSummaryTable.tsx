@@ -12,6 +12,7 @@ import {
   getPoolSkillType,
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
+
 import {
   AssessmentStep,
   AssessmentStepType,
@@ -20,8 +21,7 @@ import {
   PoolSkillType,
   Skill,
   SkillCategory,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 

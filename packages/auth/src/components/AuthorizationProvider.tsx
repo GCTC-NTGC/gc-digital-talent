@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 import { containsUserDeletedError } from "../utils/errors";

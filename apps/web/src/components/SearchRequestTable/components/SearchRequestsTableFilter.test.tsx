@@ -13,8 +13,8 @@ import {
   fakeClassifications,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-import { PoolStream } from "@gc-digital-talent/graphql";
 
+import { PoolStream } from "~/api/generated";
 import { selectFilterOption, submitFilters } from "~/utils/jestUtils";
 
 import { SearchRequestsTableFilterDialog } from "./SearchRequestsTableFilterDialog";

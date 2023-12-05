@@ -2,6 +2,9 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+
 import {
   InputMaybe,
   OrderByClause,
@@ -10,10 +13,7 @@ import {
   SortOrder,
   Trashed,
   UserFilterInput,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-
+} from "~/api/generated";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,

@@ -14,8 +14,8 @@ import {
   getPublishingGroup,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
 
+import { PublishingGroup } from "~/api/generated";
 import useCandidateFilterOptions from "~/components/Table/useCandidateFilterOptions/useCandidateFilterOptions";
 import adminMessages from "~/messages/adminMessages";
 

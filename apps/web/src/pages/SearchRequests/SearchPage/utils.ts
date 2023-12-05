@@ -7,6 +7,8 @@ import {
   notEmpty,
   pickMap,
 } from "@gc-digital-talent/helpers";
+import { EmploymentDuration } from "@gc-digital-talent/i18n";
+
 import {
   ApplicantFilterInput,
   Classification,
@@ -14,9 +16,7 @@ import {
   Maybe,
   Pool,
   PositionDuration,
-} from "@gc-digital-talent/graphql";
-import { EmploymentDuration } from "@gc-digital-talent/i18n";
-
+} from "~/api/generated";
 import { SimpleClassification } from "~/types/pool";
 import { FormValues, NullSelection } from "~/types/searchRequest";
 import {

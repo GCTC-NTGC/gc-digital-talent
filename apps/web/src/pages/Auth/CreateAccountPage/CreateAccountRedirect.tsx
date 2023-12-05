@@ -8,8 +8,8 @@ import {
 
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { empty } from "@gc-digital-talent/helpers";
-import { useMyEmailQuery } from "@gc-digital-talent/graphql";
 
+import { useMyEmailQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 /**

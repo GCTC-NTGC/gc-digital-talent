@@ -5,10 +5,9 @@ import kebabCase from "lodash/kebabCase";
 
 import { Input, MultiSelectField } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Maybe } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { Department } from "~/api/generated";
+import { Maybe, Department } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
 interface CreateTeamFormFieldsProps {

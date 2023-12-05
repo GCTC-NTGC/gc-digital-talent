@@ -1,12 +1,9 @@
 import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
-import {
-  PoolCandidateStatus,
-  Maybe,
-  PoolCandidate,
-} from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
+
+import { PoolCandidateStatus, Maybe, PoolCandidate } from "~/api/generated";
 
 // Status that represent the combination of pool candidate status and the suspendedAt timestamp
 type CombinedStatus =

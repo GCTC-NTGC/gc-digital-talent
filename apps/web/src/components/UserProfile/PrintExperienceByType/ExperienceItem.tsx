@@ -9,9 +9,8 @@ import {
   getEducationStatus,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
 
-import { Experience, Maybe } from "~/api/generated";
+import { Skill, Experience, Maybe } from "~/api/generated";
 import {
   getExperienceFormLabels,
   isAwardExperience,

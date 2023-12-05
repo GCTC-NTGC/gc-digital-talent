@@ -1,16 +1,11 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import {
-  Classification,
-  LocalizedString,
-  Maybe,
-  Pool,
-} from "@gc-digital-talent/graphql";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Classification, LocalizedString, Maybe, Pool } from "~/api/generated";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 

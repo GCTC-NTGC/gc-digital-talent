@@ -1,5 +1,9 @@
 import { IntlShape } from "react-intl";
 
+import { Option, enumToOptions } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+
 import {
   Classification,
   LocalizedString,
@@ -9,10 +13,7 @@ import {
   PublishingGroup,
   Scalars,
   UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
-import { Option, enumToOptions } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+} from "~/api/generated";
 
 const firstId = (
   collection: Maybe<Maybe<Classification>[]>,

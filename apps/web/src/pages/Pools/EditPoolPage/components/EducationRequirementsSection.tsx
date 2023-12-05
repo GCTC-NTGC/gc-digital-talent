@@ -2,9 +2,9 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, ScrollToLink } from "@gc-digital-talent/ui";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import { PublishingGroup } from "~/api/generated";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { getClassificationGroup } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";

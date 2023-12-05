@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   PoolStream,
   PoolCandidateSearchStatus,
@@ -17,8 +18,7 @@ import {
   PoolCandidateSearchRequestInput,
   OrderByClause,
   SortOrder,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import {
   stringToEnumRequestStatus,
   stringToEnumStream,

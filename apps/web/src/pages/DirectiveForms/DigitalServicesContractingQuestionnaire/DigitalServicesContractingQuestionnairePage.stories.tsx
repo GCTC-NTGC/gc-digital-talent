@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeDepartments, getStaticSkills } from "@gc-digital-talent/fake-data";
+
 import {
   ContractAuthority,
   ContractCommodity,
@@ -21,7 +22,7 @@ import {
   SkillLevel,
   YesNo,
   YesNoUnsure,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 import { DigitalServicesContractingQuestionnaire } from "./DigitalServicesContractingQuestionnairePage";
 import { FormValues } from "./formValues";

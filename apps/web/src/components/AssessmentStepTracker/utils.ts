@@ -3,13 +3,14 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
+import { IconType } from "@gc-digital-talent/ui";
+
 import {
   ArmedForcesStatus,
   AssessmentDecision,
   AssessmentResult,
   Maybe,
-} from "@gc-digital-talent/graphql";
-import { IconType } from "@gc-digital-talent/ui";
+} from "~/api/generated";
 
 type DecisionInfo = {
   colorStyle: Record<string, string>;

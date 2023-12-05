@@ -1,15 +1,6 @@
 import { IntlShape } from "react-intl";
 
 import {
-  User,
-  GovEmployeeType,
-  Skill,
-  IndigenousCommunity,
-  Maybe,
-  Experience,
-  ScreeningQuestionResponse,
-} from "@gc-digital-talent/graphql";
-import {
   Locales,
   getIndigenousCommunity,
   getOperationalRequirement,
@@ -24,6 +15,15 @@ import {
   uniqueItems,
 } from "@gc-digital-talent/helpers";
 
+import {
+  User,
+  GovEmployeeType,
+  Skill,
+  IndigenousCommunity,
+  Maybe,
+  Experience,
+  ScreeningQuestionResponse,
+} from "~/api/generated";
 import {
   isAwardExperience,
   isCommunityExperience,

@@ -10,9 +10,8 @@ import fr from "date-fns/locale/fr";
 import formatInTimeZone from "date-fns-tz/formatInTimeZone";
 import toDate from "date-fns-tz/toDate";
 
+import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
-import { getLocale } from "@gc-digital-talent/i18n";
-import { dateMessages } from "@gc-digital-talent/i18n";
 
 import { FormatDateOptions } from "./types";
 import {

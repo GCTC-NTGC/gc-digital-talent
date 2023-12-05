@@ -22,6 +22,8 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
+import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+
 import {
   EquitySelections,
   Department,
@@ -39,9 +41,7 @@ import {
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
-} from "@gc-digital-talent/graphql";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";

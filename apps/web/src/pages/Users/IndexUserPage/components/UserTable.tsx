@@ -9,16 +9,16 @@ import {
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { getLanguage } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   User,
   UserFilterInput,
   useAllUsersPaginatedQuery,
   useSelectedUsersQuery,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-
+} from "~/api/generated";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";

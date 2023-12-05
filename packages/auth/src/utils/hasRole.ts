@@ -1,5 +1,5 @@
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 

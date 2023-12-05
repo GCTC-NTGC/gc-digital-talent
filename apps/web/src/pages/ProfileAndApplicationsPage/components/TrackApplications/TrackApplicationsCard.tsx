@@ -4,14 +4,14 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
+import { useAuthorization } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   PoolCandidate,
   PoolCandidateStatus,
   useDeleteApplicationMutation,
-} from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
-
+} from "~/api/generated";
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
