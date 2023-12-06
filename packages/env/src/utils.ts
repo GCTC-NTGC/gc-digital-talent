@@ -42,7 +42,6 @@ export const getFeatureFlags = () => ({
   skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
   directiveForms: checkFeatureFlag("FEATURE_DIRECTIVE_FORMS"),
   recordOfDecision: checkFeatureFlag("FEATURE_RECORD_OF_DECISION"),
-  executiveTeaser: checkFeatureFlag("FEATURE_EXECUTIVE_TEASER"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
