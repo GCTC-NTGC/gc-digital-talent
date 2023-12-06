@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";
 
-import { Input, MultiSelectField } from "@gc-digital-talent/forms";
+import { Input, Combobox } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -18,10 +18,11 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   const intl = useIntl();
   const { setValue, getValues } = useFormContext();
 
-  const departmentOptions = departments?.filter(notEmpty).map((department) => ({
-    value: department.id,
-    label: getLocalizedName(department.name, intl),
-  }));
+  const departmentOptions =
+    departments?.filter(notEmpty).map((department) => ({
+      value: department.id,
+      label: getLocalizedName(department.name, intl),
+    })) ?? [];
 
   const handleDisplayBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { value: newValue } = e.target;
@@ -66,9 +67,10 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
         />
       </div>
       <div data-h2-flex-item="base(1/2)">
-        <MultiSelectField
+        <Combobox
           id="departments"
           name="departments"
+          isMulti
           label={intl.formatMessage(adminMessages.departments)}
           placeholder={intl.formatMessage({
             defaultMessage: "Select one or more departments",

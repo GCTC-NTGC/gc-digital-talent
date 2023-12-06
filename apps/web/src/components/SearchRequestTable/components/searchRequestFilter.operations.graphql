@@ -1,0 +1,19 @@
+query SearchRequestFilterData {
+  departments {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+  }
+}
