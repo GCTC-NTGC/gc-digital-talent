@@ -19,7 +19,7 @@ import {
   differentiateMissingSkills,
   getMissingSkills,
 } from "~/utils/skillUtils";
-import type { Maybe, Skill } from "~/api/generated";
+import type { Skill } from "~/api/generated";
 
 interface MissingSkillsBlockProps {
   pillType: { color: Color; mode: PillMode };

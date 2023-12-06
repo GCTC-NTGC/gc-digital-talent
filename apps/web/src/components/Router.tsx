@@ -1824,6 +1824,8 @@ const Router = () => {
     <RouterProvider
       router={router}
       fallbackElement={<Loading />}
+      // Note: We do not have control over this
+      // eslint-disable-next-line camelcase
       future={{ v7_startTransition: true }}
     />
   );

@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// Note: Disable camelcase since variables are being used by API
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
