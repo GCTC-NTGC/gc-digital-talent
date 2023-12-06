@@ -2595,6 +2595,10 @@
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title that appears when a user is missing optional skills on their profile."
   },
+  "CKsQyK": {
+    "defaultMessage": "Accessibilité et mesures d’adaptation",
+    "description": "Title of the accessibility and accommodations information dialog"
+  },
   "CLOuJF": {
     "defaultMessage": "Ville actuelle",
     "description": "CSV Header, Current City column"
@@ -6447,6 +6451,10 @@
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
   },
+  "Z4iL1M": {
+    "defaultMessage": "Ajouter une compétence à ce processus",
+    "description": "Title for the find a skill dialog within a pool"
+  },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
     "description": "Default edit link text for application review page"
@@ -8362,6 +8370,10 @@
   "jO2uif": {
     "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
+  },
+  "jO8i+2": {
+    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
   },
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",

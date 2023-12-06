@@ -7,6 +7,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 export type SkillBrowserDialogContext =
+  | "pool"
   | "experience"
   | "library"
   | "showcase"

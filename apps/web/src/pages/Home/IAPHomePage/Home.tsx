@@ -45,6 +45,7 @@ import {
   TrendingUp,
   Triangle,
 } from "./components/Svg";
+import AccommodationsDialog from "./components/Dialog/AccommodationsDialog";
 
 const mailLink = (chunks: React.ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
@@ -948,7 +949,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                           description: "Talent portal information sentence 1",
                         })}
                       </p>
-                      <p data-h2-margin="base(x1, 0, 0, 0)">
+                      <p data-h2-margin="base(x1, 0)">
                         {intl.formatMessage({
                           defaultMessage:
                             "It is a platform designed to host employment opportunities for Indigenous peoples in a way that recognizes and showcases their unique talents, ideas, skills and passion.",
@@ -956,6 +957,7 @@ export const Home = ({ latestPool }: HomeProps) => {
                           description: "Talent portal information sentence 2",
                         })}
                       </p>
+                      <AccommodationsDialog />
                     </div>
                     <div
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(2of5) desktop(1of2)"
