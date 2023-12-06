@@ -711,18 +711,13 @@ class User extends Model implements Authenticatable, LaratrustUser
     public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
         if ($searchTerms && is_array($searchTerms)) {
-            $searchResults = [];
-            foreach ($searchTerms as $searchTerm) {
-                // Use Scout's search method to perform the search and get results
-                $results = self::search($searchTerm)->usingPlainQuery()->get();
-                $searchResults = array_merge($searchResults, $results->all());
-            }
-
+            $combinedSearchTerm = implode('&', $searchTerms);
+            $results = self::search($combinedSearchTerm)->usingPlainQuery()->get();
             // Extract unique IDs from the search results
-            $searchResultIds = array_unique(array_column($searchResults, 'id'));
+           $uniqueIds = $results->pluck('id')->unique()->toArray();
 
             // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $searchResultIds);
+            $query->whereIn('id', $uniqueIds);
         }
 
         return $query;
