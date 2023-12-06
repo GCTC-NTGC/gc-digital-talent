@@ -369,7 +369,7 @@ export const ScreeningDecisionDialog = ({
 const ScreeningDecisionDialogApi = ({
   assessmentResultId,
 }: {
-  assessmentResultId: string;
+  assessmentResultId?: string;
 }) => {
   const intl = useIntl();
   const [, executeCreateMutation] = useCreateAssessmentResultMutation();
