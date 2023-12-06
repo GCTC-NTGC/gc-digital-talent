@@ -24,14 +24,14 @@ export function transformFormValuesToSearchRequestFilterInput(
 ): PoolCandidateSearchRequestInput {
   return {
     status: data.status?.length
-      ? data.status.map(stringToEnumRequestStatus)
+      ? data.status.map(stringToEnumRequestStatus).filter(notEmpty)
       : undefined,
     departments: data.departments?.length ? data.departments : undefined,
     classifications: data.classifications?.length
       ? data.classifications
       : undefined,
     streams: data.streams?.length
-      ? data.streams.map(stringToEnumStream)
+      ? data.streams.map(stringToEnumStream).filter(notEmpty)
       : undefined,
   };
 }

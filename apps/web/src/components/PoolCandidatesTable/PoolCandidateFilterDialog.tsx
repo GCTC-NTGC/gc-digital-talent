@@ -11,16 +11,6 @@ import {
   enumToOptions,
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
-import {
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-  LanguageAbility,
-  PoolCandidateStatus,
-  PoolStream,
-  PublishingGroup,
-  WorkRegion,
-  usePoolCandidateFilterDataQuery,
-} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   OperationalRequirementV2,
@@ -37,6 +27,17 @@ import {
   navigationMessages,
   poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
+
+import {
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+  LanguageAbility,
+  PoolCandidateStatus,
+  PoolStream,
+  PublishingGroup,
+  WorkRegion,
+  usePoolCandidateFilterDataQuery,
+} from "~/api/generated";
 
 import FilterDialog, {
   CommonFilterDialogProps,
