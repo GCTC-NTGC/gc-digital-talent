@@ -227,9 +227,18 @@ const SupportingEvidence = ({
   skill?: Skill;
   headingAs?: HeadingLevel;
 }) => {
+  const intl = useIntl();
   const contentHeadingLevel = incrementHeadingRank(headingAs);
   return (
     <div>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Supporting evidence:",
+          id: "w59dPh",
+          description:
+            "Header for supporting evidence section in screening decision dialog.",
+        })}
+      </p>
       {experiences.length
         ? experiences.map((experience) => (
             <div data-h2-margin-bottom="base(x.5)" key={experience.id}>
