@@ -8,52 +8,113 @@ const Root = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 >((props, forwardedRef) => (
-  <TabsPrimitive.Root ref={forwardedRef} {...props} />
+  <TabsPrimitive.Root
+    ref={forwardedRef}
+    data-h2-max-width="base(100%)"
+    {...props}
+  />
 ));
 
 const List = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->((props, forwardedRef) => (
-  <TabsPrimitive.List ref={forwardedRef} {...props} />
+>(({ children, ...rest }, forwardedRef) => (
+  <TabsPrimitive.List
+    className="Tabs__List"
+    data-h2-max-width="base(100%)"
+    data-h2-display="base(flex)"
+    data-h2-gap="base(x.25)"
+    data-h2-overflow="base(auto visible)"
+    data-h2-width="base(100%)"
+    data-h2-padding="base(0 x1)"
+    data-h2-z-index="base(1)"
+    data-h2-overflow-x="base(auto)"
+    data-h2-overscroll-behavior-x="base(contain)"
+    data-h2-scroll-snap-align="base(start)"
+    data-h2-scroll-snap-type="base(x mandatory)"
+    data-h2-scrollbar-width="base:hover(none)"
+    ref={forwardedRef}
+    {...rest}
+  >
+    {children}
+  </TabsPrimitive.List>
 ));
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->((props, forwardedRef) => (
-  <TabsPrimitive.Trigger
-    className="Tabs__Trigger"
-    data-h2-background-color="base(white)"
-    data-h2-border="base(1px solid gray)"
-    data-h2-border-top="
-      base:selectors[[data-state='inactive']](x.5 solid gray)
-      base:selectors[[data-state='active']](x.5 solid primary)
-      base:selectors[[data-state='inactive']]:hover(x.5 solid gray.dark)
-      base:selectors[[data-state='active']]:hover(x.5 solid primary.dark)"
-    data-h2-border-bottom="base:selectors[[data-state='active']](1px solid white)"
-    data-h2-cursor="base(pointer)"
-    data-h2-padding="base(x.5, x1)"
-    data-h2-margin="base(0, x.5, 0, 0)"
-    data-h2-position="base(relative)"
-    data-h2-location="base(1px, auto, auto, auto)"
-    data-h2-radius="base(s, s, 0, 0)"
-    data-h2-transition="base(border 100ms ease)"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+>(({ children, ...rest }, forwardedRef) => {
+  /**
+   * Scroll to the list item when it is in view.
+   *
+   * This allows us to have the currently focused item appear
+   * in the list when it has been focused for keyboard-only users.
+   *
+   * @param event
+   */
+  const handleFocus: React.FocusEventHandler<HTMLButtonElement> = (event) => {
+    const { currentTarget } = event;
+    const list = currentTarget.closest(".Tabs__List");
+    const currentScroll = list?.scrollLeft ?? 0;
+    const totalWidth = list?.scrollWidth ?? 0;
+
+    const offset = currentTarget.offsetLeft;
+    const scrollTo = offset + currentScroll - totalWidth / 2;
+
+    list?.scrollTo({ left: scrollTo });
+  };
+
+  return (
+    <TabsPrimitive.Trigger
+      className="Tabs__Trigger"
+      onFocus={handleFocus}
+      data-h2-background-color="base(background)"
+      data-h2-border="base(thin solid background.darker)"
+      data-h2-border-top-color="
+      base:selectors[[data-state='active'] > span](primary)
+      base:focus-visible:children[span](focus)
+    "
+      data-h2-border-bottom-color="base:selectors[[data-state='active']](transparent)"
+      data-h2-color="
+      base(black)
+      base:selectors[[data-state='active']](primary.darker)
+    "
+      data-h2-display="base(inline-flex)"
+      data-h2-font-weight="base:selectors[[data-state='active']](700)"
+      data-h2-margin-top="base(x.25) base:hover(0)"
+      data-h2-padding="base(0)"
+      data-h2-outline="base(none)"
+      data-h2-radius="base(rounded rounded 0 0)"
+      data-h2-text-decoration="base:selectors[[data-state='inactive']](underline)"
+      data-h2-position="base(relative)"
+      data-h2-z-index="base(1)"
+      ref={forwardedRef}
+      {...rest}
+    >
+      <span
+        data-h2-border-top="base(x.25 solid background.darker)"
+        data-h2-display="base(block)"
+        data-h2-radius="base(s s 0 0)"
+        data-h2-padding="base(x.5 x.75)"
+      >
+        {children}
+      </span>
+    </TabsPrimitive.Trigger>
+  );
+});
 
 const Content = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >((props, forwardedRef) => (
   <TabsPrimitive.Content
-    data-h2-background-color="base(white)"
-    data-h2-border="base(1px solid gray)"
-    data-h2-radius="base(0, s, s, s)"
-    data-h2-padding="base(x1, x.75)"
     ref={forwardedRef}
+    data-h2-border-top="base(thin solid background.darker)"
+    data-h2-color="base(black)"
+    data-h2-margin-top="base(-1px)"
+    data-h2-max-width="base(100%)"
+    data-h2-outline="base(none)"
+    data-h2-padding="base(x1)"
     {...props}
   />
 ));

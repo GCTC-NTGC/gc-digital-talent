@@ -38,12 +38,13 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "../Table/ResponsiveTable/constants";
+import SearchRequestFilterDialog from "./components/SearchRequestFilterDialog";
 import {
   FormValues,
   transformFormValuesToSearchRequestFilterInput,
+  transformSearchRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
 } from "./components/utils";
-import SearchRequestsTableFilters from "./components/SearchRequestsTableFilterDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
 
@@ -345,7 +346,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }}
       filter={{
         state: filterRef.current,
-        component: <SearchRequestsTableFilters onSubmit={handleFilterSubmit} />,
+        component: (
+          <SearchRequestFilterDialog
+            onSubmit={handleFilterSubmit}
+            defaultValues={transformSearchRequestFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );

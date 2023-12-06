@@ -44,7 +44,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_guest_role()
+    public function testGuestRole()
     {
         $guestRole = Role::where('name', 'guest')->sole();
         $this->user->addRole($guestRole);
@@ -73,7 +73,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_base_user_role()
+    public function testBaseUserRole()
     {
         $baseUserRole = Role::where('name', 'base_user')->sole();
         $this->user->addRole($baseUserRole);
@@ -104,7 +104,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_applicant_role()
+    public function testApplicantRole()
     {
         $applicantRole = Role::where('name', 'applicant')->sole();
         $this->user->addRole($applicantRole);
@@ -128,7 +128,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_pool_operator_role()
+    public function testPoolOperatorRole()
     {
         $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->addRole(
@@ -164,7 +164,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_request_responder_role()
+    public function testRequestResponderRole()
     {
         $requestResponderRole = Role::where('name', 'request_responder')->sole();
         $this->user->addRole($requestResponderRole);
@@ -188,7 +188,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_platform_admin_role()
+    public function testPlatformAdminRole()
     {
         $superAdminRole = Role::where('name', 'platform_admin')->sole();
         $this->user->addRole($superAdminRole);
@@ -235,7 +235,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_community_manager_role()
+    public function testCommunityManagerRole()
     {
         $communityManager = Role::where('name', 'community_manager')->sole();
         $this->user->addRole($communityManager);
@@ -262,7 +262,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_strict_team_check()
+    public function testStrictTeamCheck()
     {
         $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
         $this->user->addRole(
