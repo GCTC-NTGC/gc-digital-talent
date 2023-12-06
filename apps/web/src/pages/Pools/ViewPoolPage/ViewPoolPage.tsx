@@ -106,9 +106,10 @@ export const ViewPool = ({
     description: "Subtitle for the individual pool page",
   });
 
-  const isReadyToPublish =
-    getAdvertisementStatus(pool) === "complete" &&
-    getAssessmentPlanStatus(pool) === "complete";
+  const isReadyToPublish = recordOfDecisionFlag
+    ? getAdvertisementStatus(pool) === "complete" &&
+      getAssessmentPlanStatus(pool) === "complete"
+    : getAdvertisementStatus(pool) === "complete";
 
   return (
     <>

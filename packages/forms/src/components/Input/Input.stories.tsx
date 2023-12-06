@@ -11,30 +11,29 @@ import type { InputProps } from ".";
 export default {
   component: Input,
   title: "Form/Input",
-  args: {
-    maxWidth: "20rem",
-  },
-  argTypes: {
-    maxWidth: {
-      name: "Max Width",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as Meta;
 
-const TemplateInput: Story<InputProps & { maxWidth: string }> = (args) => {
-  const { maxWidth, ...rest } = args;
+const themes = ["light", "dark"];
+
+const TemplateInput: Story<InputProps> = (args) => {
+  const { ...rest } = args;
   return (
-    <div style={{ maxWidth }}>
-      <Form onSubmit={action("Submit Form")}>
-        <Input {...rest} />
-        <p data-h2-margin-top="base(x1)">
-          <Submit />
-        </p>
-      </Form>
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    >
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <Form onSubmit={action("Submit Form")}>
+              <Input {...rest} />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </Form>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

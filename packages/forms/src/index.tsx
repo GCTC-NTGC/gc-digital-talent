@@ -8,7 +8,6 @@ import Combobox, { ComboboxProps } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -16,7 +15,6 @@ import Field, {
   WrapperProps,
 } from "./components/Field";
 import Input, { type InputProps } from "./components/Input";
-import MultiSelectField from "./components/MultiSelect/MultiSelectField";
 import RadioGroup, {
   type RadioGroupProps,
   type Radio,
@@ -24,13 +22,11 @@ import RadioGroup, {
 import Repeater from "./components/Repeater/Repeater";
 import RichTextInput from "./components/RichTextInput/RichTextInput";
 import RichTextRenderer from "./components/RichTextInput/RichTextRenderer";
-import Select, {
-  MultiSelectFieldBase,
-  type MultiSelectFieldBaseProps,
-  type SelectProps,
-  type Option,
-} from "./components/Select";
+import Select, { type SelectProps, type Option } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
+import SwitchInput, {
+  type SwitchInputProps,
+} from "./components/SwitchInput/SwitchInput";
 import TextArea, { type TextAreaProps } from "./components/TextArea";
 import WordCounter, { type WordCounterProps } from "./components/WordCounter";
 import BasicForm, {
@@ -51,7 +47,7 @@ import {
   objectsToSortedOptions,
   htmlToRichTextJSON,
 } from "./utils";
-import useCommonInputStyles from "./hooks/useCommonInputStyles";
+import useInputStyles from "./hooks/useInputStyles";
 
 export {
   DATE_SEGMENT,
@@ -62,14 +58,13 @@ export {
   Combobox,
   Field,
   Input,
-  MultiSelectField,
   Repeater,
   RadioGroup,
   RichTextInput,
   RichTextRenderer,
   Select,
-  MultiSelectFieldBase,
   Submit,
+  SwitchInput,
   TextArea,
   WordCounter,
   BasicForm,
@@ -89,14 +84,13 @@ export type {
   Radio,
   RadioGroupProps,
   SelectProps,
-  MultiSelectFieldBaseProps,
   Option,
   SubmitProps,
+  SwitchInputProps,
   TextAreaProps,
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
-  ContextProps,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -114,6 +108,6 @@ export {
   matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
-  useCommonInputStyles,
+  useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
 };

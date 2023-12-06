@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -9,7 +9,7 @@ import {
   Input,
   TextArea,
   Submit,
-  MultiSelectField,
+  Combobox,
   enumToOptions,
   Select,
 } from "@gc-digital-talent/forms";
@@ -87,10 +87,13 @@ export const CreateSkillForm = ({
     },
   });
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.skillTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateSkill(formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.skillTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill created successfully!",
@@ -278,9 +281,10 @@ export const CreateSkillForm = ({
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelectField
+            <Combobox
               id="families"
               name="families"
+              isMulti
               label={intl.formatMessage({
                 defaultMessage: "Families",
                 id: "xx8yaE",

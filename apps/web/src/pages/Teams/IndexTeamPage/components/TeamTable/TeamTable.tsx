@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -41,6 +42,10 @@ export const TeamTable = ({
 }: TeamTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
+
   const columns = [
     columnHelper.display({
       id: "actions",
@@ -65,7 +70,7 @@ export const TeamTable = ({
         description: "Title displayed for the teams table team column.",
       }),
       cell: ({ row: { original: team }, getValue }) =>
-        viewCell(paths.teamView(team.id), getValue(), intl),
+        viewCell(paths.teamView(team.id), getValue(), intl, currentUrl),
       meta: {
         isRowTitle: true,
       },
@@ -137,6 +142,7 @@ export const TeamTable = ({
             id: "GtrrJ3",
             description: "Link text to create a new team in the admin portal",
           }),
+          from: currentUrl,
         },
       }}
     />

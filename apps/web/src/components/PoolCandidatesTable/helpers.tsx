@@ -76,7 +76,10 @@ export const priorityCell = (
 
   if (priority === 10 || priority === 20) {
     return (
-      <span data-h2-color="base(primary)" data-h2-font-weight="base(700)">
+      <span
+        data-h2-color="base(primary.darker)"
+        data-h2-font-weight="base(700)"
+      >
         {intl.formatMessage(getPoolCandidatePriorities(priority))}
       </span>
     );

@@ -23,6 +23,7 @@ import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
 import getFormLinks from "./utils";
+import Resources from "./Resources";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link
@@ -463,6 +464,7 @@ const DirectivePage = () => {
               </p>
             </CardFlat>
           </div>
+          <Resources />
         </div>
       </div>
       <div

@@ -362,5 +362,49 @@
   "oMpO+C": {
     "defaultMessage": "IT Apprenticeship Program wjit L’nu’k",
     "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
+  },
+  "71+GZq": {
+    "defaultMessage": "L’nuk alpukuwltiji’k aqq alatu’tij amalamuk pepkwjetemaqn.",
+    "description": "Indigenous Apprenticeship hero image text alternative"
+  },
+  "cErFoy": {
+    "defaultMessage": "L’nuk E’pitji’k naskuwatijik pitu’kn toqo naspulti’jik milamusultiji’k pin’ji’jk.",
+    "description": "Indigenous Apprenticeship woman smiling image text alternative"
+  },
+  "0D8Efk": {
+    "defaultMessage": "Toqpiliji'k ta'pusiji'k pikunk",
+    "description": "Indigenous Apprenticeship feathers image text alternative"
+  },
+  "XDgkwV": {
+    "defaultMessage": "L’nu Ji’nm etl-lukwet computerik’tuk.",
+    "description": "Indigenous Apprenticeship man on computer image text alternative"
+  },
+  "aPLL9Z": {
+    "defaultMessage": "Métise’k piljaqn’k toqo wasuweke’ wikasiji’k.",
+    "description": "Indigenous Apprenticeship gloves image text alternative"
+  },
+  "X6+rc1": {
+    "defaultMessage": "L’nuskwe’j welitutk, nasku’atl tupkwanamu’ksitl a’su’n, aqq maw pukikwe’l naski’kil aqq weskwikwtu’tk.",
+    "description": "Indigenous Apprenticeship applicant image text alternative"
+  },
+  "IIZNzj": {
+    "defaultMessage": "Ulu, na Inuitaq ewketu’tij e’pitjik.",
+    "description": "Indigenous Apprenticeship ulu image text alternative"
+  },
+  "9VPBwR": {
+    "defaultMessage": "Ji’nm amalka’t naski’k l’nuey regalia.",
+    "description": "Indigenous Apprenticeship lower back image text alternative"
+  },
+  "dY3Qr4": {
+    "defaultMessage": "L’nu e’pit naski’k mekwe’k a’tlai aqq etl-lukwet laptopiktuk.",
+    "description": "Indigenous Apprenticeship woman on laptop image text alternative"
+  },
+  "CKsQyK": {
+    "defaultMessage": "Apoqnmasuti aqq koqo’wel",
+    "description": "Title of the accessibility and accommodations information dialog"
+  },
+  "jO8i+2": {
+    "defaultMessage": "Nuta’n apoqnmasuti, kesna me’ koqowey ketu kejitu’n wjit ta’n tela’sik koqowey? Ke pipanima’tis Office Of Indigenous Initiatives elmiaq me’ koqowey nuta’n wjit apoqnmasuti wla applicationl tel nuta’q <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
   }
 }

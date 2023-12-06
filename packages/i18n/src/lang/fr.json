@@ -239,10 +239,6 @@
     "defaultMessage": "Anglais seulement",
     "description": "The language requirement is English only."
   },
-  "6F1rsN": {
-    "defaultMessage": "Baccalauréat ",
-    "description": "Bachelors Degree selection for education type input"
-  },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
@@ -322,6 +318,10 @@
   "9EnPf0": {
     "defaultMessage": "Accès à l’information et protection des renseignements personnels",
     "description": "Pool Stream described as Access to Information and Privacy."
+  },
+  "9SP4JF": {
+    "defaultMessage": "Maîtrise",
+    "description": "Master's Degree selection for education type input"
   },
   "9ZyJZq": {
     "defaultMessage": "cela m'oblige à me déplacer.",
@@ -414,6 +414,10 @@
   "CrzH4k": {
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
+  },
+  "CtgfAw": {
+    "defaultMessage": "Bourse postdoctorale",
+    "description": "Postdoctoral Fellowship selection for education type input"
   },
   "DPYoOj": {
     "defaultMessage": "Il y a une limite au nombre d’éléments que vous pouvez ajouter sur cette liste. Lorsque cette limite est atteinte, vous devrez supprimer un élément si vous voulez en ajouter un autre.",
@@ -602,6 +606,10 @@
   "KzhnAz": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement).",
     "description": "The operational requirement described as occasional overtime."
+  },
+  "L+9K9B": {
+    "defaultMessage": "Ph. D.",
+    "description": "PhD selection for education type input"
   },
   "L05/+D": {
     "defaultMessage": "Mois",
@@ -1151,6 +1159,10 @@
     "defaultMessage": "Courriel",
     "description": "Title for email"
   },
+  "dRvWzH": {
+    "defaultMessage": "Baccalauréat",
+    "description": "Bachelor's Degree selection for education type input"
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -1447,10 +1459,6 @@
     "defaultMessage": "Niveau 4 : Gestionnaire",
     "description": "The name of the Senior advisor role."
   },
-  "nv2kXl": {
-    "defaultMessage": "Maîtrise",
-    "description": "Masters Degree selection for education type input"
-  },
   "o/6zAs": {
     "defaultMessage": "Chargement",
     "description": "Title displayed for a table initial loading state."
@@ -1523,10 +1531,6 @@
     "defaultMessage": "réussite partielle",
     "description": "Message for the partial success status"
   },
-  "qfQx7T": {
-    "defaultMessage": "Ph. D.",
-    "description": "Phd selection for education type input"
-  },
   "qfioSi": {
     "defaultMessage": "J'ai un poste de durée <strong>déterminée</strong>.",
     "description": "Term selection for government employee type."
@@ -1594,10 +1598,6 @@
   "sMi0QI": {
     "defaultMessage": "Gouvernement du Canada",
     "description": "Full name of abbreviation for GC"
-  },
-  "sNUWqY": {
-    "defaultMessage": "Bourses postdoctorales",
-    "description": "Post Doctoral Fellowship selection for education type input"
   },
   "sVsZmT": {
     "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",

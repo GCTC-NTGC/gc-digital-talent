@@ -5,7 +5,7 @@ import zipWith from "lodash/zipWith";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
+import { DateInput, Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -199,9 +199,10 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <MultiSelectField
+                <Combobox
                   id="addToPoolDialog-pools"
                   name="pools"
+                  isMulti
                   label={intl.formatMessage(adminMessages.pools)}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select a pool",

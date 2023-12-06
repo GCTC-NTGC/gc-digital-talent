@@ -39,6 +39,8 @@ export default {
   title: "Form/Combobox",
 };
 
+const themes = ["light", "dark"];
+
 const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, defaultValue, options, fetching, ...rest } = args;
   const [isSearching, setIsSearching] = React.useState<boolean>(
@@ -68,20 +70,31 @@ const Template: StoryFn<ComboboxType> = (args) => {
     : undefined;
 
   return (
-    <BasicForm
-      onSubmit={action("onSubmit")}
-      options={{ defaultValues: { skill: defaultValue ?? "" } }}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      <Combobox
-        {...rest}
-        onSearch={debouncedSearch}
-        fetching={isSearching}
-        options={mockSearch ? filteredOptions : options}
-      />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
-    </BasicForm>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <BasicForm
+              onSubmit={action("onSubmit")}
+              options={{ defaultValues: { skill: defaultValue ?? "" } }}
+            >
+              <Combobox
+                {...rest}
+                onSearch={debouncedSearch}
+                fetching={isSearching}
+                options={mockSearch ? filteredOptions : options}
+              />
+              <p data-h2-margin-top="base(x1)">
+                <Submit />
+              </p>
+            </BasicForm>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

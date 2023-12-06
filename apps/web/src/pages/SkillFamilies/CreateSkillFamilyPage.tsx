@@ -1,16 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Input,
-  TextArea,
-  Submit,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
@@ -72,10 +67,13 @@ export const CreateSkillFamilyForm = ({
     },
   });
 
+  const { state } = useLocation();
+  const navigateTo = state?.from ?? paths.skillFamilyTable();
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateSkillFamily(formValuesToSubmitData(data))
       .then(() => {
-        navigate(paths.skillFamilyTable());
+        navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Skill family created successfully!",
@@ -202,9 +200,10 @@ export const CreateSkillFamilyForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelectField
+            <Combobox
               id="skills"
               name="skills"
+              isMulti
               label={intl.formatMessage(adminMessages.skills)}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more skills",

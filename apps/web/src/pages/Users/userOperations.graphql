@@ -695,3 +695,40 @@ query selectedUsers($ids: [ID]!) {
     }
   }
 }
+
+query UserFilterData {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    category
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    stream
+  }
+  roles {
+    id
+    name
+    displayName {
+      en
+      fr
+    }
+  }
+}

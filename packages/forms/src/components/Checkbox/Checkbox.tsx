@@ -64,7 +64,7 @@ const Checkbox = ({
           <Field.Label
             data-h2-display="base(flex)"
             data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(0 x.25)"
+            data-h2-gap="base(x.25)"
           >
             <input
               id={id}
@@ -72,10 +72,11 @@ const Checkbox = ({
               aria-describedby={ariaDescribedBy}
               aria-required={!!rules.required && !inCheckList}
               aria-invalid={!!error}
+              data-h2-margin-top="base(x.26)"
               {...register(name, rules)}
               {...rest}
             />
-            <span data-h2-margin-top="base(-x.125)">{label}</span>
+            <span data-h2-font-size="base(body)">{label}</span>
             {!asFieldset && !inCheckList && (
               <Field.Required required={!!rules.required} />
             )}

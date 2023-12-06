@@ -831,6 +831,10 @@
     "defaultMessage": "Famille de compétences mise à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
   },
+  "2etyqD": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les conseillers en RH",
+    "description": "Label above download guidance for human resources pdf and text."
+  },
   "2f+IKU": {
     "defaultMessage": "Valeur monétaire du contrat",
     "description": "Title for _contract value_ fieldset in the _digital services contracting questionnaire_"
@@ -862,6 +866,10 @@
   "2lNHxh": {
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
+  },
+  "2lZuxx": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for procurement pdf."
   },
   "2n0e2i": {
     "defaultMessage": "Trier les expériences par ordre de",
@@ -1911,6 +1919,10 @@
     "defaultMessage": "Vous êtes sur le point d'ajouter cet utilisateur à un autre bassin :",
     "description": "First section of text on the add user to pool dialog"
   },
+  "8YKsal": {
+    "defaultMessage": "Apprenez comment les dates limites des demandes fonctionnent.",
+    "description": "Info button label for pool application deadline details."
+  },
   "8bJgxK": {
     "defaultMessage": "Français - Votre travail",
     "description": "Label for the French - Your Work textarea in the edit pool page."
@@ -2078,6 +2090,10 @@
   "9e6Xph": {
     "defaultMessage": "Équité en matière d’emploi",
     "description": "Label for the employment equity field"
+  },
+  "9gEfud": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
+    "description": "Aria label for download guidance for human resources pdf link."
   },
   "9gpVCX": {
     "defaultMessage": "Prêt à être embauché",
@@ -2423,6 +2439,10 @@
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
     "description": "First paragraph for extend pool closing date dialog"
   },
+  "BRpssM": {
+    "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
+    "description": "First message for the general resources section."
+  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -2519,6 +2539,10 @@
     "defaultMessage": "Langue de communication",
     "description": "Label for communication language"
   },
+  "C+7Yb0": {
+    "defaultMessage": "Des ressources adaptées à des groupes d'utilisateurs spécifiques sont disponibles dans la rubrique Ressources propres à un groupe.",
+    "description": "Second message for the general resources section."
+  },
   "C+hP/v": {
     "defaultMessage": "Candidature retirée",
     "description": "Status for an application that has been withdrawn"
@@ -2590,6 +2614,10 @@
   "CJy0kS": {
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title that appears when a user is missing optional skills on their profile."
+  },
+  "CKsQyK": {
+    "defaultMessage": "Accessibilité et mesures d’adaptation",
+    "description": "Title of the accessibility and accommodations information dialog"
   },
   "CLOuJF": {
     "defaultMessage": "Ville actuelle",
@@ -3183,6 +3211,10 @@
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
   },
+  "FdXLKJ": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
+    "description": "Aria label for download guidance for managers pdf link."
+  },
   "FffxNt": {
     "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
     "description": "Subtitle for Assessment details dialog"
@@ -3226,6 +3258,10 @@
   "FtlwFY": {
     "defaultMessage": "Afficher les bassins ouverts",
     "description": "Link text to view all open pools"
+  },
+  "FtxUlB": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (texte clair)",
+    "description": "Aria label for download guidance for procurement officers plain text link."
   },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
@@ -3387,10 +3423,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
   },
-  "Gp+70V": {
-    "defaultMessage": "Postulez d’ici le :",
-    "description": "Label for the pool expiry date"
-  },
   "GplLic": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
@@ -3410,6 +3442,10 @@
   "GtrrJ3": {
     "defaultMessage": "Créer une équipe ",
     "description": "Link text to create a new team in the admin portal"
+  },
+  "H+83NU": {
+    "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
+    "description": "Fourth paragraph for pool deadlines dialog"
   },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
@@ -3611,6 +3647,10 @@
     "defaultMessage": "Oui",
     "description": "The affirmative option to answer a question"
   },
+  "IOtzp7": {
+    "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
+    "description": "Second paragraph for pool deadlines dialog"
+  },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
@@ -3710,6 +3750,10 @@
   "IxngA3": {
     "defaultMessage": "Dissimuler les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
+  },
+  "Iz8E+y": {
+    "defaultMessage": "Ces ressources sont conçues pour aider les responsables des initiatives numériques à assumer leurs responsabilités dans le cadre de la Directive sur les talents numériques. Ce guide de mise en œuvre explique pourquoi la Directive est nécessaire et ce qu'il faut faire. Utiliser l'arbre décisionnel pour naviguer dans les exigences de déclaration.",
+    "description": "Body message for digital initiative managers section."
   },
   "Izo/vB": {
     "defaultMessage": "Collectivité des gestionnaires",
@@ -4071,6 +4115,10 @@
     "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
     "description": "Application step for screening questions, introduction description, paragraph one"
   },
+  "L6MgeM": {
+    "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
+    "description": "First paragraph for the pool deadlines dialog"
+  },
   "L6UnSl": {
     "defaultMessage": "Ajoutez votre expérience personnelle",
     "description": "Button text to add a personal experience to the profile"
@@ -4191,6 +4239,10 @@
     "defaultMessage": "Annuler",
     "description": "Button text to close employment equity form."
   },
+  "LjYzkS": {
+    "defaultMessage": "Postulez le ou avant le {closingDate}",
+    "description": "Message to apply to the pool before deadline"
+  },
   "LnISTX": {
     "defaultMessage": "{title} exigent un minimum d’expérience ou un diplôme pertinent.",
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
@@ -4263,6 +4315,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Application title"
   },
+  "MSitul": {
+    "defaultMessage": "Présentation des séances de formation à venir très bientôt.",
+    "description": "Message under training session image on directive page."
+  },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
     "description": "Description of a users technical skills to be improved for admins"
@@ -4282,6 +4338,10 @@
   "MWZgsB": {
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
+  },
+  "MZHzIW": {
+    "defaultMessage": "Ressources générales",
+    "description": "Heading for section for the general resources section."
   },
   "MZJYQd": {
     "defaultMessage": "Contact et soutien",
@@ -4426,10 +4486,6 @@
   "NSHPIJ": {
     "defaultMessage": "Inscrivez-vous<hidden> au Programme d’apprentissage en TI pour les personnes autochtones</hidden> maintenant",
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
-  },
-  "NSois3": {
-    "defaultMessage": "Présenter une demande avant :",
-    "description": "Label for pool advertisement closing date"
   },
   "NT0U2K": {
     "defaultMessage": "Hors site, lieu précis",
@@ -4979,6 +5035,10 @@
     "defaultMessage": "Je ne suis pas identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Message on Admin side when user not filled DiversityEquityInclusion section."
   },
+  "QjXLW4": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les agents d’approvisionnement",
+    "description": "Label above download guidance for procurement pdf and text."
+  },
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
     "description": "Learn more dialog question eleven heading"
@@ -5315,6 +5375,10 @@
     "defaultMessage": "En apprendre davantage sur les tests de langue",
     "description": "Link text for language testing information"
   },
+  "Swq+OD": {
+    "defaultMessage": "Toute durée",
+    "description": "Option label for allowing any employment duration"
+  },
   "SxP9zE": {
     "defaultMessage": "Langue préférée de l'examen écrit",
     "description": "Label displayed on the user form preferred written exam language field."
@@ -5379,6 +5443,10 @@
     "defaultMessage": "Vous pouvez vous server du bouton \"Lier une expérience\" qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
   },
+  "TKD+D2": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les agents d’approvisionnement (PDF)",
+    "description": "Aria label for download guidance for procurement officers pdf link."
+  },
   "TLl20s": {
     "defaultMessage": "Créer un nouveau bassin",
     "description": "Label displayed on submit button for new pool form."
@@ -5435,6 +5503,10 @@
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
     "description": "Legend for considered position languages check list in language information form"
   },
+  "TiY6v4": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for procurement plain text."
+  },
   "TiutAx": {
     "defaultMessage": "Raison de l’octroi de contrats",
     "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
@@ -5455,6 +5527,10 @@
     "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
     "description": "Third paragraph describing the directive on digital talent"
   },
+  "TomxAe": {
+    "defaultMessage": "{time} le {date}",
+    "description": "A datetime formatted as a certain time on a certain date"
+  },
   "TrO4uL": {
     "defaultMessage": "Échelle salariale :",
     "description": "Label for the range of salary expected for a classification"
@@ -5474,6 +5550,10 @@
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
+  },
+  "Tvsi5A": {
+    "defaultMessage": "Gestionnaires de l'initiative sur le numérique",
+    "description": "Title for group-specific resource card"
   },
   "TwSvmH": {
     "defaultMessage": "Je <strong>n'envisagerais pas</strong> d'accepter un emploi qui :",
@@ -5606,6 +5686,10 @@
   "UduzGA": {
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
+  },
+  "Uea7/1": {
+    "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
+    "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
@@ -5826,6 +5910,10 @@
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
     "description": "Advance contract award notice contract solicitation procedure"
+  },
+  "VnjZMU": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for managers plain text."
   },
   "VphXhu": {
     "defaultMessage": "Nom",
@@ -6395,6 +6483,10 @@
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
   },
+  "Yw09wC": {
+    "defaultMessage": "Télécharger l’arbre de décision sur les exigences en matière d’établissement de rapports (texte clair)",
+    "description": "Button text to download reporting requirements decision tree plain text."
+  },
   "YwO4XP": {
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
@@ -6426,6 +6518,10 @@
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
+  },
+  "Z4iL1M": {
+    "defaultMessage": "Ajouter une compétence à ce processus",
+    "description": "Title for the find a skill dialog within a pool"
   },
   "Z8hEuY": {
     "defaultMessage": "Modifiez cette section",
@@ -6570,10 +6666,6 @@
   "a+bWz1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill form description (French) field."
-  },
-  "a+j1+H": {
-    "defaultMessage": "Formulez votre demande d’ici le",
-    "description": "Label for showing the closing date of a job posting."
   },
   "a0VxCM": {
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
@@ -6766,6 +6858,10 @@
   "b8XLn5": {
     "defaultMessage": "Confirmation du préambule",
     "description": "Preamble confirmation label of the _digital services contracting questionnaire_"
+  },
+  "b8mC0r": {
+    "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
+    "description": "Body message for digital initiative procurement section."
   },
   "bBz/OJ": {
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
@@ -7355,6 +7451,10 @@
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
     "description": "Blurb for career timeline section of the application review page."
   },
+  "eEXEtz": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
+    "description": "Aria label for download guidance for human resources plain text link."
+  },
   "eFCDP4": {
     "defaultMessage": "Modifiez vos options de préférences de travail.",
     "description": "Link text to edit work preferences on profile"
@@ -7386,6 +7486,10 @@
   "eN8J/9": {
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
+  },
+  "eNFq24": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Button text to download guidance for human resources plain text."
   },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
@@ -7482,6 +7586,10 @@
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
+  },
+  "ewckox": {
+    "defaultMessage": "Ressources propres à un groupe",
+    "description": "Heading for section for the group-specific resources section."
   },
   "exYii8": {
     "defaultMessage": "{skillName} (Utiles)",
@@ -8347,6 +8455,10 @@
     "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "jO8i+2": {
+    "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
+  },
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
@@ -8571,6 +8683,10 @@
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
   },
+  "kzd/yK": {
+    "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
+    "description": "Third paragraph for pool deadlines dialog"
+  },
   "l+cu8R": {
     "defaultMessage": "Statut",
     "description": "Title displayed for the Pool Candidates table Status column."
@@ -8586,6 +8702,10 @@
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
+  },
+  "l9CTjM": {
+    "defaultMessage": "Date limite :",
+    "description": "Label for pool advertisement closing date"
   },
   "lB/SWR": {
     "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
@@ -8699,6 +8819,10 @@
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
   },
+  "lu+49Z": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for human resources pdf."
+  },
   "luZnRG": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill family form description (English) field."
@@ -8710,10 +8834,6 @@
   "lxDgNf": {
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
-  },
-  "lxDj4o": {
-    "defaultMessage": "Filtre de compétences",
-    "description": "Label for the skills field"
   },
   "m+411R": {
     "defaultMessage": "Exigences temporelles",
@@ -8826,6 +8946,10 @@
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
+  },
+  "mQkyM8": {
+    "defaultMessage": "Au sujet des dates limites des demandes",
+    "description": "Heading for the pool deadlines dialog"
   },
   "mR9A3a": {
     "defaultMessage": "Contrat",
@@ -9011,6 +9135,10 @@
     "defaultMessage": "Aucun nom fourni",
     "description": "Fallback for name value"
   },
+  "n92mcX": {
+    "defaultMessage": "Responsables de l’approvisionnement",
+    "description": "Title for procurement officer resource card"
+  },
   "n9YPWe": {
     "defaultMessage": "Statut du bassin",
     "description": "Label displayed on the status field of the change candidate status dialog"
@@ -9042,6 +9170,10 @@
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
+  },
+  "nJB8I6": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Button text to download guidance for managers pdf."
   },
   "nKCUhO": {
     "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",
@@ -9119,6 +9251,10 @@
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
   },
+  "nrJ4qt": {
+    "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
+    "description": "Button text to download reporting requirements decision tree pdf."
+  },
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
     "description": "CSV Header, Essential skill column."
@@ -9150,10 +9286,6 @@
   "o/YTo0": {
     "defaultMessage": "Pour commencer",
     "description": "Main heading in create account page."
-  },
-  "o0XhkM": {
-    "defaultMessage": "Possède un diplôme",
-    "description": "Label for the has diploma field"
   },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
@@ -9363,6 +9495,10 @@
     "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
     "description": "Description for the 'IT-02 Analyst' classification"
   },
+  "pQwNEB": {
+    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ces ressources sont conçues pour aider les conseillers en ressources humaines à assumer ces responsabilités.",
+    "description": "Body message for digital initiative human resources section."
+  },
   "pV+oii": {
     "defaultMessage": "Qu’avez-vous accompli, créé ou livré grâce à cette compétence?",
     "description": "Question 1 for clarifying skill details"
@@ -9550,6 +9686,10 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "qp68Mh": {
+    "defaultMessage": "Toute langue",
+    "description": "Option label for allowing any language"
   },
   "qrDCTV": {
     "defaultMessage": "Catégorie",
@@ -10015,6 +10155,10 @@
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
   },
+  "thgFzS": {
+    "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
+    "description": "Aria label for download guidance for managers plain text link."
+  },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
@@ -10415,6 +10559,10 @@
     "defaultMessage": "Signaler un bogue",
     "description": "Support form subject field bug option label"
   },
+  "wJ9hiY": {
+    "defaultMessage": "le guide sur la mise en œuvre pour les gestionnaires",
+    "description": "label above download guidance for managers pdf and text."
+  },
   "wNJSJ7": {
     "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
     "description": "Second paragraph about the program"
@@ -10502,6 +10650,10 @@
   "x+PMFn": {
     "defaultMessage": "En apprendre davantage sur l'ouverture de séance et l'authentification",
     "description": "Heading for opening the sign in and authentication accordion in account and privacy"
+  },
+  "x+kUrO": {
+    "defaultMessage": "Conseillers en ressources humaines",
+    "description": "Title for group-specific resource card"
   },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
