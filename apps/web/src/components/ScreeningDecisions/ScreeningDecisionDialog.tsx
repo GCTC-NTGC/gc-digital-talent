@@ -116,7 +116,22 @@ const AssessmentStepTypeSection = ({
                     },
                     {
                       skillName: getLocalizedName(userSkill?.skill.name, intl),
-                      skillLevel: userSkill?.skillLevel,
+                      skillLevel:
+                        userSkill?.skill.category === SkillCategory.Technical
+                          ? intl.formatMessage(
+                              getTechnicalSkillLevel(
+                                userSkill?.skillLevel
+                                  ? userSkill.skillLevel
+                                  : 0,
+                              ),
+                            )
+                          : intl.formatMessage(
+                              getBehaviouralSkillLevel(
+                                userSkill?.skillLevel
+                                  ? userSkill.skillLevel
+                                  : 0,
+                              ),
+                            ),
                     },
                   )}
                 </Accordion.Trigger>
@@ -251,7 +266,7 @@ export const ScreeningDecisionDialog = ({
 
   const userSkill = poolCandidate.user.userSkills
     ?.filter(notEmpty)
-    .filter((usrSkill) => usrSkill.skill.id === skill.id)[0];
+    .find((usrSkill) => usrSkill.skill.id === skill.id);
 
   const headers = useHeaders({
     type: dialogType,
