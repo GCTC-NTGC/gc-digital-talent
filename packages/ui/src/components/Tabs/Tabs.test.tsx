@@ -37,7 +37,7 @@ const renderTabs = ({ ...rest }: TabsRootPrimitivePropsWithoutRef) => {
 
 describe("Tabs", () => {
   const user = userEvent.setup();
-  window.HTMLElement.prototype.scrollIntoView = jest.fn();
+  window.HTMLElement.prototype.scrollTo = jest.fn();
 
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderTabs({});
