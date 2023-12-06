@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class WorkExperience
@@ -33,4 +34,9 @@ class WorkExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+    // Define the relationship to the User model
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

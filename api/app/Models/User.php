@@ -292,6 +292,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
+        $this->searchable();
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
