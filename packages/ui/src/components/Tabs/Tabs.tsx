@@ -20,6 +20,7 @@ const List = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ children, ...rest }, forwardedRef) => (
   <TabsPrimitive.List
+    className="Tabs__List"
     data-h2-max-width="base(100%)"
     data-h2-display="base(flex)"
     data-h2-gap="base(x.25)"
@@ -43,10 +44,24 @@ const Trigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ children, ...rest }, forwardedRef) => {
+  /**
+   * Scroll to the list item when it is in view.
+   *
+   * This allows us to have the currently focused item appear
+   * in the list when it has been focused for keyboard-only users.
+   *
+   * @param event
+   */
   const handleFocus: React.FocusEventHandler<HTMLButtonElement> = (event) => {
-    event.currentTarget.scrollIntoView({
-      block: "center",
-    });
+    const { currentTarget } = event;
+    const list = currentTarget.closest(".Tabs__List");
+    const currentScroll = list?.scrollLeft ?? 0;
+    const totalWidth = list?.scrollWidth ?? 0;
+
+    const offset = currentTarget.offsetLeft;
+    const scrollTo = offset + currentScroll - totalWidth / 2;
+
+    list?.scrollTo({ left: scrollTo });
   };
 
   return (
