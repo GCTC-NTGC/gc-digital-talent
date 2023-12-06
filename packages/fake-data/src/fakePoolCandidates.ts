@@ -10,7 +10,6 @@ import {
   Pool,
   User,
   EducationRequirementOption,
-  ScreeningQuestionResponse,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
