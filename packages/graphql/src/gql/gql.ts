@@ -15,8 +15,8 @@ import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/
 const documents = {
   "\n  query PoolTest($id: UUID!) {\n    me {\n      id\n      poolCandidates {\n        id\n        pool {\n          id\n        }\n        submittedAt\n      }\n    }\n    pool(id: $id) {\n      id\n      name {\n        en\n        fr\n      }\n      stream\n      closingDate\n      status\n      language\n      securityClearance\n      classifications {\n        id\n        group\n        level\n        name {\n          en\n          fr\n        }\n        minSalary\n        maxSalary\n        genericJobTitles {\n          id\n          key\n          name {\n            en\n            fr\n          }\n        }\n      }\n      yourImpact {\n        en\n        fr\n      }\n      keyTasks {\n        en\n        fr\n      }\n      whatToExpect {\n        en\n        fr\n      }\n      specialNote {\n        en\n        fr\n      }\n      essentialSkills {\n        id\n        key\n        name {\n          en\n          fr\n        }\n        description {\n          en\n          fr\n        }\n        category\n        families {\n          id\n          key\n          description {\n            en\n            fr\n          }\n          name {\n            en\n            fr\n          }\n        }\n      }\n      nonessentialSkills {\n        id\n        key\n        name {\n          en\n          fr\n        }\n        description {\n          en\n          fr\n        }\n        category\n        families {\n          id\n          key\n          description {\n            en\n            fr\n          }\n          name {\n            en\n            fr\n          }\n        }\n      }\n      isRemote\n      location {\n        en\n        fr\n      }\n      stream\n      processNumber\n      publishingGroup\n      screeningQuestions {\n        id\n        question {\n          en\n          fr\n        }\n      }\n      team {\n        id\n        name\n        contactEmail\n        displayName {\n          en\n          fr\n        }\n      }\n    }\n  }\n":
     types.PoolTestDocument,
-  "\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n":
-    types.AdminDashboardQueryDocument,
+  "\n  query AdminDashboard_Query {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n":
+    types.AdminDashboard_QueryDocument,
   "\n  fragment CreateAccount_QueryFragment on Query {\n    departments {\n      id\n      departmentNumber\n      name {\n        en\n        fr\n      }\n    }\n    classifications {\n      id\n      name {\n        en\n        fr\n      }\n      group\n      level\n      minSalary\n      maxSalary\n    }\n  }\n":
     types.CreateAccount_QueryFragmentFragmentDoc,
   "\n  query CreateAccount_Query {\n    ...CreateAccount_QueryFragment\n    me {\n      email\n    }\n  }\n":
@@ -53,8 +53,8 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n",
-): (typeof documents)["\n  query adminDashboardQuery {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n"];
+  source: "\n  query AdminDashboard_Query {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n",
+): (typeof documents)["\n  query AdminDashboard_Query {\n    me {\n      id\n      firstName\n      lastName\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

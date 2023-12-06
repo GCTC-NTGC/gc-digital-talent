@@ -237,8 +237,8 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   );
 };
 
-const adminDashboardQuery = graphql(/* GraphQL */ `
-  query adminDashboardQuery {
+const AdminDashboard_Query = graphql(/* GraphQL */ `
+  query AdminDashboard_Query {
     me {
       id
       firstName
@@ -249,7 +249,7 @@ const adminDashboardQuery = graphql(/* GraphQL */ `
 
 const DashboardPageApi = () => {
   const [{ data, fetching, error }] = useQuery({
-    query: adminDashboardQuery,
+    query: AdminDashboard_Query,
   });
 
   return (

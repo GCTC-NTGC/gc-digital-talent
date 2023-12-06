@@ -2907,9 +2907,11 @@ export type PoolTestQuery = {
   } | null;
 };
 
-export type AdminDashboardQueryQueryVariables = Exact<{ [key: string]: never }>;
+export type AdminDashboard_QueryQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type AdminDashboardQueryQuery = {
+export type AdminDashboard_QueryQuery = {
   __typename?: "Query";
   me?: {
     __typename?: "User";
@@ -3557,13 +3559,13 @@ export const PoolTestDocument = {
     },
   ],
 } as unknown as DocumentNode<PoolTestQuery, PoolTestQueryVariables>;
-export const AdminDashboardQueryDocument = {
+export const AdminDashboard_QueryDocument = {
   kind: "Document",
   definitions: [
     {
       kind: "OperationDefinition",
       operation: "query",
-      name: { kind: "Name", value: "adminDashboardQuery" },
+      name: { kind: "Name", value: "AdminDashboard_Query" },
       selectionSet: {
         kind: "SelectionSet",
         selections: [
@@ -3584,8 +3586,8 @@ export const AdminDashboardQueryDocument = {
     },
   ],
 } as unknown as DocumentNode<
-  AdminDashboardQueryQuery,
-  AdminDashboardQueryQueryVariables
+  AdminDashboard_QueryQuery,
+  AdminDashboard_QueryQueryVariables
 >;
 export const CreateAccount_QueryDocument = {
   kind: "Document",
