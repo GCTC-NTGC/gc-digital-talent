@@ -436,7 +436,7 @@
     "description": "Message displayed to user after skill fails to be deleted."
   },
   "0PeEzR": {
-    "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour le développer et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
+    "defaultMessage": "Cette étape-ci vous permet de modifier toute information de votre chronologie de carrière que vous avez déjà ajoutée à votre profil. Cliquez sur un élément pour l'agrandir, et ainsi révéler plus de détails. Si vous n'avez toujours rien ajouté à votre chronologie de carrière, vous pouvez le faire à partir de cette page-ci en sélectionnant le lien \"<strong>Ajouter une nouvelle expérience</strong>\".",
     "description": "Application step to continue working on career timeline, paragraph one"
   },
   "0Q89Cz": {
@@ -2784,7 +2784,7 @@
     "description": "Heading for strategy for the indigenous talent portal"
   },
   "DC2A59": {
-    "defaultMessage": "Affiche toutes <hidden>les sections de </hidden> l’information sur la demande",
+    "defaultMessage": "Agrandir toutes <hidden>les sections </hidden>d'information de la demande",
     "description": "Button text to open all application information accordions"
   },
   "DHfumB": {
@@ -9008,7 +9008,7 @@
     "description": "Text label for button to download a csv file of items in a table."
   },
   "myEzIh": {
-    "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, développez les informations ci-dessous pour voir des exemples.",
+    "defaultMessage": "Le présent formulaire vous permet d'ajouter une nouvelle expérience à votre chronologie de carrière. Commencez par sélectionner le type d'expérience que vous aimeriez ajouter. Si vous avez besoin de plus amples renseignements concernant le type qui peut être inclus, agrandissez l'information qui figure ci-dessous pour obtenir certains exemples.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
   "myH7I0": {
