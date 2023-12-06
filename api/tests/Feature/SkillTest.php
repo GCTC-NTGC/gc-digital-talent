@@ -67,7 +67,7 @@ class SkillTest extends TestCase
      *
      * @return void
      */
-    public function test_view_any_skill()
+    public function testViewAnySkill()
     {
         $this->graphQL('query { skills { id } }')
             ->assertJsonFragment(['id' => $this->uuid]);
@@ -78,7 +78,7 @@ class SkillTest extends TestCase
      *
      * @return void
      */
-    public function test_view_skill()
+    public function testViewSkill()
     {
 
         $variables = ['id' => $this->uuid];
@@ -102,7 +102,7 @@ class SkillTest extends TestCase
      *
      * @return void
      */
-    public function test_update_skill()
+    public function testUpdateSkill()
     {
         $variables = [
             'id' => $this->uuid,
@@ -142,7 +142,7 @@ class SkillTest extends TestCase
      *
      * @return void
      */
-    public function test_create_skill()
+    public function testCreateSkill()
     {
         $variables = [
             'skill' => [
@@ -184,7 +184,7 @@ class SkillTest extends TestCase
      *
      * @return void
      */
-    public function test_create_non_unique_skill_key()
+    public function testCreateNonUniqueSkillKey()
     {
         $variables = [
             'skill' => [
