@@ -27,6 +27,15 @@ export type FormValues = {
   notesForThisAssessment: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
 };
 
+type FormNames =
+  | "assessmentDecision"
+  | "justifications"
+  | "assessmentDecisionLevel"
+  | "otherJustificationNotes"
+  | "skillDecisionNotes"
+  | "notesForThisAssessment"
+  | `justifications.${number}`;
+
 interface ScreeningDecisionDialogFormProps {
   dialogType: DialogType;
 }
@@ -39,7 +48,7 @@ const ScreeningDecisionDialogForm = ({
   const labels = useLabels();
   const methods = useFormContext<FormValues>();
 
-  const { watch } = methods;
+  const { watch, resetField } = methods;
   const watchAssessmentDecision = watch("assessmentDecision");
   const watchJustifications = watch("justifications");
 
@@ -47,8 +56,32 @@ const ScreeningDecisionDialogForm = ({
     options;
 
   const otherReasonSelected =
-    watchJustifications &&
+    Array.isArray(watchJustifications) &&
     watchJustifications.includes(AssessmentResultJustification.FailedOther);
+  const isAssessmentDecisionSuccessful =
+    watchAssessmentDecision === AssessmentDecision.Successful;
+
+  /**
+   * Reset un-rendered fields
+   */
+  React.useEffect(() => {
+    const resetDirtyField = (name: FormNames) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // Reset all optional fields
+    if (!isAssessmentDecisionSuccessful) {
+      resetDirtyField("assessmentDecisionLevel");
+      resetDirtyField("skillDecisionNotes");
+      if (!otherReasonSelected) {
+        resetDirtyField("otherJustificationNotes");
+      }
+    }
+
+    if (isAssessmentDecisionSuccessful) {
+      resetDirtyField("justifications");
+    }
+  }, [resetField, isAssessmentDecisionSuccessful, otherReasonSelected]);
 
   return (
     <>
