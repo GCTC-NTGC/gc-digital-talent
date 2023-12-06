@@ -27,6 +27,7 @@ import {
   getAssessmentStepType,
   getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
+  getLocale,
   getLocalizedName,
   getTechnicalSkillLevel,
   getTechnicalSkillLevelDefinition,
@@ -38,6 +39,8 @@ import {
   useCreateAssessmentResultMutation,
   useUpdateAssessmentResultMutation,
 } from "~/api/generated";
+import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
+import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
 
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
@@ -56,18 +59,18 @@ import {
 const AssessmentStepTypeSection = ({
   type,
   userSkill,
-  classificationGroup,
+  educationRequirementOption,
 }: {
   type: DialogType;
   userSkill?: UserSkill;
-  classificationGroup?: string;
+  educationRequirementOption: React.ReactNode;
 }) => {
   const intl = useIntl();
   switch (type) {
     case "EDUCATION":
       return (
         <div>
-          <p>
+          <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "Selected requirement option:",
               id: "FS4Dg5",
@@ -79,21 +82,7 @@ const AssessmentStepTypeSection = ({
             data-h2-margin-bottom="base(x1)"
             data-h2-text-align="base(left)"
           >
-            {classificationGroup === "EX"
-              ? intl.formatMessage({
-                  defaultMessage:
-                    "minimum experience or education requirement (graduation with degree)",
-                  id: "Up2D3q",
-                  description:
-                    "Message on education requirements section of screening decision dialog.",
-                })
-              : intl.formatMessage({
-                  defaultMessage:
-                    "minimum experience or education requirement (2 years of post-secondary)",
-                  id: "kCbOcK",
-                  description:
-                    "Message on education requirements section of screening decision dialog.",
-                })}
+            {educationRequirementOption}
           </Well>
         </div>
       );
@@ -231,7 +220,7 @@ const SupportingEvidence = ({
   const contentHeadingLevel = incrementHeadingRank(headingAs);
   return (
     <div>
-      <p>
+      <p data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
@@ -271,6 +260,7 @@ export const ScreeningDecisionDialog = ({
   onSubmit,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const dialogType = useDialogType(assessmentStep);
 
   const userSkill = poolCandidate.user.userSkills
@@ -305,8 +295,16 @@ export const ScreeningDecisionDialog = ({
   };
 
   const classificationGroup = poolCandidate.pool.classifications
-    ? poolCandidate.pool.classifications[0]?.group
+    ? (poolCandidate.pool.classifications[0]?.group as ClassificationGroup)
     : undefined;
+
+  const educationRequirementOption = getEducationRequirementOptions(
+    intl,
+    locale,
+    classificationGroup,
+    isIAPPool(poolCandidate.pool),
+  ).find((option) => option.value === poolCandidate.educationRequirementOption)
+    ?.label;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
@@ -329,7 +327,7 @@ export const ScreeningDecisionDialog = ({
             <AssessmentStepTypeSection
               type={dialogType}
               userSkill={userSkill}
-              classificationGroup={classificationGroup}
+              educationRequirementOption={educationRequirementOption}
             />
             {dialogType === "SCREENING_QUESTIONS" ? (
               <ScreeningQuestions poolCandidate={poolCandidate} />
