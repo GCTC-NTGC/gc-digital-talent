@@ -19,6 +19,9 @@
         "../../packages/**/src/**/*.graphql",
         "../../packages/**/src/**/*.ts",
         "../../packages/**/src/**/*.tsx",
+        "../../apps/e2e/**/src/**/*.graphql",
+        "../../apps/e2e/**/src/**/*.ts",
+        "../../apps/e2e/**/src/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx"
       ],

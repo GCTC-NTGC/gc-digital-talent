@@ -2742,6 +2742,171 @@ export enum YesNoUnsure {
   Yes = "YES",
 }
 
+export type PoolTestQueryVariables = Exact<{
+  id: Scalars["UUID"]["input"];
+}>;
+
+export type PoolTestQuery = {
+  __typename?: "Query";
+  me?: {
+    __typename?: "User";
+    id: string;
+    poolCandidates?: Array<{
+      __typename?: "PoolCandidate";
+      id: string;
+      submittedAt?: string | null;
+      pool: { __typename?: "Pool"; id: string };
+    } | null> | null;
+  } | null;
+  pool?: {
+    __typename?: "Pool";
+    id: string;
+    stream?: PoolStream | null;
+    closingDate?: string | null;
+    status?: PoolStatus | null;
+    language?: PoolLanguage | null;
+    securityClearance?: SecurityStatus | null;
+    isRemote?: boolean | null;
+    processNumber?: string | null;
+    publishingGroup?: PublishingGroup | null;
+    name?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    classifications?: Array<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+      minSalary?: number | null;
+      maxSalary?: number | null;
+      name?: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      } | null;
+      genericJobTitles?: Array<{
+        __typename?: "GenericJobTitle";
+        id: string;
+        key: GenericJobTitleKey;
+        name?: {
+          __typename?: "LocalizedString";
+          en?: string | null;
+          fr?: string | null;
+        } | null;
+      } | null> | null;
+    } | null> | null;
+    yourImpact?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    keyTasks?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    whatToExpect?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    specialNote?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    essentialSkills?: Array<{
+      __typename?: "Skill";
+      id: string;
+      key: any;
+      category: SkillCategory;
+      name: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      };
+      description?: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      } | null;
+      families?: Array<{
+        __typename?: "SkillFamily";
+        id: string;
+        key: any;
+        description?: {
+          __typename?: "LocalizedString";
+          en?: string | null;
+          fr?: string | null;
+        } | null;
+        name?: {
+          __typename?: "LocalizedString";
+          en?: string | null;
+          fr?: string | null;
+        } | null;
+      }> | null;
+    }> | null;
+    nonessentialSkills?: Array<{
+      __typename?: "Skill";
+      id: string;
+      key: any;
+      category: SkillCategory;
+      name: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      };
+      description?: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      } | null;
+      families?: Array<{
+        __typename?: "SkillFamily";
+        id: string;
+        key: any;
+        description?: {
+          __typename?: "LocalizedString";
+          en?: string | null;
+          fr?: string | null;
+        } | null;
+        name?: {
+          __typename?: "LocalizedString";
+          en?: string | null;
+          fr?: string | null;
+        } | null;
+      }> | null;
+    }> | null;
+    location?: {
+      __typename?: "LocalizedString";
+      en?: string | null;
+      fr?: string | null;
+    } | null;
+    screeningQuestions?: Array<{
+      __typename?: "ScreeningQuestion";
+      id: string;
+      question?: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      } | null;
+    } | null> | null;
+    team?: {
+      __typename?: "Team";
+      id: string;
+      name: string;
+      contactEmail?: string | null;
+      displayName?: {
+        __typename?: "LocalizedString";
+        en?: string | null;
+        fr?: string | null;
+      } | null;
+    } | null;
+  } | null;
+};
+
 export type AdminDashboardQueryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AdminDashboardQueryQuery = {
@@ -2896,6 +3061,502 @@ export const CreateAccount_QueryFragmentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CreateAccount_QueryFragmentFragment, unknown>;
+export const PoolTestDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "PoolTest" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: {
+            kind: "NonNullType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "UUID" } },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "me" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "poolCandidates" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "pool" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "submittedAt" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "pool" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "id" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "name" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "stream" } },
+                { kind: "Field", name: { kind: "Name", value: "closingDate" } },
+                { kind: "Field", name: { kind: "Name", value: "status" } },
+                { kind: "Field", name: { kind: "Name", value: "language" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "securityClearance" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "classifications" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "group" } },
+                      { kind: "Field", name: { kind: "Name", value: "level" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "name" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "minSalary" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "maxSalary" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "genericJobTitles" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "key" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "en" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fr" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "yourImpact" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "keyTasks" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "whatToExpect" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "specialNote" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "essentialSkills" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "key" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "name" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "category" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "families" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "key" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "description" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "en" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fr" },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "en" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fr" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "nonessentialSkills" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "key" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "name" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "category" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "families" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "key" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "description" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "en" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fr" },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "en" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "fr" },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "isRemote" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "location" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "en" } },
+                      { kind: "Field", name: { kind: "Name", value: "fr" } },
+                    ],
+                  },
+                },
+                { kind: "Field", name: { kind: "Name", value: "stream" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "processNumber" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "publishingGroup" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "screeningQuestions" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "question" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "team" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      { kind: "Field", name: { kind: "Name", value: "name" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "contactEmail" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "displayName" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "en" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "fr" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PoolTestQuery, PoolTestQueryVariables>;
 export const AdminDashboardQueryDocument = {
   kind: "Document",
   definitions: [

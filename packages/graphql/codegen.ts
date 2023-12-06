@@ -2,7 +2,11 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: "../../api/storage/app/lighthouse-schema.graphql",
-  documents: ["../../apps/**/src/**/*.tsx", "../**/*.tsx"],
+  documents: [
+    "../**/*.tsx",
+    "../../apps/**/src/**/*.tsx",
+    "../../apps/**/cypress/**/*.ts",
+  ],
   ignoreNoDocuments: true,
   generates: {
     "./src/gql/": {
