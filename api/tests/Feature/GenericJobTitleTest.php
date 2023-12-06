@@ -61,7 +61,7 @@ class GenericJobTitleTest extends TestCase
      *
      * @return void
      */
-    public function test_view_any_generic_job_title()
+    public function testViewAnyGenericJobTitle()
     {
         $this->actingAs($this->baseUser, 'api')
             ->graphQL('query { genericJobTitles { id } }')
@@ -73,7 +73,7 @@ class GenericJobTitleTest extends TestCase
      *
      * @return void
      */
-    public function test_view_generic_job_title()
+    public function testViewGenericJobTitle()
     {
 
         $variables = ['id' => $this->genericJobTitle->id];
