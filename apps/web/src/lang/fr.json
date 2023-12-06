@@ -5331,6 +5331,10 @@
     "defaultMessage": "En apprendre davantage sur les tests de langue",
     "description": "Link text for language testing information"
   },
+  "Swq+OD": {
+    "defaultMessage": "Toute durée",
+    "description": "Option label for allowing any employment duration"
+  },
   "SxP9zE": {
     "defaultMessage": "Langue préférée de l'examen écrit",
     "description": "Label displayed on the user form preferred written exam language field."
@@ -8747,10 +8751,6 @@
     "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
     "description": "Note that the application confirmation number is available on the profile and applications page"
   },
-  "lxDj4o": {
-    "defaultMessage": "Filtre de compétences",
-    "description": "Label for the skills field"
-  },
   "m+411R": {
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
@@ -9191,10 +9191,6 @@
     "defaultMessage": "Pour commencer",
     "description": "Main heading in create account page."
   },
-  "o0XhkM": {
-    "defaultMessage": "Possède un diplôme",
-    "description": "Label for the has diploma field"
-  },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
     "description": "Label displayed on education form for institution input"
@@ -9590,6 +9586,10 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "qp68Mh": {
+    "defaultMessage": "Toute langue",
+    "description": "Option label for allowing any language"
   },
   "qrDCTV": {
     "defaultMessage": "Catégorie",

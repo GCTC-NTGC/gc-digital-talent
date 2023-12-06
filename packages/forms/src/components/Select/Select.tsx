@@ -38,6 +38,8 @@ export type SelectProps = CommonInputProps &
     options: OptGroupOrOption[];
     /** Null selection string provides a null value with instructions to user (e.g. Select a department) */
     nullSelection: string;
+    /** Allow users to select the null option */
+    enableNull?: boolean;
     /** Determine if it should sort options in alphanumeric ascending order */
     doNotSort?: boolean;
   };
@@ -82,6 +84,7 @@ const Select = ({
   rules = {},
   context,
   nullSelection,
+  enableNull,
   "aria-describedby": describedBy,
   trackUnsaved = true,
   doNotSort = false,
@@ -128,7 +131,7 @@ const Select = ({
         {...register(name, rules)}
         {...rest}
       >
-        <option data-h2-color="base(gray.dark)" value="" disabled>
+        <option data-h2-color="base(gray.dark)" value="" disabled={!enableNull}>
           {nullSelection}
         </option>
         {optionsModified.map((option) =>

@@ -5,11 +5,7 @@ import zipWith from "lodash/zipWith";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Select,
-  enumToOptions,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Select, enumToOptions, Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -266,9 +262,10 @@ const ChangeStatusDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <MultiSelectField
+                <Combobox
                   id="changeStatusDialog-additionalPools"
                   name="additionalPools"
+                  isMulti
                   label={intl.formatMessage({
                     defaultMessage: "Additional pools",
                     id: "8V8WwR",

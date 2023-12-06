@@ -9,7 +9,7 @@ import {
   Input,
   TextArea,
   Submit,
-  MultiSelectField,
+  Combobox,
   enumToOptions,
   Select,
 } from "@gc-digital-talent/forms";
@@ -281,9 +281,10 @@ export const CreateSkillForm = ({
                 label: intl.formatMessage(getSkillCategory(value)),
               }))}
             />
-            <MultiSelectField
+            <Combobox
               id="families"
               name="families"
+              isMulti
               label={intl.formatMessage({
                 defaultMessage: "Families",
                 id: "xx8yaE",

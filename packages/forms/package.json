@@ -41,8 +41,7 @@
     "downshift": "^8.2.3",
     "framer-motion": "^10.16.7",
     "lodash": "4.17.21",
-    "react-dom": "^18.2.0",
-    "react-select": "^5.8.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.3.1",
