@@ -1257,6 +1257,7 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  update: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
   disconnect: [ID!] @resolveWith(method: "disconnectSkills")
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
