@@ -92,7 +92,7 @@
     "@types/react-helmet": "^6.1.11",
     "babel-plugin-formatjs": "^10.5.10",
     "core-js": "^3.33.3",
-    "eslint": "^8.54.0",
+    "eslint": "^8.55.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.7.0",
