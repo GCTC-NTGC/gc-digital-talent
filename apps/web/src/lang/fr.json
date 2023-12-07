@@ -3211,10 +3211,6 @@
     "defaultMessage": "Vous êtes sur le point d'archiver ce bassin :",
     "description": "First paragraph for archive pool dialog"
   },
-  "Fc/i3e": {
-    "defaultMessage": "Modification de la date : {modifiedDate}",
-    "description": "Header for the sites last date modification found in the footer."
-  },
   "FckGRB": {
     "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
     "description": "Text that appears when a user is missing optional skills on their profile"
@@ -3878,6 +3874,10 @@
   "JjTGYe": {
     "defaultMessage": "Vous êtes sur le point de modifier la date d'expiration pour cet utilisateur :",
     "description": "First section of text on the change candidate expiry date dialog"
+  },
+  "Jkg004": {
+    "defaultMessage": "Date de modification : {modifiedDate}",
+    "description": "Header for the date of the last modification of the site"
   },
   "Jp/oeD": {
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
