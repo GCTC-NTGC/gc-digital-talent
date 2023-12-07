@@ -2164,12 +2164,6 @@ const assessmentJustifications = defineMessages({
     description:
       "Option for justification when assessment decision is unsuccessful.",
   },
-  [AssessmentResultJustification.SkillAccepted]: {
-    defaultMessage: "**Replace with skill accepted text**",
-    id: "0Wjj/R",
-    description:
-      "Option for justification when assessment decision is successful.",
-  },
   [AssessmentResultJustification.SkillFailedInsufficientlyDemonstrated]: {
     defaultMessage: "Not sufficiently demonstrated to meet the requirement.",
     id: "VXC0uU",
