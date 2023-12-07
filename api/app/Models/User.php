@@ -605,11 +605,13 @@ class User extends Model implements Authenticatable, LaratrustUser
             array_push($equityVars, 'is_visible_minority');
         }
 
-        // 3 fields are booleans, one is a jsonb field, isIndigenous = LEGACY_IS_INDIGENOUS
+        // 3 fields are booleans, one is a jsonb field
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->orWhereJsonContains('indigenous_communities', IndigenousCommunity::LEGACY_IS_INDIGENOUS->name);
+                    foreach (array_column(IndigenousCommunity::cases(), 'name') as $indigenousOption) {
+                        $query->orWhereJsonContains('indigenous_communities', $indigenousOption);
+                    }
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
