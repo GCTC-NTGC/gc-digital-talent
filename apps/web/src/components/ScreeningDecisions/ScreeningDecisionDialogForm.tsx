@@ -60,6 +60,10 @@ const ScreeningDecisionDialogForm = ({
     watchJustifications.includes(AssessmentResultJustification.FailedOther);
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
+  const isAssessmentDecisionUnSuccessful =
+    watchAssessmentDecision === AssessmentDecision.Unsuccessful;
+  const isAssessmentDecisionNotSure =
+    watchAssessmentDecision === AssessmentDecision.NotSure;
 
   /**
    * Reset un-rendered fields
@@ -70,7 +74,16 @@ const ScreeningDecisionDialogForm = ({
     };
 
     // Reset all optional fields
-    if (!isAssessmentDecisionSuccessful) {
+    if (isAssessmentDecisionNotSure) {
+      resetDirtyField("justifications");
+      resetDirtyField("assessmentDecisionLevel");
+      resetDirtyField("skillDecisionNotes");
+      if (!otherReasonSelected) {
+        resetDirtyField("otherJustificationNotes");
+      }
+    }
+
+    if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
       if (!otherReasonSelected) {
@@ -81,7 +94,13 @@ const ScreeningDecisionDialogForm = ({
     if (isAssessmentDecisionSuccessful) {
       resetDirtyField("justifications");
     }
-  }, [resetField, isAssessmentDecisionSuccessful, otherReasonSelected]);
+  }, [
+    resetField,
+    isAssessmentDecisionSuccessful,
+    isAssessmentDecisionUnSuccessful,
+    isAssessmentDecisionNotSure,
+    otherReasonSelected,
+  ]);
 
   return (
     <>

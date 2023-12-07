@@ -1,8 +1,9 @@
-import { IntlShape, MessageDescriptor, useIntl } from "react-intl";
+import { IntlShape } from "react-intl";
 
 import {
   AssessmentResultType,
   CreateAssessmentResultInput,
+  Maybe,
   SkillCategory,
   UpdateAssessmentResultInput,
   UserSkill,
@@ -84,7 +85,7 @@ export function convertFormValuesToApiUpdateInput({
 }
 
 export function getLocalizedSkillLevel(
-  userSkill?: UserSkill,
+  userSkill: Maybe<UserSkill>,
   intl: IntlShape,
 ): string {
   if (!userSkill || !userSkill.skill || !userSkill.skillLevel) {
