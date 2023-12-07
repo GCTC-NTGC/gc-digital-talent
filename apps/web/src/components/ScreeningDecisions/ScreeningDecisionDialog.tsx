@@ -25,11 +25,9 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getAssessmentStepType,
-  getBehaviouralSkillLevel,
   getBehaviouralSkillLevelDefinition,
   getLocale,
   getLocalizedName,
-  getTechnicalSkillLevel,
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -54,6 +52,7 @@ import {
   convertFormValuesToApiUpdateInput,
   FormValuesToApiCreateInputArgs,
   FormValuesToApiUpdateInputArgs,
+  getLocalizedSkillLevel,
 } from "./utils";
 
 const AssessmentStepTypeSection = ({
@@ -66,6 +65,7 @@ const AssessmentStepTypeSection = ({
   educationRequirementOption: React.ReactNode;
 }) => {
   const intl = useIntl();
+  const localizedSkillLevel = getLocalizedSkillLevel(userSkill, intl);
   switch (type) {
     case "EDUCATION":
       return (
@@ -105,22 +105,7 @@ const AssessmentStepTypeSection = ({
                     },
                     {
                       skillName: getLocalizedName(userSkill?.skill.name, intl),
-                      skillLevel:
-                        userSkill?.skill.category === SkillCategory.Technical
-                          ? intl.formatMessage(
-                              getTechnicalSkillLevel(
-                                userSkill?.skillLevel
-                                  ? userSkill.skillLevel
-                                  : 0,
-                              ),
-                            )
-                          : intl.formatMessage(
-                              getBehaviouralSkillLevel(
-                                userSkill?.skillLevel
-                                  ? userSkill.skillLevel
-                                  : 0,
-                              ),
-                            ),
+                      skillLevel: localizedSkillLevel,
                     },
                   )}
                 </Accordion.Trigger>
@@ -143,11 +128,7 @@ const AssessmentStepTypeSection = ({
                           data-h2-margin-bottom="base(x1)"
                           data-h2-font-weight="base(bold)"
                         >
-                          {intl.formatMessage(
-                            userSkill.skill.category === SkillCategory.Technical
-                              ? getTechnicalSkillLevel(userSkill.skillLevel)
-                              : getBehaviouralSkillLevel(userSkill.skillLevel),
-                          )}
+                          {localizedSkillLevel}
                         </p>
                         <p>
                           {intl.formatMessage(
@@ -277,7 +258,7 @@ export const ScreeningDecisionDialog = ({
     customTitle: getLocalizedName(assessmentStep?.title, intl),
     candidateName: poolCandidate.user.firstName,
     skillName: getLocalizedName(userSkill?.skill.name, intl),
-    skillLevel: userSkill?.skillLevel,
+    skillLevel: getLocalizedSkillLevel(userSkill, intl),
   });
   const labels = useLabels();
   const [isOpen, setIsOpen] = React.useState(true);

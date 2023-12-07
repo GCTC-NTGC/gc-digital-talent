@@ -1,8 +1,17 @@
+import { IntlShape, MessageDescriptor, useIntl } from "react-intl";
+
 import {
   AssessmentResultType,
   CreateAssessmentResultInput,
+  SkillCategory,
   UpdateAssessmentResultInput,
+  UserSkill,
 } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  getBehaviouralSkillLevel,
+  getTechnicalSkillLevel,
+} from "@gc-digital-talent/i18n";
 
 import { FormValues } from "./ScreeningDecisionDialogForm";
 
@@ -72,4 +81,19 @@ export function convertFormValuesToApiUpdateInput({
     otherJustificationNotes,
     skillDecisionNotes,
   };
+}
+
+export function getLocalizedSkillLevel(
+  userSkill?: UserSkill,
+  intl: IntlShape,
+): string {
+  if (!userSkill || !userSkill.skill || !userSkill.skillLevel) {
+    return intl.formatMessage(commonMessages.notFound);
+  }
+
+  if (userSkill.skill.category === SkillCategory.Technical) {
+    return intl.formatMessage(getTechnicalSkillLevel(userSkill.skillLevel));
+  }
+
+  return intl.formatMessage(getBehaviouralSkillLevel(userSkill.skillLevel));
 }
