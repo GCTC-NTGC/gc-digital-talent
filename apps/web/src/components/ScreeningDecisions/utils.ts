@@ -27,16 +27,26 @@ export function convertFormValuesToApiCreateInput({
   skillId,
   assessmentResultType,
 }: FormValuesToApiCreateInputArgs): CreateAssessmentResultInput {
+  const {
+    assessmentDecision,
+    assessmentDecisionLevel,
+    justifications,
+    otherJustificationNotes,
+    skillDecisionNotes,
+  } = formValues;
+
   return {
     assessmentStepId,
     poolCandidateId,
-    assessmentDecision: formValues.assessmentDecision,
-    assessmentDecisionLevel: formValues.assessmentDecisionLevel,
+    assessmentDecision,
+    assessmentDecisionLevel,
     assessmentResultType,
-    justifications: formValues.justifications,
-    otherJustificationNotes: formValues.notesForThisAssessment,
+    justifications: Array.isArray(justifications)
+      ? [...justifications]
+      : [justifications],
+    otherJustificationNotes,
     poolSkillId: skillId,
-    skillDecisionNotes: formValues.skillDecisionNotes,
+    skillDecisionNotes,
   };
 }
 export function convertFormValuesToApiUpdateInput({
@@ -44,13 +54,22 @@ export function convertFormValuesToApiUpdateInput({
   assessmentResultId,
   assessmentResultType,
 }: FormValuesToApiUpdateInputArgs): UpdateAssessmentResultInput {
+  const {
+    assessmentDecision,
+    assessmentDecisionLevel,
+    justifications,
+    otherJustificationNotes,
+    skillDecisionNotes,
+  } = formValues;
   return {
     id: assessmentResultId,
-    assessmentDecision: formValues.assessmentDecision,
-    assessmentDecisionLevel: formValues.assessmentDecisionLevel,
+    assessmentDecision,
+    assessmentDecisionLevel,
     assessmentResultType,
-    justifications: formValues.justifications,
-    otherJustificationNotes: formValues.notesForThisAssessment,
-    skillDecisionNotes: formValues.skillDecisionNotes,
+    justifications: Array.isArray(justifications)
+      ? [...justifications]
+      : [justifications],
+    otherJustificationNotes,
+    skillDecisionNotes,
   };
 }
