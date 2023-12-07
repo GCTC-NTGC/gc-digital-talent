@@ -11,6 +11,8 @@ import {
   TreeView,
   Heading,
   CardBasic,
+  Sidebar,
+  Accordion,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -18,6 +20,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import PageHeader from "~/components/PageHeader";
 import {
@@ -43,8 +46,8 @@ import applicationMessages from "~/messages/applicationMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
-import SkillTree from "../../Applications/ApplicationSkillsPage/components/SkillTree";
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
 import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
@@ -54,6 +57,7 @@ import CareerTimelineSection from "./components/CareerTimelineSection/CareerTime
 import ApplicationStatusForm from "./components/ApplicationStatusForm";
 import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
 import ApplicationPrintButton from "./components/ApplicationPrintButton/ApplicationPrintButton";
+import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -71,6 +75,7 @@ export const ViewPoolCandidate = ({
   pools,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
+  const features = useFeatureFlags();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -263,270 +268,308 @@ export const ViewPoolCandidate = ({
       ? snapshotCandidate.pool.classifications[0]?.group
       : "";
 
-    mainContent = (
-      <>
-        {subTitle}
-        <TableOfContents.Section id={sections.minExperience.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.minExperience.title}
-          </TableOfContents.Heading>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Requirement selection: <strong>{educationRequirementOption}</strong>.",
-                id: "J3Ud6R",
-                description:
-                  "Application snapshot minimum experience section description",
-              },
-              {
-                educationRequirementOption: intl.formatMessage(
-                  snapshotCandidate?.educationRequirementOption
-                    ? getEducationRequirementOption(
-                        snapshotCandidate.educationRequirementOption,
-                        classificationGroup,
-                      )
-                    : commonMessages.notAvailable,
-                ),
-              },
-            )}
-          </p>
-          {snapshotCandidate?.educationRequirementExperiences?.length ? (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Demonstrated with the following experiences:",
-                  id: "tpTntk",
-                  description:
-                    "Lead in text for experiences that demonstrate minimum education experience",
-                })}
-              </p>
-              <TreeView.Root>
-                <ExperienceTreeItems
-                  experiences={snapshotCandidate?.educationRequirementExperiences.filter(
-                    notEmpty,
-                  )}
-                />
-              </TreeView.Root>
-            </>
-          ) : null}
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.essentialSkills.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.essentialSkills.title}
-          </TableOfContents.Heading>
-          {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Represented by the following experiences:",
-                  id: "mDowK/",
-                  description:
-                    "Lead in text for experiences that represent the users skills",
-                })}
-              </p>
-              {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-                (requiredTechnicalSkill) => (
-                  <SkillTree
-                    key={requiredTechnicalSkill.id}
-                    skill={requiredTechnicalSkill}
-                    experiences={
-                      parsedSnapshot.experiences?.filter(notEmpty) || []
-                    }
-                    showDisclaimer
-                    hideConnectButton
-                    hideEdit
-                    disclaimerMessage={
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "There are no experiences attached to this skill.",
-                          id: "XrfkBm",
-                          description:
-                            "Message displayed when no experiences have been attached to a skill",
-                        })}
-                      </p>
-                    }
-                  />
-                ),
-              )}
-            </>
-          ) : null}
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.assetSkills.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.assetSkills.title}
-          </TableOfContents.Heading>
-          {categorizedAssetSkills[SkillCategory.Technical]?.length ? (
-            <AssetSkillsFiltered
-              poolAssetSkills={categorizedAssetSkills[SkillCategory.Technical]}
-              experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
-            />
-          ) : null}
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.questions.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.questions.title}
-          </TableOfContents.Heading>
-          {snapshotCandidate?.screeningQuestionResponses
-            ?.filter(notEmpty)
-            .map((response) => (
-              <React.Fragment key={response.id}>
-                <Heading level="h5" size="h6" data-h2-margin-bottom="base(x.5)">
-                  {getLocalizedName(
-                    response?.screeningQuestion?.question,
-                    intl,
-                  )}
-                </Heading>
-                <div
-                  data-h2-background-color="base(white) base:dark(black)"
-                  data-h2-padding="base(x1)"
-                  data-h2-border-left="base(x.5 solid primary)"
-                  data-h2-radius="base(0 rounded rounded 0)"
-                  data-h2-shadow="base(medium)"
-                >
-                  <p>{response.answer}</p>
-                </div>
-              </React.Fragment>
-            ))}
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.careerTimeline.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.careerTimeline.title}
-          </TableOfContents.Heading>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "The following is the applicant's career timeline:",
-              id: "ghcC8V",
-              description:
-                "Lead-in text for the snapshot career timeline section",
-            })}
-          </p>
+    if (features.recordOfDecision) {
+      mainContent = (
+        <>
+          <ApplicationInformation
+            pool={poolCandidate.pool}
+            snapshot={parsedSnapshot}
+            application={snapshotCandidate}
+          />
+          <div data-h2-margin="base(x2 0)">
+            <Accordion.Root type="single" mode="card" collapsible>
+              <Accordion.Item value="otherRecruitments">
+                <Accordion.Trigger>
+                  {intl.formatMessage({
+                    defaultMessage: "Other recruitments",
+                    id: "kZs3Nk",
+                    description:
+                      "Heading for table of a users other applications and recruitments",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <PoolStatusTable user={poolCandidate.user} pools={pools} />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          </div>
           <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.personal.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.personal.title}
-          </TableOfContents.Heading>
-          <CardBasic>
-            <PersonalInformationDisplay user={parsedSnapshot as User} />
-          </CardBasic>
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.work.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.work.title}
-          </TableOfContents.Heading>
-          <CardBasic>
-            <WorkPreferencesDisplay user={parsedSnapshot as User} />
-          </CardBasic>
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.dei.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.dei.title}
-          </TableOfContents.Heading>
-          <CardBasic>
-            <DiversityEquityInclusionDisplay user={parsedSnapshot as User} />
-          </CardBasic>
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.government.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.government.title}
-          </TableOfContents.Heading>
-          <CardBasic>
-            <GovernmentInformationDisplay user={parsedSnapshot as User} />
-          </CardBasic>
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.language.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.language.title}
-          </TableOfContents.Heading>
-          <CardBasic>
-            <LanguageProfileDisplay user={parsedSnapshot as User} />
-          </CardBasic>
-        </TableOfContents.Section>
-        <TableOfContents.Section id={sections.signature.id}>
-          <TableOfContents.Heading
-            as="h4"
-            size="h5"
-            data-h2-margin="base(x2 0 x.5 0)"
-          >
-            {sections.signature.title}
-          </TableOfContents.Heading>
-          <p data-h2-margin="base(0, 0, x1, 0)">
-            {intl.formatMessage(applicationMessages.confirmationLead)}
-          </p>
-          <ul>
-            <li>
-              {intl.formatMessage(applicationMessages.confirmationReview)}
-            </li>
-            <li>
-              {intl.formatMessage(applicationMessages.confirmationCommunity)}
-            </li>
-            <li>{intl.formatMessage(applicationMessages.confirmationTrue)}</li>
-          </ul>
-          <Heading
-            level="h6"
-            data-h2-font-size="base(copy)"
-            data-h2-font-weight="base(400)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Signed",
-              id: "fEcEv3",
-              description:
-                "Heading for the application snapshot users signature",
-            })}
-          </Heading>
-          <CardBasic data-h2-shadow="base(none)">
-            <p data-h2-font-weight="base(700)">
-              {snapshotCandidate?.signature ||
-                intl.formatMessage(commonMessages.notProvided)}
+        </>
+      );
+    } else {
+      mainContent = (
+        <>
+          {subTitle}
+          <TableOfContents.Section id={sections.minExperience.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.minExperience.title}
+            </TableOfContents.Heading>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Requirement selection: <strong>{educationRequirementOption}</strong>.",
+                  id: "J3Ud6R",
+                  description:
+                    "Application snapshot minimum experience section description",
+                },
+                {
+                  educationRequirementOption: intl.formatMessage(
+                    snapshotCandidate?.educationRequirementOption
+                      ? getEducationRequirementOption(
+                          snapshotCandidate.educationRequirementOption,
+                          classificationGroup,
+                        )
+                      : commonMessages.notAvailable,
+                  ),
+                },
+              )}
             </p>
-          </CardBasic>
-        </TableOfContents.Section>
-      </>
-    );
+            {snapshotCandidate?.educationRequirementExperiences?.length ? (
+              <>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Demonstrated with the following experiences:",
+                    id: "tpTntk",
+                    description:
+                      "Lead in text for experiences that demonstrate minimum education experience",
+                  })}
+                </p>
+                <TreeView.Root>
+                  <ExperienceTreeItems
+                    experiences={snapshotCandidate?.educationRequirementExperiences.filter(
+                      notEmpty,
+                    )}
+                  />
+                </TreeView.Root>
+              </>
+            ) : null}
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.essentialSkills.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.essentialSkills.title}
+            </TableOfContents.Heading>
+            {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
+              <>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Represented by the following experiences:",
+                    id: "mDowK/",
+                    description:
+                      "Lead in text for experiences that represent the users skills",
+                  })}
+                </p>
+                {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+                  (requiredTechnicalSkill) => (
+                    <SkillTree
+                      key={requiredTechnicalSkill.id}
+                      skill={requiredTechnicalSkill}
+                      experiences={
+                        parsedSnapshot.experiences?.filter(notEmpty) || []
+                      }
+                      showDisclaimer
+                      hideConnectButton
+                      hideEdit
+                      disclaimerMessage={
+                        <p>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "There are no experiences attached to this skill.",
+                            id: "XrfkBm",
+                            description:
+                              "Message displayed when no experiences have been attached to a skill",
+                          })}
+                        </p>
+                      }
+                    />
+                  ),
+                )}
+              </>
+            ) : null}
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.assetSkills.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.assetSkills.title}
+            </TableOfContents.Heading>
+            {categorizedAssetSkills[SkillCategory.Technical]?.length ? (
+              <AssetSkillsFiltered
+                poolAssetSkills={
+                  categorizedAssetSkills[SkillCategory.Technical]
+                }
+                experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
+              />
+            ) : null}
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.questions.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.questions.title}
+            </TableOfContents.Heading>
+            {snapshotCandidate?.screeningQuestionResponses
+              ?.filter(notEmpty)
+              .map((response) => (
+                <React.Fragment key={response.id}>
+                  <Heading
+                    level="h5"
+                    size="h6"
+                    data-h2-margin-bottom="base(x.5)"
+                  >
+                    {getLocalizedName(
+                      response?.screeningQuestion?.question,
+                      intl,
+                    )}
+                  </Heading>
+                  <div
+                    data-h2-background-color="base(white) base:dark(black)"
+                    data-h2-padding="base(x1)"
+                    data-h2-border-left="base(x.5 solid primary)"
+                    data-h2-radius="base(0 rounded rounded 0)"
+                    data-h2-shadow="base(medium)"
+                  >
+                    <p>{response.answer}</p>
+                  </div>
+                </React.Fragment>
+              ))}
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.careerTimeline.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.careerTimeline.title}
+            </TableOfContents.Heading>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "The following is the applicant's career timeline:",
+                id: "ghcC8V",
+                description:
+                  "Lead-in text for the snapshot career timeline section",
+              })}
+            </p>
+            <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.personal.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.personal.title}
+            </TableOfContents.Heading>
+            <CardBasic>
+              <PersonalInformationDisplay user={parsedSnapshot as User} />
+            </CardBasic>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.work.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.work.title}
+            </TableOfContents.Heading>
+            <CardBasic>
+              <WorkPreferencesDisplay user={parsedSnapshot as User} />
+            </CardBasic>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.dei.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.dei.title}
+            </TableOfContents.Heading>
+            <CardBasic>
+              <DiversityEquityInclusionDisplay user={parsedSnapshot as User} />
+            </CardBasic>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.government.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.government.title}
+            </TableOfContents.Heading>
+            <CardBasic>
+              <GovernmentInformationDisplay user={parsedSnapshot as User} />
+            </CardBasic>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.language.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.language.title}
+            </TableOfContents.Heading>
+            <CardBasic>
+              <LanguageProfileDisplay user={parsedSnapshot as User} />
+            </CardBasic>
+          </TableOfContents.Section>
+          <TableOfContents.Section id={sections.signature.id}>
+            <TableOfContents.Heading
+              as="h4"
+              size="h5"
+              data-h2-margin="base(x2 0 x.5 0)"
+            >
+              {sections.signature.title}
+            </TableOfContents.Heading>
+            <p data-h2-margin="base(0, 0, x1, 0)">
+              {intl.formatMessage(applicationMessages.confirmationLead)}
+            </p>
+            <ul>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationReview)}
+              </li>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationCommunity)}
+              </li>
+              <li>
+                {intl.formatMessage(applicationMessages.confirmationTrue)}
+              </li>
+            </ul>
+            <Heading
+              level="h6"
+              data-h2-font-size="base(copy)"
+              data-h2-font-weight="base(400)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Signed",
+                id: "fEcEv3",
+                description:
+                  "Heading for the application snapshot users signature",
+              })}
+            </Heading>
+            <CardBasic data-h2-shadow="base(none)">
+              <p data-h2-font-weight="base(700)">
+                {snapshotCandidate?.signature ||
+                  intl.formatMessage(commonMessages.notProvided)}
+              </p>
+            </CardBasic>
+          </TableOfContents.Section>
+        </>
+      );
+    }
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
       <>
@@ -572,150 +615,172 @@ export const ViewPoolCandidate = ({
             "Heading displayed above the pool candidate application page.",
         })}
       </PageHeader>
-      <p data-h2-margin="base(-x1, 0, x1, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
-            id: "V2vBbu",
-            description:
-              "Snapshot details displayed above the pool candidate application page.",
-          },
-          {
-            submittedAt: poolCandidate.submittedAt,
-            poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
-          },
-        )}
-      </p>
-      <Separator
-        data-h2-background-color="base(black.lightest)"
-        data-h2-margin="base(x1, 0, x1, 0)"
-      />
-      {parsedSnapshot && (
-        <div
-          data-h2-container="base(center, large, 0)"
-          data-h2-text-align="base(right)"
-          data-h2-margin-right="base(0)"
-        >
-          <ApplicationPrintButton
-            user={parsedSnapshot}
-            pool={poolCandidate.pool}
-            color="primary"
-            mode="solid"
-          />
-        </div>
-      )}
-      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
-        <TableOfContents.Navigation>
-          <TableOfContents.List>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={sections.statusForm.id}>
-                {sections.statusForm.title}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={sections.poolInformation.id}>
-                {sections.poolInformation.title}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={sections.snapshot.id}>
-                {sections.snapshot.title}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            {showRichSnapshot && (
-              <>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.minExperience.id}>
-                    {sections.minExperience.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.essentialSkills.id}>
-                    {sections.essentialSkills.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.assetSkills.id}>
-                    {sections.assetSkills.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.questions.id}>
-                    {sections.questions.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.careerTimeline.id}>
-                    {sections.careerTimeline.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.personal.id}>
-                    {sections.personal.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.work.id}>
-                    {sections.work.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.dei.id}>
-                    {sections.dei.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.government.id}>
-                    {sections.government.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.language.id}>
-                    {sections.language.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.signature.id}>
-                    {sections.signature.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              </>
+      {!features.recordOfDecision ? (
+        <>
+          <p data-h2-margin="base(-x1, 0, x1, 0)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
+                id: "V2vBbu",
+                description:
+                  "Snapshot details displayed above the pool candidate application page.",
+              },
+              {
+                submittedAt: poolCandidate.submittedAt,
+                poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
+              },
             )}
-          </TableOfContents.List>
-        </TableOfContents.Navigation>
-        <TableOfContents.Content>
-          <TableOfContents.Section id={sections.statusForm.id}>
-            <TableOfContents.Heading
-              data-h2-margin="base(0, 0, x1, 0)"
-              data-h2-font-weight="base(800)"
-              as="h3"
+          </p>
+          <Separator
+            data-h2-background-color="base(black.lightest)"
+            data-h2-margin="base(x1, 0, x1, 0)"
+          />
+          {parsedSnapshot && (
+            <div
+              data-h2-container="base(center, large, 0)"
+              data-h2-text-align="base(right)"
+              data-h2-margin-right="base(0)"
             >
-              {sections.statusForm.title}
-            </TableOfContents.Heading>
+              <ApplicationPrintButton
+                user={parsedSnapshot}
+                pool={poolCandidate.pool}
+                color="primary"
+                mode="solid"
+              />
+            </div>
+          )}
+          <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+            <TableOfContents.Navigation>
+              <TableOfContents.List>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.statusForm.id}>
+                    {sections.statusForm.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.poolInformation.id}>
+                    {sections.poolInformation.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={sections.snapshot.id}>
+                    {sections.snapshot.title}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                {showRichSnapshot && (
+                  <>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink
+                        id={sections.minExperience.id}
+                      >
+                        {sections.minExperience.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink
+                        id={sections.essentialSkills.id}
+                      >
+                        {sections.essentialSkills.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.assetSkills.id}>
+                        {sections.assetSkills.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.questions.id}>
+                        {sections.questions.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink
+                        id={sections.careerTimeline.id}
+                      >
+                        {sections.careerTimeline.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.personal.id}>
+                        {sections.personal.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.work.id}>
+                        {sections.work.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.dei.id}>
+                        {sections.dei.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.government.id}>
+                        {sections.government.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.language.id}>
+                        {sections.language.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                    <TableOfContents.ListItem>
+                      <TableOfContents.AnchorLink id={sections.signature.id}>
+                        {sections.signature.title}
+                      </TableOfContents.AnchorLink>
+                    </TableOfContents.ListItem>
+                  </>
+                )}
+              </TableOfContents.List>
+            </TableOfContents.Navigation>
+            <TableOfContents.Content>
+              <TableOfContents.Section id={sections.statusForm.id}>
+                <TableOfContents.Heading
+                  data-h2-margin="base(0, 0, x1, 0)"
+                  data-h2-font-weight="base(800)"
+                  as="h3"
+                >
+                  {sections.statusForm.title}
+                </TableOfContents.Heading>
+                <ApplicationStatusForm id={poolCandidate.id} />
+                <Separator
+                  data-h2-background-color="base(black.lightest)"
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={sections.poolInformation.id}>
+                <TableOfContents.Heading
+                  data-h2-margin="base(x1, 0, x1, 0)"
+                  data-h2-font-weight="base(800)"
+                  as="h3"
+                >
+                  {sections.poolInformation.title}
+                </TableOfContents.Heading>
+                <PoolStatusTable user={poolCandidate.user} pools={pools} />
+                <Separator
+                  data-h2-background-color="base(black.lightest)"
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                />
+              </TableOfContents.Section>
+              {mainContent}
+            </TableOfContents.Content>
+          </TableOfContents.Wrapper>
+        </>
+      ) : (
+        <Sidebar.Wrapper>
+          <Sidebar.Content>
+            {/**
+             * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
+             *
+             * This is here to keep tests passing
+             */}
             <ApplicationStatusForm id={poolCandidate.id} />
-            <Separator
-              data-h2-background-color="base(black.lightest)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.poolInformation.id}>
-            <TableOfContents.Heading
-              data-h2-margin="base(x1, 0, x1, 0)"
-              data-h2-font-weight="base(800)"
-              as="h3"
-            >
-              {sections.poolInformation.title}
-            </TableOfContents.Heading>
-            <PoolStatusTable user={poolCandidate.user} pools={pools} />
-            <Separator
-              data-h2-background-color="base(black.lightest)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            />
-          </TableOfContents.Section>
-          {mainContent}
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
+            {mainContent}
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
+      )}
     </>
   );
 };
