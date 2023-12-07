@@ -23,7 +23,7 @@
     "@formatjs/ts-transformer": "^3.13.9",
     "@storybook/addon-a11y": "^7.6.3",
     "@storybook/addon-essentials": "^7.6.3",
-    "@storybook/addon-links": "^7.6.2",
+    "@storybook/addon-links": "^7.6.4",
     "@storybook/addon-viewport": "^7.6.2",
     "@storybook/addons": "^7.6.2",
     "@storybook/react-webpack5": "^7.6.3",
