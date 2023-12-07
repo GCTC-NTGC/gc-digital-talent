@@ -2204,7 +2204,7 @@
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
   },
   "ARSDO1": {
-    "defaultMessage": "Localisation, langue et sécurité.",
+    "defaultMessage": "Lieu, langue et sécurité.",
     "description": "Title for the location, language and security section of a pool advertisement"
   },
   "ASNC88": {
@@ -3476,7 +3476,7 @@
     "description": "Default message for an empty table"
   },
   "H7M6Yv": {
-    "defaultMessage": "Localisation :",
+    "defaultMessage": "Lieu :",
     "description": "Label for pool advertisement location requirement"
   },
   "H8cs1r": {
