@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
+ * @property boolean $is_bookmarked
  */
 class PoolCandidate extends Model
 {
@@ -79,6 +80,15 @@ class PoolCandidate extends Model
         'profile_snapshot',
         'expiry_date',
         'pool_candidate_status',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_bookmarked' => false,
     ];
 
     /**

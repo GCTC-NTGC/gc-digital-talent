@@ -267,6 +267,7 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  isBookmarked: Boolean! @rename(attribute: "is_bookmarked")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -708,6 +709,7 @@ type Query {
     where: PoolCandidateSearchInput
     orderBy: _
       @orderBy(
+        columns: ["is_bookmarked"]
         relations: [
           {
             relation: "user"
@@ -1047,6 +1049,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -1061,6 +1064,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1542,6 +1546,9 @@ type Mutation {
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
+  togglePoolCandidateBookmark(id: ID!): Boolean
+    @guard
+    @can(ability: "updateAsAdmin", find: "id", model: "poolCandidate")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
