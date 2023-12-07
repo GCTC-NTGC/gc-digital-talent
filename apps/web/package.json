@@ -89,7 +89,7 @@
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.39",
     "@types/react-dom": "^18.2.17",
-    "@types/react-helmet": "^6.1.9",
+    "@types/react-helmet": "^6.1.11",
     "babel-plugin-formatjs": "^10.5.10",
     "core-js": "^3.33.3",
     "eslint": "^8.54.0",
