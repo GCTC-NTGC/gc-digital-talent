@@ -35,6 +35,7 @@ interface ExperienceSkillFormDialogProps {
   skill?: Skill;
   experience?: Experience;
   availableExperiences?: Experience[];
+  experienceSkills?: Skill[];
   trigger?: React.ReactNode;
 }
 
@@ -43,6 +44,7 @@ const ExperienceSkillFormDialog = ({
   experience,
   trigger,
   availableExperiences,
+  experienceSkills,
   onSave,
 }: ExperienceSkillFormDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -93,6 +95,7 @@ const ExperienceSkillFormDialog = ({
         <Dialog.Body>
           <ExperienceSkillForm
             experiences={experiences}
+            experienceSkills={experienceSkills ?? []}
             defaultValues={deriveDefaultValues(skill, experience)}
             onSuccess={handleSuccess}
           />

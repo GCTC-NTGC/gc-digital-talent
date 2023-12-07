@@ -39,6 +39,7 @@ type EditMode = "link" | "dialog";
 
 interface ExperienceCardProps {
   experience: AnyExperience;
+  allSkills?: Skill[];
   headingLevel?: HeadingRank;
   showSkills?: boolean | Skill | Array<Skill>;
   showEdit?: boolean;
@@ -53,6 +54,7 @@ interface ExperienceCardProps {
 
 const ExperienceCard = ({
   experience,
+  allSkills,
   editParam,
   editPath: editPathProp,
   editMode = "link",
@@ -112,6 +114,7 @@ const ExperienceCard = ({
         skill={linkTo}
         trigger={editTrigger}
         experience={experience}
+        experienceSkills={allSkills}
       />
     );
 
