@@ -16,7 +16,7 @@ The current implementation of collocation occurs by placing any `*.operations.gr
 
 ### 👺 Masking
 
-With the fragments, we can use what is referred to as "fragment masking". What this provides is a way to strongly type the specific fragment used in a query for our consumption. Previously, we had some problems where we added additional information to a component, but since our type system was very relaxed (it showed us what *could* be queried, not what *was* queried) we sometimes forgot to update the query and ended up with empty values.
+Fragment masking provides a way to strongly type the specific fragment used in a query for our consumption. Previously, some problems existed in the codebase where additional information was added to a component, but since the type system was very relaxed (it showed what *could* be queried, not what *was* being queried), sometimes the query was not updated and ended up with empty values.
 
 With fragment masking, a type error is returned if data is used that was never queried along with triggering a build error.
 

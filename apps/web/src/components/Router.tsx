@@ -1824,7 +1824,7 @@ const Router = () => {
     <RouterProvider
       router={router}
       fallbackElement={<Loading />}
-      // Note: We do not have control over this
+      // Note: This is required for turning on a version 7 feature flag in react-router: https://reactrouter.com/en/main/routers/router-provider#future
       // eslint-disable-next-line camelcase
       future={{ v7_startTransition: true }}
     />
