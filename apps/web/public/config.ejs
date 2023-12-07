@@ -16,7 +16,6 @@ const data = new Map([
     ["FEATURE_SKILL_LIBRARY", filterUnusable("$FEATURE_SKILL_LIBRARY") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_SKILL_LIBRARY %>"],
     ["FEATURE_DIRECTIVE_FORMS", filterUnusable("$FEATURE_DIRECTIVE_FORMS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTIVE_FORMS %>"],
     ["FEATURE_RECORD_OF_DECISION", filterUnusable("$FEATURE_RECORD_OF_DECISION") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_RECORD_OF_DECISION %>"],
-    ["FEATURE_EXECUTIVE_TEASER", filterUnusable("$FEATURE_EXECUTIVE_TEASER") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_EXECUTIVE_TEASER %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],

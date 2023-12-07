@@ -5,7 +5,6 @@ import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -46,7 +45,6 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
-  const { executiveTeaser } = useFeatureFlags();
 
   const title = intl.formatMessage({
     defaultMessage: "Browse jobs",
@@ -136,72 +134,49 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           <div>
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
-          {executiveTeaser && (
-            <CallToActionCard
-              heading={intl.formatMessage({
-                defaultMessage: "Executive (EX) process coming soon",
-                id: "dFCH1c",
-                description: "Heading for the teaser of executive processes",
-              })}
-              link={profileLink}
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Our first executive (EX) process for an EX-03 position will be published on the GC Digital Talent platform in November 2023. Check this space for an opportunity to submit your candidacy to be a digital leader in government.",
-                  id: "3yg5j7",
-                  description:
-                    "Text describing upcoming executive opportunities instructing users to create a profile when anonymous",
-                })}
-              </p>
-            </CallToActionCard>
-          )}
           {ongoingRecruitmentPools.length > 0 && (
             <div>
               <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
             </div>
           )}
-          {!executiveTeaser && (
-            <CallToActionCard
-              heading={
-                areOpportunitiesShowing
-                  ? intl.formatMessage({
-                      defaultMessage: "More opportunities are coming soon!",
-                      id: "g+JcDC",
-                      description:
-                        "Heading for message about upcoming opportunities",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "No opportunities are available right now, but more are coming soon!",
-                      id: "xHjgXz",
-                      description:
-                        "Text displayed when there are no pool advertisements to display",
-                    })
-              }
-              link={profileLink}
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              <p>
-                {loggedIn
-                  ? intl.formatMessage({
-                      defaultMessage:
-                        "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                      id: "9SZDCq",
-                      description:
-                        "Text describing upcoming opportunities instructing users to update a profile when signed in",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                      id: "3sbLPV",
-                      description:
-                        "Text describing upcoming opportunities instructing users to create a profile when anonymous",
-                    })}
-              </p>
-            </CallToActionCard>
-          )}
+          <CallToActionCard
+            heading={
+              areOpportunitiesShowing
+                ? intl.formatMessage({
+                    defaultMessage: "More opportunities are coming soon!",
+                    id: "g+JcDC",
+                    description:
+                      "Heading for message about upcoming opportunities",
+                  })
+                : intl.formatMessage({
+                    defaultMessage:
+                      "No opportunities are available right now, but more are coming soon!",
+                    id: "xHjgXz",
+                    description:
+                      "Text displayed when there are no pool advertisements to display",
+                  })
+            }
+            link={profileLink}
+            data-h2-margin="base(x1, 0, 0, 0)"
+          >
+            <p>
+              {loggedIn
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                    id: "9SZDCq",
+                    description:
+                      "Text describing upcoming opportunities instructing users to update a profile when signed in",
+                  })
+                : intl.formatMessage({
+                    defaultMessage:
+                      "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                    id: "3sbLPV",
+                    description:
+                      "Text describing upcoming opportunities instructing users to create a profile when anonymous",
+                  })}
+            </p>
+          </CallToActionCard>
         </div>
         <img
           alt=""
