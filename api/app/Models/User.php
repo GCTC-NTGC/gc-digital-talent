@@ -693,22 +693,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
-    /* accessor to maintain functionality of to be deprecated isIndigenous field */
-    public function getIsIndigenousAttribute()
-    {
-        $indigenousCommunities = $this->indigenous_communities;
-
-        if ($indigenousCommunities && in_array(IndigenousCommunity::LEGACY_IS_INDIGENOUS->name, $indigenousCommunities)) {
-            return true;
-        }
-
-        if (gettype($indigenousCommunities) == 'array') {
-            return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
-        }
-
-        return null; // if indigenousCommunities is null then so is isIndigenous
-    }
-
     // Prepares the parameters for Laratrust and then calls the function to modify the roles
     private function callRolesFunction($rolesInput, $functionName)
     {
