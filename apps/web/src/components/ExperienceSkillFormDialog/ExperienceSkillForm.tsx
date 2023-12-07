@@ -32,34 +32,14 @@ const getSkillArgs = (
     (experienceSkill) => experienceSkill.id === skillId,
   );
 
-  if (!isExisting && !remove) {
-    return {
-      connect: [
-        {
-          id: skillId,
-          details,
-        },
-      ],
-    };
-  }
+  if (!remove) {
+    const args = [{ id: skillId, details }];
 
-  // Disconnect if we are removing
-  if (remove) {
-    return {
-      disconnect: [skillId],
-    };
+    return isExisting ? { update: args } : { connect: args };
   }
-
-  // Massage data for an update to single experienceSkillRecord
-  const newExperienceSkills = experience?.skills?.map(
-    ({ id, experienceSkillRecord }) => ({
-      id,
-      details: id !== skillId ? experienceSkillRecord?.details : details,
-    }),
-  );
 
   return {
-    sync: newExperienceSkills,
+    disconnect: [skillId],
   };
 };
 
