@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import {
+  commonMessages,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
@@ -31,8 +32,10 @@ const Display = ({
     ) || [];
   const isIndigenous =
     indigenousCommunities && indigenousCommunities.length > 0;
+  const hasClaimedEquityGroup =
+    isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
-  return (
+  return hasClaimedEquityGroup ? (
     <>
       <ul>
         {isWoman && (
@@ -91,6 +94,8 @@ const Display = ({
         })}
       </p>
     </>
+  ) : (
+    <p>{intl.formatMessage(commonMessages.notProvided)}</p>
   );
 };
 

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import Well from "@gc-digital-talent/ui/src/components/Well";
 
 import { Experience, Skill } from "~/api/generated";
-import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
+import SkillTree from "~/components/SkillTree/SkillTree";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 
 interface AssetSkillsFilteredProps {

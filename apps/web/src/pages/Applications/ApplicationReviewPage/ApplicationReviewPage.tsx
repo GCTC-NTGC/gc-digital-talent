@@ -29,8 +29,8 @@ import applicationMessages from "~/messages/applicationMessages";
 import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
-import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";

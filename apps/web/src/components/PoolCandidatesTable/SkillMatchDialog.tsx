@@ -10,7 +10,7 @@ import {
   Scalars,
   useGetSkillMatchDialogDataQuery,
 } from "~/api/generated";
-import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
