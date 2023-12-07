@@ -12,9 +12,8 @@ import {
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { Experience, Scalars, Skill } from "~/api/generated";
+import { Experience, Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
   getExperienceName,
@@ -25,7 +24,6 @@ const TEXT_AREA_MAX_WORDS = 160;
 
 const getSkillArgs = (
   skillId: Scalars["ID"],
-  experienceSkills: Skill[],
   experience?: Experience,
   details?: string,
   remove?: boolean,
@@ -53,23 +51,15 @@ const getSkillArgs = (
   }
 
   // Massage data for an update to single experienceSkillRecord
-  const newExperienceSkills = experience?.skills
-    ?.map(({ id, experienceSkillRecord }) => ({
+  const newExperienceSkills = experience?.skills?.map(
+    ({ id, experienceSkillRecord }) => ({
       id,
       details: id !== skillId ? experienceSkillRecord?.details : details,
-    }))
-    .filter(notEmpty);
-
-  const existingSkillExperiences = experienceSkills
-    .filter((skill) => skill.id !== skillId)
-    .map(({ id, experienceSkillRecord }) => ({
-      id,
-      details: experienceSkillRecord?.details ?? "",
-    }))
-    .filter(notEmpty);
+    }),
+  );
 
   return {
-    sync: [...existingSkillExperiences, ...(newExperienceSkills ?? [])],
+    sync: newExperienceSkills,
   };
 };
 
@@ -85,7 +75,6 @@ type FormValues = {
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;
   experiences: Experience[];
-  experienceSkills: Skill[];
   onSuccess: () => void;
 }
 
@@ -93,7 +82,6 @@ const ExperienceSkillForm = ({
   defaultValues,
   onSuccess,
   experiences,
-  experienceSkills,
 }: ExperienceSkillFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
@@ -122,7 +110,6 @@ const ExperienceSkillForm = ({
         ? {
             skills: getSkillArgs(
               formValues.skill,
-              experienceSkills,
               selectedExperience,
               formValues.details,
               formValues.action === "remove",

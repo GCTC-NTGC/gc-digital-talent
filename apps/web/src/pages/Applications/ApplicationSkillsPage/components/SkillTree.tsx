@@ -11,7 +11,6 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -94,7 +93,6 @@ const SkillTree = ({
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 experience={filterExperienceSkills(experience, skill)}
-                allSkills={unpackMaybes(experience.skills)}
                 headingLevel={contentHeadingLevel}
                 showEdit={!hideEdit}
                 showSkills={skill}
