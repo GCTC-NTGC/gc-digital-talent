@@ -1,34 +1,34 @@
 # 🕸️ GraphQL
 
-When consuming our GraphQL API on the client, we use [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) to create and type our operation documents. Then, we execute and cache the queries/mutations using [URQL](https://formidable.com/open-source/urql/).
+When consuming the GraphQL API on the client, [GraphQL Code Generator](https://the-guild.dev/graphql/codegen) is used to create and type the operation documents. The GraphQL client [urql](https://formidable.com/open-source/urql/) is used to execute and cache the queries and mutations.
 
 ## 🌟 Benefits of Codegen
 
-This is a brief summary of an article written explaining the benefits and implementation of codegen's preset. We recommend reading the article "[Unleash the power of Fragments with GraphQL Codegen](https://the-guild.dev/blog/unleash-the-power-of-fragments-with-graphql-codegen)" to get a deeper understanding.
+This is a brief summary of an article that explains the benefits and implementation of codegen's preset. It is recommended to read the original article "[Unleash the power of Fragments with GraphQL Codegen](https://the-guild.dev/blog/unleash-the-power-of-fragments-with-graphql-codegen)" to gain a deeper understanding of the topic.
 
 ### 🧩 Fragments
 
-The preset allows us to better utilize fragments. This means we can compose our queries and build them "bottom up" similar to the react data flow, but in reverse. Instead of writing one large query and pulling out the pieces we need for each component, we can use the component to tell us what it needs and build the query from that.
+The preset allows for better use of fragments. This means that queries can be composed and built from the "bottom up" similar to react's data flow, but in reverse. Instead of writing one large query and pulling out the pieces needed for each component, the component can be referenced for what it needs and build the query from that information.
 
 ### 🗺️ Collocation
 
-Currently, we achieve this by placing our `*.operations.graphql` files as close as possible to the page/component that uses them. Now, we can (and should) place them in the file that uses them. No more hunting for the proper file!
+The current implementation of collocation occurs by placing any `*.operations.graphql` files as close as possible to the page or component that uses them. Now, the possibility exists (and the practice of it is stronger encouraged) to place them in the file that uses them. No more hunting for the proper file!
 
 ### 👺 Masking
 
 With the fragments, we can use what is referred to as "fragment masking". What this provides is a way to strongly type the specific fragment used in a query for our consumption. Previously, we had some problems where we added additional information to a component, but since our type system was very relaxed (it showed us what *could* be queried, not what *was* queried) we sometimes forgot to update the query and ended up with empty values.
 
-Now, we get a type error if we use data we never queried and will get a build error.
+With fragment masking, a type error is returned if data is used that was never queried along with triggering a build error.
 
 ## 🛠️ Implementation
 
-All examples are related and show how we would build a page and its operations bottom up.
+All examples are related and show how to build a page and its operations from the bottom up.
 
 ### ⚛️ Component
 
-When defining a component that needs to consume data from the API, you need to do a few things for the code generator to work.
+When defining a component that needs to consume data from the API, there are a few things to do for the code generator to work.
 
- 1. Import the `graphql` helper which accepts a graphql document string (for components this will be a fragment)
+ 1. Import the `graphql` helper which accepts a graphql document string (for components, this will be a fragment)
  2. Add the fragment to the prop types so it can be passed in
  3. Mask the fragment for strong typing of the fields queried
 
@@ -52,13 +52,13 @@ type PoolCardProps = {
 }
 
 const PoolCard = ({ pool: poolFragment }: PoolCardProps) => {
-  // This extracts and strongly types the fields we defined in the fragment
+  // This extracts and strongly types the fields that were defined in the fragment
   const pool = getFragment(PoolCard_PoolFragment, poolFragment);
 
   return (
     <>
       <p>{getLocalizedName(pool.name, intl)}</p>
-      {/** ⚠️ This will display an error and fail to build since we never queried it in the fragment! */}
+      {/** ⚠️ This will display an error and fail to build since it was never queried it in the fragment! */}
       <p>{pool.stream}<p>
     </>
   );
@@ -68,7 +68,7 @@ const PoolCard = ({ pool: poolFragment }: PoolCardProps) => {
 
 ### 📖 Storybook
 
-Since our props require a specific type that comes from the code generator, we need to massage the mock data we pass into stories. Thankfully, we have a nice little helper to do this.
+Since the props require a specific type that comes from the code generator, the mocked data passed into stories needs to be massaged. Thankfully, there is a nice little helper to do this.
 
 ```tsx
 // PoolCard.stories.tsx
@@ -85,7 +85,7 @@ const Template = () => <PoolCard pool={mockPoolFragment} />;
 
 ### 🧪 Testing
 
-Similar to storybook, we just need to create the fragment using the helper.
+Similar to storybook, create the fragment using the helper.
 
 ```tsx
 // PoolCard.tests.tsx
@@ -110,7 +110,7 @@ test("PoolCard", () => {
 
 ## 📃 Page
 
-Now, we use this component on a page, we can use the defined fragment when building the query.
+For implementing this component on a page, the defined fragment can be used when building the query.
 
 ```tsx
 // PoolList.tsx
