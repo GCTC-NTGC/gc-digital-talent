@@ -80,13 +80,29 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
-
+    protected $touches = ['user'];
     /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
+    }
+     public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            // Check if the 'notes' attribute is being updated
+            if ($model->isDirty('notes')) {
+                // Update the searchable column in the related User model
+                $user = User::find($model->user_id);
+
+                if ($user) {
+                    $user->update(['searchable' => $model->notes]); // Update 'searchable' with the value of 'notes'
+                }
+            }
+        });
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -98,6 +98,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected $fillable = [
         'email',
         'sub',
+        'searchable',
     ];
 
     protected $hidden = [
