@@ -68,7 +68,7 @@ const PoolCard = ({ pool: poolFragment }: PoolCardProps) => {
 
 ### 📖 Storybook
 
-Since the props require a specific type that comes from the code generator, the mocked data passed into stories needs to be massaged. Thankfully, there is a nice little helper to do this.
+Since the props require a specific type that comes from the code generator, the mocked data passed into stories needs to be massaged. Thankfully, there is a nice little helper (`makeFragmentData`) to do this.
 
 ```tsx
 // PoolCard.stories.tsx
@@ -85,7 +85,7 @@ const Template = () => <PoolCard pool={mockPoolFragment} />;
 
 ### 🧪 Testing
 
-Similar to storybook, create the fragment using the helper.
+Similar to storybook, create the fragment using the helper (`makeFragmentData`).
 
 ```tsx
 // PoolCard.tests.tsx
