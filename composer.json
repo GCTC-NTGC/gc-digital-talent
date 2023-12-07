@@ -1,5 +1,0 @@
-{
-    "require": {
-        "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.1"
-    }
-}
