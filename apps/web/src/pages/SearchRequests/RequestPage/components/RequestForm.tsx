@@ -22,6 +22,8 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
+import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+
 import {
   EquitySelections,
   Department,
@@ -39,9 +41,7 @@ import {
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
-} from "@gc-digital-talent/graphql";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
@@ -234,27 +234,31 @@ export const RequestForm = ({
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
     qualifiedClassifications:
-      applicantFilter?.qualifiedClassifications?.map(
-        (qualifiedClassification) => {
+      applicantFilter?.qualifiedClassifications
+        ?.map((qualifiedClassification) => {
           return classifications.find((classification) => {
             return (
               classification.group === qualifiedClassification?.group &&
               classification.level === qualifiedClassification.level
             );
           });
-        },
-      ) ?? [],
+        })
+        .filter(notEmpty) ?? [],
     skills:
-      applicantFilter?.skills?.map((skillId) => {
-        return skills.find((skill) => {
-          return skill && skillId && skill.id === skillId.id;
+      applicantFilter?.skills
+        ?.map((skillId) => {
+          return skills.find((skill) => {
+            return skill && skillId && skill.id === skillId.id;
+          });
+        })
+        .filter(notEmpty) ?? [],
+    pools: applicantFilter?.pools
+      ?.map((poolId) => {
+        return pools.find((pool) => {
+          return pool && poolId && pool.id === poolId.id;
         });
-      }) ?? [],
-    pools: applicantFilter?.pools?.map((poolId) => {
-      return pools.find((pool) => {
-        return pool && poolId && pool.id === poolId.id;
-      });
-    }),
+      })
+      .filter(notEmpty),
   };
 
   return (

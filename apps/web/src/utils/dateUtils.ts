@@ -35,8 +35,8 @@ export function getDateRange({
   startDate,
   intl,
 }: {
-  endDate: Maybe<Scalars["Date"]>;
-  startDate: Maybe<Scalars["Date"]>;
+  endDate: Maybe<Scalars["Date"]> | undefined;
+  startDate: Maybe<Scalars["Date"]> | undefined;
   intl: IntlShape;
 }): string {
   if (!startDate) return "";

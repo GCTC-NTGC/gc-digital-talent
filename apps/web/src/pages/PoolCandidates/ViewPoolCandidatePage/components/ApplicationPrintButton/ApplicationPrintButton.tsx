@@ -4,9 +4,8 @@ import { useReactToPrint } from "react-to-print";
 import PrinterIcon from "@heroicons/react/20/solid/PrinterIcon";
 
 import { Button, ButtonLinkMode, Color } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
 
-import { User } from "~/api/generated";
+import { Pool, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 
 import ApplicationPrintDocument from "./ApplicationPrintDocument";

@@ -14,24 +14,26 @@ import QUALIFIED_STATUSES from "~/constants/poolCandidate";
 import { isOngoingPublishingGroup } from "./poolUtils";
 
 export const isQualifiedStatus = (
-  status: Maybe<PoolCandidateStatus>,
+  status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? QUALIFIED_STATUSES.includes(status) : false);
 
 export const getRecruitmentType = (
-  publishingGroup: Maybe<PublishingGroup>,
+  publishingGroup: Maybe<PublishingGroup> | undefined,
   intl: IntlShape,
 ) =>
   isOngoingPublishingGroup(publishingGroup)
     ? intl.formatMessage(poolCandidateMessages.ongoingRecruitment)
     : intl.formatMessage(poolCandidateMessages.targetedRecruitment);
 
-export const isDraft = (status: Maybe<PoolCandidateStatus>): boolean => {
+export const isDraft = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => {
   return status === PoolCandidateStatus.Draft;
 };
 
 export const isExpired = (
-  status: Maybe<PoolCandidateStatus>,
-  expirationDate: Maybe<string>,
+  status: Maybe<PoolCandidateStatus> | undefined,
+  expirationDate: Maybe<string> | undefined,
 ): boolean => {
   if (status === PoolCandidateStatus.Expired) {
     return true;

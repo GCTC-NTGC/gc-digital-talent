@@ -4,6 +4,7 @@ import omit from "lodash/omit";
 import pick from "lodash/pick";
 
 import { identity, notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   ApplicantFilterInput,
   PoolCandidateFilter,
@@ -13,8 +14,7 @@ import {
   ClassificationFilterInput,
   PoolCandidateSearchInput,
   PoolCandidateStatus,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
 

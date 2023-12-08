@@ -5,8 +5,7 @@ import {
   PoolStream,
   UserPoolFilterInput,
   Classification,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 
 export const NullSelection = "NULL_SELECTION";

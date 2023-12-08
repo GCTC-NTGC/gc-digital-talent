@@ -13,15 +13,16 @@ import {
 } from "@gc-digital-talent/ui";
 import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   ApplicationStep,
   IndigenousCommunity,
   useGetApplicationQuery,
   useGetMeQuery,
-} from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
+  useUpdateUserAndApplicationMutation,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -35,7 +36,6 @@ import {
   formValuesToApiCommunities,
   type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
-import { useUpdateUserAndApplicationMutation } from "~/api/generated";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";

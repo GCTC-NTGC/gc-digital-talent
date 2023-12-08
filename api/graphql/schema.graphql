@@ -1261,6 +1261,9 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  # This is an alias of connect since it is a custom command that can do both (insert and update)
+  # It is here to avoid confusion when using it on the frontend
+  update: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
   disconnect: [ID!] @resolveWith(method: "disconnectSkills")
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }

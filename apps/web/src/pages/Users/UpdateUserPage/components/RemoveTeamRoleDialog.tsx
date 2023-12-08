@@ -10,12 +10,14 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
-} from "@gc-digital-talent/graphql";
-
-import { Role, Team, User } from "~/api/generated";
+  Role,
+  Team,
+  User,
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface RemoveTeamRoleDialogProps {

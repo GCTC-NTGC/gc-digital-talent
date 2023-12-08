@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -14,12 +14,14 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
-} from "@gc-digital-talent/graphql";
-
-import { Role, User, useListTeamsQuery } from "~/api/generated";
+  Role,
+  User,
+  useListTeamsQuery,
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
@@ -160,7 +162,7 @@ const AddTeamRoleDialog = ({
                   })}
                   options={teamOptions ?? []}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
                   label={intl.formatMessage({

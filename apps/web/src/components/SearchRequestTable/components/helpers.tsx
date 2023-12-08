@@ -1,13 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import {
-  Classification,
-  Maybe,
-  PoolCandidateSearchRequest,
-  PoolCandidateSearchStatus,
-  Scalars,
-} from "@gc-digital-talent/graphql";
 import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -16,8 +9,16 @@ import {
   getPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
 
+import {
+  Classification,
+  Maybe,
+  PoolCandidateSearchRequest,
+  PoolCandidateSearchStatus,
+  Scalars,
+} from "~/api/generated";
+
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -26,7 +27,7 @@ export function classificationAccessor(
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications

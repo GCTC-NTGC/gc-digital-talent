@@ -4,9 +4,9 @@ import uniqueId from "lodash/uniqueId";
 
 import { Locales } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { Radio } from "@gc-digital-talent/forms";
 
+import { EducationRequirementOption } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { ClassificationGroup } from "~/utils/poolUtils";
 

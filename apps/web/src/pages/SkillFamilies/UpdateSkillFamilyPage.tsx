@@ -9,7 +9,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   Submit,
   Input,
-  MultiSelectField,
+  Combobox,
   TextArea,
   unpackIds,
 } from "@gc-digital-talent/forms";
@@ -199,9 +199,10 @@ export const UpdateSkillFamilyForm = ({
               }}
             />
             <div data-h2-margin="base(x1, 0)">
-              <MultiSelectField
+              <Combobox
                 id="skills"
                 name="skills"
+                isMulti
                 label={intl.formatMessage(adminMessages.skills)}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Select one or more skills",
