@@ -7,6 +7,7 @@ import {
   fakePoolCandidates,
   fakePools,
 } from "@gc-digital-talent/fake-data";
+
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
@@ -15,7 +16,7 @@ import {
   AssessmentStep,
   AssessmentStepType,
   PoolCandidate,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 import AssessmentStepTracker from "./AssessmentStepTracker";
 

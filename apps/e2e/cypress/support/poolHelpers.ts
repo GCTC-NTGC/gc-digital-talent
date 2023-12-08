@@ -6,7 +6,7 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 type CreateAndPublishPoolArgs = {
   adminUserId: string;

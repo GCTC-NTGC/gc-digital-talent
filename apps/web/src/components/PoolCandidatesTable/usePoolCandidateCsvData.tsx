@@ -34,9 +34,14 @@ import adminMessages from "~/messages/adminMessages";
 
 const usePoolCandidateCsvData = (
   candidates: PoolCandidate[],
-  pool: Maybe<
-    Pick<Pool, "essentialSkills" | "nonessentialSkills" | "screeningQuestions">
-  >,
+  pool:
+    | Maybe<
+        Pick<
+          Pool,
+          "essentialSkills" | "nonessentialSkills" | "screeningQuestions"
+        >
+      >
+    | undefined,
 ) => {
   const intl = useIntl();
   const locale = getLocale(intl);

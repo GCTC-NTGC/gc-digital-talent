@@ -2,11 +2,15 @@ import { IntlShape } from "react-intl";
 import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+import {
+  PoolCandidateStatus,
+  ApplicationStep,
+  Maybe,
+  PoolCandidate,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
@@ -63,9 +67,9 @@ export const getApplicationSteps = ({
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: Array<ApplicationStepInfo>,
-  prerequisiteSteps: Maybe<Array<ApplicationStep>>,
-  submittedSteps: Maybe<Array<ApplicationStep>>,
-): Maybe<Array<ApplicationStep>> => {
+  prerequisiteSteps: Maybe<Array<ApplicationStep>> | undefined,
+  submittedSteps: Maybe<Array<ApplicationStep>> | undefined,
+): Maybe<Array<ApplicationStep>> | undefined => {
   // figure out the application step enum values for this flow (may or may not include conditional steps)
   const stepsInThisApplication = stepsInfosInApplication.map(
     (step) => step.applicationStep,
@@ -86,7 +90,7 @@ const missingPrerequisitesFromThisApplication = (
 // What step should we go to, to resume the application
 export function getNextStepToSubmit(
   stepsInThisApplication: Array<ApplicationStepInfo>,
-  submittedSteps: Maybe<ApplicationStep[]>,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): ApplicationStepInfo {
   let nextStep = stepsInThisApplication[0];
 
@@ -109,7 +113,7 @@ export function getNextStepToSubmit(
 export function isOnDisabledPage(
   currentPageUrl: string | undefined,
   steps: Array<ApplicationStepInfo>,
-  submittedSteps: Maybe<ApplicationStep[]>,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): boolean {
   // where are we right now?
   const currentStep = steps.find(

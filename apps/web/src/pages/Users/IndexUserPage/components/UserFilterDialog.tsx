@@ -20,14 +20,14 @@ import {
   enumToOptions,
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
 import {
   LanguageAbility,
   WorkRegion,
   useUserFilterDataQuery,
-} from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
+} from "~/api/generated";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";

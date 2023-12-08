@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import { Alert, Heading, Pending } from "@gc-digital-talent/ui";
 import {
@@ -13,20 +14,18 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
-import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-import { useMyEmailQuery } from "@gc-digital-talent/graphql";
+import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  graphql,
+  FragmentType,
+  getFragment,
+  Language,
+  GovEmployeeType,
+  UpdateUserAsUserInput,
+} from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
-import {
-  Language,
-  GovEmployeeType,
-  Classification,
-  UpdateUserAsUserInput,
-  useCreateAccountMutation,
-  useGetCreateAccountFormDataQuery,
-  Department,
-} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import {
@@ -49,21 +48,46 @@ type FormValues = Pick<
   priorityEntitlementNumber?: string;
 };
 
+export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
+  fragment CreateAccount_QueryFragment on Query {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`);
+
 export interface CreateAccountFormProps {
   cacheKey?: string;
-  departments: Department[];
-  classifications: Classification[];
+  query?: FragmentType<typeof CreateAccount_QueryFragment>;
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const CreateAccountForm = ({
   cacheKey,
-  departments,
-  classifications,
+  query,
   handleCreateAccount,
 }: CreateAccountFormProps) => {
   const intl = useIntl();
   const govInfoLabels = getGovernmentInfoLabels(intl);
+  const result = getFragment(CreateAccount_QueryFragment, query);
+  const departments = unpackMaybes(result?.departments);
+  const classifications = unpackMaybes(result?.classifications);
 
   const labels = {
     ...govInfoLabels,
@@ -281,6 +305,23 @@ export const CreateAccountForm = ({
   );
 };
 
+const CreateAccount_Query = graphql(/** GraphQL */ `
+  query CreateAccount_Query {
+    ...CreateAccount_QueryFragment
+    me {
+      email
+    }
+  }
+`);
+
+const CreateAccount_Mutation = graphql(/** GraphQL */ `
+  mutation CreateAccount_Mutation($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
+
 const CreateAccount = () => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -288,26 +329,21 @@ const CreateAccount = () => {
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const authContext = useAuthorization();
-  const [lookUpResultEmail] = useMyEmailQuery();
-  const { data: lookupDataEmail } = lookUpResultEmail;
-  const email = lookupDataEmail?.me?.email;
+  const [{ data, fetching, error }] = useQuery({
+    query: CreateAccount_Query,
+  });
+
+  const email = data?.me?.email;
   const meId = authContext?.userAuthInfo?.id;
 
-  const [lookUpResult] = useGetCreateAccountFormDataQuery();
-  const { data: lookupData, fetching, error } = lookUpResult;
-  const departments: Department[] | [] =
-    lookupData?.departments.filter(notEmpty) ?? [];
-  const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-
-  const [, executeMutation] = useCreateAccountMutation();
-  const handleCreateAccount = (id: string, data: UpdateUserAsUserInput) =>
+  const [, executeMutation] = useMutation(CreateAccount_Mutation);
+  const handleCreateAccount = (id: string, input: UpdateUserAsUserInput) =>
     executeMutation({
       id,
       user: {
-        ...data,
+        ...input,
         id,
-        email: emptyToNull(data.email),
+        email: emptyToNull(input.email),
       },
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
@@ -316,7 +352,7 @@ const CreateAccount = () => {
       return Promise.reject(result.error);
     });
 
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
+  const onSubmit = async (input: UpdateUserAsUserInput) => {
     if (meId === undefined || meId === "") {
       toast.error(
         intl.formatMessage({
@@ -327,7 +363,7 @@ const CreateAccount = () => {
       );
       return;
     }
-    await handleCreateAccount(meId, data)
+    await handleCreateAccount(meId, input)
       .then(() => {
         toast.success(
           intl.formatMessage({
@@ -365,8 +401,7 @@ const CreateAccount = () => {
     <Pending fetching={fetching || !authContext.isLoaded} error={error}>
       <CreateAccountForm
         cacheKey={`create-account-${meId}`}
-        departments={departments}
-        classifications={classifications}
+        query={data}
         handleCreateAccount={onSubmit}
       />
     </Pending>

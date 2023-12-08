@@ -1,11 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Pool } from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Pool } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ResultsDetails from "./ResultsDetails";

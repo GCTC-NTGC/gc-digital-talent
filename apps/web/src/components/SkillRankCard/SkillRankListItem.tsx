@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Scalars, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -10,6 +9,7 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 
+import { Scalars, SkillCategory, UserSkill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {

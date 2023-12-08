@@ -9,6 +9,7 @@ Authorizable
 behavioural
 Behavioural
 BEHAVIOURAL
+camelcase
 Canonicalizing
 chra
 chrc

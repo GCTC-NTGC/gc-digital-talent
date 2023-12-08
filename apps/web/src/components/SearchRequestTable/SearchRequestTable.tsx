@@ -11,12 +11,10 @@ import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
-} from "@gc-digital-talent/graphql";
-
-import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "~/api/generated";

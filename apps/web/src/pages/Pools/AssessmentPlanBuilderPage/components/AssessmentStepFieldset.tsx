@@ -4,16 +4,13 @@ import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Repeater } from "@gc-digital-talent/forms";
-import {
-  AssessmentStep,
-  AssessmentStepType,
-  Pool,
-} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { formMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
 import { RepeaterFieldsetProps } from "@gc-digital-talent/forms/src/components/Repeater/Repeater";
 import ActionButton from "@gc-digital-talent/forms/src/components/Repeater/ActionButton";
+
+import { AssessmentStep, AssessmentStepType, Pool } from "~/api/generated";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";

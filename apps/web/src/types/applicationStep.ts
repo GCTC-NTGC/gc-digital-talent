@@ -1,8 +1,12 @@
 import { IntlShape } from "react-intl";
 
-import { ApplicationStep, Pool } from "@gc-digital-talent/graphql";
-
-import { PoolCandidate, Scalars, User } from "~/api/generated";
+import {
+  ApplicationStep,
+  Pool,
+  PoolCandidate,
+  Scalars,
+  User,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
