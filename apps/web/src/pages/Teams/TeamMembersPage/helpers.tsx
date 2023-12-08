@@ -2,11 +2,11 @@ import React from "react";
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 
-import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Maybe, Role, Team } from "~/api/generated";
 import { TeamMember } from "~/utils/teamUtils";
 
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
@@ -40,7 +40,10 @@ export const actionCell = (
   </div>
 );
 
-export function emailLinkCell(email: Maybe<string>, intl: IntlShape) {
+export function emailLinkCell(
+  email: Maybe<string> | undefined,
+  intl: IntlShape,
+) {
   if (email) {
     return (
       <Link color="black" external href={`mailto:${email}`}>

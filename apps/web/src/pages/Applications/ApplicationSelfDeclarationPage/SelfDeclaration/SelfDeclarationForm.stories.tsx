@@ -4,7 +4,8 @@ import { action } from "@storybook/addon-actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { IndigenousCommunity } from "@gc-digital-talent/graphql";
+
+import { IndigenousCommunity } from "~/api/generated";
 
 import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
 

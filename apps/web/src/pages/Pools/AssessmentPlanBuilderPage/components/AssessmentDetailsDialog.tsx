@@ -19,6 +19,9 @@ import {
   Option,
   Field,
 } from "@gc-digital-talent/forms";
+import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   AssessmentStepType,
   Maybe,
@@ -28,9 +31,7 @@ import {
   useCreateAssessmentStepMutation,
   useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
-} from "@gc-digital-talent/graphql";
-import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-import { toast } from "@gc-digital-talent/toast";
+} from "~/api/generated";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {

@@ -19,7 +19,7 @@ import {
   differentiateMissingSkills,
   getMissingSkills,
 } from "~/utils/skillUtils";
-import type { Maybe, Skill } from "~/api/generated";
+import type { Skill } from "~/api/generated";
 
 interface MissingSkillsBlockProps {
   pillType: { color: Color; mode: PillMode };
@@ -127,8 +127,8 @@ const MissingSkills = ({
   const locale = getLocale(intl);
 
   const byLocalizedName = (a: Skill, b: Skill) => {
-    const aName: Maybe<string> = a.name[locale];
-    const bName: Maybe<string> = b.name[locale];
+    const aName = a.name?.[locale];
+    const bName = b.name?.[locale];
     if (aName && bName) {
       return aName.localeCompare(bName, locale);
     }

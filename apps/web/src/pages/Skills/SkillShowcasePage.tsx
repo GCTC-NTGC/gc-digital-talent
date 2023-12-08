@@ -9,12 +9,9 @@ import {
   Link,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  UserSkill,
-  useUserSkillShowcaseQuery,
-} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { UserSkill, useUserSkillShowcaseQuery } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";

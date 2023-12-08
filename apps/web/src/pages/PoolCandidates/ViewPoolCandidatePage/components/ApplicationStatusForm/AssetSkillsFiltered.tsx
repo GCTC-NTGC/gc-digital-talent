@@ -1,10 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Experience, Skill } from "@gc-digital-talent/graphql";
 import Well from "@gc-digital-talent/ui/src/components/Well";
 
-import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
+import { Experience, Skill } from "~/api/generated";
+import SkillTree from "~/components/SkillTree/SkillTree";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 
 interface AssetSkillsFilteredProps {

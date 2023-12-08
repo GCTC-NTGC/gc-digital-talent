@@ -10,6 +10,8 @@ import {
   getBehaviouralSkillLevel,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
+import { Button, Separator } from "@gc-digital-talent/ui";
+
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
@@ -17,9 +19,7 @@ import {
   Skill,
   SkillCategory,
   SkillLevel,
-} from "@gc-digital-talent/graphql";
-import { Button, Separator } from "@gc-digital-talent/ui";
-
+} from "~/api/generated";
 import SkillDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillBrowser/types";
 

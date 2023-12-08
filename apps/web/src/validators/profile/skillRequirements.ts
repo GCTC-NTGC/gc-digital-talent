@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import flatMap from "lodash/flatMap";
 
-import { User, Pool, SkillCategory } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { User, Pool, SkillCategory } from "~/api/generated";
 import { filterSkillsByCategory, getMissingSkills } from "~/utils/skillUtils";
 
 type PartialUser = Pick<User, "experiences">;

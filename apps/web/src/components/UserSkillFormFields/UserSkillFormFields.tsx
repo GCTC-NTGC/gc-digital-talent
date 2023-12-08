@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { WhenSkillUsed } from "@gc-digital-talent/graphql";
 import {
   errorMessages,
   getBehaviouralSkillLevel,
@@ -11,6 +10,7 @@ import {
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 
+import { WhenSkillUsed } from "~/api/generated";
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
 import { SkillBrowserDialogContext } from "../SkillBrowser/types";

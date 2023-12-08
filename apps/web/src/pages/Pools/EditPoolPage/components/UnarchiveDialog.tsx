@@ -2,9 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
+import { Pool } from "~/api/generated";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
 type UnarchiveDialogProps = {
