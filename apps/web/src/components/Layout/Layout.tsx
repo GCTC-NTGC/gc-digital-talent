@@ -25,6 +25,7 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import MaintenanceBanner from "./MaintenanceBanner";
 import SkipLink from "./SkipLink";
+import NotificationBar from "./NotificationBar";
 
 const Layout = () => {
   const intl = useIntl();
@@ -148,6 +149,7 @@ const Layout = () => {
       >
         <div>
           <Header />
+          <NotificationBar />
           <MaintenanceBanner />
           {!iapPersonality ? (
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />

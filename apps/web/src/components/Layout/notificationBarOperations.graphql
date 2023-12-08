@@ -1,0 +1,16 @@
+mutation CreateDemoJobRequest($delaySeconds: Int!, $magicWord: String!) {
+  createDemoJobRequest(delaySeconds: $delaySeconds, magicWord: $magicWord)
+}
+
+query MyNotifications {
+  me {
+    notifications {
+      id
+      createdAt
+      __typename
+      ... on SimpleMessageNotification {
+        message
+      }
+    }
+  }
+}
