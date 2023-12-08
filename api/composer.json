@@ -9,8 +9,8 @@
   ],
   "license": "AGPL-3.0",
   "require": {
-    "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.1",
     "php": "^8.2",
+    "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.1",
     "doctrine/dbal": "^3.1",
     "guzzlehttp/guzzle": "^7.4",
     "laravel/framework": "^10.0",
