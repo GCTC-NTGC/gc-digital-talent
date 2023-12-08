@@ -154,8 +154,11 @@ abstract class Experience extends Model
 
         // Eloquent event for saving
         static::saving(function ($experience) {
+
             $user = $experience->user;
-            $user->searchable();
+            if ($user) {
+                $user->searchable();
+            }
         });
     }
 }
