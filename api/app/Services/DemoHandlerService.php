@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Log;
-
 class DemoHandlerService
 {
     public function handle(
         int $delaySeconds,
         string $magicWord
-    ) {
+    ): string {
         sleep($delaySeconds);
-        Log::debug('The magic word is '.$magicWord);
+
+        return 'I finished thinking about your word '.$magicWord.' after '.$delaySeconds.' seconds.';
+
     }
 }

@@ -264,6 +264,14 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type SimpleMessageNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  message: String
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email

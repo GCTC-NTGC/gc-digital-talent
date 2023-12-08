@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Models\User;
+use App\Notifications\SimpleMessage;
 use App\Services\DemoHandlerService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +22,8 @@ class DemoJob implements ShouldQueue
      */
     public function __construct(
         public int $delaySeconds,
-        public string $magicWord
+        public string $magicWord,
+        public int|string|null $requestorId
     ) {
     }
 
@@ -29,7 +32,12 @@ class DemoJob implements ShouldQueue
      */
     public function handle(DemoHandlerService $handler): void
     {
-        $handler->handle($this->delaySeconds, $this->magicWord);
+        $response = $handler->handle($this->delaySeconds, $this->magicWord);
+        if (! is_null($this->requestorId)) {
+            User::find($this->requestorId)->notify(new SimpleMessage($response));
+        } else {
+            Log::info('No user ID to notify of demo job handling response.');
+        }
     }
 
     /**
