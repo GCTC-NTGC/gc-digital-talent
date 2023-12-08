@@ -8,9 +8,9 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
 
+import { AssessmentStep, PoolSkill } from "~/api/generated";
 import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 
 import { PAGE_SECTION_ID } from "../navigation";

@@ -1,17 +1,13 @@
-import {
-  LocalizedString,
-  Maybe,
-  Pool,
-  UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
+
+import { LocalizedString, Maybe, Pool, UpdatePoolInput } from "~/api/generated";
 
 export enum LocationOption {
   RemoteOptional = "REMOTE_OPTIONAL",
   SpecificLocation = "SPECIFIC_LOCATION",
 }
 
-export const getLocationOption = (isRemote: Maybe<boolean>) => {
+export const getLocationOption = (isRemote: Maybe<boolean> | undefined) => {
   if (empty(isRemote) || isRemote) {
     return LocationOption.RemoteOptional;
   }

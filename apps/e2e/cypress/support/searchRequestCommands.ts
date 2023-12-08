@@ -3,7 +3,7 @@ import {
   UpdatePoolCandidateSearchRequestMutation,
   CreatePoolCandidateSearchRequestDocument,
   UpdatePoolCandidateSearchRequestDocument,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 import { getGqlString } from "./graphql-test-utils";
 

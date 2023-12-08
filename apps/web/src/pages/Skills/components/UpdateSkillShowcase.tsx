@@ -15,7 +15,6 @@ import {
   Button,
   ButtonLinkMode,
 } from "@gc-digital-talent/ui";
-import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -25,16 +24,18 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
-import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import {
+  Skill,
+  UserSkill,
   Scalars,
   SkillCategory,
   useCreateUserSkillMutation,
   useUpdateUserSkillMutation,
 } from "~/api/generated";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 

@@ -6,9 +6,13 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import { Department, Maybe, PoolCandidateStatus } from "~/api/generated";
+import {
+  PoolCandidate,
+  Department,
+  Maybe,
+  PoolCandidateStatus,
+} from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { fullPoolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
@@ -41,7 +45,7 @@ type StatusPillInfo = {
 };
 
 export const getStatusPillInfo = (
-  status: Maybe<PoolCandidateStatus>,
+  status: Maybe<PoolCandidateStatus> | undefined,
   suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusPillInfo => {

@@ -38,6 +38,7 @@
     "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/forms": "*",
+    "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/helpers": "*",
     "@gc-digital-talent/i18n": "*",
     "@gc-digital-talent/logger": "*",

@@ -13,14 +13,13 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
     "watch": "tsup --watch",
-    "codegen": "graphql-codegen"
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "devDependencies": {
-    "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/client-preset-swc-plugin": "^0.2.0",
     "@graphql-codegen/typescript": "^3.0.4",
-    "@graphql-codegen/typescript-operations": "^3.0.4",
-    "@graphql-codegen/typescript-urql": "^3.7.3",
     "tsconfig": "*",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",

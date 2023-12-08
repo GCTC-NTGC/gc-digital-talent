@@ -1,5 +1,4 @@
-import { User, Pool } from "@gc-digital-talent/graphql";
-
+import { User, Pool } from "~/api/generated";
 import { diversityEquityInclusionSectionHasEmptyRequiredFields } from "~/validators/profile";
 
 const stepHasError = (user: User, pool: Pool) => {

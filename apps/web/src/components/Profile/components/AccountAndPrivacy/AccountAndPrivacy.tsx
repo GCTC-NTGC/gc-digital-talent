@@ -3,9 +3,9 @@ import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import { PoolCandidateStatus } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";
 

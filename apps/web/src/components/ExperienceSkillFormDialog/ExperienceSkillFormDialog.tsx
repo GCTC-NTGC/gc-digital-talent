@@ -4,9 +4,8 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
 
-import { Experience, Scalars } from "~/api/generated";
+import { Skill, Experience, Scalars } from "~/api/generated";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 

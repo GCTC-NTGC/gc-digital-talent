@@ -1,12 +1,12 @@
 import React from "react";
 
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+
 import {
   Pool,
   Scalars,
   useGetAssessmentEvaluationPoolWithCandidatesQuery,
-} from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-
+} from "~/api/generated";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 type ScreeningAndEvaluationProps = {

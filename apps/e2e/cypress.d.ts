@@ -18,7 +18,7 @@ import {
   UpdateUserAsAdminInput,
   UpdateUserRolesInput,
   User,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 export {};
 

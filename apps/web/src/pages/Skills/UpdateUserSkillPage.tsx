@@ -14,6 +14,15 @@ import {
   Dialog,
 } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { BasicForm } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+
+import {
   Experience,
   Maybe,
   Scalars,
@@ -26,16 +35,7 @@ import {
   useDeleteUserSkillMutation,
   useUpdateUserSkillMutation,
   useUserSkillQuery,
-} from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  formMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { BasicForm } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";

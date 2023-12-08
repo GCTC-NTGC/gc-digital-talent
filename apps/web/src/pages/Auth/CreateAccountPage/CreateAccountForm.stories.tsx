@@ -6,11 +6,22 @@ import {
   fakeClassifications,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { CreateAccountForm } from "./CreateAccountPage";
+import {
+  CreateAccountForm,
+  CreateAccount_QueryFragment,
+} from "./CreateAccountPage";
 
 const departments = fakeDepartments();
 const classifications = fakeClassifications();
+const mockFragmentData = makeFragmentData(
+  {
+    departments,
+    classifications,
+  },
+  CreateAccount_QueryFragment,
+);
 
 export default {
   component: CreateAccountForm,
@@ -20,8 +31,7 @@ export default {
 const Template: StoryFn<typeof CreateAccountForm> = () => {
   return (
     <CreateAccountForm
-      departments={departments}
-      classifications={classifications}
+      query={mockFragmentData}
       handleCreateAccount={async (data) => {
         action("submit")(data);
       }}

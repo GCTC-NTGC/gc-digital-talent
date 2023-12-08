@@ -34,8 +34,10 @@ interface EquityOptionsProps {
   inApplication: boolean;
 }
 
-const resolveMaybe = (value: Maybe<boolean>): boolean => !!value;
-const resolveMaybeArray = <T,>(value: Maybe<Array<Maybe<T>>>): Array<T> => {
+const resolveMaybe = (value: Maybe<boolean> | undefined): boolean => !!value;
+const resolveMaybeArray = <T,>(
+  value: Maybe<Array<Maybe<T> | undefined>> | undefined,
+): Array<T> => {
   return value?.filter(notEmpty) ?? [];
 };
 

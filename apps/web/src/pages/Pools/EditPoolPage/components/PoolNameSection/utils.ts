@@ -1,5 +1,9 @@
 import { IntlShape } from "react-intl";
 
+import { Option, enumToOptions } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+
 import {
   Classification,
   LocalizedString,
@@ -9,13 +13,10 @@ import {
   PublishingGroup,
   Scalars,
   UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
-import { Option, enumToOptions } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+} from "~/api/generated";
 
 const firstId = (
-  collection: Maybe<Maybe<Classification>[]>,
+  collection: Maybe<Maybe<Classification>[]> | undefined,
 ): Scalars["ID"] | undefined => {
   if (!collection) return undefined;
 
@@ -30,7 +31,7 @@ export type FormValues = {
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
-  publishingGroup: Maybe<PublishingGroup>;
+  publishingGroup?: Maybe<PublishingGroup>;
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({

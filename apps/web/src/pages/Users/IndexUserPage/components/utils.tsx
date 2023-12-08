@@ -2,6 +2,9 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+
 import {
   InputMaybe,
   OrderByClause,
@@ -10,10 +13,7 @@ import {
   SortOrder,
   Trashed,
   UserFilterInput,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-
+} from "~/api/generated";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,
@@ -49,7 +49,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<UserFilterInput> {
+): InputMaybe<UserFilterInput> | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -110,20 +110,24 @@ export function transformFormValuesToUserFilterInput(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
+      locationPreferences: data.workRegion
+        .map((region) => {
+          return stringToEnumLocation(region);
+        })
+        .filter(notEmpty),
+      operationalRequirements: data.operationalRequirement
+        .map((requirement) => {
           return stringToEnumOperational(requirement);
-        },
-      ),
+        })
+        .filter(notEmpty),
       skills: data.skills.map((skill) => {
         const skillString = skill;
         return { id: skillString };
       }),
       positionDuration: data.employmentDuration
-        ? [durationToEnumPositionDuration(data.employmentDuration)]
+        ? [durationToEnumPositionDuration(data.employmentDuration)].filter(
+            notEmpty,
+          )
         : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,

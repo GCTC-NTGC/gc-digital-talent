@@ -5,6 +5,10 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Repeater } from "@gc-digital-talent/forms";
+import Context from "@gc-digital-talent/forms/src/components/Field/Context";
+
 import {
   AssessmentStep,
   AssessmentStepType,
@@ -12,10 +16,7 @@ import {
   PoolStatus,
   useDeleteAssessmentStepMutation,
   useSwapAssessmentStepOrderMutation,
-} from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Repeater } from "@gc-digital-talent/forms";
-import Context from "@gc-digital-talent/forms/src/components/Field/Context";
+} from "~/api/generated";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";

@@ -2,7 +2,8 @@ import React, { useCallback } from "react";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { User } from "@gc-digital-talent/graphql";
+
+import { User } from "~/api/generated";
 
 import DeleteUserDialog from "./DeleteUserDialog";
 import { DeleteUserFunc } from "../types";

@@ -1,5 +1,4 @@
-import { User } from "@gc-digital-talent/graphql";
-
+import { User } from "~/api/generated";
 import { careerTimelineIsIncomplete } from "~/validators/profile";
 
 const stepHasError = (user: User) => {

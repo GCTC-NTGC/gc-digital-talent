@@ -5,17 +5,18 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { useNavigate } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
-import {
-  Skill,
-  SkillCategory,
-  useUserSkillsQuery,
-} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 
+import {
+  Skill,
+  SkillCategory,
+  useUserSkillsQuery,
+  UserSkill,
+  useUpdateUserSkillRankingsMutation,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import { UserSkill, useUpdateUserSkillRankingsMutation } from "~/api/generated";
 
 import UpdateSkillShowcase, {
   FormValues,
