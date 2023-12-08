@@ -1,6 +1,8 @@
 import { IntlShape } from "react-intl";
 
 import {
+  AssessmentResult,
+  AssessmentResultJustification,
   AssessmentResultType,
   CreateAssessmentResultInput,
   Maybe,
@@ -14,7 +16,14 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 
-import { FormValues } from "./ScreeningDecisionDialogForm";
+export type FormValues = {
+  assessmentDecision: AssessmentResult["assessmentDecision"];
+  justifications: AssessmentResult["justifications"];
+  assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
+  otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
+  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
+  notesForThisAssessment: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
+};
 
 export type FormValuesToApiCreateInputArgs = {
   formValues: FormValues;
@@ -98,3 +107,73 @@ export function getLocalizedSkillLevel(
 
   return intl.formatMessage(getBehaviouralSkillLevel(userSkill.skillLevel));
 }
+
+export const educationJustificationContext = (
+  justification: Maybe<AssessmentResultJustification>,
+  intl: IntlShape,
+) => {
+  const acceptedInformationMessages = [
+    intl.formatMessage({
+      defaultMessage:
+        "Duration of study is equivalent to the degree requirement",
+      id: "sigMut",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Specialization is relevant to the degree requirement",
+      id: "Aqz3Ma",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+    intl.formatMessage({
+      defaultMessage:
+        "Study has been completed at a recognized education institution",
+      id: "dXR2A7",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+  ];
+  const combinationAndWorkEquivalentMessages = [
+    intl.formatMessage({
+      defaultMessage:
+        "Is equivalent in terms of duration to the degree requirements",
+      id: "W+Lub4",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+    intl.formatMessage({
+      defaultMessage:
+        "Is equivalent in terms of intensity/learning to the degree requirements",
+      id: "bnhqpY",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Reflects the necessary specialization",
+      id: "93zCaS",
+      description:
+        "Text for education accepted information context in screening decision dialog",
+    }),
+  ];
+
+  switch (justification) {
+    case AssessmentResultJustification.EducationAcceptedInformation:
+      return {
+        key: "accepted-info-message",
+        messages: acceptedInformationMessages,
+      };
+    case AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience:
+      return {
+        key: "combination-education-message",
+        messages: combinationAndWorkEquivalentMessages,
+      };
+    case AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency:
+      return {
+        key: "work-equivalency-message",
+        messages: combinationAndWorkEquivalentMessages,
+      };
+    default:
+      return null;
+  }
+};

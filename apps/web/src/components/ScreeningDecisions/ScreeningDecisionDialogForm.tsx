@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 
 import {
   AssessmentDecision,
@@ -14,6 +15,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import useLabels from "./useLabels";
 import { DialogType } from "./useDialogType";
 import useOptions from "./useOptions";
+import { educationJustificationContext } from "./utils";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
@@ -105,6 +107,38 @@ const ScreeningDecisionDialogForm = ({
     otherReasonSelected,
   ]);
 
+  const contextBlock = (messages: string[], key: string) => (
+    <div data-h2-margin="base(x.5)">
+      {messages.map((message, index) => (
+        <span
+          key={`${key}-${index + 1}`}
+          data-h2-margin-bottom="base(x.5)"
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(flex-start)"
+          data-h2-gap="base(x.5)"
+        >
+          <CheckIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
+          <p>{message}</p>
+        </span>
+      ))}
+    </div>
+  );
+
+  const educationContext = educationJustificationContext(
+    Array.isArray(watchJustifications)
+      ? watchJustifications?.find(
+          (justification) =>
+            justification ===
+              AssessmentResultJustification.EducationAcceptedInformation ||
+            justification ===
+              AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
+            justification ===
+              AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency,
+        )
+      : watchJustifications,
+    intl,
+  );
+
   return (
     <>
       {dialogType === "GENERIC" && (
@@ -142,6 +176,14 @@ const ScreeningDecisionDialogForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                context={
+                  educationContext
+                    ? contextBlock(
+                        educationContext.messages,
+                        educationContext.key,
+                      )
+                    : null
+                }
               />
             </div>
           ) : (
