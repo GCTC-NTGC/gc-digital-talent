@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -10,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // add searchable column
-        // Blueprint doesn't work well with tsvector columns hence the raw statement
+        // Add searchable column
+        // Blueprint doesn't work well with tsvector columns; hence, the raw statement
         \DB::statement('ALTER TABLE users ADD COLUMN searchable TSVECTOR');
 
         // Update the tsvector column with the data for existing rows
@@ -25,17 +26,16 @@ return new class extends Migration
             CONCAT_WS(\' \', ARRAY(SELECT CONCAT_WS(\' \', title, description, details) FROM personal_experiences WHERE personal_experiences.user_id = users.id)) ||
             CONCAT_WS(\' \', ARRAY(SELECT CONCAT_WS(\' \', title, issued_by, details) FROM award_experiences WHERE award_experiences.user_id = users.id)) ||
             CONCAT_WS(\' \', ARRAY(SELECT CONCAT_WS(\' \', title, details) FROM community_experiences WHERE community_experiences.user_id = users.id))
-            )');
+            )'
+        );
 
         // Create a GIN index on the tsvector column for efficient full-text search
         \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
-
     }
 
     /**
      * Reverse the migrations.
      */
-
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {

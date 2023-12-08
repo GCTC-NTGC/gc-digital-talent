@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class CommunityExperience
@@ -34,6 +34,7 @@ class CommunityExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
     // Define the relationship to the User model
     public function user(): BelongsTo
     {

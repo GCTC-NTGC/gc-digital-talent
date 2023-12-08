@@ -147,6 +147,7 @@ abstract class Experience extends Model
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
     }
+
     protected static function boot()
     {
         parent::boot();

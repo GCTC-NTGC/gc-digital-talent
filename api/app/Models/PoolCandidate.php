@@ -80,7 +80,9 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
     ];
+
     protected $touches = ['user'];
+
     /**
      * The "booted" method of the model.
      */
@@ -88,7 +90,8 @@ class PoolCandidate extends Model
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
     }
-     public static function boot()
+
+    public static function boot()
     {
         parent::boot();
 

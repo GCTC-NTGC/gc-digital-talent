@@ -110,5 +110,4 @@ class UserSeederLocal extends Seeder
         Artisan::call('scout:import', ['model' => User::class]);
 
     }
-
 }
