@@ -1794,6 +1794,9 @@ type Mutation {
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
+
+  # queueing demo
+  createDemoJobRequest(delaySeconds: Int!, magicWord: String!): Boolean
 }
 
 #import directiveForms.graphql
