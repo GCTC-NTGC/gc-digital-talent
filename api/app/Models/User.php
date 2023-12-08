@@ -83,8 +83,8 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasRolesAndPermissions;
     use LogsActivity;
     use Notifiable;
-    use SoftDeletes;
     use Searchable;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 
@@ -105,7 +105,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         'searchable',
     ];
 
-
     /**
      * Get the indexable data array for the model.
      *
@@ -121,9 +120,9 @@ class User extends Model implements Authenticatable, LaratrustUser
             'communityExperiences',
             'awardExperiences',
         ]);
+
         $notes = $this->poolCandidates->pluck('notes')->toArray();
         $notes = count($notes) > 0 ? $notes : [];
-
         $roles = $this->workExperiences->pluck('role')->toArray();
         $roles = count($roles) > 0 ? $roles : [];
         $organizations = $this->workExperiences->pluck('organization')->toArray();
@@ -132,7 +131,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         $divisions = count($divisions) > 0 ? $organizations : [];
         $details = $this->workExperiences->pluck('details')->toArray();
         $details = count($details) > 0 ? $details : [];
-
         $thesis_titles = $this->educationExperiences->pluck('thesis_title')->toArray();
         $thesis_titles = count($thesis_titles) > 0 ? $thesis_titles : [];
         $institution = $this->educationExperiences->pluck('institution')->toArray();
@@ -141,24 +139,20 @@ class User extends Model implements Authenticatable, LaratrustUser
         $education_details = count($education_details) > 0 ? $education_details : [];
         $area_of_study = $this->educationExperiences->pluck('area_of_study')->toArray();
         $area_of_study = count($area_of_study) > 0 ? $area_of_study : [];
-
         $personal_titles = $this->personalExperiences->pluck('title')->toArray();
         $personal_titles = count($personal_titles) > 0 ? $personal_titles : [];
         $personal_descriptions = $this->personalExperiences->pluck('description')->toArray();
         $personal_descriptions = count($personal_descriptions) > 0 ? $personal_descriptions : [];
-
         $community_titles = $this->communityExperiences->pluck('title')->toArray();
         $community_titles = count($community_titles) > 0 ? $community_titles : [];
         $community_details = $this->communityExperiences->pluck('details')->toArray();
         $community_details = count($community_details) > 0 ? $community_details : [];
-
         $award_titles = $this->awardExperiences->pluck('title')->toArray();
         $award_titles = count($award_titles) > 0 ? $award_titles : [];
         $award_details = $this->awardExperiences->pluck('details')->toArray();
         $award_details = count($award_details) > 0 ? $award_details : [];
         $issued_by = $this->awardExperiences->pluck('issued_by')->toArray();
         $issued_by = count($issued_by) > 0 ? $issued_by : [];
-
 
         return [
             'id' => $this->id,
@@ -715,8 +709,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', $searchTerms);
             $results = self::search($combinedSearchTerm)->usingPlainQuery()->get();
+
             // Extract unique IDs from the search results
-           $uniqueIds = $results->pluck('id')->unique()->toArray();
+            $uniqueIds = $results->pluck('id')->unique()->toArray();
 
             // Use Eloquent builder to filter results based on unique IDs
             $query->whereIn('id', $uniqueIds);
@@ -724,7 +719,6 @@ class User extends Model implements Authenticatable, LaratrustUser
 
         return $query;
     }
-
 
     public static function scopeName(Builder $query, ?string $name): Builder
     {
