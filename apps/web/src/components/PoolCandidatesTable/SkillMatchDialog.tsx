@@ -5,7 +5,7 @@ import { Maybe, Skill } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
+import SkillTree from "~/components/SkillTree/SkillTree";
 import { Scalars, useGetSkillMatchDialogDataQuery } from "~/api/generated";
 
 interface SkillMatchDialogBodyProps {
