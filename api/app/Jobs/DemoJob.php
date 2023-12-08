@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\DemoRequest;
 use App\Services\DemoHandlerService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,7 +19,8 @@ class DemoJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public DemoRequest $request
+        public int $delaySeconds,
+        public string $magicWord
     ) {
     }
 
@@ -29,7 +29,7 @@ class DemoJob implements ShouldQueue
      */
     public function handle(DemoHandlerService $handler): void
     {
-        $handler->handle($this->request->delay_seconds, $this->request->magic_word);
+        $handler->handle($this->delaySeconds, $this->magicWord);
     }
 
     /**
@@ -37,6 +37,6 @@ class DemoJob implements ShouldQueue
      */
     public function failed(Throwable $exception): void
     {
-        Log::debug('Failed to run the demo job. '.$exception->getMessage());
+        Log::error('Failed to run the demo job. '.$exception->getMessage());
     }
 }

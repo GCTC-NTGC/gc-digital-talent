@@ -11,6 +11,6 @@ class DemoHandlerService
         string $magicWord
     ) {
         sleep($delaySeconds);
-        Log::debug('The magic word is'.$magicWord);
+        Log::debug('The magic word is '.$magicWord);
     }
 }
