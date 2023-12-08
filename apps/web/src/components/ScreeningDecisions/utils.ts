@@ -18,11 +18,13 @@ import {
 
 export type FormValues = {
   assessmentDecision: AssessmentResult["assessmentDecision"];
-  justifications: AssessmentResult["justifications"];
+  justifications:
+    | AssessmentResult["justifications"]
+    | AssessmentResultJustification;
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
   otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  notesForThisAssessment: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
+  notesForThisAssessment?: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -62,7 +64,7 @@ export function convertFormValuesToApiCreateInput({
     assessmentResultType,
     justifications: Array.isArray(justifications)
       ? [...justifications]
-      : [justifications],
+      : justifications && [justifications],
     otherJustificationNotes,
     poolSkillId: skillId,
     skillDecisionNotes,
@@ -87,14 +89,14 @@ export function convertFormValuesToApiUpdateInput({
     assessmentResultType,
     justifications: Array.isArray(justifications)
       ? [...justifications]
-      : [justifications],
+      : justifications && [justifications],
     otherJustificationNotes,
     skillDecisionNotes,
   };
 }
 
 export function getLocalizedSkillLevel(
-  userSkill: Maybe<UserSkill>,
+  userSkill: UserSkill | undefined,
   intl: IntlShape,
 ): string {
   if (!userSkill || !userSkill.skill || !userSkill.skillLevel) {
@@ -109,7 +111,7 @@ export function getLocalizedSkillLevel(
 }
 
 export const educationJustificationContext = (
-  justification: Maybe<AssessmentResultJustification>,
+  justification: Maybe<AssessmentResultJustification> | undefined,
   intl: IntlShape,
 ) => {
   const acceptedInformationMessages = [
