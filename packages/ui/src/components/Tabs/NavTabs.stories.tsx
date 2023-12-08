@@ -19,8 +19,8 @@ const Template: StoryFn<typeof NavTabs.Root> = (args) => (
           data-h2-padding="base(x1 0)"
           data-h2-max-width="base(100%)"
         >
-          <NavTabs.Root {...args}>
-            <NavTabs.List aria-label="Sub navigation">
+          <NavTabs.Root {...args} aria-label={`${theme} sub nav`}>
+            <NavTabs.List>
               <NavTabs.Item>
                 <NavTabs.Link href="/one">One</NavTabs.Link>
               </NavTabs.Item>
