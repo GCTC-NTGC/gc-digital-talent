@@ -83,6 +83,11 @@ const SkillLibraryTable = ({
     ? getTechnicalSkillLevel
     : getBehaviouralSkillLevel;
 
+  const userSkillSkillIds = data.map((usrSkill) => usrSkill.skill.id);
+  const unclaimedSkills = allSkills.filter(
+    (skill) => !userSkillSkillIds.includes(skill.id),
+  );
+
   const columns = [
     columnHelper.accessor((row) => getLocalizedName(row.skill.name, intl), {
       id: "name",
@@ -152,7 +157,7 @@ const SkillLibraryTable = ({
           <SkillBrowserDialog
             context="library"
             showCategory={false}
-            skills={allSkills}
+            skills={unclaimedSkills}
             onSave={async (value) => {
               executeCreateMutation({
                 userId: userAuthInfo?.id,
