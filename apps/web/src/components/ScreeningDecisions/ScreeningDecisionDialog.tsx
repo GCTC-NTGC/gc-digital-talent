@@ -43,9 +43,7 @@ import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import useDialogType, { DialogType } from "./useDialogType";
-import ScreeningDecisionDialogForm, {
-  FormValues,
-} from "./ScreeningDecisionDialogForm";
+import ScreeningDecisionDialogForm from "./ScreeningDecisionDialogForm";
 import useHeaders from "./useHeaders";
 import {
   convertFormValuesToApiCreateInput,
@@ -53,6 +51,7 @@ import {
   FormValuesToApiCreateInputArgs,
   FormValuesToApiUpdateInputArgs,
   getLocalizedSkillLevel,
+  FormValues,
 } from "./utils";
 
 const AssessmentStepTypeSection = ({

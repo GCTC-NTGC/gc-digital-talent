@@ -5,9 +5,7 @@ import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 
 import {
   AssessmentDecision,
-  AssessmentResult,
   AssessmentResultJustification,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -15,19 +13,10 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import useLabels from "./useLabels";
 import { DialogType } from "./useDialogType";
 import useOptions from "./useOptions";
-import { educationJustificationContext } from "./utils";
+import { FormValues, educationJustificationContext } from "./utils";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
-
-export type FormValues = {
-  assessmentDecision: AssessmentResult["assessmentDecision"];
-  justifications: AssessmentResult["justifications"];
-  assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
-  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  notesForThisAssessment: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
-};
 
 type FormNames =
   | "assessmentDecision"
