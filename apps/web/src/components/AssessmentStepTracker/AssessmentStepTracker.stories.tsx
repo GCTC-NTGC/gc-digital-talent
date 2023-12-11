@@ -7,6 +7,7 @@ import {
   fakePoolCandidates,
   fakePools,
 } from "@gc-digital-talent/fake-data";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import {
   AssessmentDecision,
@@ -83,6 +84,22 @@ mockPool = {
 export default {
   component: AssessmentStepTracker,
   title: "Components/Assessment Step Tracker",
+  decorators: [MockGraphqlDecorator],
+  parameters: {
+    apiResponsesConfig: {
+      latency: {
+        min: 0,
+        max: 0,
+      },
+    },
+    apiResponses: {
+      ToggleBookmark_Mutation: {
+        data: {
+          togglePoolCandidateBookmark: true,
+        },
+      },
+    },
+  },
 };
 
 const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (

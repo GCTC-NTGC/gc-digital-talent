@@ -267,7 +267,7 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isBookmarked: Boolean! @rename(attribute: "is_bookmarked")
+  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -709,7 +709,6 @@ type Query {
     where: PoolCandidateSearchInput
     orderBy: _
       @orderBy(
-        columns: ["is_bookmarked"]
         relations: [
           {
             relation: "user"

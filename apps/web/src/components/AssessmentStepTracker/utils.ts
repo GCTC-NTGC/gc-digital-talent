@@ -113,6 +113,7 @@ export const sortResults = (
   results: AssessmentResult[],
 ): AssessmentResult[] => {
   return results.sort((resultA, resultB) => {
+    const isBookmarkedA = Number(resultA.poolCandidate?.isBookmarked);
     const decisionA = decisionOrder.indexOf(
       resultA.assessmentDecision ?? AssessmentDecision.NotSure,
     );
@@ -124,6 +125,7 @@ export const sortResults = (
         ArmedForcesStatus.Veteran,
     );
 
+    const isBookmarkedB = Number(resultB.poolCandidate?.isBookmarked);
     const decisionB = decisionOrder.indexOf(
       resultB.assessmentDecision ?? AssessmentDecision.NotSure,
     );
@@ -136,7 +138,10 @@ export const sortResults = (
     );
 
     return (
-      decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
+      isBookmarkedB - isBookmarkedA ||
+      decisionA - decisionB ||
+      isPriorityB - isPriorityA ||
+      isVetB - isVetA
     );
   });
 };

@@ -82,6 +82,7 @@ type Mutation {
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  togglePoolCandidateBookmark(id: ID!): Boolean
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -362,6 +363,7 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
+  isBookmarked: Boolean
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -879,6 +881,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -893,6 +896,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
