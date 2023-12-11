@@ -25,7 +25,7 @@ version of the website running in the browser. (Electron, Chrome, Firefox, or Ed
     - On failed CI runs, we list the status of containers (e.g., one may have
       crashed), and print out the logs of important containers (e.g., Nginx
       logs of the webserver container).
-      [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/e2e-tests.yml#L85-L91)
+      [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/cypress.yml#L85-L91)
 - When you need to debug locally, these tips can help:
   - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
     watch mode**. (Saving test files will restart the active test.)
@@ -185,5 +185,5 @@ thing', () => { ... })` and add comment with `chromeWebSecurity:false`
 [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
 [`apps/e2e/`]: /apps/e2e/
 [`apps/e2e/cypress.config.ts`]: /apps/e2e/cypress.config.ts
-[e2e-config]: /.github/workflows/e2e-tests.yml
-[e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml
+[e2e-config]: /.github/workflows/cypress.yml
+[e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/cypress.yml
