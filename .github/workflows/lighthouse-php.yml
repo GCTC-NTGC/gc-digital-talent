@@ -1,4 +1,4 @@
-name: Check schema
+name: Lighthouse PHP
 
 on:
   push:
