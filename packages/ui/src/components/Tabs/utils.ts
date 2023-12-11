@@ -25,7 +25,7 @@ export const commonTabStyles = {
       "base:selectors[[data-state='active']](transparent)",
     "data-h2-font-weight": "base:selectors[[data-state='active']](700)",
     "data-h2-text-decoration":
-      "base:selectors[[data-state='inactive']](underline)",
+      "base:selectors[[data-state='inactive']](underline) base:selectors[[data-state='active'] > a](none)",
     "data-h2-border-top-color": `
       base:selectors[[data-state='active'] > span](primary)
       base:selectors[[data-state='active'] > a](primary)
