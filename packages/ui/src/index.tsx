@@ -42,6 +42,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
@@ -147,6 +148,7 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  NavTabs,
   Loading,
   Pending,
   NotFound,
