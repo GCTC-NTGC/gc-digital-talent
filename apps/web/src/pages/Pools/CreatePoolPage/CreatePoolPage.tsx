@@ -13,13 +13,9 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
 
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import PageHeader from "~/components/PageHeader/PageHeader";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
+  RoleAssignment,
   CreatePoolInput,
   useCreatePoolMutation,
   CreatePoolMutation,
@@ -28,6 +24,10 @@ import {
   Maybe,
   Team,
 } from "~/api/generated";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import PageHeader from "~/components/PageHeader/PageHeader";
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
 type Option<V> = { value: V; label: string };

@@ -2,12 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+
+import { Pool } from "~/api/generated";
 
 import { ProcessDialogProps } from "./types";
 

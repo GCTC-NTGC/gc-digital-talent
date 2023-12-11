@@ -113,9 +113,9 @@ export const formatClassificationString = ({
   return `${group}-0${level}`;
 };
 interface formattedPoolPosterTitleProps {
-  title: Maybe<string>;
-  classification: Maybe<Classification>;
-  stream: Maybe<PoolStream>;
+  title: Maybe<string> | undefined;
+  classification: Maybe<Classification> | undefined;
+  stream: Maybe<PoolStream> | undefined;
   intl: IntlShape;
 }
 
@@ -173,7 +173,7 @@ export const fullPoolTitle = (
       label: fallbackTitle.toString(),
     };
 
-  const specificTitle = getLocalizedName(pool.name, intl);
+  const specificTitle = getLocalizedName(pool?.name, intl);
 
   if (isIAPPool(pool)) {
     return {
@@ -330,7 +330,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
 };
 
 export const isOngoingPublishingGroup = (
-  publishingGroup: Maybe<PublishingGroup>,
+  publishingGroup: Maybe<PublishingGroup> | undefined,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 

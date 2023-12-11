@@ -4,17 +4,17 @@ import { OperationContext } from "urql";
 
 import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
 import {
-  PoolCandidateSearchStatus,
-  PoolStream,
-  useSearchRequestFilterDataQuery,
-} from "@gc-digital-talent/graphql";
-import {
   getLocalizedName,
   getPoolCandidateSearchStatus,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import {
+  PoolCandidateSearchStatus,
+  PoolStream,
+  useSearchRequestFilterDataQuery,
+} from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,

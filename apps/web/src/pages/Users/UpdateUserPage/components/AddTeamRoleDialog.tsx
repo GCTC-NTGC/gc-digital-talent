@@ -14,12 +14,14 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
-} from "@gc-digital-talent/graphql";
-
-import { Role, User, useListTeamsQuery } from "~/api/generated";
+  Role,
+  User,
+  useListTeamsQuery,
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {

@@ -7,12 +7,6 @@ import {
   Row,
 } from "@tanstack/react-table";
 
-import {
-  Skill,
-  SkillLevel,
-  UserSkill,
-  useCreateUserSkillMutation,
-} from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -21,6 +15,12 @@ import {
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
+import {
+  Skill,
+  SkillLevel,
+  UserSkill,
+  useCreateUserSkillMutation,
+} from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import useRoutes from "~/hooks/useRoutes";
@@ -82,6 +82,11 @@ const SkillLibraryTable = ({
   const levelGetter = isTechnical
     ? getTechnicalSkillLevel
     : getBehaviouralSkillLevel;
+
+  const userSkillSkillIds = data.map((usrSkill) => usrSkill.skill.id);
+  const unclaimedSkills = allSkills.filter(
+    (skill) => !userSkillSkillIds.includes(skill.id),
+  );
 
   const columns = [
     columnHelper.accessor((row) => getLocalizedName(row.skill.name, intl), {
@@ -152,7 +157,7 @@ const SkillLibraryTable = ({
           <SkillBrowserDialog
             context="library"
             showCategory={false}
-            skills={allSkills}
+            skills={unclaimedSkills}
             onSave={async (value) => {
               executeCreateMutation({
                 userId: userAuthInfo?.id,

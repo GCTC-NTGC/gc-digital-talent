@@ -12,14 +12,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
+
 import {
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidateSearchInput,
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
-} from "@gc-digital-talent/graphql";
-
-import {
   CandidateSuspendedFilter,
   Language,
   PoolCandidate,

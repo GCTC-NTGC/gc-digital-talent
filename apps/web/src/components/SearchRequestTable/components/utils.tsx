@@ -1,12 +1,12 @@
 import { SortingState } from "@tanstack/react-table";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   PoolCandidateSearchRequestInput,
   OrderByClause,
   SortOrder,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import {
   stringToEnumRequestStatus,
   stringToEnumStream,
@@ -24,14 +24,14 @@ export function transformFormValuesToSearchRequestFilterInput(
 ): PoolCandidateSearchRequestInput {
   return {
     status: data.status?.length
-      ? data.status.map(stringToEnumRequestStatus)
+      ? data.status.map(stringToEnumRequestStatus).filter(notEmpty)
       : undefined,
     departments: data.departments?.length ? data.departments : undefined,
     classifications: data.classifications?.length
       ? data.classifications
       : undefined,
     streams: data.streams?.length
-      ? data.streams.map(stringToEnumStream)
+      ? data.streams.map(stringToEnumStream).filter(notEmpty)
       : undefined,
   };
 }

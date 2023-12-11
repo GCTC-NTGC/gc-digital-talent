@@ -2,8 +2,9 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { Pool } from "~/api/generated";
 
 import { PAGE_SECTION_ID } from "../navigation";
 import SkillSummaryTable from "./SkillSummaryTable";

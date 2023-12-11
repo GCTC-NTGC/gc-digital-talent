@@ -10,9 +10,13 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
 
-import { PoolStatus, Classification, Maybe } from "~/api/generated";
+import {
+  PublishingGroup,
+  PoolStatus,
+  Classification,
+  Maybe,
+} from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,

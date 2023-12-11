@@ -1,15 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  AssessmentDecision,
-  AssessmentStep,
-  AssessmentStepType,
-} from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import {
+  AssessmentDecision,
+  AssessmentStep,
+  AssessmentStepType,
+} from "~/api/generated";
 
 import {
   getDecisionInfo,

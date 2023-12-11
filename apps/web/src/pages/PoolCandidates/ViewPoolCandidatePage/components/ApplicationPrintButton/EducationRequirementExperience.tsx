@@ -7,8 +7,7 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import experienceMessages from "~/messages/experienceMessages";
 import {
   isAwardExperience,

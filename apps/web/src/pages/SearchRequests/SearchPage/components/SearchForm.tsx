@@ -3,16 +3,16 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 
+import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   Classification,
   Pool,
   ApplicantFilterInput,
   Skill,
   useGetSearchFormDataAcrossAllPoolsQuery,
-} from "@gc-digital-talent/graphql";
-import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
-
+} from "~/api/generated";
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 

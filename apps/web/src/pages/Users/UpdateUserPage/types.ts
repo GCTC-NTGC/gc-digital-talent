@@ -6,7 +6,7 @@ import {
   Role,
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 export type UpdateUserRolesFunc = (
   data: UpdateUserRolesInput,

@@ -1,12 +1,12 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
+
 import {
   GetMeQuery,
   Maybe,
   Pool,
-  UpdateUserAboutMeMutation,
   UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
-
+  UpdateUserAsUserMutation,
+} from "~/api/generated";
 import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
 export type SectionKey =
@@ -26,7 +26,7 @@ export interface SectionProps {
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,
-  ) => Promise<UpdateUserAboutMeMutation["updateUserAsUser"]>;
+  ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
   pool: Maybe<Pool>;
 }
 

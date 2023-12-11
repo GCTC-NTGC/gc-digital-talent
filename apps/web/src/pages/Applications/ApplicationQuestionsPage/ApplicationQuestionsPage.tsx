@@ -7,11 +7,10 @@ import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { ApplicationStep } from "@gc-digital-talent/graphql";
 
+import { ApplicationStep, useUpdateApplicationMutation } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useUpdateApplicationMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";

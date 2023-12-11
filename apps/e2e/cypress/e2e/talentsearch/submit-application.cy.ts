@@ -11,7 +11,7 @@ import {
   SkillCategory,
   GenericJobTitle,
   User,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { addRolesToUser } from "../../support/userHelpers";

@@ -106,7 +106,7 @@ export const TeamTable = ({
         id: "TREL4U",
         description: "Title displayed for the teams table email column.",
       }),
-      cell: ({ getValue }) => emailCell(getValue(), intl),
+      cell: ({ getValue }) => emailCell(getValue() ?? "", intl),
     }),
   ] as ColumnDef<Team>[];
 

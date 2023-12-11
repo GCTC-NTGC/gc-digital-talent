@@ -14,14 +14,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
+
 import {
   UpdateUserRolesInput,
   UpdateUserSubInput,
   useUpdateUserRolesMutation,
   useUpdateUserSubMutation,
-} from "@gc-digital-talent/graphql";
-
-import {
   useListRolesQuery,
   Language,
   Scalars,
