@@ -15,7 +15,7 @@ on:
   merge_group:
     branches: [main]
 jobs:
-  run-linters:
+  run-translations:
     name: Check translations
     runs-on: ubuntu-22.04
     env:
