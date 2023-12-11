@@ -35,7 +35,6 @@ const Trigger = React.forwardRef<
     className="Tabs__Trigger"
     onFocus={handleTabFocus}
     {...commonTabStyles.trigger}
-    {...commonTabStyles.triggerHover}
     ref={forwardedRef}
     {...rest}
   >

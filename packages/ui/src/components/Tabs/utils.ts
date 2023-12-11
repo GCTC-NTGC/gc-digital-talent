@@ -7,10 +7,10 @@ export const commonTabStyles = {
     "data-h2-display": "base(flex)",
     "data-h2-max-width": "base(100%)",
     "data-h2-gap": "base(x.25)",
-    "data-h2-overflow": "base(auto visible)",
     "data-h2-width": "base(100%)",
     "data-h2-padding": "base(0 x1)",
-    "data-h2-z-index": "base(1)",
+    "data-h2-z-index": "base(2)",
+    "data-h2-overflow-y": "base(visible)",
     "data-h2-overflow-x": "base(auto)",
     "data-h2-overscroll-behavior-x": "base(contain)",
     "data-h2-scroll-snap-align": "base(start)",
@@ -19,10 +19,8 @@ export const commonTabStyles = {
   },
   trigger: {
     "data-h2-background-color": "base(background)",
+    "data-h2-border": "base(thin solid background.darker)",
     "data-h2-display": "base(inline-flex)",
-    "data-h2-padding": "base(0)",
-    "data-h2-outline": "base(none)",
-    "data-h2-radius": "base(rounded rounded 0 0)",
     "data-h2-border-bottom-color":
       "base:selectors[[data-state='active']](transparent)",
     "data-h2-font-weight": "base:selectors[[data-state='active']](700)",
@@ -30,19 +28,19 @@ export const commonTabStyles = {
       "base:selectors[[data-state='inactive']](underline)",
     "data-h2-border-top-color": `
       base:selectors[[data-state='active'] > span](primary)
+      base:selectors[[data-state='active'] > a](primary)
       base:focus-visible:children[span](focus)
+      base:children[a:focus-visible](focus)
     `,
     "data-h2-color": `
       base(black)
       base:selectors[[data-state='active']](primary.darker)
     `,
-  },
-  triggerHover: {
-    "data-h2-background-color": "base(background)",
-    "data-h2-radius": "base(rounded rounded 0 0)",
-    "data-h2-border": "base(thin solid background.darker)",
     "data-h2-margin-top": "base(x.25) base:hover(0)",
+    "data-h2-outline": "base(none) base:children[a](none)",
+    "data-h2-padding": "base(0)",
     "data-h2-position": "base(relative)",
+    "data-h2-radius": "base(rounded rounded 0 0)",
     "data-h2-z-index": "base(1)",
   },
   triggerInner: {

@@ -41,7 +41,7 @@ const Item = React.forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    {...commonTabStyles.triggerHover}
+    {...commonTabStyles.trigger}
     {...props}
   />
 ));
@@ -57,8 +57,19 @@ const Link = React.forwardRef<
   LinkProps
 >(({ children, href, ...rest }, forwardedRef) => {
   const { pathname } = useLocation();
+  const linkRef = React.useRef<HTMLAnchorElement>(null);
 
   const isActive = pathname === href;
+
+  React.useEffect(() => {
+    if (linkRef.current) {
+      linkRef.current.parentElement?.setAttribute(
+        "data-state",
+        isActive ? "active" : "inactive",
+      );
+    }
+  }, [isActive]);
+
   return (
     <NavigationMenuPrimitive.Link
       ref={forwardedRef}
@@ -68,13 +79,14 @@ const Link = React.forwardRef<
     >
       <RouterLink
         to={href}
+        ref={linkRef}
         onFocus={handleTabFocus}
         {...(isActive && {
           "data-state": "active", // Needed for active styles (mirrors tabs)
         })}
-        {...commonTabStyles.trigger}
+        {...commonTabStyles.triggerInner}
       >
-        <span {...commonTabStyles.triggerInner}>{children}</span>
+        {children}
       </RouterLink>
     </NavigationMenuPrimitive.Link>
   );
