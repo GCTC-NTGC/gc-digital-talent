@@ -27,7 +27,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  run-cypress:
+  cypress:
+    name: Cypress
     # Platform recommended in cypress-io/github-action docs.
     runs-on: ubuntu-22.04
     env:

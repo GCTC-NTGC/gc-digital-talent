@@ -23,8 +23,8 @@ on:
     - cron: "29 5 * * 1"
 
 jobs:
-  analyze:
-    name: Analyze
+  codeql:
+    name: CodeQL
     runs-on: ubuntu-22.04
     permissions:
       actions: read

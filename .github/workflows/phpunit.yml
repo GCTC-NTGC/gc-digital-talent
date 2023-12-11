@@ -9,6 +9,7 @@ on:
 
 jobs:
   phpunit:
+    name: PHPUnit
     runs-on: ubuntu-22.04
     env:
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
