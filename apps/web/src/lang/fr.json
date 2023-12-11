@@ -728,7 +728,7 @@
     "description": "Eighth of the Frequently Asked Questions for sign up"
   },
   "1sPszf": {
-    "defaultMessage": "Emplacement actuel",
+    "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "1vVbe3": {
@@ -1736,7 +1736,7 @@
     "description": "Title for the feature about finding executive jobs"
   },
   "7VCuZQ": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Label for a process' location requirement"
   },
   "7b0U9u": {
@@ -2144,7 +2144,7 @@
     "description": "CSV Header, Armed Forces column"
   },
   "A2VzLX": {
-    "defaultMessage": "Emplacement précis (anglais)",
+    "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
   "A2ycww": {
@@ -2824,7 +2824,7 @@
     "description": "Seventh answer of the Frequently Asked Questions for logging in"
   },
   "DMdCkf": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Display text for the current location field on users"
   },
   "DPfJ30": {
@@ -4844,7 +4844,7 @@
     "description": "Title for education experience section"
   },
   "PH+6C9": {
-    "defaultMessage": "Emplacement précis (français)",
+    "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
   },
   "POvUB0": {
@@ -5636,7 +5636,7 @@
     "description": "Heading for the manager info section of the single search request view."
   },
   "UGaZR2": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Location options in Edit Pool Form"
   },
   "UHH1Oh": {
@@ -8420,7 +8420,7 @@
     "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
   "j3m2Ca": {
-    "defaultMessage": "Emplacement précis (précisez ci-dessous)",
+    "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
   },
   "j7+E9C": {
@@ -9900,7 +9900,7 @@
     "description": "Description of identifying digital talents"
   },
   "s1h7Mc": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Current Location label and colon"
   },
   "s2OefW": {
