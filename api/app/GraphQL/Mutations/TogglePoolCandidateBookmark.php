@@ -14,7 +14,7 @@ final class TogglePoolCandidateBookmark
     public function __invoke($_, array $args)
     {
         $candidate = PoolCandidate::find($args['id']);
-        $candidate->is_bookmarked = !$candidate->is_bookmarked;
+        $candidate->is_bookmarked = ! $candidate->is_bookmarked;
         $candidate->save();
 
         return $candidate->is_bookmarked;
