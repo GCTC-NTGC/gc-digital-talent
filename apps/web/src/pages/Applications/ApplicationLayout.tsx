@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
+import { useQuery } from "urql";
 
 import {
   TableOfContents,
@@ -10,6 +11,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { getFragment } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -18,7 +20,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
-import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
   getApplicationSteps,
@@ -26,7 +27,11 @@ import {
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
 
-import { ApplicationPageProps } from "./ApplicationApi";
+import {
+  ApplicationPageProps,
+  ApplicationPageQuery,
+  Application_PoolCandidateFragment,
+} from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
@@ -35,19 +40,20 @@ type RouteParams = {
   experienceId: string;
 };
 
-const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
+const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams<RouteParams>();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const steps = getApplicationSteps({
     intl,
     paths,
     application,
     experienceId,
   });
-  const title = fullPoolTitle(intl, application.pool);
-  const isIAP = isIAPPool(application.pool);
+  const title = fullPoolTitle(intl, application?.pool);
+  const isIAP = isIAPPool(application?.pool);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
@@ -89,7 +95,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
       }),
     },
     {
-      url: paths.pool(application.pool.id),
+      url: paths.pool(application?.pool?.id ?? ""),
       label: title.html,
     },
     ...currentCrumbs,
@@ -98,7 +104,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const userIsOnDisabledPage = isOnDisabledPage(
     currentPage?.link.url,
     steps,
-    application.submittedSteps,
+    application?.submittedSteps,
   );
 
   // If we cannot find the current page, redirect to the first step
@@ -111,7 +117,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
     }
   }, [currentPage, navigate, nextStepToSubmit]);
 
-  return (
+  return application ? (
     <ApplicationContextProvider
       application={application}
       followingPageUrl={
@@ -159,26 +165,24 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
         </TableOfContents.Wrapper>
       </div>
     </ApplicationContextProvider>
+  ) : (
+    <ThrowNotFound />
   );
 };
 
 const ApplicationLayout = () => {
   const id = useApplicationId();
-  const [{ data, fetching, error, stale }] = useGetApplicationQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: ApplicationPageQuery,
     requestPolicy: "cache-first",
     variables: {
       id,
     },
   });
-
-  const application = data?.poolCandidate;
-
   return (
     <Pending fetching={fetching || stale} error={error}>
-      {application ? (
-        <ApplicationContextProvider application={application}>
-          <ApplicationPageWrapper application={application} />
-        </ApplicationContextProvider>
+      {data?.poolCandidate ? (
+        <ApplicationPageWrapper query={data.poolCandidate} />
       ) : (
         <ThrowNotFound />
       )}

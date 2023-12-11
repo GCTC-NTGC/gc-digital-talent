@@ -3,13 +3,14 @@ import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-
 import {
   PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
-} from "~/api/generated";
+  Application_PoolCandidateFragment,
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
@@ -26,7 +27,7 @@ import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/care
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   experienceId?: string;
 };
 
@@ -56,7 +57,7 @@ export const getApplicationSteps = ({
       paths,
       intl,
       application,
-      resourceId: experienceId,
+      resourceId: experienceId ?? "",
       stepOrdinal: index + 1,
     }),
   );
@@ -137,7 +138,7 @@ export function isOnDisabledPage(
 
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
-  application: PoolCandidate,
+  application: Application_PoolCandidateFragment,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -154,7 +155,7 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: step.hasError?.(application.user, application.pool, application),
+        error: step.hasError?.(application),
       };
     });
 }
