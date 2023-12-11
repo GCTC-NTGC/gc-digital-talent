@@ -17,7 +17,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import useRoutes from "../../hooks/useRoutes";
-import { getDecisionInfo, sortResults } from "./utils";
+import { getDecisionInfo, sortResultsAndAddOrdinal } from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -62,14 +62,12 @@ const ToggleBookmark_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface AssessmentResultProps {
-  result: AssessmentResultType;
-  ordinal: number;
+  result: AssessmentResultType & { ordinal: number };
   isApplicationStep: boolean;
 }
 
 const AssessmentResult = ({
   result,
-  ordinal,
   isApplicationStep,
 }: AssessmentResultProps) => {
   const intl = useIntl();
@@ -212,7 +210,7 @@ const AssessmentResult = ({
             color="black"
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
           >
-            {ordinal}.{" "}
+            {result.ordinal}.{" "}
             {getFullNameLabel(
               result.poolCandidate.user.firstName,
               result.poolCandidate.user.lastName,
@@ -244,17 +242,16 @@ interface AssessmentResultsProps {
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
-  const sortedResults = sortResults(results);
+  const sortedResults = sortResultsAndAddOrdinal(results);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
   return (
     <Board.List>
-      {sortedResults.map((result, index) => (
+      {sortedResults.map((result) => (
         <AssessmentResult
           key={result.id}
-          result={result}
-          ordinal={index + 1}
+          result={{ ...result }}
           isApplicationStep={isApplicationStep}
         />
       ))}

@@ -109,10 +109,45 @@ export const decisionOrder: AssessmentDecision[] = [
   AssessmentDecision.Unsuccessful,
 ];
 
-export const sortResults = (
+export const sortResultsAndAddOrdinal = (
   results: AssessmentResult[],
-): AssessmentResult[] => {
-  return results.sort((resultA, resultB) => {
+): (AssessmentResult & { ordinal: number })[] => {
+  const withOrdinal = results
+    .sort((resultA, resultB) => {
+      const decisionA = decisionOrder.indexOf(
+        resultA.assessmentDecision ?? AssessmentDecision.NotSure,
+      );
+      const isPriorityA = Number(
+        resultA.poolCandidate?.user.hasPriorityEntitlement,
+      );
+      const isVetA = Number(
+        resultA.poolCandidate?.user.armedForcesStatus ===
+          ArmedForcesStatus.Veteran,
+      );
+
+      const decisionB = decisionOrder.indexOf(
+        resultB.assessmentDecision ?? AssessmentDecision.NotSure,
+      );
+      const isPriorityB = Number(
+        resultB.poolCandidate?.user.hasPriorityEntitlement,
+      );
+      const isVetB = Number(
+        resultB.poolCandidate?.user.armedForcesStatus ===
+          ArmedForcesStatus.Veteran,
+      );
+
+      return (
+        decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
+      );
+    })
+    .map((result, index) => {
+      return {
+        ...result,
+        ordinal: index + 1,
+      };
+    });
+
+  return withOrdinal.sort((resultA, resultB) => {
     const isBookmarkedA = Number(resultA.poolCandidate?.isBookmarked);
     const decisionA = decisionOrder.indexOf(
       resultA.assessmentDecision ?? AssessmentDecision.NotSure,
