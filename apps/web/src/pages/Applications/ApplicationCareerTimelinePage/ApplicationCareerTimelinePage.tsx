@@ -6,39 +6,29 @@ import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 import { OperationContext } from "urql";
 
-import {
-  Button,
-  Heading,
-  Link,
-  Pending,
-  Separator,
-  ThrowNotFound,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceForDate, ExperienceType } from "~/types/experience";
+import { ExperienceType } from "~/types/experience";
 import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  ApplicationStep,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-  useUpdateApplicationMutation,
-} from "~/api/generated";
+import { ApplicationStep, useUpdateApplicationMutation } from "~/api/generated";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi, {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import useApplicationId from "../useApplicationId";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -162,19 +152,83 @@ function formatExperienceCount(
   }
 }
 
-interface ApplicationCareerTimelineProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
-}
+export const Application_UserExperiencesFragment = graphql(/* GraphQL */ `
+  fragment Application_UserExperiences on User {
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+`);
 
-export const ApplicationCareerTimeline = ({
-  application,
-  experiences,
-}: ApplicationCareerTimelineProps) => {
+export const ApplicationCareerTimeline = ({ query }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -200,13 +254,17 @@ export const ApplicationCareerTimeline = ({
       filterBy: "none",
     });
 
-  const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
+  const userExperiences = getFragment(
+    Application_UserExperiencesFragment,
+    application?.user,
+  );
+  const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
   const experienceList = sortAndFilterExperiences(
-    nonEmptyExperiences,
+    experiences,
     sortAndFilterValues,
     intl,
   );
-  const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
+  const experiencesByType = groupBy(experiences, (e) => {
     return deriveExperienceType(e);
   });
   const hasSomeExperience = !!experiences.length;
@@ -450,48 +508,11 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first",
 };
 
-const ApplicationCareerTimelinePage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery({
-    context,
-  });
-
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
-
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application ? (
-        <ApplicationCareerTimeline
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
+const ApplicationCareerTimelinePage = () => (
+  <ApplicationApi
+    PageComponent={ApplicationCareerTimeline}
+    operationContext={context}
+  />
+);
 
 export default ApplicationCareerTimelinePage;

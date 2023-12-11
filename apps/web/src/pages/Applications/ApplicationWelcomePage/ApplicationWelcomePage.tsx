@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -13,7 +14,10 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi, {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
@@ -59,12 +63,13 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
+const ApplicationWelcome = ({ query }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,

@@ -4,17 +4,12 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
-import {
-  Button,
-  Heading,
-  Link,
-  Pending,
-  Separator,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -24,17 +19,17 @@ import {
   SkillCategory,
   useUpdateApplicationMutation,
   ApplicationStep,
-  useGetMyExperiencesQuery,
-  useGetApplicationQuery,
 } from "~/api/generated";
-import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi, {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
-import useApplicationId from "../useApplicationId";
+import { Application_UserExperiencesFragment } from "../ApplicationCareerTimelinePage/ApplicationCareerTimelinePage";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -78,18 +73,35 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-export interface ApplicationSkillsProps extends ApplicationPageProps {
-  experiences: Array<AnyExperience>;
-}
+export const Application_SkillsFragment = graphql(/* GraphQL */ `
+  fragment Application_Skills on Pool {
+    essentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+    nonessentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
-export const ApplicationSkills = ({
-  application,
-  experiences,
-}: ApplicationSkillsProps) => {
+export const ApplicationSkills = ({ query }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { currentStepOrdinal } = useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -97,18 +109,21 @@ export const ApplicationSkills = ({
     stepOrdinal: currentStepOrdinal,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
-  const categorizedEssentialSkills = categorizeSkill(
-    application.pool.essentialSkills,
-  );
-  const categorizedOptionalSkills = categorizeSkill(
-    application.pool.nonessentialSkills,
-  );
+  const skills = getFragment(Application_SkillsFragment, application.pool);
+  const categorizedEssentialSkills = categorizeSkill(skills.essentialSkills);
+  const categorizedOptionalSkills = categorizeSkill(skills.nonessentialSkills);
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
   const { followingPageUrl, isIAP } = useApplicationContext();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
+
+  const userExperiences = getFragment(
+    Application_UserExperiencesFragment,
+    application?.user,
+  );
+  const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
 
   const isSkillsExperiencesIncomplete = isIncomplete(
     application.user,
@@ -364,45 +379,8 @@ export const ApplicationSkills = ({
   );
 };
 
-const ApplicationSkillsPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
+const ApplicationSkillsPage = () => (
+  <ApplicationApi PageComponent={ApplicationSkills} />
+);
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as AnyExperience[];
-
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application ? (
-        <ApplicationSkills
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
 export default ApplicationSkillsPage;
