@@ -24,6 +24,20 @@ BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": 
 
 cd $ROOT_DIR/api
 
+# Install packages from repostiroy
+if apt-get install -y supervisor ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Install packages from repostiroy *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Install packages from repostiroy *failed*. $MENTION\" } }"
+fi
+
+# Setup supervisor
+if /home/site/wwwroot/infrastructure/bin/setup_supervisor.sh ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Setup supervisor *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Setup supervisor *failed*. $MENTION\" } }"
+fi
+
 # Create cache directory
 if mkdir --parents /tmp/bootstrap/cache ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory creation *successful*.\" } }"
