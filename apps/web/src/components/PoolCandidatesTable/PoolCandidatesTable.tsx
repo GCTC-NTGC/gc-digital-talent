@@ -185,8 +185,9 @@ const PoolCandidatesTable = ({
     initialState.sortState ?? [{ id: "submitted_at", desc: true }],
   );
 
-  const [filterState, setFilterState] =
-    React.useState<PoolCandidateSearchInput>(initialFilters);
+  const [filterState, setFilterState] = React.useState<
+    PoolCandidateSearchInput | undefined
+  >(initialFilters);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -213,7 +214,7 @@ const PoolCandidatesTable = ({
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    const transformedData = {
+    const transformedData: PoolCandidateSearchInput = {
       applicantFilter: {
         languageAbility: data.languageAbility
           ? stringToEnumLanguage(data.languageAbility)
@@ -223,14 +224,16 @@ const PoolCandidatesTable = ({
           return { group: splitString[0], level: Number(splitString[1]) };
         }),
         qualifiedStreams: data.stream as PoolStream[],
-        operationalRequirements: data.operationalRequirement.map(
-          (requirement) => {
+        operationalRequirements: data.operationalRequirement
+          .map((requirement) => {
             return stringToEnumOperational(requirement);
-          },
-        ),
-        locationPreferences: data.workRegion.map((region) => {
-          return stringToEnumLocation(region);
-        }),
+          })
+          .filter(notEmpty),
+        locationPreferences: data.workRegion
+          .map((region) => {
+            return stringToEnumLocation(region);
+          })
+          .filter(notEmpty),
         equity: {
           ...(data.equity.includes("isWoman") && { isWoman: true }),
           ...(data.equity.includes("hasDisability") && { hasDisability: true }),
@@ -246,9 +249,11 @@ const PoolCandidatesTable = ({
           return { id };
         }),
       },
-      poolCandidateStatus: data.poolCandidateStatus.map((status) => {
-        return stringToEnumPoolCandidateStatus(status);
-      }),
+      poolCandidateStatus: data.poolCandidateStatus
+        .map((status) => {
+          return stringToEnumPoolCandidateStatus(status);
+        })
+        .filter(notEmpty),
       priorityWeight: data.priorityWeight.map((priority) => {
         return Number(priority);
       }),
@@ -273,7 +278,7 @@ const PoolCandidatesTable = ({
     fancyFilterState: PoolCandidateSearchInput | undefined,
     searchBarTerm: string | undefined,
     searchType: string | undefined,
-  ): InputMaybe<PoolCandidateSearchInput> => {
+  ): InputMaybe<PoolCandidateSearchInput> | undefined => {
     if (
       fancyFilterState === undefined &&
       searchBarTerm === undefined &&

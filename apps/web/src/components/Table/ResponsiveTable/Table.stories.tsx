@@ -11,7 +11,8 @@ import {
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Language, User } from "@gc-digital-talent/graphql";
+
+import { Language, User } from "~/api/generated";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";

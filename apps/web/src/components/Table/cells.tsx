@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Maybe } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
+
+import { Maybe } from "~/api/generated";
 
 import Actions, { ActionsProps } from "./Actions";
 import CommaList, { CommaListProps } from "./CommaList";

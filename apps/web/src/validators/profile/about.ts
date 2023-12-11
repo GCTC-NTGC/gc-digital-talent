@@ -1,5 +1,6 @@
-import { User } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
+
+import { User } from "~/api/generated";
 
 export type PartialUser = Pick<
   User,

@@ -3,14 +3,14 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import {
   ApplicantFilterInput,
   CandidateSearchPoolResult,
   Pool,
   useCountApplicantsAndCountPoolCandidatesByPoolQuery,
-} from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
+} from "~/api/generated";
 import { FormValues, LocationState } from "~/types/searchRequest";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";

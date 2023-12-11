@@ -1,19 +1,42 @@
 import React from "react";
+import { useQuery } from "urql";
 
-import { useGetCurrentAuthorizedUserQuery } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 import { containsUserDeletedError } from "../utils/errors";
+
+const authorizationQuery = graphql(/** GraphQL */ `
+  query authorizationQuery {
+    myAuth {
+      id
+      deletedDate
+      roleAssignments {
+        id
+        role {
+          id
+          name
+        }
+        team {
+          id
+          name
+        }
+      }
+    }
+  }
+`);
 
 interface AuthorizationProviderProps {
   children?: React.ReactNode;
 }
 
 const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
-  const [{ data, fetching, stale, error }] = useGetCurrentAuthorizedUserQuery();
+  const [{ data, fetching, stale, error }] = useQuery({
+    query: authorizationQuery,
+  });
   const isLoaded = !fetching && !stale;
   let deleted = false;
   const logger = useLogger();

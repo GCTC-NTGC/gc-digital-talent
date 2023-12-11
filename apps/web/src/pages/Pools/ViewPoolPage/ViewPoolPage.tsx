@@ -10,15 +10,15 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+
 import {
   useGetProcessInfoQuery,
   Scalars,
   Pool,
   PoolStatus,
-} from "@gc-digital-talent/graphql";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";

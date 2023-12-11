@@ -9,7 +9,7 @@ import {
   GenericJobTitle,
   Role,
   Team,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 type CreateApplicationArgs = {

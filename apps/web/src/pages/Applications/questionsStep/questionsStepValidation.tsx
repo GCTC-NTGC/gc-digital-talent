@@ -1,5 +1,4 @@
-import { User, Pool, PoolCandidate } from "@gc-digital-talent/graphql";
-
+import { User, Pool, PoolCandidate } from "~/api/generated";
 import { screeningQuestionsSectionHasMissingResponses } from "~/validators/profile";
 
 const stepHasError = (

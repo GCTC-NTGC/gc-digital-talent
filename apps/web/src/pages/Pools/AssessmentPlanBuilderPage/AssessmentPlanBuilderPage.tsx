@@ -2,7 +2,6 @@ import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
-import { Scalars } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -21,14 +20,15 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
+import {
+  Scalars,
+  GetAssessmentPlanBuilderDataQuery,
+  useGetAssessmentPlanBuilderDataQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import {
-  GetAssessmentPlanBuilderDataQuery,
-  useGetAssessmentPlanBuilderDataQuery,
-} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
