@@ -160,7 +160,7 @@ See: https://docs.cypress.io/guides/guides/web-security
     - this affects **our `mock-oauth2-server`**
   - superdomain limitations do not affect subdomains
     - `www.example.com` vs `auth.example.com` (this is ok)
-  - general work-arounds
+  - general workarounds
     - using `cy.request()` instead of `cy.visit()`
     - set `chromeWebSecurity:false` in `cypress.config.ts` (still has caveats, and
       mitigation only works for Chromium-based browsers)
