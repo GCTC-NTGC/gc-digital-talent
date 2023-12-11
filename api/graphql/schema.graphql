@@ -741,14 +741,6 @@ type Query {
   classifications: [Classification]! @all @can(ability: "viewAny")
   department(id: UUID! @eq): Department @find @can(ability: "view")
   departments: [Department]! @all @can(ability: "viewAny")
-  poolCandidateFilters: [PoolCandidateFilter]!
-    @all
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @throttle(name: "graphql")
-    @deprecated(
-      reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
-    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard
