@@ -10,7 +10,7 @@ const overrideFeatureFlags = (flags: Object) => {
 
   let map = `const data = new Map();`;
   Object.keys(env).forEach((key) => {
-    map = `data.set(${key}, ${env[key]});`;
+    map = `${map} data.set(${key}, ${env[key]});`;
   });
 
   return `${map} window.__SERVER_CONFIG__ = data`;
