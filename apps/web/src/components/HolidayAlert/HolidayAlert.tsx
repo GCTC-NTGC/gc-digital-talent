@@ -21,24 +21,25 @@ const HolidayAlert = (): JSX.Element | null => {
       <Heading size="h6" data-h2-margin-top="base(0)">
         {intl.formatMessage({
           defaultMessage: "Happy Holidays!",
-          id: "tQseOY",
-          description: "Happy holidays, seasons greetings heading",
+          id: "pFOjuY",
+          description: "Heading to exclaim holiday greetings",
         })}
       </Heading>
       <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
-          defaultMessage: "It's time for a well-deserved break; you earned it!",
-          id: "Z72V0g",
+          defaultMessage:
+            "It's time for a well-deserved break; you've earned it!",
+          id: "ll4RKs",
           description: "Message conveying time to relax",
         })}
       </p>
       <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage:
-            "There will be no job postings during the holidays (Dec 22-Jan 7).",
-          id: "Vfj62k",
+            "There will be no job postings during the holidays from December 22, 2023 to January 7, 2024.",
+          id: "kY+tnm",
           description:
-            "There will be no new postings over the holiday stretch, December 22 through January 7th",
+            "Message to indicate period of time when no jobs will be posted on the website",
         })}
       </p>
       <p data-h2-margin="base(x.5 0)">
