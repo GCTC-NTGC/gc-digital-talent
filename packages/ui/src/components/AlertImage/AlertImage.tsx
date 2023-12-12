@@ -3,16 +3,23 @@ import * as React from "react";
 /**
  * @interface AlertImageProps
  * @member {JSX.Element} message the message to be displayed in the alert component as a JSX element
- * @member {string} image the resource location of the image to be displayed
+ * @member {string} lightImage the resource location of the image to be displayed - light
+ * @member {string} darkImage the resource location of the image to be displayed - dark
  * @member {string} imageAltText alt text for the image
  */
 export interface AlertImageProps {
   message: JSX.Element;
-  image: string;
+  lightImage: string;
+  darkImage: string;
   imageAltText?: string;
 }
 
-const AlertImage = ({ message, image, imageAltText }: AlertImageProps) => {
+const AlertImage = ({
+  message,
+  lightImage,
+  darkImage,
+  imageAltText,
+}: AlertImageProps) => {
   return (
     <div
       className="Alert"
@@ -40,7 +47,16 @@ const AlertImage = ({ message, image, imageAltText }: AlertImageProps) => {
         data-h2-flex="base(1)"
         data-h2-padding="base(x0.5)"
       >
-        <img src={image} alt={imageAltText ?? ""} />
+        <img
+          src={lightImage}
+          alt={imageAltText ?? ""}
+          data-h2-display="base(block) base:dark(none)"
+        />
+        <img
+          src={darkImage}
+          alt={imageAltText ?? ""}
+          data-h2-display="base(none) base:dark(block)"
+        />
       </div>
     </div>
   );

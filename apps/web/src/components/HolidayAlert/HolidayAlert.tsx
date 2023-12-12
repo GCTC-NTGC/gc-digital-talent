@@ -1,14 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { useTheme } from "@gc-digital-talent/theme";
 import { AlertImage, Heading } from "@gc-digital-talent/ui";
 
-import lightImage from "~/assets/img/Holiday_2023_graphic_Light_mode.webp";
-import darkImage from "~/assets/img/Holiday_2023_graphic_darkmode.webp";
+import lightImage from "~/assets/img/holiday_2023_graphic_light.webp";
+import darkImage from "~/assets/img/holiday_2023_graphic_dark.webp";
 
 const HolidayAlert = (): JSX.Element | null => {
-  const { mode } = useTheme();
   const intl = useIntl();
 
   const dateNow = new Date();
@@ -59,7 +57,8 @@ const HolidayAlert = (): JSX.Element | null => {
     return (
       <AlertImage
         message={message}
-        image={mode === "dark" ? darkImage : lightImage}
+        lightImage={lightImage}
+        darkImage={darkImage}
       />
     );
   }
