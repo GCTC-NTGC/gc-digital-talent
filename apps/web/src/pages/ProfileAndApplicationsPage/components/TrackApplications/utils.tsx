@@ -45,6 +45,7 @@ export const getApplicationDeadlineMessage = (
         date: parseDateTimeUtc(application.pool.closingDate),
         formatString: "PPP",
         intl,
+        timeZone: "Canada/Pacific",
       }),
     },
   );
