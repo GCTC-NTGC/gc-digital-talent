@@ -66,7 +66,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const Application_UserProfileFragment = graphql(/* GraphQL */ `
+export const Application_UserProfileFragment = graphql(/* GraphQL */ `
   fragment Application_UserProfile on User {
     id
     preferredLang

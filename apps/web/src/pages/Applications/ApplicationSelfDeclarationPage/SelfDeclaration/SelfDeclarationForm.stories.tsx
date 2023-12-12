@@ -1,15 +1,31 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { IndigenousCommunity } from "~/api/generated";
+import {
+  ApplicationSelfDeclaration,
+  ApplicationSelfDeclaration_UserFragment,
+} from "../ApplicationSelfDeclarationPage";
+import { Application_PoolCandidateFragment } from "../../ApplicationApi";
 
-import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
-
+const mockUser = fakeUsers(1)[0];
 const mockApplication = fakePoolCandidates(1)[0];
+const mockPoolCandidateFragment = makeFragmentData(
+  {
+    ...mockApplication,
+    user: mockUser,
+  },
+  Application_PoolCandidateFragment,
+);
+
+const mockIndigenousIdentity = makeFragmentData(
+  mockUser,
+  ApplicationSelfDeclaration_UserFragment,
+);
 
 export default {
   component: ApplicationSelfDeclaration,
@@ -17,14 +33,13 @@ export default {
   parameters: {
     themeKey: "iap",
   },
-} as ComponentMeta<typeof ApplicationSelfDeclaration>;
+};
 
-const Template: ComponentStory<typeof ApplicationSelfDeclaration> = () => (
+const Template: StoryFn<typeof ApplicationSelfDeclaration> = () => (
   <ApplicationSelfDeclaration
     onSubmit={(values) => action("onSubmit")(values)}
-    application={mockApplication}
-    indigenousCommunities={[IndigenousCommunity.Inuit]}
-    signature="Lorem Ipsum"
+    query={mockPoolCandidateFragment}
+    indigenousQuery={mockIndigenousIdentity}
   />
 );
 

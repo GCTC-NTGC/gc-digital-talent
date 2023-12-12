@@ -106,7 +106,7 @@ export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-const ApplicationSelfDeclaration_UserFragment = graphql(/* GraphQL */ `
+export const ApplicationSelfDeclaration_UserFragment = graphql(/* GraphQL */ `
   fragment ApplicationSelfDeclaration_User on User {
     indigenousCommunities
     indigenousDeclarationSignature

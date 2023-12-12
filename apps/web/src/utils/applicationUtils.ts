@@ -138,7 +138,7 @@ export function isOnDisabledPage(
 
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
-  application: Application_PoolCandidateFragment,
+  application: PoolCandidate,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -155,7 +155,7 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: step.hasError?.(application),
+        error: step.hasError?.(application.user, application.pool, application),
       };
     });
 }

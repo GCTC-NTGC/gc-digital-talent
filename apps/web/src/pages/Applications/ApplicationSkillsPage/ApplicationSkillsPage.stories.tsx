@@ -6,11 +6,11 @@ import {
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import {
-  ApplicationSkills,
-  ApplicationSkillsProps,
-} from "./ApplicationSkillsPage";
+import { ApplicationSkills } from "./ApplicationSkillsPage";
+import { Application_PoolCandidateFragment } from "../ApplicationApi";
+import { Application_UserExperiencesFragment } from "../operations";
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
@@ -21,31 +21,13 @@ const experienceSkills = mockExperiences
   .filter(notEmpty)
   .flatMap((skill) => skill);
 
-const noSkills: ApplicationSkillsProps = {
-  application: {
-    ...fakePoolCandidate,
-    user: {
-      ...fakeUser,
-      experiences: mockExperiences,
-    },
+const mockExperiencesFragment = makeFragmentData(
+  {
+    ...fakeUser,
+    experiences: mockExperiences,
   },
-  experiences: mockExperiences,
-};
-
-const hasExperiencesProps: ApplicationSkillsProps = {
-  application: {
-    ...fakePoolCandidate,
-    user: {
-      ...fakeUser,
-      experiences: mockExperiences,
-    },
-    pool: {
-      ...fakePoolCandidate.pool,
-      essentialSkills: [...experienceSkills],
-    },
-  },
-  experiences: mockExperiences,
-};
+  Application_UserExperiencesFragment,
+);
 
 export default {
   component: ApplicationSkills,
@@ -57,7 +39,35 @@ const Template: StoryFn<typeof ApplicationSkills> = (props) => (
 );
 
 export const NoSkills = Template.bind({});
-NoSkills.args = noSkills;
+NoSkills.args = {
+  query: makeFragmentData(
+    {
+      ...fakePoolCandidate,
+      user: {
+        ...fakeUser,
+        experiences: mockExperiences,
+      },
+    },
+    Application_PoolCandidateFragment,
+  ),
+  experiencesQuery: mockExperiencesFragment,
+};
 
 export const HasExperiences = Template.bind({});
-HasExperiences.args = hasExperiencesProps;
+HasExperiences.args = {
+  query: makeFragmentData(
+    {
+      ...fakePoolCandidate,
+      user: {
+        ...fakeUser,
+        experiences: mockExperiences,
+      },
+      pool: {
+        ...fakePoolCandidate.pool,
+        essentialSkills: [...experienceSkills],
+      },
+    },
+    Application_PoolCandidateFragment,
+  ),
+  experiencesQuery: mockExperiencesFragment,
+};
