@@ -128,7 +128,7 @@ const AssessmentResult = ({
           toast.error(
             intl.formatMessage({
               defaultMessage: "Error: failed updating a candidate's bookmark.",
-              id: "tRAmNw",
+              id: "NnDLzr",
               description:
                 "Alert displayed to the user when failing to (un-)bookmark a candidate.",
             }),
