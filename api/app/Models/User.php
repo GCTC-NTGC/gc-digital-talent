@@ -365,7 +365,9 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected static function boot()
     {
         parent::boot();
-
+        static::created(function (User $user) {
+            $user->searchable();
+        });
         static::deleting(function (User $user) {
             // We only need to run this if the user is being soft deleted
             if (! $user->isForceDeleting()) {

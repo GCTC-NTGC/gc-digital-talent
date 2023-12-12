@@ -152,9 +152,14 @@ abstract class Experience extends Model
     {
         parent::boot();
 
-        // Eloquent event for saving
         static::saving(function ($experience) {
+            $user = $experience->user;
+            if ($user) {
+                $user->searchable();
+            }
+        });
 
+        static::deleted(function ($experience) {
             $user = $experience->user;
             if ($user) {
                 $user->searchable();
