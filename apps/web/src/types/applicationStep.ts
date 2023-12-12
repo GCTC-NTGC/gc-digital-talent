@@ -3,7 +3,10 @@ import { IntlShape } from "react-intl";
 import {
   Application_PoolCandidateFragment,
   ApplicationStep,
+  Pool,
+  PoolCandidate,
   Scalars,
+  User,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -32,7 +35,11 @@ export type ApplicationStepInfo = {
   // Which application steps should be submitted before you can use this page?
   prerequisites: Array<ApplicationStep>;
   // Is the applicant valid as far as this step is concerned?
-  hasError?: (application: Application_PoolCandidateFragment) => boolean;
+  hasError?: (
+    applicant: User,
+    pool: Pool,
+    application: PoolCandidate,
+  ) => boolean;
 };
 
 export type GetApplicationStepInfo = (
