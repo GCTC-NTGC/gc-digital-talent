@@ -380,6 +380,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newEmail]);
             }
+            $user->searchable();
         });
 
         static::restoring(function (User $user) {
