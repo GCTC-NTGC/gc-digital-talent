@@ -28,5 +28,6 @@ const message = (
 export const Default = Template.bind({});
 Default.args = {
   message,
-  image: "https://placehold.co/600x400/EEE/31343C",
+  lightImage: "https://placehold.co/600x400/EEE/31343C",
+  darkImage: "https://placehold.co/600x400/EEE/31343C",
 };
