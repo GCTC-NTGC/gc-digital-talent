@@ -88,7 +88,7 @@ const ApplicationInformation = ({
             <ApplicationPrintButton
               mode="inline"
               color="secondary"
-              pool={application.pool}
+              pool={pool}
               user={snapshot}
             />
           )}
