@@ -38,7 +38,7 @@ const AlertImage = ({ message, image, imageAltText }: AlertImageProps) => {
       <div
         data-h2-flex-grow="base(1)"
         data-h2-flex="base(1)"
-        data-h2-padding="base(x1)"
+        data-h2-padding="base(x0.5)"
       >
         <img src={image} alt={imageAltText ?? ""} />
       </div>

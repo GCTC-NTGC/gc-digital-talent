@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { AlertImage } from "@gc-digital-talent/ui";
+import { AlertImage, Heading } from "@gc-digital-talent/ui";
 
 import lightImage from "~/assets/img/Holiday_2023_graphic_Light_mode.webp";
 import darkImage from "~/assets/img/Holiday_2023_graphic_darkmode.webp";
@@ -20,21 +20,21 @@ const HolidayAlert = (): JSX.Element | null => {
       data-h2-justify-content="base(space-between)"
       data-h2-max-height="base(100%)"
     >
-      <h2>
+      <Heading size="h6" data-h2-margin-top="base(0)">
         {intl.formatMessage({
           defaultMessage: "Happy Holidays!",
           id: "tQseOY",
           description: "Happy holidays, seasons greetings heading",
         })}
-      </h2>
-      <p>
+      </Heading>
+      <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage: "It's time for a well-deserved break; you earned it!",
           id: "Z72V0g",
           description: "Message conveying time to relax",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage:
             "There will be no job postings during the holidays (Dec 22-Jan 7).",
@@ -43,7 +43,7 @@ const HolidayAlert = (): JSX.Element | null => {
             "There will be no new postings over the holiday stretch, December 22 through January 7th",
         })}
       </p>
-      <p>
+      <p data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage:
             "So kick back, relax, and enjoy the holiday season with your loved ones.",
