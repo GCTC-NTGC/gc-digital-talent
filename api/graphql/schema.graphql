@@ -78,11 +78,6 @@ type User {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean
-    @rename(attribute: "is_indigenous")
-    @deprecated(
-      reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662."
-    )
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")

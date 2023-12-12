@@ -349,7 +349,6 @@ query GetViewUserData($id: UUID!) {
     locationExemptions
     positionDuration
     acceptedOperationalRequirements
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     hasDisability
@@ -571,7 +570,6 @@ query selectedUsers($ids: [ID]!) {
     positionDuration
     acceptedOperationalRequirements
     isWoman
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
