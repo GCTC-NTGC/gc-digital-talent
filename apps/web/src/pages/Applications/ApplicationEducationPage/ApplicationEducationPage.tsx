@@ -3,6 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
+import { useQuery } from "urql";
 
 import {
   Button,
@@ -15,13 +16,12 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
@@ -36,11 +36,15 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplicationId from "../useApplicationId";
 import { getEducationRequirementOptions } from "./utils";
+import { Application_UserExperiencesFragment } from "../operations";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -97,13 +101,24 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
+const Application_EducationFragment = graphql(/* GraphQL */ `
+  fragment Application_Education on PoolCandidate {
+    educationRequirementOption
+    educationRequirementExperiences {
+      id
+    }
+  }
+`);
+
 interface ApplicationEducationProps extends ApplicationPageProps {
-  experiences: Array<ExperienceForDate>;
+  experiencesQuery: FragmentType<typeof Application_UserExperiencesFragment>;
+  educationQuery: FragmentType<typeof Application_EducationFragment>;
 }
 
 const ApplicationEducation = ({
-  application,
-  experiences,
+  query,
+  educationQuery,
+  experiencesQuery,
 }: ApplicationEducationProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -111,6 +126,7 @@ const ApplicationEducation = ({
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -122,15 +138,19 @@ const ApplicationEducation = ({
   const previousStep = paths.applicationCareerTimeline(application.id);
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
+  const educationData = getFragment(
+    Application_EducationFragment,
+    educationQuery,
+  );
   const methods = useForm<FormValues>({
     defaultValues: {
       // Only show default values if applicant has previously submitted data.
-      ...(application.educationRequirementOption && {
-        educationRequirement: application.educationRequirementOption,
+      ...(educationData.educationRequirementOption && {
+        educationRequirement: educationData.educationRequirementOption,
       }),
-      ...(application.educationRequirementExperiences && {
+      ...(educationData.educationRequirementExperiences && {
         educationRequirementExperiences:
-          application.educationRequirementExperiences
+          educationData.educationRequirementExperiences
             .filter(notEmpty)
             .map(({ id }) => {
               return id;
@@ -146,6 +166,12 @@ const ApplicationEducation = ({
   } = methods;
   const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
+
+  const userExperiences = getFragment(
+    Application_UserExperiencesFragment,
+    experiencesQuery,
+  );
+  const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
 
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
@@ -408,41 +434,37 @@ const ApplicationEducation = ({
   );
 };
 
+export const ApplicationEducationPageQuery = graphql(/* GraphQL */ `
+  query ApplicationEducationPage($id: UUID!) {
+    poolCandidate(id: $id) {
+      ...Application_PoolCandidate
+      ...Application_Education
+    }
+    me {
+      id
+      email
+      ...Application_UserExperiences
+    }
+  }
+`);
+
 const ApplicationEducationPage = () => {
   const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: ApplicationEducationPageQuery,
+    requestPolicy: "cache-first",
     variables: {
       id,
     },
-    requestPolicy: "cache-first",
   });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
-
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching || applicationStale}
-      error={applicationError || experienceError}
-    >
-      {application?.pool ? (
+    <Pending fetching={fetching || stale} error={error}>
+      {data?.poolCandidate && data?.me ? (
         <ApplicationEducation
-          application={application}
-          experiences={experiences}
+          query={data.poolCandidate}
+          educationQuery={data.poolCandidate}
+          experiencesQuery={data.me}
         />
       ) : (
         <ThrowNotFound />

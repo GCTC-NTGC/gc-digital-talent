@@ -7,12 +7,16 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi, {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import AddExperienceForm from "./components/AddExperienceForm";
 import { experienceTypeTitles } from "./messages";
@@ -60,12 +64,11 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationCareerTimelineAdd = ({
-  application,
-}: ApplicationPageProps) => {
+const ApplicationCareerTimelineAdd = ({ query }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal } = useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
