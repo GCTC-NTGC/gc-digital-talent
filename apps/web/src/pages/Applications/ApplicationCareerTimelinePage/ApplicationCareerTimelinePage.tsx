@@ -4,13 +4,21 @@ import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
-import { Button, Heading, Link, Separator, Well } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  Separator,
+  ThrowNotFound,
+  Well,
+} from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -24,11 +32,13 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-import ApplicationApi, {
+import {
   ApplicationPageProps,
   Application_PoolCandidateFragment,
 } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import { Application_UserExperiencesFragment } from "../operations";
+import useApplicationId from "../useApplicationId";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -152,77 +162,14 @@ function formatExperienceCount(
   }
 }
 
-export const Application_UserExperiencesFragment = graphql(/* GraphQL */ `
-  fragment Application_UserExperiences on User {
-    experiences {
-      id
-      __typename
-      user {
-        id
-        email
-      }
-      details
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        category
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-      }
-    }
-  }
-`);
+type ApplicationCareerTimelineProps = ApplicationPageProps & {
+  experiencesQuery: FragmentType<typeof Application_UserExperiencesFragment>;
+};
 
-export const ApplicationCareerTimeline = ({ query }: ApplicationPageProps) => {
+export const ApplicationCareerTimeline = ({
+  query,
+  experiencesQuery,
+}: ApplicationCareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -256,7 +203,7 @@ export const ApplicationCareerTimeline = ({ query }: ApplicationPageProps) => {
 
   const userExperiences = getFragment(
     Application_UserExperiencesFragment,
-    application?.user,
+    experiencesQuery,
   );
   const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
   const experienceList = sortAndFilterExperiences(
@@ -508,11 +455,42 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first",
 };
 
-const ApplicationCareerTimelinePage = () => (
-  <ApplicationApi
-    PageComponent={ApplicationCareerTimeline}
-    operationContext={context}
-  />
-);
+export const ApplicationCareerTimelinePageQuery = graphql(/* GraphQL */ `
+  query ApplicationCareerTimelinePage($id: UUID!) {
+    poolCandidate(id: $id) {
+      ...Application_PoolCandidate
+    }
+    me {
+      id
+      email
+      ...Application_UserExperiences
+    }
+  }
+`);
+
+const ApplicationCareerTimelinePage = () => {
+  const id = useApplicationId();
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: ApplicationCareerTimelinePageQuery,
+    requestPolicy: "cache-first",
+    context,
+    variables: {
+      id,
+    },
+  });
+
+  return (
+    <Pending fetching={fetching || stale} error={error}>
+      {data?.poolCandidate && data?.me ? (
+        <ApplicationCareerTimeline
+          query={data.poolCandidate}
+          experiencesQuery={data.me}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationCareerTimelinePage;

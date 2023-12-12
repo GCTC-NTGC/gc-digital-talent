@@ -3,12 +3,20 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
+import { useQuery } from "urql";
 
-import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Link,
+  Pending,
+  Separator,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -23,13 +31,14 @@ import {
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
-import ApplicationApi, {
+import {
   ApplicationPageProps,
   Application_PoolCandidateFragment,
 } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
-import { Application_UserExperiencesFragment } from "../ApplicationCareerTimelinePage/ApplicationCareerTimelinePage";
+import { Application_UserExperiencesFragment } from "../operations";
+import useApplicationId from "../useApplicationId";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -96,7 +105,14 @@ export const Application_SkillsFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const ApplicationSkills = ({ query }: ApplicationPageProps) => {
+type ApplicationSkillsProps = ApplicationPageProps & {
+  experiencesQuery: FragmentType<typeof Application_UserExperiencesFragment>;
+};
+
+export const ApplicationSkills = ({
+  query,
+  experiencesQuery,
+}: ApplicationSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -121,7 +137,7 @@ export const ApplicationSkills = ({ query }: ApplicationPageProps) => {
 
   const userExperiences = getFragment(
     Application_UserExperiencesFragment,
-    application?.user,
+    experiencesQuery,
   );
   const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
 
@@ -379,8 +395,41 @@ export const ApplicationSkills = ({ query }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSkillsPage = () => (
-  <ApplicationApi PageComponent={ApplicationSkills} />
-);
+export const ApplicationSkillsPageQuery = graphql(/* GraphQL */ `
+  query ApplicationSkillsPage($id: UUID!) {
+    poolCandidate(id: $id) {
+      ...Application_PoolCandidate
+    }
+    me {
+      id
+      email
+      ...Application_UserExperiences
+    }
+  }
+`);
+
+const ApplicationSkillsPage = () => {
+  const id = useApplicationId();
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: ApplicationSkillsPageQuery,
+    requestPolicy: "cache-first",
+    variables: {
+      id,
+    },
+  });
+
+  return (
+    <Pending fetching={fetching || stale} error={error}>
+      {data?.poolCandidate && data?.me ? (
+        <ApplicationSkills
+          query={data.poolCandidate}
+          experiencesQuery={data.me}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationSkillsPage;

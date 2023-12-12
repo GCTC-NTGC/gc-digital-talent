@@ -14,7 +14,6 @@ export const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       id
       email
       firstName
-      ...Application_UserExperiences
     }
     pool {
       id
