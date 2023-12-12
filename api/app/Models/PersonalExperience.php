@@ -13,11 +13,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $user_id
  * @property string $title
  * @property string $description
- * @property \Illuminate\Support\Carbon $start_date
- * @property \Illuminate\Support\Carbon $end_date
+ * @property Illuminate\Support\Carbon $start_date
+ * @property Illuminate\Support\Carbon $end_date
  * @property string $details
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property Illuminate\Support\Carbon $created_at
+ * @property Illuminate\Support\Carbon $updated_at
  */
 class PersonalExperience extends Experience
 {
