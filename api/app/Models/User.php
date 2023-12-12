@@ -588,8 +588,8 @@ class User extends Model implements Authenticatable, LaratrustUser
             return $query;
         }
 
-        // OR filter - first find out how many booleans are true, create array of all true equity bools
-        // equity object has 4 keys with associated bools
+        // OR filter - first find out how many booleans are true, create array of all true equity booleans
+        // equity object has 4 keys with associated booleans
         $equityVars = [];
         if (array_key_exists('is_woman', $equity) && $equity['is_woman']) {
             array_push($equityVars, 'is_woman');
