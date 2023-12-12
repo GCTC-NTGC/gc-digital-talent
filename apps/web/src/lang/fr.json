@@ -1475,10 +1475,6 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
-  "5r8Ka2": {
-    "defaultMessage": "Tout le tableau",
-    "description": "Text in table search form column dropdown when no column is selected."
-  },
   "5tmTP/": {
     "defaultMessage": "Chercher les classifications",
     "description": "Label for the classifications table search input"
@@ -9790,6 +9786,10 @@
   "rLd5cC": {
     "defaultMessage": "Aller à la page {pageNumber}",
     "description": "Aria label for each button in pagination nav"
+  },
+  "rN333X": {
+    "defaultMessage": "Profil intégral",
+    "description": "Text in table search form column dropdown when no column is selected."
   },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
