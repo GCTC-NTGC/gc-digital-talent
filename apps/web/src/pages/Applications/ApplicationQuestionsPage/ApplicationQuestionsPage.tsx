@@ -2,23 +2,35 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { useQuery } from "urql";
 
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Link,
+  Pending,
+  ThrowNotFound,
+  Well,
+} from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { ApplicationStep, useUpdateApplicationMutation } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import {
+  ApplicationPageProps,
+  Application_PoolCandidateFragment,
+} from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
+import useApplicationId from "../useApplicationId";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -53,11 +65,45 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
+const ApplicationQuestions_QuestionsFragment = graphql(/* GraphQL */ `
+  fragment ApplicationQuestions_Questions on Pool {
+    screeningQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const ApplicationQuestions_ResponsesFragment = graphql(/* GraphQL */ `
+  fragment ApplicationQuestions_Responses on PoolCandidate {
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+      }
+    }
+  }
+`);
+
+type ApplicationQuestionsProps = ApplicationPageProps & {
+  questionsQuery: FragmentType<typeof ApplicationQuestions_QuestionsFragment>;
+  responsesQuery: FragmentType<typeof ApplicationQuestions_ResponsesFragment>;
+};
+
+const ApplicationQuestions = ({
+  query,
+  questionsQuery,
+  responsesQuery,
+}: ApplicationQuestionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -68,10 +114,18 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
+  const questionData = getFragment(
+    ApplicationQuestions_QuestionsFragment,
+    questionsQuery,
+  );
+  const responseData = getFragment(
+    ApplicationQuestions_ResponsesFragment,
+    responsesQuery,
+  );
   const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
+    questionData.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+    responseData?.screeningQuestionResponses?.filter(notEmpty) || [];
   const handleSubmit = async (formValues: FormValues) => {
     const data = formValuesToSubmitData(formValues, screeningQuestionResponses);
     executeMutation({
@@ -199,8 +253,46 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationQuestionsPage = () => (
-  <ApplicationApi PageComponent={ApplicationQuestions} />
-);
+export const ApplicationQuestionsPageQuery = graphql(/* GraphQL */ `
+  query ApplicationQuestionsPage($id: UUID!) {
+    poolCandidate(id: $id) {
+      ...Application_PoolCandidate
+      ...ApplicationQuestions_Responses
+      pool {
+        ...ApplicationQuestions_Questions
+      }
+    }
+    me {
+      id
+      email
+      ...Application_UserExperiences
+    }
+  }
+`);
+
+const ApplicationQuestionsPage = () => {
+  const id = useApplicationId();
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: ApplicationQuestionsPageQuery,
+    requestPolicy: "cache-first",
+    variables: {
+      id,
+    },
+  });
+
+  return (
+    <Pending fetching={fetching || stale} error={error}>
+      {data?.poolCandidate ? (
+        <ApplicationQuestions
+          query={data.poolCandidate}
+          questionsQuery={data.poolCandidate.pool}
+          responsesQuery={data.poolCandidate}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 export default ApplicationQuestionsPage;
