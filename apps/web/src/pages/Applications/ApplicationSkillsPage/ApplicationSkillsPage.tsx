@@ -25,7 +25,6 @@ import {
   useUpdateApplicationMutation,
   ApplicationStep,
   useGetMyExperiencesQuery,
-  useGetApplicationQuery,
 } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
@@ -34,7 +33,7 @@ import SkillTree from "~/components/SkillTree/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -365,19 +364,7 @@ export const ApplicationSkills = ({
 };
 
 const ApplicationSkillsPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
+  const { application } = useApplication();
   const [
     {
       data: experienceData,
@@ -386,14 +373,10 @@ const ApplicationSkillsPage = () => {
     },
   ] = useGetMyExperiencesQuery();
 
-  const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as AnyExperience[];
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
+    <Pending fetching={experienceFetching} error={experienceError}>
       {application ? (
         <ApplicationSkills
           application={application}

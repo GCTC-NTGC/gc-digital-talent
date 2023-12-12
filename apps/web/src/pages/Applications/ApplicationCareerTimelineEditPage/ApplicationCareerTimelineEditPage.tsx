@@ -7,16 +7,14 @@ import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
-import {
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-} from "~/api/generated";
+import { useGetMyExperiencesQuery } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import EditExperienceForm from "./components/ExperienceEditForm";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -116,22 +114,12 @@ const ApplicationCareerTimelineEdit = ({
 };
 
 const ApplicationCareerTimelineEditPage = () => {
-  const { applicationId, experienceId } = useRequiredParams<RouteParams>(
+  const { application } = useApplication();
+  const { experienceId } = useRequiredParams<RouteParams>(
     ["experienceId", "applicationId"],
     true,
   );
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id: applicationId,
-    },
-    requestPolicy: "cache-first",
-  });
+
   const [
     {
       data: experienceData,
@@ -142,16 +130,12 @@ const ApplicationCareerTimelineEditPage = () => {
     requestPolicy: "cache-first",
   });
 
-  const application = applicationData?.poolCandidate;
   const experience = experienceData?.me?.experiences?.find(
     (exp) => exp?.id === experienceId,
   );
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
+    <Pending fetching={experienceFetching} error={experienceError}>
       {application && experience ? (
         <ApplicationCareerTimelineEdit
           application={application}

@@ -11,11 +11,7 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import {
-  useGetApplicationQuery,
-  useGetMeQuery,
-  useUpdateUserAsUserMutation,
-} from "~/api/generated";
+import { useGetMeQuery, useUpdateUserAsUserMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
@@ -29,7 +25,7 @@ import LanguageProfile from "~/components/Profile/components/LanguageProfile/Lan
 import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -147,30 +143,12 @@ export const ApplicationProfile = ({
 };
 
 const ApplicationProfilePage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
-    variables: {
-      id,
-    },
-  });
+  const { application } = useApplication();
   const [{ data: userData, fetching: userFetching, error: userError }] =
     useGetMeQuery();
 
-  const application = applicationData?.poolCandidate;
-
   return (
-    <Pending
-      fetching={applicationFetching || applicationStale || userFetching}
-      error={applicationError || userError}
-    >
+    <Pending fetching={userFetching} error={userError}>
       {application?.pool && userData?.me ? (
         <ApplicationProfile application={application} user={userData.me} />
       ) : (
