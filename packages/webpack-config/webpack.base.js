@@ -15,7 +15,7 @@ const meta = {
     "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: "https://talent.canada.ca/",
   domain: "talent.canada.ca",
-  image: "",
+  image: "https://talent.canada.ca/images/digital-talent/banner.jpg",
   type: "website",
 };
 
@@ -85,15 +85,15 @@ module.exports = (basePath) => {
         template: "./public/index.html",
         meta: {
           description: meta.description,
-          "og:url": meta.url,
-          "og:type": meta.type,
-          "og:title": meta.title,
-          "og:description": meta.description,
-          "og:image": meta.image,
-          "twitter:domain": meta.domain,
-          "twitter:url": meta.url,
-          "twitter:title": meta.title,
-          "twitter:image": meta.image,
+          "og:url": { property: 'og:url', content: meta.url },
+          "og:type": { property: 'og:type', content: meta.type },
+          "og:title": { property: 'og:title', content: meta.title },
+          "og:description": { property: 'og:description', content: meta.description },
+          "og:image": { property: 'og:image', content: meta.image },
+          "twitter:domain": { property: 'twitter:domain', content: meta.domain },
+          "twitter:url": { property: 'twitter:url', content: meta.url },
+          "twitter:title": { property: 'twitter:title', content: meta.title },
+          "twitter:image": { property: 'twitter:image', content: meta.image },
         },
       }),
 
