@@ -128,7 +128,7 @@ const AssessmentResult = ({
           toast.error(
             intl.formatMessage({
               defaultMessage: "Error: failed updating a candidate's bookmark.",
-              id: "tRAmNw",
+              id: "NnDLzr",
               description:
                 "Alert displayed to the user when failing to (un-)bookmark a candidate.",
             }),
@@ -158,9 +158,8 @@ const AssessmentResult = ({
             icon={BookmarkIconSolid}
             aria-label={intl.formatMessage(
               {
-                defaultMessage:
-                  "Un-bookmark {candidateName} from top of column.",
-                id: "qlZMZx",
+                defaultMessage: "Un-pin {candidateName} from top of column.",
+                id: "1zE7Lq",
                 description:
                   "Un-bookmark button label for applicant assessment tracking.",
               },
@@ -185,8 +184,8 @@ const AssessmentResult = ({
             icon={BookmarkIconOutline}
             aria-label={intl.formatMessage(
               {
-                defaultMessage: "Bookmark {candidateName} to top of column.",
-                id: "Gc5hcz",
+                defaultMessage: "Pin {candidateName} to top of column.",
+                id: "pFPe8G",
                 description:
                   "Bookmark button label for applicant assessment tracking.",
               },
