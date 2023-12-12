@@ -23,31 +23,33 @@ const HolidayAlert = (): JSX.Element | null => {
       <h2>
         {intl.formatMessage({
           defaultMessage: "Happy Holidays!",
-          id: "5sbjmO",
-          description: "aaa",
+          id: "tQseOY",
+          description: "Happy holidays, seasons greetings heading",
         })}
       </h2>
       <p>
         {intl.formatMessage({
           defaultMessage: "It's time for a well-deserved break; you earned it!",
-          id: "CWCuVY",
-          description: "aaa",
+          id: "Z72V0g",
+          description: "Message conveying time to relax",
         })}
       </p>
       <p>
         {intl.formatMessage({
           defaultMessage:
             "There will be no job postings during the holidays (Dec 22-Jan 7).",
-          id: "7k8GSc",
-          description: "aaa",
+          id: "Vfj62k",
+          description:
+            "There will be no new postings over the holiday stretch, December 22 through January 7th",
         })}
       </p>
       <p>
         {intl.formatMessage({
           defaultMessage:
             "So kick back, relax, and enjoy the holiday season with your loved ones.",
-          id: "dUFqU/",
-          description: "aaa",
+          id: "nE+RKq",
+          description:
+            "Message suggesting the user relax and enjoy the holiday season",
         })}
       </p>
     </div>
