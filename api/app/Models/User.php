@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
-use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PublishingGroup;
