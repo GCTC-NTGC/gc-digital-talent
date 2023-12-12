@@ -707,8 +707,8 @@ class User extends Model implements Authenticatable, LaratrustUser
     public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
         if ($searchTerms && is_array($searchTerms)) {
-            $combinedSearchTerm = implode('&', $searchTerms);
-            $results = self::search($combinedSearchTerm)->usingPlainQuery()->get();
+            $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
+            $results = self::search($combinedSearchTerm)->usingWebSearchQuery()->get();
 
             // Extract unique IDs from the search results
             $uniqueIds = $results->pluck('id')->unique()->toArray();
