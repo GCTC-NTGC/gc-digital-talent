@@ -49,7 +49,6 @@ query getProfile($userId: UUID!) {
     }
     isWoman
     hasDisability
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority

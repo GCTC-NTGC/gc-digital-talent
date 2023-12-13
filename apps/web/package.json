@@ -27,7 +27,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "webpack watch --config webpack.dev.js"
+    "watch": "concurrently --kill-others-on-fail \"npm run codegen -- --watch\" \"webpack watch --config webpack.dev.js\""
   },
   "sideEffects": [
     "**/*.css"
@@ -79,6 +79,7 @@
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.3",
+    "@parcel/watcher": "^2.3.0",
     "@storybook/addon-actions": "^7.6.1",
     "@storybook/addon-viewport": "^7.6.1",
     "@storybook/react": "^7.6.4",
@@ -92,6 +93,7 @@
     "@types/react-dom": "^18.2.17",
     "@types/react-helmet": "^6.1.11",
     "babel-plugin-formatjs": "^10.5.10",
+    "concurrently": "^8.2.2",
     "core-js": "^3.34.0",
     "eslint": "^8.55.0",
     "eslint-config-custom": "*",
