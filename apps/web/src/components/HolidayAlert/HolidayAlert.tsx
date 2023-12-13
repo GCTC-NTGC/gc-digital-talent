@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { AlertImage, Heading } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
+import AlertTwoSections from "@gc-digital-talent/ui/src/components/AlertTwoSections/AlertTwoSections";
 
 import lightImage from "~/assets/img/holiday_2023_graphic_light.webp";
 import darkImage from "~/assets/img/holiday_2023_graphic_dark.webp";
@@ -17,6 +18,7 @@ const HolidayAlert = (): JSX.Element | null => {
     <div
       data-h2-justify-content="base(space-between)"
       data-h2-max-height="base(100%)"
+      data-h2-padding="base(x1.5)"
     >
       <Heading size="h6" data-h2-margin-top="base(0)">
         {intl.formatMessage({
@@ -25,7 +27,7 @@ const HolidayAlert = (): JSX.Element | null => {
           description: "Heading to exclaim holiday greetings",
         })}
       </Heading>
-      <p data-h2-margin="base(x.5 0)">
+      <p data-h2-margin="base(x1 0 x.5 0)">
         {intl.formatMessage({
           defaultMessage:
             "It's time for a well-deserved break; you've earned it!",
@@ -54,13 +56,34 @@ const HolidayAlert = (): JSX.Element | null => {
     </div>
   );
 
+  const imageElement = (
+    <>
+      <div
+        data-h2-min-height="base(25vh) p-tablet(100%)"
+        data-h2-display="base(block) base:dark(none)"
+        style={{
+          boxShadow: "inset 0 0 10px 10px white",
+          backgroundImage: `url('${lightImage}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "bottom center",
+        }}
+      />
+      <div
+        data-h2-min-height="base(25vh) p-tablet(100%)"
+        data-h2-display="base(none) base:dark(block)"
+        style={{
+          boxShadow: "inset 0 0 10px 10px darkslategrey",
+          backgroundImage: `url('${darkImage}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "bottom center",
+        }}
+      />
+    </>
+  );
+
   if (holidayAlertActive) {
     return (
-      <AlertImage
-        message={message}
-        lightImage={lightImage}
-        darkImage={darkImage}
-      />
+      <AlertTwoSections leftElement={message} rightElement={imageElement} />
     );
   }
   return null;
