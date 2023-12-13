@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateStatus;
@@ -202,6 +203,11 @@ class ActivityLogTest extends TestCase
                     'managerJobTitle' => 'Manager',
                     'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
                     'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
+                    'applicantFilter' => [
+                        'create' => [
+                            'languageAbility' => LanguageAbility::BILINGUAL->name,
+                        ],
+                    ],
                 ],
             ]
         )->assertSuccessful();
@@ -211,7 +217,7 @@ class ActivityLogTest extends TestCase
 
         // quick assertion the above search request was created successfully and stored value from applicant filter
         $requestEvent = Activity::where('subject_type', 'App\Models\PoolCandidateSearchRequest')->sole();
-        assertEquals(true, $requestEvent->properties['attributes']['applicantFilter.location_preferences']);
+        assertEquals(LanguageAbility::BILINGUAL->name, $requestEvent->properties['attributes']['applicantFilter.language_ability']);
 
         // assert can query all the actions undertaken or caused by a user
         $actingUser = User::where('email', 'admin-user@test.com')->sole();
