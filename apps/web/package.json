@@ -95,6 +95,7 @@
     "babel-plugin-formatjs": "^10.5.10",
     "concurrently": "^8.2.2",
     "core-js": "^3.34.0",
+    "dotenv": "^16.3.1",
     "eslint": "^8.55.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
