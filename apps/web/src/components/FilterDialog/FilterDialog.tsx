@@ -61,27 +61,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     setIsOpen(false);
   };
 
-  /**
-   * Clear the form, including default values
-   *
-   * Unfortunately, `react-hook-form` does not support clearing the form.
-   * This gets the current state and sets them to empty values then uses
-   * the reset to "clear" the form.
-   *
-   * Note: This is disabled for now until we decide if we really want to do this
-   *
-   * REF: https://github.com/orgs/react-hook-form/discussions/7589
-   *
-   */
+  // Reset form and submit
   const handleClear = async () => {
-    // const currentValues = getValues();
-    // const emptyValues: TFieldValues = Object.keys(currentValues).reduce(
-    //   (accumulator, k) => {
-    //     const currentValue = currentValues[k];
-    //     return { ...accumulator, [k]: Array.isArray(currentValue) ? [] : "" };
-    //   },
-    //   currentValues,
-    // );
     reset();
     setActiveFilters(defaultActiveFilters);
     await methods.handleSubmit(onSubmit)();
@@ -143,9 +124,10 @@ const FilterDialog = <TFieldValues extends FieldValues>({
                   onClick={handleClear}
                 >
                   {intl.formatMessage({
-                    description: "Clear button within the search filter dialog",
-                    defaultMessage: "Clear filters",
-                    id: "uC0YPE",
+                    description:
+                      "Button text to reset table filters to the default values",
+                    defaultMessage: "Reset filters",
+                    id: "ROfrit",
                   })}
                 </Button>
                 <Button type="submit" color="primary" disabled={isSubmitting}>
