@@ -2120,7 +2120,7 @@
     "description": "Any offsite personnel work location"
   },
   "9pYlYz": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Label for a process' stream"
   },
   "9pdtnR": {
@@ -4256,7 +4256,7 @@
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
   "LoKxJe": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title displayed on the search request table stream column."
   },
   "LocjmN": {
@@ -5696,7 +5696,7 @@
     "description": "Status for an application that is having skills reviewed"
   },
   "Ua/X9Q": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title for stream on summary of filters section"
   },
   "Ude1JQ": {
