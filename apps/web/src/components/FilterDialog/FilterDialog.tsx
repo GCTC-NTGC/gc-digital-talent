@@ -39,12 +39,14 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     defaultValues: options?.defaultValues,
   });
   const {
-    watch,
     reset,
     formState: { isSubmitting },
   } = methods;
-  const values = watch();
-  const filterCount = Object.values(values).filter((value) => {
+  // Spreading removes the `ReadOnly` type
+  const defaultActiveFilters = { ...options?.defaultValues };
+  const [activeFilters, setActiveFilters] =
+    React.useState<Partial<TFieldValues>>(defaultActiveFilters);
+  const filterCount = Object.values(activeFilters ?? {}).filter((value) => {
     if (Array.isArray(value)) {
       return value.length > 0;
     }
@@ -54,18 +56,49 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   const handleSubmit: SubmitHandler<TFieldValues> = async (
     newValues: TFieldValues,
   ) => {
+    setActiveFilters(newValues);
     await onSubmit(newValues);
     setIsOpen(false);
   };
 
+  /**
+   * Clear the form, including default values
+   *
+   * Unfortunately, `react-hook-form` does not support clearing the form.
+   * This gets the current state and sets them to empty values then uses
+   * the reset to "clear" the form.
+   *
+   * Note: This is disabled for now until we decide if we really want to do this
+   *
+   * REF: https://github.com/orgs/react-hook-form/discussions/7589
+   *
+   */
   const handleClear = async () => {
+    // const currentValues = getValues();
+    // const emptyValues: TFieldValues = Object.keys(currentValues).reduce(
+    //   (accumulator, k) => {
+    //     const currentValue = currentValues[k];
+    //     return { ...accumulator, [k]: Array.isArray(currentValue) ? [] : "" };
+    //   },
+    //   currentValues,
+    // );
     reset();
+    setActiveFilters(defaultActiveFilters);
     await methods.handleSubmit(onSubmit)();
     setIsOpen(false);
   };
 
+  // Reset the form with no submission on close
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      reset();
+    }
+
+    setIsOpen(newOpen);
+  };
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         <Button
           color="quaternary"
