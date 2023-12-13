@@ -101,7 +101,6 @@ query ApplicantInformation {
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
-    hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements

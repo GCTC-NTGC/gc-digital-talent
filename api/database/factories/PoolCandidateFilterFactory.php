@@ -25,7 +25,6 @@ class PoolCandidateFilterFactory extends Factory
     public function definition()
     {
         return [
-            'has_diploma' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),

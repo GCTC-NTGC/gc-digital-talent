@@ -42,7 +42,6 @@ const defaultUser = {
   isWoman: undefined,
   hasDisability: undefined,
   isVisibleMinority: undefined,
-  hasDiploma: undefined,
   locationPreferences: undefined,
   locationExemptions: undefined,
   acceptedOperationalRequirements: undefined,

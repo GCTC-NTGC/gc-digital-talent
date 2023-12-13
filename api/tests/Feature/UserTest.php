@@ -55,7 +55,6 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => null,
                 'accepted_operational_requirements' => null,
                 'location_preferences' => [],
-                'has_diploma' => false,
                 'position_duration' => [],
                 'is_gov_employee' => false,
                 'telephone' => null,
@@ -1001,102 +1000,6 @@ class UserTest extends TestCase
                 'where' => [
                     'applicantFilter' => [
                         'locationPreferences' => [],
-                    ],
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
-    public function testFilterByDiploma(): void
-    {
-        // Create initial set of 5 users with no diploma.
-        User::factory()->count(5)->create([
-            'has_diploma' => false,
-        ]);
-
-        // Create two new users with a diploma.
-        User::factory()->count(2)->create([
-            'has_diploma' => true,
-        ]);
-
-        // Assert query no hasDiploma filter will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert query with hasDiploma filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'hasDiploma' => true,
-                    ],
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2,
-                    ],
-                ],
-            ],
-        ]);
-
-        // Assert query with hasDiploma filter set to false will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'applicantFilter' => [
-                        'hasDiploma' => false,
                     ],
                 ],
             ]
@@ -2202,7 +2105,6 @@ class UserTest extends TestCase
             [
                 'where' => [
                     'applicantFilter' => [
-                        'hasDiploma' => null,
                         'equity' => null,
                         'languageAbility' => null,
                         'operationalRequirements' => null,

@@ -432,19 +432,6 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
-    {
-        if (empty($hasDiploma)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($query) use ($hasDiploma) {
-            User::scopeHasDiploma($query, $hasDiploma);
-        });
-
-        return $query;
-    }
-
     public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
     {
         $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;

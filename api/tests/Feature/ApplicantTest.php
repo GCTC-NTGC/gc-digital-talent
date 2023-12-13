@@ -406,76 +406,6 @@ class ApplicantTest extends TestCase
         ]);
     }
 
-    public function testCountApplicantsQueryEducation(): void
-    {
-        $user = User::All()->first();
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-
-        PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'user_id' => User::factory([
-                'has_diploma' => false,
-            ]),
-        ]);
-
-        PoolCandidate::factory()->count(4)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'user_id' => User::factory([
-                'has_diploma' => true,
-            ]),
-        ]);
-
-        // Assert query with false filter
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                    'hasDiploma' => false,
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 7,
-            ],
-        ]);
-
-        // Assert query with true diploma filter
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicants($where: ApplicantFilterInput) {
-                countApplicants (where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                    'hasDiploma' => true,
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicants' => 4,
-            ],
-        ]);
-    }
-
     public function testCountApplicantsQueryLocation(): void
     {
         $user = User::All()->first();
@@ -1634,7 +1564,6 @@ class ApplicantTest extends TestCase
                     'where' => [
                         'applicantFilter' => [
                             'equity' => null,
-                            'hasDiploma' => null,
                             'languageAbility' => null,
                             'locationPreferences' => null,
                             'operationalRequirements' => null,

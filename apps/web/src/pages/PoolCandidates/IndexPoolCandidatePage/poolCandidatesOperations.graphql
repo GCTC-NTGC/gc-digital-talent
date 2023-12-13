@@ -59,7 +59,6 @@ fragment poolCandidateTable on PoolCandidate {
     indigenousDeclarationSignature
 
     # Applicant info
-    hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements

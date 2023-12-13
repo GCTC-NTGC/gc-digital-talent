@@ -32,7 +32,6 @@ const generateApplicantFilters = (
       isWoman: faker.datatype.boolean(),
       hasDisability: faker.datatype.boolean(),
     },
-    hasDiploma: faker.datatype.boolean(),
     languageAbility: faker.helpers.arrayElement<LanguageAbility>(
       Object.values(LanguageAbility),
     ),

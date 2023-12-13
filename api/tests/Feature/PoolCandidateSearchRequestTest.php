@@ -104,9 +104,7 @@ class PoolCandidateSearchRequestTest extends TestCase
                 'connect' => Department::inRandomOrder()->first()->id,
             ],
             'applicantFilter' => [
-                'create' => [
-                    'hasDiploma' => true,
-                ],
+                'create' => [],
             ],
         ])->assertJson(function (AssertableJson $json) {
             $json->has('data.createPoolCandidateSearchRequest.id');

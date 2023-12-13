@@ -30,7 +30,6 @@ export function createSearchRequest({
     reason: PoolCandidateSearchRequestReason.GeneralInterest,
     applicantFilter: {
       create: {
-        hasDiploma: true,
         locationPreferences: [WorkRegion.Ontario],
         pools: {
           sync: [poolId],

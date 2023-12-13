@@ -137,7 +137,6 @@ query GetApplication($id: UUID!) {
       indigenousCommunities
       indigenousDeclarationSignature
       isVisibleMinority
-      hasDiploma
       locationPreferences
       locationExemptions
       acceptedOperationalRequirements

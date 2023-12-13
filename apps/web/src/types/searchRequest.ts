@@ -21,7 +21,6 @@ export type FormValues = Pick<
   stream: PoolStream | "";
   skills: string[] | undefined;
   employmentEquity: string[] | undefined;
-  educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pools?: SimplePool[];
   pool?: Scalars["ID"];

@@ -79,7 +79,6 @@ UserProfileNull.args = {
   hasDisability: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
-  hasDiploma: null,
   locationPreferences: null,
   locationExemptions: null,
   acceptedOperationalRequirements: null,

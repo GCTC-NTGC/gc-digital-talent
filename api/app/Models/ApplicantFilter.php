@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class ApplicantFilter
  *
  * @property string $id
- * @property bool $has_diploma
  * @property bool $has_disability
  * @property bool $is_indigenous
  * @property bool $is_visible_minority

@@ -39,7 +39,6 @@ export function createApplicant({
     isGovEmployee: false,
     isWoman: true,
     hasPriorityEntitlement: false,
-    hasDiploma: true,
     locationPreferences: [WorkRegion.Ontario],
     acceptedOperationalRequirements: [
       OperationalRequirement.OvertimeOccasional,

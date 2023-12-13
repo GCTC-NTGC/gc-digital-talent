@@ -120,8 +120,6 @@ export const applicantFilterToQueryArgs = (
         ? pickMap(filter.qualifiedClassifications, ["group", "level"])
         : undefined,
       skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
-      hasDiploma: undefined, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
-
       // Override the filter's pool if one is provided separately.
       pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
     },
@@ -161,7 +159,6 @@ export const dataToFormValues = (
       ...(data?.equity?.isVisibleMinority ? ["isVisibleMinority"] : []),
       ...(data?.equity?.isWoman ? ["isWoman"] : []),
     ],
-    educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
     skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     stream: stream ?? "",
     locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
@@ -201,7 +198,6 @@ export const formValuesToData = (
           }))
       : [],
     operationalRequirements: unpackMaybes(values.operationalRequirements),
-    hasDiploma: values.educationRequirement === "has_diploma",
     ...(values.employmentEquity?.length && {
       equity: {
         hasDisability: values.employmentEquity?.includes("hasDisability"),

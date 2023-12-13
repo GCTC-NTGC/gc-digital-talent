@@ -133,7 +133,6 @@ const defaultState = {
       equity: {},
       pools: [],
       skills: [],
-      hasDiploma: undefined,
       languageAbility: undefined,
     },
     poolCandidateStatus: [],
@@ -297,7 +296,6 @@ const PoolCandidatesTable = ({
       // from fancy filter
       applicantFilter: {
         ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
       },
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,

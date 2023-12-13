@@ -54,7 +54,6 @@ class PoolCandidateSearchRequest extends Model
     {
         return LogOptions::defaults()
             ->logOnly(['*',
-                'applicantFilter.has_diploma',
                 'applicantFilter.has_disability',
                 'applicantFilter.is_indigenous',
                 'applicantFilter.is_visible_minority',

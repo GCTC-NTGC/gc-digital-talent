@@ -215,10 +215,6 @@
     "defaultMessage": "Annuler",
     "description": "Link text to cancel deleting application."
   },
-  "/JQ6DD": {
-    "defaultMessage": "Filtre des exigences en matière d'études",
-    "description": "Legend for the Education Requirement filter radio group"
-  },
   "/K1/1n": {
     "defaultMessage": "Groupe de classifications actuel ",
     "description": "Label displayed on classification group input"
@@ -310,10 +306,6 @@
   "/ldR5A": {
     "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
-  },
-  "/mFrpj": {
-    "defaultMessage": "Diplôme d’études postsecondaires exigé",
-    "description": "Education level message when candidate has a diploma found on the request page."
   },
   "/oqWA0": {
     "defaultMessage": "Intéressé par",
@@ -1659,10 +1651,6 @@
     "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
     "description": "Learn more dialog question twelve paragraph one"
   },
-  "74WtLG": {
-    "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
-    "description": "Radio group option for education requirement filter in search form."
-  },
   "76vo/V": {
     "defaultMessage": "Veuillez préciser le niveau de contrôle",
     "description": "Label for _other contractor screening levels_ fieldset in the _digital services contracting questionnaire_"
@@ -2007,10 +1995,6 @@
     "defaultMessage": "Notes - {poolName}",
     "description": "Label for the notes field for a specific pool"
   },
-  "9DCx2n": {
-    "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études",
-    "description": "Education level message when candidate does not have a diploma found on the request page."
-  },
   "9Eh1nm": {
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
@@ -2350,10 +2334,6 @@
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
     "description": "Button text to hide help information about skills"
-  },
-  "AyP6Fr": {
-    "defaultMessage": "Exigences en matière d’études pour le poste",
-    "description": "Heading for education requirement filter of the search form."
   },
   "Aymigb": {
     "defaultMessage": "10 principales compétences techniques",
@@ -4074,10 +4054,6 @@
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
     "description": "Heading for making major changes to a user"
-  },
-  "KoPFx4": {
-    "defaultMessage": "Diplôme d’études postsecondaires exigé",
-    "description": "Radio group option for education requirement filter in search form."
   },
   "KpNUo0": {
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
@@ -6378,10 +6354,6 @@
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
-  },
-  "YKqt+1": {
-    "defaultMessage": "Niveau d’études",
-    "description": "Title for education level on summary of filters section"
   },
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
@@ -9067,10 +9039,6 @@
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
   },
-  "mhtcMd": {
-    "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
-    "description": "Message describing the education requirement filter of the search form."
-  },
   "mieIXc": {
     "defaultMessage": "Modification",
     "description": "Amendment contract instrument"
@@ -10510,10 +10478,6 @@
   "w/qZsH": {
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
-  },
-  "w1/0Cd": {
-    "defaultMessage": "Diplôme exigé",
-    "description": "Diploma required"
   },
   "w1Lego": {
     "defaultMessage": "Derrière la plateforme Talents numériques du <abbreviation>GC</abbreviation>, il y a toute une équipe qui assure le développement et la conception d'outils, la sélection des candidats, la gestion de talents, le placement des cadres et le soutien aux gestionnaires d'embauche dans leur quête de talents pour offrir des services aux Canadiens.",

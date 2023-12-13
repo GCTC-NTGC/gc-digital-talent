@@ -45,10 +45,10 @@ export const CheckboxElementLabel = TemplateCheckbox.bind({});
 export const LongTextCheckbox = TemplateCheckbox.bind({});
 
 IndividualCheckbox.args = {
-  id: "hasDiploma",
-  name: "hasDiploma",
-  label: "Have a Diploma",
-  context: "This will help prove you satisfy education requirements.",
+  id: "isHuman",
+  name: "isHuman",
+  label: "Are you human?",
+  context: "This will help prove you satisfy the human requirement.",
   rules: { required: "This must be accepted to continue." },
 };
 

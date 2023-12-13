@@ -66,7 +66,6 @@ class PoolCandidateSearchTest extends TestCase
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
-                'has_diploma' => false,
                 'is_woman' => false,
             ]),
         ]);
@@ -81,7 +80,6 @@ class PoolCandidateSearchTest extends TestCase
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
                 'citizenship' => CitizenshipStatus::OTHER->name,
-                'has_diploma' => false,
                 'is_woman' => false,
             ]),
         ]);
@@ -96,13 +94,12 @@ class PoolCandidateSearchTest extends TestCase
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
                 'citizenship' => CitizenshipStatus::OTHER->name,
-                'has_diploma' => false,
                 'is_woman' => false,
             ]),
         ]);
 
         // NEW APPLICATION, VETERAN SO FIRST
-        // has diploma and is woman
+        // is woman
         $candidateFour = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
@@ -113,12 +110,11 @@ class PoolCandidateSearchTest extends TestCase
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
-                'has_diploma' => true,
                 'is_woman' => true,
             ]),
         ]);
         // QUALIFIED AVAILABLE, HAS ENTITLEMENT FOURTH
-        // has diploma and is woman
+        // is woman
         $candidateFive = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
@@ -129,7 +125,6 @@ class PoolCandidateSearchTest extends TestCase
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
-                'has_diploma' => true,
                 'is_woman' => true,
             ]),
         ]);
@@ -175,7 +170,6 @@ class PoolCandidateSearchTest extends TestCase
                 [
                     'where' => [
                         'applicantFilter' => [
-                            'hasDiploma' => true,
                             'equity' => [
                                 'isWoman' => true,
                                 'hasDisability' => false,

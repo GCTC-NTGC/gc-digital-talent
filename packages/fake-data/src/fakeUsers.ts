@@ -137,7 +137,6 @@ const generateUser = (
     ]),
 
     // Applicant info
-    hasDiploma: faker.datatype.boolean(),
     locationPreferences: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),
     ),

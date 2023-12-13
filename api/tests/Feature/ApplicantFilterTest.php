@@ -59,7 +59,6 @@ class ApplicantFilterTest extends TestCase
         };
 
         return [
-            'hasDiploma' => $filter->has_diploma,
             'equity' => [
                 'isWoman' => $filter->is_woman,
                 'hasDisability' => $filter->has_disability,
@@ -113,7 +112,6 @@ class ApplicantFilterTest extends TestCase
             query {
                 applicantFilters {
                     id
-                    hasDiploma
                     equity {
                         isWoman
                         hasDisability
@@ -133,7 +131,6 @@ class ApplicantFilterTest extends TestCase
                 'applicantFilters' => [
                     [
                         'id' => $filters[0]->id,
-                        'hasDiploma' => $filters[0]->has_diploma,
                         'equity' => [
                             'isWoman' => $filters[0]->is_woman,
                             'hasDisability' => $filters[0]->has_disability,
@@ -148,7 +145,6 @@ class ApplicantFilterTest extends TestCase
                     ],
                     [
                         'id' => $filters[1]->id,
-                        'hasDiploma' => $filters[1]->has_diploma,
                         'equity' => [
                             'isWoman' => $filters[1]->is_woman,
                             'hasDisability' => $filters[1]->has_disability,
@@ -387,7 +383,6 @@ class ApplicantFilterTest extends TestCase
         }
         $filter = ApplicantFilter::factory()->create(
             [
-                'has_diploma' => $candidate->user->has_diploma,
                 'has_disability' => $candidate->user->has_disability,
                 'is_indigenous' => ! empty($candidate->user->indigenous_communities),
                 'is_visible_minority' => $candidate->user->is_visible_minority,
@@ -473,7 +468,6 @@ class ApplicantFilterTest extends TestCase
             query poolCandidateSearchRequest($id: ID!) {
                 poolCandidateSearchRequest(id: $id) {
                     applicantFilter {
-                        hasDiploma
                         equity {
                             isWoman
                             hasDisability

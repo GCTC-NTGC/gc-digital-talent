@@ -91,7 +91,6 @@ class UserFactory extends Factory
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
-            'has_diploma' => $this->faker->boolean(90), // temporary fix for Cypress workflows
             'location_preferences' => $this->faker->randomElements(
                 [
                     'TELEWORK',

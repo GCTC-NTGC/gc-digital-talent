@@ -52,34 +52,10 @@ const getFieldLabel = (
 const AdvancedFilters = () => {
   const intl = useIntl();
   const { watch } = useFormContext();
-  const [educationRequirement, employmentDuration, operationalRequirements] =
-    watch([
-      "educationRequirement",
-      "employmentDuration",
-      "operationalRequirements",
-    ]);
-
-  const educationRequirementOptions = [
-    {
-      value: "no_diploma",
-      label: intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "74WtLG",
-        description:
-          "Radio group option for education requirement filter in search form.",
-      }),
-    },
-    {
-      value: "has_diploma",
-      label: intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "KoPFx4",
-        description:
-          "Radio group option for education requirement filter in search form.",
-      }),
-    },
-  ];
+  const [employmentDuration, operationalRequirements] = watch([
+    "employmentDuration",
+    "operationalRequirements",
+  ]);
 
   const employmentDurationOptions = [
     {
@@ -132,48 +108,6 @@ const AdvancedFilters = () => {
         })}
       </Heading>
       <Accordion.Root type="multiple" size="sm">
-        <Accordion.Item value="educationRequirement">
-          <Accordion.Trigger
-            as="h4"
-            subtitle={getFieldLabel(
-              educationRequirement,
-              educationRequirementOptions,
-              intl,
-            )}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Education requirement for the job",
-              id: "AyP6Fr",
-              description:
-                "Heading for education requirement filter of the search form.",
-            })}
-          </Accordion.Trigger>
-          <Accordion.Content>
-            <FilterBlock
-              id="educationRequirementFilter"
-              text={intl.formatMessage({
-                defaultMessage:
-                  "Most jobs in the Digital community do not require a diploma, change this only if the job requires a diploma.",
-                id: "mhtcMd",
-                description:
-                  "Message describing the education requirement filter of the search form.",
-              })}
-            >
-              <RadioGroup
-                idPrefix="education_requirement"
-                legend={intl.formatMessage({
-                  defaultMessage: "Education Requirement filter",
-                  id: "/JQ6DD",
-                  description:
-                    "Legend for the Education Requirement filter radio group",
-                })}
-                name="educationRequirement"
-                items={educationRequirementOptions}
-                trackUnsaved={false}
-              />
-            </FilterBlock>
-          </Accordion.Content>
-        </Accordion.Item>
         <Accordion.Item value="employmentDuration">
           <Accordion.Trigger
             as="h4"

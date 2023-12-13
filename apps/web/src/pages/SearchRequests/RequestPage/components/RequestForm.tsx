@@ -74,7 +74,6 @@ type FormValues = {
     skills?: {
       sync?: Array<Maybe<Skill["id"]>>;
     };
-    hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
@@ -151,9 +150,6 @@ export const RequestForm = ({
             applicantFilter && applicantFilter.positionDuration
               ? applicantFilter.positionDuration
               : null,
-          hasDiploma: applicantFilter?.hasDiploma
-            ? applicantFilter?.hasDiploma
-            : false,
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,

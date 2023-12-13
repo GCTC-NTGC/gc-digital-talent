@@ -76,21 +76,6 @@ const ApplicantFilters = ({
           description: "Text shown when the filter was not selected",
         });
 
-  const educationLevel: string | undefined = applicantFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "/mFrpj",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "9DCx2n",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
-
   const employmentEquity: string[] | undefined = [
     ...(applicantFilter?.equity?.isWoman
       ? [
@@ -233,15 +218,6 @@ const ApplicantFilters = ({
               )}
             </Chips>
           </FilterBlock>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              id: "YKqt+1",
-              description:
-                "Title for education level on summary of filters section",
-            })}
-            content={educationLevel}
-          />
         </div>
       </div>
       <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -340,20 +316,6 @@ const SearchRequestFilters = ({
     pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : "",
   );
 
-  const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "/mFrpj",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "9DCx2n",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
   const employmentEquity: string[] | undefined = [
     ...(poolCandidateFilter?.equity?.isWoman
       ? [
@@ -451,15 +413,6 @@ const SearchRequestFilters = ({
                 description: "Title for stream on summary of filters section",
               })}
               content={streams}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Education Level",
-                id: "YKqt+1",
-                description:
-                  "Title for education level on summary of filters section",
-              })}
-              content={educationLevel}
             />
           </div>
           <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

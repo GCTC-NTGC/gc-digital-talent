@@ -15,7 +15,6 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
 
   const operationalRequirementFilterCount =
     filters?.operationalRequirements?.length ?? 0;
-  const educationSelection = filters?.hasDiploma;
   const workingLanguage = filters?.languageAbility;
   const employmentDuration = filters?.positionDuration;
   const skillCount = filters?.skills?.length ?? 0;
@@ -27,7 +26,6 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
 
   if (
     operationalRequirementFilterCount === 0 &&
-    !educationSelection &&
     !workingLanguage &&
     !employmentDuration &&
     equityFiltersActive === 0 &&
@@ -56,21 +54,6 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
             },
             { operationalRequirementFilterCount },
           )}
-        </ScrollToLink>
-      ),
-    });
-  }
-
-  if (educationSelection) {
-    recommendations.push({
-      key: "educationRequirementFilter",
-      link: (
-        <ScrollToLink to="educationRequirementFilter" {...linkProps}>
-          {intl.formatMessage({
-            defaultMessage: "Diploma required",
-            description: "Diploma required",
-            id: "w1/0Cd",
-          })}
         </ScrollToLink>
       ),
     });

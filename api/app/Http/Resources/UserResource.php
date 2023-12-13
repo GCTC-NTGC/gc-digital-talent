@@ -82,7 +82,6 @@ class UserResource extends JsonResource
             'isVisibleMinority' => $this->is_visible_minority,
             'indigenousCommunities' => $this->indigenous_communities,
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
-            'hasDiploma' => $this->has_diploma,
             'locationPreferences' => $this->location_preferences,
             'locationExemptions' => $this->location_exemptions,
             'acceptedOperationalRequirements' => $this->accepted_operational_requirements,

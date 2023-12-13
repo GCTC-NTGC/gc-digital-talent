@@ -57,7 +57,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $is_woman
  * @property bool $has_disability
  * @property bool $is_visible_minority
- * @property bool $has_diploma
  * @property array $location_preferences
  * @property string $location_exemptions
  * @property array $position_duration
@@ -554,15 +553,6 @@ class User extends Model implements Authenticatable, LaratrustUser
             PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
         ]);
-
-        return $query;
-    }
-
-    public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
-    {
-        if ($hasDiploma) {
-            $query->where('has_diploma', true);
-        }
 
         return $query;
     }

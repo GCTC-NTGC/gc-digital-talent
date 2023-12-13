@@ -186,16 +186,6 @@ describe("Talent Search Workflow Tests", () => {
       searchFindsMySingleCandidate();
     });
 
-    // education requirement, no negation possible
-    cy.findByRole("button", {
-      name: /education requirement for the job/i,
-    }).click();
-    cy.findByRole("radio", {
-      name: /Required diploma from post-secondary institution/i,
-    }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
-    searchFindsMySingleCandidate();
-
     // work location - fail
     cy.findByRole("checkbox", {
       name: /Atlantic \(NB, NS, PE and NL\)/i,
@@ -326,11 +316,6 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     // stream doesn't actually appear on this page
-
-    // education requirement
-    cy.findAllByText("Required diploma from post-secondary institution").should(
-      "exist",
-    );
 
     // work location
     cy.findAllByText("Ontario (excluding Ottawa area)").should("exist");

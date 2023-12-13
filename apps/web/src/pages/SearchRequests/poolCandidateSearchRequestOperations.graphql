@@ -27,7 +27,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
       group
       level
     }
-    hasDiploma
     equity {
       hasDisability
       isIndigenous
@@ -57,7 +56,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   adminNotes
   applicantFilter {
     id
-    hasDiploma
     equity {
       hasDisability
       isIndigenous

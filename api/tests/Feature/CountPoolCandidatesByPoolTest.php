@@ -196,51 +196,6 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    // test has diploma
-    // creates three users with/without/null diploma and expects only one to come back
-    public function testHasDiploma()
-    {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $user1 = User::factory()->create([
-            'has_diploma' => true,
-        ]);
-        $user2 = User::factory()->create([
-            'has_diploma' => false,
-        ]);
-        $user3 = User::factory()->create([
-            'has_diploma' => null,
-        ]);
-        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user1));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user2));
-        PoolCandidate::factory()->create($this->poolCandidateData($pool, $user3));
-
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ($where: ApplicantFilterInput) {
-                    countPoolCandidatesByPool(where: $where) {
-                      pool { id }
-                      candidateCount
-                    }
-                  }
-                ',
-            [
-                'where' => [
-                    'hasDiploma' => true,
-                ],
-            ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $pool->id],
-                        'candidateCount' => 1,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
     // test equity - Is woman
     // creates three users with/without/null isWoman and expects only one to come back
     public function testEquityIsWoman()

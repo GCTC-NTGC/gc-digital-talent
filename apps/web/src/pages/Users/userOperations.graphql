@@ -114,7 +114,6 @@ mutation CreateUser($user: CreateUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
@@ -173,7 +172,6 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements
@@ -236,7 +234,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     indigenousCommunities
     indigenousDeclarationSignature
 
-    hasDiploma
     locationPreferences
     locationExemptions
     acceptedOperationalRequirements

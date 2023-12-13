@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class PoolCandidateFilter
  *
  * @property int $id
- * @property bool $has_diploma
  * @property bool $has_disability
  * @property bool $is_indigenous
  * @property bool $is_visible_minority
