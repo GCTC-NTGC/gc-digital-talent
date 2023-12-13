@@ -6,18 +6,7 @@ const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require("dotenv").config({ path: "./.env" });
-const shell = require("shelljs");
-const fs = require("fs");
 
-const meta = {
-  title: "GC Digital Talent | Talents numériques du GC",
-  description:
-    "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
-  url: "https://talent.canada.ca/",
-  domain: "talent.canada.ca",
-  image: "https://talent.canada.ca/images/digital-talent/banner.jpg",
-  type: "website",
-};
 
 const gitCommand = (cmd) => {
   let result;
@@ -34,12 +23,18 @@ const gitCommand = (cmd) => {
   return result;
 };
 
-module.exports = (basePath) => {
+module.exports = (basePath, appMeta) => {
   let version, commitHash;
   if (gitCommand("--version")) {
     version = gitCommand("describe --abbrev=0");
     commitHash = gitCommand("rev-parse --short HEAD");
   }
+
+  const meta = {
+    type: "website",
+    ...appMeta
+  };
+
   return {
     plugins: [
       // process and copy CSS files
