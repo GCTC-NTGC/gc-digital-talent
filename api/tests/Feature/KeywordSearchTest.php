@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Database\Seeders\RolePermissionSeeder;
 use Tests\TestCase;
 
 class KeywordSearchTest extends TestCase
@@ -40,7 +41,7 @@ class KeywordSearchTest extends TestCase
             ]);
     }
 
-    // Test user can be searched by current city which is not available in the user table
+    // Test newly added user can be searched by current_city, the column that is NOT returned by the search query response but available in the user table
     public function testUserSearchByCurrentCity()
     {
         $user1 = User::factory()->create([
@@ -53,7 +54,7 @@ class KeywordSearchTest extends TestCase
             'current_city' => 'Montreal',
         ]);
 
-        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
@@ -120,16 +121,71 @@ class KeywordSearchTest extends TestCase
                         'paginatorInfo' => [
                             'total' => 2,
                         ],
-                        'data' => [
-                            [
-                                'id' => $user1->id,
-                            ],
-                            [
-                                'id' => $user3->id,
-                            ],
-                        ],
             ],
             ],
         ]);
+    }
+    // Test user can be edited and searched by the changed value
+   public function testUserSearchByEditedValue()
+    {
+        $user = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+            'telephone' => '1234567890',
+            'current_city' => 'Ottawa',
+        ]);
+
+        $applicant = User::factory()->asApplicant()->create();
+
+        $this->actingAs($applicant, 'api')->graphQL(
+
+            $updateUserAsUser =
+            /** @lang GraphQL */
+            '
+            mutation updateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!){
+                updateUserAsUser(id: $id, user: $user) {
+                    telephone
+                }
+            }
+        '
+        );
+
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL(
+                $updateUserAsUser,
+                [
+                    'id' => $user->id,
+                    'user' => [
+                        'telephone' => '0987654321',
+                    ],
+                ]
+            )
+            ->assertJsonFragment(['telephone' => '0987654321']);
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['0987654321'],
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'data' => [
+                        [
+                            'id' => $user->id,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
     }
 }
