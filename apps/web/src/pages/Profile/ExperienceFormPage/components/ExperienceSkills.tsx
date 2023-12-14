@@ -49,9 +49,9 @@ const ExperienceSkills = ({
     }
   };
 
-  const watchedSkillIds = watchedSkills.map(
-    (watchedSkill) => watchedSkill.skillId,
-  );
+  const watchedSkillIds = watchedSkills
+    ? watchedSkills.map((watchedSkill) => watchedSkill.skillId)
+    : [];
   const unclaimedSkills = skills.filter(
     (skill) => !watchedSkillIds.includes(skill.id),
   );
