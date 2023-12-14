@@ -72,9 +72,8 @@ const AssessmentResult = ({
 }: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [, executeToggleBookmarkMutation] = useMutation(
-    ToggleBookmark_Mutation,
-  );
+  const [{ fetching: isUpdatingBookmark }, executeToggleBookmarkMutation] =
+    useMutation(ToggleBookmark_Mutation);
 
   const [isBookmarked, setIsBookmarked] = React.useState(
     result.poolCandidate?.isBookmarked,
@@ -150,60 +149,38 @@ const AssessmentResult = ({
           "data-h2-background-color": "base(primary.lightest)",
         })}
       >
-        {isBookmarked ? (
-          <Button
-            mode="icon_only"
-            color="primary"
-            onClick={toggleBookmark}
-            icon={BookmarkIconSolid}
-            aria-label={intl.formatMessage(
-              {
-                defaultMessage:
-                  "Un-bookmark {candidateName} from top of column.",
-                id: "qlZMZx",
-                description:
-                  "Un-bookmark button label for applicant assessment tracking.",
-              },
-              {
-                candidateName: getFullNameLabel(
-                  result.poolCandidate.user.firstName,
-                  result.poolCandidate.user.lastName,
-                  intl,
-                ),
-              },
-            )}
-            {...{
-              "data-h2-height": "base(x.9)",
-              "data-h2-width": "base(x.9)",
-            }}
-          />
-        ) : (
-          <Button
-            mode="icon_only"
-            color="black"
-            onClick={toggleBookmark}
-            icon={BookmarkIconOutline}
-            aria-label={intl.formatMessage(
-              {
-                defaultMessage: "Bookmark {candidateName} to top of column.",
-                id: "Gc5hcz",
-                description:
-                  "Bookmark button label for applicant assessment tracking.",
-              },
-              {
-                candidateName: getFullNameLabel(
-                  result.poolCandidate.user.firstName,
-                  result.poolCandidate.user.lastName,
-                  intl,
-                ),
-              },
-            )}
-            {...{
-              "data-h2-height": "base(x.9)",
-              "data-h2-width": "base(x.9)",
-            }}
-          />
-        )}
+        <Button
+          mode="icon_only"
+          color={isBookmarked ? "primary" : "black"}
+          onClick={toggleBookmark}
+          disabled={isUpdatingBookmark}
+          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
+          aria-label={intl.formatMessage(
+            isBookmarked
+              ? {
+                  defaultMessage:
+                    "Un-bookmark {candidateName} from top of column.",
+                  id: "qlZMZx",
+                  description:
+                    "Un-bookmark button label for applicant assessment tracking.",
+                }
+              : {
+                  defaultMessage: "Bookmark {candidateName} to top of column.",
+                  id: "Gc5hcz",
+                  description:
+                    "Bookmark button label for applicant assessment tracking.",
+                },
+            {
+              candidateName: getFullNameLabel(
+                result.poolCandidate.user.firstName,
+                result.poolCandidate.user.lastName,
+                intl,
+              ),
+            },
+          )}
+          data-h2-height="base(x.9)"
+          data-h2-width="base(x.9)"
+        />
         <span data-h2-flex-grow="base(1)">
           <Link
             mode="text"

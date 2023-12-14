@@ -88,8 +88,8 @@ export default {
   parameters: {
     apiResponsesConfig: {
       latency: {
-        min: 0,
-        max: 0,
+        min: 500,
+        max: 2000,
       },
     },
     apiResponses: {
