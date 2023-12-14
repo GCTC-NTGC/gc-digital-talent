@@ -96,7 +96,6 @@ query ApplicantInformation {
     }
     isWoman
     hasDisability
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     indigenousCommunities
