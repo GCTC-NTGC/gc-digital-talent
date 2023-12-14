@@ -29,6 +29,8 @@ class PoolCandidateTest extends TestCase
 
     protected $teamUser;
 
+    protected $unAssociatedTeamUser;
+
     protected $team;
 
     protected $teamName = 'application-test-team';
@@ -80,6 +82,17 @@ class PoolCandidateTest extends TestCase
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',
+            ]);
+
+        // Team and users not associated with the Pool we are testing against
+        $unAssociatedTeam = Team::factory()->create();
+
+        $this->unAssociatedTeamUser = User::factory()
+            ->asApplicant()
+            ->asPoolOperator($unAssociatedTeam->name)
+            ->create([
+                'email' => 'unassociated-team-user@test.com',
+                'sub' => 'unassociated-team-user@test.com',
             ]);
     }
 
@@ -460,6 +473,11 @@ class PoolCandidateTest extends TestCase
 
         // Assert request responder cannot query candidate notes
         $this->actingAs($this->requestResponderUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert an unassociated pool operator cannot query candidate notes
+        $this->actingAs($this->unAssociatedTeamUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
