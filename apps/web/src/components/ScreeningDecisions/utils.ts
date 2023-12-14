@@ -24,7 +24,7 @@ export type FormValues = {
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
   otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  notesForThisAssessment?: Maybe<string>; // TODO: Does this field need to be added to AssessmentResult model?
+  notesForThisAssessment?: Maybe<string>; // TODO: This field will be added to backend on #8729
 };
 
 export type FormValuesToApiCreateInputArgs = {

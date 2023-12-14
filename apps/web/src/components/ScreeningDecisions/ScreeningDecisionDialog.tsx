@@ -286,6 +286,15 @@ export const ScreeningDecisionDialog = ({
   ).find((option) => option.value === poolCandidate.educationRequirementOption)
     ?.label;
 
+  const defaultValues: FormValues = {
+    assessmentDecision: null,
+    assessmentDecisionLevel: null,
+    justifications: null,
+    otherJustificationNotes: null,
+    skillDecisionNotes: null,
+    notesForThisAssessment: null,
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -318,7 +327,7 @@ export const ScreeningDecisionDialog = ({
               <BasicForm
                 onSubmit={onSubmit}
                 labels={labels}
-                options={{ defaultValues: initialValues }}
+                options={{ defaultValues: initialValues || defaultValues }}
               >
                 <ScreeningDecisionDialogForm dialogType={dialogType} />
                 <Dialog.Footer
