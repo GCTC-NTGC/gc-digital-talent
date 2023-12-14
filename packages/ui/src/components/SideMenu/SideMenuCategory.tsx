@@ -1,0 +1,50 @@
+import React from "react";
+
+const commonStyles = {
+  "data-h2-background-color": `
+    base(transparent)
+    base:focus-visible(focus)
+
+    base:iap(secondary.light)
+    base:iap:focus-visible(focus)
+  `,
+  "data-h2-outline": "base(none)",
+  "data-h2-color": `
+    base(white)
+
+    base:selectors[.active](secondary.lighter)
+
+    base:all:focus-visible(black)
+    base:all:iap:focus-visible(black)
+  `,
+  "data-h2-width": "base(100%)",
+  "data-h2-text-align": "base(left)",
+  "data-h2-display": "base(block)",
+  "data-h2-font-weight": "base:selectors[.active](700)",
+};
+
+type SideMenuCategoryProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => (
+  <div
+    data-h2-display="base(flex)"
+    data-h2-flex-direction="base(column)"
+    data-h2-align-items="base(flex-start)"
+    data-h2-gap="base(x0.5)"
+    data-h2-align-self="base(stretch)"
+  >
+    <div
+      {...commonStyles}
+      data-h2-border-bottom="base(1px solid)"
+      data-h2-font-weight="base(700)"
+    >
+      {title}
+    </div>
+    {children}
+  </div>
+);
+
+export default SideMenuCategory;
