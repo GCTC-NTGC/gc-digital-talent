@@ -9,7 +9,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
-use Database\Helpers\ApiEnums;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -20,6 +20,12 @@ class PoolCandidateTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+
+    protected $adminUser;
+
+    protected $applicantUser;
+
+    protected $requestResponderUser;
 
     protected $teamUser;
 
@@ -44,6 +50,29 @@ class PoolCandidateTest extends TestCase
         $this->pool = Pool::factory()->create([
             'team_id' => $this->team->id,
         ]);
+
+        $this->adminUser = User::factory()
+            ->asApplicant()
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create([
+                'email' => 'platform-admin-user@test.com',
+                'sub' => 'platform-admin-user@test.com',
+            ]);
+
+        $this->applicantUser = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-user@test.com',
+                'sub' => 'applicant-user@test.com',
+            ]);
+
+        $this->requestResponderUser = User::factory()
+            ->asRequestResponder()
+            ->create([
+                'email' => 'request-responder-user@test.com',
+                'sub' => 'request-responder-user@test.com',
+            ]);
 
         $this->teamUser = User::factory()
             ->asApplicant()
@@ -366,5 +395,77 @@ class PoolCandidateTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    public function testNotesAccess(): void
+    {
+        $candidate = PoolCandidate::factory()->create([
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $basicQuery = /** @lang GraphQL */
+        '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    id
+                }
+            }
+         ';
+
+        $notesQuery = /** @lang GraphQL */
+        '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    notes
+                }
+            }
+         ';
+
+        // Assert team member can view notes
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'notes' => $candidate->notes,
+                    ],
+                ],
+            ]);
+
+        // Assert admin can view notes
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'notes' => $candidate->notes,
+                    ],
+                ],
+            ]);
+
+        // Assert applicant can query candidate
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($basicQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'id' => $candidate->id,
+                    ],
+                ],
+            ]);
+
+        // Assert request responder cannot query candidate notes
+        $this->actingAs($this->requestResponderUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert applicant cannot query candidate notes
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }
