@@ -267,7 +267,9 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  isBookmarked: Boolean
+    @rename(attribute: "is_bookmarked")
+    @canOnParent(ability: "viewAssessmentResults")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -1548,6 +1550,7 @@ type Mutation {
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
+  # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
     @can(ability: "updateAsAdmin", find: "id", model: "poolCandidate")
