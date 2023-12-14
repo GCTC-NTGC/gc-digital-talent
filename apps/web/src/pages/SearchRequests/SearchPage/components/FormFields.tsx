@@ -16,14 +16,14 @@ import {
   getPoolStream,
   getWorkRegion,
 } from "@gc-digital-talent/i18n";
+
 import {
   Classification,
   LanguageAbility,
   PoolStream,
   Skill,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
@@ -89,12 +89,6 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
               id: "V8v+/g",
               description: "Label for classification filter in search form.",
             })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select a classification",
-              id: "HHEQgM",
-              description:
-                "Placeholder for classification filter in search form.",
-            })}
             name="classification"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a classification",
@@ -114,11 +108,6 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
               defaultMessage: "Stream",
               id: "qYWmzA",
               description: "Label for stream filter in search form.",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select a job stream",
-              id: "QJ5uDV",
-              description: "Placeholder for stream filter in search form.",
             })}
             name="stream"
             nullSelection={intl.formatMessage({
@@ -283,11 +272,6 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
             defaultMessage: "Region",
             id: "F+WFWB",
             description: "Label for work location filter in search form.",
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Select a location",
-            id: "bo+d/M",
-            description: "Placeholder for work location filter in search form.",
           })}
           items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
             value,

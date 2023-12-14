@@ -13,7 +13,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
-import AdminLayout from "~/components/Layout/AdminLayout";
+import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
@@ -1824,6 +1824,8 @@ const Router = () => {
     <RouterProvider
       router={router}
       fallbackElement={<Loading />}
+      // Note: This is required for turning on a version 7 feature flag in react-router: https://reactrouter.com/en/main/routers/router-provider#future
+      // eslint-disable-next-line camelcase
       future={{ v7_startTransition: true }}
     />
   );

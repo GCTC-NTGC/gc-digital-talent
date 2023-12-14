@@ -1,12 +1,16 @@
 import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { Maybe, Skill } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import SkillTree from "~/pages/Applications/ApplicationSkillsPage/components/SkillTree";
-import { Scalars, useGetSkillMatchDialogDataQuery } from "~/api/generated";
+import {
+  Maybe,
+  Skill,
+  Scalars,
+  useGetSkillMatchDialogDataQuery,
+} from "~/api/generated";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
@@ -51,7 +55,7 @@ const SkillMatchDialogBody = ({
 
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
-  skillsCount: Maybe<number>;
+  skillsCount: Maybe<number> | undefined;
   userId: Scalars["ID"];
   poolCandidateName: string;
 }
@@ -158,7 +162,7 @@ const SkillMatchDialog = ({
 
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
-  skillCount: Maybe<number>,
+  skillCount: Maybe<number> | undefined,
   userId: Scalars["ID"],
   poolCandidateName: string,
 ) {

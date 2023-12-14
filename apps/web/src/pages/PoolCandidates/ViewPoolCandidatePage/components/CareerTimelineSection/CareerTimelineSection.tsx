@@ -1,8 +1,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Well } from "@gc-digital-talent/ui";
+import { Heading, Well } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import { Experience } from "~/api/generated";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
@@ -16,6 +18,7 @@ interface CareerTimelineSectionProps {
 }
 
 const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
+  const features = useFeatureFlags();
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -33,6 +36,15 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
 
   return (
     <>
+      {features.recordOfDecision && (
+        <Heading Icon={UserCircleIcon} color="tertiary">
+          {intl.formatMessage({
+            defaultMessage: "Career timeline",
+            id: "5FK/4R",
+            description: "Heading for the users experiences",
+          })}
+        </Heading>
+      )}
       <div
         data-h2-flex-grid="base(center, x1, x1)"
         data-h2-margin-bottom="base(x.5)"

@@ -28,7 +28,7 @@ class TeamPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(?User $user, Team $team = null)
+    public function view(?User $user, ?Team $team = null)
     {
         return true;
     }

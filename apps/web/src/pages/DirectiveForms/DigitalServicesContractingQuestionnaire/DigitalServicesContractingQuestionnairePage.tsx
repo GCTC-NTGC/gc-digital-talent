@@ -7,20 +7,20 @@ import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { useLocale } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   Department,
   DigitalContractingQuestionnaireInput,
   Skill,
   useCreateDigitalContractingQuestionnaireMutation,
-} from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
-
+  useDigitalServicesContractingQuestionnairePageDataQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
-import { useDigitalServicesContractingQuestionnairePageDataQuery } from "~/api/generated";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";

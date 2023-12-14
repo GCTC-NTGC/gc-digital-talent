@@ -422,6 +422,7 @@ export const PoolPoster = ({
                               date: parseDateTimeUtc(pool.closingDate),
                               formatString: "PPP",
                               intl,
+                              timeZone: "Canada/Pacific",
                             }),
                           },
                         )

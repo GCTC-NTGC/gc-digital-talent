@@ -9,16 +9,16 @@ import {
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { getLanguage } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
+
 import {
   User,
   UserFilterInput,
   useAllUsersPaginatedQuery,
   useSelectedUsersQuery,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-
+} from "~/api/generated";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -44,9 +44,7 @@ import {
 } from "./utils";
 import useUserCsvData from "../hooks/useUserCsvData";
 import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
-import UserTableFilters, {
-  FormValues,
-} from "./UserTableFilterDialog/UserTableFilterDialog";
+import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -384,11 +382,9 @@ const UserTable = ({ title }: UserTableProps) => {
       filter={{
         state: filterRef.current,
         component: (
-          <UserTableFilters
+          <UserFilterDialog
             onSubmit={handleFilterSubmit}
-            initialFilters={transformUserFilterInputToFormValues(
-              initialFilters,
-            )}
+            defaultValues={transformUserFilterInputToFormValues(initialFilters)}
           />
         ),
       }}

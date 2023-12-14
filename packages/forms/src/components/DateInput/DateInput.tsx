@@ -107,7 +107,7 @@ const DateInput = ({
 
   return (
     <Field.Wrapper>
-      <Field.Fieldset aria-describedby={ariaDescribedBy} {...rest}>
+      <Field.Fieldset id={id} aria-describedby={ariaDescribedBy} {...rest}>
         <Field.Legend
           required={required}
           data-h2-font-size="base(copy)"

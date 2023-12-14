@@ -134,7 +134,6 @@ query GetApplication($id: UUID!) {
       }
       isWoman
       hasDisability
-      isIndigenous
       indigenousCommunities
       indigenousDeclarationSignature
       isVisibleMinority

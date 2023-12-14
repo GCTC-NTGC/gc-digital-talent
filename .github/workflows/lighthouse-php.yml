@@ -1,0 +1,54 @@
+name: Lighthouse PHP
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - .github/workflows/*lighthouse*.yml
+      - api/**
+  pull_request:
+    paths:
+      - .github/workflows/*lighthouse*.yml
+      - api/**
+  merge_group:
+    branches: [main]
+
+jobs:
+  lighthouse-php:
+    name: Lighthouse PHP
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Build docker image: api"
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
+
+      - name: "Re-generate lighthouse schema"
+        run: |
+          docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
+          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ./api/storage/app/
+
+      - name: Check for uncommitted changes
+        id: check_changes
+        run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Error if changes
+        if: steps.check_changes.outputs.changed != 0
+        # See: https://github.com/actions/github-script
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.setFailed('Please update api/storage/app/lighthouse-schema.graphql')
+
+      # Allows SSH access into CI environment for up to 1h.
+      # Use `touch ~/continue` with session to end each one.
+      # Only enable when trying to troubleshoot.
+      #
+      # Note: Be cautious, as secrets in environment can be compromised.
+      #   Consider using in PRs from forks, without secrets available.
+      #
+      # See: https://github.com/lhotari/action-upterm
+      - name: Create upterm session for debug
+        uses: lhotari/action-upterm@v1
+        if: ${{ false }}
+        # if: ${{ always() }}

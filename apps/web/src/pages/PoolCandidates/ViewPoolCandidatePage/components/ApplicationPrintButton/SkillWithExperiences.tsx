@@ -2,6 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import {
+  commonMessages,
+  getAwardedTo,
+  getEducationStatus,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+
+import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
@@ -9,14 +16,7 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
-} from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getAwardedTo,
-  getEducationStatus,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-
+} from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
 import experienceMessages from "~/messages/experienceMessages";
 import { formattedDate, getDateRange } from "~/utils/dateUtils";
@@ -226,14 +226,14 @@ const SkillWithExperiences = ({
     );
   };
 
+  const description = getLocalizedName(skill.description, intl, true);
+
   return (
     <PageSection>
       <p data-h2-font-weight="base(700)">
         {getLocalizedName(skill.name, intl)}
       </p>
-      <p>
-        {skill.description ? getLocalizedName(skill.description, intl) : ""}
-      </p>
+      {description && <p>{description}</p>}
       <ul>
         {skillExperiences.map((experience) => {
           return (

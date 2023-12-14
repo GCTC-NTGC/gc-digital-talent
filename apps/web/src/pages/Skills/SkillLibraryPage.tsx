@@ -6,14 +6,14 @@ import { OperationContext } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
+
 import {
   Skill,
   SkillCategory,
   UserSkill,
   useUserSkillsQuery,
-} from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";

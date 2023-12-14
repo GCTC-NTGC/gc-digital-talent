@@ -349,7 +349,6 @@ query GetViewUserData($id: UUID!) {
     locationExemptions
     positionDuration
     acceptedOperationalRequirements
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     hasDisability
@@ -571,7 +570,6 @@ query selectedUsers($ids: [ID]!) {
     positionDuration
     acceptedOperationalRequirements
     isWoman
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
@@ -692,6 +690,43 @@ query selectedUsers($ids: [ID]!) {
     }
     improveBehaviouralSkillsRanking {
       ...poolCandidateUserSkillFragment
+    }
+  }
+}
+
+query UserFilterData {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    category
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    stream
+  }
+  roles {
+    id
+    name
+    displayName {
+      en
+      fr
     }
   }
 }

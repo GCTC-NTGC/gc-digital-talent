@@ -45,7 +45,7 @@ final class UUID extends ScalarType
      *
      * @throws \GraphQL\Error\Error
      */
-    public function parseLiteral($valueNode, array $variables = null)
+    public function parseLiteral($valueNode, ?array $variables = null)
     {
         if (! $valueNode instanceof StringValueNode) {
             throw new Error(

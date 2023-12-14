@@ -53,7 +53,6 @@ fragment poolCandidateTable on PoolCandidate {
 
     # Employment equity
     isWoman
-    isIndigenous
     isVisibleMinority
     hasDisability
     indigenousCommunities
@@ -254,7 +253,6 @@ fragment selectedPoolCandidates on PoolCandidate {
     positionDuration
     acceptedOperationalRequirements
     isWoman
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
@@ -564,7 +562,6 @@ query getCandidateProfile($id: UUID!) {
       positionDuration
       acceptedOperationalRequirements
       isWoman
-      isIndigenous
       indigenousCommunities
       indigenousDeclarationSignature
       isVisibleMinority

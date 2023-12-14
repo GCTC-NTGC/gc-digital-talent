@@ -3,7 +3,7 @@ import { aliasMutation } from "../../support/graphql-test-utils";
 describe("Create account tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasMutation(req, "CreateAccount");
+      aliasMutation(req, "CreateAccount_Mutation");
     });
   });
 
@@ -55,7 +55,7 @@ describe("Create account tests", () => {
     });
     cy.findByRole("button", { name: "Save and go to my profile" }).click();
 
-    cy.wait("@gqlCreateAccountMutation");
+    cy.wait("@gqlCreateAccount_MutationMutation");
     // should go to the personal information page
     cy.findByRole("heading", {
       name: `Personal information`,

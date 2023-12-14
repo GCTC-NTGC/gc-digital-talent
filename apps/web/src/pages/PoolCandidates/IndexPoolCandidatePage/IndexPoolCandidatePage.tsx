@@ -4,7 +4,12 @@ import { useIntl } from "react-intl";
 import { Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-import { Scalars, useGetPoolQuery } from "~/api/generated";
+import {
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+  Scalars,
+  useGetPoolQuery,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
@@ -80,6 +85,8 @@ export const IndexPoolCandidatePage = () => {
         <PoolCandidatesTable
           initialFilterInput={{
             applicantFilter: { pools: [{ id: poolId || "" }] },
+            suspendedStatus: CandidateSuspendedFilter.Active,
+            expiryStatus: CandidateExpiryFilter.Active,
           }}
           currentPool={data?.pool}
           title={pageTitle}

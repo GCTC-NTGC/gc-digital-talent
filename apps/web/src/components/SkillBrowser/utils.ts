@@ -1,8 +1,8 @@
 import { IntlShape } from "react-intl";
 
-import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 import { Option } from "@gc-digital-talent/forms";
 
+import { Skill, SkillCategory, SkillFamily } from "~/api/generated";
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 
 import { FormValues, SkillBrowserDialogContext } from "./types";
@@ -74,6 +74,23 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
         },
       ),
   };
+
+  if (context === "pool") {
+    return {
+      ...defaults,
+      trigger: intl.formatMessage({
+        defaultMessage: "Add a skill",
+        id: "mS15HC",
+        description: "Button text to open the skill dialog and add a skill",
+      }),
+      title: intl.formatMessage({
+        defaultMessage: "Add a skill to this process",
+        id: "Z4iL1M",
+        description: "Title for the find a skill dialog within a pool",
+      }),
+      subtitle: null,
+    };
+  }
 
   if (context === "experience") {
     return {

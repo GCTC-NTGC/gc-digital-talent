@@ -146,6 +146,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: "PPP",
                       intl,
+                      timeZone: "Canada/Pacific",
                     }),
                   },
                 )

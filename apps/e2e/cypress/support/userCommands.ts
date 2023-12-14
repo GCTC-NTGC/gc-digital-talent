@@ -9,7 +9,7 @@ import {
   UpdateUserAsAdminDocument,
   UpdateUserRolesMutation,
   UpdateUserRolesDocument,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 import { getGqlString } from "./graphql-test-utils";
 
@@ -41,7 +41,6 @@ const defaultUser = {
   currentClassification: undefined,
   isWoman: undefined,
   hasDisability: undefined,
-  isIndigenous: undefined,
   isVisibleMinority: undefined,
   hasDiploma: undefined,
   locationPreferences: undefined,

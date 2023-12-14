@@ -2,14 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
+import { Board, Link } from "@gc-digital-talent/ui";
+
 import {
   ArmedForcesStatus,
   AssessmentResult as AssessmentResultType,
   AssessmentStepType,
   Maybe,
-} from "@gc-digital-talent/graphql";
-import { Board, Link } from "@gc-digital-talent/ui";
-
+} from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import useRoutes from "../../hooks/useRoutes";
@@ -128,7 +128,7 @@ const AssessmentResult = ({
 
 interface AssessmentResultsProps {
   results: AssessmentResultType[];
-  stepType: Maybe<AssessmentStepType>;
+  stepType: Maybe<AssessmentStepType> | undefined;
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
