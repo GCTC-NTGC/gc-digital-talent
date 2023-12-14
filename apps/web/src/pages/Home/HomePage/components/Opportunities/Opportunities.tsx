@@ -7,6 +7,7 @@ import { Heading, CardFlat } from "@gc-digital-talent/ui";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 const Opportunities = () => {
   const intl = useIntl();
@@ -14,6 +15,7 @@ const Opportunities = () => {
 
   return (
     <SkewedContainer>
+      <HolidayAlert />
       <Heading
         level="h2"
         size="h3"

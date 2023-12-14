@@ -8671,6 +8671,10 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
+  "kY+tnm": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes, soit du 22 décembre 2023 au 7 janvier 2024. ",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
+  },
   "kZWII8": {
     "defaultMessage": "Étape du plan d’évaluation {index}",
     "description": "Legend for assessment plan step fieldset"
@@ -8818,6 +8822,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
   },
   "lmD1ef": {
     "defaultMessage": "Sélection de la compétence",
@@ -9179,6 +9187,10 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
+  },
   "nEVNHp": {
     "defaultMessage": "Information sur l’employé(e) du gouvernement ",
     "description": "Title for the government employee information snapshot section"
@@ -9478,6 +9490,10 @@
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
