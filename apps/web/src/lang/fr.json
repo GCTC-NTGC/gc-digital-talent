@@ -367,10 +367,6 @@
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
   },
-  "00tsn/": {
-    "defaultMessage": "Quelle application d’authentification devrais-je installer?",
-    "description": "Third of the Frequently Asked Questions for sign up"
-  },
   "04smVa": {
     "defaultMessage": "Recrutement ciblé",
     "description": "Label for an targeting (active) qualified recruitment"
@@ -563,14 +559,6 @@
     "defaultMessage": "Préférences de lieux",
     "description": "CSV Header, Location Preferences column"
   },
-  "11HdYI": {
-    "defaultMessage": "Le Canada et les États-Unis",
-    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
-  },
-  "13Cbkq": {
-    "defaultMessage": "Qui dois-je contacter si j'ai des questions sur la CléGC?",
-    "description": "Sixth of the Frequently Asked Questions for logging in"
-  },
   "13fSK+": {
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
@@ -618,10 +606,6 @@
   "1MtuHa": {
     "defaultMessage": "Veuillez préciser le facteur",
     "description": "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "1NliRt": {
-    "defaultMessage": "Une CléGC est une identité centrale qui n'est pas gérée par l'équipe des Talents numériques du GC. Le gouvernement du Canada l'offre comme moyen d'accéder, en toute sécurité, à de nombreux programmes et services gouvernementaux en ligne.",
-    "description": "Fifth answer of the Frequently Asked Questions for logging in"
   },
   "1PVIbX": {
     "defaultMessage": "Je consens à travailler dans...",
@@ -722,10 +706,6 @@
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
-  },
-  "1qLpE3": {
-    "defaultMessage": "Vous avez déjà un compte CléGC?",
-    "description": "Eighth of the Frequently Asked Questions for sign up"
   },
   "1sPszf": {
     "defaultMessage": "Lieu actuel",
@@ -907,10 +887,6 @@
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
   },
-  "3/YwR9": {
-    "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez vous connecter à votre profil Talent numérique du GC en utilisant votre CléGC, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1"
-  },
   "3/lHSy": {
     "defaultMessage": "Courriel",
     "description": "Title displayed for the team members table email column."
@@ -986,10 +962,6 @@
   "3JL02L": {
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
-  },
-  "3M1/4Y": {
-    "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
-    "description": "Sentence following the Frequently Asked Questions about logging in"
   },
   "3QkRNc": {
     "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
@@ -1443,10 +1415,6 @@
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
     "description": "Link text to email about the gaining hiring experience"
   },
-  "5myYda": {
-    "defaultMessage": "Que faire si mes codes d'authentification ne sont plus acceptés?",
-    "description": "Third of the Frequently Asked Questions for logging in"
-  },
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
@@ -1887,10 +1855,6 @@
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
     "description": "VRS contact info"
   },
-  "8NNqcv": {
-    "defaultMessage": "Canada et États-Unis",
-    "description": "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number"
-  },
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
@@ -2162,10 +2126,6 @@
   "AAmd5G": {
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
-  },
-  "ACa+rP": {
-    "defaultMessage": "Vous avez déjà un compte CléGC?",
-    "description": "Fourth of the Frequently Asked Questions for logging in"
   },
   "AFuhfl": {
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
@@ -2531,10 +2491,6 @@
     "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.",
     "description": "Title for the 'database management' IT work stream"
   },
-  "ByposT": {
-    "defaultMessage": "Le gouvernement du Canada ne peut pas recommander de fournisseurs ou d’applications de tiers en particulier. Des fournisseurs numériques bien connus, comme Google Authenticator et Microsoft Authenticator, offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
-    "description": "Third answer of the Frequently Asked Questions for sign up"
-  },
   "BzKGyK": {
     "defaultMessage": "Langue de communication",
     "description": "Label for communication language"
@@ -2606,10 +2562,6 @@
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
-  },
-  "CIkGjy": {
-    "defaultMessage": "Actuellement, notre site ne prend en charge que l'authentification par l'entremise d'une application d'authentification.",
-    "description": "Eighth answer of the Frequently Asked Questions for logging in"
   },
   "CJy0kS": {
     "defaultMessage": "Compétences constituant un atout",
@@ -2711,10 +2663,6 @@
     "defaultMessage": "Titre du contrat",
     "description": "Label for _contract title_ field in the _digital services contracting questionnaire_"
   },
-  "ClrNAj": {
-    "defaultMessage": "Puis-je utiliser l'authentification par texto ou par courriel au lieu d'une application?",
-    "description": "Eighth of the Frequently Asked Questions for logging in"
-  },
   "Cn73yN": {
     "defaultMessage": "Sélectionnez les rôles",
     "description": "Placeholder text for role selection input"
@@ -2726,10 +2674,6 @@
   "CoUFQ5": {
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
-  },
-  "ConlR5": {
-    "defaultMessage": "À l'extérieur du Canada et des États-Unis",
-    "description": "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number"
   },
   "CpjTkh": {
     "defaultMessage": "Information sur le bassin",
@@ -2818,10 +2762,6 @@
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
-  },
-  "DL/hpF": {
-    "defaultMessage": "En tant que gouvernement du Canada, nous ne pouvons pas recommander d'applications ou de fournisseurs tiers précis. Des fournisseurs en matière de numérique bien connus, comme Google Authenticator et Microsoft Authenticator, proposent des applica3tions d'authentification. Quelle que soit l'application choisie, veillez à ce qu'elle provienne d'un fournisseur fiable.",
-    "description": "Seventh answer of the Frequently Asked Questions for logging in"
   },
   "DMdCkf": {
     "defaultMessage": "Lieu actuel :",
@@ -3050,10 +2990,6 @@
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
-  },
-  "EqHa4y": {
-    "defaultMessage": "Pouvez-vous enlever l’authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
-    "description": "Sixth of the Frequently Asked Questions for sign up"
   },
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
@@ -3290,10 +3226,6 @@
   "G1RNXj": {
     "defaultMessage": "Accueil",
     "description": "Link to the Homepage in the nav menu."
-  },
-  "G1bgOX": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs de votre compte, mais vous pouvez contacter notre <helpLink>service d'assistance</helpLink> , qui pourra vous aider à récupérer l'accès à votre compte.",
-    "description": "First answer of the Frequently Asked Questions for logging in"
   },
   "G1jegJ": {
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
@@ -3558,10 +3490,6 @@
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
-  },
-  "HqQzy1": {
-    "defaultMessage": "Les représentants du service à la clientèle sont disponibles pour vous aider par téléphone, tout au long de l'année, 24 heures sur 24 et 7 jours sur 7.",
-    "description": "Sixth answer of the Frequently Asked Questions for logging in - final sentence"
   },
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
@@ -3839,10 +3767,6 @@
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
   },
-  "Jd/ZvJ": {
-    "defaultMessage": "Que se passe-t-il si j’ai supprimé l’application ou que j’ai changé de téléphone et je n’ai pas les codes de récupération?",
-    "description": "Fourth of the Frequently Asked Questions for sign up"
-  },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
@@ -4082,10 +4006,6 @@
   "KpNUo0": {
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
-  },
-  "KpR9l5": {
-    "defaultMessage": "Bien que vos identifiants ne puissent être récupérés, vous pouvez contacter notre<helpLink>service d'assistance</helpLink>, qui pourra vous aider à récupérer l'accès à votre compte.",
-    "description": "First answer of the Frequently Asked Questions for logging in"
   },
   "KqAp09": {
     "defaultMessage": "Poursuivre l’ébauche de votre demande pour le poste {applicationTitle}",
@@ -4423,10 +4343,6 @@
     "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
     "description": "Help text for user field on the add member to team form"
   },
-  "N+rELF": {
-    "defaultMessage": "Une CléGC est un justificatif centralisé qui n’est pas géré par l’équipe des Talents numériques du GC. Le gouvernement du Canada l’offre pour vous permettre de communiquer de façon sécurisée avec de nombreux programmes et services gouvernementaux en ligne.",
-    "description": "First answer of the Frequently Asked Questions for sign up"
-  },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
@@ -4714,10 +4630,6 @@
   "OaaW6Y": {
     "defaultMessage": "Montrer les options d'équité offertes ({optionCount})",
     "description": "Heading for opening the accordion with available employment equity options."
-  },
-  "Oajyw/": {
-    "defaultMessage": "À l’heure actuelle, notre site ne prend en charge que l’authentification faite au moyen d’une application d’authentification.",
-    "description": "Fifth answer of the Frequently Asked Questions for sign up"
   },
   "OcIvN1": {
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
@@ -5507,10 +5419,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title for manager full name"
   },
-  "TY7KLv": {
-    "defaultMessage": "Vous avez lu la FAQ et vous ne savez toujours pas quoi faire? <link>Communiquez avec notre équipe pour obtenir de l’aide</link>",
-    "description": "Seventh answer of the Frequently Asked Questions for sign up"
-  },
   "TYOzfT": {
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
@@ -5875,10 +5783,6 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
-  "Val79M": {
-    "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte pour que je puisse le réinitialiser?",
-    "description": "Second of the Frequently Asked Questions for logging in"
-  },
   "Vbl9/L": {
     "defaultMessage": "un contrat de services professionnels pour l'évaluation de la cybersécurité;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -6026,10 +5930,6 @@
   "WHkMFr": {
     "defaultMessage": "Veuillez préciser les locaux du GC",
     "description": "Label for _gc specific work locations_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "WJM32F": {
-    "defaultMessage": "Avec qui puis-je communiquer si j’ai des questions au sujet de CléGC?",
-    "description": "Second of the Frequently Asked Questions for sign up"
   },
   "WJSVBr": {
     "defaultMessage": "Copier l’identification de votre demande {title}",
@@ -6423,10 +6323,6 @@
     "defaultMessage": "10 000 $ à 25 000 $",
     "description": "Contract value range between ten-thousand and twenty-five-thousand"
   },
-  "YWxGL/": {
-    "defaultMessage": "Quelle application d'authentification dois-je installer?",
-    "description": "Seventh of the Frequently Asked Questions for logging in"
-  },
   "YZMi8D": {
     "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
@@ -6667,10 +6563,6 @@
     "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
     "description": "IT-01 classification label including titles and salaries"
   },
-  "ZwvgeK": {
-    "defaultMessage": "Veuillez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
-    "description": "Seventh answer of the Frequently Asked Questions for sign up"
-  },
   "ZyA0CC": {
     "defaultMessage": "Les principales compétences du candidat",
     "description": "Heading for a users top skills"
@@ -6770,10 +6662,6 @@
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
-  },
-  "aVILlG": {
-    "defaultMessage": "À l’extérieur du Canada et des États-Unis",
-    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
   },
   "aVp6q7": {
     "defaultMessage": "Consultez la CléGC",
@@ -7423,10 +7311,6 @@
     "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page description for the top technical skills page"
   },
-  "e1KnGs": {
-    "defaultMessage": "Que puis-je faire si mes codes d’authentification ne sont plus acceptés?",
-    "description": "Seventh of the Frequently Asked Questions for sign up"
-  },
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
     "description": "Team and department of pool"
@@ -7731,10 +7615,6 @@
     "defaultMessage": "Plan d’évaluation",
     "description": "Title for the assessment plan builder"
   },
-  "foidJi": {
-    "defaultMessage": "Bien que votre identifiant ne puisse pas être récupéré, vous pouvez communiquer avec notre <link>Service de dépannage</link>, qui pourra vous aider à récupérer votre compte.",
-    "description": "Fourth answer of the Frequently Asked Questions for sign up"
-  },
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
@@ -7786,10 +7666,6 @@
   "g1++nq": {
     "defaultMessage": "Adresse de courriel personnelle",
     "description": "Label for email field"
-  },
-  "g1MMTj": {
-    "defaultMessage": "Téléimprimeur (ATS/ATME)",
-    "description": "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'"
   },
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
@@ -7974,10 +7850,6 @@
   "gv1Hwu": {
     "defaultMessage": "Commencez l'affiche d'emploi vide",
     "description": "Form header to create new pool"
-  },
-  "gw/WSP": {
-    "defaultMessage": "Si vous avez des questions sur la CléGC, veuillez contacter l'équipe responsable de CléGC à l'adresse suivante :",
-    "description": "Sixth answer of the Frequently Asked Questions for logging in - intro sentence"
   },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
@@ -8863,10 +8735,6 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
-  "m+IDnG": {
-    "defaultMessage": "Que puis-je faire si j'ai supprimé l'application ou changé de téléphone et que je n'ai plus les codes de récupération?",
-    "description": "First of the Frequently Asked Questions for logging in"
-  },
   "m/Ch5y": {
     "defaultMessage": "Compétences constituant un atout",
     "description": "Shorter version of the title for the pool essential skills"
@@ -9138,10 +9006,6 @@
   "n2bW9s": {
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
-  },
-  "n4eLy+": {
-    "defaultMessage": "Si vous n'êtes pas sûr d'avoir un compte CléGC, continuez sur le site Web et essayez de vous connecter. Si vous avez oublié votre mot de passe, vous pourrez également le réinitialiser.",
-    "description": "Fourth answer of the Frequently Asked Questions for logging in - paragraph 2"
   },
   "n4pt+y": {
     "defaultMessage": "Nom de l’équipe (Anglais)",
@@ -9459,10 +9323,6 @@
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
-  "p4KrU2": {
-    "defaultMessage": "Si vous avez déjà un compte CléGC, vous pouvez ouvrir une séance dans votre profil Talents numériques du GC à l’aide de votre CléGC existante, même si vous n’avez jamais utilisé cette plateforme auparavant. Si vous n’êtes pas certain d’avoir un compte CléGC existant, rendez-vous sur le site Web et essayez d’ouvrir une séance. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez également le réinitialiser.",
-    "description": "Eighth answer of the Frequently Asked Questions for sign up"
-  },
   "p5qn9H": {
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
@@ -9663,10 +9523,6 @@
     "defaultMessage": "L'adéquation des compétences en détail",
     "description": "Heading displayed on the candidate skill match dialog."
   },
-  "qQgtWZ": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>service d'assistance</helpLink>, qui pourra vous aider à récupérer l'accès à votre compte.",
-    "description": "Third answer of the Frequently Asked Questions for logging in"
-  },
   "qQjLqa": {
     "defaultMessage": "un arrangement en matière d’approvisionnement pour qu'un fournisseur construise une application numérique;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -9843,10 +9699,6 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "First paragraph for the close pool dialog"
   },
-  "rrKF85": {
-    "defaultMessage": "Qu’est-ce qu’une CléGC?",
-    "description": "First of the Frequently Asked Questions for sign up"
-  },
   "rtzp80": {
     "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",
     "description": "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
@@ -9898,10 +9750,6 @@
   "s1h7Mc": {
     "defaultMessage": "Lieu actuel :",
     "description": "Current Location label and colon"
-  },
-  "s2OefW": {
-    "defaultMessage": "Téléimprimeur (ATS/ATME)",
-    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
   },
   "s5hTYo": {
     "defaultMessage": "Rôles des membres",
@@ -10375,10 +10223,6 @@
     "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
   },
-  "utILRB": {
-    "defaultMessage": "Puis-je utiliser l’authentification par messagerie texte ou par courriel au lieu d’une application?",
-    "description": "Fifth of the Frequently Asked Questions for sign up"
-  },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",
     "description": "Link text to direct a user to the recruitment section on the career timeline page"
@@ -10491,10 +10335,6 @@
     "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
     "description": "Message displayed to user after pool is deleted"
   },
-  "vm0KOb": {
-    "defaultMessage": "Les représentants du service à la clientèle sont prêts à vous aider par téléphone, tout au long de l’année, 24 heures sur 24, 7 jours sur 7.",
-    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
-  },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Page title for the create team page"
@@ -10527,10 +10367,6 @@
     "defaultMessage": "Passer en revue votre parcours professionnel",
     "description": "Page title for the application career timeline page"
   },
-  "w3vO23": {
-    "defaultMessage": "Qu'est-ce qu'une CléGC?",
-    "description": "Fifth of the Frequently Asked Questions for logging in"
-  },
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
@@ -10546,10 +10382,6 @@
   "w6jDaJ": {
     "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
     "description": "Text that appears when a user is missing required skills on their profile."
-  },
-  "w79+Ww": {
-    "defaultMessage": "Nous ne pouvons pas enlever l’authentification à deux facteurs de votre compte, mais vous pouvez communiquer avec notre <link>Service de dépannage</link>, qui vous aidera à récupérer votre compte.",
-    "description": "Sixth answer of the Frequently Asked Questions for sign up"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
@@ -10854,10 +10686,6 @@
   "yE/QNS": {
     "defaultMessage": "Obtenez du soutien pour le poste {title}",
     "description": "Link text to direct a user to the support page"
-  },
-  "yEYCHL": {
-    "defaultMessage": "Si vous avez des questions sur la CléGC, veuillez communiquer avec l’équipe de CléGC à l’adresse suivante :",
-    "description": "Second answer of the Frequently Asked Questions for sign up, contact info"
   },
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
