@@ -10,7 +10,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import invariant from "~/utils/invariant";
 
 export const uuidRegEx =
-  /[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}/;
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
 export const isUUID = (str: string): boolean => {
   return !!str.match(uuidRegEx);
@@ -70,6 +70,7 @@ const useRequiredParams = <
   nonEmptyParams = keyArray.reduce((reducedParams, key) => {
     const param: string | undefined = params[String(key)];
     let newParams = { ...reducedParams };
+    console.log(isUUID(param ?? ""));
     assertParam(param, enforceUUID, logger);
 
     if (key) {
