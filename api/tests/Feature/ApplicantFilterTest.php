@@ -389,7 +389,7 @@ class ApplicantFilterTest extends TestCase
             [
                 'has_diploma' => $candidate->user->has_diploma,
                 'has_disability' => $candidate->user->has_disability,
-                'is_indigenous' => $candidate->user->is_indigenous,
+                'is_indigenous' => ! empty($candidate->user->indigenous_communities),
                 'is_visible_minority' => $candidate->user->is_visible_minority,
                 'is_woman' => $candidate->user->is_woman,
                 'position_duration' => $candidate->user->position_duration,

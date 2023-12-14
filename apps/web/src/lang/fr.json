@@ -728,7 +728,7 @@
     "description": "Eighth of the Frequently Asked Questions for sign up"
   },
   "1sPszf": {
-    "defaultMessage": "Emplacement actuel",
+    "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "1vVbe3": {
@@ -1736,7 +1736,7 @@
     "description": "Title for the feature about finding executive jobs"
   },
   "7VCuZQ": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Label for a process' location requirement"
   },
   "7b0U9u": {
@@ -2120,7 +2120,7 @@
     "description": "Any offsite personnel work location"
   },
   "9pYlYz": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Label for a process' stream"
   },
   "9pdtnR": {
@@ -2144,7 +2144,7 @@
     "description": "CSV Header, Armed Forces column"
   },
   "A2VzLX": {
-    "defaultMessage": "Emplacement précis (anglais)",
+    "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
   "A2ycww": {
@@ -2204,7 +2204,7 @@
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
   },
   "ARSDO1": {
-    "defaultMessage": "Localisation, langue et sécurité.",
+    "defaultMessage": "Lieu, langue et sécurité",
     "description": "Title for the location, language and security section of a pool advertisement"
   },
   "ASNC88": {
@@ -2420,7 +2420,7 @@
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
   "BLg0f4": {
-    "defaultMessage": "Contact et hébergement",
+    "defaultMessage": "Contact et mesures d’adaptation",
     "description": "Title for the contact and accommodation section of a pool advertisement"
   },
   "BMJeFv": {
@@ -2824,7 +2824,7 @@
     "description": "Seventh answer of the Frequently Asked Questions for logging in"
   },
   "DMdCkf": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Display text for the current location field on users"
   },
   "DPfJ30": {
@@ -3476,7 +3476,7 @@
     "description": "Default message for an empty table"
   },
   "H7M6Yv": {
-    "defaultMessage": "Localisation :",
+    "defaultMessage": "Lieu :",
     "description": "Label for pool advertisement location requirement"
   },
   "H8cs1r": {
@@ -4256,7 +4256,7 @@
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
   "LoKxJe": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title displayed on the search request table stream column."
   },
   "LocjmN": {
@@ -4844,7 +4844,7 @@
     "description": "Title for education experience section"
   },
   "PH+6C9": {
-    "defaultMessage": "Emplacement précis (français)",
+    "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
   },
   "POvUB0": {
@@ -5164,7 +5164,7 @@
     "description": "Title for streams"
   },
   "RWvojd": {
-    "defaultMessage": "Revenir à la publicité",
+    "defaultMessage": "Revenir à l'annonce",
     "description": "Link text to return to a pool advertisement during the application"
   },
   "RXOgrq": {
@@ -5636,7 +5636,7 @@
     "description": "Heading for the manager info section of the single search request view."
   },
   "UGaZR2": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Location options in Edit Pool Form"
   },
   "UHH1Oh": {
@@ -5696,7 +5696,7 @@
     "description": "Status for an application that is having skills reviewed"
   },
   "Ua/X9Q": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title for stream on summary of filters section"
   },
   "Ude1JQ": {
@@ -6966,10 +6966,6 @@
   "bf2scl": {
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
-  },
-  "bo+d/M": {
-    "defaultMessage": "Sélectionnez un lieu",
-    "description": "Placeholder for work location filter in search form."
   },
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
@@ -8420,7 +8416,7 @@
     "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
   "j3m2Ca": {
-    "defaultMessage": "Emplacement précis (précisez ci-dessous)",
+    "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
   },
   "j7+E9C": {
@@ -9864,7 +9860,7 @@
     "description": "Button text to copy a specific application ID"
   },
   "rwQPZE": {
-    "defaultMessage": "Informations publicitaires",
+    "defaultMessage": "Informations de l'annonce",
     "description": "Page title for process' advertisement information page"
   },
   "rxDfeN": {
@@ -9900,7 +9896,7 @@
     "description": "Description of identifying digital talents"
   },
   "s1h7Mc": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Current Location label and colon"
   },
   "s2OefW": {
