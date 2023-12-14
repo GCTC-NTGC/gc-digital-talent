@@ -70,7 +70,6 @@ const useRequiredParams = <
   nonEmptyParams = keyArray.reduce((reducedParams, key) => {
     const param: string | undefined = params[String(key)];
     let newParams = { ...reducedParams };
-    console.log(isUUID(param ?? ""));
     assertParam(param, enforceUUID, logger);
 
     if (key) {
