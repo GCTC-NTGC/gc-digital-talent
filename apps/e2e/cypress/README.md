@@ -25,7 +25,7 @@ version of the website running in the browser. (Electron, Chrome, Firefox, or Ed
     - On failed CI runs, we list the status of containers (e.g., one may have
       crashed), and print out the logs of important containers (e.g., Nginx
       logs of the webserver container).
-      [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/e2e-tests.yml#L85-L91)
+      [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/cypress.yml#L85-L91)
 - When you need to debug locally, these tips can help:
   - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
     watch mode**. (Saving test files will restart the active test.)
@@ -47,7 +47,7 @@ version of the website running in the browser. (Electron, Chrome, Firefox, or Ed
 
 ## Plugins and Helpers
 
-### [`apps/e2e/cypress/support/graphql-test-utils.js`](/apps/e2e/cypress/support/graphql-test-utils.js)
+### [`apps/e2e/cypress/support/graphql-test-utils.js`](/apps/e2e/cypress/support/graphql-test-utils.ts)
 
 See the official Cypress docs: [Working with GraphQL](https://docs.cypress.io/guides/end-to-end-testing/working-with-graphql)
 
@@ -89,13 +89,13 @@ constrain them to a subset of test suite.
 Examples:
 
 ```
-# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.cy.js`
-#   - apps/e2e/talentsearch/foo.secrets.cy.js
-#   - apps/e2e/admin/bar.secrets.cy.js
+# Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.cy.ts`
+#   - apps/e2e/talentsearch/foo.secrets.cy.ts
+#   - apps/e2e/admin/bar.secrets.cy.ts
 TEST_FILTER=secrets npm run e2e:run:all
 
-# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.cy.js`
-#   - apps/e2e/talentsearch/static-pages.cy.js
+# Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.cy.ts`
+#   - apps/e2e/talentsearch/static-pages.cy.ts
 TEST_FILTER=static-pages npm run e2e:run:all
 ```
 
@@ -119,7 +119,7 @@ app and explore.
 
 It works best with `TEST_FILTER`, which defaults to "language-selection" if not set.
 
-For example, this will run the `cypress/e2e/talentsearch/static-pages.cy.js`
+For example, this will run the `cypress/e2e/talentsearch/static-pages.cy.ts`
 test in the Electron browser, and leave it open (success or failure):
 
 ```
@@ -131,15 +131,15 @@ TEST_FILTER=static-pages npm run e2e:run:inspect
 <sup>Click through into linked files for tips relevant to our usage.</sup>
 
 - helpful terms
-  - a "test _file_": `cypress/e2e/foo/bar.cy.js`
+  - a "test _file_": `cypress/e2e/foo/bar.cy.ts`
   - a "test" (BDD term): `it('does something', () => { ... })`
     - tests a unit of functionality with isolation
   - a "context" (BDD term): `context('Foo', () => { ... })` (alias of `describe()`)
     - a set of tests or other contexts
 - `cypress/support/`: for utility functions (some auto-loaded, some manually imported in appropriate test files)
-  - [`cypress/support/e2e.js`][]: for things that need to run before each test or test file (auto-loaded)
-  - [`cypress/support/commands.js`][]: for **custom commands** ([official docs][command-docs]) (auto-loaded)
-  - [`cypress/support/graphql-test-utils.js`][]: an example util file imported in specific test files.
+  - [`cypress/support/e2e.ts`][]: for things that need to run before each test or test file (auto-loaded)
+  - [`cypress/support/commands.ts`][]: for **custom commands** ([official docs][command-docs]) (auto-loaded)
+  - [`cypress/support/graphql-test-utils.ts`][]: an example util file imported in specific test files.
 - [`apps/e2e/cypress/`][]: for writing our tests
   - try to keep tests in folder according to actual app. if tests must
     straddle, consider keeping them in the root test directory
@@ -160,7 +160,7 @@ See: https://docs.cypress.io/guides/guides/web-security
     - this affects **our `mock-oauth2-server`**
   - superdomain limitations do not affect subdomains
     - `www.example.com` vs `auth.example.com` (this is ok)
-  - general work-arounds
+  - general workarounds
     - using `cy.request()` instead of `cy.visit()`
     - set `chromeWebSecurity:false` in `cypress.config.ts` (still has caveats, and
       mitigation only works for Chromium-based browsers)
@@ -177,13 +177,13 @@ thing', () => { ... })` and add comment with `chromeWebSecurity:false`
 
 <!-- Links -->
 
-[`cypress/support/e2e.js`]: /apps/e2e/cypress/support/e2e.js
-[`cypress/support/commands.js`]: /apps/e2e/cypress/support/commands.js
-[`cypress/support/graphql-test-utils.js`]: /apps/e2e/cypress/support/graphql-test-utils.js
+[`cypress/support/e2e.ts`]: /apps/e2e/cypress/support/e2e.ts
+[`cypress/support/commands.ts`]: /apps/e2e/cypress/support/commands.ts
+[`cypress/support/graphql-test-utils.ts`]: /apps/e2e/cypress/support/graphql-test-utils.ts
 [`apps/e2e/cypress/`]: /apps/e2e/cypress/
 [`/api/.env`]: /api/.env
 [command-docs]: https://docs.cypress.io/api/cypress-api/custom-commands#Syntax
 [`apps/e2e/`]: /apps/e2e/
 [`apps/e2e/cypress.config.ts`]: /apps/e2e/cypress.config.ts
-[e2e-config]: /.github/workflows/e2e-tests.yml
-[e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/e2e-tests.yml
+[e2e-config]: /.github/workflows/cypress.yml
+[e2e-runs]: https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/cypress.yml
