@@ -529,8 +529,8 @@ const PoolCandidatesTable = ({
       search={{
         internal: false,
         label: intl.formatMessage({
-          defaultMessage: "Search pool candidates",
-          id: "6+H2T9",
+          defaultMessage: "Search by keyword",
+          id: "lNU7FS",
           description: "Label for the pool candidates table search input",
         }),
         onChange: (newState: SearchState) => {
