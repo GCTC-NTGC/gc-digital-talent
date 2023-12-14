@@ -6,6 +6,9 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import SquaresPlusIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import ArrowLeftOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftOnRectangleIcon";
+import { useIntl } from "react-intl";
+
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import SideMenuComponent from "./SideMenu";
@@ -35,6 +38,7 @@ export default {
 } as Meta;
 
 const TemplateSideMenu: Story = (args) => {
+  const intl = useIntl();
   const { isOpen: defaultOpen } = args;
   const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);
 
@@ -54,8 +58,10 @@ const TemplateSideMenu: Story = (args) => {
           </SideMenuButton>
         }
       >
-        <SideMenuButton icon={XMarkIcon} onClick={() => null}>
-          Close menu
+        <SideMenuButton icon={XMarkIcon} onClick={handleToggle}>
+          {isOpen
+            ? intl.formatMessage(uiMessages.closeMenu)
+            : intl.formatMessage(uiMessages.openMenu)}
         </SideMenuButton>
         <SideMenuItem icon={HomeIcon} onClick={() => null}>
           Dashboard

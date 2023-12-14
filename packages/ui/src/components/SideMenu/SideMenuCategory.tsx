@@ -1,4 +1,7 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
+import { useSideMenuContext } from "./SideMenuProvider";
 
 const commonStyles = {
   "data-h2-background-color": `
@@ -28,23 +31,35 @@ type SideMenuCategoryProps = {
   children: React.ReactNode;
 };
 
-const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-align-items="base(flex-start)"
-    data-h2-gap="base(x0.5)"
-    data-h2-align-self="base(stretch)"
-  >
+const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
+  const ctx = useSideMenuContext();
+  const shouldReduceMotion = useReducedMotion();
+  const transitionConfig = { duration: shouldReduceMotion ? 0 : undefined };
+  return (
     <div
-      {...commonStyles}
-      data-h2-border-bottom="base(1px solid)"
-      data-h2-font-weight="base(700)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-align-items="base(flex-start)"
+      data-h2-gap="base(x0.5)"
+      data-h2-align-self="base(stretch)"
     >
-      {title}
+      <div
+        {...commonStyles}
+        data-h2-border-bottom="base(1px solid)"
+        data-h2-font-weight="base(700)"
+        data-h2-height="base(x1)"
+      >
+        <motion.span
+          transition={transitionConfig}
+          animate={ctx?.open ? { opacity: 1 } : { opacity: 0 }}
+        >
+          {!!ctx?.open && title}
+        </motion.span>
+      </div>
+
+      {children}
     </div>
-    {children}
-  </div>
-);
+  );
+};
 
 export default SideMenuCategory;
