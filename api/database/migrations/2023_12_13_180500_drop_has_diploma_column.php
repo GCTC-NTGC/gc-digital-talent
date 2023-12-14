@@ -11,12 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('applicant_filters', function (Blueprint $table) {
-            $table->dropColumn('has_diploma');
-        });
-        Schema::table('pool_candidate_filters', function (Blueprint $table) {
-            $table->dropColumn('has_diploma');
-        });
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('has_diploma');
         });
@@ -27,12 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('applicant_filters', function (Blueprint $table) {
-            $table->boolean('has_diploma')->nullable(true);
-        });
-        Schema::table('pool_candidate_filters', function (Blueprint $table) {
-            $table->boolean('has_diploma')->nullable(true);
-        });
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('has_diploma')->nullable();
         });
