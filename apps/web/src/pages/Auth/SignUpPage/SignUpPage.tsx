@@ -399,10 +399,9 @@ const SignUpPage = () => {
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {
-                        (intl.formatMessage(gckeyMessages.answerRecoveryCodes),
-                        { helpLink })
-                      }
+                      {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
