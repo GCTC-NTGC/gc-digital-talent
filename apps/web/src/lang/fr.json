@@ -6967,10 +6967,6 @@
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
   },
-  "bo+d/M": {
-    "defaultMessage": "Sélectionnez un lieu",
-    "description": "Placeholder for work location filter in search form."
-  },
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
     "description": "Legend text for written exam language preference for exams"
