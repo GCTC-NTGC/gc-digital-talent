@@ -83,7 +83,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         data-h2-transform="base:selectors[::before](translate(0, 1.5rem)) base:selectors[::after](translate(0, 1.5rem))"
       >
         <span
-          data-h2-color="base(black) base:iap(white)"
+          data-h2-color="base:all(black) base:iap(white)"
           data-h2-font-weight="base(700)"
           data-h2-font-size="base(h5, 1)"
           data-h2-layer="base(2)"
