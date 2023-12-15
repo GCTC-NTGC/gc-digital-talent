@@ -27,7 +27,6 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   ApplicationStep,
-  useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "~/api/generated";
@@ -38,7 +37,7 @@ import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/s
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -451,19 +450,7 @@ const context: Partial<OperationContext> = {
 };
 
 const ApplicationCareerTimelinePage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
+  const { application } = useApplication();
   const [
     {
       data: experienceData,
@@ -474,14 +461,10 @@ const ApplicationCareerTimelinePage = () => {
     context,
   });
 
-  const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
+    <Pending fetching={experienceFetching} error={experienceError}>
       {application ? (
         <ApplicationCareerTimeline
           application={application}
