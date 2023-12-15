@@ -1,11 +1,17 @@
 <?php
 
+use App\Models\EducationExperience;
 use App\Models\User;
+use App\Models\WorkExperience;
+use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Database\Seeders\RolePermissionSeeder;
 use Tests\TestCase;
+
 
 class KeywordSearchTest extends TestCase
 {
@@ -128,16 +134,15 @@ class KeywordSearchTest extends TestCase
     // Test user can be edited and searched by the changed value
    public function testUserSearchByEditedValue()
     {
-        $user = User::factory()->create([
+        $user = User::factory()->asApplicant()->create([
             'first_name' => 'user',
             'last_name' => 'test',
             'telephone' => '1234567890',
             'current_city' => 'Ottawa',
         ]);
 
-        $applicant = User::factory()->asApplicant()->create();
 
-        $this->actingAs($applicant, 'api')->graphQL(
+        $this->actingAs($user, 'api')->graphQL(
 
             $updateUserAsUser =
             /** @lang GraphQL */
@@ -150,7 +155,7 @@ class KeywordSearchTest extends TestCase
         '
         );
 
-        $this->actingAs($this->platformAdmin, 'api')
+        $this->actingAs($user, 'api')
             ->graphQL(
                 $updateUserAsUser,
                 [
@@ -161,6 +166,7 @@ class KeywordSearchTest extends TestCase
                 ]
             )
             ->assertJsonFragment(['telephone' => '0987654321']);
+
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -188,4 +194,301 @@ class KeywordSearchTest extends TestCase
         ]);
 
     }
+    // Test user can be searched by their work experience details
+    public function testUserSearchByWorkExperience()
+    {
+        $user1 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $skill = Skill::factory()->create();
+
+        $workExperience1 = WorkExperience::factory()->create([
+            'user_id' => $user1->id,
+            'role' => 'Software Developer',
+            'organization' => 'CDS',
+            'start_date' => '2020-01-01',
+            'end_date' => '2021-01-01',
+        ]);
+
+        $details = 'These are the details of my experience.';
+        $workExperience1->syncSkills([
+            ['id' => $skill->id,
+            'details' => $details],
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['software developer'], // verify it is case insensitive
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                     'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                        'data' => [
+                        [
+                            'id' => $user1->id,
+                        ],
+                ],
+            ],
+        ]]);
+    }
+
+    // Test user can be searched by their education details, partial search and case insensitive
+    public function testUserSearchByEducation()
+    {
+        $user1 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $skill = Skill::factory()->create();
+
+        $education1 = EducationExperience::factory()->create([
+            'user_id' => $user1->id,
+            'institution' => 'University of Ottawa',
+            'thesis_title' => 'Bachelor of Science',
+            'area_of_study' => 'Computer Science',
+            'start_date' => '2016-01-01',
+            'end_date' => '2020-01-01',
+        ]);
+
+        $education1->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['computer'],
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                     'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                        'data' => [
+                        [
+                            'id' => $user1->id,
+                        ],
+                ],
+            ],
+        ]]);
+    }
+    // Test user can be searched by their award details and community experience details
+    public function testUserSearchByAwardAndCommunityExperience()
+    {
+        $user1 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $skill = Skill::factory()->create();
+
+        $awardExperience1 = AwardExperience::factory()->create([
+            'user_id' => $user1->id,
+            'title' => 'Award Title',
+            'issued_by' => 'CDS',
+        ]);
+
+        $awardExperience1->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        $communityExperience1 = CommunityExperience::factory()->create([
+            'user_id' => $user1->id,
+            'title' => 'Community Title',
+            'organization' => 'CDS',
+            'start_date' => '2020-01-01',
+            'end_date' => '2021-01-01',
+        ]);
+
+        $communityExperience1->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['award title'],
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                     'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                        'data' => [
+                        [
+                            'id' => $user1->id,
+                        ],
+                ],
+            ],
+        ]]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['community title'],
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                     'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                        'data' => [
+                        [
+                            'id' => $user1->id,
+                        ],
+                ],
+            ],
+        ]]);
+    }
+    // Test user can be searched by their name and work experience title
+    public function testUserSearchByNameAndWorkExperienceTitle()
+    {
+       // create 3 users with same name
+        $user1 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $user2 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $user3 = User::factory()->create([
+            'first_name' => 'user',
+            'last_name' => 'test',
+        ]);
+
+        $skill = Skill::factory()->create();
+
+        // create different work experiences for each user
+        $workExperience1 = WorkExperience::factory()->create([
+            'user_id' => $user1->id,
+            'role' => 'Software Developer',
+            'organization' => 'CDS',
+            'start_date' => '2020-01-01',
+            'end_date' => '2021-01-01',
+        ]);
+
+        $workExperience2 = WorkExperience::factory()->create([
+            'user_id' => $user2->id,
+            'role' => 'Architect',
+            'organization' => 'TVS',
+            'start_date' => '2020-01-01',
+            'end_date' => '2021-01-01',
+        ]);
+
+        $workExperience3 = WorkExperience::factory()->create([
+            'user_id' => $user3->id,
+            'role' => 'some other role',
+            'organization' => 'some company',
+            'start_date' => '2020-01-01',
+            'end_date' => '2021-01-01',
+        ]);
+
+        // sync the same skill to all 3 work experiences
+        $workExperience1->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        $workExperience2->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        $workExperience3->syncSkills([
+            ['id' => $skill->id],
+        ]);
+
+        // search by the name and work experience title and verify it returns only the user with the matching work experience title
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['user', 'TVS'],
+            ],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                     'paginatorInfo' => [
+                            'total' => 1,
+                        ],
+                        'data' => [
+                        [
+                            'id' => $user2->id,
+                        ],
+                ],
+            ],
+        ]]);
+    }
+
+
 }
