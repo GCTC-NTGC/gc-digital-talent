@@ -160,6 +160,16 @@ export const ApplicationSkills = ({
       });
   };
 
+  React.useEffect(() => {
+    setValue(
+      "skillsMissingExperiences",
+      isSkillsExperiencesIncomplete ? 1 : 0,
+      {
+        shouldValidate: true,
+      },
+    );
+  }, [isSkillsExperiencesIncomplete, setValue]);
+
   return (
     <>
       <div
