@@ -1,4 +1,5 @@
 import { Params, useParams } from "react-router-dom";
+import { useIntl } from "react-intl";
 
 import {
   useLogger,
@@ -6,6 +7,7 @@ import {
   type Logger,
 } from "@gc-digital-talent/logger";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
 
@@ -61,7 +63,9 @@ const useRequiredParams = <
 >(
   keys: K | Array<K>,
   enforceUUID: boolean = true,
+  message: string | undefined = undefined,
 ): Record<K, string> => {
+  const intl = useIntl();
   const logger = useLogger();
   const params: Params<string> = useParams<T>();
   const keyArray = Array.isArray(keys) ? keys : [keys];
@@ -70,10 +74,20 @@ const useRequiredParams = <
   nonEmptyParams = keyArray.reduce((reducedParams, key) => {
     const param: string | undefined = params[String(key)];
     let newParams = { ...reducedParams };
-    assertParam(param, enforceUUID, logger);
+    try {
+      assertParam(param, enforceUUID, logger);
 
-    if (key) {
-      newParams = { ...newParams, [key]: param }; // param must be a string if assertParam didn't throw an error.
+      if (key) {
+        newParams = { ...newParams, [key]: param }; // param must be a string if assertParam didn't throw an error.
+      }
+    } catch (err) {
+      throw new Response(
+        message ?? intl.formatMessage(commonMessages.notFound),
+        {
+          status: 404,
+          statusText: "Not Found",
+        },
+      );
     }
 
     return newParams;
