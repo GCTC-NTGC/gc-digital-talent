@@ -72,7 +72,10 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   // Reset the form with no submission on close
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen) {
-      reset();
+      reset((currentValues) => ({
+        ...currentValues,
+        ...activeFilters,
+      }));
     }
 
     setIsOpen(newOpen);
