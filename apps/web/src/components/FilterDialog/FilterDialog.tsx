@@ -15,12 +15,17 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 // Used by specific dialogs
 export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
+  /** Defaults values, including from URL */
   defaultValues?: Partial<TFieldValues>;
+  /** Initial values to reset the form to, not including URL, */
+  initialValues: TFieldValues;
 };
 
 type FilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
+  // Values to reset to (removing URL state)
+  initialValues: CommonFilterDialogProps<TFieldValues>["initialValues"];
   defaultOpen?: boolean;
   children: React.ReactNode;
 };
@@ -29,6 +34,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   onSubmit,
   options,
   children,
+  initialValues,
   defaultOpen = false,
 }: FilterDialogProps<TFieldValues>) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
@@ -43,9 +49,9 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     formState: { isSubmitting },
   } = methods;
   // Spreading removes the `ReadOnly` type
-  const defaultActiveFilters = { ...options?.defaultValues };
-  const [activeFilters, setActiveFilters] =
-    React.useState<Partial<TFieldValues>>(defaultActiveFilters);
+  const [activeFilters, setActiveFilters] = React.useState<
+    Partial<TFieldValues>
+  >({ ...options?.defaultValues });
   const filterCount = Object.values(activeFilters ?? {}).filter((value) => {
     if (Array.isArray(value)) {
       return value.length > 0;
@@ -63,8 +69,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
 
   // Reset form and submit
   const handleClear = async () => {
-    reset();
-    setActiveFilters(defaultActiveFilters);
+    reset(initialValues);
+    setActiveFilters(initialValues);
     await methods.handleSubmit(onSubmit)();
     setIsOpen(false);
   };

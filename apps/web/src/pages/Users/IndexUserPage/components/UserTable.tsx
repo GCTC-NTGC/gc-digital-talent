@@ -384,6 +384,9 @@ const UserTable = ({ title }: UserTableProps) => {
         component: (
           <UserFilterDialog
             onSubmit={handleFilterSubmit}
+            initialValues={transformUserFilterInputToFormValues(
+              defaultState.filters,
+            )}
             defaultValues={transformUserFilterInputToFormValues(initialFilters)}
           />
         ),

@@ -57,6 +57,7 @@ type UserFilterDialogProps = CommonFilterDialogProps<FormValues>;
 const UserFilterDialog = ({
   onSubmit,
   defaultValues,
+  initialValues,
 }: UserFilterDialogProps) => {
   const intl = useIntl();
 
@@ -67,7 +68,10 @@ const UserFilterDialog = ({
   const roles = unpackMaybes(data?.roles);
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      options={{ defaultValues }}
+      {...{ onSubmit, initialValues }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"

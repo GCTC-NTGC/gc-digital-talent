@@ -72,6 +72,7 @@ type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues>;
 const PoolCandidateFilterDialog = ({
   onSubmit,
   defaultValues,
+  initialValues,
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
 
@@ -87,7 +88,10 @@ const PoolCandidateFilterDialog = ({
   });
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      options={{ defaultValues }}
+      {...{ initialValues, onSubmit }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"

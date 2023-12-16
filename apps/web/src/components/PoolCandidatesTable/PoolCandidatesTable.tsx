@@ -548,6 +548,9 @@ const PoolCandidatesTable = ({
         component: (
           <PoolCandidateFilterDialog
             onSubmit={handleFilterSubmit}
+            initialValues={transformPoolCandidateSearchInputToFormValues(
+              initialFilterInput,
+            )}
             defaultValues={transformPoolCandidateSearchInputToFormValues(
               initialFilters,
             )}

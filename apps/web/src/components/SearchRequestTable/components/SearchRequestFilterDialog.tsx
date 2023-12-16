@@ -32,6 +32,7 @@ type SearchRequestFilterDialogProps = CommonFilterDialogProps<FormValues>;
 const SearchRequestFilterDialog = ({
   onSubmit,
   defaultValues,
+  initialValues,
 }: SearchRequestFilterDialogProps) => {
   const intl = useIntl();
 
@@ -41,7 +42,10 @@ const SearchRequestFilterDialog = ({
   const classifications = unpackMaybes(data?.classifications);
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      {...{ onSubmit, initialValues }}
+      options={{ defaultValues }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
