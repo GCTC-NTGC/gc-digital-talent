@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
-import { useQuery } from "urql";
 
 import {
   Heading,
@@ -9,13 +8,12 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useUpdateUserAsUserMutation } from "~/api/generated";
+import { useGetMeQuery, useUpdateUserAsUserMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
-import { SectionProps } from "~/components/Profile/types";
+import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import StepNavigation from "~/components/Profile/components/StepNavigation";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
@@ -24,13 +22,10 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 
-import {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -66,66 +61,17 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-export const Application_UserProfileFragment = graphql(/* GraphQL */ `
-  fragment Application_UserProfile on User {
-    id
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
-    currentCity
-    telephone
-    firstName
-    lastName
-    email
-    citizenship
-    armedForcesStatus
-    positionDuration
-    acceptedOperationalRequirements
-    locationPreferences
-    locationExemptions
-    indigenousCommunities
-    indigenousDeclarationSignature
-    isVisibleMinority
-    isWoman
-    hasDisability
-    isGovEmployee
-    hasPriorityEntitlement
-    priorityNumber
-    govEmployeeType
-    positionDuration
-    acceptedOperationalRequirements
-    locationPreferences
-    locationExemptions
-    currentClassification {
-      id
-      group
-      level
-    }
-    lookingForEnglish
-    lookingForFrench
-    lookingForBilingual
-    bilingualEvaluation
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
-  }
-`);
-
 interface ApplicationProfileProps extends ApplicationPageProps {
-  userQuery: FragmentType<typeof Application_UserProfileFragment>;
+  user: ApplicantProfileUser;
 }
 
 export const ApplicationProfile = ({
-  query,
-  userQuery,
+  application,
+  user,
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
-  const user = getFragment(Application_UserProfileFragment, userQuery);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -196,33 +142,15 @@ export const ApplicationProfile = ({
   );
 };
 
-export const ApplicationProfilePageQuery = graphql(/* GraphQL */ `
-  query ApplicationProfilePage($id: UUID!) {
-    poolCandidate(id: $id) {
-      ...Application_PoolCandidate
-    }
-    me {
-      id
-      email
-      ...Application_UserProfile
-    }
-  }
-`);
-
 const ApplicationProfilePage = () => {
-  const id = useApplicationId();
-  const [{ data, fetching, error, stale }] = useQuery({
-    query: ApplicationProfilePageQuery,
-    requestPolicy: "cache-first",
-    variables: {
-      id,
-    },
-  });
+  const { application } = useApplication();
+  const [{ data: userData, fetching: userFetching, error: userError }] =
+    useGetMeQuery();
 
   return (
-    <Pending fetching={fetching || stale} error={error}>
-      {data?.poolCandidate && data?.me ? (
-        <ApplicationProfile query={data.poolCandidate} userQuery={data.me} />
+    <Pending fetching={userFetching} error={userError}>
+      {application?.pool && userData?.me ? (
+        <ApplicationProfile application={application} user={userData.me} />
       ) : (
         <ThrowNotFound />
       )}

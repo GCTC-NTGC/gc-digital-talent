@@ -26,7 +26,8 @@
         "src/**/*.tsx"
       ],
       "outputs": ["src/api/generated.ts", "src/index.ts"],
-      "outputMode": "new-only"
+      "outputMode": "new-only",
+      "cache": false
     },
     "dev": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],

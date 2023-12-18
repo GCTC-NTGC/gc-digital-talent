@@ -1,24 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
-import { useQuery } from "urql";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
+import { useGetMyExperiencesQuery } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-import {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import EditExperienceForm from "./components/ExperienceEditForm";
-import { Application_UserExperiencesFragment } from "../operations";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -77,14 +73,13 @@ interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
 }
 
 const ApplicationCareerTimelineEdit = ({
-  query,
+  application,
   experience,
 }: ApplicationCareerTimelineEditProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { experienceId } = useRequiredParams<RouteParams>("experienceId", true);
   const { currentStepOrdinal } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -118,45 +113,32 @@ const ApplicationCareerTimelineEdit = ({
   );
 };
 
-export const ApplicationCareerTimelineEditPageQuery = graphql(/* GraphQL */ `
-  query ApplicationCareerTimelineEditPage($id: UUID!) {
-    poolCandidate(id: $id) {
-      ...Application_PoolCandidate
-    }
-    me {
-      id
-      email
-      ...Application_UserExperiences
-    }
-  }
-`);
-
 const ApplicationCareerTimelineEditPage = () => {
-  const { applicationId, experienceId } = useRequiredParams<RouteParams>(
+  const { application } = useApplication();
+  const { experienceId } = useRequiredParams<RouteParams>(
     ["experienceId", "applicationId"],
     true,
   );
-  const [{ data, fetching, error, stale }] = useQuery({
-    query: ApplicationCareerTimelineEditPageQuery,
-    requestPolicy: "cache-first",
-    variables: {
-      id: applicationId,
+
+  const [
+    {
+      data: experienceData,
+      fetching: experienceFetching,
+      error: experienceError,
     },
+  ] = useGetMyExperiencesQuery({
+    requestPolicy: "cache-first",
   });
 
-  const userExperiences = getFragment(
-    Application_UserExperiencesFragment,
-    data?.me,
-  );
-  const experience = userExperiences?.experiences?.find(
+  const experience = experienceData?.me?.experiences?.find(
     (exp) => exp?.id === experienceId,
   );
 
   return (
-    <Pending fetching={fetching || stale} error={error}>
-      {data?.poolCandidate && experience ? (
+    <Pending fetching={experienceFetching} error={experienceError}>
+      {application && experience ? (
         <ApplicationCareerTimelineEdit
-          query={data?.poolCandidate}
+          application={application}
           experience={experience}
         />
       ) : (

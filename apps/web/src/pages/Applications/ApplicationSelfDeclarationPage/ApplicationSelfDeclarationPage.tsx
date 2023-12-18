@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useQuery } from "urql";
 
 import {
   Button,
@@ -16,11 +15,11 @@ import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import {
   ApplicationStep,
+  IndigenousCommunity,
+  useGetMeQuery,
   useUpdateUserAndApplicationMutation,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -37,14 +36,11 @@ import {
   type FormValuesWithYesNo as IndigenousFormValues,
 } from "~/utils/indigenousDeclaration";
 
-import {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -106,40 +102,27 @@ export interface SelfDeclarationFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-export const ApplicationSelfDeclaration_UserFragment = graphql(/* GraphQL */ `
-  fragment ApplicationSelfDeclaration_User on User {
-    indigenousCommunities
-    indigenousDeclarationSignature
-  }
-`);
-
 export type ApplicationSelfDeclarationProps = ApplicationPageProps & {
-  indigenousQuery: FragmentType<typeof ApplicationSelfDeclaration_UserFragment>;
+  indigenousCommunities: IndigenousCommunity[] | undefined;
+  signature: string | null;
   onSubmit: SubmitHandler<FormValues>;
 };
 
 export const ApplicationSelfDeclaration = ({
-  query,
-  indigenousQuery,
+  application,
+  indigenousCommunities: initialIndigenousCommunities,
+  signature: initialSignature,
   onSubmit,
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
-  const indigenousIdentity = getFragment(
-    ApplicationSelfDeclaration_UserFragment,
-    indigenousQuery,
-  );
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const initialIndigenousCommunities =
-    indigenousIdentity?.indigenousCommunities?.filter(notEmpty);
-  const initialSignature = indigenousIdentity?.indigenousDeclarationSignature;
   const methods = useForm<FormValues>({
     defaultValues: {
       ...apiCommunitiesToFormValues(initialIndigenousCommunities),
@@ -361,31 +344,12 @@ export const ApplicationSelfDeclaration = ({
   );
 };
 
-export const ApplicationSelfDeclarationPageQuery = graphql(/* GraphQL */ `
-  query ApplicationSelfDeclarationPage($id: UUID!) {
-    poolCandidate(id: $id) {
-      ...Application_PoolCandidate
-    }
-    me {
-      id
-      email
-      ...ApplicationSelfDeclaration_User
-    }
-  }
-`);
-
 const ApplicationSelfDeclarationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const id = useApplicationId();
-  const { userAuthInfo } = useAuthorization();
-  const [{ data, fetching, error, stale }] = useQuery({
-    query: ApplicationSelfDeclarationPageQuery,
-    requestPolicy: "cache-first",
-    variables: {
-      id,
-    },
-  });
+  const { application } = useApplication();
+  const [{ data: userData, fetching: userFetching, error: userError }] =
+    useGetMeQuery();
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
@@ -393,6 +357,8 @@ const ApplicationSelfDeclarationPage = () => {
   const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 
+  const resolvedIndigenousCommunities =
+    userData?.me?.indigenousCommunities?.filter(notEmpty);
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
@@ -402,13 +368,13 @@ const ApplicationSelfDeclarationPage = () => {
     const newCommunities = formValuesToApiCommunities(formValues);
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
-      userId: userAuthInfo?.id || "",
+      userId: userData?.me?.id || "",
       userInput: {
         indigenousCommunities: newCommunities,
         indigenousDeclarationSignature:
           newCommunities.length > 0 ? formValues.signature : null,
       },
-      applicationId: id,
+      applicationId: application.id,
       applicationInput: {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
@@ -439,11 +405,12 @@ const ApplicationSelfDeclarationPage = () => {
   };
 
   return (
-    <Pending fetching={fetching || stale} error={error}>
-      {data?.poolCandidate && data?.me ? (
+    <Pending fetching={userFetching} error={userError}>
+      {application && userData?.me ? (
         <ApplicationSelfDeclaration
-          query={data.poolCandidate}
-          indigenousQuery={data.me}
+          application={application}
+          indigenousCommunities={resolvedIndigenousCommunities}
+          signature={userData.me.indigenousDeclarationSignature ?? null}
           onSubmit={handleSubmit}
         />
       ) : (

@@ -8,6 +8,10 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import PageHeader from "~/components/PageHeader";
+import {
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+} from "~/api/generated";
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
@@ -38,7 +42,13 @@ export const AllPoolCandidatesPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO title={pageTitle} />
       <PageHeader icon={IdentificationIcon}>{pageTitle}</PageHeader>
-      <PoolCandidatesTable title={pageTitle} />
+      <PoolCandidatesTable
+        title={pageTitle}
+        initialFilterInput={{
+          suspendedStatus: CandidateSuspendedFilter.Active,
+          expiryStatus: CandidateExpiryFilter.Active,
+        }}
+      />
     </AdminContentWrapper>
   );
 };

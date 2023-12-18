@@ -2,16 +2,10 @@ import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
-import { useQuery } from "urql";
 
-import {
-  TableOfContents,
-  Stepper,
-  Pending,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
-import { getFragment } from "@gc-digital-talent/graphql";
+import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
+import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -20,6 +14,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
+import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
   getApplicationSteps,
@@ -27,33 +22,29 @@ import {
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
 
-import {
-  ApplicationPageProps,
-  ApplicationPageQuery,
-  Application_PoolCandidateFragment,
-} from "./ApplicationApi";
+import { ApplicationPageProps } from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
+import { ContextType } from "./useApplication";
 
 type RouteParams = {
   experienceId: string;
 };
 
-const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
+const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams<RouteParams>();
-  const application = getFragment(Application_PoolCandidateFragment, query);
   const steps = getApplicationSteps({
     intl,
     paths,
     application,
     experienceId,
   });
-  const title = fullPoolTitle(intl, application?.pool);
-  const isIAP = isIAPPool(application?.pool);
+  const title = fullPoolTitle(intl, application.pool);
+  const isIAP = isIAPPool(application.pool);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
@@ -95,7 +86,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
       }),
     },
     {
-      url: paths.pool(application?.pool?.id ?? ""),
+      url: paths.pool(application.pool.id),
       label: title.html,
     },
     ...currentCrumbs,
@@ -104,7 +95,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
   const userIsOnDisabledPage = isOnDisabledPage(
     currentPage?.link.url,
     steps,
-    application?.submittedSteps,
+    application.submittedSteps,
   );
 
   // If we cannot find the current page, redirect to the first step
@@ -117,7 +108,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
     }
   }, [currentPage, navigate, nextStepToSubmit]);
 
-  return application ? (
+  return (
     <ApplicationContextProvider
       application={application}
       followingPageUrl={
@@ -159,34 +150,47 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageProps) => {
                 returnUrl={nextStepToSubmit.mainPage.link.url}
               />
             ) : (
-              <Outlet />
+              <Outlet context={{ application } satisfies ContextType} />
             )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
     </ApplicationContextProvider>
-  ) : (
-    <ThrowNotFound />
   );
 };
 
 const ApplicationLayout = () => {
   const id = useApplicationId();
-  const [{ data, fetching, error, stale }] = useQuery({
-    query: ApplicationPageQuery,
+  const intl = useIntl();
+  const [{ data, fetching, error, stale }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
       id,
     },
   });
+
+  const application = data?.poolCandidate;
+
+  if (error) {
+    if (isUuidError(error)) {
+      throw new Response("", {
+        status: 404,
+        statusText: intl.formatMessage(commonMessages.notFound),
+      });
+    }
+  }
+
   return (
-    <Pending fetching={fetching || stale} error={error}>
-      {data?.poolCandidate ? (
-        <ApplicationPageWrapper query={data.poolCandidate} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <>
+      {fetching || stale ? (
+        <Loading live="polite" data-h2-background-color="base(white.99)" />
+      ) : null}
+      {application ? (
+        <ApplicationContextProvider application={application}>
+          <ApplicationPageWrapper application={application} />
+        </ApplicationContextProvider>
+      ) : null}
+    </>
   );
 };
 

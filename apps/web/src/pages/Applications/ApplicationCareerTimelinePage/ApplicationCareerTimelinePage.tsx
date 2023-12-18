@@ -1,51 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
-import groupBy from "lodash/groupBy";
-import { FormProvider, useForm } from "react-hook-form";
-import { OperationContext, useQuery } from "urql";
 
-import {
-  Button,
-  Heading,
-  Link,
-  Pending,
-  Separator,
-  ThrowNotFound,
-  Well,
-} from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceType } from "~/types/experience";
-import { deriveExperienceType } from "~/utils/experienceUtils";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import { ApplicationStep, useUpdateApplicationMutation } from "~/api/generated";
-import ExperienceSortAndFilter, {
-  FormValues as ExperienceSortAndFilterFormValues,
-} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
-import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
-import {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import { Application_UserExperiencesFragment } from "../operations";
-import useApplicationId from "../useApplicationId";
-
-type SortOptions = "date_desc" | "type_asc";
-
-type FormValues = {
-  sortExperiencesBy: SortOptions;
-  experienceCount: number;
-};
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -53,23 +17,25 @@ export const getPageInfo: GetPageNavInfo = ({
   intl,
   stepOrdinal,
 }) => {
-  const path = paths.applicationCareerTimeline(application.id);
+  const path = paths.applicationCareerTimelineIntro(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Review your career timeline",
-      id: "w3BYPV",
-      description: "Page title for the application career timeline page",
+      defaultMessage: "Great work! On to your career timeline.",
+      id: "oX23Z+",
+      description:
+        "Page title for the application career timeline introduction page",
     }),
     subtitle: intl.formatMessage({
       defaultMessage: "Update and review your career timeline information.",
-      id: "5dFzBc",
-      description: "Subtitle for the application career timeline page",
+      id: "qGSEMx",
+      description:
+        "Subtitle for the application career timeline introduction page",
     }),
     icon: StarIcon,
     crumbs: [
       {
         url: path,
-        label: intl.formatMessage(applicationMessages.numberedStep, {
+        label: intl.formatMessage(applicationMessages.numberedStepIntro, {
           stepOrdinal,
         }),
       },
@@ -80,417 +46,89 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-function formatExperienceCount(
-  intl: IntlShape,
-  experienceType: ExperienceType,
-  experienceCount: number,
-) {
-  switch (experienceType) {
-    case "work":
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 work experiences} =1 {1 work experience} other {# work experiences}}",
-          id: "ImwOeT",
-          description: "list a number of work experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-    case "personal":
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 personal learning experiences} =1 {1 personal learning experience} other {# personal learning experiences}}",
-          id: "q++unL",
-          description: "list a number of personal experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-    case "community":
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 community participation experiences} =1 {1 community participation experience} other {# community participation experiences}}",
-          id: "V6wB0a",
-          description: "list a number of community experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-    case "education":
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 education and certificate experiences} =1 {1 education and certificate experience} other {# education and certificate experiences}}",
-          id: "0fexP+",
-          description: "list a number of education experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-    case "award":
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 award and recognition experiences} =1 {1 award and recognition experience} other {# award and recognition experiences}}",
-          id: "inyUex",
-          description: "list a number of award experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-    // should never be hit
-    default:
-      return intl.formatMessage(
-        {
-          defaultMessage:
-            "{experienceCount, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
-          id: "C6kQXh",
-          description: "list a number of unknown experiences",
-        },
-        {
-          experienceCount,
-        },
-      );
-  }
-}
-
-type ApplicationCareerTimelineProps = ApplicationPageProps & {
-  experiencesQuery: FragmentType<typeof Application_UserExperiencesFragment>;
-};
-
-export const ApplicationCareerTimeline = ({
-  query,
-  experiencesQuery,
-}: ApplicationCareerTimelineProps) => {
+const ApplicationCareerTimelineIntroduction = ({
+  application,
+}: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
-    useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
+  const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
-  const nextStep =
-    followingPageUrl ?? paths.applicationEducation(application.id);
-  const [{ fetching: mutating }, executeMutation] =
-    useUpdateApplicationMutation();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
-
-  const methods = useForm<FormValues>();
-  const {
-    setValue,
-    formState: { isSubmitting },
-  } = methods;
-
-  const [sortAndFilterValues, setSortAndFilterValues] =
-    React.useState<ExperienceSortAndFilterFormValues>({
-      sortBy: "date_desc",
-      filterBy: "none",
-    });
-
-  const userExperiences = getFragment(
-    Application_UserExperiencesFragment,
-    experiencesQuery,
-  );
-  const experiences = userExperiences.experiences?.filter(notEmpty) ?? [];
-  const experienceList = sortAndFilterExperiences(
-    experiences,
-    sortAndFilterValues,
-    intl,
-  );
-  const experiencesByType = groupBy(experiences, (e) => {
-    return deriveExperienceType(e);
-  });
-  const hasSomeExperience = !!experiences.length;
-
-  const handleSubmit = async () => {
-    executeMutation({
-      id: application.id,
-      application: {
-        insertSubmittedStep: ApplicationStep.ReviewYourResume,
-      },
-    })
-      .then((res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated your career timeline!",
-              id: "dfkNm9",
-              description:
-                "Message displayed to users when saving career timeline is successful.",
-            }),
-          );
-          navigate(nextStep);
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: adding experience failed",
-            id: "moKAQP",
-            description:
-              "Message displayed to user after experience fails to be created.",
-          }),
-        );
-      });
-  };
+  const nextStep = paths.applicationCareerTimeline(application.id);
 
   return (
     <>
+      <Heading
+        data-h2-margin-top="base(0)"
+        size="h3"
+        data-h2-font-weight="base(400)"
+      >
+        {pageInfo.title}
+      </Heading>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "The next step is to make sure that your career timeline is as up-to-date as possible.",
+          id: "C780XI",
+          description:
+            "Application step to begin working on career timeline, paragraph one",
+        })}
+      </p>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "More specifically, not only do we want to know your <strong>work history</strong>, but we highly value knowing about your <strong>community experience</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong> too!",
+          id: "fKaw5B",
+          description:
+            "Application step to begin working on career timeline, paragraph two",
+        })}
+      </p>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Once you’ve completed your career timeline and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",
+          id: "1dZLbs",
+          description:
+            "Application step to begin working on career timeline, paragraph three",
+        })}
+      </p>
+      <Separator
+        orientation="horizontal"
+        data-h2-background-color="base(gray)"
+        data-h2-margin="base(x2, 0)"
+        decorative
+      />
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(flex-start) p-tablet(center)"
+        data-h2-gap="base(x1)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-flex-direction="base(column) l-tablet(row)"
+        data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Heading
-          data-h2-margin="base(0)"
-          size="h3"
-          data-h2-font-weight="base(400)"
-        >
-          {hasSomeExperience
-            ? pageInfo.title
-            : intl.formatMessage({
-                defaultMessage: "Create your career timeline",
-                id: "sLqKuH",
-                description:
-                  "Title for career timeline page when there are no experiences yet",
-              })}
-        </Heading>
-        <Link href={instructionsPath} mode="inline">
+        <Link color="primary" mode="solid" href={nextStep}>
           {intl.formatMessage({
-            defaultMessage: "Review instructions",
-            id: "VRxiNC",
-            description: "A link back to the instructions for this section",
+            defaultMessage: "Got it, let's go!",
+            id: "AOrJqm",
+            description: "Link text to continue the application process",
           })}
         </Link>
-      </div>
-      {hasSomeExperience ? (
-        <>
-          <p data-h2-margin="base(x1, 0, x.5, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "This step allows you to edit any career timeline information you’ve already added to your profile. Click on an item to expand it, revealing more details. If you haven’t added anything to your career timeline yet, you can do so from this page by selecting the “<strong>Add a new experience</strong>” link.",
-              id: "0PeEzR",
-              description:
-                "Application step to continue working on career timeline, paragraph one",
-            })}
-          </p>
-          <p data-h2-margin="base(x.5, 0)">
-            {intl.formatMessage({
-              defaultMessage: "Your career timeline currently includes:",
-              id: "ce3IeQ",
-              description: "Title for list of experiences",
-            })}
-          </p>
-          <ul data-h2-margin="base(x0.5, 0, x2, 0)">
-            {Object.keys(experiencesByType).map((experienceType) => {
-              return (
-                <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
-                  {formatExperienceCount(
-                    intl,
-                    experienceType as ExperienceType,
-                    experiencesByType[experienceType].length,
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </>
-      ) : (
-        <>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Creating your career timeline is a little different on this platform. First and foremost, any work you do here will be saved to your profile so that you can reuse it on other applications down the road.",
-              id: "ZqZc8Z",
-              description:
-                "Application step to begin working on career timeline, paragraph one",
-            })}
-          </p>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Building your career timeline consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your career timeline using the “<strong>Add a new experience</strong>” link.",
-              id: "bDmp5T",
-              description:
-                "Application step to begin working on career timeline, paragraph two",
-            })}
-          </p>
-        </>
-      )}
-
-      <div
-        data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-margin-bottom="base(x.5)"
-      >
-        <ExperienceSortAndFilter
-          initialFormValues={sortAndFilterValues}
-          onChange={(formValues) => setSortAndFilterValues(formValues)}
-        />
-        <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
-
-        <div data-h2-flex-item="base(1of1) p-tablet(content)">
-          <Link
-            mode="inline"
-            href={paths.applicationCareerTimelineAdd(application.id)}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Add a new experience",
-              id: "ARFz8L",
-              description:
-                "A link to add a new experience to your career timeline",
-            })}
-          </Link>
-        </div>
-      </div>
-      {hasSomeExperience ? (
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
+        <Link
+          mode="inline"
+          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
         >
-          {experienceList.map((experience) => {
-            return (
-              <ExperienceCard
-                key={experience.id}
-                experience={experience}
-                headingLevel="h3"
-                showSkills={false}
-                editPath={paths.applicationCareerTimelineEdit(
-                  application.id,
-                  experience.id,
-                )}
-              />
-            );
-          })}
-        </div>
-      ) : (
-        <Well>
-          <p data-h2-text-align="base(center)">
-            {intl.formatMessage({
-              defaultMessage:
-                "You don’t have any career timeline experiences yet.",
-              id: "YqQuy8",
-              description: "Null state messages for career timeline list",
-            })}
-          </p>
-        </Well>
-      )}
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Input
-            id="experienceCount"
-            name="experienceCount"
-            label=""
-            type="number"
-            hidden
-            rules={{
-              min: {
-                value: 1,
-                message: intl.formatMessage({
-                  defaultMessage: "Please add at least one experience.",
-                  id: "gyZV/3",
-                  description: "Error message if there are no experiences",
-                }),
-              },
-            }}
-          />
-
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x1)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(flex-start) l-tablet(center)"
-          >
-            <Button
-              type="submit"
-              mode="solid"
-              value="continue"
-              disabled={mutating || isSubmitting}
-              onClick={() => {
-                setValue("experienceCount", experiences.length);
-              }}
-            >
-              {intl.formatMessage(applicationMessages.saveContinue)}
-            </Button>
-            <Link mode="inline" href={cancelPath}>
-              {intl.formatMessage(applicationMessages.saveQuit)}
-            </Link>
-          </div>
-        </form>
-      </FormProvider>
+          {intl.formatMessage(applicationMessages.saveQuit)}
+        </Link>
+      </div>
     </>
   );
 };
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "AwardExperience",
-    "CommunityExperience",
-    "EducationExperience",
-    "PersonalExperience",
-    "WorkExperience",
-  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first",
-};
+const ApplicationCareerTimelineIntroductionPage = () => (
+  <ApplicationApi PageComponent={ApplicationCareerTimelineIntroduction} />
+);
 
-export const ApplicationCareerTimelinePageQuery = graphql(/* GraphQL */ `
-  query ApplicationCareerTimelinePage($id: UUID!) {
-    poolCandidate(id: $id) {
-      ...Application_PoolCandidate
-    }
-    me {
-      id
-      email
-      ...Application_UserExperiences
-    }
-  }
-`);
-
-const ApplicationCareerTimelinePage = () => {
-  const id = useApplicationId();
-  const [{ data, fetching, error, stale }] = useQuery({
-    query: ApplicationCareerTimelinePageQuery,
-    requestPolicy: "cache-first",
-    context,
-    variables: {
-      id,
-    },
-  });
-
-  return (
-    <Pending fetching={fetching || stale} error={error}>
-      {data?.poolCandidate && data?.me ? (
-        <ApplicationCareerTimeline
-          query={data.poolCandidate}
-          experiencesQuery={data.me}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
-
-export default ApplicationCareerTimelinePage;
+export default ApplicationCareerTimelineIntroductionPage;

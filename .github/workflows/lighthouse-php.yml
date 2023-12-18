@@ -1,4 +1,4 @@
-name: Check schema
+name: Lighthouse PHP
 
 on:
   push:
@@ -14,7 +14,8 @@ on:
     branches: [main]
 
 jobs:
-  runner:
+  lighthouse-php:
+    name: Lighthouse PHP
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
