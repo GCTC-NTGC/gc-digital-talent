@@ -2,10 +2,17 @@ import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
+import { useQuery } from "urql";
 
-import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  Stepper,
+  Loading,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -14,7 +21,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
-import { useGetApplicationQuery } from "~/api/generated";
 import {
   applicationStepsToStepperArgs,
   getApplicationSteps,
@@ -22,7 +28,6 @@ import {
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
 
-import { ApplicationPageProps } from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
@@ -32,11 +37,321 @@ type RouteParams = {
   experienceId: string;
 };
 
-const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
+const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment Application_PoolCandidate on PoolCandidate {
+    id
+    user {
+      id
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      currentProvince
+      currentCity
+      citizenship
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      govEmployeeType
+      armedForcesStatus
+      hasPriorityEntitlement
+      priorityNumber
+      isProfileComplete
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      isWoman
+      hasDisability
+      indigenousCommunities
+      indigenousDeclarationSignature
+      isVisibleMinority
+      hasDiploma
+      locationPreferences
+      locationExemptions
+      acceptedOperationalRequirements
+      positionDuration
+      experiences {
+        id
+        __typename
+        details
+        user {
+          id
+          email
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+          details
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+          details
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+          details
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+          details
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+          details
+        }
+        skills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          experienceSkillRecord {
+            details
+          }
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
+          }
+        }
+      }
+    }
+    pool {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      closingDate
+      publishingGroup
+      language
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      essentialSkills {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
+    educationRequirementOption
+    educationRequirementExperiences {
+      id
+      __typename
+      details
+      user {
+        id
+        email
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+        details
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+        details
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+        details
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+        details
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+        details
+      }
+    }
+    submittedSteps
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
+    signature
+  }
+`);
+
+interface ApplicationPageWrapperProps {
+  query: FragmentType<typeof Application_PoolCandidateFragment>;
+}
+
+const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { experienceId } = useParams<RouteParams>();
+  const application = getFragment(Application_PoolCandidateFragment, query);
   const steps = getApplicationSteps({
     intl,
     paths,
@@ -159,17 +474,31 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   );
 };
 
+const Application_Query = graphql(/* GraphQL */ `
+  query Application($id: UUID!) {
+    poolCandidate(id: $id) {
+      ...Application_PoolCandidate
+    }
+  }
+`);
+
 const ApplicationLayout = () => {
   const id = useApplicationId();
   const intl = useIntl();
-  const [{ data, fetching, error, stale }] = useGetApplicationQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: Application_Query,
     requestPolicy: "cache-first",
     variables: {
       id,
     },
   });
 
-  const application = data?.poolCandidate;
+  console.log({
+    fetching,
+    stale,
+    data,
+    error,
+  });
 
   if (error) {
     if (isUuidError(error)) {
@@ -185,10 +514,8 @@ const ApplicationLayout = () => {
       {fetching || stale ? (
         <Loading live="polite" data-h2-background-color="base(white.99)" />
       ) : null}
-      {application ? (
-        <ApplicationContextProvider application={application}>
-          <ApplicationPageWrapper application={application} />
-        </ApplicationContextProvider>
+      {data?.poolCandidate ? (
+        <ApplicationPageWrapper query={data.poolCandidate} />
       ) : null}
     </>
   );

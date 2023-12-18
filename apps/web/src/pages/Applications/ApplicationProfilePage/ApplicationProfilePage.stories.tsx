@@ -1,39 +1,22 @@
 import React from "react";
-import { StoryFn } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
-import {
-  ApplicationProfile,
-  Application_UserProfileFragment,
-} from "./ApplicationProfilePage";
-import { Application_PoolCandidateFragment } from "../ApplicationApi";
+import { ApplicationProfile } from "./ApplicationProfilePage";
 
-const mockUser = fakeUsers(1)[0];
-const mockPoolCandidate = {
-  ...fakePoolCandidates(1)[0],
-  user: mockUser,
-};
-const mockPoolCandidateFragment = makeFragmentData(
-  mockPoolCandidate,
-  Application_PoolCandidateFragment,
-);
-const mockUserFragment = makeFragmentData(
-  mockUser,
-  Application_UserProfileFragment,
-);
+const fakeApplication = fakePoolCandidates()[0];
 
 export default {
   component: ApplicationProfile,
   title: "Pages/Application/Profile",
   args: {
-    query: mockPoolCandidateFragment,
-    userQuery: mockUserFragment,
+    application: fakeApplication,
+    user: fakeApplication.user,
   },
-};
+} as ComponentMeta<typeof ApplicationProfile>;
 
-const Template: StoryFn<typeof ApplicationProfile> = (args) => {
+const Template: ComponentStory<typeof ApplicationProfile> = (args) => {
   return <ApplicationProfile {...args} />;
 };
 
@@ -41,8 +24,7 @@ export const Default = Template.bind({});
 
 export const EmptyUser = Template.bind({});
 EmptyUser.args = {
-  userQuery: makeFragmentData(
-    { id: mockUser.id },
-    Application_UserProfileFragment,
-  ),
+  user: {
+    id: fakeApplication.user.id,
+  },
 };

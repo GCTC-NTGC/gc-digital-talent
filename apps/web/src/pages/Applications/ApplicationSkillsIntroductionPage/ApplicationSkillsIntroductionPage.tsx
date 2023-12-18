@@ -3,16 +3,12 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
@@ -49,11 +45,12 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationSkillsIntroduction = ({ query }: ApplicationPageProps) => {
+const ApplicationSkillsIntroduction = ({
+  application,
+}: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,

@@ -4,15 +4,11 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
-import { getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 
-import ApplicationApi, {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
@@ -46,12 +42,11 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   };
 };
 
-const ApplicationSuccess = ({ query }: ApplicationPageProps) => {
+const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,

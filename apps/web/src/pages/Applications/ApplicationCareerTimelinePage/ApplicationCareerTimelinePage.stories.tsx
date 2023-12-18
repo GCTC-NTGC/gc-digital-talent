@@ -1,54 +1,55 @@
 import React from "react";
-import { StoryFn } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import {
   fakeExperiences,
   fakePoolCandidates,
 } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+
+import { ExperienceForDate } from "~/types/experience";
 
 import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
-import { Application_PoolCandidateFragment } from "../ApplicationApi";
-import { Application_UserExperiencesFragment } from "../operations";
 
-const mockPoolCandidate = fakePoolCandidates(1)[0];
-const mockExperiences = fakeExperiences(5);
-const mockUser = {
-  ...mockPoolCandidate.user,
-  experiences: mockExperiences,
+const fakePoolCandidate = fakePoolCandidates(1)[0];
+const fakeUser = fakePoolCandidate.user;
+
+type ApplicationCareerTimelineStory = ComponentStory<
+  typeof ApplicationCareerTimeline
+>;
+
+const noExperiencesProps: ApplicationCareerTimelineStory["args"] = {
+  application: {
+    ...fakePoolCandidate,
+    user: {
+      ...fakeUser,
+      experiences: [],
+    },
+  },
+  experiences: [],
 };
-const mockPoolCandidateFragment = makeFragmentData(
-  mockPoolCandidate,
-  Application_PoolCandidateFragment,
-);
-const mockExperiencesFragment = makeFragmentData(
-  mockUser,
-  Application_UserExperiencesFragment,
-);
+
+const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
+  application: {
+    ...fakePoolCandidate,
+    user: {
+      ...fakeUser,
+      experiences: fakeExperiences(5),
+    },
+  },
+  experiences: fakeExperiences(5) as Array<ExperienceForDate>,
+};
 
 export default {
   component: ApplicationCareerTimeline,
   title: "Pages/Application/Review Career Timeline",
-};
+} as ComponentMeta<typeof ApplicationCareerTimeline>;
 
-const Template: StoryFn<typeof ApplicationCareerTimeline> = (props) => (
+const Template: ApplicationCareerTimelineStory = (props) => (
   <ApplicationCareerTimeline {...props} />
 );
 
 export const NoExperiences = Template.bind({});
-NoExperiences.args = {
-  query: mockPoolCandidateFragment,
-  experiencesQuery: makeFragmentData(
-    {
-      ...mockUser,
-      experiences: [],
-    },
-    Application_UserExperiencesFragment,
-  ),
-};
+NoExperiences.args = noExperiencesProps;
 
 export const HasExperiences = Template.bind({});
-HasExperiences.args = {
-  query: mockPoolCandidateFragment,
-  experiencesQuery: mockExperiencesFragment,
-};
+HasExperiences.args = hasExperiencesProps;

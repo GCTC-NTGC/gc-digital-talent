@@ -3,14 +3,14 @@ import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+
 import {
   PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
-  Application_PoolCandidateFragment,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
@@ -57,7 +57,7 @@ export const getApplicationSteps = ({
       paths,
       intl,
       application,
-      resourceId: experienceId ?? "",
+      resourceId: experienceId,
       stepOrdinal: index + 1,
     }),
   );

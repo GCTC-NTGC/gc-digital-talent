@@ -8,14 +8,9 @@ import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
-import {
-  ApplicationSelfDeclaration,
-  ApplicationSelfDeclaration_UserFragment,
-} from "../ApplicationSelfDeclarationPage";
-import { Application_PoolCandidateFragment } from "../../ApplicationApi";
+import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
@@ -23,20 +18,7 @@ const mockClient = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
-const mockUser = fakeUsers(1)[0];
 const mockApplication = fakePoolCandidates(1)[0];
-const mockPoolCandidateFragment = makeFragmentData(
-  {
-    ...mockApplication,
-    user: mockUser,
-  },
-  Application_PoolCandidateFragment,
-);
-
-const mockIndigenousIdentity = makeFragmentData(
-  mockUser,
-  ApplicationSelfDeclaration_UserFragment,
-);
 
 const mockCallback = jest.fn();
 
@@ -44,8 +26,9 @@ const renderSelfDeclarationForm = () =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
       <ApplicationSelfDeclaration
-        query={mockPoolCandidateFragment}
-        indigenousQuery={mockIndigenousIdentity}
+        application={mockApplication}
+        indigenousCommunities={[]}
+        signature={null}
         onSubmit={mockCallback}
       />
     </GraphqlProvider>,

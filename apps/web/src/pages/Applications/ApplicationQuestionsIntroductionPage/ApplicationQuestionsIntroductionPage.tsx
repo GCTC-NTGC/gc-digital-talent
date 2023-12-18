@@ -9,10 +9,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, {
-  ApplicationPageProps,
-  Application_PoolCandidateFragment,
-} from "../ApplicationApi";
+import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({
@@ -49,11 +46,12 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const ApplicationQuestionsIntroduction = ({ query }: ApplicationPageProps) => {
+const ApplicationQuestionsIntroduction = ({
+  application,
+}: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
-  const application = getFragment(Application_PoolCandidateFragment, query);
   const pageInfo = getPageInfo({
     intl,
     paths,

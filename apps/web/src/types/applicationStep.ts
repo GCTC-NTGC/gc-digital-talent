@@ -1,22 +1,20 @@
 import { IntlShape } from "react-intl";
 
 import {
-  Application_PoolCandidateFragment,
   ApplicationStep,
   Pool,
   PoolCandidate,
   Scalars,
   User,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
 
 type GetApplicationStepInfoArgs = {
-  application: Application_PoolCandidateFragment;
+  application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"]["input"];
+  resourceId?: Scalars["ID"];
   intl: IntlShape;
   stepOrdinal?: number;
 };
@@ -36,9 +34,9 @@ export type ApplicationStepInfo = {
   prerequisites: Array<ApplicationStep>;
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
-    applicant: User,
+    user: User,
     pool: Pool,
-    application: PoolCandidate,
+    application: Omit<PoolCandidate, "pool">,
   ) => boolean;
 };
 
