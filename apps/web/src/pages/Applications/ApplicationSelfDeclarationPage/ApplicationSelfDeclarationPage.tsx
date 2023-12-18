@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 import {
   Button,
   Heading,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -19,7 +18,6 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   IndigenousCommunity,
-  useGetMeQuery,
   useUpdateUserAndApplicationMutation,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -348,8 +346,6 @@ const ApplicationSelfDeclarationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { application } = useApplication();
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useGetMeQuery();
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
@@ -358,7 +354,7 @@ const ApplicationSelfDeclarationPage = () => {
   const nextStep = followingPageUrl ?? cancelPath;
 
   const resolvedIndigenousCommunities =
-    userData?.me?.indigenousCommunities?.filter(notEmpty);
+    application.user?.indigenousCommunities?.filter(notEmpty);
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
@@ -368,7 +364,7 @@ const ApplicationSelfDeclarationPage = () => {
     const newCommunities = formValuesToApiCommunities(formValues);
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
-      userId: userData?.me?.id || "",
+      userId: application?.user?.id || "",
       userInput: {
         indigenousCommunities: newCommunities,
         indigenousDeclarationSignature:
@@ -404,19 +400,15 @@ const ApplicationSelfDeclarationPage = () => {
       });
   };
 
-  return (
-    <Pending fetching={userFetching} error={userError}>
-      {application && userData?.me ? (
-        <ApplicationSelfDeclaration
-          application={application}
-          indigenousCommunities={resolvedIndigenousCommunities}
-          signature={userData.me.indigenousDeclarationSignature ?? null}
-          onSubmit={handleSubmit}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application && application?.user ? (
+    <ApplicationSelfDeclaration
+      application={application}
+      indigenousCommunities={resolvedIndigenousCommunities}
+      signature={application.user.indigenousDeclarationSignature ?? null}
+      onSubmit={handleSubmit}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

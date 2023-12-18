@@ -7,20 +7,18 @@ import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChar
 import {
   Button,
   Heading,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
-  useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
@@ -409,27 +407,13 @@ const ApplicationEducation = ({
 
 const ApplicationEducationPage = () => {
   const { application } = useApplication();
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
 
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending fetching={experienceFetching} error={experienceError}>
-      {application?.pool ? (
-        <ApplicationEducation
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool ? (
+    <ApplicationEducation application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

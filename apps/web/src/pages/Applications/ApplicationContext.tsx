@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import {
   isIAPPool,
@@ -33,7 +33,7 @@ export const useApplicationContext = () => {
 };
 
 interface ApplicationContextProviderProps {
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
   children: React.ReactNode;

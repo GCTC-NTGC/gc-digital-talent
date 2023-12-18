@@ -91,52 +91,11 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       experiences {
         id
         __typename
-        details
         user {
           id
           email
         }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-          details
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-          details
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-          details
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-          details
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-          details
-        }
+        details
         skills {
           id
           key
@@ -168,6 +127,42 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
               fr
             }
           }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
         }
       }
     }

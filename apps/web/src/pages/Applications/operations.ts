@@ -1,70 +1,69 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
-export const Application_UserExperiencesFragment = graphql(/* GraphQL */ `
-  fragment Application_UserExperiences on User {
-    experiences {
+// eslint-disable-next-line import/prefer-default-export
+export const Application_UserFragment = graphql(/* GraphQL */ `
+  fragment Application_User on User {
+    firstName
+    lastName
+    email
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    citizenship
+    armedForcesStatus
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType
+    isProfileComplete
+    department {
       id
-      __typename
-      user {
-        id
-        email
+      departmentNumber
+      name {
+        en
+        fr
       }
-      details
-      skills {
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    isWoman
+    hasDisability
+    indigenousCommunities
+    indigenousDeclarationSignature
+    isVisibleMinority
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    positionDuration
+    userSkills {
+      id
+      skill {
         id
         key
         name {
           en
           fr
         }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
         category
-        experienceSkillRecord {
-          details
-        }
-      }
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo
-        awardedScope
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type
-        status
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
       }
     }
   }

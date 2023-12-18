@@ -8,20 +8,16 @@ import {
   Button,
   Heading,
   Link,
-  Pending,
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import { Experience } from "@gc-digital-talent/graphql";
 
-import {
-  SkillCategory,
-  useGetMyExperiencesQuery,
-  useSubmitApplicationMutation,
-} from "~/api/generated";
+import { SkillCategory, useSubmitApplicationMutation } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -561,27 +557,13 @@ const ApplicationReview = ({
 
 const ApplicationReviewPage = () => {
   const { application } = useApplication();
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
 
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending fetching={experienceFetching} error={experienceError}>
-      {application?.pool ? (
-        <ApplicationReview
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool ? (
+    <ApplicationReview application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

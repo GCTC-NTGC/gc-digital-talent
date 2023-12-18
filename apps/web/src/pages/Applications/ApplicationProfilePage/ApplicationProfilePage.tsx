@@ -2,16 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 
-import {
-  Heading,
-  Pending,
-  Separator,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useGetMeQuery, useUpdateUserAsUserMutation } from "~/api/generated";
+import { useUpdateUserAsUserMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
@@ -144,17 +139,11 @@ export const ApplicationProfile = ({
 
 const ApplicationProfilePage = () => {
   const { application } = useApplication();
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useGetMeQuery();
 
-  return (
-    <Pending fetching={userFetching} error={userError}>
-      {application?.pool && userData?.me ? (
-        <ApplicationProfile application={application} user={userData.me} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool && application.user ? (
+    <ApplicationProfile application={application} user={application.user} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 
