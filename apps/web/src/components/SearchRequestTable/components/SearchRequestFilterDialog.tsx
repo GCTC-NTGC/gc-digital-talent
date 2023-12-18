@@ -31,7 +31,7 @@ type SearchRequestFilterDialogProps = CommonFilterDialogProps<FormValues>;
 
 const SearchRequestFilterDialog = ({
   onSubmit,
-  routeValues,
+  resetValues,
   initialValues,
 }: SearchRequestFilterDialogProps) => {
   const intl = useIntl();
@@ -43,8 +43,8 @@ const SearchRequestFilterDialog = ({
 
   return (
     <FilterDialog<FormValues>
-      {...{ onSubmit, initialValues }}
-      options={{ defaultValues: routeValues }}
+      {...{ onSubmit, resetValues }}
+      options={{ defaultValues: initialValues }}
     >
       <div
         data-h2-display="base(grid)"

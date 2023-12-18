@@ -56,7 +56,7 @@ type UserFilterDialogProps = CommonFilterDialogProps<FormValues>;
 
 const UserFilterDialog = ({
   onSubmit,
-  routeValues,
+  resetValues,
   initialValues,
 }: UserFilterDialogProps) => {
   const intl = useIntl();
@@ -69,8 +69,8 @@ const UserFilterDialog = ({
 
   return (
     <FilterDialog<FormValues>
-      options={{ defaultValues: routeValues }}
-      {...{ onSubmit, initialValues }}
+      options={{ defaultValues: initialValues }}
+      {...{ onSubmit, resetValues }}
     >
       <div
         data-h2-display="base(grid)"

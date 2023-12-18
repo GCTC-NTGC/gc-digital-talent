@@ -15,17 +15,17 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 // Used by specific dialogs
 export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
-  /** Defaults values, including from URL */
-  routeValues?: Partial<TFieldValues>;
-  /** Initial values to reset the form to, not including URL, */
-  initialValues: TFieldValues;
+  /** When the user resets filters they will return to these values. If initialValues is empty, resetValues is used to initialize the filters. */
+  resetValues: TFieldValues;
+  /** If initialValues is set, it will override resetValues when the filter form is first initialized. */
+  initialValues?: Partial<TFieldValues>;
 };
 
 type FilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
   // Values to reset to (removing URL state)
-  initialValues: CommonFilterDialogProps<TFieldValues>["initialValues"];
+  resetValues: CommonFilterDialogProps<TFieldValues>["resetValues"];
   defaultOpen?: boolean;
   children: React.ReactNode;
 };
@@ -34,7 +34,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   onSubmit,
   options,
   children,
-  initialValues,
+  resetValues,
   defaultOpen = false,
 }: FilterDialogProps<TFieldValues>) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
@@ -69,8 +69,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
 
   // Reset form and submit
   const handleClear = async () => {
-    reset(initialValues);
-    setActiveFilters(initialValues);
+    reset(resetValues);
+    setActiveFilters(resetValues);
     await methods.handleSubmit(onSubmit)();
     setIsOpen(false);
   };

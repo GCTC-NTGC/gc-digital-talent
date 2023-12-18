@@ -548,10 +548,10 @@ const PoolCandidatesTable = ({
         component: (
           <PoolCandidateFilterDialog
             onSubmit={handleFilterSubmit}
-            initialValues={transformPoolCandidateSearchInputToFormValues(
+            resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,
             )}
-            routeValues={transformPoolCandidateSearchInputToFormValues(
+            initialValues={transformPoolCandidateSearchInputToFormValues(
               initialFilters,
             )}
           />
