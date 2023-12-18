@@ -7,8 +7,9 @@ use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
+use Lcobucci\JWT\Validation\ConstraintViolation;
+use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Mockery\MockInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;
 
 class AuthServiceProviderTest extends TestCase
@@ -48,7 +49,7 @@ class AuthServiceProviderTest extends TestCase
 
     /**
      * @test
-     * The test checks a an HttpException with status 401 is thrown if an exception occurs during token validation
+     * The test checks if an AuthenticationException is thrown if a ConstraintViolation occurs during token validation
      */
     public function testAuthenticationExceptionWithInvalidToken()
     {
@@ -56,19 +57,21 @@ class AuthServiceProviderTest extends TestCase
         $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
-            ->andThrow(new Exception);
-
+            ->andThrow(new RequiredConstraintsViolated('mock error', [
+                new ConstraintViolation('constraint 1'),
+                new ConstraintViolation('constraint 2'),
+            ]));
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
-            $this->fail('HttpException was not thrown');
+            $this->fail('AuthenticationException was not thrown');
         } catch (AuthenticationException $e) {
-            $this->assertEquals('token_validation', $e->getExtensions()['reason'], 'Unexpected reason on AuthenticationException');
+            $this->assertEquals('invalid_token', $e->getExtensions()['reason'], 'Unexpected reason on AuthenticationException');
         }
     }
 
     /**
      * @test
-     * The test checks a an HttpException with status 401 is thrown if an error occurs during token validation
+     * The test checks if an HttpException with status 401 is thrown if an error occurs during token validation
      */
     public function testAuthenticationExceptionOnTokenValidation()
     {

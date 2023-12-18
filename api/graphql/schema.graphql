@@ -78,11 +78,6 @@ type User {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean
-    @rename(attribute: "is_indigenous")
-    @deprecated(
-      reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662."
-    )
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
@@ -262,7 +257,7 @@ type PoolCandidate {
 
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
-  notes: String
+  notes: String @canOnParent(ability: "viewAssessmentResults")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
@@ -741,14 +736,6 @@ type Query {
   classifications: [Classification]! @all @can(ability: "viewAny")
   department(id: UUID! @eq): Department @find @can(ability: "view")
   departments: [Department]! @all @can(ability: "viewAny")
-  poolCandidateFilters: [PoolCandidateFilter]!
-    @all
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @throttle(name: "graphql")
-    @deprecated(
-      reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
-    )
   applicantFilters: [ApplicantFilter]!
     @all
     @guard

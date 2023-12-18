@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
-use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PublishingGroup;
@@ -639,8 +638,8 @@ class User extends Model implements Authenticatable, LaratrustUser
             return $query;
         }
 
-        // OR filter - first find out how many booleans are true, create array of all true equity bools
-        // equity object has 4 keys with associated bools
+        // OR filter - first find out how many booleans are true, create array of all true equity booleans
+        // equity object has 4 keys with associated booleans
         $equityVars = [];
         if (array_key_exists('is_woman', $equity) && $equity['is_woman']) {
             array_push($equityVars, 'is_woman');
@@ -655,11 +654,11 @@ class User extends Model implements Authenticatable, LaratrustUser
             array_push($equityVars, 'is_visible_minority');
         }
 
-        // 3 fields are booleans, one is a jsonb field, isIndigenous = LEGACY_IS_INDIGENOUS
+        // 3 fields are booleans, one is a jsonb field
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->orWhereJsonContains('indigenous_communities', IndigenousCommunity::LEGACY_IS_INDIGENOUS->name);
+                    $query->whereJsonLength('indigenous_communities', '>', 0);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
@@ -740,22 +739,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         });
 
         return $query;
-    }
-
-    /* accessor to maintain functionality of to be deprecated isIndigenous field */
-    public function getIsIndigenousAttribute()
-    {
-        $indigenousCommunities = $this->indigenous_communities;
-
-        if ($indigenousCommunities && in_array(IndigenousCommunity::LEGACY_IS_INDIGENOUS->name, $indigenousCommunities)) {
-            return true;
-        }
-
-        if (gettype($indigenousCommunities) == 'array') {
-            return false; // case for when the array exists but lacks the legacy value which would reverse to is_indigenous = false, or is empty
-        }
-
-        return null; // if indigenousCommunities is null then so is isIndigenous
     }
 
     // Prepares the parameters for Laratrust and then calls the function to modify the roles

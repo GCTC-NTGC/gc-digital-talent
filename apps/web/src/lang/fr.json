@@ -728,7 +728,7 @@
     "description": "Eighth of the Frequently Asked Questions for sign up"
   },
   "1sPszf": {
-    "defaultMessage": "Emplacement actuel",
+    "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "1vVbe3": {
@@ -990,10 +990,6 @@
   "3M1/4Y": {
     "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "Sentence following the Frequently Asked Questions about logging in"
-  },
-  "3QkRNc": {
-    "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
   },
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
@@ -1728,7 +1724,7 @@
     "description": "Title for the feature about finding executive jobs"
   },
   "7VCuZQ": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Label for a process' location requirement"
   },
   "7b0U9u": {
@@ -2112,7 +2108,7 @@
     "description": "Any offsite personnel work location"
   },
   "9pYlYz": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Label for a process' stream"
   },
   "9pdtnR": {
@@ -2136,7 +2132,7 @@
     "description": "CSV Header, Armed Forces column"
   },
   "A2VzLX": {
-    "defaultMessage": "Emplacement précis (anglais)",
+    "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
   "A2ycww": {
@@ -2196,7 +2192,7 @@
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
   },
   "ARSDO1": {
-    "defaultMessage": "Localisation, langue et sécurité.",
+    "defaultMessage": "Lieu, langue et sécurité",
     "description": "Title for the location, language and security section of a pool advertisement"
   },
   "ASNC88": {
@@ -2412,7 +2408,7 @@
     "description": "Label for _ other department / agency_ field in the _digital services contracting questionnaire_"
   },
   "BLg0f4": {
-    "defaultMessage": "Contact et hébergement",
+    "defaultMessage": "Contact et mesures d’adaptation",
     "description": "Title for the contact and accommodation section of a pool advertisement"
   },
   "BMJeFv": {
@@ -2816,7 +2812,7 @@
     "description": "Seventh answer of the Frequently Asked Questions for logging in"
   },
   "DMdCkf": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Display text for the current location field on users"
   },
   "DPfJ30": {
@@ -3468,7 +3464,7 @@
     "description": "Default message for an empty table"
   },
   "H7M6Yv": {
-    "defaultMessage": "Localisation :",
+    "defaultMessage": "Lieu :",
     "description": "Label for pool advertisement location requirement"
   },
   "H8cs1r": {
@@ -4248,7 +4244,7 @@
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
   "LoKxJe": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title displayed on the search request table stream column."
   },
   "LocjmN": {
@@ -4836,7 +4832,7 @@
     "description": "Title for education experience section"
   },
   "PH+6C9": {
-    "defaultMessage": "Emplacement précis (français)",
+    "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
   },
   "POvUB0": {
@@ -5156,7 +5152,7 @@
     "description": "Title for streams"
   },
   "RWvojd": {
-    "defaultMessage": "Revenir à la publicité",
+    "defaultMessage": "Revenir à l'annonce",
     "description": "Link text to return to a pool advertisement during the application"
   },
   "RXOgrq": {
@@ -5366,10 +5362,6 @@
   "SiF2cz": {
     "defaultMessage": "Toutes les possibilités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines possibilités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
-  },
-  "SjhNGq": {
-    "defaultMessage": "Gérer la disponibilité",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
   },
   "Sm9Ml5": {
     "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
@@ -5628,7 +5620,7 @@
     "description": "Heading for the manager info section of the single search request view."
   },
   "UGaZR2": {
-    "defaultMessage": "Emplacement",
+    "defaultMessage": "Lieu",
     "description": "Location options in Edit Pool Form"
   },
   "UHH1Oh": {
@@ -5688,7 +5680,7 @@
     "description": "Status for an application that is having skills reviewed"
   },
   "Ua/X9Q": {
-    "defaultMessage": "Flux",
+    "defaultMessage": "Volet",
     "description": "Title for stream on summary of filters section"
   },
   "Ude1JQ": {
@@ -6958,10 +6950,6 @@
   "bf2scl": {
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
-  },
-  "bo+d/M": {
-    "defaultMessage": "Sélectionnez un lieu",
-    "description": "Placeholder for work location filter in search form."
   },
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
@@ -8412,7 +8400,7 @@
     "description": "Button text to submit the Indigenous self-declaration form when not Indigenous."
   },
   "j3m2Ca": {
-    "defaultMessage": "Emplacement précis (précisez ci-dessous)",
+    "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
   },
   "j7+E9C": {
@@ -8667,6 +8655,10 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
+  "kY+tnm": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes, soit du 22 décembre 2023 au 7 janvier 2024. ",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
+  },
   "kZWII8": {
     "defaultMessage": "Étape du plan d’évaluation {index}",
     "description": "Legend for assessment plan step fieldset"
@@ -8818,6 +8810,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
   },
   "lmD1ef": {
     "defaultMessage": "Sélection de la compétence",
@@ -9179,6 +9175,10 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
+  },
   "nEVNHp": {
     "defaultMessage": "Information sur l’employé(e) du gouvernement ",
     "description": "Title for the government employee information snapshot section"
@@ -9478,6 +9478,10 @@
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -9864,7 +9868,7 @@
     "description": "Button text to copy a specific application ID"
   },
   "rwQPZE": {
-    "defaultMessage": "Informations publicitaires",
+    "defaultMessage": "Informations de l'annonce",
     "description": "Page title for process' advertisement information page"
   },
   "rxDfeN": {
@@ -9900,7 +9904,7 @@
     "description": "Description of identifying digital talents"
   },
   "s1h7Mc": {
-    "defaultMessage": "Emplacement actuel :",
+    "defaultMessage": "Lieu actuel :",
     "description": "Current Location label and colon"
   },
   "s2OefW": {

@@ -19,7 +19,6 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   IndigenousCommunity,
-  useGetApplicationQuery,
   useGetMeQuery,
   useUpdateUserAndApplicationMutation,
 } from "~/api/generated";
@@ -41,7 +40,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -348,20 +347,7 @@ export const ApplicationSelfDeclaration = ({
 const ApplicationSelfDeclarationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
-    variables: {
-      id,
-    },
-  });
+  const { application } = useApplication();
   const [{ data: userData, fetching: userFetching, error: userError }] =
     useGetMeQuery();
 
@@ -371,7 +357,6 @@ const ApplicationSelfDeclarationPage = () => {
   const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 
-  const application = applicationData?.poolCandidate;
   const resolvedIndigenousCommunities =
     userData?.me?.indigenousCommunities?.filter(notEmpty);
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -389,7 +374,7 @@ const ApplicationSelfDeclarationPage = () => {
         indigenousDeclarationSignature:
           newCommunities.length > 0 ? formValues.signature : null,
       },
-      applicationId: id,
+      applicationId: application.id,
       applicationInput: {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
@@ -420,10 +405,7 @@ const ApplicationSelfDeclarationPage = () => {
   };
 
   return (
-    <Pending
-      fetching={applicationFetching || applicationStale || userFetching}
-      error={applicationError || userError}
-    >
+    <Pending fetching={userFetching} error={userError}>
       {application && userData?.me ? (
         <ApplicationSelfDeclaration
           application={application}
