@@ -479,6 +479,10 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
     "description": "The operational requirement described as shift work."
   },
+  "GiYTD4": {
+    "defaultMessage": "Ce champ doit contenir moins de {value} caractères.",
+    "description": "Error Message displayed when the user passes some given character or letter limit."
+  },
   "Glb1Te": {
     "defaultMessage": "Diriger",
     "description": "The technical skill level for lead"
