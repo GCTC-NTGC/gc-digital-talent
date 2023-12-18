@@ -4,12 +4,7 @@ import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
 import { useQuery } from "urql";
 
-import {
-  TableOfContents,
-  Stepper,
-  Loading,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -491,13 +486,6 @@ const ApplicationLayout = () => {
     variables: {
       id,
     },
-  });
-
-  console.log({
-    fetching,
-    stale,
-    data,
-    error,
   });
 
   if (error) {
