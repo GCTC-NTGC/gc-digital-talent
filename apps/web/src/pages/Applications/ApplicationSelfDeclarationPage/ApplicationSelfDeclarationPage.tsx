@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useMutation } from "urql";
 
 import {
   Button,
@@ -14,12 +15,12 @@ import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
 import {
   ApplicationStep,
+  graphql,
   IndigenousCommunity,
-  useUpdateUserAndApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -39,6 +40,24 @@ import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
 import useApplication from "../useApplication";
+
+const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
+  mutation Application_UpdateSelfDeclaration(
+    $userId: ID!
+    $userInput: UpdateUserAsUserInput!
+    $applicationId: ID!
+    $applicationInput: UpdateApplicationInput!
+  ) {
+    updateUserAsUser(id: $userId, user: $userInput) {
+      id
+      indigenousCommunities
+      indigenousDeclarationSignature
+    }
+    updateApplication(id: $applicationId, application: $applicationInput) {
+      id
+    }
+  }
+`);
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -349,7 +368,9 @@ const ApplicationSelfDeclarationPage = () => {
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
-  const [, executeMutation] = useUpdateUserAndApplicationMutation();
+  const [, executeMutation] = useMutation(
+    Application_UpdateSelfDeclarationMutation,
+  );
   const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 

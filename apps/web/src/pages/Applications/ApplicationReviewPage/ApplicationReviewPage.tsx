@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
+import { useMutation } from "urql";
 
 import {
   Button,
@@ -15,9 +16,8 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { Experience } from "@gc-digital-talent/graphql";
+import { Experience, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
-import { SkillCategory, useSubmitApplicationMutation } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -30,6 +30,15 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
+
+const Application_SubmitMutation = graphql(/* GraphQL */ `
+  mutation Application_Submit($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+      signature
+    }
+  }
+`);
 
 type FormValues = {
   signature: string;
@@ -95,8 +104,9 @@ const ApplicationReview = ({
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 
-  const [{ fetching: mutating }, executeMutation] =
-    useSubmitApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] = useMutation(
+    Application_SubmitMutation,
+  );
   const methods = useForm<FormValues>();
   const {
     formState: { isSubmitting },

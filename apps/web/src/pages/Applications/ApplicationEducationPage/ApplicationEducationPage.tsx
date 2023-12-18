@@ -14,13 +14,12 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-
 import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
-  useUpdateApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import applicationMessages from "~/messages/applicationMessages";
 import {
   isAwardExperience,
@@ -33,6 +32,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";

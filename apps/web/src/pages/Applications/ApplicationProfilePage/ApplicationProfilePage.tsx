@@ -1,12 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
+import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useUpdateUserAsUserMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
@@ -21,6 +22,14 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
+
+const Application_UpdateProfileMutation = graphql(/* GraphQL */ `
+  mutation Application_UpdateProfile($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+    }
+  }
+`);
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -73,8 +82,9 @@ export const ApplicationProfile = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const [{ fetching: isUpdating }, executeUpdateMutation] =
-    useUpdateUserAsUserMutation();
+  const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
+    Application_UpdateProfileMutation,
+  );
 
   const handleUpdate: SectionProps["onUpdate"] = (userId, userData) => {
     return executeUpdateMutation({

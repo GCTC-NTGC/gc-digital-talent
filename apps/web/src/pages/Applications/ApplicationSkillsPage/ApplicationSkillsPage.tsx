@@ -15,21 +15,21 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Experience } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStep,
+  Experience,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill } from "~/utils/skillUtils";
-import {
-  SkillCategory,
-  useUpdateApplicationMutation,
-  ApplicationStep,
-} from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";

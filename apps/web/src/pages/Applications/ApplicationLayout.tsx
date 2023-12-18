@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
@@ -464,6 +464,17 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: [
+    "AwardExperience",
+    "CommunityExperience",
+    "EducationExperience",
+    "PersonalExperience",
+    "WorkExperience",
+  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first",
+};
+
 const Application_Query = graphql(/* GraphQL */ `
   query Application($id: UUID!) {
     poolCandidate(id: $id) {
@@ -477,7 +488,7 @@ const ApplicationLayout = () => {
   const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
     query: Application_Query,
-    requestPolicy: "cache-first",
+    context,
     variables: {
       id,
     },
