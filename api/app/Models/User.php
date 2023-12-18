@@ -130,15 +130,17 @@ class User extends Model implements Authenticatable, LaratrustUser
         $entireIndex = collect([$this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
         foreach ($attributesToPluck as $relationship => $attributes) {
             foreach ($attributes as $attribute) {
-                $values = $this->$relationship->pluck($attribute)->toArray();
-                $values = count($values) > 0 ? $values : [];
+                $values = $this->$relationship->pluck($attribute)->reject(function ($value) {
+                    return is_null($value) || $value === '';
+                })->toArray();
+
+                // Merge non-null and non-empty values
                 $entireIndex = $entireIndex->merge($values);
             }
         }
 
-        return $entireIndex->reject(function ($value) {
-            return $value === null || (is_array($value) && empty($value));
-        })->toArray();
+        return $entireIndex->toArray();
+
     }
 
     public function getActivitylogOptions(): LogOptions
