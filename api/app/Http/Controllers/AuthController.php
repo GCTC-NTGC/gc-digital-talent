@@ -83,6 +83,12 @@ class AuthController extends Controller
         $config = $this->fastSigner;
 
         assert($config instanceof Configuration);
+
+        throw_unless(
+            $idToken && is_string($idToken),
+            new InvalidArgumentException('id token is a '.gettype($idToken))
+        );
+
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
