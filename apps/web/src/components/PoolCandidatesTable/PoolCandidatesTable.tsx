@@ -551,7 +551,7 @@ const PoolCandidatesTable = ({
             initialValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,
             )}
-            defaultValues={transformPoolCandidateSearchInputToFormValues(
+            routeValues={transformPoolCandidateSearchInputToFormValues(
               initialFilters,
             )}
           />

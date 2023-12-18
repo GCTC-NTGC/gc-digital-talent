@@ -387,7 +387,7 @@ const UserTable = ({ title }: UserTableProps) => {
             initialValues={transformUserFilterInputToFormValues(
               defaultState.filters,
             )}
-            defaultValues={transformUserFilterInputToFormValues(initialFilters)}
+            routeValues={transformUserFilterInputToFormValues(initialFilters)}
           />
         ),
       }}

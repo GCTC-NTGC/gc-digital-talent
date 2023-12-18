@@ -16,7 +16,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
   /** Defaults values, including from URL */
-  defaultValues?: Partial<TFieldValues>;
+  routeValues?: Partial<TFieldValues>;
   /** Initial values to reset the form to, not including URL, */
   initialValues: TFieldValues;
 };
