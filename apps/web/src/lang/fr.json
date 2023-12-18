@@ -991,10 +991,6 @@
     "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "Sentence following the Frequently Asked Questions about logging in"
   },
-  "3QkRNc": {
-    "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
-  },
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
     "description": "Link to edit object"
@@ -5374,10 +5370,6 @@
   "SiF2cz": {
     "defaultMessage": "Toutes les possibilités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines possibilités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
-  },
-  "SjhNGq": {
-    "defaultMessage": "Gérer la disponibilité",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
   },
   "Sm9Ml5": {
     "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
