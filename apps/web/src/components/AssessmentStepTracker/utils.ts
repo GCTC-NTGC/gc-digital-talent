@@ -109,45 +109,51 @@ export const decisionOrder: AssessmentDecision[] = [
   AssessmentDecision.Unsuccessful,
 ];
 
+/** Adds the ordinal for candidates based on their sort order ignoring bookmarks
+ * then resorts them with bookmarking and returns the result
+ */
 export const sortResultsAndAddOrdinal = (
   results: AssessmentResult[],
 ): (AssessmentResult & { ordinal: number })[] => {
-  const withOrdinal = results
-    .sort((resultA, resultB) => {
-      const decisionA = decisionOrder.indexOf(
-        resultA.assessmentDecision ?? AssessmentDecision.NotSure,
-      );
-      const isPriorityA = Number(
-        resultA.poolCandidate?.user.hasPriorityEntitlement,
-      );
-      const isVetA = Number(
-        resultA.poolCandidate?.user.armedForcesStatus ===
-          ArmedForcesStatus.Veteran,
-      );
+  // Do the first sort to determine order without bookmarking
+  const firstSortResults = results.sort((resultA, resultB) => {
+    const decisionA = decisionOrder.indexOf(
+      resultA.assessmentDecision ?? AssessmentDecision.NotSure,
+    );
+    const isPriorityA = Number(
+      resultA.poolCandidate?.user.hasPriorityEntitlement,
+    );
+    const isVetA = Number(
+      resultA.poolCandidate?.user.armedForcesStatus ===
+        ArmedForcesStatus.Veteran,
+    );
 
-      const decisionB = decisionOrder.indexOf(
-        resultB.assessmentDecision ?? AssessmentDecision.NotSure,
-      );
-      const isPriorityB = Number(
-        resultB.poolCandidate?.user.hasPriorityEntitlement,
-      );
-      const isVetB = Number(
-        resultB.poolCandidate?.user.armedForcesStatus ===
-          ArmedForcesStatus.Veteran,
-      );
+    const decisionB = decisionOrder.indexOf(
+      resultB.assessmentDecision ?? AssessmentDecision.NotSure,
+    );
+    const isPriorityB = Number(
+      resultB.poolCandidate?.user.hasPriorityEntitlement,
+    );
+    const isVetB = Number(
+      resultB.poolCandidate?.user.armedForcesStatus ===
+        ArmedForcesStatus.Veteran,
+    );
 
-      return (
-        decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
-      );
-    })
-    .map((result, index) => {
-      return {
-        ...result,
-        ordinal: index + 1,
-      };
-    });
+    return (
+      decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
+    );
+  });
 
-  return withOrdinal.sort((resultA, resultB) => {
+  // Iterate through the results adding an ordinal based on index
+  const resultsWithOrdinal = firstSortResults.map((result, index) => {
+    return {
+      ...result,
+      ordinal: index + 1,
+    };
+  });
+
+  // Resort the results - this time using bookmarks as well
+  return resultsWithOrdinal.sort((resultA, resultB) => {
     const isBookmarkedA = Number(resultA.poolCandidate?.isBookmarked);
     const decisionA = decisionOrder.indexOf(
       resultA.assessmentDecision ?? AssessmentDecision.NotSure,
