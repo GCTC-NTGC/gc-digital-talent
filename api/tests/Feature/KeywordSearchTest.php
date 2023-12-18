@@ -1,17 +1,16 @@
 <?php
 
-use App\Models\EducationExperience;
-use App\Models\User;
-use App\Models\WorkExperience;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
 use App\Models\Skill;
+use App\Models\User;
+use App\Models\WorkExperience;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use Database\Seeders\RolePermissionSeeder;
 use Tests\TestCase;
-
 
 class KeywordSearchTest extends TestCase
 {
@@ -73,18 +72,18 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['Toronto'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'data' => [
-                        [
-                            'id' => $user2->id,
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $user2->id,
+                            ],
                         ],
                     ],
                 ],
-            ],
-        ]);
+            ]);
     }
 
     // Test user can not be searched once soft deleted
@@ -118,21 +117,22 @@ class KeywordSearchTest extends TestCase
                 }
             }
         ', [
-            'where' => [
-                'generalSearch' => ['user'],
-            ],
-        ])->assertJson([
+                'where' => [
+                    'generalSearch' => ['user'],
+                ],
+            ])->assertJson([
                 'data' => [
                     'usersPaginated' => [
                         'paginatorInfo' => [
                             'total' => 2,
                         ],
-            ],
-            ],
-        ]);
+                    ],
+                ],
+            ]);
     }
+
     // Test user can be edited and searched by the changed value
-   public function testUserSearchByEditedValue()
+    public function testUserSearchByEditedValue()
     {
         $user = User::factory()->asApplicant()->create([
             'first_name' => 'user',
@@ -140,7 +140,6 @@ class KeywordSearchTest extends TestCase
             'telephone' => '1234567890',
             'current_city' => 'Ottawa',
         ]);
-
 
         $this->actingAs($user, 'api')->graphQL(
 
@@ -180,20 +179,21 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['0987654321'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'data' => [
-                        [
-                            'id' => $user->id,
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $user->id,
+                            ],
                         ],
                     ],
                 ],
-            ],
-        ]);
+            ]);
 
     }
+
     // Test user can be searched by their work experience details
     public function testUserSearchByWorkExperience()
     {
@@ -215,7 +215,7 @@ class KeywordSearchTest extends TestCase
         $details = 'These are the details of my experience.';
         $workExperience1->syncSkills([
             ['id' => $skill->id,
-            'details' => $details],
+                'details' => $details],
         ]);
 
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -234,20 +234,20 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['software developer'], // verify it is case insensitive
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                     'paginatorInfo' => [
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'paginatorInfo' => [
                             'total' => 1,
                         ],
                         'data' => [
-                        [
-                            'id' => $user1->id,
+                            [
+                                'id' => $user1->id,
+                            ],
                         ],
-                ],
-            ],
-        ]]);
+                    ],
+                ]]);
     }
 
     // Test user can be searched by their education details, partial search and case insensitive
@@ -289,21 +289,22 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['computer'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                     'paginatorInfo' => [
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'paginatorInfo' => [
                             'total' => 1,
                         ],
                         'data' => [
-                        [
-                            'id' => $user1->id,
+                            [
+                                'id' => $user1->id,
+                            ],
                         ],
-                ],
-            ],
-        ]]);
+                    ],
+                ]]);
     }
+
     // Test user can be searched by their award details and community experience details
     public function testUserSearchByAwardAndCommunityExperience()
     {
@@ -352,20 +353,20 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['award title'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                     'paginatorInfo' => [
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'paginatorInfo' => [
                             'total' => 1,
                         ],
                         'data' => [
-                        [
-                            'id' => $user1->id,
+                            [
+                                'id' => $user1->id,
+                            ],
                         ],
-                ],
-            ],
-        ]]);
+                    ],
+                ]]);
 
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
@@ -383,25 +384,26 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['community title'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                     'paginatorInfo' => [
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'paginatorInfo' => [
                             'total' => 1,
                         ],
                         'data' => [
-                        [
-                            'id' => $user1->id,
+                            [
+                                'id' => $user1->id,
+                            ],
                         ],
-                ],
-            ],
-        ]]);
+                    ],
+                ]]);
     }
+
     // Test user can be searched by their name and work experience title
     public function testUserSearchByNameAndWorkExperienceTitle()
     {
-       // create 3 users with same name
+        // create 3 users with same name
         $user1 = User::factory()->create([
             'first_name' => 'user',
             'last_name' => 'test',
@@ -474,21 +476,19 @@ class KeywordSearchTest extends TestCase
         ', [
                 'where' => [
                     'generalSearch' => ['user', 'TVS'],
-            ],
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                     'paginatorInfo' => [
+                ],
+            ])->assertJson([
+                'data' => [
+                    'usersPaginated' => [
+                        'paginatorInfo' => [
                             'total' => 1,
                         ],
                         'data' => [
-                        [
-                            'id' => $user2->id,
+                            [
+                                'id' => $user2->id,
+                            ],
                         ],
-                ],
-            ],
-        ]]);
+                    ],
+                ]]);
     }
-
-
 }

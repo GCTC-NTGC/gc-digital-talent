@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -105,7 +104,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         'searchable',
     ];
 
-
     /**
      * Get the indexable data array for the model.
      *
@@ -122,21 +120,22 @@ class User extends Model implements Authenticatable, LaratrustUser
             'awardExperiences',
         ]);
         $attributesToPluck = [
-                'poolCandidates' => ['notes'],
-                'workExperiences' => ['role', 'organization', 'division', 'details'],
-                'educationExperiences' => ['thesis_title', 'institution', 'details', 'area_of_study'],
-                'personalExperiences' => ['title', 'description', 'details'],
-                'communityExperiences' => ['title', 'organization', 'project','details'],
-                'awardExperiences' => ['title', 'details', 'issued_by'],
+            'poolCandidates' => ['notes'],
+            'workExperiences' => ['role', 'organization', 'division', 'details'],
+            'educationExperiences' => ['thesis_title', 'institution', 'details', 'area_of_study'],
+            'personalExperiences' => ['title', 'description', 'details'],
+            'communityExperiences' => ['title', 'organization', 'project', 'details'],
+            'awardExperiences' => ['title', 'details', 'issued_by'],
         ];
-        $entireIndex = collect([$this->email,$this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
+        $entireIndex = collect([$this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
         foreach ($attributesToPluck as $relationship => $attributes) {
-        foreach ($attributes as $attribute) {
-            $values = $this->$relationship->pluck($attribute)->toArray();
-            $values = count($values) > 0 ? $values : [];
-            $entireIndex = $entireIndex->merge($values);
+            foreach ($attributes as $attribute) {
+                $values = $this->$relationship->pluck($attribute)->toArray();
+                $values = count($values) > 0 ? $values : [];
+                $entireIndex = $entireIndex->merge($values);
             }
         }
+
         return $entireIndex->reject(function ($value) {
             return $value === null || (is_array($value) && empty($value));
         })->toArray();
@@ -203,7 +202,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasMany(WorkExperience::class);
     }
-
 
     public function getExperiencesAttribute()
     {
