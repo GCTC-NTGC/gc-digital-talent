@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -105,6 +106,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         'searchable',
     ];
 
+
     /**
      * Get the indexable data array for the model.
      *
@@ -120,66 +122,25 @@ class User extends Model implements Authenticatable, LaratrustUser
             'communityExperiences',
             'awardExperiences',
         ]);
-
-        $notes = $this->poolCandidates->pluck('notes')->toArray();
-        $notes = count($notes) > 0 ? $notes : [];
-        $roles = $this->workExperiences->pluck('role')->toArray();
-        $roles = count($roles) > 0 ? $roles : [];
-        $organizations = $this->workExperiences->pluck('organization')->toArray();
-        $organizations = count($organizations) > 0 ? $organizations : [];
-        $divisions = $this->workExperiences->pluck('division')->toArray();
-        $divisions = count($divisions) > 0 ? $organizations : [];
-        $details = $this->workExperiences->pluck('details')->toArray();
-        $details = count($details) > 0 ? $details : [];
-        $thesis_titles = $this->educationExperiences->pluck('thesis_title')->toArray();
-        $thesis_titles = count($thesis_titles) > 0 ? $thesis_titles : [];
-        $institution = $this->educationExperiences->pluck('institution')->toArray();
-        $institution = count($institution) > 0 ? $institution : [];
-        $education_details = $this->educationExperiences->pluck('details')->toArray();
-        $education_details = count($education_details) > 0 ? $education_details : [];
-        $area_of_study = $this->educationExperiences->pluck('area_of_study')->toArray();
-        $area_of_study = count($area_of_study) > 0 ? $area_of_study : [];
-        $personal_titles = $this->personalExperiences->pluck('title')->toArray();
-        $personal_titles = count($personal_titles) > 0 ? $personal_titles : [];
-        $personal_descriptions = $this->personalExperiences->pluck('description')->toArray();
-        $personal_descriptions = count($personal_descriptions) > 0 ? $personal_descriptions : [];
-        $community_titles = $this->communityExperiences->pluck('title')->toArray();
-        $community_titles = count($community_titles) > 0 ? $community_titles : [];
-        $community_details = $this->communityExperiences->pluck('details')->toArray();
-        $community_details = count($community_details) > 0 ? $community_details : [];
-        $award_titles = $this->awardExperiences->pluck('title')->toArray();
-        $award_titles = count($award_titles) > 0 ? $award_titles : [];
-        $award_details = $this->awardExperiences->pluck('details')->toArray();
-        $award_details = count($award_details) > 0 ? $award_details : [];
-        $issued_by = $this->awardExperiences->pluck('issued_by')->toArray();
-        $issued_by = count($issued_by) > 0 ? $issued_by : [];
-
-        return [
-            'id' => $this->id,
-            'email' => $this->email,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'telephone' => $this->telephone,
-            'current_province' => $this->current_province,
-            'current_city' => $this->current_city,
-            'notes' => implode(' ', $notes),
-            'details' => implode(' ', $details),
-            'roles' => implode(' ', $roles),
-            'organizations' => implode(' ', $organizations),
-            'divisions' => implode(' ', $divisions),
-            'personal_titles' => implode(' ', $personal_titles),
-            'personal_descriptions' => implode(' ', $personal_descriptions),
-            'education_details' => implode(' ', $education_details),
-            'thesis_titles' => implode(' ', $thesis_titles),
-            'institution' => implode(' ', $institution),
-            'area_of_study' => implode(' ', $area_of_study),
-            'issued_by' => implode(' ', $issued_by),
-            'award_titles' => implode(' ', $award_titles),
-            'award_details' => implode(' ', $award_details),
-            'community_titles' => implode(' ', $community_titles),
-            'community_details' => implode(' ', $community_details),
+        $attributesToPluck = [
+                'poolCandidates' => ['notes'],
+                'workExperiences' => ['role', 'organization', 'division', 'details'],
+                'educationExperiences' => ['thesis_title', 'institution', 'details', 'area_of_study'],
+                'personalExperiences' => ['title', 'description', 'details'],
+                'communityExperiences' => ['title', 'organization', 'project','details'],
+                'awardExperiences' => ['title', 'details', 'issued_by'],
         ];
-
+        $entireIndex = collect([$this->email,$this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
+        foreach ($attributesToPluck as $relationship => $attributes) {
+        foreach ($attributes as $attribute) {
+            $values = $this->$relationship->pluck($attribute)->toArray();
+            $values = count($values) > 0 ? $values : [];
+            $entireIndex = $entireIndex->merge($values);
+            }
+        }
+        return $entireIndex->reject(function ($value) {
+            return $value === null || (is_array($value) && empty($value));
+        })->toArray();
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -243,6 +204,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         return $this->hasMany(WorkExperience::class);
     }
+
 
     public function getExperiencesAttribute()
     {

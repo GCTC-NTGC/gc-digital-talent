@@ -105,9 +105,5 @@ class UserSeederLocal extends Seeder
                 'email' => 'noroles@test.com',
                 'sub' => 'noroles@test.com',
             ]);
-
-        // after seeding re-index the users in the search index
-        Artisan::call('scout:import', ['model' => User::class]);
-
     }
 }
