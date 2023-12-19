@@ -169,32 +169,36 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           getLocalizedName(pool.name, intl),
         ),
     }),
-    columnHelper.accessor(
-      ({ createdDate }) => accessors.date(createdDate, intl),
-      {
-        id: "createdDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Created",
-          id: "zAqJMe",
-          description: "Title displayed on the Pool table Date Created column",
-        }),
-      },
-    ),
-    columnHelper.accessor(
-      ({ updatedDate }) => accessors.date(updatedDate, intl),
-      {
-        id: "updatedDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Updated",
-          id: "R2sSy9",
-          description: "Title displayed for the User table Date Updated column",
-        }),
-      },
-    ),
+    columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
+      id: "createdDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Created",
+        id: "zAqJMe",
+        description: "Title displayed on the Pool table Date Created column",
+      }),
+      cell: ({
+        row: {
+          original: { createdDate },
+        },
+      }) => cells.date(createdDate, intl),
+    }),
+    columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
+      id: "updatedDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Updated",
+        id: "R2sSy9",
+        description: "Title displayed for the User table Date Updated column",
+      }),
+      cell: ({
+        row: {
+          original: { updatedDate },
+        },
+      }) => cells.date(updatedDate, intl),
+    }),
   ] as ColumnDef<Pool>[];
 
   const data = pools.filter(notEmpty);

@@ -509,12 +509,19 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt, intl),
+      ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt),
       {
         id: "dateReceived",
         enableColumnFilter: false,
         header: intl.formatMessage(tableMessages.dateReceived),
         sortingFn: "datetime",
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { submittedAt },
+            },
+          },
+        }) => cells.date(submittedAt, intl),
       },
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];

@@ -235,16 +235,21 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         statusCell(searchRequest.status, intl),
     }),
     columnHelper.accessor(
-      ({ requestedDate }) => accessors.date(requestedDate, intl),
+      ({ requestedDate }) => accessors.date(requestedDate),
       {
         id: "requestedDate",
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Date Received",
           id: "r2gD/4",
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: { requestedDate },
+          },
+        }) => cells.date(requestedDate, intl),
       },
     ),
     columnHelper.accessor("adminNotes", {
