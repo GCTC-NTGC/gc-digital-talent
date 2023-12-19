@@ -6,6 +6,7 @@ import {
   SubmitHandler,
   UseFormProps,
   useForm,
+  DefaultValues,
 } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
 
@@ -39,10 +40,13 @@ const FilterDialog = <TFieldValues extends FieldValues>({
 }: FilterDialogProps<TFieldValues>) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const intl = useIntl();
+  const defaultValues =
+    options?.defaultValues ??
+    (resetValues as DefaultValues<TFieldValues> | undefined);
   const methods = useForm({
     mode: "onSubmit",
     ...options,
-    defaultValues: options?.defaultValues,
+    defaultValues,
   });
   const {
     reset,
