@@ -98,11 +98,9 @@ describe("Pool Candidates", () => {
       cy.getMe().then((testUser) => {
         cy.get<Pool>("@publishedTestPool").then((pool) => {
           cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
-            cy.getMe().then((me) => {
-              cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
-                .its("id")
-                .as("poolCandidateId");
-            });
+            cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
+              .its("id")
+              .as("poolCandidateId");
           });
         });
       });
