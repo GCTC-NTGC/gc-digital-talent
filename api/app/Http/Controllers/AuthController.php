@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\OpenIdBearerTokenService;
+use Exception;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
@@ -68,13 +74,17 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $response = Http::asForm()->post(config('oauth.token_uri'), [
+        $response = Http::retry(3, 500, function (Exception $exception, PendingRequest $request) {
+            return $exception instanceof ConnectionException;
+        })->asForm()->post(config('oauth.token_uri'), [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
-        ]);
+        ])->throw(function (Response $response, RequestException $e) {
+            Log::debug($response->json());
+        });
 
         // decode id_token stage
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
