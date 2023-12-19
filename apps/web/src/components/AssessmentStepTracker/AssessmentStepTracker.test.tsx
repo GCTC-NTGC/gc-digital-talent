@@ -15,11 +15,16 @@ import {
   fakePools,
 } from "@gc-digital-talent/fake-data";
 
-import { ArmedForcesStatus, AssessmentDecision } from "~/api/generated";
+import {
+  ArmedForcesStatus,
+  AssessmentDecision,
+  AssessmentResult,
+} from "~/api/generated";
 
 import AssessmentStepTracker, {
   AssessmentStepTrackerProps,
 } from "./AssessmentStepTracker";
+import { sortResultsAndAddOrdinal } from "./utils";
 
 const fakePool = fakePools(1)[0];
 const fakeAssessmentStep = fakeAssessmentSteps(1)[0];
@@ -182,8 +187,103 @@ describe("AssessmentStepTracker", () => {
     const candidate4 = screen.getByRole("link", {
       name: /armed forces/i,
     });
-    expect(candidate1.compareDocumentPosition(candidate2)).toBe(4);
-    expect(candidate2.compareDocumentPosition(candidate3)).toBe(4);
-    expect(candidate3.compareDocumentPosition(candidate4)).toBe(4);
+    expect(candidate1.compareDocumentPosition(candidate2)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(candidate2.compareDocumentPosition(candidate3)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+    expect(candidate3.compareDocumentPosition(candidate4)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  });
+
+  it("should have a working sort function", () => {
+    const basicCandidate = {
+      id: "1",
+      assessmentDecision: AssessmentDecision.Successful,
+      poolCandidate: {
+        id: faker.string.uuid(),
+        pool: {
+          id: faker.string.uuid(),
+        },
+        user: {
+          id: faker.string.uuid(),
+          firstName: "BB",
+          lastName: "AA",
+          hasPriorityEntitlement: false,
+          armedForcesStatus: ArmedForcesStatus.NonCaf,
+        },
+        isBookmarked: false,
+      },
+    };
+    const testAssessmentResults: AssessmentResult[] = [
+      basicCandidate,
+      {
+        ...basicCandidate,
+        id: "2",
+        poolCandidate: {
+          ...basicCandidate.poolCandidate,
+          user: {
+            ...basicCandidate.poolCandidate.user,
+            hasPriorityEntitlement: true,
+          },
+        },
+      },
+      {
+        ...basicCandidate,
+        id: "3",
+        poolCandidate: {
+          ...basicCandidate.poolCandidate,
+          user: {
+            ...basicCandidate.poolCandidate.user,
+            armedForcesStatus: ArmedForcesStatus.Veteran,
+          },
+        },
+      },
+      {
+        ...basicCandidate,
+        id: "4",
+        poolCandidate: {
+          ...basicCandidate.poolCandidate,
+          user: {
+            ...basicCandidate.poolCandidate.user,
+            lastName: "BB",
+          },
+          isBookmarked: true,
+        },
+      },
+      {
+        ...basicCandidate,
+        id: "5",
+        assessmentDecision: AssessmentDecision.NotSure,
+      },
+      {
+        ...basicCandidate,
+        id: "6",
+        poolCandidate: {
+          ...basicCandidate.poolCandidate,
+          user: {
+            ...basicCandidate.poolCandidate.user,
+            firstName: "AA",
+          },
+        },
+      },
+    ];
+
+    const modifiedResults = sortResultsAndAddOrdinal(testAssessmentResults);
+
+    expect(modifiedResults[0].id).toEqual("4");
+    expect(modifiedResults[0].ordinal).toEqual(6);
+    expect(modifiedResults[1].id).toEqual("5");
+    expect(modifiedResults[1].ordinal).toEqual(1);
+    expect(modifiedResults[2].id).toEqual("2");
+    expect(modifiedResults[2].ordinal).toEqual(2);
+    expect(modifiedResults[3].id).toEqual("3");
+    expect(modifiedResults[3].ordinal).toEqual(3);
+    expect(modifiedResults[4].id).toEqual("6");
+    expect(modifiedResults[4].ordinal).toEqual(4);
+    expect(modifiedResults[5].id).toEqual("1");
+    expect(modifiedResults[5].ordinal).toEqual(5);
   });
 });

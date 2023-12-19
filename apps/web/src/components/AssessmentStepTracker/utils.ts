@@ -125,6 +125,22 @@ const getVeteranValue = (result: AssessmentResult & { ordinal?: number }) => {
     result.poolCandidate?.user.armedForcesStatus === ArmedForcesStatus.Veteran,
   );
 };
+const compareLastNames = (
+  resultA: AssessmentResult & { ordinal?: number },
+  resultB: AssessmentResult & { ordinal?: number },
+) => {
+  const user1Name: string = resultA.poolCandidate?.user.lastName || "";
+  const user2Name: string = resultB.poolCandidate?.user.lastName || "";
+  return user1Name.localeCompare(user2Name);
+};
+const compareFirstNames = (
+  resultA: AssessmentResult & { ordinal?: number },
+  resultB: AssessmentResult & { ordinal?: number },
+) => {
+  const user1Name: string = resultA.poolCandidate?.user.firstName || "";
+  const user2Name: string = resultB.poolCandidate?.user.firstName || "";
+  return user1Name.localeCompare(user2Name);
+};
 
 /** Adds the ordinal for candidates based on their sort order ignoring bookmarks
  * then resorts them with bookmarking and returns the result
@@ -137,7 +153,9 @@ export const sortResultsAndAddOrdinal = (
     return (
       getDecisionValue(resultA) - getDecisionValue(resultB) ||
       getPriorityValue(resultB) - getPriorityValue(resultA) ||
-      getVeteranValue(resultB) - getVeteranValue(resultA)
+      getVeteranValue(resultB) - getVeteranValue(resultA) ||
+      compareLastNames(resultA, resultB) ||
+      compareFirstNames(resultA, resultB)
     );
   });
 
@@ -155,7 +173,9 @@ export const sortResultsAndAddOrdinal = (
       getBookmarkValue(resultB) - getBookmarkValue(resultA) ||
       getDecisionValue(resultA) - getDecisionValue(resultB) ||
       getPriorityValue(resultB) - getPriorityValue(resultA) ||
-      getVeteranValue(resultB) - getVeteranValue(resultA)
+      getVeteranValue(resultB) - getVeteranValue(resultA) ||
+      compareLastNames(resultA, resultB) ||
+      compareFirstNames(resultA, resultB)
     );
   });
 };
