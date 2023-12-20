@@ -83,7 +83,7 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ])->throw(function (Response $response, RequestException $e) {
-            Log::debug('Failed to get a response from POSTing to the token URI');
+            Log::error('Failed to get a response from POSTing to the token URI');
             Log::debug((string) $response->getBody());
         });
 
