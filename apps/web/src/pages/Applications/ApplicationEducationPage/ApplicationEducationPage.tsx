@@ -20,7 +20,6 @@ import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
-  useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useUpdateApplicationMutation,
 } from "~/api/generated";
@@ -39,8 +38,8 @@ import { ExperienceForDate } from "~/types/experience";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
-import useApplicationId from "../useApplicationId";
 import { getEducationRequirementOptions } from "./utils";
+import useApplication from "../useApplication";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -409,20 +408,7 @@ const ApplicationEducation = ({
 };
 
 const ApplicationEducationPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
+  const { application } = useApplication();
   const [
     {
       data: experienceData,
@@ -431,14 +417,10 @@ const ApplicationEducationPage = () => {
     },
   ] = useGetMyExperiencesQuery();
 
-  const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching || applicationStale}
-      error={applicationError || experienceError}
-    >
+    <Pending fetching={experienceFetching} error={experienceError}>
       {application?.pool ? (
         <ApplicationEducation
           application={application}

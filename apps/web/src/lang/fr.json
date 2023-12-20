@@ -991,10 +991,6 @@
     "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "Sentence following the Frequently Asked Questions about logging in"
   },
-  "3QkRNc": {
-    "defaultMessage": "Gérer votre disponibilité pour le recrutement {title}",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
-  },
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
     "description": "Link to edit object"
@@ -5375,10 +5371,6 @@
     "defaultMessage": "Toutes les possibilités offertes sur cette plateforme exigent que vous utilisiez votre candidature pour démontrer un certain nombre de compétences « professionnelles » ou « techniques » requises. Certaines possibilités évalueront également les compétences « du savoir-être » ou « non techniques » indépendamment de votre candidature, bien que vous soyez libre de les ajouter à votre parcours professionnel.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
-  "SjhNGq": {
-    "defaultMessage": "Gérer la disponibilité",
-    "description": "Link text to direct a user to change the availability of the specific recruitment process"
-  },
   "Sm9Ml5": {
     "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
     "description": "Notice that deleting a skill removes it from any linked experiences"
@@ -8671,6 +8663,10 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
+  "kY+tnm": {
+    "defaultMessage": "Il n'y aura aucun affichage d'emplois pendant le temps des Fêtes, soit du 22 décembre 2023 au 7 janvier 2024. ",
+    "description": "Message to indicate period of time when no jobs will be posted on the website"
+  },
   "kZWII8": {
     "defaultMessage": "Étape du plan d’évaluation {index}",
     "description": "Legend for assessment plan step fieldset"
@@ -8818,6 +8814,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "ll4RKs": {
+    "defaultMessage": "Il est temps de prendre une pause; vous l'avez méritée!",
+    "description": "Message conveying time to relax"
   },
   "lmD1ef": {
     "defaultMessage": "Sélection de la compétence",
@@ -9179,6 +9179,10 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
+  "nE+RKq": {
+    "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
+    "description": "Message suggesting the user relax and enjoy the holiday season"
+  },
   "nEVNHp": {
     "defaultMessage": "Information sur l’employé(e) du gouvernement ",
     "description": "Title for the government employee information snapshot section"
@@ -9478,6 +9482,10 @@
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
+  },
+  "pFOjuY": {
+    "defaultMessage": "Joyeux temps des Fêtes!",
+    "description": "Heading to exclaim holiday greetings"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
