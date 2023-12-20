@@ -244,9 +244,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
                     intl.formatMessage({
                       defaultMessage:
                         "I'm interested in gaining hiring experience",
-                      id: "dk+1RB",
+                      id: "2OTKDd",
                       description:
-                        "Subject line for contact email to gain hiring experience",
+                        "Subject for email to gain hiring experience",
                     }),
                   )}`,
                   mode: "solid",
