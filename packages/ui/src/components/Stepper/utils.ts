@@ -35,7 +35,7 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
     {
       "data-h2-background-color": `
         base:all:children[.Step__Icon](primary.light)
-        base:iap:children[.Step__Icon](secondary)
+        base:iap:children[.Step__Icon](primary)
         base:all:children[.Step__Tail](gray.light)
         base:all:focus-visible:children[.Step__Icon](focus)
       `,
@@ -44,7 +44,7 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
         base:hover:children[.Step__Text](primary)
         base:dark:hover:children[.Step__Text](primary.lighter)
         base:all:children[.Step__Icon](black)
-        base:iap:children[.Step__Icon](white)
+        base:iap:all:children[.Step__Icon](white)
         base:all:focus-visible:children[.Step__Icon](black)
       `,
       "data-h2-font-weight": "base(700)",
