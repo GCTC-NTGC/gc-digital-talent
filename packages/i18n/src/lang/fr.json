@@ -779,6 +779,10 @@
     "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "Qn/95I": {
+    "defaultMessage": "Équité en matière d'emploi",
+    "description": "Title for Employment equity"
+  },
   "QnlRv0": {
     "defaultMessage": "Effacer toutes les sélections",
     "description": "Button text to clear the current selected items in a multi-select combobox"

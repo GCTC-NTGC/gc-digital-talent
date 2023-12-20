@@ -140,6 +140,11 @@ const commonMessages = defineMessages({
     id: "C/mdCs",
     description: "Not applicable, context or state does apply.",
   },
+  employmentEquity: {
+    defaultMessage: "Employment equity",
+    id: "Qn/95I",
+    description: "Title for Employment equity",
+  },
 });
 
 export default commonMessages;

@@ -63,10 +63,6 @@
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table's My Roles column header."
   },
-  "+aowPB": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Title for employment equity section on summary of filters section"
-  },
   "+ayqFd": {
     "defaultMessage": "Compétences comportementales ({count} compétences)",
     "description": "Tab name for a list of behavioural skills"
@@ -2083,10 +2079,6 @@
     "defaultMessage": "Questions en anglais",
     "description": "Description for a list of questions in the English language"
   },
-  "9e6Xph": {
-    "defaultMessage": "Équité en matière d’emploi",
-    "description": "Label for the employment equity field"
-  },
   "9gEfud": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
     "description": "Aria label for download guidance for human resources pdf link."
@@ -2450,10 +2442,6 @@
   "BSkVBd": {
     "defaultMessage": "Veuillez préciser la langue de travail",
     "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "BYGKiT": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Title of the 'Employment equity' section of the view-user page"
   },
   "Badvbb": {
     "defaultMessage": "Groupe/Organisation/Collectivité",
@@ -3658,10 +3646,6 @@
   "ITLoHV": {
     "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, il s’agit d’un moyen facile pour permettre aux gestionnaires de trouver votre nom et votre parcours professionnel le moment venu. N’hésitez pas à soumettre votre nom à toute filière correspondant à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
-  },
-  "ITkmBQ": {
-    "defaultMessage": "Équité en matière d'emploi",
-    "description": "Heading for employment equity section of the search form."
   },
   "IUQGA0": {
     "defaultMessage": "Supprimer",

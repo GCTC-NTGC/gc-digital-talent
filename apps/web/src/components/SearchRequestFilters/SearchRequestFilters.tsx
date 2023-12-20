@@ -10,6 +10,7 @@ import {
   getWorkRegion,
   getLocale,
   getPoolStream,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -276,12 +277,7 @@ const ApplicantFilters = ({
             content={workLocations}
           />
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Employment equity",
-              id: "+aowPB",
-              description:
-                "Title for employment equity section on summary of filters section",
-            })}
+            title={intl.formatMessage(commonMessages.employmentEquity)}
             content={employmentEquity}
           />
           <FilterBlock
@@ -484,12 +480,7 @@ const SearchRequestFilters = ({
               />
 
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Employment equity",
-                  id: "+aowPB",
-                  description:
-                    "Title for employment equity section on summary of filters section",
-                })}
+                title={intl.formatMessage(commonMessages.employmentEquity)}
                 content={employmentEquity}
               />
               <FilterBlock

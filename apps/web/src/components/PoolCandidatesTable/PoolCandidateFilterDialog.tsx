@@ -14,6 +14,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   OperationalRequirementV2,
+  commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getEmploymentEquityGroup,
@@ -128,11 +129,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="equity"
           name="equity"
-          legend={intl.formatMessage({
-            defaultMessage: "Employment equity",
-            id: "9e6Xph",
-            description: "Label for the employment equity field",
-          })}
+          legend={intl.formatMessage(commonMessages.employmentEquity)}
           items={[
             equityOption("isWoman", getEmploymentEquityGroup("woman")),
             equityOption(

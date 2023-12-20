@@ -10,6 +10,7 @@ import {
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
   getLanguageAbility,
@@ -193,12 +194,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       </FilterBlock>
       <FilterBlock
         id="employmentEquityFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Employment equity",
-          id: "ITkmBQ",
-          description:
-            "Heading for employment equity section of the search form.",
-        })}
+        title={intl.formatMessage(commonMessages.employmentEquity)}
         text={intl.formatMessage({
           defaultMessage:
             "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",
