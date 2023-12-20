@@ -2007,6 +2007,10 @@
     "defaultMessage": "Trouvez des talents",
     "description": "Heading for the digital government talent search"
   },
+  "93zCaS": {
+    "defaultMessage": "Reflète la spécialisation nécessaire ",
+    "description": "Text for education accepted information context in screening decision dialog"
+  },
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
@@ -2346,6 +2350,10 @@
   "ApyEMy": {
     "defaultMessage": "Parcourez les emplois",
     "description": "Title for the browse pools page"
+  },
+  "Aqz3Ma": {
+    "defaultMessage": "La spécialisation est pertinente à l’exigence du diplôme",
+    "description": "Text for education accepted information context in screening decision dialog"
   },
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
@@ -6023,6 +6031,10 @@
     "defaultMessage": "Membres de l’équipe",
     "description": "Title for the list of team members page"
   },
+  "W+Lub4": {
+    "defaultMessage": "Est équivalent en termes de durée par rapport aux exigences du diplôme",
+    "description": "Text for education accepted information context in screening decision dialog"
+  },
   "W+T8Mm": {
     "defaultMessage": "Ajouter cette expérience",
     "description": "Button to submit the link experience to skill form"
@@ -7039,6 +7051,10 @@
     "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
     "description": "Study at institution, HTML"
   },
+  "bnhqpY": {
+    "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
+    "description": "Text for education accepted information context in screening decision dialog"
+  },
   "boPmF+": {
     "defaultMessage": "Examen de langue écrit",
     "description": "Legend text for written exam language preference for exams"
@@ -7374,6 +7390,10 @@
   "dVlECR": {
     "defaultMessage": "Numéro de suivi de la demande de recherche de Talents numériques du GC",
     "description": "Label for _talent search tracking number_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "dXR2A7": {
+    "defaultMessage": "L’étude a été menée à une institution d’enseignement reconnue",
+    "description": "Text for education accepted information context in screening decision dialog"
   },
   "dY3Qr4": {
     "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
@@ -10138,6 +10158,10 @@
   "siF4qC": {
     "defaultMessage": "Le plan a-t-il été mis à jour lors de l’entrée en vigueur du contrat?",
     "description": "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "sigMut": {
+    "defaultMessage": "La durée de l’étude est équivalente à l’exigence du diplôme",
+    "description": "Text for education accepted information context in screening decision dialog"
   },
   "sk9CeW": {
     "defaultMessage": "Langue",
