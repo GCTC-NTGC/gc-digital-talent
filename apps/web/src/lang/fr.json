@@ -995,10 +995,6 @@
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
   },
-  "3Jn67B": {
-    "defaultMessage": "Les renseignements sur les études sont acceptés",
-    "description": "Label for justification radio option in the screening decision dialog."
-  },
   "3M1/4Y": {
     "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "Sentence following the Frequently Asked Questions about logging in"
@@ -1755,10 +1751,6 @@
     "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises.",
     "description": "Description of pool recruitment, paragraph two"
   },
-  "7b9xa2": {
-    "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
-    "description": "Label for justification radio option in the screening decision dialog."
-  },
   "7fJqJP": {
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
@@ -1798,10 +1790,6 @@
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
-  },
-  "7ttyl4": {
-    "defaultMessage": "Démontré",
-    "description": "Label for requirement decision radio option in the screening decision dialog."
   },
   "7tv7ct": {
     "defaultMessage": "EXposition",
@@ -2194,10 +2182,6 @@
   "ACa+rP": {
     "defaultMessage": "Vous avez déjà un compte CléGC?",
     "description": "Fourth of the Frequently Asked Questions for logging in"
-  },
-  "AEOon6": {
-    "defaultMessage": "Non démontré",
-    "description": "Label for requirement decision radio option in the screening decision dialog."
   },
   "AFuhfl": {
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
@@ -2886,10 +2870,6 @@
   "DUlWNu": {
     "defaultMessage": "31 à 50",
     "description": "Contract FTE range between thirty-one and fifty"
-  },
-  "DW9cIX": {
-    "defaultMessage": "La combinaison des études et de l’équivalence de l’expérience de travail est acceptée",
-    "description": "Label for justification radio option in the screening decision dialog."
   },
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
@@ -3742,10 +3722,6 @@
   "Ibt1fL": {
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
-  },
-  "Ic5L30": {
-    "defaultMessage": "Pas suffisamment de renseignements.",
-    "description": "Label for justification radio option in the screening decision dialog."
   },
   "Id9nfM": {
     "defaultMessage": "Toutes les compétences ({count} compétences)",
@@ -7883,10 +7859,6 @@
     "defaultMessage": "Téléimprimeur (ATS/ATME)",
     "description": "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'"
   },
-  "g1sb+h": {
-    "defaultMessage": "L’équivalence de l’expérience de travail est acceptée",
-    "description": "Label for justification radio option in the screening decision dialog."
-  },
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
@@ -10167,10 +10139,6 @@
     "defaultMessage": "Langue",
     "description": "Legend for the Working Language Ability radio buttons"
   },
-  "skIEGd": {
-    "defaultMessage": "Pas le bon domaine ou la bonne spécialisation.",
-    "description": "Label for justification radio option in the screening decision dialog."
-  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
@@ -10838,10 +10806,6 @@
   "x2xN5X": {
     "defaultMessage": "Y a-t-il des techniques ou des approches particulières que vous avez employées?",
     "description": "Question list item in link featured skills section of experience form (techniques)."
-  },
-  "x6Wwlc": {
-    "defaultMessage": "Pas certain",
-    "description": "Label for requirement decision radio option in the screening decision dialog."
   },
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
