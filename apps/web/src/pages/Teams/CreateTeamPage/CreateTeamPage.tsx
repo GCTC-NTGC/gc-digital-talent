@@ -85,7 +85,7 @@ const CreateTeamPage = () => {
         })}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <AdminContentWrapper crumbs={navigationCrumbs}>
+      <AdminContentWrapper>
         <Pending fetching={departmentsFetching} error={departmentsError}>
           <CreateTeamForm departments={departments} onSubmit={handleSubmit} />
         </Pending>

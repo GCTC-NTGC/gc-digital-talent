@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
@@ -38,7 +37,7 @@ const IndexSkillFamilyPage = () => {
         title={pageTitle}
         nav={{ mode: "subNav", items: navigationCrumbs }}
       />
-      <AdminContentWrapper crumbs={navigationCrumbs}>
+      <AdminContentWrapper>
         <SkillFamilyTableApi title={pageTitle} />
       </AdminContentWrapper>
     </>

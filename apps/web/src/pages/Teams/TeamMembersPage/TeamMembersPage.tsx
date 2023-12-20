@@ -3,7 +3,6 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -18,11 +17,9 @@ import {
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import adminMessages from "~/messages/adminMessages";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -141,8 +138,6 @@ type RouteParams = {
 };
 
 const TeamMembersPage = () => {
-  const intl = useIntl();
-  const routes = useRoutes();
   const { teamId } = useRequiredParams<RouteParams>("teamId");
   const [{ data, fetching, error }] = useGetTeamQuery({
     variables: { teamId },
@@ -171,46 +166,8 @@ const TeamMembersPage = () => {
     [userData?.userPublicProfiles, users],
   );
 
-  const navigationCrumbs = React.useMemo(
-    () => [
-      {
-        label: intl.formatMessage({
-          defaultMessage: "Home",
-          id: "EBmWyo",
-          description: "Link text for the home link in breadcrumbs.",
-        }),
-        url: routes.adminDashboard(),
-      },
-      {
-        label: intl.formatMessage(adminMessages.teams),
-        url: routes.teamTable(),
-      },
-      ...(teamId
-        ? [
-            {
-              label: getLocalizedName(data?.team?.displayName, intl),
-              url: routes.teamView(teamId),
-            },
-          ]
-        : []),
-      ...(teamId
-        ? [
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Members",
-                id: "nfZQ89",
-                description: "Breadcrumb title for the team members page link.",
-              }),
-              url: routes.teamMembers(teamId),
-            },
-          ]
-        : []),
-    ],
-    [data?.team?.displayName, intl, routes, teamId],
-  );
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending
         fetching={fetching || rolesFetching}
         error={error || rolesError || userError}

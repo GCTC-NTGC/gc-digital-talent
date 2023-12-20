@@ -181,6 +181,8 @@ export const AssessmentPlanBuilderPage = () => {
       variables: { poolId },
     });
 
+  // Note: Should technically be in subNav of layout?
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const navigationCrumbs = [
     {
       label: intl.formatMessage({
@@ -248,7 +250,7 @@ export const AssessmentPlanBuilderPage = () => {
   };
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending
         fetching={queryFetching || !authorization.isLoaded}
         error={queryError}
