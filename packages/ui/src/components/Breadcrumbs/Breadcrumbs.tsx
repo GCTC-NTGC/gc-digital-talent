@@ -7,13 +7,14 @@ import Flourish from "../Flourish";
 import Crumb from "./Crumb";
 
 export interface BreadcrumbsProps {
+  fullWidth?: boolean;
   crumbs: {
     label: React.ReactNode;
     url: string;
   }[];
 }
 
-const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
+const Breadcrumbs = ({ crumbs, fullWidth }: BreadcrumbsProps) => {
   const intl = useIntl();
 
   return (
@@ -25,7 +26,15 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
         <nav
           aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
           data-h2-position="base(relative)"
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          {...(fullWidth
+            ? {
+                "data-h2-container":
+                  "base(center, full, x1) base(center, full, x2)",
+              }
+            : {
+                "data-h2-container":
+                  "base(center, large, x1) p-tablet(center, large, x2)",
+              })}
         >
           <ol
             data-h2-list-style="base(none)"

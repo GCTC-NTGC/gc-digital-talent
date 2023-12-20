@@ -16,7 +16,7 @@ export interface AdminSubNavProps {
 
 const AdminSubNav = ({ mode, items }: AdminSubNavProps) => {
   if (mode === "crumbs") {
-    return <Breadcrumbs crumbs={items} />;
+    return <Breadcrumbs crumbs={items} fullWidth />;
   }
 
   return (
