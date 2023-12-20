@@ -119,6 +119,10 @@
     "defaultMessage": "Prix",
     "description": "Title for award section"
   },
+  "+jknvj": {
+    "defaultMessage": "Évaluation enregistrée avec succès.",
+    "description": "Message displayed to user if the assessment result was saved successfully."
+  },
   "+lSoN3": {
     "defaultMessage": "Cette compétence requise doit être associée à au moins une expérience au cours de votre parcours professionnel.",
     "description": "Message that appears when a required skill has no experiences linked to it"
@@ -615,6 +619,10 @@
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
   },
+  "1KLw2T": {
+    "defaultMessage": "Ouvert",
+    "description": "Header for education requirement screening decision dialog."
+  },
   "1MtuHa": {
     "defaultMessage": "Veuillez préciser le facteur",
     "description": "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_"
@@ -986,6 +994,10 @@
   "3JL02L": {
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
+  },
+  "3Jn67B": {
+    "defaultMessage": "Les renseignements sur les études sont acceptés",
+    "description": "Label for justification radio option in the screening decision dialog."
   },
   "3M1/4Y": {
     "defaultMessage": "Vous avez parcouru toute la FAQ et vous êtes toujours bloqué(e)? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
@@ -1651,6 +1663,10 @@
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})",
     "description": "Label for operational requirements filter link"
   },
+  "74Npts": {
+    "defaultMessage": "Examiner et évaluer les preuves fournies par {candidateName} par rapport aux études requises ou à l’expérience équivalente.",
+    "description": "Subtitle for education requirement screening decision dialog."
+  },
   "74Sg+4": {
     "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
     "description": "Learn more dialog question twelve paragraph one"
@@ -1739,6 +1755,10 @@
     "defaultMessage": "Lorsque les responsables du recrutement ont des besoins en personnel informatique et que des postes se libèrent, les candidats qui répondent aux qualifications de ce processus peuvent être contactés pour une évaluation plus approfondie. Cela signifie que divers responsables peuvent vous contacter au sujet d'occasions précises.",
     "description": "Description of pool recruitment, paragraph two"
   },
+  "7b9xa2": {
+    "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
+    "description": "Label for justification radio option in the screening decision dialog."
+  },
   "7fJqJP": {
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
@@ -1778,6 +1798,10 @@
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
+  },
+  "7ttyl4": {
+    "defaultMessage": "Démontré",
+    "description": "Label for requirement decision radio option in the screening decision dialog."
   },
   "7tv7ct": {
     "defaultMessage": "EXposition",
@@ -2087,6 +2111,10 @@
     "defaultMessage": "Équité en matière d’emploi",
     "description": "Label for the employment equity field"
   },
+  "9fEw/Y": {
+    "defaultMessage": "Notes explicatives sur la décision",
+    "description": "Label for demonstrated notes text area in the screening decision dialog."
+  },
   "9gEfud": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (PDF)",
     "description": "Aria label for download guidance for human resources pdf link."
@@ -2162,6 +2190,10 @@
   "ACa+rP": {
     "defaultMessage": "Vous avez déjà un compte CléGC?",
     "description": "Fourth of the Frequently Asked Questions for logging in"
+  },
+  "AEOon6": {
+    "defaultMessage": "Non démontré",
+    "description": "Label for requirement decision radio option in the screening decision dialog."
   },
   "AFuhfl": {
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
@@ -2358,6 +2390,10 @@
   "AzCfxE": {
     "defaultMessage": "Trouvez des offres d’emploi de cadres numériques au sein du gouvernement du Canada et posez votre candidature.",
     "description": "Subtitle for the executive homepage"
+  },
+  "B0OL/n": {
+    "defaultMessage": "{customTitle} ({title}) évaluation - {skillName}",
+    "description": "Header for application screening decision dialog."
   },
   "B164SZ": {
     "defaultMessage": "Écrire le nom ici",
@@ -2562,6 +2598,10 @@
   "C43ZgD": {
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
+  },
+  "C5uhBP": {
+    "defaultMessage": "Autre motif de l’exclusion au processus de présélection.",
+    "description": "Label for radio option in the screening decision dialog."
   },
   "C6YPk3": {
     "defaultMessage": "Postulez maintenant",
@@ -2838,6 +2878,10 @@
   "DUlWNu": {
     "defaultMessage": "31 à 50",
     "description": "Contract FTE range between thirty-one and fifty"
+  },
+  "DW9cIX": {
+    "defaultMessage": "La combinaison des études et de l’équivalence de l’expérience de travail est acceptée",
+    "description": "Label for justification radio option in the screening decision dialog."
   },
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
@@ -3174,6 +3218,10 @@
   "FS23BP": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettent aux cadres supérieurs et aux équipes de recrutement des RH de vous trouver facilement. Cette page vous offre un aperçu de nos processus de recrutement ouverts. Revenez consulter cette page régulièrement!",
     "description": "Summary of the platform for executives and opportunities available"
+  },
+  "FS4Dg5": {
+    "defaultMessage": "Option d’exigence sélectionnée :",
+    "description": "Header for selected requirement option in education requirement screening decision dialog."
   },
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
@@ -3567,6 +3615,10 @@
     "defaultMessage": "Autochtone",
     "description": "Text on view-user page that the user is indigenous"
   },
+  "HtjPHW": {
+    "defaultMessage": "Autre motif",
+    "description": "Label for other reason text area in the screening decision dialog."
+  },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
@@ -3682,6 +3734,10 @@
   "Ibt1fL": {
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
+  },
+  "Ic5L30": {
+    "defaultMessage": "Pas suffisamment de renseignements.",
+    "description": "Label for justification radio option in the screening decision dialog."
   },
   "Id9nfM": {
     "defaultMessage": "Toutes les compétences ({count} compétences)",
@@ -4162,6 +4218,10 @@
   "LEVK8x": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
+  },
+  "LF9xdK": {
+    "defaultMessage": "Questions de présélection (au moment de la candidature) - {skillName}",
+    "description": "Header for application screening decision dialog."
   },
   "LFYdXR": {
     "defaultMessage": "Recommandé selon vos compétences",
@@ -5995,6 +6055,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
   },
+  "WAcWqh": {
+    "defaultMessage": "{title} évaluation - {skillName}",
+    "description": "Header for application screening decision dialog."
+  },
   "WDRWcu": {
     "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
     "description": "Learn more dialog question six heading"
@@ -6026,6 +6090,10 @@
   "WJSVBr": {
     "defaultMessage": "Copier l’identification de votre demande {title}",
     "description": "Button text to copy a specific application ID"
+  },
+  "WKAzau": {
+    "defaultMessage": "Niveau démontré",
+    "description": "Label for demonstrated level radio group in the screening decision dialog."
   },
   "WLcP98": {
     "defaultMessage": "Le « sujet » est une chaîne de caractères qui établit de manière unique l’identité de connexion d’un utilisateur.",
@@ -6355,6 +6423,10 @@
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
     "description": "Button text to open accordion describing skill experience"
   },
+  "YGE5XN": {
+    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName} au \"{skillLevel}\" niveau.",
+    "description": "Subtitle for education requirement screening decision dialog."
+  },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
@@ -6510,6 +6582,10 @@
   "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
     "description": "Message on link that say to apply to a recruitment advertisement"
+  },
+  "Yy+JXc": {
+    "defaultMessage": "Justification",
+    "description": "Label for justification radio group in the screening decision dialog."
   },
   "Yy27PD": {
     "defaultMessage": "Chercher les membres de l’équipe",
@@ -7783,6 +7859,10 @@
     "defaultMessage": "Téléimprimeur (ATS/ATME)",
     "description": "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'"
   },
+  "g1sb+h": {
+    "defaultMessage": "L’équivalence de l’expérience de travail est acceptée",
+    "description": "Label for justification radio option in the screening decision dialog."
+  },
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
@@ -7822,6 +7902,10 @@
   "gEnOmo": {
     "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
+  },
+  "gGwbvj": {
+    "defaultMessage": "Présélection des candidatures - {skillName}",
+    "description": "Header for application screening decision dialog."
   },
   "gHMj31": {
     "defaultMessage": "Aucune expérience trouvée",
@@ -8066,6 +8150,10 @@
   "hP2Dxo": {
     "defaultMessage": "Oui, à temps partiel",
     "description": "Part-time personnel telework option"
+  },
+  "hQ2+aE": {
+    "defaultMessage": "Enregistrer la décision",
+    "description": "Save button label for screening decision dialogs"
   },
   "hRe0yl": {
     "defaultMessage": "Durée de l’emploi",
@@ -8927,6 +9015,10 @@
     "defaultMessage": "Numéro de priorité",
     "description": "Label for applicant's priority number value"
   },
+  "mGQUWc": {
+    "defaultMessage": "Décision relative à l’exigence",
+    "description": "Label for requirement decision radio group in the screening decision dialog."
+  },
   "mH2eSA": {
     "defaultMessage": "Cette section comprend les anciennes candidatures qui ont été évaluées avec succès, ainsi que les candidatures qui n’ont pas été présentées dans les délais impartis.",
     "description": "Introductory text displayed in past applications section."
@@ -9334,6 +9426,10 @@
   "o5g1d/": {
     "defaultMessage": "Type d’exigence",
     "description": "Column title for whether a skill is either required or just an asset."
+  },
+  "o5zW6Y": {
+    "defaultMessage": "Voir les définitions pour \"{skillName}\" et \"{skillLevel}\"",
+    "description": "Accordion title for skill and skill level header on screening decision dialog."
   },
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
@@ -10043,6 +10139,10 @@
     "defaultMessage": "Langue",
     "description": "Legend for the Working Language Ability radio buttons"
   },
+  "skIEGd": {
+    "defaultMessage": "Pas le bon domaine ou la bonne spécialisation.",
+    "description": "Label for justification radio option in the screening decision dialog."
+  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
@@ -10451,6 +10551,10 @@
     "defaultMessage": "Postes en anglais",
     "description": "English Positions message"
   },
+  "vHDpXX": {
+    "defaultMessage": "Notes pour cette évaluation",
+    "description": "Label for generic notes text area in the screening decision dialog."
+  },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
@@ -10543,6 +10647,10 @@
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
     "description": "Content for the definition of Indigenous dialog"
   },
+  "w59dPh": {
+    "defaultMessage": "Preuves à l’appui :",
+    "description": "Header for supporting evidence section in screening decision dialog."
+  },
   "w5mV/m": {
     "defaultMessage": "Rassemblez vos meilleures compétences et mettez en évidence celles que vous aimeriez améliorer",
     "description": "Subtitle for the skill showcase page"
@@ -10570,6 +10678,10 @@
   "wCvkgI": {
     "defaultMessage": "Retour aux informations sur le processus",
     "description": "Text on a link to navigate back to the process information page"
+  },
+  "wCzVDg": {
+    "defaultMessage": "Évaluer l’exigence relative aux études du candidat ou de la candidate",
+    "description": "Header for education requirement screening decision dialog."
   },
   "wDc+F3": {
     "defaultMessage": "Profil et demandes",
@@ -10703,6 +10815,10 @@
     "defaultMessage": "Y a-t-il des techniques ou des approches particulières que vous avez employées?",
     "description": "Question list item in link featured skills section of experience form (techniques)."
   },
+  "x6Wwlc": {
+    "defaultMessage": "Pas certain",
+    "description": "Label for requirement decision radio option in the screening decision dialog."
+  },
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
     "description": "Message after main heading in create account page."
@@ -10750,6 +10866,10 @@
   "xYJi2Y": {
     "defaultMessage": "La compétence <strong>ne sera pas ajoutée à vos présentations de compétences</strong>",
     "description": "Notice that re-adding a skill will not add it back to a users skill showcase"
+  },
+  "xcsYTa": {
+    "defaultMessage": "Échec de l’enregistrement de l’évaluation",
+    "description": "Message displayed to user if assessment result fails to get created/updated."
   },
   "xd9+6O": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
