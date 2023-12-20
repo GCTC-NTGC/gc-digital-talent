@@ -1,14 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 
 import SkillTableApi from "./components/SkillTable";
+import AdminHero from "../../components/Hero/AdminHero";
 
 export const IndexSkillPage = () => {
   const intl = useIntl();
@@ -32,11 +31,16 @@ export const IndexSkillPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={AcademicCapIcon}>{pageTitle}</PageHeader>
-      <SkillTableApi title={pageTitle} />
-    </AdminContentWrapper>
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <SkillTableApi title={pageTitle} />
+      </AdminContentWrapper>
+    </>
   );
 };
 
