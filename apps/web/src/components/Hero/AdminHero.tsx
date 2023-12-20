@@ -24,9 +24,6 @@ const AdminHero = ({ title, subtitle, nav }: AdminHeroProps) => {
     <div
       data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
       data-h2-margin-bottom="base(x3)"
-      {...(!nav && {
-        "data-h2-border-bottom": "base(1px solid black.20)",
-      })}
     >
       <div data-h2-container="base(center, full, x1) base(center, full, x2)">
         <div data-h2-color="base(black)" data-h2-padding="base(x2 0)">
@@ -50,7 +47,7 @@ const AdminHero = ({ title, subtitle, nav }: AdminHeroProps) => {
           )}
         </div>
       </div>
-      {nav && <AdminSubNav mode={nav.mode} items={nav.items} />}
+      {nav ? <AdminSubNav mode={nav.mode} items={nav.items} /> : <Flourish />}
     </div>
   );
 };
