@@ -3279,10 +3279,6 @@
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "GG15JI": {
-    "defaultMessage": "Éditer {label}",
-    "description": "Aria Label displayed for the Edit column."
-  },
   "GHlK/f": {
     "defaultMessage": "Handicap",
     "description": "Message for disability option in the employment equity section of the request page."
