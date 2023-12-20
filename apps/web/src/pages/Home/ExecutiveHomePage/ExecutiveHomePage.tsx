@@ -225,9 +225,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Check out the most recent manager recruitment processes for specific opportunities or apply to ongoing recruitment in any of the IT generic work streams. Check back often for new opportunities.",
-                  id: "4iWzFv",
+                  id: "gURsqG",
                   description:
-                    "Description for browsing executive recruitment processes",
+                    "Summary for the feature about finding manager jobs",
                 })}
               </p>
             </CardFlat>
