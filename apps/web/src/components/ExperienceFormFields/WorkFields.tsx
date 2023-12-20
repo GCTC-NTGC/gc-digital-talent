@@ -30,7 +30,15 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.role}
             name="role"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -53,11 +61,32 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.organization}
             name="organization"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input id="team" label={labels.team} name="team" type="text" />
+          <Input
+            id="team"
+            label={labels.team}
+            name="team"
+            type="text"
+            rules={{
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
+          />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <DateInput

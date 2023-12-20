@@ -5207,6 +5207,10 @@
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
     "description": "Skills selected and then a number in parentheses"
   },
+  "ROfrit": {
+    "defaultMessage": "Rétablir les filtres",
+    "description": "Button text to reset table filters to the default values"
+  },
   "RSx3Ni": {
     "defaultMessage": "Bref résumé des compétences",
     "description": "Title for skills quick summary sidebar"
@@ -10386,10 +10390,6 @@
   "uBmoxQ": {
     "defaultMessage": "Rôle",
     "description": "Title displayed for the role table display name column"
-  },
-  "uC0YPE": {
-    "defaultMessage": "Effacer les filtres",
-    "description": "Clear button within the search filter dialog"
   },
   "uD7QTb": {
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
