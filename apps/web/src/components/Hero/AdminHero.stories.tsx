@@ -6,19 +6,19 @@ import AdminHero from "./AdminHero";
 const navItems = [
   {
     label: "Home",
-    url: "#home",
+    url: "/home",
   },
   {
     label: "One",
-    url: "#one",
+    url: "/one",
   },
   {
     label: "Two",
-    url: "#two",
+    url: "/two",
   },
   {
     label: "Three",
-    url: "#three",
+    url: "/three",
   },
 ];
 
@@ -27,6 +27,12 @@ export default {
   title: "Components/Hero/Admin",
   args: {
     title: "Hero",
+  },
+  parameters: {
+    defaultPath: {
+      path: "/:index",
+      initialEntries: [`/one`],
+    },
   },
 };
 
