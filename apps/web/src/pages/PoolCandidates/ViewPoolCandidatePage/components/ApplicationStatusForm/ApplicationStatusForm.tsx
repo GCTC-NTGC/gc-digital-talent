@@ -214,12 +214,7 @@ export const ApplicationStatusForm = ({
               color="primary"
               isSubmitting={isSubmitting}
               text={intl.formatMessage(formMessages.saveChanges)}
-              isSubmittingText={intl.formatMessage({
-                defaultMessage: "Saving...",
-                id: "4Czd5U",
-                description:
-                  "Text displayed on the pool candidate application submit button while saving",
-              })}
+              isSubmittingText={intl.formatMessage(commonMessages.saving)}
             />
           </p>
         </form>
