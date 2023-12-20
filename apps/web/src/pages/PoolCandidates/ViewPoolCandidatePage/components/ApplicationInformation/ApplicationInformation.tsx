@@ -140,9 +140,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Personal and contact information",
-              id: "0lUoqK",
+              id: "BWh6S1",
               description:
-                "Title for the personal and contact information snapshot section",
+                "Title for the personal and contact information section",
             })}
           </Accordion.Trigger>
           <Accordion.Content>

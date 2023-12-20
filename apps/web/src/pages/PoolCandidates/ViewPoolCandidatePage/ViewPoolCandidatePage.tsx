@@ -156,9 +156,8 @@ export const ViewPoolCandidate = ({
       id: "personal",
       title: intl.formatMessage({
         defaultMessage: "Personal and contact information",
-        id: "0lUoqK",
-        description:
-          "Title for the personal and contact information snapshot section",
+        id: "BWh6S1",
+        description: "Title for the personal and contact information section",
       }),
     },
     work: {

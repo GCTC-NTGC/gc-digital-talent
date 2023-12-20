@@ -14,9 +14,8 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "personal",
     defineMessage({
       defaultMessage: "Personal and contact information",
-      id: "fyEFN7",
-      description:
-        "Heading for the personal info section on the application profile",
+      id: "BWh6S1",
+      description: "Title for the personal and contact information section",
     }),
   ],
   [

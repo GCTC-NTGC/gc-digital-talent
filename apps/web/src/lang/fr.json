@@ -503,10 +503,6 @@
     "defaultMessage": "La liste n’est pas filtrée. ",
     "description": "Announcement that the job stream filter is not active."
   },
-  "0lUoqK": {
-    "defaultMessage": "Renseignements personnels et de contact",
-    "description": "Title for the personal and contact information snapshot section"
-  },
   "0nP0Wj": {
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
     "description": "Link to Statistics Canada's employment equity definitions"
@@ -2410,6 +2406,10 @@
   "BSkVBd": {
     "defaultMessage": "Veuillez préciser la langue de travail",
     "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "BWh6S1": {
+    "defaultMessage": "Renseignements personnels et coordonnées",
+    "description": "Title for the personal and contact information section"
   },
   "Badvbb": {
     "defaultMessage": "Groupe/Organisation/Collectivité",
@@ -7666,10 +7666,6 @@
   "fxPLAl": {
     "defaultMessage": "Modification du profil linguistique",
     "description": "Button text to start editing language profile"
-  },
-  "fyEFN7": {
-    "defaultMessage": "Renseignements personnels et coordonnées",
-    "description": "Heading for the personal info section on the application profile"
   },
   "fyidgo": {
     "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
