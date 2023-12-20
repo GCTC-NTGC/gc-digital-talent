@@ -8,6 +8,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -351,12 +352,7 @@ const HomePage = () => {
               ),
               link: {
                 path: paths.browsePools(), // Note: Update once we have a manager specific page
-                label: intl.formatMessage({
-                  defaultMessage: "Browse jobs",
-                  id: "NNosUu",
-                  description:
-                    "Link text for manager jobs in government call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.browseJobs),
               },
             }}
           />

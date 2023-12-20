@@ -1583,6 +1583,10 @@
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
   },
+  "rjHrNp": {
+    "defaultMessage": "Parcourir les possibilités d'emploi",
+    "description": "Name of Browse jobs page"
+  },
   "rlq4uZ": {
     "defaultMessage": "Compétences techniques",
     "description": "The skill is considered technical."

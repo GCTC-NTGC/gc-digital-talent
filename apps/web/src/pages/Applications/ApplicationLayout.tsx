@@ -5,7 +5,7 @@ import flatMap from "lodash/flatMap";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -79,11 +79,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
   const crumbs = useBreadcrumbs([
     {
       url: paths.browsePools(),
-      label: intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "WtX9b3",
-        description: "Breadcrumb link text for the browse pools page",
-      }),
+      label: intl.formatMessage(navigationMessages.browseJobs),
     },
     {
       url: paths.pool(application.pool.id),

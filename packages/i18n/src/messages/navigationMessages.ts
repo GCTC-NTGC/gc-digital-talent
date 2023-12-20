@@ -56,6 +56,11 @@ const navigationMessages = defineMessages({
     id: "MBnBcY",
     description: "Name of the skill showcase page",
   },
+  browseJobs: {
+    defaultMessage: "Browse jobs",
+    id: "rjHrNp",
+    description: "Name of Browse jobs page",
+  },
 });
 
 export default navigationMessages;

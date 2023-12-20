@@ -24,6 +24,7 @@ import {
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -129,11 +130,7 @@ export const PoolPoster = ({
 
   const links = useBreadcrumbs([
     {
-      label: intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "gC74ro",
-        description: "Breadcrumb title for the browse pools page.",
-      }),
+      label: intl.formatMessage(navigationMessages.browseJobs),
       url: paths.browsePools(),
     },
     {

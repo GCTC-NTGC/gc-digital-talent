@@ -14,6 +14,7 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -216,12 +217,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 {
                   href: paths.browsePools(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Browse jobs",
-                    id: "VK/lwK",
-                    description:
-                      "Link text for executive jobs in government call to action",
-                  }),
+                  label: intl.formatMessage(navigationMessages.browseJobs),
                 },
               ]}
             >

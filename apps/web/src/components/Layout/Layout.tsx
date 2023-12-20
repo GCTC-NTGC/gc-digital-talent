@@ -9,7 +9,7 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { navigationMessages, useLocale } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -55,11 +55,7 @@ const Layout = () => {
       })}
     </MenuLink>,
     <MenuLink key="browseJobs" to={paths.browsePools()}>
-      {intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "7GrHDl",
-        description: "Label displayed on the browse pools menu item.",
-      })}
+      {intl.formatMessage(navigationMessages.browseJobs)}
     </MenuLink>,
   ];
 

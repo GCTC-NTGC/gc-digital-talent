@@ -1675,10 +1675,6 @@
     "defaultMessage": "Autochtone",
     "description": "Message for indigenous option in the employment equity section of the request page."
   },
-  "7GrHDl": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Label displayed on the browse pools menu item."
-  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -1842,10 +1838,6 @@
   "8BR20I": {
     "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
     "description": "List item note 3 for the application review page."
-  },
-  "8EFvJf": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Page title for the direct intake browse pools page."
   },
   "8EbhWx": {
     "defaultMessage": "Raison pour la recherche de talent",
@@ -2290,10 +2282,6 @@
   "Ap86I/": {
     "defaultMessage": "Ce programme s’adresse aux membres des Premières Nations, aux Inuits et aux Métis qui se trouvent au Canada. Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Vous pouvez en savoir plus sur la vérification de votre statut ci-dessous.",
     "description": "Text explaining the program and the possibility of needing to provide proof."
-  },
-  "ApyEMy": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Title for the browse pools page"
   },
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
@@ -4447,10 +4435,6 @@
     "defaultMessage": "Trouver des talents",
     "description": "Link text for find talent (search) page"
   },
-  "NNosUu": {
-    "defaultMessage": "Explorer les emplois",
-    "description": "Link text for manager jobs in government call to action"
-  },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
@@ -5299,10 +5283,6 @@
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
   },
-  "SUlb9U": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Link text for applicant call to action"
-  },
   "SXoCma": {
     "defaultMessage": "Renseignements sur l’équipe",
     "description": "Page title for the view team page"
@@ -5783,10 +5763,6 @@
     "defaultMessage": "Équipe {teamId} non trouvée.",
     "description": "Message displayed for team not found."
   },
-  "VK/lwK": {
-    "defaultMessage": "Parcourir les offres d’emploi",
-    "description": "Link text for executive jobs in government call to action"
-  },
   "VKvAfu": {
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Les personnes souhaitant déposer leur candidature devront disposer des compétences sélectionnées ici. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
     "description": "Describes selecting essentials skills for a process."
@@ -6086,10 +6062,6 @@
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
     "description": "Title for the additional comments block in the search request filters"
-  },
-  "WtX9b3": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Breadcrumb link text for the browse pools page"
   },
   "WuMMRK": {
     "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
@@ -7323,10 +7295,6 @@
     "defaultMessage": "Je souhaite acquérir de l’expérience en matière d’embauche",
     "description": "Subject line for contact email to gain hiring experience"
   },
-  "dkHB8N": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Link text for IT jobs in government call to action"
-  },
   "dkYHTv": {
     "defaultMessage": "Choisissez l’expérience que vous souhaitez ajouter",
     "description": "Heading for the experience selection"
@@ -7786,10 +7754,6 @@
   "gBWsuB": {
     "defaultMessage": "Téléphone",
     "description": "Label for telephone field in About Me form"
-  },
-  "gC74ro": {
-    "defaultMessage": "Parcourez les emplois",
-    "description": "Breadcrumb title for the browse pools page."
   },
   "gEnOmo": {
     "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",

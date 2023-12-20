@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import useRoutes from "~/hooks/useRoutes";
@@ -47,17 +48,7 @@ const Opportunities = () => {
             {
               href: paths.browsePools(),
               mode: "solid",
-              label: intl.formatMessage(
-                {
-                  defaultMessage: "Browse jobs",
-                  id: "dkHB8N",
-                  description:
-                    "Link text for IT jobs in government call to action",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              ),
+              label: intl.formatMessage(navigationMessages.browseJobs),
             },
           ]}
         >
