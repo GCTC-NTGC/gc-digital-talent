@@ -91,9 +91,14 @@ class AuthController extends Controller
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json('id_token');
 
-        $config = $this->fastSigner;
+        if (! ($idToken && is_string($idToken))) {
+            Log::debug((string) $response->body());
+            throw new InvalidArgumentException('id token is a '.gettype($idToken));
+        }
 
+        $config = $this->fastSigner;
         assert($config instanceof Configuration);
+
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
