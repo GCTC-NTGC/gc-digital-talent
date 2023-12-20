@@ -1719,10 +1719,6 @@
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
   },
-  "7gOyU5": {
-    "defaultMessage": "Archiver ce bassin",
-    "description": "Heading for the archive pool dialog"
-  },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
@@ -3827,10 +3823,6 @@
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
     "description": "Text for second sign up -> create step."
   },
-  "Jp0Beg": {
-    "defaultMessage": "Archiver ce bassin ",
-    "description": "Button to archive the pool in the archive pool dialog"
-  },
   "JqP2TC": {
     "defaultMessage": "1 à 2 ans",
     "description": "Contract start timeframe of one to two years"
@@ -4802,6 +4794,10 @@
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
+  },
+  "PdE7yp": {
+    "defaultMessage": "Archiver ce bassin",
+    "description": "Archive this pool action"
   },
   "Pe1kas": {
     "defaultMessage": "Notes sur les demandes",
