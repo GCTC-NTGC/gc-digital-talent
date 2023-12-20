@@ -204,8 +204,8 @@ const ExperienceSkillForm = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "What tasks or activities did you do that relate to this skill?",
-                      id: "3sXEjF",
-                      description: "Question 2 for clarifying skill details",
+                      id: "ac1z9L",
+                      description: "Question about related tasks to a skill",
                     })}
                   </li>
                   <li>

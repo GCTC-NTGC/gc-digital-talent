@@ -1023,10 +1023,6 @@
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
-  "3sXEjF": {
-    "defaultMessage": "Quelles tâches ou activités avez-vous effectuées en rapport avec cette compétence?",
-    "description": "Question 2 for clarifying skill details"
-  },
   "3sbLPV": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
@@ -6703,6 +6699,10 @@
     "defaultMessage": "En cours de révision",
     "description": "Status for an application that is being reviewed"
   },
+  "ac1z9L": {
+    "defaultMessage": "Quelles tâches ou activités avez-vous effectuées en rapport avec cette compétence?",
+    "description": "Question about related tasks to a skill"
+  },
   "adM1fA": {
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
@@ -8198,10 +8198,6 @@
   "iasn5H": {
     "defaultMessage": "En recueillant des renseignements sur l’octroi de contrats sur les services numériques, le BDPI peut déterminer les lacunes potentielles dans les approches de recherche de talents et les nouveaux besoins en matière de compétences.",
     "description": "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_"
-  },
-  "ibT7BK": {
-    "defaultMessage": "Quelles sont les tâches ou activités que vous avez accomplies qui ont un rapport avec cette compétence?",
-    "description": "Question list item in link featured skills section of experience form (tasks)."
   },
   "icNzuL": {
     "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 10 compétences techniques </strong> qui représentent le mieux leur ensemble de compétences.",
