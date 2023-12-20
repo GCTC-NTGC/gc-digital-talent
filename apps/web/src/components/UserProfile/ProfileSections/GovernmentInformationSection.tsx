@@ -46,9 +46,9 @@ const GovernmentInformationSection = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "<strong>Yes</strong>, I am a Government of Canada employee.",
-                  id: "5d0vbr",
+                  id: "gto/zD",
                   description:
-                    "Message to state user is employed by government",
+                    "Label displayed for is a government employee option",
                 })}
               </span>
             </p>
