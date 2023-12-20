@@ -19,7 +19,6 @@ import { toast } from "@gc-digital-talent/toast";
 
 import {
   SkillCategory,
-  useGetApplicationQuery,
   useGetMyExperiencesQuery,
   useSubmitApplicationMutation,
 } from "~/api/generated";
@@ -34,7 +33,7 @@ import SkillTree from "~/components/SkillTree/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 type FormValues = {
   signature: string;
@@ -561,19 +560,7 @@ const ApplicationReview = ({
 };
 
 const ApplicationReviewPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
+  const { application } = useApplication();
   const [
     {
       data: experienceData,
@@ -582,14 +569,10 @@ const ApplicationReviewPage = () => {
     },
   ] = useGetMyExperiencesQuery();
 
-  const application = applicationData?.poolCandidate;
   const experiences = experienceData?.me?.experiences as ExperienceForDate[];
 
   return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
+    <Pending fetching={experienceFetching} error={experienceError}>
       {application?.pool ? (
         <ApplicationReview
           application={application}

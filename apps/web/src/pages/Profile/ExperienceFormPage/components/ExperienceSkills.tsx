@@ -49,6 +49,13 @@ const ExperienceSkills = ({
     }
   };
 
+  const watchedSkillIds = watchedSkills
+    ? watchedSkills.map((watchedSkill) => watchedSkill.skillId)
+    : [];
+  const unclaimedSkills = skills.filter(
+    (skill) => !watchedSkillIds.includes(skill.id),
+  );
+
   const handleRemoveSkill = (id: string) => {
     const index = watchedSkills.findIndex(
       (field: FormSkill) => field.skillId === id,
@@ -175,7 +182,7 @@ const ExperienceSkills = ({
                 }),
               }}
               context="experience"
-              skills={skills}
+              skills={unclaimedSkills}
               onSave={handleAddSkill}
             />
           </div>

@@ -3,13 +3,9 @@ import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
 
-import {
-  TableOfContents,
-  Stepper,
-  Pending,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
+import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -30,6 +26,7 @@ import { ApplicationPageProps } from "./ApplicationApi";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
+import { ContextType } from "./useApplication";
 
 type RouteParams = {
   experienceId: string;
@@ -153,7 +150,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
                 returnUrl={nextStepToSubmit.mainPage.link.url}
               />
             ) : (
-              <Outlet />
+              <Outlet context={{ application } satisfies ContextType} />
             )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -164,6 +161,7 @@ const ApplicationPageWrapper = ({ application }: ApplicationPageProps) => {
 
 const ApplicationLayout = () => {
   const id = useApplicationId();
+  const intl = useIntl();
   const [{ data, fetching, error, stale }] = useGetApplicationQuery({
     requestPolicy: "cache-first",
     variables: {
@@ -173,16 +171,26 @@ const ApplicationLayout = () => {
 
   const application = data?.poolCandidate;
 
+  if (error) {
+    if (isUuidError(error)) {
+      throw new Response("", {
+        status: 404,
+        statusText: intl.formatMessage(commonMessages.notFound),
+      });
+    }
+  }
+
   return (
-    <Pending fetching={fetching || stale} error={error}>
+    <>
+      {fetching || stale ? (
+        <Loading live="polite" data-h2-background-color="base(white.99)" />
+      ) : null}
       {application ? (
         <ApplicationContextProvider application={application}>
           <ApplicationPageWrapper application={application} />
         </ApplicationContextProvider>
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+      ) : null}
+    </>
   );
 };
 
