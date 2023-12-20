@@ -839,10 +839,6 @@
     "defaultMessage": "Modifier {label}",
     "description": "Label for link to edit a specific item in a table"
   },
-  "2je6Bi": {
-    "defaultMessage": "Expérience minimale ou formation équivalente",
-    "description": "Heading for education requirements section of the application review page."
-  },
   "2lNHxh": {
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
@@ -3150,10 +3146,6 @@
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
-  },
-  "Fbh/MK": {
-    "defaultMessage": "Expérience minimale ou combinaison équivalente d’études",
-    "description": "Title for the minimum experience or equivalent education snapshot section."
   },
   "FboyrB": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce bassin :",
@@ -10246,6 +10238,10 @@
   "uWdGeZ": {
     "defaultMessage": "Expérience professionnelle",
     "description": "Experience count column header for the skill library table"
+  },
+  "uk2ETi": {
+    "defaultMessage": "Éducation minimale ou combinaison équivalente d'études, de formation et/ou d'expérience",
+    "description": "Title for the minimum experience or equivalent education section"
   },
   "ukL9do": {
     "defaultMessage": "Prénom",
