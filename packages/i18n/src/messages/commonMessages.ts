@@ -65,6 +65,11 @@ const commonMessages = defineMessages({
     description:
       "Message displayed when a user has not provided some form of information",
   },
+  noInformationProvided: {
+    defaultMessage: "No information has been provided.",
+    id: "euigxa",
+    description: "Sentence when some form of information not provided",
+  },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
     id: "EdAaI7",

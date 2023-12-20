@@ -224,14 +224,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
               </>
             )}
             {!editPath && (
-              <>
-                {intl.formatMessage({
-                  defaultMessage: "No information has been provided.",
-                  id: "NIEIAC",
-                  description:
-                    "Message on Admin side when user not filled about me section.",
-                })}
-              </>
+              <>{intl.formatMessage(commonMessages.noInformationProvided)}</>
             )}
           </p>
         </div>

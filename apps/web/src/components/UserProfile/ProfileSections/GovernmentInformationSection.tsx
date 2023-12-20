@@ -230,14 +230,7 @@ const GovernmentInformationSection = ({
         !editPath && (
           <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "No information has been provided.",
-                  id: "ugRTOW",
-                  description:
-                    "Message on Admin side when user not filled GovernmentInformation section.",
-                })}
-              </p>
+              <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
             </div>
           </div>
         )}

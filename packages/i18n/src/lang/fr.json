@@ -1211,6 +1211,10 @@
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
   },
+  "euigxa": {
+    "defaultMessage": "Aucun renseignement n'a été fourni.",
+    "description": "Sentence when some form of information not provided"
+  },
   "euwgms": {
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
     "description": "Error message that Work Tasks in French must be filled"

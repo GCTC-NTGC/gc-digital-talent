@@ -283,10 +283,6 @@
     "defaultMessage": "Femme",
     "description": "Message for woman option in the employment equity section of the request page."
   },
-  "/fv4O0": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled WorkPreferences section."
-  },
   "/fvZtZ": {
     "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
     "description": "Error message displayed when a user's equity information does not match an opportunity"
@@ -642,10 +638,6 @@
   "1UYQaC": {
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
-  },
-  "1VFyrc": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled WorkLocation section."
   },
   "1WVTN6": {
     "defaultMessage": "{localizedName} a des évaluations",
@@ -4454,10 +4446,6 @@
   "NHjbIl": {
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
-  },
-  "NIEIAC": {
-    "defaultMessage": "Aucun renseignement n’a été fourni.",
-    "description": "Message on Admin side when user not filled about me section."
   },
   "NKr2Rg": {
     "defaultMessage": "Trouver des talents",
@@ -10335,10 +10323,6 @@
     "defaultMessage": "Expérience professionnelle",
     "description": "Experience count column header for the skill library table"
   },
-  "ugRTOW": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled GovernmentInformation section."
-  },
   "ukL9do": {
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
@@ -10762,10 +10746,6 @@
   "xjZO11": {
     "defaultMessage": "Sélectionnez d’autres bassins additionnels",
     "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
-  },
-  "xjtRjr": {
-    "defaultMessage": "Aucune information n'a été fournie.",
-    "description": "Message on Admin side when user not filled language section."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",
