@@ -1083,10 +1083,6 @@
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
   },
-  "4Czd5U": {
-    "defaultMessage": "Sauvegarder...",
-    "description": "Text displayed on the pool candidate application submit button while saving"
-  },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the update a skill form description (French) field."
@@ -1194,10 +1190,6 @@
   "4faEVw": {
     "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
-  },
-  "4iWzFv": {
-    "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les perspectives spécifiques ou posez votre candidature à un recrutement en cours dans l’un des domaines d’activité génériques de la TI. Consultez régulièrement le site pour connaître les nouvelles possibilités.",
-    "description": "Description for browsing executive recruitment processes"
   },
   "4ii2WZ": {
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
@@ -1898,10 +1890,6 @@
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
-  },
-  "8i+lzm": {
-    "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
-    "description": "Label displayed on Work Experience form for current role input"
   },
   "8kMPLB": {
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
@@ -8859,6 +8847,10 @@
     "defaultMessage": "Équipe principale",
     "description": "Label displayed for selecting what team a new pool belongs to."
   },
+  "mOx5K1": {
+    "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
+    "description": "Label displayed for current role input"
+  },
   "mQHftn": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
     "description": "Question 4 for clarifying skill details"
@@ -10450,10 +10442,6 @@
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"
-  },
-  "wASF5V": {
-    "defaultMessage": "Je suis actuellement actif dans ce rôle.",
-    "description": "Label displayed on Community Experience form for current role input"
   },
   "wCvkgI": {
     "defaultMessage": "Retour aux informations sur le processus",
