@@ -4303,10 +4303,6 @@
     "defaultMessage": "Cette opération supprimera ce processus de toutes les recherches et de tous les tableaux de bord. <strong>Cette opération ne peut pas être annulée</strong>.",
     "description": "Text explaining what will happen when deleting a process"
   },
-  "Mu+1pI": {
-    "defaultMessage": "Postes bilingues (en anglais et en français)",
-    "description": "Message for the bilingual positions option"
-  },
   "MuWdei": {
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
