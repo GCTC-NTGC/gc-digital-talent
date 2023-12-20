@@ -142,7 +142,9 @@ export const ExperienceForm = ({
   };
 
   const handleMutationResponse = (res: ExperienceMutationResponse) => {
-    if (res.data) {
+    if (res.error) {
+      handleError();
+    } else {
       handleSuccess();
     }
   };

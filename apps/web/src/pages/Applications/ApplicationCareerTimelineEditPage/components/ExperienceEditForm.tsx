@@ -73,7 +73,16 @@ const EditExperienceForm = ({
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
-          if (res.data) {
+          if (res.error) {
+            toast.error(
+              intl.formatMessage({
+                defaultMessage: "Error: updating experience failed",
+                id: "WyKJsK",
+                description:
+                  "Message displayed to user after experience fails to be updated.",
+              }),
+            );
+          } else {
             toast.success(
               intl.formatMessage({
                 defaultMessage: "Successfully updated experience!",
