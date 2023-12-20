@@ -347,7 +347,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         component: (
           <SearchRequestFilterDialog
             onSubmit={handleFilterSubmit}
-            defaultValues={transformSearchRequestFilterInputToFormValues(
+            // Required for reset
+            resetValues={transformSearchRequestFilterInputToFormValues({})}
+            initialValues={transformSearchRequestFilterInputToFormValues(
               initialFilters,
             )}
           />
