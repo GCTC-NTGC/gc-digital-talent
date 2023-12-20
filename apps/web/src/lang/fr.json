@@ -367,10 +367,6 @@
     "defaultMessage": "Recrutement ciblé",
     "description": "Label for an targeting (active) qualified recruitment"
   },
-  "05m1mY": {
-    "defaultMessage": "Modifier les informations de l’équipe",
-    "description": "Title for the team edit page"
-  },
   "094835": {
     "defaultMessage": "Je cherche à...",
     "description": "Support form subject field label"
@@ -10435,6 +10431,10 @@
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
   },
+  "vSMCIR": {
+    "defaultMessage": "Modifier les renseignements de l'équipe",
+    "description": "Title for the edit team page"
+  },
   "vTyr7O": {
     "defaultMessage": "Retiré",
     "description": "Status for an application that has been removed from the recruitment"
@@ -11010,10 +11010,6 @@
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
-  },
-  "zEmPCS": {
-    "defaultMessage": "Modifier les renseignements sur l’équipe",
-    "description": "Page title for the edit team page"
   },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",

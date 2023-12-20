@@ -66,8 +66,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: Cog8ToothIcon,
         title: intl.formatMessage({
           defaultMessage: "Edit team information",
-          id: "05m1mY",
-          description: "Title for the team edit page",
+          id: "vSMCIR",
+          description: "Title for the edit team page",
         }),
         link: {
           url: paths.teamUpdate(team.id),
