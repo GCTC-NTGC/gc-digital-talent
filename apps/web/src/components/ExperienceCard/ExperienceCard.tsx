@@ -126,7 +126,7 @@ const ExperienceCard = ({
   return (
     <div
       id={id || `experience-${experience.id}`}
-      data-h2-border-left="base(x.5 solid tertiary)"
+      data-h2-border-left="base(x.5 solid tertiary) base:iap(x.5 solid secondary) base:iap:dark(x.5 solid secondary.lighter)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(larger)"
       data-h2-radius="base(0 rounded rounded 0)"
