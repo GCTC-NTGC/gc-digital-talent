@@ -34,7 +34,15 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.awardTitle}
             name="awardTitle"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -68,7 +76,15 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.issuedBy}
             name="issuedBy"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
