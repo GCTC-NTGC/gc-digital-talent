@@ -727,6 +727,10 @@
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
   },
+  "Og8iHn": {
+    "defaultMessage": "Trouver des talents",
+    "description": "Name of Find talent (search) page"
+  },
   "Ot5z0u": {
     "defaultMessage": "Menu des options de bascule",
     "description": "Button text to toggle the combobox menu"

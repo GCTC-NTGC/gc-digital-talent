@@ -51,11 +51,7 @@ const HomePage = () => {
               icon={MagnifyingGlassIcon}
               href={paths.search()}
             >
-              {intl.formatMessage({
-                defaultMessage: "Find talent",
-                id: "sbEk4X",
-                description: "Link text for hiring manager call to action",
-              })}
+              {intl.formatMessage(navigationMessages.findTalent)}
             </Link>
             <Link
               color="secondary"
@@ -112,20 +108,12 @@ const HomePage = () => {
         >
           <CardFlat
             color="quaternary"
-            title={intl.formatMessage({
-              defaultMessage: "Find talent",
-              id: "93Dk4Q",
-              description: "Heading for the digital government talent search",
-            })}
+            title={intl.formatMessage(navigationMessages.findTalent)}
             links={[
               {
                 href: paths.search(),
                 mode: "solid",
-                label: intl.formatMessage({
-                  defaultMessage: "Find talent",
-                  id: "sbEk4X",
-                  description: "Link text for hiring manager call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.findTalent),
               },
             ]}
           >

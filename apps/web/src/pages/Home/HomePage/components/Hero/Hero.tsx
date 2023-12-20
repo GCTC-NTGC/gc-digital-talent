@@ -59,11 +59,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             icon={StarIcon}
             href={paths.search()}
           >
-            {intl.formatMessage({
-              defaultMessage: "Find talent",
-              id: "sbEk4X",
-              description: "Link text for hiring manager call to action",
-            })}
+            {intl.formatMessage(navigationMessages.findTalent)}
           </Link>
         </>
       }

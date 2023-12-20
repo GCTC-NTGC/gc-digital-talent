@@ -61,6 +61,11 @@ const navigationMessages = defineMessages({
     id: "rjHrNp",
     description: "Name of Browse jobs page",
   },
+  findTalent: {
+    defaultMessage: "Find talent",
+    id: "Og8iHn",
+    description: "Name of Find talent (search) page",
+  },
 });
 
 export default navigationMessages;

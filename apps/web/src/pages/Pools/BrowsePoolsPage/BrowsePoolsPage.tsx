@@ -246,12 +246,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 {
                   href: paths.search(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Find talent",
-                    id: "7waBmC",
-                    description:
-                      "Link text to go to the search page on browse jobs page",
-                  }),
+                  label: intl.formatMessage(navigationMessages.findTalent),
                 },
               ]}
             >
