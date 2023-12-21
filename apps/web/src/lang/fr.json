@@ -4715,10 +4715,6 @@
     "defaultMessage": "Erreur : La mise à jour de votre autodéclaration a échoué",
     "description": "Message displayed to user after self-declaration fails to be updated."
   },
-  "PtbLq+": {
-    "defaultMessage": "Brève description de l’équipe (en français)",
-    "description": "Short description for a team in French"
-  },
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
@@ -4962,6 +4958,10 @@
   "ROfrit": {
     "defaultMessage": "Rétablir les filtres",
     "description": "Button text to reset table filters to the default values"
+  },
+  "RSkJQR": {
+    "defaultMessage": "Brève description de l'équipe (en français)",
+    "description": "Label for team description in French language"
   },
   "RSx3Ni": {
     "defaultMessage": "Bref résumé des compétences",
@@ -5994,10 +5994,6 @@
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
-  },
-  "XNBegf": {
-    "defaultMessage": "Brève description de l’équipe (Français)",
-    "description": "Label for the French team description input"
   },
   "XOeFdu": {
     "defaultMessage": "À quoi s’attendre (français)",
