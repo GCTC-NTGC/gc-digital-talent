@@ -149,14 +149,14 @@ const ExperienceSkillForm = ({
           disabled={!!defaultValues.experience}
           label={intl.formatMessage({
             defaultMessage: "Select an experience",
-            id: "ODZmvO",
-            description: "Label for the experience select input",
+            id: "baAj/Z",
+            description: "Title for select an experience action",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({
             defaultMessage: "Select an experience",
-            id: "WP7NTc",
-            description: "Placeholder for selecting an experience",
+            id: "baAj/Z",
+            description: "Title for select an experience action",
           })}
           options={experiences.map((experienceOption) => ({
             value: experienceOption.id,
