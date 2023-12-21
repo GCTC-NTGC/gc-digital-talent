@@ -15,13 +15,6 @@ const TeamMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
         fr
       }
     }
-
-    userPublicProfiles {
-      id
-      firstName
-      lastName
-      email
-    }
   }
 `);
 
