@@ -437,61 +437,13 @@ type RouteParams = {
 
 export const RODViewPoolCandidatePage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
     variables: { poolCandidateId },
   });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    ...(data?.poolCandidate?.pool.id
-      ? [
-          {
-            label: getLocalizedName(data.poolCandidate.pool.name, intl),
-            url: routes.poolView(data.poolCandidate.pool.id),
-          },
-        ]
-      : []),
-    ...(data?.poolCandidate?.pool.id
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Candidates",
-              id: "zzf16k",
-              description: "Breadcrumb for the All Candidates page",
-            }),
-            url: routes.poolCandidateTable(data.poolCandidate.pool.id),
-          },
-        ]
-      : []),
-    ...(poolCandidateId
-      ? [
-          {
-            label: getFullNameLabel(
-              data?.poolCandidate?.user.firstName,
-              data?.poolCandidate?.user.lastName,
-              intl,
-            ),
-            url: routes.poolCandidateApplication(poolCandidateId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.poolCandidate && data?.pools ? (
           <ViewPoolCandidate
