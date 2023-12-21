@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
-import PageHeader from "~/components/PageHeader";
+import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
@@ -32,11 +31,16 @@ const IndexSkillFamilyPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={UserGroupIcon}>{pageTitle}</PageHeader>
-      <SkillFamilyTableApi title={pageTitle} />
-    </AdminContentWrapper>
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <SkillFamilyTableApi title={pageTitle} />
+      </AdminContentWrapper>
+    </>
   );
 };
 
