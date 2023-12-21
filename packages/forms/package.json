@@ -31,7 +31,7 @@
     "@gc-digital-talent/logger": "*",
     "@gc-digital-talent/storage": "*",
     "@gc-digital-talent/ui": "*",
-    "@heroicons/react": "2.0.18",
+    "@heroicons/react": "2.1.1",
     "@hookform/error-message": "^2.0.1",
     "@tiptap/extension-character-count": "^2.1.13",
     "@tiptap/extension-link": "^2.1.13",
