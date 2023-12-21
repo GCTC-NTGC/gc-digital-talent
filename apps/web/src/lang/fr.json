@@ -6523,10 +6523,6 @@
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
   },
-  "aGBFm5": {
-    "defaultMessage": "Brève description de l’équipe (Anglais)",
-    "description": "Label for the English team description input"
-  },
   "aGaaPi": {
     "defaultMessage": "Femme",
     "description": "CSV Header, Woman column"
@@ -9687,6 +9683,10 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
+  "sSGgnI": {
+    "defaultMessage": "Brève description de l'équipe (en anglais)",
+    "description": "Label for team description in English language"
+  },
   "sSnNWm": {
     "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
     "description": "Label for the form to remove a team role from a user"
@@ -10342,10 +10342,6 @@
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
     "description": "IAP Requirement list item two"
-  },
-  "whsH/g": {
-    "defaultMessage": "Brève description de l’équipe (en anglais)",
-    "description": "Short description for a team in English"
   },
   "wiUfZL": {
     "defaultMessage": "Si vous souhaitez voir ce message d’état changer à l’échelle de divers bassins, veuillez les sélectionner à partir d’ici :",

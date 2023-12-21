@@ -119,8 +119,8 @@ const UpdateTeamForm = ({
             wordLimit={TEXT_AREA_MAX_WORDS}
             label={intl.formatMessage({
               defaultMessage: "Team's short description (English)",
-              id: "aGBFm5",
-              description: "Label for the English team description input",
+              id: "sSGgnI",
+              description: "Label for team description in English language",
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),

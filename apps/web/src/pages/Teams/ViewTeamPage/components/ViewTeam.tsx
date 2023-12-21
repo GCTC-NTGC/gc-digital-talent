@@ -117,8 +117,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
           <p data-h2-margin-top="base(x1)">
             {intl.formatMessage({
               defaultMessage: "Team's short description (English)",
-              id: "whsH/g",
-              description: "Short description for a team in English",
+              id: "sSGgnI",
+              description: "Label for team description in English language",
             })}
           </p>
           <p
