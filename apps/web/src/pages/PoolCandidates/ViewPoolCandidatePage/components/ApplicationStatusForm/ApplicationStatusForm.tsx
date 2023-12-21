@@ -184,11 +184,10 @@ export const ApplicationStatusForm = ({
                 </Heading>
                 <p data-h2-margin="base(x0.25 0)">
                   {intl.formatMessage({
-                    id: "zLvpBy",
+                    id: "JDQvla",
                     defaultMessage:
                       "These notes are shared between all managers of this pool, but not to candidates.",
-                    description:
-                      "Description of the pool candidate notes field.",
+                    description: "Description of pool candidate notes field",
                   })}
                 </p>
                 <TextArea

@@ -2015,10 +2015,6 @@
     "defaultMessage": "Modifier le compte utilisateur",
     "description": "Title for the user edit page"
   },
-  "9mJuzm": {
-    "defaultMessage": "Ces notes sont partagées entre tous les gestionnaires de ce bassin, mais pas avec les candidats.",
-    "description": "Message about the behavior of notes on the view-user page"
-  },
   "9nIALc": {
     "defaultMessage": "Erreur : Échec de la création de la demande",
     "description": "Message displayed to user after a pool candidate request fails to get created."
@@ -3690,6 +3686,10 @@
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale ",
     "description": "Label for input confirmation of need for special note on edit pool."
+  },
+  "JDQvla": {
+    "defaultMessage": "Ces notes sont disponibles pour tous les gestionnaires de ce bassin, mais pas pour les candidats.",
+    "description": "Description of pool candidate notes field"
   },
   "JESKii": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce processus : {poolName}",
@@ -10878,10 +10878,6 @@
   "zLeH2i": {
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Title for the diversity, equity, and inclusion snapshot section"
-  },
-  "zLvpBy": {
-    "defaultMessage": "Ces notes sont partagées entre tous les gestionnaires de ce bassin, mais pas avec les candidats",
-    "description": "Description of the pool candidate notes field."
   },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",

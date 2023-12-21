@@ -78,9 +78,8 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
-          id: "9mJuzm",
-          description:
-            "Message about the behavior of notes on the view-user page",
+          id: "JDQvla",
+          description: "Description of pool candidate notes field",
         })}
       </p>
       {isEmpty(user.poolCandidates) ? (
