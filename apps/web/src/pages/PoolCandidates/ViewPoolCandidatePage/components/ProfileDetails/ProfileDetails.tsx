@@ -59,10 +59,11 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
   const preferredLang = (
     <p>
       {intl.formatMessage({
-        defaultMessage: "General Communication:",
-        id: "gU7Nup",
+        defaultMessage: "General Communication",
+        id: "Y6X4Ok",
         description: "Label for preferred language in profile details box.",
-      })}{" "}
+      })}
+      {intl.formatMessage(commonMessages.dividingColon)}
       {intl.formatMessage(
         user.preferredLang
           ? getLanguage(user.preferredLang)
@@ -78,7 +79,8 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
         id: "UYtDDb",
         description:
           "Label for preferred lang for interviews in profile details box.",
-      })}{" "}
+      })}
+      {intl.formatMessage(commonMessages.dividingColon)}
       {intl.formatMessage(
         user.preferredLanguageForInterview
           ? getLanguage(user.preferredLanguageForInterview)
@@ -94,7 +96,8 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
         id: "M8Gy1Q",
         description:
           "Label for preferred lang for exams in profile details box.",
-      })}{" "}
+      })}
+      {intl.formatMessage(commonMessages.dividingColon)}
       {intl.formatMessage(
         user.preferredLanguageForExam
           ? getLanguage(user.preferredLanguageForExam)
