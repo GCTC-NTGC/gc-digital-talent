@@ -35,7 +35,7 @@ const IndexSkillFamilyPage = () => {
       <SEO title={pageTitle} />
       <AdminHero
         title={pageTitle}
-        nav={{ mode: "subNav", items: navigationCrumbs }}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
         <SkillFamilyTableApi title={pageTitle} />
