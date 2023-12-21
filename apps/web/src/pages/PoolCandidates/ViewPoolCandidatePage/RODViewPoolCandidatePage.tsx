@@ -313,7 +313,7 @@ export const ViewPoolCandidate = ({
       <ProfileDetails user={poolCandidate.user} />
       <Sidebar.Wrapper>
         <Sidebar.Sidebar>
-          <Heading>
+          <Heading size="h3">
             {intl.formatMessage({
               defaultMessage: "More actions",
               id: "QaMkP7",
