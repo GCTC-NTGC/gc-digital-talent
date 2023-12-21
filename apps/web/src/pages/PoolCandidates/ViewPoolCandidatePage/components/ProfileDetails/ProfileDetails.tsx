@@ -75,8 +75,8 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
   const preferredLangForInterview = (
     <p>
       {intl.formatMessage({
-        defaultMessage: "Spoken Interviews:",
-        id: "UYtDDb",
+        defaultMessage: "Spoken Interviews",
+        id: "EUDRhe",
         description:
           "Label for preferred lang for interviews in profile details box.",
       })}
@@ -92,8 +92,8 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
   const preferredLangForExam = (
     <p>
       {intl.formatMessage({
-        defaultMessage: "Written Exams:",
-        id: "M8Gy1Q",
+        defaultMessage: "Written Exams",
+        id: "sYdl0V",
         description:
           "Label for preferred lang for exams in profile details box.",
       })}
