@@ -107,8 +107,6 @@ AddTeamMemberDialogProps) => {
     description: "Label for the add member to team form",
   });
 
-  const fetchingUsers = users === null;
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -139,7 +137,6 @@ AddTeamMemberDialogProps) => {
                   id="userId"
                   name="userId"
                   fetching={usersFetching}
-                  disabled={fetchingUsers}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
