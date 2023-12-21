@@ -1591,6 +1591,10 @@
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
   },
+  "rbhjTC": {
+    "defaultMessage": "Bibliothèque des compétences",
+    "description": "Name of the skill library page"
+  },
   "rjHrNp": {
     "defaultMessage": "Parcourir les possibilités d'emploi",
     "description": "Name of Browse jobs page"

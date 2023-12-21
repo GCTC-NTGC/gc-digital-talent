@@ -81,20 +81,12 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
   ];
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Skill library",
-    description: "Page title for the skill library page",
-    id: "ySkRmX",
-  });
+  const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

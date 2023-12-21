@@ -4543,10 +4543,6 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
-  "Oi6fll": {
-    "defaultMessage": "Bibliothèque de compétences",
-    "description": "Breadcrumb for skill library page."
-  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -8035,10 +8031,6 @@
     "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
   },
-  "iWzkOn": {
-    "defaultMessage": "Bibliothèque de compétences",
-    "description": "applicant dashboard card title for skill library"
-  },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
     "description": "Lead-in for list of application confirmation list"
@@ -10610,10 +10602,6 @@
   "yKr1Ji": {
     "defaultMessage": "J’envoie ma candidature",
     "description": "Label for submitting an application"
-  },
-  "ySkRmX": {
-    "defaultMessage": "Bibliothèque des compétences",
-    "description": "Page title for the skill library page"
   },
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",

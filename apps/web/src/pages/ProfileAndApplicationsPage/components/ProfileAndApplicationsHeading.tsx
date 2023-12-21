@@ -19,6 +19,7 @@ import {
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -478,11 +479,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         {skillLibraryFlag ? (
           <HeroCard
             color="quaternary"
-            title={intl.formatMessage({
-              defaultMessage: "Skill library",
-              id: "iWzkOn",
-              description: "applicant dashboard card title for skill library",
-            })}
+            title={intl.formatMessage(navigationMessages.skillLibrary)}
             href={skillLibraryUrl}
           >
             <StatusItem

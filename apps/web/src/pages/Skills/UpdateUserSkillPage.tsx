@@ -17,6 +17,7 @@ import {
   commonMessages,
   formMessages,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -227,11 +228,7 @@ export const UpdateUserSkillForm = ({
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
     {
