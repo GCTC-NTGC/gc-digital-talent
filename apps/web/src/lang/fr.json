@@ -3603,6 +3603,10 @@
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
+  "Ivvi/F": {
+    "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
+    "description": "Question about techniques used for a skill"
+  },
   "Iw+DU/": {
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
     "description": "Link text for editing a users technical skills to improve"
@@ -7159,10 +7163,6 @@
     "defaultMessage": "Inscrivez-vous en utilisant CléGC",
     "description": "Page title for the registration page for applicant profiles"
   },
-  "e9fSNq": {
-    "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
-    "description": "Question 3 for clarifying skill details"
-  },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
@@ -10258,10 +10258,6 @@
   "x2/qvf": {
     "defaultMessage": "Afficher les évaluations des compétences de {title}",
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
-  },
-  "x2xN5X": {
-    "defaultMessage": "Y a-t-il des techniques ou des approches particulières que vous avez employées?",
-    "description": "Question list item in link featured skills section of experience form (techniques)."
   },
   "x6saT3": {
     "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",

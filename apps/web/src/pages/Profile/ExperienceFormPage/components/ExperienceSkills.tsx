@@ -144,9 +144,8 @@ const ExperienceSkills = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "Were there any special techniques or approaches that you used?",
-                  id: "x2xN5X",
-                  description:
-                    "Question list item in link featured skills section of experience form (techniques).",
+                  id: "Ivvi/F",
+                  description: "Question about techniques used for a skill",
                 })}
               </li>
               <li>
