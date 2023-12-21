@@ -220,8 +220,8 @@ const ExperienceSkillForm = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "How much responsibility did you have in this role?",
-                      id: "mQHftn",
-                      description: "Question 4 for clarifying skill details",
+                      id: "Qjpmm8",
+                      description: "Question for clarifying skill details",
                     })}
                   </li>
                 </ul>

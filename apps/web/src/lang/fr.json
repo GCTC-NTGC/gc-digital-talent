@@ -4863,6 +4863,10 @@
     "defaultMessage": "le guide sur la mise en œuvre pour les agents d’approvisionnement",
     "description": "Label above download guidance for procurement pdf and text."
   },
+  "Qjpmm8": {
+    "defaultMessage": "Quelle était votre part de responsabilité dans ce rôle?",
+    "description": "Question for clarifying skill details"
+  },
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
     "description": "Learn more dialog question eleven heading"
@@ -8667,10 +8671,6 @@
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
     "description": "Label displayed for current role input"
   },
-  "mQHftn": {
-    "defaultMessage": "Quel était votre niveau de responsabilité dans ce poste?",
-    "description": "Question 4 for clarifying skill details"
-  },
   "mQkyM8": {
     "defaultMessage": "Au sujet des dates limites des demandes",
     "description": "Heading for the pool deadlines dialog"
@@ -9906,10 +9906,6 @@
   "u/DBSl": {
     "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
     "description": "Description of how the skills-based hiring platform assess candidates."
-  },
-  "u/IV5p": {
-    "defaultMessage": "Quelle était votre part de responsabilité dans ce rôle?",
-    "description": "Question list item in link featured skills section of experience form (responsibilities)."
   },
   "u1N0nT": {
     "defaultMessage": "Diversité, équité et inclusion.",

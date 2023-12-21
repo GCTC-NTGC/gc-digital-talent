@@ -153,9 +153,8 @@ const ExperienceSkills = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "How much responsibility did you have in this role?",
-                  id: "u/IV5p",
-                  description:
-                    "Question list item in link featured skills section of experience form (responsibilities).",
+                  id: "Qjpmm8",
+                  description: "Question for clarifying skill details",
                 })}
               </li>
             </ul>
