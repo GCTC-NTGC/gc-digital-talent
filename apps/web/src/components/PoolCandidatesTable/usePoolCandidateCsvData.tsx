@@ -192,9 +192,9 @@ const usePoolCandidateCsvData = (
     {
       key: "preferredLanguageForInterview",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Spoken Interview Language",
-        id: "P+m8Wl",
-        description: "CSV Header, Preferred Spoken Interview Language column",
+        defaultMessage: "Preferred spoken interview language",
+        id: "DB9pFd",
+        description: "Title for preferred spoken interview language",
       }),
     },
     {

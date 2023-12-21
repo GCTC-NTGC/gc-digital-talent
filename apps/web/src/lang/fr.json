@@ -4603,10 +4603,6 @@
     "defaultMessage": "Questions en français",
     "description": "Description for a list of questions in the French language"
   },
-  "P+m8Wl": {
-    "defaultMessage": "Langue parlée préférée pour l'entretien",
-    "description": "CSV Header, Preferred Spoken Interview Language column"
-  },
   "P/tHlt": {
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
@@ -4954,10 +4950,6 @@
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
     "description": "Link text to read the entire directive."
-  },
-  "RIMCZn": {
-    "defaultMessage": "Langue parlée préférée pour l'entretien",
-    "description": "Label displayed on the user form preferred spoken interview language field."
   },
   "RIi/3q": {
     "defaultMessage": "Pour nous joindre",

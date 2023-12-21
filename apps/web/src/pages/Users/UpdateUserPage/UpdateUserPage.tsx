@@ -193,10 +193,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForInterview"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Spoken Interview Language",
-              id: "RIMCZn",
-              description:
-                "Label displayed on the user form preferred spoken interview language field.",
+              defaultMessage: "Preferred spoken interview language",
+              id: "DB9pFd",
+              description: "Title for preferred spoken interview language",
             })}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
