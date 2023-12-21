@@ -1643,10 +1643,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7GRDML": {
-    "defaultMessage": "Autochtone",
-    "description": "Message for indigenous option in the employment equity section of the request page."
-  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -1770,10 +1766,6 @@
   "82Oe0C": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui...",
     "description": "Legend for optional work preferences check list in work preferences form"
-  },
-  "83v9YH": {
-    "defaultMessage": "Autochtones",
-    "description": "CSV Header, Indigenous column"
   },
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
@@ -3470,10 +3462,6 @@
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
-  },
-  "HrXZ6X": {
-    "defaultMessage": "Autochtone",
-    "description": "Text on view-user page that the user is indigenous"
   },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
@@ -6354,6 +6342,10 @@
   "YmWKlv": {
     "defaultMessage": "Classification",
     "description": "Label for a process' classification"
+  },
+  "YoIRbn": {
+    "defaultMessage": "Autochtone",
+    "description": "Title for Indigenous"
   },
   "YqQuy8": {
     "defaultMessage": "Vous n’avez pas encore d’expérience de parcours professionnel.",

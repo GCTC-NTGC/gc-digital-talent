@@ -117,9 +117,8 @@ const ApplicantFilters = ({
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "7GRDML",
-            description:
-              "Message for indigenous option in the employment equity section of the request page.",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           }),
         ]
       : []),
@@ -375,9 +374,8 @@ const SearchRequestFilters = ({
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "7GRDML",
-            description:
-              "Message for indigenous option in the employment equity section of the request page.",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           }),
         ]
       : []),
