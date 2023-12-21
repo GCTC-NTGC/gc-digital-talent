@@ -163,11 +163,7 @@ export const UpdateUserForm = ({
           />
           <Input
             id="telephone"
-            label={intl.formatMessage({
-              defaultMessage: "Telephone",
-              id: "8L5kDc",
-              description: "Label displayed on the user form telephone field.",
-            })}
+            label={intl.formatMessage(commonMessages.telephone)}
             type="tel"
             name="telephone"
           />

@@ -57,11 +57,7 @@ const Display = ({
           </FieldDisplay>
           <FieldDisplay
             hasError={!telephone}
-            label={intl.formatMessage({
-              defaultMessage: "Telephone",
-              id: "bCtIa8",
-              description: "Telephone label",
-            })}
+            label={intl.formatMessage(commonMessages.telephone)}
           >
             {telephone ? (
               <Link
