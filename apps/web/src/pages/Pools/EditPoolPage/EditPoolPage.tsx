@@ -109,8 +109,8 @@ export const EditPoolForm = ({
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
-    id: "rwQPZE",
-    description: "Page title for process' advertisement information page",
+    id: "yM04jy",
+    description: "Title for advertisement information of a process",
   });
 
   const pageSubtitle = intl.formatMessage({

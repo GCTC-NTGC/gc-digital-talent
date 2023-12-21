@@ -8851,10 +8851,6 @@
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, agrandissez les informations ci-dessous pour voir des exemples.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
-  "myH7I0": {
-    "defaultMessage": "Information relative à l’annonce",
-    "description": "Title for card for actions related to a process advertisement"
-  },
   "mzGMZC": {
     "defaultMessage": "Consulter la demande de {name}",
     "description": "Link text to view a candidates application for assistive technologies"
@@ -9578,10 +9574,6 @@
   "rvoNoQ": {
     "defaultMessage": "Copier l’identification de la demande",
     "description": "Button text to copy a specific application ID"
-  },
-  "rwQPZE": {
-    "defaultMessage": "Informations de l'annonce",
-    "description": "Page title for process' advertisement information page"
   },
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
@@ -10586,6 +10578,10 @@
   "yKr1Ji": {
     "defaultMessage": "J’envoie ma candidature",
     "description": "Label for submitting an application"
+  },
+  "yM04jy": {
+    "defaultMessage": "Information relative à l'annonce",
+    "description": "Title for advertisement information of a process"
   },
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",

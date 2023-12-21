@@ -233,9 +233,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
@@ -297,9 +296,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
