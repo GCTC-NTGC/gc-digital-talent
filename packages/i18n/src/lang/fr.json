@@ -1015,6 +1015,10 @@
     "defaultMessage": "Les étapes d'évaluation doivent appartenir au même bassin.",
     "description": "Error message that the assessment steps must belong to the same pool."
   },
+  "XZl6Ks": {
+    "defaultMessage": "Modifier cette section",
+    "description": "Text to trigger edit of section action"
+  },
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
