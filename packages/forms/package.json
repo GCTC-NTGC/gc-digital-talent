@@ -37,7 +37,7 @@
     "@tiptap/extension-link": "^2.1.13",
     "@tiptap/react": "^2.1.13",
     "@tiptap/starter-kit": "^2.1.13",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.0.5",
     "downshift": "^8.2.3",
     "framer-motion": "^10.16.16",
     "lodash": "4.17.21",
