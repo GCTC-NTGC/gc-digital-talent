@@ -23,6 +23,7 @@ import {
   PoolCandidateFilter,
 } from "~/api/generated";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -185,11 +186,7 @@ const ApplicantFilters = ({
             )}
           />
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Stream",
-              id: "Ua/X9Q",
-              description: "Title for stream on summary of filters section",
-            })}
+            title={intl.formatMessage(processMessages.stream)}
             content={
               applicantFilter?.qualifiedStreams?.map((stream) => {
                 return intl.formatMessage(getPoolStream(stream as string));
@@ -439,11 +436,7 @@ const SearchRequestFilters = ({
               content={classifications}
             />
             <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Stream",
-                id: "Ua/X9Q",
-                description: "Title for stream on summary of filters section",
-              })}
+              title={intl.formatMessage(processMessages.stream)}
               content={streams}
             />
             <FilterBlock

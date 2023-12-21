@@ -28,6 +28,7 @@ import {
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -105,11 +106,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
           />
           <Select
             id="stream"
-            label={intl.formatMessage({
-              defaultMessage: "Stream",
-              id: "qYWmzA",
-              description: "Label for stream filter in search form.",
-            })}
+            label={intl.formatMessage(processMessages.stream)}
             name="stream"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a job stream",
