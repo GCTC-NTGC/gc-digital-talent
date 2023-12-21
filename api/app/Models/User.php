@@ -674,7 +674,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
-            $results = self::search($combinedSearchTerm)->usingWebSearchQuery()->get();
+            $results = self::search($combinedSearchTerm)->usingWebSearchQuery()->take(100)->get();
 
             // Extract unique IDs from the search results
             $uniqueIds = $results->pluck('id')->unique()->toArray();

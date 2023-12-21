@@ -103,32 +103,20 @@ class KeywordSearchTest extends TestCase
             'last_name' => 'philip',
         ]);
 
-        $response = $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                    data {
-                        id
-                    }
-                }
-            }
-        ', [
-                'where' => [
-                    'generalSearch' => ['user'],
-                ],
-            ])->assertJson([
-                'data' => [
-                    'usersPaginated' => [
-                        'paginatorInfo' => [
-                            'total' => 2,
-                        ],
-                    ],
-                ],
-            ]);
+        // verify when search by the user full name , the deleted user's id has not been returned
+        $this->assertEmpty(User::search('user' & 'deleted')->get()->pluck('id'));
+
+        // verify when search by user first name, the result count is omitting the soft deleted user
+        $this->assertEquals(
+            2,
+            User::search('user')->get()->count()
+        );
+
+        // verify when search by user first name, it doesn't return the soft deleted user
+        $this->assertNotEquals(
+            [$user2->id],
+            User::search('user')->get()->pluck('id')->toArray()
+        );
     }
 
     // Test user can be edited and searched by the changed value
@@ -400,7 +388,7 @@ class KeywordSearchTest extends TestCase
                 ]]);
     }
 
-    // Test user can be searched by their name and work experience title
+    // Test user can be searched by their name and work experience organization
     public function testUserSearchByNameAndWorkExperienceTitle()
     {
         // create 3 users with same name
@@ -414,14 +402,9 @@ class KeywordSearchTest extends TestCase
             'last_name' => 'test',
         ]);
 
-        $user3 = User::factory()->create([
-            'first_name' => 'user',
-            'last_name' => 'test',
-        ]);
-
         $skill = Skill::factory()->create();
 
-        // create different work experiences for each user
+        // set up 2 users with same full name and different work experience organization
         $workExperience1 = WorkExperience::factory()->create([
             'user_id' => $user1->id,
             'role' => 'Software Developer',
@@ -438,10 +421,17 @@ class KeywordSearchTest extends TestCase
             'end_date' => '2021-01-01',
         ]);
 
+        // set up third user with different name but works in the same organization as the first user
+
+        $user3 = User::factory()->create([
+            'first_name' => 'David',
+            'last_name' => 'test',
+        ]);
+
         $workExperience3 = WorkExperience::factory()->create([
             'user_id' => $user3->id,
             'role' => 'some other role',
-            'organization' => 'some company',
+            'organization' => 'CDS',
             'start_date' => '2020-01-01',
             'end_date' => '2021-01-01',
         ]);
@@ -459,7 +449,7 @@ class KeywordSearchTest extends TestCase
             ['id' => $skill->id],
         ]);
 
-        // search by the name and work experience title and verify it returns only the user with the matching work experience title
+        // search by the name and the overlapped company and verify it returns only the user with the matching name and company
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -475,7 +465,7 @@ class KeywordSearchTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearch' => ['user', 'TVS'],
+                    'generalSearch' => ['user', 'CDS'],
                 ],
             ])->assertJson([
                 'data' => [
@@ -485,7 +475,7 @@ class KeywordSearchTest extends TestCase
                         ],
                         'data' => [
                             [
-                                'id' => $user2->id,
+                                'id' => $user1->id,
                             ],
                         ],
                     ],
