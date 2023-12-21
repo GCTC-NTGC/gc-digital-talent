@@ -4051,10 +4051,6 @@
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
   },
-  "LOmX3T": {
-    "defaultMessage": "Expérience de travail",
-    "description": "Title for work experience section"
-  },
   "LTmcVS": {
     "defaultMessage": "Non",
     "description": "The negative option to answer a question"
@@ -4906,6 +4902,10 @@
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
+  },
+  "QvyQc3": {
+    "defaultMessage": "Expériences de travail",
+    "description": "Heading for work experiences"
   },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
@@ -6470,10 +6470,6 @@
   "a8wd8c": {
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
-  },
-  "aBSEkP": {
-    "defaultMessage": "Expériences de travail",
-    "description": "Heading for personal experiences in experience by type listing"
   },
   "aCg/OZ": {
     "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",

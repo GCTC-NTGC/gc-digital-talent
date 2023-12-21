@@ -413,8 +413,8 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
-              id: "LOmX3T",
-              description: "Title for work experience section",
+              id: "QvyQc3",
+              description: "Heading for work experiences",
             })}
             itemCount={workExperiences?.length}
             icon={BriefcaseIcon}
