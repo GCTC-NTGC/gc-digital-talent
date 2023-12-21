@@ -9,7 +9,7 @@
   "dependencies": {
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/theme": "*",
-    "@storybook/react": "^7.6.4",
+    "@storybook/react": "^7.6.6",
     "chromatic": "^10.1.0",
     "framer-motion": "^10.16.16",
     "graphql": "^16.8.1",
