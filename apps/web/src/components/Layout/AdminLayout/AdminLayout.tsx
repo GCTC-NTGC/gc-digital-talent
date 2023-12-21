@@ -20,6 +20,7 @@ import {
   Button,
   SideMenu,
   SideMenuButton,
+  SideMenuCategory,
   SideMenuContentWrapper,
   SideMenuItem,
 } from "@gc-digital-talent/ui";
@@ -138,88 +139,112 @@ const AdminLayout = () => {
               })}
             </SideMenuItem>
           )}
-          {checkRole(
-            [
-              ROLE_NAME.PoolOperator,
-              ROLE_NAME.CommunityManager,
-              ROLE_NAME.PlatformAdmin,
-            ],
-            roleAssignments,
-          ) && (
-            <SideMenuItem href={paths.poolTable()} icon={Squares2X2Icon}>
-              {intl.formatMessage(adminMessages.pools)}
-            </SideMenuItem>
-          )}
-          {checkRole(
-            [
-              ROLE_NAME.PoolOperator,
-              ROLE_NAME.RequestResponder,
-              ROLE_NAME.PlatformAdmin,
-            ],
-            roleAssignments,
-          ) && (
-            <SideMenuItem
-              href={paths.poolCandidates()}
-              icon={IdentificationIcon}
-            >
-              {intl.formatMessage(adminMessages.poolsCandidates)}
-            </SideMenuItem>
-          )}
-          {checkRole(
-            [
-              ROLE_NAME.PoolOperator,
-              ROLE_NAME.RequestResponder,
-              ROLE_NAME.PlatformAdmin,
-            ],
-            roleAssignments,
-          ) && (
-            <SideMenuItem href={paths.userTable()} icon={UserIcon}>
-              {intl.formatMessage(adminMessages.users)}
-            </SideMenuItem>
-          )}
-          {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
-            <SideMenuItem href={paths.searchRequestTable()} icon={TicketIcon}>
-              {intl.formatMessage(adminMessages.requests)}
-            </SideMenuItem>
-          )}
-          {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-            <SideMenuItem
-              href={paths.classificationTable()}
-              icon={PuzzlePieceIcon}
-            >
-              {intl.formatMessage(adminMessages.classifications)}
-            </SideMenuItem>
-          )}
-          {checkRole(
-            [
-              ROLE_NAME.PoolOperator,
-              ROLE_NAME.CommunityManager,
-              ROLE_NAME.PlatformAdmin,
-            ],
-            roleAssignments,
-          ) && (
-            <SideMenuItem href={paths.teamTable()} icon={BuildingOffice2Icon}>
-              {intl.formatMessage(adminMessages.teams)}
-            </SideMenuItem>
-          )}
-          {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-            <SideMenuItem
-              href={paths.departmentTable()}
-              icon={BuildingOfficeIcon}
-            >
-              {intl.formatMessage(adminMessages.departments)}
-            </SideMenuItem>
-          )}
-          {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-            <SideMenuItem href={paths.skillFamilyTable()} icon={CloudIcon}>
-              {intl.formatMessage(adminMessages.skillFamilies)}
-            </SideMenuItem>
-          )}
-          {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-            <SideMenuItem href={paths.skillTable()} icon={BoltIcon}>
-              {intl.formatMessage(adminMessages.skills)}
-            </SideMenuItem>
-          )}
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Recruitment",
+              id: "G65IrS",
+              description: "The menu category for recruitment items",
+            })}
+          >
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem
+                href={paths.poolCandidates()}
+                icon={IdentificationIcon}
+              >
+                {intl.formatMessage(adminMessages.poolsCandidates)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.poolTable()} icon={Squares2X2Icon}>
+                {intl.formatMessage(adminMessages.pools)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.teamTable()} icon={BuildingOffice2Icon}>
+                {intl.formatMessage(adminMessages.teams)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Requests",
+              id: "0D3ZhO",
+              description: "The menu category for requests items",
+            })}
+          >
+            {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
+              <SideMenuItem href={paths.searchRequestTable()} icon={TicketIcon}>
+                {intl.formatMessage(adminMessages.requests)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Platform data",
+              id: "bLcy4q",
+              description: "The menu category for platform data items",
+            })}
+          >
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.userTable()} icon={UserIcon}>
+                {intl.formatMessage(adminMessages.users)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.classificationTable()}
+                icon={PuzzlePieceIcon}
+              >
+                {intl.formatMessage(adminMessages.classifications)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.departmentTable()}
+                icon={BuildingOfficeIcon}
+              >
+                {intl.formatMessage(adminMessages.departments)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem href={paths.skillTable()} icon={BoltIcon}>
+                {intl.formatMessage(adminMessages.skills)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem href={paths.skillFamilyTable()} icon={CloudIcon}>
+                {intl.formatMessage(adminMessages.skillFamilies)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
         </SideMenu>
         <SideMenuContentWrapper>
           <div
