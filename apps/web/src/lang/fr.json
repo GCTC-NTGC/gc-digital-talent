@@ -10051,10 +10051,6 @@
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
   },
-  "uknA15": {
-    "defaultMessage": "Bibliothèque de compétences comportementales",
-    "description": "Title for the skill library behavioural skills section"
-  },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
