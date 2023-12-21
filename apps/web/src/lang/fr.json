@@ -1603,6 +1603,10 @@
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
     "description": "Indigenous Apprenticeship hero image text alternative"
   },
+  "71mPNh": {
+    "defaultMessage": "Créer une compétence",
+    "description": "Title for Create skill"
+  },
   "72pd2Z": {
     "defaultMessage": "<strong>gestion de l’information</strong>, ou",
     "description": "List item of experiences required in application education page."
@@ -8467,10 +8471,6 @@
     "defaultMessage": "Supprimer un élément pour en ajouter un autre ({numOfSkills}/{maxSkills})",
     "description": "Label for disabled dialog trigger on skills showcase section."
   },
-  "lFrPv1": {
-    "defaultMessage": "Créer une compétence",
-    "description": "Heading displayed above the Create Skill form."
-  },
   "lGUfLc": {
     "defaultMessage": "Ce contrat est-il soumis à des accords commerciaux tels que l’Accord de libre-échange nord-américain (ALENA) ou l’accord Accord Canada–États-Unis–Mexique (ACEUM)?",
     "description": "Introduction pour le champ _accord commercial_ dans le _questionnaire sur les contrats de services numériques)_"
@@ -9406,10 +9406,6 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
-  },
-  "qZd17O": {
-    "defaultMessage": " Créer une compétence",
-    "description": "Title displayed on the create a skill form."
   },
   "qb6pT2": {
     "defaultMessage": "Chercher les bassins",

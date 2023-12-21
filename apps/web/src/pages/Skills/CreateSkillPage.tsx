@@ -126,9 +126,9 @@ export const CreateSkillForm = ({
     <section data-h2-container="base(left, s)">
       <Heading level="h1" size="h2">
         {intl.formatMessage({
-          defaultMessage: "Create Skill",
-          id: "qZd17O",
-          description: "Title displayed on the create a skill form.",
+          defaultMessage: "Create skill",
+          id: "71mPNh",
+          description: "Title for Create skill",
         })}
       </Heading>
       <div>
@@ -352,9 +352,9 @@ const CreateSkillPage = () => {
     <AdminContentWrapper crumbs={navigationCrumbs}>
       <SEO
         title={intl.formatMessage({
-          defaultMessage: "Create Skill",
-          id: "qZd17O",
-          description: "Title displayed on the create a skill form.",
+          defaultMessage: "Create skill",
+          id: "71mPNh",
+          description: "Title for Create skill",
         })}
       />
       <Pending fetching={fetching} error={error}>
