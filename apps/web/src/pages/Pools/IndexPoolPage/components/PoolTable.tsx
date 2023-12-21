@@ -54,8 +54,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage({
-        defaultMessage: "Pool Name",
-        id: "HocLRh",
+        defaultMessage: "Name",
+        id: "gWaU+D",
         description: "Title displayed for the Pool table pool name column.",
       }),
       meta: {
