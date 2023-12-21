@@ -9471,10 +9471,6 @@
     "defaultMessage": "Obtenir du soutien",
     "description": "Link text to direct a user to the support page"
   },
-  "rYgaTA": {
-    "defaultMessage": "Groupe des publications",
-    "description": "Title displayed for the Pool table publishing group column."
-  },
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
@@ -9798,10 +9794,6 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
-  },
-  "tQ674x": {
-    "defaultMessage": "Groupe des publications",
-    "description": "Label displayed on the edit pool form publishing group field."
   },
   "tSAjnB": {
     "defaultMessage": "La plateforme Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment de formulaires en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
@@ -10576,7 +10568,7 @@
     "description": "Button text to hide the distribution of step statuses"
   },
   "ysKXVP": {
-    "defaultMessage": "Groupes de publication",
+    "defaultMessage": "Groupe de publication",
     "description": "Label for a process' publishing group"
   },
   "ytTGvb": {
