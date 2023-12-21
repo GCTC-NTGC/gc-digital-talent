@@ -200,7 +200,7 @@ describe("AssessmentStepTracker", () => {
 
   it("should have a working sort function", () => {
     const basicCandidate = {
-      id: "1",
+      id: "candidate-last-by-first-name",
       assessmentDecision: AssessmentDecision.Successful,
       poolCandidate: {
         id: faker.string.uuid(),
@@ -221,7 +221,7 @@ describe("AssessmentStepTracker", () => {
       basicCandidate,
       {
         ...basicCandidate,
-        id: "2",
+        id: "candidate-with-entitlement",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
           user: {
@@ -232,7 +232,7 @@ describe("AssessmentStepTracker", () => {
       },
       {
         ...basicCandidate,
-        id: "3",
+        id: "candidate-is-veteran",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
           user: {
@@ -243,7 +243,7 @@ describe("AssessmentStepTracker", () => {
       },
       {
         ...basicCandidate,
-        id: "4",
+        id: "candidate-is-bookmarked",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
           user: {
@@ -255,12 +255,12 @@ describe("AssessmentStepTracker", () => {
       },
       {
         ...basicCandidate,
-        id: "5",
+        id: "candidate-is-unassessed",
         assessmentDecision: AssessmentDecision.NotSure,
       },
       {
         ...basicCandidate,
-        id: "6",
+        id: "candidate-first-by-name",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
           user: {
@@ -273,17 +273,17 @@ describe("AssessmentStepTracker", () => {
 
     const modifiedResults = sortResultsAndAddOrdinal(testAssessmentResults);
 
-    expect(modifiedResults[0].id).toEqual("4");
+    expect(modifiedResults[0].id).toEqual("candidate-is-bookmarked");
     expect(modifiedResults[0].ordinal).toEqual(6);
-    expect(modifiedResults[1].id).toEqual("5");
+    expect(modifiedResults[1].id).toEqual("candidate-is-unassessed");
     expect(modifiedResults[1].ordinal).toEqual(1);
-    expect(modifiedResults[2].id).toEqual("2");
+    expect(modifiedResults[2].id).toEqual("candidate-with-entitlement");
     expect(modifiedResults[2].ordinal).toEqual(2);
-    expect(modifiedResults[3].id).toEqual("3");
+    expect(modifiedResults[3].id).toEqual("candidate-is-veteran");
     expect(modifiedResults[3].ordinal).toEqual(3);
-    expect(modifiedResults[4].id).toEqual("6");
+    expect(modifiedResults[4].id).toEqual("candidate-first-by-name");
     expect(modifiedResults[4].ordinal).toEqual(4);
-    expect(modifiedResults[5].id).toEqual("1");
+    expect(modifiedResults[5].id).toEqual("candidate-last-by-first-name");
     expect(modifiedResults[5].ordinal).toEqual(5);
   });
 });
