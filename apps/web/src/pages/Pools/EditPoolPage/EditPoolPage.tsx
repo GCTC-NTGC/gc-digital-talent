@@ -197,8 +197,8 @@ export const EditPoolForm = ({
       hasError: false, // Optional section
       title: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "mWJOIX",
-        description: "Sub title for the process' education requirements",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
     otherRequirements: {

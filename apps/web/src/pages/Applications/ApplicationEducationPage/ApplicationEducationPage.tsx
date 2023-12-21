@@ -89,8 +89,8 @@ export const getPageInfo: GetPageNavInfo = ({
       url: path,
       label: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "dlJCeM",
-        description: "Link text for the application education page",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
   };

@@ -135,6 +135,10 @@
     "defaultMessage": "Publier",
     "description": "Heading for the publish pool dialog"
   },
+  "+t5Z7B": {
+    "defaultMessage": "Exigences en matière d'éducation",
+    "description": "Title for application education"
+  },
   "+tKl71": {
     "defaultMessage": "J’ai un droit de priorité",
     "description": "affirm possession of priority entitlement"
@@ -7123,10 +7127,6 @@
     "defaultMessage": "Choisissez l’expérience que vous souhaitez ajouter",
     "description": "Heading for the experience selection"
   },
-  "dlJCeM": {
-    "defaultMessage": "Exigences en matière d’éducation",
-    "description": "Link text for the application education page"
-  },
   "dlRmxI": {
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
     "description": "Message describing the employment equity filter in the search form."
@@ -8722,10 +8722,6 @@
   "mVqKm+": {
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
-  },
-  "mWJOIX": {
-    "defaultMessage": "Exigences en matière de formation",
-    "description": "Sub title for the process' education requirements"
   },
   "mWnekb": {
     "defaultMessage": "Prix et reconnaissances",
