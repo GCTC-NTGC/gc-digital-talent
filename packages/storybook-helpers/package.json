@@ -14,7 +14,7 @@
     "framer-motion": "^10.16.16",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
-    "react-helmet-async": "^2.0.3",
+    "react-helmet-async": "^2.0.4",
     "react-router-dom": "^6.21.0",
     "urql": "^4.0.6",
     "wonka": "^6.3.4"
