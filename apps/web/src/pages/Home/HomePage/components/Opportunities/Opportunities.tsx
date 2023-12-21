@@ -71,8 +71,8 @@ const Opportunities = () => {
           color="secondary"
           title={intl.formatMessage({
             defaultMessage: "Managers community",
-            id: "g7HWuc",
-            description: "Heading for the Managers community page",
+            id: "l75mNg",
+            description: "Title for Managers community",
           })}
           links={[
             {

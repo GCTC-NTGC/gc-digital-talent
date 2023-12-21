@@ -3607,10 +3607,6 @@
     "defaultMessage": "Ces ressources sont conçues pour aider les responsables des initiatives numériques à assumer leurs responsabilités dans le cadre de la Directive sur les talents numériques. Ce guide de mise en œuvre explique pourquoi la Directive est nécessaire et ce qu'il faut faire. Utiliser l'arbre décisionnel pour naviguer dans les exigences de déclaration.",
     "description": "Body message for digital initiative managers section."
   },
-  "Izo/vB": {
-    "defaultMessage": "Collectivité des gestionnaires",
-    "description": "Page title for the managers homepage"
-  },
   "J+MAUg": {
     "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their personal and contact information."
@@ -7579,10 +7575,6 @@
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
   },
-  "g7HWuc": {
-    "defaultMessage": "Collectivité des gestionnaires.",
-    "description": "Heading for the Managers community page"
-  },
   "g7RC9u": {
     "defaultMessage": "Note spéciale (français)",
     "description": "Label for a process' French special note"
@@ -8494,6 +8486,10 @@
   "l62TJM": {
     "defaultMessage": "Disponibilité",
     "description": "CSV Header, Availability column"
+  },
+  "l75mNg": {
+    "defaultMessage": "Collectivité des gestionnaires",
+    "description": "Title for Managers community"
   },
   "l9AK3C": {
     "defaultMessage": "ou",

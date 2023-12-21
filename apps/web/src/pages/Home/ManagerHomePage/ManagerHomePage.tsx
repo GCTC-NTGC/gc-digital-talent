@@ -31,8 +31,8 @@ const HomePage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Managers community",
-    id: "Izo/vB",
-    description: "Page title for the managers homepage",
+    id: "l75mNg",
+    description: "Title for Managers community",
   });
 
   return (
