@@ -133,9 +133,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         >
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VcpIlx",
-            description:
-              "Link text to return to an introduction page on an application",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>

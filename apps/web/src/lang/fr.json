@@ -5639,10 +5639,6 @@
     "defaultMessage": "<primary>{role}</primary> à {organization}",
     "description": "Role at organization in work experience block of skill accordion."
   },
-  "VRxiNC": {
-    "defaultMessage": "Instructions de révision",
-    "description": "A link back to the instructions for this section"
-  },
   "VTHGET": {
     "defaultMessage": "Niveau de la langue seconde",
     "description": "Estimated skill in second language"
@@ -5694,10 +5690,6 @@
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
-  },
-  "VcpIlx": {
-    "defaultMessage": "Vérifier les instructions",
-    "description": "Link text to return to an introduction page on an application"
   },
   "VeiXJP": {
     "defaultMessage": "Aucune des compétences n’est jointe.",
@@ -6826,6 +6818,10 @@
   "cAOf3a": {
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
+  },
+  "cCSlti": {
+    "defaultMessage": "Vérifier les instructions",
+    "description": "Title for review instructions action"
   },
   "cErFoy": {
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
