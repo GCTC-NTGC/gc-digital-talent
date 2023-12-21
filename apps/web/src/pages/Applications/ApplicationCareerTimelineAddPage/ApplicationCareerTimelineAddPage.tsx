@@ -11,11 +11,11 @@ import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
+import experienceMessages from "~/messages/experienceMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import AddExperienceForm from "./components/AddExperienceForm";
-import { experienceTypeTitles } from "./messages";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -115,7 +115,7 @@ const ApplicationCareerTimelineAdd = ({
             <DefinitionList.Root>
               <DefinitionList.Item
                 Icon={BriefcaseIcon}
-                title={intl.formatMessage(experienceTypeTitles.work)}
+                title={intl.formatMessage(experienceMessages.work)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -126,7 +126,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={BookOpenIcon}
-                title={intl.formatMessage(experienceTypeTitles.education)}
+                title={intl.formatMessage(experienceMessages.education)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -137,7 +137,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={UserGroupIcon}
-                title={intl.formatMessage(experienceTypeTitles.community)}
+                title={intl.formatMessage(experienceMessages.community)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -148,7 +148,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={LightBulbIcon}
-                title={intl.formatMessage(experienceTypeTitles.personal)}
+                title={intl.formatMessage(experienceMessages.personal)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -159,7 +159,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={StarIcon}
-                title={intl.formatMessage(experienceTypeTitles.award)}
+                title={intl.formatMessage(experienceMessages.award)}
               >
                 {intl.formatMessage({
                   defaultMessage:

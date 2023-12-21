@@ -46,6 +46,7 @@ import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import experienceMessages from "~/messages/experienceMessages";
 
 import { PartialUser } from "../types";
 import { categorizeUserSkill } from "../../../utils/skillUtils";
@@ -420,41 +421,25 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Education and certificates",
-              id: "PFoM2I",
-              description: "Title for education experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.education)}
             itemCount={educationExperiences?.length}
             icon={BookOpenIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Community participation",
-              id: "Uy5Dg2",
-              description: "Title for community experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.community)}
             itemCount={communityExperiences?.length}
             icon={UsersIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Personal learning",
-              id: "UDMUHH",
-              description: "Title for personal experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.personal)}
             itemCount={personalExperiences?.length}
             icon={LightBulbIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Awards and recognition",
-              id: "mWnekb",
-              description: "Title for award section",
-            })}
+            title={intl.formatMessage(experienceMessages.award)}
             itemCount={awardExperiences?.length}
             icon={StarIcon}
           />

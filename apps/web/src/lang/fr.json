@@ -5439,10 +5439,6 @@
     "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
   },
-  "UDMUHH": {
-    "defaultMessage": "Apprentissage personnel",
-    "description": "Title for personal experience section"
-  },
   "UEsexn": {
     "defaultMessage": "Renseignements sur le gestionnaire",
     "description": "Heading for the manager info section of the single search request view."
@@ -8666,10 +8662,6 @@
   "mVqKm+": {
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
-  },
-  "mWnekb": {
-    "defaultMessage": "Prix et reconnaissances",
-    "description": "Title for award section"
   },
   "mX4+Dq": {
     "defaultMessage": "Sélectionnez un niveau",
