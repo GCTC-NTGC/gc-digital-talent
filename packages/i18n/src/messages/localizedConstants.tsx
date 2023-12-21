@@ -283,9 +283,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     ? defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "Graduation with degree",
@@ -303,9 +302,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     : defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "2-year post-secondary",

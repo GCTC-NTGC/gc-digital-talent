@@ -183,10 +183,6 @@
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
-  "4S30lt": {
-    "defaultMessage": "Expérience de travail appliquée",
-    "description": "Option for education requirement, applied work experience"
-  },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
     "description": "The operational requirement described as regular overtime."
@@ -1198,6 +1194,10 @@
   "duwt+A": {
     "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "dwYJOo": {
+    "defaultMessage": "Exigences en matière de travail pratique",
+    "description": "Title for the applied work experience requirements"
   },
   "dxjUnU": {
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
