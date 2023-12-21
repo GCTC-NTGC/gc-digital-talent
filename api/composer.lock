@@ -4530,16 +4530,16 @@
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",
-            "version": "v1.19",
+            "version": "v1.19.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
-                "reference": "7a858ba0bfe5d42c06c563175a7255ebb6abad27"
+                "reference": "4192ef405f74a52fbac47f515a40260b7c45e319"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/7a858ba0bfe5d42c06c563175a7255ebb6abad27",
-                "reference": "7a858ba0bfe5d42c06c563175a7255ebb6abad27",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/4192ef405f74a52fbac47f515a40260b7c45e319",
+                "reference": "4192ef405f74a52fbac47f515a40260b7c45e319",
                 "shasum": ""
             },
             "require": {
@@ -4564,7 +4564,7 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Staudenmeir\\EloquentHasManyDeep\\EloquentHasManyDeepServiceProvider"
+                        "Staudenmeir\\EloquentHasManyDeep\\IdeHelperServiceProvider"
                     ]
                 }
             },
@@ -4586,7 +4586,7 @@
             "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
             "support": {
                 "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
-                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.19"
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.19.2"
             },
             "funding": [
                 {
@@ -4594,7 +4594,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-12-05T11:38:39+00:00"
+            "time": "2023-12-19T15:44:14+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep-contracts",
