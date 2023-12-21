@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@gc-digital-talent/i18n": "*",
-    "react-helmet-async": "^2.0.3",
+    "react-helmet-async": "^2.0.4",
     "react-intl": "^6.5.5",
     "react-router-dom": "^6.21.0"
   },
