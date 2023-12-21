@@ -127,9 +127,8 @@ const ExperienceSkills = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "What did you accomplish, create or deliver using this skill?",
-                  id: "aaFVT3",
-                  description:
-                    "Question list item in link featured skills section of experience form (accomplish).",
+                  id: "WEVxYV",
+                  description: "Question for clarifying skill details",
                 })}
               </li>
               <li>

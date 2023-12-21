@@ -5795,6 +5795,10 @@
     "defaultMessage": "Modification des renseignements personnels et des coordonnées",
     "description": "Button text to start editing personal and contact information"
   },
+  "WEVxYV": {
+    "defaultMessage": "Quel accomplissement, quelle création ou quelle réalisation avez-vous effectué grâce à cette compétence?",
+    "description": "Question for clarifying skill details"
+  },
   "WFhX9m": {
     "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
     "description": "Title displayed on the candidate skill count column."
@@ -6538,10 +6542,6 @@
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
     "description": "Error message when there aren't any skills to select"
-  },
-  "aaFVT3": {
-    "defaultMessage": "Qu’avez-vous accompli, créé ou réalisé en utilisant cette compétence?",
-    "description": "Question list item in link featured skills section of experience form (accomplish)."
   },
   "aagbij": {
     "defaultMessage": "En cours de révision",
@@ -9158,10 +9158,6 @@
   "pQwNEB": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la Directive sur les talents numériques et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ces ressources sont conçues pour aider les conseillers en ressources humaines à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
-  },
-  "pV+oii": {
-    "defaultMessage": "Qu’avez-vous accompli, créé ou livré grâce à cette compétence?",
-    "description": "Question 1 for clarifying skill details"
   },
   "pV96Xv": {
     "defaultMessage": "Expériences scolaires",
