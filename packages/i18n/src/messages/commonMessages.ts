@@ -65,6 +65,11 @@ const commonMessages = defineMessages({
     description:
       "Message displayed when a user has not provided some form of information",
   },
+  noNameProvided: {
+    defaultMessage: "No name provided",
+    id: "BXxvCZ",
+    description: "Message for when no name value",
+  },
   noInformationProvided: {
     defaultMessage: "No information has been provided.",
     id: "euigxa",

@@ -3991,10 +3991,6 @@
     "defaultMessage": "Modifiez vos options à propos de moi.",
     "description": "Link text to edit about me section on profile."
   },
-  "L9Ked5": {
-    "defaultMessage": "Aucun nom n’a été fourni",
-    "description": "Fallback for team display name value"
-  },
   "L9mWLV": {
     "defaultMessage": "Rapport sur le Nuage de talents",
     "description": "Link text to read the report on talent cloud"
@@ -4062,10 +4058,6 @@
   "LZ0Poh": {
     "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
     "description": "Text that appears in transferable skills section on their profile."
-  },
-  "LazN9T": {
-    "defaultMessage": "Toutes les compétences suivantes sont facultativement bénéfiques pour le rôle, et leur démonstration pourrait vous être bénéfique lorsqu’elles sont envisagées.",
-    "description": "Instructions on  optional skills for a pool advertisement"
   },
   "Lb3ppn": {
     "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -8059,10 +8051,6 @@
     "defaultMessage": "Bibliothèque de compétences",
     "description": "applicant dashboard card title for skill library"
   },
-  "iXdeVu": {
-    "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
-    "description": "Descriptive text about how optional behavioural skills are used in the application process"
-  },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
     "description": "Lead-in for list of application confirmation list"
@@ -8867,6 +8855,10 @@
     "defaultMessage": "Travailler avec les autorités compétentes à l’échelle du gouvernement pour établir les solutions et les pratiques exemplaires",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
   },
+  "mqRhhe": {
+    "defaultMessage": "Toutes les compétences suivantes sont facultatives mais avantageuses pour le poste. Le fait de les démontrer pourrait vous être bénéfique lorsque votre candidature est considérée.",
+    "description": "Descriptive text about how optional skills are used in the application process"
+  },
   "mqWvWR": {
     "defaultMessage": "Questions relatives à la sélection préliminaire ",
     "description": "Title for the screening questions snapshot section"
@@ -8930,10 +8922,6 @@
   "n7RwgC": {
     "defaultMessage": "Autorité indépendante non gouvernementale requise (par exemple, examen indépendant des services.)",
     "description": "Requires independent contracting rationale"
-  },
-  "n80lVV": {
-    "defaultMessage": "Aucun nom fourni",
-    "description": "Fallback for name value"
   },
   "n92mcX": {
     "defaultMessage": "Responsables de l’approvisionnement",
@@ -9646,10 +9634,6 @@
   "ry3jFR": {
     "defaultMessage": "Votre impact",
     "description": "Sub title for the pool introduction"
-  },
-  "ry5NUs": {
-    "defaultMessage": "Toutes les compétences suivantes sont facultativement avantageuses pour le poste, et le fait de les démontrer pourrait vous être utile lorsque vous êtes pris en considération.",
-    "description": "Descriptive text about how optional technical skills are used in the application process"
   },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",

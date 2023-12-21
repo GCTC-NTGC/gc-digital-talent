@@ -123,8 +123,9 @@ export const ApplicationSkills = ({
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
       "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-    id: "LazN9T",
-    description: "Instructions on  optional skills for a pool advertisement",
+    id: "mqRhhe",
+    description:
+      "Descriptive text about how optional skills are used in the application process",
   });
 
   const handleSubmit = async () => {

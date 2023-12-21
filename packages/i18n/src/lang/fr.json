@@ -371,6 +371,10 @@
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
   },
+  "BXxvCZ": {
+    "defaultMessage": "Aucun nom n'a été fourni",
+    "description": "Message for when no name value"
+  },
   "BnnVAv": {
     "defaultMessage": "Permis de conduire",
     "description": "The operational requirement described as driver's license. (short-form for limited space)"

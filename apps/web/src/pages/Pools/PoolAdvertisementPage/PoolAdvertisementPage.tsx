@@ -628,9 +628,9 @@ export const PoolPoster = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "ry5NUs",
+                  id: "mqRhhe",
                   description:
-                    "Descriptive text about how optional technical skills are used in the application process",
+                    "Descriptive text about how optional skills are used in the application process",
                 })}
               </p>
               <SkillAccordion
@@ -690,9 +690,9 @@ export const PoolPoster = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "iXdeVu",
+                  id: "mqRhhe",
                   description:
-                    "Descriptive text about how optional behavioural skills are used in the application process",
+                    "Descriptive text about how optional skills are used in the application process",
                 })}
               </p>
               <SkillAccordion
