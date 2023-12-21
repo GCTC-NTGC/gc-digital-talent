@@ -360,11 +360,6 @@ export const getFamilyOptions = (
   category?: SkillCategory | "all",
   inLibrary?: Skill[],
 ): Option[] => {
-  console.log({
-    full: skills.length,
-    category,
-    categoryLen: category ? getSkillCategorySkillCount(skills, category) : 0,
-  });
   let familyOptions = [
     {
       value: "all",
