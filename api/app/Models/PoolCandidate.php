@@ -96,15 +96,11 @@ class PoolCandidate extends Model
         parent::boot();
 
         static::updating(function ($model) {
-            // Check if the 'notes' attribute is being updated
-            if ($model->isDirty('notes')) {
-                // Update the searchable column in the related User model
-                $user = User::find($model->user_id);
-
-                if ($user) {
-                    $user->update(['searchable' => $model->notes]); // Update 'searchable' with the value of 'notes'
-                }
+            // Check if the 'notes' attribute is being updated and if so, update the searchable user model
+            if ($model->user()->exists() && $model->isDirty('notes')) {
+                $model->user()->searchable();
             }
+
         });
     }
 
