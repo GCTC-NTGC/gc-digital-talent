@@ -12,6 +12,7 @@ import { ApplicationStep, useUpdateApplicationMutation } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -28,11 +29,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationQuestions(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "sTij/C",
-      description: "Page title for the application screening questions page",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
       id: "GTHuSJ",

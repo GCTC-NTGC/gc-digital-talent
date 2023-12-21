@@ -29,6 +29,7 @@ import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import processMessages from "~/messages/processMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -397,12 +398,7 @@ const ApplicationReview = ({
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
-          title={intl.formatMessage({
-            defaultMessage: "Screening questions",
-            id: "qGyD4w",
-            description:
-              "Heading for screening questions section of the application review page.",
-          })}
+          title={intl.formatMessage(processMessages.screeningQuestions)}
           path={editPaths.screeningQuestions}
           editLinkAriaLabel={intl.formatMessage({
             defaultMessage: "Edit screening questions",

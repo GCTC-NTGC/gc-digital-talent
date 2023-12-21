@@ -36,6 +36,7 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -246,11 +247,7 @@ export const EditPoolForm = ({
   const screeningQuestionMetadata: EditPoolSectionMetadata = {
     id: "screening-questions",
     hasError: false, // Optional
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "c+QwbR",
-      description: "Subtitle for the pool screening questions",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({

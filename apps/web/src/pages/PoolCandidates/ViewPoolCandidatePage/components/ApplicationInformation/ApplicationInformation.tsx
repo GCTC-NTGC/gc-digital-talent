@@ -20,6 +20,7 @@ import PersonalInformationDisplay from "~/components/Profile/components/Personal
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import { SECTION_KEY } from "./types";
@@ -152,12 +153,7 @@ const ApplicationInformation = ({
         {screeningQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
-              {intl.formatMessage({
-                defaultMessage: "Screening questions",
-                id: "mqWvWR",
-                description:
-                  "Title for the screening questions snapshot section",
-              })}
+              {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
               {screeningQuestionResponses.map((response, index) => (

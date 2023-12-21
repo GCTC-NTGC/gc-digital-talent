@@ -45,6 +45,7 @@ import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } fr
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
+import processMessages from "~/messages/processMessages";
 
 import SkillWithExperiences from "./SkillWithExperiences";
 import EducationRequirementExperience from "./EducationRequirementExperience";
@@ -278,12 +279,7 @@ const ApplicationPrintDocument = React.forwardRef<
                 </BreakingPageSection>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Screening questions",
-                      id: "mqWvWR",
-                      description:
-                        "Title for the screening questions snapshot section",
-                    })}
+                    {intl.formatMessage(processMessages.screeningQuestions)}
                   </Heading>
                   <ul>
                     {relevantPoolCandidate.screeningQuestionResponses?.map(

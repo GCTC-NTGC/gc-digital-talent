@@ -5571,10 +5571,6 @@
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
   },
-  "V62J5w": {
-    "defaultMessage": "Questions de sélection",
-    "description": "title of 'screening questions' section of the assessment builder"
-  },
   "V6wB0a": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
     "description": "list a number of community experiences"
@@ -6782,10 +6778,6 @@
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
     "description": "Button text to open section describing mentorship program"
-  },
-  "c+QwbR": {
-    "defaultMessage": "Questions filtres",
-    "description": "Subtitle for the pool screening questions"
   },
   "c/u1K+": {
     "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
@@ -8763,10 +8755,6 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultatives mais avantageuses pour le poste. Le fait de les démontrer pourrait vous être bénéfique lorsque votre candidature est considérée.",
     "description": "Descriptive text about how optional skills are used in the application process"
   },
-  "mqWvWR": {
-    "defaultMessage": "Questions relatives à la sélection préliminaire ",
-    "description": "Title for the screening questions snapshot section"
-  },
   "mrMxsI": {
     "defaultMessage": "Oui, il s'agit d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
@@ -9123,6 +9111,10 @@
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Heading for working language ability section of the search form."
   },
+  "p8+wKq": {
+    "defaultMessage": "Questions relatives à la sélection préliminaire",
+    "description": "Title of screening questions"
+  },
   "pBAHrf": {
     "defaultMessage": "Élaborer des parcours de carrière pour les talents numériques",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
@@ -9298,10 +9290,6 @@
   "qGSEMx": {
     "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
-  },
-  "qGyD4w": {
-    "defaultMessage": "Questions de sélection",
-    "description": "Heading for screening questions section of the application review page."
   },
   "qN+dwB": {
     "defaultMessage": "Imprimer avec toutes informations",
@@ -9606,10 +9594,6 @@
   "sSnNWm": {
     "defaultMessage": "Supprimer l’adhésion<hidden> dans {team}</hidden>",
     "description": "Label for the form to remove a team role from a user"
-  },
-  "sTij/C": {
-    "defaultMessage": "Question de sélection",
-    "description": "Page title for the application screening questions page"
   },
   "sTzKQs": {
     "defaultMessage": "J'accepterais un emploi qui",

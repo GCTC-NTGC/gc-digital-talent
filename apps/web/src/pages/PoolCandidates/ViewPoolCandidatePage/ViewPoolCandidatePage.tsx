@@ -47,6 +47,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import processMessages from "~/messages/processMessages";
 
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
@@ -138,11 +139,7 @@ export const ViewPoolCandidate = ({
     },
     questions: {
       id: "questions",
-      title: intl.formatMessage({
-        defaultMessage: "Screening questions",
-        id: "mqWvWR",
-        description: "Title for the screening questions snapshot section",
-      }),
+      title: intl.formatMessage(processMessages.screeningQuestions),
     },
     careerTimeline: {
       id: "career-timeline",

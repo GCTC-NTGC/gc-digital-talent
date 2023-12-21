@@ -32,6 +32,7 @@ import {
   useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
 } from "~/api/generated";
+import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -442,12 +443,7 @@ const AssessmentDetailsDialog = ({
                   <>
                     <div>
                       <div data-h2-font-weight="base(700)">
-                        {intl.formatMessage({
-                          defaultMessage: "Screening questions",
-                          id: "V62J5w",
-                          description:
-                            "title of 'screening questions' section of the assessment builder",
-                        })}
+                        {intl.formatMessage(processMessages.screeningQuestions)}
                       </div>
                       <div data-h2-margin-top="base(x.25)">
                         {intl.formatMessage({
