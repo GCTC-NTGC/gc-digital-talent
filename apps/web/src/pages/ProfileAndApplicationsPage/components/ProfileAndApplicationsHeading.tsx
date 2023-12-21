@@ -323,11 +323,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <StatusItem
             asListItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "Pf+PA/",
-              description: "Title of the Work Location link section",
-            })}
+            title={intl.formatMessage(navigationMessages.workPreferences)}
             status={
               workLocationSectionHasEmptyRequiredFields(user) ||
               workPreferencesSectionHasEmptyRequiredFields(user)

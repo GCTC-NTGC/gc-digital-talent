@@ -22,9 +22,8 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "work",
     defineMessage({
       defaultMessage: "Work preferences",
-      id: "XTaRza",
-      description:
-        "Heading for the work preferences section on the application profile",
+      id: "nnMYWr",
+      description: "Name of Work preferences page",
     }),
   ],
   [

@@ -4695,10 +4695,6 @@
     "defaultMessage": "Notes sur les demandes",
     "description": "Label displayed on the search request form request notes field."
   },
-  "Pf+PA/": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title of the Work Location link section"
-  },
   "PhrOLp": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Label for the French team display name input"
@@ -5986,10 +5982,6 @@
   "XSo129": {
     "defaultMessage": "Description",
     "description": "Title displayed for the Skill Family table Description column."
-  },
-  "XTaRza": {
-    "defaultMessage": "Préférences en matière de travail",
-    "description": "Heading for the work preferences section on the application profile"
   },
   "XVI4qU": {
     "defaultMessage": "un changement technologique d’un système, d’un logiciel ou d’un matériel d’une nature fondamentalement différente de ceux utilisés précédemment.",
@@ -8887,6 +8879,10 @@
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
     "description": "Homepage subtitle for IT Apprenticeship Program for Indigenous Peoples"
   },
+  "nnMYWr": {
+    "defaultMessage": "Préférences relatives au travail",
+    "description": "Name of Work preferences page"
+  },
   "nok2sR": {
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
@@ -9502,10 +9498,6 @@
   "s5iy2Z": {
     "defaultMessage": "Incidence et tâches",
     "description": "Title for the impact and tasks section of a pool advertisement"
-  },
-  "s7F24X": {
-    "defaultMessage": "Préférences relatives au travail",
-    "description": "Title for the work preferences snapshot section"
   },
   "s7Hnlg": {
     "defaultMessage": "Modifier<hidden> l’équipe</hidden>",

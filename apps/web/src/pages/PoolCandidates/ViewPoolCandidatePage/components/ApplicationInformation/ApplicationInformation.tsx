@@ -10,7 +10,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import DiversityEquityInclusionDisplay from "~/components/Profile/components/DiversityEquityInclusion/Display";
@@ -242,11 +246,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
           <Accordion.Trigger>
-            {intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "s7F24X",
-              description: "Title for the work preferences snapshot section",
-            })}
+            {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
             <WorkPreferencesDisplay user={snapshot} />

@@ -18,6 +18,7 @@ import {
   commonMessages,
   getEducationRequirementOption,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -159,11 +160,7 @@ export const ViewPoolCandidate = ({
     },
     work: {
       id: "work",
-      title: intl.formatMessage({
-        defaultMessage: "Work preferences",
-        id: "s7F24X",
-        description: "Title for the work preferences snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.workPreferences),
     },
     dei: {
       id: "dei",
