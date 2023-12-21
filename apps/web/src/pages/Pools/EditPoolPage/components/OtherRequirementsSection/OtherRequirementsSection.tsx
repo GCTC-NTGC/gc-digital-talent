@@ -151,12 +151,9 @@ const OtherRequirementsSection = ({
                 />
                 <Select
                   id="securityRequirement"
-                  label={intl.formatMessage({
-                    defaultMessage: "Security requirement",
-                    id: "ASNC88",
-                    description:
-                      "Label displayed on the edit pool form security requirement field.",
-                  })}
+                  label={intl.formatMessage(
+                    processMessages.securityRequirement,
+                  )}
                   name="securityRequirement"
                   nullSelection={intl.formatMessage({
                     defaultMessage: "Select a security requirement",

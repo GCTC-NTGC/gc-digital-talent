@@ -2115,10 +2115,6 @@
     "defaultMessage": "Lieu, langue et sécurité",
     "description": "Title for the location, language and security section of a pool advertisement"
   },
-  "ASNC88": {
-    "defaultMessage": "Exigence en matière de sécurité",
-    "description": "Label displayed on the edit pool form security requirement field."
-  },
   "ASYJlr": {
     "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
     "description": "Lead in text for list of items we consider for accessibility"
@@ -10300,7 +10296,7 @@
     "description": "Button text to add a new screening question"
   },
   "vgrRuU": {
-    "defaultMessage": "Exigence de sécurité",
+    "defaultMessage": "Exigence en matière de sécurité",
     "description": "Label for a process' security clearance requirement"
   },
   "vkAhEM": {
