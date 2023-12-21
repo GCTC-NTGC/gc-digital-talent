@@ -234,9 +234,9 @@ export const ExperienceForm = ({
     {
       label: experience
         ? intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            id: "NrivlZ",
-            description: "Display text for edit experience form in breadcrumbs",
+            defaultMessage: "Edit experience",
+            id: "zsUuN9",
+            description: "Title for edit experience page",
           })
         : intl.formatMessage({
             defaultMessage: "Add Experience",
