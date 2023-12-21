@@ -4507,6 +4507,10 @@
     "defaultMessage": "Annuler",
     "description": "Button text to cancel and close the skill dialog"
   },
+  "OVWo88": {
+    "defaultMessage": "Statut d'ancien combattant",
+    "description": "Title for Veteran status"
+  },
   "OWD/ns": {
     "defaultMessage": "6 à 10",
     "description": "Contract FTE range between six and ten"
@@ -5902,10 +5906,6 @@
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
-  },
-  "WyejQ2": {
-    "defaultMessage": "Statut de vétéran",
-    "description": "Legend text for Veteran status selection"
   },
   "X+IHFX": {
     "defaultMessage": "Veuillez préciser les lieux hors site",
@@ -8250,10 +8250,6 @@
   "jz/FoH": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
-  },
-  "k28EAQ": {
-    "defaultMessage": "Ancien combattant",
-    "description": "Veteran status label"
   },
   "k29AEC": {
     "defaultMessage": "<strong>Sans frais :</strong> <tollFreeLink>1-888-214-1090</tollFreeLink>",

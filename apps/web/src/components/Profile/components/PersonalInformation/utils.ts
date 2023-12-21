@@ -62,8 +62,8 @@ export const getLabels = (intl: IntlShape) => ({
   }),
   armedForcesStatus: intl.formatMessage({
     defaultMessage: "Veteran status",
-    id: "WyejQ2",
-    description: "Legend text for Veteran status selection",
+    id: "OVWo88",
+    description: "Title for Veteran status",
   }),
 });
 

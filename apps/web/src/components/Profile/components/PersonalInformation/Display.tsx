@@ -162,8 +162,8 @@ const Display = ({
         hasError={empty(armedForcesStatus)}
         label={intl.formatMessage({
           defaultMessage: "Veteran status",
-          id: "k28EAQ",
-          description: "Veteran status label",
+          id: "OVWo88",
+          description: "Title for Veteran status",
         })}
         data-h2-padding-top="base(x1)"
       >
