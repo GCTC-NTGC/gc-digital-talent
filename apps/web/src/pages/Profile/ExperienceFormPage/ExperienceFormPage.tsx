@@ -309,9 +309,8 @@ export const ExperienceForm = ({
                 <TableOfContents.AnchorLink id="additional-details">
                   {intl.formatMessage({
                     defaultMessage: "Highlight additional details",
-                    id: "E4YXS0",
-                    description:
-                      "Heading for the experience type section fo the experience form",
+                    id: "6v+j79",
+                    description: "Title for additional details section",
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
