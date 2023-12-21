@@ -4,6 +4,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -16,23 +17,19 @@ import {
   Button,
   Link,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import PageHeader from "~/components/PageHeader";
 import {
   User,
   Scalars,
-  useGetPoolCandidateSnapshotQuery,
   PoolCandidate,
   Maybe,
   Pool,
-} from "~/api/generated";
-import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 
@@ -64,7 +61,6 @@ export const ViewPoolCandidate = ({
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
-  const pages = useAdminPoolPages(intl, poolCandidate.pool);
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
 
   const sections: Record<string, SectionContent> = {
@@ -296,20 +292,6 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <PageHeader
-        icon={UserCircleIcon}
-        subtitle={`${poolCandidate.user.firstName} ${
-          poolCandidate.user.lastName
-        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
-        navItems={pages}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Candidate information",
-          id: "69/cNW",
-          description:
-            "Heading displayed above the pool candidate application page.",
-        })}
-      </PageHeader>
       <ProfileDetails user={poolCandidate.user} />
       <Sidebar.Wrapper>
         <Sidebar.Sidebar>
@@ -430,15 +412,148 @@ export const ViewPoolCandidate = ({
   );
 };
 
+const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
+  query PoolCandidateSnapshot($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      user {
+        id
+        firstName
+        lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
+        poolCandidates {
+          id
+          status
+          expiryDate
+          notes
+          suspendedAt
+          user {
+            id
+          }
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
+            publishingGroup
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+        }
+      }
+      profileSnapshot
+      signature
+      submittedAt
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        screeningQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
+      }
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      status
+    }
+  }
+`);
+
 type RouteParams = {
-  poolId: Scalars["ID"];
-  poolCandidateId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
+  poolCandidateId: Scalars["ID"]["output"];
 };
 
 export const RODViewPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
-  const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: PoolCandidateSnapshot_Query,
     variables: { poolCandidateId },
   });
 
