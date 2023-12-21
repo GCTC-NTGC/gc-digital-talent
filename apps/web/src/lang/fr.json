@@ -2007,6 +2007,10 @@
     "defaultMessage": "Trouver du talent numérique",
     "description": "Title displayed on hero for Search and Request pages."
   },
+  "9KGR0d": {
+    "defaultMessage": "Volet",
+    "description": "Title displayed for the Pool table Stream column."
+  },
   "9LgnbB": {
     "defaultMessage": "Exigence en matière de langue",
     "description": "Label for a process' language requirement"
@@ -3530,10 +3534,6 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
-  },
-  "HocLRh": {
-    "defaultMessage": "Nom du bassin",
-    "description": "Title displayed for the Pool table pool name column."
   },
   "HqQzy1": {
     "defaultMessage": "Les représentants du service à la clientèle sont disponibles pour vous aider par téléphone, tout au long de l'année, 24 heures sur 24 et 7 jours sur 7.",
@@ -7830,6 +7830,10 @@
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
+  },
+  "gWaU+D": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Pool table pool name column."
   },
   "gZKJeF": {
     "defaultMessage": "Exigence en matière de langue officielle",
