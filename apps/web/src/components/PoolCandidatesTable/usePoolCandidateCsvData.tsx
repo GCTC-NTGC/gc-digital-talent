@@ -200,9 +200,9 @@ const usePoolCandidateCsvData = (
     {
       key: "preferredLanguageForExam",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Written Exam Language",
-        id: "K7fcQT",
-        description: "CSV Header, Preferred Written Exam Language column",
+        defaultMessage: "Preferred written exam language",
+        id: "fg2wla",
+        description: "Title for preferred written exam language",
       }),
     },
     {

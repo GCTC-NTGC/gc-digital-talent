@@ -3791,10 +3791,6 @@
     "defaultMessage": "Relier votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
   },
-  "K7fcQT": {
-    "defaultMessage": "Langue préférée de l'examen écrit",
-    "description": "CSV Header, Preferred Written Exam Language column"
-  },
   "K8CPir": {
     "defaultMessage": "Appliquer à {poolName}",
     "description": "Heading for the application page"
@@ -5222,10 +5218,6 @@
   "Swq+OD": {
     "defaultMessage": "Toute durée",
     "description": "Option label for allowing any employment duration"
-  },
-  "SxP9zE": {
-    "defaultMessage": "Langue préférée de l'examen écrit",
-    "description": "Label displayed on the user form preferred written exam language field."
   },
   "SxPilM": {
     "defaultMessage": "Meilleures compétences",

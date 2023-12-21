@@ -216,10 +216,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForExam"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Written Exam Language",
-              id: "SxP9zE",
-              description:
-                "Label displayed on the user form preferred written exam language field.",
+              defaultMessage: "Preferred written exam language",
+              id: "fg2wla",
+              description: "Title for preferred written exam language",
             })}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({
