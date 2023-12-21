@@ -620,9 +620,8 @@ export const PoolPoster = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Optional technical skills",
-                  id: "CzrCfC",
-                  description:
-                    "Title for optional technical skills section of a pool advertisement",
+                  id: "mm1X02",
+                  description: "Title for optional technical skills section",
                 })}
               </Heading>
               <p data-h2-margin="base(x.5, 0)">

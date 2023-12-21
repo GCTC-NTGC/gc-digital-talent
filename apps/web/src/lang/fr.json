@@ -2635,10 +2635,6 @@
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
   },
-  "CzrCfC": {
-    "defaultMessage": "Compétences techniques facultatives",
-    "description": "Title for optional technical skills section of a pool advertisement"
-  },
   "D1+SmE": {
     "defaultMessage": "Erreur : échec de la mise à jour des principales compétences techniques",
     "description": "Message displayed to user after top technical skills fails to update"
@@ -4542,10 +4538,6 @@
   "OYjVy4": {
     "defaultMessage": "Nous avons tous des réalisations et des expériences diverses qui façonnent nos carrières et nos compétences. Ne communiquez que ce que vous seriez prêt à partager avec un collègue de travail. Sur cette plateforme, vous pouvez ajouter les éléments suivants à votre parcours professionnel :",
     "description": "Lead-in text for the list of experience type definitions"
-  },
-  "OZe0NZ": {
-    "defaultMessage": "Options des compétences techniques",
-    "description": "Heading for optional technical skills section"
   },
   "OaF7ls": {
     "defaultMessage": "Supprimer un utilisateur",
@@ -8878,6 +8870,10 @@
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
+  },
+  "mm1X02": {
+    "defaultMessage": "Compétences techniques facultatives",
+    "description": "Title for optional technical skills section"
   },
   "mmCU6z": {
     "defaultMessage": "Cote de sécurité :",

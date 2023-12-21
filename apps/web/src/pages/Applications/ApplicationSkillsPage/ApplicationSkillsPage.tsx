@@ -256,8 +256,8 @@ export const ApplicationSkills = ({
           >
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
-              id: "OZe0NZ",
-              description: "Heading for optional technical skills section",
+              id: "mm1X02",
+              description: "Title for optional technical skills section",
             })}
           </Heading>
           <p>{optionalDisclaimer}</p>
