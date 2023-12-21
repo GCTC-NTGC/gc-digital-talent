@@ -2587,10 +2587,6 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "Title displayed for the User table Preferred Communication Language column."
   },
-  "Cia2li": {
-    "defaultMessage": "Des nouvelles possibilités sont à venir!",
-    "description": "Heading for message when there are no executive opportunities available"
-  },
   "Cjp2F6": {
     "defaultMessage": "Informations sur le bassin",
     "description": "Title for the pool info page"
@@ -7592,7 +7588,7 @@
     "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
-    "defaultMessage": "D’autres offres seront bientôt affichées!",
+    "defaultMessage": "D'autres possibilités seront bientôt affichées!",
     "description": "Heading for message about upcoming opportunities"
   },
   "g+lQO/": {

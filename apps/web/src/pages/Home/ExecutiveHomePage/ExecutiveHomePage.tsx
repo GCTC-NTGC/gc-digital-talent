@@ -121,9 +121,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
             <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
-                id: "Cia2li",
-                description:
-                  "Heading for message when there are no executive opportunities available",
+                id: "g+JcDC",
+                description: "Heading for message about upcoming opportunities",
               })}
             </Heading>
             <p>
