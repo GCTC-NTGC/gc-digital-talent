@@ -96,7 +96,7 @@
     "concurrently": "^8.2.2",
     "core-js": "^3.34.0",
     "dotenv": "^16.3.1",
-    "eslint": "^8.55.0",
+    "eslint": "^8.56.0",
     "eslint-config-custom": "*",
     "hydrogen-webpack-plugin": "*",
     "jest": "^29.7.0",
