@@ -2543,10 +2543,6 @@
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
   },
-  "CUxHd8": {
-    "defaultMessage": "Erreur : Échec de la mise à jour de la compétence",
-    "description": "Message displayed to user after skill fails to be updated."
-  },
   "CWy2xr": {
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
@@ -7347,10 +7343,6 @@
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
   },
-  "eSyXWT": {
-    "defaultMessage": "Erreur : échec de la mise à jour de la compétence",
-    "description": "Message displayed to user after skill fails to get updated."
-  },
   "eTTlR0": {
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
@@ -8498,6 +8490,10 @@
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
+  },
+  "kfjmTt": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de la compétence",
+    "description": "Message displayed to user after skill fails to be updated"
   },
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
