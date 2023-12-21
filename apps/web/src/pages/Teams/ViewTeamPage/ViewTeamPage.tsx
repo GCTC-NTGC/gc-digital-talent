@@ -26,8 +26,8 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
   const intl = useIntl();
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team information",
-    id: "SXoCma",
-    description: "Page title for the view team page",
+    id: "b+KdqW",
+    description: "Title for team information page",
   });
 
   return (

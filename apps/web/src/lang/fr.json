@@ -5147,10 +5147,6 @@
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
   },
-  "SXoCma": {
-    "defaultMessage": "Renseignements sur l’équipe",
-    "description": "Page title for the view team page"
-  },
   "SXyhoR": {
     "defaultMessage": "Ce ne sont pas toutes les plaintes qui parviennent directement au commissaire à l’accessibilité. Certaines exceptions s’appliquent : ",
     "description": "Disclaimer about accessibility complaint exceptions."
@@ -5446,10 +5442,6 @@
   "UGaZR2": {
     "defaultMessage": "Lieu",
     "description": "Location options in Edit Pool Form"
-  },
-  "UHH1Oh": {
-    "defaultMessage": "Informations sur l’équipe",
-    "description": "Title for the team information page"
   },
   "UJ/rX1": {
     "defaultMessage": "<strong>Courriel :</strong> <chrcMailLink>Info.Com@chrc-ccdp.gc.ca</chrcMailLink>",
@@ -6606,6 +6598,10 @@
   "azdo5+": {
     "defaultMessage": "Modifier - famille",
     "description": "Page title for the skill family edit page"
+  },
+  "b+KdqW": {
+    "defaultMessage": "Renseignements sur l'équipe",
+    "description": "Title for team information page"
   },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",

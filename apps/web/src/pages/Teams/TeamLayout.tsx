@@ -52,8 +52,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: ClipboardDocumentListIcon,
         title: intl.formatMessage({
           defaultMessage: "Team information",
-          id: "UHH1Oh",
-          description: "Title for the team information page",
+          id: "b+KdqW",
+          description: "Title for team information page",
         }),
         link: {
           url: paths.teamView(team.id),
