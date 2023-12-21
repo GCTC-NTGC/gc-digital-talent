@@ -28,21 +28,17 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
     </p>
   );
 
-  const telephone = (
+  const telephone = user.telephone ? (
     <p>
-      {user.telephone ? (
-        <Link
-          external
-          href={`tel:${user.telephone}`}
-          aria-label={user.telephone.replace(/.{1}/g, "$& ")}
-        >
-          {user.telephone}
-        </Link>
-      ) : (
-        ""
-      )}
+      <Link
+        external
+        href={`tel:${user.telephone}`}
+        aria-label={user.telephone.replace(/.{1}/g, "$& ")}
+      >
+        {user.telephone}
+      </Link>
     </p>
-  );
+  ) : null;
 
   const email = (
     <Link external href={`mailto:${user.email}`}>
