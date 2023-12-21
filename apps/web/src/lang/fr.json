@@ -4139,10 +4139,6 @@
     "defaultMessage": "{title} exigent un minimum d’expérience ou un diplôme pertinent.",
     "description": "Descriptive text about experience or education requirements of a pool advertisement"
   },
-  "LoKxJe": {
-    "defaultMessage": "Volet",
-    "description": "Title displayed on the search request table stream column."
-  },
   "LocjmN": {
     "defaultMessage": "De retour aux équipes",
     "description": "Button text to return to the table of teams page"
@@ -5558,10 +5554,6 @@
   "UZWLKn": {
     "defaultMessage": "En attente d’évaluation des compétences",
     "description": "Status for an application that is having skills reviewed"
-  },
-  "Ua/X9Q": {
-    "defaultMessage": "Volet",
-    "description": "Title for stream on summary of filters section"
   },
   "Ude1JQ": {
     "defaultMessage": "Texte",
@@ -9526,10 +9518,6 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
-  },
-  "qYWmzA": {
-    "defaultMessage": "Volet",
-    "description": "Label for stream filter in search form."
   },
   "qZd17O": {
     "defaultMessage": " Créer une compétence",
