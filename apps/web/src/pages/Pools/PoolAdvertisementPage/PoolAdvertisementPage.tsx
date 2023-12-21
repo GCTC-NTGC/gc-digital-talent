@@ -569,9 +569,8 @@ export const PoolPoster = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
-                  id: "706kTz",
-                  description:
-                    "Title for skill requirements section of a pool advertisement",
+                  id: "tON7JL",
+                  description: "Title for skill requirements",
                 })}
               </Heading>
               <Text>

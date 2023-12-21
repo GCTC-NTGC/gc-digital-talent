@@ -1595,10 +1595,6 @@
     "defaultMessage": "Des évaluations avec de réels utilisateurs",
     "description": "Heading for how we test accessibility."
   },
-  "706kTz": {
-    "defaultMessage": "Exigences en matière de compétences",
-    "description": "Title for skill requirements section of a pool advertisement"
-  },
   "71+GZq": {
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
     "description": "Indigenous Apprenticeship hero image text alternative"
@@ -2246,10 +2242,6 @@
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
     "description": "Title for dashboard"
-  },
-  "AtGnJW": {
-    "defaultMessage": "Compétences requises",
-    "description": "Page title for the application skills page"
   },
   "Aw00Lh": {
     "defaultMessage": "L’un des facteurs suivants a-t-il une influence sur la décision d’établir un contrat?",
@@ -8363,10 +8355,6 @@
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
   },
-  "jX2LG0": {
-    "defaultMessage": "Compétences requises",
-    "description": "Heading for skill requirements section of the application review page."
-  },
   "jYPyWq": {
     "defaultMessage": "Sélectionner une famille de compétences et une compétence pour continuer.",
     "description": "Error message when a user attempts to add a skill before selecting one"
@@ -10023,6 +10011,10 @@
     "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
     "description": "Notice that application can be saved and returned to at a later time."
   },
+  "tON7JL": {
+    "defaultMessage": "Exigences en matière de compétences",
+    "description": "Title for skill requirements"
+  },
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
@@ -10266,10 +10258,6 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
-  },
-  "v27PDJ": {
-    "defaultMessage": "Compétences requises",
-    "description": "Title for _skills_ fieldset in the _digital services contracting questionnaire_"
   },
   "v6boy9": {
     "defaultMessage": "Expérience ou études minimales",

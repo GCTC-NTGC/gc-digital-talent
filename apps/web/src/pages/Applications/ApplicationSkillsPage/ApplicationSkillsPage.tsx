@@ -53,8 +53,8 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Skill requirements",
-      id: "AtGnJW",
-      description: "Page title for the application skills page",
+      id: "tON7JL",
+      description: "Title for skill requirements",
     }),
     subtitle: intl.formatMessage({
       defaultMessage:

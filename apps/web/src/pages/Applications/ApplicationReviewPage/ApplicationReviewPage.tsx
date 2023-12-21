@@ -360,9 +360,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "jX2LG0",
-          description:
-            "Heading for skill requirements section of the application review page.",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
