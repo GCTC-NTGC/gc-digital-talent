@@ -234,8 +234,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               color="secondary"
               title={intl.formatMessage({
                 defaultMessage: "Get hiring experience",
-                id: "UPtqUI",
-                description: "Heading for the direct on digital talent section",
+                id: "SfhT1q",
+                description: "Title to get hiring experience",
               })}
               links={[
                 {

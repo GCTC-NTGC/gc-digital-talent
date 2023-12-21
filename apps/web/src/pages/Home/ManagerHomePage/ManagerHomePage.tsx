@@ -272,9 +272,8 @@ const HomePage = () => {
               img: { path: peopleGatheredAroundLaptop },
               title: intl.formatMessage({
                 defaultMessage: "Get hiring experience",
-                id: "azBrrC",
-                description:
-                  "Title for the feature about getting hiring experience",
+                id: "SfhT1q",
+                description: "Title to get hiring experience",
               }),
               summary: (
                 <>

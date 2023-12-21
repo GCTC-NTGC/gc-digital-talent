@@ -5179,6 +5179,10 @@
     "defaultMessage": "Vous avez répondu aux questions suivantes :",
     "description": "Message in screening questions section of the application review page."
   },
+  "SfhT1q": {
+    "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
+    "description": "Title to get hiring experience"
+  },
   "SgkkWp": {
     "defaultMessage": "Remplir et soumettre ce questionnaire au moment où un contrat de services numériques est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_"
@@ -5482,10 +5486,6 @@
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
-  },
-  "UPtqUI": {
-    "defaultMessage": "Acquérir de l’expérience en matière d’embauche",
-    "description": "Heading for the direct on digital talent section"
   },
   "UPx6kk": {
     "defaultMessage": "<primary>{title}</primary> à {organization}",
@@ -6630,10 +6630,6 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
-  },
-  "azBrrC": {
-    "defaultMessage": "Obtenez une expérience d’embauche",
-    "description": "Title for the feature about getting hiring experience"
   },
   "azOv8A": {
     "defaultMessage": "Téléphone :",
