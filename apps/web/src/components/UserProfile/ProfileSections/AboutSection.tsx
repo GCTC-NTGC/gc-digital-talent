@@ -137,10 +137,11 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
               {intl.formatMessage({
-                defaultMessage: "Preferred Written Exam Language:",
-                id: "rSymh2",
-                description: "Preferred Language for exams label and colon",
+                defaultMessage: "Preferred written exam language",
+                id: "fg2wla",
+                description: "Title for preferred written exam language",
               })}
+              {intl.formatMessage(commonMessages.dividingColon)}
               <br />
               <span data-h2-font-weight="base(700)">
                 {preferredLanguageForExam

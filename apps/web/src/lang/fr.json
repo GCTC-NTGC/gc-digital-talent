@@ -7455,6 +7455,10 @@
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
   },
+  "fg2wla": {
+    "defaultMessage": "Langue préférée pour l'examen écrit",
+    "description": "Title for preferred written exam language"
+  },
   "fgVziE": {
     "defaultMessage": "Signer et enregistrer les changements",
     "description": "Button text to submit indigenous identity form."
@@ -9479,10 +9483,6 @@
     "defaultMessage": "p. ex., développeur de logiciels",
     "description": "Placeholder for _type of resource_ field in the _digital services contracting questionnaire_"
   },
-  "rSymh2": {
-    "defaultMessage": "Langue préférée de l'examen écrit :",
-    "description": "Preferred Language for exams label and colon"
-  },
   "rTnjej": {
     "defaultMessage": "Utilisateur supprimé avec succès",
     "description": "Message displayed when a user has been deleted"
@@ -10762,9 +10762,5 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
-  },
-  "zzwPOR": {
-    "defaultMessage": "Langue préférée pour l'examen écrit :",
-    "description": "Display text for the preferred written exam language field on users"
   }
 }
