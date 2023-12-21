@@ -1699,6 +1699,10 @@
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
   },
+  "7i+qEB": {
+    "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
+    "description": "Disclaimer before signing Indigenous self-declaration form"
+  },
   "7k27sT": {
     "defaultMessage": "Clôture manuellement",
     "description": "Heading for the close pool dialog"
@@ -2822,10 +2826,6 @@
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
-  },
-  "Dz9xib": {
-    "defaultMessage": "Lorsque vous soumettez votre signature (en tapant votre nom complet), vous contribuez à créer un espace équitable et sécuritaire afin de permettre aux peuples autochtones de profiter de ces occasions.",
-    "description": "Disclaimer displayed before signing the Indigenous self-declaration form"
   },
   "DzCUmx": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
@@ -6938,10 +6938,6 @@
   "cTCdw5": {
     "defaultMessage": "Nous tenons à vous remercier de votre intérêt à devenir un(e) apprenti(e) de la TI au sein du gouvernement du Canada. Votre expérience vécue, votre passion et vos intérêts sont chaleureusement accueillis et reconnus. Un membre de l’équipe du Bureau des initiatives autochtones communiquera avec vous au cours des trois à cinq prochains jours ouvrables pour discuter votre demande.",
     "description": "Description of review process and next steps for the IAP applicant."
-  },
-  "cVszq/": {
-    "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
-    "description": "Sentence before signature space on the add indigenous identity dialog"
   },
   "cWqtEU": {
     "defaultMessage": "Chercher les compétences",
