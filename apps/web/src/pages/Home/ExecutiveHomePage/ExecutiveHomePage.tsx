@@ -189,8 +189,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage: "Contact us",
-                    id: "eAQwAl",
-                    description: "Link text for hiring manager call to action",
+                    id: "RIi/3q",
+                    description: "Title for Contact us action",
                   }),
                 },
               ]}
@@ -252,9 +252,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage: "Contact us",
-                    description:
-                      "Link text to contact the the team about gaining hiring experience",
-                    id: "Mozx6m",
+                    description: "Title for Contact us action",
+                    id: "RIi/3q",
                   }),
                 },
               ]}

@@ -2139,10 +2139,6 @@
     "defaultMessage": "Foire aux questions (FAQ)",
     "description": "Heading for Frequently Asked Questions section on sign in page"
   },
-  "AWiMVP": {
-    "defaultMessage": "Contactez-nous",
-    "description": "Label for the support link in the Footer."
-  },
   "AWk4BX": {
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
@@ -4215,10 +4211,6 @@
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
   },
-  "Mozx6m": {
-    "defaultMessage": "Communiquez avec nous",
-    "description": "Link text to contact the the team about gaining hiring experience"
-  },
   "MsLKAj": {
     "defaultMessage": "Veuillez consulter l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
@@ -4962,6 +4954,10 @@
   "RIMCZn": {
     "defaultMessage": "Langue parlée préférée pour l'entretien",
     "description": "Label displayed on the user form preferred spoken interview language field."
+  },
+  "RIi/3q": {
+    "defaultMessage": "Pour nous joindre",
+    "description": "Title for Contact us action"
   },
   "RNI+IH": {
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
@@ -7235,10 +7231,6 @@
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question 3 for clarifying skill details"
   },
-  "eAQwAl": {
-    "defaultMessage": "Communiquez avec nous",
-    "description": "Link text for hiring manager call to action"
-  },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
@@ -7550,10 +7542,6 @@
   "g+lQO/": {
     "defaultMessage": "Groupes de publication",
     "description": "Title for publishing groups"
-  },
-  "g0/bWP": {
-    "defaultMessage": "Communiquez avec nous",
-    "description": "Link text to contact the the team about starting a recruitment process"
   },
   "g1++nq": {
     "defaultMessage": "Adresse de courriel personnelle",
@@ -8338,10 +8326,6 @@
   "jz/FoH": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
-  },
-  "k1rUj5": {
-    "defaultMessage": "Pour nous joindre",
-    "description": "Title for the contact dialog for the IT Apprenticeship Program for Indigenous Peoples application process"
   },
   "k28EAQ": {
     "defaultMessage": "Ancien combattant",

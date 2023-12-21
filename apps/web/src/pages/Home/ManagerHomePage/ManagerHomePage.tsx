@@ -150,9 +150,8 @@ const HomePage = () => {
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage: "Contact us",
-                  description:
-                    "Link text to contact the the team about starting a recruitment process",
-                  id: "g0/bWP",
+                  description: "Title for Contact us action",
+                  id: "RIi/3q",
                 }),
               },
             ]}
