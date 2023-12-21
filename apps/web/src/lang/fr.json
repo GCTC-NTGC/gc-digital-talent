@@ -5323,6 +5323,10 @@
     "defaultMessage": "Quelques questions sur le sujet",
     "description": "Page title for the application screening questions introduction page"
   },
+  "TiIkSF": {
+    "defaultMessage": "Études postsecondaires de deux ans",
+    "description": "Option for education requirement, 2-year post-secondary"
+  },
   "TiVKPr": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
     "description": "Legend for considered position languages check list in language information form"
@@ -6366,10 +6370,6 @@
   "ZIDY0W": {
     "defaultMessage": "Considérations relatives aux opérations",
     "description": "Heading for the Operations considerations section on the digital services contracting questionnaire"
-  },
-  "ZIwaDE": {
-    "defaultMessage": "Études postsecondaires de deux ans",
-    "description": "Title for the education requirements"
   },
   "ZLDt/c": {
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
