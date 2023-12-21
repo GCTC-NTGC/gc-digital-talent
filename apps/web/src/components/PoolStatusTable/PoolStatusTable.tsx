@@ -166,7 +166,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         }),
       },
     ),
-    columnHelper.accessor((row) => accessors.date(row.expiryDate, intl), {
+    columnHelper.accessor((row) => accessors.date(row.expiryDate), {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
