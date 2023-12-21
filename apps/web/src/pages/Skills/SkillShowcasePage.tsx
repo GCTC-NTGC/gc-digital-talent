@@ -10,6 +10,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { UserSkill, useUserSkillShowcaseQuery } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
@@ -41,11 +42,7 @@ export const SkillShowcase = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Skill showcase",
-    id: "F6Rwd+",
-    description: "Title for the skill showcase page",
-  });
+  const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
 
   const subtitle = intl.formatMessage({
     defaultMessage:

@@ -8,6 +8,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import {
   Skill,
@@ -68,11 +69,7 @@ const ImproveBehaviouralSkills = ({
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill Showcase",
-        id: "r4R1KZ",
-        description: "Title for the skill showcase page",
-      }),
+      label: intl.formatMessage(navigationMessages.skillShowcase),
       url: paths.skillShowcase(),
     },
     {

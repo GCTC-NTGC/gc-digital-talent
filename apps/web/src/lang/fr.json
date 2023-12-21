@@ -2979,10 +2979,6 @@
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
   },
-  "F6Rwd+": {
-    "defaultMessage": "Vitrine des compétences",
-    "description": "Title for the skill showcase page"
-  },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
     "description": "Description of the application process and the next step"
@@ -7707,10 +7703,6 @@
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
   },
-  "gntui6": {
-    "defaultMessage": "Démonstration de compétences",
-    "description": "Title for the skill library skills showcase section"
-  },
   "gnu0Eb": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill form name (English) field."
@@ -9538,10 +9530,6 @@
   "r2gD/4": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
-  },
-  "r4R1KZ": {
-    "defaultMessage": "Vitrine de compétences",
-    "description": "Title for the skill showcase page"
   },
   "r6L5aI": {
     "defaultMessage": "Auto-déclaration",

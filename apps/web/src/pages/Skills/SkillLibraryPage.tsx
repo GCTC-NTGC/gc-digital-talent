@@ -7,6 +7,7 @@ import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import {
   Skill,
@@ -58,11 +59,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
     },
     showcase: {
       id: "showcase",
-      title: intl.formatMessage({
-        defaultMessage: "Skill showcase",
-        id: "gntui6",
-        description: "Title for the skill library skills showcase section",
-      }),
+      title: intl.formatMessage(navigationMessages.skillShowcase),
     },
   };
 
