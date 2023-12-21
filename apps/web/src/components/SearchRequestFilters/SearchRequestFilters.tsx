@@ -255,10 +255,9 @@ const ApplicantFilters = ({
           {employmentDuration && (
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Employment Duration",
-                id: "PmMr9l",
-                description:
-                  "Title for work language on summary of filters section",
+                defaultMessage: "Employment duration",
+                description: "Title for Employment duration section",
+                id: "Muh/+P",
               })}
               content={employmentDuration}
             />

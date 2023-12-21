@@ -4227,6 +4227,10 @@
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
   },
+  "Muh/+P": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Title for Employment duration section"
+  },
   "MuyuAu": {
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
@@ -4698,10 +4702,6 @@
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
-  },
-  "PmMr9l": {
-    "defaultMessage": "Durée de l’emploi",
-    "description": "Title for work language on summary of filters section"
   },
   "PnyBYM": {
     "defaultMessage": "Allons-y!",
@@ -5754,10 +5754,6 @@
   "VwVXYb": {
     "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
     "description": "Lead in text describing the skills assessed for a qualified recruitment"
-  },
-  "VwVtqr": {
-    "defaultMessage": "Durée de l'emploi",
-    "description": "Heading for employment duration section of the search form."
   },
   "VxJ5Dz": {
     "defaultMessage": "Membres de l’équipe",
@@ -7814,10 +7810,6 @@
   "hP2Dxo": {
     "defaultMessage": "Oui, à temps partiel",
     "description": "Part-time personnel telework option"
-  },
-  "hRe0yl": {
-    "defaultMessage": "Durée de l’emploi",
-    "description": "Employment duration"
   },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
