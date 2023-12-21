@@ -1259,6 +1259,10 @@
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
   },
+  "gBoG9M": {
+    "defaultMessage": "Profil et candidatures",
+    "description": "Name of Profile and applications page"
+  },
   "gM4WDL": {
     "defaultMessage": "Non",
     "description": "Negative answer"

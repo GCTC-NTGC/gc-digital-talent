@@ -53,11 +53,7 @@ export const SkillShowcase = ({
 
   const crumbs = useBreadcrumbs([
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {

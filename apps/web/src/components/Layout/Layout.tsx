@@ -101,12 +101,7 @@ const Layout = () => {
           key="profile-applications"
           to={paths.profileAndApplications()}
         >
-          {intl.formatMessage({
-            defaultMessage: "Profile and applications",
-            id: "nBoNqj",
-            description:
-              "Label displayed on the profile and applications menu item.",
-          })}
+          {intl.formatMessage(navigationMessages.profileAndApplications)}
         </MenuLink>,
         ...authLinks,
       ];
