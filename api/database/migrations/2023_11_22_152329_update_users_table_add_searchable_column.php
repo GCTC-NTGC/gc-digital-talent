@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,10 +14,10 @@ return new class extends Migration
     {
         // Add searchable column
         // Blueprint doesn't work well with tsvector columns; hence, the raw statement
-        \DB::statement('ALTER TABLE users ADD COLUMN searchable TSVECTOR');
+        DB::statement('ALTER TABLE users ADD COLUMN searchable TSVECTOR');
 
         // Update the tsvector column with the data for existing rows
-        \DB::statement('
+        DB::statement('
             UPDATE users
             SET searchable = to_tsvector(\'english\', COALESCE(email, \'\') || \' \' ||
             CONCAT_WS(\' \', COALESCE(first_name, \'\'), COALESCE(last_name, \' \'), COALESCE(telephone, \' \'), COALESCE(preferred_lang, \' \'), COALESCE(current_city, \' \')) ||
@@ -30,7 +31,7 @@ return new class extends Migration
         );
 
         // Create a GIN index on the tsvector column for efficient full-text search
-        \DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
+        DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
     }
 
     /**
