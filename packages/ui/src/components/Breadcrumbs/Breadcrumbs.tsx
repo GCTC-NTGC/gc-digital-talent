@@ -20,7 +20,8 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
     <>
       <div
         data-h2-background-color="base:all(black)"
-        data-h2-padding="base(x1, 0)"
+        data-h2-border-top="base(1px solid black.20)"
+        data-h2-padding="base(x.5, 0)"
       >
         <nav
           aria-label={intl.formatMessage(uiMessages.breadcrumbs)}

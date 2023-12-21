@@ -61,8 +61,8 @@ const HolidayAlert = (): JSX.Element | null => {
       <div
         data-h2-min-height="base(25vh) p-tablet(100%)"
         data-h2-display="base(block) base:dark(none)"
+        data-h2-box-shadow="base(holidayInset)"
         style={{
-          boxShadow: "inset 0 0 10px 10px white",
           backgroundImage: `url('${lightImage}')`,
           backgroundSize: "cover",
           backgroundPosition: "bottom center",
@@ -71,8 +71,8 @@ const HolidayAlert = (): JSX.Element | null => {
       <div
         data-h2-min-height="base(25vh) p-tablet(100%)"
         data-h2-display="base(none) base:dark(block)"
+        data-h2-box-shadow="base(holidayInset)"
         style={{
-          boxShadow: "inset 0 0 10px 10px darkslategrey",
           backgroundImage: `url('${darkImage}')`,
           backgroundSize: "cover",
           backgroundPosition: "bottom center",
