@@ -492,12 +492,9 @@ const ApplicationReview = ({
                 </li>
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "jT5ANA",
-                      description:
-                        "Community list item for sign and submit section of application review page.",
-                    })}
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
                   </p>
                 </li>
                 <li>

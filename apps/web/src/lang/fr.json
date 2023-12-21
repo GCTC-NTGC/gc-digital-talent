@@ -8191,10 +8191,6 @@
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
-  "jT5ANA": {
-    "defaultMessage": "« Je comprends faire partie d’un groupe où règne la confiance mutuelle »",
-    "description": "Community list item for sign and submit section of application review page."
-  },
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
     "description": "Title for to go to the search page on Browse IT jobs page"
@@ -10020,7 +10016,7 @@
     "description": "Text displayed as label for Indigenous languages selector"
   },
   "uooR1r": {
-    "defaultMessage": "« Je comprends que je fais partie d’une communauté qui se fait confiance »",
+    "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
   },
   "uqiPvH": {
