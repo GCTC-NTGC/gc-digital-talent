@@ -22,6 +22,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -262,22 +263,28 @@ const CreateSkillFamilyPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create skill family",
+    id: "FCQnWB",
+    description: "Page title for the skill family creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create skill family",
-          id: "FCQnWB",
-          description: "Page title for the skill family creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        <CreateSkillFamilyForm
-          handleCreateSkillFamily={handleCreateSkillFamily}
-          skills={skills}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          <CreateSkillFamilyForm
+            handleCreateSkillFamily={handleCreateSkillFamily}
+            skills={skills}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

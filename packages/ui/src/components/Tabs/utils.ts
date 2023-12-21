@@ -55,7 +55,6 @@ export const commonTabStyles = {
     "data-h2-margin-top": "base(-1px)",
     "data-h2-max-width": "base(100%)",
     "data-h2-outline": "base(none)",
-    "data-h2-padding": "base(x1)",
   },
 };
 
