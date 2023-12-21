@@ -155,6 +155,11 @@ const commonMessages = defineMessages({
     id: "Qn/95I",
     description: "Title for Employment equity",
   },
+  editThisSection: {
+    defaultMessage: "Edit this section",
+    id: "XZl6Ks",
+    description: "Text to trigger edit of section action",
+  },
 });
 
 export default commonMessages;

@@ -6335,10 +6335,6 @@
     "defaultMessage": "Ajouter une compétence à ce processus",
     "description": "Title for the find a skill dialog within a pool"
   },
-  "Z8hEuY": {
-    "defaultMessage": "Modifiez cette section",
-    "description": "Default edit link text for application review page"
-  },
   "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
     "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
@@ -6966,10 +6962,6 @@
   "clAZjC": {
     "defaultMessage": "Réponse à la question {number}",
     "description": "Label for answer to specific question field"
-  },
-  "co9aIV": {
-    "defaultMessage": "Modifier cette section",
-    "description": "Button text to start editing one of the profile sections."
   },
   "crzWxb": {
     "defaultMessage": "Ouvrir le menu",
