@@ -53,8 +53,8 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
       id: "technical",
       title: intl.formatMessage({
         defaultMessage: "Technical skill library",
-        id: "tM8SXS",
-        description: "Title for the skill library technical skills section",
+        id: "FEK54g",
+        description: "Title for technical skill library section",
       }),
     },
     showcase: {
