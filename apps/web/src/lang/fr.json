@@ -3279,6 +3279,10 @@
     "defaultMessage": "Mise à jour réussie des principales compétences comportementales",
     "description": "Success message displayed after updating top behavioural skills"
   },
+  "GgBjAd": {
+    "defaultMessage": "Échelle salariale",
+    "description": "Label for pool advertisement salary range"
+  },
   "GhszAa": {
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
@@ -5362,10 +5366,6 @@
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
     "description": "A datetime formatted as a certain time on a certain date"
-  },
-  "TrO4uL": {
-    "defaultMessage": "Échelle salariale :",
-    "description": "Label for the range of salary expected for a classification"
   },
   "TrbPjE": {
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
@@ -8514,10 +8514,6 @@
   "lr6PWk": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
     "description": "Copy explaining mfa apps"
-  },
-  "ls7b2p": {
-    "defaultMessage": "Plage de salaire :",
-    "description": "Label for pool advertisement salary range"
   },
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",

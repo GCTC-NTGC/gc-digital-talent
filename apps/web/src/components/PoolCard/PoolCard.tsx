@@ -159,12 +159,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </IconLabel>
           <IconLabel
             icon={CurrencyDollarIcon}
-            label={intl.formatMessage({
-              id: "TrO4uL",
-              defaultMessage: "Salary range: ",
-              description:
-                "Label for the range of salary expected for a classification",
-            })}
+            label={
+              intl.formatMessage({
+                defaultMessage: "Salary range",
+                id: "GgBjAd",
+                description: "Label for pool advertisement salary range",
+              }) + intl.formatMessage(commonMessages.dividingColon)
+            }
           >
             {salaryRanges ? salaryRanges[0] : nullMessage}
           </IconLabel>

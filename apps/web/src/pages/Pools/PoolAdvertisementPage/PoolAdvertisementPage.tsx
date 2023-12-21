@@ -385,11 +385,13 @@ export const PoolPoster = ({
               <div data-h2-margin-bottom="base(x3)">
                 <DataRow
                   Icon={CurrencyDollarIcon}
-                  label={intl.formatMessage({
-                    defaultMessage: "Salary range:",
-                    id: "ls7b2p",
-                    description: "Label for pool advertisement salary range",
-                  })}
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Salary range",
+                      id: "GgBjAd",
+                      description: "Label for pool advertisement salary range",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
                   value={
                     localizeSalaryRange(
                       classification?.minSalary,
