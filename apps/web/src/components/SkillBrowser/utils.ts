@@ -299,7 +299,7 @@ export const getSkillFamilySkillCount = (
 
 export const getSkillCategorySkillCount = (
   skills: Skill[],
-  category: SkillCategory,
+  category: SkillCategory | "all",
 ): number => {
   const skillsByCategory = skills.filter(
     (skill) => skill.category === category,
@@ -357,9 +357,14 @@ export const getCategoryOptions = (
 export const getFamilyOptions = (
   skills: Skill[],
   intl: IntlShape,
-  category?: SkillCategory,
+  category?: SkillCategory | "all",
   inLibrary?: Skill[],
 ): Option[] => {
+  console.log({
+    full: skills.length,
+    category,
+    categoryLen: category ? getSkillCategorySkillCount(skills, category) : 0,
+  });
   let familyOptions = [
     {
       value: "all",
@@ -370,9 +375,10 @@ export const getFamilyOptions = (
           description: "Label for removing the skill family filter",
         },
         {
-          count: category
-            ? getSkillCategorySkillCount(skills, category)
-            : skills.length,
+          count:
+            category && category !== "all"
+              ? getSkillCategorySkillCount(skills, category)
+              : skills.length,
         },
       ),
     },
