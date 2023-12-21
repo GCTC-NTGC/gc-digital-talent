@@ -348,7 +348,7 @@ export const UpdateSkill = () => {
               id: "M2LfhH",
               description: "Breadcrumb title for the edit skill page link.",
             }),
-            url: routes.skillFamilyUpdate(skillId),
+            url: routes.skillUpdate(skillId),
           },
         ]
       : []),
