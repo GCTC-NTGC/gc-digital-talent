@@ -3348,7 +3348,7 @@
     "description": "Title of the Diversity, equity and inclusion link section"
   },
   "HBuWZ0": {
-    "defaultMessage": "Titre de l’emploi",
+    "defaultMessage": "Titre du poste",
     "description": "Title for job title for a position"
   },
   "HDiUEc": {
@@ -7151,10 +7151,6 @@
     "defaultMessage": "Quelles sont les exigences en matière d’études – puis-je présenter une demande si je n’ai pas de diplôme collégial ou universitaire?",
     "description": "Learn more dialog question twelve heading"
   },
-  "dgVAPq": {
-    "defaultMessage": "Titre du poste",
-    "description": "Label for _financial authority job title_ field in the _digital services contracting questionnaire_"
-  },
   "dh2xc5": {
     "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
     "description": "Explanation on how employment equity information will be used, item one"
@@ -10362,10 +10358,6 @@
   "wPpvvm": {
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
-  },
-  "wRhcac": {
-    "defaultMessage": "Titre du poste",
-    "description": "Label for _business owner job title_ field in the _digital services contracting questionnaire_"
   },
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
