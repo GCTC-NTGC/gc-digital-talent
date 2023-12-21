@@ -188,9 +188,8 @@ export const EditPoolForm = ({
       }),
       shortTitle: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "m/Ch5y",
-        description:
-          "Shorter version of the title  for the pool essential skills",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     educationRequirements: {

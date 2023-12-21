@@ -3759,6 +3759,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
   },
+  "K0Zkdw": {
+    "defaultMessage": "Compétences constituant un atout",
+    "description": "Title for optional skills"
+  },
   "K3LEpl": {
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
@@ -6094,10 +6098,6 @@
   "XpiMeF": {
     "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill library"
-  },
-  "Xpo+u6": {
-    "defaultMessage": "Compétences utiles",
-    "description": "Title for the optional skills snapshot section"
   },
   "XqF3wS": {
     "defaultMessage": "Coordonnées",
@@ -8586,10 +8586,6 @@
   "m+IDnG": {
     "defaultMessage": "Que puis-je faire si j'ai supprimé l'application ou changé de téléphone et que je n'ai plus les codes de récupération?",
     "description": "First of the Frequently Asked Questions for logging in"
-  },
-  "m/Ch5y": {
-    "defaultMessage": "Compétences constituant un atout",
-    "description": "Shorter version of the title for the pool essential skills"
   },
   "m0JFE/": {
     "defaultMessage": "Code",

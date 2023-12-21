@@ -217,8 +217,8 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Asset skills",
-              id: "Xpo+u6",
-              description: "Title for the optional skills snapshot section",
+              id: "K0Zkdw",
+              description: "Title for optional skills",
             })}
           </Accordion.Trigger>
           <Accordion.Content>

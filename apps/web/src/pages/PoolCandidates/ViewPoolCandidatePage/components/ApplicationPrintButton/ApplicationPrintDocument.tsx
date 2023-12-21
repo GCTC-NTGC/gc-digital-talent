@@ -260,9 +260,8 @@ const ApplicationPrintDocument = React.forwardRef<
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Asset skills",
-                      id: "Xpo+u6",
-                      description:
-                        "Title for the optional skills snapshot section",
+                      id: "K0Zkdw",
+                      description: "Title for optional skills",
                     })}
                   </Heading>
                   {usedAssetsSkills.length > 0 ? (

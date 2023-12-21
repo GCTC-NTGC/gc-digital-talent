@@ -132,8 +132,8 @@ export const ViewPoolCandidate = ({
       id: "asset-skills",
       title: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "Xpo+u6",
-        description: "Title for the optional skills snapshot section",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     questions: {
