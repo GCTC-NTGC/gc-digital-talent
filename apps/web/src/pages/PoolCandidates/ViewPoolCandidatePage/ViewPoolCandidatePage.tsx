@@ -181,9 +181,8 @@ export const ViewPoolCandidate = ({
       id: "government",
       title: intl.formatMessage({
         defaultMessage: "Government employee information",
-        id: "nEVNHp",
-        description:
-          "Title for the government employee information snapshot section",
+        id: "Jf3vT5",
+        description: "Title for the government employee information section",
       }),
     },
     language: {

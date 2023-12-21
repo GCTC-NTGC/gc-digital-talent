@@ -40,9 +40,8 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "government",
     defineMessage({
       defaultMessage: "Government employee information",
-      id: "AwzZwe",
-      description:
-        "Heading for the government information section on the application profile",
+      id: "Jf3vT5",
+      description: "Title for the government employee information section",
     }),
   ],
   [

@@ -2235,10 +2235,6 @@
     "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
   },
-  "AwzZwe": {
-    "defaultMessage": "Renseignements sur les fonctionnaires",
-    "description": "Heading for the government information section on the application profile"
-  },
   "AxKi2s": {
     "defaultMessage": "Évaluation planifiée",
     "description": "Title for a column that displays a complete or not state."
@@ -3742,6 +3738,10 @@
   "JerysR": {
     "defaultMessage": "Par compétences",
     "description": "Tab title for experiences sorted by skills in applicant profile."
+  },
+  "Jf3vT5": {
+    "defaultMessage": "Information sur l'employé(e) du gouvernement",
+    "description": "Title for the government employee information section"
   },
   "JgdijS": {
     "defaultMessage": "Afficher {pageSize}",
@@ -9002,10 +9002,6 @@
   "nE+RKq": {
     "defaultMessage": "Alors détendez-vous et profitez du temps des Fêtes avec vos êtres chers.",
     "description": "Message suggesting the user relax and enjoy the holiday season"
-  },
-  "nEVNHp": {
-    "defaultMessage": "Information sur l’employé(e) du gouvernement ",
-    "description": "Title for the government employee information snapshot section"
   },
   "nFO3Ai": {
     "defaultMessage": "Mettez à jour votre profil et vos coordonnées pour vous assurer de recevoir les notifications.",
