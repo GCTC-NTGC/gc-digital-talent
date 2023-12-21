@@ -186,9 +186,8 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
     <Table<PoolCandidate>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "CpjTkh",
-        description:
-          "Caption for the table that contains a users pool statuses",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       })}
       data={data}
       columns={columns}

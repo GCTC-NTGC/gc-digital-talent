@@ -98,8 +98,8 @@ export const ViewPoolCandidate = ({
       id: "pool-information",
       title: intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "Cjp2F6",
-        description: "Title for the pool info page",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       }),
     },
     snapshot: {
