@@ -32,7 +32,7 @@ const PageHeader = <T,>({
         <Navigation items={subNavItems} />
       ) : null}
       <Separator
-        data-h2-background-color="base(gray)"
+        data-h2-background-color="base(black.2)"
         data-h2-margin="base(x1, 0, x2, 0)"
       />
     </>

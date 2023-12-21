@@ -13,7 +13,7 @@ const commonStyles = {
   "data-h2-outline": "base(none)",
   "data-h2-padding": "base(x.5, x1)",
   "data-h2-cursor": "base(pointer)",
-  "data-h2-border-bottom": "base:all(1px solid white.10)",
+  "data-h2-border-bottom": "base:all(1px solid white.2)",
   "data-h2-color":
     "base:all(white) base:all:focus-visible(black) base:all:iap:focus-visible(black)",
   "data-h2-width": "base(100%)",

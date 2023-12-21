@@ -58,7 +58,11 @@ const ManagerInfo = ({
             "Heading for the manager info section of the single search request view.",
         })}
       </Heading>
-      <div data-h2-background-color="base(gray.lightest)">
+      <div
+        data-h2-background-color="base(foreground)"
+        data-h2-radius="base(rounded)"
+        data-h2-shadow="base(larger)"
+      >
         <div data-h2-padding="base(x1)">
           <div
             data-h2-flex-grid="base(stretch, x1, 0)"
@@ -66,7 +70,7 @@ const ManagerInfo = ({
           >
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -100,7 +104,7 @@ const ManagerInfo = ({
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -126,7 +130,7 @@ const ManagerInfo = ({
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -265,7 +269,9 @@ export const ViewSearchRequest = ({
         </Heading>
         <div
           data-h2-padding="base(x1)"
-          data-h2-background-color="base(gray.lightest)"
+          data-h2-background-color="base(foreground)"
+          data-h2-radius="base(rounded)"
+          data-h2-shadow="base(larger)"
         >
           <FilterBlock
             title={intl.formatMessage({
@@ -279,13 +285,13 @@ export const ViewSearchRequest = ({
           />
           <Separator
             orientation="horizontal"
-            data-h2-background-color="base(gray.lighter)"
+            data-h2-background-color="base(black.2)"
             data-h2-margin-bottom="base(x1)"
           />
           <SearchRequestFilters filters={abstractFilter} />
           <div
             data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border-top="base(1px solid gray)"
+            data-h2-border-top="base(1px solid black.2)"
             data-h2-margin="base(x1, 0, 0, 0)"
           >
             <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
