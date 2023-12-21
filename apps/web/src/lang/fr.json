@@ -2683,6 +2683,10 @@
     "defaultMessage": "Nom :",
     "description": "Name label and colon"
   },
+  "DB9pFd": {
+    "defaultMessage": "Langue préférée pour l'entrevue orale",
+    "description": "Title for preferred spoken interview language"
+  },
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
@@ -5907,10 +5911,6 @@
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
     "description": "Link text for security clearance information"
   },
-  "Wmuizf": {
-    "defaultMessage": "Langue préférée pour l'entretien parlé :",
-    "description": "Display text for the preferred spoken interview language field on users"
-  },
   "Wnid+N": {
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
@@ -6834,10 +6834,6 @@
   "c795MO": {
     "defaultMessage": "Imprimer sans coordonnées",
     "description": "Button label for print user anonymous profile."
-  },
-  "c7At4h": {
-    "defaultMessage": "Langue parlée préférée pour l'entretien :",
-    "description": "Preferred Language for interviews label and colon"
   },
   "cA0iH+": {
     "defaultMessage": "Renseignements personnels",
