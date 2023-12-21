@@ -10,6 +10,7 @@ import {
   commonMessages,
   getLocalizedName,
   getPublishingGroup,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -65,6 +66,37 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
     columnHelper.accessor(
+      (row) => classificationAccessor(row.classifications),
+      {
+        id: "classifications",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+          classificationSortFn(rowA.original, rowB.original),
+        cell: ({ row: { original: pool } }) =>
+          classificationsCell(pool.classifications),
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        intl.formatMessage(
+          row.stream ? getPoolStream(row.stream) : commonMessages.notFound,
+        ),
+      {
+        id: "stream",
+        header: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "9KGR0d",
+          description: "Title displayed for the Pool table Stream column.",
+        }),
+        sortingFn: normalizedText,
+      },
+    ),
+    columnHelper.accessor(
       (row) =>
         intl.formatMessage(
           row.publishingGroup
@@ -105,22 +137,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-      },
-    ),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
       },
     ),
     columnHelper.accessor(
