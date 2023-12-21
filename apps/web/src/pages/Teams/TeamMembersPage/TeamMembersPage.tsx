@@ -5,19 +5,16 @@ import { useIntl } from "react-intl";
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import {
-  Role,
-  Scalars,
-  Team,
-  useAllUsersNamesQuery,
-  useGetTeamQuery,
-  useListRolesQuery,
-  UserPublicProfile,
-} from "~/api/generated";
+import { Scalars, Team, useGetTeamQuery } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { groupRoleAssignmentsByUser, TeamMember } from "~/utils/teamUtils";
+import {
+  checkRole,
+  groupRoleAssignmentsByUser,
+  TeamMember,
+} from "~/utils/teamUtils";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -31,18 +28,16 @@ const columnHelper = createColumnHelper<TeamMember>();
 
 interface TeamMembersProps {
   members: Array<TeamMember>;
-  availableUsers: Array<UserPublicProfile> | null;
-  roles: Array<Role>;
   team: Team;
 }
 
-const TeamMembers = ({
-  members,
-  roles,
-  team,
-  availableUsers,
-}: TeamMembersProps) => {
+const TeamMembers = ({ members, team }: TeamMembersProps) => {
   const intl = useIntl();
+  const { roleAssignments } = useAuthorization();
+  const canModifyMembers = checkRole(
+    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    roleAssignments,
+  );
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team members",
@@ -50,16 +45,7 @@ const TeamMembers = ({
     description: "Page title for the view team members page",
   });
 
-  const columns = [
-    columnHelper.display({
-      id: "actions",
-      header: intl.formatMessage({
-        defaultMessage: "Actions",
-        id: "OxeGLu",
-        description: "Title displayed for the team table actions column",
-      }),
-      cell: ({ row: { original: member } }) => actionCell(member, team, roles),
-    }),
+  let columns = [
     columnHelper.accessor(
       (member) => getFullNameLabel(member.firstName, member.lastName, intl),
       {
@@ -96,6 +82,21 @@ const TeamMembers = ({
     }),
   ] as ColumnDef<TeamMember>[];
 
+  if (canModifyMembers) {
+    columns = [
+      columnHelper.display({
+        id: "actions",
+        header: intl.formatMessage({
+          defaultMessage: "Actions",
+          id: "OxeGLu",
+          description: "Title displayed for the team table actions column",
+        }),
+        cell: ({ row: { original: member } }) => actionCell(member, team),
+      }),
+      ...columns,
+    ];
+  }
+
   const data = React.useMemo(() => members.filter(notEmpty), [members]);
 
   return (
@@ -122,15 +123,11 @@ const TeamMembers = ({
             description: "Label for the team members table search input",
           }),
         }}
-        add={{
-          component: (
-            <AddTeamMemberDialog
-              team={team}
-              availableRoles={roles}
-              availableUsers={availableUsers}
-            />
-          ),
-        }}
+        {...(canModifyMembers && {
+          add: {
+            component: <AddTeamMemberDialog team={team} members={members} />,
+          },
+        })}
       />
     </>
   );
@@ -147,28 +144,11 @@ const TeamMembersPage = () => {
   const [{ data, fetching, error }] = useGetTeamQuery({
     variables: { teamId },
   });
-  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
-    useListRolesQuery();
-  const [{ data: userData, error: userError }] = useAllUsersNamesQuery();
 
   const team = data?.team;
-  const roles = React.useMemo(
-    () =>
-      rolesData?.roles
-        ? rolesData.roles.filter(notEmpty).filter((role) => role.isTeamBased)
-        : [],
-    [rolesData?.roles],
-  );
   const users = React.useMemo(
     () => groupRoleAssignmentsByUser(data?.team?.roleAssignments || []),
     [data?.team?.roleAssignments],
-  );
-  const availableUsers = React.useMemo(
-    () =>
-      userData?.userPublicProfiles
-        ?.filter(notEmpty)
-        .filter((user) => !users.find((teamUser) => teamUser.id === user?.id)),
-    [userData?.userPublicProfiles, users],
   );
 
   const navigationCrumbs = React.useMemo(
@@ -211,17 +191,9 @@ const TeamMembersPage = () => {
 
   return (
     <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending
-        fetching={fetching || rolesFetching}
-        error={error || rolesError || userError}
-      >
+      <Pending fetching={fetching} error={error}>
         {team && users ? (
-          <TeamMembers
-            members={users}
-            availableUsers={availableUsers || null}
-            roles={roles}
-            team={team}
-          />
+          <TeamMembers members={users} team={team} />
         ) : (
           <ThrowNotFound />
         )}
