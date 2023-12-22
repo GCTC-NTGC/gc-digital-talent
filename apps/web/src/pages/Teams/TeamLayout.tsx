@@ -9,7 +9,7 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
+import AdminHero from "~/components/Hero/AdminHero";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -82,9 +82,17 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={teamName} icon={currentPage?.icon} navItems={pages}>
-        {currentPage?.title}
-      </PageHeader>
+      <AdminHero
+        title={currentPage?.title}
+        subtitle={teamName}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
     </>
   );
 };
@@ -103,12 +111,9 @@ const TeamLayout = () => {
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

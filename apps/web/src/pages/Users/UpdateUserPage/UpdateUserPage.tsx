@@ -34,7 +34,6 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import UserRoleTable from "./components/IndividualRoleTable";
@@ -254,7 +253,6 @@ type RouteParams = {
 
 const UpdateUserPage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
@@ -333,47 +331,8 @@ const UpdateUserPage = () => {
 
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.users),
-      url: routes.userTable(),
-    },
-    ...(userId
-      ? [
-          {
-            label: getFullNameLabel(
-              userData?.user?.firstName,
-              userData?.user?.lastName,
-              intl,
-            ),
-            url: routes.userView(userId),
-          },
-        ]
-      : []),
-    ...(userId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> user</hidden>",
-              id: "0WIPpI",
-              description: "Edit user breadcrumb text",
-            }),
-            url: routes.userUpdate(userId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",

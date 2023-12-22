@@ -1,12 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 
 import useRoutes from "~/hooks/useRoutes";
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 import PoolTableApi from "./components/PoolTable";
 
@@ -32,11 +31,16 @@ export const PoolPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={Squares2X2Icon}>{pageTitle}</PageHeader>
-      <PoolTableApi title={pageTitle} />
-    </AdminContentWrapper>
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <PoolTableApi title={pageTitle} />
+      </AdminContentWrapper>
+    </>
   );
 };
 

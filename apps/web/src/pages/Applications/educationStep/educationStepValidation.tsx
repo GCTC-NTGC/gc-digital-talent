@@ -3,7 +3,8 @@ import {
   EducationRequirementOption,
   Pool,
   PoolCandidate,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { ExperienceForDate } from "~/types/experience";
 import { isEducationExperience } from "~/utils/experienceUtils";
 

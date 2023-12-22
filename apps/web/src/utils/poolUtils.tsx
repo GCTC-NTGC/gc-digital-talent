@@ -20,7 +20,6 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
 import {
   PublishingGroup,
   RoleAssignment,
@@ -29,7 +28,8 @@ import {
   PoolStream,
   Classification,
   Pool,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";

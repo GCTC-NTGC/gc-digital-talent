@@ -5,8 +5,11 @@ import { defineMessages, useIntl } from "react-intl";
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import {
+  EducationRequirementOption,
+  Experience,
+} from "@gc-digital-talent/graphql";
 
-import { EducationRequirementOption, Experience } from "~/api/generated";
 import {
   isAwardExperience,
   isCommunityExperience,

@@ -12,7 +12,7 @@ import {
   Pill,
   Separator,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -28,7 +28,6 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
 import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
@@ -429,7 +428,6 @@ type RouteParams = {
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -457,35 +455,8 @@ export const EditPoolPage = () => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(data?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Edit<hidden> pool</hidden>",
-        id: "D6HIId",
-        description: "Edit pool breadcrumb text",
-      }),
-      url: routes.poolUpdate(poolId),
-    },
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>
