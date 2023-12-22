@@ -2,12 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Experience } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
-import { useGetMyExperiencesQuery } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
@@ -120,31 +121,16 @@ const ApplicationCareerTimelineEditPage = () => {
     true,
   );
 
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery({
-    requestPolicy: "cache-first",
-  });
+  const experiences: Experience[] = unpackMaybes(application.user?.experiences);
+  const experience = experiences?.find((exp) => exp?.id === experienceId);
 
-  const experience = experienceData?.me?.experiences?.find(
-    (exp) => exp?.id === experienceId,
-  );
-
-  return (
-    <Pending fetching={experienceFetching} error={experienceError}>
-      {application && experience ? (
-        <ApplicationCareerTimelineEdit
-          application={application}
-          experience={experience}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application && experience ? (
+    <ApplicationCareerTimelineEdit
+      application={application}
+      experience={experience}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

@@ -9,7 +9,6 @@ import {
   SecurityStatus,
   WorkRegion,
   SkillCategory,
-  GenericJobTitle,
   User,
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
@@ -23,14 +22,12 @@ describe("Submit Application Workflow Tests", () => {
     cy.intercept("POST", "/graphql", function (req) {
       aliasQuery(req, "browsePools");
       aliasQuery(req, "getPool");
-      aliasQuery(req, "GetApplication");
-      aliasQuery(req, "getApplicationData");
+      aliasQuery(req, "Application");
       aliasQuery(req, "MyApplications");
-      aliasQuery(req, "getMyExperiences");
 
       aliasMutation(req, "createApplication");
       aliasMutation(req, "UpdateApplication");
-      aliasMutation(req, "SubmitApplication");
+      aliasMutation(req, "Application_Submit");
       aliasMutation(req, "CreateEducationExperience");
       aliasMutation(req, "UpdateEducationExperience");
     });
@@ -155,7 +152,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlcreateApplicationMutation");
 
     // Welcome page - step one
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /Welcome, Cypress/i })
       .should("exist")
       .and("be.visible");
@@ -166,7 +163,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlUpdateApplicationMutation");
 
     // Review profile page - step two
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /Review your profile/i })
       .should("exist")
       .and("be.visible");
@@ -178,7 +175,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlUpdateApplicationMutation");
 
     // Review career timeline page - step three
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", {
       name: /Great work! On to your career timeline./i,
     })
@@ -261,7 +258,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.wait("@gqlCreateEducationExperienceMutation");
     cy.expectToast(/Successfully added experience!/i);
     // returned to main career timeline review page
-    cy.wait("@gqlgetMyExperiencesQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
       .and("be.visible");
@@ -273,7 +270,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step four
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /Minimum experience or education/i })
       .should("exist")
       .and("be.visible");
@@ -298,7 +295,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.expectToast(/Successfully updated your education requirement!/i);
 
     // Skills requirement page - step five
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /Let's talk about skills/i })
       .should("exist")
       .and("be.visible");
@@ -344,7 +341,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.expectToast(/Successfully updated your skills!/i);
 
     // Screening questions page - step six
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /A few related questions/i })
       .should("exist")
       .and("be.visible");
@@ -370,7 +367,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.expectToast(/Successfully updated screening question responses!/i);
 
     // Review page - step seven
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", { name: /Review your submission/i })
       .should("exist")
       .and("be.visible");
@@ -396,11 +393,11 @@ describe("Submit Application Workflow Tests", () => {
     // time to submit!
     cy.findByRole("textbox", { name: /Your full name/i }).type("Signature");
     cy.findByRole("button", { name: /Submit my application/i }).click();
-    cy.wait("@gqlSubmitApplicationMutation");
+    cy.wait("@gqlApplication_SubmitMutation");
     cy.expectToast(/We successfully received your application/i);
 
     // Application home after submitting
-    cy.wait("@gqlGetApplicationQuery");
+    cy.wait("@gqlApplicationQuery");
     cy.findByRole("heading", {
       name: /We successfully received your application/i,
     })
