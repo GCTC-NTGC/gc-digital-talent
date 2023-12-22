@@ -20,7 +20,7 @@ interface NotesDialogProps {
 }
 
 const PoolCandidate_NotesMutation = graphql(/* GraphQL */ `
-  mutation UpdatePoolCandidate(
+  mutation UpdatePoolCandidateNotes(
     $id: ID!
     $input: UpdatePoolCandidateAsAdminInput!
   ) {

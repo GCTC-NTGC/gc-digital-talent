@@ -41,7 +41,7 @@ import ApplicationInformation from "./components/ApplicationInformation/Applicat
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 
-const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
+const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       id
@@ -600,7 +600,7 @@ export const RODViewPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useQuery({
-    query: PoolCandidateSnapshot_Query,
+    query: PoolCandidate_SnapshotQuery,
     variables: { poolCandidateId },
   });
 
