@@ -688,10 +688,11 @@ class User extends Model implements Authenticatable, LaratrustUser
                 ->get(['id'])
                 ->pluck('id')
                 ->unique()
+                ->take(100)
                 ->toArray();
 
             // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $resultIds)->take(100);
+            $query->whereIn('id', $resultIds);
         }
 
         return $query;
