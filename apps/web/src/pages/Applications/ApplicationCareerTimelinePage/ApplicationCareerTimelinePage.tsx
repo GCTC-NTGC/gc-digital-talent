@@ -4,20 +4,19 @@ import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
-import { OperationContext } from "urql";
 
 import {
   Button,
   Heading,
   Link,
-  Pending,
   Separator,
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -25,16 +24,12 @@ import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  ApplicationStep,
-  useGetMyExperiencesQuery,
-  useUpdateApplicationMutation,
-} from "~/api/generated";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
@@ -438,42 +433,18 @@ export const ApplicationCareerTimeline = ({
   );
 };
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "AwardExperience",
-    "CommunityExperience",
-    "EducationExperience",
-    "PersonalExperience",
-    "WorkExperience",
-  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first",
-};
-
 const ApplicationCareerTimelinePage = () => {
   const { application } = useApplication();
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery({
-    context,
-  });
 
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending fetching={experienceFetching} error={experienceError}>
-      {application ? (
-        <ApplicationCareerTimeline
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application ? (
+    <ApplicationCareerTimeline
+      application={application}
+      experiences={experiences}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

@@ -6,13 +6,13 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
   useDeleteExperienceMutation,
   useExperienceMutations,
 } from "~/hooks/useExperienceMutations";
-import { Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
   formValuesToSubmitData,
@@ -35,7 +35,7 @@ type ExperienceExperienceFormValues =
     action: FormAction | "";
   };
 interface EditExperienceFormProps {
-  applicationId: Scalars["ID"];
+  applicationId: Scalars["ID"]["output"];
   experience: AnyExperience;
 }
 

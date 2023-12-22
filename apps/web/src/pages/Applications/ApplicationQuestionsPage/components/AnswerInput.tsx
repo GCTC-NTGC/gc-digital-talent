@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 
 import { TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-
-import { ScreeningQuestion } from "~/api/generated";
+import { ScreeningQuestion } from "@gc-digital-talent/graphql";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;

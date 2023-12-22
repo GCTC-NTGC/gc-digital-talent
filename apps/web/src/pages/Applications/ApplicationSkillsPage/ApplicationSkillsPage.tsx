@@ -8,28 +8,28 @@ import {
   Button,
   Heading,
   Link,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  ApplicationStep,
+  Experience,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill } from "~/utils/skillUtils";
-import {
-  SkillCategory,
-  useUpdateApplicationMutation,
-  ApplicationStep,
-  useGetMyExperiencesQuery,
-} from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
@@ -375,27 +375,13 @@ export const ApplicationSkills = ({
 
 const ApplicationSkillsPage = () => {
   const { application } = useApplication();
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
 
-  const experiences = experienceData?.me?.experiences as AnyExperience[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending fetching={experienceFetching} error={experienceError}>
-      {application ? (
-        <ApplicationSkills
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application ? (
+    <ApplicationSkills application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 export default ApplicationSkillsPage;
