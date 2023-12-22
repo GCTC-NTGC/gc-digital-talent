@@ -1,4 +1,8 @@
 {
+  "+3THj+": {
+    "defaultMessage": "Nettement supérieur au niveau requis",
+    "description": "Option for skill assessment decision level."
+  },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
@@ -715,6 +719,10 @@
     "defaultMessage": "Non réussi",
     "description": "Did not complete selection for education status input"
   },
+  "NhJY9U": {
+    "defaultMessage": "Supérieur au niveau requis",
+    "description": "Option for skill assessment decision level."
+  },
   "Nhi8rT": {
     "defaultMessage": "Vous avez presque atteint la limite!",
     "description": "Message displayed when one away from repeater limit."
@@ -955,6 +963,10 @@
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
   },
+  "VXC0uU": {
+    "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",
+    "description": "Option for justification when assessment decision is unsuccessful."
+  },
   "VYbDJk": {
     "defaultMessage": "cela me demande de transporter, soulever et déposer des équipements pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -1106,6 +1118,10 @@
   "aTHtqQ": {
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
+  },
+  "aaJPpO": {
+    "defaultMessage": "Au niveau requis",
+    "description": "Option for skill assessment decision level."
   },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
