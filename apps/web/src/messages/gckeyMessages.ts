@@ -9,8 +9,8 @@ const messages = defineMessages({
   },
   answerRecoveryCodes: {
     defaultMessage:
-      "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-    id: "0DiRNR",
+      "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
+    id: "h8AdRp",
     description: "GCKey answer for when user does not have recovery codes",
   },
   questionRemove2FA: {
@@ -22,8 +22,8 @@ const messages = defineMessages({
   },
   answerRemove2FA: {
     defaultMessage:
-      "We cannot remove the two factor authentication from your account, but you can contact our <helpLink>Help Desk</helpLink> and they can assist you with account recovery.",
-    id: "KF0Ip1",
+      "We cannot remove two-factor authentication, but you can contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
+    id: "i20Mlb",
     description: "GCKey answer for ability to remove two-factor authentication",
   },
   questionAuthCodes: {
@@ -35,8 +35,8 @@ const messages = defineMessages({
   },
   answerAuthCodes: {
     defaultMessage:
-      "Please contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-    id: "a9mK5h",
+      "Please contact our <helpLink>Help Desk</helpLink> for help with recovering your account.",
+    id: "/eSALf",
     description: "GCKey answer for when user authenticator codes not accepted",
   },
   questionExistingAccount: {
@@ -46,8 +46,8 @@ const messages = defineMessages({
   },
   answerExistingAccount: {
     defaultMessage:
-      "If you already have a GCKey account you can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before. If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
-    id: "D1vh2n",
+      "If you already have a GCKey account, you can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before. If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
+    id: "oiaUxW",
     description: "GCKey answer for when user already has an account",
   },
   questionWhatGCKey: {
@@ -68,8 +68,8 @@ const messages = defineMessages({
   },
   answerContactGCkey1: {
     defaultMessage:
-      "If you have questions about GCKey, please contact the GCKey team at:",
-    id: "nZMHXQ",
+      "If you have questions about GCKey, please contact the GCKey team at",
+    id: "6Ru0Ha",
     description:
       "GCKey answer for who to contact about GCKey, introduction sentence",
   },
@@ -93,8 +93,8 @@ const messages = defineMessages({
   },
   answerContactGCkey5: {
     defaultMessage:
-      "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
-    id: "+1d3JD",
+      "Customer service representatives are available to assist you by phone year-round, 24 hours a day, 7 days a week.",
+    id: "Tp7hml",
     description:
       "GCKey answer for who to contact about GCKey, contact availability",
   },
@@ -105,8 +105,8 @@ const messages = defineMessages({
   },
   answerAuthApp: {
     defaultMessage:
-      "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-    id: "+QBGeG",
+      "As the Government of Canada, we cannot recommend any specific third-party vendors or apps. Well-known digital vendors, such as Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+    id: "/N8Owk",
     description: "GCKey answer for which authenticator app to use",
   },
   questionAuthAlternative: {
@@ -117,15 +117,15 @@ const messages = defineMessages({
   },
   answerAuthAlternative: {
     defaultMessage:
-      "Currently, our site only supports authentication through an authenticator app.",
-    id: "XK64g1",
+      "Currently, our site supports authentication only through an authenticator app.",
+    id: "nKExgi",
     description:
       "GCKey answer for whether there is an alternative to an authenticator app",
   },
   moreQuestions: {
     defaultMessage:
-      "Read all the FAQ's and still stuck? <helpLink>Contact our team for help</helpLink>",
-    id: "+gl4B0",
+      "Read all the FAQs and still stuck? <helpLink>Contact our team for help</helpLink>",
+    id: "dm3BlY",
     description: "GCKey question and answer for more support",
   },
 });

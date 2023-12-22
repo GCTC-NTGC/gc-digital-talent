@@ -3,10 +3,6 @@
     "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3 (88 000 $ à 110 000 $)",
     "description": "IT-03 classification aria label including titles and salaries"
   },
-  "+1d3JD": {
-    "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
-    "description": "GCKey answer for who to contact about GCKey, contact availability"
-  },
   "+5+rJS": {
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
@@ -54,10 +50,6 @@
   "+PLUZ8": {
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
-  },
-  "+QBGeG": {
-    "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
-    "description": "GCKey answer for which authenticator app to use"
   },
   "+SoiCw": {
     "defaultMessage": "Endroits exclus",
@@ -114,10 +106,6 @@
   "+fIw4g": {
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
-  },
-  "+gl4B0": {
-    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez votre équipe pour obtenir de l'aide</helpLink>",
-    "description": "GCKey question and answer for more support"
   },
   "+h7iQH": {
     "defaultMessage": "Masquer les évaluations des compétences de ce recrutement",
@@ -247,6 +235,10 @@
     "defaultMessage": "Langues de travail",
     "description": "Opportunity languages label"
   },
+  "/N8Owk": {
+    "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
+    "description": "GCKey answer for which authenticator app to use"
+  },
   "/Oq5UR": {
     "defaultMessage": "Date prévue de début du contrat",
     "description": "Label for _contract start date_ field in the _digital services contracting questionnaire_"
@@ -290,6 +282,10 @@
   "/ar49+": {
     "defaultMessage": "S’engager à apprendre tout au long du programme, tant au travail qu’en suivant un programme de formation en ligne",
     "description": "IAP Requirement list item five"
+  },
+  "/eSALf": {
+    "defaultMessage": "Veuillez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "/esEW+": {
     "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
@@ -406,10 +402,6 @@
   "0DILS7": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez organiser un recrutement de talents numériques qui créera un bassin de candidats. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the department-specific recruitment form"
-  },
-  "0DiRNR": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
   },
   "0E9hiS": {
     "defaultMessage": "Familles de compétences",
@@ -1530,6 +1522,10 @@
   "6R9N+h": {
     "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
     "description": "Text for a link to the Pool Candidates table"
+  },
+  "6Ru0Ha": {
+    "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
+    "description": "GCKey answer for who to contact about GCKey, introduction sentence"
   },
   "6SfJEp": {
     "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
@@ -2759,10 +2755,6 @@
     "defaultMessage": "Erreur : échec de la mise à jour des principales compétences techniques",
     "description": "Message displayed to user after top technical skills fails to update"
   },
-  "D1vh2n": {
-    "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
-    "description": "GCKey answer for when user already has an account"
-  },
   "D2HsoO": {
     "defaultMessage": "Que se passe-t-il après avoir répondu à l’offre d’emploi?",
     "description": "Title for the what to expect section of a pool advertisement"
@@ -3934,10 +3926,6 @@
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is employed by government"
-  },
-  "KF0Ip1": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "KFdDjj": {
     "defaultMessage": "25 000 $ à 50 000 $",
@@ -5519,6 +5507,10 @@
     "defaultMessage": "{time} le {date}",
     "description": "A datetime formatted as a certain time on a certain date"
   },
+  "Tp7hml": {
+    "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
+    "description": "GCKey answer for who to contact about GCKey, contact availability"
+  },
   "TrO4uL": {
     "defaultMessage": "Échelle salariale :",
     "description": "Label for the range of salary expected for a classification"
@@ -6175,10 +6167,6 @@
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
     "description": "Description for the digital government talent search"
   },
-  "XK64g1": {
-    "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
-    "description": "GCKey answer for whether there is an alternative to an authenticator app"
-  },
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
@@ -6698,10 +6686,6 @@
   "a8wd8c": {
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
-  },
-  "a9mK5h": {
-    "defaultMessage": "Veuillez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "aBSEkP": {
     "defaultMessage": "Expériences de travail",
@@ -7363,6 +7347,10 @@
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
     "description": "Message describing the employment equity filter in the search form."
   },
+  "dm3BlY": {
+    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez votre équipe pour obtenir de l'aide</helpLink>",
+    "description": "GCKey question and answer for more support"
+  },
   "dnKWUf": {
     "defaultMessage": "Ajouter des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
@@ -7999,6 +7987,10 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
+  "h8AdRp": {
+    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for when user does not have recovery codes"
+  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
@@ -8174,6 +8166,10 @@
   "i131l/": {
     "defaultMessage": "Détails de base",
     "description": "title of 'basic details' section of the 'assessment details' dialog"
+  },
+  "i20Mlb": {
+    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
+    "description": "GCKey answer for ability to remove two-factor authentication"
   },
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
@@ -9195,6 +9191,10 @@
     "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",
     "description": "Message displayed to admins when a process is closed or archived"
   },
+  "nKExgi": {
+    "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
+    "description": "GCKey answer for whether there is an alternative to an authenticator app"
+  },
   "nMYWzb": {
     "defaultMessage": "Exigence linguistique",
     "description": "Label displayed on the edit pool form language requirement field."
@@ -9222,10 +9222,6 @@
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"
-  },
-  "nZMHXQ": {
-    "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse : ",
-    "description": "GCKey answer for who to contact about GCKey, introduction sentence"
   },
   "nZT/WM": {
     "defaultMessage": "Type de poste",
@@ -9406,6 +9402,10 @@
   "og5vUB": {
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
+  },
+  "oiaUxW": {
+    "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
+    "description": "GCKey answer for when user already has an account"
   },
   "om2bZu": {
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
