@@ -126,7 +126,7 @@ const ExperienceCard = ({
   return (
     <div
       id={id || `experience-${experience.id}`}
-      data-h2-border-left="base(x.5 solid tertiary)"
+      data-h2-border-left="base(x.5 solid tertiary) base:iap(x.5 solid secondary) base:iap:dark(x.5 solid secondary.lighter)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(larger)"
       data-h2-radius="base(0 rounded rounded 0)"
@@ -260,7 +260,7 @@ const ExperienceCard = ({
             <Separator
               orientation="horizontal"
               decorative
-              data-h2-background-color="base(gray.lighter)"
+              data-h2-background-color="base(gray)"
               data-h2-margin="base(x1 0)"
             />
             {isAwardExperience(experience) && (
@@ -292,7 +292,7 @@ const ExperienceCard = ({
               <Separator
                 orientation="horizontal"
                 decorative
-                data-h2-background-color="base(gray.lighter)"
+                data-h2-background-color="base(gray)"
                 data-h2-margin="base(x1 0)"
               />
             )}
@@ -308,7 +308,7 @@ const ExperienceCard = ({
                 <Separator
                   orientation="horizontal"
                   decorative
-                  data-h2-background-color="base(gray.lighter)"
+                  data-h2-background-color="base(gray)"
                   data-h2-margin="base(x1 0)"
                 />
                 <ContentSection
