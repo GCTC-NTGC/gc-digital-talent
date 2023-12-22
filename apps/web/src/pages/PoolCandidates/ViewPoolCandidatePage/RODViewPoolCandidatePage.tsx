@@ -462,6 +462,7 @@ const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
         }
       }
       profileSnapshot
+      notes
       signature
       submittedAt
       pool {

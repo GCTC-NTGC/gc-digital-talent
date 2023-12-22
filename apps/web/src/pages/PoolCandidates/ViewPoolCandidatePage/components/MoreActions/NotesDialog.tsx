@@ -2,14 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
+import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
-import { Maybe, PoolCandidate } from "@gc-digital-talent/graphql";
+import { Maybe, PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-
-import { useUpdatePoolCandidateStatusMutation } from "~/api/generated";
 
 type FormValues = {
   notes?: PoolCandidate["notes"];
@@ -20,10 +19,22 @@ interface NotesDialogProps {
   notes: Maybe<string> | undefined;
 }
 
+const PoolCandidate_UpdateMutation = graphql(/* GraphQL */ `
+  mutation UpdatePoolCandidate(
+    $id: ID!
+    $input: UpdatePoolCandidateAsAdminInput!
+  ) {
+    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+      id
+      notes
+    }
+  }
+`);
+
 const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [, executeMutation] = useUpdatePoolCandidateStatusMutation();
+  const [, executeMutation] = useMutation(PoolCandidate_UpdateMutation);
 
   const methods = useForm<FormValues>({
     defaultValues: {
