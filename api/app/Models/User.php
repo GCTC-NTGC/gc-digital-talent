@@ -119,30 +119,28 @@ class User extends Model implements Authenticatable, LaratrustUser
             'communityExperiences',
             'awardExperiences',
         ]);
+        $attributesToPluck = [
+            'poolCandidates' => ['notes'],
+            'workExperiences' => ['role', 'organization', 'division', 'details'],
+            'educationExperiences' => ['thesis_title', 'institution', 'details', 'area_of_study'],
+            'personalExperiences' => ['title', 'description', 'details'],
+            'communityExperiences' => ['title', 'organization', 'project', 'details'],
+            'awardExperiences' => ['title', 'details', 'issued_by'],
+        ];
+        $entireIndex = collect([$this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
+        foreach ($attributesToPluck as $relationship => $attributes) {
+            foreach ($attributes as $attribute) {
+                $values = $this->$relationship->pluck($attribute)->reject(function ($value) {
+                    return is_null($value) || $value === '';
+                })->toArray();
 
-        return collect([$this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city])
-            ->merge($this->poolCandidates()->pluck('notes'))
-            ->merge($this->workExperiences()->pluck('role'))
-            ->merge($this->workExperiences()->pluck('organization'))
-            ->merge($this->workExperiences()->pluck('division'))
-            ->merge($this->workExperiences()->pluck('details'))
-            ->merge($this->educationExperiences()->pluck('thesis_title'))
-            ->merge($this->educationExperiences()->pluck('institution'))
-            ->merge($this->educationExperiences()->pluck('details'))
-            ->merge($this->educationExperiences()->pluck('area_of_study'))
-            ->merge($this->personalExperiences()->pluck('title'))
-            ->merge($this->personalExperiences()->pluck('description'))
-            ->merge($this->personalExperiences()->pluck('details'))
-            ->merge($this->communityExperiences()->pluck('title'))
-            ->merge($this->communityExperiences()->pluck('organization'))
-            ->merge($this->communityExperiences()->pluck('project'))
-            ->merge($this->communityExperiences()->pluck('details'))
-            ->merge($this->awardExperiences()->pluck('title'))
-            ->merge($this->awardExperiences()->pluck('details'))
-            ->merge($this->awardExperiences()->pluck('issued_by'))
-            ->reject(function ($value) {
-                return is_null($value) || $value === '';
-            })->toArray();
+                // Merge non-null and non-empty values
+                $entireIndex = $entireIndex->merge($values);
+            }
+        }
+
+        return $entireIndex->toArray();
+
     }
 
     public function getActivitylogOptions(): LogOptions
