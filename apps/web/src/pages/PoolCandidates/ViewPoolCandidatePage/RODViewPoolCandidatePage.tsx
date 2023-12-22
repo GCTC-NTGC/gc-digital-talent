@@ -32,11 +32,145 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
+import AdminHero from "~/components/Hero/AdminHero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
+
+const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
+  query PoolCandidateSnapshot($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      user {
+        id
+        firstName
+        lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
+        poolCandidates {
+          id
+          status
+          expiryDate
+          notes
+          suspendedAt
+          user {
+            id
+          }
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
+            publishingGroup
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+        }
+      }
+      profileSnapshot
+      notes
+      signature
+      submittedAt
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        screeningQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
+      }
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      status
+    }
+  }
+`);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: PoolCandidate;
@@ -292,258 +426,131 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <ProfileDetails user={poolCandidate.user} />
-      <Sidebar.Wrapper>
-        <Sidebar.Sidebar>
-          <Heading size="h3">
-            {intl.formatMessage({
-              defaultMessage: "More actions",
-              id: "QaMkP7",
-              description:
-                "Title for more actions sidebar on view pool candidate page",
-            })}
-          </Heading>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Additional information, relevant to this candidate’s application.",
-              id: "5cW3Ns",
-              description:
-                "Description for more actions sidebar on view pool candidate page",
-            })}
-          </p>
-          <CardBasic
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.5)"
-            data-h2-margin-bottom="base(x1)"
-          >
-            <Button type="button" color="primary" mode="solid">
+      <AdminHero
+        title={`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}
+      >
+        <ProfileDetails user={poolCandidate.user} />
+      </AdminHero>
+      <AdminContentWrapper>
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar>
+            <Heading size="h3">
               {intl.formatMessage({
-                defaultMessage: "Record final decision",
-                id: "DD0Zd+",
+                defaultMessage: "More actions",
+                id: "QaMkP7",
                 description:
-                  "Button label for record final decision on view pool candidate page",
-              })}
-            </Button>
-            <Button
-              icon={HandRaisedIcon}
-              type="button"
-              color="primary"
-              mode="inline"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Remove candidate",
-                id: "Aixzmb",
-                description:
-                  "Button label for remove candidate on view pool candidate page",
-              })}
-            </Button>
-            <NotesDialog
-              poolCandidateId={poolCandidate.id}
-              notes={poolCandidate.notes}
-            />
-            <Link
-              href={paths.userProfile(poolCandidate.user.id)}
-              icon={UserCircleIcon}
-              type="button"
-              color="primary"
-              mode="inline"
-            >
-              {intl.formatMessage({
-                defaultMessage: "View up-to-date profile",
-                id: "mh7ndf",
-                description:
-                  "Link label for view profile on view pool candidate page",
-              })}
-            </Link>
-          </CardBasic>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.5)"
-          >
-            <p data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "Currently screening:",
-                id: "h7l8Sd",
-                description:
-                  "Label for currently screening section on view pool candidate page",
-              })}
-            </p>
-            <p>Step 1: Screening Application (Replace with fetched value)</p>
-            <Link
-              href="#replace-with-link"
-              icon={ArrowRightCircleIcon}
-              type="button"
-              color="primary"
-              mode="inline"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Go to next candidate",
-                id: "oTNbp0",
-                description:
-                  "Link label to view next candidate on view pool candidate page",
-              })}
-            </Link>
-          </div>
-        </Sidebar.Sidebar>
-        <Sidebar.Content>
-          <div data-h2-margin-bottom="base(x1)">
-            <Heading
-              Icon={ExclamationTriangleIcon}
-              color="quaternary"
-              data-h2-margin-bottom="base(x1)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Screening and assessment",
-                id: "R8Naqm",
-                description: "Heading for the information of an application",
+                  "Title for more actions sidebar on view pool candidate page",
               })}
             </Heading>
-            <div>Coming soon!</div>
-          </div>
-          {mainContent}
-        </Sidebar.Content>
-      </Sidebar.Wrapper>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Additional information, relevant to this candidate’s application.",
+                id: "5cW3Ns",
+                description:
+                  "Description for more actions sidebar on view pool candidate page",
+              })}
+            </p>
+            <CardBasic
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+              data-h2-margin-bottom="base(x1)"
+            >
+              <Button type="button" color="primary" mode="solid">
+                {intl.formatMessage({
+                  defaultMessage: "Record final decision",
+                  id: "DD0Zd+",
+                  description:
+                    "Button label for record final decision on view pool candidate page",
+                })}
+              </Button>
+              <Button
+                icon={HandRaisedIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Remove candidate",
+                  id: "Aixzmb",
+                  description:
+                    "Button label for remove candidate on view pool candidate page",
+                })}
+              </Button>
+              <NotesDialog
+                poolCandidateId={poolCandidate.id}
+                notes={poolCandidate.notes}
+              />
+              <Link
+                href={paths.userProfile(poolCandidate.user.id)}
+                icon={UserCircleIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "View up-to-date profile",
+                  id: "mh7ndf",
+                  description:
+                    "Link label for view profile on view pool candidate page",
+                })}
+              </Link>
+            </CardBasic>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+            >
+              <p data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Currently screening:",
+                  id: "h7l8Sd",
+                  description:
+                    "Label for currently screening section on view pool candidate page",
+                })}
+              </p>
+              <p>Step 1: Screening Application (Replace with fetched value)</p>
+              <Link
+                href="#replace-with-link"
+                icon={ArrowRightCircleIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Go to next candidate",
+                  id: "oTNbp0",
+                  description:
+                    "Link label to view next candidate on view pool candidate page",
+                })}
+              </Link>
+            </div>
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            <div data-h2-margin-bottom="base(x1)">
+              <Heading
+                Icon={ExclamationTriangleIcon}
+                color="quaternary"
+                data-h2-margin="base(x.75, 0, x1, 0)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Screening and assessment",
+                  id: "R8Naqm",
+                  description: "Heading for the information of an application",
+                })}
+              </Heading>
+              <div>Coming soon!</div>
+            </div>
+            {mainContent}
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
+      </AdminContentWrapper>
     </>
   );
 };
-
-const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
-  query PoolCandidateSnapshot($poolCandidateId: UUID!) {
-    poolCandidate(id: $poolCandidateId) {
-      id
-      user {
-        id
-        firstName
-        lastName
-        currentCity
-        currentProvince
-        telephone
-        email
-        citizenship
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
-        poolCandidates {
-          id
-          status
-          expiryDate
-          notes
-          suspendedAt
-          user {
-            id
-          }
-          pool {
-            id
-            name {
-              en
-              fr
-            }
-            classifications {
-              id
-              group
-              level
-            }
-            stream
-            publishingGroup
-            team {
-              id
-              name
-              displayName {
-                en
-                fr
-              }
-            }
-          }
-        }
-      }
-      profileSnapshot
-      notes
-      signature
-      submittedAt
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        stream
-        classifications {
-          id
-          group
-          level
-        }
-        essentialSkills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-        }
-        nonessentialSkills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            name {
-              en
-              fr
-            }
-          }
-        }
-        screeningQuestions {
-          id
-          question {
-            en
-            fr
-          }
-        }
-      }
-    }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classifications {
-        id
-        group
-        level
-      }
-      status
-    }
-  }
-`);
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
@@ -559,32 +566,27 @@ export const RODViewPoolCandidatePage = () => {
   });
 
   return (
-    <AdminContentWrapper>
-      <Pending fetching={fetching} error={error}>
-        {data?.poolCandidate && data?.pools ? (
-          <ViewPoolCandidate
-            poolCandidate={data.poolCandidate}
-            pools={data.pools.filter(notEmpty)}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Candidate {poolCandidateId} not found.",
-                  id: "GrfidX",
-                  description:
-                    "Message displayed for pool candidate not found.",
-                },
-                { poolCandidateId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+    <Pending fetching={fetching} error={error}>
+      {data?.poolCandidate && data?.pools ? (
+        <ViewPoolCandidate
+          poolCandidate={data.poolCandidate}
+          pools={data.pools.filter(notEmpty)}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Candidate {poolCandidateId} not found.",
+                id: "GrfidX",
+                description: "Message displayed for pool candidate not found.",
+              },
+              { poolCandidateId },
+            )}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

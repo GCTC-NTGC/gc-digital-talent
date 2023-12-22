@@ -8,9 +8,10 @@ interface AdminHeroProps {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   nav?: AdminSubNavProps;
+  children?: React.ReactNode;
 }
 
-const AdminHero = ({ title, subtitle, nav }: AdminHeroProps) => {
+const AdminHero = ({ title, subtitle, nav, children }: AdminHeroProps) => {
   const headingRef = React.useRef<HeadingRef>(null);
 
   // Focus heading on page load for assistive technologies
@@ -45,6 +46,7 @@ const AdminHero = ({ title, subtitle, nav }: AdminHeroProps) => {
               {subtitle}
             </p>
           )}
+          {children}
         </div>
       </div>
       {nav ? <AdminSubNav mode={nav.mode} items={nav.items} /> : <Flourish />}
