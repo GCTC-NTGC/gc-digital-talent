@@ -5975,13 +5975,13 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
   },
-  "WDKT2K": {
-    "defaultMessage": "Qu'est-ce qu'une CléGC?",
-    "description": "GCKey question for what is GCKey"
-  },
   "WAcWqh": {
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."
+  },
+  "WDKT2K": {
+    "defaultMessage": "Qu'est-ce qu'une CléGC?",
+    "description": "GCKey question for what is GCKey"
   },
   "WDRWcu": {
     "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
