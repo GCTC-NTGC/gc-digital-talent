@@ -105,8 +105,8 @@ const SearchForm = <T,>({
   };
 
   const allTableMsg = intl.formatMessage({
-    defaultMessage: "Entire table",
-    id: "5r8Ka2",
+    defaultMessage: "Full Profile",
+    id: "rN333X",
     description:
       "Text in table search form column dropdown when no column is selected.",
   });

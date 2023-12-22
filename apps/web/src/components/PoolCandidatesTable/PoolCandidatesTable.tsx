@@ -286,10 +286,10 @@ const PoolCandidatesTable = ({
     ) {
       return undefined;
     }
-
     return {
       // search bar
-      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      generalSearch:
+        searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
@@ -536,8 +536,8 @@ const PoolCandidatesTable = ({
       search={{
         internal: false,
         label: intl.formatMessage({
-          defaultMessage: "Search pool candidates",
-          id: "6+H2T9",
+          defaultMessage: "Search by keyword",
+          id: "lNU7FS",
           description: "Label for the pool candidates table search input",
         }),
         onChange: (newState: SearchState) => {

@@ -1447,10 +1447,6 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
-  "5r8Ka2": {
-    "defaultMessage": "Tout le tableau",
-    "description": "Text in table search form column dropdown when no column is selected."
-  },
   "5tmTP/": {
     "defaultMessage": "Chercher les classifications",
     "description": "Label for the classifications table search input"
@@ -1462,10 +1458,6 @@
   "5yv4Ko": {
     "defaultMessage": "Quantité",
     "description": "Label for _quantity of personnel_ field in the _digital services contracting questionnaire_"
-  },
-  "6+H2T9": {
-    "defaultMessage": "Chercher les candidats du bassin",
-    "description": "Label for the pool candidates table search input"
   },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
@@ -8759,6 +8751,10 @@
     "defaultMessage": "42 postes de cadres supérieurs et autres postes de dirigeants ont été pourvus au cours de cet exercice, ce qui a permis de doubler les affectations réalisées au cours de l’exercice financier précédent (2022-2023) et de promouvoir la gestion des talents numériques. Veuillez prendre note que les talents numériques sont ciblés lors des tables rondes annuelles interministérielles sur la gestion des talents.",
     "description": "Description of executive referral services"
   },
+  "lNU7FS": {
+    "defaultMessage": "Recherche par mot-clé",
+    "description": "Label for the pool candidates table search input"
+  },
   "lNZ/UI": {
     "defaultMessage": "À quoi s’attendre (anglais)",
     "description": "Label for a process' English what to expect after applying"
@@ -9782,6 +9778,10 @@
   "rLd5cC": {
     "defaultMessage": "Aller à la page {pageNumber}",
     "description": "Aria label for each button in pagination nav"
+  },
+  "rN333X": {
+    "defaultMessage": "Profil intégral",
+    "description": "Text in table search form column dropdown when no column is selected."
   },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
