@@ -5439,10 +5439,6 @@
     "defaultMessage": "Renseignements sur le gestionnaire",
     "description": "Heading for the manager info section of the single search request view."
   },
-  "UGaZR2": {
-    "defaultMessage": "Lieu",
-    "description": "Location options in Edit Pool Form"
-  },
   "UJ/rX1": {
     "defaultMessage": "<strong>Courriel :</strong> <chrcMailLink>Info.Com@chrc-ccdp.gc.ca</chrcMailLink>",
     "description": "Email contact info"

@@ -172,11 +172,7 @@ const OtherRequirementsSection = ({
                 />
                 <RadioGroup
                   idPrefix="locationOption"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Location",
-                    id: "UGaZR2",
-                    description: "Location options in Edit Pool Form",
-                  })}
+                  legend={intl.formatMessage(processMessages.location)}
                   name="locationOption"
                   id="locationOption"
                   items={[
