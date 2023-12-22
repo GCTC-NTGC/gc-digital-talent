@@ -8,10 +8,17 @@ interface AdminHeroProps {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   nav?: AdminSubNavProps;
+  contentRight?: React.ReactNode;
   children?: React.ReactNode;
 }
 
-const AdminHero = ({ title, subtitle, nav, children }: AdminHeroProps) => {
+const AdminHero = ({
+  title,
+  subtitle,
+  nav,
+  contentRight,
+  children,
+}: AdminHeroProps) => {
   const headingRef = React.useRef<HeadingRef>(null);
 
   // Focus heading on page load for assistive technologies
@@ -28,24 +35,33 @@ const AdminHero = ({ title, subtitle, nav, children }: AdminHeroProps) => {
     >
       <div data-h2-container="base(center, full, x1) base(center, full, x2)">
         <div data-h2-color="base(black)" data-h2-padding="base(x2 0)">
-          <Heading
-            ref={headingRef}
-            tabIndex={-1}
-            data-h2-outline="base(none)"
-            level="h1"
-            size="h2"
-            data-h2-margin="base(0)"
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-align-items="base(center)"
           >
-            {title}
-          </Heading>
-          {subtitle && (
-            <p
-              data-h2-font-size="base(h5, 1.4)"
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              {subtitle}
-            </p>
-          )}
+            <div>
+              <Heading
+                ref={headingRef}
+                tabIndex={-1}
+                data-h2-outline="base(none)"
+                level="h1"
+                size="h2"
+                data-h2-margin="base(0)"
+              >
+                {title}
+              </Heading>
+              {subtitle && (
+                <p
+                  data-h2-font-size="base(h5, 1.4)"
+                  data-h2-margin="base(x1, 0, 0, 0)"
+                >
+                  {subtitle}
+                </p>
+              )}
+            </div>
+            <div>{contentRight}</div>
+          </div>
           {children}
         </div>
       </div>

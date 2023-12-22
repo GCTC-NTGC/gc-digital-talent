@@ -16,6 +16,7 @@ import {
   CardBasic,
   Button,
   Link,
+  Chip,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -26,6 +27,7 @@ import {
   Maybe,
   Pool,
   graphql,
+  ArmedForcesStatus,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -55,6 +57,8 @@ const PoolCandidateSnapshot_Query = graphql(/* GraphQL */ `
         preferredLang
         preferredLanguageForInterview
         preferredLanguageForExam
+        hasPriorityEntitlement
+        armedForcesStatus
         poolCandidates {
           id
           status
@@ -424,10 +428,45 @@ export const ViewPoolCandidate = ({
     );
   }
 
+  const pills = (
+    <div
+      data-h2-display="base(flex)"
+      data-h2-justify-content="base(flex-end)"
+      data-h2-align-items="base(center)"
+      data-h2-gap="base(x.5)"
+    >
+      {poolCandidate.user.hasPriorityEntitlement ||
+      poolCandidate.user.priorityWeight === 10 ? (
+        <Chip
+          color="black"
+          mode="outline"
+          label={intl.formatMessage({
+            defaultMessage: "Priority",
+            id: "xGMcBO",
+            description: "Label for priority chip on view candidate page",
+          })}
+        />
+      ) : null}
+      {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
+      poolCandidate.user.priorityWeight === 20 ? (
+        <Chip
+          color="black"
+          mode="outline"
+          label={intl.formatMessage({
+            defaultMessage: "Veteran",
+            id: "16iCWc",
+            description: "Label for veteran chip on view candidate page",
+          })}
+        />
+      ) : null}
+    </div>
+  );
+
   return (
     <>
       <AdminHero
         title={`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}
+        contentRight={pills}
       >
         <ProfileDetails user={poolCandidate.user} />
       </AdminHero>
