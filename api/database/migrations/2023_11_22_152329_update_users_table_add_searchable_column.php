@@ -40,6 +40,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropIndex('users_searchable_index');
             $table->dropColumn('searchable');
         });
     }
