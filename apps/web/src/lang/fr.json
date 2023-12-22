@@ -2007,10 +2007,6 @@
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
   },
-  "9YuUR/": {
-    "defaultMessage": "Ajouter une expérience à votre parcours professionnel",
-    "description": "Page title for the application career timeline add experience page"
-  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -7531,6 +7527,10 @@
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
   },
+  "gU/nxf": {
+    "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
+    "description": "Title for application career timeline add experience"
+  },
   "gURsqG": {
     "defaultMessage": "Consultez les processus de recrutement de gestionnaires les plus récents afin de connaître les possibilités spécifiques ou posez votre candidature à un processus de recrutement en cours dans l'un des volets de travail génériques de la TI. Consultez régulièrement le site pour connaître les nouvelles possibilités.",
     "description": "Summary for the feature about finding manager jobs"
@@ -7878,10 +7878,6 @@
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
     "description": "Link text to go to the homepage from a 404"
-  },
-  "i9MPYn": {
-    "defaultMessage": "Ajoutez une expérience à votre chronologie de carrière",
-    "description": "Display text for add experience form in breadcrumbs"
   },
   "i9ND/M": {
     "defaultMessage": "Éditer<hidden> {label}</hidden>",

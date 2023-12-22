@@ -27,9 +27,8 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Add an experience to your career timeline",
-      id: "9YuUR/",
-      description:
-        "Page title for the application career timeline add experience page",
+      id: "gU/nxf",
+      description: "Title for application career timeline add experience",
     }),
     subtitle: intl.formatMessage({
       defaultMessage: "Update and review your career timeline information.",
