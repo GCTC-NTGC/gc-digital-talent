@@ -38,7 +38,7 @@ export function poolCandidatesViewCell(
 export function viewCell(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link color="black" href={url}>
-      {getFullPoolTitleHtml(intl, pool)}
+      {getLocalizedName(pool.name, intl)}
     </Link>
   );
 }

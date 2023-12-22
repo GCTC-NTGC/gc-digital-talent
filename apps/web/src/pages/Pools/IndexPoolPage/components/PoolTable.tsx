@@ -10,6 +10,7 @@ import {
   commonMessages,
   getLocalizedName,
   getPublishingGroup,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -54,8 +55,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage({
-        defaultMessage: "Pool Name",
-        id: "HocLRh",
+        defaultMessage: "Name",
+        id: "gWaU+D",
         description: "Title displayed for the Pool table pool name column.",
       }),
       meta: {
@@ -64,6 +65,37 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       cell: ({ row: { original: pool } }) =>
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
+    columnHelper.accessor(
+      (row) => classificationAccessor(row.classifications),
+      {
+        id: "classifications",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+          classificationSortFn(rowA.original, rowB.original),
+        cell: ({ row: { original: pool } }) =>
+          classificationsCell(pool.classifications),
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        intl.formatMessage(
+          row.stream ? getPoolStream(row.stream) : commonMessages.notFound,
+        ),
+      {
+        id: "stream",
+        header: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "9KGR0d",
+          description: "Title displayed for the Pool table Stream column.",
+        }),
+        sortingFn: normalizedText,
+      },
+    ),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -105,22 +137,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-      },
-    ),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
       },
     ),
     columnHelper.accessor(
@@ -169,32 +185,36 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           getLocalizedName(pool.name, intl),
         ),
     }),
-    columnHelper.accessor(
-      ({ createdDate }) => accessors.date(createdDate, intl),
-      {
-        id: "createdDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Created",
-          id: "zAqJMe",
-          description: "Title displayed on the Pool table Date Created column",
-        }),
-      },
-    ),
-    columnHelper.accessor(
-      ({ updatedDate }) => accessors.date(updatedDate, intl),
-      {
-        id: "updatedDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Updated",
-          id: "R2sSy9",
-          description: "Title displayed for the User table Date Updated column",
-        }),
-      },
-    ),
+    columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
+      id: "createdDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Created",
+        id: "zAqJMe",
+        description: "Title displayed on the Pool table Date Created column",
+      }),
+      cell: ({
+        row: {
+          original: { createdDate },
+        },
+      }) => cells.date(createdDate, intl),
+    }),
+    columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
+      id: "updatedDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Updated",
+        id: "R2sSy9",
+        description: "Title displayed for the User table Date Updated column",
+      }),
+      cell: ({
+        row: {
+          original: { updatedDate },
+        },
+      }) => cells.date(updatedDate, intl),
+    }),
   ] as ColumnDef<Pool>[];
 
   const data = pools.filter(notEmpty);

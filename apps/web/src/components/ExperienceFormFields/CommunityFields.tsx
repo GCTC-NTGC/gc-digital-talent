@@ -30,7 +30,15 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.role}
             name="role"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -53,7 +61,15 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.organization}
             name="organization"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -62,7 +78,15 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.project}
             name="project"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

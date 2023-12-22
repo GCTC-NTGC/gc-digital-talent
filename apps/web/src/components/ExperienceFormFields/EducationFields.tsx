@@ -80,7 +80,15 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.areaOfStudy}
             name="areaOfStudy"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -89,7 +97,15 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.institution}
             name="institution"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -124,6 +140,14 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.thesisTitle}
             name="thesisTitle"
             type="text"
+            rules={{
+              maxLength: {
+                message: intl.formatMessage(errorMessages.overCharacterLimit, {
+                  value: 256,
+                }),
+                value: 255,
+              },
+            }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

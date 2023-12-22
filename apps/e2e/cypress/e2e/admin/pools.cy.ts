@@ -101,7 +101,7 @@ describe("Pools", () => {
     cy.wait("@gqlgetMePoolCreationQuery");
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /create new pool/i })
+    cy.findByRole("heading", { name: /create pool/i })
       .should("exist")
       .and("be.visible");
 

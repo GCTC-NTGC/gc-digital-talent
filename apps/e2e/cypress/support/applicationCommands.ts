@@ -1,16 +1,17 @@
 import {
   CreateApplicationDocument,
-  SubmitApplicationDocument,
-  UpdateApplicationDocument,
-  UpdateApplicationMutation,
   UpdatePoolCandidateStatusDocument,
   CreateApplicationMutation,
   EducationRequirementOption,
-  SubmitApplicationMutation,
   UpdatePoolCandidateMutation,
 } from "@gc-digital-talent/web/src/api/generated";
 
 import { getGqlString } from "./graphql-test-utils";
+import {
+  Command_SubmitApplicationMutation,
+  Command_UpdateApplicationMutation,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 // create an application that is ready to submit, for use with createApplicant
 Cypress.Commands.add("createApplication", (userId, poolId) => {
@@ -38,29 +39,53 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
   });
 });
 
-Cypress.Commands.add("submitApplication", (applicationId, signature) => {
-  cy.graphqlRequest<SubmitApplicationMutation>({
-    operationName: "SubmitApplication",
-    query: getGqlString(SubmitApplicationDocument),
-    variables: {
-      id: applicationId,
-      signature,
-    },
-  }).then((data) => {
-    cy.wrap(data.submitApplication);
-  });
-});
+const commandUpdateApplicationDoc = /* GraphQL */ `
+  mutation Command_UpdateApplication(
+    $id: ID!
+    $application: UpdateApplicationInput!
+  ) {
+    updateApplication(id: $id, application: $application) {
+      id
+    }
+  }
+`;
+
+const Command_UpdateApplicationMutation = graphql(commandUpdateApplicationDoc);
 
 Cypress.Commands.add("updateApplication", (applicationId, application) => {
-  cy.graphqlRequest<UpdateApplicationMutation>({
-    operationName: "UpdateApplication",
-    query: getGqlString(UpdateApplicationDocument),
+  cy.graphqlRequest<Command_UpdateApplicationMutation>({
+    operationName: "Command_UpdateApplication",
+    query: commandUpdateApplicationDoc,
     variables: {
       id: applicationId,
       application,
     },
   }).then((data) => {
     cy.wrap(data.updateApplication);
+  });
+});
+
+const commandSubmitApplicationDoc = /* GraphQL */ `
+  mutation Command_SubmitApplication($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+      signature
+    }
+  }
+`;
+
+const Command_SubmitApplicationMutation = graphql(commandSubmitApplicationDoc);
+
+Cypress.Commands.add("submitApplication", (applicationId, signature) => {
+  cy.graphqlRequest<Command_SubmitApplicationMutation>({
+    operationName: "Command_SubmitApplication",
+    query: commandSubmitApplicationDoc,
+    variables: {
+      id: applicationId,
+      signature,
+    },
+  }).then((data) => {
+    cy.wrap(data.submitApplication);
   });
 });
 
