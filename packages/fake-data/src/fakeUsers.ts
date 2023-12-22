@@ -163,6 +163,8 @@ const generateUser = (
     educationExperiences,
     personalExperiences,
     workExperiences,
+
+    userSkills: [],
   };
 };
 

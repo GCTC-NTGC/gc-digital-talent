@@ -1,3 +1,7 @@
+import CardOptionGroup, {
+  type CardOption,
+  type CardOptionGroupProps,
+} from "./components/CardOptionGroup";
 import Checkbox, { type CheckboxProps } from "./components/Checkbox";
 import CheckButton, { CheckButtonProps } from "./components/CheckButton";
 import Checklist, {
@@ -52,6 +56,7 @@ import useInputStyles from "./hooks/useInputStyles";
 export {
   DATE_SEGMENT,
   DateInput,
+  CardOptionGroup,
   Checkbox,
   CheckButton,
   Checklist,
@@ -75,6 +80,8 @@ export {
 export type {
   DateInputProps,
   DateSegment,
+  CardOption,
+  CardOptionGroupProps,
   CheckboxProps,
   CheckboxOption,
   CheckButtonProps,
