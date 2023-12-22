@@ -3467,6 +3467,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
   },
+  "IBc2sp": {
+    "defaultMessage": "Nom complet",
+    "description": "Label for full name"
+  },
   "ID6PLP": {
     "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
     "description": "Option for when a skill was only used in the past"
@@ -5763,10 +5767,6 @@
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
   },
-  "W9DTVh": {
-    "defaultMessage": "Nom au complet",
-    "description": "Title for the full name block in the manager info section of the single search request view."
-  },
   "WAO4vD": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the change candidate expiry date dialog"
@@ -6990,10 +6990,6 @@
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
-  },
-  "dRnKNR": {
-    "defaultMessage": "Nom complet",
-    "description": "Label for full name input in the request form"
   },
   "dSfDu1": {
     "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",

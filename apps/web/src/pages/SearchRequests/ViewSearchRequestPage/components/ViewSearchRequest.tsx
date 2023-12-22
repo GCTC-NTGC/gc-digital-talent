@@ -74,10 +74,9 @@ const ManagerInfo = ({
               >
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Full Name",
-                    id: "W9DTVh",
-                    description:
-                      "Title for the full name block in the manager info section of the single search request view.",
+                    defaultMessage: "Full name",
+                    id: "IBc2sp",
+                    description: "Label for full name",
                   })}
                   content={fullName}
                 />
