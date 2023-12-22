@@ -278,9 +278,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Minimum experience or equivalent education",
-          id: "uk2ETi",
-          description:
-            "Title for the minimum experience or equivalent education section",
+          id: "LvYEdh",
+          description: "Title for Minimum experience or equivalent education",
         })}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({

@@ -1559,10 +1559,6 @@
     "defaultMessage": "notes pour {name}",
     "description": "Link text suffix to read more notes for a search request"
   },
-  "6esMaA": {
-    "defaultMessage": "Expérience ou formation minimale",
-    "description": "Page title for the application education page"
-  },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
@@ -4122,6 +4118,10 @@
   "LvHCvn": {
     "defaultMessage": "Langue de communication préférée :",
     "description": "Display text for the preferred communication language field on users"
+  },
+  "LvYEdh": {
+    "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
+    "description": "Title for Minimum experience or equivalent education"
   },
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
@@ -9903,10 +9903,6 @@
     "defaultMessage": "Expérience professionnelle",
     "description": "Experience count column header for the skill library table"
   },
-  "uk2ETi": {
-    "defaultMessage": "Éducation minimale ou combinaison équivalente d'études, de formation et/ou d'expérience",
-    "description": "Title for the minimum experience or equivalent education section"
-  },
   "ukL9do": {
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
@@ -9954,10 +9950,6 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
-  },
-  "v6boy9": {
-    "defaultMessage": "Expérience ou études minimales",
-    "description": "Title for minimum experience or education section of a pool advertisement"
   },
   "v8LEMv": {
     "defaultMessage": "Les compétences suivantes sont requises pour ce poste, mais ne sont pas requises dans le cadre de votre candidature. <strong>Elles seront examinées au cours du processus d’évaluation si votre candidature est acceptée.</strong>.",

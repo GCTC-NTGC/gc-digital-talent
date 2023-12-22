@@ -185,9 +185,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Minimum experience or equivalent education",
-              id: "uk2ETi",
+              id: "LvYEdh",
               description:
-                "Title for the minimum experience or equivalent education section",
+                "Title for Minimum experience or equivalent education",
             })}
           </Accordion.Trigger>
           <Accordion.Content>

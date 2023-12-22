@@ -541,10 +541,10 @@ export const PoolPoster = ({
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Minimum experience or education",
-                  id: "v6boy9",
+                  defaultMessage: "Minimum experience or equivalent education",
+                  id: "LvYEdh",
                   description:
-                    "Title for minimum experience or education section of a pool advertisement",
+                    "Title for Minimum experience or equivalent education",
                 })}
               </Heading>
               <Text>
