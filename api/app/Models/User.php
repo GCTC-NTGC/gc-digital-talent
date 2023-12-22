@@ -119,28 +119,40 @@ class User extends Model implements Authenticatable, LaratrustUser
             'communityExperiences',
             'awardExperiences',
         ]);
-        $attributesToPluck = [
-            'poolCandidates' => ['notes'],
-            'workExperiences' => ['role', 'organization', 'division', 'details'],
-            'educationExperiences' => ['thesis_title', 'institution', 'details', 'area_of_study'],
-            'personalExperiences' => ['title', 'description', 'details'],
-            'communityExperiences' => ['title', 'organization', 'project', 'details'],
-            'awardExperiences' => ['title', 'details', 'issued_by'],
-        ];
-        $entireIndex = collect([$this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city]);
-        foreach ($attributesToPluck as $relationship => $attributes) {
-            foreach ($attributes as $attribute) {
-                $values = $this->$relationship->pluck($attribute)->reject(function ($value) {
-                    return is_null($value) || $value === '';
-                })->toArray();
 
-                // Merge non-null and non-empty values
-                $entireIndex = $entireIndex->merge($values);
-            }
+        $result = collect([
+            $this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city,
+            $this->poolCandidates()->pluck('notes'),
+            $this->workExperiences()->pluck('role'),
+            $this->workExperiences()->pluck('organization'),
+            $this->workExperiences()->pluck('division'),
+            $this->workExperiences()->pluck('details'),
+            $this->educationExperiences()->pluck('thesis_title'),
+            $this->educationExperiences()->pluck('institution'),
+            $this->educationExperiences()->pluck('details'),
+            $this->educationExperiences()->pluck('area_of_study'),
+            $this->personalExperiences()->pluck('title'),
+            $this->personalExperiences()->pluck('description'),
+            $this->personalExperiences()->pluck('details'),
+            $this->communityExperiences()->pluck('title'),
+            $this->communityExperiences()->pluck('organization'),
+            $this->communityExperiences()->pluck('project'),
+            $this->communityExperiences()->pluck('details'),
+            $this->awardExperiences()->pluck('title'),
+            $this->awardExperiences()->pluck('details'),
+            $this->awardExperiences()->pluck('issued_by'),
+        ])
+            ->flatten()
+            ->reject(function ($value) {
+                return is_null($value) || $value === '';
+            })->toArray();
+
+        if (! $result) {
+            // SQL query doesn't handle empty arrays for some reason?
+            $result = [' '];
         }
 
-        return $entireIndex->toArray();
-
+        return $result;
     }
 
     public function getActivitylogOptions(): LogOptions
