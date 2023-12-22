@@ -97,6 +97,7 @@ class PoolCandidate extends Model
 
         static::updating(function ($model) {
             // Check if the 'notes' attribute is being updated and if so, update the searchable user model
+            // Seems to work without this but not sure why
             if ($model->user()->exists() && $model->isDirty('notes')) {
                 $model->user()->searchable();
             }
