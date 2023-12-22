@@ -411,6 +411,10 @@
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
   },
+  "CF69qZ": {
+    "defaultMessage": "Administration des programmes",
+    "description": "Full name of abbreviation for PM"
+  },
   "CGNfbu": {
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
@@ -1562,6 +1566,10 @@
   "oU8C65": {
     "defaultMessage": "Vétéran",
     "description": "Priority text for veterans"
+  },
+  "oXrkBM": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Full name of abbreviation for EX"
   },
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
