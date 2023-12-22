@@ -19,7 +19,7 @@ interface NotesDialogProps {
   notes: Maybe<string> | undefined;
 }
 
-const PoolCandidate_UpdateMutation = graphql(/* GraphQL */ `
+const PoolCandidate_NotesMutation = graphql(/* GraphQL */ `
   mutation UpdatePoolCandidate(
     $id: ID!
     $input: UpdatePoolCandidateAsAdminInput!
@@ -34,7 +34,7 @@ const PoolCandidate_UpdateMutation = graphql(/* GraphQL */ `
 const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [, executeMutation] = useMutation(PoolCandidate_UpdateMutation);
+  const [, executeMutation] = useMutation(PoolCandidate_NotesMutation);
 
   const methods = useForm<FormValues>({
     defaultValues: {
