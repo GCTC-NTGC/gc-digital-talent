@@ -18,6 +18,10 @@ import step1Image from "~/assets/img/sign-in-steps-1.webp";
 import step2Image from "~/assets/img/sign-in-steps-2.webp";
 import step3Image from "~/assets/img/sign-in-steps-3.webp";
 import step4Image from "~/assets/img/sign-in-steps-4.webp";
+import step1ImageDark from "~/assets/img/sign-in-steps-1-dark.webp";
+import step2ImageDark from "~/assets/img/sign-in-steps-2-dark.webp";
+import step3ImageDark from "~/assets/img/sign-in-steps-3-dark.webp";
+import step4ImageDark from "~/assets/img/sign-in-steps-4-dark.webp";
 import Instructions from "~/components/Instructions";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
@@ -133,7 +137,10 @@ const SignInPage = () => {
                 })}
               </Heading>
               <Instructions.List>
-                <Instructions.Step image={step1Image}>
+                <Instructions.Step
+                  image={step1Image}
+                  imageDark={step1ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "1. Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
@@ -141,7 +148,10 @@ const SignInPage = () => {
                     description: "Text for first sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step2Image}>
+                <Instructions.Step
+                  image={step2Image}
+                  imageDark={step2ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "2. <strong>Open the authenticator app</strong> on your device.",
@@ -149,7 +159,10 @@ const SignInPage = () => {
                     description: "Text for second sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step3Image}>
+                <Instructions.Step
+                  image={step3Image}
+                  imageDark={step3ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "3. Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
@@ -157,7 +170,11 @@ const SignInPage = () => {
                     description: "Text for third sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step4Image} includeArrow={false}>
+                <Instructions.Step
+                  image={step4Image}
+                  imageDark={step4ImageDark}
+                  includeArrow={false}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "4. Hooray! <strong>You've signed in with GCKey</strong> and will be returned to the <strong>GC Digital Talent platform</strong>.",

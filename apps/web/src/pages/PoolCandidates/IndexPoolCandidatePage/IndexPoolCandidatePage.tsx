@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import {
   CandidateExpiryFilter,
@@ -10,7 +9,6 @@ import {
   Scalars,
   useGetPoolQuery,
 } from "~/api/generated";
-import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -23,7 +21,6 @@ type RouteParams = {
 
 export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
 
   const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
@@ -34,45 +31,10 @@ export const IndexPoolCandidatePage = () => {
     },
   });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    ...(poolId
-      ? [
-          {
-            label: getLocalizedName(data?.pool?.name, intl),
-            url: routes.poolView(poolId),
-          },
-        ]
-      : []),
-    ...(data?.pool?.id
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Candidates",
-              id: "zzf16k",
-              description: "Breadcrumb for the All Candidates page",
-            }),
-            url: routes.poolCandidateTable(data.pool.id),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
+      <SEO title={pageTitle} />
       <Pending fetching={fetching} error={error}>
-        <SEO title={pageTitle} />
         <p data-h2-margin="base(x1, 0)">
           {intl.formatMessage({
             defaultMessage:

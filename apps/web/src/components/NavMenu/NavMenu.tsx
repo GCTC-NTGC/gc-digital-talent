@@ -22,6 +22,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
   return (
     <div
       data-h2-background-color="base(foreground) base:dark(white)"
+      data-h2-border-bottom="base(1px solid black.20)"
       data-h2-padding="base(x1, 0)"
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

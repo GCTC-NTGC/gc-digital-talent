@@ -147,10 +147,6 @@
     "defaultMessage": "J’ai un droit de priorité",
     "description": "affirm possession of priority entitlement"
   },
-  "+umNAP": {
-    "defaultMessage": "Créer un nouveau bassin",
-    "description": "Header for page to create pool advertisements"
-  },
   "+vHVZ2": {
     "defaultMessage": "Dites-nous comment vous répondez aux exigences de compétences pour cette occasion.",
     "description": "Subtitle for the application skills page"
@@ -471,10 +467,6 @@
     "defaultMessage": "Modifier - compétence",
     "description": "Page title for the edit skill page."
   },
-  "0WIPpI": {
-    "defaultMessage": "Modifier<hidden> l’utilisateur</hidden>",
-    "description": "Edit user breadcrumb text"
-  },
   "0YZeO0": {
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
@@ -742,10 +734,6 @@
   "1vVbe3": {
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
-  },
-  "1wONOC": {
-    "defaultMessage": "Profil",
-    "description": "User profile breadcrumb text"
   },
   "1yO4e+": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
@@ -2035,6 +2023,10 @@
     "defaultMessage": "Trouver du talent numérique",
     "description": "Title displayed on hero for Search and Request pages."
   },
+  "9KGR0d": {
+    "defaultMessage": "Volet",
+    "description": "Title displayed for the Pool table Stream column."
+  },
   "9LgnbB": {
     "defaultMessage": "Exigence en matière de langue",
     "description": "Label for a process' language requirement"
@@ -2807,17 +2799,9 @@
     "defaultMessage": "Liste des tâches que l’entrepreneur doit accomplir dans le cadre du contrat.",
     "description": "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
-  "D6HIId": {
-    "defaultMessage": "Modifier<hidden> le bassin</hidden>",
-    "description": "Edit pool breadcrumb text"
-  },
   "D6f8hs": {
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
     "description": "Text for first sign up -> mfa step."
-  },
-  "D8Pgbs": {
-    "defaultMessage": "Créer une classification",
-    "description": "Title displayed on the create a classification form."
   },
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
@@ -3587,10 +3571,6 @@
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
   },
-  "HocLRh": {
-    "defaultMessage": "Nom du bassin",
-    "description": "Title displayed for the Pool table pool name column."
-  },
   "HqQzy1": {
     "defaultMessage": "Les représentants du service à la clientèle sont disponibles pour vous aider par téléphone, tout au long de l'année, 24 heures sur 24 et 7 jours sur 7.",
     "description": "Sixth answer of the Frequently Asked Questions for logging in - final sentence"
@@ -4022,10 +4002,6 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
-  },
-  "KSNNgE": {
-    "defaultMessage": "Mettre à jour un ministère",
-    "description": "Title displayed on the update a department form."
   },
   "KWLDYe": {
     "defaultMessage": "Sélectionnez une option",
@@ -5631,10 +5607,6 @@
     "defaultMessage": "Facteurs d’influence",
     "description": "Title for _influencing factors_ section, in the _digital services contracting questionnaire_"
   },
-  "U+WqrO": {
-    "defaultMessage": "Mettre à jour une classification",
-    "description": "Title displayed on the update a classification form."
-  },
   "U/Lv8i": {
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
@@ -6159,10 +6131,6 @@
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
   },
-  "WoAuKA": {
-    "defaultMessage": "Mettre à jour une compétence",
-    "description": "Title displayed on the update a skill form."
-  },
   "WpVd0l": {
     "defaultMessage": "Le droit de priorité est un statut offert par la Commission de la fonction publique du Canada. Pour en apprendre davantage, <priorityEntitlementLink>consultez le site Web Information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence describing what priority entitlement is"
@@ -6234,10 +6202,6 @@
   "X8JZSG": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on an Experience form for end date input"
-  },
-  "XBY4Fq": {
-    "defaultMessage": "Créer un ministère",
-    "description": "Title displayed on the create a department form."
   },
   "XBfpuW": {
     "defaultMessage": "Ouvert",
@@ -7943,6 +7907,10 @@
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
   },
+  "gWaU+D": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Pool table pool name column."
+  },
   "gZKJeF": {
     "defaultMessage": "Exigence en matière de langue officielle",
     "description": "Label for _official language requirement_ fieldset in the _digital services contracting questionnaire_"
@@ -8042,10 +8010,6 @@
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
-  },
-  "gv1Hwu": {
-    "defaultMessage": "Commencez l'affiche d'emploi vide",
-    "description": "Form header to create new pool"
   },
   "gw/WSP": {
     "defaultMessage": "Si vous avez des questions sur la CléGC, veuillez contacter l'équipe responsable de CléGC à l'adresse suivante :",
@@ -9335,10 +9299,6 @@
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles possibilités d’emploi.",
     "description": "Description of how application profiles works for managers/executives."
   },
-  "nfZQ89": {
-    "defaultMessage": "Membres",
-    "description": "Breadcrumb title for the team members page link."
-  },
   "nfcDvX": {
     "defaultMessage": "Autres autorités qui participent à ce contrat",
     "description": "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_"
@@ -10014,10 +9974,6 @@
   "s7F24X": {
     "defaultMessage": "Préférences relatives au travail",
     "description": "Title for the work preferences snapshot section"
-  },
-  "s7Hnlg": {
-    "defaultMessage": "Modifier<hidden> l’équipe</hidden>",
-    "description": "Breadcrumb title for the edit team page link."
   },
   "s7Uy7q": {
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",

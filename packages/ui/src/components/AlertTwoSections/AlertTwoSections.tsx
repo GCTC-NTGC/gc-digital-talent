@@ -26,7 +26,7 @@ const AlertTwoSections = ({
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(larger)"
       data-h2-overflow="base(hidden)"
-      data-h2-margin="base(0, 0, x1.5, 0)"
+      data-h2-margin="base(0, 0, x3, 0)"
       data-h2-max-width="base(72rem)"
     >
       <div data-h2-flex-grow="base(1)" data-h2-flex="base(1)">

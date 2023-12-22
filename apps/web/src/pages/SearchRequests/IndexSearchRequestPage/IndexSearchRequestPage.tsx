@@ -1,13 +1,12 @@
 import React from "react";
-import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
 import { useIntl } from "react-intl";
 
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import SearchRequestTable from "~/components/SearchRequestTable/SearchRequestTable";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 export const IndexSearchRequestPage = () => {
   const intl = useIntl();
@@ -31,11 +30,16 @@ export const IndexSearchRequestPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={TicketIcon}>{pageTitle}</PageHeader>
-      <SearchRequestTable title={pageTitle} />
-    </AdminContentWrapper>
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <SearchRequestTable title={pageTitle} />
+      </AdminContentWrapper>
+    </>
   );
 };
 

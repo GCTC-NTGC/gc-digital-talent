@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PoolCandidate } from "~/api/generated";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import useApplication from "./useApplication";
 
