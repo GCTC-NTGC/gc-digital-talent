@@ -18,8 +18,8 @@
   "devDependencies": {
     "@swc/core": "^1.3.101",
     "eslint": "^8.56.0",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "yargs": "^17.7.2"

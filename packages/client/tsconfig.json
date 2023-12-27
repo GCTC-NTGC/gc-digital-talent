@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "ES2015"]
+    "lib": ["dom", "ES2020"]
   },
   "extends": "tsconfig/react-lib.json",
   "include": ["."],

@@ -7,8 +7,8 @@
     "main.ts"
   ],
   "dependencies": {
-    "@gc-digital-talent/env": "*",
-    "@gc-digital-talent/theme": "*",
+    "@gc-digital-talent/env": "workspace:*",
+    "@gc-digital-talent/theme": "workspace:*",
     "@storybook/react": "^7.6.4",
     "chromatic": "^10.1.0",
     "framer-motion": "^10.16.16",
@@ -27,11 +27,11 @@
     "@storybook/addon-viewport": "^7.6.2",
     "@storybook/addons": "^7.6.6",
     "@storybook/react-webpack5": "^7.6.6",
-    "hydrogen-webpack-plugin": "*",
+    "hydrogen-webpack-plugin": "workspace:*",
     "react": "^18.2.0",
     "storybook": "^7.6.6",
     "storybook-addon-intl": "^3.2.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "tsconfig-paths-webpack-plugin": "^4.1.0"
   }
 }

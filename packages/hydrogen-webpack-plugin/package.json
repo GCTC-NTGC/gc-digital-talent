@@ -5,7 +5,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "peerDependencies": {
-    "@hydrogen-css/hydrogen": "*"
+    "@hydrogen-css/hydrogen": "2.0.3"
   },
   "devDependencies": {
     "shelljs": "^0.8.5"

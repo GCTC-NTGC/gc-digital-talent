@@ -12,19 +12,18 @@
     "build": "env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
-    "watch": "concurrently --kill-others-on-fail \"npm run codegen -- --watch\" \"tsup --watch\"",
+    "watch": "concurrently --kill-others-on-fail \"pnpm run codegen -- --watch\" \"tsup --watch\"",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-codegen/client-preset-swc-plugin": "^0.2.0",
-    "@graphql-codegen/typescript": "^3.0.4",
-    "@graphql-codegen/typescript-operations": "^3.0.4",
-    "@graphql-codegen/typescript-urql": "^3.7.3",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@parcel/watcher": "^2.3.0",
     "concurrently": "^8.2.2",
-    "tsconfig": "*",
+    "graphql": "16.8.1",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
     "urql": "4.0.6"

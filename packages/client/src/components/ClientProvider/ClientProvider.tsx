@@ -8,6 +8,7 @@ import {
   fetchExchange,
   Provider,
   mapExchange,
+  CombinedError,
 } from "urql";
 import { useIntl } from "react-intl";
 
@@ -146,6 +147,8 @@ const ClientProvider = ({
 export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
-export const exportedForTesting = {
+export const exportedForTesting: {
+  extractErrorMessages: (combinedError: CombinedError) => string[];
+} = {
   extractErrorMessages,
 };

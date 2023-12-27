@@ -15,14 +15,15 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
-    "@gc-digital-talent/date-helpers": "*",
-    "@gc-digital-talent/graphql": "*",
+    "@gc-digital-talent/date-helpers": "workspace:*",
+    "@gc-digital-talent/graphql": "workspace:*",
     "enforce-unique": "^1.2.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
+    "@types/lodash": "4.14.202",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.3.3"
   }
 }

@@ -18,16 +18,18 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@gc-digital-talent/graphql": "*",
-    "@gc-digital-talent/i18n": "*",
+    "@gc-digital-talent/graphql": "workspace:*",
+    "@gc-digital-talent/i18n": "workspace:*",
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "@types/jest": "29.5.11",
     "jest": "^29.7.0",
-    "jest-presets": "*",
+    "eslint-config-custom": "workspace:*",
+    "jest-presets": "workspace:*",
     "react-intl": "^6.5.5",
+    "tsconfig": "workspace:*",
     "typescript": "^5.3.3"
   }
 }

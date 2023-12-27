@@ -21,11 +21,11 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@gc-digital-talent/env": "*",
-    "@gc-digital-talent/graphql": "*",
-    "@gc-digital-talent/helpers": "*",
-    "@gc-digital-talent/logger": "*",
-    "@gc-digital-talent/ui": "*",
+    "@gc-digital-talent/env": "workspace:*",
+    "@gc-digital-talent/graphql": "workspace:*",
+    "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/logger": "workspace:*",
+    "@gc-digital-talent/ui": "workspace:*",
     "jwt-decode": "4.0.0",
     "path-browserify": "^1.0.1",
     "react-router-dom": "^6.21.0",
@@ -36,9 +36,9 @@
     "@types/path-browserify": "^1.0.2",
     "@types/react": "^18.2.45",
     "eslint": "^8.56.0",
-    "eslint-config-custom": "*",
+    "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }
