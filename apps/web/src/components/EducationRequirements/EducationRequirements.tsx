@@ -160,6 +160,7 @@ const EducationRequirements = ({
           </Card>
         </Wrapper>
       );
+    case "AS":
     case "PM":
       return (
         <Wrapper>
