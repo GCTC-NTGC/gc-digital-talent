@@ -1,0 +1,16 @@
+{
+  "name": "@gc-digital-talent/playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "e2e:playwright": "npx playwright test"
+  },
+  "devDependencies": {
+    "@gc-digital-talent/graphql": "*",
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.10.5",
+    "eslint-plugin-playwright": "^0.20.0"
+  }
+}
