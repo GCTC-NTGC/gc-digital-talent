@@ -4,6 +4,15 @@ export class AppPage {
   constructor(public readonly page: Page) {}
 
   /**
+   * Go to the homepage
+   *
+   * Common operation on all pages
+   */
+  async gotoHome() {
+    await this.page.goto("/");
+  }
+
+  /**
    * GraphQL Request
    *
    * Make a GraphQL request using the current page context
