@@ -1,6 +1,12 @@
 import { type Page } from "@playwright/test";
-import { AppPage } from "./AppPage";
 
+import { CreateUserInput, User } from "@gc-digital-talent/graphql";
+
+import { Test_CreateUserMutationDocument, defaultUser } from "~/utils/user";
+import { Test_UpdateUserRolesMutationDocument, getRoles } from "~/utils/auth";
+import { GraphQLResponse } from "~/utils/graphql";
+
+import { AppPage } from "./AppPage";
 /**
  * Admin Page
  *
@@ -9,5 +15,30 @@ import { AppPage } from "./AppPage";
 export class AdminPage extends AppPage {
   constructor(page: Page) {
     super(page);
+  }
+
+  async createUser(user?: Partial<CreateUserInput>): Promise<User> {
+    return this.graphqlRequest(Test_CreateUserMutationDocument, {
+      user: {
+        ...defaultUser,
+        ...user,
+      },
+    }).then((res: GraphQLResponse<"createUser", User>) => res.createUser);
+  }
+
+  async addRolesToUser(userId: string, roles: string[], team?: string) {
+    const allRoles = await getRoles();
+    const roleIds = allRoles
+      .filter((role) => roles.includes(role.name))
+      .map((role) => role.id);
+    return this.graphqlRequest(Test_UpdateUserRolesMutationDocument, {
+      userId,
+      roleAssignmentsInput: {
+        attach: {
+          roles: roleIds,
+          team,
+        },
+      },
+    });
   }
 }

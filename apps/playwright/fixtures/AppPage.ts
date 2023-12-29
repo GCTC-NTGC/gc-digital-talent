@@ -1,13 +1,15 @@
 import { type Page } from "@playwright/test";
 
+import { Test_MeQueryDocument } from "~/utils/user";
+
+/**
+ * App Page
+ *
+ * Common functionality, extended by other pages
+ */
 export class AppPage {
   constructor(public readonly page: Page) {}
 
-  /**
-   * Go to the homepage
-   *
-   * Common operation on all pages
-   */
   async gotoHome() {
     await this.page.goto("/");
   }
@@ -54,5 +56,11 @@ export class AppPage {
 
       return isGraphql && isOperation;
     });
+  }
+
+  async getMe() {
+    const res = await this.graphqlRequest(Test_MeQueryDocument);
+
+    return res.me;
   }
 }

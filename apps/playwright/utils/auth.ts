@@ -1,5 +1,16 @@
+import { Role } from "@gc-digital-talent/graphql";
 import { Cookie, Page } from "@playwright/test";
+import { graphqlRequest } from "./graphql";
 
+/**
+ * Login by email
+ *
+ * Logs a user into the application
+ * through the UI.
+ *
+ * @param {Page} page
+ * @param {String} email
+ */
 export async function loginByEmail(page: Page, email: string) {
   await page.goto("/login-info");
   await page
@@ -16,6 +27,15 @@ export type AuthCookies = {
   xsrf?: Cookie;
 };
 
+/**
+ * Get Auth Cookies
+ *
+ * Attempt to get the auth cookies
+ * from the current page context.
+ *
+ * @param page
+ * @returns {Promise<AuthCookies>}
+ */
 export async function getAuthCookies(page: Page): Promise<AuthCookies> {
   const cookies = await page.context().cookies();
 
@@ -34,6 +54,15 @@ export type AuthTokens = {
   refreshToken?: string;
 };
 
+/**
+ * Get Auth Tokens
+ *
+ * Attempt to get the auth tokens from the
+ * current page context local storage.
+ *
+ * @param page
+ * @returns {Promise<AuthTokens>}
+ */
 export async function getAuthTokens(page: Page): Promise<AuthTokens> {
   const tokens = await page.evaluate(() => ({
     idToken: localStorage.getItem("id_token"),
@@ -43,3 +72,31 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 
   return tokens;
 }
+
+export const Test_RolesQueryDocument = /* GraphQL */ `
+  query Test_Roles {
+    roles {
+      id
+      name
+    }
+  }
+`;
+
+/**
+ * Get Roles
+ *
+ * Get all the roles directly from
+ * the API.
+ */
+export async function getRoles(): Promise<Role[]> {
+  const res = await graphqlRequest(Test_RolesQueryDocument);
+
+  return res.roles;
+}
+
+export const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+      id
+    }
+`;

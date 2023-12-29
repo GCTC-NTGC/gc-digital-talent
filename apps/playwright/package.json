@@ -5,9 +5,10 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "e2e:playwright": "npx playwright test"
+    "e2e:playwright": "npx playwright test application.spec.ts"
   },
   "devDependencies": {
+    "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/graphql": "*",
     "@playwright/test": "^1.40.1",
     "@types/node": "^20.10.5",

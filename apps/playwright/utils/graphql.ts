@@ -1,6 +1,16 @@
 import { request } from "@playwright/test";
 import auth from "~/constants/auth";
 
+export type GraphQLResponse<K extends string, T> = {
+  [k in K]: T;
+};
+
+/**
+ * GraphQL Request
+ *
+ * Make a GraphQL request using the
+ * admin auth state by default.
+ */
 export async function graphqlRequest(
   query: string,
   variables?: Record<string, unknown>,
