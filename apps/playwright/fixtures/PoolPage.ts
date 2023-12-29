@@ -18,7 +18,7 @@ import { AppPage } from "./AppPage";
 /**
  * Pool Page
  *
- * Page containing an admin user context from global setup
+ * Page containing utilities for interacting with pools
  */
 export class PoolPage extends AppPage {
   constructor(page: Page) {

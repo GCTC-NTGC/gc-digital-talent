@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "e2e:playwright": "npx playwright test application.spec.ts"
+    "e2e:playwright": "npx playwright test"
   },
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "*",

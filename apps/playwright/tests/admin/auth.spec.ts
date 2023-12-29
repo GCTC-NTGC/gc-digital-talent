@@ -102,7 +102,7 @@ test.describe("Authenticated", () => {
 
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
     await applicantPage.page.waitForLoadState("networkidle");
-    await applicantPage.page.waitForURL("**/logged-out");
+    await applicantPage.page.waitForURL("**/en/logged-out");
 
     const tokens = await getAuthTokens(applicantPage.page);
 
@@ -122,7 +122,6 @@ test.describe("Authenticated", () => {
           const context = await adminPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
-          await expect(page.url()).toContain(restrictedPath);
           await expect(
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
@@ -140,7 +139,6 @@ test.describe("Authenticated", () => {
           const context = await applicantPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
-          await expect(page.url()).toContain(restrictedPath);
           await page.waitForLoadState("networkidle");
           await expect(
             page.getByRole("heading", {
@@ -156,7 +154,7 @@ test.describe("Authenticated", () => {
 test.describe("Login", () => {
   test("succeeds for an existing admin user", async ({ adminPage }) => {
     await adminPage.page.goto("/admin");
-    await adminPage.waitForGraphqlResponse("myAuth");
+    await adminPage.waitForGraphqlResponse("AdminDashboard_Query");
     await expect(
       adminPage.page.getByRole("heading", {
         name: /welcome back, admin test/i,

@@ -1,6 +1,6 @@
 export const defaultUser = {
   // required
-  firstName: "Cypress",
+  firstName: "Playwright",
   lastName: "User",
   preferredLang: "EN",
   preferredLanguageForInterview: "EN",

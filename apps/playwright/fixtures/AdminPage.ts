@@ -31,12 +31,15 @@ export class AdminPage extends AppPage {
     const roleIds = allRoles
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
-    return this.graphqlRequest(Test_UpdateUserRolesMutationDocument, {
-      userId,
-      roleAssignmentsInput: {
-        attach: {
-          roles: roleIds,
-          team,
+
+    await this.graphqlRequest(Test_UpdateUserRolesMutationDocument, {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          attach: {
+            roles: roleIds,
+            team,
+          },
         },
       },
     });

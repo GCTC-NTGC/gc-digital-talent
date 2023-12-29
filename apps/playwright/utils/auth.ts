@@ -3,21 +3,21 @@ import { Cookie, Page } from "@playwright/test";
 import { graphqlRequest } from "./graphql";
 
 /**
- * Login by email
+ * Login by sub
  *
  * Logs a user into the application
  * through the UI.
  *
  * @param {Page} page
- * @param {String} email
+ * @param {String} sub
  */
-export async function loginByEmail(page: Page, email: string) {
+export async function loginBySub(page: Page, sub: string) {
   await page.goto("/login-info");
   await page
     .getByRole("link", { name: /continue to gckey and sign in/i })
     .first()
     .click();
-  await page.getByPlaceholder("Enter any user/subject").fill(email);
+  await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign-in/i }).click();
   await page.waitForURL("**/applicant/profile-and-applications");
 }
@@ -98,5 +98,26 @@ export const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
   mutation Test_UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
       id
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
     }
+  }
 `;

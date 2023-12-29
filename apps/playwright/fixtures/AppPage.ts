@@ -10,8 +10,8 @@ import { Test_MeQueryDocument } from "~/utils/user";
 export class AppPage {
   constructor(public readonly page: Page) {}
 
-  async gotoHome() {
-    await this.page.goto("/");
+  async gotoHome(locale: "en" | "fr" = "en") {
+    await this.page.goto(`${locale}`);
   }
 
   /**
@@ -46,15 +46,12 @@ export class AppPage {
    */
   async waitForGraphqlResponse(operationName: string) {
     await this.page.waitForResponse(async (resp) => {
-      let isOperation: boolean = false;
-      const isGraphql = await resp.url().includes("/graphql");
-
-      if (isGraphql) {
-        const body = await resp.text();
-        isOperation = body.includes(operationName);
+      if (await resp.url()?.includes("/graphql")) {
+        const reqJson = await resp.request()?.postDataJSON();
+        return reqJson.operationName === operationName;
       }
 
-      return isGraphql && isOperation;
+      return false;
     });
   }
 
