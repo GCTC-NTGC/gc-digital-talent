@@ -17,6 +17,7 @@ import {
 
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
+import { flattenErrors } from "../utils";
 
 export type FieldLabels = Record<string, React.ReactNode>;
 
@@ -75,19 +76,20 @@ function BasicForm<TFieldValues extends FieldValues>({
     reset,
     formState: { isDirty, errors, isSubmitting },
   } = methods;
+  const flatErrors = flattenErrors(errors);
 
   React.useEffect(() => {
     // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting) {
+    if (flatErrors.length > 0) {
       setShowErrorSummary(true);
     }
-  }, [isSubmitting, errors]);
+  }, [isSubmitting, flatErrors]);
 
   React.useEffect(() => {
-    if (errorSummaryRef.current) {
+    if (errorSummaryRef.current && flatErrors && isSubmitting) {
       errorSummaryRef.current.focus();
     }
-  }, [showErrorSummary, errorSummaryRef]);
+  }, [flatErrors, isSubmitting]);
 
   const handleSubmit = async (data: TFieldValues) => {
     // Reset form to clear dirty values
