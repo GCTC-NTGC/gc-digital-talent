@@ -124,7 +124,6 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.thesisTitle}
             name="thesisTitle"
             type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
