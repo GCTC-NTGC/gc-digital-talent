@@ -57,13 +57,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="team"
-            label={labels.team}
-            name="team"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
+          <Input id="team" label={labels.team} name="team" type="text" />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <DateInput
