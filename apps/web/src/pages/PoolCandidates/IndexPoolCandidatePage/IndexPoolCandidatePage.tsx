@@ -45,6 +45,7 @@ export const IndexPoolCandidatePage = () => {
           })}
         </p>
         <PoolCandidatesTable
+          hidePoolFilter
           initialFilterInput={{
             applicantFilter: { pools: [{ id: poolId || "" }] },
             suspendedStatus: CandidateSuspendedFilter.Active,
