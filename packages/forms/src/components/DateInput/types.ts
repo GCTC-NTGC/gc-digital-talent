@@ -17,8 +17,12 @@ export type SegmentObject = {
 
 // We only want to allow passing a value + message
 type DateMinMax = {
-  min: ValidationValueMessage<string>;
-  max: ValidationValueMessage<string>;
+  min: ValidationValueMessage<string> & {
+    allowEqual?: boolean;
+  };
+  max: ValidationValueMessage<string> & {
+    allowEqual?: boolean;
+  };
 };
 
 export type DateRegisterOptions = Omit<RegisterOptions, "min" | "max"> &
