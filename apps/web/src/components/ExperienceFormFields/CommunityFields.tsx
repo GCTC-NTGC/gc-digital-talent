@@ -118,6 +118,7 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
                         value: startDate,
+                        allowEqual: true,
                         message: intl.formatMessage(
                           errorMessages.mustBeGreater,
                           {

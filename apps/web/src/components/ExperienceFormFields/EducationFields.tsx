@@ -179,6 +179,7 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
                       required: intl.formatMessage(errorMessages.required),
                       min: {
                         value: watchStartDate,
+                        allowEqual: true,
                         message: intl.formatMessage(
                           errorMessages.dateMustFollow,
                           { value: watchStartDate },
