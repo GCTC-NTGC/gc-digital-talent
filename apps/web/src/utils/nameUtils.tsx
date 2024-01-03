@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { getAbbreviations } from "@gc-digital-talent/i18n";
+import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
 export const getFullNameLabel = (
   firstName: string | null | undefined,
@@ -9,11 +9,7 @@ export const getFullNameLabel = (
   intl: IntlShape,
 ): string => {
   if (!firstName && !lastName) {
-    return intl.formatMessage({
-      defaultMessage: "No name provided",
-      id: "n80lVV",
-      description: "Fallback for name value",
-    });
+    return intl.formatMessage(commonMessages.noNameProvided);
   }
   if (!firstName) {
     return `${intl.formatMessage({
@@ -47,11 +43,9 @@ export const getFullNameAndEmailLabel = (
     });
 
   if (!firstName && !lastName) {
-    return `${intl.formatMessage({
-      defaultMessage: "No name provided",
-      id: "n80lVV",
-      description: "Fallback for name value",
-    })} - ${emailDefined}`;
+    return `${intl.formatMessage(
+      commonMessages.noNameProvided,
+    )} - ${emailDefined}`;
   }
 
   if (!firstName) {
@@ -79,11 +73,7 @@ export const getFullNameHtml = (
   if (!firstName && !lastName) {
     return (
       <span data-h2-font-style="base(italic)">
-        {intl.formatMessage({
-          defaultMessage: "No name provided",
-          id: "n80lVV",
-          description: "Fallback for name value",
-        })}
+        {intl.formatMessage(commonMessages.noNameProvided)}
       </span>
     );
   }

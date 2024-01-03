@@ -17,6 +17,7 @@ import {
   commonMessages,
   getEducationRequirementOption,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -38,6 +39,7 @@ import {
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { categorizeSkill } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
@@ -94,8 +96,8 @@ export const ViewPoolCandidate = ({
       id: "pool-information",
       title: intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "Cjp2F6",
-        description: "Title for the pool info page",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       }),
     },
     snapshot: {
@@ -111,9 +113,8 @@ export const ViewPoolCandidate = ({
       id: "min-experience",
       title: intl.formatMessage({
         defaultMessage: "Minimum experience or equivalent education",
-        id: "Fbh/MK",
-        description:
-          "Title for the minimum experience or equivalent education snapshot section.",
+        id: "LvYEdh",
+        description: "Title for Minimum experience or equivalent education",
       }),
     },
     essentialSkills: {
@@ -128,17 +129,13 @@ export const ViewPoolCandidate = ({
       id: "asset-skills",
       title: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "Xpo+u6",
-        description: "Title for the optional skills snapshot section",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     questions: {
       id: "questions",
-      title: intl.formatMessage({
-        defaultMessage: "Screening questions",
-        id: "mqWvWR",
-        description: "Title for the screening questions snapshot section",
-      }),
+      title: intl.formatMessage(processMessages.screeningQuestions),
     },
     careerTimeline: {
       id: "career-timeline",
@@ -152,18 +149,13 @@ export const ViewPoolCandidate = ({
       id: "personal",
       title: intl.formatMessage({
         defaultMessage: "Personal and contact information",
-        id: "0lUoqK",
-        description:
-          "Title for the personal and contact information snapshot section",
+        id: "BWh6S1",
+        description: "Title for the personal and contact information section",
       }),
     },
     work: {
       id: "work",
-      title: intl.formatMessage({
-        defaultMessage: "Work preferences",
-        id: "s7F24X",
-        description: "Title for the work preferences snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.workPreferences),
     },
     dei: {
       id: "dei",
@@ -178,9 +170,8 @@ export const ViewPoolCandidate = ({
       id: "government",
       title: intl.formatMessage({
         defaultMessage: "Government employee information",
-        id: "nEVNHp",
-        description:
-          "Title for the government employee information snapshot section",
+        id: "Jf3vT5",
+        description: "Title for the government employee information section",
       }),
     },
     language: {

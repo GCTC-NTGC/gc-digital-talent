@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { useApplicantInformationQuery } from "~/api/generated";
@@ -25,11 +26,7 @@ export const ProfileAndApplications = ({
   return (
     <>
       <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Profile and applications",
-          id: "d5U44H",
-          description: "Page title for the profile and applications page.",
-        })}
+        title={intl.formatMessage(navigationMessages.profileAndApplications)}
       />
       <ProfileAndApplicationsHeading user={user} />
       <section data-h2-margin="base(x3, 0)">

@@ -35,8 +35,8 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
       >
         {intl.formatMessage({
           defaultMessage: "Highlight additional details",
-          id: "u+r0gl",
-          description: "Heading for the tasks section of the experience form",
+          id: "6v+j79",
+          description: "Title for additional details section",
         })}
       </Heading>
       <div>

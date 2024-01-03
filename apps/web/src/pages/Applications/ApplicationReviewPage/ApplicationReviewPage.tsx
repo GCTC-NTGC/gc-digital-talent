@@ -25,6 +25,7 @@ import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import processMessages from "~/messages/processMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -283,9 +284,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Minimum experience or equivalent education",
-          id: "2je6Bi",
-          description:
-            "Heading for education requirements section of the application review page.",
+          id: "LvYEdh",
+          description: "Title for Minimum experience or equivalent education",
         })}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
@@ -366,9 +366,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "jX2LG0",
-          description:
-            "Heading for skill requirements section of the application review page.",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
@@ -404,12 +403,7 @@ const ApplicationReview = ({
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
-          title={intl.formatMessage({
-            defaultMessage: "Screening questions",
-            id: "qGyD4w",
-            description:
-              "Heading for screening questions section of the application review page.",
-          })}
+          title={intl.formatMessage(processMessages.screeningQuestions)}
           path={editPaths.screeningQuestions}
           editLinkAriaLabel={intl.formatMessage({
             defaultMessage: "Edit screening questions",
@@ -499,12 +493,9 @@ const ApplicationReview = ({
                 </li>
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "jT5ANA",
-                      description:
-                        "Community list item for sign and submit section of application review page.",
-                    })}
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
                   </p>
                 </li>
                 <li>

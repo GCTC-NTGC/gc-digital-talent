@@ -7,6 +7,7 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
@@ -53,12 +54,7 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
     },
     {
       id: "employment-equity",
-      title: intl.formatMessage({
-        defaultMessage: "Employment equity",
-        id: "BYGKiT",
-        description:
-          "Title of the 'Employment equity' section of the view-user page",
-      }),
+      title: intl.formatMessage(commonMessages.employmentEquity),
       titleIcon: InformationCircleIcon,
       content: <EmploymentEquitySection user={user} />,
     },

@@ -57,11 +57,7 @@ const Display = ({
           </FieldDisplay>
           <FieldDisplay
             hasError={!telephone}
-            label={intl.formatMessage({
-              defaultMessage: "Telephone",
-              id: "bCtIa8",
-              description: "Telephone label",
-            })}
+            label={intl.formatMessage(commonMessages.telephone)}
           >
             {telephone ? (
               <Link
@@ -166,8 +162,8 @@ const Display = ({
         hasError={empty(armedForcesStatus)}
         label={intl.formatMessage({
           defaultMessage: "Veteran status",
-          id: "k28EAQ",
-          description: "Veteran status label",
+          id: "OVWo88",
+          description: "Title for Veteran status",
         })}
         data-h2-padding-top="base(x1)"
       >

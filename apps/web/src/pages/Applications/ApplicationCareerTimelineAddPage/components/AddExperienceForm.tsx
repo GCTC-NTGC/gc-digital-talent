@@ -27,8 +27,7 @@ import {
 import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
-
-import { experienceTypeTitles } from "../messages";
+import experienceMessages from "~/messages/experienceMessages";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
@@ -138,23 +137,23 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           options={[
             {
               value: "work",
-              label: intl.formatMessage(experienceTypeTitles.work),
+              label: intl.formatMessage(experienceMessages.work),
             },
             {
               value: "education",
-              label: intl.formatMessage(experienceTypeTitles.education),
+              label: intl.formatMessage(experienceMessages.education),
             },
             {
               value: "community",
-              label: intl.formatMessage(experienceTypeTitles.community),
+              label: intl.formatMessage(experienceMessages.community),
             },
             {
               value: "personal",
-              label: intl.formatMessage(experienceTypeTitles.personal),
+              label: intl.formatMessage(experienceMessages.personal),
             },
             {
               value: "award",
-              label: intl.formatMessage(experienceTypeTitles.award),
+              label: intl.formatMessage(experienceMessages.award),
             },
           ]}
         />
