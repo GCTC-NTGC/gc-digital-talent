@@ -48,7 +48,7 @@
     "@gc-digital-talent/ui": "*",
     "@heroicons/react": "^2.1.1",
     "@microsoft/applicationinsights-web": "^3.0.7",
-    "@tanstack/react-table": "^8.11.2",
+    "@tanstack/react-table": "^8.11.3",
     "date-fns": "^2.30.0",
     "framer-motion": "^10.16.16",
     "graphql": "^16.8.1",
