@@ -136,6 +136,7 @@ const UpdateSkillShowcase = ({
           if (res.data?.updateUserSkill?.skill.id) {
             append({
               skill: res.data.updateUserSkill.skill.id,
+              skillLevel: res.data.updateUserSkill.skillLevel ?? undefined,
             });
             // having claimed a user skill in the modal and the mutation successful, update the ranking
             onAddition(
@@ -159,6 +160,7 @@ const UpdateSkillShowcase = ({
           if (res.data?.createUserSkill?.skill.id) {
             append({
               skill: res.data.createUserSkill.skill.id,
+              skillLevel: res.data.createUserSkill.skillLevel ?? undefined,
             });
             onAddition(
               existingSkillsRankingFiltered,
