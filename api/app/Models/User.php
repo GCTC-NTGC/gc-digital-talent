@@ -183,14 +183,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $this->belongsTo(Classification::class, 'current_classification');
     }
 
-    /**
-     * @deprecated
-     */
-    public function isAdmin(): bool
-    {
-        return $this->hasRole('platform_admin');
-    }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
