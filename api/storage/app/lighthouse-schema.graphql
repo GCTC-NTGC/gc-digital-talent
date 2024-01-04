@@ -2246,7 +2246,7 @@ enum AssessmentResultType {
 }
 
 enum AssessmentDecision {
-  NOT_SURE
+  HOLD
   SUCCESSFUL
   UNSUCCESSFUL
 }
