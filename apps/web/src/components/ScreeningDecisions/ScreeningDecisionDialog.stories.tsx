@@ -89,7 +89,7 @@ WithInitialValues.args = {
     assessmentDecisionLevel: AssessmentDecisionLevel.AboveAndBeyondRequired,
     skillDecisionNotes:
       "This applicant went above and beyond our expectations.",
-    notesForThisAssessment: undefined,
+    notes: undefined,
     otherJustificationNotes: undefined,
   },
 };
