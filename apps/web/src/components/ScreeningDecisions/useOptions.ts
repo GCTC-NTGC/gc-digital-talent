@@ -25,6 +25,8 @@ import {
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import { NO_DECISION } from "~/utils/assessmentResults";
+
 import OutlineEducationIcon from "./Icons/outline/EducationIcon";
 import SolidEducationIcon from "./Icons/solid/EducationIcon";
 import OutlineEducationWorkIcon from "./Icons/outline/EducationWorkIcon";
@@ -38,7 +40,6 @@ import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
 import OutlineThreeBarsIcon from "./Icons/outline/ThreeBarsIcon";
 import SolidThreeBarsIcon from "./Icons/solid/ThreeBarsIcon";
 import { DialogType } from "./useDialogType";
-import { NO_DECISION } from "./utils";
 
 const useOptions = (
   dialogType: DialogType,
