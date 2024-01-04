@@ -11,7 +11,7 @@
     "@gc-digital-talent/theme": "*",
     "@storybook/react": "^7.6.4",
     "chromatic": "^10.2.0",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.17.4",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.4",
