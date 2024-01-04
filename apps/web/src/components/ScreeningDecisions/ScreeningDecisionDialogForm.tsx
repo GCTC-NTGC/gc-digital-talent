@@ -10,6 +10,8 @@ import {
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import { NO_DECISION } from "~/utils/assessmentResults";
+
 import useLabels from "./useLabels";
 import { DialogType } from "./useDialogType";
 import useOptions from "./useOptions";
@@ -52,9 +54,9 @@ const ScreeningDecisionDialogForm = ({
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
   const isAssessmentDecisionUnSuccessful =
-    watchAssessmentDecision === AssessmentDecision.Unsuccessful;
-  const isAssessmentDecisionNotSure =
-    watchAssessmentDecision === AssessmentDecision.NotSure;
+    watchAssessmentDecision === AssessmentDecision.Unsuccessful ||
+    watchAssessmentDecision === AssessmentDecision.Hold;
+  const isAssessmentDecisionNotSure = watchAssessmentDecision === NO_DECISION;
 
   /**
    * Reset un-rendered fields
