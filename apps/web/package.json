@@ -81,7 +81,7 @@
     "@hydrogen-css/hydrogen": "2.0.3",
     "@parcel/watcher": "^2.3.0",
     "@storybook/addon-actions": "^7.6.7",
-    "@storybook/addon-viewport": "^7.6.1",
+    "@storybook/addon-viewport": "^7.6.7",
     "@storybook/react": "^7.6.4",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
