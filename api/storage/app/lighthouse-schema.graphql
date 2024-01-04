@@ -337,6 +337,7 @@ type AssessmentResult {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  notes: String
 }
 
 type PoolSkill {
@@ -1196,6 +1197,7 @@ input CreateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  notes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1206,6 +1208,7 @@ input UpdateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  notes: String
 }
 
 input PoolSkillBelongsToMany {
