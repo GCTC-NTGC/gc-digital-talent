@@ -535,6 +535,10 @@
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
   },
+  "HVMI8t": {
+    "defaultMessage": "Systèmes d'ordinateurs",
+    "description": "Full name of abbreviation for CS"
+  },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
@@ -982,6 +986,10 @@
   "W1Kt8D": {
     "defaultMessage": "Niveau 2 : Analyste",
     "description": "The name of the Technician Analyst role."
+  },
+  "W5Dkd1": {
+    "defaultMessage": "Économique et services de sciences sociales",
+    "description": "Full name of abbreviation for EC"
   },
   "WC5em7": {
     "defaultMessage": "Mon organisation",
