@@ -126,7 +126,6 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
               max: {
                 value: strToFormDate(todayDate.toISOString()),
                 message: intl.formatMessage(errorMessages.mustNotBeFuture),
-                allowEqual: true,
               },
             }}
           />

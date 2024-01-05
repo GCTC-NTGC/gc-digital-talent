@@ -131,7 +131,6 @@ const ScopeOfContractSection = () => {
             required: intl.formatMessage(errorMessages.required),
             min: {
               value: selectedContractStartDate,
-              allowEqual: true,
               message: intl.formatMessage(errorMessages.mustBeGreater, {
                 value: selectedContractStartDate,
               }),

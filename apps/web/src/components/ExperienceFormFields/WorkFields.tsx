@@ -118,7 +118,6 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
                       min: {
                         value: startDate,
                         message: intl.formatMessage(errorMessages.futureDate),
-                        allowEqual: true,
                       },
                     }
               }

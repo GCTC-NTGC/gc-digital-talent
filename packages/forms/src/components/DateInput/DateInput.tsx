@@ -92,7 +92,7 @@ const DateInput = ({
     const minDate = formDateStringToDate(rules.min.value);
     return (
       isAfter(currentDate, minDate) ||
-      (!!rules.min.allowEqual && isEqual(currentDate, minDate)) ||
+      isEqual(currentDate, minDate) ||
       rules.min.message
     );
   };
@@ -109,7 +109,7 @@ const DateInput = ({
     const maxDate = formDateStringToDate(rules.max.value);
     return (
       isBefore(currentDate, maxDate) ||
-      (!!rules.max.allowEqual && isEqual(currentDate, maxDate)) ||
+      isEqual(currentDate, maxDate) ||
       rules.max.message
     );
   };
