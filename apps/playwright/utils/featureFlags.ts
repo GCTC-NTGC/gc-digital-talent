@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 import * as path from "path";
 
-export type FeatureFlags = Record<string, boolean | null>;
+export type FeatureFlags = Record<`FEATURE_${string}`, boolean | null>;
 
 export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
   const { parsed } = dotenv.config({
@@ -12,10 +12,10 @@ export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
   let body = `const data = new Map();`;
   Object.keys(env).forEach((key) => {
     const value = env[key];
-    if (value) {
+    if (typeof value !== "undefined") {
       body = `${body} data.set("${key}", "${value}");`;
     }
   });
 
-  return `${body} window.__SERVER_CONFIG__ = data`;
+  return `${body} window.__SERVER_CONFIG__ = data;`;
 }
