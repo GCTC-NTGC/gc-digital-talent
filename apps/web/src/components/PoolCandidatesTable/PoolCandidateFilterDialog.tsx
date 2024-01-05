@@ -68,8 +68,8 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const PoolCandidateFilterData_Query = graphql(/* GraphQL */ `
-  query PoolCandidateFilterData_Query {
+const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
+  query PoolCandidateFilterDialog_Query {
     classifications {
       group
       level
@@ -111,7 +111,7 @@ const PoolCandidateFilterDialog = ({
   const intl = useIntl();
 
   const [{ data, fetching }] = useQuery({
-    query: PoolCandidateFilterData_Query,
+    query: PoolCandidateFilterDialog_Query,
     context,
   });
 

@@ -3,9 +3,16 @@ import { useIntl } from "react-intl";
 import { motion } from "framer-motion";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import {
+  graphql,
+  PublishingGroup,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import useQuote from "~/hooks/useQuote";
 import iapHeroImg from "~/assets/img/iap-hero.webp";
@@ -21,11 +28,6 @@ import sash from "~/assets/img/sash.webp";
 import lowerBack from "~/assets/img/lower-back.webp";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.webp";
-import {
-  useIapPublishedPoolsQuery,
-  PublishingGroup,
-  Pool,
-} from "~/api/generated";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
@@ -53,15 +55,22 @@ const mailLink = (chunks: React.ReactNode) => (
   </Link>
 );
 
+export const IAPHome_PoolFragment = graphql(/* GraphQL */ `
+  fragment IAPHome_PoolFragment on Pool {
+    id
+  }
+`);
+
 interface HomeProps {
-  latestPool?: Pool;
+  query?: FragmentType<typeof IAPHome_PoolFragment>;
 }
 
-export const Home = ({ latestPool }: HomeProps) => {
+export const Home = ({ query }: HomeProps) => {
   const intl = useIntl();
   const quote = useQuote();
   const [searchParams] = useSearchParams();
   const locale = searchParams.get("locale");
+  const latestPool = getFragment(IAPHome_PoolFragment, query);
   /**
    * Language swapping is a little rough here,
    * motion.div adds a fade to smooth things out a bit
@@ -988,10 +997,26 @@ export const Home = ({ latestPool }: HomeProps) => {
   );
 };
 
+const IAPHomePage_Query = graphql(/* GraphQL */ `
+  query IAPHomePage_Query(
+    $closingAfter: DateTime
+    $publishingGroup: PublishingGroup
+  ) {
+    publishedPools(
+      closingAfter: $closingAfter
+      publishingGroup: $publishingGroup
+    ) {
+      publishedAt
+      ...IAPHome_PoolFragment
+    }
+  }
+`);
+
 const now = nowUTCDateTime();
 
 const HomeApi = () => {
-  const [{ data, fetching, error }] = useIapPublishedPoolsQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: IAPHomePage_Query,
     variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
   });
 
@@ -1007,7 +1032,7 @@ const HomeApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Home latestPool={latestPool} />
+      <Home query={latestPool} />
     </Pending>
   );
 };
