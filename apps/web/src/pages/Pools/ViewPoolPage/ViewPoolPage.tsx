@@ -137,9 +137,9 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
                 {intl.formatMessage({
                   defaultMessage: "Advertisement information",
-                  id: "myH7I0",
+                  id: "yM04jy",
                   description:
-                    "Title for card for actions related to a process advertisement",
+                    "Title for advertisement information of a process",
                 })}
               </Heading>
               <Pill

@@ -9,7 +9,7 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { navigationMessages, useLocale } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -48,18 +48,10 @@ const Layout = () => {
       })}
     </MenuLink>,
     <MenuLink key="search" to={paths.search()}>
-      {intl.formatMessage({
-        defaultMessage: "Find talent",
-        id: "NohOkF",
-        description: "Label displayed on the Find talent menu item.",
-      })}
+      {intl.formatMessage(navigationMessages.findTalent)}
     </MenuLink>,
     <MenuLink key="browseJobs" to={paths.browsePools()}>
-      {intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "7GrHDl",
-        description: "Label displayed on the browse pools menu item.",
-      })}
+      {intl.formatMessage(navigationMessages.browseJobs)}
     </MenuLink>,
   ];
 
@@ -109,12 +101,7 @@ const Layout = () => {
           key="profile-applications"
           to={paths.profileAndApplications()}
         >
-          {intl.formatMessage({
-            defaultMessage: "Profile and applications",
-            id: "nBoNqj",
-            description:
-              "Label displayed on the profile and applications menu item.",
-          })}
+          {intl.formatMessage(navigationMessages.profileAndApplications)}
         </MenuLink>,
         ...authLinks,
       ];

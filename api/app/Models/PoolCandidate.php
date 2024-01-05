@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
+ * @property bool $is_bookmarked
  */
 class PoolCandidate extends Model
 {
@@ -81,12 +82,37 @@ class PoolCandidate extends Model
         'pool_candidate_status',
     ];
 
+    protected $touches = ['user'];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_bookmarked' => false,
+    ];
+
     /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            // Check if the 'notes' attribute is being updated and if so, update the searchable user model
+            // Seems to work without this but not sure why
+            if ($model->user()->exists() && $model->isDirty('notes')) {
+                $model->user()->searchable();
+            }
+
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -346,17 +372,15 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    public function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
-        if (empty($search)) {
+        if (empty($searchTerms)) {
             return $query;
         }
 
-        $query->where(function ($query) use ($search) {
-            $query->whereHas('user', function ($query) use ($search) {
-                User::scopeGeneralSearch($query, $search);
-            })->orWhere(function ($query) use ($search) {
-                self::scopeNotes($query, $search);
+        $query->where(function ($query) use ($searchTerms) {
+            $query->whereHas('user', function ($query) use ($searchTerms) {
+                User::scopeGeneralSearch($query, $searchTerms);
             });
         });
 

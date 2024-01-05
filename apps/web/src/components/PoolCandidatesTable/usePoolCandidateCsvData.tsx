@@ -192,17 +192,17 @@ const usePoolCandidateCsvData = (
     {
       key: "preferredLanguageForInterview",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Spoken Interview Language",
-        id: "P+m8Wl",
-        description: "CSV Header, Preferred Spoken Interview Language column",
+        defaultMessage: "Preferred spoken interview language",
+        id: "DB9pFd",
+        description: "Title for preferred spoken interview language",
       }),
     },
     {
       key: "preferredLanguageForExam",
       label: intl.formatMessage({
-        defaultMessage: "Preferred Written Exam Language",
-        id: "K7fcQT",
-        description: "CSV Header, Preferred Written Exam Language column",
+        defaultMessage: "Preferred written exam language",
+        id: "fg2wla",
+        description: "Title for preferred written exam language",
       }),
     },
     {
@@ -361,8 +361,8 @@ const usePoolCandidateCsvData = (
       key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
-        id: "83v9YH",
-        description: "CSV Header, Indigenous column",
+        id: "YoIRbn",
+        description: "Title for Indigenous",
       }),
     },
     {

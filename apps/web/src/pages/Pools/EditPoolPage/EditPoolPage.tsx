@@ -35,6 +35,7 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -108,8 +109,8 @@ export const EditPoolForm = ({
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
-    id: "rwQPZE",
-    description: "Page title for process' advertisement information page",
+    id: "yM04jy",
+    description: "Title for advertisement information of a process",
   });
 
   const pageSubtitle = intl.formatMessage({
@@ -187,9 +188,8 @@ export const EditPoolForm = ({
       }),
       shortTitle: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "m/Ch5y",
-        description:
-          "Shorter version of the title  for the pool essential skills",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     educationRequirements: {
@@ -197,8 +197,8 @@ export const EditPoolForm = ({
       hasError: false, // Optional section
       title: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "mWJOIX",
-        description: "Sub title for the process' education requirements",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
     otherRequirements: {
@@ -246,11 +246,7 @@ export const EditPoolForm = ({
   const screeningQuestionMetadata: EditPoolSectionMetadata = {
     id: "screening-questions",
     hasError: false, // Optional
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "c+QwbR",
-      description: "Subtitle for the pool screening questions",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({

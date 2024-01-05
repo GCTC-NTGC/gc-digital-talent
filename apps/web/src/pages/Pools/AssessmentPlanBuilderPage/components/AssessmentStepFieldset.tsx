@@ -11,6 +11,7 @@ import { RepeaterFieldsetProps } from "@gc-digital-talent/forms/src/components/R
 import ActionButton from "@gc-digital-talent/forms/src/components/Repeater/ActionButton";
 
 import { AssessmentStep, AssessmentStepType, Pool } from "~/api/generated";
+import processMessages from "~/messages/processMessages";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -169,12 +170,7 @@ const AssessmentStepFieldset = ({
         >
           <Accordion.Item value="one">
             <Accordion.Trigger as="h5">
-              {intl.formatMessage({
-                defaultMessage: "Screening questions",
-                id: "V62J5w",
-                description:
-                  "title of 'screening questions' section of the assessment builder",
-              })}
+              {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
               <Heading

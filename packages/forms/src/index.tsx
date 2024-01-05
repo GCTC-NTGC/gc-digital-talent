@@ -18,6 +18,9 @@ import Field, {
   RequiredProps,
   WrapperProps,
 } from "./components/Field";
+import HiddenInput, {
+  type HiddenInputProps,
+} from "./components/HiddenInput/HiddenInput";
 import Input, { type InputProps } from "./components/Input";
 import RadioGroup, {
   type RadioGroupProps,
@@ -62,6 +65,7 @@ export {
   Checklist,
   Combobox,
   Field,
+  HiddenInput,
   Input,
   Repeater,
   RadioGroup,
@@ -87,6 +91,7 @@ export type {
   CheckButtonProps,
   ChecklistProps,
   ComboboxProps,
+  HiddenInputProps,
   InputProps,
   Radio,
   RadioGroupProps,

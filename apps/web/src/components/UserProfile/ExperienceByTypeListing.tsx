@@ -133,9 +133,8 @@ const ExperienceByTypeListing = ({
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
-              id: "aBSEkP",
-              description:
-                "Heading for personal experiences in experience by type listing",
+              id: "QvyQc3",
+              description: "Heading for work experiences",
             })}
             headingLevel={headingLevel}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}

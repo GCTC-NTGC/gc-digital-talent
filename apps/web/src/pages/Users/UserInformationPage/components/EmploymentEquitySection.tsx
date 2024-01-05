@@ -31,8 +31,8 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "HrXZ6X",
-            description: "Text on view-user page that the user is indigenous",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           })}
         </div>
       )}
