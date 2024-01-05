@@ -114,10 +114,10 @@ const AssessmentResult = ({
             } else {
               toast.success(
                 intl.formatMessage({
-                  defaultMessage: "Candidate successfully un-bookmarked.",
-                  id: "54+Xok",
+                  defaultMessage: "Candidate's bookmark removed successfully.",
+                  id: "glBoRl",
                   description:
-                    "Alert displayed to the user when they un-mark a a candidate as bookmarked.",
+                    "Alert displayed to the user when they un-mark a candidate as bookmarked.",
                 }),
               );
             }
@@ -126,8 +126,8 @@ const AssessmentResult = ({
         .catch(() => {
           toast.error(
             intl.formatMessage({
-              defaultMessage: "Error: failed updating a candidate's bookmark.",
-              id: "NnDLzr",
+              defaultMessage: "Error: failed to update a candidate's bookmark.",
+              id: "9QJRRw",
               description:
                 "Alert displayed to the user when failing to (un-)bookmark a candidate.",
             }),
@@ -155,29 +155,41 @@ const AssessmentResult = ({
           onClick={toggleBookmark}
           disabled={isUpdatingBookmark}
           icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-          aria-label={intl.formatMessage(
+          aria-label={
             isBookmarked
-              ? {
-                  defaultMessage:
-                    "Un-bookmark {candidateName} from top of column.",
-                  id: "qlZMZx",
-                  description:
-                    "Un-bookmark button label for applicant assessment tracking.",
-                }
-              : {
-                  defaultMessage: "Bookmark {candidateName} to top of column.",
-                  id: "Gc5hcz",
-                  description:
-                    "Bookmark button label for applicant assessment tracking.",
-                },
-            {
-              candidateName: getFullNameLabel(
-                result.poolCandidate.user.firstName,
-                result.poolCandidate.user.lastName,
-                intl,
-              ),
-            },
-          )}
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Remove {candidateName} bookmark from top of column.",
+                    id: "ISSs88",
+                    description:
+                      "Un-bookmark button label for applicant assessment tracking.",
+                  },
+                  {
+                    candidateName: getFullNameLabel(
+                      result.poolCandidate.user.firstName,
+                      result.poolCandidate.user.lastName,
+                      intl,
+                    ),
+                  },
+                )
+              : intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Bookmark {candidateName} to top of column.",
+                    id: "Gc5hcz",
+                    description:
+                      "Bookmark button label for applicant assessment tracking.",
+                  },
+                  {
+                    candidateName: getFullNameLabel(
+                      result.poolCandidate.user.firstName,
+                      result.poolCandidate.user.lastName,
+                      intl,
+                    ),
+                  },
+                )
+          }
           data-h2-height="base(x.9)"
           data-h2-width="base(x.9)"
         />
