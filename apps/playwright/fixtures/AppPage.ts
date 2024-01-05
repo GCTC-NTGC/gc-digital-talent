@@ -1,7 +1,7 @@
 import { type Page } from "@playwright/test";
 
 import { Test_MeQueryDocument } from "~/utils/user";
-import { getFeatureFlagConfig, type FeatureFlags } from "~/utils/featureFlags";
+import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
 
 /**
  * App Page
@@ -61,16 +61,10 @@ export class AppPage {
    *
    * @returns void
    */
-  async overrideFeatureFlags(flags: Partial<FeatureFlags>) {
-    await this.page.route("**/config.js", async (route) => {
-      const response = await route.fetch();
-      const body = getFeatureFlagConfig(flags);
-
-      route.fulfill({
-        response,
-        body,
-      });
-    });
+  async overrideFeatureFlags(flags: FeatureFlags) {
+    await this.page.route("**/config.js", (route) =>
+      route.fulfill({ body: getFeatureFlagConfig(flags) }),
+    );
   }
 
   async getMe() {
