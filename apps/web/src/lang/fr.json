@@ -1955,6 +1955,10 @@
     "defaultMessage": "En attente d’évaluation des compétences",
     "description": "Status for an application that where applicant is being assessed"
   },
+  "9QJRRw": {
+    "defaultMessage": "Erreur : le signet du candidat n’a pas été mis à jour.",
+    "description": "Alert displayed to the user when failing to (un-)bookmark a candidate."
+  },
   "9QZYMX": {
     "defaultMessage": "Un diplôme d’études secondaires.",
     "description": "Description for the education requirement option secondary school diploma."
@@ -3231,6 +3235,10 @@
     "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 5 à 10 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
   },
+  "Gc5hcz": {
+    "defaultMessage": "Mettre {candidateName} en signet au haut de la colonne.",
+    "description": "Bookmark button label for applicant assessment tracking."
+  },
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
@@ -3478,6 +3486,10 @@
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
+  },
+  "ISSs88": {
+    "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
+    "description": "Un-bookmark button label for applicant assessment tracking."
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -7539,6 +7551,10 @@
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
   },
+  "glBoRl": {
+    "defaultMessage": "Signet du candidat supprimé.",
+    "description": "Alert displayed to the user when they un-mark a candidate as bookmarked."
+  },
   "glDA2j": {
     "defaultMessage": "Le fournisseur et ses employés devront-ils avoir accès à des renseignements ou à des actifs protégés et/ou classifiés?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
@@ -8822,6 +8838,10 @@
   "naE1xF": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles possibilités d’emploi.",
     "description": "Description of how application profiles works for managers/executives."
+  },
+  "neIH5o": {
+    "defaultMessage": "Candidat mis en signet.",
+    "description": "Alert displayed to the user when they mark a candidate as bookmarked."
   },
   "nfcDvX": {
     "defaultMessage": "Autres autorités qui participent à ce contrat",
