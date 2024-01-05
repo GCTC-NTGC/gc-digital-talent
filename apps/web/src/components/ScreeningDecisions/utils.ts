@@ -24,7 +24,7 @@ export type FormValues = {
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
   otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  notes?: Maybe<string>;
+  assessmentNotes?: Maybe<string>;
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -81,7 +81,7 @@ export function convertFormValuesToApiUpdateInput({
     justifications,
     otherJustificationNotes,
     skillDecisionNotes,
-    notes,
+    assessmentNotes,
   } = formValues;
   return {
     id: assessmentResultId,
@@ -93,7 +93,7 @@ export function convertFormValuesToApiUpdateInput({
       : justifications && [justifications],
     otherJustificationNotes,
     skillDecisionNotes,
-    notes,
+    assessmentNotes,
   };
 }
 

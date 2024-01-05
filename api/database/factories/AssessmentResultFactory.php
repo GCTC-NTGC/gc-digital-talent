@@ -47,7 +47,7 @@ class AssessmentResultFactory extends Factory
             'skill_decision_notes' => $assessmentResultType === AssessmentResultType::SKILL->name &&
                 $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
                 $this->faker->paragraph() : null,
-            'notes' => $this->faker->paragraphs(3, true),
+            'assessment_notes' => $this->faker->paragraphs(3, true),
         ];
     }
 
