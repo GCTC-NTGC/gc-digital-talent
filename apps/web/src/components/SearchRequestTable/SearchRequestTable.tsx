@@ -21,6 +21,7 @@ import {
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
@@ -172,12 +173,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           .join(","),
       {
         id: "stream",
-        header: intl.formatMessage({
-          defaultMessage: "Stream",
-          id: "LoKxJe",
-          description:
-            "Title displayed on the search request table stream column.",
-        }),
+        header: intl.formatMessage(processMessages.stream),
         enableColumnFilter: false,
         enableSorting: false,
         cell: ({ row: { original: row } }) =>
@@ -235,16 +231,21 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         statusCell(searchRequest.status, intl),
     }),
     columnHelper.accessor(
-      ({ requestedDate }) => accessors.date(requestedDate, intl),
+      ({ requestedDate }) => accessors.date(requestedDate),
       {
         id: "requestedDate",
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Date Received",
           id: "r2gD/4",
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: { requestedDate },
+          },
+        }) => cells.date(requestedDate, intl),
       },
     ),
     columnHelper.accessor("adminNotes", {
@@ -347,7 +348,9 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         component: (
           <SearchRequestFilterDialog
             onSubmit={handleFilterSubmit}
-            defaultValues={transformSearchRequestFilterInputToFormValues(
+            // Required for reset
+            resetValues={transformSearchRequestFilterInputToFormValues({})}
+            initialValues={transformSearchRequestFilterInputToFormValues(
               initialFilters,
             )}
           />

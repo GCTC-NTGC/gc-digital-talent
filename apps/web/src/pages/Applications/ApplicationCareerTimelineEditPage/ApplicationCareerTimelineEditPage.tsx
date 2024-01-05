@@ -2,21 +2,20 @@ import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Experience } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
-import {
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-} from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import EditExperienceForm from "./components/ExperienceEditForm";
+import useApplication from "../useApplication";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -52,10 +51,9 @@ export const getPageInfo: GetPageNavInfo = ({
       {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Edit Experience",
-          id: "nnRlUH",
-          description:
-            "Breadcrumb link text for the application career timeline edit experience page",
+          defaultMessage: "Edit experience",
+          id: "zsUuN9",
+          description: "Title for edit experience page",
         }),
       },
     ],
@@ -116,51 +114,22 @@ const ApplicationCareerTimelineEdit = ({
 };
 
 const ApplicationCareerTimelineEditPage = () => {
-  const { applicationId, experienceId } = useRequiredParams<RouteParams>(
+  const { application } = useApplication();
+  const { experienceId } = useRequiredParams<RouteParams>(
     ["experienceId", "applicationId"],
     true,
   );
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id: applicationId,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery({
-    requestPolicy: "cache-first",
-  });
 
-  const application = applicationData?.poolCandidate;
-  const experience = experienceData?.me?.experiences?.find(
-    (exp) => exp?.id === experienceId,
-  );
+  const experiences: Experience[] = unpackMaybes(application.user?.experiences);
+  const experience = experiences?.find((exp) => exp?.id === experienceId);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application && experience ? (
-        <ApplicationCareerTimelineEdit
-          application={application}
-          experience={experience}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application && experience ? (
+    <ApplicationCareerTimelineEdit
+      application={application}
+      experience={experience}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

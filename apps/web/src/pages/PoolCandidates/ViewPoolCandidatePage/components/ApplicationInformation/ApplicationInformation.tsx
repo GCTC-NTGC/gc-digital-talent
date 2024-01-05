@@ -10,7 +10,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import DiversityEquityInclusionDisplay from "~/components/Profile/components/DiversityEquityInclusion/Display";
@@ -20,6 +24,7 @@ import PersonalInformationDisplay from "~/components/Profile/components/Personal
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import { SECTION_KEY } from "./types";
@@ -88,7 +93,7 @@ const ApplicationInformation = ({
             <ApplicationPrintButton
               mode="inline"
               color="secondary"
-              pool={application.pool}
+              pool={pool}
               user={snapshot}
             />
           )}
@@ -140,9 +145,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Personal and contact information",
-              id: "0lUoqK",
+              id: "BWh6S1",
               description:
-                "Title for the personal and contact information snapshot section",
+                "Title for the personal and contact information section",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -152,12 +157,7 @@ const ApplicationInformation = ({
         {screeningQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
-              {intl.formatMessage({
-                defaultMessage: "Screening questions",
-                id: "mqWvWR",
-                description:
-                  "Title for the screening questions snapshot section",
-              })}
+              {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
               {screeningQuestionResponses.map((response, index) => (
@@ -185,9 +185,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Minimum experience or equivalent education",
-              id: "Fbh/MK",
+              id: "LvYEdh",
               description:
-                "Title for the minimum experience or equivalent education snapshot section.",
+                "Title for Minimum experience or equivalent education",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -217,8 +217,8 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Asset skills",
-              id: "Xpo+u6",
-              description: "Title for the optional skills snapshot section",
+              id: "K0Zkdw",
+              description: "Title for optional skills",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -246,11 +246,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
           <Accordion.Trigger>
-            {intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "s7F24X",
-              description: "Title for the work preferences snapshot section",
-            })}
+            {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
             <WorkPreferencesDisplay user={snapshot} />
@@ -260,9 +256,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Government employee information",
-              id: "nEVNHp",
+              id: "Jf3vT5",
               description:
-                "Title for the government employee information snapshot section",
+                "Title for the government employee information section",
             })}
           </Accordion.Trigger>
           <Accordion.Content>

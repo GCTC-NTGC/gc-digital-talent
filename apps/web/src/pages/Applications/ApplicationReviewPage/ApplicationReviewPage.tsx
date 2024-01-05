@@ -3,26 +3,21 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
+import { useMutation } from "urql";
 
 import {
   Button,
   Heading,
   Link,
-  Pending,
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import { Experience, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
-import {
-  SkillCategory,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-  useSubmitApplicationMutation,
-} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -30,11 +25,21 @@ import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import processMessages from "~/messages/processMessages";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
+
+const Application_SubmitMutation = graphql(/* GraphQL */ `
+  mutation Application_Submit($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+      signature
+    }
+  }
+`);
 
 type FormValues = {
   signature: string;
@@ -100,8 +105,9 @@ const ApplicationReview = ({
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 
-  const [{ fetching: mutating }, executeMutation] =
-    useSubmitApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] = useMutation(
+    Application_SubmitMutation,
+  );
   const methods = useForm<FormValues>();
   const {
     formState: { isSubmitting },
@@ -278,9 +284,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Minimum experience or equivalent education",
-          id: "2je6Bi",
-          description:
-            "Heading for education requirements section of the application review page.",
+          id: "LvYEdh",
+          description: "Title for Minimum experience or equivalent education",
         })}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
@@ -361,9 +366,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "jX2LG0",
-          description:
-            "Heading for skill requirements section of the application review page.",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
@@ -399,12 +403,7 @@ const ApplicationReview = ({
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
-          title={intl.formatMessage({
-            defaultMessage: "Screening questions",
-            id: "qGyD4w",
-            description:
-              "Heading for screening questions section of the application review page.",
-          })}
+          title={intl.formatMessage(processMessages.screeningQuestions)}
           path={editPaths.screeningQuestions}
           editLinkAriaLabel={intl.formatMessage({
             defaultMessage: "Edit screening questions",
@@ -494,12 +493,9 @@ const ApplicationReview = ({
                 </li>
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "jT5ANA",
-                      description:
-                        "Community list item for sign and submit section of application review page.",
-                    })}
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
                   </p>
                 </li>
                 <li>
@@ -561,44 +557,14 @@ const ApplicationReview = ({
 };
 
 const ApplicationReviewPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
+  const { application } = useApplication();
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application?.pool ? (
-        <ApplicationReview
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool ? (
+    <ApplicationReview application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

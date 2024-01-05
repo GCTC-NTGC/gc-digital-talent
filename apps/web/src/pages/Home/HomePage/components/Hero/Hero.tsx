@@ -4,6 +4,7 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import HomeHero from "~/components/Hero/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,11 +51,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             icon={MagnifyingGlassIcon}
             href={paths.browsePools()}
           >
-            {intl.formatMessage({
-              defaultMessage: "Browse jobs",
-              id: "SUlb9U",
-              description: "Link text for applicant call to action",
-            })}
+            {intl.formatMessage(navigationMessages.browseJobs)}
           </Link>
           <Link
             color="secondary"
@@ -62,11 +59,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             icon={StarIcon}
             href={paths.search()}
           >
-            {intl.formatMessage({
-              defaultMessage: "Find talent",
-              id: "sbEk4X",
-              description: "Link text for hiring manager call to action",
-            })}
+            {intl.formatMessage(navigationMessages.findTalent)}
           </Link>
         </>
       }

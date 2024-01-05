@@ -1,13 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
-import PageHeader from "~/components/PageHeader";
+import {
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+} from "~/api/generated";
+import AdminHero from "~/components/Hero/AdminHero";
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
@@ -35,11 +38,22 @@ export const AllPoolCandidatesPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={IdentificationIcon}>{pageTitle}</PageHeader>
-      <PoolCandidatesTable title={pageTitle} />
-    </AdminContentWrapper>
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <PoolCandidatesTable
+          title={pageTitle}
+          initialFilterInput={{
+            suspendedStatus: CandidateSuspendedFilter.Active,
+            expiryStatus: CandidateExpiryFilter.Active,
+          }}
+        />
+      </AdminContentWrapper>
+    </>
   );
 };
 

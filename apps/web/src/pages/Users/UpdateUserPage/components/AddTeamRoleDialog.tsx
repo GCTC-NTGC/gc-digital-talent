@@ -12,7 +12,6 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -143,9 +142,11 @@ const AddTeamRoleDialog = ({
                 <Select
                   id="team"
                   name="team"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select team",
+                    id: "5C8xs4",
+                    description: "Placeholder text for team selection input",
+                  })}
                   label={intl.formatMessage({
                     defaultMessage: "Team",
                     id: "GaMSN8",
@@ -155,11 +156,6 @@ const AddTeamRoleDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Select team",
-                    id: "5C8xs4",
-                    description: "Placeholder text for team selection input",
-                  })}
                   options={teamOptions ?? []}
                 />
                 <Combobox

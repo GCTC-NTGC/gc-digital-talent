@@ -35,7 +35,7 @@ export default {
 };
 
 const defaultArgs = {
-  label: "Screening Questions",
+  label: "Screening questions",
   name: "questions",
   addText: "Add screening question",
 };

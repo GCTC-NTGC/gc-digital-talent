@@ -6,6 +6,7 @@ import {
   SubmitHandler,
   UseFormProps,
   useForm,
+  DefaultValues,
 } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
 
@@ -15,36 +16,50 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 // Used by specific dialogs
 export type CommonFilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: SubmitHandler<TFieldValues>;
-  defaultValues?: Partial<TFieldValues>;
+  /** When the user resets filters they will return to these values. If initialValues is empty, resetValues is used to initialize the filters. */
+  resetValues: TFieldValues;
+  /** If initialValues is set, it will override resetValues when the filter form is first initialized. */
+  initialValues?: Partial<TFieldValues>;
 };
 
 type FilterDialogProps<TFieldValues extends FieldValues> = {
   onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
+  // Values to reset to (removing URL state)
+  resetValues: CommonFilterDialogProps<TFieldValues>["resetValues"];
   defaultOpen?: boolean;
   children: React.ReactNode;
+  /** Modify the filter count in the button (most commonly used for hidden filters) */
+  modifyFilterCount?: number;
 };
 
 const FilterDialog = <TFieldValues extends FieldValues>({
   onSubmit,
   options,
   children,
+  resetValues,
+  modifyFilterCount,
   defaultOpen = false,
 }: FilterDialogProps<TFieldValues>) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const intl = useIntl();
+  const defaultValues =
+    options?.defaultValues ??
+    (resetValues as DefaultValues<TFieldValues> | undefined);
   const methods = useForm({
     mode: "onSubmit",
     ...options,
-    defaultValues: options?.defaultValues,
+    defaultValues,
   });
   const {
-    watch,
     reset,
     formState: { isSubmitting },
   } = methods;
-  const values = watch();
-  const filterCount = Object.values(values).filter((value) => {
+  // Spreading removes the `ReadOnly` type
+  const [activeFilters, setActiveFilters] = React.useState<
+    Partial<TFieldValues>
+  >({ ...options?.defaultValues });
+  const filterCount = Object.values(activeFilters ?? {}).filter((value) => {
     if (Array.isArray(value)) {
       return value.length > 0;
     }
@@ -54,25 +69,40 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   const handleSubmit: SubmitHandler<TFieldValues> = async (
     newValues: TFieldValues,
   ) => {
+    setActiveFilters(newValues);
     await onSubmit(newValues);
     setIsOpen(false);
   };
 
+  // Reset form and submit
   const handleClear = async () => {
-    reset();
+    reset(resetValues);
+    setActiveFilters(resetValues);
     await methods.handleSubmit(onSubmit)();
     setIsOpen(false);
   };
 
+  // Reset the form with no submission on close
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      reset((currentValues) => ({
+        ...currentValues,
+        ...activeFilters,
+      }));
+    }
+
+    setIsOpen(newOpen);
+  };
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         <Button
           color="quaternary"
           type="button"
           icon={AdjustmentsVerticalIcon}
           {...(filterCount > 0 && {
-            counter: filterCount,
+            counter: filterCount + (modifyFilterCount ?? 0),
           })}
         >
           {intl.formatMessage({
@@ -110,9 +140,10 @@ const FilterDialog = <TFieldValues extends FieldValues>({
                   onClick={handleClear}
                 >
                   {intl.formatMessage({
-                    description: "Clear button within the search filter dialog",
-                    defaultMessage: "Clear filters",
-                    id: "uC0YPE",
+                    description:
+                      "Button text to reset table filters to the default values",
+                    defaultMessage: "Reset filters",
+                    id: "ROfrit",
                   })}
                 </Button>
                 <Button type="submit" color="primary" disabled={isSubmitting}>

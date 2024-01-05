@@ -42,6 +42,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
@@ -78,6 +79,7 @@ import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+import AlertImage from "./components/AlertTwoSections/AlertTwoSections";
 
 export type {
   Color,
@@ -126,6 +128,7 @@ export {
   Accordion,
   Alert,
   AlertDialog,
+  AlertImage,
   Announcer,
   useAnnouncer,
   Board,
@@ -147,6 +150,7 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  NavTabs,
   Loading,
   Pending,
   NotFound,

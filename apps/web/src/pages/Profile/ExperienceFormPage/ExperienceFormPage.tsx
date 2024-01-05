@@ -142,7 +142,9 @@ export const ExperienceForm = ({
   };
 
   const handleMutationResponse = (res: ExperienceMutationResponse) => {
-    if (res.data) {
+    if (res.error) {
+      handleError();
+    } else {
       handleSuccess();
     }
   };
@@ -216,11 +218,7 @@ export const ExperienceForm = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
@@ -232,9 +230,9 @@ export const ExperienceForm = ({
     {
       label: experience
         ? intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            id: "NrivlZ",
-            description: "Display text for edit experience form in breadcrumbs",
+            defaultMessage: "Edit experience",
+            id: "zsUuN9",
+            description: "Title for edit experience page",
           })
         : intl.formatMessage({
             defaultMessage: "Add Experience",
@@ -255,8 +253,8 @@ export const ExperienceForm = ({
       })
     : intl.formatMessage({
         defaultMessage: "Add an experience to your career timeline",
-        id: "i9MPYn",
-        description: "Display text for add experience form in breadcrumbs",
+        id: "gU/nxf",
+        description: "Title for application career timeline add experience",
       });
 
   const pageSubtitle: string = experience
@@ -307,9 +305,8 @@ export const ExperienceForm = ({
                 <TableOfContents.AnchorLink id="additional-details">
                   {intl.formatMessage({
                     defaultMessage: "Highlight additional details",
-                    id: "E4YXS0",
-                    description:
-                      "Heading for the experience type section fo the experience form",
+                    id: "6v+j79",
+                    description: "Title for additional details section",
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>

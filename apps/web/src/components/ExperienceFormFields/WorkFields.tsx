@@ -40,9 +40,8 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
-              id: "8i+lzm",
-              description:
-                "Label displayed on Work Experience form for current role input",
+              id: "mOx5K1",
+              description: "Label displayed for current role input",
             })}
             name="currentRole"
           />

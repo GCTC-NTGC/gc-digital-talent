@@ -10,7 +10,7 @@ import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
 
-import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
+import experienceMessages from "~/messages/experienceMessages";
 
 type AccordionStates = "learn-more" | "";
 
@@ -117,7 +117,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 <DefinitionList.Root>
                   <DefinitionList.Item
                     Icon={BriefcaseIcon}
-                    title={intl.formatMessage(experienceTypeTitles.work)}
+                    title={intl.formatMessage(experienceMessages.work)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -128,7 +128,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   </DefinitionList.Item>
                   <DefinitionList.Item
                     Icon={BookOpenIcon}
-                    title={intl.formatMessage(experienceTypeTitles.education)}
+                    title={intl.formatMessage(experienceMessages.education)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -140,7 +140,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   </DefinitionList.Item>
                   <DefinitionList.Item
                     Icon={UserGroupIcon}
-                    title={intl.formatMessage(experienceTypeTitles.community)}
+                    title={intl.formatMessage(experienceMessages.community)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -152,7 +152,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   </DefinitionList.Item>
                   <DefinitionList.Item
                     Icon={LightBulbIcon}
-                    title={intl.formatMessage(experienceTypeTitles.personal)}
+                    title={intl.formatMessage(experienceMessages.personal)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -164,7 +164,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                   </DefinitionList.Item>
                   <DefinitionList.Item
                     Icon={StarIcon}
-                    title={intl.formatMessage(experienceTypeTitles.award)}
+                    title={intl.formatMessage(experienceMessages.award)}
                   >
                     {intl.formatMessage({
                       defaultMessage:

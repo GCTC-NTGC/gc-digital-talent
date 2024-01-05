@@ -6,6 +6,7 @@ import {
   Checkbox,
   Checklist,
   Combobox,
+  HiddenInput,
   RadioGroup,
   Select,
   enumToOptions,
@@ -14,6 +15,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   OperationalRequirementV2,
+  commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getEmploymentEquityGroup,
@@ -67,11 +69,15 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues>;
+type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues> & {
+  hidePoolFilter?: boolean;
+};
 
 const PoolCandidateFilterDialog = ({
   onSubmit,
-  defaultValues,
+  resetValues,
+  initialValues,
+  hidePoolFilter,
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
 
@@ -87,25 +93,37 @@ const PoolCandidateFilterDialog = ({
   });
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      options={{ defaultValues: initialValues }}
+      // Remove hidden pools filter from count
+      {...(hidePoolFilter && {
+        modifyFilterCount: -1,
+      })}
+      {...{ resetValues, onSubmit }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
         data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) p-tablet(repeat(3, 1fr))"
       >
-        <div data-h2-grid-column="l-tablet(span 3)">
-          <Combobox
-            id="pools"
-            name="pools"
-            {...{ fetching }}
-            isMulti
-            label={intl.formatMessage(adminMessages.pools)}
-            options={pools.map((pool) => ({
-              value: pool.id,
-              label: getFullPoolTitleLabel(intl, pool),
-            }))}
-          />
-        </div>
+        {hidePoolFilter ? (
+          <HiddenInput name="pools" />
+        ) : (
+          <div data-h2-grid-column="l-tablet(span 3)">
+            <Combobox
+              id="pools"
+              name="pools"
+              {...{ fetching }}
+              isMulti
+              label={intl.formatMessage(adminMessages.pools)}
+              options={pools.map((pool) => ({
+                value: pool.id,
+                label: getFullPoolTitleLabel(intl, pool),
+              }))}
+            />
+          </div>
+        )}
+
         <Checklist
           idPrefix="publishingGroups"
           name="publishingGroups"
@@ -124,11 +142,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="equity"
           name="equity"
-          legend={intl.formatMessage({
-            defaultMessage: "Employment equity",
-            id: "9e6Xph",
-            description: "Label for the employment equity field",
-          })}
+          legend={intl.formatMessage(commonMessages.employmentEquity)}
           items={[
             equityOption("isWoman", getEmploymentEquityGroup("woman")),
             equityOption(

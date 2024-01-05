@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-
-import { Skill } from "~/api/generated";
+import { Skill } from "@gc-digital-talent/graphql";
 
 interface SkillDescriptionAccordionProps {
   skills: Skill[];

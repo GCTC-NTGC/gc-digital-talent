@@ -3,10 +3,12 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 const Opportunities = () => {
   const intl = useIntl();
@@ -14,6 +16,7 @@ const Opportunities = () => {
 
   return (
     <SkewedContainer>
+      <HolidayAlert />
       <Heading
         level="h2"
         size="h3"
@@ -45,17 +48,7 @@ const Opportunities = () => {
             {
               href: paths.browsePools(),
               mode: "solid",
-              label: intl.formatMessage(
-                {
-                  defaultMessage: "Browse jobs",
-                  id: "dkHB8N",
-                  description:
-                    "Link text for IT jobs in government call to action",
-                },
-                {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-                },
-              ),
+              label: intl.formatMessage(navigationMessages.browseJobs),
             },
           ]}
         >
@@ -78,8 +71,8 @@ const Opportunities = () => {
           color="secondary"
           title={intl.formatMessage({
             defaultMessage: "Managers community",
-            id: "g7HWuc",
-            description: "Heading for the Managers community page",
+            id: "l75mNg",
+            description: "Title for Managers community",
           })}
           links={[
             {

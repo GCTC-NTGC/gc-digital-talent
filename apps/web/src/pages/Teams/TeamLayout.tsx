@@ -9,7 +9,7 @@ import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
+import AdminHero from "~/components/Hero/AdminHero";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -52,8 +52,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: ClipboardDocumentListIcon,
         title: intl.formatMessage({
           defaultMessage: "Team information",
-          id: "UHH1Oh",
-          description: "Title for the team information page",
+          id: "b+KdqW",
+          description: "Title for team information page",
         }),
         link: {
           url: paths.teamView(team.id),
@@ -66,8 +66,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: Cog8ToothIcon,
         title: intl.formatMessage({
           defaultMessage: "Edit team information",
-          id: "05m1mY",
-          description: "Title for the team edit page",
+          id: "vSMCIR",
+          description: "Title for the edit team page",
         }),
         link: {
           url: paths.teamUpdate(team.id),
@@ -82,9 +82,17 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={teamName} icon={currentPage?.icon} navItems={pages}>
-        {currentPage?.title}
-      </PageHeader>
+      <AdminHero
+        title={currentPage?.title}
+        subtitle={teamName}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
     </>
   );
 };
@@ -103,12 +111,9 @@ const TeamLayout = () => {
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

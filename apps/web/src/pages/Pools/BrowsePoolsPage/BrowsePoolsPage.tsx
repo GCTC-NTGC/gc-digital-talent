@@ -5,6 +5,7 @@ import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -46,11 +47,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Browse jobs",
-    id: "8EFvJf",
-    description: "Page title for the direct intake browse pools page.",
-  });
+  const title = intl.formatMessage(navigationMessages.browseJobs);
 
   const crumbs = useBreadcrumbs([
     {
@@ -95,13 +92,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Browse jobs",
-          id: "ApyEMy",
-          description: "Title for the browse pools page",
-        })}
-      />
+      <SEO title={intl.formatMessage(navigationMessages.browseJobs)} />
       <Hero
         imgPath={browseHeroImg}
         title={title}
@@ -255,12 +246,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 {
                   href: paths.search(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Find talent",
-                    id: "7waBmC",
-                    description:
-                      "Link text to go to the search page on browse jobs page",
-                  }),
+                  label: intl.formatMessage(navigationMessages.findTalent),
                 },
               ]}
             >

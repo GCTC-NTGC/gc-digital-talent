@@ -148,10 +148,12 @@ const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
   title,
+  hidePoolFilter,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
   title: string;
+  hidePoolFilter?: boolean;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -286,10 +288,10 @@ const PoolCandidatesTable = ({
     ) {
       return undefined;
     }
-
     return {
       // search bar
-      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+      generalSearch:
+        searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
@@ -509,12 +511,19 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt, intl),
+      ({ poolCandidate: { submittedAt } }) => accessors.date(submittedAt),
       {
         id: "dateReceived",
         enableColumnFilter: false,
         header: intl.formatMessage(tableMessages.dateReceived),
         sortingFn: "datetime",
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { submittedAt },
+            },
+          },
+        }) => cells.date(submittedAt, intl),
       },
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
@@ -529,8 +538,8 @@ const PoolCandidatesTable = ({
       search={{
         internal: false,
         label: intl.formatMessage({
-          defaultMessage: "Search pool candidates",
-          id: "6+H2T9",
+          defaultMessage: "Search by keyword",
+          id: "lNU7FS",
           description: "Label for the pool candidates table search input",
         }),
         onChange: (newState: SearchState) => {
@@ -547,8 +556,12 @@ const PoolCandidatesTable = ({
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
+            {...{ hidePoolFilter }}
             onSubmit={handleFilterSubmit}
-            defaultValues={transformPoolCandidateSearchInputToFormValues(
+            resetValues={transformPoolCandidateSearchInputToFormValues(
+              initialFilterInput,
+            )}
+            initialValues={transformPoolCandidateSearchInputToFormValues(
               initialFilters,
             )}
           />

@@ -18,13 +18,12 @@ type Query {
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
+  poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
   applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
@@ -218,7 +217,6 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662.")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -640,7 +638,7 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: String
+  generalSearch: [String]
   roles: [ID]
   trashed: Trashed
 }
@@ -662,7 +660,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: String
+  generalSearch: [String]
   name: String
   notes: String
   isGovEmployee: Boolean

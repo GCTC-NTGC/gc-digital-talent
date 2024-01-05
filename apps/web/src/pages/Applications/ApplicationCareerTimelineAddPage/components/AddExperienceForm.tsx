@@ -8,10 +8,13 @@ import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { useExperienceMutations } from "~/hooks/useExperienceMutations";
-import { Scalars } from "~/api/generated";
+import {
+  useExperienceMutations,
+  isSuccessfulCreate,
+} from "~/hooks/useExperienceMutations";
 import {
   formValuesToSubmitData,
   getExperienceFormLabels,
@@ -24,9 +27,7 @@ import {
 import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
-
-import { experienceTypeTitles } from "../messages";
-import { isSuccessfulCreate } from "./addExperienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 type FormAction = "return" | "add-another";
 type ExperienceExperienceFormValues =
@@ -35,7 +36,7 @@ type ExperienceExperienceFormValues =
     action: FormAction | "";
   };
 interface AddExperienceFormProps {
-  applicationId: Scalars["ID"];
+  applicationId: Scalars["ID"]["output"];
 }
 
 const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
@@ -136,23 +137,23 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           options={[
             {
               value: "work",
-              label: intl.formatMessage(experienceTypeTitles.work),
+              label: intl.formatMessage(experienceMessages.work),
             },
             {
               value: "education",
-              label: intl.formatMessage(experienceTypeTitles.education),
+              label: intl.formatMessage(experienceMessages.education),
             },
             {
               value: "community",
-              label: intl.formatMessage(experienceTypeTitles.community),
+              label: intl.formatMessage(experienceMessages.community),
             },
             {
               value: "personal",
-              label: intl.formatMessage(experienceTypeTitles.personal),
+              label: intl.formatMessage(experienceMessages.personal),
             },
             {
               value: "award",
-              label: intl.formatMessage(experienceTypeTitles.award),
+              label: intl.formatMessage(experienceMessages.award),
             },
           ]}
         />

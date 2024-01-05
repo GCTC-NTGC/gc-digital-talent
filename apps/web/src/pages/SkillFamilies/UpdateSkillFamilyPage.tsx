@@ -35,6 +35,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -283,40 +284,46 @@ const UpdateSkillFamilyPage = () => {
       : []),
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Edit skill family",
+    id: "azdo5+",
+    description: "Page title for the skill family edit page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Edit skill family",
-          id: "azdo5+",
-          description: "Page title for the skill family edit page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        {lookupData?.skillFamily ? (
-          <UpdateSkillFamilyForm
-            initialSkillFamily={lookupData?.skillFamily}
-            skills={skills}
-            handleUpdateSkillFamily={handleUpdateSkillFamily}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                  id: "ZWnKEJ",
-                  description: "Message displayed for skillFamily not found.",
-                },
-                { skillFamilyId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {lookupData?.skillFamily ? (
+            <UpdateSkillFamilyForm
+              initialSkillFamily={lookupData?.skillFamily}
+              skills={skills}
+              handleUpdateSkillFamily={handleUpdateSkillFamily}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                    id: "ZWnKEJ",
+                    description: "Message displayed for skillFamily not found.",
+                  },
+                  { skillFamilyId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

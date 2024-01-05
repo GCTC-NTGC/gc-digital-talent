@@ -12,7 +12,7 @@ import {
   Pill,
   Separator,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -28,7 +28,6 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
 import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
@@ -36,6 +35,7 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -109,8 +109,8 @@ export const EditPoolForm = ({
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
-    id: "rwQPZE",
-    description: "Page title for process' advertisement information page",
+    id: "yM04jy",
+    description: "Title for advertisement information of a process",
   });
 
   const pageSubtitle = intl.formatMessage({
@@ -188,9 +188,8 @@ export const EditPoolForm = ({
       }),
       shortTitle: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "m/Ch5y",
-        description:
-          "Shorter version of the title  for the pool essential skills",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     educationRequirements: {
@@ -198,8 +197,8 @@ export const EditPoolForm = ({
       hasError: false, // Optional section
       title: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "mWJOIX",
-        description: "Sub title for the process' education requirements",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
     otherRequirements: {
@@ -247,11 +246,7 @@ export const EditPoolForm = ({
   const screeningQuestionMetadata: EditPoolSectionMetadata = {
     id: "screening-questions",
     hasError: false, // Optional
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "c+QwbR",
-      description: "Subtitle for the pool screening questions",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({
@@ -433,7 +428,6 @@ type RouteParams = {
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -461,35 +455,8 @@ export const EditPoolPage = () => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(data?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Edit<hidden> pool</hidden>",
-        id: "D6HIId",
-        description: "Edit pool breadcrumb text",
-      }),
-      url: routes.poolUpdate(poolId),
-    },
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>

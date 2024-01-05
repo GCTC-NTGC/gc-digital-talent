@@ -17,17 +17,20 @@ import createStep1Image from "~/assets/img/sign-up-create-step-1.webp";
 import createStep2Image from "~/assets/img/sign-up-create-step-2.webp";
 import createStep3Image from "~/assets/img/sign-up-create-step-3.webp";
 import createStep4Image from "~/assets/img/sign-up-create-step-4.webp";
+import createStep1ImageDark from "~/assets/img/sign-up-create-step-1-dark.webp";
+import createStep2ImageDark from "~/assets/img/sign-up-create-step-2-dark.webp";
+import createStep3ImageDark from "~/assets/img/sign-up-create-step-3-dark.webp";
+import createStep4ImageDark from "~/assets/img/sign-up-create-step-4-dark.webp";
 import mfaStep1Image from "~/assets/img/sign-up-mfa-step-1.webp";
 import mfaStep2Image from "~/assets/img/sign-up-mfa-step-2.webp";
 import mfaStep3Image from "~/assets/img/sign-up-mfa-step-3.webp";
 import mfaStep4Image from "~/assets/img/sign-up-mfa-step-4.webp";
+import mfaStep1ImageDark from "~/assets/img/sign-up-mfa-step-1-dark.webp";
+import mfaStep2ImageDark from "~/assets/img/sign-up-mfa-step-2-dark.webp";
+import mfaStep3ImageDark from "~/assets/img/sign-up-mfa-step-3-dark.webp";
+import mfaStep4ImageDark from "~/assets/img/sign-up-mfa-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
-
-const buildLink = (path: string, chunks: React.ReactNode) => (
-  <Link href={path} state={{ referrer: window.location.href }}>
-    {chunks}
-  </Link>
-);
+import gckeyMessages from "~/messages/gckeyMessages";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
@@ -65,6 +68,12 @@ const SignUpPage = () => {
       setThemeKey("iap");
     }
   }, [iapMode, themeKey, setThemeKey]);
+
+  const helpLink = (chunks: React.ReactNode) => (
+    <Link href={paths.support()} state={{ referrer: window.location.href }}>
+      {chunks}
+    </Link>
+  );
 
   return (
     <>
@@ -166,7 +175,10 @@ const SignUpPage = () => {
                 })}
               </Heading>
               <Instructions.List>
-                <Instructions.Step image={createStep1Image}>
+                <Instructions.Step
+                  image={createStep1Image}
+                  imageDark={createStep1ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section. ",
@@ -174,7 +186,10 @@ const SignUpPage = () => {
                     description: "Text for first sign up -> create step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={createStep2Image}>
+                <Instructions.Step
+                  image={createStep2Image}
+                  imageDark={createStep2ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "2. Create a username and password. Don’t forget to <strong>save your username</strong> separately from your <strong>email address</strong>.",
@@ -182,7 +197,10 @@ const SignUpPage = () => {
                     description: "Text for second sign up -> create step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={createStep3Image}>
+                <Instructions.Step
+                  image={createStep3Image}
+                  imageDark={createStep3ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "3. Complete your <strong>recovery questions</strong>. You are required to use a memorable <strong>person</strong> and <strong>date</strong>.",
@@ -192,6 +210,7 @@ const SignUpPage = () => {
                 </Instructions.Step>
                 <Instructions.Step
                   image={createStep4Image}
+                  imageDark={createStep4ImageDark}
                   includeArrow={false}
                 >
                   {intl.formatMessage({
@@ -272,7 +291,10 @@ const SignUpPage = () => {
                 })}
               </Heading>
               <Instructions.List>
-                <Instructions.Step image={mfaStep1Image}>
+                <Instructions.Step
+                  image={mfaStep1Image}
+                  imageDark={mfaStep1ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "1. <strong>Prepare your device</strong> by downloading your preferred two-factor authentication app.",
@@ -280,7 +302,10 @@ const SignUpPage = () => {
                     description: "Text for first sign up -> mfa step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={mfaStep2Image}>
+                <Instructions.Step
+                  image={mfaStep2Image}
+                  imageDark={mfaStep2ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "2. <strong>Scan the QR code</strong> or <strong>enter your secret code</strong> using your two-factor authenticator app.",
@@ -288,7 +313,10 @@ const SignUpPage = () => {
                     description: "Text for second sign up -> mfa step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={mfaStep3Image}>
+                <Instructions.Step
+                  image={mfaStep3Image}
+                  imageDark={mfaStep3ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "3. <strong>Enter</strong> the code generated <strong>from your authenticator app</strong> into the verification bar.",
@@ -296,7 +324,11 @@ const SignUpPage = () => {
                     description: "Text for third sign up -> mfa step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={mfaStep4Image} includeArrow={false}>
+                <Instructions.Step
+                  image={mfaStep4Image}
+                  imageDark={mfaStep4ImageDark}
+                  includeArrow={false}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "4. Hooray! You’ve completed your GCKey account and will be <strong>returned to the GC Digital Talent platform</strong>.",
@@ -329,52 +361,22 @@ const SignUpPage = () => {
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage: "What is a GCKey?",
-                      id: "rrKF85",
-                      description:
-                        "First of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionWhatGCKey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
-                        id: "N+rELF",
-                        description:
-                          "First answer of the Frequently Asked Questions for sign up",
-                      })}
-                    </p>
+                    <p>{intl.formatMessage(gckeyMessages.answerWhatGCKey)}</p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="two">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Who do I contact if I have questions about GCKey?",
-                      id: "WJM32F",
-                      description:
-                        "Second of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionContactGCkey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p data-h2-margin-bottom="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you have questions about GCKey, please contact the GCKey team at:",
-                        id: "yEYCHL",
-                        description:
-                          "Second answer of the Frequently Asked Questions for sign up, contact info",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
                     </p>
                     <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Canada and the United States",
-                        id: "11HdYI",
-                        description:
-                          "Second answer of the Frequently Asked Questions for sign up, contact info",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
                     </p>
                     <Link
                       color="black"
@@ -386,12 +388,7 @@ const SignUpPage = () => {
                       1-855-438-1102
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage: "Text Telephone (TTY/TDD)",
-                        id: "s2OefW",
-                        description:
-                          "Second answer of the Frequently Asked Questions for sign up, contact info",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
                     </p>
                     <Link
                       color="black"
@@ -403,12 +400,7 @@ const SignUpPage = () => {
                       1-855-438-1103
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage: "Outside Canada and the United States",
-                        id: "aVILlG",
-                        description:
-                          "Second answer of the Frequently Asked Questions for sign up, contact info",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
                     </p>
                     <Link
                       color="black"
@@ -420,180 +412,77 @@ const SignUpPage = () => {
                       1-800-2318-6290
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
-                        id: "vm0KOb",
-                        description:
-                          "Second answer of the Frequently Asked Questions for sign up, contact info",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="three">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Which authenticator app should I install?",
-                      id: "00tsn/",
-                      description:
-                        "Third of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthApp)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-                        id: "ByposT",
-                        description:
-                          "Third answer of the Frequently Asked Questions for sign up",
-                      })}
-                    </p>
+                    <p>{intl.formatMessage(gckeyMessages.answerAuthApp)}</p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="four">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What if I deleted the app or changed phone and I don’t have the recovery codes?",
-                      id: "Jd/ZvJ",
-                      description:
-                        "Fourth of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionRecoveryCodes)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Although your login cannot be recovered, you can contact our <link>Help Desk</link>, and they can help you recover your account.",
-                          id: "foidJi",
-                          description:
-                            "Fourth answer of the Frequently Asked Questions for sign up",
-                        },
-                        {
-                          link: (chunks: React.ReactNode) =>
-                            buildLink(paths.support(), chunks),
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="five">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can I use SMS or email authentication instead of an app?",
-                      id: "utILRB",
-                      description:
-                        "Fifth of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthAlternative)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Currently, our site only supports authentication through an authenticator app.",
-                        id: "Oajyw/",
-                        description:
-                          "Fifth answer of the Frequently Asked Questions for sign up",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerAuthAlternative)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="six">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can you remove the two-factor authentication from my account so I can reset it?",
-                      id: "EqHa4y",
-                      description:
-                        "Sixth of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionRemove2FA)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "We cannot remove the two factor authentication from your account, but you can contact our <link>Help Desk</link> and they can assist you with account recovery.",
-                          id: "w79+Ww",
-                          description:
-                            "Sixth answer of the Frequently Asked Questions for sign up",
-                        },
-                        {
-                          link: (chunks: React.ReactNode) =>
-                            buildLink(paths.support(), chunks),
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.answerRemove2FA, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="seven">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What can I do if my authenticator codes are no longer being accepted?",
-                      id: "e1KnGs",
-                      description:
-                        "Seventh of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthCodes)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Please contact our <link>Help Desk</link>, and they can help you recover your account.",
-                          id: "ZwvgeK",
-                          description:
-                            "Seventh answer of the Frequently Asked Questions for sign up",
-                        },
-                        {
-                          link: (chunks: React.ReactNode) =>
-                            buildLink(paths.support(), chunks),
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.questionAuthCodes, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="eight">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage: "Already have a GCKey account?",
-                      id: "1qLpE3",
-                      description:
-                        "Eighth of the Frequently Asked Questions for sign up",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionExistingAccount)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you already have a GCKey account you can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before. If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
-                        id: "p4KrU2",
-                        description:
-                          "Eighth answer of the Frequently Asked Questions for sign up",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerExistingAccount)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion.Root>
               <p data-h2-margin-top="base(x1)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Read all the FAQ’s and still stuck? <link>Contact our team for help</link>",
-                    id: "TY7KLv",
-                    description:
-                      "Seventh answer of the Frequently Asked Questions for sign up",
-                  },
-                  {
-                    link: (chunks: React.ReactNode) =>
-                      buildLink(paths.support(), chunks),
-                  },
-                )}
+                {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
               </p>
             </>
           ) : (

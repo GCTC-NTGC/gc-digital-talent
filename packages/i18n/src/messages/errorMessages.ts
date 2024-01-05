@@ -47,6 +47,12 @@ const errorMessages = defineMessages({
     description:
       "Error Message displayed on word counter when user passes the limit.",
   },
+  overCharacterLimit: {
+    defaultMessage: "This field must have less than {value} characters.",
+    id: "GiYTD4",
+    description:
+      "Error Message displayed when the user passes some given character or letter limit.",
+  },
   unknownErrorRequestErrorTitle: {
     defaultMessage: "Sorry, we encountered an error.",
     id: "edeLyW",
