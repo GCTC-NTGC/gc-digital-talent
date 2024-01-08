@@ -132,9 +132,7 @@ const getBookmarkValue = (result: AssessmentResult & { ordinal?: number }) => {
   return Number(result.poolCandidate?.isBookmarked);
 };
 const getDecisionValue = (result: AssessmentResult & { ordinal?: number }) => {
-  return decisionOrder.indexOf(
-    result.assessmentDecision ?? AssessmentDecision.NotSure,
-  );
+  return decisionOrder.indexOf(result.assessmentDecision ?? NO_DECISION);
 };
 const getPriorityValue = (result: AssessmentResult & { ordinal?: number }) => {
   return Number(result.poolCandidate?.user.hasPriorityEntitlement);
