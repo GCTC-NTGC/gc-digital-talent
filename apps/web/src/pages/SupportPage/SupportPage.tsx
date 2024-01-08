@@ -9,7 +9,6 @@ import useRoutes from "~/hooks/useRoutes";
 import flourishTopLight from "~/assets/img/support_top_light.webp";
 import flourishTopDark from "~/assets/img/support_top_dark.webp";
 import supportHeroImg from "~/assets/img/support_header.webp";
-import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 import SupportForm from "./components/SupportForm/SupportForm";
 
@@ -64,9 +63,7 @@ export const SupportPage = () => {
         <div
           data-h2-position="base(relative)"
           data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
-        >
-          <HolidayAlert />
-        </div>
+        />
         <div
           data-h2-position="base(relative)"
           data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"

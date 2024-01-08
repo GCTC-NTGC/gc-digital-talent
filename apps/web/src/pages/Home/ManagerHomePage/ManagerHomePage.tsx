@@ -23,7 +23,6 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 const HomePage = () => {
   const intl = useIntl();
@@ -85,7 +84,6 @@ const HomePage = () => {
         </p>
       </HomeHero>
       <SkewedContainer>
-        <HolidayAlert />
         <Heading
           level="h2"
           size="h3"
