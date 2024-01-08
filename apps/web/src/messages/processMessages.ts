@@ -96,6 +96,11 @@ const messages = defineMessages({
     id: "g7RC9u",
     description: "Label for a process' French special note",
   },
+  screeningQuestions: {
+    defaultMessage: "Screening questions",
+    id: "p8+wKq",
+    description: "Title of screening questions",
+  },
 });
 
 export default messages;

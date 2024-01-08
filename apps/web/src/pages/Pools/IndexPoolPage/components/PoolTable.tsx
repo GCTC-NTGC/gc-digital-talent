@@ -20,6 +20,7 @@ import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
@@ -106,12 +107,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Publishing group",
-          id: "rYgaTA",
-          description:
-            "Title displayed for the Pool table publishing group column.",
-        }),
+        header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
     columnHelper.display({

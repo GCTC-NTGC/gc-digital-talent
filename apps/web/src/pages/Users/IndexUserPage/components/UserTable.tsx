@@ -10,7 +10,7 @@ import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
+import { commonMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import {
@@ -173,11 +173,7 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
     columnHelper.accessor("telephone", {
       id: "telephone",
-      header: intl.formatMessage({
-        defaultMessage: "Telephone",
-        id: "fXMsoK",
-        description: "Title displayed for the User table Telephone column.",
-      }),
+      header: intl.formatMessage(commonMessages.telephone),
       cell: ({ getValue }) => cells.phone(getValue()),
     }),
     columnHelper.accessor("preferredLang", {

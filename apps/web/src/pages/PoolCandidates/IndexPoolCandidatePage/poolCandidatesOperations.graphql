@@ -447,7 +447,7 @@ query getPoolCandidate($id: UUID!) {
   }
 }
 
-query GetSelectedPoolCandidates($ids: [ID]) {
+query GetSelectedPoolCandidates($ids: [ID]!) {
   poolCandidates(includeIds: $ids) {
     ...selectedPoolCandidates
   }

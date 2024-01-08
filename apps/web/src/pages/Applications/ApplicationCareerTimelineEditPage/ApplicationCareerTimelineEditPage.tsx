@@ -51,10 +51,9 @@ export const getPageInfo: GetPageNavInfo = ({
       {
         url: path,
         label: intl.formatMessage({
-          defaultMessage: "Edit Experience",
-          id: "nnRlUH",
-          description:
-            "Breadcrumb link text for the application career timeline edit experience page",
+          defaultMessage: "Edit experience",
+          id: "zsUuN9",
+          description: "Title for edit experience page",
         }),
       },
     ],

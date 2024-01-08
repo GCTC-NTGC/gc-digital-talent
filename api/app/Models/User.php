@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -81,6 +82,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     use HasRolesAndPermissions;
     use LogsActivity;
     use Notifiable;
+    use Searchable;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -95,7 +97,63 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected $fillable = [
         'email',
         'sub',
+        'searchable',
     ];
+
+    protected $hidden = [
+        'searchable',
+    ];
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        $this->loadMissing([
+            'poolCandidates',
+            'workExperiences',
+            'educationExperiences',
+            'personalExperiences',
+            'communityExperiences',
+            'awardExperiences',
+        ]);
+
+        $result = collect([
+            $this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city,
+            $this->poolCandidates->pluck('notes'),
+            $this->workExperiences->pluck('role'),
+            $this->workExperiences->pluck('organization'),
+            $this->workExperiences->pluck('division'),
+            $this->workExperiences->pluck('details'),
+            $this->educationExperiences->pluck('thesis_title'),
+            $this->educationExperiences->pluck('institution'),
+            $this->educationExperiences->pluck('details'),
+            $this->educationExperiences->pluck('area_of_study'),
+            $this->personalExperiences->pluck('title'),
+            $this->personalExperiences->pluck('description'),
+            $this->personalExperiences->pluck('details'),
+            $this->communityExperiences->pluck('title'),
+            $this->communityExperiences->pluck('organization'),
+            $this->communityExperiences->pluck('project'),
+            $this->communityExperiences->pluck('details'),
+            $this->awardExperiences->pluck('title'),
+            $this->awardExperiences->pluck('details'),
+            $this->awardExperiences->pluck('issued_by'),
+        ])
+            ->flatten()
+            ->reject(function ($value) {
+                return is_null($value) || $value === '';
+            })->toArray();
+
+        if (! $result) {
+            // SQL query doesn't handle empty arrays for some reason?
+            $result = [' '];
+        }
+
+        return $result;
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -123,14 +181,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'current_classification');
-    }
-
-    /**
-     * @deprecated
-     */
-    public function isAdmin(): bool
-    {
-        return $this->hasRole('platform_admin');
     }
 
     // All the relationships for experiences
@@ -202,6 +252,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
+        $this->searchable();
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
@@ -279,7 +330,9 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected static function boot()
     {
         parent::boot();
-
+        static::created(function (User $user) {
+            $user->searchable();
+        });
         static::deleting(function (User $user) {
             // We only need to run this if the user is being soft deleted
             if (! $user->isForceDeleting()) {
@@ -292,6 +345,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newEmail]);
             }
+            $user->searchable();
         });
 
         static::restoring(function (User $user) {
@@ -618,18 +672,19 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
-    public static function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
-        if ($search) {
-            $query->where(function ($query) use ($search) {
-                self::scopeName($query, $search);
-                $query->orWhere(function ($query) use ($search) {
-                    self::scopeEmail($query, $search);
-                });
-                $query->orWhere(function ($query) use ($search) {
-                    self::scopeTelephone($query, $search);
-                });
-            });
+        if ($searchTerms && is_array($searchTerms)) {
+            $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
+            $resultIds = self::search($combinedSearchTerm)->usingWebSearchQuery()
+                ->get(['id'])
+                ->pluck('id')
+                ->unique()
+                ->take(32766)
+                ->toArray();
+
+            // Use Eloquent builder to filter results based on unique IDs
+            $query->whereIn('id', $resultIds);
         }
 
         return $query;

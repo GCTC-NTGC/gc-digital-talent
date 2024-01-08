@@ -53,8 +53,8 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Skill requirements",
-      id: "AtGnJW",
-      description: "Page title for the application skills page",
+      id: "tON7JL",
+      description: "Title for skill requirements",
     }),
     subtitle: intl.formatMessage({
       defaultMessage:
@@ -123,8 +123,9 @@ export const ApplicationSkills = ({
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
       "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-    id: "LazN9T",
-    description: "Instructions on  optional skills for a pool advertisement",
+    id: "mqRhhe",
+    description:
+      "Descriptive text about how optional skills are used in the application process",
   });
 
   const handleSubmit = async () => {
@@ -189,8 +190,8 @@ export const ApplicationSkills = ({
         <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VRxiNC",
-            description: "A link back to the instructions for this section",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>
@@ -256,8 +257,8 @@ export const ApplicationSkills = ({
           >
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
-              id: "OZe0NZ",
-              description: "Heading for optional technical skills section",
+              id: "mm1X02",
+              description: "Title for optional technical skills section",
             })}
           </Heading>
           <p>{optionalDisclaimer}</p>
