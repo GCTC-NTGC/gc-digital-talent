@@ -498,6 +498,14 @@ const ViewPoolCandidatePage = React.lazy(() =>
       ),
   ),
 );
+const RODViewPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
+      ),
+  ),
+);
 
 /** Pools */
 const IndexPoolPage = React.lazy(() =>
@@ -1574,7 +1582,11 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  <ViewPoolCandidatePage />
+                  {featureFlags.recordOfDecision ? (
+                    <RODViewPoolCandidatePage />
+                  ) : (
+                    <ViewPoolCandidatePage />
+                  )}
                 </RequireAuth>
               ),
             },
