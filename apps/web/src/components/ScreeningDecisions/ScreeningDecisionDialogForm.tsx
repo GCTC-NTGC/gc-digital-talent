@@ -54,7 +54,8 @@ const ScreeningDecisionDialogForm = ({
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
   const isAssessmentDecisionUnSuccessful =
-    watchAssessmentDecision === AssessmentDecision.Unsuccessful ||
+    watchAssessmentDecision === AssessmentDecision.Unsuccessful;
+  const isAssessmentOnHold =
     watchAssessmentDecision === AssessmentDecision.Hold;
   const isAssessmentDecisionNotSure = watchAssessmentDecision === NO_DECISION;
 
@@ -90,12 +91,17 @@ const ScreeningDecisionDialogForm = ({
         resetDirtyField("otherJustificationNotes");
       }
     }
+
+    if (isAssessmentOnHold) {
+      resetDirtyField("justifications");
+    }
   }, [
     resetField,
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
     otherReasonSelected,
+    isAssessmentOnHold,
   ]);
 
   const contextBlock = (messages: string[], key: string) => (
