@@ -1762,10 +1762,30 @@ const abbreviations = defineMessages({
     id: "sMi0QI",
     description: "Full name of abbreviation for GC",
   },
+  EX: {
+    defaultMessage: "Executive Group",
+    id: "oXrkBM",
+    description: "Full name of abbreviation for EX",
+  },
   IT: {
     defaultMessage: "Information Technology",
     id: "n3Gt3n",
     description: "Full name of abbreviation for IT",
+  },
+  PM: {
+    defaultMessage: "Programme Administration",
+    id: "CF69qZ",
+    description: "Full name of abbreviation for PM",
+  },
+  CS: {
+    defaultMessage: "Computer Systems",
+    id: "HVMI8t",
+    description: "Full name of abbreviation for CS",
+  },
+  EC: {
+    defaultMessage: "Economics and Social Science Services",
+    id: "W5Dkd1",
+    description: "Full name of abbreviation for EC",
   },
 });
 
