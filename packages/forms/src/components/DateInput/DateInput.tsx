@@ -6,6 +6,7 @@ import get from "lodash/get";
 import omit from "lodash/omit";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
+import isEqual from "date-fns/isEqual";
 import isValid from "date-fns/isValid";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 
@@ -89,7 +90,11 @@ const DateInput = ({
 
     const currentDate = formDateStringToDate(value);
     const minDate = formDateStringToDate(rules.min.value);
-    return isAfter(currentDate, minDate) || rules.min.message;
+    return (
+      isAfter(currentDate, minDate) ||
+      isEqual(currentDate, minDate) ||
+      rules.min.message
+    );
   };
 
   const isBeforeMax = (value: string) => {
@@ -102,7 +107,11 @@ const DateInput = ({
 
     const currentDate = formDateStringToDate(value);
     const maxDate = formDateStringToDate(rules.max.value);
-    return isBefore(currentDate, maxDate) || rules.max.message;
+    return (
+      isBefore(currentDate, maxDate) ||
+      isEqual(currentDate, maxDate) ||
+      rules.max.message
+    );
   };
 
   return (
