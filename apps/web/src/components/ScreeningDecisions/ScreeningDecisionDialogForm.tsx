@@ -24,7 +24,7 @@ type FormNames =
   | "assessmentDecisionLevel"
   | "otherJustificationNotes"
   | "skillDecisionNotes"
-  | "notesForThisAssessment"
+  | "assessmentNotes"
   | `justifications.${number}`;
 
 interface ScreeningDecisionDialogFormProps {
@@ -133,11 +133,11 @@ const ScreeningDecisionDialogForm = ({
       {dialogType === "GENERIC" && (
         <div data-h2-margin-bottom="base(x1)">
           <TextArea
-            id="notesForThisAssessment"
-            name="notesForThisAssessment"
+            id="assessmentNotes"
+            name="assessmentNotes"
             rows={TEXT_AREA_ROWS}
             wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.notesForThisAssessment}
+            label={labels.assessmentNotes}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
