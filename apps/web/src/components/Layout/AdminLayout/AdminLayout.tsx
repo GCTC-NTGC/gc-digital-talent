@@ -2,16 +2,6 @@ import React from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
-import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
-import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
-import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
@@ -31,8 +21,47 @@ import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import { checkRole } from "~/utils/teamUtils";
+import {
+  pageTitle as indexPoolPageTitle,
+  pageOutlineIcon as indexPoolPageIcon,
+} from "~/pages/Pools/IndexPoolPage/navigation";
+import {
+  pageTitle as allPoolCandidatesPageTitle,
+  pageOutlineIcon as allPoolCandidatesPageIcon,
+} from "~/pages/PoolCandidates/AllPoolCandidatesPage/navigation";
+import {
+  pageTitle as indexSearchRequestPageTitle,
+  pageOutlineIcon as indexSearchRequestPageIcon,
+} from "~/pages/SearchRequests/IndexSearchRequestPage/navigation";
+import {
+  pageTitle as indexTeamPageTitle,
+  pageOutlineIcon as indexTeamPageIcon,
+} from "~/pages/Teams/IndexTeamPage/navigation";
+import {
+  pageTitle as indexUserPageTitle,
+  pageOutlineIcon as indexUserPageIcon,
+} from "~/pages/Users/IndexUserPage/navigation";
+import {
+  pageTitle as adminDashboardPageTitle,
+  pageOutlineIcon as adminDashboardPageIcon,
+} from "~/pages/AdminDashboardPage/navigation";
+import {
+  indexClassificationPageTitle,
+  indexClassificationPageOutlineIcon as indexClassificationPageIcon,
+} from "~/pages/Classifications/navigation";
+import {
+  indexDepartmentPageTitle,
+  indexDepartmentPageOutlineIcon as indexDepartmentPageIcon,
+} from "~/pages/Departments/navigation";
+import {
+  indexSkillPageTitle,
+  indexSkillPageOutlineIcon as indexSkillPageIcon,
+} from "~/pages/Skills/navigation";
+import {
+  indexSkillFamilyPageTitle,
+  indexSkillFamilyPageOutlineIcon as indexSkillFamilyPageIcon,
+} from "~/pages/SkillFamilies/navigation";
 
 import MaintenanceBanner from "../MaintenanceBanner";
 import SkipLink from "../SkipLink";
@@ -115,7 +144,7 @@ const AdminLayout = () => {
           footer={<SignInOrSignOut />}
         >
           <SideMenuButton
-            icon={XMarkIcon}
+            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
             onClick={() => setMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen
@@ -131,12 +160,11 @@ const AdminLayout = () => {
             ],
             roleAssignments,
           ) && (
-            <SideMenuItem href={paths.adminDashboard()} icon={HomeIcon}>
-              {intl.formatMessage({
-                defaultMessage: "Dashboard",
-                id: "ArwIQV",
-                description: "Title for dashboard",
-              })}
+            <SideMenuItem
+              href={paths.adminDashboard()}
+              icon={adminDashboardPageIcon}
+            >
+              {intl.formatMessage(adminDashboardPageTitle)}
             </SideMenuItem>
           )}
           <SideMenuCategory
@@ -156,9 +184,9 @@ const AdminLayout = () => {
             ) && (
               <SideMenuItem
                 href={paths.poolCandidates()}
-                icon={IdentificationIcon}
+                icon={allPoolCandidatesPageIcon}
               >
-                {intl.formatMessage(adminMessages.poolsCandidates)}
+                {intl.formatMessage(allPoolCandidatesPageTitle)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -169,8 +197,8 @@ const AdminLayout = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.poolTable()} icon={Squares2X2Icon}>
-                {intl.formatMessage(adminMessages.pools)}
+              <SideMenuItem href={paths.poolTable()} icon={indexPoolPageIcon}>
+                {intl.formatMessage(indexPoolPageTitle)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -181,8 +209,8 @@ const AdminLayout = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.teamTable()} icon={BuildingOffice2Icon}>
-                {intl.formatMessage(adminMessages.teams)}
+              <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
+                {intl.formatMessage(indexTeamPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>
@@ -194,8 +222,11 @@ const AdminLayout = () => {
             })}
           >
             {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
-              <SideMenuItem href={paths.searchRequestTable()} icon={TicketIcon}>
-                {intl.formatMessage(adminMessages.requests)}
+              <SideMenuItem
+                href={paths.searchRequestTable()}
+                icon={indexSearchRequestPageIcon}
+              >
+                {intl.formatMessage(indexSearchRequestPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>
@@ -214,34 +245,37 @@ const AdminLayout = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.userTable()} icon={UserIcon}>
-                {intl.formatMessage(adminMessages.users)}
+              <SideMenuItem href={paths.userTable()} icon={indexUserPageIcon}>
+                {intl.formatMessage(indexUserPageTitle)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.classificationTable()}
-                icon={PuzzlePieceIcon}
+                icon={indexClassificationPageIcon}
               >
-                {intl.formatMessage(adminMessages.classifications)}
+                {intl.formatMessage(indexClassificationPageTitle)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.departmentTable()}
-                icon={BuildingOfficeIcon}
+                icon={indexDepartmentPageIcon}
               >
-                {intl.formatMessage(adminMessages.departments)}
+                {intl.formatMessage(indexDepartmentPageTitle)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem href={paths.skillTable()} icon={BoltIcon}>
-                {intl.formatMessage(adminMessages.skills)}
+              <SideMenuItem href={paths.skillTable()} icon={indexSkillPageIcon}>
+                {intl.formatMessage(indexSkillPageTitle)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem href={paths.skillFamilyTable()} icon={CloudIcon}>
-                {intl.formatMessage(adminMessages.skillFamilies)}
+              <SideMenuItem
+                href={paths.skillFamilyTable()}
+                icon={indexSkillFamilyPageIcon}
+              >
+                {intl.formatMessage(indexSkillFamilyPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>

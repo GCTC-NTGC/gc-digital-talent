@@ -4,16 +4,16 @@ import { useIntl } from "react-intl";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
 
 import PoolTableApi from "./components/PoolTable";
+import { pageTitle } from "./navigation";
 
 export const PoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage(adminMessages.pools);
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const navigationCrumbs = [
     {
@@ -25,20 +25,20 @@ export const PoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: formattedPageTitle,
       url: routes.poolTable(),
     },
   ];
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
-        title={pageTitle}
+        title={formattedPageTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
-        <PoolTableApi title={pageTitle} />
+        <PoolTableApi title={formattedPageTitle} />
       </AdminContentWrapper>
     </>
   );

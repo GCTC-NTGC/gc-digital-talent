@@ -4,16 +4,16 @@ import { useIntl } from "react-intl";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
 
 import ClassificationTableApi from "./components/ClassificationTable";
+import { indexClassificationPageTitle as pageTitle } from "./navigation";
 
 export const IndexClassificationPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage(adminMessages.classifications);
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const navigationCrumbs = [
     {
@@ -25,20 +25,20 @@ export const IndexClassificationPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: formattedPageTitle,
       url: routes.classificationTable(),
     },
   ];
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
-        title={pageTitle}
+        title={formattedPageTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
-        <ClassificationTableApi title={pageTitle} />
+        <ClassificationTableApi title={formattedPageTitle} />
       </AdminContentWrapper>
     </>
   );

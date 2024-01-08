@@ -4,16 +4,16 @@ import { useIntl } from "react-intl";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 
 import SkillTableApi from "./components/SkillTable";
 import AdminHero from "../../components/Hero/AdminHero";
+import { indexSkillPageTitle as pageTitle } from "./navigation";
 
 export const IndexSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage(adminMessages.skills);
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const navigationCrumbs = [
     {
@@ -25,20 +25,20 @@ export const IndexSkillPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.skills),
+      label: formattedPageTitle,
       url: routes.skillTable(),
     },
   ];
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
-        title={pageTitle}
+        title={formattedPageTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
-        <SkillTableApi title={pageTitle} />
+        <SkillTableApi title={formattedPageTitle} />
       </AdminContentWrapper>
     </>
   );

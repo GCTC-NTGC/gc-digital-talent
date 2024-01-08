@@ -1,15 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import BoltIcon from "@heroicons/react/20/solid/BoltIcon";
-import CloudIcon from "@heroicons/react/20/solid/CloudIcon";
-import BuildingOfficeIcon from "@heroicons/react/20/solid/BuildingOfficeIcon";
-import BuildingOffice2Icon from "@heroicons/react/20/solid/BuildingOffice2Icon";
-import TicketIcon from "@heroicons/react/20/solid/TicketIcon";
-import IdentificationIcon from "@heroicons/react/20/solid/IdentificationIcon";
-import UserIcon from "@heroicons/react/20/solid/UserIcon";
-import Squares2X2Icon from "@heroicons/react/20/solid/Squares2X2Icon";
-import PuzzlePieceIcon from "@heroicons/react/20/solid/PuzzlePieceIcon";
 
 import { Heading, Pending } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
@@ -19,8 +10,37 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
+import {
+  pageTitle as indexPoolPageTitle,
+  pageSolidIcon as indexPoolPageIcon,
+} from "~/pages/Pools/IndexPoolPage/navigation";
+import {
+  pageTitle as allPoolCandidatesPageTitle,
+  pageSolidIcon as allPoolCandidatesPageIcon,
+} from "~/pages/PoolCandidates/AllPoolCandidatesPage/navigation";
+import {
+  pageTitle as indexSearchRequestPageTitle,
+  pageSolidIcon as indexSearchRequestPageIcon,
+} from "~/pages/SearchRequests/IndexSearchRequestPage/navigation";
+import {
+  pageTitle as indexTeamPageTitle,
+  pageSolidIcon as indexTeamPageIcon,
+} from "~/pages/Teams/IndexTeamPage/navigation";
+import {
+  pageTitle as indexUserPageTitle,
+  pageSolidIcon as indexUserPageIcon,
+} from "~/pages/Users/IndexUserPage/navigation";
+import { indexClassificationPageSolidIcon as indexClassificationPageIcon } from "~/pages/Classifications/navigation";
+import { indexDepartmentPageSolidIcon as indexDepartmentPageIcon } from "~/pages/Departments/navigation";
+import {
+  indexSkillPageTitle,
+  indexSkillPageSolidIcon as indexSkillPageIcon,
+} from "~/pages/Skills/navigation";
+import {
+  indexSkillFamilyPageTitle,
+  indexSkillFamilyPageSolidIcon as indexSkillFamilyPageIcon,
+} from "~/pages/SkillFamilies/navigation";
 
 import LinkWell from "./components/LinkWell";
 
@@ -98,28 +118,29 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(adminMessages.pools),
+                  label: intl.formatMessage(indexPoolPageTitle),
                   href: adminRoutes.poolTable(),
-                  icon: Squares2X2Icon,
+                  icon: indexPoolPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.poolsCandidates),
+                  label: intl.formatMessage(allPoolCandidatesPageTitle),
                   href: adminRoutes.poolCandidates(),
-                  icon: IdentificationIcon,
+                  icon: allPoolCandidatesPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.users),
+                  label: intl.formatMessage(indexUserPageTitle),
                   href: adminRoutes.userTable(),
-                  icon: UserIcon,
+                  icon: indexUserPageIcon,
                 },
                 {
+                  // deviates from page title
                   label: intl.formatMessage({
                     defaultMessage: "My Teams",
                     id: "N3uD4m",
                     description: "Link text for current users teams page",
                   }),
                   href: adminRoutes.teamTable(),
-                  icon: BuildingOffice2Icon,
+                  icon: indexTeamPageIcon,
                 },
               ]}
             />
@@ -133,19 +154,19 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(adminMessages.requests),
+                  label: intl.formatMessage(indexSearchRequestPageTitle),
                   href: adminRoutes.searchRequestTable(),
-                  icon: TicketIcon,
+                  icon: indexSearchRequestPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.poolsCandidates),
+                  label: intl.formatMessage(allPoolCandidatesPageTitle),
                   href: adminRoutes.poolCandidates(),
-                  icon: IdentificationIcon,
+                  icon: allPoolCandidatesPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.users),
+                  label: intl.formatMessage(indexUserPageTitle),
                   href: adminRoutes.userTable(),
-                  icon: UserIcon,
+                  icon: indexUserPageIcon,
                 },
               ]}
             />
@@ -159,14 +180,14 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(adminMessages.pools),
+                  label: intl.formatMessage(indexPoolPageTitle),
                   href: adminRoutes.poolTable(),
-                  icon: Squares2X2Icon,
+                  icon: indexPoolPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.teams),
+                  label: intl.formatMessage(indexTeamPageTitle),
                   href: adminRoutes.teamTable(),
-                  icon: BuildingOffice2Icon,
+                  icon: indexTeamPageIcon,
                 },
               ]}
             />
@@ -180,42 +201,44 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(adminMessages.users),
+                  label: intl.formatMessage(indexUserPageTitle),
                   href: adminRoutes.userTable(),
-                  icon: UserIcon,
+                  icon: indexUserPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.teams),
+                  label: intl.formatMessage(indexTeamPageTitle),
                   href: adminRoutes.teamTable(),
-                  icon: BuildingOffice2Icon,
+                  icon: indexTeamPageIcon,
                 },
                 {
+                  // deviates from page title
                   label: intl.formatMessage({
                     defaultMessage: "Departments and Agencies",
                     id: "hxaIWa",
                     description: "Link text for all departments page",
                   }),
                   href: adminRoutes.departmentTable(),
-                  icon: BuildingOfficeIcon,
+                  icon: indexDepartmentPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.skills),
+                  label: intl.formatMessage(indexSkillPageTitle),
                   href: adminRoutes.skillTable(),
-                  icon: BoltIcon,
+                  icon: indexSkillPageIcon,
                 },
                 {
-                  label: intl.formatMessage(adminMessages.skillFamilies),
+                  label: intl.formatMessage(indexSkillFamilyPageTitle),
                   href: adminRoutes.skillFamilyTable(),
-                  icon: CloudIcon,
+                  icon: indexSkillFamilyPageIcon,
                 },
                 {
+                  // deviates from page title
                   label: intl.formatMessage({
                     defaultMessage: "Groups and Classifications",
                     id: "m4hoPL",
                     description: "Link text for all classifications page",
                   }),
                   href: adminRoutes.classificationTable(),
-                  icon: PuzzlePieceIcon,
+                  icon: indexClassificationPageIcon,
                 },
               ]}
             />

@@ -29,6 +29,7 @@ import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
+import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/navigation";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -238,7 +239,7 @@ export const ViewSearchRequest = ({
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.requests),
+      label: intl.formatMessage(indexSearchRequestPageTitle),
       url: routes.searchRequestTable(),
     },
     {

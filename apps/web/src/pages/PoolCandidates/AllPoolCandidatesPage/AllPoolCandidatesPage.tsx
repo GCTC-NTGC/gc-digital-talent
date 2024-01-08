@@ -5,18 +5,19 @@ import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "~/api/generated";
 import AdminHero from "~/components/Hero/AdminHero";
 
+import { pageTitle } from "./navigation";
+
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const navigationCrumbs = [
     {
@@ -39,14 +40,14 @@ export const AllPoolCandidatesPage = () => {
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <AdminHero
-        title={pageTitle}
+        title={formattedPageTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
         <PoolCandidatesTable
-          title={pageTitle}
+          title={formattedPageTitle}
           initialFilterInput={{
             suspendedStatus: CandidateSuspendedFilter.Active,
             expiryStatus: CandidateExpiryFilter.Active,

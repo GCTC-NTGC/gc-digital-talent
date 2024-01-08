@@ -27,7 +27,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/navigation";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
@@ -193,7 +193,7 @@ export const AssessmentPlanBuilderPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: intl.formatMessage(indexPoolPageTitle),
       url: routes.poolTable(),
     },
     {
