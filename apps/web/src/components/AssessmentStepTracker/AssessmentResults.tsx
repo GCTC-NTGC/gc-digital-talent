@@ -1,8 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
+import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
+import { useMutation } from "urql";
 
-import { Board, Link } from "@gc-digital-talent/ui";
+import { Board, Button, Link } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import {
   ArmedForcesStatus,
@@ -13,7 +17,7 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import useRoutes from "../../hooks/useRoutes";
-import { getDecisionInfo, sortResults } from "./utils";
+import { getDecisionInfo, sortResultsAndAddOrdinal } from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -51,19 +55,29 @@ const Priority = ({ type }: PriorityProps) => {
   );
 };
 
+const ToggleBookmark_Mutation = graphql(/** GraphQL */ `
+  mutation ToggleBookmark_Mutation($id: ID!) {
+    togglePoolCandidateBookmark(id: $id)
+  }
+`);
+
 interface AssessmentResultProps {
-  result: AssessmentResultType;
-  ordinal: number;
+  result: AssessmentResultType & { ordinal: number };
   isApplicationStep: boolean;
 }
 
 const AssessmentResult = ({
   result,
-  ordinal,
   isApplicationStep,
 }: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [{ fetching: isUpdatingBookmark }, executeToggleBookmarkMutation] =
+    useMutation(ToggleBookmark_Mutation);
+
+  const [isBookmarked, setIsBookmarked] = React.useState(
+    result.poolCandidate?.isBookmarked,
+  );
 
   // We should always have one, but if not, don't show anything
   if (!result.poolCandidate) return null;
@@ -80,6 +94,48 @@ const AssessmentResult = ({
     "data-h2-width": "base(x.65)",
   };
 
+  const toggleBookmark = async () => {
+    if (result.poolCandidate?.id) {
+      await executeToggleBookmarkMutation({
+        id: result.poolCandidate.id,
+      })
+        .then((res) => {
+          setIsBookmarked(res.data?.togglePoolCandidateBookmark);
+          if (!res.error) {
+            if (res.data?.togglePoolCandidateBookmark === true) {
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Candidate successfully bookmarked.",
+                  id: "neIH5o",
+                  description:
+                    "Alert displayed to the user when they mark a candidate as bookmarked.",
+                }),
+              );
+            } else {
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Candidate's bookmark removed successfully.",
+                  id: "glBoRl",
+                  description:
+                    "Alert displayed to the user when they un-mark a candidate as bookmarked.",
+                }),
+              );
+            }
+          }
+        })
+        .catch(() => {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Error: failed to update a candidate's bookmark.",
+              id: "9QJRRw",
+              description:
+                "Alert displayed to the user when failing to (un-)bookmark a candidate.",
+            }),
+          );
+        });
+    }
+  };
+
   return (
     <Board.ListItem>
       <div
@@ -88,11 +144,54 @@ const AssessmentResult = ({
         data-h2-gap="base(0 x.25)"
         data-h2-padding="base(x.125 0)"
         data-h2-width="base(100%)"
+        {...(isBookmarked && {
+          "data-h2-radius": "base(5px)",
+          "data-h2-background-color": "base(primary.lightest)",
+        })}
       >
-        <BookmarkIcon
-          {...iconStyles}
-          data-h2-color="base(gray)"
-          data-h2-flex-shrink="base(0)"
+        <Button
+          mode="icon_only"
+          color={isBookmarked ? "primary" : "black"}
+          onClick={toggleBookmark}
+          disabled={isUpdatingBookmark}
+          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
+          aria-label={
+            isBookmarked
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Remove {candidateName} bookmark from top of column.",
+                    id: "ISSs88",
+                    description:
+                      "Un-bookmark button label for applicant assessment tracking.",
+                  },
+                  {
+                    candidateName: getFullNameLabel(
+                      result.poolCandidate.user.firstName,
+                      result.poolCandidate.user.lastName,
+                      intl,
+                    ),
+                  },
+                )
+              : intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Bookmark {candidateName} to top of column.",
+                    id: "Gc5hcz",
+                    description:
+                      "Bookmark button label for applicant assessment tracking.",
+                  },
+                  {
+                    candidateName: getFullNameLabel(
+                      result.poolCandidate.user.firstName,
+                      result.poolCandidate.user.lastName,
+                      intl,
+                    ),
+                  },
+                )
+          }
+          data-h2-height="base(x.9)"
+          data-h2-width="base(x.9)"
         />
         <span data-h2-flex-grow="base(1)">
           <Link
@@ -100,7 +199,7 @@ const AssessmentResult = ({
             color="black"
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
           >
-            {ordinal}.{" "}
+            {result.ordinal}.{" "}
             {getFullNameLabel(
               result.poolCandidate.user.firstName,
               result.poolCandidate.user.lastName,
@@ -132,17 +231,16 @@ interface AssessmentResultsProps {
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
-  const sortedResults = sortResults(results);
+  const sortedResults = sortResultsAndAddOrdinal(results);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
   return (
     <Board.List>
-      {sortedResults.map((result, index) => (
+      {sortedResults.map((result) => (
         <AssessmentResult
           key={result.id}
-          result={result}
-          ordinal={index + 1}
+          result={{ ...result }}
           isApplicationStep={isApplicationStep}
         />
       ))}

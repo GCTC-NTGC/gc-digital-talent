@@ -11,7 +11,7 @@ import applicationMessages from "~/messages/applicationMessages";
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
 
-interface AssessmentStepTrackerProps {
+export interface AssessmentStepTrackerProps {
   pool: Pool;
 }
 
