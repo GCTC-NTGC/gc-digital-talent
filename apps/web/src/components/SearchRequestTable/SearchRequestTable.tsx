@@ -21,6 +21,7 @@ import {
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
@@ -172,12 +173,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           .join(","),
       {
         id: "stream",
-        header: intl.formatMessage({
-          defaultMessage: "Stream",
-          id: "LoKxJe",
-          description:
-            "Title displayed on the search request table stream column.",
-        }),
+        header: intl.formatMessage(processMessages.stream),
         enableColumnFilter: false,
         enableSorting: false,
         cell: ({ row: { original: row } }) =>

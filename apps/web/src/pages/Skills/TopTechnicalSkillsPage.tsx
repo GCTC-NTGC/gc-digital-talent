@@ -8,6 +8,7 @@ import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import {
   Skill,
@@ -54,19 +55,11 @@ const TopTechnicalSkills = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill Showcase",
-        id: "r4R1KZ",
-        description: "Title for the skill showcase page",
-      }),
+      label: intl.formatMessage(navigationMessages.skillShowcase),
       url: paths.skillShowcase(),
     },
     {

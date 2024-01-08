@@ -47,9 +47,8 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
         <ExperienceType
           title={intl.formatMessage({
             defaultMessage: "Work experiences",
-            id: "aBSEkP",
-            description:
-              "Heading for personal experiences in experience by type listing",
+            id: "QvyQc3",
+            description: "Heading for work experiences",
           })}
           experiences={workExperiences}
         />

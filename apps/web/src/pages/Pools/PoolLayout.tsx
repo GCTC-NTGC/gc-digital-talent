@@ -4,14 +4,13 @@ import { Outlet } from "react-router-dom";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
 import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
-
-import useRequiredParams from "../../hooks/useRequiredParams";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import AdminHero from "~/components/Hero/AdminHero";
 
 interface PoolHeaderProps {
   pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
@@ -28,9 +27,17 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={currentPage?.subtitle} navItems={pages}>
-        {poolTitle}
-      </PageHeader>
+      <AdminHero
+        title={poolTitle}
+        subtitle={currentPage?.subtitle}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
     </>
   );
 };
@@ -49,12 +56,9 @@ const PoolLayout = () => {
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

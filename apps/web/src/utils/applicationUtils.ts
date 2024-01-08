@@ -3,6 +3,7 @@ import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateStatus,
@@ -26,7 +27,7 @@ import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/care
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   experienceId?: string;
 };
 

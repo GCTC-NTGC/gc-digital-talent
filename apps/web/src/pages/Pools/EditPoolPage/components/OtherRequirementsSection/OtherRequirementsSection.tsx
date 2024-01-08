@@ -24,6 +24,7 @@ import {
 } from "~/validators/process/otherRequirements";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { SectionProps } from "../../types";
@@ -127,12 +128,9 @@ const OtherRequirementsSection = ({
               >
                 <Select
                   id="languageRequirement"
-                  label={intl.formatMessage({
-                    defaultMessage: "Language requirement",
-                    id: "nMYWzb",
-                    description:
-                      "Label displayed on the edit pool form language requirement field.",
-                  })}
+                  label={intl.formatMessage(
+                    processMessages.languageRequirement,
+                  )}
                   name="languageRequirement"
                   nullSelection={intl.formatMessage({
                     defaultMessage: "Select a language requirement",
@@ -153,12 +151,9 @@ const OtherRequirementsSection = ({
                 />
                 <Select
                   id="securityRequirement"
-                  label={intl.formatMessage({
-                    defaultMessage: "Security requirement",
-                    id: "ASNC88",
-                    description:
-                      "Label displayed on the edit pool form security requirement field.",
-                  })}
+                  label={intl.formatMessage(
+                    processMessages.securityRequirement,
+                  )}
                   name="securityRequirement"
                   nullSelection={intl.formatMessage({
                     defaultMessage: "Select a security requirement",
@@ -177,11 +172,7 @@ const OtherRequirementsSection = ({
                 />
                 <RadioGroup
                   idPrefix="locationOption"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Location",
-                    id: "UGaZR2",
-                    description: "Location options in Edit Pool Form",
-                  })}
+                  legend={intl.formatMessage(processMessages.location)}
                   name="locationOption"
                   id="locationOption"
                   items={[

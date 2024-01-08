@@ -6,6 +6,7 @@ import { SubmitHandler } from "react-hook-form";
 import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -87,12 +88,7 @@ const WorkPreferences = ({
                 description: "Button text to start editing work preferences",
               })}
             >
-              {intl.formatMessage({
-                defaultMessage: "Edit this section",
-                id: "co9aIV",
-                description:
-                  "Button text to start editing one of the profile sections.",
-              })}
+              {intl.formatMessage(commonMessages.editThisSection)}
             </ToggleForm.Trigger>
           ) : undefined
         }

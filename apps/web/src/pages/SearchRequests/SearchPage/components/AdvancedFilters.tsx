@@ -184,10 +184,9 @@ const AdvancedFilters = () => {
             )}
           >
             {intl.formatMessage({
-              defaultMessage: "Employment Duration",
-              id: "VwVtqr",
-              description:
-                "Heading for employment duration section of the search form.",
+              defaultMessage: "Employment duration",
+              description: "Title for Employment duration section",
+              id: "Muh/+P",
             })}
           </Accordion.Trigger>
           <Accordion.Content>

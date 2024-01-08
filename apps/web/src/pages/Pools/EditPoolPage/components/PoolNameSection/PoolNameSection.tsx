@@ -23,6 +23,7 @@ import {
 } from "~/validators/process/classification";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
@@ -201,12 +202,7 @@ const PoolNameSection = ({
                 />
                 <Select
                   id="publishingGroup"
-                  label={intl.formatMessage({
-                    defaultMessage: "Publishing group",
-                    id: "tQ674x",
-                    description:
-                      "Label displayed on the edit pool form publishing group field.",
-                  })}
+                  label={intl.formatMessage(processMessages.publishingGroup)}
                   name="publishingGroup"
                   nullSelection={intl.formatMessage({
                     defaultMessage: "Select a publishing group",

@@ -81,7 +81,7 @@ const UpdateSkillShowcase = ({
     defaultValues: initialSkills,
   });
   const { control, watch, formState } = methods;
-  const { remove, move, fields } = useFieldArray({
+  const { remove, move, fields, append } = useFieldArray({
     control,
     name: "userSkills",
   });
@@ -103,9 +103,9 @@ const UpdateSkillShowcase = ({
       msg ||
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
-          id: "CUxHd8",
+          id: "kfjmTt",
           description:
-            "Message displayed to user after skill fails to be updated.",
+            "Message displayed to user after skill fails to be updated",
         }),
     );
   };
@@ -134,6 +134,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.updateUserSkill?.skill.id) {
+            append({
+              skill: res.data.updateUserSkill.skill.id,
+              skillLevel: res.data.updateUserSkill.skillLevel ?? undefined,
+            });
             // having claimed a user skill in the modal and the mutation successful, update the ranking
             onAddition(
               existingSkillsRankingFiltered,
@@ -154,6 +158,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.createUserSkill?.skill.id) {
+            append({
+              skill: res.data.createUserSkill.skill.id,
+              skillLevel: res.data.createUserSkill.skillLevel ?? undefined,
+            });
             onAddition(
               existingSkillsRankingFiltered,
               res.data.createUserSkill.skill.id,

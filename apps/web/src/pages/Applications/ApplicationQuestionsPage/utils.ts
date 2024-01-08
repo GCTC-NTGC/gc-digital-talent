@@ -3,7 +3,7 @@ import {
   ScreeningQuestion,
   ScreeningQuestionResponse,
   UpdateScreeningQuestionResponseInput,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import { FormValues } from "./types";
 

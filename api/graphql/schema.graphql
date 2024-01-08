@@ -236,6 +236,7 @@ type AssessmentResult {
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 type PoolSkill {
@@ -262,6 +263,9 @@ type PoolCandidate {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  isBookmarked: Boolean
+    @rename(attribute: "is_bookmarked")
+    @canOnParent(ability: "viewAssessmentResults")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -580,7 +584,7 @@ input UserFilterInput {
   telephone: String @scope
   email: String @scope
   name: String @scope
-  generalSearch: String @scope
+  generalSearch: [String] @scope
   roles: [ID] @scope(name: "roleAssignments")
   trashed: Trashed @trashed
 }
@@ -605,7 +609,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope
-  generalSearch: String @scope
+  generalSearch: [String] @scope
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
@@ -692,7 +696,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
+  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
@@ -1034,6 +1038,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -1048,6 +1053,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1393,6 +1399,7 @@ input CreateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input UpdateAssessmentResultInput
@@ -1410,6 +1417,7 @@ input UpdateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input PoolSkillBelongsToMany {
@@ -1532,6 +1540,10 @@ type Mutation {
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
+  # Return a boolean to prevent automatically updating the client's cache
+  togglePoolCandidateBookmark(id: ID!): Boolean
+    @guard
+    @can(ability: "updateAsAdmin", find: "id", model: "poolCandidate")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard

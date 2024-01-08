@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
@@ -13,10 +13,8 @@ import {
   useUpdateTeamMutation,
 } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
 
@@ -27,7 +25,6 @@ type RouteParams = {
 const EditTeamPage = () => {
   const intl = useIntl();
   const { teamId } = useRequiredParams<RouteParams>("teamId");
-  const routes = useRoutes();
   const [{ data: teamData, fetching: teamFetching, error: teamError }] =
     useGetTeamQuery({
       variables: {
@@ -48,8 +45,8 @@ const EditTeamPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit team information",
-    id: "zEmPCS",
-    description: "Page title for the edit team page",
+    id: "vSMCIR",
+    description: "Title for the edit team page",
   });
 
   const handleSubmit = async (id: Scalars["UUID"], data: UpdateTeamInput) => {
@@ -64,43 +61,8 @@ const EditTeamPage = () => {
     });
   };
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.teams),
-      url: routes.teamTable(),
-    },
-    ...(teamId
-      ? [
-          {
-            label: getLocalizedName(teamData?.team?.displayName, intl),
-            url: routes.teamView(teamId),
-          },
-        ]
-      : []),
-    ...(teamId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> team</hidden>",
-              id: "s7Hnlg",
-              description: "Breadcrumb title for the edit team page link.",
-            }),
-            url: routes.teamUpdate(teamId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending
         fetching={teamFetching || departmentsFetching}
         error={teamError || departmentsError}

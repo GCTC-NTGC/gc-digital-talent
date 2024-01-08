@@ -294,7 +294,7 @@ describe("Talent Search Workflow Tests", () => {
      */
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
-    cy.findByRole("textbox", { name: /Full Name/i }).type("Test Full Name");
+    cy.findByRole("textbox", { name: /Full name/i }).type("Test Full Name");
 
     cy.findByRole("textbox", { name: /Government e-mail/i }).type(
       "test@tbs-sct.gc.ca",

@@ -1,12 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader/PageHeader";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 import TeamTableApi from "./components/TeamTable/TeamTable";
 
@@ -32,20 +31,23 @@ const IndexTeamPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <>
       <SEO title={pageTitle} />
-      <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
-      <p data-h2-margin="base(x1 0)">
-        {intl.formatMessage({
+      <AdminHero
+        title={pageTitle}
+        subtitle={intl.formatMessage({
           defaultMessage:
             "The following is a table of teams along with their details. You can also create a new team or edit existing ones.",
           id: "i4TGiO",
           description:
             "Descriptive text about the list of teams in the admin portal.",
         })}
-      </p>
-      <TeamTableApi title={pageTitle} />
-    </AdminContentWrapper>
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <TeamTableApi title={pageTitle} />
+      </AdminContentWrapper>
+    </>
   );
 };
 
