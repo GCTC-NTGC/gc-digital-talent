@@ -62,10 +62,6 @@ export const SupportPage = () => {
         />
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, medium, x1) p-tablet(center, medium, x2)"
-        />
-        <div
-          data-h2-position="base(relative)"
           data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
         >
           <div
