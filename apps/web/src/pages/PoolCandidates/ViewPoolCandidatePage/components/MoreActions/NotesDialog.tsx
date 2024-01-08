@@ -10,6 +10,8 @@ import { Maybe, PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
+import adminMessages from "~/messages/adminMessages";
+
 type FormValues = {
   notes?: PoolCandidate["notes"];
 };
@@ -123,12 +125,7 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
               <TextArea
                 id="notes"
                 name="notes"
-                label={intl.formatMessage({
-                  defaultMessage: "Notes",
-                  id: "sa5Kih",
-                  description:
-                    "Label for the notes field for a specific pool candidate",
-                })}
+                label={intl.formatMessage(adminMessages.notes)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

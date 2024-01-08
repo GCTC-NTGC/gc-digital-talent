@@ -231,9 +231,8 @@ export const ViewPoolCandidate = ({
       id: "min-experience",
       title: intl.formatMessage({
         defaultMessage: "Minimum experience or equivalent education",
-        id: "Fbh/MK",
-        description:
-          "Title for the minimum experience or equivalent education snapshot section.",
+        id: "LvYEdh",
+        description: "Title for Minimum experience or equivalent education",
       }),
     },
     essentialSkills: {
