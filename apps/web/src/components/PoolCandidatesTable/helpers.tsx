@@ -12,6 +12,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -338,3 +339,324 @@ export function transformSortStateToOrderByClause(
     user: undefined,
   };
 }
+
+export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
+  /* GraphQL */ `
+    query PoolCandidatesTable_SelectPoolCandidates($ids: [ID]!) {
+      poolCandidates(includeIds: $ids) {
+        id
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            name {
+              en
+              fr
+            }
+            group
+            level
+          }
+        }
+        pool {
+          id
+          essentialSkills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            category
+          }
+          nonessentialSkills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            category
+          }
+        }
+        user {
+          id
+          email
+          firstName
+          lastName
+          telephone
+          preferredLang
+          preferredLanguageForInterview
+          preferredLanguageForExam
+          lookingForEnglish
+          lookingForFrench
+          lookingForBilingual
+          bilingualEvaluation
+          comprehensionLevel
+          writtenLevel
+          verbalLevel
+          estimatedLanguageAbility
+          isGovEmployee
+          govEmployeeType
+          hasPriorityEntitlement
+          priorityNumber
+          priorityWeight
+          locationPreferences
+          locationExemptions
+          positionDuration
+          acceptedOperationalRequirements
+          isWoman
+          indigenousCommunities
+          indigenousDeclarationSignature
+          isVisibleMinority
+          hasDisability
+          citizenship
+          armedForcesStatus
+          currentCity
+          currentProvince
+          topTechnicalSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          topBehaviouralSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          improveTechnicalSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          improveBehaviouralSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          department {
+            id
+            departmentNumber
+            name {
+              en
+              fr
+            }
+          }
+          currentClassification {
+            id
+            group
+            level
+            name {
+              en
+              fr
+            }
+          }
+          experiences {
+            id
+            __typename
+            user {
+              id
+              email
+            }
+            details
+            skills {
+              id
+              key
+              name {
+                en
+                fr
+              }
+              description {
+                en
+                fr
+              }
+              keywords {
+                en
+                fr
+              }
+              category
+              experienceSkillRecord {
+                details
+              }
+            }
+            ... on AwardExperience {
+              title
+              issuedBy
+              awardedDate
+              awardedTo
+              awardedScope
+            }
+            ... on CommunityExperience {
+              title
+              organization
+              project
+              startDate
+              endDate
+            }
+            ... on EducationExperience {
+              institution
+              areaOfStudy
+              thesisTitle
+              startDate
+              endDate
+              type
+              status
+            }
+            ... on PersonalExperience {
+              title
+              description
+              startDate
+              endDate
+            }
+            ... on WorkExperience {
+              role
+              organization
+              division
+              startDate
+              endDate
+            }
+          }
+        }
+        educationRequirementOption
+        educationRequirementExperiences {
+          id
+          __typename
+          user {
+            id
+            email
+          }
+          details
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            keywords {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+          }
+        }
+        screeningQuestionResponses {
+          id
+          answer
+          screeningQuestion {
+            id
+            question {
+              en
+              fr
+            }
+          }
+        }
+        cmoIdentifier
+        expiryDate
+        status
+        submittedAt
+        notes
+        archivedAt
+      }
+    }
+  `,
+);

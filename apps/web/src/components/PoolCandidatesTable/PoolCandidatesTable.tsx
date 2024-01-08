@@ -7,9 +7,10 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
+import { useClient } from "urql";
 import isEqual from "lodash/isEqual";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getLanguage,
@@ -17,12 +18,12 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchInput,
   InputMaybe,
   useGetPoolCandidatesPaginatedQuery,
-  useGetSelectedPoolCandidatesQuery,
   Pool,
   Maybe,
   CandidateExpiryFilter,
@@ -59,6 +60,7 @@ import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
+  PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
   currentLocationAccessor,
   notesCell,
@@ -157,6 +159,11 @@ const PoolCandidatesTable = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const client = useClient();
+  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectedCandidates, setSelectedCandidates] = React.useState<
+    PoolCandidate[]
+  >([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(
@@ -176,8 +183,7 @@ const PoolCandidatesTable = ({
       : INITIAL_STATE.paginationState,
   );
 
-  const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
   const [searchState, setSearchState] = React.useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
@@ -335,41 +341,36 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const [
-    {
-      data: selectedCandidatesData,
-      fetching: selectedCandidatesFetching,
-      error: selectedCandidatesError,
-    },
-  ] = useGetSelectedPoolCandidatesQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
-
-  const selectedCandidates =
-    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
-
   const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
 
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedCandidatesFetching ||
-      !!selectedCandidatesError ||
-      !selectedCandidatesData?.poolCandidates.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
+  const handlePrint = async () => {
+    setIsSelecting(true);
+    const selected = await client
+      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+        ids: selectedRows,
+      })
+      .toPromise()
+      .then((result) => {
+        const poolCandidates: PoolCandidate[] = unpackMaybes(
+          result.data?.poolCandidates,
+        );
+
+        if (result.error && !!poolCandidates.length) {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Download failed: No rows selected",
+              id: "k4xm25",
+              description:
+                "Alert message displayed when a user attempts to print without selecting items first",
+            }),
+          );
+        }
+
+        return poolCandidates;
+      });
+
+    setSelectedCandidates(selected);
+    setIsSelecting(false);
   };
 
   const columns = [
@@ -602,6 +603,7 @@ const PoolCandidatesTable = ({
           <UserProfilePrintButton
             users={selectedCandidates}
             beforePrint={handlePrint}
+            fetching={isSelecting}
             color="whiteFixed"
             mode="inline"
             fontSize="caption"
