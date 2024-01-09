@@ -43,9 +43,9 @@ import {
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import useUserCsvData from "../hooks/useUserCsvData";
 import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
+import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -267,11 +267,9 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const csv = useUserCsvData(selectedApplicants);
-
-  const handlePrint = async () => {
+  const querySelected = async () => {
     setIsSelecting(true);
-    const selected = await client
+    return client
       .query(UsersTable_SelectUsersQuery, {
         ids: selectedRows,
       })
@@ -279,7 +277,7 @@ const UserTable = ({ title }: UserTableProps) => {
       .then((result) => {
         const users: User[] = unpackMaybes(result.data?.applicants);
 
-        if (result.error && !!users.length) {
+        if (result.error || !users.length) {
           toast.error(
             intl.formatMessage({
               defaultMessage: "Download failed: No rows selected",
@@ -290,11 +288,10 @@ const UserTable = ({ title }: UserTableProps) => {
           );
         }
 
+        setSelectedApplicants(users);
+        setIsSelecting(false);
         return users;
       });
-
-    setSelectedApplicants(selected);
-    setIsSelecting(false);
   };
 
   return (
@@ -324,9 +321,14 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
+        fetching: isSelecting,
         selection: {
           csv: {
-            ...csv,
+            headers: getUserCsvHeaders(intl),
+            data: async () => {
+              const selected = await querySelected();
+              return getUserCsvData(selected, intl);
+            },
             fileName: intl.formatMessage(
               {
                 defaultMessage: "users_{date}.csv",
@@ -345,7 +347,9 @@ const UserTable = ({ title }: UserTableProps) => {
           <span>
             <UserProfilePrintButton
               users={selectedApplicants}
-              beforePrint={handlePrint}
+              beforePrint={async () => {
+                await querySelected();
+              }}
               fetching={isSelecting}
               color="whiteFixed"
               mode="inline"

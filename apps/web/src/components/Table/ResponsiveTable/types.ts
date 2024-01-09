@@ -107,6 +107,8 @@ export type DatasetDownload = {
   selection: DatasetDownloadItem;
   /** Props for the download button for all items */
   all?: DatasetDownloadItem;
+  /** Show loading icon when download data is being fetched */
+  fetching?: boolean;
 };
 
 /** Controls the print button in `RowSelection.Actions` */

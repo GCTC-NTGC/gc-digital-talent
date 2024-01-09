@@ -11,6 +11,7 @@ import {
   Updater,
 } from "@tanstack/react-table";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 
 import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
 import {
@@ -249,6 +250,9 @@ const Actions = ({
                 </span>
                 <DownloadCsv
                   data-h2-font-weight="base(400)"
+                  {...(download.fetching && {
+                    icon: ArrowPathIcon,
+                  })}
                   {...download.selection.csv}
                   {...actionButtonStyles}
                 >

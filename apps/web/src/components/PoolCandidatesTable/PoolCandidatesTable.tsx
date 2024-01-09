@@ -55,7 +55,6 @@ import Table, {
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
-import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
@@ -75,6 +74,10 @@ import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog, {
   FormValues,
 } from "./PoolCandidateFilterDialog";
+import {
+  getPoolCandidateCsvData,
+  getPoolCandidateCsvHeaders,
+} from "./poolCandidateCsv";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -153,7 +156,7 @@ const PoolCandidatesTable = ({
   hidePoolFilter,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
+  currentPool?: Maybe<Pool>;
   title: string;
   hidePoolFilter?: boolean;
 }) => {
@@ -341,11 +344,9 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
-
-  const handlePrint = async () => {
+  const querySelected = async () => {
     setIsSelecting(true);
-    const selected = await client
+    return client
       .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
         ids: selectedRows,
       })
@@ -355,7 +356,7 @@ const PoolCandidatesTable = ({
           result.data?.poolCandidates,
         );
 
-        if (result.error && !!poolCandidates.length) {
+        if (result.error || !poolCandidates.length) {
           toast.error(
             intl.formatMessage({
               defaultMessage: "Download failed: No rows selected",
@@ -366,11 +367,10 @@ const PoolCandidatesTable = ({
           );
         }
 
+        setSelectedCandidates(poolCandidates);
+        setIsSelecting(false);
         return poolCandidates;
       });
-
-    setSelectedCandidates(selected);
-    setIsSelecting(false);
   };
 
   const columns = [
@@ -582,9 +582,14 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
+        fetching: isSelecting,
         selection: {
           csv: {
-            ...csv,
+            headers: getPoolCandidateCsvHeaders(intl, currentPool),
+            data: async () => {
+              const selected = await querySelected();
+              return getPoolCandidateCsvData(selected, intl);
+            },
             fileName: intl.formatMessage(
               {
                 defaultMessage: "pool_candidates_{date}.csv",
@@ -602,7 +607,9 @@ const PoolCandidatesTable = ({
         component: (
           <UserProfilePrintButton
             users={selectedCandidates}
-            beforePrint={handlePrint}
+            beforePrint={async () => {
+              await querySelected();
+            }}
             fetching={isSelecting}
             color="whiteFixed"
             mode="inline"
