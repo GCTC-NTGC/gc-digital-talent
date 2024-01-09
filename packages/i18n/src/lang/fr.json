@@ -411,6 +411,10 @@
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
   },
+  "CF69qZ": {
+    "defaultMessage": "Administration des programmes",
+    "description": "Full name of abbreviation for PM"
+  },
   "CGNfbu": {
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
@@ -530,6 +534,10 @@
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
+  },
+  "HVMI8t": {
+    "defaultMessage": "Systèmes d'ordinateurs",
+    "description": "Full name of abbreviation for CS"
   },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
@@ -986,6 +994,10 @@
   "W1Kt8D": {
     "defaultMessage": "Niveau 2 : Analyste",
     "description": "The name of the Technician Analyst role."
+  },
+  "W5Dkd1": {
+    "defaultMessage": "Économique et services de sciences sociales",
+    "description": "Full name of abbreviation for EC"
   },
   "WC5em7": {
     "defaultMessage": "Mon organisation",
@@ -1586,6 +1598,10 @@
   "oU8C65": {
     "defaultMessage": "Vétéran",
     "description": "Priority text for veterans"
+  },
+  "oXrkBM": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Full name of abbreviation for EX"
   },
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
