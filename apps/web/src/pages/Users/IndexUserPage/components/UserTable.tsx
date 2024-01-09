@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
+import { useClient } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLanguage } from "@gc-digital-talent/i18n";
@@ -17,7 +18,6 @@ import {
   User,
   UserFilterInput,
   useAllUsersPaginatedQuery,
-  useSelectedUsersQuery,
 } from "~/api/generated";
 import Table, {
   getTableStateFromSearchParams,
@@ -36,6 +36,7 @@ import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
 
 import {
+  UsersTable_SelectUsersQuery,
   rolesAccessor,
   transformFormValuesToUserFilterInput,
   transformSortStateToOrderByClause,
@@ -76,6 +77,11 @@ const initialState = getTableStateFromSearchParams(defaultState);
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const client = useClient();
+  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectedApplicants, setSelectedApplicants] = React.useState<User[]>(
+    [],
+  );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = React.useMemo(
@@ -91,8 +97,7 @@ const UserTable = ({ title }: UserTableProps) => {
         }
       : INITIAL_STATE.paginationState,
   );
-  const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
   const [searchState, setSearchState] = React.useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
@@ -262,41 +267,34 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const [
-    {
-      data: selectedUsersData,
-      fetching: selectedUsersFetching,
-      error: selectedUsersError,
-    },
-  ] = useSelectedUsersQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
-
-  const selectedApplicants =
-    selectedUsersData?.applicants.filter(notEmpty) ?? [];
-
   const csv = useUserCsvData(selectedApplicants);
 
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedUsersFetching ||
-      !!selectedUsersError ||
-      !selectedUsersData?.applicants.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
+  const handlePrint = async () => {
+    setIsSelecting(true);
+    const selected = await client
+      .query(UsersTable_SelectUsersQuery, {
+        ids: selectedRows,
+      })
+      .toPromise()
+      .then((result) => {
+        const users: User[] = unpackMaybes(result.data?.applicants);
+
+        if (result.error && !!users.length) {
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Download failed: No rows selected",
+              id: "k4xm25",
+              description:
+                "Alert message displayed when a user attempts to print without selecting items first",
+            }),
+          );
+        }
+
+        return users;
+      });
+
+    setSelectedApplicants(selected);
+    setIsSelecting(false);
   };
 
   return (
@@ -348,6 +346,7 @@ const UserTable = ({ title }: UserTableProps) => {
             <UserProfilePrintButton
               users={selectedApplicants}
               beforePrint={handlePrint}
+              fetching={isSelecting}
               color="whiteFixed"
               mode="inline"
               fontSize="caption"
