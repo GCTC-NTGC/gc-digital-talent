@@ -64,7 +64,7 @@ const UserProfilePrintButton = ({
             id: "scef3o",
             description: "Document title for printing User table results",
           }),
-    onBeforeGetContent: handleOnBeforeGetContent,
+    onBeforeGetContent: beforePrint ? handleOnBeforeGetContent : undefined,
     onAfterPrint: () => {
       // Reset the state so we can print again
       setAnonymous(undefined);
@@ -84,7 +84,7 @@ const UserProfilePrintButton = ({
         onBeforeGetContentResolve.current();
       }
     }
-  }, [fetching, users]);
+  }, [fetching, users, beforePrint]);
 
   let margin = {};
   if (fontSize === "caption") {
