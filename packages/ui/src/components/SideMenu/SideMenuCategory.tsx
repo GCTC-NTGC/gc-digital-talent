@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { useSideMenuContext } from "./SideMenuProvider";
@@ -35,6 +35,8 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
   const ctx = useSideMenuContext();
   const shouldReduceMotion = useReducedMotion();
   const transitionConfig = { duration: shouldReduceMotion ? 0 : undefined };
+  const subitemCount = Children.toArray(children).length;
+  if (!subitemCount) return null; // hide empty categories
   return (
     <div
       data-h2-display="base(flex)"
