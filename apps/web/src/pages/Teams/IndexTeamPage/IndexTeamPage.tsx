@@ -1,5 +1,9 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import UsersOutlineIcon from "@heroicons/react/24/outline/UsersIcon";
+import UsersSolidIcon from "@heroicons/react/24/solid/UsersIcon";
+
+import { IconType } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -7,7 +11,14 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 
 import TeamTableApi from "./components/TeamTable/TeamTable";
-import { pageTitle } from "./navigation";
+
+export const pageTitle: MessageDescriptor = defineMessage({
+  defaultMessage: "Teams",
+  id: "Ezh14X",
+  description: "Title for the index team page",
+});
+export const pageOutlineIcon: IconType = UsersOutlineIcon;
+export const pageSolidIcon: IconType = UsersSolidIcon;
 
 const IndexTeamPage = () => {
   const intl = useIntl();

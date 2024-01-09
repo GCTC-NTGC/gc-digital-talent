@@ -29,7 +29,7 @@ import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
-import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/navigation";
+import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";

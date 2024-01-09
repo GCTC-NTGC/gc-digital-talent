@@ -12,8 +12,8 @@ import {
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
 import AdminHero from "~/components/Hero/AdminHero";
-import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/navigation";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 

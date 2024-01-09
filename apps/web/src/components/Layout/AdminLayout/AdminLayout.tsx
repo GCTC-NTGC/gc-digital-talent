@@ -25,43 +25,43 @@ import { checkRole } from "~/utils/teamUtils";
 import {
   pageTitle as indexPoolPageTitle,
   pageOutlineIcon as indexPoolPageIcon,
-} from "~/pages/Pools/IndexPoolPage/navigation";
+} from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import {
   pageTitle as allPoolCandidatesPageTitle,
   pageOutlineIcon as allPoolCandidatesPageIcon,
-} from "~/pages/PoolCandidates/AllPoolCandidatesPage/navigation";
+} from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
 import {
   pageTitle as indexSearchRequestPageTitle,
   pageOutlineIcon as indexSearchRequestPageIcon,
-} from "~/pages/SearchRequests/IndexSearchRequestPage/navigation";
+} from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 import {
   pageTitle as indexTeamPageTitle,
   pageOutlineIcon as indexTeamPageIcon,
-} from "~/pages/Teams/IndexTeamPage/navigation";
+} from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
 import {
   pageTitle as indexUserPageTitle,
   pageOutlineIcon as indexUserPageIcon,
-} from "~/pages/Users/IndexUserPage/navigation";
+} from "~/pages/Users/IndexUserPage/IndexUserPage";
 import {
   pageTitle as adminDashboardPageTitle,
   pageOutlineIcon as adminDashboardPageIcon,
-} from "~/pages/AdminDashboardPage/navigation";
+} from "~/pages/AdminDashboardPage/AdminDashboardPage";
 import {
-  indexClassificationPageTitle,
-  indexClassificationPageOutlineIcon as indexClassificationPageIcon,
-} from "~/pages/Classifications/navigation";
+  pageTitle as indexClassificationPageTitle,
+  pageOutlineIcon as indexClassificationPageIcon,
+} from "~/pages/Classifications/IndexClassificationPage";
 import {
-  indexDepartmentPageTitle,
-  indexDepartmentPageOutlineIcon as indexDepartmentPageIcon,
-} from "~/pages/Departments/navigation";
+  pageTitle as indexDepartmentPageTitle,
+  pageOutlineIcon as indexDepartmentPageIcon,
+} from "~/pages/Departments/IndexDepartmentPage";
 import {
-  indexSkillPageTitle,
-  indexSkillPageOutlineIcon as indexSkillPageIcon,
-} from "~/pages/Skills/navigation";
+  pageTitle as indexSkillPageTitle,
+  pageOutlineIcon as indexSkillPageIcon,
+} from "~/pages/Skills/IndexSkillPage";
 import {
-  indexSkillFamilyPageTitle,
-  indexSkillFamilyPageOutlineIcon as indexSkillFamilyPageIcon,
-} from "~/pages/SkillFamilies/navigation";
+  pageTitle as indexSkillFamilyPageTitle,
+  pageOutlineIcon as indexSkillFamilyPageIcon,
+} from "~/pages/SkillFamilies/IndexSkillFamilyPage";
 
 import MaintenanceBanner from "../MaintenanceBanner";
 import SkipLink from "../SkipLink";

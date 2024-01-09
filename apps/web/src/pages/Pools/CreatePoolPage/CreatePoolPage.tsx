@@ -26,8 +26,8 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/navigation";
 
 type Option<V> = { value: V; label: string };
 

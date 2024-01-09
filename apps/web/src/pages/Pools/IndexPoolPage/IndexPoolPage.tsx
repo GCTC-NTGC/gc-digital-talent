@@ -1,5 +1,9 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import SquaresPlusOutlineIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
+import SquaresPlusSolidIcon from "@heroicons/react/24/solid/SquaresPlusIcon";
+
+import { IconType } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -7,7 +11,14 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 
 import PoolTableApi from "./components/PoolTable";
-import { pageTitle } from "./navigation";
+
+export const pageTitle: MessageDescriptor = defineMessage({
+  defaultMessage: "Processes",
+  id: "Mi+AuD",
+  description: "Title for the index pool page",
+});
+export const pageOutlineIcon: IconType = SquaresPlusOutlineIcon;
+export const pageSolidIcon: IconType = SquaresPlusSolidIcon;
 
 export const PoolPage = () => {
   const intl = useIntl();

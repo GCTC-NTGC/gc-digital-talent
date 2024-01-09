@@ -15,9 +15,8 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import AdminHero from "~/components/Hero/AdminHero";
-
-import { indexClassificationPageTitle } from "./navigation";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {

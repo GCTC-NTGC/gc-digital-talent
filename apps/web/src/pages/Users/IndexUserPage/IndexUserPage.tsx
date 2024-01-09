@@ -1,5 +1,9 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import UserCircleOutlineIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
+
+import { IconType } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -7,7 +11,14 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminHero from "~/components/Hero/AdminHero";
 
 import UserTable from "./components/UserTable";
-import { pageTitle } from "./navigation";
+
+export const pageTitle: MessageDescriptor = defineMessage({
+  defaultMessage: "All users",
+  id: "bVQ/rm",
+  description: "Title for the index user page",
+});
+export const pageOutlineIcon: IconType = UserCircleOutlineIcon;
+export const pageSolidIcon: IconType = UserCircleSolidIcon;
 
 export const IndexUserPage = () => {
   const intl = useIntl();

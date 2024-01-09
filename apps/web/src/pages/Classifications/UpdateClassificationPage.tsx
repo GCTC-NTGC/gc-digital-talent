@@ -20,10 +20,9 @@ import {
   useUpdateClassificationMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
-
-import { indexClassificationPageTitle } from "./navigation";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
