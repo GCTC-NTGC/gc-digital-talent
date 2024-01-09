@@ -43,6 +43,7 @@ import {
 } from "~/pages/SkillFamilies/navigation";
 
 import LinkWell from "./components/LinkWell";
+import { pageTitle } from "./navigation";
 
 interface DashboardPageProps {
   currentUser?: User | null;
@@ -55,13 +56,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Admin",
-          id: "wHX/8C",
-          description: "Title tag for Admin site",
-        })}
-      />
+      <SEO title={intl.formatMessage(pageTitle)} />
       <AdminHero
         title={intl.formatMessage(
           {
