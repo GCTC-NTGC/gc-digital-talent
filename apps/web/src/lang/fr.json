@@ -387,6 +387,10 @@
     "defaultMessage": "Équipe",
     "description": "Label for the team select field on team membership form"
   },
+  "0D3ZhO": {
+    "defaultMessage": "Demandes",
+    "description": "The menu category for requests items"
+  },
   "0D8Efk": {
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
@@ -2915,10 +2919,6 @@
     "defaultMessage": "un changement majeur dans le fonctionnement de votre ministère directement lié à l’introduction de cet équipement ou matériel;",
     "description": "technological change factor - change department's operation"
   },
-  "EjhuA1": {
-    "defaultMessage": "Demandes",
-    "description": "Title for requests"
-  },
   "EkBES+": {
     "defaultMessage": "Membre des FAC :",
     "description": "label for CAF status"
@@ -2947,6 +2947,10 @@
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
   },
+  "Ezh14X": {
+    "defaultMessage": "Équipes",
+    "description": "Title for the index team page"
+  },
   "F+LDbs": {
     "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
@@ -2954,10 +2958,6 @@
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
-  },
-  "F//l5D": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Title for users"
   },
   "F/WYCH": {
     "defaultMessage": "Mise à jour de votre autodéclaration réussie",
@@ -4350,10 +4350,6 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
-  },
-  "NWEmsp": {
-    "defaultMessage": "Équipes",
-    "description": "Title for teams"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
