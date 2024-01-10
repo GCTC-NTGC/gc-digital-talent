@@ -6,12 +6,14 @@ import { useMutation } from "urql";
 import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
-  PoolCandidate,
+  AssessmentResult,
   PoolCandidateStatus,
+  Skill,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 const PoolCandidate_UpdateStatusAndExpiryMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_UpdateStatusAndExpiryMutation(
@@ -33,13 +35,24 @@ type FormValues = {
 };
 
 interface FinalDecisionNotesDialogProps {
-  poolCandidate: PoolCandidate;
+  poolCandidateId: string;
+  poolCandidateStatus?: PoolCandidateStatus;
+  expiryDate?: string;
+  essentialSkills: Skill[];
+  nonessentialSkills: Skill[];
+  assessmentResults: AssessmentResult[];
 }
 
 const FinalDecisionNotesDialog = ({
-  poolCandidate,
+  poolCandidateId,
+  poolCandidateStatus,
+  expiryDate,
+  essentialSkills,
+  nonessentialSkills,
+  assessmentResults,
 }: FinalDecisionNotesDialogProps) => {
   const intl = useIntl();
+  const todayDate = new Date();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [, executeMutation] = useMutation(
     PoolCandidate_UpdateStatusAndExpiryMutation,
@@ -47,7 +60,9 @@ const FinalDecisionNotesDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      expiryDate: poolCandidate.expiryDate ?? "",
+      expiryDate: expiryDate
+        ? new Date(expiryDate).toISOString().split("T")[0]
+        : "",
     },
   });
   const { handleSubmit, watch } = methods;
@@ -67,7 +82,7 @@ const FinalDecisionNotesDialog = ({
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    let computedStatus = poolCandidate.status;
+    let computedStatus = poolCandidateStatus;
     if (values.finalAssessmentDecision === "qualified") {
       computedStatus = PoolCandidateStatus.QualifiedAvailable;
     }
@@ -89,7 +104,7 @@ const FinalDecisionNotesDialog = ({
       ? { ...statusObject, expiryDate: values.expiryDate }
       : statusObject;
 
-    await executeMutation({ id: poolCandidate.id, input: massagedValues })
+    await executeMutation({ id: poolCandidateId, input: massagedValues })
       .then((result) => {
         if (result.data?.updatePoolCandidateAsAdmin) {
           toast.success(
@@ -260,6 +275,10 @@ const FinalDecisionNotesDialog = ({
                     })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: strToFormDate(todayDate.toISOString()),
+                        message: intl.formatMessage(errorMessages.futureDate),
+                      },
                     }}
                     data-h2-margin-top="base(x.5)"
                   />

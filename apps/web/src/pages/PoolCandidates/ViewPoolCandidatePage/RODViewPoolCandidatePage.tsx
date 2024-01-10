@@ -97,6 +97,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       notes
       signature
       submittedAt
+      expiryDate
       pool {
         id
         name {
@@ -162,6 +163,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       assessmentResults {
         id
         assessmentDecision
+        assessmentResultType
         poolSkill {
           id
           skill {
@@ -513,7 +515,16 @@ export const ViewPoolCandidate = ({
               data-h2-gap="base(x.5)"
               data-h2-margin-bottom="base(x1)"
             >
-              <FinalDecisionNotesDialog poolCandidate={poolCandidate} />
+              <FinalDecisionNotesDialog
+                poolCandidateId={poolCandidate.id}
+                poolCandidateStatus={poolCandidate.status ?? undefined}
+                expiryDate={poolCandidate.expiryDate ?? undefined}
+                essentialSkills={poolCandidate.pool.essentialSkills ?? []}
+                nonessentialSkills={poolCandidate.pool.nonessentialSkills ?? []}
+                assessmentResults={
+                  poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
+                }
+              />
               <Button
                 icon={HandRaisedIcon}
                 type="button"
