@@ -277,15 +277,12 @@ const UserTable = ({ title }: UserTableProps) => {
       .then((result) => {
         const users: User[] = unpackMaybes(result.data?.applicants);
 
-        if (result.error || !users.length) {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Download failed: No rows selected",
-              id: "k4xm25",
-              description:
-                "Alert message displayed when a user attempts to print without selecting items first",
-            }),
-          );
+        if (result.error) {
+          toast.error(intl.formatMessage(adminMessages.tooManyRowsSelected));
+        }
+
+        if (!users.length) {
+          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
         }
 
         setSelectedApplicants(users);

@@ -129,6 +129,18 @@ const messages = defineMessages({
     id: "m54J0C",
     description: "Heading for updating a users roles and permissions",
   },
+  noRowsSelected: {
+    defaultMessage: "Download failed: No rows selected",
+    id: "k4xm25",
+    description:
+      "Alert message displayed when a user attempts to print without selecting items first",
+  },
+  tooManyRowsSelected: {
+    defaultMessage: "Download failed: Too many rows selected",
+    id: "wXVuyF",
+    description:
+      "Alert message displayed when a user attempts to print too many items",
+  },
 });
 
 export default messages;
