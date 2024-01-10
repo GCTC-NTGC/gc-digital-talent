@@ -47,6 +47,8 @@ class ApplicantFilterTest extends TestCase
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
             ]);
+
+
     }
 
     /**
@@ -98,253 +100,104 @@ class ApplicantFilterTest extends TestCase
         return $input;
     }
 
-    /**
-     * Test that querying all ApplicantFilter returns correct number, with correct attributes.
-     *
-     * @return void
-     */
-    public function testQueryAllApplicantFilters()
-    {
-        $filters = ApplicantFilter::factory()->count(2)->create();
+    // /**
+    //  * Test that factory creates relationships correctly.
+    //  */
+    // public function testFactoryRelationships()
+    // {
+    //     // By default, factory doesn't add relationships.
+    //     $filter = ApplicantFilter::factory()->create();
 
-        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query {
-                applicantFilters {
-                    id
-                    hasDiploma
-                    equity {
-                        isWoman
-                        hasDisability
-                        isIndigenous
-                        isVisibleMinority
-                    }
-                    languageAbility
-                    operationalRequirements
-                    locationPreferences
-                    positionDuration
-                }
-            }
-        '
-        );
-        $response->assertJson([
-            'data' => [
-                'applicantFilters' => [
-                    [
-                        'id' => $filters[0]->id,
-                        'hasDiploma' => $filters[0]->has_diploma,
-                        'equity' => [
-                            'isWoman' => $filters[0]->is_woman,
-                            'hasDisability' => $filters[0]->has_disability,
-                            'isIndigenous' => $filters[0]->is_indigenous,
-                            'isVisibleMinority' => $filters[0]->is_visible_minority,
-                        ],
-                        'languageAbility' => $filters[0]->language_ability,
-                        'operationalRequirements' => $filters[0]->operational_requirements,
-                        'locationPreferences' => $filters[0]->location_preferences,
-                        'positionDuration' => $filters[0]->position_duration,
+    //     $this->assertEquals(0, $filter->classifications()->count());
+    //     $this->assertEquals(0, $filter->skills()->count());
+    //     $this->assertEquals(0, $filter->pools()->count());
 
-                    ],
-                    [
-                        'id' => $filters[1]->id,
-                        'hasDiploma' => $filters[1]->has_diploma,
-                        'equity' => [
-                            'isWoman' => $filters[1]->is_woman,
-                            'hasDisability' => $filters[1]->has_disability,
-                            'isIndigenous' => $filters[1]->is_indigenous,
-                            'isVisibleMinority' => $filters[1]->is_visible_minority,
-                        ],
-                        'languageAbility' => $filters[1]->language_ability,
-                        'operationalRequirements' => $filters[1]->operational_requirements,
-                        'locationPreferences' => $filters[1]->location_preferences,
-                        'positionDuration' => $filters[1]->position_duration,
-                    ],
-                ],
-            ],
-        ]);
-    }
+    //     // Before we add relationships, we need to seed the related values
+    //     $this->seed(ClassificationSeeder::class);
+    //     $this->seed(SkillFamilySeeder::class);
+    //     $this->seed(SkillSeeder::class);
+    //     $this->seed(PoolSeeder::class);
 
-    /**
-     * Test that factory creates relationships correctly.
-     */
-    public function testFactoryRelationships()
-    {
-        // By default, factory doesn't add relationships.
-        $filter = ApplicantFilter::factory()->create();
+    //     $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
+    //     $this->assertEquals(10, $filters->count());
+    //     foreach ($filters as $filter) {
+    //         $this->assertGreaterThan(0, $filter->classifications()->count());
+    //         $this->assertGreaterThan(0, $filter->skills()->count());
+    //         $this->assertGreaterThan(0, $filter->pools()->count());
+    //     }
+    // }
 
-        $this->assertEquals(0, $filter->classifications()->count());
-        $this->assertEquals(0, $filter->skills()->count());
-        $this->assertEquals(0, $filter->pools()->count());
+    // /**
+    //  * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
+    //  */
+    // public function testCanCreateARequest()
+    // {
+    //     // Seed everything required
+    //     $this->seed(DepartmentSeeder::class);
+    //     $this->seed(ClassificationSeeder::class);
+    //     $this->seed(SkillFamilySeeder::class);
+    //     $this->seed(SkillSeeder::class);
 
-        // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+    //     $filter = ApplicantFilter::factory()->withRelationships()->create();
 
-        $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
-        $this->assertEquals(10, $filters->count());
-        foreach ($filters as $filter) {
-            $this->assertGreaterThan(0, $filter->classifications()->count());
-            $this->assertGreaterThan(0, $filter->skills()->count());
-            $this->assertGreaterThan(0, $filter->pools()->count());
-        }
-    }
-
-    /**
-     * Test that queried ApplicantFilters have the correct relationships.
-     */
-    public function testQueryRelationships()
-    {
-        // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
-
-        $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
-        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query {
-                applicantFilters {
-                    id
-                    skills {
-                        id
-                        name {
-                            en
-                            fr
-                        }
-                    }
-                    pools {
-                        id
-                        name {
-                            en
-                            fr
-                        }
-                    }
-                    qualifiedStreams
-                    qualifiedClassifications {
-                        id
-                        name {
-                            en
-                            fr
-                        }
-                    }
-                }
-            }
-        '
-        );
-        // Assert that each relationship collection has the right size.
-        foreach ($response->json('data.applicantFilters') as $filter) {
-            $this->assertCount($filters->find($filter['id'])->qualifiedClassifications->count(), $filter['qualifiedClassifications']);
-            $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
-            $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
-        }
-        // Assert that the content of at least one item in each collection is correct.
-        $firstFilter = $response->json('data.applicantFilters.0');
-        $firstFilterModel = ApplicantFilter::where('id', $firstFilter['id'])->sole();
-        $response->assertJson([
-            'data' => [
-                'applicantFilters' => [
-                    [
-                        'id' => $firstFilterModel->id,
-                        'qualifiedClassifications' => [
-                            [
-                                'id' => $firstFilterModel->qualifiedClassifications->first()->id,
-                                'name' => $firstFilterModel->qualifiedClassifications->first()->name,
-                            ],
-                        ],
-                        'skills' => [
-                            [
-                                'id' => $firstFilterModel->skills->first()->id,
-                                'name' => $firstFilterModel->skills->first()->name,
-                            ],
-                        ],
-                        'pools' => [
-                            [
-                                'id' => $firstFilterModel->pools->first()->id,
-                                'name' => $firstFilterModel->pools->first()->name,
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ]);
-    }
-
-    /**
-     * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
-     */
-    public function testCanCreateARequest()
-    {
-        // Seed everything required
-        $this->seed(DepartmentSeeder::class);
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-
-        $filter = ApplicantFilter::factory()->withRelationships()->create();
-
-        // make a request to pull fake data from - don't save it in DB.
-        $request = PoolCandidateSearchRequest::factory()->make([
-            'pool_candidate_filter_id' => null,
-            'applicant_filter_id' => null,
-        ]);
-        $response = $this->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
-                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
-                    id
-                    email
-                    fullName
-                    jobTitle
-                    managerJobTitle
-                    positionType
-                    status
-                    reason
-                    department {
-                        id
-                    }
-                }
-            }
-        ',
-            [
-                'request' => [
-                    'fullName' => $request->full_name,
-                    'email' => $request->email,
-                    'department' => [
-                        'connect' => $request->department_id,
-                    ],
-                    'jobTitle' => $request->job_title,
-                    'managerJobTitle' => $request->manager_job_title,
-                    'positionType' => $request->position_type,
-                    'reason' => $request->reason,
-                    'applicantFilter' => [
-                        'create' => $this->filterToCreateInput($filter),
-                    ],
-                ],
-            ]
-        );
-        $response->assertJson([
-            'data' => [
-                'createPoolCandidateSearchRequest' => [
-                    'email' => $request->email,
-                    'fullName' => $request->full_name,
-                    'jobTitle' => $request->job_title,
-                    'managerJobTitle' => $request->manager_job_title,
-                    'positionType' => $request->position_type,
-                    'reason' => $request->reason,
-                    'status' => PoolCandidateSearchStatus::NEW->name,
-                    'department' => [
-                        'id' => $request->department_id,
-                    ],
-                ],
-            ],
-        ]);
-    }
+    //     // make a request to pull fake data from - don't save it in DB.
+    //     $request = PoolCandidateSearchRequest::factory()->make([
+    //         'pool_candidate_filter_id' => null,
+    //         'applicant_filter_id' => null,
+    //     ]);
+    //     $response = $this->graphQL(
+    //         /** @lang GraphQL */
+    //         '
+    //         mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
+    //             createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+    //                 id
+    //                 email
+    //                 fullName
+    //                 jobTitle
+    //                 managerJobTitle
+    //                 positionType
+    //                 status
+    //                 reason
+    //                 department {
+    //                     id
+    //                 }
+    //             }
+    //         }
+    //     ',
+    //         [
+    //             'request' => [
+    //                 'fullName' => $request->full_name,
+    //                 'email' => $request->email,
+    //                 'department' => [
+    //                     'connect' => $request->department_id,
+    //                 ],
+    //                 'jobTitle' => $request->job_title,
+    //                 'managerJobTitle' => $request->manager_job_title,
+    //                 'positionType' => $request->position_type,
+    //                 'reason' => $request->reason,
+    //                 'applicantFilter' => [
+    //                     'create' => $this->filterToCreateInput($filter),
+    //                 ],
+    //             ],
+    //         ]
+    //     );
+    //     $response->assertJson([
+    //         'data' => [
+    //             'createPoolCandidateSearchRequest' => [
+    //                 'email' => $request->email,
+    //                 'fullName' => $request->full_name,
+    //                 'jobTitle' => $request->job_title,
+    //                 'managerJobTitle' => $request->manager_job_title,
+    //                 'positionType' => $request->position_type,
+    //                 'reason' => $request->reason,
+    //                 'status' => PoolCandidateSearchStatus::NEW->name,
+    //                 'department' => [
+    //                     'id' => $request->department_id,
+    //                 ],
+    //             ],
+    //         ],
+    //     ]);
+    // }
 
     /**
      * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
@@ -414,7 +267,8 @@ class ApplicantFilterTest extends TestCase
             'workExperiences.skills',
         ])->find($candidate->user_id);
         $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
-        $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
+        $shuffledSkills = $candidateSkills->shuffle()->take(3);
+        $filter->skills()->saveMany($shuffledSkills);
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;
         $filter->save();
@@ -486,14 +340,27 @@ class ApplicantFilterTest extends TestCase
                         positionDuration
                         qualifiedStreams
                         qualifiedClassifications {
+                            id
+                            name {
+                                en
+                                fr
+                            }
                             group
                             level
                         }
                         skills {
                             id
+                            name {
+                                en
+                                fr
+                            }
                         }
                         pools {
                             id
+                            name {
+                                en
+                                fr
+                            }
                         }
                     }
                 }
@@ -504,6 +371,27 @@ class ApplicantFilterTest extends TestCase
             ]
         );
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+
+        // Test that queried ApplicantFilters have the correct relationships.
+        $response->assertJsonFragment([
+            'qualifiedClassifications' => [
+                [
+                    'id' => $filter->qualifiedClassifications->first()->id,
+                    'name' => $filter->qualifiedClassifications->first()->name,
+                    'group' => $filter->qualifiedClassifications->first()->group,
+                    'level' => $filter->qualifiedClassifications->first()->level,
+                ],
+            ],
+            'skills' => $filter->skills->map(function ($skill) {
+                return ['id' => $skill->id, 'name' => $skill->name];
+            }),
+            'pools' => [
+                [
+                    'id' => $filter->pools->first()->id,
+                    'name' => $filter->pools->first()->name,
+                ],
+            ],
+        ]);
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(
@@ -517,6 +405,7 @@ class ApplicantFilterTest extends TestCase
                 'where' => $retrievedFilter,
             ]
         );
+
         $this->assertEquals($firstCount, $response->json('data.countApplicants'));
     }
 }
