@@ -1,6 +1,7 @@
 import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useReducedMotion } from "framer-motion";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
@@ -37,7 +38,8 @@ const Checkbox = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = getCheckboxRadioStyles();
+  const shouldReduceMotion = useReducedMotion();
+  const baseStyles = getCheckboxRadioStyles(shouldReduceMotion);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;

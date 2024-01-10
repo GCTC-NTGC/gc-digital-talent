@@ -1,6 +1,7 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useReducedMotion } from "framer-motion";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
@@ -87,7 +88,8 @@ const RadioGroup = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles();
-  const baseRadioStyles = getCheckboxRadioStyles();
+  const shouldReduceMotion = useReducedMotion();
+  const baseRadioStyles = getCheckboxRadioStyles(shouldReduceMotion);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

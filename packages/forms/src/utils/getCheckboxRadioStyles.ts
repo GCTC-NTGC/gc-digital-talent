@@ -1,4 +1,4 @@
-const getCheckboxRadioStyles = () => ({
+const getCheckboxRadioStyles = (shouldReduceMotion: boolean | null) => ({
   "data-h2-appearance": "base(none)",
   "data-h2-background-color":
     "base(white) base:focus-visible(focus) base:selectors[::before](primary) base:dark:selectors[::before](primary.light) base:all:selectors[:focus-visible::before](black)",
@@ -13,7 +13,10 @@ const getCheckboxRadioStyles = () => ({
   "data-h2-margin": "base(0)",
   "data-h2-transform":
     "base:selectors[::before](scale(0)) base:selectors[:checked::before](scale(1))",
-  "data-h2-transition": "base:selectors[::before](120ms transform ease-in-out)",
+  ...(!shouldReduceMotion && {
+    "data-h2-transition":
+      "base:selectors[::before](120ms transform ease-in-out)",
+  }),
   "data-h2-width": "base(x1) base:selectors[::before](x.5)",
 });
 
