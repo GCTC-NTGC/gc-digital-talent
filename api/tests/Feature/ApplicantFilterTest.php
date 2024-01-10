@@ -136,7 +136,7 @@ class ApplicantFilterTest extends TestCase
 
         ',
             [
-                'id' => $request->id
+                'id' => $request->id,
             ]
         );
         $response->assertJsonFragment([
