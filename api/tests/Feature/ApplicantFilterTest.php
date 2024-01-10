@@ -248,25 +248,25 @@ class ApplicantFilterTest extends TestCase
         $response->assertJsonFragment([
             'applicantFilter' => [
                 'id' => $filter->id,
-                'pools' => [
-                    [
-                        'id' => $filter->pools->first()->id,
-                        'name' => $filter->pools->first()->name,
-                    ],
-                ],
-                'qualifiedClassifications' => [
-                    [
-                        'id' => $filter->qualifiedClassifications->first()->id,
-                        'name' => $filter->qualifiedClassifications->first()->name,
-                    ],
-                ],
+                'pools' => $filter->pools->map(function ($pool) {
+                    return [
+                        'id' => $pool->id,
+                        'name' => $pool->name,
+                    ];
+                }),
+                'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($qualifiedClassification) {
+                    return [
+                        'id' => $qualifiedClassification->id,
+                        'name' => $qualifiedClassification->name,
+                    ];
+                }),
                 'qualifiedStreams' => $filter->qualified_streams,
-                'skills' => [
-                    [
-                        'id' => $filter->skills->first()->id,
-                        'name' => $filter->skills->first()->name,
-                    ],
-                ],
+                'skills' => $filter->skills->map(function ($skill) {
+                    return [
+                        'id' => $skill->id,
+                        'name' => $skill->name,
+                    ];
+                }),
             ],
         ]);
     }
