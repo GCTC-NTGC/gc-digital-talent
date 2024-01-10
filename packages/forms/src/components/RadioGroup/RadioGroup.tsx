@@ -117,7 +117,7 @@ const RadioGroup = ({
         >
           <div
             data-h2-display="base(grid)"
-            data-h2-gap="base(x.25)"
+            data-h2-gap="base(0 x.25)"
             {...columnStyles}
           >
             {items.map(({ value, label, contentBelow }) => {
@@ -134,6 +134,7 @@ const RadioGroup = ({
                     data-h2-display="base(flex)"
                     data-h2-align-items="base(flex-start)"
                     data-h2-padding="base(x.25 x.5)"
+                    data-h2-gap="base(x.25)"
                   >
                     <input
                       id={id}
