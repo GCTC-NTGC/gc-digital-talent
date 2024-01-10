@@ -115,7 +115,8 @@ const SideMenu = ({
               >
                 <RemoveScroll
                   enabled={isSmallScreen && open}
-                  data-h2-background-color="base:all(black.9) base:all:iap(secondary.light)"
+                  data-h2-background-color="base:all(gray.darkest) base:all:iap(secondary.light)"
+                  data-h2-border-right="l-tablet(1px solid black.2)"
                   data-h2-overflow-y="base(auto)"
                   data-h2-overflow-x="base(hidden)"
                   data-h2-display="base(flex)"
