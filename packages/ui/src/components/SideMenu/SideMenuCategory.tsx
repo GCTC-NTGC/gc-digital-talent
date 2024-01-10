@@ -48,7 +48,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
       <div
         {...commonStyles}
         data-h2-border-bottom="base(1px solid)"
-        data-h2-font-weight="base(700)"
+        data-h2-padding-bottom="base(x.15)"
         data-h2-height="base(x1)"
       >
         <motion.span
@@ -58,7 +58,13 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
             ctx?.open ? { opacity: 1, width: "auto" } : { opacity: 0, width: 0 }
           }
         >
-          <span data-h2-white-space="base(nowrap)">{title}</span>
+          <span
+            data-h2-white-space="base(nowrap)" // don't wrap while shrinking width to zero
+            data-h2-font-weight="base(700)"
+            data-h2-font-size="base(caption)"
+          >
+            {title}
+          </span>
         </motion.span>
       </div>
 
