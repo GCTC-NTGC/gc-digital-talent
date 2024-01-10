@@ -47,8 +47,6 @@ class ApplicantFilterTest extends TestCase
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
             ]);
-
-
     }
 
     /**
@@ -267,8 +265,7 @@ class ApplicantFilterTest extends TestCase
             'workExperiences.skills',
         ])->find($candidate->user_id);
         $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
-        $shuffledSkills = $candidateSkills->shuffle()->take(3);
-        $filter->skills()->saveMany($shuffledSkills);
+        $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;
         $filter->save();
@@ -375,7 +372,6 @@ class ApplicantFilterTest extends TestCase
         $response->assertJsonFragment(['id' => $filter->skills[0]->id]);
         $response->assertJsonFragment(['id' => $filter->skills[1]->id]);
         $response->assertJsonFragment(['id' => $filter->skills[2]->id]);
-
 
         // Now use the retrieved filter to get the same count
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
