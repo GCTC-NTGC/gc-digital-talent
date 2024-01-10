@@ -144,15 +144,29 @@ const RadioGroup = ({
                       disabled={disabled}
                       defaultChecked={defaultSelected === value}
                       data-h2-radius="base(l) base:selectors[::before](l)"
+                      data-h2-vertical-align="base(middle)"
                       {...baseRadioStyles}
                       {...(contentBelow && {
                         "aria-describedby": `${id}-content-below`,
                       })}
                     />
-                    <span data-h2-font-size="base(body)">{label}</span>
+                    <span
+                      data-h2-font-size="base(body)"
+                      data-h2-vertical-align="base(middle)"
+                      data-h2-line-height="base(x1)"
+                    >
+                      {label}
+                    </span>
                   </Field.Label>
                   {contentBelow && (
-                    <div id={`${id}-content-below`}>{contentBelow}</div>
+                    <div
+                      id={`${id}-content-below`}
+                      data-h2-padding-left="base(x1.7)"
+                      data-h2-color="base(black.light)"
+                      data-h2-font-size="base(caption)"
+                    >
+                      {contentBelow}
+                    </div>
                   )}
                 </div>
               );

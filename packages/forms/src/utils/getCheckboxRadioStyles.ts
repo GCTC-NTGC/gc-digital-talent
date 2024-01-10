@@ -8,13 +8,13 @@ const getCheckboxRadioStyles = () => ({
   "data-h2-display": "base(grid)",
   "data-h2-flex-shrink": "base(0)",
   "data-h2-place-content": "base(center)",
-  "data-h2-height": "base(x.9) base:selectors[::before](x.5)",
+  "data-h2-height": "base(x1) base:selectors[::before](x.5)",
   "data-h2-line-height": "base(x1)",
-  "data-h2-margin": "base(x.1 0 0 0)",
+  "data-h2-margin": "base(0)",
   "data-h2-transform":
     "base:selectors[::before](scale(0)) base:selectors[:checked::before](scale(1))",
   "data-h2-transition": "base:selectors[::before](120ms transform ease-in-out)",
-  "data-h2-width": "base(x.9) base:selectors[::before](x.5)",
+  "data-h2-width": "base(x1) base:selectors[::before](x.5)",
 });
 
 export default getCheckboxRadioStyles;

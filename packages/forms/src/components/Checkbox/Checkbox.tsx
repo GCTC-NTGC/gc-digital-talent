@@ -80,11 +80,18 @@ const Checkbox = ({
               aria-invalid={!!error}
               data-h2-clip-path="base:selectors[::before](polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%))"
               data-h2-radius="base(input)"
+              data-h2-vertical-align="base(middle)"
               {...register(name, rules)}
               {...baseStyles}
               {...rest}
             />
-            <span data-h2-font-size="base(body)">{label}</span>
+            <span
+              data-h2-font-size="base(body)"
+              data-h2-vertical-align="base(middle)"
+              data-h2-line-height="base(x1)"
+            >
+              {label}
+            </span>
             {!asFieldset && !inCheckList && (
               <Field.Required required={!!rules.required} />
             )}
