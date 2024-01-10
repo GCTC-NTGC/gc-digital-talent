@@ -111,7 +111,10 @@ const RadioGroup = ({
         {...rest}
       >
         <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
-        <Field.BoundingBox {...{ ...baseStyles, ...stateStyles }}>
+        <Field.BoundingBox
+          {...{ ...baseStyles, ...stateStyles }}
+          data-h2-padding="base(x.25 0)"
+        >
           <div
             data-h2-display="base(grid)"
             data-h2-gap="base(x.25)"
@@ -130,7 +133,7 @@ const RadioGroup = ({
                     data-h2-font-size="base(copy)"
                     data-h2-display="base(flex)"
                     data-h2-align-items="base(flex-start)"
-                    data-h2-gap="base(0 x.25)"
+                    data-h2-padding="base(x.25 x.5)"
                   >
                     <input
                       id={id}
