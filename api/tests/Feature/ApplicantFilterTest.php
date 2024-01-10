@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\LanguageAbility;
+use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Pool;
@@ -381,9 +382,6 @@ class ApplicantFilterTest extends TestCase
                     'level' => $filter->qualifiedClassifications->first()->level,
                 ],
             ],
-            'skills' => $filter->skills->map(function ($skill) {
-                return ['id' => $skill->id, 'name' => $skill->name];
-            }),
             'pools' => [
                 [
                     'id' => $filter->pools->first()->id,
@@ -391,6 +389,9 @@ class ApplicantFilterTest extends TestCase
                 ],
             ],
         ]);
+        $response->assertJsonFragment(['id' => $filter->skills[0]->id, 'name' => $filter->skills[0]->name]);
+        $response->assertJsonFragment(['id' => $filter->skills[1]->id, 'name' => $filter->skills[1]->name]);
+        $response->assertJsonFragment(['id' => $filter->skills[2]->id, 'name' => $filter->skills[2]->name]);
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(
