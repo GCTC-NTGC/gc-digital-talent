@@ -8,6 +8,7 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputStyles from "../../hooks/useInputStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
 
 export type Radio = {
   value: string | number;
@@ -86,6 +87,7 @@ const RadioGroup = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message as FieldError;
   const baseStyles = useInputStyles();
+  const baseRadioStyles = getCheckboxRadioStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -137,7 +139,8 @@ const RadioGroup = ({
                       type="radio"
                       disabled={disabled}
                       defaultChecked={defaultSelected === value}
-                      data-h2-margin-top="base(x.26)"
+                      data-h2-radius="base(l) base:selectors[::before](l)"
+                      {...baseRadioStyles}
                       {...(contentBelow && {
                         "aria-describedby": `${id}-content-below`,
                       })}
