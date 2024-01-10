@@ -22,6 +22,7 @@ describe("Pool Candidates", () => {
   };
 
   beforeEach(() => {
+    cy.overrideFeatureFlags({ FEATURE_RECORD_OF_DECISION: false });
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "GetPoolCandidateStatus");
       aliasQuery(req, "getPoolCandidateSnapshot");

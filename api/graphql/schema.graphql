@@ -236,6 +236,7 @@ type AssessmentResult {
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 type PoolSkill {
@@ -1390,6 +1391,7 @@ input CreateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input UpdateAssessmentResultInput
@@ -1407,6 +1409,7 @@ input UpdateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input PoolSkillBelongsToMany {
