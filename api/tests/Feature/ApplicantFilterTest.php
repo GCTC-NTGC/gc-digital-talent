@@ -99,6 +99,65 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
+     * Test that querying an applicantFilter returns with correct attributes.
+     *
+     * @return void
+     */
+    public function testQueryApplicantFilter()
+    {
+        $this->seed(DepartmentSeeder::class);
+
+        $filter = ApplicantFilter::factory()->create();
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query poolCandidateSearchRequest($id: ID!) {
+                poolCandidateSearchRequest(id: $id) {
+                    applicantFilter {
+                        id
+                        hasDiploma
+                        equity {
+                            isWoman
+                            hasDisability
+                            isIndigenous
+                            isVisibleMinority
+                        }
+                        languageAbility
+                        operationalRequirements
+                        locationPreferences
+                        positionDuration
+                    }
+                }
+            }
+
+        ',
+            [
+                'id' => $request->id
+            ]
+        );
+        $response->assertJsonFragment([
+            'applicantFilter' => [
+                'id' => $filter->id,
+                'hasDiploma' => $filter->has_diploma,
+                'equity' => [
+                    'isWoman' => $filter->is_woman,
+                    'hasDisability' => $filter->has_disability,
+                    'isIndigenous' => $filter->is_indigenous,
+                    'isVisibleMinority' => $filter->is_visible_minority,
+                ],
+                'languageAbility' => $filter->language_ability,
+                'operationalRequirements' => $filter->operational_requirements,
+                'locationPreferences' => $filter->location_preferences,
+                'positionDuration' => $filter->position_duration,
+            ],
+        ]);
+    }
+
+    /**
      * Test that factory creates relationships correctly.
      */
     public function testFactoryRelationships()
@@ -123,6 +182,93 @@ class ApplicantFilterTest extends TestCase
             $this->assertGreaterThan(0, $filter->skills()->count());
             $this->assertGreaterThan(0, $filter->pools()->count());
         }
+    }
+
+    /**
+     * Test that queried ApplicantFilter has the correct relationships.
+     */
+    public function testQueryRelationships()
+    {
+        // Before we add relationships, we need to seed the related values
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
+        $this->seed(PoolSeeder::class);
+
+        $filter = ApplicantFilter::factory()->withRelationships()->create();
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'applicant_filter_id' => $filter->id,
+        ]);
+        $response = $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query poolCandidateSearchRequest($id: ID!) {
+                poolCandidateSearchRequest(id: $id) {
+                    applicantFilter {
+                        id
+                        skills {
+                            id
+                            name {
+                                en
+                                fr
+                            }
+                        }
+                        pools {
+                            id
+                            name {
+                                en
+                                fr
+                            }
+                        }
+                        qualifiedStreams
+                        qualifiedClassifications {
+                            id
+                            name {
+                                en
+                                fr
+                            }
+                        }
+                    }
+                }
+            }
+        ',
+            [
+                'id' => $request->id,
+            ]
+        );
+        // Assert that each relationship collection has the right size.
+        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+        $this->assertCount($filter->qualifiedClassifications->count(), $retrievedFilter['qualifiedClassifications']);
+        $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
+        $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
+        $this->assertCount(count($filter->qualified_streams), $retrievedFilter['qualifiedStreams']);
+
+        // Assert that the content of at least one item in each collection is correct.
+        $response->assertJsonFragment([
+            'applicantFilter' => [
+                'id' => $filter->id,
+                'pools' => [
+                    [
+                        'id' => $filter->pools->first()->id,
+                        'name' => $filter->pools->first()->name,
+                    ],
+                ],
+                'qualifiedClassifications' => [
+                    [
+                        'id' => $filter->qualifiedClassifications->first()->id,
+                        'name' => $filter->qualifiedClassifications->first()->name,
+                    ],
+                ],
+                'qualifiedStreams' => $filter->qualified_streams,
+                'skills' => [
+                    [
+                        'id' => $filter->skills->first()->id,
+                        'name' => $filter->skills->first()->name,
+                    ],
+                ],
+            ],
+        ]);
     }
 
     /**
@@ -354,27 +500,9 @@ class ApplicantFilterTest extends TestCase
                 'id' => $requestId,
             ]
         );
-
-        // Test that queried ApplicantFilters have the correct relationships.
-        $response->assertJsonFragment([
-            'qualifiedClassifications' => [
-                [
-                    'group' => $filter->qualifiedClassifications->first()->group,
-                    'level' => $filter->qualifiedClassifications->first()->level,
-                ],
-            ],
-            'pools' => [
-                [
-                    'id' => $filter->pools->first()->id,
-                ],
-            ],
-        ]);
-        $response->assertJsonFragment(['id' => $filter->skills[0]->id]);
-        $response->assertJsonFragment(['id' => $filter->skills[1]->id]);
-        $response->assertJsonFragment(['id' => $filter->skills[2]->id]);
+        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
 
         // Now use the retrieved filter to get the same count
-        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
@@ -386,7 +514,6 @@ class ApplicantFilterTest extends TestCase
                 'where' => $retrievedFilter,
             ]
         );
-
         $this->assertEquals($firstCount, $response->json('data.countApplicants'));
     }
 }
