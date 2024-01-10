@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 
 import {
   Button,
@@ -14,6 +13,7 @@ import {
 import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
@@ -102,7 +102,7 @@ const UserProfilePrintButton = ({
             utilityIcon={ChevronDownIcon}
             {...(fetching && {
               disabled: true,
-              icon: ArrowPathIcon,
+              icon: SpinnerIcon,
             })}
             data-h2-font-weight="base(400)"
             {...margin}
