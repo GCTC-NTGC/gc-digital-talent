@@ -8,6 +8,8 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
+import { useQuery } from "urql";
+import flatMap from "lodash/flatMap";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -17,20 +19,23 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
+  graphql,
   PoolCandidateSearchInput,
   InputMaybe,
-  useGetPoolCandidatesPaginatedQuery,
-  useGetSelectedPoolCandidatesQuery,
   Pool,
   Maybe,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
   PoolStream,
   PoolCandidateWithSkillCount,
-  useGetSkillsQuery,
   PublishingGroup,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+
+import {
+  useGetPoolCandidatesPaginatedQuery,
+  useGetSkillsQuery,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -47,7 +52,9 @@ import {
 } from "~/utils/userUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
+import UserProfilePrintButton, {
+  UserProfilePrintButton_UserFragment,
+} from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
@@ -122,6 +129,17 @@ function transformPoolCandidateSearchInputToFormValues(
     govEmployee: input?.isGovEmployee ? "true" : "",
   };
 }
+
+const CandidatesTableSelectedCandidates_Query = graphql(/* GraphQL */ `
+  query CandidatesTableSelectedCandidates_Query($ids: [ID]!) {
+    poolCandidates(includeIds: $ids) {
+      ...CandidateCsvData_PoolCandidateFragment
+      user {
+        ...UserProfilePrintButton_UserFragment
+      }
+    }
+  }
+`);
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -341,7 +359,8 @@ const PoolCandidatesTable = ({
       fetching: selectedCandidatesFetching,
       error: selectedCandidatesError,
     },
-  ] = useGetSelectedPoolCandidatesQuery({
+  ] = useQuery({
+    query: CandidatesTableSelectedCandidates_Query,
     variables: {
       ids: selectedRows,
     },
@@ -350,6 +369,10 @@ const PoolCandidatesTable = ({
 
   const selectedCandidates =
     selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
+
+  const selectedUsers = flatMap(selectedCandidates, (candidate) => [
+    getFragment(UserProfilePrintButton_UserFragment, candidate.user),
+  ]);
 
   const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
 
@@ -600,7 +623,7 @@ const PoolCandidatesTable = ({
       print={{
         component: (
           <UserProfilePrintButton
-            users={selectedCandidates}
+            users={selectedUsers}
             beforePrint={handlePrint}
             color="whiteFixed"
             mode="inline"

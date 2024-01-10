@@ -441,18 +441,6 @@ fragment selectedPoolCandidates on PoolCandidate {
   archivedAt
 }
 
-query getPoolCandidate($id: UUID!) {
-  poolCandidate(id: $id) {
-    ...poolCandidateTable
-  }
-}
-
-query GetSelectedPoolCandidates($ids: [ID]!) {
-  poolCandidates(includeIds: $ids) {
-    ...selectedPoolCandidates
-  }
-}
-
 query GetPoolCandidatesPaginated(
   $where: PoolCandidateSearchInput
   $first: Int

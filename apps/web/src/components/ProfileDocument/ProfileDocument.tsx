@@ -26,15 +26,14 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
+import { UserProfilePrintButton_UserFragmentFragment } from "@gc-digital-talent/graphql";
 
 import {
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
-  User,
   BilingualEvaluation,
   IndigenousCommunity,
-  PoolCandidate,
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
@@ -44,7 +43,7 @@ import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import UserSkillList from "./UserSkillList";
 
 interface ProfileDocumentProps {
-  results: User[] | PoolCandidate[];
+  results: Array<UserProfilePrintButton_UserFragmentFragment>;
   anonymous?: boolean;
 }
 
@@ -99,10 +98,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
               </div>
             )}
             {results &&
-              results.map((initialResult, index) => {
-                const result: User =
-                  "user" in initialResult ? initialResult.user : initialResult;
-
+              results.map((result, index) => {
                 const govEmployeeTypeId =
                   enumToOptions(GovEmployeeType).find(
                     (govEmployeeType) =>

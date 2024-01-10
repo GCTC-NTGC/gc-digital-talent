@@ -9,15 +9,186 @@ import {
   Color,
   DropdownMenu,
 } from "@gc-digital-talent/ui";
+import {
+  UserProfilePrintButton_UserFragmentFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
-import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
+export const UserProfilePrintButton_UserFragment = graphql(/* GraphQL */ `
+  fragment UserProfilePrintButton_UserFragment on User {
+    id
+    firstName
+    lastName
+    email
+    telephone
+    currentCity
+    currentProvince
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    armedForcesStatus
+    citizenship
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    govEmployeeType
+    currentClassification {
+      id
+      group
+      level
+    }
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    isWoman
+    hasDisability
+    isVisibleMinority
+    indigenousCommunities
+    topTechnicalSkillsRanking {
+      id
+      skillLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+      user {
+        id
+      }
+    }
+    topBehaviouralSkillsRanking {
+      id
+      skillLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+      user {
+        id
+      }
+    }
+    improveTechnicalSkillsRanking {
+      id
+      skillLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+      user {
+        id
+      }
+    }
+    improveBehaviouralSkillsRanking {
+      id
+      skillLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+      user {
+        id
+      }
+    }
+    experiences {
+      id
+      details
+      user {
+        id
+      }
+      skills {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        awardedDate
+        title
+        awardedTo
+        issuedBy
+        awardedScope
+      }
+      ... on CommunityExperience {
+        startDate
+        endDate
+        title
+        organization
+        project
+      }
+      ... on EducationExperience {
+        startDate
+        endDate
+        areaOfStudy
+        institution
+        status
+        thesisTitle
+      }
+      ... on PersonalExperience {
+        startDate
+        endDate
+        title
+        description
+      }
+      ... on WorkExperience {
+        startDate
+        endDate
+        role
+        organization
+        division
+      }
+    }
+  }
+`);
+
 interface UserProfilePrintButtonProps {
-  users: User[] | PoolCandidate[];
+  users: Array<UserProfilePrintButton_UserFragmentFragment>;
   color: Color;
   mode: ButtonLinkMode;
   fontSize?: "caption" | "body";
