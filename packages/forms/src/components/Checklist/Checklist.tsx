@@ -69,7 +69,11 @@ const Checklist = ({
         {...rest}
       >
         <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
-        <Field.BoundingBox {...{ ...baseStyles, ...stateStyles }}>
+        <Field.BoundingBox
+          {...{ ...baseStyles, ...stateStyles }}
+          data-h2-gap="base(0)"
+          data-h2-padding="base(x.25 0)"
+        >
           {items.map(({ value, label }) => {
             const id = `${idPrefix}-${value}`;
             return (
