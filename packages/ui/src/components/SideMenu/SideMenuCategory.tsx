@@ -52,10 +52,13 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
         data-h2-height="base(x1)"
       >
         <motion.span
+          data-h2-display="base(flex)"
           transition={transitionConfig}
-          animate={ctx?.open ? { opacity: 1 } : { opacity: 0 }}
+          animate={
+            ctx?.open ? { opacity: 1, width: "auto" } : { opacity: 0, width: 0 }
+          }
         >
-          {!!ctx?.open && title}
+          <span data-h2-white-space="base(nowrap)">{title}</span>
         </motion.span>
       </div>
 
