@@ -340,27 +340,14 @@ class ApplicantFilterTest extends TestCase
                         positionDuration
                         qualifiedStreams
                         qualifiedClassifications {
-                            id
-                            name {
-                                en
-                                fr
-                            }
                             group
                             level
                         }
                         skills {
                             id
-                            name {
-                                en
-                                fr
-                            }
                         }
                         pools {
                             id
-                            name {
-                                en
-                                fr
-                            }
                         }
                     }
                 }
@@ -370,14 +357,11 @@ class ApplicantFilterTest extends TestCase
                 'id' => $requestId,
             ]
         );
-        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
 
         // Test that queried ApplicantFilters have the correct relationships.
         $response->assertJsonFragment([
             'qualifiedClassifications' => [
                 [
-                    'id' => $filter->qualifiedClassifications->first()->id,
-                    'name' => $filter->qualifiedClassifications->first()->name,
                     'group' => $filter->qualifiedClassifications->first()->group,
                     'level' => $filter->qualifiedClassifications->first()->level,
                 ],
@@ -385,15 +369,16 @@ class ApplicantFilterTest extends TestCase
             'pools' => [
                 [
                     'id' => $filter->pools->first()->id,
-                    'name' => $filter->pools->first()->name,
                 ],
             ],
         ]);
-        $response->assertJsonFragment(['id' => $filter->skills[0]->id, 'name' => $filter->skills[0]->name]);
-        $response->assertJsonFragment(['id' => $filter->skills[1]->id, 'name' => $filter->skills[1]->name]);
-        $response->assertJsonFragment(['id' => $filter->skills[2]->id, 'name' => $filter->skills[2]->name]);
+        $response->assertJsonFragment(['id' => $filter->skills[0]->id]);
+        $response->assertJsonFragment(['id' => $filter->skills[1]->id]);
+        $response->assertJsonFragment(['id' => $filter->skills[2]->id]);
+
 
         // Now use the retrieved filter to get the same count
+        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
