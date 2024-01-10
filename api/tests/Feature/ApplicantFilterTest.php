@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
 use App\Models\ApplicantFilter;
 use App\Models\Pool;
@@ -100,104 +99,104 @@ class ApplicantFilterTest extends TestCase
         return $input;
     }
 
-    // /**
-    //  * Test that factory creates relationships correctly.
-    //  */
-    // public function testFactoryRelationships()
-    // {
-    //     // By default, factory doesn't add relationships.
-    //     $filter = ApplicantFilter::factory()->create();
+    /**
+     * Test that factory creates relationships correctly.
+     */
+    public function testFactoryRelationships()
+    {
+        // By default, factory doesn't add relationships.
+        $filter = ApplicantFilter::factory()->create();
 
-    //     $this->assertEquals(0, $filter->classifications()->count());
-    //     $this->assertEquals(0, $filter->skills()->count());
-    //     $this->assertEquals(0, $filter->pools()->count());
+        $this->assertEquals(0, $filter->classifications()->count());
+        $this->assertEquals(0, $filter->skills()->count());
+        $this->assertEquals(0, $filter->pools()->count());
 
-    //     // Before we add relationships, we need to seed the related values
-    //     $this->seed(ClassificationSeeder::class);
-    //     $this->seed(SkillFamilySeeder::class);
-    //     $this->seed(SkillSeeder::class);
-    //     $this->seed(PoolSeeder::class);
+        // Before we add relationships, we need to seed the related values
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
+        $this->seed(PoolSeeder::class);
 
-    //     $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
-    //     $this->assertEquals(10, $filters->count());
-    //     foreach ($filters as $filter) {
-    //         $this->assertGreaterThan(0, $filter->classifications()->count());
-    //         $this->assertGreaterThan(0, $filter->skills()->count());
-    //         $this->assertGreaterThan(0, $filter->pools()->count());
-    //     }
-    // }
+        $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
+        $this->assertEquals(10, $filters->count());
+        foreach ($filters as $filter) {
+            $this->assertGreaterThan(0, $filter->classifications()->count());
+            $this->assertGreaterThan(0, $filter->skills()->count());
+            $this->assertGreaterThan(0, $filter->pools()->count());
+        }
+    }
 
-    // /**
-    //  * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
-    //  */
-    // public function testCanCreateARequest()
-    // {
-    //     // Seed everything required
-    //     $this->seed(DepartmentSeeder::class);
-    //     $this->seed(ClassificationSeeder::class);
-    //     $this->seed(SkillFamilySeeder::class);
-    //     $this->seed(SkillSeeder::class);
+    /**
+     * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
+     */
+    public function testCanCreateARequest()
+    {
+        // Seed everything required
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
 
-    //     $filter = ApplicantFilter::factory()->withRelationships()->create();
+        $filter = ApplicantFilter::factory()->withRelationships()->create();
 
-    //     // make a request to pull fake data from - don't save it in DB.
-    //     $request = PoolCandidateSearchRequest::factory()->make([
-    //         'pool_candidate_filter_id' => null,
-    //         'applicant_filter_id' => null,
-    //     ]);
-    //     $response = $this->graphQL(
-    //         /** @lang GraphQL */
-    //         '
-    //         mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
-    //             createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
-    //                 id
-    //                 email
-    //                 fullName
-    //                 jobTitle
-    //                 managerJobTitle
-    //                 positionType
-    //                 status
-    //                 reason
-    //                 department {
-    //                     id
-    //                 }
-    //             }
-    //         }
-    //     ',
-    //         [
-    //             'request' => [
-    //                 'fullName' => $request->full_name,
-    //                 'email' => $request->email,
-    //                 'department' => [
-    //                     'connect' => $request->department_id,
-    //                 ],
-    //                 'jobTitle' => $request->job_title,
-    //                 'managerJobTitle' => $request->manager_job_title,
-    //                 'positionType' => $request->position_type,
-    //                 'reason' => $request->reason,
-    //                 'applicantFilter' => [
-    //                     'create' => $this->filterToCreateInput($filter),
-    //                 ],
-    //             ],
-    //         ]
-    //     );
-    //     $response->assertJson([
-    //         'data' => [
-    //             'createPoolCandidateSearchRequest' => [
-    //                 'email' => $request->email,
-    //                 'fullName' => $request->full_name,
-    //                 'jobTitle' => $request->job_title,
-    //                 'managerJobTitle' => $request->manager_job_title,
-    //                 'positionType' => $request->position_type,
-    //                 'reason' => $request->reason,
-    //                 'status' => PoolCandidateSearchStatus::NEW->name,
-    //                 'department' => [
-    //                     'id' => $request->department_id,
-    //                 ],
-    //             ],
-    //         ],
-    //     ]);
-    // }
+        // make a request to pull fake data from - don't save it in DB.
+        $request = PoolCandidateSearchRequest::factory()->make([
+            'pool_candidate_filter_id' => null,
+            'applicant_filter_id' => null,
+        ]);
+        $response = $this->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
+                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+                    id
+                    email
+                    fullName
+                    jobTitle
+                    managerJobTitle
+                    positionType
+                    status
+                    reason
+                    department {
+                        id
+                    }
+                }
+            }
+        ',
+            [
+                'request' => [
+                    'fullName' => $request->full_name,
+                    'email' => $request->email,
+                    'department' => [
+                        'connect' => $request->department_id,
+                    ],
+                    'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
+                    'reason' => $request->reason,
+                    'applicantFilter' => [
+                        'create' => $this->filterToCreateInput($filter),
+                    ],
+                ],
+            ]
+        );
+        $response->assertJson([
+            'data' => [
+                'createPoolCandidateSearchRequest' => [
+                    'email' => $request->email,
+                    'fullName' => $request->full_name,
+                    'jobTitle' => $request->job_title,
+                    'managerJobTitle' => $request->manager_job_title,
+                    'positionType' => $request->position_type,
+                    'reason' => $request->reason,
+                    'status' => PoolCandidateSearchStatus::NEW->name,
+                    'department' => [
+                        'id' => $request->department_id,
+                    ],
+                ],
+            ],
+        ]);
+    }
 
     /**
      * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
