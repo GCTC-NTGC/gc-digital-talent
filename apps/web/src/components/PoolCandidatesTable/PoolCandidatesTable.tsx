@@ -416,6 +416,7 @@ const PoolCandidatesTable = ({
       {
         id: "status",
         header: intl.formatMessage(tableMessages.status),
+        enableHiding: false,
         cell: ({
           row: {
             original: { poolCandidate },
@@ -423,6 +424,7 @@ const PoolCandidatesTable = ({
         }) => statusCell(poolCandidate.status, intl),
         meta: {
           sortingLocked: true,
+          hideMobileHeader: true,
         },
       },
     ),
