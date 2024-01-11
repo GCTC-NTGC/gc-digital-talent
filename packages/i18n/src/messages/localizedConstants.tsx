@@ -2120,22 +2120,23 @@ export const getSearchRequestReason = (
   );
 
 const assessmentDecisions = defineMessages({
-  [AssessmentDecision.NotSure]: {
-    defaultMessage: "Not sure",
-    id: "D8JhKX",
-    description: "Option for assessment decision when manager is not sure.",
-  },
   [AssessmentDecision.Successful]: {
     defaultMessage: "Demonstrated",
     id: "5wKh/o",
     description:
       "Option for assessment decision when candidate has successful assessment.",
   },
-  [AssessmentDecision.Unsuccessful]: {
-    defaultMessage: "Not demonstrated",
-    id: "oxUjS3",
+  [AssessmentDecision.Hold]: {
+    defaultMessage: "Not demonstrated (Hold for further assessment)",
+    id: "MMtY88",
     description:
-      "Option for assessment decision when candidate has unsuccessful assessment.",
+      "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
+  },
+  [AssessmentDecision.Unsuccessful]: {
+    defaultMessage: "Not demonstrated (Remove from process)",
+    id: "zXkLL2",
+    description:
+      "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
   },
 });
 

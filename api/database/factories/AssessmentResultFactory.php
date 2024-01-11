@@ -28,7 +28,7 @@ class AssessmentResultFactory extends Factory
     public function definition()
     {
         $assessmentResultType = $this->faker->randomElement(array_column(AssessmentResultType::cases(), 'name'));
-        $assessmentDecision = $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+        $assessmentDecision = $this->faker->randomElement([...array_column(AssessmentDecision::cases(), 'name'), null]);
         $justifications = $assessmentResultType === AssessmentResultType::EDUCATION->name ?
             [$this->faker->randomElement(array_column(AssessmentResultJustification::educationJustifications(), 'name'))] :
             [$this->faker->randomElement(array_column(AssessmentResultJustification::skillJustifications(), 'name'))];

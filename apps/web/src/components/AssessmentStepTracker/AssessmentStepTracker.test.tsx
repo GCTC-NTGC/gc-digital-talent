@@ -94,7 +94,7 @@ const unassessedCandidate = {
   assessmentResults: [
     {
       id: faker.string.uuid(),
-      assessmentDecision: AssessmentDecision.NotSure,
+      assessmentDecision: null,
     },
   ],
 };
@@ -256,7 +256,7 @@ describe("AssessmentStepTracker", () => {
       {
         ...basicCandidate,
         id: "candidate-is-unassessed",
-        assessmentDecision: AssessmentDecision.NotSure,
+        assessmentDecision: null,
       },
       {
         ...basicCandidate,
