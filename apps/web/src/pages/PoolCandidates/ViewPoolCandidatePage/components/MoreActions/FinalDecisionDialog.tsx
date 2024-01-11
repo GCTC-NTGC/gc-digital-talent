@@ -7,6 +7,7 @@ import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   AssessmentResult,
+  Maybe,
   PoolCandidateStatus,
   Skill,
   graphql,
@@ -38,8 +39,8 @@ type FormValues = {
 
 interface FinalDecisionDialogProps {
   poolCandidateId: string;
-  poolCandidateStatus?: PoolCandidateStatus;
-  expiryDate?: string;
+  poolCandidateStatus: Maybe<PoolCandidateStatus> | undefined;
+  expiryDate?: Maybe<string> | undefined;
   essentialSkills: Skill[];
   nonessentialSkills: Skill[];
   assessmentResults: AssessmentResult[];

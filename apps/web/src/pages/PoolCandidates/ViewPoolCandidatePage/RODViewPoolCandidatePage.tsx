@@ -517,8 +517,8 @@ export const ViewPoolCandidate = ({
             >
               <FinalDecisionDialog
                 poolCandidateId={poolCandidate.id}
-                poolCandidateStatus={poolCandidate.status ?? undefined}
-                expiryDate={poolCandidate.expiryDate ?? undefined}
+                poolCandidateStatus={poolCandidate.status}
+                expiryDate={poolCandidate.expiryDate}
                 essentialSkills={poolCandidate.pool.essentialSkills ?? []}
                 nonessentialSkills={poolCandidate.pool.nonessentialSkills ?? []}
                 assessmentResults={
