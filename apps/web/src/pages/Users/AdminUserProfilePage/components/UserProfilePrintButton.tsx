@@ -22,6 +22,7 @@ interface UserProfilePrintButtonProps {
   color: Color;
   mode: ButtonLinkMode;
   fontSize?: "caption" | "body";
+  disabled?: boolean;
   beforePrint?: () => void;
   fetching?: boolean;
 }
@@ -33,6 +34,7 @@ const UserProfilePrintButton = ({
   fetching,
   fontSize = "body",
   beforePrint,
+  disabled,
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
   const onBeforeGetContentResolve =
@@ -100,8 +102,8 @@ const UserProfilePrintButton = ({
             mode={mode}
             fontSize={fontSize}
             utilityIcon={ChevronDownIcon}
+            disabled={disabled}
             {...(fetching && {
-              disabled: true,
               icon: SpinnerIcon,
             })}
             data-h2-font-weight="base(400)"

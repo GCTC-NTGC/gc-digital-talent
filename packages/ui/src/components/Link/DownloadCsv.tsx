@@ -19,6 +19,7 @@ export interface DownloadCsvProps
   data: ICsvProps["datas"];
   fileName: string;
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
 const DownloadCsv = ({
@@ -26,6 +27,7 @@ const DownloadCsv = ({
   mode = "solid",
   block = false,
   fontSize = "body",
+  disabled,
   icon,
   headers,
   data,
@@ -36,8 +38,9 @@ const DownloadCsv = ({
   return (
     <CsvDownloader
       data-h2-cursor="base(pointer)"
-      {...getButtonStyles({ mode, color, block })}
+      {...getButtonStyles({ mode, color, block, disabled })}
       {...rest}
+      disabled={disabled}
       columns={headers}
       datas={data}
       filename={fileName}

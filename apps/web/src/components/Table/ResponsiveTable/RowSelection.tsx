@@ -250,6 +250,7 @@ const Actions = ({
                 </span>
                 <DownloadCsv
                   data-h2-font-weight="base(400)"
+                  disabled={download.disableBtn}
                   {...(download.fetching && {
                     icon: SpinnerIcon,
                   })}

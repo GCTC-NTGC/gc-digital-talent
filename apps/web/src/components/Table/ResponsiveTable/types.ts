@@ -21,6 +21,8 @@ export type SearchColumn = {
   value: string;
 };
 
+export type SelectingFor = "print" | "download" | null;
+
 export type RowSelectDef<T> = {
   /** Label for the "select all" checkbox in the header */
   allLabel?: string;
@@ -109,6 +111,8 @@ export type DatasetDownload = {
   all?: DatasetDownloadItem;
   /** Show loading icon when download data is being fetched */
   fetching?: boolean;
+  /** Disabled the button for download */
+  disableBtn?: boolean;
 };
 
 /** Controls the print button in `RowSelection.Actions` */

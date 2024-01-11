@@ -23,7 +23,10 @@ import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import {
+  SearchState,
+  SelectingFor,
+} from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -78,6 +81,7 @@ const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const client = useClient();
+  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
   const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
   const [selectedApplicants, setSelectedApplicants] = React.useState<User[]>(
     [],
@@ -267,7 +271,8 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const querySelected = async () => {
+  const querySelected = async (action: SelectingFor) => {
+    setSelectingFor(action);
     setIsSelecting(true);
     return client
       .query(UsersTable_SelectUsersQuery, {
@@ -287,6 +292,7 @@ const UserTable = ({ title }: UserTableProps) => {
 
         setSelectedApplicants(users);
         setIsSelecting(false);
+        setSelectingFor(null);
         return users;
       });
   };
@@ -318,12 +324,13 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
-        fetching: isSelecting,
+        disableBtn: isSelecting,
+        fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
             headers: getUserCsvHeaders(intl),
             data: async () => {
-              const selected = await querySelected();
+              const selected = await querySelected("download");
               return getUserCsvData(selected, intl);
             },
             fileName: intl.formatMessage(
@@ -345,9 +352,9 @@ const UserTable = ({ title }: UserTableProps) => {
             <UserProfilePrintButton
               users={selectedApplicants}
               beforePrint={async () => {
-                await querySelected();
+                await querySelected("print");
               }}
-              fetching={isSelecting}
+              fetching={isSelecting && selectingFor === "print"}
               color="whiteFixed"
               mode="inline"
               fontSize="caption"

@@ -57,7 +57,7 @@ import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import { SearchState, SelectingFor } from "../Table/ResponsiveTable/types";
 import {
   PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
@@ -164,6 +164,7 @@ const PoolCandidatesTable = ({
   const paths = useRoutes();
   const client = useClient();
   const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
   const [selectedCandidates, setSelectedCandidates] = React.useState<
     PoolCandidate[]
   >([]);
@@ -344,7 +345,8 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const querySelected = async () => {
+  const querySelected = async (action: SelectingFor) => {
+    setSelectingFor(action);
     setIsSelecting(true);
     return client
       .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
@@ -366,6 +368,7 @@ const PoolCandidatesTable = ({
 
         setSelectedCandidates(poolCandidates);
         setIsSelecting(false);
+        setSelectingFor(null);
         return poolCandidates;
       });
   };
@@ -579,12 +582,13 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
-        fetching: isSelecting,
+        disableBtn: isSelecting,
+        fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
             headers: getPoolCandidateCsvHeaders(intl, currentPool),
             data: async () => {
-              const selected = await querySelected();
+              const selected = await querySelected("download");
               return getPoolCandidateCsvData(selected, intl);
             },
             fileName: intl.formatMessage(
@@ -605,9 +609,10 @@ const PoolCandidatesTable = ({
           <UserProfilePrintButton
             users={selectedCandidates}
             beforePrint={async () => {
-              await querySelected();
+              await querySelected("print");
             }}
-            fetching={isSelecting}
+            disabled={isSelecting}
+            fetching={isSelecting && selectingFor === "print"}
             color="whiteFixed"
             mode="inline"
             fontSize="caption"
