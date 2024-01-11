@@ -2711,6 +2711,10 @@
     "defaultMessage": "Lieu actuel :",
     "description": "Display text for the current location field on users"
   },
+  "DOmsNQ": {
+    "defaultMessage": "Non démontré suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
+    "description": "Note for when an assessment was unsuccessful but put on hold"
+  },
   "DPfJ30": {
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
@@ -9294,6 +9298,10 @@
   "q7bz0J": {
     "defaultMessage": "Non",
     "description": "Message for when a value is false"
+  },
+  "qA8+f5": {
+    "defaultMessage": "En attente",
+    "description": "Message displayed when candidate was unsuccessful but put on hold"
   },
   "qBHA+W": {
     "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des occasions de perfectionnement.",

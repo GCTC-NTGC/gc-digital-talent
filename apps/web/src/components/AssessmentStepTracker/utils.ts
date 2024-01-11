@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
 
@@ -12,6 +13,7 @@ import {
   Maybe,
 } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 
 type DecisionInfo = {
   colorStyle: Record<string, string>;
@@ -20,17 +22,32 @@ type DecisionInfo = {
 };
 
 export const getDecisionInfo = (
-  decision: Maybe<AssessmentDecision> | undefined,
+  decision: Maybe<NullableDecision> | undefined,
   isApplicationStep: boolean,
   intl: IntlShape,
 ): DecisionInfo => {
-  if (!decision || decision === AssessmentDecision.NotSure) {
+  if (!decision || decision === NO_DECISION) {
     return {
       icon: ExclamationCircleIcon,
       colorStyle: {
         "data-h2-color": "base(warning)",
       },
       name: intl.formatMessage(poolCandidateMessages.toAssess),
+    };
+  }
+
+  if (decision === AssessmentDecision.Hold) {
+    return {
+      icon: PauseCircleIcon,
+      colorStyle: {
+        "data-h2-color": "base(warning)",
+      },
+      name: intl.formatMessage({
+        defaultMessage: "On hold",
+        id: "qA8+f5",
+        description:
+          "Message displayed when candidate was unsuccessful but put on hold",
+      }),
     };
   }
 
@@ -77,19 +94,20 @@ export const getDecisionInfo = (
   };
 };
 
-export type ResultDecisionCounts = Record<AssessmentDecision, number>;
+export type ResultDecisionCounts = Record<NullableDecision, number>;
 
 export const getResultDecisionCount = (results: AssessmentResult[]) => {
   const stepAccumulation: ResultDecisionCounts = {
-    [AssessmentDecision.NotSure]: 0,
+    noDecision: 0,
+    [AssessmentDecision.Hold]: 0,
     [AssessmentDecision.Successful]: 0,
     [AssessmentDecision.Unsuccessful]: 0,
   };
 
   return results.reduce(
     (accumulator: ResultDecisionCounts, assessmentResult: AssessmentResult) => {
-      const decision: AssessmentDecision =
-        assessmentResult.assessmentDecision ?? AssessmentDecision.NotSure;
+      const decision: NullableDecision =
+        assessmentResult.assessmentDecision ?? NO_DECISION;
       return {
         ...accumulator,
         [decision]: accumulator[decision] + 1,
@@ -99,9 +117,10 @@ export const getResultDecisionCount = (results: AssessmentResult[]) => {
   );
 };
 
-export const decisionOrder: AssessmentDecision[] = [
-  AssessmentDecision.NotSure,
+export const decisionOrder: NullableDecision[] = [
+  NO_DECISION,
   AssessmentDecision.Successful,
+  AssessmentDecision.Hold,
   AssessmentDecision.Unsuccessful,
 ];
 
@@ -109,9 +128,7 @@ const getBookmarkValue = (result: AssessmentResult & { ordinal?: number }) => {
   return Number(result.poolCandidate?.isBookmarked);
 };
 const getDecisionValue = (result: AssessmentResult & { ordinal?: number }) => {
-  return decisionOrder.indexOf(
-    result.assessmentDecision ?? AssessmentDecision.NotSure,
-  );
+  return decisionOrder.indexOf(result.assessmentDecision ?? NO_DECISION);
 };
 const getPriorityValue = (result: AssessmentResult & { ordinal?: number }) => {
   return Number(result.poolCandidate?.user.hasPriorityEntitlement);

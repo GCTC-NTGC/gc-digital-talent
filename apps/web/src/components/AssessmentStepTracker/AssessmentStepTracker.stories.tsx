@@ -43,9 +43,11 @@ const candidates: PoolCandidate[] = fakePoolCandidates(20).map((candidate) => {
         assessmentResultType: faker.helpers.arrayElement<AssessmentResultType>(
           Object.values(AssessmentResultType),
         ),
-        assessmentDecision: faker.helpers.arrayElement<AssessmentDecision>(
-          Object.values(AssessmentDecision),
-        ),
+        assessmentDecision:
+          faker.helpers.arrayElement<AssessmentDecision | null>([
+            ...Object.values(AssessmentDecision),
+            null,
+          ]),
         assessmentResultJustification:
           faker.helpers.arrayElement<AssessmentResultJustification>(
             Object.values(AssessmentResultJustification),
