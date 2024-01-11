@@ -382,6 +382,7 @@ const PoolCandidatesTable = ({
     columnHelper.display({
       id: "isBookmarked",
       header: () => bookmarkHeader(intl),
+      enableHiding: false,
       cell: ({
         row: {
           original: { poolCandidate },
@@ -389,6 +390,7 @@ const PoolCandidatesTable = ({
       }) => bookmarkCell(poolCandidate),
       meta: {
         shrink: true,
+        hideMobileHeader: true,
       },
     }),
     columnHelper.accessor(
