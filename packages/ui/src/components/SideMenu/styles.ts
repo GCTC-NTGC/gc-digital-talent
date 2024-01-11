@@ -10,9 +10,9 @@ export const commonStyles = {
   "data-h2-outline": "base(none)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-color": `
-    base(white)
-    base:hover(secondary.lighter)
-    base:selectors[.active](secondary.lighter)
+    base:all(white)
+    base:all:hover(secondary.lighter)
+    base:all:selectors[.active](secondary.lighter)
 
     base:all:focus-visible(black)
     base:all:iap:focus-visible(black)
