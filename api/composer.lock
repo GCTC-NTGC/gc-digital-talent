@@ -1877,16 +1877,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v10.6.1",
+            "version": "v10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "fc9bc0c2061eb54b31d9dba0999755177a8f1a0e"
+                "reference": "adbcd2eab7bee46cc8c1183977a69c3b97184e38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/fc9bc0c2061eb54b31d9dba0999755177a8f1a0e",
-                "reference": "fc9bc0c2061eb54b31d9dba0999755177a8f1a0e",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/adbcd2eab7bee46cc8c1183977a69c3b97184e38",
+                "reference": "adbcd2eab7bee46cc8c1183977a69c3b97184e38",
                 "shasum": ""
             },
             "require": {
@@ -1906,11 +1906,13 @@
                 "orchestra/testbench": "^7.31|^8.11",
                 "php-http/guzzle7-adapter": "^1.0",
                 "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9.3"
+                "phpunit/phpunit": "^9.3",
+                "typesense/typesense-php": "^4.9"
             },
             "suggest": {
                 "algolia/algoliasearch-client-php": "Required to use the Algolia engine (^3.2).",
-                "meilisearch/meilisearch-php": "Required to use the Meilisearch engine (^1.0)."
+                "meilisearch/meilisearch-php": "Required to use the Meilisearch engine (^1.0).",
+                "typesense/typesense-php": "Required to use the Typesense engine (^4.9)."
             },
             "type": "library",
             "extra": {
@@ -1948,7 +1950,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2023-12-05T19:44:31+00:00"
+            "time": "2024-01-09T18:11:37+00:00"
         },
         {
             "name": "laravel/serializable-closure",
