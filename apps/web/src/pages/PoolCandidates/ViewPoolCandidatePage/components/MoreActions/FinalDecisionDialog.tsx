@@ -15,6 +15,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
+import AssessmentSummary from "./components/AssessmentSummary";
+
 const PoolCandidate_UpdateStatusAndExpiryMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_UpdateStatusAndExpiryMutation(
     $id: ID!
@@ -164,7 +166,11 @@ const FinalDecisionNotesDialog = ({
               description: "Assessment summary",
             })}
           </Heading>
-          <p>HERE BE SUMMARY</p>
+          <AssessmentSummary
+            essentialSkills={essentialSkills}
+            nonessentialSkills={nonessentialSkills}
+            assessmentResults={assessmentResults}
+          />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <Heading
