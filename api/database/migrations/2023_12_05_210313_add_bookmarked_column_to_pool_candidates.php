@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->boolean('is_bookmarked');
+            $table->boolean('is_bookmarked')->nullable()->default(null);
         });
     }
 
