@@ -104,14 +104,27 @@ export const candidateNameCell = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
+  const candidateName = getFullNameLabel(
+    candidate.user.firstName,
+    candidate.user.lastName,
+    intl,
+  );
   return (
     <span data-h2-font-weight="base(700)">
       {cells.view(
         paths.poolCandidateApplication(candidate.id),
-        getFullNameLabel(
-          candidate.user.firstName,
-          candidate.user.lastName,
-          intl,
+        candidateName,
+        undefined,
+        intl.formatMessage(
+          {
+            defaultMessage: "View {name}'s application",
+            id: "mzGMZC",
+            description:
+              "Link text to view a candidates application for assistive technologies",
+          },
+          {
+            name: candidateName,
+          },
         ),
       )}
     </span>
