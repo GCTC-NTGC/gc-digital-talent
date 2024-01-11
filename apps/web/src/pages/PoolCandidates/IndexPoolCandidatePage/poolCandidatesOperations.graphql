@@ -441,31 +441,6 @@ fragment selectedPoolCandidates on PoolCandidate {
   archivedAt
 }
 
-mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
-  createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
-    pool {
-      id
-    }
-    user {
-      id
-    }
-    cmoIdentifier
-    expiryDate
-    status
-  }
-}
-
-mutation updatePoolCandidate(
-  $id: ID!
-  $poolCandidate: UpdatePoolCandidateAsAdminInput!
-) {
-  updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
-    cmoIdentifier
-    expiryDate
-    status
-  }
-}
-
 mutation deletePoolCandidate($id: ID!) {
   deletePoolCandidate(id: $id) {
     id
