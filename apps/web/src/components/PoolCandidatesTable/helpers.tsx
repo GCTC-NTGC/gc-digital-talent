@@ -11,7 +11,8 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Spoiler } from "@gc-digital-talent/ui";
+import { Color, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -27,6 +28,14 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import {
+  isDisqualifiedStatus,
+  isQualifiedStatus,
+  isRemovedStatus,
+  isToAssessStatus,
+  statusToFinalDecision,
+  statusToJobPlacement,
+} from "~/utils/poolCandidate";
 
 import cells from "../Table/cells";
 
@@ -84,6 +93,25 @@ export const priorityCell = (
   }
   return (
     <span>{intl.formatMessage(getPoolCandidatePriorities(priority))}</span>
+  );
+};
+
+export const candidateNameCell = (
+  candidate: PoolCandidate,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => {
+  return (
+    <span data-h2-font-weight="base(700)">
+      {cells.view(
+        paths.poolCandidateApplication(candidate.id),
+        getFullNameLabel(
+          candidate.user.firstName,
+          candidate.user.lastName,
+          intl,
+        ),
+      )}
+    </span>
   );
 };
 
@@ -234,6 +262,46 @@ export const currentLocationAccessor = (
       ? getProvinceOrTerritory(province as string)
       : commonMessages.notFound,
   )}`;
+
+const getFinalDecisionPillColor = (
+  status?: Maybe<PoolCandidateStatus>,
+): Color => {
+  if (isToAssessStatus(status)) {
+    return "warning";
+  }
+
+  if (isDisqualifiedStatus(status)) {
+    return "error";
+  }
+
+  if (isRemovedStatus(status)) {
+    return "black";
+  }
+
+  if (isQualifiedStatus(status)) {
+    return "success";
+  }
+
+  return "white";
+};
+
+export const finalDecisionCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return (
+    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
+      {intl.formatMessage(statusToFinalDecision(status))}
+    </Pill>
+  );
+};
+
+export const jobPlacementCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
+};
 
 // row(s) are becoming selected or deselected
 // if row is null then toggle all rows on the page simultaneously

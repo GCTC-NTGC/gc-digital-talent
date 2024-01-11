@@ -33,6 +33,22 @@ const messages = defineMessages({
     id: "04smVa",
     description: "Label for an targeting (active) qualified recruitment",
   },
+  toAssess: {
+    defaultMessage: "To assess",
+    id: "/+naWC",
+    description:
+      "Message displayed when candidate has yet to be assessed at a specific assessment step",
+  },
+  disqualified: {
+    defaultMessage: "Disqualified",
+    id: "/dy2CX",
+    description: "Message displayed when candidate has been disqualified",
+  },
+  removed: {
+    defaultMessage: "Removed",
+    id: "NNWQdp",
+    description: "Message displayed when candidate has been removed",
+  },
 });
 
 export default messages;
