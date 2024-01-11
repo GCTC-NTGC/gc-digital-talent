@@ -26,7 +26,7 @@ describe("Pool Candidates", () => {
       aliasQuery(req, "GetPoolCandidateStatus");
       aliasQuery(req, "getPoolCandidateSnapshot");
       aliasQuery(req, "allPools");
-      aliasQuery(req, "GetPoolCandidatesPaginated");
+      aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
       aliasMutation(req, "UpdatePoolCandidateStatus");
     });
@@ -120,7 +120,7 @@ describe("Pool Candidates", () => {
     })
       .should("exist")
       .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
     cy.findAllByRole("link", { name: /view(.+)application/i })
       .eq(0)
@@ -231,7 +231,7 @@ describe("Pool Candidates", () => {
     })
       .should("exist")
       .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
     cy.findAllByRole("link", { name: /view(.+)application/i })
       .eq(0)

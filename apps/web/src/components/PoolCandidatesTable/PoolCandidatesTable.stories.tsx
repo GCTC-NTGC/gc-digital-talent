@@ -39,7 +39,7 @@ export default {
   parameters: {
     themeKey: "admin",
     apiResponses: {
-      GetPoolCandidatesPaginated: {
+      CandidatesTableCandidatesPaginated_Query: {
         data: {
           poolCandidatesPaginated: {
             data: mockPoolCandidatesWithSkillCount,

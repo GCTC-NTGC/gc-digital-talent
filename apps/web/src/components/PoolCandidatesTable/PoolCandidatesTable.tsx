@@ -33,10 +33,7 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 
-import {
-  useGetPoolCandidatesPaginatedQuery,
-  useGetSkillsQuery,
-} from "~/api/generated";
+import { useGetSkillsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import {
   INITIAL_STATE,
@@ -136,6 +133,117 @@ const CandidatesTableSelectedCandidates_Query = graphql(/* GraphQL */ `
       ...CandidateCsvData_PoolCandidateFragment
       user {
         ...UserProfilePrintButton_UserFragment
+      }
+    }
+  }
+`);
+
+const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
+  query CandidatesTableCandidatesPaginated_Query(
+    $where: PoolCandidateSearchInput
+    $first: Int
+    $page: Int
+    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+  ) {
+    poolCandidatesPaginated(
+      where: $where
+      first: $first
+      page: $page
+      orderBy: [
+        { column: "status_weight", order: ASC }
+        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+        $sortingInput
+      ]
+    ) {
+      data {
+        id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            # Personal info
+            id
+            email
+            firstName
+            lastName
+            telephone
+            preferredLang
+            preferredLanguageForInterview
+            preferredLanguageForExam
+            currentCity
+            currentProvince
+            citizenship
+            armedForcesStatus
+
+            # Language
+            lookingForEnglish
+            lookingForFrench
+            lookingForBilingual
+            bilingualEvaluation
+            comprehensionLevel
+            writtenLevel
+            verbalLevel
+            estimatedLanguageAbility
+
+            # Gov info
+            isGovEmployee
+            govEmployeeType
+            currentClassification {
+              id
+              group
+              level
+              name {
+                en
+                fr
+              }
+            }
+            department {
+              id
+              departmentNumber
+              name {
+                en
+                fr
+              }
+            }
+            hasPriorityEntitlement
+            priorityNumber
+
+            # Employment equity
+            isWoman
+            isVisibleMinority
+            hasDisability
+            indigenousCommunities
+            indigenousDeclarationSignature
+
+            # Applicant info
+            hasDiploma
+            locationPreferences
+            locationExemptions
+            acceptedOperationalRequirements
+            positionDuration
+            priorityWeight
+          }
+          cmoIdentifier
+          expiryDate
+          status
+          submittedAt
+          notes
+          archivedAt
+          suspendedAt
+        }
+        skillCount
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
       }
     }
   }
@@ -317,7 +425,7 @@ const PoolCandidatesTable = ({
       // from fancy filter
       applicantFilter: {
         ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
+        hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
       },
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
@@ -328,7 +436,8 @@ const PoolCandidatesTable = ({
     };
   };
 
-  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
+  const [{ data, fetching }] = useQuery({
+    query: CandidatesTableCandidatesPaginated_Query,
     variables: {
       where: addSearchToPoolCandidateFilterInput(
         filterState,

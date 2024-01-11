@@ -441,42 +441,6 @@ fragment selectedPoolCandidates on PoolCandidate {
   archivedAt
 }
 
-query GetPoolCandidatesPaginated(
-  $where: PoolCandidateSearchInput
-  $first: Int
-  $page: Int
-  $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
-) {
-  poolCandidatesPaginated(
-    where: $where
-    first: $first
-    page: $page
-    orderBy: [
-      { column: "status_weight", order: ASC }
-      { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-      $sortingInput
-    ]
-  ) {
-    data {
-      id
-      poolCandidate {
-        ...poolCandidateTable
-      }
-      skillCount
-    }
-    paginatorInfo {
-      count
-      currentPage
-      firstItem
-      hasMorePages
-      lastItem
-      lastPage
-      perPage
-      total
-    }
-  }
-}
-
 query getPoolCandidatesByPool($id: UUID!) {
   pool(id: $id) {
     poolCandidates {
