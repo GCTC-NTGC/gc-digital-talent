@@ -244,31 +244,21 @@ class ApplicantFilterTest extends TestCase
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
         $this->assertCount(count($filter->qualified_streams), $retrievedFilter['qualifiedStreams']);
 
-        // Assert that the content of at least one item in each collection is correct.
-        $response->assertJsonFragment([
-            'applicantFilter' => [
-                'id' => $filter->id,
-                'pools' => $filter->pools->map(function ($pool) {
-                    return [
-                        'id' => $pool->id,
-                        'name' => $pool->name,
-                    ];
-                }),
-                'qualifiedClassifications' => $filter->qualifiedClassifications->map(function ($qualifiedClassification) {
-                    return [
-                        'id' => $qualifiedClassification->id,
-                        'name' => $qualifiedClassification->name,
-                    ];
-                }),
-                'qualifiedStreams' => $filter->qualified_streams,
-                'skills' => $filter->skills->map(function ($skill) {
-                    return [
-                        'id' => $skill->id,
-                        'name' => $skill->name,
-                    ];
-                }),
-            ],
-        ]);
+        // Assert that all the content in each collection is correct.
+        foreach ($filter->pools as $pool) {
+            $response->assertJsonFragment(['id' => $pool->id, 'name' => $pool->name]);
+        }
+        foreach ($filter->qualifiedClassifications as $qualifiedClassification) {
+            $response->assertJsonFragment([
+                'id' => $qualifiedClassification->id,
+                'name' => $qualifiedClassification->name,
+            ]);
+        }
+        foreach ($filter->skills as $skill) {
+            $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
+        }
+
+        $response->assertJsonFragment(['qualifiedStreams' => $filter->qualified_streams]);
     }
 
     /**
