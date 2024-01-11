@@ -68,8 +68,8 @@ const messages = defineMessages({
       "Title displayed on the Pool Candidates table final decision column",
   },
   jobPlacement: {
-    defaultMessage: "Final decision",
-    id: "c80Nxt",
+    defaultMessage: "Job placement",
+    id: "fQkgnT",
     description:
       "Title displayed on the Pool Candidates table job placement column",
   },
