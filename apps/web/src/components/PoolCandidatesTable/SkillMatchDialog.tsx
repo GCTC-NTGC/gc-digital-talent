@@ -1,16 +1,85 @@
 import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Maybe, Skill, graphql } from "@gc-digital-talent/graphql";
 
-import {
-  Maybe,
-  Skill,
-  Scalars,
-  useGetSkillMatchDialogDataQuery,
-} from "~/api/generated";
+import { Scalars } from "~/api/generated";
 import SkillTree from "~/components/SkillTree/SkillTree";
+
+const SkillMatchDialog_Query = graphql(/* GraphQL */ `
+  query SkillMatchDialog_Query($id: UUID!) {
+    user(id: $id) {
+      experiences {
+        id
+        __typename
+        user {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+    }
+  }
+`);
 
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
@@ -23,7 +92,8 @@ const SkillMatchDialogBody = ({
   filteredSkills,
   userId,
 }: SkillMatchDialogBodyProps) => {
-  const [{ data, fetching, error }] = useGetSkillMatchDialogDataQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: SkillMatchDialog_Query,
     variables: {
       id: userId,
     },

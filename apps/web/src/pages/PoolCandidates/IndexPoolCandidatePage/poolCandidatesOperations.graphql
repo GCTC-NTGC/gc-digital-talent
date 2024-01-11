@@ -441,20 +441,6 @@ fragment selectedPoolCandidates on PoolCandidate {
   archivedAt
 }
 
-query getPoolCandidatesByPool($id: UUID!) {
-  pool(id: $id) {
-    poolCandidates {
-      ...poolCandidateTable
-    }
-  }
-}
-
-query getSkillMatchDialogData($id: UUID!) {
-  user(id: $id) {
-    ...skillMatchDialog
-  }
-}
-
 mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
   createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
     pool {
