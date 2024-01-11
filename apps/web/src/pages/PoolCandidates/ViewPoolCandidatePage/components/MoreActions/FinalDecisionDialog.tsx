@@ -301,8 +301,8 @@ const FinalDecisionDialog = ({
                 >
                   {intl.formatMessage({
                     defaultMessage: "Important",
-                    id: "VTemtL",
-                    description: "Important",
+                    id: "IKGhHj",
+                    description: "Important note or caption",
                   })}
                 </p>
                 <p>

@@ -128,8 +128,8 @@ const AssessmentSummary = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Essential criteria",
-                description: "Essential criteria",
-                id: "fFTacJ",
+                description: "Essential criteria heading",
+                id: "Kp3Bqu",
               })}
             </th>
             <th scope="col">
@@ -170,8 +170,8 @@ const AssessmentSummary = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Education requirement",
-                  description: "aaa",
-                  id: "mhW7dN",
+                  id: "/zx1kX",
+                  description: "Education requirement section header.",
                 })}
               </p>
             </td>
@@ -209,8 +209,8 @@ const AssessmentSummary = ({
             >
               {intl.formatMessage({
                 defaultMessage: "Asset criteria",
-                description: "aaa",
-                id: "lO1XUT",
+                description: "Asset criteria heading",
+                id: "Ldzk4k",
               })}
             </th>
             <th scope="col">
