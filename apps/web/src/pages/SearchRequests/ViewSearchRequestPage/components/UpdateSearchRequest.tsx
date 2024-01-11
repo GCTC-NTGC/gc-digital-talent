@@ -131,9 +131,9 @@ export const UpdateSearchRequestForm = ({
   return (
     <div>
       <div
-        data-h2-border-bottom="base(1px solid gray)"
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-padding="base(0, 0, x1, 0)"
+        data-h2-border-bottom="base(1px solid black.2)"
+        data-h2-margin="base(0, 0, x3, 0)"
+        data-h2-padding="base(0, 0, x3, 0)"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleSaveNotes)}>
@@ -248,7 +248,7 @@ export const UpdateSearchRequestForm = ({
           </form>
         </FormProvider>
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
+      <div>
         <Link href={navigateTo} mode="inline" color="secondary">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
