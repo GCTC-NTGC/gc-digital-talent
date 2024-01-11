@@ -75,10 +75,18 @@ const AssessmentSummary = ({
     );
     return (
       <tr key={skill.id}>
-        <td>{getLocalizedName(skill.name, intl)}</td>
-        <td>{essentialSkillCalculated.successful}</td>
-        <td>{essentialSkillCalculated.unsuccessful}</td>
-        <td>{essentialSkillCalculated.notSure}</td>
+        <td data-h2-padding="base(x.25 0 x.25 x1)">
+          {getLocalizedName(skill.name, intl)}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {essentialSkillCalculated.successful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {essentialSkillCalculated.unsuccessful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {essentialSkillCalculated.notSure}
+        </td>
       </tr>
     );
   });
@@ -89,10 +97,18 @@ const AssessmentSummary = ({
     );
     return (
       <tr key={skill.id}>
-        <td>{getLocalizedName(skill.name, intl)}</td>
-        <td>{nonessentialSkillCalculated.successful}</td>
-        <td>{nonessentialSkillCalculated.unsuccessful}</td>
-        <td>{nonessentialSkillCalculated.notSure}</td>
+        <td data-h2-padding="base(x.25 0 x.25 x1)">
+          {getLocalizedName(skill.name, intl)}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {nonessentialSkillCalculated.successful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {nonessentialSkillCalculated.unsuccessful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {nonessentialSkillCalculated.notSure}
+        </td>
       </tr>
     );
   });
@@ -105,7 +121,11 @@ const AssessmentSummary = ({
             data-h2-border-bottom="base(3px solid black.20)"
             data-h2-margin-bottom="base(x.5)"
           >
-            <th scope="col">
+            <th
+              scope="col"
+              data-h2-padding="base(x.25 0 x.25 x.5)"
+              data-h2-display="base(flex)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Essential criteria",
                 description: "Essential criteria",
@@ -115,27 +135,30 @@ const AssessmentSummary = ({
             <th scope="col">
               <CheckIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(success)"
               />
             </th>
             <th scope="col">
               <XCircleIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(error)"
               />
             </th>
             <th scope="col">
               <PauseIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(warning)"
               />
             </th>
@@ -143,7 +166,7 @@ const AssessmentSummary = ({
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td data-h2-padding="base(x.25 0 x.25 x1)">
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Education requirement",
@@ -152,19 +175,19 @@ const AssessmentSummary = ({
                 })}
               </p>
             </td>
-            <td>
+            <td data-h2-padding="base(x.25 0 x.25 x.25)">
               {educationAssessmentResultDecision ===
               AssessmentDecision.Successful
                 ? "1"
                 : "0"}
             </td>
-            <td>
+            <td data-h2-padding="base(x.25 0 x.25 x.25)">
               {educationAssessmentResultDecision ===
               AssessmentDecision.Unsuccessful
                 ? "1"
                 : "0"}
             </td>
-            <td>
+            <td data-h2-padding="base(x.25 0 x.25 x.25)">
               {educationAssessmentResultDecision === AssessmentDecision.NotSure
                 ? "1"
                 : "0"}
@@ -179,7 +202,11 @@ const AssessmentSummary = ({
       >
         <thead>
           <tr data-h2-border-bottom="base(3px solid black.20)">
-            <th scope="col">
+            <th
+              scope="col"
+              data-h2-padding="base(x.25 0 x.25 x.5)"
+              data-h2-display="base(flex)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Asset criteria",
                 description: "aaa",
@@ -189,27 +216,30 @@ const AssessmentSummary = ({
             <th scope="col">
               <CheckIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(success)"
               />
             </th>
             <th scope="col">
               <XCircleIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(error)"
               />
             </th>
             <th scope="col">
               <PauseIcon
                 data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
+                data-h2-display="base(flex)"
                 data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
+                data-h2-margin="base(0, x.5, 0, 0)"
+                data-h2-padding="base(x.25 0)"
                 data-h2-color="base(warning)"
               />
             </th>

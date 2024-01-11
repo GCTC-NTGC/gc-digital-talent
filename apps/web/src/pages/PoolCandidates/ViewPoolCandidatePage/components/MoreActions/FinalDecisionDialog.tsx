@@ -36,7 +36,7 @@ type FormValues = {
   expiryDate?: string;
 };
 
-interface FinalDecisionNotesDialogProps {
+interface FinalDecisionDialogProps {
   poolCandidateId: string;
   poolCandidateStatus?: PoolCandidateStatus;
   expiryDate?: string;
@@ -45,14 +45,14 @@ interface FinalDecisionNotesDialogProps {
   assessmentResults: AssessmentResult[];
 }
 
-const FinalDecisionNotesDialog = ({
+const FinalDecisionDialog = ({
   poolCandidateId,
   poolCandidateStatus,
   expiryDate,
   essentialSkills,
   nonessentialSkills,
   assessmentResults,
-}: FinalDecisionNotesDialogProps) => {
+}: FinalDecisionDialogProps) => {
   const intl = useIntl();
   const todayDate = new Date();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -238,9 +238,9 @@ const FinalDecisionNotesDialog = ({
                     {
                       value: "assessment",
                       label: intl.formatMessage({
-                        defaultMessage: "Screened out on assessment",
-                        description: "Screened out on assessment option",
-                        id: "UoWmnC",
+                        defaultMessage: "Unsuccessful during assessment",
+                        description: "Unsuccessful during assessment option",
+                        id: "wrqRvV",
                       }),
                     },
                   ]}
@@ -335,4 +335,4 @@ const FinalDecisionNotesDialog = ({
   );
 };
 
-export default FinalDecisionNotesDialog;
+export default FinalDecisionDialog;
