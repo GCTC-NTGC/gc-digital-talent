@@ -60,6 +60,8 @@ import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
+  bookmarkCell,
+  bookmarkHeader,
   candidacyStatusAccessor,
   candidateNameCell,
   currentLocationAccessor,
@@ -377,6 +379,18 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
+    columnHelper.display({
+      id: "isBookmarked",
+      header: () => bookmarkHeader(intl),
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => bookmarkCell(poolCandidate),
+      meta: {
+        shrink: true,
+      },
+    }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getFullNameLabel(user.firstName, user.lastName, intl),

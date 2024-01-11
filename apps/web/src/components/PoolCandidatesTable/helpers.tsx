@@ -1,6 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   commonMessages,
@@ -38,6 +39,8 @@ import {
 } from "~/utils/poolCandidate";
 
 import cells from "../Table/cells";
+import tableMessages from "./tableMessages";
+import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -302,6 +305,17 @@ export const jobPlacementCell = (
 ) => {
   return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
 };
+
+export const bookmarkCell = (candidate: PoolCandidate) => {
+  return <CandidateBookmark candidate={candidate} size="lg" />;
+};
+
+export const bookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
 
 // row(s) are becoming selected or deselected
 // if row is null then toggle all rows on the page simultaneously

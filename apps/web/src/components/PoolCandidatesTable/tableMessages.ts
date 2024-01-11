@@ -73,6 +73,11 @@ const messages = defineMessages({
     description:
       "Title displayed on the Pool Candidates table job placement column",
   },
+  bookmark: {
+    defaultMessage: "Bookmarked",
+    id: "7g4Mvc",
+    description: "Title displayed on the Pool Candidates table bookmark column",
+  },
 });
 
 export default messages;

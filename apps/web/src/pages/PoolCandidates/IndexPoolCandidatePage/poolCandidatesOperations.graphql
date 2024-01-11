@@ -66,6 +66,7 @@ fragment poolCandidateTable on PoolCandidate {
     positionDuration
     priorityWeight
   }
+  isBookmarked
   cmoIdentifier
   expiryDate
   status
