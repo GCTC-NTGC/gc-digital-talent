@@ -104,7 +104,7 @@ describe("Admin Workflow Tests", () => {
       .and("be.visible");
   });
 
-  it.only("Selects a user and downloads a CSV", () => {
+  it("Selects a user and downloads a CSV", () => {
     cy.findAllByRole("link", { name: /users/i }).eq(0).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
