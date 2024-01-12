@@ -2919,10 +2919,6 @@
     "defaultMessage": "un changement majeur dans le fonctionnement de votre ministère directement lié à l’introduction de cet équipement ou matériel;",
     "description": "technological change factor - change department's operation"
   },
-  "EjhuA1": {
-    "defaultMessage": "Demandes",
-    "description": "Title for requests"
-  },
   "EkBES+": {
     "defaultMessage": "Membre des FAC :",
     "description": "label for CAF status"
@@ -2958,10 +2954,6 @@
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
-  },
-  "F//l5D": {
-    "defaultMessage": "Utilisateurs",
-    "description": "Title for users"
   },
   "F/WYCH": {
     "defaultMessage": "Mise à jour de votre autodéclaration réussie",
@@ -4354,10 +4346,6 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
-  },
-  "NWEmsp": {
-    "defaultMessage": "Équipes",
-    "description": "Title for teams"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
