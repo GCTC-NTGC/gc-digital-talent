@@ -662,7 +662,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->whereJsonLength('indigenous_communities', '>', 0);
+                    $query->orWhereJsonLength('indigenous_communities', '>', 0);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }
