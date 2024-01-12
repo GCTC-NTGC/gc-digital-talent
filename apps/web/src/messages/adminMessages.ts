@@ -135,12 +135,6 @@ const messages = defineMessages({
     description:
       "Alert message displayed when a user attempts to print without selecting items first",
   },
-  tooManyRowsSelected: {
-    defaultMessage: "Download failed: Too many rows selected",
-    id: "wXVuyF",
-    description:
-      "Alert message displayed when a user attempts to print too many items",
-  },
 });
 
 export default messages;

@@ -13,6 +13,7 @@ import isEqual from "lodash/isEqual";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  errorMessages,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
@@ -359,10 +360,8 @@ const PoolCandidatesTable = ({
         );
 
         if (result.error) {
-          toast.error(intl.formatMessage(adminMessages.tooManyRowsSelected));
-        }
-
-        if (!poolCandidates.length) {
+          toast.error(intl.formatMessage(errorMessages.unknown));
+        } else if (!poolCandidates.length) {
           toast.error(intl.formatMessage(adminMessages.noRowsSelected));
         }
 
@@ -370,6 +369,9 @@ const PoolCandidatesTable = ({
         setIsSelecting(false);
         setSelectingFor(null);
         return poolCandidates;
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.unknown));
       });
   };
 
@@ -589,7 +591,7 @@ const PoolCandidatesTable = ({
             headers: getPoolCandidateCsvHeaders(intl, currentPool),
             data: async () => {
               const selected = await querySelected("download");
-              return getPoolCandidateCsvData(selected, intl);
+              return getPoolCandidateCsvData(selected ?? [], intl);
             },
             fileName: intl.formatMessage(
               {
