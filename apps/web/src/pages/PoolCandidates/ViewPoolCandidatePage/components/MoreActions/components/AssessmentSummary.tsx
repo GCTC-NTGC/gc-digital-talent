@@ -123,7 +123,7 @@ const AssessmentSummary = ({
           >
             <th
               scope="col"
-              data-h2-padding="base(x.25 0 x.25 x.5)"
+              data-h2-padding="base(x.25 0 x.25 x1)"
               data-h2-display="base(flex)"
             >
               {intl.formatMessage({
@@ -204,7 +204,7 @@ const AssessmentSummary = ({
           <tr data-h2-border-bottom="base(3px solid black.20)">
             <th
               scope="col"
-              data-h2-padding="base(x.25 0 x.25 x.5)"
+              data-h2-padding="base(x.25 0 x.25 x1)"
               data-h2-display="base(flex)"
             >
               {intl.formatMessage({

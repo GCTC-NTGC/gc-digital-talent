@@ -158,11 +158,7 @@ const FinalDecisionDialog = ({
               description: "Text describing a dialog's purpose",
             })}
           </p>
-          <Heading
-            data-h2-font-weight="base(700)"
-            data-h2-margin-bottom="base(x.5)"
-            data-h2-font-size="base(normal)"
-          >
+          <Heading level="h3" size="h6" data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "Assessment summary",
               id: "DrG5Pl",
@@ -176,11 +172,7 @@ const FinalDecisionDialog = ({
           />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <Heading
-                data-h2-font-weight="base(700)"
-                data-h2-margin-bottom="base(x.5)"
-                data-h2-font-size="base(normal)"
-              >
+              <Heading level="h3" size="h6" data-h2-margin-bottom="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage: "Final decision",
                   id: "VYOVUJ",
@@ -311,8 +303,8 @@ const FinalDecisionDialog = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "The candidate will be notified of any changes made in this form. ",
-                    id: "qLH7pu",
+                      "The candidate will be notified of any changes made in this form.",
+                    id: "17dZD4",
                     description:
                       "Caption notifying the user about who can know about the results of form changes",
                   })}
