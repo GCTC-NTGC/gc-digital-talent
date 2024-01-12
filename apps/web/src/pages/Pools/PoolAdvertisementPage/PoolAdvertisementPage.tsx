@@ -24,6 +24,7 @@ import {
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -129,11 +130,7 @@ export const PoolPoster = ({
 
   const links = useBreadcrumbs([
     {
-      label: intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "gC74ro",
-        description: "Breadcrumb title for the browse pools page.",
-      }),
+      label: intl.formatMessage(navigationMessages.browseJobs),
       url: paths.browsePools(),
     },
     {
@@ -388,11 +385,13 @@ export const PoolPoster = ({
               <div data-h2-margin-bottom="base(x3)">
                 <DataRow
                   Icon={CurrencyDollarIcon}
-                  label={intl.formatMessage({
-                    defaultMessage: "Salary range:",
-                    id: "ls7b2p",
-                    description: "Label for pool advertisement salary range",
-                  })}
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Salary range",
+                      id: "GgBjAd",
+                      description: "Label for pool advertisement salary range",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
                   value={
                     localizeSalaryRange(
                       classification?.minSalary,
@@ -542,10 +541,10 @@ export const PoolPoster = ({
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Minimum experience or education",
-                  id: "v6boy9",
+                  defaultMessage: "Minimum experience or equivalent education",
+                  id: "LvYEdh",
                   description:
-                    "Title for minimum experience or education section of a pool advertisement",
+                    "Title for Minimum experience or equivalent education",
                 })}
               </Heading>
               <Text>
@@ -572,9 +571,8 @@ export const PoolPoster = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Skill requirements",
-                  id: "706kTz",
-                  description:
-                    "Title for skill requirements section of a pool advertisement",
+                  id: "tON7JL",
+                  description: "Title for skill requirements",
                 })}
               </Heading>
               <Text>
@@ -624,18 +622,17 @@ export const PoolPoster = ({
               >
                 {intl.formatMessage({
                   defaultMessage: "Optional technical skills",
-                  id: "CzrCfC",
-                  description:
-                    "Title for optional technical skills section of a pool advertisement",
+                  id: "mm1X02",
+                  description: "Title for optional technical skills section",
                 })}
               </Heading>
               <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "ry5NUs",
+                  id: "mqRhhe",
                   description:
-                    "Descriptive text about how optional technical skills are used in the application process",
+                    "Descriptive text about how optional skills are used in the application process",
                 })}
               </p>
               <SkillAccordion
@@ -695,9 +692,9 @@ export const PoolPoster = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "iXdeVu",
+                  id: "mqRhhe",
                   description:
-                    "Descriptive text about how optional behavioural skills are used in the application process",
+                    "Descriptive text about how optional skills are used in the application process",
                 })}
               </p>
               <SkillAccordion

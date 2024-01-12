@@ -44,7 +44,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(gray.light)"
+            data-h2-color="base:all(black)"
+            data-h2-background-color="base:all(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
             data-h2-border="base(2px solid gray)"
@@ -62,7 +63,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(gray.light)"
+            data-h2-color="base:all(black)"
+            data-h2-background-color="base:all(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
             data-h2-border="base(2px solid gray)"
@@ -86,7 +88,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(gray.light)"
+            data-h2-color="base:all(black)"
+            data-h2-background-color="base:all(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
             data-h2-border="base(2px solid gray)"
@@ -104,7 +107,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
             })}
           </p>
           <p
-            data-h2-background-color="base(gray.light)"
+            data-h2-color="base:all(black)"
+            data-h2-background-color="base:all(gray.light)"
             data-h2-margin="base(x.25, 0, x1, 0)"
             data-h2-padding="base(x.25, 0, x.25, x.5)"
             data-h2-border="base(2px solid gray)"
@@ -117,8 +121,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
           <p data-h2-margin-top="base(x1)">
             {intl.formatMessage({
               defaultMessage: "Team's short description (English)",
-              id: "whsH/g",
-              description: "Short description for a team in English",
+              id: "sSGgnI",
+              description: "Label for team description in English language",
             })}
           </p>
           <p
@@ -136,8 +140,8 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
           <p data-h2-margin-top="base(x1)">
             {intl.formatMessage({
               defaultMessage: "Team's short description (French)",
-              id: "PtbLq+",
-              description: "Short description for a team in French",
+              id: "RSkJQR",
+              description: "Label for team description in French language",
             })}
           </p>
           <p

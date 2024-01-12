@@ -148,10 +148,12 @@ const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
   title,
+  hidePoolFilter,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
   title: string;
+  hidePoolFilter?: boolean;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -554,6 +556,7 @@ const PoolCandidatesTable = ({
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
+            {...{ hidePoolFilter }}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,

@@ -16,15 +16,19 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 
+import { NO_DECISION } from "~/utils/assessmentResults";
+
 export type FormValues = {
-  assessmentDecision: AssessmentResult["assessmentDecision"];
+  assessmentDecision:
+    | AssessmentResult["assessmentDecision"]
+    | typeof NO_DECISION;
   justifications:
     | AssessmentResult["justifications"]
     | AssessmentResultJustification;
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
   otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  notesForThisAssessment?: Maybe<string>; // TODO: This field will be added to backend on #8729
+  assessmentNotes?: Maybe<string>;
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -59,7 +63,8 @@ export function convertFormValuesToApiCreateInput({
   return {
     assessmentStepId,
     poolCandidateId,
-    assessmentDecision,
+    assessmentDecision:
+      assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: Array.isArray(justifications)
@@ -81,10 +86,12 @@ export function convertFormValuesToApiUpdateInput({
     justifications,
     otherJustificationNotes,
     skillDecisionNotes,
+    assessmentNotes,
   } = formValues;
   return {
     id: assessmentResultId,
-    assessmentDecision,
+    assessmentDecision:
+      assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: Array.isArray(justifications)
@@ -92,6 +99,7 @@ export function convertFormValuesToApiUpdateInput({
       : justifications && [justifications],
     otherJustificationNotes,
     skillDecisionNotes,
+    assessmentNotes,
   };
 }
 

@@ -30,15 +30,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.role}
             name="role"
             type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              maxLength: {
-                message: intl.formatMessage(errorMessages.overCharacterLimit, {
-                  value: 256,
-                }),
-                value: 255,
-              },
-            }}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -48,9 +40,8 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
-              id: "8i+lzm",
-              description:
-                "Label displayed on Work Experience form for current role input",
+              id: "mOx5K1",
+              description: "Label displayed for current role input",
             })}
             name="currentRole"
           />
@@ -61,32 +52,11 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             label={labels.organization}
             name="organization"
             type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              maxLength: {
-                message: intl.formatMessage(errorMessages.overCharacterLimit, {
-                  value: 256,
-                }),
-                value: 255,
-              },
-            }}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="team"
-            label={labels.team}
-            name="team"
-            type="text"
-            rules={{
-              maxLength: {
-                message: intl.formatMessage(errorMessages.overCharacterLimit, {
-                  value: 256,
-                }),
-                value: 255,
-              },
-            }}
-          />
+          <Input id="team" label={labels.team} name="team" type="text" />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <DateInput

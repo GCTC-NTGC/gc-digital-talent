@@ -65,6 +65,16 @@ const commonMessages = defineMessages({
     description:
       "Message displayed when a user has not provided some form of information",
   },
+  noNameProvided: {
+    defaultMessage: "No name provided",
+    id: "BXxvCZ",
+    description: "Message for when no name value",
+  },
+  noInformationProvided: {
+    defaultMessage: "No information has been provided.",
+    id: "euigxa",
+    description: "Sentence when some form of information not provided",
+  },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
     id: "EdAaI7",
@@ -139,6 +149,21 @@ const commonMessages = defineMessages({
     defaultMessage: "Not applicable",
     id: "C/mdCs",
     description: "Not applicable, context or state does apply.",
+  },
+  employmentEquity: {
+    defaultMessage: "Employment equity",
+    id: "Qn/95I",
+    description: "Title for Employment equity",
+  },
+  editThisSection: {
+    defaultMessage: "Edit this section",
+    id: "XZl6Ks",
+    description: "Text to trigger edit of section action",
+  },
+  notSure: {
+    defaultMessage: "Not sure",
+    id: "GLRLYT",
+    description: "A decision has not been made",
   },
 });
 

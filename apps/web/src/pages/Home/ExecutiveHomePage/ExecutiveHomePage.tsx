@@ -14,6 +14,7 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -28,7 +29,6 @@ import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
-import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 interface HomePageProps {
   pools: Pool[];
@@ -71,7 +71,6 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
       </HomeHero>
       <SkewedContainer>
-        <HolidayAlert />
         <Heading
           level="h2"
           size="h3"
@@ -120,9 +119,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
             <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
-                id: "Cia2li",
-                description:
-                  "Heading for message when there are no executive opportunities available",
+                id: "g+JcDC",
+                description: "Heading for message about upcoming opportunities",
               })}
             </Heading>
             <p>
@@ -189,8 +187,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage: "Contact us",
-                    id: "eAQwAl",
-                    description: "Link text for hiring manager call to action",
+                    id: "RIi/3q",
+                    description: "Title for Contact us action",
                   }),
                 },
               ]}
@@ -216,12 +214,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 {
                   href: paths.browsePools(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Browse jobs",
-                    id: "VK/lwK",
-                    description:
-                      "Link text for executive jobs in government call to action",
-                  }),
+                  label: intl.formatMessage(navigationMessages.browseJobs),
                 },
               ]}
             >
@@ -229,9 +222,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Check out the most recent manager recruitment processes for specific opportunities or apply to ongoing recruitment in any of the IT generic work streams. Check back often for new opportunities.",
-                  id: "4iWzFv",
+                  id: "gURsqG",
                   description:
-                    "Description for browsing executive recruitment processes",
+                    "Summary for the feature about finding manager jobs",
                 })}
               </p>
             </CardFlat>
@@ -239,8 +232,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
               color="secondary"
               title={intl.formatMessage({
                 defaultMessage: "Get hiring experience",
-                id: "UPtqUI",
-                description: "Heading for the direct on digital talent section",
+                id: "SfhT1q",
+                description: "Title to get hiring experience",
               })}
               links={[
                 {
@@ -248,18 +241,17 @@ export const HomePage = ({ pools }: HomePageProps) => {
                     intl.formatMessage({
                       defaultMessage:
                         "I'm interested in gaining hiring experience",
-                      id: "dk+1RB",
+                      id: "2OTKDd",
                       description:
-                        "Subject line for contact email to gain hiring experience",
+                        "Subject for email to gain hiring experience",
                     }),
                   )}`,
                   mode: "solid",
                   external: true,
                   label: intl.formatMessage({
                     defaultMessage: "Contact us",
-                    description:
-                      "Link text to contact the the team about gaining hiring experience",
-                    id: "Mozx6m",
+                    description: "Title for Contact us action",
+                    id: "RIi/3q",
                   }),
                 },
               ]}

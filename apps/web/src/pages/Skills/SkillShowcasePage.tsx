@@ -10,6 +10,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { UserSkill, useUserSkillShowcaseQuery } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
@@ -41,11 +42,7 @@ export const SkillShowcase = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Skill showcase",
-    id: "F6Rwd+",
-    description: "Title for the skill showcase page",
-  });
+  const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -56,19 +53,11 @@ export const SkillShowcase = ({
 
   const crumbs = useBreadcrumbs([
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
     {

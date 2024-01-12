@@ -74,10 +74,15 @@ const CheckButton = ({
       <span
         className="check-button__inner"
         data-h2-padding="base(x.125)"
+        data-h2-radius="base(input)"
         data-h2-background-color="base(foreground)"
         {...borderMap[color]}
       >
-        <Icon className="check-button__icon" data-h2-display="base(block)" />
+        <Icon
+          className="check-button__icon"
+          data-h2-display="base(block)"
+          data-h2-stroke-width="base(3)"
+        />
       </span>
     </button>
   );

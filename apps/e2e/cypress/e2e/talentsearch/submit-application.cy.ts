@@ -271,7 +271,9 @@ describe("Submit Application Workflow Tests", () => {
 
     // Education experience page - step four
     cy.wait("@gqlApplicationQuery");
-    cy.findByRole("heading", { name: /Minimum experience or education/i })
+    cy.findByRole("heading", {
+      name: /Minimum experience or equivalent education/i,
+    })
       .should("exist")
       .and("be.visible");
     cy.findByRole("heading", { name: /Step 4 of 7/i })

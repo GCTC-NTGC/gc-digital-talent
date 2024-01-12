@@ -45,8 +45,8 @@ const EditTeamPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit team information",
-    id: "zEmPCS",
-    description: "Page title for the edit team page",
+    id: "vSMCIR",
+    description: "Title for the edit team page",
   });
 
   const handleSubmit = async (id: Scalars["UUID"], data: UpdateTeamInput) => {

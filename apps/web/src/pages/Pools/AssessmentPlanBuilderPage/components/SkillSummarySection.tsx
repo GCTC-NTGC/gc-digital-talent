@@ -24,10 +24,14 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
   const intl = useIntl();
   return (
     <>
-      <Heading level="h3" id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+      <Heading
+        level="h3"
+        id={PAGE_SECTION_ID.SKILL_SUMMARY}
+        data-h2-margin="base(x3, 0, x1, 0)"
+      >
         {intl.formatMessage(sectionTitle)}
       </Heading>
-      <p>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
             "Overview of all skills and assessments planned for this pool.",

@@ -4,6 +4,7 @@ import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -70,11 +71,7 @@ const CareerTimelineAndRecruitment = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
@@ -185,11 +182,7 @@ const CareerTimelineAndRecruitment = ({
                   data-h2-flex-item="base(1of1) p-tablet(content)"
                   mode="inline"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Browse jobs",
-                    id: "ApyEMy",
-                    description: "Title for the browse pools page",
-                  })}
+                  {intl.formatMessage(navigationMessages.browseJobs)}
                 </Link>
               </div>
               <p data-h2-margin="base(x1, 0)">

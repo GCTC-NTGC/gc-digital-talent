@@ -30,7 +30,7 @@ const hidden = (text: React.ReactNode) => (
  * @param text text to wrap.
  */
 const heavyPrimary = (text: React.ReactNode) => (
-  <span data-h2-color="base(primary.dark)" data-h2-font-weight="base(700)">
+  <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
     {text}
   </span>
 );
@@ -56,7 +56,10 @@ const red = (text: React.ReactNode) => (
  * @param text  text to wrap
  */
 const heavyRed = (text: React.ReactNode) => (
-  <span data-h2-color="base(error.dark)" data-h2-font-weight="base(700)">
+  <span
+    data-h2-color="base(error.darker) base:dark(error.lightest)"
+    data-h2-font-weight="base(700)"
+  >
     {text}
   </span>
 );

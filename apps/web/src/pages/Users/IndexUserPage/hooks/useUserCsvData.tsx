@@ -200,8 +200,8 @@ const useUserCsvData = (users: User[]) => {
       key: "indigenousCommunities",
       label: intl.formatMessage({
         defaultMessage: "Indigenous",
-        id: "83v9YH",
-        description: "CSV Header, Indigenous column",
+        id: "YoIRbn",
+        description: "Title for Indigenous",
       }),
     },
     {
