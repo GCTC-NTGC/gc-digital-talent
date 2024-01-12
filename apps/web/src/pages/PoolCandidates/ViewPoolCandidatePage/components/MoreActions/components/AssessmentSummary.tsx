@@ -18,10 +18,16 @@ interface AssessmentSummaryProps {
   assessmentResults: AssessmentResult[];
 }
 
+type SkillAssessmentCalculated = {
+  successful: number;
+  unsuccessful: number;
+  hold: number;
+};
+
 const skillAssessmentResultCalculator = (
   skill: Skill,
   assessmentResults: AssessmentResult[],
-): { successful: number; unsuccessful: number; hold: number } => {
+): SkillAssessmentCalculated => {
   const applicableAssessmentResults = assessmentResults.filter(
     (result) => result.poolSkill?.skill?.id === skill.id,
   );
@@ -68,102 +74,111 @@ const AssessmentSummary = ({
   }
 
   // for each skill, given the assessment results array, compute the results and generate table data
-  const essentialSkillsTableData = essentialSkills.map((skill) => {
-    const essentialSkillCalculated = skillAssessmentResultCalculator(
-      skill,
-      assessmentResults,
-    );
+  const generateSkillTableData = (
+    skill: Skill,
+    skillAssessmentCalculated: SkillAssessmentCalculated,
+  ): JSX.Element => {
     return (
       <tr key={skill.id}>
         <td data-h2-padding="base(x.25 0 x.25 x1)">
           {getLocalizedName(skill.name, intl)}
         </td>
         <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {essentialSkillCalculated.successful}
+          {skillAssessmentCalculated.successful}
         </td>
         <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {essentialSkillCalculated.unsuccessful}
+          {skillAssessmentCalculated.unsuccessful}
         </td>
         <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {essentialSkillCalculated.hold}
+          {skillAssessmentCalculated.hold}
         </td>
       </tr>
     );
+  };
+
+  const essentialSkillsTableData = essentialSkills.map((skill) => {
+    const essentialSkillCalculated = skillAssessmentResultCalculator(
+      skill,
+      assessmentResults,
+    );
+    return generateSkillTableData(skill, essentialSkillCalculated);
   });
   const nonessentialSkillsTableData = nonessentialSkills.map((skill) => {
     const nonessentialSkillCalculated = skillAssessmentResultCalculator(
       skill,
       assessmentResults,
     );
+    return generateSkillTableData(skill, nonessentialSkillCalculated);
+  });
+
+  // generate the table header for the two tables that is mostly the same
+  const generateTableHeader = (tableTitle: string) => {
     return (
-      <tr key={skill.id}>
-        <td data-h2-padding="base(x.25 0 x.25 x1)">
-          {getLocalizedName(skill.name, intl)}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {nonessentialSkillCalculated.successful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {nonessentialSkillCalculated.unsuccessful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {nonessentialSkillCalculated.hold}
-        </td>
+      <tr
+        data-h2-border-bottom="base(3px solid black.20)"
+        data-h2-margin-bottom="base(x.5)"
+      >
+        <th
+          scope="col"
+          data-h2-padding="base(x.25 0 x.25 x1)"
+          data-h2-display="base(flex)"
+        >
+          {tableTitle}
+        </th>
+        <th scope="col">
+          <CheckIcon
+            data-h2-width="base(x1)"
+            data-h2-display="base(flex)"
+            data-h2-vertical-align="base(bottom)"
+            data-h2-margin="base(0, x.5, 0, 0)"
+            data-h2-padding="base(x.25 0)"
+            data-h2-color="base(success)"
+          />
+        </th>
+        <th scope="col">
+          <XCircleIcon
+            data-h2-width="base(x1)"
+            data-h2-display="base(flex)"
+            data-h2-vertical-align="base(bottom)"
+            data-h2-margin="base(0, x.5, 0, 0)"
+            data-h2-padding="base(x.25 0)"
+            data-h2-color="base(error)"
+          />
+        </th>
+        <th scope="col">
+          <PauseIcon
+            data-h2-width="base(x1)"
+            data-h2-display="base(flex)"
+            data-h2-vertical-align="base(bottom)"
+            data-h2-margin="base(0, x.5, 0, 0)"
+            data-h2-padding="base(x.25 0)"
+            data-h2-color="base(warning)"
+          />
+        </th>
       </tr>
     );
-  });
+  };
+
+  const essentialCriteriaHeader = generateTableHeader(
+    intl.formatMessage({
+      defaultMessage: "Essential criteria",
+      description: "Essential criteria heading",
+      id: "Kp3Bqu",
+    }),
+  );
+
+  const assetCriteriaHeader = generateTableHeader(
+    intl.formatMessage({
+      defaultMessage: "Asset criteria",
+      description: "Asset criteria heading",
+      id: "Ldzk4k",
+    }),
+  );
 
   return (
     <>
       <table data-h2-background="base(background)">
-        <thead>
-          <tr
-            data-h2-border-bottom="base(3px solid black.20)"
-            data-h2-margin-bottom="base(x.5)"
-          >
-            <th
-              scope="col"
-              data-h2-padding="base(x.25 0 x.25 x1)"
-              data-h2-display="base(flex)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Essential criteria",
-                description: "Essential criteria heading",
-                id: "Kp3Bqu",
-              })}
-            </th>
-            <th scope="col">
-              <CheckIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(success)"
-              />
-            </th>
-            <th scope="col">
-              <XCircleIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(error)"
-              />
-            </th>
-            <th scope="col">
-              <PauseIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(warning)"
-              />
-            </th>
-          </tr>
-        </thead>
+        <thead>{essentialCriteriaHeader}</thead>
         <tbody>
           <tr>
             <td data-h2-padding="base(x.25 0 x.25 x1)">
@@ -196,57 +211,15 @@ const AssessmentSummary = ({
           {essentialSkillsTableData}
         </tbody>
       </table>
-      <table
-        data-h2-margin-top="base(x1)"
-        data-h2-background="base(background)"
-      >
-        <thead>
-          <tr data-h2-border-bottom="base(3px solid black.20)">
-            <th
-              scope="col"
-              data-h2-padding="base(x.25 0 x.25 x1)"
-              data-h2-display="base(flex)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Asset criteria",
-                description: "Asset criteria heading",
-                id: "Ldzk4k",
-              })}
-            </th>
-            <th scope="col">
-              <CheckIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(success)"
-              />
-            </th>
-            <th scope="col">
-              <XCircleIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(error)"
-              />
-            </th>
-            <th scope="col">
-              <PauseIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(flex)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.5, 0, 0)"
-                data-h2-padding="base(x.25 0)"
-                data-h2-color="base(warning)"
-              />
-            </th>
-          </tr>
-        </thead>
-        <tbody>{nonessentialSkillsTableData}</tbody>
-      </table>
+      {nonessentialSkillsTableData.length > 0 && (
+        <table
+          data-h2-margin-top="base(x1)"
+          data-h2-background="base(background)"
+        >
+          <thead>{assetCriteriaHeader}</thead>
+          <tbody>{nonessentialSkillsTableData}</tbody>
+        </table>
+      )}
     </>
   );
 };
