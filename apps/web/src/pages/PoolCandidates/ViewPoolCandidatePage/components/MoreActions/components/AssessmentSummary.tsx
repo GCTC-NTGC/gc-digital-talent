@@ -133,6 +133,11 @@ const AssessmentSummary = ({
             data-h2-margin="base(0, x.5, 0, 0)"
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(success)"
+            aria-label={intl.formatMessage({
+              defaultMessage: "Successful assessment",
+              id: "3YqqOY",
+              description: "Aria label for icon representing success",
+            })}
           />
         </th>
         <th scope="col">
@@ -143,6 +148,11 @@ const AssessmentSummary = ({
             data-h2-margin="base(0, x.5, 0, 0)"
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(error)"
+            aria-label={intl.formatMessage({
+              defaultMessage: "Unsuccessful assessment",
+              id: "sZXTYz",
+              description: "Aria label for icon representing unsuccessful",
+            })}
           />
         </th>
         <th scope="col">
@@ -153,6 +163,11 @@ const AssessmentSummary = ({
             data-h2-margin="base(0, x.5, 0, 0)"
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(warning)"
+            aria-label={intl.formatMessage({
+              defaultMessage: "On hold assessment",
+              id: "Bp0YFJ",
+              description: "Aria label for icon representing on hold or paused",
+            })}
           />
         </th>
       </tr>
