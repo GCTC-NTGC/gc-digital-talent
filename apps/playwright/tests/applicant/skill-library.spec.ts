@@ -16,7 +16,7 @@ test.describe("Skill library", () => {
       ).not.toBeVisible();
     });
 
-    test("Appears when disabled", async ({ applicantPage }) => {
+    test("Appears when enabled", async ({ applicantPage }) => {
       await applicantPage.overrideFeatureFlags({ FEATURE_SKILL_LIBRARY: true });
 
       await applicantPage.page.goto("/en/applicant/profile-and-applications");
