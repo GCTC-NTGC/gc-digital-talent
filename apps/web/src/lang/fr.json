@@ -391,6 +391,10 @@
     "defaultMessage": "Équipe",
     "description": "Label for the team select field on team membership form"
   },
+  "0D3ZhO": {
+    "defaultMessage": "Demandes",
+    "description": "The menu category for requests items"
+  },
   "0D8Efk": {
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
@@ -958,6 +962,10 @@
   "3JL02L": {
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
+  },
+  "3NW70Q": {
+    "defaultMessage": "Demandes de talents",
+    "description": "Title for the index search request page"
   },
   "3R3jKp": {
     "defaultMessage": "Modifier {title}",
@@ -2959,6 +2967,10 @@
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
   },
+  "Ezh14X": {
+    "defaultMessage": "Équipes",
+    "description": "Title for the index team page"
+  },
   "F+LDbs": {
     "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
     "description": "Content displayed in the find talent page explaining the page and what it offers to users."
@@ -3186,6 +3198,10 @@
   "G5Joq7": {
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
+  },
+  "G65IrS": {
+    "defaultMessage": "Recrutement",
+    "description": "The menu category for recruitment items"
   },
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
@@ -4234,6 +4250,10 @@
   "MhgtB6": {
     "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
     "description": "Instructions for the Add Experience dialog"
+  },
+  "Mi+AuD": {
+    "defaultMessage": "Processus",
+    "description": "Title for the index pool page"
   },
   "MmDHBS": {
     "defaultMessage": "{label} ({count} compétences)",
@@ -6683,6 +6703,10 @@
     "defaultMessage": "Conditions d'emploi",
     "description": "Legend for the Conditions of Employment filter checklist"
   },
+  "bLcy4q": {
+    "defaultMessage": "Plateforme de données",
+    "description": "The menu category for platform data items"
+  },
   "bMY93S": {
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
     "description": "Help text for providing a skill level"
@@ -6702,6 +6726,10 @@
   "bUyxJi": {
     "defaultMessage": "Chercher les ministères",
     "description": "Label for the departments table search input"
+  },
+  "bVQ/rm": {
+    "defaultMessage": "Tous les utilisateurs",
+    "description": "Title for the index user page"
   },
   "bVRixs": {
     "defaultMessage": "Niveau",
@@ -7894,6 +7922,10 @@
   "i131l/": {
     "defaultMessage": "Détails de base",
     "description": "title of 'basic details' section of the 'assessment details' dialog"
+  },
+  "i16C7G": {
+    "defaultMessage": "Recherche de candidat",
+    "description": "Title for the all pool candidates page"
   },
   "i20Mlb": {
     "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",

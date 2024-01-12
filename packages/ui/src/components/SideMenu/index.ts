@@ -6,6 +6,7 @@ import SideMenuItem, {
 } from "./SideMenuItem";
 import type { SideMenuItemProps } from "./SideMenuItem";
 import SideMenuContentWrapper from "./SideMenuContentWrapper";
+import SideMenuCategory from "./SideMenuCategory";
 
 export default SideMenu;
 export {
@@ -13,5 +14,6 @@ export {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  SideMenuCategory,
 };
 export type { SideMenuProps, SideMenuItemProps };

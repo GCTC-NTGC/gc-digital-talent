@@ -14,7 +14,7 @@ describe("Pool Candidates", () => {
     cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
 
-    cy.findByRole("heading", { name: /pools/i })
+    cy.findByRole("heading", { name: /processes/i })
       .should("exist")
       .and("be.visible");
 
