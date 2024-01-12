@@ -11,7 +11,11 @@ import { SubmitHandler } from "react-hook-form";
 import { useClient } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLanguage } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLanguage,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import {
@@ -283,10 +287,8 @@ const UserTable = ({ title }: UserTableProps) => {
         const users: User[] = unpackMaybes(result.data?.applicants);
 
         if (result.error) {
-          toast.error(intl.formatMessage(adminMessages.tooManyRowsSelected));
-        }
-
-        if (!users.length) {
+          toast.error(intl.formatMessage(errorMessages.unknown));
+        } else if (!users.length) {
           toast.error(intl.formatMessage(adminMessages.noRowsSelected));
         }
 
@@ -294,6 +296,9 @@ const UserTable = ({ title }: UserTableProps) => {
         setIsSelecting(false);
         setSelectingFor(null);
         return users;
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.unknown));
       });
   };
 
@@ -331,7 +336,7 @@ const UserTable = ({ title }: UserTableProps) => {
             headers: getUserCsvHeaders(intl),
             data: async () => {
               const selected = await querySelected("download");
-              return getUserCsvData(selected, intl);
+              return getUserCsvData(selected ?? [], intl);
             },
             fileName: intl.formatMessage(
               {
