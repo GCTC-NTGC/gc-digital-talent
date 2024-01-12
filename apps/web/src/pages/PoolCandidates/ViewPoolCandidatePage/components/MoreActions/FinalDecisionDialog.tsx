@@ -44,6 +44,7 @@ interface FinalDecisionDialogProps {
   essentialSkills: Skill[];
   nonessentialSkills: Skill[];
   assessmentResults: AssessmentResult[];
+  defaultOpen?: boolean;
 }
 
 const FinalDecisionDialog = ({
@@ -53,10 +54,11 @@ const FinalDecisionDialog = ({
   essentialSkills,
   nonessentialSkills,
   assessmentResults,
+  defaultOpen = false,
 }: FinalDecisionDialogProps) => {
   const intl = useIntl();
   const todayDate = new Date();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(
     PoolCandidate_UpdateStatusAndExpiryMutation,
   );

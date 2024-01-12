@@ -15,6 +15,9 @@ export default {
   component: FinalDecisionDialog,
   title: "Components/Final decision dialog",
   decorators: [OverlayOrDialogDecorator],
+  args: {
+    defaultOpen: true,
+  },
 } as Meta;
 
 const fakedCandidate = fakePoolCandidates(1)[0];
