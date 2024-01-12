@@ -24,10 +24,10 @@
     "santigarcor/laratrust": "^8.0",
     "spatie/laravel-activitylog": "^4.7",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
-    "web-token/jwt-core": "^3.1"
+    "web-token/jwt-core": "^3.1",
+    "fakerphp/faker": "^1.9.1"
   },
   "require-dev": {
-    "fakerphp/faker": "^1.9.1",
     "laravel/pint": "^1.11",
     "mockery/mockery": "^1.4.4",
     "nunomaduro/collision": "^7.0",
