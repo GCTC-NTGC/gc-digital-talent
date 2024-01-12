@@ -21,7 +21,7 @@ interface AssessmentSummaryProps {
 const skillAssessmentResultCalculator = (
   skill: Skill,
   assessmentResults: AssessmentResult[],
-): { successful: number; unsuccessful: number; notSure: number } => {
+): { successful: number; unsuccessful: number; hold: number } => {
   const applicableAssessmentResults = assessmentResults.filter(
     (result) => result.poolSkill?.skill?.id === skill.id,
   );
@@ -31,13 +31,13 @@ const skillAssessmentResultCalculator = (
   const unsuccessful = applicableAssessmentResults.filter(
     (result) => result.assessmentDecision === AssessmentDecision.Unsuccessful,
   ).length;
-  const notSure = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.NotSure,
+  const hold = applicableAssessmentResults.filter(
+    (result) => result.assessmentDecision === AssessmentDecision.Hold,
   ).length;
   return {
     successful,
     unsuccessful,
-    notSure,
+    hold,
   };
 };
 
@@ -49,7 +49,7 @@ const AssessmentSummary = ({
   const intl = useIntl();
 
   // determine if education requirement met, should be an array of one after filtering
-  let educationAssessmentResultDecision = AssessmentDecision.NotSure;
+  let educationAssessmentResultDecision = AssessmentDecision.Hold;
   const educationAssessmentResult = assessmentResults.filter(
     (result) => result.assessmentResultType === AssessmentResultType.Education,
   );
@@ -85,7 +85,7 @@ const AssessmentSummary = ({
           {essentialSkillCalculated.unsuccessful}
         </td>
         <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {essentialSkillCalculated.notSure}
+          {essentialSkillCalculated.hold}
         </td>
       </tr>
     );
@@ -107,7 +107,7 @@ const AssessmentSummary = ({
           {nonessentialSkillCalculated.unsuccessful}
         </td>
         <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {nonessentialSkillCalculated.notSure}
+          {nonessentialSkillCalculated.hold}
         </td>
       </tr>
     );
@@ -188,7 +188,7 @@ const AssessmentSummary = ({
                 : "0"}
             </td>
             <td data-h2-padding="base(x.25 0 x.25 x.25)">
-              {educationAssessmentResultDecision === AssessmentDecision.NotSure
+              {educationAssessmentResultDecision === AssessmentDecision.Hold
                 ? "1"
                 : "0"}
             </td>

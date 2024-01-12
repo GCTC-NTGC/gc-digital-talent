@@ -75,7 +75,7 @@ const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "skill-2-assessment-1",
     assessmentResultType: AssessmentResultType.Skill,
-    assessmentDecision: AssessmentDecision.NotSure,
+    assessmentDecision: AssessmentDecision.Hold,
     poolSkill: {
       id: "poolSkill-3",
       skill: {
