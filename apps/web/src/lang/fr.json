@@ -6979,10 +6979,6 @@
     "defaultMessage": "Langue de communication préférée",
     "description": "CSV Header, Preferred Communication Language column"
   },
-  "dAGii/": {
-    "defaultMessage": "Cette section est similaire à votre parcours professionnel traditionnel et décrit vos expériences au travail, à l’école et dans la vie. Vous pourrez réutiliser ces informations pour chaque candidature que vous soumettrez sur la plateforme, ce qui accélérera le processus et garantira que vos informations sont toujours à jour.",
-    "description": "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page."
-  },
   "dAopan": {
     "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
     "description": "List item four, things designers consider for accessibility"
@@ -10326,6 +10322,10 @@
   "xQfIcL": {
     "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
     "description": "Description for the digital talent data portal"
+  },
+  "xXEhNq": {
+    "defaultMessage": "Cette section est semblable à votre cv traditionnel, et elle décrit vos expérience à travers votre vie professionnelle, scolaire et personnelle. Vous pourrez vous servir de cette information dans chaque demande que vous soumettez sur la plateforme, accélérant ainsi le processus et veillant à ce que votre information soit toujours à jour.",
+    "description": "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page."
   },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
