@@ -243,47 +243,35 @@ const FinalDecisionDialog = ({
                 />
               )}
               {finalAssessmentDecisionValue === "qualified" && (
-                <>
-                  <Heading
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                    data-h2-font-size="base(normal)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Select an expiry date",
-                      id: "3MboNR",
-                      description:
-                        "Label for date selection input for expiry date",
-                    })}
-                  </Heading>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "This is the amount of time this candidate will be considered for placement based on the results of this process. The usual amount of time is two years.",
-                      id: "DXjJyD",
-                      description:
-                        "Text describing expiry dates for candidates, what it is for and a recommendation",
-                    })}
-                  </p>
-                  <DateInput
-                    id="expiryDate"
-                    name="expiryDate"
-                    legend={intl.formatMessage({
-                      defaultMessage: "Select an expiry date",
-                      id: "3MboNR",
-                      description:
-                        "Label for date selection input for expiry date",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: strToFormDate(todayDate.toISOString()),
-                        message: intl.formatMessage(errorMessages.futureDate),
-                      },
-                    }}
-                    data-h2-margin-top="base(x.5)"
-                  />
-                </>
+                <DateInput
+                  id="expiryDate"
+                  name="expiryDate"
+                  legend={intl.formatMessage({
+                    defaultMessage: "Select an expiry date",
+                    id: "3MboNR",
+                    description:
+                      "Label for date selection input for expiry date",
+                  })}
+                  context={
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "This is the amount of time this candidate will be considered for placement based on the results of this process. The usual amount of time is two years.",
+                        id: "DXjJyD",
+                        description:
+                          "Text describing expiry dates for candidates, what it is for and a recommendation",
+                      })}
+                    </p>
+                  }
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    min: {
+                      value: strToFormDate(todayDate.toISOString()),
+                      message: intl.formatMessage(errorMessages.futureDate),
+                    },
+                  }}
+                  data-h2-margin-top="base(x1)"
+                />
               )}
               <Well
                 color="warning"
