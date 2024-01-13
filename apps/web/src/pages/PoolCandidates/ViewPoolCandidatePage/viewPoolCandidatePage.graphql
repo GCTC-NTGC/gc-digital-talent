@@ -1,37 +1,3 @@
-query GetPoolCandidateStatus($id: UUID!) {
-  poolCandidate(id: $id) {
-    id
-    expiryDate
-    status
-    notes
-    pool {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
-  }
-}
-
 mutation UpdatePoolCandidateStatus(
   $id: ID!
   $input: UpdatePoolCandidateAsAdminInput!

@@ -745,7 +745,7 @@ export const ViewPoolCandidate = ({
                   >
                     {sections.statusForm.title}
                   </TableOfContents.Heading>
-                  <ApplicationStatusForm id={poolCandidate.id} />
+                  <ApplicationStatusForm candidateQuery={poolCandidate} />
                   <Separator
                     data-h2-background-color="base(black.lightest)"
                     data-h2-margin="base(x1, 0, 0, 0)"
@@ -777,7 +777,7 @@ export const ViewPoolCandidate = ({
                *
                * This is here to keep tests passing
                */}
-              <ApplicationStatusForm id={poolCandidate.id} />
+              <ApplicationStatusForm candidateQuery={poolCandidate} />
               {mainContent}
             </Sidebar.Content>
           </Sidebar.Wrapper>
@@ -871,6 +871,7 @@ const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
         ...ApplicationInformation_PoolFragment
         ...ApplicationPrintDocument_PoolFragment
       }
+      ...ApplicationStatusForm_PoolCandidateFragment
     }
     pools {
       id
