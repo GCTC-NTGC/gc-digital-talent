@@ -7,8 +7,8 @@ import {
   getEducationStatus,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-
 import {
+  graphql,
   AwardExperience,
   CommunityExperience,
   EducationExperience,
@@ -16,7 +16,10 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
-} from "~/api/generated";
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+
 import { getExperienceSkills } from "~/utils/skillUtils";
 import experienceMessages from "~/messages/experienceMessages";
 import { formattedDate, getDateRange } from "~/utils/dateUtils";
@@ -41,7 +44,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
 
 const getRelevantSkillRecordDetails = (
   experience: Experience,
-  sectionSkill: Skill,
+  sectionSkill: Pick<Skill, "id">,
 ): string | null => {
   const experienceSkills = experience.skills ?? [];
   const applicableSkill = experienceSkills.find(
@@ -51,16 +54,31 @@ const getRelevantSkillRecordDetails = (
   return applicableSkill?.experienceSkillRecord?.details ?? null;
 };
 
+const SkillWithExperiences_SkillFragment = graphql(/* GraphQL */ `
+  fragment SkillWithExperiences_SkillFragment on Skill {
+    id
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+`);
+
 export interface SkillWithExperiencesProps {
-  skill: Skill;
+  skillQuery: FragmentType<typeof SkillWithExperiences_SkillFragment>;
   experiences: Experience[];
 }
 
 const SkillWithExperiences = ({
-  skill,
+  skillQuery,
   experiences,
 }: SkillWithExperiencesProps): JSX.Element => {
   const intl = useIntl();
+  const skill = getFragment(SkillWithExperiences_SkillFragment, skillQuery);
   const skillExperiences = getExperienceSkills(experiences, skill);
   const experienceFormLabels = getExperienceFormLabels(intl);
 
@@ -71,7 +89,7 @@ const SkillWithExperiences = ({
       | EducationExperience
       | PersonalExperience
       | WorkExperience,
-    sectionSkill: Skill,
+    sectionSkill: Pick<Skill, "id">,
   ): JSX.Element => {
     if (isAwardExperience(experience)) {
       const { title, issuedBy, awardedDate, awardedTo, details } = experience;

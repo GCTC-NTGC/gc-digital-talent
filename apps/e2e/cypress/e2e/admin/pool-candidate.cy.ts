@@ -24,7 +24,7 @@ describe("Pool Candidates", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "GetPoolCandidateStatus");
-      aliasQuery(req, "getPoolCandidateSnapshot");
+      aliasQuery(req, "ViewPoolCandidatesPage_Query");
       aliasQuery(req, "allPools");
       aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
@@ -126,7 +126,7 @@ describe("Pool Candidates", () => {
       .eq(0)
       .click();
 
-    cy.wait("@gqlgetPoolCandidateSnapshotQuery");
+    cy.wait("@gqlViewPoolCandidatesPage_QueryQuery");
     cy.wait("@gqlGetPoolCandidateStatusQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
@@ -237,7 +237,7 @@ describe("Pool Candidates", () => {
       .eq(0)
       .click();
 
-    cy.wait("@gqlgetPoolCandidateSnapshotQuery");
+    cy.wait("@gqlViewPoolCandidatesPage_QueryQuery");
     cy.wait("@gqlGetPoolCandidateStatusQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -21,16 +22,15 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
 import {
+  ViewPoolCandidatesPage_QueryQuery,
+  graphql,
   User,
-  Scalars,
-  useGetPoolCandidateSnapshotQuery,
-  PoolCandidate,
   Maybe,
   SkillCategory,
-  Pool,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { Scalars } from "~/api/generated";
 import {
   getFullPoolTitleHtml,
   getFullPoolTitleLabel,
@@ -58,8 +58,10 @@ import ApplicationPrintButton from "./components/ApplicationPrintButton/Applicat
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: PoolCandidate;
-  pools: Pool[];
+  poolCandidate: NonNullable<
+    ViewPoolCandidatesPage_QueryQuery["poolCandidate"]
+  >;
+  poolData: NonNullable<ViewPoolCandidatesPage_QueryQuery["pools"]>;
 }
 
 type SectionContent = {
@@ -70,10 +72,12 @@ type SectionContent = {
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
+  poolData,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const features = useFeatureFlags();
+
+  const pools = poolData.filter(notEmpty);
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -259,7 +263,7 @@ export const ViewPoolCandidate = ({
       mainContent = (
         <>
           <ApplicationInformation
-            pool={poolCandidate.pool}
+            poolQuery={poolCandidate.pool}
             snapshot={parsedSnapshot}
             application={snapshotCandidate}
           />
@@ -783,6 +787,109 @@ export const ViewPoolCandidate = ({
   );
 };
 
+const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
+  query ViewPoolCandidatesPage_Query($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      profileSnapshot
+      submittedAt
+      user {
+        id
+        firstName
+        lastName
+        poolCandidates {
+          id
+          status
+          suspendedAt
+          expiryDate
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            publishingGroup
+            stream
+            classifications {
+              id
+              group
+              level
+            }
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+          user {
+            id
+          }
+        }
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        publishingGroup
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        ...ApplicationInformation_PoolFragment
+        ...ApplicationPrintDocument_PoolFragment
+      }
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      status
+      stream
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
 type RouteParams = {
   poolId: Scalars["ID"];
   poolCandidateId: Scalars["ID"];
@@ -791,7 +898,8 @@ type RouteParams = {
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
-  const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewPoolCandidatesPage_Query,
     variables: { poolCandidateId },
   });
 
@@ -800,7 +908,7 @@ export const ViewPoolCandidatePage = () => {
       {data?.poolCandidate && data?.pools ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          pools={data.pools.filter(notEmpty)}
+          poolData={data.pools}
         />
       ) : (
         <AdminContentWrapper>
