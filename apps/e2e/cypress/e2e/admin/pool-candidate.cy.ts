@@ -27,7 +27,7 @@ describe("Pool Candidates", () => {
       aliasQuery(req, "allPools");
       aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
-      aliasMutation(req, "UpdatePoolCandidateStatus");
+      aliasMutation(req, "ApplicationStatusForm_Mutation");
     });
 
     // select some dimensions to use for testing
@@ -146,7 +146,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("button", { name: /save changes/i }).click();
 
-    cy.wait("@gqlUpdatePoolCandidateStatusMutation");
+    cy.wait("@gqlApplicationStatusForm_MutationMutation");
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });
@@ -254,7 +254,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("button", { name: /save changes/i }).click();
 
-    cy.wait("@gqlUpdatePoolCandidateStatusMutation");
+    cy.wait("@gqlApplicationStatusForm_MutationMutation");
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });

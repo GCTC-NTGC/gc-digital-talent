@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -32,7 +33,6 @@ import {
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
-import { useUpdatePoolCandidateStatusMutation } from "~/api/generated";
 
 type FormValues = {
   status?: PoolCandidate["status"];
@@ -224,6 +224,20 @@ export const ApplicationStatusForm = ({
   );
 };
 
+const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
+  mutation ApplicationStatusForm_Mutation(
+    $id: ID!
+    $input: UpdatePoolCandidateAsAdminInput!
+  ) {
+    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      notes
+      status
+    }
+  }
+`);
+
 const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment ApplicationStatusForm_PoolCandidateFragment on PoolCandidate {
     id
@@ -263,8 +277,9 @@ const ApplicationStatusFormApi = ({
     candidateQuery,
   );
 
-  const [{ fetching: mutationFetching }, executeMutation] =
-    useUpdatePoolCandidateStatusMutation();
+  const [{ fetching: mutationFetching }, executeMutation] = useMutation(
+    ApplicationStatusForm_Mutation,
+  );
 
   const handleError = () => {
     toast.error(
