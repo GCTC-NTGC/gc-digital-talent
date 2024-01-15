@@ -197,6 +197,17 @@ describe("AssessmentStepTracker", () => {
     ).toBeInTheDocument();
   });
 
+  it("should group results by candidate", () => {
+    renderAssessmentStepTracker();
+
+    // Has two results but should only see one link for it
+    expect(
+      screen.getAllByRole("link", {
+        name: `1. ${unassessedCandidate.user.firstName} ${unassessedCandidate.user.lastName}`,
+      }),
+    ).toHaveLength(1);
+  });
+
   it("should display candidates in the correct order", () => {
     renderAssessmentStepTracker();
 
