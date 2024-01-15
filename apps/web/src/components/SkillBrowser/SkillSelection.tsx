@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { normalizeString } from "@gc-digital-talent/helpers";
 
 import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -62,12 +63,30 @@ const SkillSelection = ({
   const [category, family, skill] = watch(["category", "family", "skill"]);
 
   const filteredFamilies = React.useMemo(() => {
-    return getFilteredFamilies({ skills, category });
-  }, [skills, category]);
+    return getFilteredFamilies({ skills, category }).sort(
+      (familyA, familyB) => {
+        const a = normalizeString(getLocalizedName(familyA.name, intl));
+        const b = normalizeString(getLocalizedName(familyB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [skills, category, intl]);
 
   const filteredSkills = React.useMemo(() => {
-    return getFilteredSkills({ skills, family, inLibrary, category });
-  }, [category, family, inLibrary, skills]);
+    return getFilteredSkills({ skills, family, inLibrary, category }).sort(
+      (skillA, skillB) => {
+        const a = normalizeString(getLocalizedName(skillA.name, intl));
+        const b = normalizeString(getLocalizedName(skillB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [category, family, inLibrary, skills, intl]);
 
   const selectedSkill = React.useMemo(() => {
     return skill
