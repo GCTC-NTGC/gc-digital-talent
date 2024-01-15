@@ -7,22 +7,24 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
+import { useClient } from "urql";
 import isEqual from "lodash/isEqual";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  errorMessages,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchInput,
   InputMaybe,
   useGetPoolCandidatesPaginatedQuery,
-  useGetSelectedPoolCandidatesQuery,
   Pool,
   Maybe,
   PoolCandidateWithSkillCount,
@@ -43,11 +45,11 @@ import Table, {
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
-import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import { SearchState, SelectingFor } from "../Table/ResponsiveTable/types";
 import {
+  PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
   currentLocationAccessor,
   notesCell,
@@ -63,6 +65,10 @@ import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
+import {
+  getPoolCandidateCsvData,
+  getPoolCandidateCsvHeaders,
+} from "./poolCandidateCsv";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -94,12 +100,18 @@ const PoolCandidatesTable = ({
   hidePoolFilter,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
+  currentPool?: Maybe<Pool>;
   title: string;
   hidePoolFilter?: boolean;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const client = useClient();
+  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
+  const [selectedCandidates, setSelectedCandidates] = React.useState<
+    PoolCandidate[]
+  >([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(
@@ -119,8 +131,7 @@ const PoolCandidatesTable = ({
       : INITIAL_STATE.paginationState,
   );
 
-  const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
   const [searchState, setSearchState] = React.useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
@@ -228,41 +239,33 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const [
-    {
-      data: selectedCandidatesData,
-      fetching: selectedCandidatesFetching,
-      error: selectedCandidatesError,
-    },
-  ] = useGetSelectedPoolCandidatesQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
+  const querySelected = async (action: SelectingFor) => {
+    setSelectingFor(action);
+    setIsSelecting(true);
+    return client
+      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+        ids: selectedRows,
+      })
+      .toPromise()
+      .then((result) => {
+        const poolCandidates: PoolCandidate[] = unpackMaybes(
+          result.data?.poolCandidates,
+        );
 
-  const selectedCandidates =
-    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
+        if (result.error) {
+          toast.error(intl.formatMessage(errorMessages.unknown));
+        } else if (!poolCandidates.length) {
+          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+        }
 
-  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
-
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedCandidatesFetching ||
-      !!selectedCandidatesError ||
-      !selectedCandidatesData?.poolCandidates.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
+        setSelectedCandidates(poolCandidates);
+        setIsSelecting(false);
+        setSelectingFor(null);
+        return poolCandidates;
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.unknown));
+      });
   };
 
   const columns = [
@@ -474,9 +477,15 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
+        disableBtn: isSelecting,
+        fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
-            ...csv,
+            headers: getPoolCandidateCsvHeaders(intl, currentPool),
+            data: async () => {
+              const selected = await querySelected("download");
+              return getPoolCandidateCsvData(selected ?? [], intl);
+            },
             fileName: intl.formatMessage(
               {
                 defaultMessage: "pool_candidates_{date}.csv",
@@ -494,7 +503,11 @@ const PoolCandidatesTable = ({
         component: (
           <UserProfilePrintButton
             users={selectedCandidates}
-            beforePrint={handlePrint}
+            beforePrint={async () => {
+              await querySelected("print");
+            }}
+            disabled={isSelecting}
+            fetching={isSelecting && selectingFor === "print"}
             color="whiteFixed"
             mode="inline"
             fontSize="caption"
