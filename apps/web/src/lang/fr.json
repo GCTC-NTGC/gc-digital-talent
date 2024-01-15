@@ -1431,6 +1431,10 @@
     "defaultMessage": "Chercher les classifications",
     "description": "Label for the classifications table search input"
   },
+  "5wKh/o": {
+    "defaultMessage": "Démontré",
+    "description": "Option for assessment decision when candidate has successful assessment."
+  },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
     "description": "Text displayed for soon to come data talent data portal"
@@ -2690,10 +2694,6 @@
   "DC2A59": {
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
-  },
-  "DD0Zd+": {
-    "defaultMessage": "Enregistrer la decision finale",
-    "description": "Button label for record final decision on view pool candidate page"
   },
   "DHQasU": {
     "defaultMessage": "Consulter les notes",
@@ -4174,6 +4174,10 @@
   "MDjwSO": {
     "defaultMessage": "Titre précis (français)",
     "description": "Label for a pool advertisements specific French title"
+  },
+  "MMtY88": {
+    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
@@ -10642,6 +10646,10 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "zXkLL2": {
+    "defaultMessage": "Non démontrée (supprimée du processus)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zXzQhc": {
     "defaultMessage": "Si vous ne savez pas si ce questionnaire est nécessaire pour un type de contrat spécifique, veuillez communiquer avec nous, à <link>GCTalentGC@tbs-sct.gc.ca</link>, pour obtenir de plus amples renseignements.",

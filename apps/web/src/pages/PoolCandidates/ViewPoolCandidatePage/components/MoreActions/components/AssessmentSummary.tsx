@@ -134,9 +134,10 @@ const AssessmentSummary = ({
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(success)"
             aria-label={intl.formatMessage({
-              defaultMessage: "Successful assessment",
-              id: "3YqqOY",
-              description: "Aria label for icon representing success",
+              defaultMessage: "Demonstrated",
+              id: "5wKh/o",
+              description:
+                "Option for assessment decision when candidate has successful assessment.",
             })}
           />
         </th>
@@ -149,9 +150,10 @@ const AssessmentSummary = ({
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(error)"
             aria-label={intl.formatMessage({
-              defaultMessage: "Unsuccessful assessment",
-              id: "sZXTYz",
-              description: "Aria label for icon representing unsuccessful",
+              defaultMessage: "Not demonstrated (Remove from process)",
+              id: "zXkLL2",
+              description:
+                "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
             })}
           />
         </th>
@@ -164,9 +166,10 @@ const AssessmentSummary = ({
             data-h2-padding="base(x.25 0)"
             data-h2-color="base(warning)"
             aria-label={intl.formatMessage({
-              defaultMessage: "On hold assessment",
-              id: "Bp0YFJ",
-              description: "Aria label for icon representing on hold or paused",
+              defaultMessage: "Not demonstrated (Hold for further assessment)",
+              id: "MMtY88",
+              description:
+                "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
             })}
           />
         </th>
