@@ -29,6 +29,10 @@ const ScreeningAndEvaluation_AssessmentResultFragment = graphql(/* GraphQL */ `
         assessmentDecision
         assessmentDecisionLevel
         assessmentResultType
+        poolSkill {
+          id
+          type
+        }
         poolCandidate {
           id
           isBookmarked

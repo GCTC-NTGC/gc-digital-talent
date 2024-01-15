@@ -10,6 +10,7 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
+import { groupResultsByCandidate } from "./utils";
 
 export interface AssessmentStepTrackerProps {
   pool: Pool;
@@ -20,22 +21,24 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
 
   return (
     <Board.Root>
-      {pool.assessmentSteps?.filter(notEmpty).map((step, index) => (
-        <Board.Column key={step.id}>
-          <Board.ColumnHeader
-            prefix={intl.formatMessage(applicationMessages.numberedStep, {
-              stepOrdinal: index + 1,
-            })}
-          >
-            {getLocalizedName(step.title, intl)}
-          </Board.ColumnHeader>
-          <ResultsDetails step={step} />
-          <AssessmentResults
-            stepType={step.type}
-            results={step.assessmentResults?.filter(notEmpty) ?? []}
-          />
-        </Board.Column>
-      ))}
+      {pool.assessmentSteps?.filter(notEmpty).map((step, index) => {
+        const groupedResults = groupResultsByCandidate(
+          step.assessmentResults?.filter(notEmpty) ?? [],
+        );
+        return (
+          <Board.Column key={step.id}>
+            <Board.ColumnHeader
+              prefix={intl.formatMessage(applicationMessages.numberedStep, {
+                stepOrdinal: index + 1,
+              })}
+            >
+              {getLocalizedName(step.title, intl)}
+            </Board.ColumnHeader>
+            <ResultsDetails step={step} results={groupedResults} />
+            <AssessmentResults stepType={step.type} results={groupedResults} />
+          </Board.Column>
+        );
+      })}
     </Board.Root>
   );
 };

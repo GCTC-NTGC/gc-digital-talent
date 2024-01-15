@@ -24,7 +24,7 @@ import {
 import AssessmentStepTracker, {
   AssessmentStepTrackerProps,
 } from "./AssessmentStepTracker";
-import { sortResultsAndAddOrdinal } from "./utils";
+import { groupResultsByCandidate, sortResultsAndAddOrdinal } from "./utils";
 
 const fakePool = fakePools(1)[0];
 const fakeAssessmentStep = fakeAssessmentSteps(1)[0];
@@ -271,19 +271,31 @@ describe("AssessmentStepTracker", () => {
       },
     ];
 
-    const modifiedResults = sortResultsAndAddOrdinal(testAssessmentResults);
+    const modifiedResults = sortResultsAndAddOrdinal(
+      groupResultsByCandidate(testAssessmentResults),
+    );
 
-    expect(modifiedResults[0].id).toEqual("candidate-is-bookmarked");
+    expect(modifiedResults[0].poolCandidate.id).toEqual(
+      "candidate-is-bookmarked",
+    );
     expect(modifiedResults[0].ordinal).toEqual(6);
-    expect(modifiedResults[1].id).toEqual("candidate-is-unassessed");
+    expect(modifiedResults[1].poolCandidate.id).toEqual(
+      "candidate-is-unassessed",
+    );
     expect(modifiedResults[1].ordinal).toEqual(1);
-    expect(modifiedResults[2].id).toEqual("candidate-with-entitlement");
+    expect(modifiedResults[2].poolCandidate.id).toEqual(
+      "candidate-with-entitlement",
+    );
     expect(modifiedResults[2].ordinal).toEqual(2);
-    expect(modifiedResults[3].id).toEqual("candidate-is-veteran");
+    expect(modifiedResults[3].poolCandidate.id).toEqual("candidate-is-veteran");
     expect(modifiedResults[3].ordinal).toEqual(3);
-    expect(modifiedResults[4].id).toEqual("candidate-first-by-name");
+    expect(modifiedResults[4].poolCandidate.id).toEqual(
+      "candidate-first-by-name",
+    );
     expect(modifiedResults[4].ordinal).toEqual(4);
-    expect(modifiedResults[5].id).toEqual("candidate-last-by-first-name");
+    expect(modifiedResults[5].poolCandidate.id).toEqual(
+      "candidate-last-by-first-name",
+    );
     expect(modifiedResults[5].ordinal).toEqual(5);
   });
 });

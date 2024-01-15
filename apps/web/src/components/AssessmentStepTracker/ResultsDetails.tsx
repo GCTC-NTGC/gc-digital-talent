@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { AssessmentStep, AssessmentStepType } from "~/api/generated";
 import { NullableDecision } from "~/utils/assessmentResults";
@@ -13,6 +12,7 @@ import {
   getDecisionInfo,
   getResultDecisionCount,
   decisionOrder,
+  CandidateAssessmentResult,
 } from "./utils";
 
 interface StatusCountProps {
@@ -73,13 +73,13 @@ const StatusCount = ({
 
 interface ResultsDetailsProps {
   step: AssessmentStep;
+  results: CandidateAssessmentResult[];
 }
 
-const ResultsDetails = ({ step }: ResultsDetailsProps) => {
+const ResultsDetails = ({ step, results }: ResultsDetailsProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const intl = useIntl();
-  const assessmentResults = step.assessmentResults?.filter(notEmpty);
-  const stepCounts = getResultDecisionCount(assessmentResults ?? []);
+  const stepCounts = getResultDecisionCount(results);
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
     step.type === AssessmentStepType.ApplicationScreening;
@@ -88,7 +88,7 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
     <Board.Info
       open={isOpen}
       onOpenChange={setIsOpen}
-      counter={assessmentResults?.length}
+      counter={results?.length}
       title={
         isOpen
           ? intl.formatMessage(

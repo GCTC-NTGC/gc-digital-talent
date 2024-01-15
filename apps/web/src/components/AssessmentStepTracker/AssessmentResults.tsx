@@ -8,16 +8,15 @@ import { Board, Button, Link } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
-import {
-  ArmedForcesStatus,
-  AssessmentResult as AssessmentResultType,
-  AssessmentStepType,
-  Maybe,
-} from "~/api/generated";
+import { ArmedForcesStatus, AssessmentStepType, Maybe } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import useRoutes from "../../hooks/useRoutes";
-import { getDecisionInfo, sortResultsAndAddOrdinal } from "./utils";
+import {
+  CandidateAssessmentResult,
+  getDecisionInfo,
+  sortResultsAndAddOrdinal,
+} from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -62,7 +61,7 @@ const ToggleBookmark_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface AssessmentResultProps {
-  result: AssessmentResultType & { ordinal: number };
+  result: CandidateAssessmentResult & { ordinal: number };
   isApplicationStep: boolean;
 }
 
@@ -83,7 +82,7 @@ const AssessmentResult = ({
   if (!result.poolCandidate) return null;
 
   const { icon, colorStyle, name } = getDecisionInfo(
-    result.assessmentDecision,
+    result.decision,
     isApplicationStep,
     intl,
   );
@@ -226,7 +225,7 @@ const AssessmentResult = ({
 };
 
 interface AssessmentResultsProps {
-  results: AssessmentResultType[];
+  results: CandidateAssessmentResult[];
   stepType: Maybe<AssessmentStepType> | undefined;
 }
 
@@ -239,7 +238,7 @@ const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
     <Board.List>
       {sortedResults.map((result) => (
         <AssessmentResult
-          key={result.id}
+          key={result.poolCandidate.id}
           result={{ ...result }}
           isApplicationStep={isApplicationStep}
         />
