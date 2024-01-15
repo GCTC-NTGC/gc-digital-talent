@@ -21,7 +21,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.11.0"
+      NPM_VERSION: "10.2.4"
 
     services:
       postgres:
