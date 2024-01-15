@@ -1059,6 +1059,10 @@
     "defaultMessage": "Je suis actuellement actif dans ces études",
     "description": "Label displayed on Education Experience form for current education input"
   },
+  "49MghK": {
+    "defaultMessage": "La présente section ressemble à votre cv traditionnel. Il s’agit de l’endroit où vous pouvez décrire vos expériences, au travail, à l’école et dans la vie. Vous pourrez réutiliser ces informations pour chaque candidature que vous soumettrez sur la plateforme, ce qui accélérera le processus et garantira que vos informations sont toujours à jour.",
+    "description": "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page."
+  },
   "49UIne": {
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
