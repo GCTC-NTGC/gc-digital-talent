@@ -91,8 +91,6 @@ const defaultState = {
   },
 };
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
@@ -106,6 +104,7 @@ const PoolCandidatesTable = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
   const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
   const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);

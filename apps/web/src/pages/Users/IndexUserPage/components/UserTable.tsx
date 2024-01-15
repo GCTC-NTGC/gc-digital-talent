@@ -79,11 +79,10 @@ interface UserTableProps {
   title: React.ReactNode;
 }
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
   const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
   const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
