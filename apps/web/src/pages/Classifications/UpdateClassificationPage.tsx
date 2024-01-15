@@ -20,7 +20,7 @@ import {
   useUpdateClassificationMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
@@ -255,7 +255,7 @@ const UpdateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: intl.formatMessage(indexClassificationPageTitle),
       url: routes.classificationTable(),
     },
     ...(classificationId

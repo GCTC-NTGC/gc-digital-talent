@@ -27,7 +27,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
@@ -93,8 +93,8 @@ export const AssessmentPlanBuilder = ({
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background-color="base(gray.lighter)"
-          data-h2-margin="base(x1 0)"
+          data-h2-background-color="base(gray)"
+          data-h2-margin="base(x2, 0, x1, 0)"
         />
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
@@ -111,8 +111,8 @@ export const AssessmentPlanBuilder = ({
             <Separator
               orientation="horizontal"
               decorative
-              data-h2-background-color="base(gray.lighter)"
-              data-h2-margin="base(x1 0)"
+              data-h2-background-color="base(gray)"
+              data-h2-margin="base(x3 0)"
             />
             <div
               data-h2-display="base(flex)"
@@ -193,7 +193,7 @@ export const AssessmentPlanBuilderPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: intl.formatMessage(indexPoolPageTitle),
       url: routes.poolTable(),
     },
     {

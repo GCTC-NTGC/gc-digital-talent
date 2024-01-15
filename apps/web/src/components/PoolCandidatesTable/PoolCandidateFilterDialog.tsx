@@ -46,23 +46,7 @@ import FilterDialog, {
 } from "../FilterDialog/FilterDialog";
 import adminMessages from "../../messages/adminMessages";
 import { getFullPoolTitleLabel } from "../../utils/poolUtils";
-
-export type FormValues = {
-  languageAbility: string;
-  classifications: string[];
-  stream: string[];
-  operationalRequirement: string[];
-  workRegion: string[];
-  equity: string[];
-  poolCandidateStatus: string[];
-  priorityWeight: string[];
-  pools: string[];
-  skills: string[];
-  expiryStatus: string;
-  suspendedStatus: string;
-  publishingGroups: string[];
-  govEmployee: string;
-};
+import { FormValues } from "./types";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas

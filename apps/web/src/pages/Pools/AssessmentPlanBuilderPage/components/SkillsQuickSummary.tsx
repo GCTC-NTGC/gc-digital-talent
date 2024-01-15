@@ -106,7 +106,7 @@ const SkillsQuickSummary = ({
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background-color="base(gray.lighter)"
+          data-h2-background-color="base(gray)"
           data-h2-margin="base(x1, 0, x1, 0)"
         />
 

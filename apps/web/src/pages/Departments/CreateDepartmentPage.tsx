@@ -15,7 +15,7 @@ import {
   useCreateDepartmentMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import AdminHero from "~/components/Hero/AdminHero";
 
 type FormValues = CreateDepartmentInput;
@@ -149,7 +149,7 @@ const CreateDepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.departments),
+      label: intl.formatMessage(indexDepartmentPageTitle),
       url: routes.departmentTable(),
     },
     {

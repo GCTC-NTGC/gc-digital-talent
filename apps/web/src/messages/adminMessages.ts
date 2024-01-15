@@ -41,11 +41,6 @@ const messages = defineMessages({
     id: "g+lQO/",
     description: "Title for publishing groups",
   },
-  requests: {
-    defaultMessage: "Requests",
-    id: "EjhuA1",
-    description: "Title for requests",
-  },
   skillFamilies: {
     defaultMessage: "Skill families",
     id: "0E9hiS",
@@ -55,16 +50,6 @@ const messages = defineMessages({
     defaultMessage: "Skills",
     id: "/UKT+/",
     description: "Title for skills",
-  },
-  teams: {
-    defaultMessage: "Teams",
-    id: "NWEmsp",
-    description: "Title for teams",
-  },
-  users: {
-    defaultMessage: "Users",
-    id: "F//l5D",
-    description: "Title for users",
   },
   streams: {
     defaultMessage: "Streams",

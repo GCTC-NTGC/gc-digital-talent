@@ -15,7 +15,7 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import AdminHero from "~/components/Hero/AdminHero";
 
 type FormValues = CreateClassificationInput;
@@ -219,7 +219,7 @@ const CreateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: intl.formatMessage(indexClassificationPageTitle),
       url: routes.classificationTable(),
     },
     {

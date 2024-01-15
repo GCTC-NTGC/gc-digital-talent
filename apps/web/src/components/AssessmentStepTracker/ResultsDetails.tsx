@@ -6,11 +6,8 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  AssessmentDecision,
-  AssessmentStep,
-  AssessmentStepType,
-} from "~/api/generated";
+import { AssessmentStep, AssessmentStepType } from "~/api/generated";
+import { NullableDecision } from "~/utils/assessmentResults";
 
 import {
   getDecisionInfo,
@@ -20,7 +17,7 @@ import {
 
 interface StatusCountProps {
   counter: number;
-  decision: AssessmentDecision;
+  decision: NullableDecision;
   isApplicationStep: boolean;
 }
 

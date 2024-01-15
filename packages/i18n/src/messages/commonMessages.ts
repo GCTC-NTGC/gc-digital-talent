@@ -160,6 +160,11 @@ const commonMessages = defineMessages({
     id: "XZl6Ks",
     description: "Text to trigger edit of section action",
   },
+  notSure: {
+    defaultMessage: "Not sure",
+    id: "GLRLYT",
+    description: "A decision has not been made",
+  },
 });
 
 export default commonMessages;
