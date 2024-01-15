@@ -142,8 +142,6 @@ const defaultState = {
   },
 };
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
@@ -157,6 +155,7 @@ const PoolCandidatesTable = ({
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(

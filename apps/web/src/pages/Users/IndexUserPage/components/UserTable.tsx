@@ -71,11 +71,10 @@ interface UserTableProps {
   title: React.ReactNode;
 }
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = React.useMemo(
