@@ -59,6 +59,21 @@ else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
 fi
 
+# Copy custom PHP-FPM config
+if cp /home/site/wwwroot/infrastructure/conf/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf ; then
+    # Find process ID of FPM, restart it, check the ping response to ensure it came back up.
+    FPM_PID=$(pgrep -f php-fpm -u root)
+    kill -SIGUSR2 $FPM_PID
+    FPM_PING_RESPONSE=$(curl http://127.0.0.1:$NGINX_PORT/fpm-ping)
+    if [[ "$FPM_PING_RESPONSE" = "pong" ]] ; then
+        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config copy for PHP-FPM *successful*.\" } }"
+    else
+        BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for PHP-FPM successful but restart of service with PID $FPM_PID *failed*. ($FPM_PING_RESPONSE) $MENTION\" } }"
+    fi
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for PHP-FPM *failed*. $MENTION\" } }"
+fi
+
 # Environment config variable substitutions
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for web *successful*.\" } }"
