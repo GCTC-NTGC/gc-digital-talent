@@ -14,6 +14,10 @@ import {
   fakePoolCandidates,
   fakePools,
 } from "@gc-digital-talent/fake-data";
+import {
+  AssessmentResultType,
+  PoolSkillType,
+} from "@gc-digital-talent/graphql";
 
 import {
   ArmedForcesStatus,
@@ -32,6 +36,7 @@ const fakeCandidates = fakePoolCandidates(4);
 
 const priorityEntitlementCandidate = {
   ...fakeCandidates[0],
+  id: "priority-entitlement",
   user: {
     ...fakeCandidates[0].user,
     firstName: "priority",
@@ -49,6 +54,7 @@ const priorityEntitlementCandidate = {
 };
 const armedForcesCandidate = {
   ...fakeCandidates[1],
+  id: "armed-forces",
   user: {
     ...fakeCandidates[1].user,
     firstName: "armed",
@@ -66,6 +72,7 @@ const armedForcesCandidate = {
 };
 const bookmarkedCandidate = {
   ...fakeCandidates[2],
+  id: "bookmarked",
   user: {
     ...fakeCandidates[2].user,
     firstName: "bookmarked",
@@ -83,6 +90,7 @@ const bookmarkedCandidate = {
 };
 const unassessedCandidate = {
   ...fakeCandidates[3],
+  id: "unassessed",
   user: {
     ...fakeCandidates[3].user,
     firstName: "unassessed",
@@ -98,11 +106,28 @@ const unassessedCandidate = {
     },
   ],
 };
+
+const unassessedWithSuccess = {
+  ...unassessedCandidate,
+  assessmentResults: [
+    {
+      id: faker.string.uuid(),
+      type: AssessmentResultType.Skill,
+      poolSkill: {
+        id: faker.string.uuid(),
+        type: PoolSkillType.Nonessential,
+      },
+      assessmentDecision: AssessmentDecision.Successful,
+    },
+  ],
+};
+
 const testCandidates = [
   priorityEntitlementCandidate,
   armedForcesCandidate,
   bookmarkedCandidate,
   unassessedCandidate,
+  unassessedWithSuccess,
 ];
 
 // This should always make the component visible
@@ -203,7 +228,7 @@ describe("AssessmentStepTracker", () => {
       id: "candidate-last-by-first-name",
       assessmentDecision: AssessmentDecision.Successful,
       poolCandidate: {
-        id: faker.string.uuid(),
+        id: "candidate-last-by-first-name",
         pool: {
           id: faker.string.uuid(),
         },
@@ -224,6 +249,7 @@ describe("AssessmentStepTracker", () => {
         id: "candidate-with-entitlement",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
+          id: "candidate-with-entitlement",
           user: {
             ...basicCandidate.poolCandidate.user,
             hasPriorityEntitlement: true,
@@ -235,6 +261,7 @@ describe("AssessmentStepTracker", () => {
         id: "candidate-is-veteran",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
+          id: "candidate-is-veteran",
           user: {
             ...basicCandidate.poolCandidate.user,
             armedForcesStatus: ArmedForcesStatus.Veteran,
@@ -246,6 +273,7 @@ describe("AssessmentStepTracker", () => {
         id: "candidate-is-bookmarked",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
+          id: "candidate-is-bookmarked",
           user: {
             ...basicCandidate.poolCandidate.user,
             lastName: "BB",
@@ -256,6 +284,10 @@ describe("AssessmentStepTracker", () => {
       {
         ...basicCandidate,
         id: "candidate-is-unassessed",
+        poolCandidate: {
+          ...basicCandidate.poolCandidate,
+          id: "candidate-is-unassessed",
+        },
         assessmentDecision: null,
       },
       {
@@ -263,6 +295,7 @@ describe("AssessmentStepTracker", () => {
         id: "candidate-first-by-name",
         poolCandidate: {
           ...basicCandidate.poolCandidate,
+          id: "candidate-first-by-name",
           user: {
             ...basicCandidate.poolCandidate.user,
             firstName: "AA",
