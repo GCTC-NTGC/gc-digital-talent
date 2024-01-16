@@ -5,7 +5,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 export type DisplayProps = {
   pool: Pool;
-  subtitle: React.ReactNode;
+  subtitle?: React.ReactNode;
 };
 
 export type SectionProps<T> = {
@@ -15,13 +15,18 @@ export type SectionProps<T> = {
 };
 
 export type SectionKey =
+  | "basicInfo"
   | "poolName"
   | "closingDate"
-  | "yourImpact"
-  | "workTasks"
+  | "coreRequirements"
+  | "specialNote"
+  | "educationRequirements"
+  | "skillRequirements"
   | "essentialSkills"
   | "assetSkills"
-  | "educationRequirements"
-  | "otherRequirements"
+  | "aboutRole"
+  | "yourImpact"
+  | "workTasks"
+  | "commonQuestions"
   | "whatToExpect"
-  | "specialNote";
+  | "generalQuestions";

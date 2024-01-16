@@ -10,7 +10,7 @@ export function hasAllEmptyFields({
   publishingGroup,
 }: Pool): boolean {
   return !!(
-    empty(classifications) &&
+    !empty(classifications) &&
     !stream &&
     !name?.en &&
     !name?.fr &&

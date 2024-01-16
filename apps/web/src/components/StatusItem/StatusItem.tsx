@@ -2,11 +2,12 @@ import * as React from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
 import { Link, IconType, ScrollToLink, Color } from "@gc-digital-talent/ui";
 
-export type Status = "error" | "success" | "warning";
-type StatusColor = "black" | Status;
+export type Status = "error" | "success" | "warning" | "secondary"; // TODO: Rename to optional (?)
+export type StatusColor = "black" | "secondary" | Status;
 type Layout = "compact" | "hero";
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
@@ -21,6 +22,9 @@ const iconColorMap: Record<StatusColor, Record<string, string>> = {
   },
   warning: {
     "data-h2-color": "base(warning.dark)",
+  },
+  secondary: {
+    "data-h2-color": "base(secondary.dark)",
   },
 };
 
@@ -101,6 +105,9 @@ const StatusItem = ({
       break;
     case "warning":
       Icon = ExclamationTriangleIcon;
+      break;
+    case "secondary":
+      Icon = QuestionMarkCircleIcon;
       break;
     default:
       Icon = icon;
