@@ -53,12 +53,13 @@ const EssentialSkillsSection = ({
   });
 
   return (
-    <>
+    <section>
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -69,8 +70,20 @@ const EssentialSkillsSection = ({
         allSkills={skills}
         onSave={handleSave}
         disableAdd={formDisabled}
+        nullMessage={{
+          title: intl.formatMessage({
+            defaultMessage: "You haven't added any essential skills yet.",
+            id: "V0U95l",
+            description: "Null message title for essential skills table.",
+          }),
+          description: intl.formatMessage({
+            defaultMessage: `Use the "Add a new skill" button to get started.`,
+            id: "uiuMqi",
+            description: "Null message description for essential skills table.",
+          }),
+        }}
       />
-    </>
+    </section>
   );
 };
 
