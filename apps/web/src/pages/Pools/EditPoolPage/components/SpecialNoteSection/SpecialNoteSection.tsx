@@ -33,7 +33,7 @@ export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
-const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
+const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
 
 const SpecialNoteSection = ({
   pool,
@@ -47,6 +47,7 @@ const SpecialNoteSection = ({
     isNull,
     emptyRequired: false, // Not a required field
     fallbackIcon: NewspaperIcon,
+    optional: true,
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -102,7 +103,6 @@ const SpecialNoteSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
@@ -112,12 +112,20 @@ const SpecialNoteSection = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          <Display pool={pool} subtitle={subtitle} />
+          {isNull ? (
+            <ToggleForm.NullDisplay
+              title={sectionMetadata.id}
+              content=""
+              optional
+            />
+          ) : (
+            <Display pool={pool} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div data-h2-margin="base(x1 0)">
