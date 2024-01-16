@@ -9,9 +9,8 @@
     "check-intl": "./dist/cli.js"
   },
   "files": [
-    "dist/index.*"
+    "dist/**"
   ],
-  "filesComments": "including the cli tool in the dist bundle upsets NPM",
   "scripts": {
     "build": "env NODE_ENV=production tsup",
     "build:intl-cli": "npm run build",
