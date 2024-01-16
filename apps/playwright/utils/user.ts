@@ -1,37 +1,12 @@
-export const defaultUser = {
+import { User, Language } from "@gc-digital-talent/graphql";
+
+export const defaultUser: Partial<User> = {
   // required
   firstName: "Playwright",
   lastName: "User",
-  preferredLang: "EN",
-  preferredLanguageForInterview: "EN",
-  preferredLanguageForExam: "EN",
-
-  // optional
-  telephone: undefined,
-  email: undefined,
-  currentProvince: undefined,
-  currentCity: undefined,
-  lookingForEnglish: undefined,
-  lookingForFrench: undefined,
-  lookingForBilingual: undefined,
-  bilingualEvaluation: undefined,
-  comprehensionLevel: undefined,
-  writtenLevel: undefined,
-  verbalLevel: undefined,
-  estimatedLanguageAbility: undefined,
-  isGovEmployee: undefined,
-  hasPriorityEntitlement: undefined,
-  priorityNumber: undefined,
-  department: undefined,
-  currentClassification: undefined,
-  isWoman: undefined,
-  hasDisability: undefined,
-  isVisibleMinority: undefined,
-  hasDiploma: undefined,
-  locationPreferences: undefined,
-  locationExemptions: undefined,
-  acceptedOperationalRequirements: undefined,
-  positionDuration: undefined,
+  preferredLang: Language.En,
+  preferredLanguageForInterview: Language.En,
+  preferredLanguageForExam: Language.En,
 };
 
 export const Test_CreateUserMutationDocument = /* GraphQL */ `

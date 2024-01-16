@@ -30,6 +30,7 @@ test.describe("Application", () => {
   let user: User;
 
   async function expectOnStep(page: Page, step: number) {
+    await page.waitForLoadState("networkidle");
     await expect(
       page.getByRole("heading", { name: new RegExp(`step ${step} of 7`, "i") }),
     ).toBeVisible();

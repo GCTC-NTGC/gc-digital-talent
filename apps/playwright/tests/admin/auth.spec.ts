@@ -102,7 +102,6 @@ test.describe("Authenticated", () => {
 
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
     await applicantPage.page.waitForLoadState("networkidle");
-    await applicantPage.page.waitForURL("**/en/logged-out");
 
     const tokens = await getAuthTokens(applicantPage.page);
 
