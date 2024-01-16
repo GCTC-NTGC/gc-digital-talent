@@ -63,6 +63,7 @@ class PoolCandidate extends Model
         'suspended_at' => 'datetime',
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
+        'is_bookmarked' => 'boolean',
     ];
 
     /**
