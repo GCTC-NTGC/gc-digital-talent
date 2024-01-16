@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   commonMessages,
+  formMessages,
   getLanguageRequirement,
   getSecurityClearance,
 } from "@gc-digital-talent/i18n";
@@ -21,7 +22,7 @@ import { PoolStatus, PoolLanguage, SecurityStatus } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
-} from "~/validators/process/otherRequirements";
+} from "~/validators/process/coreRequirements";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
@@ -32,19 +33,19 @@ import Display from "./Display";
 import {
   FormValues,
   LocationOption,
-  OtherRequirementsSubmitData,
+  CoreRequirementsSubmitData,
   dataToFormValues,
   formValuesToSubmitData,
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
 
-type OtherRequirementsSectionProps = SectionProps<OtherRequirementsSubmitData>;
+type CoreRequirementsSectionProps = SectionProps<CoreRequirementsSubmitData>;
 
-const OtherRequirementsSection = ({
+const CoreRequirementsSection = ({
   pool,
   sectionMetadata,
   onSave,
-}: OtherRequirementsSectionProps): JSX.Element => {
+}: CoreRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -79,8 +80,9 @@ const OtherRequirementsSection = ({
   const formDisabled = pool.status !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
-    defaultMessage: "Select the requirements needed for this advertisement.",
-    id: "T97G+I",
+    defaultMessage:
+      "This section covers requirements such as remote work, on-site locations, language and security.",
+    id: "LKZV/V",
     description: "Describes selecting additional requirements for a process.",
   });
 
@@ -94,7 +96,6 @@ const OtherRequirementsSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
@@ -104,6 +105,7 @@ const OtherRequirementsSection = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -112,11 +114,10 @@ const OtherRequirementsSection = ({
               content={subtitle}
             />
           ) : (
-            <Display pool={pool} subtitle={subtitle} />
+            <Display pool={pool} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div
@@ -124,52 +125,7 @@ const OtherRequirementsSection = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
                 data-h2-margin="base(x1 0)"
-                data-h2-max-width="l-tablet(50%)"
               >
-                <Select
-                  id="languageRequirement"
-                  label={intl.formatMessage(
-                    processMessages.languageRequirement,
-                  )}
-                  name="languageRequirement"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a language requirement",
-                    id: "7pCluO",
-                    description: "Placeholder for language requirement field",
-                  })}
-                  options={enumToOptions(PoolLanguage, [
-                    PoolLanguage.Various,
-                    PoolLanguage.English,
-                    PoolLanguage.French,
-                    PoolLanguage.BilingualIntermediate,
-                    PoolLanguage.BilingualAdvanced,
-                  ]).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getLanguageRequirement(value)),
-                  }))}
-                  disabled={formDisabled}
-                />
-                <Select
-                  id="securityRequirement"
-                  label={intl.formatMessage(
-                    processMessages.securityRequirement,
-                  )}
-                  name="securityRequirement"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a security requirement",
-                    id: "PVo1xK",
-                    description: "Placeholder for security requirement field",
-                  })}
-                  options={enumToOptions(SecurityStatus, [
-                    SecurityStatus.Reliability,
-                    SecurityStatus.Secret,
-                    SecurityStatus.TopSecret,
-                  ]).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getSecurityClearance(value)),
-                  }))}
-                  disabled={formDisabled}
-                />
                 <RadioGroup
                   idPrefix="locationOption"
                   legend={intl.formatMessage(processMessages.location)}
@@ -225,17 +181,57 @@ const OtherRequirementsSection = ({
                     />
                   </>
                 ) : undefined}
+                <div data-h2-display="base(flex)" data-h2-gap="base(x1)">
+                  <Select
+                    id="languageRequirement"
+                    label={intl.formatMessage(
+                      processMessages.languageRequirement,
+                    )}
+                    name="languageRequirement"
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a language requirement",
+                      id: "7pCluO",
+                      description: "Placeholder for language requirement field",
+                    })}
+                    options={enumToOptions(PoolLanguage, [
+                      PoolLanguage.Various,
+                      PoolLanguage.English,
+                      PoolLanguage.French,
+                      PoolLanguage.BilingualIntermediate,
+                      PoolLanguage.BilingualAdvanced,
+                    ]).map(({ value }) => ({
+                      value,
+                      label: intl.formatMessage(getLanguageRequirement(value)),
+                    }))}
+                    disabled={formDisabled}
+                  />
+                  <Select
+                    id="securityRequirement"
+                    label={intl.formatMessage(
+                      processMessages.securityRequirement,
+                    )}
+                    name="securityRequirement"
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a security requirement",
+                      id: "PVo1xK",
+                      description: "Placeholder for security requirement field",
+                    })}
+                    options={enumToOptions(SecurityStatus, [
+                      SecurityStatus.Reliability,
+                      SecurityStatus.Secret,
+                      SecurityStatus.TopSecret,
+                    ]).map(({ value }) => ({
+                      value,
+                      label: intl.formatMessage(getSecurityClearance(value)),
+                    }))}
+                    disabled={formDisabled}
+                  />
+                </div>
               </div>
-
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
-                      defaultMessage: "Save other requirements",
-                      id: "66MUMB",
-                      description:
-                        "Text on a button to save the pool other requirements",
-                    })}
+                    text={intl.formatMessage(formMessages.saveChanges)}
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
@@ -255,5 +251,5 @@ const OtherRequirementsSection = ({
   );
 };
 
-export default OtherRequirementsSection;
-export type { OtherRequirementsSubmitData };
+export default CoreRequirementsSection;
+export type { CoreRequirementsSubmitData };
