@@ -79,9 +79,9 @@ const PoolNameSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Select the classification intended for this recruitment process.",
-    id: "7BMnFp",
-    description: "Describes selecting a target classification for a process.",
+      "This section covers the process’ basics, including classification, job title, and closing date.",
+    id: "5nUjqK",
+    description: "Describes selecting a advertisement details for a process.",
   });
 
   return (
@@ -94,16 +94,18 @@ const PoolNameSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -112,18 +114,17 @@ const PoolNameSection = ({
               content={subtitle}
             />
           ) : (
-            <Display pool={pool} subtitle={subtitle} />
+            <Display pool={pool} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div
                 data-h2-display="base(grid)"
                 data-h2-gap="base(x1)"
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin="base(x1 0)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <Select
                   id="classification"
@@ -143,18 +144,15 @@ const PoolNameSection = ({
                 <Select
                   id="stream"
                   label={intl.formatMessage({
-                    defaultMessage: "Streams/Job Titles",
-                    id: "PzijvH",
+                    defaultMessage: "Work stream",
+                    id: "UKw7sB",
                     description:
                       "Label displayed on the pool form stream/job title field.",
                   })}
                   name="stream"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a stream/job title",
-                    id: "fR6xVv",
-                    description:
-                      "Placeholder displayed on the pool form classification field.",
-                  })}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   options={getStreamOptions(intl)}
                   disabled={formDisabled}
                 />
@@ -163,8 +161,8 @@ const PoolNameSection = ({
                   name="specificTitleEn"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (English)",
-                    id: "fTwl6k",
+                    defaultMessage: "Job Title (EN)",
+                    id: "oD18m7",
                     description:
                       "Label for a pool advertisements specific English title",
                   })}
@@ -175,13 +173,19 @@ const PoolNameSection = ({
                   name="specificTitleFr"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (French)",
-                    id: "MDjwSO",
+                    defaultMessage: "Job Title (FR)",
+                    id: "oSEimN",
                     description:
                       "Label for a pool advertisements specific French title",
                   })}
                   disabled={formDisabled}
                 />
+              </div>
+              <div
+                data-h2-display="base(grid)"
+                data-h2-gap="base(x1)"
+                data-h2-margin-bottom="base(x1)"
+              >
                 <Input
                   id="processNumber"
                   name="processNumber"
