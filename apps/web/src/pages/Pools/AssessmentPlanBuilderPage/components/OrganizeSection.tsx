@@ -2,21 +2,20 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Repeater } from "@gc-digital-talent/forms";
 import Context from "@gc-digital-talent/forms/src/components/Field/Context";
-
 import {
+  graphql,
   AssessmentStep,
   AssessmentStepType,
   Pool,
   PoolStatus,
-  useDeleteAssessmentStepMutation,
-  useSwapAssessmentStepOrderMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";
@@ -40,6 +39,21 @@ const sectionTitle = defineMessage({
   description: "Title for the organize section in the assessment plan builder",
 });
 
+const OrganizeSection_DeleteMutation = graphql(/* GraphQL */ `
+  mutation deleteAssessmentStep($id: UUID!) {
+    deleteAssessmentStep(id: $id) {
+      id
+    }
+  }
+`);
+const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
+  mutation swapAssessmentStepOrder($stepIdA: UUID!, $stepIdB: UUID!) {
+    swapAssessmentStepOrder(stepIdA: $stepIdA, stepIdB: $stepIdB) {
+      id
+    }
+  }
+`);
+
 export interface OrganizeSectionProps {
   pool: Pool;
   pageIsLoading: boolean;
@@ -52,10 +66,12 @@ const OrganizeSection = ({
   const intl = useIntl();
   const addId = React.useId();
 
-  const [{ fetching: deleteFetching }, executeDeleteMutation] =
-    useDeleteAssessmentStepMutation();
-  const [{ fetching: swapFetching }, executeSwapMutation] =
-    useSwapAssessmentStepOrderMutation();
+  const [{ fetching: deleteFetching }, executeDeleteMutation] = useMutation(
+    OrganizeSection_DeleteMutation,
+  );
+  const [{ fetching: swapFetching }, executeSwapMutation] = useMutation(
+    OrganizeSection_SwapMutation,
+  );
 
   const initialAssessmentSteps = pool.assessmentSteps?.filter(notEmpty) ?? [];
   initialAssessmentSteps.sort((a, b) =>
