@@ -3,7 +3,6 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
-import omit from "lodash/omit";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -14,7 +13,10 @@ import {
   AssessmentResultType,
   Maybe,
   PoolSkillType,
+  AssessmentStep,
+  Pool,
 } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 
@@ -22,121 +24,6 @@ export type CandidateAssessmentResult = {
   poolCandidate: PoolCandidate;
   decision: NullableDecision;
   results: AssessmentResult[];
-};
-
-/**
- * Derives the current decision of all assessments
- * results for a specific set (attributed to a candidate)
- *
- * NOTE:
- *
- * Essential requirements = essential skills AND education requirements
- * Optional requirements = asset skills
- * Assessment Step Status =
- *  IF any essential requirements unsuccessful THEN "unsuccessful"
- *  IF any requirements unassessed THEN "to assess"
- *  IF essential requirements include at least one hold THEN "hold"
- *  IF all essential requirements successful THEN "success"
- *
- * @param results
- * @returns NullableDecision
- */
-const deriveResultsDecision = (
-  results: AssessmentResult[],
-): NullableDecision => {
-  // Determine what results are deemed "essential" (essential skills or education requirement)
-  const essentialAssessments = results.filter((result) => {
-    const containsEssentialSkill =
-      result.poolSkill?.type === PoolSkillType.Essential;
-    return (
-      containsEssentialSkill ||
-      result.assessmentResultType === AssessmentResultType.Education
-    );
-  });
-
-  const essentialWasUnsuccessful = !!essentialAssessments.find(
-    (result) => result.assessmentDecision === AssessmentDecision.Unsuccessful,
-  );
-  if (essentialWasUnsuccessful) return AssessmentDecision.Unsuccessful;
-
-  const containsOnHold = !!essentialAssessments.find(
-    (result) => result.assessmentDecision === AssessmentDecision.Hold,
-  );
-  if (containsOnHold) return AssessmentDecision.Hold;
-
-  const containsToAssess = !!results.find(
-    (result) => result.assessmentDecision === null,
-  );
-  if (containsToAssess) return NO_DECISION;
-
-  const essentialWasSuccessful = essentialAssessments.every(
-    (result) => result.assessmentDecision === AssessmentDecision.Successful,
-  );
-  if (essentialWasSuccessful) return AssessmentDecision.Successful;
-
-  return NO_DECISION;
-};
-
-type CandidateAssessmentResultNoDecision = Omit<
-  CandidateAssessmentResult,
-  "decision"
->;
-
-/**
- * Given a set of results, group them by candidate
- * deriving the overall decision from all results
- * for a specific candidate
- *
- * @param results
- * @returns CandidateAssessmentResult[]
- */
-export const groupResultsByCandidate = (
-  results: AssessmentResult[],
-): CandidateAssessmentResult[] => {
-  const groupedAssessments = results.reduce<
-    CandidateAssessmentResultNoDecision[]
-  >(
-    (
-      candidateResults: CandidateAssessmentResultNoDecision[],
-      currentResult: AssessmentResult,
-    ) => {
-      if (!currentResult.poolCandidate?.id) return candidateResults;
-      const candidateIndex = candidateResults.findIndex(
-        (candidateResult) =>
-          candidateResult.poolCandidate.id === currentResult.poolCandidate?.id,
-      );
-
-      // We store the candidate separate so not needed here
-      const strippedResult = omit(currentResult, "poolCandidate");
-
-      // Candidate does not exist in array so add it
-      if (candidateIndex === -1) {
-        return [
-          ...candidateResults,
-          {
-            poolCandidate: currentResult.poolCandidate,
-            results: [strippedResult],
-          },
-        ];
-      }
-
-      const foundCandidate = candidateResults[candidateIndex];
-      return [
-        ...candidateResults.slice(0, candidateIndex),
-        {
-          ...foundCandidate,
-          results: [...foundCandidate.results, strippedResult],
-        },
-        ...candidateResults.slice(candidateIndex + 1),
-      ];
-    },
-    [] as CandidateAssessmentResultNoDecision[],
-  );
-
-  return groupedAssessments.map((assessment) => ({
-    ...assessment,
-    decision: deriveResultsDecision(assessment.results),
-  }));
 };
 
 type DecisionInfo = {
@@ -289,7 +176,7 @@ const compareFirstNames = (
   return user1Name.localeCompare(user2Name);
 };
 
-/** Adds the ordinal for candidates based on their sort order ignoring bookmarks
+/** Adds the ordinal for poolCandidates based on their sort order ignoring bookmarks
  * then resorts them with bookmarking and returns the result
  */
 export const sortResultsAndAddOrdinal = (
@@ -325,4 +212,193 @@ export const sortResultsAndAddOrdinal = (
       compareFirstNames(resultA, resultB)
     );
   });
+};
+
+const getResultsDecision = (
+  step: AssessmentStep,
+  results?: AssessmentResult[],
+): NullableDecision => {
+  if (!results) return NO_DECISION;
+  let hasFailure: boolean = false;
+  let hasOnHold: boolean = false;
+  let hasToAssess: boolean = false;
+
+  const stepResults = results
+    ?.filter((result) => {
+      return result.assessmentStep?.id === step.id;
+    })
+    .filter(notEmpty);
+
+  const requiredSkillAssessments = step.poolSkills?.filter(
+    (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
+  );
+
+  requiredSkillAssessments?.forEach((skillAssessment) => {
+    const assessmentResults = stepResults.filter((result) => {
+      return result.poolSkill?.id === skillAssessment?.id;
+    });
+
+    if (assessmentResults.length) {
+      hasToAssess = true;
+      return;
+    }
+
+    assessmentResults.forEach((assessmentResult) => {
+      switch (assessmentResult.assessmentDecision) {
+        case null:
+          hasToAssess = true;
+          break;
+        case AssessmentDecision.Hold:
+          hasOnHold = true;
+          break;
+        case AssessmentDecision.Unsuccessful:
+          hasFailure = true;
+          break;
+        default:
+      }
+    });
+  });
+
+  // Could be an education requirement that is not an essential skill
+  stepResults.forEach((result) => {
+    // Any "to assess" should be marked
+    if (result.assessmentDecision === null) {
+      hasToAssess = true;
+    }
+
+    if (result.assessmentResultType === AssessmentResultType.Education) {
+      switch (result.assessmentDecision) {
+        case null:
+          hasToAssess = true;
+          break;
+        case AssessmentDecision.Hold:
+          hasOnHold = true;
+          break;
+        case AssessmentDecision.Unsuccessful:
+          hasFailure = true;
+          break;
+        default:
+      }
+    }
+  });
+
+  if (hasToAssess) {
+    return NO_DECISION;
+  }
+  if (hasOnHold) {
+    return AssessmentDecision.Hold;
+  }
+  if (hasFailure) {
+    return AssessmentDecision.Unsuccessful;
+  }
+
+  return AssessmentDecision.Successful;
+};
+
+type AssessmentMap = Map<string, CandidateAssessmentResult>;
+
+type GroupedStep = {
+  step: AssessmentStep;
+  assessments: AssessmentMap;
+};
+
+type GroupedSteps = Map<string, GroupedStep>;
+
+export const groupPoolCandidatesByStep = (pool: Pool) => {
+  const poolCandidates = pool.poolCandidates?.filter(notEmpty) ?? [];
+  const steps = pool.assessmentSteps?.filter(notEmpty) ?? [];
+
+  // Build a map for all poolCandidates on step 1
+  const allCandidatesMap: AssessmentMap = new Map();
+  poolCandidates.forEach((poolCandidate) => {
+    allCandidatesMap.set(poolCandidate.id, {
+      poolCandidate,
+      decision: NO_DECISION,
+      results: [],
+    });
+  });
+
+  // Setup the base map for steps with assessments for candidates
+  const stepMap: GroupedSteps = new Map();
+  steps.forEach((step, index) => {
+    stepMap.set(step.id, {
+      step,
+      // Step one should show all candidates regardless of results existing
+      assessments: index === 0 ? allCandidatesMap : new Map(),
+    });
+  });
+
+  poolCandidates.forEach((poolCandidate) => {
+    // Only use assessments associated with this pool
+    const assessments = poolCandidate.assessmentResults
+      ?.filter((result) =>
+        result?.assessmentStep?.id
+          ? stepMap.has(result?.assessmentStep?.id)
+          : false,
+      )
+      .filter(notEmpty);
+
+    assessments?.forEach((result) => {
+      if (!result) return;
+
+      const resultStep = result?.assessmentStep?.id
+        ? stepMap.get(result.assessmentStep.id)
+        : false;
+      if (resultStep) {
+        const stepCandidateAssessments = resultStep.assessments.get(
+          poolCandidate.id,
+        );
+        resultStep.assessments.set(poolCandidate.id, {
+          poolCandidate,
+          decision: NO_DECISION, // We don't know the decision until all results have been determined
+          results: stepCandidateAssessments?.results
+            ? [...stepCandidateAssessments.results, result]
+            : [result],
+        });
+      }
+    });
+  });
+
+  // Determine the decision for each assessment now that we have all the results
+  let previousStep: GroupedStep | undefined;
+  stepMap.forEach((step) => {
+    // If a previous step exists, check for pool candidates with no results yet
+    // and set them as "to assess" if they passed previous step
+    if (previousStep) {
+      poolCandidates
+        .filter((poolCandidate) => {
+          return !step.assessments.has(poolCandidate.id);
+        })
+        .forEach((poolCandidate) => {
+          const previousAssessment = previousStep?.assessments.get(
+            poolCandidate.id,
+          );
+          if (
+            previousAssessment?.decision === AssessmentDecision.Hold ||
+            previousAssessment?.decision === AssessmentDecision.Successful
+          ) {
+            step.assessments.set(poolCandidate.id, {
+              poolCandidate,
+              decision: NO_DECISION,
+              results: [],
+            });
+          }
+        });
+    }
+    step?.assessments.forEach((assessment) => {
+      let decision: NullableDecision = NO_DECISION;
+      if (assessment.results.length > 0) {
+        decision = getResultsDecision(step.step, assessment.results);
+      }
+
+      step.assessments.set(assessment.poolCandidate.id, {
+        ...assessment,
+        decision,
+      });
+    });
+
+    previousStep = step;
+  });
+
+  return stepMap;
 };

@@ -3,14 +3,13 @@ import { useIntl } from "react-intl";
 
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Pool } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
-import { groupResultsByCandidate } from "./utils";
+import { groupPoolCandidatesByStep } from "./utils";
 
 export interface AssessmentStepTrackerProps {
   pool: Pool;
@@ -18,13 +17,12 @@ export interface AssessmentStepTrackerProps {
 
 const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
+  const steps = groupPoolCandidatesByStep(pool);
 
   return (
     <Board.Root>
-      {pool.assessmentSteps?.filter(notEmpty).map((step, index) => {
-        const groupedResults = groupResultsByCandidate(
-          step.assessmentResults?.filter(notEmpty) ?? [],
-        );
+      {Array.from(steps.values()).map(({ step, assessments }, index) => {
+        const assessmentsWithDecision = Array.from(assessments.values());
         return (
           <Board.Column key={step.id}>
             <Board.ColumnHeader
@@ -34,8 +32,11 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
             >
               {getLocalizedName(step.title, intl)}
             </Board.ColumnHeader>
-            <ResultsDetails step={step} results={groupedResults} />
-            <AssessmentResults stepType={step.type} results={groupedResults} />
+            <ResultsDetails step={step} results={assessmentsWithDecision} />
+            <AssessmentResults
+              stepType={step.type}
+              results={assessmentsWithDecision}
+            />
           </Board.Column>
         );
       })}
