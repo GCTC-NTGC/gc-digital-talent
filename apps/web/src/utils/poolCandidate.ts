@@ -19,6 +19,7 @@ import {
   REMOVED_STATUSES,
   TO_ASSESS_STATUSES,
   PLACED_STATUSES,
+  NOT_PLACED_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
@@ -42,6 +43,10 @@ export const isToAssessStatus = (
 export const isPlacedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? PLACED_STATUSES.includes(status) : false);
+
+export const isNotPlacedStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
 
 export const getRecruitmentType = (
   publishingGroup: Maybe<PublishingGroup> | undefined,
@@ -113,8 +118,14 @@ export const statusToFinalDecision = (status?: Maybe<PoolCandidateStatus>) => {
 };
 
 export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
-  if (status && isPlacedStatus(status)) {
-    return getPoolCandidateStatus(status);
+  if (status) {
+    if (isNotPlacedStatus(status)) {
+      return poolCandidateMessages.notPlaced;
+    }
+
+    if (isPlacedStatus(status)) {
+      return getPoolCandidateStatus(status);
+    }
   }
 
   return commonMessages.notAvailable;

@@ -37,3 +37,5 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedIndeterminate,
   PoolCandidateStatus.PlacedTerm,
 ];
+
+export const NOT_PLACED_STATUSES = [PoolCandidateStatus.QualifiedAvailable];

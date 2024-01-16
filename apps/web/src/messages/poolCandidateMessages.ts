@@ -49,6 +49,12 @@ const messages = defineMessages({
     id: "NNWQdp",
     description: "Message displayed when candidate has been removed",
   },
+  notPlaced: {
+    defaultMessage: "Not placed",
+    id: "Qw+rrl",
+    description:
+      "Messaged displayed when a user is qualified but has yet to be placed",
+  },
 });
 
 export default messages;
