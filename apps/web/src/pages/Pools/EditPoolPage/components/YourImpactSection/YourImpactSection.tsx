@@ -99,16 +99,18 @@ const YourImpactSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
@@ -117,11 +119,10 @@ const YourImpactSection = ({
               content={subtitle}
             />
           ) : (
-            <Display pool={pool} subtitle={subtitle} />
+            <Display pool={pool} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div

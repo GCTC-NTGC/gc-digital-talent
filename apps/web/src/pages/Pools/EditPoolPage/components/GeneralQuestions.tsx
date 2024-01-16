@@ -1,0 +1,254 @@
+import React from "react";
+import { useIntl } from "react-intl";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+
+import { ToggleSection } from "@gc-digital-talent/ui";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
+
+import { LocalizedString, Pool, Scalars, PoolStatus } from "~/api/generated";
+import { EditPoolSectionMetadata } from "~/types/pool";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+
+import { useEditPoolContext } from "./EditPoolContext";
+
+const MAX_GENERAL_QUESTIONS = 3;
+const TEXT_AREA_ROWS = 3;
+const TEXT_AREA_MAX_WORDS = 200;
+
+type GeneralQuestionValue = {
+  id?: Scalars["ID"];
+  question: LocalizedString;
+};
+
+type FormValues = {
+  questions?: Array<GeneralQuestionValue>;
+};
+
+// TODO: Uncomment once general questions is added to backend.
+// export type GeneralQuestionsSubmitData = Pick<
+//   UpdatePoolInput,
+//   "generalQuestions"
+// >;
+
+interface GeneralQuestionsProps {
+  pool: Pool;
+  sectionMetadata: EditPoolSectionMetadata;
+  onSave: () => void;
+}
+
+const GeneralQuestions = ({
+  pool,
+  sectionMetadata,
+  onSave,
+}: GeneralQuestionsProps) => {
+  const intl = useIntl();
+  const { icon } = useToggleSectionInfo({
+    isNull: true,
+    emptyRequired: false,
+    fallbackIcon: AcademicCapIcon,
+    optional: true,
+  });
+  const { isSubmitting } = useEditPoolContext();
+
+  // TODO: Uncomment once general questions is added to backend.
+  // const dataToFormValues = (initialData: Pool): FormValues => ({
+  //   questions:
+  //     initialData?.generalQuestions
+  //       ?.filter(notEmpty)
+  //       .map(({ id, question }) => ({
+  //         id: id || "new",
+  //         question: {
+  //           en: question?.en || "",
+  //           fr: question?.fr || "",
+  //         },
+  //       })) || [],
+  // });
+  // const defaultValues = dataToFormValues(pool);
+
+  const methods = useForm<FormValues>();
+  const { handleSubmit, control } = methods;
+  const { remove, move, append, fields } = useFieldArray({
+    control,
+    name: "questions",
+  });
+
+  const handleSave = (formValues: FormValues) => {
+    // TODO: add rest of mutation setup once general questions is added to backend
+  };
+
+  // disabled unless status is draft
+  const formDisabled = pool.status !== PoolStatus.Draft;
+
+  const canAdd = fields.length < MAX_GENERAL_QUESTIONS;
+
+  const customNullMessage = (
+    <>
+      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        {intl.formatMessage({
+          defaultMessage: "You haven't added any questions yet.",
+          id: "A13auj",
+          description:
+            "Message that appears when there are no screening messages for a pool",
+        })}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: `You can add items using the "Add a new question" button provided.`,
+          id: "z4wfGZ",
+          description:
+            "Instructions on how to add a question when there are none",
+        })}
+      </p>
+    </>
+  );
+
+  const maxItemsMessage = (
+    <>
+      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "You have reached the maximum amount ({maxItems}) of general questions per poster.",
+            id: "scMsVu",
+            description:
+              "Message displayed when a user adds the maximum number of questions",
+          },
+          { maxItems: MAX_GENERAL_QUESTIONS },
+        )}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
+          id: "fNYEBT",
+          description:
+            "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
+        })}
+      </p>
+    </>
+  );
+
+  return (
+    <>
+      <ToggleSection.Header
+        Icon={icon.icon}
+        color={icon.color}
+        level="h3"
+        size="h4"
+        data-h2-font-weight="base(bold)"
+      >
+        {sectionMetadata.title}
+      </ToggleSection.Header>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section allows you to <strong>optionally</strong> add up to 3 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
+          id: "cEJDff",
+          description:
+            "Helper message indicating max screening questions allowed",
+        })}
+      </p>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(handleSave)}>
+          <Repeater.Root
+            name="questions"
+            total={fields.length}
+            showAdd={canAdd && !formDisabled}
+            maxItems={MAX_GENERAL_QUESTIONS}
+            onAdd={() => {
+              append({
+                id: "new",
+                question: {
+                  en: "",
+                  fr: "",
+                },
+              });
+            }}
+            addText={intl.formatMessage({
+              defaultMessage: "Add a new question",
+              id: "6A9428",
+              description: "Button text to add a new general question",
+            })}
+            customNullMessage={customNullMessage}
+            maxItemsMessage={maxItemsMessage}
+            data-h2-margin-bottom="base(1rem)"
+          >
+            {fields.map((item, index) => (
+              <Repeater.Fieldset
+                key={item.id}
+                index={index}
+                name="questions"
+                total={fields.length}
+                onMove={move}
+                onRemove={remove}
+                disabled={formDisabled}
+                legend={intl.formatMessage(
+                  {
+                    defaultMessage: "General question {index}",
+                    id: "JmRJnP",
+                    description: "Legend for general question fieldset",
+                  },
+                  {
+                    index: index + 1,
+                  },
+                )}
+              >
+                <input type="hidden" name={`questions.${index}.id`} />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(1fr 1fr)"
+                  data-h2-gap="base(0 x1)"
+                >
+                  <div>
+                    <TextArea
+                      id={`questions.${index}.question.en`}
+                      name={`questions.${index}.question.en`}
+                      label="Question (EN)"
+                      disabled={formDisabled}
+                      rows={TEXT_AREA_ROWS}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <TextArea
+                      id={`questions.${index}.question.fr`}
+                      name={`questions.${index}.question.fr`}
+                      label="Question (FR)"
+                      disabled={formDisabled}
+                      rows={TEXT_AREA_ROWS}
+                      wordLimit={TEXT_AREA_MAX_WORDS}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
+                </div>
+              </Repeater.Fieldset>
+            ))}
+          </Repeater.Root>
+
+          {!formDisabled && (
+            <Submit
+              text={intl.formatMessage({
+                defaultMessage: "Save general questions",
+                id: "+rcdSM",
+                description:
+                  "Text on a button to save the pool general questions",
+              })}
+              color="secondary"
+              mode="solid"
+              isSubmitting={isSubmitting}
+            />
+          )}
+        </form>
+      </FormProvider>
+    </>
+  );
+};
+
+export default GeneralQuestions;
