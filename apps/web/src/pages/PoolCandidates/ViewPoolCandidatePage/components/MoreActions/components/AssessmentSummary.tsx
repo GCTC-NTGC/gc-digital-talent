@@ -196,6 +196,13 @@ const AssessmentSummary = ({
   return (
     <>
       <table data-h2-background="base(background)">
+        <caption data-h2-visually-hidden="base(invisible)">
+          {intl.formatMessage({
+            defaultMessage: "Essential criteria",
+            description: "Essential criteria heading",
+            id: "Kp3Bqu",
+          })}
+        </caption>
         <thead>{essentialCriteriaHeader}</thead>
         <tbody>
           <tr>
@@ -234,6 +241,13 @@ const AssessmentSummary = ({
           data-h2-margin-top="base(x1)"
           data-h2-background="base(background)"
         >
+          <caption data-h2-visually-hidden="base(invisible)">
+            {intl.formatMessage({
+              defaultMessage: "Asset criteria",
+              description: "Asset criteria heading",
+              id: "Ldzk4k",
+            })}
+          </caption>
           <thead>{assetCriteriaHeader}</thead>
           <tbody>{nonessentialSkillsTableData}</tbody>
         </table>
