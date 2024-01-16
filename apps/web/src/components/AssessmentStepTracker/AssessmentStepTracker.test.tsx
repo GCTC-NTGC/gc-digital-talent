@@ -16,6 +16,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentResultType,
+  Pool,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
@@ -28,12 +29,21 @@ import {
 import AssessmentStepTracker, {
   AssessmentStepTrackerProps,
 } from "./AssessmentStepTracker";
-import { groupResultsByCandidate, sortResultsAndAddOrdinal } from "./utils";
+import { groupPoolCandidatesByStep, sortResultsAndAddOrdinal } from "./utils";
 import { NO_DECISION } from "../../utils/assessmentResults";
 
 const fakePool = fakePools(1)[0];
 const fakeAssessmentStep = fakeAssessmentSteps(1)[0];
 const fakeCandidates = fakePoolCandidates(4);
+
+const getAssessmentResult = (
+  decision?: AssessmentDecision | null,
+): AssessmentResult => ({
+  id: faker.string.uuid(),
+  assessmentDecision:
+    typeof decision === "undefined" ? AssessmentDecision.Successful : decision,
+  assessmentStep: fakeAssessmentStep,
+});
 
 const priorityEntitlementCandidate = {
   ...fakeCandidates[0],
@@ -46,12 +56,7 @@ const priorityEntitlementCandidate = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
   isBookmarked: false,
-  assessmentResults: [
-    {
-      id: faker.string.uuid(),
-      assessmentDecision: AssessmentDecision.Successful,
-    },
-  ],
+  assessmentResults: [getAssessmentResult()],
 };
 const armedForcesCandidate = {
   ...fakeCandidates[1],
@@ -64,12 +69,7 @@ const armedForcesCandidate = {
     armedForcesStatus: ArmedForcesStatus.Veteran,
   },
   isBookmarked: false,
-  assessmentResults: [
-    {
-      id: faker.string.uuid(),
-      assessmentDecision: AssessmentDecision.Successful,
-    },
-  ],
+  assessmentResults: [getAssessmentResult()],
 };
 const bookmarkedCandidate = {
   ...fakeCandidates[2],
@@ -82,12 +82,7 @@ const bookmarkedCandidate = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
   isBookmarked: true,
-  assessmentResults: [
-    {
-      id: faker.string.uuid(),
-      assessmentDecision: AssessmentDecision.Successful,
-    },
-  ],
+  assessmentResults: [getAssessmentResult()],
 };
 const unassessedCandidate = {
   ...fakeCandidates[3],
@@ -100,27 +95,43 @@ const unassessedCandidate = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
   isBookmarked: false,
-  assessmentResults: [
-    {
-      id: faker.string.uuid(),
-      assessmentDecision: null,
-    },
-  ],
+  assessmentResults: [getAssessmentResult(null)],
 };
-
 const unassessedWithSuccess = {
   ...unassessedCandidate,
   assessmentResults: [
     {
-      id: faker.string.uuid(),
+      ...getAssessmentResult(),
       type: AssessmentResultType.Skill,
       poolSkill: {
         id: faker.string.uuid(),
         type: PoolSkillType.Nonessential,
       },
-      assessmentDecision: AssessmentDecision.Successful,
     },
   ],
+};
+const lastByFirstName = {
+  ...unassessedWithSuccess,
+  id: "last-by-first-name",
+  isBookmarked: false,
+  user: {
+    id: faker.string.uuid(),
+    firstName: "BB",
+    lastName: "AA",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+};
+const firstByName = {
+  ...unassessedWithSuccess,
+  id: "first-by-name",
+  isBookmarked: false,
+  user: {
+    id: faker.string.uuid(),
+    firstName: "AA",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
 };
 
 const testCandidates = [
@@ -129,111 +140,27 @@ const testCandidates = [
   bookmarkedCandidate,
   unassessedCandidate,
   unassessedWithSuccess,
+  lastByFirstName,
+  firstByName,
 ];
 
-const basicCandidate = {
-  id: "candidate-last-by-first-name",
-  assessmentDecision: AssessmentDecision.Successful,
-  poolCandidate: {
-    id: "candidate-last-by-first-name",
-    pool: {
-      id: faker.string.uuid(),
+const poolWithAssessmentSteps: Pool = {
+  ...fakePool,
+  assessmentSteps: [
+    {
+      ...fakeAssessmentStep,
+      assessmentResults: testCandidates.map((candidate) => ({
+        ...candidate.assessmentResults[0],
+        poolCandidate: candidate,
+      })),
     },
-    user: {
-      id: faker.string.uuid(),
-      firstName: "BB",
-      lastName: "AA",
-      hasPriorityEntitlement: false,
-      armedForcesStatus: ArmedForcesStatus.NonCaf,
-    },
-    isBookmarked: false,
-  },
+  ],
+  poolCandidates: testCandidates,
 };
-const testAssessmentResults: AssessmentResult[] = [
-  basicCandidate,
-  {
-    ...basicCandidate,
-    id: "candidate-with-entitlement",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-with-entitlement",
-      user: {
-        ...basicCandidate.poolCandidate.user,
-        hasPriorityEntitlement: true,
-      },
-    },
-  },
-  {
-    ...basicCandidate,
-    id: "candidate-is-veteran",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-is-veteran",
-      user: {
-        ...basicCandidate.poolCandidate.user,
-        armedForcesStatus: ArmedForcesStatus.Veteran,
-      },
-    },
-  },
-  {
-    ...basicCandidate,
-    id: "candidate-is-bookmarked",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-is-bookmarked",
-      user: {
-        ...basicCandidate.poolCandidate.user,
-        lastName: "BB",
-      },
-      isBookmarked: true,
-    },
-  },
-  {
-    ...basicCandidate,
-    id: "candidate-is-unassessed",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-is-unassessed",
-    },
-    assessmentDecision: null,
-  },
-  {
-    ...basicCandidate,
-    id: "candidate-is-unassessed",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-is-unassessed",
-    },
-    assessmentDecision: AssessmentDecision.Successful,
-  },
-  {
-    ...basicCandidate,
-    id: "candidate-first-by-name",
-    poolCandidate: {
-      ...basicCandidate.poolCandidate,
-      id: "candidate-first-by-name",
-      user: {
-        ...basicCandidate.poolCandidate.user,
-        firstName: "AA",
-      },
-    },
-  },
-];
 
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
-  pool: {
-    ...fakePool,
-    assessmentSteps: [
-      {
-        ...fakeAssessmentStep,
-        assessmentResults: testCandidates.map((candidate) => ({
-          ...candidate.assessmentResults[0],
-          poolCandidate: candidate,
-        })),
-      },
-    ],
-  },
+  pool: poolWithAssessmentSteps,
 };
 
 const mockClient = {
@@ -282,7 +209,17 @@ describe("AssessmentStepTracker", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: `4. ${bookmarkedCandidate.user.firstName} ${bookmarkedCandidate.user.lastName}`,
+        name: `4. ${firstByName.user.firstName} No last name provided`,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: `5. ${lastByFirstName.user.firstName} ${lastByFirstName.user.lastName}`,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: `6. ${bookmarkedCandidate.user.firstName} ${bookmarkedCandidate.user.lastName}`,
       }),
     ).toBeInTheDocument();
   });
@@ -325,39 +262,33 @@ describe("AssessmentStepTracker", () => {
   });
 
   it("should have a working sort function", () => {
+    const steps = Array.from(
+      groupPoolCandidatesByStep(poolWithAssessmentSteps).values(),
+    );
     const modifiedResults = sortResultsAndAddOrdinal(
-      groupResultsByCandidate(testAssessmentResults),
+      Array.from(steps[0].assessments.values()),
     );
 
-    expect(modifiedResults[0].poolCandidate.id).toEqual(
-      "candidate-is-bookmarked",
-    );
+    expect(modifiedResults[0].poolCandidate.id).toEqual("bookmarked");
     expect(modifiedResults[0].ordinal).toEqual(6);
-    expect(modifiedResults[1].poolCandidate.id).toEqual(
-      "candidate-is-unassessed",
-    );
+    expect(modifiedResults[1].poolCandidate.id).toEqual("unassessed");
     expect(modifiedResults[1].ordinal).toEqual(1);
-    expect(modifiedResults[2].poolCandidate.id).toEqual(
-      "candidate-with-entitlement",
-    );
+    expect(modifiedResults[2].poolCandidate.id).toEqual("priority-entitlement");
     expect(modifiedResults[2].ordinal).toEqual(2);
-    expect(modifiedResults[3].poolCandidate.id).toEqual("candidate-is-veteran");
+    expect(modifiedResults[3].poolCandidate.id).toEqual("armed-forces");
     expect(modifiedResults[3].ordinal).toEqual(3);
-    expect(modifiedResults[4].poolCandidate.id).toEqual(
-      "candidate-first-by-name",
-    );
+    expect(modifiedResults[4].poolCandidate.id).toEqual("first-by-name");
     expect(modifiedResults[4].ordinal).toEqual(4);
-    expect(modifiedResults[5].poolCandidate.id).toEqual(
-      "candidate-last-by-first-name",
-    );
+    expect(modifiedResults[5].poolCandidate.id).toEqual("last-by-first-name");
     expect(modifiedResults[5].ordinal).toEqual(5);
   });
 
   it("should have working group function", () => {
-    const groupedResults = groupResultsByCandidate(testAssessmentResults);
+    const groupedResults = groupPoolCandidatesByStep(poolWithAssessmentSteps);
+    const { assessments } = Array.from(groupedResults.values())[0];
 
     // One duplicate candidate accounted for
-    expect(groupedResults.length).toEqual(testAssessmentResults.length - 1);
+    expect(assessments.size).toEqual(testCandidates.length - 1);
 
     /**
      * This can be a little tricky to read. Expected shape:
@@ -373,12 +304,12 @@ describe("AssessmentStepTracker", () => {
      *  }
      * ]
      */
-    expect(groupedResults).toEqual(
+    expect(Array.from(assessments.values())).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           decision: NO_DECISION,
           poolCandidate: expect.objectContaining({
-            id: "candidate-is-unassessed",
+            id: "unassessed",
           }),
           results: expect.arrayContaining([
             expect.objectContaining({ assessmentDecision: null }),
