@@ -2,6 +2,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { useQuery } from "urql";
 
 import { Pending, NotFound, Link, Heading, Pill } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -12,13 +13,9 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { graphql, Pool, PoolStatus } from "@gc-digital-talent/graphql";
 
-import {
-  useGetProcessInfoQuery,
-  Scalars,
-  Pool,
-  PoolStatus,
-} from "~/api/generated";
+import { Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -411,11 +408,61 @@ type RouteParams = {
   poolId: Scalars["ID"];
 };
 
+const ViewPoolPage_Query = graphql(/* GraphQL */ `
+  query ViewPoolPage($id: UUID!) {
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      publishedAt
+      isComplete
+      status
+      stream
+      closingDate
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      poolCandidates {
+        id
+        pool {
+          id
+        }
+        user {
+          id
+        }
+      }
+      team {
+        id
+        name
+      }
+      poolSkills {
+        id
+      }
+      assessmentSteps {
+        id
+        type
+        poolSkills {
+          id
+        }
+      }
+    }
+  }
+`);
+
 const ViewPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const { isFetching, mutations } = usePoolMutations();
-  const [{ data, fetching, error }] = useGetProcessInfoQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewPoolPage_Query,
     variables: { id: poolId },
   });
 

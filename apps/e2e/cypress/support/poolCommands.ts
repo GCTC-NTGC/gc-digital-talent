@@ -1,19 +1,39 @@
 import {
-  CreatePoolMutation,
   PublishPoolMutation,
   UpdatePoolMutation,
-  CreatePoolDocument,
   UpdatePoolDocument,
   PublishPoolDocument,
 } from "@gc-digital-talent/web/src/api/generated";
 
 import { getGqlString } from "./graphql-test-utils";
+import {
+  Command_CreatePoolMutation,
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+const commandCreatePoolDoc = /* GraphQL */ `
+  mutation Command_CreatePool(
+    $userId: ID!
+    $teamId: ID!
+    $pool: CreatePoolInput!
+  ) {
+    createPool(userId: $userId, teamId: $teamId, pool: $pool) {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+const Command_CreatePoolMutation = graphql(commandCreatePoolDoc);
 
 Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
   // there are no optional fields on the variables for this mutation
-  cy.graphqlRequest<CreatePoolMutation>({
-    operationName: "createPool",
-    query: getGqlString(CreatePoolDocument),
+  cy.graphqlRequest<Command_CreatePoolMutation>({
+    operationName: "Command_CreatePool",
+    query: commandCreatePoolDoc,
     variables: {
       userId: userId,
       teamId: teamId,

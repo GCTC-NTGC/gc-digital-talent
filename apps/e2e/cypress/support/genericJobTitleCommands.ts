@@ -1,14 +1,38 @@
 import {
-  GetGenericJobTitlesQuery,
-  GetGenericJobTitlesDocument,
-} from "@gc-digital-talent/web/src/api/generated";
+  Command_GetGenericJobTitlesQuery,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
-import { getGqlString } from "./graphql-test-utils";
+const commandGetGenericJobTitlesDoc = /* GraphQL */ `
+  query Command_GetGenericJobTitles {
+    genericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+        minSalary
+        maxSalary
+      }
+    }
+  }
+`;
+
+const Command_GetGenericJobTitlesQuery = graphql(commandGetGenericJobTitlesDoc);
 
 Cypress.Commands.add("getGenericJobTitles", () => {
-  cy.graphqlRequest<GetGenericJobTitlesQuery>({
-    operationName: "GetGenericJobTitles",
-    query: getGqlString(GetGenericJobTitlesDocument),
+  cy.graphqlRequest<Command_GetGenericJobTitlesQuery>({
+    operationName: "Command_GetGenericJobTitles",
+    query: commandGetGenericJobTitlesDoc,
     variables: {},
   }).then((data) => {
     cy.wrap(data.genericJobTitles);

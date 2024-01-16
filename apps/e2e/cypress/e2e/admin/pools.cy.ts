@@ -30,10 +30,10 @@ describe("Pools", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "getEditPoolData");
-      aliasQuery(req, "getMePoolCreation");
-      aliasQuery(req, "GetProcessInfo");
+      aliasQuery(req, "CreatePoolPage");
+      aliasQuery(req, "ViewPoolPage");
       aliasQuery(req, "allPools");
-      aliasMutation(req, "createPool");
+      aliasMutation(req, "CreatePool");
       aliasMutation(req, "updatePool");
       aliasMutation(req, "publishPool");
       aliasMutation(req, "closePool");
@@ -98,7 +98,7 @@ describe("Pools", () => {
 
     cy.findByRole("link", { name: /create pool/i }).click();
 
-    cy.wait("@gqlgetMePoolCreationQuery");
+    cy.wait("@gqlCreatePoolPageQuery");
 
     // Ensure we got to the correct page
     cy.findByRole("heading", { name: /create pool/i })
@@ -131,7 +131,7 @@ describe("Pools", () => {
 
     // Submit form
     cy.findByRole("button", { name: /create new pool/i }).click();
-    cy.wait("@gqlcreatePoolMutation");
+    cy.wait("@gqlCreatePoolMutation");
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
@@ -279,7 +279,7 @@ describe("Pools", () => {
       .first()
       .click();
 
-    cy.wait("@gqlGetProcessInfoQuery");
+    cy.wait("@gqlViewPoolPageQuery");
 
     cy.findByRole("button", { name: /delete/i }).click();
 
