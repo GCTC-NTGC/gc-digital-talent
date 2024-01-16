@@ -24,6 +24,11 @@ import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import ClosingDateDialog from "./ClosingDateDialog";
+
+const dialog = (chunks: React.ReactNode) => (
+  <ClosingDateDialog title={chunks} />
+);
 
 type FormValues = {
   endDate?: Pool["closingDate"];
@@ -93,12 +98,17 @@ const ClosingDateSection = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const subtitle = intl.formatMessage({
-    defaultMessage:
-      "Select a closing date for your process. The closing time will be automatically set to 11:59 PM in the Pacific time zone.",
-    id: "3aiqQT",
-    description: "Describes what the selecting a closing date for a process.",
-  });
+  const subtitle = intl.formatMessage(
+    {
+      defaultMessage:
+        "The date this recruitment will stop accepting applications. <dialog>Learn more about how closing times work.</dialog>",
+      id: "LghLU9",
+      description: "Describes what the selecting a closing date for a process.",
+    },
+    {
+      dialog,
+    },
+  );
 
   return (
     <ToggleSection.Root
@@ -110,16 +120,18 @@ const ClosingDateSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {emptyRequired ? (
@@ -128,11 +140,10 @@ const ClosingDateSection = ({
               content={subtitle}
             />
           ) : (
-            <Display pool={pool} subtitle={subtitle} />
+            <Display pool={pool} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div data-h2-margin="base(x1 0)">
