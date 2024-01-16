@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 
 import {
   Button,
@@ -13,6 +13,7 @@ import {
 import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
@@ -21,21 +22,34 @@ interface UserProfilePrintButtonProps {
   color: Color;
   mode: ButtonLinkMode;
   fontSize?: "caption" | "body";
-  beforePrint?: (handlePrint: () => void) => void;
+  disabled?: boolean;
+  beforePrint?: () => void;
+  fetching?: boolean;
 }
 
 const UserProfilePrintButton = ({
   users,
   color,
   mode,
+  fetching,
   fontSize = "body",
   beforePrint,
+  disabled,
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
+  const onBeforeGetContentResolve =
+    React.useRef<(value: void | PromiseLike<void>) => void>();
 
-  const [isAnonymous, setAnonymous] = useState<UserProfileDocumentTypes | "">(
-    "",
-  );
+  const handleOnBeforeGetContent = (): Promise<void> => {
+    return new Promise((resolve) => {
+      beforePrint?.();
+      onBeforeGetContentResolve.current = resolve;
+    });
+  };
+
+  const [isAnonymous, setAnonymous] = useState<
+    UserProfileDocumentTypes | undefined
+  >(undefined);
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -52,22 +66,27 @@ const UserProfilePrintButton = ({
             id: "scef3o",
             description: "Document title for printing User table results",
           }),
+    onBeforeGetContent: beforePrint ? handleOnBeforeGetContent : undefined,
     onAfterPrint: () => {
       // Reset the state so we can print again
-      setAnonymous("");
+      setAnonymous(undefined);
     },
   });
 
   const handlePrintChange = (value: string) => {
     if (value === "all-info" || value === "anonymous") setAnonymous(value);
+    if (typeof value === "string") {
+      handlePrint();
+    }
   };
 
   useEffect(() => {
-    if (isAnonymous) {
-      if (beforePrint) beforePrint(handlePrint);
-      else handlePrint();
+    if (users.length && !fetching) {
+      if (onBeforeGetContentResolve.current) {
+        onBeforeGetContentResolve.current();
+      }
     }
-  }, [isAnonymous, handlePrint, beforePrint]);
+  }, [fetching, users, beforePrint]);
 
   let margin = {};
   if (fontSize === "caption") {
@@ -83,6 +102,10 @@ const UserProfilePrintButton = ({
             mode={mode}
             fontSize={fontSize}
             utilityIcon={ChevronDownIcon}
+            disabled={disabled}
+            {...(fetching && {
+              icon: SpinnerIcon,
+            })}
             data-h2-font-weight="base(400)"
             {...margin}
           >

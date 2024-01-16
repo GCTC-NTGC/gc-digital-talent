@@ -16,6 +16,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -1698,5 +1699,161 @@ class ApplicantTest extends TestCase
                 'countApplicants' => 2,
             ],
         ]);
+    }
+
+    public function testEmploymentEquity(): void
+    {
+        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+
+        $disabledUser = User::factory()->create([
+            'has_disability' => true,
+            'is_woman' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $disabledUser->id,
+        ]);
+
+        $womanUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => true,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $womanUser->id,
+        ]);
+
+        $visibleMinorityUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => false,
+            'is_visible_minority' => true,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $visibleMinorityUser->id,
+        ]);
+
+        $indigenousUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $indigenousUser->id,
+        ]);
+
+        $allGroupsUser = User::factory()->create([
+            'has_disability' => true,
+            'is_woman' => true,
+            'is_visible_minority' => true,
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $allGroupsUser->id,
+        ]);
+
+        $query = /** @lang GraphQL */ '
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ';
+
+        $expectedJson = [
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2,
+                    ],
+                ],
+            ],
+        ];
+
+        // Returns 2 disabled users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['hasDisability' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 women
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isWoman' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 visible minorities
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isVisibleMinority' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 Indigenous users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isIndigenous' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns all users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => [
+                                'hasDisability' => true,
+                                'isWoman' => true,
+                                'isVisibleMinority' => true,
+                                'isIndigenous' => true,
+                            ],
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'paginatorInfo' => [
+                            'total' => 5,
+                        ],
+                    ],
+                ],
+            ]);
+
     }
 }

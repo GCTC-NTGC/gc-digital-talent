@@ -1,3 +1,5 @@
+import React from "react";
+
 export type Color =
   | "primary"
   | "secondary"
@@ -20,7 +22,9 @@ export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
   titleId?: string;
 } & React.RefAttributes<SVGSVGElement>;
 
-export type IconType = React.ForwardRefExoticComponent<IconProps>;
+export type IconType =
+  | React.ElementType<IconProps>
+  | React.ForwardRefExoticComponent<IconProps>;
 
 type HydrogenAttributeKey = `data-h2-${string}`;
 
