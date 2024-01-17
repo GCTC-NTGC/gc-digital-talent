@@ -17,14 +17,6 @@ import {
   getEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  Maybe,
-  PositionDuration,
-  Pool,
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
 
 import {
   yesOrNo,
@@ -37,129 +29,11 @@ import {
   getScreeningQuestionResponses,
   getIndigenousCommunities,
 } from "~/utils/csvUtils";
+import { Maybe, PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
-const CandidateCsvData_PoolCandidateFragment = graphql(/* GraphQL */ `
-  fragment CandidateCsvData_PoolCandidateFragment on PoolCandidate {
-    status
-    notes
-    submittedAt
-    archivedAt
-    expiryDate
-    educationRequirementOption
-    educationRequirementExperiences {
-      id
-      user {
-        id
-      }
-      ... on AwardExperience {
-        title
-      }
-      ... on PersonalExperience {
-        title
-      }
-      ... on CommunityExperience {
-        title
-        organization
-      }
-      ... on EducationExperience {
-        areaOfStudy
-        institution
-      }
-      ... on WorkExperience {
-        role
-        organization
-      }
-    }
-    screeningQuestionResponses {
-      id
-      screeningQuestion {
-        id
-      }
-      answer
-    }
-    user {
-      priorityWeight
-      firstName
-      lastName
-      email
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentCity
-      currentProvince
-      armedForcesStatus
-      citizenship
-      bilingualEvaluation
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      hasPriorityEntitlement
-      priorityNumber
-      locationExemptions
-      positionDuration
-      acceptedOperationalRequirements
-      isWoman
-      indigenousCommunities
-      isVisibleMinority
-      hasDisability
-      department {
-        name {
-          en
-          fr
-        }
-      }
-      govEmployeeType
-      currentClassification {
-        group
-        level
-      }
-      locationPreferences
-      experiences {
-        id
-        user {
-          id
-        }
-        skills {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
-    pool {
-      essentialSkills {
-        id
-        key
-        category
-        name {
-          en
-          fr
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        category
-        name {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
 const usePoolCandidateCsvData = (
-  candidatesFragment: FragmentType<
-    typeof CandidateCsvData_PoolCandidateFragment
-  >[],
+  candidates: PoolCandidate[],
   pool:
     | Maybe<
         Pick<
@@ -171,10 +45,6 @@ const usePoolCandidateCsvData = (
 ) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const candidates = getFragment(
-    CandidateCsvData_PoolCandidateFragment,
-    candidatesFragment,
-  );
 
   const essentialSkillHeaders = pool?.essentialSkills
     ? pool.essentialSkills.map((skill) => {
