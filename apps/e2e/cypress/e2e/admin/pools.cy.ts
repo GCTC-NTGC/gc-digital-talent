@@ -32,7 +32,7 @@ describe("Pools", () => {
       aliasQuery(req, "EditPoolPage");
       aliasQuery(req, "CreatePoolPage");
       aliasQuery(req, "ViewPoolPage");
-      aliasQuery(req, "allPools");
+      aliasQuery(req, "PoolTable");
       aliasMutation(req, "CreatePool");
       aliasMutation(req, "UpdatePool");
       aliasMutation(req, "publishPool");
@@ -76,7 +76,7 @@ describe("Pools", () => {
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /pools/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -85,7 +85,7 @@ describe("Pools", () => {
   it("Should show all pools if user has platform admin role", () => {
     loginAndGoToPoolsPage("platform_admin");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /pools/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -94,7 +94,7 @@ describe("Pools", () => {
   it("should create a new pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("link", { name: /create pool/i }).click();
 
@@ -226,7 +226,7 @@ describe("Pools", () => {
   it("should update the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
@@ -269,7 +269,7 @@ describe("Pools", () => {
   it("should delete the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();

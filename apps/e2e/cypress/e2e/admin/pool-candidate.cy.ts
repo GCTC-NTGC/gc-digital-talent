@@ -24,7 +24,7 @@ describe("Pool Candidates", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "ViewPoolCandidatesPage_Query");
-      aliasQuery(req, "allPools");
+      aliasQuery(req, "PoolTable");
       aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
       aliasMutation(req, "ApplicationStatusForm_Mutation");
@@ -107,7 +107,7 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("textbox", { name: /search/i }).type("cypress");
 
@@ -217,7 +217,7 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("textbox", { name: /search/i }).type("cypress");
 

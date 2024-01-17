@@ -16,11 +16,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  ExecutiveHomePageQuery,
-  graphql,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import { ExecutiveHomePageQuery, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -37,7 +33,7 @@ import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-
 import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 interface HomePageProps {
-  pools: Required<ExecutiveHomePageQuery["publishedPools"]>;
+  pools: ExecutiveHomePageQuery["publishedPools"];
 }
 
 export const HomePage = ({ pools }: HomePageProps) => {
@@ -591,9 +587,10 @@ const HomePageApi = () => {
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const filteredPools = data?.publishedPools.filter(
-    (pool) => typeof pool !== `undefined` && !!pool && isExecPool(pool),
-  ) as Pool[];
+  const filteredPools =
+    data?.publishedPools.filter(
+      (pool) => typeof pool !== `undefined` && !!pool && isExecPool(pool),
+    ) ?? [];
 
   return (
     <Pending fetching={fetching} error={error}>
