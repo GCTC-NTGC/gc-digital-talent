@@ -24,6 +24,102 @@ type SkillAssessmentCalculated = {
   hold: number;
 };
 
+const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
+  const intl = useIntl();
+
+  return (
+    <tr
+      data-h2-border-bottom="base(3px solid black.20)"
+      data-h2-margin-bottom="base(x.5)"
+    >
+      <th
+        scope="col"
+        data-h2-padding="base(x.25 0 x.25 x1)"
+        data-h2-display="base(flex)"
+      >
+        {tableTitle}
+      </th>
+      <th scope="col">
+        <CheckIcon
+          data-h2-width="base(x1)"
+          data-h2-display="base(flex)"
+          data-h2-vertical-align="base(bottom)"
+          data-h2-margin="base(0, x.5, 0, 0)"
+          data-h2-padding="base(x.25 0)"
+          data-h2-color="base(success)"
+          aria-label={intl.formatMessage({
+            defaultMessage: "Demonstrated",
+            id: "5wKh/o",
+            description:
+              "Option for assessment decision when candidate has successful assessment.",
+          })}
+        />
+      </th>
+      <th scope="col">
+        <XCircleIcon
+          data-h2-width="base(x1)"
+          data-h2-display="base(flex)"
+          data-h2-vertical-align="base(bottom)"
+          data-h2-margin="base(0, x.5, 0, 0)"
+          data-h2-padding="base(x.25 0)"
+          data-h2-color="base(error)"
+          aria-label={intl.formatMessage({
+            defaultMessage: "Not demonstrated (Remove from process)",
+            id: "zXkLL2",
+            description:
+              "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
+          })}
+        />
+      </th>
+      <th scope="col">
+        <PauseIcon
+          data-h2-width="base(x1)"
+          data-h2-display="base(flex)"
+          data-h2-vertical-align="base(bottom)"
+          data-h2-margin="base(0, x.5, 0, 0)"
+          data-h2-padding="base(x.25 0)"
+          data-h2-color="base(warning)"
+          aria-label={intl.formatMessage({
+            defaultMessage: "Not demonstrated (Hold for further assessment)",
+            id: "MMtY88",
+            description:
+              "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
+          })}
+        />
+      </th>
+    </tr>
+  );
+};
+
+type TableRow = {
+  name: string;
+  results: SkillAssessmentCalculated;
+};
+
+const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
+  const generateRowMarkup = (row: TableRow): JSX.Element => {
+    return (
+      <tr key={row.name}>
+        <td data-h2-padding="base(x.25 0 x.25 x1)">{row.name}</td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {row.results.successful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">
+          {row.results.unsuccessful}
+        </td>
+        <td data-h2-padding="base(x.25 0 x.25 x.25)">{row.results.hold}</td>
+      </tr>
+    );
+  };
+
+  const criteriaRows = data.map((row) => {
+    return generateRowMarkup(row);
+  });
+
+  return <tbody>{criteriaRows}</tbody>;
+};
+
+// given a skill and array of results, return the score for that skill
 const skillAssessmentResultCalculator = (
   skill: Skill,
   assessmentResults: AssessmentResult[],
@@ -72,125 +168,53 @@ const AssessmentSummary = ({
   ) {
     educationAssessmentResultDecision = AssessmentDecision.Unsuccessful;
   }
-
-  // for each skill, given the assessment results array, compute the results and generate table data
-  const generateSkillTableData = (
-    skill: Skill,
-    skillAssessmentCalculated: SkillAssessmentCalculated,
-  ): JSX.Element => {
-    return (
-      <tr key={skill.id}>
-        <td data-h2-padding="base(x.25 0 x.25 x1)">
-          {getLocalizedName(skill.name, intl)}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {skillAssessmentCalculated.successful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {skillAssessmentCalculated.unsuccessful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {skillAssessmentCalculated.hold}
-        </td>
-      </tr>
-    );
+  const educationAssessmentRowObject: TableRow = {
+    name: intl.formatMessage({
+      defaultMessage: "Education requirement",
+      id: "/zx1kX",
+      description: "Education requirement section header.",
+    }),
+    results: {
+      successful:
+        educationAssessmentResultDecision === AssessmentDecision.Successful
+          ? 1
+          : 0,
+      unsuccessful:
+        educationAssessmentResultDecision === AssessmentDecision.Unsuccessful
+          ? 1
+          : 0,
+      hold:
+        educationAssessmentResultDecision === AssessmentDecision.Hold ? 1 : 0,
+    },
   };
 
-  const essentialSkillsTableData = essentialSkills.map((skill) => {
+  const essentialSkillsTableData: TableRow[] = essentialSkills.map((skill) => {
     const essentialSkillCalculated = skillAssessmentResultCalculator(
       skill,
       assessmentResults,
     );
-    return generateSkillTableData(skill, essentialSkillCalculated);
-  });
-  const nonessentialSkillsTableData = nonessentialSkills.map((skill) => {
-    const nonessentialSkillCalculated = skillAssessmentResultCalculator(
-      skill,
-      assessmentResults,
-    );
-    return generateSkillTableData(skill, nonessentialSkillCalculated);
+    return {
+      name: getLocalizedName(skill.name, intl),
+      results: essentialSkillCalculated,
+    };
   });
 
-  // generate the table header for the two tables that is mostly the same
-  const generateTableHeader = (tableTitle: string) => {
-    return (
-      <tr
-        data-h2-border-bottom="base(3px solid black.20)"
-        data-h2-margin-bottom="base(x.5)"
-      >
-        <th
-          scope="col"
-          data-h2-padding="base(x.25 0 x.25 x1)"
-          data-h2-display="base(flex)"
-        >
-          {tableTitle}
-        </th>
-        <th scope="col">
-          <CheckIcon
-            data-h2-width="base(x1)"
-            data-h2-display="base(flex)"
-            data-h2-vertical-align="base(bottom)"
-            data-h2-margin="base(0, x.5, 0, 0)"
-            data-h2-padding="base(x.25 0)"
-            data-h2-color="base(success)"
-            aria-label={intl.formatMessage({
-              defaultMessage: "Demonstrated",
-              id: "5wKh/o",
-              description:
-                "Option for assessment decision when candidate has successful assessment.",
-            })}
-          />
-        </th>
-        <th scope="col">
-          <XCircleIcon
-            data-h2-width="base(x1)"
-            data-h2-display="base(flex)"
-            data-h2-vertical-align="base(bottom)"
-            data-h2-margin="base(0, x.5, 0, 0)"
-            data-h2-padding="base(x.25 0)"
-            data-h2-color="base(error)"
-            aria-label={intl.formatMessage({
-              defaultMessage: "Not demonstrated (Remove from process)",
-              id: "zXkLL2",
-              description:
-                "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
-            })}
-          />
-        </th>
-        <th scope="col">
-          <PauseIcon
-            data-h2-width="base(x1)"
-            data-h2-display="base(flex)"
-            data-h2-vertical-align="base(bottom)"
-            data-h2-margin="base(0, x.5, 0, 0)"
-            data-h2-padding="base(x.25 0)"
-            data-h2-color="base(warning)"
-            aria-label={intl.formatMessage({
-              defaultMessage: "Not demonstrated (Hold for further assessment)",
-              id: "MMtY88",
-              description:
-                "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
-            })}
-          />
-        </th>
-      </tr>
-    );
-  };
+  const educationEssentialSkillsTableData = [
+    educationAssessmentRowObject,
+    ...essentialSkillsTableData,
+  ];
 
-  const essentialCriteriaHeader = generateTableHeader(
-    intl.formatMessage({
-      defaultMessage: "Essential criteria",
-      description: "Essential criteria heading",
-      id: "Kp3Bqu",
-    }),
-  );
-
-  const assetCriteriaHeader = generateTableHeader(
-    intl.formatMessage({
-      defaultMessage: "Asset criteria",
-      description: "Asset criteria heading",
-      id: "Ldzk4k",
-    }),
+  const nonessentialSkillsTableData: TableRow[] = nonessentialSkills.map(
+    (skill) => {
+      const essentialSkillCalculated = skillAssessmentResultCalculator(
+        skill,
+        assessmentResults,
+      );
+      return {
+        name: getLocalizedName(skill.name, intl),
+        results: essentialSkillCalculated,
+      };
+    },
   );
 
   return (
@@ -203,38 +227,16 @@ const AssessmentSummary = ({
             id: "Kp3Bqu",
           })}
         </caption>
-        <thead>{essentialCriteriaHeader}</thead>
-        <tbody>
-          <tr>
-            <td data-h2-padding="base(x.25 0 x.25 x1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Education requirement",
-                  id: "/zx1kX",
-                  description: "Education requirement section header.",
-                })}
-              </p>
-            </td>
-            <td data-h2-padding="base(x.25 0 x.25 x.25)">
-              {educationAssessmentResultDecision ===
-              AssessmentDecision.Successful
-                ? "1"
-                : "0"}
-            </td>
-            <td data-h2-padding="base(x.25 0 x.25 x.25)">
-              {educationAssessmentResultDecision ===
-              AssessmentDecision.Unsuccessful
-                ? "1"
-                : "0"}
-            </td>
-            <td data-h2-padding="base(x.25 0 x.25 x.25)">
-              {educationAssessmentResultDecision === AssessmentDecision.Hold
-                ? "1"
-                : "0"}
-            </td>
-          </tr>
-          {essentialSkillsTableData}
-        </tbody>
+        <thead>
+          <TableHeader
+            tableTitle={intl.formatMessage({
+              defaultMessage: "Essential criteria",
+              description: "Essential criteria heading",
+              id: "Kp3Bqu",
+            })}
+          />
+        </thead>
+        <TableBody data={educationEssentialSkillsTableData} />
       </table>
       {nonessentialSkillsTableData.length > 0 && (
         <table
@@ -248,8 +250,16 @@ const AssessmentSummary = ({
               id: "Ldzk4k",
             })}
           </caption>
-          <thead>{assetCriteriaHeader}</thead>
-          <tbody>{nonessentialSkillsTableData}</tbody>
+          <thead>
+            <TableHeader
+              tableTitle={intl.formatMessage({
+                defaultMessage: "Asset criteria",
+                description: "Asset criteria heading",
+                id: "Ldzk4k",
+              })}
+            />
+          </thead>
+          <TableBody data={nonessentialSkillsTableData} />
         </table>
       )}
     </>
