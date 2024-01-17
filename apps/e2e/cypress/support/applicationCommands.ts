@@ -1,22 +1,27 @@
 import {
-  CreateApplicationDocument,
-  CreateApplicationMutation,
   EducationRequirementOption,
-} from "@gc-digital-talent/web/src/api/generated";
-
-import { getGqlString } from "./graphql-test-utils";
-import {
+  Command_CreateApplicationMutation,
   Command_SubmitApplicationMutation,
   Command_UpdateApplicationMutation,
   Command_UpdatePoolCandidateAsAdminMutation,
   graphql,
 } from "@gc-digital-talent/graphql";
 
+const commandCreateApplicationDoc = /* GraphQL */ `
+  mutation Command_CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
+      id
+    }
+  }
+`;
+
+const Command_CreateApplicationMutation = graphql(commandCreateApplicationDoc);
+
 // create an application that is ready to submit, for use with createApplicant
 Cypress.Commands.add("createApplication", (userId, poolId) => {
-  cy.graphqlRequest<CreateApplicationMutation>({
-    operationName: "createApplication",
-    query: getGqlString(CreateApplicationDocument),
+  cy.graphqlRequest<Command_CreateApplicationMutation>({
+    operationName: "Command_CreateApplication",
+    query: commandCreateApplicationDoc,
     variables: {
       userId,
       poolId,

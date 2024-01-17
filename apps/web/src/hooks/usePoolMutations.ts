@@ -67,7 +67,7 @@ const ArchivePool_Mutation = graphql(/* GraphQL */ `
 
 const UnarchivePool_Mutation = graphql(/* GraphQL */ `
   mutation UnarchivePool($id: ID!) {
-    archivePool(id: $id) {
+    unarchivePool(id: $id) {
       id
     }
   }
