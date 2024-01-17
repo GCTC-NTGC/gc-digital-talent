@@ -103,15 +103,15 @@ test.describe("Authenticated", () => {
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
     await applicantPage.page.waitForLoadState("networkidle");
 
+    await expect(
+      applicantPage.page.getByRole("link", { name: /sign in/i }),
+    ).toBeVisible();
+
     const tokens = await getAuthTokens(applicantPage.page);
 
     expect(tokens.idToken).toBeNull();
     expect(tokens.accessToken).toBeNull();
     expect(tokens.refreshToken).toBeNull();
-
-    await expect(
-      applicantPage.page.getByRole("link", { name: /sign in/i }),
-    ).toBeVisible();
   });
 
   test.describe("Admin user", () => {
