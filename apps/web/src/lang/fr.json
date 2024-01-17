@@ -4935,6 +4935,10 @@
     "defaultMessage": "Expériences de travail",
     "description": "Heading for work experiences"
   },
+  "Qw+rrl": {
+    "defaultMessage": "Non placé",
+    "description": "Messaged displayed when a user is qualified but has yet to be placed"
+  },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
