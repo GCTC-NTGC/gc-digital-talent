@@ -4,6 +4,7 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
+import { useQuery } from "urql";
 
 import {
   Accordion,
@@ -15,6 +16,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  ExecutiveHomePageQuery,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,7 +30,6 @@ import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContai
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
-import { Pool, useBrowsePoolsQuery } from "~/api/generated";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.webp";
@@ -32,7 +37,7 @@ import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-
 import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 interface HomePageProps {
-  pools: Pool[];
+  pools: Required<ExecutiveHomePageQuery["publishedPools"]>;
 }
 
 export const HomePage = ({ pools }: HomePageProps) => {
@@ -484,10 +489,105 @@ export const HomePage = ({ pools }: HomePageProps) => {
   );
 };
 
+const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
+  query ExecutiveHomePage($closingAfter: DateTime) {
+    publishedPools(closingAfter: $closingAfter) {
+      id
+      name {
+        en
+        fr
+      }
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishedAt
+      publishingGroup
+    }
+  }
+`);
+
 const now = nowUTCDateTime();
 
 const HomePageApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolsQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ExecutiveHomePage_Query,
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 

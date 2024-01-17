@@ -20,7 +20,7 @@ describe("Submit Application Workflow Tests", () => {
   beforeEach(() => {
     // register queries
     cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "browsePools");
+      aliasQuery(req, "BrowsePoolsPage");
       aliasQuery(req, "getPool");
       aliasQuery(req, "Application");
       aliasQuery(req, "MyApplications");
@@ -133,7 +133,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.visit("/en/browse/pools");
 
     // Browse pools page - placeholder so it could change
-    cy.wait("@gqlbrowsePoolsQuery");
+    cy.wait("@gqlBrowsePoolsPageQuery");
     cy.findByRole("heading", { name: /browse jobs/i })
       .should("exist")
       .and("be.visible");
