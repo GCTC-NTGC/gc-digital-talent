@@ -1,13 +1,8 @@
-import {
-  PublishPoolMutation,
-  UpdatePoolMutation,
-  UpdatePoolDocument,
-  PublishPoolDocument,
-} from "@gc-digital-talent/web/src/api/generated";
-
 import { getGqlString } from "./graphql-test-utils";
 import {
   Command_CreatePoolMutation,
+  Command_UpdatePoolMutation,
+  Command_PublishPoolMutation,
   graphql,
 } from "@gc-digital-talent/graphql";
 
@@ -48,10 +43,20 @@ Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
   });
 });
 
+const commandUpdatePoolDoc = /* GraphQL */ `
+  mutation Command_UpdatePool($id: ID!, $pool: UpdatePoolInput!) {
+    updatePool(id: $id, pool: $pool) {
+      id
+    }
+  }
+`;
+
+const Command_UpdatePoolMutation = graphql(commandUpdatePoolDoc);
+
 Cypress.Commands.add("updatePool", (id, pool) => {
-  cy.graphqlRequest<UpdatePoolMutation>({
-    operationName: "updatePool",
-    query: getGqlString(UpdatePoolDocument),
+  cy.graphqlRequest<Command_UpdatePoolMutation>({
+    operationName: "Command_UpdatePool",
+    query: commandUpdatePoolDoc,
     variables: {
       id: id,
       pool: pool,
@@ -61,10 +66,21 @@ Cypress.Commands.add("updatePool", (id, pool) => {
   });
 });
 
+const commandPublishPoolDoc = /* GraphQL */ `
+  mutation Command_PublishPool($id: ID!) {
+    publishPool(id: $id) {
+      id
+      publishedAt
+    }
+  }
+`;
+
+const Command_PublishPoolMutation = graphql(commandPublishPoolDoc);
+
 Cypress.Commands.add("publishPool", (id) => {
-  cy.graphqlRequest<PublishPoolMutation>({
-    operationName: "publishPool",
-    query: getGqlString(PublishPoolDocument),
+  cy.graphqlRequest<Command_PublishPoolMutation>({
+    operationName: "Command_UpdatePool",
+    query: commandPublishPoolDoc,
     variables: {
       id: id,
     },
