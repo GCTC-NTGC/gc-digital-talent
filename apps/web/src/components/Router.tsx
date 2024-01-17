@@ -328,6 +328,14 @@ const IAPHomePage = React.lazy(() =>
       ),
   ),
 );
+const IAPManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
+      ),
+  ),
+);
 
 /** Admin */
 const AdminHomePage = React.lazy(() =>
@@ -1816,6 +1824,10 @@ const createRoute = (
         {
           index: true,
           element: <IAPHomePage />,
+        },
+        {
+          path: "hire",
+          element: <IAPManagerHomePage />,
         },
         {
           path: "*",
