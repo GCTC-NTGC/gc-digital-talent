@@ -26,7 +26,7 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
@@ -277,7 +277,7 @@ const CreatePoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: intl.formatMessage(indexPoolPageTitle),
       url: routes.poolTable(),
     },
     {

@@ -5,7 +5,7 @@ describe("Pools", () => {
     cy.loginByRole(role);
     cy.visit("/en/admin/pools");
 
-    cy.findByRole("heading", { name: /pools/i })
+    cy.findByRole("heading", { name: /processes/i })
       .should("exist")
       .and("be.visible");
 
@@ -78,7 +78,7 @@ describe("Pools", () => {
 
     cy.wait("@gqlPoolTableQuery");
 
-    cy.findByRole("heading", { name: /pools/i }).should("exist");
+    cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
   });
 
@@ -87,7 +87,7 @@ describe("Pools", () => {
 
     cy.wait("@gqlPoolTableQuery");
 
-    cy.findByRole("heading", { name: /pools/i }).should("exist");
+    cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
   });
 

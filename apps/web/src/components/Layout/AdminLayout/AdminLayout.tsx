@@ -2,47 +2,70 @@ import React from "react";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
-import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
-import BuildingOfficeIcon from "@heroicons/react/24/outline/BuildingOfficeIcon";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
-import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   Button,
-  IconType,
   SideMenu,
+  SideMenuButton,
+  SideMenuCategory,
   SideMenuContentWrapper,
   SideMenuItem,
 } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, RoleName, useAuthorization } from "@gc-digital-talent/auth";
+import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import { checkRole } from "~/utils/teamUtils";
+import {
+  pageTitle as indexPoolPageTitle,
+  pageOutlineIcon as indexPoolPageIcon,
+} from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import {
+  pageTitle as allPoolCandidatesPageTitle,
+  pageOutlineIcon as allPoolCandidatesPageIcon,
+} from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
+import {
+  pageTitle as indexSearchRequestPageTitle,
+  pageOutlineIcon as indexSearchRequestPageIcon,
+} from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
+import {
+  pageTitle as indexTeamPageTitle,
+  pageOutlineIcon as indexTeamPageIcon,
+} from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
+import {
+  pageTitle as indexUserPageTitle,
+  pageOutlineIcon as indexUserPageIcon,
+} from "~/pages/Users/IndexUserPage/IndexUserPage";
+import {
+  pageTitle as adminDashboardPageTitle,
+  pageOutlineIcon as adminDashboardPageIcon,
+} from "~/pages/AdminDashboardPage/AdminDashboardPage";
+import {
+  pageTitle as indexClassificationPageTitle,
+  pageOutlineIcon as indexClassificationPageIcon,
+} from "~/pages/Classifications/IndexClassificationPage";
+import {
+  pageTitle as indexDepartmentPageTitle,
+  pageOutlineIcon as indexDepartmentPageIcon,
+} from "~/pages/Departments/IndexDepartmentPage";
+import {
+  pageTitle as indexSkillPageTitle,
+  pageOutlineIcon as indexSkillPageIcon,
+} from "~/pages/Skills/IndexSkillPage";
+import {
+  pageTitle as indexSkillFamilyPageTitle,
+  pageOutlineIcon as indexSkillFamilyPageIcon,
+} from "~/pages/SkillFamilies/IndexSkillFamilyPage";
 
 import MaintenanceBanner from "../MaintenanceBanner";
 import SkipLink from "../SkipLink";
 import SignInOrSignOut from "./SignInOrSignOut";
-
-type MenuItem = {
-  key: string;
-  href: string;
-  icon: IconType;
-  roles: RoleName[];
-  text: string;
-};
 
 interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
   show: boolean;
@@ -58,7 +81,7 @@ const OpenMenuButton = React.forwardRef<
       icon={Bars3Icon}
       onClick={onClick}
       type="button"
-      color="secondary"
+      color="black"
       data-h2-text-align="base(left)"
       data-h2-radius="base(0)"
       data-h2-align-self="base(flex-start)"
@@ -91,104 +114,6 @@ const AdminLayout = () => {
     }
   }, [isSmallScreen, setMenuOpen]);
 
-  const menuItems: MenuItem[] = [
-    {
-      key: "dashboard",
-      href: paths.adminDashboard(),
-      icon: HomeIcon,
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.RequestResponder,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-      ],
-      text: intl.formatMessage({
-        defaultMessage: "Dashboard",
-        id: "ArwIQV",
-        description: "Title for dashboard",
-      }),
-    },
-    {
-      key: "pools",
-      href: paths.poolTable(),
-      icon: Squares2X2Icon,
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-      ],
-      text: intl.formatMessage(adminMessages.pools),
-    },
-    {
-      key: "pool-candidates",
-      href: paths.poolCandidates(),
-      icon: IdentificationIcon,
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.RequestResponder,
-        ROLE_NAME.PlatformAdmin,
-      ],
-      text: intl.formatMessage(adminMessages.poolsCandidates),
-    },
-    {
-      key: "users",
-      href: paths.userTable(),
-      icon: UserIcon,
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.RequestResponder,
-        ROLE_NAME.PlatformAdmin,
-      ],
-      text: intl.formatMessage(adminMessages.users),
-    },
-    {
-      key: "requests",
-      href: paths.searchRequestTable(),
-      icon: TicketIcon,
-      roles: [ROLE_NAME.RequestResponder],
-      text: intl.formatMessage(adminMessages.requests),
-    },
-    {
-      key: "classifications",
-      href: paths.classificationTable(),
-      icon: PuzzlePieceIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMessages.classifications),
-    },
-    {
-      key: "teams",
-      href: paths.teamTable(),
-      icon: BuildingOffice2Icon,
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-      ],
-      text: intl.formatMessage(adminMessages.teams),
-    },
-    {
-      key: "departments",
-      href: paths.departmentTable(),
-      icon: BuildingOfficeIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMessages.departments),
-    },
-    {
-      key: "skill-families",
-      href: paths.skillFamilyTable(),
-      icon: CloudIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMessages.skillFamilies),
-    },
-    {
-      key: "skills",
-      href: paths.skillTable(),
-      icon: BoltIcon,
-      roles: [ROLE_NAME.PlatformAdmin],
-      text: intl.formatMessage(adminMessages.skills),
-    },
-  ];
-
   return (
     <>
       <Favicon locale={locale} project="admin" />
@@ -218,15 +143,142 @@ const AdminLayout = () => {
           open={isMenuOpen}
           footer={<SignInOrSignOut />}
         >
-          {menuItems.map((item) => (
-            <React.Fragment key={item.key}>
-              {checkRole(item.roles, roleAssignments) ? (
-                <SideMenuItem href={item.href} icon={item.icon} end>
-                  {item.text}
-                </SideMenuItem>
-              ) : null}
-            </React.Fragment>
-          ))}
+          <SideMenuButton
+            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+            onClick={() => setMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen
+              ? intl.formatMessage(uiMessages.closeMenu)
+              : intl.formatMessage(uiMessages.openMenu)}
+          </SideMenuButton>
+          {checkRole(
+            [
+              ROLE_NAME.PoolOperator,
+              ROLE_NAME.RequestResponder,
+              ROLE_NAME.CommunityManager,
+              ROLE_NAME.PlatformAdmin,
+            ],
+            roleAssignments,
+          ) && (
+            <SideMenuItem
+              href={paths.adminDashboard()}
+              icon={adminDashboardPageIcon}
+            >
+              {intl.formatMessage(adminDashboardPageTitle)}
+            </SideMenuItem>
+          )}
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Recruitment",
+              id: "G65IrS",
+              description: "The menu category for recruitment items",
+            })}
+          >
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem
+                href={paths.poolCandidates()}
+                icon={allPoolCandidatesPageIcon}
+              >
+                {intl.formatMessage(allPoolCandidatesPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.poolTable()} icon={indexPoolPageIcon}>
+                {intl.formatMessage(indexPoolPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
+                {intl.formatMessage(indexTeamPageTitle)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Requests",
+              id: "0D3ZhO",
+              description: "The menu category for requests items",
+            })}
+          >
+            {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
+              <SideMenuItem
+                href={paths.searchRequestTable()}
+                icon={indexSearchRequestPageIcon}
+              >
+                {intl.formatMessage(indexSearchRequestPageTitle)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
+          <SideMenuCategory
+            title={intl.formatMessage({
+              defaultMessage: "Platform data",
+              id: "bLcy4q",
+              description: "The menu category for platform data items",
+            })}
+          >
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.userTable()} icon={indexUserPageIcon}>
+                {intl.formatMessage(indexUserPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.classificationTable()}
+                icon={indexClassificationPageIcon}
+              >
+                {intl.formatMessage(indexClassificationPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.departmentTable()}
+                icon={indexDepartmentPageIcon}
+              >
+                {intl.formatMessage(indexDepartmentPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem href={paths.skillTable()} icon={indexSkillPageIcon}>
+                {intl.formatMessage(indexSkillPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.skillFamilyTable()}
+                icon={indexSkillFamilyPageIcon}
+              >
+                {intl.formatMessage(indexSkillFamilyPageTitle)}
+              </SideMenuItem>
+            )}
+          </SideMenuCategory>
         </SideMenu>
         <SideMenuContentWrapper>
           <div

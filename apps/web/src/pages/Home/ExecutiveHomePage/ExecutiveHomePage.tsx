@@ -30,7 +30,6 @@ import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
-import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 interface HomePageProps {
   pools: ExecutiveHomePageQuery["publishedPools"];
@@ -73,7 +72,6 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
       </HomeHero>
       <SkewedContainer>
-        <HolidayAlert />
         <Heading
           level="h2"
           size="h3"

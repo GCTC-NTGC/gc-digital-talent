@@ -797,6 +797,14 @@ const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
         id
         firstName
         lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
         poolCandidates {
           id
           status

@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
 
@@ -11,6 +12,7 @@ import {
   AssessmentResult,
   Maybe,
 } from "~/api/generated";
+import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 
 type DecisionInfo = {
   colorStyle: Record<string, string>;
@@ -19,11 +21,11 @@ type DecisionInfo = {
 };
 
 export const getDecisionInfo = (
-  decision: Maybe<AssessmentDecision> | undefined,
+  decision: Maybe<NullableDecision> | undefined,
   isApplicationStep: boolean,
   intl: IntlShape,
 ): DecisionInfo => {
-  if (!decision || decision === AssessmentDecision.NotSure) {
+  if (!decision || decision === NO_DECISION) {
     return {
       icon: ExclamationCircleIcon,
       colorStyle: {
@@ -34,6 +36,21 @@ export const getDecisionInfo = (
         id: "/+naWC",
         description:
           "Message displayed when candidate has yet to be assessed at a specific assessment step",
+      }),
+    };
+  }
+
+  if (decision === AssessmentDecision.Hold) {
+    return {
+      icon: PauseCircleIcon,
+      colorStyle: {
+        "data-h2-color": "base(warning)",
+      },
+      name: intl.formatMessage({
+        defaultMessage: "On hold",
+        id: "qA8+f5",
+        description:
+          "Message displayed when candidate was unsuccessful but put on hold",
       }),
     };
   }
@@ -81,19 +98,20 @@ export const getDecisionInfo = (
   };
 };
 
-export type ResultDecisionCounts = Record<AssessmentDecision, number>;
+export type ResultDecisionCounts = Record<NullableDecision, number>;
 
 export const getResultDecisionCount = (results: AssessmentResult[]) => {
   const stepAccumulation: ResultDecisionCounts = {
-    [AssessmentDecision.NotSure]: 0,
+    noDecision: 0,
+    [AssessmentDecision.Hold]: 0,
     [AssessmentDecision.Successful]: 0,
     [AssessmentDecision.Unsuccessful]: 0,
   };
 
   return results.reduce(
     (accumulator: ResultDecisionCounts, assessmentResult: AssessmentResult) => {
-      const decision: AssessmentDecision =
-        assessmentResult.assessmentDecision ?? AssessmentDecision.NotSure;
+      const decision: NullableDecision =
+        assessmentResult.assessmentDecision ?? NO_DECISION;
       return {
         ...accumulator,
         [decision]: accumulator[decision] + 1,
@@ -103,40 +121,78 @@ export const getResultDecisionCount = (results: AssessmentResult[]) => {
   );
 };
 
-export const decisionOrder: AssessmentDecision[] = [
-  AssessmentDecision.NotSure,
+export const decisionOrder: NullableDecision[] = [
+  NO_DECISION,
   AssessmentDecision.Successful,
+  AssessmentDecision.Hold,
   AssessmentDecision.Unsuccessful,
 ];
 
-export const sortResults = (
+const getBookmarkValue = (result: AssessmentResult & { ordinal?: number }) => {
+  return Number(result.poolCandidate?.isBookmarked);
+};
+const getDecisionValue = (result: AssessmentResult & { ordinal?: number }) => {
+  return decisionOrder.indexOf(result.assessmentDecision ?? NO_DECISION);
+};
+const getPriorityValue = (result: AssessmentResult & { ordinal?: number }) => {
+  return Number(result.poolCandidate?.user.hasPriorityEntitlement);
+};
+const getVeteranValue = (result: AssessmentResult & { ordinal?: number }) => {
+  return Number(
+    result.poolCandidate?.user.armedForcesStatus === ArmedForcesStatus.Veteran,
+  );
+};
+const compareLastNames = (
+  resultA: AssessmentResult & { ordinal?: number },
+  resultB: AssessmentResult & { ordinal?: number },
+) => {
+  const user1Name: string = resultA.poolCandidate?.user.lastName || "";
+  const user2Name: string = resultB.poolCandidate?.user.lastName || "";
+  return user1Name.localeCompare(user2Name);
+};
+const compareFirstNames = (
+  resultA: AssessmentResult & { ordinal?: number },
+  resultB: AssessmentResult & { ordinal?: number },
+) => {
+  const user1Name: string = resultA.poolCandidate?.user.firstName || "";
+  const user2Name: string = resultB.poolCandidate?.user.firstName || "";
+  return user1Name.localeCompare(user2Name);
+};
+
+/** Adds the ordinal for candidates based on their sort order ignoring bookmarks
+ * then resorts them with bookmarking and returns the result
+ */
+export const sortResultsAndAddOrdinal = (
   results: AssessmentResult[],
-): AssessmentResult[] => {
-  return results.sort((resultA, resultB) => {
-    const decisionA = decisionOrder.indexOf(
-      resultA.assessmentDecision ?? AssessmentDecision.NotSure,
-    );
-    const isPriorityA = Number(
-      resultA.poolCandidate?.user.hasPriorityEntitlement,
-    );
-    const isVetA = Number(
-      resultA.poolCandidate?.user.armedForcesStatus ===
-        ArmedForcesStatus.Veteran,
-    );
-
-    const decisionB = decisionOrder.indexOf(
-      resultB.assessmentDecision ?? AssessmentDecision.NotSure,
-    );
-    const isPriorityB = Number(
-      resultB.poolCandidate?.user.hasPriorityEntitlement,
-    );
-    const isVetB = Number(
-      resultB.poolCandidate?.user.armedForcesStatus ===
-        ArmedForcesStatus.Veteran,
-    );
-
+): (AssessmentResult & { ordinal: number })[] => {
+  // Do the first sort to determine order without bookmarking
+  const firstSortResults = results.sort((resultA, resultB) => {
     return (
-      decisionA - decisionB || isPriorityB - isPriorityA || isVetB - isVetA
+      getDecisionValue(resultA) - getDecisionValue(resultB) ||
+      getPriorityValue(resultB) - getPriorityValue(resultA) ||
+      getVeteranValue(resultB) - getVeteranValue(resultA) ||
+      compareLastNames(resultA, resultB) ||
+      compareFirstNames(resultA, resultB)
+    );
+  });
+
+  // Iterate through the results adding an ordinal based on index
+  const resultsWithOrdinal = firstSortResults.map((result, index) => {
+    return {
+      ...result,
+      ordinal: index + 1,
+    };
+  });
+
+  // Resort the results - this time using bookmarks as well
+  return resultsWithOrdinal.sort((resultA, resultB) => {
+    return (
+      getBookmarkValue(resultB) - getBookmarkValue(resultA) ||
+      getDecisionValue(resultA) - getDecisionValue(resultB) ||
+      getPriorityValue(resultB) - getPriorityValue(resultA) ||
+      getVeteranValue(resultB) - getVeteranValue(resultA) ||
+      compareLastNames(resultA, resultB) ||
+      compareFirstNames(resultA, resultB)
     );
   });
 };

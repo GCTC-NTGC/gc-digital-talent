@@ -9,6 +9,9 @@ import {
 } from "@gc-digital-talent/graphql";
 import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { Well } from "@gc-digital-talent/ui";
+
+import { NO_DECISION } from "~/utils/assessmentResults";
 
 import useLabels from "./useLabels";
 import { DialogType } from "./useDialogType";
@@ -24,7 +27,7 @@ type FormNames =
   | "assessmentDecisionLevel"
   | "otherJustificationNotes"
   | "skillDecisionNotes"
-  | "notesForThisAssessment"
+  | "assessmentNotes"
   | `justifications.${number}`;
 
 interface ScreeningDecisionDialogFormProps {
@@ -39,7 +42,7 @@ const ScreeningDecisionDialogForm = ({
   const labels = useLabels();
   const methods = useFormContext<FormValues>();
 
-  const { watch, resetField } = methods;
+  const { watch, resetField, setValue } = methods;
   const watchAssessmentDecision = watch("assessmentDecision");
   const watchJustifications = watch("justifications");
 
@@ -53,8 +56,9 @@ const ScreeningDecisionDialogForm = ({
     watchAssessmentDecision === AssessmentDecision.Successful;
   const isAssessmentDecisionUnSuccessful =
     watchAssessmentDecision === AssessmentDecision.Unsuccessful;
-  const isAssessmentDecisionNotSure =
-    watchAssessmentDecision === AssessmentDecision.NotSure;
+  const isAssessmentOnHold =
+    watchAssessmentDecision === AssessmentDecision.Hold;
+  const isAssessmentDecisionNotSure = watchAssessmentDecision === NO_DECISION;
 
   /**
    * Reset un-rendered fields
@@ -88,12 +92,20 @@ const ScreeningDecisionDialogForm = ({
         resetDirtyField("otherJustificationNotes");
       }
     }
+
+    if (isAssessmentOnHold) {
+      resetDirtyField("assessmentDecisionLevel");
+      resetDirtyField("skillDecisionNotes");
+      setValue("justifications", [AssessmentResultJustification.FailedOther]);
+    }
   }, [
     resetField,
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
     otherReasonSelected,
+    isAssessmentOnHold,
+    setValue,
   ]);
 
   const contextBlock = (messages: string[], key: string) => (
@@ -133,11 +145,11 @@ const ScreeningDecisionDialogForm = ({
       {dialogType === "GENERIC" && (
         <div data-h2-margin-bottom="base(x1)">
           <TextArea
-            id="notesForThisAssessment"
-            name="notesForThisAssessment"
+            id="assessmentNotes"
+            name="assessmentNotes"
             rows={TEXT_AREA_ROWS}
             wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.notesForThisAssessment}
+            label={labels.assessmentNotes}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
@@ -202,31 +214,42 @@ const ScreeningDecisionDialogForm = ({
         </div>
       )}
       {watchAssessmentDecision === AssessmentDecision.Unsuccessful && (
-        <>
-          <div data-h2-margin-bottom="base(x1)">
-            <Checklist
-              idPrefix="justifications"
-              name="justifications"
-              legend={labels.justification}
-              items={unsuccessfulOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </div>
-          {otherReasonSelected && (
-            <div data-h2-margin="base(x1, 0)">
-              <TextArea
-                id="otherJustificationNotes"
-                name="otherJustificationNotes"
-                rows={TEXT_AREA_ROWS}
-                wordLimit={TEXT_AREA_MAX_WORDS}
-                label={labels.other}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
-          )}
-        </>
+        <div data-h2-margin-bottom="base(x1)">
+          <Checklist
+            idPrefix="justifications"
+            name="justifications"
+            legend={labels.justification}
+            items={unsuccessfulOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        </div>
+      )}
+      {watchAssessmentDecision === AssessmentDecision.Hold && (
+        <Well fontSize="caption">
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Not sufficiently demonstrated in this assessment method - move to further testing. (Applicable only in instances where assessment scores are cumulative across assessment methods. Not applicable in cases where applicants must pass each essential criteria at each stage).",
+              id: "DOmsNQ",
+              description:
+                "Note for when an assessment was unsuccessful but put on hold",
+            })}
+          </p>
+        </Well>
+      )}
+      {otherReasonSelected && (
+        <div data-h2-margin="base(x1, 0)">
+          <TextArea
+            id="otherJustificationNotes"
+            name="otherJustificationNotes"
+            rows={TEXT_AREA_ROWS}
+            wordLimit={TEXT_AREA_MAX_WORDS}
+            label={labels.other}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+        </div>
       )}
     </>
   );

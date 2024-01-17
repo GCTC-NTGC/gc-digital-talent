@@ -187,6 +187,30 @@ export const wrapAbbr = (
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
+    case stringifyText.match("EX")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("EX"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    case stringifyText.match("PM")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("PM"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    case stringifyText.match("CS")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("CS"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
+    case stringifyText.match("EC")?.input:
+      return (
+        <abbr title={intl.formatMessage(getAbbreviations("EC"))}>
+          <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
+        </abbr>
+      );
     default:
       return (
         <abbr title={title ?? fallbackTitle}>

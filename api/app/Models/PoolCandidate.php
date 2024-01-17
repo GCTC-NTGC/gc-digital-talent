@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
+ * @property bool $is_bookmarked
  */
 class PoolCandidate extends Model
 {
@@ -82,6 +83,15 @@ class PoolCandidate extends Model
     ];
 
     protected $touches = ['user'];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_bookmarked' => false,
+    ];
 
     /**
      * The "booted" method of the model.

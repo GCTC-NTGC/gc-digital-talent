@@ -411,6 +411,10 @@
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
   },
+  "CF69qZ": {
+    "defaultMessage": "Administration des programmes",
+    "description": "Full name of abbreviation for PM"
+  },
   "CGNfbu": {
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
@@ -430,10 +434,6 @@
   "CtgfAw": {
     "defaultMessage": "Bourse postdoctorale",
     "description": "Postdoctoral Fellowship selection for education type input"
-  },
-  "D8JhKX": {
-    "defaultMessage": "Pas certain",
-    "description": "Option for assessment decision when manager is not sure."
   },
   "DPYoOj": {
     "defaultMessage": "Il y a une limite au nombre d’éléments que vous pouvez ajouter sur cette liste. Lorsque cette limite est atteinte, vous devrez supprimer un élément si vous voulez en ajouter un autre.",
@@ -491,6 +491,10 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
+  "GLRLYT": {
+    "defaultMessage": "Pas certain",
+    "description": "A decision has not been made"
+  },
   "Gc9PeN": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
     "description": "The operational requirement described as shift work."
@@ -530,6 +534,10 @@
   "HMXnoR": {
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
+  },
+  "HVMI8t": {
+    "defaultMessage": "Systèmes d'ordinateurs",
+    "description": "Full name of abbreviation for CS"
   },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
@@ -670,6 +678,10 @@
   "MBnBcY": {
     "defaultMessage": "Démonstration de compétences",
     "description": "Name of the skill showcase page"
+  },
+  "MMtY88": {
+    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MUjjf9": {
     "defaultMessage": "B",
@@ -986,6 +998,10 @@
   "W1Kt8D": {
     "defaultMessage": "Niveau 2 : Analyste",
     "description": "The name of the Technician Analyst role."
+  },
+  "W5Dkd1": {
+    "defaultMessage": "Économique et services de sciences sociales",
+    "description": "Full name of abbreviation for EC"
   },
   "WC5em7": {
     "defaultMessage": "Mon organisation",
@@ -1587,13 +1603,13 @@
     "defaultMessage": "Vétéran",
     "description": "Priority text for veterans"
   },
+  "oXrkBM": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Full name of abbreviation for EX"
+  },
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
     "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
-  },
-  "oxUjS3": {
-    "defaultMessage": "Non démontré",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment."
   },
   "pPPm5b": {
     "defaultMessage": "Moi",
@@ -1938,6 +1954,10 @@
   "zXRf0L": {
     "defaultMessage": "Mai",
     "description": "Name of the fifth month"
+  },
+  "zXkLL2": {
+    "defaultMessage": "Non démontrée (supprimée du processus)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zafWLP": {
     "defaultMessage": "Suspendu",
