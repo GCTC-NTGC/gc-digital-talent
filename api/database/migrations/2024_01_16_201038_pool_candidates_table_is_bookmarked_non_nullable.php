@@ -14,7 +14,7 @@ return new class extends Migration
     {
         DB::table('pool_candidates')->whereNull('is_bookmarked')->update(['is_bookmarked' => false]);
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->boolean('is_bookmarked')->default(false)->change();
+            $table->boolean('is_bookmarked')->nullable(false)->default(false)->change();
         });
     }
 
