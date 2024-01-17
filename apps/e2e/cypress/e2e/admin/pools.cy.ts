@@ -234,7 +234,7 @@ describe("Pools", () => {
 
     cy.wait("@gqlgetEditPoolDataQuery");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click();
+    cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Set a process number
     const processNumber = "process 123";
