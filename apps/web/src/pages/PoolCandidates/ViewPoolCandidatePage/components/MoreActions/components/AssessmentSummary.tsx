@@ -97,26 +97,22 @@ type TableRow = {
 };
 
 const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
-  const generateRowMarkup = (row: TableRow): JSX.Element => {
-    return (
-      <tr key={row.name}>
-        <td data-h2-padding="base(x.25 0 x.25 x1)">{row.name}</td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {row.results.successful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">
-          {row.results.unsuccessful}
-        </td>
-        <td data-h2-padding="base(x.25 0 x.25 x.25)">{row.results.hold}</td>
-      </tr>
-    );
-  };
-
-  const criteriaRows = data.map((row) => {
-    return generateRowMarkup(row);
-  });
-
-  return <tbody>{criteriaRows}</tbody>;
+  return (
+    <tbody>
+      {data.map((row) => (
+        <tr key={row.name}>
+          <td data-h2-padding="base(x.25 0 x.25 x1)">{row.name}</td>
+          <td data-h2-padding="base(x.25 0 x.25 x.25)">
+            {row.results.successful}
+          </td>
+          <td data-h2-padding="base(x.25 0 x.25 x.25)">
+            {row.results.unsuccessful}
+          </td>
+          <td data-h2-padding="base(x.25 0 x.25 x.25)">{row.results.hold}</td>
+        </tr>
+      ))}
+    </tbody>
+  );
 };
 
 // given a skill and array of results, return the score for that skill
