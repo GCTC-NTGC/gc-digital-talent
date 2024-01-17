@@ -1,12 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
-import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
-import { useMutation } from "urql";
 
-import { Board, Button, Link } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
-import { toast } from "@gc-digital-talent/toast";
+import { Board, Link } from "@gc-digital-talent/ui";
 
 import {
   ArmedForcesStatus,
@@ -16,6 +11,7 @@ import {
 } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 import useRoutes from "../../hooks/useRoutes";
 import { getDecisionInfo, sortResultsAndAddOrdinal } from "./utils";
 
@@ -55,12 +51,6 @@ const Priority = ({ type }: PriorityProps) => {
   );
 };
 
-const ToggleBookmark_Mutation = graphql(/** GraphQL */ `
-  mutation ToggleBookmark_Mutation($id: ID!) {
-    togglePoolCandidateBookmark(id: $id)
-  }
-`);
-
 interface AssessmentResultProps {
   result: AssessmentResultType & { ordinal: number };
   isApplicationStep: boolean;
@@ -72,11 +62,9 @@ const AssessmentResult = ({
 }: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [{ fetching: isUpdatingBookmark }, executeToggleBookmarkMutation] =
-    useMutation(ToggleBookmark_Mutation);
 
-  const [isBookmarked, setIsBookmarked] = React.useState(
-    result.poolCandidate?.isBookmarked,
+  const [isBookmarked, setIsBookmarked] = React.useState<boolean>(
+    result.poolCandidate?.isBookmarked ?? false,
   );
 
   // We should always have one, but if not, don't show anything
@@ -94,48 +82,6 @@ const AssessmentResult = ({
     "data-h2-width": "base(x.65)",
   };
 
-  const toggleBookmark = async () => {
-    if (result.poolCandidate?.id) {
-      await executeToggleBookmarkMutation({
-        id: result.poolCandidate.id,
-      })
-        .then((res) => {
-          setIsBookmarked(res.data?.togglePoolCandidateBookmark);
-          if (!res.error) {
-            if (res.data?.togglePoolCandidateBookmark === true) {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Candidate successfully bookmarked.",
-                  id: "neIH5o",
-                  description:
-                    "Alert displayed to the user when they mark a candidate as bookmarked.",
-                }),
-              );
-            } else {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Candidate's bookmark removed successfully.",
-                  id: "glBoRl",
-                  description:
-                    "Alert displayed to the user when they un-mark a candidate as bookmarked.",
-                }),
-              );
-            }
-          }
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Error: failed to update a candidate's bookmark.",
-              id: "9QJRRw",
-              description:
-                "Alert displayed to the user when failing to (un-)bookmark a candidate.",
-            }),
-          );
-        });
-    }
-  };
-
   return (
     <Board.ListItem>
       <div
@@ -149,49 +95,10 @@ const AssessmentResult = ({
           "data-h2-background-color": "base(primary.lightest)",
         })}
       >
-        <Button
-          mode="icon_only"
-          color={isBookmarked ? "primary" : "black"}
-          onClick={toggleBookmark}
-          disabled={isUpdatingBookmark}
-          icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-          aria-label={
-            isBookmarked
-              ? intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Remove {candidateName} bookmark from top of column.",
-                    id: "ISSs88",
-                    description:
-                      "Un-bookmark button label for applicant assessment tracking.",
-                  },
-                  {
-                    candidateName: getFullNameLabel(
-                      result.poolCandidate.user.firstName,
-                      result.poolCandidate.user.lastName,
-                      intl,
-                    ),
-                  },
-                )
-              : intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Bookmark {candidateName} to top of column.",
-                    id: "Gc5hcz",
-                    description:
-                      "Bookmark button label for applicant assessment tracking.",
-                  },
-                  {
-                    candidateName: getFullNameLabel(
-                      result.poolCandidate.user.firstName,
-                      result.poolCandidate.user.lastName,
-                      intl,
-                    ),
-                  },
-                )
-          }
-          data-h2-height="base(x.9)"
-          data-h2-width="base(x.9)"
+        <CandidateBookmark
+          candidate={result.poolCandidate}
+          bookmarked={isBookmarked}
+          onBookmarkChange={setIsBookmarked}
         />
         <span data-h2-flex-grow="base(1)">
           <Link

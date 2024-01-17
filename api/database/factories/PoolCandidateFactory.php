@@ -51,7 +51,7 @@ class PoolCandidateFactory extends Factory
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 1)
             ),
             'education_requirement_option' => $this->faker->randomElement(EducationRequirementOption::cases())->name,
-            'is_bookmarked' => $this->faker->optional(.8)->boolean(10),
+            'is_bookmarked' => $this->faker->boolean(10),
         ];
     }
 
