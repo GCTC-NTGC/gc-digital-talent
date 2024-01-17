@@ -5,9 +5,6 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
-  "bin": {
-    "check-intl": "./dist/cli.js"
-  },
   "files": [
     "dist/**"
   ],
