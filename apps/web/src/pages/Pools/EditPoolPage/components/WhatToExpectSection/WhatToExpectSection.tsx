@@ -5,7 +5,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -46,6 +46,7 @@ const WhatToExpectSection = ({
     isNull,
     emptyRequired: false,
     fallbackIcon: QuestionMarkCircleIcon,
+    optional: true,
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -110,10 +111,7 @@ const WhatToExpectSection = ({
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
+            <ToggleForm.NullDisplay />
           ) : (
             <Display pool={pool} subtitle={subtitle} />
           )}
@@ -156,7 +154,8 @@ const WhatToExpectSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save what to expect",
                       id: "wimmA1",
                       description:

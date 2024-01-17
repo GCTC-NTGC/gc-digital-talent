@@ -4,8 +4,6 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 
 type NullDisplayProps = {
-  title: React.ReactNode;
-  content: React.ReactNode;
   optional?: boolean;
 };
 

@@ -10,6 +10,7 @@ import EducationRequirements from "~/components/EducationRequirements/EducationR
 import { getClassificationGroup } from "~/utils/poolUtils";
 import { hasAllEmptyFields } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
 
@@ -27,11 +28,18 @@ const EducationRequirementsSection = ({
   const isNull = hasAllEmptyFields(pool);
   const { icon } = useToggleSectionInfo({
     isNull,
-    emptyRequired: false, // Not a required field
+    emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
-    optional: true,
   });
   const classificationGroup = getClassificationGroup(pool);
+  const { classifications } = pool;
+  const classification = classifications ? classifications[0] : null;
+
+  let classificationAbbr; // type wrangling the complex type into a string
+  if (classification) {
+    const { group, level } = classification;
+    classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
+  }
 
   const qualityStandardsLink = (chunks: React.ReactNode) => {
     const href =
@@ -60,13 +68,14 @@ const EducationRequirementsSection = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "The minimum education requirements provided in this section are determined by your choice of classification and level for this process (IT-03). They have been determined based on the <qualityStandardsLink>Government of Canada qualification standards.</qualityStandardsLink> These requirements can only be changed by <scrollToLink>selecting a different classification group and level.</scrollToLink>",
-            id: "QhwLwk",
+              "The minimum education requirements provided in this section are determined by your choice of classification and level for this process {classificationAbbr}. They have been determined based on the <qualityStandardsLink>Government of Canada qualification standards.</qualityStandardsLink> These requirements can only be changed by <scrollToLink>selecting a different classification group and level.</scrollToLink>",
+            id: "W5bt6H",
             description: "Lead-in text for a process' education requirements",
           },
           {
             qualityStandardsLink,
             scrollToLink,
+            classificationAbbr,
           },
         )}
       </p>

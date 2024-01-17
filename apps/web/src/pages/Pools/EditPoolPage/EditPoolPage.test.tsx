@@ -26,8 +26,12 @@ describe("EditPoolPage", () => {
 
     renderWithProviders(<EditPoolForm {...props} />);
 
-    await user.click(screen.getByRole("button", { name: /edit pool name/i }));
-    await user.click(screen.getByRole("button", { name: /save pool name/i }));
+    await user.click(
+      screen.getByRole("button", { name: /edit advertisement details/i }),
+    );
+    await user.click(
+      screen.getByRole("button", { name: /save advertisement details/i }),
+    );
 
     await user.click(
       screen.getByRole("button", { name: /edit closing date/i }),
@@ -45,10 +49,10 @@ describe("EditPoolPage", () => {
     await user.click(screen.getByRole("button", { name: /save work tasks/i }));
 
     await user.click(
-      screen.getByRole("button", { name: /edit other requirements/i }),
+      screen.getByRole("button", { name: /edit core requirements/i }),
     );
     await user.click(
-      screen.getByRole("button", { name: /save other requirements/i }),
+      screen.getByRole("button", { name: /save core requirements/i }),
     );
 
     await user.click(

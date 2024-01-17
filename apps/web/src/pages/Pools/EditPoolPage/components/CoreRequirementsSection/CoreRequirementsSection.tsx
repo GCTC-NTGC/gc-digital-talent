@@ -108,14 +108,7 @@ const CoreRequirementsSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
@@ -232,6 +225,11 @@ const CoreRequirementsSection = ({
                 {!formDisabled && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save core requirements",
+                      id: "Iu55iw",
+                      description: "Text on a button to save core requirements",
+                    })}
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}

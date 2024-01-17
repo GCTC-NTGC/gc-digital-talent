@@ -5,7 +5,7 @@ import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationCh
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -113,14 +113,7 @@ const YourImpactSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
@@ -159,7 +152,8 @@ const YourImpactSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save introduction",
                       id: "UduzGA",
                       description:

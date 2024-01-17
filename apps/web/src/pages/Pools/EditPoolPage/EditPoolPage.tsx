@@ -3,6 +3,7 @@ import { defineMessage, useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import {
   NotFound,
@@ -15,7 +16,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
@@ -39,7 +39,6 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
-import processMessages from "~/messages/processMessages";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
@@ -66,9 +65,7 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import ScreeningQuestions, {
-  type ScreeningQuestionsSubmitData,
-} from "./components/ScreeningQuestions";
+import { type ScreeningQuestionsSubmitData } from "./components/ScreeningQuestions";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -113,7 +110,6 @@ export const EditPoolForm = ({
   const paths = useRoutes();
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the ScreeningQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -211,6 +207,8 @@ export const EditPoolForm = ({
         id: "9NueBB",
         description: "Sub title for  skill requirements",
       }),
+      icon: skillRequirementsHasError ? ExclamationCircleIcon : CheckCircleIcon,
+      color: skillRequirementsHasError ? "error" : "success",
     },
     essentialSkills: {
       id: "essential-skills",
@@ -283,8 +281,9 @@ export const EditPoolForm = ({
         id: "T3aDLD",
         description: "Sub title for common questions",
       }),
-      icon: ExclamationCircleIcon,
-      color: "error",
+      icon: QuestionMarkCircleIcon,
+      color: "secondary",
+      status: "secondary",
     },
     whatToExpect: {
       id: "what-to-expect",
@@ -562,7 +561,7 @@ export const EditPoolForm = ({
                   <GeneralQuestions
                     pool={pool}
                     sectionMetadata={sectionMetadata.generalQuestions}
-                    onSave={() => {}}
+                    onSave={onSave}
                   />
                 </TableOfContents.Section>
               </div>

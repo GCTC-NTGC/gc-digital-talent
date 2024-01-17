@@ -5,7 +5,7 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -116,11 +116,7 @@ const SpecialNoteSection = ({
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
           {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content=""
-              optional
-            />
+            <ToggleForm.NullDisplay optional />
           ) : (
             <Display pool={pool} />
           )}
@@ -190,7 +186,8 @@ const SpecialNoteSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save special note",
                       id: "SH3WsZ",
                       description:

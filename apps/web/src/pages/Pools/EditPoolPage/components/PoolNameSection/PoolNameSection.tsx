@@ -6,6 +6,7 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  formMessages,
   getPublishingGroup,
   uiMessages,
 } from "@gc-digital-talent/i18n";
@@ -108,14 +109,7 @@ const PoolNameSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
@@ -161,8 +155,8 @@ const PoolNameSection = ({
                   name="specificTitleEn"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Job Title (EN)",
-                    id: "oD18m7",
+                    defaultMessage: "Job title (EN)",
+                    id: "XiODnT",
                     description:
                       "Label for a pool advertisements specific English title",
                   })}
@@ -173,8 +167,8 @@ const PoolNameSection = ({
                   name="specificTitleFr"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Job Title (FR)",
-                    id: "oSEimN",
+                    defaultMessage: "Job title (FR)",
+                    id: "bkAzZm",
                     description:
                       "Label for a pool advertisements specific French title",
                   })}
@@ -230,10 +224,12 @@ const PoolNameSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
-                      defaultMessage: "Save pool name",
-                      id: "bbIDc9",
-                      description: "Text on a button to save the pool name",
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save advertisement details",
+                      id: "sF6S0Z",
+                      description:
+                        "Text on a button to save advertisement details",
                     })}
                     color="secondary"
                     mode="solid"

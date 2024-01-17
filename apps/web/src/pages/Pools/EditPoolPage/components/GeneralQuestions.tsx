@@ -6,6 +6,12 @@ import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import { ToggleSection } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  CreateScreeningQuestionInput,
+  UpdatePoolInput,
+  UpdateScreeningQuestionInput,
+} from "@gc-digital-talent/graphql";
 
 import { LocalizedString, Pool, Scalars, PoolStatus } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -26,16 +32,15 @@ type FormValues = {
   questions?: Array<GeneralQuestionValue>;
 };
 
-// TODO: Uncomment once general questions is added to backend.
-// export type GeneralQuestionsSubmitData = Pick<
-//   UpdatePoolInput,
-//   "generalQuestions"
-// >;
+export type GeneralQuestionsSubmitData = Pick<
+  UpdatePoolInput,
+  "screeningQuestions" // TODO: Replaced with general questions after issue #8676
+>;
 
 interface GeneralQuestionsProps {
   pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
-  onSave: () => void;
+  onSave: (submitData: GeneralQuestionsSubmitData) => void;
 }
 
 const GeneralQuestions = ({
@@ -52,22 +57,23 @@ const GeneralQuestions = ({
   });
   const { isSubmitting } = useEditPoolContext();
 
-  // TODO: Uncomment once general questions is added to backend.
-  // const dataToFormValues = (initialData: Pool): FormValues => ({
-  //   questions:
-  //     initialData?.generalQuestions
-  //       ?.filter(notEmpty)
-  //       .map(({ id, question }) => ({
-  //         id: id || "new",
-  //         question: {
-  //           en: question?.en || "",
-  //           fr: question?.fr || "",
-  //         },
-  //       })) || [],
-  // });
-  // const defaultValues = dataToFormValues(pool);
+  const dataToFormValues = (initialData: Pool): FormValues => ({
+    questions:
+      initialData?.screeningQuestions
+        ?.filter(notEmpty)
+        .map(({ id, question }) => ({
+          id: id || "new",
+          question: {
+            en: question?.en || "",
+            fr: question?.fr || "",
+          },
+        })) || [],
+  });
+  const defaultValues = dataToFormValues(pool);
 
-  const methods = useForm<FormValues>();
+  const methods = useForm<FormValues>({
+    values: defaultValues,
+  });
   const { handleSubmit, control } = methods;
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -75,7 +81,43 @@ const GeneralQuestions = ({
   });
 
   const handleSave = (formValues: FormValues) => {
-    // TODO: add rest of mutation setup once general questions is added to backend
+    const create: Array<CreateScreeningQuestionInput> = [];
+    const update: Array<UpdateScreeningQuestionInput> = [];
+    const toBeDeleted = pool.screeningQuestions
+      ?.filter((existingQuestion) => {
+        return !formValues.questions?.some(
+          (question) =>
+            question.id === existingQuestion?.id && question.id !== "new",
+        );
+      })
+      .filter(notEmpty)
+      .map((q) => q.id);
+    formValues.questions?.forEach(({ id, question }, index) => {
+      const sortOrder = index + 1;
+      if (!id || id === "new") {
+        create.push({
+          question,
+          sortOrder,
+        });
+      } else {
+        update.push({
+          id,
+          question,
+          sortOrder,
+        });
+      }
+    });
+
+    onSave({
+      screeningQuestions: {
+        update,
+        create,
+        delete: toBeDeleted,
+      },
+    });
+    methods.reset(formValues, {
+      keepDirty: false,
+    });
   };
 
   // disabled unless status is draft
@@ -132,13 +174,7 @@ const GeneralQuestions = ({
 
   return (
     <>
-      <ToggleSection.Header
-        Icon={icon.icon}
-        color={icon.color}
-        level="h3"
-        size="h4"
-        data-h2-font-weight="base(bold)"
-      >
+      <ToggleSection.Header Icon={icon.icon} color={icon.color} level="h3">
         {sectionMetadata.title}
       </ToggleSection.Header>
       <p data-h2-margin="base(x1, 0)">

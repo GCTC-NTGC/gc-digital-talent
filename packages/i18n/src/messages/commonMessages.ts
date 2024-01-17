@@ -160,6 +160,11 @@ const commonMessages = defineMessages({
     id: "XZl6Ks",
     description: "Text to trigger edit of section action",
   },
+  edit: {
+    defaultMessage: "Edit",
+    id: "2wKf2U",
+    description: "Text to trigger edit action",
+  },
   notSure: {
     defaultMessage: "Not sure",
     id: "GLRLYT",

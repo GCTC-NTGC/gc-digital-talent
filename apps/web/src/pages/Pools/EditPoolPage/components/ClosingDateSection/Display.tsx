@@ -6,15 +6,13 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
-import { formatClosingDate } from "~/utils/poolUtils";
 
 import { DisplayProps } from "../../types";
 
-const Display = ({ pool, subtitle }: DisplayProps) => {
+const Display = ({ pool }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { closingDate } = pool;
-  const dates = formatClosingDate(closingDate, intl);
 
   return (
     <div
