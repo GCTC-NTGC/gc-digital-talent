@@ -42,7 +42,7 @@ WithResults.parameters = {
     },
   },
   apiResponses: {
-    CountApplicantsAndCountPoolCandidatesByPool: {
+    CountApplicants: {
       data: {
         countApplicants: faker.number.int({ max: 50 }),
         countPoolCandidatesByPool: poolResponse.map((pool) => ({
