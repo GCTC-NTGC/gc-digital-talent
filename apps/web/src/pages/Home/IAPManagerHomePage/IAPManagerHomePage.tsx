@@ -1,7 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Button, Heading, Link } from "@gc-digital-talent/ui";
+
+import logoImg from "~/assets/img/iap-logo.svg";
+import heroImg from "~/assets/img/IAPManager-Hero.webp";
+import section1Img from "~/assets/img/IAPManager-Section-01.webp";
+import section1FlourishImg from "~/assets/img/IAPManager-Section-01-flourish.webp";
+import section2Img from "~/assets/img/IAPManager-Section-02.webp";
+import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.webp";
+import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
+import section5Img from "~/assets/img/IAPManager-Section-05.webp";
+import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
+
+import { RadiatingCircles, Triangle } from "../IAPHomePage/components/Svg";
 
 const placeholderLink = (chunks: React.ReactNode) => (
   <Link href="about:blank">{chunks}</Link>
@@ -11,42 +23,99 @@ export const IAPManagerHomePage = () => {
   const intl = useIntl();
   return (
     <>
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Aurora Borealis, a natural light display in the northern skies.",
-          id: "F9wG8s",
-          description:
-            "Description of a decorative image of the aurora borealis",
-        })}
-      </div>
+      <div
+        data-h2-width="base(100%)"
+        data-h2-position="base(relative)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+      >
+        <img
+          data-h2-display="base(block)"
+          data-h2-layer="base(1, relative)"
+          data-h2-width="base(100%)"
+          data-h2-order="base(2)"
+          src={heroImg}
+          alt={intl.formatMessage({
+            defaultMessage:
+              "Aurora Borealis, a natural light display in the northern skies.",
+            id: "F9wG8s",
+            description:
+              "Description of a decorative image of the aurora borealis",
+          })}
+        />
+        <div
+          data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
+          data-h2-layer="base(2, relative)"
+          data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
+          data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
+          data-h2-height="laptop(0)"
+          data-h2-overflow="laptop(visible)"
+          data-h2-width="base(100%)"
+        >
+          <div
+            data-h2-align-items="p-tablet(center)"
+            data-h2-display="p-tablet(flex)"
+            data-h2-gap="p-tablet(x1)"
+            data-h2-max-width="base(x23) laptop(x28)"
+            data-h2-margin="base(0 auto)"
+            data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
+          >
+            <img
+              src={logoImg}
+              alt=""
+              data-h2-display="base(block)"
+              data-h2-margin="base(0, auto, x.5, auto)"
+              data-h2-width="base(x4) laptop(x7)"
+            />
+            <div
+              data-h2-text-align="base(center) p-tablet(left)"
+              data-h2-color="base:all(white)"
+            >
+              <h1
+                data-h2-font-size="base(h3, 1.2)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Hire an IT apprentice",
+                  id: "39RER8",
+                  description: "Page title for IAP manager homepage",
+                })}
+              </h1>
+              <p
+                data-h2-font-size="base(caption)"
+                data-h2-font-weight="base(bold)"
+                data-h2-margin-top="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Together we can address barriers to Reconciliation, diversity and inclusion",
+                  id: "mtLAap",
+                  description: "Hero subtitle for IAP manager homepage",
+                })}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          data-h2-padding="base(x1, x2)"
+          data-h2-position="base(relative) p-tablet(absolute)"
+          data-h2-layer="base(1, relative) p-tablet(2, absolute)"
+          data-h2-location="p-tablet(auto, auto, 20%, 50%)"
+          data-h2-min-width="base(x12)"
+          data-h2-order="base(3)"
+          data-h2-transform="p-tablet(translateX(-50%))"
+        >
+          <Button>
+            {intl.formatMessage({
+              defaultMessage: "Contact the team",
+              id: "gJ7CQw",
+              description: "Link to send an email to the team",
+            })}
+          </Button>
 
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Hire an IT apprentice",
-          id: "39RER8",
-          description: "Page title for IAP manager homepage",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Together we can address barriers to Reconciliation, diversity and inclusion",
-          id: "mtLAap",
-          description: "Hero subtitle for IAP manager homepage",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Contact the team",
-          id: "gJ7CQw",
-          description: "Link to send an email to the team",
-        })}
-      </div>
-
-      <div>
+          {/*
+          email template
+           <div>
         {intl.formatMessage({
           defaultMessage: "I'm interested in offering an apprenticeship",
           id: "HqtjhD",
@@ -97,419 +166,597 @@ export const IAPManagerHomePage = () => {
           description: "Paragraph 5 of a manager's email for apprenticeship",
         })}
       </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Download the manager’s package",
-          id: "sDqpzq",
-          description: "Call to action to download the manager's package",
-        })}
+      */}
+          <Button>
+            {intl.formatMessage({
+              defaultMessage: "Download the manager’s package",
+              id: "sDqpzq",
+              description: "Call to action to download the manager's package",
+            })}
+          </Button>
+        </div>
       </div>
 
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Indigenous woman exchanging virtually with apprentices on a laptop.",
-          id: "QDDnVO",
-          description:
-            "Description of a decorative image of a woman and a laptop",
-        })}
+      {/* about the program section */}
+      <div data-h2-layer="base(1, relative)">
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div
+            data-h2-position="base(relative)"
+            data-h2-location="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
+          >
+            <div
+              data-h2-padding="p-tablet(x2) l-tablet(x3)"
+              data-h2-background-color="base(white) base:dark(background)"
+              data-h2-radius="base(iap-home-card)"
+            >
+              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+                <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+                  <div
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                  >
+                    <div
+                      data-h2-radius="base(100rem)"
+                      data-h2-height="base(x8)"
+                      data-h2-width="base(x8)"
+                      data-h2-background-color="base(primary.1) base:dark(primary.light.3)"
+                      data-h2-position="base(absolute)"
+                      data-h2-location="base(-x1.5, -x1, auto, auto)"
+                    />
+                    <div
+                      data-h2-radius="base(100rem)"
+                      data-h2-height="base(x15)"
+                      data-h2-width="base(x15)"
+                      data-h2-background-color="base(secondary.1) base:dark(secondary.light.3)"
+                      data-h2-position="base(absolute)"
+                      data-h2-location="base(auto, auto, -x3, -x5.5)"
+                    />
+                    <img
+                      src={section1Img}
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "Indigenous woman exchanging virtually with apprentices on a laptop.",
+                        id: "QDDnVO",
+                        description:
+                          "Description of a decorative image of a woman and a laptop",
+                      })}
+                      data-h2-min-height="base(60vh) p-tablet(initial)"
+                      data-h2-height="p-tablet(100%)"
+                      data-h2-width="p-tablet(100%)"
+                      data-h2-position="base(relative)"
+                      style={{
+                        objectFit: "cover",
+                      }}
+                    />
+                    <img
+                      src={section1FlourishImg}
+                      alt={intl.formatMessage({
+                        defaultMessage:
+                          "traditional handmade artwork of a beaded flower and leaves.",
+                        id: "7WF1vv",
+                        description:
+                          "Description of a decorative image of some beaded artwork",
+                      })}
+                      data-h2-position="base(absolute)"
+                      data-h2-width="base(150%)"
+                      data-h2-location="base(auto, -15%, 0, auto)"
+                      style={{
+                        maxWidth: "initial",
+                        transform: "translate(0, 60%)",
+                      }}
+                    />
+                  </div>
+                </div>
+                <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
+                  <Heading
+                    data-h2-font-size="base(h3, 1)"
+                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                    data-h2-text-align="base(center) p-tablet(left)"
+                    data-h2-layer="base(1, relative)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About the program",
+                      id: "+DMD0L",
+                      description: "Title of the 'About the program' section",
+                    })}
+                  </Heading>
+                  <p data-h2-margin="base(x2, 0, x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The IT Apprenticeship Program for Indigenous Peoples is an innovative Government of Canada initiative that provides a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology.",
+                      id: "D3mwyg",
+                      description:
+                        "Paragraph 1 of the 'About the program' section",
+                    })}
+                  </p>
+                  <p data-h2-margin="base(x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Linked directly to the advancement of Reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
+                      id: "0Ew2uu",
+                      description:
+                        "Paragraph 2 of the 'About the program' section",
+                    })}
+                  </p>
+                  <p data-h2-margin="base(x1, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This program removes one of the biggest barriers to employment by placing value in a person’s potential rather than on their education attainment level. In doing so, this initiative contributes to closing educational, employment, and economic gaps faced by Indigenous Peoples in Canada.",
+                      id: "Rk1i9Q",
+                      description:
+                        "Paragraph 3 of the 'About the program' section",
+                    })}
+                  </p>
+                  <p data-h2-margin="base(x1, 0)">
+                    <div>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The Office of Indigenous Initiatives (OII) is the team that supports the program.",
+                        id: "1C9UWI",
+                        description:
+                          "Paragraph 4 of the 'About the program' section",
+                      })}
+                    </div>
+                  </p>
+                  <div data-h2-margin="base(x2, 0, 0, 0)">
+                    <Button>
+                      {intl.formatMessage({
+                        defaultMessage: "Download the manager’s package",
+                        id: "sDqpzq",
+                        description:
+                          "Call to action to download the manager's package",
+                      })}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* how the program works section */}
       <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "traditional handmade artwork of a beaded flower and leaves.",
-          id: "7WF1vv",
-          description:
-            "Description of a decorative image of some beaded artwork",
-        })}
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(3of7)"
+                data-h2-order="p-tablet(2)"
+              >
+                <div
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
+                  data-h2-position="base(relative)"
+                >
+                  <RadiatingCircles
+                    data-h2-color="base(secondary.light.5) base:dark(secondary.light)"
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(110%)"
+                    data-h2-location="base(-x2, -x12, auto, auto)"
+                  />
+                  <img
+                    src={section2Img}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Indigenous man working with his policy team using a laptop.",
+                      id: "wW4ymk",
+                      description:
+                        "Description of a decorative image of a man and a laptop",
+                    })}
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
+                  <img
+                    src={section2FlourishImg}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
+                      id: "P40FEe",
+                      description:
+                        "Description of a decorative image of a hummingbird",
+                    })}
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(140%)"
+                    data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
+                  />
+                </div>
+              </div>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-order="p-tablet(1)"
+              >
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "How the program works",
+                    id: "u7IbDO",
+                    description: "Title of the 'How the program works' section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Hired as a term employee",
+                    id: "e5xrSy",
+                    description:
+                      "Title of the 'Hired as a term employee' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Indigenous apprentices are hired by a host organization at the entry level of the IT group (IT-01 or equivalent) for a 24-month term.",
+                    id: "oES0/4",
+                    description:
+                      "Paragraph 1 of the 'Hired as a term employee' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Work integrated learning and IT training",
+                    id: "xb4jXA",
+                    description:
+                      "Title of the 'Work integrated learning and IT training' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Over the course of the 24 months, apprentices learn on-the-job with a peer partner (4 days per week) and follow a curated self-paced online training curriculum (1 day per week) as part of their development.",
+                    id: "0IZsNR",
+                    description:
+                      "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Circle of Support",
+                    id: "D5Hqhf",
+                    description: "Title of the 'Circle of Support' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Due to the nature of the Apprenticeship, the program has developed a unique circle of supports for apprentices. These include a peer partner for job shadowing and day-to-day support, as well as a mentor who provides experienced guidance.",
+                    id: "TB5Pnf",
+                    description:
+                      "Paragraph 1 of the 'Circle of Support' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Additional supports include Sharing Circles, access to an IT Training Support Advisor, and Apprentice Success Facilitators. While the Facilitators are principally a resource for Apprentices, they are also a support system for Managers and Supervisors.",
+                    id: "f3KZGn",
+                    description:
+                      "Paragraph 2 of the 'Circle of Support' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Digital certificate credential",
+                    id: "+AnEvv",
+                    description:
+                      "Title of the 'Digital certificate credential' subsection",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "After successfully completing the apprenticeship, graduates are issued a digital certificate and a portable verifiable credential. It is endorsed by the Chief Information Officer of Canada and formally recognized as meeting the <link>GC Qualification Standard alternative for the IT Occupational Group</link>.",
+                      id: "LzJpQo",
+                      description:
+                        "Paragraph 1 of the 'Digital certificate credential' subsection",
+                    },
+                    {
+                      link: placeholderLink,
+                    },
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "About the program",
-          id: "+DMD0L",
-          description: "Title of the 'About the program' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "The IT Apprenticeship Program for Indigenous Peoples is an innovative Government of Canada initiative that provides a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology.",
-          id: "D3mwyg",
-          description: "Paragraph 1 of the 'About the program' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Linked directly to the advancement of Reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
-          id: "0Ew2uu",
-          description: "Paragraph 2 of the 'About the program' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "This program removes one of the biggest barriers to employment by placing value in a person’s potential rather than on their education attainment level. In doing so, this initiative contributes to closing educational, employment, and economic gaps faced by Indigenous Peoples in Canada.",
-          id: "Rk1i9Q",
-          description: "Paragraph 3 of the 'About the program' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "The Office of Indigenous Initiatives (OII) is the team that supports the program.",
-          id: "1C9UWI",
-          description: "Paragraph 4 of the 'About the program' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Download the manager’s package",
-          id: "sDqpzq",
-          description: "Call to action to download the manager's package",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "How the program works",
-          id: "u7IbDO",
-          description: "Title of the 'How the program works' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Hired as a term employee",
-          id: "e5xrSy",
-          description: "Title of the 'Hired as a term employee' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Indigenous apprentices are hired by a host organization at the entry level of the IT group (IT-01 or equivalent) for a 24-month term.",
-          id: "oES0/4",
-          description:
-            "Paragraph 1 of the 'Hired as a term employee' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Work integrated learning and IT training",
-          id: "xb4jXA",
-          description:
-            "Title of the 'Work integrated learning and IT training' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Over the course of the 24 months, apprentices learn on-the-job with a peer partner (4 days per week) and follow a curated self-paced online training curriculum (1 day per week) as part of their development.",
-          id: "0IZsNR",
-          description:
-            "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Circle of Support",
-          id: "D5Hqhf",
-          description: "Title of the 'Circle of Support' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Due to the nature of the Apprenticeship, the program has developed a unique circle of supports for apprentices. These include a peer partner for job shadowing and day-to-day support, as well as a mentor who provides experienced guidance.",
-          id: "TB5Pnf",
-          description: "Paragraph 1 of the 'Circle of Support' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Additional supports include Sharing Circles, access to an IT Training Support Advisor, and Apprentice Success Facilitators. While the Facilitators are principally a resource for Apprentices, they are also a support system for Managers and Supervisors.",
-          id: "f3KZGn",
-          description: "Paragraph 2 of the 'Circle of Support' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Digital certificate credential",
-          id: "+AnEvv",
-          description:
-            "Title of the 'Digital certificate credential' subsection",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage(
-          {
+      {/* Testimonial section */}
+      <div
+        data-h2-layer="base(1, relative)"
+        data-h2-margin="p-tablet(x2, 0, 0, 0)"
+        data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
+        style={{
+          backgroundImage: `url(${testimonials})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right 10% center",
+        }}
+      >
+        <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
+          <Heading
+            data-h2-color="base:all(white)"
+            data-h2-text-align="base(center)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "What we're hearing",
+              id: "okRYhl",
+              description: "Title of a quotes section",
+            })}
+          </Heading>
+          {intl.formatMessage({
             defaultMessage:
-              "After successfully completing the apprenticeship, graduates are issued a digital certificate and a portable verifiable credential. It is endorsed by the Chief Information Officer of Canada and formally recognized as meeting the <link>GC Qualification Standard alternative for the IT Occupational Group</link>.",
-            id: "LzJpQo",
+              "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+            id: "YSnedz",
             description:
-              "Paragraph 1 of the 'Digital certificate credential' subsection",
-          },
-          {
-            link: placeholderLink,
-          },
-        )}
-      </div>
-
-      <div>
-        {intl.formatMessage(
-          {
+              "Quote from Darcy Pierlot about working with apprentices",
+          })}
+          {intl.formatMessage({
             defaultMessage:
-              "Indigenous man working with his policy team using a laptop.",
-            id: "wW4ymk",
+              "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
+            id: "T4xKEw",
             description:
-              "Description of a decorative image of a man and a laptop",
-          },
-          {
-            link: placeholderLink,
-          },
-        )}
+              "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
+          })}
+        </div>
       </div>
 
+      {/* ready for IT section */}
       <div>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
-            id: "P40FEe",
-            description: "Description of a decorative image of a hummingbird",
-          },
-          {
-            link: placeholderLink,
-          },
-        )}
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-order="p-tablet(1)"
+              >
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Indigenous talent ready for IT apprenticeships",
+                    id: "8n9opI",
+                    description:
+                      "Title for the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The OII is dedicated to bringing Indigenous talent into the GC's IT workforce and simplifying the hiring process for you.",
+                    id: "fHEsA5",
+                    description:
+                      "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "You will receive candidates who have:",
+                    id: "SeJ1eB",
+                    description:
+                      "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Been interviewed",
+                    id: "Wvybds",
+                    description:
+                      "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Been fully assessed against the IT Apprenticeship Program for Indigenous People’s Statement of Merit Criteria and found qualified for the role of an IT-01 (or equivalent) apprentice",
+                    id: "q0oPjr",
+                    description:
+                      "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "A valid Reliability security status",
+                    id: "k1uZ7o",
+                    description:
+                      "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "A personal record identifier (PRI)",
+                    id: "yaf/jx",
+                    description:
+                      "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "How to begin hiring an apprentice",
+                    id: "UJPrY7",
+                    description:
+                      "Title for the 'How to begin hiring an apprentice' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download the manager’s package for more information and then contact the team to get the process started.",
+                    id: "zvXWQB",
+                    description:
+                      "Paragraph 1 for the 'How to begin hiring an apprentice' section",
+                  })}
+                </p>
+
+                <Button>
+                  {intl.formatMessage({
+                    defaultMessage: "Download the package",
+                    id: "iGXXjP",
+                    description:
+                      "Call to action to download the manager's package",
+                  })}
+                </Button>
+                <Button>
+                  {intl.formatMessage({
+                    defaultMessage: "Hire an apprentice",
+                    id: "qlVBtp",
+                    description: "Link to send an email to the team",
+                  })}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "What we're hearing",
-          id: "okRYhl",
-          description: "Title of a quotes section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-          id: "YSnedz",
-          description:
-            "Quote from Darcy Pierlot about working with apprentices",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
-          id: "T4xKEw",
-          description:
-            "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Indigenous talent ready for IT apprenticeships",
-          id: "8n9opI",
-          description:
-            "Title for the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "The OII is dedicated to bringing Indigenous talent into the GC's IT workforce and simplifying the hiring process for you.",
-          id: "fHEsA5",
-          description:
-            "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "You will receive candidates who have:",
-          id: "SeJ1eB",
-          description:
-            "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Been interviewed",
-          id: "Wvybds",
-          description:
-            "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Been fully assessed against the IT Apprenticeship Program for Indigenous People’s Statement of Merit Criteria and found qualified for the role of an IT-01 (or equivalent) apprentice",
-          id: "q0oPjr",
-          description:
-            "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "A valid Reliability security status",
-          id: "k1uZ7o",
-          description:
-            "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "A personal record identifier (PRI)",
-          id: "yaf/jx",
-          description:
-            "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "How to begin hiring an apprentice",
-          id: "UJPrY7",
-          description:
-            "Title for the 'How to begin hiring an apprentice' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Download the manager’s package for more information and then contact the team to get the process started.",
-          id: "zvXWQB",
-          description:
-            "Paragraph 1 for the 'How to begin hiring an apprentice' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Download the package",
-          id: "iGXXjP",
-          description: "Call to action to download the manager's package",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Hire an apprentice",
-          id: "qlVBtp",
-          description: "Link to send an email to the team",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Indigenous woman taking a break from her program delivery work on a laptop.",
-          id: "EtOnRo",
-          description:
-            "Description of a decorative image of a woman and a laptop",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Indigenous talking stick, which represents respect in many Indigenous communities.",
-          id: "+tGYjC",
-          description: "Description of a decorative image of a talking stick",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "A commitment to diverse digital talent",
-          id: "29o8/W",
-          description:
-            "Title of the 'A commitment to diverse digital talent' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
-          id: "eSzizR",
-          description:
-            "Paragraph 1 of the 'A commitment to diverse digital talent' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
-          id: "HyNRz8",
-          description:
-            "Paragraph 2 of the 'A commitment to diverse digital talent' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Graduates and advanced talent",
-          id: "MZChNU",
-          description: "Title of the 'Graduates and advanced talent' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "Are you looking to hire a graduate from the program or Indigenous talent for more senior positions in IT? Contact our team to discuss potential graduate placements and advanced talent referrals.",
-          id: "lDnHjr",
-          description:
-            "Paragraph 1 of the 'Graduates and advanced talent' section",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "Contact the team",
-          id: "gJ7CQw",
-          description: "Link to send an email to the team",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "I'm interested in hiring a graduate/advanced talent",
-          id: "WpA63g",
-          description: "Subject line of a manager's email for apprenticeship",
-        })}
+      {/* commitment and graduates section */}
+      <div data-h2-layer="base(2, relative)" data-h2-margin="base(x2, 0, 0, 0)">
+        <div
+          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-position="base(relative)"
+        >
+          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+              <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+                <div
+                  data-h2-height="p-tablet(100%)"
+                  data-h2-width="p-tablet(100%)"
+                  data-h2-position="base(relative)"
+                >
+                  <Triangle
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(120%)"
+                    data-h2-color="base(secondary) base:dark(secondary.light)"
+                    data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
+                  />
+                  <img
+                    src={section5Img}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Indigenous woman taking a break from her program delivery work on a laptop.",
+                      id: "EtOnRo",
+                      description:
+                        "Description of a decorative image of a woman and a laptop",
+                    })}
+                    data-h2-min-height="base(60vh) p-tablet(initial)"
+                    data-h2-height="p-tablet(100%)"
+                    data-h2-width="p-tablet(100%)"
+                    data-h2-position="base(relative)"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
+                  <img
+                    src={section5FlourishImg}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Indigenous talking stick, which represents respect in many Indigenous communities.",
+                      id: "+tGYjC",
+                      description:
+                        "Description of a decorative image of a talking stick",
+                    })}
+                    data-h2-display="base(block) p-tablet(none)"
+                    data-h2-position="base(absolute)"
+                    data-h2-width="base(x20)"
+                    data-h2-location="base(auto, -30%, -10%, auto)"
+                  />
+                </div>
+              </div>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-position="base(relative)"
+              >
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "A commitment to diverse digital talent",
+                    id: "29o8/W",
+                    description:
+                      "Title of the 'A commitment to diverse digital talent' section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
+                    id: "eSzizR",
+                    description:
+                      "Paragraph 1 of the 'A commitment to diverse digital talent' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
+                    id: "HyNRz8",
+                    description:
+                      "Paragraph 2 of the 'A commitment to diverse digital talent' section",
+                  })}
+                </p>
+                <Heading
+                  data-h2-font-size="base(h3, 1)"
+                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-text-align="base(center) p-tablet(left)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Graduates and advanced talent",
+                    id: "MZChNU",
+                    description:
+                      "Title of the 'Graduates and advanced talent' section",
+                  })}
+                </Heading>
+                <p data-h2-margin="base(x2, 0, x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Are you looking to hire a graduate from the program or Indigenous talent for more senior positions in IT? Contact our team to discuss potential graduate placements and advanced talent referrals.",
+                    id: "lDnHjr",
+                    description:
+                      "Paragraph 1 of the 'Graduates and advanced talent' section",
+                  })}
+                </p>
+                <p data-h2-margin="base(x1, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "I'm interested in hiring a graduate/advanced talent",
+                    id: "WpA63g",
+                    description:
+                      "Subject line of a manager's email for apprenticeship",
+                  })}
+                </p>
+                <Button>
+                  {intl.formatMessage({
+                    defaultMessage: "Contact the team",
+                    id: "gJ7CQw",
+                    description: "Link to send an email to the team",
+                  })}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
