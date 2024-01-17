@@ -274,7 +274,6 @@ type ScreeningQuestion {
   pool: Pool
   question: LocalizedString
   sortOrder: Int
-  screeningQuestionResponses: [ScreeningQuestionResponse]
 }
 
 type Pool {
