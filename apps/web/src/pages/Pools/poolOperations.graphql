@@ -53,6 +53,8 @@ query GetBasicPoolInfo($poolId: UUID!) {
       group
       level
     }
+    publishedAt
+    isComplete
   }
 }
 
