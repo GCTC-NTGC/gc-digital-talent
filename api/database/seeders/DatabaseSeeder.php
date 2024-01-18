@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
 
         // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
-            ->count(75)
+            ->count(10000)
             ->withExperiences()
             ->asGovEmployee()
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
 
         // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
-            ->count(75)
+            ->count(10000)
             ->withExperiences()
             ->asGovEmployee(false)
             ->afterCreating(function (User $user) use ($faker, $digitalTalentPool) {
