@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "build": "env NODE_ENV=production tsup",
-    "build:intl-cli": "npm run build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsup",
     "watch": "tsup --watch",
