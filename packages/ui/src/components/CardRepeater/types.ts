@@ -5,6 +5,7 @@ export type BaseItem = Record<string, any>;
 export type ItemWithId<T> = T & { id: string };
 
 export type CardRepeaterContextProps<T extends BaseItem = BaseItem> = {
+  id?: string;
   defaultItems?: ItemWithId<T>[];
   items: ItemWithId<T>[];
   locked?: number[];

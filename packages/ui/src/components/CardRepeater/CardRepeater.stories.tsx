@@ -132,7 +132,11 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   };
 
   return (
-    <CardRepeater.Root<CardItem> items={items} onUpdate={handleUpdate}>
+    <CardRepeater.Root<CardItem>
+      items={items}
+      onUpdate={handleUpdate}
+      add={<AddDialog />}
+    >
       {items.map((item, index) => (
         <CardRepeater.Card
           key={item.id}
@@ -142,7 +146,6 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
           {item.value}
         </CardRepeater.Card>
       ))}
-      <AddDialog />
     </CardRepeater.Root>
   );
 };

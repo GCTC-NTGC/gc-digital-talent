@@ -37,7 +37,9 @@ const DisabledAction = () => (
   </span>
 );
 
-type CardProps = {
+export const CARD_CLASS_NAME = "Card__Repeater";
+
+export type CardProps = {
   index: number;
   children: React.ReactNode;
   edit?: React.ReactNode;
@@ -48,7 +50,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
-  const { move, remove, total, items } = useCardRepeaterContext();
+  const { move, remove, total, items, id } = useCardRepeaterContext();
   const item = items?.[index];
   if (!item) return null;
 
@@ -92,7 +94,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
   };
 
   return (
-    <motion.div
+    <motion.li
       layout
       transition={
         shouldReduceMotion
@@ -103,13 +105,22 @@ const Card = ({ index, edit, error, children }: CardProps) => {
               duration: 0.4,
             }
       }
+      className={CARD_CLASS_NAME}
+      id={`${id}-${item.id}`}
+      tabIndex={-1}
       data-h2-background-color="base(foreground)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(medium)"
       data-h2-radius="base(s)"
+      data-h2-outline="base(none)"
+      data-h2-border-top="base(x.5 solid secondary)"
       {...(!error
-        ? { "data-h2-border-top": "base(x.5 solid secondary)" }
-        : { "data-h2-border-top": "base(x.5 solid error)" })}
+        ? {
+            "data-h2-border-color": "base(secondary) base:focus-visible(focus)",
+          }
+        : {
+            "data-h2-border-color": "base(error) base:focus-visible(focus)",
+          })}
     >
       <div
         data-h2-align-items="base(center)"
@@ -177,7 +188,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
         </Actions>
       </div>
       {children}
-    </motion.div>
+    </motion.li>
   );
 };
 
