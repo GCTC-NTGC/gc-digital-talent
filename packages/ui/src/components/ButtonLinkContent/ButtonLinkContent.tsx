@@ -177,6 +177,7 @@ const ButtonLinkContent = ({
         data-h2-align-items="base(center)"
       >
         {Icon && <Icon {...iconSize} data-h2-vertical-align="base(middle)" />}
+        <span data-h2-visually-hidden="base(invisible)">{children}</span>
       </span>
     );
   }
