@@ -13,7 +13,7 @@ import List from "./List";
 
 type RootProps<T extends BaseItem> = Omit<
   CardRepeaterProviderProps<T>,
-  "children"
+  "children" | "id"
 > & {
   children?: React.ReactElement<CardProps> | React.ReactElement<CardProps>[];
   add?: React.ReactNode;

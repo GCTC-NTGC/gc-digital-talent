@@ -16,7 +16,10 @@ export const CardRepeaterProvider = <T extends BaseItem>({
   defaultItems,
   items: itemsProp,
   onUpdate: onUpdateProp,
-  ...rest
+  id,
+  locked,
+  max,
+  messages,
 }: CardRepeaterProviderProps<T>) => {
   const [items, setItems] = useControllableState<ItemWithId<T>[]>({
     controlledProp: itemsProp,
@@ -28,9 +31,12 @@ export const CardRepeaterProvider = <T extends BaseItem>({
     () => ({
       items: items ?? [],
       onUpdate: (newItems: ItemWithId<T>[]) => setItems(newItems),
-      ...rest,
+      id,
+      locked,
+      max,
+      messages,
     }),
-    [rest, items, setItems],
+    [items, id, locked, max, messages, setItems],
   );
 
   return (

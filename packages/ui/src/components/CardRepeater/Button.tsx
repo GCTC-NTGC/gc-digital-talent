@@ -52,12 +52,13 @@ export const Add = React.forwardRef<
 >(({ children, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { max, total } = useCardRepeaterContext();
-  const reachedMax = total === max;
+  const reachedMax = Boolean(max && total === max);
 
   return (
     <Button
       ref={forwardedRef}
       icon={PlusCircleIcon}
+      disabled={reachedMax}
       type="button"
       mode="placeholder"
       block

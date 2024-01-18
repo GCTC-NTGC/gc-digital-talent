@@ -133,6 +133,7 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
 
   return (
     <CardRepeater.Root<CardItem>
+      {...args}
       items={items}
       onUpdate={handleUpdate}
       add={<AddDialog />}
@@ -150,24 +151,32 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   );
 };
 
+const defaultItems = [
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
+];
+
 export const WithItems = Template.bind({});
 WithItems.args = {
-  items: [
-    {
-      id: faker.string.uuid(),
-      value: faker.company.name(),
-    },
-    {
-      id: faker.string.uuid(),
-      value: faker.company.name(),
-    },
-    {
-      id: faker.string.uuid(),
-      value: faker.company.name(),
-    },
-    {
-      id: faker.string.uuid(),
-      value: faker.company.name(),
-    },
-  ],
+  items: defaultItems,
+};
+
+export const MaxItems = Template.bind({});
+MaxItems.args = {
+  ...WithItems.args,
+  max: 4,
 };

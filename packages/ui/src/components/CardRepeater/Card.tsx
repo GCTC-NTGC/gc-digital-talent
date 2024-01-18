@@ -29,9 +29,13 @@ const Actions = ({ children }: ActionsProps) => (
 const DisabledAction = () => (
   <span
     aria-hidden
+    data-h2-display="base(block)"
     data-h2-color="base(gray)"
-    data-h2-width="base(x.75)"
-    data-h2-display="base(inline-block)"
+    data-h2-height="base(x.975)"
+    data-h2-radius="base(100%)"
+    data-h2-width="base(x.975)"
+    data-h2-text-align="base(center)"
+    data-h2-vertical-align="base(middle)"
   >
     &bull;
   </span>
@@ -131,23 +135,19 @@ const Card = ({ index, edit, error, children }: CardProps) => {
       >
         <Actions>
           {/* UP ARROW */}
-          <Action
-            onClick={decrement}
-            animation={!shouldReduceMotion ? "translate-up" : "none"}
-            aria-label={intl.formatMessage(formMessages.repeaterMove, {
-              from: index,
-              to: position - 1,
-            })}
-            {...(disableDecrement
-              ? {
-                  mode: "inline",
-                  disabled: true,
-                  children: <DisabledAction />,
-                }
-              : {
-                  icon: ArrowUpIcon,
-                })}
-          />
+          {!disableDecrement ? (
+            <Action
+              onClick={decrement}
+              animation={!shouldReduceMotion ? "translate-up" : "none"}
+              icon={ArrowUpIcon}
+              aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                from: position,
+                to: position - 1,
+              })}
+            />
+          ) : (
+            <DisabledAction />
+          )}
           {/* INDEX */}
           <span
             aria-hidden="true"
@@ -157,23 +157,19 @@ const Card = ({ index, edit, error, children }: CardProps) => {
             {position}
           </span>
           {/* DOWN ARROW */}
-          <Action
-            onClick={increment}
-            animation={!shouldReduceMotion ? "translate-up" : "none"}
-            aria-label={intl.formatMessage(formMessages.repeaterMove, {
-              from: index,
-              to: position - 1,
-            })}
-            {...(disableIncrement
-              ? {
-                  mode: "inline",
-                  disabled: true,
-                  children: <DisabledAction />,
-                }
-              : {
-                  icon: ArrowDownIcon,
-                })}
-          />
+          {!disableIncrement ? (
+            <Action
+              onClick={increment}
+              animation={!shouldReduceMotion ? "translate-up" : "none"}
+              icon={ArrowDownIcon}
+              aria-label={intl.formatMessage(formMessages.repeaterMove, {
+                from: position,
+                to: position + 1,
+              })}
+            />
+          ) : (
+            <DisabledAction />
+          )}
         </Actions>
         <Actions>
           {edit}
