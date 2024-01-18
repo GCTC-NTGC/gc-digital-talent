@@ -61,7 +61,7 @@ final class UUID extends ScalarType
      * Check if the string is a UUID
      *
      * @param  mixed  $value  A value that may be a UUID
-     * @return  string A valid UUID
+     * @return string A valid UUID
      *
      * @throws \GraphQL\Error\InvariantViolation|\GraphQL\Error\Error
      */
