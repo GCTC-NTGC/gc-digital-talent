@@ -1,10 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
+import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 
-import { Button, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { Button, Heading, Link, Well } from "@gc-digital-talent/ui";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
@@ -642,7 +643,10 @@ export const IAPManagerHomePage = () => {
           data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+          <div
+            data-h2-padding="p-tablet(x2) l-tablet(x3)"
+            data-h2-margin="base(0, 0, 0, 0) p-tablet(0, 0, x2, 0)"
+          >
             <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
               <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                 <div
@@ -652,9 +656,10 @@ export const IAPManagerHomePage = () => {
                 >
                   <Triangle
                     data-h2-position="base(absolute)"
+                    data-h2-location="base(-x1.5, -x1, auto, auto)"
+                    style={{ transform: "rotate(90deg) translate(20%, -25%)" }}
                     data-h2-width="base(120%)"
-                    data-h2-color="base(secondary) base:dark(secondary.light)"
-                    data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
+                    data-h2-color="base(primary.darker) base:dark(primary.darker)"
                   />
                   <img
                     src={section5Img}
@@ -682,10 +687,9 @@ export const IAPManagerHomePage = () => {
                       description:
                         "Description of a decorative image of a talking stick",
                     })}
-                    data-h2-display="base(block) p-tablet(none)"
                     data-h2-position="base(absolute)"
-                    data-h2-width="base(x20)"
-                    data-h2-location="base(auto, -30%, -10%, auto)"
+                    data-h2-location="base(auto, auto, -x4, -x1)"
+                    data-h2-width="base(150%)"
                   />
                 </div>
               </div>
@@ -695,7 +699,8 @@ export const IAPManagerHomePage = () => {
               >
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-margin="base(x5, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+                  data-h2-color="base(primary.darker)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
                   {intl.formatMessage({
@@ -705,7 +710,7 @@ export const IAPManagerHomePage = () => {
                       "Title of the 'A commitment to diverse digital talent' section",
                   })}
                 </Heading>
-                <p data-h2-margin="base(x2, 0, x1, 0)">
+                <p data-h2-margin="base(x1, 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
                       "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
@@ -714,18 +719,21 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 of the 'A commitment to diverse digital talent' section",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
-                    id: "HyNRz8",
-                    description:
-                      "Paragraph 2 of the 'A commitment to diverse digital talent' section",
-                  })}
-                </p>
+                <Well>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
+                      id: "HyNRz8",
+                      description:
+                        "Paragraph 2 of the 'A commitment to diverse digital talent' section",
+                    })}
+                  </p>
+                </Well>
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-margin="base(x2, 0, x2, 0) p-tablet(x2, 0, 0, 0)"
+                  data-h2-color="base(primary.darker)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
                   {intl.formatMessage({
@@ -735,7 +743,7 @@ export const IAPManagerHomePage = () => {
                       "Title of the 'Graduates and advanced talent' section",
                   })}
                 </Heading>
-                <p data-h2-margin="base(x2, 0, x1, 0)">
+                <p data-h2-margin="base(x1 0, x1, 0)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Are you looking to hire a graduate from the program or Indigenous talent for more senior positions in IT? Contact our team to discuss potential graduate placements and advanced talent referrals.",
@@ -744,22 +752,29 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 of the 'Graduates and advanced talent' section",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "I'm interested in hiring a graduate/advanced talent",
-                    id: "WpA63g",
-                    description:
-                      "Subject line of a manager's email for apprenticeship",
-                  })}
-                </p>
-                <Button>
+                <Link
+                  external
+                  mode="solid"
+                  icon={EnvelopeSolid}
+                  color="primary"
+                  href={buildMailtToUri(
+                    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+                    intl.formatMessage({
+                      defaultMessage:
+                        "I'm interested in hiring a graduate/advanced talent",
+                      id: "WpA63g",
+                      description:
+                        "Subject line of a manager's email for apprenticeship",
+                    }),
+                  )}
+                  data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+                >
                   {intl.formatMessage({
                     defaultMessage: "Contact the team",
                     id: "gJ7CQw",
                     description: "Link to send an email to the team",
                   })}
-                </Button>
+                </Link>
               </div>
             </div>
           </div>
