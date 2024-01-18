@@ -482,10 +482,14 @@ export const IAPManagerHomePage = () => {
           backgroundPosition: "right 10% center",
         }}
       >
-        <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
+        <div
+          data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)"
+          data-h2-color="base:all(white)"
+        >
           <Heading
-            data-h2-color="base:all(white)"
+            level="h4"
             data-h2-text-align="base(center)"
+            data-h2-padding-bottom="base(x2)"
           >
             {intl.formatMessage({
               defaultMessage: "What we're hearing",
@@ -493,20 +497,28 @@ export const IAPManagerHomePage = () => {
               description: "Title of a quotes section",
             })}
           </Heading>
-          {intl.formatMessage({
-            defaultMessage:
-              "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-            id: "YSnedz",
-            description:
-              "Quote from Darcy Pierlot about working with apprentices",
-          })}
-          {intl.formatMessage({
-            defaultMessage:
-              "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
-            id: "T4xKEw",
-            description:
-              "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
-          })}
+          <p
+            data-h2-padding-bottom="base(x1)"
+            data-h2-font-weight="base(bold)"
+            data-h2-font-size="base(h2)"
+          >
+            {intl.formatMessage({
+              defaultMessage:
+                "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+              id: "YSnedz",
+              description:
+                "Quote from Darcy Pierlot about working with apprentices",
+            })}
+          </p>
+          <p data-h2-font-weight="base(bold)">
+            {intl.formatMessage({
+              defaultMessage:
+                "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
+              id: "T4xKEw",
+              description:
+                "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
+            })}
+          </p>
         </div>
       </div>
 
