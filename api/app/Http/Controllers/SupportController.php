@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class SupportController extends Controller
 {
     public function createTicket(Request $request)
     {
         if (! config('freshdesk.api.tickets_endpoint') || ! config('freshdesk.api.key')) {
+            Log::error('Attempted to create a ticket with missing config values.');
+
             return response([
                 'apiResponse' => 'Missing parameters',
-            ], 422);
+            ], 500);
         }
         $parameters = [
             'description' => $request->input('description'),
@@ -45,9 +48,11 @@ class SupportController extends Controller
                 'serviceResponse' => $response->json(),
             ], 200);
         } else {
+            Log::error('Error when trying to create a ticket: '.$response->getBody(true));
+
             return response([
                 'serviceResponse' => $response->json(),
-            ], 400);
+            ], 500);
         }
     }
 }
