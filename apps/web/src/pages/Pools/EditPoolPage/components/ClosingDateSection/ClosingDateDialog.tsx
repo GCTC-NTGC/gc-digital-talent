@@ -55,8 +55,8 @@ const ClosingDateDialog = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59PM Pacific time</strong> on the date you select. When shown to applicants, we ask them to apply on or before the date you’ve chosen to avoid confusion around time zones.",
-                id: "tsipyc",
+                  "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59PM Pacific time</strong> on the date you select. When shown to applicants, we ask them to apply on or before the date you've chosen to avoid confusion around time zones.",
+                id: "9EnhFG",
                 description: "First paragraph for the pool closing date dialog",
               })}
             </p>

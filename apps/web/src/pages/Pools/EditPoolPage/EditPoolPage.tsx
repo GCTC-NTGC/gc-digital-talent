@@ -203,8 +203,8 @@ export const EditPoolForm = ({
       }),
       subtitle: intl.formatMessage({
         defaultMessage:
-          "Skill requirements are categorized as either being <strong>essential</strong> (the candidate absolutely requires this skill) or <strong>asset</strong> (the skill would be helpful but isn’t required). Skill criteria will be presented to the applicant based on a combination of the skill’s essential/asset status and whether or not the skill will be assessed as a part of their application.",
-        id: "9NueBB",
+          "Skill requirements are categorized as either being <strong>essential</strong> (the candidate absolutely requires this skill) or <strong>asset</strong> (the skill would be helpful but isn't required). Skill criteria will be presented to the applicant based on a combination of the skill's essential/asset status and whether or not the skill will be assessed as a part of their application.",
+        id: "Qibs21",
         description: "Sub title for  skill requirements",
       }),
       icon: skillRequirementsHasError ? ExclamationCircleIcon : CheckCircleIcon,
@@ -240,8 +240,8 @@ export const EditPoolForm = ({
       }),
       subtitle: intl.formatMessage({
         defaultMessage:
-          "This section focuses on information that provides the applicant with context for the type of work they’ll be doing, who they’ll be working with, as well as the way the role impacts Canadians.",
-        id: "HrrQJb",
+          "This section focuses on information that provides the applicant with context for the type of work they'll be doing, who they'll be working with, as well as the way the role impacts Canadians.",
+        id: "229QXZ",
         description: "Sub title for basic information",
       }),
       icon: aboutRoleHasError ? ExclamationCircleIcon : CheckCircleIcon,
