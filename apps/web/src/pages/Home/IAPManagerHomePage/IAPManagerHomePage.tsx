@@ -18,6 +18,7 @@ import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.web
 import packageEnDoc from "~/assets/documents/ITAPIP.Manager.Package.Text_FINAL_with.frame.docx";
 
 import { RadiatingCircles, Triangle } from "../IAPHomePage/components/Svg";
+import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const placeholderUrl = "about:blank";
 const placeholderLink = (chunks: React.ReactNode) => (
@@ -202,21 +203,11 @@ export const IAPManagerHomePage = () => {
                     data-h2-width="p-tablet(100%)"
                     data-h2-position="base(relative)"
                   >
-                    <div
-                      data-h2-radius="base(100rem)"
-                      data-h2-height="base(x8)"
-                      data-h2-width="base(x8)"
-                      data-h2-background-color="base(primary.1) base:dark(primary.light.3)"
+                    <TopRightFrame
                       data-h2-position="base(absolute)"
-                      data-h2-location="base(-x1.5, -x1, auto, auto)"
-                    />
-                    <div
-                      data-h2-radius="base(100rem)"
-                      data-h2-height="base(x15)"
-                      data-h2-width="base(x15)"
-                      data-h2-background-color="base(secondary.1) base:dark(secondary.light.3)"
-                      data-h2-position="base(absolute)"
-                      data-h2-location="base(auto, auto, -x3, -x5.5)"
+                      data-h2-width="base(80%)"
+                      data-h2-color="base(secondary) base:dark(secondary.light)"
+                      data-h2-location="base(-1.5rem, -1.5rem, auto, auto)"
                     />
                     <img
                       src={section1Img}
@@ -245,21 +236,18 @@ export const IAPManagerHomePage = () => {
                           "Description of a decorative image of some beaded artwork",
                       })}
                       data-h2-position="base(absolute)"
-                      data-h2-width="base(150%)"
-                      data-h2-location="base(auto, -15%, 0, auto)"
-                      style={{
-                        maxWidth: "initial",
-                        transform: "translate(0, 60%)",
-                      }}
+                      data-h2-width="base(180px)"
+                      data-h2-location="base(9rem, auto, auto, -7rem)"
                     />
                   </div>
                 </div>
                 <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
                   <Heading
                     data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(0, 0, 0, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
                     data-h2-layer="base(1, relative)"
+                    data-h2-color="base(primary.darker)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "About the program",
@@ -267,7 +255,7 @@ export const IAPManagerHomePage = () => {
                       description: "Title of the 'About the program' section",
                     })}
                   </Heading>
-                  <p data-h2-margin="base(x2, 0, x1, 0)">
+                  <p data-h2-margin="base(x1, 0, x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "The IT Apprenticeship Program for Indigenous Peoples is an innovative Government of Canada initiative that provides a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology.",
@@ -305,16 +293,20 @@ export const IAPManagerHomePage = () => {
                       })}
                     </div>
                   </p>
-                  <div data-h2-margin="base(x2, 0, 0, 0)">
-                    <Button>
-                      {intl.formatMessage({
-                        defaultMessage: "Download the manager’s package",
-                        id: "sDqpzq",
-                        description:
-                          "Call to action to download the manager's package",
-                      })}
-                    </Button>
-                  </div>
+
+                  <Link
+                    mode="solid"
+                    external
+                    href={locale === "en" ? packageEnDoc : placeholderUrl}
+                    color="primary"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Download the manager’s package",
+                      id: "sDqpzq",
+                      description:
+                        "Call to action to download the manager's package",
+                    })}
+                  </Link>
                 </div>
               </div>
             </div>
