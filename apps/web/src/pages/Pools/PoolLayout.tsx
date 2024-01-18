@@ -2,12 +2,17 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
-import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
+import {
+  getAdvertisementStatus,
+  getFullPoolTitleLabel,
+  getPoolCompletenessBadge,
+  useAdminPoolPages,
+} from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -24,6 +29,9 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
   const poolTitle = getFullPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
+  const advertisementStatus = getAdvertisementStatus(pool);
+  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+
   return (
     <>
       <SEO title={currentPage?.title} />
@@ -37,6 +45,16 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
             url: page.link.url,
           })),
         }}
+        contentRight={
+          <Pill
+            bold
+            mode="outline"
+            color={advertisementBadge.color}
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(advertisementBadge.label)}
+          </Pill>
+        }
       />
     </>
   );

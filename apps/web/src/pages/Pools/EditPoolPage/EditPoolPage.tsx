@@ -75,10 +75,6 @@ import WhatToExpectSection, {
 import EditPoolContext from "./components/EditPoolContext";
 import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
-import {
-  getAdvertisementStatus,
-  getPoolCompletenessBadge,
-} from "../../../utils/poolUtils";
 import GeneralQuestions from "./components/GeneralQuestions";
 
 export type PoolSubmitData =
@@ -108,8 +104,6 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-  const advertisementStatus = getAdvertisementStatus(pool);
-  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -314,47 +308,9 @@ export const EditPoolForm = ({
       "Text on a link to navigate back to the process information page",
   });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: paths.poolTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create a new recruitment",
-        id: "6vv9yq",
-        description: "Breadcrumb title for the create new pool page link.",
-      }),
-      url: paths.poolCreate(),
-    },
-  ];
-
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
-      <AdminHero
-        title={pageTitle}
-        subtitle={pageSubtitle}
-        contentRight={
-          <Pill
-            bold
-            mode="outline"
-            color={advertisementBadge.color}
-            data-h2-flex-shrink="base(0)"
-          >
-            {intl.formatMessage(advertisementBadge.label)}
-          </Pill>
-        }
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
       <AdminContentWrapper>
         <div data-h2-container="base(left, large, 0)">
           <TableOfContents.Wrapper>
