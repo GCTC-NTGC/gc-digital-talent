@@ -41,7 +41,7 @@ class AuditQueryMiddleware
         $end = hrtime(true);
         $elapsedTime = ($end - $start) / 1000000000;
 
-        if ($elapsedTime > 0.25) {
+        if ($elapsedTime > 15) {
             $this->logger->info(
                 'Slow query',
                 [
