@@ -1,7 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
+import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 
 import { Button, Heading, Link } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
@@ -12,168 +15,168 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
+import packageEnDoc from "~/assets/documents/ITAPIP.Manager.Package.Text_FINAL_with.frame.docx";
 
 import { RadiatingCircles, Triangle } from "../IAPHomePage/components/Svg";
 
+const placeholderUrl = "about:blank";
 const placeholderLink = (chunks: React.ReactNode) => (
-  <Link href="about:blank">{chunks}</Link>
+  <Link href={placeholderUrl}>{chunks}</Link>
 );
+
+function buildMailtToUri(
+  emailAddres: string,
+  subject: string,
+  body?: string | null,
+) {
+  const encodedSubject = encodeURIComponent(subject);
+  let linkBuilder = `mailto:${emailAddres}?subject=${encodedSubject}`;
+  if (body) {
+    const encodedBody = encodeURIComponent(body);
+    linkBuilder += `&body=${encodedBody}`;
+  }
+  return linkBuilder;
+}
 
 export const IAPManagerHomePage = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   return (
     <>
       <div
+        // hero wrapper
         data-h2-width="base(100%)"
-        data-h2-position="base(relative)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
+        style={{
+          backgroundImage: `url(${heroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "right 10% center",
+        }}
       >
-        <img
-          data-h2-display="base(block)"
-          data-h2-layer="base(1, relative)"
-          data-h2-width="base(100%)"
-          data-h2-order="base(2)"
-          src={heroImg}
-          alt={intl.formatMessage({
-            defaultMessage:
-              "Aurora Borealis, a natural light display in the northern skies.",
-            id: "F9wG8s",
-            description:
-              "Description of a decorative image of the aurora borealis",
-          })}
-        />
         <div
-          data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
-          data-h2-layer="base(2, relative)"
-          data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
-          data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
-          data-h2-height="laptop(0)"
-          data-h2-overflow="laptop(visible)"
-          data-h2-width="base(100%)"
+          // content wrapper
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          // x4 bottom padding + overlap
+          data-h2-padding="base(x4, 0, x4, 0) base(x4, 0, x7, 0) base(x4, 0, x8, 0)"
+          data-h2-gap="base(x2)"
+          data-h2-align-items="base(center)"
+          data-h2-min-width="base(x12)"
         >
           <div
-            data-h2-align-items="p-tablet(center)"
-            data-h2-display="p-tablet(flex)"
-            data-h2-gap="p-tablet(x1)"
+            // title wrapper
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-align-items="base(center)"
+            data-h2-gap="base(x1)"
             data-h2-max-width="base(x23) laptop(x28)"
-            data-h2-margin="base(0 auto)"
-            data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
+            data-h2-text-align="base(center)"
+            data-h2-color="base:all(white)"
           >
             <img
               src={logoImg}
               alt=""
               data-h2-display="base(block)"
-              data-h2-margin="base(0, auto, x.5, auto)"
-              data-h2-width="base(x4) laptop(x7)"
+              data-h2-width="base(235px)"
             />
-            <div
-              data-h2-text-align="base(center) p-tablet(left)"
-              data-h2-color="base:all(white)"
+            <h1
+              data-h2-font-size="base(h3, 1.2)"
+              data-h2-font-weight="base(bold)"
             >
-              <h1
-                data-h2-font-size="base(h3, 1.2)"
-                data-h2-font-weight="base(bold)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Hire an IT apprentice",
-                  id: "39RER8",
-                  description: "Page title for IAP manager homepage",
-                })}
-              </h1>
-              <p
-                data-h2-font-size="base(caption)"
-                data-h2-font-weight="base(bold)"
-                data-h2-margin-top="base(x.5)"
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Together we can address barriers to Reconciliation, diversity and inclusion",
-                  id: "mtLAap",
-                  description: "Hero subtitle for IAP manager homepage",
-                })}
-              </p>
-            </div>
+              {intl.formatMessage({
+                defaultMessage: "Hire an IT apprentice",
+                id: "39RER8",
+                description: "Page title for IAP manager homepage",
+              })}
+            </h1>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Together we can address barriers to Reconciliation, diversity and inclusion",
+                id: "mtLAap",
+                description: "Hero subtitle for IAP manager homepage",
+              })}
+            </p>
           </div>
-        </div>
-        <div
-          data-h2-padding="base(x1, x2)"
-          data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-layer="base(1, relative) p-tablet(2, absolute)"
-          data-h2-location="p-tablet(auto, auto, 20%, 50%)"
-          data-h2-min-width="base(x12)"
-          data-h2-order="base(3)"
-          data-h2-transform="p-tablet(translateX(-50%))"
-        >
-          <Button>
-            {intl.formatMessage({
-              defaultMessage: "Contact the team",
-              id: "gJ7CQw",
-              description: "Link to send an email to the team",
-            })}
-          </Button>
+          <div
+            // call to action wrapper
+            data-h2-min-width="base(x12)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x1)"
+          >
+            <Link
+              external
+              mode="cta"
+              icon={EnvelopeIcon}
+              color="primary"
+              href={buildMailtToUri(
+                "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+                intl.formatMessage({
+                  defaultMessage:
+                    "I'm interested in offering an apprenticeship",
+                  id: "HqtjhD",
+                  description:
+                    "Subject line of a manager's email for apprenticeship",
+                }),
+                [
+                  intl.formatMessage({
+                    defaultMessage:
+                      "To best support you in your journey to hire an IT Apprentice, please let us know if you",
+                    id: "ZKss5S",
+                    description:
+                      "Paragraph 1 of a manager's email for apprenticeship",
+                  }),
+                  intl.formatMessage({
+                    defaultMessage:
+                      "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
+                    id: "ipKAvI",
+                    description:
+                      "Paragraph 2 of a manager's email for apprenticeship",
+                  }),
+                  intl.formatMessage({
+                    defaultMessage:
+                      "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
+                    id: "18pJdz",
+                    description:
+                      "Paragraph 3 of a manager's email for apprenticeship",
+                  }),
+                  intl.formatMessage({
+                    defaultMessage: "3. Other…",
+                    id: "Fz49kD",
+                    description:
+                      "Paragraph 4 of a manager's email for apprenticeship",
+                  }),
+                  intl.formatMessage({
+                    defaultMessage:
+                      "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
+                    id: "x45gSl",
+                    description:
+                      "Paragraph 5 of a manager's email for apprenticeship",
+                  }),
+                ].join("\n"),
+              )}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Contact the team",
+                id: "gJ7CQw",
+                description: "Link to send an email to the team",
+              })}
+            </Link>
 
-          {/*
-          email template
-           <div>
-        {intl.formatMessage({
-          defaultMessage: "I'm interested in offering an apprenticeship",
-          id: "HqtjhD",
-          description: "Subject line of a manager's email for apprenticeship",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "To best support you in your journey to hire an IT Apprentice, please let us know if you",
-          id: "ZKss5S",
-          description: "Paragraph 1 of a manager's email for apprenticeship",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
-          id: "ipKAvI",
-          description: "Paragraph 2 of a manager's email for apprenticeship",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
-          id: "18pJdz",
-          description: "Paragraph 3 of a manager's email for apprenticeship",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage: "3. Other…",
-          id: "Fz49kD",
-          description: "Paragraph 4 of a manager's email for apprenticeship",
-        })}
-      </div>
-
-      <div>
-        {intl.formatMessage({
-          defaultMessage:
-            "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
-          id: "x45gSl",
-          description: "Paragraph 5 of a manager's email for apprenticeship",
-        })}
-      </div>
-      */}
-          <Button>
-            {intl.formatMessage({
-              defaultMessage: "Download the manager’s package",
-              id: "sDqpzq",
-              description: "Call to action to download the manager's package",
-            })}
-          </Button>
+            <Link
+              external
+              mode="cta"
+              icon={ArrowDownTrayIcon}
+              href={locale === "en" ? packageEnDoc : placeholderUrl}
+              color="primary"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Download the manager’s package",
+                id: "sDqpzq",
+                description: "Call to action to download the manager's package",
+              })}
+            </Link>
+          </div>
         </div>
       </div>
 
