@@ -43,7 +43,7 @@ return [
             // Logs every incoming GraphQL query.
             // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
 
-            // Logs incoming GraphQL queries made by an admin
+            // Logs incoming GraphQL queries made by an admin, as well as mark slow queries
             App\Http\Middleware\AuditQueryMiddleware::class,
 
             // Throttles based on RateLimiter in RouteServiceProvider.

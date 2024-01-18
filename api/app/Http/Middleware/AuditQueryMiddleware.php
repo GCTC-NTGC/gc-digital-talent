@@ -36,6 +36,30 @@ class AuditQueryMiddleware
             );
         }
 
+        // with logging - test query
+        // timing (browser waiting) 16.12, 14.86, 15.78 seconds
+        // logger timing 16.04, 14.80, 15.72 seconds
+
+        // without logging - test query
+        // timing (browser waiting) 15.98, 16.08, 15.98 seconds
+
+        // $start = hrtime(true);
+        // $result = $next($request);
+        // $end = hrtime(true);
+        // $elapsedTime = ($end - $start) / 1000000000;
+
+        // if ($elapsedTime > 0.25) {
+        //     $this->logger->info(
+        //         'Slow query',
+        //         [
+        //             'request' => $request->json()->all(),
+        //             'elapsed_seconds' => $elapsedTime,
+        //         ]
+        //     );
+        // }
+
+        // return $result;
+
         return $next($request);
     }
 }
