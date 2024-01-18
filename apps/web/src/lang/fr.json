@@ -283,6 +283,10 @@
     "defaultMessage": "S’engager à apprendre tout au long du programme, tant au travail qu’en suivant un programme de formation en ligne",
     "description": "IAP Requirement list item five"
   },
+  "/dy2CX": {
+    "defaultMessage": "Disqualifié(e)",
+    "description": "Message displayed when candidate has been disqualified"
+  },
   "/eSALf": {
     "defaultMessage": "Veuillez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user authenticator codes not accepted"
@@ -1687,6 +1691,10 @@
     "defaultMessage": "Si vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi et que vous ne souhaitez pas vous auto-identifier sur cette plateforme, vous n'êtes pas dans l'obligation de le faire.",
     "description": "Third paragraph for employment equity information."
   },
+  "7g4Mvc": {
+    "defaultMessage": "Ajouté aux favoris",
+    "description": "Title displayed on the Pool Candidates table bookmark column"
+  },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
@@ -1710,6 +1718,10 @@
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
     "description": "Subtitle for the admin dashboard page"
+  },
+  "7oq1Qa": {
+    "defaultMessage": "Décision finale",
+    "description": "Title displayed on the Pool Candidates table final decision column"
   },
   "7pCluO": {
     "defaultMessage": "Sélectionnez une exigence linguistique",
@@ -4303,6 +4315,10 @@
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
   },
+  "NNWQdp": {
+    "defaultMessage": "Supprimé(e)",
+    "description": "Message displayed when candidate has been removed"
+  },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
@@ -4874,6 +4890,10 @@
   "QvyQc3": {
     "defaultMessage": "Expériences de travail",
     "description": "Heading for work experiences"
+  },
+  "Qw+rrl": {
+    "defaultMessage": "Non placé",
+    "description": "Messaged displayed when a user is qualified but has yet to be placed"
   },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
@@ -6663,10 +6683,6 @@
     "defaultMessage": "Formation non classique",
     "description": "Experience requirement, non-conventional training."
   },
-  "bWTzRy": {
-    "defaultMessage": "Consulter le profil de {name}",
-    "description": "Link text to view a candidates profile for assistive technologies"
-  },
   "baAj/Z": {
     "defaultMessage": "Sélectionner une expérience",
     "description": "Title for select an experience action"
@@ -7330,6 +7346,14 @@
   "fPy7Mg": {
     "defaultMessage": "Le français - Votre impact",
     "description": "Label for the French - Your Impact textarea in the edit pool page."
+  },
+  "fQkgnT": {
+    "defaultMessage": "Placement professionnel",
+    "description": "Title displayed on the Pool Candidates table job placement column"
+  },
+  "fR6xVv": {
+    "defaultMessage": "Sélectionnez un volet/un titre de poste",
+    "description": "Placeholder displayed on the pool form classification field."
   },
   "fRwqM9": {
     "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
@@ -8578,10 +8602,6 @@
   "mRNmrR": {
     "defaultMessage": "Courriel du gouvernement",
     "description": "Label for government email input in the request form"
-  },
-  "mRQ/uk": {
-    "defaultMessage": "Profil",
-    "description": "Title displayed for the Pool Candidates table View Profile link."
   },
   "mS15HC": {
     "defaultMessage": "Ajouter une compétence",

@@ -157,7 +157,7 @@ class Pool extends Model
     /**
      * Sync the essential skills in pool_skill
      *
-     * @param $skillIds - array of skill ids
+     * @param  $skillIds  - array of skill ids
      * @return void
      */
     public function setEssentialPoolSkills($skillIds)
@@ -174,7 +174,7 @@ class Pool extends Model
     /**
      * Sync the nonessential skills in pool_skill
      *
-     * @param $skillIds - array of skill ids
+     * @param  $skillIds  - array of skill ids
      * @return void
      */
     public function setNonessentialPoolSkills($skillIds)
