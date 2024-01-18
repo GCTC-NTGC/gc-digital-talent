@@ -23,7 +23,7 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
-  ViewPoolCandidatesPage_QueryQuery,
+  ViewPoolCandidatesPageQuery,
   graphql,
   User,
   Maybe,
@@ -58,10 +58,8 @@ import ApplicationPrintButton from "./components/ApplicationPrintButton/Applicat
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: NonNullable<
-    ViewPoolCandidatesPage_QueryQuery["poolCandidate"]
-  >;
-  poolData: NonNullable<ViewPoolCandidatesPage_QueryQuery["pools"]>;
+  poolCandidate: NonNullable<ViewPoolCandidatesPageQuery["poolCandidate"]>;
+  poolData: ViewPoolCandidatesPageQuery["pools"];
 }
 
 type SectionContent = {
@@ -788,7 +786,7 @@ export const ViewPoolCandidate = ({
 };
 
 const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
-  query ViewPoolCandidatesPage_Query($poolCandidateId: UUID!) {
+  query ViewPoolCandidatesPage($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       id
       profileSnapshot
