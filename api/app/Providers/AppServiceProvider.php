@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -34,26 +32,6 @@ class AppServiceProvider extends ServiceProvider
             'personalExperience' => \App\Models\PersonalExperience::class,
             'workExperience' => \App\Models\WorkExperience::class,
         ]);
-
-        // DB::whenQueryingForLongerThan(50, function (Connection $connection, QueryExecuted $event) {
-        //     // Notify development team...
-        //     Log::debug(
-        //         [
-        //             'sql' => $event->sql,
-        //             'bindings' => $event->bindings,
-        //             'milliseconds' => $event->time,
-        //         ]
-        //     );
-        // });
-
-        // DB::listen(function ($query) {
-        //     if ($query->time > 20) {
-        //         Log::warning('Query exceeded 20 milliseconds -', [
-        //             'sql' => $query->sql,
-        //             'milliseconds' => $query->time,
-        //         ]);
-        //     }
-        // });
 
         // enable below for database debugging
         // DB::listen(function ($query) {
