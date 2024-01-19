@@ -30,8 +30,8 @@ class AssessmentResultPolicy
     /**
      * Determine whether the user can create assessment results.
      *
-     * @param $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
-     *      We need to use this because the model hasn't been created yet so we can't read from it
+     * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *                   We need to use this because the model hasn't been created yet so we can't read from it
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user, $request)
