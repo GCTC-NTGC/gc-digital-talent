@@ -233,7 +233,7 @@ class UserFactory extends Factory
     /**
      * Attach the pool operator role to a user after creation.
      *
-     * @param  string|array  $team   Name of the team or teams to attach the role to
+     * @param  string|array  $team  Name of the team or teams to attach the role to
      * @return $this
      */
     public function asPoolOperator(string|array $team)

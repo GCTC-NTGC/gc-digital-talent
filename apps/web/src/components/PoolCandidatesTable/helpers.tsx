@@ -1,6 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   commonMessages,
@@ -11,12 +12,13 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Spoiler } from "@gc-digital-talent/ui";
+import { Color, Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -34,9 +36,14 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-
-import cells from "../Table/cells";
-import { FormValues } from "./types";
+import {
+  isDisqualifiedStatus,
+  isQualifiedStatus,
+  isRemovedStatus,
+  isToAssessStatus,
+  statusToFinalDecision,
+  statusToJobPlacement,
+} from "~/utils/poolCandidate";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -44,7 +51,12 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
-} from "../../utils/userUtils";
+} from "~/utils/userUtils";
+
+import cells from "../Table/cells";
+import { FormValues } from "./types";
+import tableMessages from "./tableMessages";
+import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -103,62 +115,21 @@ export const priorityCell = (
   );
 };
 
-export const viewPoolCandidateCell = (
+export const candidateNameCell = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const isQualified =
-    candidate.status !== PoolCandidateStatus.NewApplication &&
-    candidate.status !== PoolCandidateStatus.ApplicationReview &&
-    candidate.status !== PoolCandidateStatus.ScreenedIn &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
-    candidate.status !== PoolCandidateStatus.UnderAssessment &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
   const candidateName = getFullNameLabel(
     candidate.user.firstName,
     candidate.user.lastName,
     intl,
   );
-  if (isQualified) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {cells.view(
-          paths.userView(candidate.user.id),
-          intl.formatMessage({
-            defaultMessage: "Profile",
-            id: "mRQ/uk",
-            description:
-              "Title displayed for the Pool Candidates table View Profile link.",
-          }),
-          undefined,
-          intl.formatMessage(
-            {
-              defaultMessage: "View {name}'s profile",
-              id: "bWTzRy",
-              description:
-                "Link text to view a candidates profile for assistive technologies",
-            },
-            {
-              name: candidateName,
-            },
-          ),
-        )}
-      </span>
-    );
-  }
   return (
     <span data-h2-font-weight="base(700)">
       {cells.view(
         paths.poolCandidateApplication(candidate.id),
-        intl.formatMessage({
-          defaultMessage: "Application",
-          id: "5iNcHS",
-          description:
-            "Title displayed for the Pool Candidates table View Application link.",
-        }),
+        candidateName,
         undefined,
         intl.formatMessage(
           {
@@ -251,6 +222,57 @@ export const currentLocationAccessor = (
       : commonMessages.notFound,
   )}`;
 
+const getFinalDecisionPillColor = (
+  status?: Maybe<PoolCandidateStatus>,
+): Color => {
+  if (isToAssessStatus(status)) {
+    return "warning";
+  }
+
+  if (isDisqualifiedStatus(status)) {
+    return "error";
+  }
+
+  if (isRemovedStatus(status)) {
+    return "black";
+  }
+
+  if (isQualifiedStatus(status)) {
+    return "success";
+  }
+
+  return "white";
+};
+
+export const finalDecisionCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return (
+    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
+      {intl.formatMessage(statusToFinalDecision(status))}
+    </Pill>
+  );
+};
+
+export const jobPlacementCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
+};
+
+export const bookmarkCell = (candidate: PoolCandidate) => {
+  return <CandidateBookmark candidate={candidate} size="lg" />;
+};
+
+export const bookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
 // row(s) are becoming selected or deselected
 // if row is null then toggle all rows on the page simultaneously
 type RowSelectedEvent<T> = {
@@ -290,6 +312,9 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
+    ["candidacyStatus", "suspended_at"],
+    ["finalDecision", "status"],
+    ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
