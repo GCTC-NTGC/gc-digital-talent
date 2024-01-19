@@ -22,8 +22,8 @@ import { Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const placeholderUrl = "about:blank";
-const placeholderLink = (chunks: React.ReactNode) => (
-  <Link href={placeholderUrl} color="primary">
+const makeLink = (chunks: React.ReactNode, url: string) => (
+  <Link href={url} color="primary">
     {chunks}
   </Link>
 );
@@ -467,7 +467,14 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 of the 'Digital certificate credential' subsection",
                   },
                   {
-                    link: placeholderLink,
+                    link: (chunks: React.ReactNode) => {
+                      return makeLink(
+                        chunks,
+                        locale === "en"
+                          ? "https://www.canada.ca/en/treasury-board-secretariat/services/information-notice/it-apprenticeship-program--indigenous-peoples-alternative-educational-requirements.html"
+                          : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/avis-information/programme-apprentissage-ti-personnes-autochtones-autres-exigences-etudes.html",
+                      );
+                    },
                   },
                 )}
               </p>
