@@ -6,7 +6,7 @@ import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { faker } from "@faker-js/faker";
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {
@@ -34,7 +34,7 @@ import { groupPoolCandidatesByStep, sortResultsAndAddOrdinal } from "./utils";
 import { NO_DECISION } from "../../utils/assessmentResults";
 
 const fakePool = fakePools(1)[0];
-const fakeAssessmentStep = fakeAssessmentSteps(1)[0];
+const fakePoolAssessmentSteps = fakeAssessmentSteps(2);
 const fakeCandidates = fakePoolCandidates(4);
 
 const getAssessmentResult = (
@@ -43,7 +43,7 @@ const getAssessmentResult = (
   id: faker.string.uuid(),
   assessmentDecision:
     typeof decision === "undefined" ? AssessmentDecision.Successful : decision,
-  assessmentStep: fakeAssessmentStep,
+  assessmentStep: fakePoolAssessmentSteps[0],
 });
 
 const priorityEntitlementCandidate = {
@@ -145,16 +145,17 @@ const testCandidates = [
   firstByName,
 ];
 
-const poolWithAssessmentSteps: Pool = {
+// eslint-disable-next-line import/prefer-default-export
+export const poolWithAssessmentSteps: Pool = {
   ...fakePool,
   assessmentSteps: [
     {
-      ...fakeAssessmentStep,
-      id: faker.string.uuid(),
+      ...fakePoolAssessmentSteps[1],
       sortOrder: 2,
+      assessmentResults: [],
     },
     {
-      ...fakeAssessmentStep,
+      ...fakePoolAssessmentSteps[0],
       sortOrder: 1,
       assessmentResults: testCandidates.map((candidate) => ({
         ...candidate.assessmentResults[0],
@@ -245,16 +246,20 @@ describe("AssessmentStepTracker", () => {
   it("should display candidates in the correct order", () => {
     renderAssessmentStepTracker();
 
-    const candidate1 = screen.getByRole("link", {
+    const firstColumn = screen.getByRole("list", {
+      name: /step 1/i,
+    });
+
+    const candidate1 = within(firstColumn).getByRole("link", {
       name: /bookmarked candidate/i,
     });
-    const candidate2 = screen.getByRole("link", {
+    const candidate2 = within(firstColumn).getByRole("link", {
       name: /unassessed candidate/i,
     });
-    const candidate3 = screen.getByRole("link", {
+    const candidate3 = within(firstColumn).getByRole("link", {
       name: /priority entitlement/i,
     });
-    const candidate4 = screen.getByRole("link", {
+    const candidate4 = within(firstColumn).getByRole("link", {
       name: /armed forces/i,
     });
     expect(candidate1.compareDocumentPosition(candidate2)).toBe(

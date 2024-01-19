@@ -282,14 +282,14 @@ const getResultsDecision = (
     }
   });
 
+  if (hasFailure) {
+    return AssessmentDecision.Unsuccessful;
+  }
   if (hasToAssess) {
     return NO_DECISION;
   }
   if (hasOnHold) {
     return AssessmentDecision.Hold;
-  }
-  if (hasFailure) {
-    return AssessmentDecision.Unsuccessful;
   }
 
   return AssessmentDecision.Successful;
