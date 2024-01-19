@@ -62,6 +62,14 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
         group
         level
       }
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
     }
   }
 `);
