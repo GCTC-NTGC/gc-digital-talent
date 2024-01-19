@@ -24,7 +24,7 @@ describe("Pool Candidates", () => {
   beforeEach(() => {
     cy.overrideFeatureFlags({ FEATURE_RECORD_OF_DECISION: false });
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "ViewPoolCandidatesPage_Query");
+      aliasQuery(req, "ViewPoolCandidatesPage");
       aliasQuery(req, "PoolTable");
       aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
@@ -126,7 +126,7 @@ describe("Pool Candidates", () => {
       .eq(0)
       .click();
 
-    cy.wait("@gqlViewPoolCandidatesPage_QueryQuery");
+    cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",
@@ -236,7 +236,7 @@ describe("Pool Candidates", () => {
       .eq(0)
       .click();
 
-    cy.wait("@gqlViewPoolCandidatesPage_QueryQuery");
+    cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",

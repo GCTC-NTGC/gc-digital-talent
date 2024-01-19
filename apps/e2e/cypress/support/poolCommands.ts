@@ -1,4 +1,3 @@
-import { getGqlString } from "./graphql-test-utils";
 import {
   Command_CreatePoolMutation,
   Command_UpdatePoolMutation,
@@ -79,7 +78,7 @@ const Command_PublishPoolMutation = graphql(commandPublishPoolDoc);
 
 Cypress.Commands.add("publishPool", (id) => {
   cy.graphqlRequest<Command_PublishPoolMutation>({
-    operationName: "Command_UpdatePool",
+    operationName: "Command_PublishPool",
     query: commandPublishPoolDoc,
     variables: {
       id: id,

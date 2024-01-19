@@ -1,6 +1,10 @@
-import { CreateTeamMutation } from "@gc-digital-talent/web/src/api/generated";
+import {
+  CreateTeamMutation,
+  CreateTeamDocument,
+} from "@gc-digital-talent/web/src/api/generated";
 
 import { Command_AllTeamsQuery, graphql } from "@gc-digital-talent/graphql";
+import { getGqlString } from "./graphql-test-utils";
 
 const commandAllTeamsDoc = /* GraphQL */ `
   query Command_AllTeams {
@@ -45,7 +49,7 @@ Cypress.Commands.add("getTeams", () => {
 Cypress.Commands.add("createTeam", (team) => {
   cy.graphqlRequest<CreateTeamMutation>({
     operationName: "CreateTeam",
-    query: commandAllTeamsDoc,
+    query: getGqlString(CreateTeamDocument),
     variables: {
       team,
     },
