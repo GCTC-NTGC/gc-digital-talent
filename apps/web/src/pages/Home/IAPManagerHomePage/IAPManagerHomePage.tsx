@@ -23,7 +23,9 @@ import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const placeholderUrl = "about:blank";
 const placeholderLink = (chunks: React.ReactNode) => (
-  <Link href={placeholderUrl}>{chunks}</Link>
+  <Link href={placeholderUrl} color="primary">
+    {chunks}
+  </Link>
 );
 
 function buildMailtToUri(
@@ -101,9 +103,11 @@ export const IAPManagerHomePage = () => {
           </div>
           <div
             // call to action wrapper
+            data-h2-align-items="base(center)"
             data-h2-min-width="base(x12)"
+            data-h2-padding="base(0 x1) p-tablet(0)"
             data-h2-display="base(flex)"
-            data-h2-flex-direction="base(row)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
             <Link
@@ -190,11 +194,11 @@ export const IAPManagerHomePage = () => {
         >
           <div
             data-h2-position="base(relative)"
-            data-h2-location="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
+            data-h2-location="base(-x3, auto, auto, auto) p-tablet(-x3.5, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
           >
             <div
-              data-h2-padding="p-tablet(x2) l-tablet(x3)"
-              data-h2-background-color="base(white) base:dark(background)"
+              data-h2-padding="base(x2) p-tablet(x2.5) l-tablet(x3)"
+              data-h2-background-color="base(background)"
               data-h2-radius="base(iap-home-card)"
             >
               <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
@@ -208,7 +212,7 @@ export const IAPManagerHomePage = () => {
                       data-h2-position="base(absolute)"
                       data-h2-width="base(80%)"
                       data-h2-color="base(secondary) base:dark(secondary.light)"
-                      data-h2-location="base(-1.5rem, -1.5rem, auto, auto)"
+                      data-h2-location="base(-1.5rem, -1.5rem, auto, auto) p-tablet(-1.5rem, -1.5rem, auto, auto)"
                     />
                     <img
                       src={section1Img}
@@ -219,10 +223,12 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of a woman and a laptop",
                       })}
+                      data-h2-display="base(block)"
                       data-h2-min-height="base(60vh) p-tablet(initial)"
-                      data-h2-height="p-tablet(100%)"
-                      data-h2-width="p-tablet(100%)"
+                      data-h2-height="base(100%)"
+                      data-h2-width="base(100%)"
                       data-h2-position="base(relative)"
+                      data-h2-margin="base(0 auto)"
                       style={{
                         objectFit: "cover",
                       }}
@@ -237,15 +243,15 @@ export const IAPManagerHomePage = () => {
                           "Description of a decorative image of some beaded artwork",
                       })}
                       data-h2-position="base(absolute)"
-                      data-h2-width="base(180px)"
-                      data-h2-location="base(9rem, auto, auto, -7rem)"
+                      data-h2-width="base(10rem)"
+                      data-h2-location="base(auto, auto, -1rem, -4rem) p-tablet(auto, auto, -2rem, -7rem)"
                     />
                   </div>
                 </div>
                 <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
                   <Heading
                     data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x6, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+                    data-h2-margin="base(x2, 0, x2, 0) p-tablet(0, 0, 0, 0)"
                     data-h2-text-align="base(center) p-tablet(left)"
                     data-h2-layer="base(1, relative)"
                     data-h2-color="base(primary.darker)"
@@ -316,160 +322,162 @@ export const IAPManagerHomePage = () => {
       </div>
 
       {/* how the program works section */}
-      <div>
-        <div
-          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
-          data-h2-position="base(relative)"
-        >
-          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
-            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+      <div
+        data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+        data-h2-position="base(relative)"
+      >
+        <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+          <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+            <div
+              data-h2-flex-item="base(1of1) p-tablet(3of7)"
+              data-h2-order="p-tablet(2)"
+            >
               <div
-                data-h2-flex-item="base(1of1) p-tablet(3of7)"
-                data-h2-order="p-tablet(2)"
+                data-h2-height="p-tablet(100%)"
+                data-h2-width="p-tablet(100%)"
+                data-h2-position="base(relative)"
+                data-h2-margin="base(x4 0) l-tablet(0)"
               >
                 <div
+                  data-h2-radius="base(100%)"
+                  data-h2-height="base(0) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
+                  data-h2-width="base(100%) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
+                  data-h2-padding-bottom="base(100%) l-tablet(0)"
+                  data-h2-background-color="base(primary.dark.1)"
+                  data-h2-position="base(absolute)"
+                  data-h2-location="base(-x4, -x1, auto, auto) l-tablet(-x4, -x2, auto, auto) desktop(-x6, -x6, auto, auto)"
+                />
+                <img
+                  src={section2Img}
+                  alt={intl.formatMessage({
+                    defaultMessage:
+                      "Indigenous man working with his policy team using a laptop.",
+                    id: "wW4ymk",
+                    description:
+                      "Description of a decorative image of a man and a laptop",
+                  })}
+                  data-h2-display="base(block)"
+                  data-h2-margin="base(0 auto)"
+                  data-h2-min-height="base(60vh) p-tablet(initial)"
                   data-h2-height="p-tablet(100%)"
-                  data-h2-width="p-tablet(100%)"
+                  data-h2-width="base(calc(100% - 4rem)) p-tablet(100%)"
                   data-h2-position="base(relative)"
-                >
-                  <div
-                    data-h2-radius="base(515px)"
-                    data-h2-height="base(515px)"
-                    data-h2-width="base(515px)"
-                    data-h2-background-color="base(primary.dark.1)"
-                    data-h2-position="base(absolute)"
-                    data-h2-location="base(-6rem, auto, auto, 2rem)"
-                  />
-                  <img
-                    src={section2Img}
-                    alt={intl.formatMessage({
-                      defaultMessage:
-                        "Indigenous man working with his policy team using a laptop.",
-                      id: "wW4ymk",
-                      description:
-                        "Description of a decorative image of a man and a laptop",
-                    })}
-                    data-h2-min-height="base(60vh) p-tablet(initial)"
-                    data-h2-height="p-tablet(100%)"
-                    data-h2-width="p-tablet(100%)"
-                    data-h2-position="base(relative)"
-                    style={{
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={section2FlourishImg}
-                    alt={intl.formatMessage({
-                      defaultMessage:
-                        "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
-                      id: "P40FEe",
-                      description:
-                        "Description of a decorative image of a hummingbird",
-                    })}
-                    data-h2-position="base(absolute)"
-                    data-h2-width="base(415px)"
-                    data-h2-location="base(auto, auto, -122px, -120px)"
-                  />
-                </div>
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+                <img
+                  src={section2FlourishImg}
+                  alt={intl.formatMessage({
+                    defaultMessage:
+                      "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
+                    id: "P40FEe",
+                    description:
+                      "Description of a decorative image of a hummingbird",
+                  })}
+                  data-h2-position="base(absolute)"
+                  data-h2-width="base(24rem) l-tablet(18rem)"
+                  data-h2-location="base(auto, auto, -x2, -x2)"
+                />
               </div>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(4of7)"
-                data-h2-order="p-tablet(1)"
+            </div>
+            <div
+              data-h2-flex-item="base(1of1) p-tablet(4of7)"
+              data-h2-order="p-tablet(1)"
+            >
+              <Heading
+                data-h2-font-size="base(h3, 1)"
+                data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, x2, 0)"
+                data-h2-text-align="base(center) p-tablet(left)"
+                data-h2-color="base(primary.darker)"
               >
-                <Heading
-                  data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, x2, 0)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                  data-h2-color="base(primary.darker)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "How the program works",
-                    id: "u7IbDO",
-                    description: "Title of the 'How the program works' section",
-                  })}
-                </Heading>
-                <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Hired as a term employee",
-                    id: "e5xrSy",
-                    description:
-                      "Title of the 'Hired as a term employee' subsection",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
+                {intl.formatMessage({
+                  defaultMessage: "How the program works",
+                  id: "u7IbDO",
+                  description: "Title of the 'How the program works' section",
+                })}
+              </Heading>
+              <Heading level="h3" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Hired as a term employee",
+                  id: "e5xrSy",
+                  description:
+                    "Title of the 'Hired as a term employee' subsection",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Indigenous apprentices are hired by a host organization at the entry level of the IT group (IT-01 or equivalent) for a 24-month term.",
+                  id: "oES0/4",
+                  description:
+                    "Paragraph 1 of the 'Hired as a term employee' subsection",
+                })}
+              </p>
+              <Heading level="h3" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Work integrated learning and IT training",
+                  id: "xb4jXA",
+                  description:
+                    "Title of the 'Work integrated learning and IT training' subsection",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Over the course of the 24 months, apprentices learn on-the-job with a peer partner (4 days per week) and follow a curated self-paced online training curriculum (1 day per week) as part of their development.",
+                  id: "0IZsNR",
+                  description:
+                    "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
+                })}
+              </p>
+              <Heading level="h3" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Circle of Support",
+                  id: "D5Hqhf",
+                  description: "Title of the 'Circle of Support' subsection",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Due to the nature of the Apprenticeship, the program has developed a unique circle of supports for apprentices. These include a peer partner for job shadowing and day-to-day support, as well as a mentor who provides experienced guidance.",
+                  id: "TB5Pnf",
+                  description:
+                    "Paragraph 1 of the 'Circle of Support' subsection",
+                })}
+              </p>
+              <p data-h2-margin="base(x1, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Additional supports include Sharing Circles, access to an IT Training Support Advisor, and Apprentice Success Facilitators. While the Facilitators are principally a resource for Apprentices, they are also a support system for Managers and Supervisors.",
+                  id: "f3KZGn",
+                  description:
+                    "Paragraph 2 of the 'Circle of Support' subsection",
+                })}
+              </p>
+              <Heading level="h3" size="h6">
+                {intl.formatMessage({
+                  defaultMessage: "Digital certificate credential",
+                  id: "+AnEvv",
+                  description:
+                    "Title of the 'Digital certificate credential' subsection",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage(
+                  {
                     defaultMessage:
-                      "Indigenous apprentices are hired by a host organization at the entry level of the IT group (IT-01 or equivalent) for a 24-month term.",
-                    id: "oES0/4",
+                      "After successfully completing the apprenticeship, graduates are issued a digital certificate and a portable verifiable credential. It is endorsed by the Chief Information Officer of Canada and formally recognized as meeting the <link>GC Qualification Standard alternative for the IT Occupational Group</link>.",
+                    id: "LzJpQo",
                     description:
-                      "Paragraph 1 of the 'Hired as a term employee' subsection",
-                  })}
-                </p>
-                <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Work integrated learning and IT training",
-                    id: "xb4jXA",
-                    description:
-                      "Title of the 'Work integrated learning and IT training' subsection",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Over the course of the 24 months, apprentices learn on-the-job with a peer partner (4 days per week) and follow a curated self-paced online training curriculum (1 day per week) as part of their development.",
-                    id: "0IZsNR",
-                    description:
-                      "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
-                  })}
-                </p>
-                <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Circle of Support",
-                    id: "D5Hqhf",
-                    description: "Title of the 'Circle of Support' subsection",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Due to the nature of the Apprenticeship, the program has developed a unique circle of supports for apprentices. These include a peer partner for job shadowing and day-to-day support, as well as a mentor who provides experienced guidance.",
-                    id: "TB5Pnf",
-                    description:
-                      "Paragraph 1 of the 'Circle of Support' subsection",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Additional supports include Sharing Circles, access to an IT Training Support Advisor, and Apprentice Success Facilitators. While the Facilitators are principally a resource for Apprentices, they are also a support system for Managers and Supervisors.",
-                    id: "f3KZGn",
-                    description:
-                      "Paragraph 2 of the 'Circle of Support' subsection",
-                  })}
-                </p>
-                <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Digital certificate credential",
-                    id: "+AnEvv",
-                    description:
-                      "Title of the 'Digital certificate credential' subsection",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "After successfully completing the apprenticeship, graduates are issued a digital certificate and a portable verifiable credential. It is endorsed by the Chief Information Officer of Canada and formally recognized as meeting the <link>GC Qualification Standard alternative for the IT Occupational Group</link>.",
-                      id: "LzJpQo",
-                      description:
-                        "Paragraph 1 of the 'Digital certificate credential' subsection",
-                    },
-                    {
-                      link: placeholderLink,
-                    },
-                  )}
-                </p>
-              </div>
+                      "Paragraph 1 of the 'Digital certificate credential' subsection",
+                  },
+                  {
+                    link: placeholderLink,
+                  },
+                )}
+              </p>
             </div>
           </div>
         </div>
@@ -477,9 +485,7 @@ export const IAPManagerHomePage = () => {
 
       {/* Testimonial section */}
       <div
-        data-h2-layer="base(1, relative)"
-        data-h2-margin="p-tablet(x2, 0, 0, 0)"
-        data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
+        data-h2-margin="base(x2, 0, 0, 0)"
         style={{
           backgroundImage: `url(${testimonials})`,
           backgroundSize: "cover",
@@ -487,42 +493,49 @@ export const IAPManagerHomePage = () => {
         }}
       >
         <div
-          data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)"
-          data-h2-color="base:all(white)"
+          data-h2-background-color="base(secondary.dark.9)"
+          data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
         >
-          <Heading
-            level="h4"
-            data-h2-text-align="base(center)"
-            data-h2-padding-bottom="base(x2)"
+          <div
+            data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)"
+            data-h2-color="base:all(white)"
           >
-            {intl.formatMessage({
-              defaultMessage: "What we're hearing",
-              id: "okRYhl",
-              description: "Title of a quotes section",
-            })}
-          </Heading>
-          <p
-            data-h2-padding-bottom="base(x1)"
-            data-h2-font-weight="base(bold)"
-            data-h2-font-size="base(h2)"
-          >
-            {intl.formatMessage({
-              defaultMessage:
-                "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-              id: "YSnedz",
-              description:
-                "Quote from Darcy Pierlot about working with apprentices",
-            })}
-          </p>
-          <p data-h2-font-weight="base(bold)">
-            {intl.formatMessage({
-              defaultMessage:
-                "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
-              id: "T4xKEw",
-              description:
-                "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
-            })}
-          </p>
+            <Heading
+              level="h4"
+              data-h2-text-align="base(center)"
+              data-h2-padding-bottom="base(x2)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "What we're hearing",
+                id: "okRYhl",
+                description: "Title of a quotes section",
+              })}
+            </Heading>
+            <blockquote>
+              <p
+                data-h2-padding-bottom="base(x1)"
+                data-h2-font-weight="base(bold)"
+                data-h2-font-size="base(h2)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+                  id: "YSnedz",
+                  description:
+                    "Quote from Darcy Pierlot about working with apprentices",
+                })}
+              </p>
+              <cite data-h2-font-weight="base(bold)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
+                  id: "T4xKEw",
+                  description:
+                    "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
+                })}
+              </cite>
+            </blockquote>
+          </div>
         </div>
       </div>
 
