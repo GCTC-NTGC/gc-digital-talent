@@ -628,12 +628,13 @@ export const IAPManagerHomePage = () => {
                     data-h2-position="base(relative)"
                   >
                     <div
-                      data-h2-radius="base(340px)"
-                      data-h2-height="base(340px)"
-                      data-h2-width="base(340px)"
+                      data-h2-radius="base(100%)"
+                      data-h2-height="base(18rem)"
+                      data-h2-width="base(18rem)"
                       data-h2-background-color="base(primary.dark.1)"
                       data-h2-position="base(absolute)"
-                      data-h2-location="base(-74px, -136px, auto, auto)"
+                      data-h2-location="base(-x3, -x1, auto, auto) desktop(-x3, -x5, auto, auto)"
+                      data-h2-z-index="base(0)"
                     />
                     <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
                       {intl.formatMessage({
@@ -656,7 +657,7 @@ export const IAPManagerHomePage = () => {
                   <div
                     data-h2-margin-top="base(x1)"
                     data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(row)"
+                    data-h2-flex-direction="base(column) p-tablet(row)"
                     data-h2-gap="base(x1)"
                     data-h2-align-items="base(center)"
                   >
