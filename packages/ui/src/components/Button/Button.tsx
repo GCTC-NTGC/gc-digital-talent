@@ -35,12 +35,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       // eslint-disable-next-line react/button-has-type
       <button
         ref={ref}
+        disabled={disabled}
         {...getButtonStyles({ mode, color, block, disabled })}
         {...rest}
-        {...(disabled && {
-          onClick: undefined,
-          "aria-disabled": "true",
-        })}
       >
         <ButtonLinkContent
           mode={mode}
