@@ -18,7 +18,7 @@ import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
 import packageEnDoc from "~/assets/documents/ITAPIP.Manager.Package.Text_FINAL_with.frame.docx";
 
-import { Triangle } from "../IAPHomePage/components/Svg";
+import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const placeholderUrl = "about:blank";
@@ -505,6 +505,13 @@ export const IAPManagerHomePage = () => {
               })}
             </Heading>
             <blockquote>
+              <div data-h2-text-align="base(left)">
+                <OpenQuote
+                  data-h2-display="base(inline-block)"
+                  data-h2-width="base(x2) p-tablet(x3)"
+                  data-h2-margin="base(0 0 x.5 0) desktop(0 0 -x3 -x4)"
+                />
+              </div>
               <p
                 data-h2-padding-bottom="base(x1)"
                 data-h2-font-weight="base(bold)"
@@ -518,6 +525,13 @@ export const IAPManagerHomePage = () => {
                     "Quote from Darcy Pierlot about working with apprentices",
                 })}
               </p>
+              <div data-h2-text-align="base(right)">
+                <CloseQuote
+                  data-h2-display="base(inline-block)"
+                  data-h2-width="base(x2) p-tablet(x3)"
+                  data-h2-margin="base(0 0 x.5 0) desktop(0 -x4 -x1.25 0)"
+                />
+              </div>
               <cite data-h2-font-weight="base(bold)">
                 {intl.formatMessage({
                   defaultMessage:
