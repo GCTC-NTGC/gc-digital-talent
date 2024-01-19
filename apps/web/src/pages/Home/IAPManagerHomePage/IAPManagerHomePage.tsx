@@ -429,7 +429,7 @@ export const IAPManagerHomePage = () => {
             <div
               data-h2-flex-item="base(1of1) p-tablet(3of7)"
               // padding for flourish
-              data-h2-padding-bottom="base(x2) p-tablet(x3) h-tablet(x5)"
+              data-h2-padding-bottom="base(x2) p-tablet(x3) l-tablet(x5)"
             >
               <div
                 data-h2-height="p-tablet(100%)"
@@ -727,7 +727,7 @@ export const IAPManagerHomePage = () => {
             <div
               data-h2-flex-item="base(1of1) p-tablet(3of7)"
               // padding for flourish
-              data-h2-padding-bottom="base(x2) p-tablet(x3) h-tablet(x5)"
+              data-h2-padding-bottom="base(x2) p-tablet(x3) l-tablet(x5)"
             >
               <div
                 data-h2-height="p-tablet(100%)"
