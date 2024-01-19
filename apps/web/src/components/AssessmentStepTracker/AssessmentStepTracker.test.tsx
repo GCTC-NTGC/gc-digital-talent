@@ -19,6 +19,7 @@ import {
   Pool,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   ArmedForcesStatus,
@@ -149,6 +150,12 @@ const poolWithAssessmentSteps: Pool = {
   assessmentSteps: [
     {
       ...fakeAssessmentStep,
+      id: faker.string.uuid(),
+      sortOrder: 2,
+    },
+    {
+      ...fakeAssessmentStep,
+      sortOrder: 1,
       assessmentResults: testCandidates.map((candidate) => ({
         ...candidate.assessmentResults[0],
         poolCandidate: candidate,
@@ -285,10 +292,21 @@ describe("AssessmentStepTracker", () => {
 
   it("should have working group function", () => {
     const groupedResults = groupPoolCandidatesByStep(poolWithAssessmentSteps);
-    const { assessments } = Array.from(groupedResults.values())[0];
+    const stepArray = Array.from(groupedResults.values());
+    const { assessments } = stepArray[0];
 
     // One duplicate candidate accounted for
     expect(assessments.size).toEqual(testCandidates.length - 1);
+
+    // They are in the correct order
+    const orderArray = Array.from(
+      { length: stepArray.length },
+      (x, i) => i + 1,
+    );
+    const stepOrder = stepArray
+      .map((step) => step.step.sortOrder)
+      .filter(notEmpty);
+    expect(stepOrder).toEqual(orderArray);
 
     /**
      * This can be a little tricky to read. Expected shape:

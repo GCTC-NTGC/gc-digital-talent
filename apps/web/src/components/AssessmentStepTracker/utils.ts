@@ -320,23 +320,23 @@ export const groupPoolCandidatesByStep = (pool: Pool) => {
 
   // Setup the base map for steps with assessments for candidates
   const stepMap: GroupedSteps = new Map();
-  steps.forEach((step, index) => {
-    stepMap.set(step.id, {
-      step,
-      // Step one should show all candidates regardless of results existing
-      assessments: index === 0 ? allCandidatesMap : new Map(),
+  steps
+    .sort((stepA, stepB) => {
+      return (stepA.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+        (stepB.sortOrder ?? Number.MAX_SAFE_INTEGER)
+        ? 1
+        : -1;
+    })
+    .forEach((step, index) => {
+      stepMap.set(step.id, {
+        step,
+        // Step one should show all candidates regardless of results existing
+        assessments: index === 0 ? allCandidatesMap : new Map(),
+      });
     });
-  });
 
   poolCandidates.forEach((poolCandidate) => {
-    // Only use assessments associated with this pool
-    const assessments = poolCandidate.assessmentResults
-      ?.filter((result) =>
-        result?.assessmentStep?.id
-          ? stepMap.has(result?.assessmentStep?.id)
-          : false,
-      )
-      .filter(notEmpty);
+    const assessments = poolCandidate.assessmentResults?.filter(notEmpty);
 
     assessments?.forEach((result) => {
       if (!result) return;
