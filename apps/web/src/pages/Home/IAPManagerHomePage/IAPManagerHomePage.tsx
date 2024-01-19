@@ -654,144 +654,140 @@ export const IAPManagerHomePage = () => {
       </div>
 
       {/* commitment and graduates section */}
-      <div data-h2-layer="base(2, relative)" data-h2-margin="base(x2, 0, 0, 0)">
+      <div data-h2-layer="base(2, relative)" data-h2-margin="base(x3 0 x6 0)">
         <div
           data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div
-            data-h2-padding="p-tablet(x2) l-tablet(x3)"
-            data-h2-margin="base(0, 0, 0, 0) p-tablet(0, 0, x2, 0)"
-          >
-            <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
-              <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
-                <div
-                  data-h2-height="p-tablet(100%)"
-                  data-h2-width="p-tablet(100%)"
-                  data-h2-position="base(relative)"
-                >
-                  <Triangle
-                    data-h2-position="base(absolute)"
-                    data-h2-location="base(-x1.5, -x1, auto, auto)"
-                    style={{ transform: "rotate(90deg) translate(20%, -25%)" }}
-                    data-h2-width="base(120%)"
-                    data-h2-color="base(primary.darker) base:dark(primary.darker)"
-                  />
-                  <img
-                    src={section5Img}
-                    alt={intl.formatMessage({
-                      defaultMessage:
-                        "Indigenous woman taking a break from her program delivery work on a laptop.",
-                      id: "EtOnRo",
-                      description:
-                        "Description of a decorative image of a woman and a laptop",
-                    })}
-                    data-h2-min-height="base(60vh) p-tablet(initial)"
-                    data-h2-height="p-tablet(100%)"
-                    data-h2-width="p-tablet(100%)"
-                    data-h2-position="base(relative)"
-                    style={{
-                      objectFit: "cover",
-                    }}
-                  />
-                  <img
-                    src={section5FlourishImg}
-                    alt={intl.formatMessage({
-                      defaultMessage:
-                        "Indigenous talking stick, which represents respect in many Indigenous communities.",
-                      id: "+tGYjC",
-                      description:
-                        "Description of a decorative image of a talking stick",
-                    })}
-                    data-h2-position="base(absolute)"
-                    data-h2-location="base(auto, auto, -x4, -x1)"
-                    data-h2-width="base(150%)"
-                  />
-                </div>
-              </div>
+          <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+            <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
               <div
-                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-height="p-tablet(100%)"
+                data-h2-width="p-tablet(100%)"
                 data-h2-position="base(relative)"
               >
-                <Heading
-                  data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x5, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+                <Triangle
+                  data-h2-position="base(absolute)"
+                  data-h2-location="base(-x1.5, -x1, auto, auto)"
+                  style={{ transform: "rotate(90deg) translate(20%, -25%)" }}
+                  data-h2-width="base(100%)"
                   data-h2-color="base(primary.darker)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "A commitment to diverse digital talent",
-                    id: "29o8/W",
-                    description:
-                      "Title of the 'A commitment to diverse digital talent' section",
-                  })}
-                </Heading>
-                <p data-h2-margin="base(x1, 0, x1, 0)">
-                  {intl.formatMessage({
+                />
+                <img
+                  src={section5Img}
+                  alt={intl.formatMessage({
                     defaultMessage:
-                      "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
-                    id: "eSzizR",
+                      "Indigenous woman taking a break from her program delivery work on a laptop.",
+                    id: "EtOnRo",
                     description:
-                      "Paragraph 1 of the 'A commitment to diverse digital talent' section",
+                      "Description of a decorative image of a woman and a laptop",
                   })}
-                </p>
-                <Well>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
-                      id: "HyNRz8",
-                      description:
-                        "Paragraph 2 of the 'A commitment to diverse digital talent' section",
-                    })}
-                  </p>
-                </Well>
-                <Heading
-                  data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x2, 0, x2, 0) p-tablet(x2, 0, 0, 0)"
-                  data-h2-color="base(primary.darker)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Graduates and advanced talent",
-                    id: "MZChNU",
-                    description:
-                      "Title of the 'Graduates and advanced talent' section",
-                  })}
-                </Heading>
-                <p data-h2-margin="base(x1 0, x1, 0)">
-                  {intl.formatMessage({
+                  data-h2-min-height="base(32rem) p-tablet(initial)"
+                  data-h2-height="base(100%)"
+                  data-h2-width="base(100%)"
+                  data-h2-position="base(relative)"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                />
+                <img
+                  src={section5FlourishImg}
+                  alt={intl.formatMessage({
                     defaultMessage:
-                      "Are you looking to hire a graduate from the program or Indigenous talent for more senior positions in IT? Contact our team to discuss potential graduate placements and advanced talent referrals.",
-                    id: "lDnHjr",
+                      "Indigenous talking stick, which represents respect in many Indigenous communities.",
+                    id: "+tGYjC",
                     description:
-                      "Paragraph 1 of the 'Graduates and advanced talent' section",
+                      "Description of a decorative image of a talking stick",
                   })}
-                </p>
-                <Link
-                  external
-                  mode="solid"
-                  icon={EnvelopeSolid}
-                  color="primary"
-                  href={buildMailtToUri(
-                    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
-                    intl.formatMessage({
-                      defaultMessage:
-                        "I'm interested in hiring a graduate/advanced talent",
-                      id: "WpA63g",
-                      description:
-                        "Subject line of a manager's email for apprenticeship",
-                    }),
-                  )}
-                  data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, 0, 0)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Contact the team",
-                    id: "gJ7CQw",
-                    description: "Link to send an email to the team",
-                  })}
-                </Link>
+                  data-h2-position="base(absolute)"
+                  data-h2-location="base(auto, auto, -x4, -x1)"
+                  data-h2-width="base(150%)"
+                />
               </div>
+            </div>
+            <div
+              data-h2-flex-item="base(1of1) p-tablet(4of7)"
+              data-h2-position="base(relative)"
+            >
+              <Heading
+                size="h3"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x5, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+                data-h2-color="base(primary.darker)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "A commitment to diverse digital talent",
+                  id: "29o8/W",
+                  description:
+                    "Title of the 'A commitment to diverse digital talent' section",
+                })}
+              </Heading>
+              <p data-h2-margin="base(x1, 0, x1, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
+                  id: "eSzizR",
+                  description:
+                    "Paragraph 1 of the 'A commitment to diverse digital talent' section",
+                })}
+              </p>
+              <Well>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Together we are empowered to capitalize on the diversity of experience and ideas that Indigenous peoples bring to the Public Service and contribute towards reconciliation in Canada.",
+                    id: "HyNRz8",
+                    description:
+                      "Paragraph 2 of the 'A commitment to diverse digital talent' section",
+                  })}
+                </p>
+              </Well>
+              <Heading
+                size="h3"
+                data-h2-font-weight="base(700)"
+                data-h2-color="base(primary.darker)"
+                data-h2-text-align="base(center) p-tablet(left)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Graduates and advanced talent",
+                  id: "MZChNU",
+                  description:
+                    "Title of the 'Graduates and advanced talent' section",
+                })}
+              </Heading>
+              <p data-h2-margin="base(x1 0, x1, 0)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Are you looking to hire a graduate from the program or Indigenous talent for more senior positions in IT? Contact our team to discuss potential graduate placements and advanced talent referrals.",
+                  id: "lDnHjr",
+                  description:
+                    "Paragraph 1 of the 'Graduates and advanced talent' section",
+                })}
+              </p>
+              <Link
+                external
+                mode="solid"
+                icon={EnvelopeSolid}
+                color="primary"
+                href={buildMailtToUri(
+                  "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+                  intl.formatMessage({
+                    defaultMessage:
+                      "I'm interested in hiring a graduate/advanced talent",
+                    id: "WpA63g",
+                    description:
+                      "Subject line of a manager's email for apprenticeship",
+                  }),
+                )}
+                data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, 0, 0)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Contact the team",
+                  id: "gJ7CQw",
+                  description: "Link to send an email to the team",
+                })}
+              </Link>
             </div>
           </div>
         </div>
