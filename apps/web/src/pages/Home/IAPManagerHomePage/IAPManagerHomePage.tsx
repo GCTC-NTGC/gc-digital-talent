@@ -18,7 +18,7 @@ import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
 import packageEnDoc from "~/assets/documents/ITAPIP.Manager.Package.Text_FINAL_with.frame.docx";
 
-import { RadiatingCircles, Triangle } from "../IAPHomePage/components/Svg";
+import { Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const placeholderUrl = "about:blank";
@@ -332,11 +332,13 @@ export const IAPManagerHomePage = () => {
                   data-h2-width="p-tablet(100%)"
                   data-h2-position="base(relative)"
                 >
-                  <RadiatingCircles
-                    data-h2-color="base(secondary.light.5) base:dark(secondary.light)"
+                  <div
+                    data-h2-radius="base(515px)"
+                    data-h2-height="base(515px)"
+                    data-h2-width="base(515px)"
+                    data-h2-background-color="base(primary.dark.1)"
                     data-h2-position="base(absolute)"
-                    data-h2-width="base(110%)"
-                    data-h2-location="base(-x2, -x12, auto, auto)"
+                    data-h2-location="base(-6rem, auto, auto, 2rem)"
                   />
                   <img
                     src={section2Img}
@@ -365,8 +367,8 @@ export const IAPManagerHomePage = () => {
                         "Description of a decorative image of a hummingbird",
                     })}
                     data-h2-position="base(absolute)"
-                    data-h2-width="base(140%)"
-                    data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
+                    data-h2-width="base(415px)"
+                    data-h2-location="base(auto, auto, -122px, -120px)"
                   />
                 </div>
               </div>
@@ -376,8 +378,9 @@ export const IAPManagerHomePage = () => {
               >
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, x2, 0)"
                   data-h2-text-align="base(center) p-tablet(left)"
+                  data-h2-color="base(primary.darker)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "How the program works",
@@ -385,15 +388,15 @@ export const IAPManagerHomePage = () => {
                     description: "Title of the 'How the program works' section",
                   })}
                 </Heading>
-                <p data-h2-margin="base(x2, 0, x1, 0)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Hired as a term employee",
                     id: "e5xrSy",
                     description:
                       "Title of the 'Hired as a term employee' subsection",
                   })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
+                </Heading>
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Indigenous apprentices are hired by a host organization at the entry level of the IT group (IT-01 or equivalent) for a 24-month term.",
@@ -402,15 +405,15 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 of the 'Hired as a term employee' subsection",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Work integrated learning and IT training",
                     id: "xb4jXA",
                     description:
                       "Title of the 'Work integrated learning and IT training' subsection",
                   })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
+                </Heading>
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Over the course of the 24 months, apprentices learn on-the-job with a peer partner (4 days per week) and follow a curated self-paced online training curriculum (1 day per week) as part of their development.",
@@ -419,14 +422,14 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Circle of Support",
                     id: "D5Hqhf",
                     description: "Title of the 'Circle of Support' subsection",
                   })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
+                </Heading>
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "Due to the nature of the Apprenticeship, the program has developed a unique circle of supports for apprentices. These include a peer partner for job shadowing and day-to-day support, as well as a mentor who provides experienced guidance.",
@@ -444,15 +447,15 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 2 of the 'Circle of Support' subsection",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Digital certificate credential",
                     id: "+AnEvv",
                     description:
                       "Title of the 'Digital certificate credential' subsection",
                   })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
+                </Heading>
+                <p>
                   {intl.formatMessage(
                     {
                       defaultMessage:
