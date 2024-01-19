@@ -66,6 +66,7 @@ fragment poolCandidateTable on PoolCandidate {
     positionDuration
     priorityWeight
   }
+  isBookmarked
   cmoIdentifier
   expiryDate
   status
@@ -203,6 +204,7 @@ query GetPoolCandidatesPaginated(
     first: $first
     page: $page
     orderBy: [
+      { column: "is_bookmarked", order: DESC }
       { column: "status_weight", order: ASC }
       { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
       $sortingInput

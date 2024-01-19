@@ -28,6 +28,7 @@ import {
   getExperienceTitles,
   getScreeningQuestionResponses,
   getIndigenousCommunities,
+  sanitizeCSVString,
 } from "~/utils/csvUtils";
 import { PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
@@ -61,13 +62,13 @@ export const getPoolCandidateCsvData = (
         priority: user.priorityWeight
           ? intl.formatMessage(getPoolCandidatePriorities(user.priorityWeight))
           : "",
-        notes: notes || "",
+        notes: sanitizeCSVString(notes),
         dateReceived: submittedAt || "",
         expiryDate: expiryDate || "",
         archivedAt: archivedAt || "",
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
+        firstName: sanitizeCSVString(user.firstName),
+        lastName: sanitizeCSVString(user.lastName),
+        email: sanitizeCSVString(user.email),
         preferredCommunicationLanguage: user.preferredLang
           ? intl.formatMessage(getLanguage(user.preferredLang as string))
           : "",
@@ -116,7 +117,7 @@ export const getPoolCandidateCsvData = (
           : "",
         isGovEmployee: yesOrNo(user.isGovEmployee, intl),
         hasPriorityEntitlement: yesOrNo(user.hasPriorityEntitlement, intl),
-        priorityNumber: user.priorityNumber || "",
+        priorityNumber: sanitizeCSVString(user.priorityNumber),
         department: getLocalizedName(user.department?.name, intl, true),
         govEmployeeType: user.govEmployeeType
           ? employeeTypeToString(user.govEmployeeType, intl)
@@ -128,7 +129,7 @@ export const getPoolCandidateCsvData = (
           user.locationPreferences,
           intl,
         ),
-        locationExemptions: user.locationExemptions || "",
+        locationExemptions: sanitizeCSVString(user.locationExemptions),
         wouldAcceptTemporary: yesOrNo(
           user.positionDuration?.includes(PositionDuration.Temporary),
           intl,

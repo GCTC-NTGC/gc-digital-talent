@@ -19,6 +19,7 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export type CandidateAssessmentResult = {
   poolCandidate: PoolCandidate;
@@ -43,12 +44,7 @@ export const getDecisionInfo = (
       colorStyle: {
         "data-h2-color": "base(warning)",
       },
-      name: intl.formatMessage({
-        defaultMessage: "To assess",
-        id: "/+naWC",
-        description:
-          "Message displayed when candidate has yet to be assessed at a specific assessment step",
-      }),
+      name: intl.formatMessage(poolCandidateMessages.toAssess),
     };
   }
 

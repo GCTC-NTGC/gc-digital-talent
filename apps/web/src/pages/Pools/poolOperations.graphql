@@ -53,6 +53,14 @@ query GetBasicPoolInfo($poolId: UUID!) {
       group
       level
     }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
   }
 }
 

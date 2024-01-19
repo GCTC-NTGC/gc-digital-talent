@@ -61,6 +61,23 @@ const messages = defineMessages({
     description:
       "Label for the row-selection column in the tables column-selection modal.",
   },
+  finalDecision: {
+    defaultMessage: "Final decision",
+    id: "7oq1Qa",
+    description:
+      "Title displayed on the Pool Candidates table final decision column",
+  },
+  jobPlacement: {
+    defaultMessage: "Job placement",
+    id: "fQkgnT",
+    description:
+      "Title displayed on the Pool Candidates table job placement column",
+  },
+  bookmark: {
+    defaultMessage: "Bookmarked",
+    id: "7g4Mvc",
+    description: "Title displayed on the Pool Candidates table bookmark column",
+  },
 });
 
 export default messages;

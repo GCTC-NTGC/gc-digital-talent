@@ -59,4 +59,11 @@ if [ "$GCDT_CI" = true ]; then
 else
   npm run dev:fresh
 fi
-chmod -R a+r,a+w node_modules apps/*/.turbo packages/*/.turbo
+chmod -R a+r,a+w \
+  node_modules \
+  apps/*/.turbo \
+  apps/*/src/lang \
+  apps/*/dist \
+  packages/*/.turbo \
+  packages/*/dist \
+  packages/*/src/lang
