@@ -45,13 +45,13 @@ class SupportController extends Controller
             );
         if ($response->status() == 201) { // status code 201 = created.
             return response([
-                'serviceResponse' => $response->json(),
+                'serviceResponse' => 'success',
             ], 200);
         } else {
             Log::error('Error when trying to create a ticket: '.$response->getBody(true));
 
             return response([
-                'serviceResponse' => $response->json(),
+                'serviceResponse' => 'error',
             ], 500);
         }
     }
