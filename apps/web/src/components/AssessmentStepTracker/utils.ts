@@ -223,11 +223,9 @@ const getResultsDecision = (
   let hasOnHold: boolean = false;
   let hasToAssess: boolean = false;
 
-  const stepResults = results
-    ?.filter((result) => {
-      return result.assessmentStep?.id === step.id;
-    })
-    .filter(notEmpty);
+  const stepResults = results.filter((result) => {
+    return result.assessmentStep?.id === step.id;
+  });
 
   const requiredSkillAssessments = step.poolSkills?.filter(
     (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
@@ -238,7 +236,7 @@ const getResultsDecision = (
       return result.poolSkill?.id === skillAssessment?.id;
     });
 
-    if (assessmentResults.length) {
+    if (assessmentResults.length === 0) {
       hasToAssess = true;
       return;
     }
