@@ -302,7 +302,7 @@ type GroupedStep = {
   assessments: AssessmentMap;
 };
 
-type GroupedSteps = Map<string, GroupedStep>;
+type GroupedSteps = Map<string | undefined, GroupedStep>;
 
 export const groupPoolCandidatesByStep = (pool: Pool) => {
   const poolCandidates = pool.poolCandidates?.filter(notEmpty) ?? [];
@@ -341,9 +341,7 @@ export const groupPoolCandidatesByStep = (pool: Pool) => {
     assessments?.forEach((result) => {
       if (!result) return;
 
-      const resultStep = result?.assessmentStep?.id
-        ? stepMap.get(result.assessmentStep.id)
-        : false;
+      const resultStep = stepMap.get(result?.assessmentStep?.id);
       if (resultStep) {
         const stepCandidateAssessments = resultStep.assessments.get(
           poolCandidate.id,
