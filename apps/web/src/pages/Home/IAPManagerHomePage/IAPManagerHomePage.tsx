@@ -28,13 +28,13 @@ const makeLink = (chunks: React.ReactNode, url: string) => (
   </Link>
 );
 
-function buildMailtToUri(
-  emailAddres: string,
+function buildMailToUri(
+  emailAddress: string,
   subject: string,
   body?: string | null,
 ) {
   const encodedSubject = encodeURIComponent(subject);
-  let linkBuilder = `mailto:${emailAddres}?subject=${encodedSubject}`;
+  let linkBuilder = `mailto:${emailAddress}?subject=${encodedSubject}`;
   if (body) {
     const encodedBody = encodeURIComponent(body);
     linkBuilder += `&body=${encodedBody}`;
@@ -45,7 +45,7 @@ function buildMailtToUri(
 export const IAPManagerHomePage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const hireAnApprenticeEmailUri = buildMailtToUri(
+  const hireAnApprenticeEmailUri = buildMailToUri(
     "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
     intl.formatMessage({
       defaultMessage: "I'm interested in offering an apprenticeship",
@@ -831,7 +831,7 @@ export const IAPManagerHomePage = () => {
                 mode="solid"
                 icon={EnvelopeSolid}
                 color="primary"
-                href={buildMailtToUri(
+                href={buildMailToUri(
                   "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
                   intl.formatMessage({
                     defaultMessage:
