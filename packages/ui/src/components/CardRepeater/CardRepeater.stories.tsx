@@ -122,6 +122,8 @@ const AddDialog = () => {
   );
 };
 
+const themes = ["light", "dark"];
+
 const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   const { items: itemsArg } = args;
   const [items, setItems] = React.useState<CardItem[]>(itemsArg ?? []);
@@ -132,22 +134,33 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   };
 
   return (
-    <CardRepeater.Root<CardItem>
-      {...args}
-      items={items}
-      onUpdate={handleUpdate}
-      add={<AddDialog />}
+    <div
+      data-h2-display="base(grid)"
+      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
     >
-      {items.map((item, index) => (
-        <CardRepeater.Card
-          key={item.id}
-          index={index}
-          edit={<EditDialog item={item} index={index} />}
-        >
-          {item.value}
-        </CardRepeater.Card>
+      {themes.map((theme) => (
+        <div data-h2={theme} key={theme}>
+          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
+            <CardRepeater.Root<CardItem>
+              {...args}
+              items={items}
+              onUpdate={handleUpdate}
+              add={<AddDialog />}
+            >
+              {items.map((item, index) => (
+                <CardRepeater.Card
+                  key={item.id}
+                  index={index}
+                  edit={<EditDialog item={item} index={index} />}
+                >
+                  {item.value}
+                </CardRepeater.Card>
+              ))}
+            </CardRepeater.Root>
+          </div>
+        </div>
       ))}
-    </CardRepeater.Root>
+    </div>
   );
 };
 

@@ -114,6 +114,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
       id={`${id}-${item.id}`}
       tabIndex={-1}
       data-h2-background-color="base(foreground)"
+      data-h2-color="base(black)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(medium)"
       data-h2-radius="base(s)"
