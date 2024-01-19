@@ -19,6 +19,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
   id,
   locked,
   max,
+  hideIndex,
   messages,
 }: CardRepeaterProviderProps<T>) => {
   const [items, setItems] = useControllableState<ItemWithId<T>[]>({
@@ -34,9 +35,10 @@ export const CardRepeaterProvider = <T extends BaseItem>({
       id,
       locked,
       max,
+      hideIndex,
       messages,
     }),
-    [items, id, locked, max, messages, setItems],
+    [items, id, locked, max, hideIndex, messages, setItems],
   );
 
   return (

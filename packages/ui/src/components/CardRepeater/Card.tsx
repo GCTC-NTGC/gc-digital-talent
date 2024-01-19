@@ -54,7 +54,8 @@ const Card = ({ index, edit, error, children }: CardProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
-  const { move, remove, total, items, id } = useCardRepeaterContext();
+  const { move, remove, total, items, id, hideIndex } =
+    useCardRepeaterContext();
   const item = items?.[index];
   if (!item) return null;
 
@@ -149,13 +150,15 @@ const Card = ({ index, edit, error, children }: CardProps) => {
             <DisabledAction />
           )}
           {/* INDEX */}
-          <span
-            aria-hidden="true"
-            data-h2-text-align="base(center)"
-            data-h2-font-weight="base(700)"
-          >
-            {position}
-          </span>
+          {!hideIndex && (
+            <span
+              aria-hidden="true"
+              data-h2-text-align="base(center)"
+              data-h2-font-weight="base(700)"
+            >
+              {position}
+            </span>
+          )}
           {/* DOWN ARROW */}
           {!disableIncrement ? (
             <Action

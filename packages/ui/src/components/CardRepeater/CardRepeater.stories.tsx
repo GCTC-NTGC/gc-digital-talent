@@ -124,7 +124,7 @@ const AddDialog = () => {
 
 const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   const { items: itemsArg } = args;
-  const [items, setItems] = React.useState<CardItem[]>(itemsArg);
+  const [items, setItems] = React.useState<CardItem[]>(itemsArg ?? []);
 
   const handleUpdate = (newItems: CardItem[]) => {
     action("update")(newItems);
@@ -179,4 +179,10 @@ export const MaxItems = Template.bind({});
 MaxItems.args = {
   ...WithItems.args,
   max: 4,
+};
+
+export const HiddenIndex = Template.bind({});
+HiddenIndex.args = {
+  ...WithItems.args,
+  hideIndex: true,
 };

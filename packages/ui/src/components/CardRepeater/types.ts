@@ -10,6 +10,7 @@ export type CardRepeaterContextProps<T extends BaseItem = BaseItem> = {
   items: ItemWithId<T>[];
   locked?: number[];
   max?: number;
+  hideIndex?: boolean;
   onUpdate?: (newItems: ItemWithId<T>[]) => void;
   messages?: {
     approachingLimit?: React.ReactNode;
