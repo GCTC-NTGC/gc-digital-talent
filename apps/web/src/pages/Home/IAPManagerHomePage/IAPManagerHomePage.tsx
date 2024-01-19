@@ -5,7 +5,7 @@ import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Button, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
@@ -45,6 +45,46 @@ function buildMailtToUri(
 export const IAPManagerHomePage = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const hireAnApprenticeEmailUri = buildMailtToUri(
+    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+    intl.formatMessage({
+      defaultMessage: "I'm interested in offering an apprenticeship",
+      id: "HqtjhD",
+      description: "Subject line of a manager's email for apprenticeship",
+    }),
+    [
+      intl.formatMessage({
+        defaultMessage:
+          "To best support you in your journey to hire an IT Apprentice, please let us know if you",
+        id: "ZKss5S",
+        description: "Paragraph 1 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
+        id: "ipKAvI",
+        description: "Paragraph 2 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
+        id: "18pJdz",
+        description: "Paragraph 3 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage: "3. Other…",
+        id: "Fz49kD",
+        description: "Paragraph 4 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
+        id: "x45gSl",
+        description: "Paragraph 5 of a manager's email for apprenticeship",
+      }),
+    ].join("\n"),
+  );
+
   return (
     <>
       <div
@@ -115,52 +155,7 @@ export const IAPManagerHomePage = () => {
               mode="cta"
               icon={EnvelopeIcon}
               color="primary"
-              href={buildMailtToUri(
-                "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
-                intl.formatMessage({
-                  defaultMessage:
-                    "I'm interested in offering an apprenticeship",
-                  id: "HqtjhD",
-                  description:
-                    "Subject line of a manager's email for apprenticeship",
-                }),
-                [
-                  intl.formatMessage({
-                    defaultMessage:
-                      "To best support you in your journey to hire an IT Apprentice, please let us know if you",
-                    id: "ZKss5S",
-                    description:
-                      "Paragraph 1 of a manager's email for apprenticeship",
-                  }),
-                  intl.formatMessage({
-                    defaultMessage:
-                      "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
-                    id: "ipKAvI",
-                    description:
-                      "Paragraph 2 of a manager's email for apprenticeship",
-                  }),
-                  intl.formatMessage({
-                    defaultMessage:
-                      "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
-                    id: "18pJdz",
-                    description:
-                      "Paragraph 3 of a manager's email for apprenticeship",
-                  }),
-                  intl.formatMessage({
-                    defaultMessage: "3. Other…",
-                    id: "Fz49kD",
-                    description:
-                      "Paragraph 4 of a manager's email for apprenticeship",
-                  }),
-                  intl.formatMessage({
-                    defaultMessage:
-                      "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
-                    id: "x45gSl",
-                    description:
-                      "Paragraph 5 of a manager's email for apprenticeship",
-                  }),
-                ].join("\n"),
-              )}
+              href={hireAnApprenticeEmailUri}
             >
               {intl.formatMessage({
                 defaultMessage: "Contact the team",
@@ -543,16 +538,17 @@ export const IAPManagerHomePage = () => {
           data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+          <div data-h2-padding="base(x5, 0, x2, 0)">
             <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
               <div
-                data-h2-flex-item="base(1of1) p-tablet(4of7)"
+                data-h2-flex-item="base(1of1) p-tablet(1of2)"
                 data-h2-order="p-tablet(1)"
               >
                 <Heading
                   data-h2-font-size="base(h3, 1)"
-                  data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
+                  data-h2-margin="base(0, 0, x1, 0)"
                   data-h2-text-align="base(center) p-tablet(left)"
+                  data-h2-color="base(primary.darker)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -562,7 +558,7 @@ export const IAPManagerHomePage = () => {
                       "Title for the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </Heading>
-                <p data-h2-margin="base(x2, 0, x1, 0)">
+                <p>
                   {intl.formatMessage({
                     defaultMessage:
                       "The OII is dedicated to bringing Indigenous talent into the GC's IT workforce and simplifying the hiring process for you.",
@@ -571,7 +567,7 @@ export const IAPManagerHomePage = () => {
                       "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <p data-h2-margin="base(x0.5, 0)">
                   {intl.formatMessage({
                     defaultMessage: "You will receive candidates who have:",
                     id: "SeJ1eB",
@@ -579,72 +575,117 @@ export const IAPManagerHomePage = () => {
                       "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage: "Been interviewed",
-                    id: "Wvybds",
-                    description:
-                      "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Been fully assessed against the IT Apprenticeship Program for Indigenous People’s Statement of Merit Criteria and found qualified for the role of an IT-01 (or equivalent) apprentice",
-                    id: "q0oPjr",
-                    description:
-                      "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage: "A valid Reliability security status",
-                    id: "k1uZ7o",
-                    description:
-                      "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage: "A personal record identifier (PRI)",
-                    id: "yaf/jx",
-                    description:
-                      "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage: "How to begin hiring an apprentice",
-                    id: "UJPrY7",
-                    description:
-                      "Title for the 'How to begin hiring an apprentice' section",
-                  })}
-                </p>
-                <p data-h2-margin="base(x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Download the manager’s package for more information and then contact the team to get the process started.",
-                    id: "zvXWQB",
-                    description:
-                      "Paragraph 1 for the 'How to begin hiring an apprentice' section",
-                  })}
-                </p>
-
-                <Button>
-                  {intl.formatMessage({
-                    defaultMessage: "Download the package",
-                    id: "iGXXjP",
-                    description:
-                      "Call to action to download the manager's package",
-                  })}
-                </Button>
-                <Button>
-                  {intl.formatMessage({
-                    defaultMessage: "Hire an apprentice",
-                    id: "qlVBtp",
-                    description: "Link to send an email to the team",
-                  })}
-                </Button>
+                <ul>
+                  <li data-h2-margin="base(x0.25, 0)">
+                    {intl.formatMessage({
+                      defaultMessage: "Been interviewed",
+                      id: "Wvybds",
+                      description:
+                        "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                    })}
+                  </li>
+                  <li data-h2-margin="base(x0.25, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Been fully assessed against the IT Apprenticeship Program for Indigenous People’s Statement of Merit Criteria and found qualified for the role of an IT-01 (or equivalent) apprentice",
+                      id: "q0oPjr",
+                      description:
+                        "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                    })}
+                  </li>
+                  <li data-h2-margin="base(x0.25, 0)">
+                    {intl.formatMessage({
+                      defaultMessage: "A valid Reliability security status",
+                      id: "k1uZ7o",
+                      description:
+                        "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                    })}
+                  </li>
+                  <li data-h2-margin="base(x0.25, 0)">
+                    {intl.formatMessage({
+                      defaultMessage: "A personal record identifier (PRI)",
+                      id: "yaf/jx",
+                      description:
+                        "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
+                    })}
+                  </li>
+                </ul>
+              </div>
+              <div
+                data-h2-flex-item="base(1of1) p-tablet(1of2)"
+                data-h2-order="p-tablet(2)"
+              >
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-justify-content="base(center)"
+                  data-h2-height="base(100%)"
+                >
+                  <div
+                    data-h2-background-color="base(primary.dark)"
+                    data-h2-padding="base(x2)"
+                    data-h2-color="base(white)"
+                    data-h2-position="base(relative)"
+                  >
+                    <div
+                      data-h2-radius="base(340px)"
+                      data-h2-height="base(340px)"
+                      data-h2-width="base(340px)"
+                      data-h2-background-color="base(primary.dark.1)"
+                      data-h2-position="base(absolute)"
+                      data-h2-location="base(-74px, -136px, auto, auto)"
+                    />
+                    <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+                      {intl.formatMessage({
+                        defaultMessage: "How to begin hiring an apprentice",
+                        id: "UJPrY7",
+                        description:
+                          "Title for the 'How to begin hiring an apprentice' section",
+                      })}
+                    </Heading>
+                    <p data-h2-margin="base(x1, 0, 0, 0)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Download the manager’s package for more information and then contact the team to get the process started.",
+                        id: "zvXWQB",
+                        description:
+                          "Paragraph 1 for the 'How to begin hiring an apprentice' section",
+                      })}
+                    </p>
+                  </div>
+                  <div
+                    data-h2-margin-top="base(x1)"
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(row)"
+                    data-h2-gap="base(x1)"
+                    data-h2-align-items="base(center)"
+                  >
+                    <Link
+                      mode="solid"
+                      external
+                      href={locale === "en" ? packageEnDoc : placeholderUrl}
+                      color="secondary"
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Download the package",
+                        id: "iGXXjP",
+                        description:
+                          "Call to action to download the manager's package",
+                      })}
+                    </Link>
+                    <Link
+                      external
+                      mode="inline"
+                      href={hireAnApprenticeEmailUri}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Hire an apprentice",
+                        id: "qlVBtp",
+                        description: "Link to send an email to the team",
+                      })}
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
