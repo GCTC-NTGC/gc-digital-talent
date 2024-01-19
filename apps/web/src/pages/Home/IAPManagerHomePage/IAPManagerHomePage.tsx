@@ -218,6 +218,8 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of a woman and a laptop",
                       })}
+                      width="422px"
+                      height="551px"
                       data-h2-display="base(block)"
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="base(100%)"
@@ -237,9 +239,10 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of some beaded artwork",
                       })}
+                      width="180px"
+                      height="465px"
                       data-h2-position="base(absolute)"
-                      data-h2-width="base(10rem)"
-                      data-h2-location="base(auto, auto, -1rem, -4rem) p-tablet(auto, auto, -2rem, -7rem)"
+                      data-h2-location="base(auto, auto, -1rem, -4rem) p-tablet(auto, auto, -3rem, -5rem)"
                     />
                   </div>
                 </div>
@@ -324,6 +327,8 @@ export const IAPManagerHomePage = () => {
             <div
               data-h2-flex-item="base(1of1) p-tablet(3of7)"
               data-h2-order="p-tablet(2)"
+              // padding for flourish
+              data-h2-padding-bottom="base(x2) p-tablet(x3) h-tablet(x5)"
             >
               <div
                 data-h2-height="p-tablet(100%)"
@@ -333,45 +338,47 @@ export const IAPManagerHomePage = () => {
               >
                 <div
                   data-h2-radius="base(100%)"
-                  data-h2-height="base(0) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
+                  data-h2-height="base(100%) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
                   data-h2-width="base(100%) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
-                  data-h2-padding-bottom="base(100%) l-tablet(0)"
                   data-h2-background-color="base(primary.dark.1)"
                   data-h2-position="base(absolute)"
-                  data-h2-location="base(-x4, -x1, auto, auto) l-tablet(-x4, -x2, auto, auto) desktop(-x6, -x6, auto, auto)"
+                  data-h2-location="base(-x4, -x6, auto, auto) l-tablet(-x4, -x4, auto, auto) desktop(-x6, -x6, auto, auto)"
                 />
-                <img
-                  src={section2Img}
-                  alt={intl.formatMessage({
-                    defaultMessage:
-                      "Indigenous man working with his policy team using a laptop.",
-                    id: "wW4ymk",
-                    description:
-                      "Description of a decorative image of a man and a laptop",
-                  })}
-                  data-h2-display="base(block)"
-                  data-h2-margin="base(0 auto)"
-                  data-h2-min-height="base(60vh) p-tablet(initial)"
-                  data-h2-height="p-tablet(100%)"
-                  data-h2-width="base(calc(100% - 4rem)) p-tablet(100%)"
-                  data-h2-position="base(relative)"
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-                <img
-                  src={section2FlourishImg}
-                  alt={intl.formatMessage({
-                    defaultMessage:
-                      "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
-                    id: "P40FEe",
-                    description:
-                      "Description of a decorative image of a hummingbird",
-                  })}
-                  data-h2-position="base(absolute)"
-                  data-h2-width="base(24rem) l-tablet(18rem)"
-                  data-h2-location="base(auto, auto, -x2, -x2)"
-                />
+                <div data-h2-position="base(relative)">
+                  <img
+                    src={section2Img}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Indigenous man working with his policy team using a laptop.",
+                      id: "wW4ymk",
+                      description:
+                        "Description of a decorative image of a man and a laptop",
+                    })}
+                    width="426px"
+                    height="675px"
+                    data-h2-display="base(block)"
+                    data-h2-margin="base(0 auto)"
+                    data-h2-position="base(relative)"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
+                  <img
+                    src={section2FlourishImg}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Hummingbird in flight, which represents the messenger of joy in many Indigenous communities",
+                      id: "P40FEe",
+                      description:
+                        "Description of a decorative image of a hummingbird",
+                    })}
+                    width="415px"
+                    height="309px"
+                    data-h2-min-width="base(415px)"
+                    data-h2-position="base(absolute)"
+                    data-h2-location="base(auto, auto, -x6, -x2) l-tablet(auto, auto, -x6, -x5) desktop(auto, auto, -x6, -x4)"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -654,7 +661,7 @@ export const IAPManagerHomePage = () => {
                       data-h2-width="base(18rem)"
                       data-h2-background-color="base(primary.dark.1)"
                       data-h2-position="base(absolute)"
-                      data-h2-location="base(-x3, -x1, auto, auto) desktop(-x3, -x5, auto, auto)"
+                      data-h2-location="base(-x3, -x5, auto, auto) desktop(-x3, -x5, auto, auto)"
                       data-h2-z-index="base(0)"
                     />
                     <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
@@ -721,7 +728,11 @@ export const IAPManagerHomePage = () => {
           data-h2-position="base(relative)"
         >
           <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
-            <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
+            <div
+              data-h2-flex-item="base(1of1) p-tablet(3of7)"
+              // padding for flourish
+              data-h2-padding-bottom="base(x2) p-tablet(x3) h-tablet(x5)"
+            >
               <div
                 data-h2-height="p-tablet(100%)"
                 data-h2-width="p-tablet(100%)"
@@ -729,7 +740,7 @@ export const IAPManagerHomePage = () => {
               >
                 <Triangle
                   data-h2-position="base(absolute)"
-                  data-h2-location="base(-x1.5, -x1, auto, auto)"
+                  data-h2-location="base(-3rem, -2rem, auto, auto) p-tablet(-x1.5, -x1, auto, auto) l-tablet(-x2, -x1, auto, auto)"
                   style={{ transform: "rotate(90deg) translate(20%, -25%)" }}
                   data-h2-width="base(100%)"
                   data-h2-color="base(primary.darker)"
@@ -746,7 +757,11 @@ export const IAPManagerHomePage = () => {
                   data-h2-min-height="base(32rem) p-tablet(initial)"
                   data-h2-height="base(100%)"
                   data-h2-width="base(100%)"
+                  width="451px"
+                  height="523px"
+                  data-h2-display="base(block)"
                   data-h2-position="base(relative)"
+                  data-h2-margin="base(0 auto)"
                   style={{
                     objectFit: "cover",
                   }}
@@ -761,8 +776,8 @@ export const IAPManagerHomePage = () => {
                       "Description of a decorative image of a talking stick",
                   })}
                   data-h2-position="base(absolute)"
-                  data-h2-location="base(auto, auto, -x4, -x1)"
-                  data-h2-width="base(150%)"
+                  data-h2-location="base(auto, auto, -x8, -x1)  p-tablet(auto, auto,-x4, -x1) l-tablet(auto, auto,-x8, -x1)"
+                  data-h2-width="base(80%) base(150%)"
                 />
               </div>
             </div>
@@ -793,7 +808,7 @@ export const IAPManagerHomePage = () => {
                     "Paragraph 1 of the 'A commitment to diverse digital talent' section",
                 })}
               </p>
-              <Well>
+              <Well color="default">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
