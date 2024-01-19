@@ -290,15 +290,13 @@ export const IAPManagerHomePage = () => {
                     })}
                   </p>
                   <p data-h2-margin="base(x1, 0)">
-                    <div>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "The Office of Indigenous Initiatives (OII) is the team that supports the program.",
-                        id: "1C9UWI",
-                        description:
-                          "Paragraph 4 of the 'About the program' section",
-                      })}
-                    </div>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The Office of Indigenous Initiatives (OII) is the team that supports the program.",
+                      id: "1C9UWI",
+                      description:
+                        "Paragraph 4 of the 'About the program' section",
+                    })}
                   </p>
 
                   <Link
@@ -493,7 +491,7 @@ export const IAPManagerHomePage = () => {
         }}
       >
         <div
-          data-h2-background-color="base(secondary.dark.9)"
+          data-h2-background-color="base(secondary.dark.9) base:dark(secondary.darker.9)"
           data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
         >
           <div
