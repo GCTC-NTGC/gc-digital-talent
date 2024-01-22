@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ScreeningQuestionResponseResource extends JsonResource
+class GeneralQuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,8 @@ class ScreeningQuestionResponseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'answer' => $this->answer,
-            'screeningQuestion' => (new ScreeningQuestionResource($this->screeningQuestion)),
+            'question' => $this->question,
+            'sortOrder' => $this->sort_order,
         ];
     }
 }
