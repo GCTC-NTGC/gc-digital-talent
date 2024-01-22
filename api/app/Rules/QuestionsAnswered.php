@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
+use App\Models\GeneralQuestion;
 use App\Models\PoolCandidate;
-use App\Models\ScreeningQuestion;
 use Closure;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -27,7 +27,7 @@ class QuestionsAnswered implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $questions = ScreeningQuestion::where('pool_id', $value)
+        $questions = GeneralQuestion::where('pool_id', $value)
             ->get()
             ->pluck('id');
 

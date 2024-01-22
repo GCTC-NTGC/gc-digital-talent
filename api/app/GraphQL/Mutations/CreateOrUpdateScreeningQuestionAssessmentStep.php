@@ -4,9 +4,9 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\PoolSkill;
-use App\Models\ScreeningQuestion;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +22,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
         DB::beginTransaction();
         try {
             $pool = Pool::find($args['poolId']);
-            $existingQuestions = ScreeningQuestion::where('pool_id', '=', $args['poolId'])->get();
+            $existingQuestions = GeneralQuestion::where('pool_id', '=', $args['poolId'])->get();
             $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
