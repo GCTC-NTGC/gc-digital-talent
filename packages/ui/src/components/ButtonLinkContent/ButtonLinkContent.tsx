@@ -111,6 +111,17 @@ const ButtonLinkContent = ({
       "data-h2-margin-top": "base(-x.2)",
     };
   }
+  let contentDisplay = {
+    "data-h2-display": "base(block) base:children[>*](inline-block)",
+    "data-h2-vertical-align": "base:children[>*](middle)",
+  };
+  if (mode === "text") {
+    contentDisplay = {
+      "data-h2-display":
+        "base(inline) base:children[>svg, .counter](inline-block)",
+      "data-h2-vertical-align": "base:children[>svg, .counter](middle)",
+    };
+  }
   if (!newTab && !icon && !utilityIcon)
     return (
       <span {...textSize} data-h2-text-decoration="base(underline)">
@@ -170,11 +181,7 @@ const ButtonLinkContent = ({
     );
   }
   return (
-    <span
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      {...rest}
-    >
+    <span {...contentDisplay} {...rest}>
       {Icon && (
         <Icon data-h2-margin-right="base(x.25)" {...iconSize} {...iconMargin} />
       )}

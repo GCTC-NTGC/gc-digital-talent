@@ -40,6 +40,7 @@ const DownloadCsv = ({
       data-h2-cursor="base(pointer)"
       {...getButtonStyles({ mode, color, block, disabled })}
       {...rest}
+      wrapColumnChar='"'
       disabled={disabled}
       columns={headers}
       datas={data}
