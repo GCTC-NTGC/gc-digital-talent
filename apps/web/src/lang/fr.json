@@ -4879,6 +4879,10 @@
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
   },
+  "PvYso4": {
+    "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-resprésentés en ayant recours à des programmes tels le Programme d'apprrentissage en TI pour les peuples autochtones.",
+    "description": "Paragraph 1 of the 'A commitment to diverse digital talent' section"
+  },
   "PzijvH": {
     "defaultMessage": "Volets/Titres de postes",
     "description": "Label displayed on the pool form stream/job title field."
@@ -7434,10 +7438,6 @@
   "eP8dfW": {
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
-  },
-  "eSzizR": {
-    "defaultMessage": "L'Ambition numérique, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-resprésentés en ayant recours à des programmes tels le Programme d'apprrentissage en TI pour les peuples autochtones.",
-    "description": "Paragraph 1 of the 'A commitment to diverse digital talent' section"
   },
   "eTTlR0": {
     "defaultMessage": "Soumettre la demande",

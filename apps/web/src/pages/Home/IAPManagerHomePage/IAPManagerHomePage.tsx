@@ -16,12 +16,12 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/ITAPIP.Manager.Package.Text_FINAL_with.frame.docx";
+import packageEnDoc from "~/assets/documents/ITAPIP Manager Package Text_FINAL_with frame.docx";
+import packageFrDoc from "~/assets/documents/ITAPIP Manager Package Text_FINAL_FR (OII)_with frame.docx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
-const placeholderUrl = "about:blank";
 const makeLink = (chunks: React.ReactNode, url: string) => (
   <Link href={url} color="primary">
     {chunks}
@@ -168,7 +168,7 @@ export const IAPManagerHomePage = () => {
               external
               mode="cta"
               icon={ArrowDownTrayIcon}
-              href={locale === "en" ? packageEnDoc : placeholderUrl}
+              href={locale === "en" ? packageEnDoc : packageFrDoc}
               color="primary"
             >
               {intl.formatMessage({
@@ -297,7 +297,7 @@ export const IAPManagerHomePage = () => {
                   <Link
                     mode="solid"
                     external
-                    href={locale === "en" ? packageEnDoc : placeholderUrl}
+                    href={locale === "en" ? packageEnDoc : packageFrDoc}
                     color="primary"
                   >
                     {intl.formatMessage({
@@ -691,7 +691,7 @@ export const IAPManagerHomePage = () => {
                     <Link
                       mode="solid"
                       external
-                      href={locale === "en" ? packageEnDoc : placeholderUrl}
+                      href={locale === "en" ? packageEnDoc : packageFrDoc}
                       color="secondary"
                     >
                       {intl.formatMessage({
@@ -793,13 +793,25 @@ export const IAPManagerHomePage = () => {
                 })}
               </Heading>
               <p data-h2-margin="base(x1, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The Digital Ambition, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
-                  id: "eSzizR",
-                  description:
-                    "Paragraph 1 of the 'A commitment to diverse digital talent' section",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "The <link>Digital Ambition</link>, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
+                    id: "PvYso4",
+                    description:
+                      "Paragraph 1 of the 'A commitment to diverse digital talent' section",
+                  },
+                  {
+                    link: (chunks: React.ReactNode) => {
+                      return makeLink(
+                        chunks,
+                        locale === "en"
+                          ? "https://www.canada.ca/en/government/system/digital-government/digital-ambition.html"
+                          : "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/ambition-numerique.html",
+                      );
+                    },
+                  },
+                )}
               </p>
               <Well color="default">
                 <p>
