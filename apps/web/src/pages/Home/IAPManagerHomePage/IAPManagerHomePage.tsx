@@ -120,7 +120,7 @@ export const IAPManagerHomePage = () => {
               src={logoImg}
               alt=""
               data-h2-display="base(block)"
-              data-h2-width="base(235px)"
+              data-h2-width="base(172px) p-tablet(235px)"
             />
             <h1
               data-h2-font-size="base(h3, 1.2)"
@@ -218,8 +218,6 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of a woman and a laptop",
                       })}
-                      width="422px"
-                      height="551px"
                       data-h2-display="base(block)"
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="base(100%)"
@@ -239,8 +237,6 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of some beaded artwork",
                       })}
-                      width="180px"
-                      height="465px"
                       data-h2-position="base(absolute)"
                       data-h2-width="base(auto)"
                       data-h2-height="base(25rem)"
@@ -440,8 +436,8 @@ export const IAPManagerHomePage = () => {
               >
                 <div
                   data-h2-radius="base(100%)"
-                  data-h2-height="base(100%) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
-                  data-h2-width="base(100%) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
+                  data-h2-height="base(18rem) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
+                  data-h2-width="base(18rem) p-tablet(18rem) l-tablet(24rem) desktop(32rem)"
                   data-h2-background-color="base(primary.dark.1)"
                   data-h2-position="base(absolute)"
                   data-h2-location="base(-x4, -x6, auto, auto) l-tablet(-x4, -x4, auto, auto) desktop(-x6, -x6, auto, auto)"
@@ -456,8 +452,6 @@ export const IAPManagerHomePage = () => {
                       description:
                         "Description of a decorative image of a man and a laptop",
                     })}
-                    width="426px"
-                    height="675px"
                     data-h2-display="base(block)"
                     data-h2-margin="base(0 auto)"
                     data-h2-position="base(relative)"
@@ -474,8 +468,6 @@ export const IAPManagerHomePage = () => {
                       description:
                         "Description of a decorative image of a hummingbird",
                     })}
-                    width="415px"
-                    height="309px"
                     data-h2-position="base(absolute)"
                     data-h2-location="base(auto, auto, -x4, -x3) p-tablet(auto, auto, -x3, -x3) l-tablet(auto, auto, -x4, -x4) desktop(auto, auto, -x4, -x5)"
                     data-h2-width="base(20rem) l-tablet(30rem)"
@@ -751,8 +743,6 @@ export const IAPManagerHomePage = () => {
                   data-h2-min-height="base(32rem) p-tablet(initial)"
                   data-h2-height="base(100%)"
                   data-h2-width="base(100%)"
-                  width="451px"
-                  height="523px"
                   data-h2-display="base(block)"
                   data-h2-position="base(relative)"
                   data-h2-margin="base(0 auto)"
