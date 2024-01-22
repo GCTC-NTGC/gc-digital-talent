@@ -86,7 +86,10 @@ export const IAPManagerHomePage = () => {
   );
 
   return (
-    <>
+    <div
+      data-h2-background="base(white) base:dark(background)"
+      data-h2-overflow="base(hidden visible)"
+    >
       <div
         // hero wrapper
         data-h2-width="base(100%)"
@@ -206,7 +209,6 @@ export const IAPManagerHomePage = () => {
                     <TopRightFrame
                       data-h2-position="base(absolute)"
                       data-h2-width="base(80%)"
-                      data-h2-color="base(secondary) base:dark(secondary.light)"
                       data-h2-location="base(-1.5rem, -1.5rem, auto, auto) p-tablet(-1.5rem, -1.5rem, auto, auto)"
                     />
                     <img
@@ -852,7 +854,7 @@ export const IAPManagerHomePage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
