@@ -10,7 +10,7 @@ use App\Models\PoolSkill;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-final class CreateOrUpdateScreeningQuestionAssessmentStep
+final class CreateOrUpdateGeneralQuestionAssessmentStep
 {
     /**
      * @param  null  $_
