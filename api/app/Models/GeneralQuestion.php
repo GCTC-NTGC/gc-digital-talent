@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Screening Question
+ * Class General Question
  *
  * @property string $id
  * @property string $pool_id
@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-class ScreeningQuestion extends Model
+class GeneralQuestion extends Model
 {
     use HasFactory;
 
@@ -47,8 +47,8 @@ class ScreeningQuestion extends Model
         return $this->belongsTo(Pool::class);
     }
 
-    public function screeningQuestionResponses(): HasMany
+    public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(ScreeningQuestionResponse::class);
+        return $this->hasMany(GeneralQuestionResponse::class);
     }
 }

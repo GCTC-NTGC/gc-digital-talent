@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Screening Question Response
+ * Class General Question Response
  *
  * @property string $id
  * @property string $pool_candidate_id
- * @property string $screening_question_id
+ * @property string $general_question_id
  * @property string $answer
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  */
-class ScreeningQuestionResponse extends Model
+class GeneralQuestionResponse extends Model
 {
     protected $keyType = 'string';
 
@@ -34,7 +34,7 @@ class ScreeningQuestionResponse extends Model
      */
     protected $fillable = [
         'pool_candidate_id',
-        'screening_question_id',
+        'general_question_id',
         'answer',
     ];
 
@@ -43,8 +43,8 @@ class ScreeningQuestionResponse extends Model
         return $this->belongsTo(PoolCandidate::class);
     }
 
-    public function screeningQuestion(): BelongsTo
+    public function generalQuestion(): BelongsTo
     {
-        return $this->belongsTo(ScreeningQuestion::class);
+        return $this->belongsTo(GeneralQuestion::class);
     }
 }
