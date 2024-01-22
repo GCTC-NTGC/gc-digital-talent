@@ -115,7 +115,6 @@ export const IAPManagerHomePage = () => {
             data-h2-flex-direction="base(column)"
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
-            data-h2-max-width="base(x23) laptop(x28)"
             data-h2-text-align="base(center)"
             data-h2-color="base:all(white)"
           >
@@ -132,7 +131,7 @@ export const IAPManagerHomePage = () => {
                 description: "Page title for IAP manager homepage",
               })}
             </h1>
-            <p>
+            <p data-h2-font-size="base(h5)">
               {intl.formatMessage({
                 defaultMessage:
                   "Together we can address barriers to Reconciliation, diversity and inclusion",
