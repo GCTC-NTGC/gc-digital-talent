@@ -32,8 +32,8 @@ class QuestionsAnswered implements ValidationRule
             ->pluck('id');
 
         if (count($questions)) {
-            $responseCount = $this->application->screeningQuestionResponses()
-                ->whereIn('screening_question_id', $questions)
+            $responseCount = $this->application->generalQuestionResponses()
+                ->whereIn('general_question_id', $questions)
                 ->count();
 
             if ($responseCount < count($questions)) {

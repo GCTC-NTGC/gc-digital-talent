@@ -23,7 +23,7 @@ final class CreateOrUpdateGeneralQuestionAssessmentStep
         try {
             $pool = Pool::find($args['poolId']);
             $existingQuestions = GeneralQuestion::where('pool_id', '=', $args['poolId'])->get();
-            $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
+            $incomingQuestions = is_array($args['generalQuestions']) ? $args['generalQuestions'] : [];
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
 
@@ -33,7 +33,7 @@ final class CreateOrUpdateGeneralQuestionAssessmentStep
                     array_push($incomingQuestionIds, $incomingQuestion['id']);
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
-                        throw new Exception('ScreeningQuestionNotExist');
+                        throw new Exception('GeneralQuestionNotExist');
                     }
 
                     $questionToUpdate->question = $incomingQuestion['question'];
@@ -43,7 +43,7 @@ final class CreateOrUpdateGeneralQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $pool->screeningQuestions()->Create([
+                    $pool->generalQuestions()->Create([
                         'question' => $incomingQuestion['question'],
                         'sort_order' => isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null,
                     ]);
