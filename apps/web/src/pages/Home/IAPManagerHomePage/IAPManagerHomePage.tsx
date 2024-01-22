@@ -485,7 +485,7 @@ export const IAPManagerHomePage = () => {
         style={{
           backgroundImage: `url(${testimonials})`,
           backgroundSize: "cover",
-          backgroundPosition: "right 10% center",
+          backgroundPosition: "bottom",
         }}
       >
         <div
