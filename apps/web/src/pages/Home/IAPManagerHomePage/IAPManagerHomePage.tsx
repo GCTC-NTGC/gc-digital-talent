@@ -242,7 +242,9 @@ export const IAPManagerHomePage = () => {
                       width="180px"
                       height="465px"
                       data-h2-position="base(absolute)"
-                      data-h2-location="base(auto, auto, -1rem, -4rem) p-tablet(auto, auto, -3rem, -5rem)"
+                      data-h2-width="base(auto)"
+                      data-h2-height="base(25rem)"
+                      data-h2-location="base(auto, auto, -2rem, -4rem) p-tablet(auto, auto, -3rem, -5rem)"
                     />
                   </div>
                 </div>
@@ -435,7 +437,6 @@ export const IAPManagerHomePage = () => {
                 data-h2-height="p-tablet(100%)"
                 data-h2-width="p-tablet(100%)"
                 data-h2-position="base(relative)"
-                data-h2-margin="base(x4 0) l-tablet(0)"
               >
                 <div
                   data-h2-radius="base(100%)"
@@ -475,9 +476,10 @@ export const IAPManagerHomePage = () => {
                     })}
                     width="415px"
                     height="309px"
-                    data-h2-min-width="base(415px)"
                     data-h2-position="base(absolute)"
-                    data-h2-location="base(auto, auto, -x6, -x2) l-tablet(auto, auto, -x6, -x5) desktop(auto, auto, -x6, -x4)"
+                    data-h2-location="base(auto, auto, -x4, -x3) p-tablet(auto, auto, -x3, -x3) l-tablet(auto, auto, -x4, -x4) desktop(auto, auto, -x4, -x5)"
+                    data-h2-width="base(20rem) l-tablet(30rem)"
+                    data-h2-height="base(auto)"
                   />
                 </div>
               </div>
@@ -729,11 +731,7 @@ export const IAPManagerHomePage = () => {
               // padding for flourish
               data-h2-padding-bottom="base(x2) p-tablet(x3) l-tablet(x5)"
             >
-              <div
-                data-h2-height="p-tablet(100%)"
-                data-h2-width="p-tablet(100%)"
-                data-h2-position="base(relative)"
-              >
+              <div data-h2-position="base(relative)">
                 <Triangle
                   data-h2-position="base(absolute)"
                   data-h2-location="base(-3rem, -2rem, auto, auto) p-tablet(-x1.5, -x1, auto, auto) l-tablet(-x2, -x1, auto, auto)"
@@ -772,7 +770,7 @@ export const IAPManagerHomePage = () => {
                       "Description of a decorative image of a talking stick",
                   })}
                   data-h2-position="base(absolute)"
-                  data-h2-location="base(auto, auto, -x8, -x1)  p-tablet(auto, auto,-x4, -x1) l-tablet(auto, auto,-x8, -x1)"
+                  data-h2-location="base(auto, auto, -x5, -x1)  p-tablet(auto, auto,-x4, -x1) l-tablet(auto, auto,-x8, -x1)"
                   data-h2-width="base(80%) base(150%)"
                 />
               </div>
