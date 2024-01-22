@@ -125,10 +125,7 @@ export const IAPManagerHomePage = () => {
               data-h2-display="base(block)"
               data-h2-width="base(172px) p-tablet(235px)"
             />
-            <h1
-              data-h2-font-size="base(h3, 1.2)"
-              data-h2-font-weight="base(bold)"
-            >
+            <h1 data-h2-font-size="base(h1)" data-h2-font-weight="base(bold)">
               {intl.formatMessage({
                 defaultMessage: "Hire an IT apprentice",
                 id: "39RER8",
