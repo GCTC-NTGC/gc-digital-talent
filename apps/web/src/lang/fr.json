@@ -3543,10 +3543,6 @@
     "defaultMessage": "Statut de priorité",
     "description": "Priority entitlement label"
   },
-  "IEGaTJ": {
-    "defaultMessage": "Sélection et évaluation",
-    "description": "Title for the screening and evaluation page"
-  },
   "IEkhMc": {
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
