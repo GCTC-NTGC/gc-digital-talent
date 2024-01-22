@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Psr\Log\LoggerInterface;
 
 /**
- * Logs every incoming GraphQL query.
+ * Logs slow running queries
  * based on Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries.php;
  */
-class AuditQueryMiddleware
+class SlowQueryLoggerMiddleware
 {
     /**
      * @var \Psr\Log\LoggerInterface
@@ -27,15 +27,21 @@ class AuditQueryMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $request->user();
-        if (! is_null($user) && $user->hasRole('platform_admin')) {
-            $message = 'GraphQL request from platform admin user ['.$user['email'].']';
+        $start = hrtime(true);
+        $result = $next($request);
+        $end = hrtime(true);
+        $elapsedSeconds = ($end - $start) / 1000000000;
+
+        if ($elapsedSeconds > 15) {
             $this->logger->info(
-                $message,
-                $request->json()->all()
+                'Slow query',
+                [
+                    'request' => $request->json()->all(),
+                    'elapsed_seconds' => $elapsedSeconds,
+                ]
             );
         }
 
-        return $next($request);
+        return $result;
     }
 }
