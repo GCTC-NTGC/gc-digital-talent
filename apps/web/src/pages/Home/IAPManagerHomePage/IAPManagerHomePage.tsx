@@ -16,8 +16,8 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/ITAPIP Manager Package Text_FINAL_with frame.docx";
-import packageFrDoc from "~/assets/documents/ITAPIP Manager Package Text_FINAL_FR (OII)_with frame.docx";
+import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.docx";
+import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.docx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
