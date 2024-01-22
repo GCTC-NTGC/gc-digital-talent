@@ -41,5 +41,15 @@ class AppServiceProvider extends ServiceProvider
         //         $query->time
         //     );
         // });
+
+        // enable and adjust timing for logging of SQL statement times
+        // DB::listen(function ($query) {
+        //     if ($query->time > 20) {
+        //         Log::warning('Query exceeded 20 milliseconds -', [
+        //             'sql' => $query->sql,
+        //             'milliseconds' => $query->time,
+        //         ]);
+        //     }
+        // });
     }
 }
