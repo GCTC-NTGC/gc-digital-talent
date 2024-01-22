@@ -104,7 +104,7 @@ export const IAPManagerHomePage = () => {
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           // x4 bottom padding + overlap
-          data-h2-padding="base(x4, 0, x4, 0) base(x4, 0, x7, 0) base(x4, 0, x8, 0)"
+          data-h2-padding="base(x4, 0, x4, 0) p-tablet(x4, 0, x7, 0) l-tablet(x4, 0, x8, 0)"
           data-h2-gap="base(x2)"
           data-h2-align-items="base(center)"
           data-h2-min-width="base(x12)"
@@ -188,15 +188,15 @@ export const IAPManagerHomePage = () => {
           data-h2-position="base(relative)"
         >
           <div
-            data-h2-position="base(relative)"
-            data-h2-location="base(-x3, auto, auto, auto) p-tablet(-x3.5, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
+            data-h2-position="p-tablet(relative)"
+            data-h2-location="p-tablet(-x3.5, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
           >
             <div
               data-h2-padding="base(x2) p-tablet(x2.5) l-tablet(x3)"
-              data-h2-background-color="base(background)"
-              data-h2-radius="base(iap-home-card)"
+              data-h2-background-color="base(white) base:dark(background)"
+              data-h2-radius="p-tablet(iap-home-card)"
             >
-              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
+              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x3, x1) l-tablet(stretch, x3, x1)">
                 <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
                   <div
                     data-h2-height="p-tablet(100%)"
@@ -319,14 +319,14 @@ export const IAPManagerHomePage = () => {
         data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
         data-h2-position="base(relative)"
       >
-        <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
+        <div data-h2-padding="base(0) p-tablet(x2) l-tablet(x3)">
           <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
             <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
               <Heading
                 data-h2-font-size="base(h3, 1)"
-                data-h2-margin="base(0, 0, x2, 0) p-tablet(0, 0, x2, 0)"
                 data-h2-text-align="base(center) p-tablet(left)"
                 data-h2-color="base(primary.darker)"
+                data-h2-margin-top="base(0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "How the program works",
@@ -490,16 +490,14 @@ export const IAPManagerHomePage = () => {
       >
         <div
           data-h2-background-color="base(secondary.dark.9) base:dark(secondary.darker.9)"
-          data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
+          data-h2-padding="base(x3, 0, x4, 0) l-tablet(x3, 0)"
         >
-          <div
-            data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)"
-            data-h2-color="base:all(white)"
-          >
+          <div data-h2-color="base:all(white)">
             <Heading
-              level="h4"
+              level="h2"
+              size="h4"
               data-h2-text-align="base(center)"
-              data-h2-padding-bottom="base(x2)"
+              data-h2-margin="base(0, 0, x2, 0)"
             >
               {intl.formatMessage({
                 defaultMessage: "What we're hearing",
@@ -508,42 +506,54 @@ export const IAPManagerHomePage = () => {
               })}
             </Heading>
             <blockquote>
-              <div data-h2-text-align="base(left)">
-                <OpenQuote
-                  data-h2-display="base(inline-block)"
-                  data-h2-width="base(x2) p-tablet(x3)"
-                  data-h2-margin="base(0 0 x.5 0) desktop(0 0 -x3 -x4)"
-                />
-              </div>
-              <p
-                data-h2-padding-bottom="base(x1)"
-                data-h2-font-weight="base(bold)"
-                data-h2-font-size="base(h2)"
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(row)"
+                data-h2-gap="base(0) p-tablet(x2)"
+                data-h2-justify-content="base(center)"
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-                  id: "YSnedz",
-                  description:
-                    "Quote from Darcy Pierlot about working with apprentices",
-                })}
-              </p>
-              <div data-h2-text-align="base(right)">
-                <CloseQuote
-                  data-h2-display="base(inline-block)"
-                  data-h2-width="base(x2) p-tablet(x3)"
-                  data-h2-margin="base(0 0 x.5 0) desktop(0 -x4 -x1.25 0)"
-                />
+                <div
+                  data-h2-align-self="base(start)"
+                  data-h2-flex-shrink="base(1)"
+                >
+                  <OpenQuote data-h2-width="base(x2) p-tablet(x3)" />
+                </div>
+                <div
+                  // iap-home container width
+                  data-h2-max-width="base(70rem)"
+                  data-h2-margin="base(0)"
+                >
+                  <p
+                    data-h2-padding-bottom="base(x1)"
+                    data-h2-font-weight="base(bold)"
+                    data-h2-font-size="base(h2)"
+                    data-h2-text-align="base(center) p-tablet(left)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+                      id: "YSnedz",
+                      description:
+                        "Quote from Darcy Pierlot about working with apprentices",
+                    })}
+                  </p>
+                  <cite data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
+                      id: "T4xKEw",
+                      description:
+                        "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
+                    })}
+                  </cite>
+                </div>
+                <div
+                  data-h2-align-self="base(end)"
+                  data-h2-flex-shrink="base(1)"
+                >
+                  <CloseQuote data-h2-width="base(x2) p-tablet(x3)" />
+                </div>
               </div>
-              <cite data-h2-font-weight="base(bold)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
-                  id: "T4xKEw",
-                  description:
-                    "Quote attribution for Quote from Darcy Pierlot about working with apprentices",
-                })}
-              </cite>
             </blockquote>
           </div>
         </div>
@@ -555,7 +565,7 @@ export const IAPManagerHomePage = () => {
           data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
-          <div data-h2-padding="base(x5, 0, x2, 0)">
+          <div data-h2-padding="base(x2, 0, x2, 0) p-tablet(x5, 0, x2, 0)">
             <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
               <div
                 data-h2-flex-item="base(1of1) p-tablet(1of2)"
