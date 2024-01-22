@@ -9,8 +9,8 @@ use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
@@ -69,7 +69,7 @@ class PoolFactory extends Factory
             $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
             $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
 
-            ScreeningQuestion::factory()
+            GeneralQuestion::factory()
                 ->count(3)
                 ->sequence(
                     ['sort_order' => 1],

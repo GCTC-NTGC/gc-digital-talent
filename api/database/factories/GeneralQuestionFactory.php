@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ScreeningQuestionFactory extends Factory
+class GeneralQuestionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = ScreeningQuestion::class;
+    protected $model = GeneralQuestion::class;
 
     /**
      * Define the model's default state.
