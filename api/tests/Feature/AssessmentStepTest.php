@@ -95,17 +95,17 @@ class AssessmentStepTest extends TestCase
         }
     ';
 
-    protected $createOrUpdateScreeningQuestionAssessmentStep =
+    protected $createOrUpdateGeneralQuestionAssessmentStep =
     /** @lang GraphQL */
     '
-        mutation createOrUpdateScreeningQuestionAssessmentStep(
+        mutation createOrUpdateGeneralQuestionAssessmentStep(
             $poolId: UUID!,
-            $screeningQuestions: [SyncScreeningQuestionsInput],
-            $assessmentStep: ScreeningQuestionAssessmentStepInput
+            $generalQuestions: [SyncGeneralQuestionsInput],
+            $assessmentStep: GeneralQuestionAssessmentStepInput
             ) {
-                createOrUpdateScreeningQuestionAssessmentStep(
+                createOrUpdateGeneralQuestionAssessmentStep(
                     poolId: $poolId,
-                    screeningQuestions: $screeningQuestions,
+                    generalQuestions: $generalQuestions,
                     assessmentStep: $assessmentStep
                     ) {
                     id
@@ -263,7 +263,7 @@ class AssessmentStepTest extends TestCase
         assertEquals(0, count(PoolSkill::first()->assessmentSteps));
     }
 
-    // test that you cannot add screening or application related assessment steps
+    // test that you cannot add general or application related assessment steps
     public function testAssessmentStepTypeValidation(): void
     {
         $this->actingAs($this->teamUser, 'api')
@@ -283,23 +283,23 @@ class AssessmentStepTest extends TestCase
             ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
     }
 
-    // test screening questions and pool skills
-    public function testScreeningQuestionsAndSkills(): void
+    // test general questions and pool skills
+    public function testGeneralQuestionsAndSkills(): void
     {
         Skill::factory()->count(3)->create();
         $testPool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
         ]);
-        $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
+        $generalQuestion = $testPool->generalQuestions[0]; // first factory created question
 
-        // can sync up screening questions and connect no pool skills
+        // can sync up general questions and connect no pool skills
         $this->actingAs($this->teamUser, 'api')->graphQL(
-            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            $this->createOrUpdateGeneralQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
-                'screeningQuestions' => [
+                'generalQuestions' => [
                     [
-                        'id' => $screeningQuestion->id,
+                        'id' => $generalQuestion->id,
                         'question' => [
                             'en' => 'en?',
                             'fr' => 'fr?',
@@ -318,9 +318,9 @@ class AssessmentStepTest extends TestCase
             ])
             ->assertSuccessful();
 
-        // only one screening question now attached
+        // only one general question now attached
         $testPool->refresh();
-        assertEquals(1, count($testPool->screeningQuestions));
+        assertEquals(1, count($testPool->generalQuestions));
 
         $totalSteps = AssessmentStep::where('pool_id', $testPool->id)->get();
         $screeningStep = AssessmentStep::where('pool_id', $testPool->id)
