@@ -95,7 +95,7 @@ query getEditPoolData($poolId: UUID!) {
     stream
     processNumber
     publishingGroup
-    screeningQuestions {
+    generalQuestions {
       id
       question {
         en

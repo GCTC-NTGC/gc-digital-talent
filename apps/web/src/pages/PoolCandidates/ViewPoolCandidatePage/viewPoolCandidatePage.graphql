@@ -103,7 +103,7 @@ query getPoolCandidateSnapshot($poolCandidateId: UUID!) {
           }
         }
       }
-      screeningQuestions {
+      generalQuestions {
         id
         question {
           en

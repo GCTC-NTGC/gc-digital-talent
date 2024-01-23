@@ -113,7 +113,7 @@ query getPool($id: UUID!) {
     stream
     processNumber
     publishingGroup
-    screeningQuestions {
+    generalQuestions {
       id
       question {
         en

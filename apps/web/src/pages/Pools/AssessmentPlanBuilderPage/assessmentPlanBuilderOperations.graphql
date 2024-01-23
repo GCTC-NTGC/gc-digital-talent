@@ -46,7 +46,7 @@ query getAssessmentPlanBuilderData($poolId: UUID!) {
       }
     }
     status
-    screeningQuestions {
+    generalQuestions {
       id
       question {
         en
@@ -89,14 +89,14 @@ mutation createAssessmentStep(
 }
 
 # create a new screening question assessment step
-mutation createOrUpdateScreeningQuestionAssessmentStep(
+mutation createOrUpdateGeneralQuestionAssessmentStep(
   $poolId: UUID!
-  $screeningQuestions: [SyncScreeningQuestionsInput]
-  $assessmentStep: ScreeningQuestionAssessmentStepInput
+  $generalQuestions: [SyncGeneralQuestionsInput]
+  $assessmentStep: GeneralQuestionAssessmentStepInput
 ) {
-  createOrUpdateScreeningQuestionAssessmentStep(
+  createOrUpdateGeneralQuestionAssessmentStep(
     poolId: $poolId
-    screeningQuestions: $screeningQuestions
+    generalQuestions: $generalQuestions
     assessmentStep: $assessmentStep
   ) {
     id
