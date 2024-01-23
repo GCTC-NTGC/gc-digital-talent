@@ -23,7 +23,6 @@ export const CardRepeaterProvider = <T extends BaseItem>({
   removeDisabledIndexes,
   max,
   hideIndex,
-  messages,
 }: CardRepeaterProviderProps<T>) => {
   const [items, setItems] = useControllableState<ItemWithId<T>[]>({
     controlledProp: itemsProp,
@@ -42,7 +41,6 @@ export const CardRepeaterProvider = <T extends BaseItem>({
       max,
       disabled,
       hideIndex,
-      messages,
     }),
     [
       items,
@@ -53,7 +51,6 @@ export const CardRepeaterProvider = <T extends BaseItem>({
       max,
       disabled,
       hideIndex,
-      messages,
       setItems,
     ],
   );
