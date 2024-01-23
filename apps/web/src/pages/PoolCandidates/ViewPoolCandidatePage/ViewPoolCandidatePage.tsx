@@ -408,7 +408,7 @@ export const ViewPoolCandidate = ({
             >
               {sections.questions.title}
             </TableOfContents.Heading>
-            {snapshotCandidate?.screeningQuestionResponses
+            {snapshotCandidate?.generalQuestionResponses
               ?.filter(notEmpty)
               .map((response) => (
                 <React.Fragment key={response.id}>
@@ -418,7 +418,7 @@ export const ViewPoolCandidate = ({
                     data-h2-margin-bottom="base(x.5)"
                   >
                     {getLocalizedName(
-                      response?.screeningQuestion?.question,
+                      response?.generalQuestion?.question,
                       intl,
                     )}
                   </Heading>
