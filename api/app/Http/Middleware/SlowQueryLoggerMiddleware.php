@@ -32,7 +32,7 @@ class SlowQueryLoggerMiddleware
         $end = hrtime(true);
         $elapsedSeconds = ($end - $start) / 1000000000;
 
-        if ($elapsedSeconds > 15) {
+        if ($elapsedSeconds > 5) {
             $this->logger->info(
                 'Slow query',
                 [
