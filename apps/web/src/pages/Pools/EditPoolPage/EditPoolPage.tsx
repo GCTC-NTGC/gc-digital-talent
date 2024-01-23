@@ -59,9 +59,9 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import ScreeningQuestions, {
-  type ScreeningQuestionsSubmitData,
-} from "./components/ScreeningQuestions";
+import GeneralQuestions, {
+  type GeneralQuestionsSubmitData,
+} from "./components/GeneralQuestions";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -86,7 +86,7 @@ export type PoolSubmitData =
   | YourImpactSubmitData
   | WhatToExpectSubmitData
   | SpecialNoteSubmitData
-  | ScreeningQuestionsSubmitData;
+  | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
   pool: Pool;
@@ -105,7 +105,7 @@ export const EditPoolForm = ({
   const paths = useRoutes();
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the ScreeningQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the GeneralQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
@@ -243,8 +243,8 @@ export const EditPoolForm = ({
   };
 
   // remove once RoD flag is gone
-  const screeningQuestionMetadata: EditPoolSectionMetadata = {
-    id: "screening-questions",
+  const generalQuestionMetadata: EditPoolSectionMetadata = {
+    id: "general-questions",
     hasError: false, // Optional
     title: intl.formatMessage(processMessages.screeningQuestions),
   };
@@ -294,7 +294,7 @@ export const EditPoolForm = ({
             >
               {[
                 ...Object.values(sectionMetadata),
-                ...(!recordOfDecisionFlag ? [screeningQuestionMetadata] : []), // remove when RoD flag is gone
+                ...(!recordOfDecisionFlag ? [generalQuestionMetadata] : []), // remove when RoD flag is gone
               ].map((meta) => (
                 <TableOfContents.ListItem key={meta.id}>
                   <StatusItem
@@ -394,9 +394,9 @@ export const EditPoolForm = ({
                 />
               </TableOfContents.Section>
               {!recordOfDecisionFlag && (
-                <ScreeningQuestions
+                <GeneralQuestions
                   pool={pool}
-                  sectionMetadata={screeningQuestionMetadata}
+                  sectionMetadata={generalQuestionMetadata}
                   onSave={onSave}
                 />
               )}

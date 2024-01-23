@@ -8,8 +8,8 @@ import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
-  CreateScreeningQuestionInput,
-  UpdateScreeningQuestionInput,
+  CreateGeneralQuestionInput,
+  UpdateGeneralQuestionInput,
   LocalizedString,
   Pool,
   Scalars,
@@ -24,37 +24,37 @@ const MAX_SCREENING_QUESTIONS = 3;
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
-type ScreeningQuestionValue = {
+type GeneralQuestionValue = {
   id?: Scalars["ID"];
   question: LocalizedString;
 };
 
 type FormValues = {
-  questions?: Array<ScreeningQuestionValue>;
+  questions?: Array<GeneralQuestionValue>;
 };
 
-export type ScreeningQuestionsSubmitData = Pick<
+export type GeneralQuestionsSubmitData = Pick<
   UpdatePoolInput,
-  "screeningQuestions"
+  "generalQuestions"
 >;
 
-interface ScreeningQuestionsProps {
+interface GeneralQuestionsProps {
   pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
-  onSave: (submitData: ScreeningQuestionsSubmitData) => void;
+  onSave: (submitData: GeneralQuestionsSubmitData) => void;
 }
 
-const ScreeningQuestions = ({
+const GeneralQuestions = ({
   pool,
   sectionMetadata,
   onSave,
-}: ScreeningQuestionsProps) => {
+}: GeneralQuestionsProps) => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
-      initialData?.screeningQuestions
+      initialData?.generalQuestions
         ?.filter(notEmpty)
         .map(({ id, question }) => ({
           id: id || "new",
@@ -76,9 +76,9 @@ const ScreeningQuestions = ({
   });
 
   const handleSave = (formValues: FormValues) => {
-    const create: Array<CreateScreeningQuestionInput> = [];
-    const update: Array<UpdateScreeningQuestionInput> = [];
-    const toBeDeleted = pool.screeningQuestions
+    const create: Array<CreateGeneralQuestionInput> = [];
+    const update: Array<UpdateGeneralQuestionInput> = [];
+    const toBeDeleted = pool.generalQuestions
       ?.filter((existingQuestion) => {
         return !formValues.questions?.some(
           (question) =>
@@ -104,7 +104,7 @@ const ScreeningQuestions = ({
     });
 
     onSave({
-      screeningQuestions: {
+      generalQuestions: {
         update,
         create,
         delete: toBeDeleted,
@@ -284,4 +284,4 @@ const ScreeningQuestions = ({
   );
 };
 
-export default ScreeningQuestions;
+export default GeneralQuestions;
