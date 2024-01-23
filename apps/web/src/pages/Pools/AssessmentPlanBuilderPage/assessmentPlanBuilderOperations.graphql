@@ -88,7 +88,7 @@ mutation createAssessmentStep(
   }
 }
 
-# create a new screening question assessment step
+# create a new general question assessment step
 mutation createOrUpdateGeneralQuestionAssessmentStep(
   $poolId: UUID!
   $generalQuestions: [SyncGeneralQuestionsInput]

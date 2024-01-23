@@ -90,7 +90,7 @@ class AssessmentStep extends Model
         });
 
         static::deleted(function (AssessmentStep $step) {
-            // If this was the screening question step delete all screening questions as well
+            // If this was the screening question step delete all general questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
                 $questions = GeneralQuestion::where('pool_id', '=', $step->pool_id)->get();
                 foreach ($questions as $question) {
