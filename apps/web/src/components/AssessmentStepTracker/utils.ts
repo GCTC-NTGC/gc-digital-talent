@@ -3,6 +3,7 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import { sortBy } from "lodash";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -16,7 +17,7 @@ import {
   AssessmentStep,
   Pool,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -24,7 +25,6 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 export type CandidateAssessmentResult = {
   poolCandidate: PoolCandidate;
   decision: NullableDecision;
-  results: AssessmentResult[];
 };
 
 type DecisionInfo = {
@@ -108,30 +108,20 @@ export const getDecisionInfo = (
 
 export type ResultDecisionCounts = Record<NullableDecision, number>;
 
-export const getResultDecisionCount = (
-  results: CandidateAssessmentResult[],
-) => {
+export const sumDecisionTypes = (results: NullableDecision[]) => {
   const stepAccumulation: ResultDecisionCounts = {
-    noDecision: 0,
+    [NO_DECISION]: 0,
     [AssessmentDecision.Hold]: 0,
     [AssessmentDecision.Successful]: 0,
     [AssessmentDecision.Unsuccessful]: 0,
   };
 
-  return results.reduce(
-    (
-      accumulator: ResultDecisionCounts,
-      assessmentResult: CandidateAssessmentResult,
-    ) => {
-      const decision: NullableDecision =
-        assessmentResult.decision ?? NO_DECISION;
-      return {
-        ...accumulator,
-        [decision]: accumulator[decision] + 1,
-      };
-    },
-    stepAccumulation,
-  );
+  return results.reduce((accumulator: ResultDecisionCounts, result) => {
+    return {
+      ...accumulator,
+      [result]: accumulator[result] + 1,
+    };
+  }, stepAccumulation);
 };
 
 export const decisionOrder: NullableDecision[] = [
@@ -297,6 +287,107 @@ type GroupedStep = {
 };
 
 type GroupedSteps = Map<string | undefined, GroupedStep>;
+
+type PoolCandidateId = string;
+type AssessmentStepId = string;
+
+export const determineCandidateStatusPerStep = (
+  poolCandidates: PoolCandidate[],
+  steps: AssessmentStep[],
+): Map<PoolCandidateId, Map<AssessmentStepId, NullableDecision>> => {
+  return poolCandidates.reduce((candidateToResults, candidate) => {
+    const assessmentToResult = steps.reduce((map, step) => {
+      return map.set(
+        step.id,
+        getResultsDecision(step, unpackMaybes(candidate.assessmentResults)),
+      );
+    }, new Map<AssessmentStepId, NullableDecision>());
+    candidateToResults.set(candidate.id, assessmentToResult);
+    return candidateToResults;
+  }, new Map<PoolCandidateId, Map<AssessmentStepId, NullableDecision>>());
+};
+
+/**
+ * Returns the "current step" a candidate should appear at in the assessment tracker.
+ * A candidate should appear in all columns less than or equal to its current step.
+ * A value of null means that a candidate has passed all steps.
+ * @param assessmentToResult
+ * @param assessmentOrdering
+ * @returns
+ */
+const determineCurrentStep = (
+  assessmentToResult: Map<AssessmentStepId, NullableDecision>,
+  assessmentOrdering: string[],
+): number | null => {
+  for (let index = 0; index < assessmentOrdering.length; index += 1) {
+    const assessmentStepId = assessmentOrdering[index];
+    const result = assessmentToResult.get(assessmentStepId);
+    if (result === AssessmentDecision.Unsuccessful || result === NO_DECISION) {
+      return index;
+    }
+  }
+  return null;
+};
+
+export const determineCurrentStepPerCandidate = (
+  candidateToResults: Map<
+    PoolCandidateId,
+    Map<AssessmentStepId, NullableDecision>
+  >,
+  assessmentSteps: AssessmentStep[],
+): Map<PoolCandidateId, number | null> => {
+  const orderedStepIds = assessmentSteps
+    .sort((stepA, stepB) => {
+      return (stepA.sortOrder ?? Number.MAX_SAFE_INTEGER) >
+        (stepB.sortOrder ?? Number.MAX_SAFE_INTEGER)
+        ? 1
+        : -1;
+    })
+    .map((step) => step.id);
+
+  const candidateToCurrentStep = new Map<PoolCandidateId, number | null>();
+  candidateToResults.forEach((assessmentToResult, candidateId) => {
+    candidateToCurrentStep.set(
+      candidateId,
+      determineCurrentStep(assessmentToResult, orderedStepIds),
+    );
+  });
+  return candidateToCurrentStep;
+};
+
+export const getDecisionCountForEachStep = (
+  assessmentSteps: AssessmentStep[],
+  candidateToResults: Map<
+    PoolCandidateId,
+    Map<AssessmentStepId, NullableDecision>
+  >,
+  candidateToCurrentStep: Map<PoolCandidateId, number | null>,
+): Map<AssessmentStepId, ResultDecisionCounts> => {
+  const orderedSteps = sortBy(assessmentSteps, (step) => step.sortOrder);
+  const decisionCountMap = new Map<AssessmentStepId, ResultDecisionCounts>();
+  for (let index = 0; index < orderedSteps.length; index += 1) {
+    const stepId = orderedSteps[index].id;
+    const poolCandidateIds = Array.from(candidateToCurrentStep.keys());
+    const decisionsForCurrentStep = poolCandidateIds
+      .filter((candidateId) => {
+        // A candidate's result should be counted for its current step and any previous steps
+        // A null step indicates the candidate has successfully passed all assessment steps and should be counted in all of them
+        const candidateStep = candidateToCurrentStep.get(candidateId) ?? null;
+        return candidateStep === null || candidateStep >= index;
+      })
+      // For all the filtered-in candidates, get their result for this step and put them together in an array.
+      .reduce(
+        (decisions: Array<NullableDecision | undefined>, candidateId) => [
+          ...decisions,
+          candidateToResults.get(candidateId)?.get(stepId),
+        ],
+        [],
+      )
+      .filter(notEmpty);
+    decisionCountMap.set(stepId, sumDecisionTypes(decisionsForCurrentStep));
+  }
+  return decisionCountMap;
+};
 
 export const groupPoolCandidatesByStep = (pool: Pool) => {
   const poolCandidates = pool.poolCandidates?.filter(notEmpty) ?? [];
