@@ -27,22 +27,22 @@ import {
   Maybe,
   PoolSkill,
   Scalars,
-  ScreeningQuestion,
+  GeneralQuestion,
   useCreateAssessmentStepMutation,
-  useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
+  useCreateOrUpdateGeneralQuestionAssessmentStepMutation,
   useUpdateAssessmentStepMutation,
 } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
-  SCREENING_QUESTIONS_MAX_QUESTIONS,
-  SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS,
-  SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
-  SCREENING_QUESTIONS_TEXT_AREA_ROWS,
+  GENERAL_QUESTIONS_MAX_QUESTIONS,
+  GENERAL_QUESTIONS_TEXT_AREA_EN_MAX_WORDS,
+  GENERAL_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
+  GENERAL_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
 
-type DialogMode = "regular" | "screening_question";
+type DialogMode = "regular" | "general_question";
 type DialogAction = "create" | "update";
 
 type FormValues = {
@@ -51,9 +51,9 @@ type FormValues = {
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
-  screeningQuestionFieldArray?: Array<{
+  generalQuestionFieldArray?: Array<{
     id: string | null;
-    screeningQuestion: {
+    generalQuestion: {
       id?: Maybe<Scalars["ID"]>;
       sortOrder?: Maybe<number>;
       en?: Maybe<string>;
@@ -61,15 +61,15 @@ type FormValues = {
     };
   }>;
   assessedSkills?: Maybe<Array<Scalars["ID"]>>;
-  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]>>;
+  assessedSkillsGeneralQuestions?: Maybe<Array<Scalars["ID"]>>;
 };
 
 type InitialValues = Omit<
   FormValues,
-  "poolId" | "screeningQuestionFieldArray"
+  "poolId" | "generalQuestionFieldArray"
 > & {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: Array<ScreeningQuestion>;
+  generalQuestions?: Array<GeneralQuestion>;
 };
 
 interface AssessmentDetailsDialogProps {
@@ -98,12 +98,12 @@ const AssessmentDetailsDialog = ({
     executeUpdateAssessmentStepMutation,
   ] = useUpdateAssessmentStepMutation();
   const [
-    { fetching: createOrUpdateScreeningQuestionAssessmentStepMutationFetching },
-    executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
-  ] = useCreateOrUpdateScreeningQuestionAssessmentStepMutation();
+    { fetching: createOrUpdateGeneralQuestionAssessmentStepMutationFetching },
+    executeCreateOrUpdateGeneralQuestionAssessmentStepMutation,
+  ] = useCreateOrUpdateGeneralQuestionAssessmentStepMutation();
 
-  if (initialValues.screeningQuestions) {
-    initialValues.screeningQuestions.sort((a, b) =>
+  if (initialValues.generalQuestions) {
+    initialValues.generalQuestions.sort((a, b) =>
       (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
       (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
         ? 1
@@ -114,14 +114,14 @@ const AssessmentDetailsDialog = ({
   const methods = useForm<FormValues>({
     defaultValues: {
       ...initialValues,
-      screeningQuestionFieldArray: initialValues.screeningQuestions?.map(
-        (initialScreeningQuestion) => ({
+      generalQuestionFieldArray: initialValues.generalQuestions?.map(
+        (initialGeneralQuestion) => ({
           id: null, // filled by react-hook-form
-          screeningQuestion: {
-            id: initialScreeningQuestion.id,
-            sortOrder: initialScreeningQuestion.sortOrder,
-            en: initialScreeningQuestion.question?.en,
-            fr: initialScreeningQuestion.question?.fr,
+          generalQuestion: {
+            id: initialGeneralQuestion.id,
+            sortOrder: initialGeneralQuestion.sortOrder,
+            en: initialGeneralQuestion.question?.en,
+            fr: initialGeneralQuestion.question?.fr,
           },
         }),
       ),
@@ -133,15 +133,15 @@ const AssessmentDetailsDialog = ({
   const dialogMode: DialogMode =
     selectedTypeOfAssessment ===
     AssessmentStepType.ScreeningQuestionsAtApplication
-      ? "screening_question"
+      ? "general_question"
       : "regular";
 
   const { remove, move, append, fields } = useFieldArray({
     control,
-    name: "screeningQuestionFieldArray",
+    name: "generalQuestionFieldArray",
     rules: {
       required: {
-        value: dialogMode === "screening_question",
+        value: dialogMode === "general_question",
         message: intl.formatMessage({
           defaultMessage:
             "Include up to 3 questions in your application process.",
@@ -175,9 +175,9 @@ const AssessmentDetailsDialog = ({
 
   React.useEffect(() => {
     if (dialogMode === "regular") {
-      setValue("screeningQuestionFieldArray", []);
+      setValue("generalQuestionFieldArray", []);
     }
-    if (dialogMode === "screening_question") {
+    if (dialogMode === "general_question") {
       setValue("assessmentTitleEn", null);
       setValue("assessmentTitleFr", null);
     }
@@ -235,16 +235,16 @@ const AssessmentDetailsDialog = ({
     );
   };
 
-  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = (
+  const submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation = (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
       poolId: values.poolId,
-      screeningQuestions: values.screeningQuestionFieldArray?.map(
-        ({ screeningQuestion }, index) => ({
+      generalQuestions: values.generalQuestionFieldArray?.map(
+        ({ generalQuestion }, index) => ({
           question: {
-            en: screeningQuestion.en,
-            fr: screeningQuestion.fr,
+            en: generalQuestion.en,
+            fr: generalQuestion.fr,
           },
           sortOrder: index + 1,
         }),
@@ -256,17 +256,17 @@ const AssessmentDetailsDialog = ({
         },
         poolSkills: {
           sync:
-            values.assessedSkillsScreeningQuestions?.length &&
-            values.assessedSkillsScreeningQuestions.length > 0
-              ? values.assessedSkillsScreeningQuestions
+            values.assessedSkillsGeneralQuestions?.length &&
+            values.assessedSkillsGeneralQuestions.length > 0
+              ? values.assessedSkillsGeneralQuestions
               : null,
         },
       },
     };
-    return executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
+    return executeCreateOrUpdateGeneralQuestionAssessmentStepMutation(
       mutationParameters,
     ).then((res) => {
-      if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
+      if (res?.data?.createOrUpdateGeneralQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
       return Promise.reject();
@@ -276,9 +276,9 @@ const AssessmentDetailsDialog = ({
   const submitForm = (values: FormValues) => {
     let mutationPromise: Promise<void> | null = null;
 
-    if (dialogMode === "screening_question") {
+    if (dialogMode === "general_question") {
       mutationPromise =
-        submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation(values);
+        submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation(values);
     } else if (dialogAction === "update") {
       mutationPromise = submitUpdateAssessmentStepMutation(values);
     } else {
@@ -310,8 +310,8 @@ const AssessmentDetailsDialog = ({
       });
   };
 
-  const canAddScreeningQuestions =
-    fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
+  const canAddGeneralQuestions =
+    fields.length < GENERAL_QUESTIONS_MAX_QUESTIONS;
 
   const assessedSkillsItems: CheckboxOption[] = allPoolSkills.map(
     (poolSkill) => ({
@@ -351,7 +351,7 @@ const AssessmentDetailsDialog = ({
   const dialogBusy =
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
-    createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
+    createOrUpdateGeneralQuestionAssessmentStepMutationFetching;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -439,7 +439,7 @@ const AssessmentDetailsDialog = ({
                     </div>
                   </div>
                 ) : null}
-                {dialogMode === "screening_question" ? (
+                {dialogMode === "general_question" ? (
                   <>
                     <div>
                       <div data-h2-font-weight="base(700)">
@@ -457,14 +457,14 @@ const AssessmentDetailsDialog = ({
                     </div>
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
-                      name="screeningQuestionFieldArray"
+                      name="generalQuestionFieldArray"
                       total={fields.length}
-                      showAdd={canAddScreeningQuestions}
+                      showAdd={canAddGeneralQuestions}
                       showUnsavedChanges={false}
                       onAdd={() => {
                         append({
                           id: null,
-                          screeningQuestion: {
+                          generalQuestion: {
                             en: "",
                             fr: "",
                           },
@@ -480,14 +480,14 @@ const AssessmentDetailsDialog = ({
                         },
                         {
                           currentCount: fields.length,
-                          maxCount: SCREENING_QUESTIONS_MAX_QUESTIONS,
+                          maxCount: GENERAL_QUESTIONS_MAX_QUESTIONS,
                         },
                       )}
                     >
                       <>
                         {fields.map(({ id }, index) => (
                           <Repeater.Fieldset
-                            name="screeningQuestionFieldArray"
+                            name="generalQuestionFieldArray"
                             key={id}
                             index={index}
                             total={fields.length}
@@ -508,11 +508,11 @@ const AssessmentDetailsDialog = ({
                           >
                             <input
                               type="hidden"
-                              name={`screeningQuestionFieldArray.${index}.id`}
+                              name={`generalQuestionFieldArray.${index}.id`}
                             />
                             <input
                               type="hidden"
-                              name={`screeningQuestionFieldArray.${index}.sortOrder`}
+                              name={`generalQuestionFieldArray.${index}.sortOrder`}
                             />
                             <div
                               data-h2-display="base(grid)"
@@ -521,15 +521,15 @@ const AssessmentDetailsDialog = ({
                             >
                               <div>
                                 <TextArea
-                                  id={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
-                                  name={`screeningQuestionFieldArray.${index}.screeningQuestion.en`}
+                                  id={`generalQuestionFieldArray.${index}.generalQuestion.en`}
+                                  name={`generalQuestionFieldArray.${index}.generalQuestion.en`}
                                   label={intl.formatMessage(
                                     labels.screeningQuestionEn,
                                     { questionNumber: index + 1 },
                                   )}
-                                  rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
+                                  rows={GENERAL_QUESTIONS_TEXT_AREA_ROWS}
                                   wordLimit={
-                                    SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS
+                                    GENERAL_QUESTIONS_TEXT_AREA_EN_MAX_WORDS
                                   }
                                   rules={{
                                     required: intl.formatMessage(
@@ -540,15 +540,15 @@ const AssessmentDetailsDialog = ({
                               </div>
                               <div>
                                 <TextArea
-                                  id={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
-                                  name={`screeningQuestionFieldArray.${index}.screeningQuestion.fr`}
+                                  id={`generalQuestionFieldArray.${index}.generalQuestion.fr`}
+                                  name={`generalQuestionFieldArray.${index}.generalQuestion.fr`}
                                   label={intl.formatMessage(
                                     labels.screeningQuestionFr,
                                     { questionNumber: index + 1 },
                                   )}
-                                  rows={SCREENING_QUESTIONS_TEXT_AREA_ROWS}
+                                  rows={GENERAL_QUESTIONS_TEXT_AREA_ROWS}
                                   wordLimit={
-                                    SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS
+                                    GENERAL_QUESTIONS_TEXT_AREA_FR_MAX_WORDS
                                   }
                                   rules={{
                                     required: intl.formatMessage(
@@ -560,7 +560,7 @@ const AssessmentDetailsDialog = ({
                             </div>
                           </Repeater.Fieldset>
                         ))}
-                        {!canAddScreeningQuestions && (
+                        {!canAddGeneralQuestions && (
                           <Well>
                             <p
                               data-h2-font-weight="base(700)"
@@ -612,9 +612,9 @@ const AssessmentDetailsDialog = ({
                 {selectedTypeOfAssessment ===
                   AssessmentStepType.ScreeningQuestionsAtApplication && (
                   <Checklist
-                    idPrefix="assessedSkillsScreeningQuestions"
-                    id="assessedSkillsScreeningQuestions"
-                    name="assessedSkillsScreeningQuestions"
+                    idPrefix="assessedSkillsGeneralQuestions"
+                    id="assessedSkillsGeneralQuestions"
+                    name="assessedSkillsGeneralQuestions"
                     legend={intl.formatMessage(labels.assessedSkills)}
                     items={assessedSkillsItems}
                   />

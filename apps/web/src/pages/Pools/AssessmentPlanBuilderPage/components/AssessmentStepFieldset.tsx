@@ -44,8 +44,8 @@ const AssessmentStepFieldset = ({
       ?.filter(notEmpty)
       .map((poolSkill) => getLocalizedName(poolSkill?.skill?.name, intl)) ?? [];
   skillNames.sort();
-  const screeningQuestions = pool.screeningQuestions?.filter(notEmpty) ?? [];
-  screeningQuestions.sort((a, b) =>
+  const generalQuestions = pool.generalQuestions?.filter(notEmpty) ?? [];
+  generalQuestions.sort((a, b) =>
     (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
     (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
       ? 1
@@ -91,7 +91,7 @@ const AssessmentStepFieldset = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
+            generalQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <ActionButton
@@ -189,9 +189,9 @@ const AssessmentStepFieldset = ({
                 data-h2-padding-left="base(0)"
                 data-h2-list-style-position="base(inside)"
               >
-                {screeningQuestions.map((screeningQuestion) => (
-                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
-                    {screeningQuestion.question?.en}
+                {generalQuestions.map((generalQuestion) => (
+                  <li key={generalQuestion.id} data-h2-margin-top="base(x.5)">
+                    {generalQuestion.question?.en}
                   </li>
                 ))}
               </ol>
@@ -207,9 +207,9 @@ const AssessmentStepFieldset = ({
                 data-h2-padding-left="base(0)"
                 data-h2-list-style-position="base(inside)"
               >
-                {screeningQuestions.map((screeningQuestion) => (
-                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
-                    {screeningQuestion.question?.fr}
+                {generalQuestions.map((generalQuestion) => (
+                  <li key={generalQuestion.id} data-h2-margin-top="base(x.5)">
+                    {generalQuestion.question?.fr}
                   </li>
                 ))}
               </ol>

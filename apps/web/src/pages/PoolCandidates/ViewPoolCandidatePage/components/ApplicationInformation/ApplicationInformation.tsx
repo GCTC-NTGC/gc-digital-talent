@@ -51,8 +51,8 @@ const ApplicationInformation = ({
     setOpenSections(newValue);
   };
 
-  const screeningQuestionResponses = unpackMaybes(
-    application?.screeningQuestionResponses ?? [],
+  const generalQuestionResponses = unpackMaybes(
+    application?.generalQuestionResponses ?? [],
   );
 
   const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
@@ -154,13 +154,13 @@ const ApplicationInformation = ({
             <PersonalInformationDisplay user={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
-        {screeningQuestionResponses.length > 0 ? (
+        {generalQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {screeningQuestionResponses.map((response, index) => (
+              {generalQuestionResponses.map((response, index) => (
                 <React.Fragment key={response.id}>
                   <Heading
                     level="h4"
@@ -170,10 +170,7 @@ const ApplicationInformation = ({
                       "data-h2-margin-top": "base(0)",
                     })}
                   >
-                    {getLocalizedName(
-                      response.screeningQuestion?.question,
-                      intl,
-                    )}
+                    {getLocalizedName(response.generalQuestion?.question, intl)}
                   </Heading>
                   <p>{response.answer}</p>
                 </React.Fragment>
