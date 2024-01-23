@@ -121,6 +121,7 @@ test.describe("Authenticated", () => {
           const context = await adminPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
+          await page.waitForURL(restrictedPath);
           await expect(
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
@@ -138,7 +139,7 @@ test.describe("Authenticated", () => {
           const context = await applicantPage.page.context();
           const page = await context.newPage();
           await page.goto(restrictedPath);
-          await page.waitForLoadState("networkidle");
+          await page.waitForURL(restrictedPath);
           await expect(
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
