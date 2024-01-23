@@ -2,8 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link } from "@gc-digital-talent/ui";
+import { Maybe } from "@gc-digital-talent/graphql";
 
-import { ArmedForcesStatus, AssessmentStepType, Maybe } from "~/api/generated";
+import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -133,7 +134,7 @@ const AssessmentResult = ({
 
 interface AssessmentResultsProps {
   results: CandidateAssessmentResult[];
-  stepType: Maybe<AssessmentStepType> | undefined;
+  stepType?: Maybe<AssessmentStepType>;
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {

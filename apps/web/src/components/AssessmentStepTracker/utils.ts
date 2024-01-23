@@ -3,7 +3,7 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
-import { sortBy } from "lodash";
+import sortBy from "lodash/sortBy";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -15,7 +15,6 @@ import {
   Maybe,
   PoolSkillType,
   AssessmentStep,
-  Pool,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -213,6 +212,10 @@ const getResultsDecision = (
     return result.assessmentStep?.id === step.id;
   });
 
+  if (stepResults.length === 0) {
+    hasToAssess = true;
+  }
+
   const requiredSkillAssessments = step.poolSkills?.filter(
     (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
   );
@@ -266,6 +269,8 @@ const getResultsDecision = (
     }
   });
 
+  console.log({ stepResults, hasFailure, hasToAssess, hasOnHold });
+
   if (hasFailure) {
     return AssessmentDecision.Unsuccessful;
   }
@@ -278,15 +283,6 @@ const getResultsDecision = (
 
   return AssessmentDecision.Successful;
 };
-
-type AssessmentMap = Map<string, CandidateAssessmentResult>;
-
-type GroupedStep = {
-  step: AssessmentStep;
-  assessments: AssessmentMap;
-};
-
-type GroupedSteps = Map<string | undefined, GroupedStep>;
 
 type PoolCandidateId = string;
 type AssessmentStepId = string;
@@ -389,99 +385,64 @@ export const getDecisionCountForEachStep = (
   return decisionCountMap;
 };
 
-export const groupPoolCandidatesByStep = (pool: Pool) => {
-  const poolCandidates = pool.poolCandidates?.filter(notEmpty) ?? [];
-  const steps = pool.assessmentSteps?.filter(notEmpty) ?? [];
+type StepWithGroupedCandidates = {
+  step: AssessmentStep;
+  resultCounts?: ResultDecisionCounts;
+  results: CandidateAssessmentResult[];
+};
 
-  // Build a map for all poolCandidates on step 1
-  const allCandidatesMap: AssessmentMap = new Map();
-  poolCandidates.forEach((poolCandidate) => {
-    allCandidatesMap.set(poolCandidate.id, {
-      poolCandidate,
-      decision: NO_DECISION,
-      results: [],
-    });
-  });
+export const groupPoolCandidatesByStep = (
+  steps: AssessmentStep[],
+  candidates: PoolCandidate[],
+): StepWithGroupedCandidates[] => {
+  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const candidateResults = determineCandidateStatusPerStep(
+    candidates,
+    orderedSteps,
+  );
+  const candidateCurrentSteps = determineCurrentStepPerCandidate(
+    candidateResults,
+    steps,
+  );
+  const stepCounts = getDecisionCountForEachStep(
+    steps,
+    candidateResults,
+    candidateCurrentSteps,
+  );
 
-  // Setup the base map for steps with assessments for candidates
-  const stepMap: GroupedSteps = new Map();
-  steps
-    .sort((stepA, stepB) => {
-      return (stepA.sortOrder ?? Number.MAX_SAFE_INTEGER) >
-        (stepB.sortOrder ?? Number.MAX_SAFE_INTEGER)
-        ? 1
-        : -1;
-    })
-    .forEach((step, index) => {
-      stepMap.set(step.id, {
-        step,
-        // Step one should show all candidates regardless of results existing
-        assessments: index === 0 ? allCandidatesMap : new Map(),
-      });
-    });
+  const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
+    orderedSteps.map((step, index) => {
+      const resultCounts = stepCounts.get(step.id);
 
-  poolCandidates.forEach((poolCandidate) => {
-    const assessments = poolCandidate.assessmentResults?.filter(notEmpty);
+      const stepCandidates = Array.from(candidateResults.keys()).filter(
+        (id) => {
+          const currentStep = candidateCurrentSteps.get(id);
+          if (typeof currentStep === "undefined") return false;
+          return currentStep === null || currentStep >= index;
+        },
+      );
 
-    assessments?.forEach((result) => {
-      if (!result) return;
-
-      const resultStep = stepMap.get(result?.assessmentStep?.id);
-      if (resultStep) {
-        const stepCandidateAssessments = resultStep.assessments.get(
-          poolCandidate.id,
-        );
-        resultStep.assessments.set(poolCandidate.id, {
-          poolCandidate,
-          decision: NO_DECISION, // We don't know the decision until all results have been determined
-          results: stepCandidateAssessments?.results
-            ? [...stepCandidateAssessments.results, result]
-            : [result],
-        });
-      }
-    });
-  });
-
-  // Determine the decision for each assessment now that we have all the results
-  let previousStep: GroupedStep | undefined;
-  stepMap.forEach((step) => {
-    // If a previous step exists, check for pool candidates with no results yet
-    // and set them as "to assess" if they passed previous step
-    if (previousStep) {
-      poolCandidates
-        .filter((poolCandidate) => {
-          return !step.assessments.has(poolCandidate.id);
-        })
-        .forEach((poolCandidate) => {
-          const previousAssessment = previousStep?.assessments.get(
-            poolCandidate.id,
+      const results: CandidateAssessmentResult[] = stepCandidates
+        .map((id) => {
+          const poolCandidate = candidates.find(
+            (candidate) => candidate.id === id,
           );
-          if (
-            previousAssessment?.decision === AssessmentDecision.Hold ||
-            previousAssessment?.decision === AssessmentDecision.Successful
-          ) {
-            step.assessments.set(poolCandidate.id, {
-              poolCandidate,
-              decision: NO_DECISION,
-              results: [],
-            });
-          }
-        });
-    }
-    step?.assessments.forEach((assessment) => {
-      let decision: NullableDecision = NO_DECISION;
-      if (assessment.results.length > 0) {
-        decision = getResultsDecision(step.step, assessment.results);
-      }
+          const decisions = candidateResults.get(id);
+          return poolCandidate
+            ? {
+                poolCandidate,
+                decision: decisions?.get(step.id) ?? NO_DECISION,
+              }
+            : undefined;
+        })
+        .filter(notEmpty);
 
-      step.assessments.set(assessment.poolCandidate.id, {
-        ...assessment,
-        decision,
-      });
+      return {
+        step,
+        resultCounts,
+        results,
+      };
     });
 
-    previousStep = step;
-  });
-
-  return stepMap;
+  return stepsWithGroupedCandidates;
 };

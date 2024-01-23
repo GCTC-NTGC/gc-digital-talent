@@ -8,12 +8,7 @@ import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { AssessmentStep, AssessmentStepType } from "~/api/generated";
 import { NullableDecision } from "~/utils/assessmentResults";
 
-import {
-  getDecisionInfo,
-  getResultDecisionCount,
-  decisionOrder,
-  CandidateAssessmentResult,
-} from "./utils";
+import { getDecisionInfo, decisionOrder, ResultDecisionCounts } from "./utils";
 
 interface StatusCountProps {
   counter: number;
@@ -73,22 +68,27 @@ const StatusCount = ({
 
 interface ResultsDetailsProps {
   step: AssessmentStep;
-  results: CandidateAssessmentResult[];
+  resultCounts?: ResultDecisionCounts;
 }
 
-const ResultsDetails = ({ step, results }: ResultsDetailsProps) => {
+const ResultsDetails = ({ step, resultCounts }: ResultsDetailsProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const intl = useIntl();
-  const stepCounts = getResultDecisionCount(results);
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
     step.type === AssessmentStepType.ApplicationScreening;
+  const totalCount = Object.values(resultCounts ?? {}).reduce(
+    (total, decisionCount) => {
+      return total + decisionCount;
+    },
+    0,
+  );
 
   return (
     <Board.Info
       open={isOpen}
       onOpenChange={setIsOpen}
-      counter={results?.length}
+      counter={totalCount}
       title={
         isOpen
           ? intl.formatMessage(
@@ -118,7 +118,7 @@ const ResultsDetails = ({ step, results }: ResultsDetailsProps) => {
           <StatusCount
             key={decision}
             decision={decision}
-            counter={stepCounts[decision]}
+            counter={resultCounts ? resultCounts[decision] : 0}
             isApplicationStep={isApplicationStep}
           />
         ))}
