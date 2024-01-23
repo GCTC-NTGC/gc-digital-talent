@@ -657,6 +657,9 @@ return [
             'user' => [
                 'any' => ['view'],
             ],
+            'assessmentResult' => [
+                'any' => ['view'],
+            ],
         ],
 
         'community_manager' => [
