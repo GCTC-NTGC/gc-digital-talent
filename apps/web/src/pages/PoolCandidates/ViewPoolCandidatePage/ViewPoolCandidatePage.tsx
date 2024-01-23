@@ -28,9 +28,9 @@ import {
   User,
   Maybe,
   SkillCategory,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import {
   getFullPoolTitleHtml,
   getFullPoolTitleLabel,
@@ -898,8 +898,8 @@ const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
 `);
 
 type RouteParams = {
-  poolId: Scalars["ID"];
-  poolCandidateId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
+  poolCandidateId: Scalars["ID"]["output"];
 };
 
 export const ViewPoolCandidatePage = () => {

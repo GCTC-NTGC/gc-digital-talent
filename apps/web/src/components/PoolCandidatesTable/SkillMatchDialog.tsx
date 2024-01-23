@@ -4,9 +4,8 @@ import { useQuery } from "urql";
 
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, Skill, graphql } from "@gc-digital-talent/graphql";
+import { Maybe, Skill, graphql, Scalars } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
 const SkillMatchDialog_Query = graphql(/* GraphQL */ `
@@ -84,7 +83,7 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
   filteredSkills: Skill[];
-  userId: Scalars["ID"];
+  userId: Scalars["ID"]["output"];
 }
 
 const SkillMatchDialogBody = ({
@@ -126,7 +125,7 @@ const SkillMatchDialogBody = ({
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
   skillsCount: Maybe<number> | undefined;
-  userId: Scalars["ID"];
+  userId: Scalars["ID"]["output"];
   poolCandidateName: string;
 }
 
@@ -233,7 +232,7 @@ const SkillMatchDialog = ({
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
   skillCount: Maybe<number> | undefined,
-  userId: Scalars["ID"],
+  userId: Scalars["ID"]["output"],
   poolCandidateName: string,
 ) {
   return (

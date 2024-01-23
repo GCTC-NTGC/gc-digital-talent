@@ -20,8 +20,7 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql } from "@gc-digital-talent/graphql/src/gql/gql";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { graphql, PoolCandidate } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchInput,
