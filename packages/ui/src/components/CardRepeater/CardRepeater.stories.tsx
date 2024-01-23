@@ -181,6 +181,14 @@ const defaultItems = [
     id: faker.string.uuid(),
     value: faker.company.name(),
   },
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
+  {
+    id: faker.string.uuid(),
+    value: faker.company.name(),
+  },
 ];
 
 export const WithItems = Template.bind({});
@@ -198,4 +206,18 @@ export const HiddenIndex = Template.bind({});
 HiddenIndex.args = {
   ...WithItems.args,
   hideIndex: true,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...WithItems.args,
+  disabled: true,
+};
+
+export const Locked = Template.bind({});
+Locked.args = {
+  ...WithItems.args,
+  moveDisabledIndexes: [1],
+  editDisabledIndexes: [2],
+  removeDisabledIndexes: [3],
 };

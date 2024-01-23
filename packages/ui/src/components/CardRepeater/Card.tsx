@@ -3,13 +3,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
+import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import { useAnnouncer } from "../Announcer/Announcer";
-import { Action } from "./Button";
+import { Action, Edit } from "./Button";
 
 type ActionsProps = {
   children: React.ReactNode;
@@ -25,6 +26,8 @@ const Actions = ({ children }: ActionsProps) => (
     {children}
   </div>
 );
+
+const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
 
 const DisabledAction = () => (
   <span
@@ -54,16 +57,45 @@ const Card = ({ index, edit, error, children }: CardProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
-  const { move, remove, total, items, id, hideIndex } =
-    useCardRepeaterContext();
+  const {
+    move,
+    remove,
+    total,
+    items,
+    id,
+    hideIndex,
+    disabled,
+    moveDisabledIndexes,
+    editDisabledIndexes,
+    removeDisabledIndexes,
+  } = useCardRepeaterContext();
   const item = items?.[index];
   if (!item) return null;
 
   const position = index + 1;
   const isFirst = index === 0;
   const isLast = index === items.length - 1;
-  const disableDecrement = isFirst;
-  const disableIncrement = isLast || total <= 1;
+  const lockDecrement = moveDisabledIndexes?.includes(index);
+  const isMoveDisabled = disabled || lockDecrement;
+  const isEditDisabled = disabled || editDisabledIndexes?.includes(index);
+  const isRemoveDisabled = disabled || removeDisabledIndexes?.includes(index);
+  const disableDecrement =
+    disabled || // Whole repeater is disabled
+    isFirst ||
+    moveDisabledIndexes?.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index - 1 === disabledIndex, // has a move-disabled item previous
+    );
+  const disableIncrement =
+    disabled || // Whole repeater is disabled
+    isLast ||
+    total <= 1 || // Last item
+    moveDisabledIndexes?.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index + 1 === disabledIndex, // has a move-disabled item following
+    );
 
   const handleMove = (from: number, to: number) => {
     move(from, to);
@@ -97,6 +129,11 @@ const Card = ({ index, edit, error, children }: CardProps) => {
       );
     }
   };
+
+  let DisabledDecrementAction = DisabledAction;
+  if (lockDecrement) {
+    DisabledDecrementAction = LockedIcon;
+  }
 
   return (
     <motion.li
@@ -137,7 +174,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
       >
         <Actions>
           {/* UP ARROW */}
-          {!disableDecrement ? (
+          {!(disableDecrement || disabled) ? (
             <Action
               onClick={decrement}
               animation={!shouldReduceMotion ? "translate-up" : "none"}
@@ -148,7 +185,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
               })}
             />
           ) : (
-            <DisabledAction />
+            <DisabledDecrementAction />
           )}
           {/* INDEX */}
           {!hideIndex && (
@@ -176,10 +213,20 @@ const Card = ({ index, edit, error, children }: CardProps) => {
           )}
         </Actions>
         <Actions>
-          {edit}
+          {isEditDisabled ? (
+            <Edit
+              disabled
+              aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+                index: position,
+              })}
+            />
+          ) : (
+            edit
+          )}
           <Action
             onClick={removeItem}
             icon={TrashIcon}
+            disabled={isRemoveDisabled}
             color="error"
             aria-label={intl.formatMessage(formMessages.repeaterRemove, {
               index: position,
