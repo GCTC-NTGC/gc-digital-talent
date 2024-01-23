@@ -8,8 +8,7 @@ import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { AssessmentDecision } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -137,10 +136,13 @@ describe("AssessmentStepTracker", () => {
 
   it("should have a working sort function", () => {
     const steps = Array.from(
-      groupPoolCandidatesByStep(poolWithAssessmentSteps).values(),
+      groupPoolCandidatesByStep(
+        unpackMaybes(poolWithAssessmentSteps.assessmentSteps),
+        unpackMaybes(poolWithAssessmentSteps.poolCandidates),
+      ),
     );
     const modifiedResults = sortResultsAndAddOrdinal(
-      Array.from(steps[0].assessments.values()),
+      Array.from(steps[0].results),
     );
 
     expect(modifiedResults[0].poolCandidate.id).toEqual("bookmarked");
@@ -158,12 +160,15 @@ describe("AssessmentStepTracker", () => {
   });
 
   it("should have working group function", () => {
-    const groupedResults = groupPoolCandidatesByStep(poolWithAssessmentSteps);
+    const groupedResults = groupPoolCandidatesByStep(
+      unpackMaybes(poolWithAssessmentSteps.assessmentSteps),
+      unpackMaybes(poolWithAssessmentSteps.poolCandidates),
+    );
     const stepArray = Array.from(groupedResults.values());
-    const { assessments } = stepArray[0];
+    const { results } = stepArray[0];
 
     // One duplicate candidate accounted for
-    expect(assessments.size).toEqual(testCandidates.length - 1);
+    expect(results.length).toEqual(testCandidates.length);
 
     // They are in the correct order
     const orderArray = Array.from(
@@ -182,26 +187,16 @@ describe("AssessmentStepTracker", () => {
      *  {
      *    decision: "noDecision",
      *    poolCandidate: { id: "candidate-is-unassessed" },
-     *    results: [
-     *      { "assessmentDecision": null },
-     *      { "assessmentDecision": "SUCCESSFUL" }
-     *    ]
      *  }
      * ]
      */
-    expect(Array.from(assessments.values())).toEqual(
+    expect(Array.from(results)).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           decision: NO_DECISION,
           poolCandidate: expect.objectContaining({
             id: "unassessed",
           }),
-          results: expect.arrayContaining([
-            expect.objectContaining({ assessmentDecision: null }),
-            expect.objectContaining({
-              assessmentDecision: AssessmentDecision.Successful,
-            }),
-          ]),
         }),
       ]),
     );

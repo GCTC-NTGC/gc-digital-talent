@@ -11,6 +11,7 @@ import {
   AssessmentResult,
   AssessmentResultType,
   Pool,
+  PoolCandidate,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
@@ -18,7 +19,7 @@ faker.seed(0);
 
 const fakePool = fakePools(1)[0];
 const fakePoolAssessmentSteps = fakeAssessmentSteps(2);
-const fakeCandidates = fakePoolCandidates(4);
+const fakeCandidates = fakePoolCandidates(6);
 
 const getAssessmentResult = (
   decision?: AssessmentDecision | null,
@@ -26,10 +27,11 @@ const getAssessmentResult = (
   id: faker.string.uuid(),
   assessmentDecision:
     typeof decision === "undefined" ? AssessmentDecision.Successful : decision,
+  assessmentResultType: AssessmentResultType.Education,
   assessmentStep: fakePoolAssessmentSteps[0],
 });
 
-export const priorityEntitlementCandidate = {
+export const priorityEntitlementCandidate: PoolCandidate = {
   ...fakeCandidates[0],
   id: "priority-entitlement",
   user: {
@@ -42,7 +44,7 @@ export const priorityEntitlementCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
 };
-export const armedForcesCandidate = {
+export const armedForcesCandidate: PoolCandidate = {
   ...fakeCandidates[1],
   id: "armed-forces",
   user: {
@@ -55,7 +57,7 @@ export const armedForcesCandidate = {
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
 };
-export const bookmarkedCandidate = {
+export const bookmarkedCandidate: PoolCandidate = {
   ...fakeCandidates[2],
   id: "bookmarked",
   user: {
@@ -68,7 +70,7 @@ export const bookmarkedCandidate = {
   isBookmarked: true,
   assessmentResults: [getAssessmentResult()],
 };
-export const unassessedCandidate = {
+export const unassessedCandidate: PoolCandidate = {
   ...fakeCandidates[3],
   id: "unassessed",
   user: {
@@ -79,14 +81,11 @@ export const unassessedCandidate = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
   isBookmarked: false,
-  assessmentResults: [getAssessmentResult(null)],
-};
-export const unassessedWithSuccess = {
-  ...unassessedCandidate,
   assessmentResults: [
+    getAssessmentResult(null),
     {
       ...getAssessmentResult(),
-      type: AssessmentResultType.Skill,
+      assessmentResultType: AssessmentResultType.Skill,
       poolSkill: {
         id: faker.string.uuid(),
         type: PoolSkillType.Nonessential,
@@ -94,10 +93,11 @@ export const unassessedWithSuccess = {
     },
   ],
 };
-export const lastByFirstName = {
-  ...unassessedWithSuccess,
+export const lastByFirstName: PoolCandidate = {
+  ...fakeCandidates[4],
   id: "last-by-first-name",
   isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
   user: {
     id: faker.string.uuid(),
     firstName: "BB",
@@ -106,10 +106,11 @@ export const lastByFirstName = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
 };
-export const firstByName = {
-  ...unassessedWithSuccess,
+export const firstByName: PoolCandidate = {
+  ...fakeCandidates[5],
   id: "first-by-name",
   isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
   user: {
     id: faker.string.uuid(),
     firstName: "AA",
@@ -123,7 +124,6 @@ export const testCandidates = [
   armedForcesCandidate,
   bookmarkedCandidate,
   unassessedCandidate,
-  unassessedWithSuccess,
   lastByFirstName,
   firstByName,
 ];
@@ -140,10 +140,6 @@ export const poolWithAssessmentSteps: Pool = {
     {
       ...fakePoolAssessmentSteps[0],
       sortOrder: 1,
-      assessmentResults: testCandidates.map((candidate) => ({
-        ...candidate.assessmentResults[0],
-        poolCandidate: candidate,
-      })),
     },
   ],
   poolCandidates: testCandidates,
