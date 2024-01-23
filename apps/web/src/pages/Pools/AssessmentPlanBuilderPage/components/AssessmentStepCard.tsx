@@ -1,84 +1,65 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
-import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
+import sortBy from "lodash/sortBy";
 
-import { Repeater } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { formMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
-import { RepeaterFieldsetProps } from "@gc-digital-talent/forms/src/components/Repeater/Repeater";
-import ActionButton from "@gc-digital-talent/forms/src/components/Repeater/ActionButton";
+import {
+  Accordion,
+  CardRepeater,
+  Heading,
+  Well,
+  useCardRepeaterContext,
+} from "@gc-digital-talent/ui";
 
 import { AssessmentStep, AssessmentStepType, Pool } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
 
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
-import DeleteDialog from "./DeleteDialog";
 
-type AssessmentStepFieldsetProps = {
+type AssessmentStepCardProps = {
   index: number;
   assessmentStep: AssessmentStep;
-  total: number;
-  fieldsetDisabled: boolean;
   pool: Pool;
-  onRemove: () => void;
+  onRemove: (index: number) => void;
   onMove: (fromIndex: number, toIndex: number) => void;
-  moveDisabledIndexes: RepeaterFieldsetProps["moveDisabledIndexes"];
 };
 
-const AssessmentStepFieldset = ({
+const AssessmentStepCard = ({
   index,
   assessmentStep,
-  total,
-  fieldsetDisabled,
   pool,
   onRemove,
   onMove,
-  moveDisabledIndexes,
-}: AssessmentStepFieldsetProps) => {
+}: AssessmentStepCardProps) => {
   const intl = useIntl();
-  const skillNames =
-    assessmentStep.poolSkills
-      ?.filter(notEmpty)
-      .map((poolSkill) => getLocalizedName(poolSkill?.skill?.name, intl)) ?? [];
+  const { move, remove } = useCardRepeaterContext();
+  const skillNames = unpackMaybes(assessmentStep.poolSkills).map((poolSkill) =>
+    getLocalizedName(poolSkill?.skill?.name, intl),
+  );
   skillNames.sort();
-  const screeningQuestions = pool.screeningQuestions?.filter(notEmpty) ?? [];
-  screeningQuestions.sort((a, b) =>
-    (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
-    (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
-      ? 1
-      : -1,
+  const screeningQuestions = sortBy(
+    unpackMaybes(pool.screeningQuestions),
+    (question) => question.sortOrder,
   );
 
-  const editDisabled =
-    assessmentStep.type === AssessmentStepType.ApplicationScreening;
-  const removeDisabled =
-    assessmentStep.type === AssessmentStepType.ApplicationScreening;
+  const handleMove = (from: number, to: number) => {
+    move(from, to);
+    onMove(from, to);
+  };
+
+  const handleRemove = (removeIndex: number) => {
+    remove(removeIndex);
+    onRemove(removeIndex);
+  };
 
   return (
-    <Repeater.Fieldset
-      name="assessmentStepFieldArray"
+    <CardRepeater.Card
       index={index}
-      total={total}
-      onMove={onMove} // immediately fire event
-      disabled={fieldsetDisabled}
-      legend={intl.formatMessage(
-        {
-          defaultMessage: "Assessment plan step {index}",
-          id: "kZWII8",
-          description: "Legend for assessment plan step fieldset",
-        },
-        {
-          index: index + 1,
-        },
-      )}
-      hideLegend
-      editDisabled={editDisabled}
-      removeDisabled={removeDisabled}
-      moveDisabledIndexes={moveDisabledIndexes}
-      customEditButton={
+      onMove={handleMove} // immediately fire event
+      onRemove={handleRemove}
+      edit={
         <AssessmentDetailsDialog
           allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
           initialValues={{
@@ -94,33 +75,15 @@ const AssessmentStepFieldset = ({
             screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
-            <ActionButton
+            <CardRepeater.Edit
               aria-label={intl.formatMessage(formMessages.repeaterEdit, {
                 index,
               })}
-            >
-              <PencilSquareIcon data-h2-width="base(x.75)" />
-            </ActionButton>
-          }
-        />
-      }
-      customRemoveButton={
-        <DeleteDialog
-          onDelete={onRemove}
-          trigger={
-            <ActionButton
-              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-                index,
-              })}
-            >
-              <TrashIcon data-h2-width="base(x.75)" />
-            </ActionButton>
+            />
           }
         />
       }
     >
-      <input type="hidden" name={`assessmentSteps.${index}.id`} />
-
       <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
@@ -217,8 +180,8 @@ const AssessmentStepFieldset = ({
           </Accordion.Item>
         </Accordion.Root>
       ) : null}
-    </Repeater.Fieldset>
+    </CardRepeater.Card>
   );
 };
 
-export default AssessmentStepFieldset;
+export default AssessmentStepCard;
