@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
             'personalExperience' => \App\Models\PersonalExperience::class,
             'workExperience' => \App\Models\WorkExperience::class,
         ]);
+
         // enable below for database debugging
         // DB::listen(function ($query) {
         //     Log::info(
@@ -39,6 +40,16 @@ class AppServiceProvider extends ServiceProvider
         //         $query->bindings,
         //         $query->time
         //     );
+        // });
+
+        // enable and adjust timing for logging of SQL statement times
+        // DB::listen(function ($query) {
+        //     if ($query->time > 20) {
+        //         Log::warning('Query exceeded 20 milliseconds -', [
+        //             'sql' => $query->sql,
+        //             'milliseconds' => $query->time,
+        //         ]);
+        //     }
         // });
     }
 }
