@@ -152,7 +152,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
-        screeningQuestions {
+        generalQuestions {
           id
           question {
             en
