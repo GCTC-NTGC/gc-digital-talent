@@ -37,10 +37,6 @@ const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-z-index": "base(-1)",
 });
 
-// export interface BrowsePoolsProps {
-//   pools: Pool[];
-// }
-
 const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
@@ -383,22 +379,5 @@ export const BrowsePools = () => {
     </Pending>
   );
 };
-
-// const BrowsePoolsApi = () => {
-//   const [{ data, fetching, error }] = useQuery({
-//     query: BrowsePoolsPage_Query,
-//     variables: { closingAfter: now }, // pass current dateTime into query argument
-//   });
-
-//   const filteredPools = data?.publishedPools.filter(
-//     (pool) => typeof pool !== `undefined` && !!pool,
-//   ) as Pool[];
-
-//   return (
-//     <Pending fetching={fetching} error={error}>
-//       <BrowsePools pools={filteredPools} />
-//     </Pending>
-//   );
-// };
 
 export default BrowsePools;
