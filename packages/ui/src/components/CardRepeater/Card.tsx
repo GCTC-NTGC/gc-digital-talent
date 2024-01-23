@@ -51,9 +51,18 @@ export type CardProps = {
   children: React.ReactNode;
   edit?: React.ReactNode;
   error?: boolean;
+  onMove?: (from: number, to: number) => void;
+  onRemove?: (index: number) => void;
 };
 
-const Card = ({ index, edit, error, children }: CardProps) => {
+const Card = ({
+  index,
+  edit,
+  error,
+  onMove,
+  onRemove,
+  children,
+}: CardProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const { announce } = useAnnouncer();
@@ -76,7 +85,6 @@ const Card = ({ index, edit, error, children }: CardProps) => {
   const isFirst = index === 0;
   const isLast = index === items.length - 1;
   const lockDecrement = moveDisabledIndexes?.includes(index);
-  const isMoveDisabled = disabled || lockDecrement;
   const isEditDisabled = disabled || editDisabledIndexes?.includes(index);
   const isRemoveDisabled = disabled || removeDisabledIndexes?.includes(index);
   const disableDecrement =
@@ -99,6 +107,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
 
   const handleMove = (from: number, to: number) => {
     move(from, to);
+    onMove?.(from, to);
     if (announce) {
       announce(
         intl.formatMessage(formMessages.repeaterAnnounceMove, {
@@ -121,6 +130,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
 
   const removeItem = () => {
     remove(index);
+    onRemove?.(index);
     if (announce) {
       announce(
         intl.formatMessage(formMessages.repeaterAnnounceRemove, {
@@ -143,7 +153,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
           ? {}
           : {
               type: "tween",
-              ease: "anticipate",
+              ease: "circInOut",
               duration: 0.4,
             }
       }
@@ -213,7 +223,7 @@ const Card = ({ index, edit, error, children }: CardProps) => {
           )}
         </Actions>
         <Actions>
-          {isEditDisabled ? (
+          {isEditDisabled && edit ? (
             <Edit
               disabled
               aria-label={intl.formatMessage(formMessages.repeaterEdit, {

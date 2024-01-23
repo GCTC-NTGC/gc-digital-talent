@@ -5,6 +5,7 @@ import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 import {
   CardRepeaterProvider,
   CardRepeaterProviderProps,
+  useCardRepeaterContext,
 } from "./CardRepeaterProvider";
 import { BaseItem } from "./types";
 import { Add, Edit } from "./Button";
@@ -97,3 +98,5 @@ export default {
   Add,
   Edit,
 };
+
+export { useCardRepeaterContext };

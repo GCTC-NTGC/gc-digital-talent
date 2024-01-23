@@ -9,9 +9,9 @@ export type CardRepeaterContextProps<T extends BaseItem = BaseItem> = {
   defaultItems?: ItemWithId<T>[];
   items: ItemWithId<T>[];
   disabled?: boolean;
-  moveDisabledIndexes: number[];
-  editDisabledIndexes: number[];
-  removeDisabledIndexes: number[];
+  moveDisabledIndexes?: number[];
+  editDisabledIndexes?: number[];
+  removeDisabledIndexes?: number[];
   max?: number;
   hideIndex?: boolean;
   onUpdate?: (newItems: ItemWithId<T>[]) => void;
