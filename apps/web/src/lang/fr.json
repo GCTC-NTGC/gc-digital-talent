@@ -579,6 +579,10 @@
     "defaultMessage": "Vétéran",
     "description": "Label for veteran chip on view candidate page"
   },
+  "17dZD4": {
+    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
+    "description": "Caption notifying the user about who can know about the results of form changes"
+  },
   "19wJhE": {
     "defaultMessage": "Français seulement",
     "description": "French only personnel language"
@@ -962,6 +966,10 @@
   "3JL02L": {
     "defaultMessage": "Décerné à :",
     "description": "The award was given to"
+  },
+  "3MboNR": {
+    "defaultMessage": "Veuillez sélectionner une date d’expiration",
+    "description": "Label for date selection input for expiry date"
   },
   "3NW70Q": {
     "defaultMessage": "Demandes de talents",
@@ -1446,6 +1454,10 @@
   "5tmTP/": {
     "defaultMessage": "Chercher les classifications",
     "description": "Label for the classifications table search input"
+  },
+  "5wKh/o": {
+    "defaultMessage": "Démontré",
+    "description": "Option for assessment decision when candidate has successful assessment."
   },
   "5yYtE6": {
     "defaultMessage": "À venir à l’automne 2023",
@@ -2715,10 +2727,6 @@
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
   },
-  "DD0Zd+": {
-    "defaultMessage": "Enregistrer la decision finale",
-    "description": "Button label for record final decision on view pool candidate page"
-  },
   "DHQasU": {
     "defaultMessage": "Consulter les notes",
     "description": "Button label for view notes on view pool candidate page"
@@ -2754,6 +2762,10 @@
   "DUlWNu": {
     "defaultMessage": "31 à 50",
     "description": "Contract FTE range between thirty-one and fifty"
+  },
+  "DXjJyD": {
+    "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
+    "description": "Text describing expiry dates for candidates, what it is for and a recommendation"
   },
   "DXtgrn": {
     "defaultMessage": "Révisez votre candidature et envoyez-la",
@@ -2818,6 +2830,10 @@
   "Dqsq+M": {
     "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
     "description": "A _what to expect_ point on the sign up page"
+  },
+  "DrG5Pl": {
+    "defaultMessage": "Sommaire de l’évaluation",
+    "description": "Assessment summary"
   },
   "Ds7ONS": {
     "defaultMessage": "une modification ou une extension à un contrat visant la mise à l’essai de logiciels.",
@@ -2931,6 +2947,10 @@
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
+  "Ed+xy1": {
+    "defaultMessage": "Décision disqualifiée",
+    "description": "Disqualified decision input"
+  },
   "EdUZaX": {
     "defaultMessage": "Candidats",
     "description": "Header for the View Candidates column of the Pools table"
@@ -2958,6 +2978,10 @@
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
+  },
+  "EvR6qK": {
+    "defaultMessage": "Candidat(e) qui se qualifie",
+    "description": "Qualify candidate option"
   },
   "Ewa83p": {
     "defaultMessage": "Les compétences suivantes sont essentielles à ce rôle et doivent être évidentes dans le cadre de votre demande.",
@@ -3222,6 +3246,10 @@
   "GB3LDj": {
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
+  },
+  "GGPWwr": {
+    "defaultMessage": "Décision sur l’évaluation finale",
+    "description": "Final assessment decision input"
   },
   "GHlK/f": {
     "defaultMessage": "Handicap",
@@ -3515,10 +3543,6 @@
     "defaultMessage": "Statut de priorité",
     "description": "Priority entitlement label"
   },
-  "IEGaTJ": {
-    "defaultMessage": "Sélection et évaluation",
-    "description": "Title for the screening and evaluation page"
-  },
   "IEkhMc": {
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
@@ -3542,6 +3566,10 @@
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
+  },
+  "IKGhHj": {
+    "defaultMessage": "Important",
+    "description": "Important note or caption"
   },
   "IKkBm7": {
     "defaultMessage": "Oui",
@@ -3971,6 +3999,10 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Radio group option for education requirement filter in search form."
   },
+  "Kp3Bqu": {
+    "defaultMessage": "Critères essentiels",
+    "description": "Essential criteria heading"
+  },
   "KpNUo0": {
     "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
@@ -4115,6 +4147,10 @@
     "defaultMessage": "Compétences essentielles (exigence)",
     "description": "Sub title for the pool essential skills"
   },
+  "Ldzk4k": {
+    "defaultMessage": "Critères constituent un atout",
+    "description": "Asset criteria heading"
+  },
   "Le4EQq": {
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Placeholder displayed on the classification form level field."
@@ -4198,6 +4234,10 @@
   "MDjwSO": {
     "defaultMessage": "Titre précis (français)",
     "description": "Label for a pool advertisements specific French title"
+  },
+  "MMtY88": {
+    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
@@ -5687,6 +5727,10 @@
     "defaultMessage": "Expérience et compétences requises",
     "description": "Title for the experience and skills section of a pool advertisement"
   },
+  "VYOVUJ": {
+    "defaultMessage": "Décision finale",
+    "description": "Final decision heading"
+  },
   "VYzAZy": {
     "defaultMessage": "Ce processus est à <heavyWarning>l'étape d’ébauche</heavyWarning> et n'a pas encore été annoncé.",
     "description": "Message displayed to admins when a process is in draft mode"
@@ -6310,6 +6354,10 @@
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
+  },
+  "YueN6y": {
+    "defaultMessage": "Éliminé(e) selon la demande",
+    "description": "Screened out on application option"
   },
   "Yw09wC": {
     "defaultMessage": "Télécharger l’arbre de décision sur les exigences en matière d’établissement de rapports (texte clair)",
@@ -8627,6 +8675,10 @@
     "defaultMessage": "Appuyer la collectivité du numérique du CG",
     "description": "Heading for the Supporting The Community section on the digital services contracting questionnaire"
   },
+  "mF9apF": {
+    "defaultMessage": "Utiliser la présente section pour finaliser la décision ayant trait à la demande du/de la candidat(e) une fois que vous aurez effectué toutes les vérifications nécessaires.",
+    "description": "Text describing a dialog's purpose"
+  },
   "mGGj/i": {
     "defaultMessage": "Numéro de priorité",
     "description": "Label for applicant's priority number value"
@@ -8943,6 +8995,10 @@
     "defaultMessage": "Autres autorités qui participent à ce contrat",
     "description": "Label for _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
+  "ngHHmI": {
+    "defaultMessage": "Sauvegarder la décision finale",
+    "description": "Button to click on to fill out a final decision form"
+  },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
@@ -9046,6 +9102,10 @@
   "oCX5SP": {
     "defaultMessage": "Ministère",
     "description": "CSV Header, Department column"
+  },
+  "oIM22z": {
+    "defaultMessage": "Disqualifier le/la candidat(e)",
+    "description": "Disqualify candidate option"
   },
   "oIRkby": {
     "defaultMessage": "Autre expérience dans un domaine connexe",
@@ -9410,6 +9470,10 @@
   "qp68Mh": {
     "defaultMessage": "Toute langue",
     "description": "Option label for allowing any language"
+  },
+  "qqkQ/h": {
+    "defaultMessage": "Décision finale relative à l’évaluation",
+    "description": "Final assessment decision dialog header"
   },
   "qrDCTV": {
     "defaultMessage": "Catégorie",
@@ -10287,6 +10351,10 @@
     "defaultMessage": "En apprendre davantage sur l'équité en matière d'emploi",
     "description": "Heading for opening the accordion with information on employment equity"
   },
+  "wrqRvV": {
+    "defaultMessage": "N’a pas réussi(e) au cours de l’évaluation",
+    "description": "Unsuccessful during assessment option"
+  },
   "ww+trY": {
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
@@ -10674,6 +10742,10 @@
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "zXkLL2": {
+    "defaultMessage": "Non démontrée (supprimée du processus)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zXzQhc": {
     "defaultMessage": "Si vous ne savez pas si ce questionnaire est nécessaire pour un type de contrat spécifique, veuillez communiquer avec nous, à <link>GCTalentGC@tbs-sct.gc.ca</link>, pour obtenir de plus amples renseignements.",

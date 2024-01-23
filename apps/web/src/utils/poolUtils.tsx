@@ -245,9 +245,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
           "screening",
           {
             title: intl.formatMessage({
-              defaultMessage: "Screening and evaluation",
-              id: "IEGaTJ",
-              description: "Title for the screening and evaluation page",
+              defaultMessage: "Screening and assessment",
+              id: "R8Naqm",
+              description: "Heading for the information of an application",
             }),
             link: {
               url: paths.screeningAndEvaluation(pool.id),
