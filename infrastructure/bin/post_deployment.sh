@@ -2,8 +2,6 @@
 # This script is run after the deployment is complete to help set up the environment in the app service.
 # It sends a message to a slack webook URI.
 
-set -o verbose
-
 ROOT_DIR=$1
 SLACK_WEBHOOK_URI=$2
 SOURCE_NAME=$3
