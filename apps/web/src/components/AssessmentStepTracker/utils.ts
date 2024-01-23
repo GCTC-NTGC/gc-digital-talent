@@ -269,8 +269,6 @@ const getResultsDecision = (
     }
   });
 
-  console.log({ stepResults, hasFailure, hasToAssess, hasOnHold });
-
   if (hasFailure) {
     return AssessmentDecision.Unsuccessful;
   }
