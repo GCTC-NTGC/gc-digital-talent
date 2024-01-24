@@ -21,7 +21,7 @@ describe("Pools", () => {
    * Check for success toast
    */
   const expectUpdate = () => {
-    cy.wait("@gqlupdatePoolMutation")
+    cy.wait("@gqlUpdatePoolMutation")
       .its("response.body.data.updatePool")
       .should("have.property", "id");
     cy.expectToast(/pool updated successfully/i);
@@ -29,15 +29,15 @@ describe("Pools", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "getEditPoolData");
-      aliasQuery(req, "getMePoolCreation");
-      aliasQuery(req, "GetProcessInfo");
-      aliasQuery(req, "allPools");
-      aliasMutation(req, "createPool");
-      aliasMutation(req, "updatePool");
+      aliasQuery(req, "EditPoolPage");
+      aliasQuery(req, "CreatePoolPage");
+      aliasQuery(req, "ViewPoolPage");
+      aliasQuery(req, "PoolTable");
+      aliasMutation(req, "CreatePool");
+      aliasMutation(req, "UpdatePool");
       aliasMutation(req, "publishPool");
       aliasMutation(req, "closePool");
-      aliasMutation(req, "deletePool");
+      aliasMutation(req, "DeletePool");
     });
   });
 
@@ -76,7 +76,7 @@ describe("Pools", () => {
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -85,7 +85,7 @@ describe("Pools", () => {
   it("Should show all pools if user has platform admin role", () => {
     loginAndGoToPoolsPage("platform_admin");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -94,11 +94,11 @@ describe("Pools", () => {
   it("should create a new pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("link", { name: /create pool/i }).click();
 
-    cy.wait("@gqlgetMePoolCreationQuery");
+    cy.wait("@gqlCreatePoolPageQuery");
 
     // Ensure we got to the correct page
     cy.findByRole("heading", { name: /create pool/i })
@@ -131,7 +131,7 @@ describe("Pools", () => {
 
     // Submit form
     cy.findByRole("button", { name: /create new pool/i }).click();
-    cy.wait("@gqlcreatePoolMutation");
+    cy.wait("@gqlCreatePoolMutation");
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
@@ -226,7 +226,7 @@ describe("Pools", () => {
   it("should update the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
@@ -236,7 +236,7 @@ describe("Pools", () => {
       .first()
       .click();
 
-    cy.wait("@gqlgetEditPoolDataQuery");
+    cy.wait("@gqlEditPoolPageQuery");
 
     cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
@@ -264,7 +264,7 @@ describe("Pools", () => {
   it("should delete the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
@@ -274,7 +274,7 @@ describe("Pools", () => {
       .first()
       .click();
 
-    cy.wait("@gqlGetProcessInfoQuery");
+    cy.wait("@gqlViewPoolPageQuery");
 
     cy.findByRole("button", { name: /delete/i }).click();
 
@@ -285,7 +285,7 @@ describe("Pools", () => {
         cy.findByRole("button", { name: /delete/i }).click();
       });
 
-    cy.wait("@gqldeletePoolMutation");
+    cy.wait("@gqlDeletePoolMutation");
 
     cy.expectToast(/pool deleted successfully/i);
   });

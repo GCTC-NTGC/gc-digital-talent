@@ -4,6 +4,7 @@ import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIc
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -15,16 +16,16 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import SEO from "~/components/SEO/SEO";
-import StatusItem from "~/components/StatusItem/StatusItem";
 import {
+  graphql,
   Pool,
   Scalars,
   Classification,
-  useGetEditPoolDataQuery,
   Skill,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -539,8 +540,162 @@ export const EditPoolForm = ({
   );
 };
 
+const EditPoolPage_Query = graphql(/* GraphQL */ `
+  query EditPoolPage($poolId: UUID!) {
+    # the existing data of the pool to edit
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      closingDate
+      status
+      language
+      securityClearance
+      isComplete
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      whatToExpect {
+        en
+        fr
+      }
+      specialNote {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishingGroup
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+      }
+    }
+
+    # all classifications to populate form dropdown
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+
+    # all skills to populate skill pickers
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 export const EditPoolPage = () => {
@@ -563,7 +718,8 @@ export const EditPoolPage = () => {
     });
   }
 
-  const [{ data, fetching, error }] = useGetEditPoolDataQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: EditPoolPage_Query,
     variables: { poolId },
   });
 

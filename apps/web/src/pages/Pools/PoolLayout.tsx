@@ -1,17 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
+import { Pool } from "~/api/generated";
 import {
   getAdvertisementStatus,
-  getFullPoolTitleLabel,
   getPoolCompletenessBadge,
+  getFullPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
@@ -64,13 +66,42 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
   );
 };
 
+const PoolLayout_Query = graphql(/* GraphQL */ `
+  query PoolLayout($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      publishedAt
+      isComplete
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 type RouteParams = {
   poolId: string;
 };
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: PoolLayout_Query,
     variables: {
       poolId,
     },

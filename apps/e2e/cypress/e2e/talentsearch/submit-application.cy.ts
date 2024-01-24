@@ -20,12 +20,12 @@ describe("Submit Application Workflow Tests", () => {
   beforeEach(() => {
     // register queries
     cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "browsePools");
-      aliasQuery(req, "getPool");
+      aliasQuery(req, "BrowsePoolsPage");
+      aliasQuery(req, "PoolAdvertisementPage");
       aliasQuery(req, "Application");
       aliasQuery(req, "MyApplications");
 
-      aliasMutation(req, "createApplication");
+      aliasMutation(req, "CreateApplication");
       aliasMutation(req, "UpdateApplication");
       aliasMutation(req, "Application_Submit");
       aliasMutation(req, "CreateEducationExperience");
@@ -133,7 +133,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.visit("/en/browse/pools");
 
     // Browse pools page - placeholder so it could change
-    cy.wait("@gqlbrowsePoolsQuery");
+    cy.wait("@gqlBrowsePoolsPageQuery");
     cy.findByRole("heading", { name: /browse jobs/i })
       .should("exist")
       .and("be.visible");
@@ -142,14 +142,14 @@ describe("Submit Application Workflow Tests", () => {
     });
 
     // Pool poster page
-    cy.wait("@gqlgetPoolQuery");
+    cy.wait("@gqlPoolAdvertisementPageQuery");
     cy.findByRole("heading", { name: /Apply now/i })
       .should("exist")
       .and("be.visible");
     cy.findAllByRole("link", { name: /Apply for this process/i })
       .first()
       .click();
-    cy.wait("@gqlcreateApplicationMutation");
+    cy.wait("@gqlCreateApplicationMutation");
 
     // Welcome page - step one
     cy.wait("@gqlApplicationQuery");
