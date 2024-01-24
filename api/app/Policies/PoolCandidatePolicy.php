@@ -230,4 +230,21 @@ class PoolCandidatePolicy
         $poolCandidate->loadMissing('pool.team');
         return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
     }
+
+    /**
+     * NOTE: this logic must be kept up to date with AssessmentResultPolicy->view, but may be used
+     *       to check for permission to view all of a candidate's results with one function call, where convenient.
+     *
+     * @param User $user
+     * @param PoolCandidate $poolCandidate
+     * @return void
+     */
+    public function viewAssessmentResults(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('view-any-assessmentResult')) {
+            return true;
+        }
+        $poolCandidate->loadMissing('pool.team');
+        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
+    }
 }
