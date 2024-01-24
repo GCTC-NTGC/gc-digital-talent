@@ -139,6 +139,10 @@ describe("Pools", () => {
       .should("exist")
       .and("be.visible");
 
+    cy.findByText("Digital Community Management")
+      .should("exist")
+      .and("be.visible");
+
     cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Update the classification field

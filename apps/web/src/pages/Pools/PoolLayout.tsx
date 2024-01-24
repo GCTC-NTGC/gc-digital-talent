@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 
 import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -18,7 +19,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
+  pool: Pick<Pool, "id" | "classifications" | "stream" | "name" | "team">;
 }
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
@@ -28,6 +29,9 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const poolTitle = getFullPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
+  const subtitle = pool.team
+    ? getLocalizedName(pool.team?.displayName, intl)
+    : currentPage?.subtitle;
 
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
@@ -37,7 +41,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
       <SEO title={currentPage?.title} />
       <AdminHero
         title={poolTitle}
-        subtitle={currentPage?.subtitle}
+        subtitle={subtitle}
         nav={{
           mode: "subNav",
           items: Array.from(pages.values()).map((page) => ({

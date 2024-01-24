@@ -55,6 +55,14 @@ query GetBasicPoolInfo($poolId: UUID!) {
     }
     publishedAt
     isComplete
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
   }
 }
 

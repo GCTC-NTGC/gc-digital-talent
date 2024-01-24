@@ -40,6 +40,7 @@ import CareerTimelineSection from "./components/CareerTimelineSection/CareerTime
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
+import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
@@ -96,6 +97,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       notes
       signature
       submittedAt
+      expiryDate
       pool {
         id
         name {
@@ -155,6 +157,23 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           question {
             en
             fr
+          }
+        }
+      }
+      assessmentResults {
+        id
+        assessmentDecision
+        assessmentResultType
+        poolSkill {
+          id
+          skill {
+            id
+            key
+            category
+            name {
+              en
+              fr
+            }
           }
         }
       }
@@ -496,14 +515,16 @@ export const ViewPoolCandidate = ({
               data-h2-gap="base(x.5)"
               data-h2-margin-bottom="base(x1)"
             >
-              <Button type="button" color="primary" mode="solid">
-                {intl.formatMessage({
-                  defaultMessage: "Record final decision",
-                  id: "DD0Zd+",
-                  description:
-                    "Button label for record final decision on view pool candidate page",
-                })}
-              </Button>
+              <FinalDecisionDialog
+                poolCandidateId={poolCandidate.id}
+                poolCandidateStatus={poolCandidate.status}
+                expiryDate={poolCandidate.expiryDate}
+                essentialSkills={poolCandidate.pool.essentialSkills ?? []}
+                nonessentialSkills={poolCandidate.pool.nonessentialSkills ?? []}
+                assessmentResults={
+                  poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
+                }
+              />
               <Button
                 icon={HandRaisedIcon}
                 type="button"
