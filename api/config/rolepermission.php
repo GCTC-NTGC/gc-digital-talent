@@ -714,7 +714,7 @@ return [
                 'any' => ['view', 'update'],
             ],
             'applicationNotes' => [
-                'team' => ['view', 'update'],
+                'any' => ['view', 'update'],
             ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete'],

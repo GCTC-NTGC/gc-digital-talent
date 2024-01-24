@@ -82,15 +82,20 @@ class PoolCandidatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate)
+    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate, $request)
     {
-
         $poolCandidate->loadMissing('pool.team');
         $candidatePoolTeam = $poolCandidate->pool->team;
         $isDraft = $poolCandidate->isDraft();
         if (! $isDraft && ($user->isAbleTo('update-any-applicationStatus')
                     || $user->isAbleTo('update-team-applicationStatus', $candidatePoolTeam))
         ) {
+            if ($request['notes']
+                && !$user->isAbleTo('update-any-applicationNotes')
+                && !$user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
+                return false;
+            }
+
             return true;
         }
 
@@ -187,19 +192,42 @@ class PoolCandidatePolicy
         return $user->id === $poolCandidate->user_id && $user->isAbleTo('delete-own-draftApplication');
     }
 
-    /**
-     * Determine whether the user can view attached assessment results
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAssessmentResults(User $user, PoolCandidate $poolCandidate)
+    public function viewStatus(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('view-any-assessmentResult')) {
+        if ($user->id === $poolCandidate->user_id && $user->isAbleTo('view-own-applicationStatus')) {
             return true;
         }
-
+        if ($user->isAbleTo('view-any-applicationStatus')) {
+            return true;
+        }
         $poolCandidate->loadMissing('pool.team');
+        return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
+    }
 
-        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
+    public function updateStatus(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationStatus')) {
+            return true;
+        }
+        $poolCandidate->loadMissing('pool.team');
+        return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
+    }
+
+    public function viewNotes(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('view-any-applicationNotes')) {
+            return true;
+        }
+        $poolCandidate->loadMissing('pool.team');
+        return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->team);
+    }
+
+    public function updateNotes(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationNotes')) {
+            return true;
+        }
+        $poolCandidate->loadMissing('pool.team');
+        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
     }
 }
