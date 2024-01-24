@@ -2,6 +2,7 @@ import { type Page } from "@playwright/test";
 
 import { Test_MeQueryDocument } from "~/utils/user";
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
+import { getAuthTokens } from "../utils/auth";
 
 /**
  * App Page
@@ -25,9 +26,12 @@ export class AppPage {
    * @returns
    */
   async graphqlRequest(query: string, variables?: Record<string, unknown>) {
+    await this.gotoHome();
+    const tokens = await getAuthTokens(this.page);
     const res = await this.page.request.post("/graphql", {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${tokens.accessToken}`,
       },
       data: {
         query,
