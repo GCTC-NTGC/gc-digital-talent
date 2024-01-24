@@ -90,7 +90,7 @@ class PoolCandidatePolicy
         if (! $isDraft && ($user->isAbleTo('update-any-applicationStatus')
                     || $user->isAbleTo('update-team-applicationStatus', $candidatePoolTeam))
         ) {
-            if ($request['notes']
+            if (array_key_exists('notes', $request)
                 && !$user->isAbleTo('update-any-applicationNotes')
                 && !$user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
                 return false;
