@@ -6,6 +6,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
+import { useQuery } from "urql";
 
 import {
   ThrowNotFound,
@@ -30,14 +31,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-
 import {
+  graphql,
   PoolStatus,
   Scalars,
-  useGetPoolQuery,
   Pool,
   PublishingGroup,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
@@ -74,7 +75,7 @@ const anchorTag = (chunks: React.ReactNode, email: string) => (
 
 interface PoolAdvertisementProps {
   pool: Pool;
-  applicationId?: Scalars["ID"];
+  applicationId?: Scalars["ID"]["output"];
   hasApplied?: boolean;
 }
 
@@ -913,14 +914,151 @@ const PoolNotFound = () => {
 };
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
+
+const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
+  query PoolAdvertisementPage($id: UUID!) {
+    me {
+      id
+      poolCandidates {
+        id
+        pool {
+          id
+        }
+        submittedAt
+      }
+    }
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      whatToExpect {
+        en
+        fr
+      }
+      specialNote {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishingGroup
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+        contactEmail
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 const PoolAdvertisementPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId", true);
   const auth = useAuthorization();
 
-  const [{ data, fetching, error }] = useGetPoolQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: PoolAdvertisementPage_Query,
     variables: { id: poolId },
   });
 

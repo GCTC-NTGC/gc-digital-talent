@@ -207,7 +207,7 @@ export const getFullPoolTitleLabel = (
   options?: { defaultTitle?: string },
 ): string => fullPoolTitle(intl, pool, options).label;
 
-export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
+export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
