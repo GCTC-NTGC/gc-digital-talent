@@ -233,7 +233,16 @@ const OrganizeSection = ({
           removeDisabledIndexes={disabledIndexes}
           add={
             <AssessmentDetailsDialog
-              trigger={<CardRepeater.Add />}
+              trigger={
+                <CardRepeater.Add>
+                  {intl.formatMessage({
+                    defaultMessage: "Add a new assessment",
+                    id: "VWLWLY",
+                    description:
+                      "Button text to add a new assessment to the assessment plan",
+                  })}
+                </CardRepeater.Add>
+              }
               allPoolSkills={unpackMaybes(pool.poolSkills)}
               disallowStepTypes={
                 alreadyHasAScreeningQuestionsStep
