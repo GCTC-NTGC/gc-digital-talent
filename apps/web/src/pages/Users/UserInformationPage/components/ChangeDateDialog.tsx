@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -12,15 +13,16 @@ import {
 } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
-
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   User,
   PoolCandidate,
   UpdatePoolCandidateAsAdminInput,
-  useUpdatePoolCandidateMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
+
+import AdminUpdatePoolCandidate_Mutation from "./mutation";
 
 type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
@@ -39,7 +41,9 @@ const ChangeDateDialog = ({
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [{ fetching }, executeMutation] = useUpdatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useMutation(
+    AdminUpdatePoolCandidate_Mutation,
+  );
 
   const requestMutation = async (
     id: string,

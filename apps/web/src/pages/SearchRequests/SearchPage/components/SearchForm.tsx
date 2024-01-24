@@ -2,17 +2,18 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
-
 import {
+  graphql,
   Classification,
   Pool,
   ApplicantFilterInput,
   Skill,
-  useGetSearchFormDataAcrossAllPoolsQuery,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -188,8 +189,57 @@ export const SearchForm = ({
   );
 };
 
+const SearchForm_Query = graphql(/* GraphQL */ `
+  query SearchForm {
+    publishedPools {
+      id
+      owner {
+        id
+        email
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      stream
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 const SearchFormAPI = () => {
-  const [{ data, fetching, error }] = useGetSearchFormDataAcrossAllPoolsQuery();
+  const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
   const skills = unpackMaybes<Skill>(data?.skills);
   const pools = unpackMaybes<Pool>(data?.publishedPools);
