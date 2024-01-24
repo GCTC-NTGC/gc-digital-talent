@@ -2,18 +2,18 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link } from "@gc-digital-talent/ui";
+import { Maybe } from "@gc-digital-talent/graphql";
 
-import {
-  ArmedForcesStatus,
-  AssessmentResult as AssessmentResultType,
-  AssessmentStepType,
-  Maybe,
-} from "~/api/generated";
+import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 import useRoutes from "../../hooks/useRoutes";
-import { getDecisionInfo, sortResultsAndAddOrdinal } from "./utils";
+import {
+  CandidateAssessmentResult,
+  getDecisionInfo,
+  sortResultsAndAddOrdinal,
+} from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -52,7 +52,7 @@ const Priority = ({ type }: PriorityProps) => {
 };
 
 interface AssessmentResultProps {
-  result: AssessmentResultType & { ordinal: number };
+  result: CandidateAssessmentResult & { ordinal: number };
   isApplicationStep: boolean;
 }
 
@@ -71,7 +71,7 @@ const AssessmentResult = ({
   if (!result.poolCandidate) return null;
 
   const { icon, colorStyle, name } = getDecisionInfo(
-    result.assessmentDecision,
+    result.decision,
     isApplicationStep,
     intl,
   );
@@ -133,8 +133,8 @@ const AssessmentResult = ({
 };
 
 interface AssessmentResultsProps {
-  results: AssessmentResultType[];
-  stepType: Maybe<AssessmentStepType> | undefined;
+  results: CandidateAssessmentResult[];
+  stepType?: Maybe<AssessmentStepType>;
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
@@ -146,7 +146,7 @@ const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
     <Board.List>
       {sortedResults.map((result) => (
         <AssessmentResult
-          key={result.id}
+          key={result.poolCandidate.id}
           result={{ ...result }}
           isApplicationStep={isApplicationStep}
         />
