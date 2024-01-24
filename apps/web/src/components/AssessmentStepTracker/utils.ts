@@ -11,10 +11,10 @@ import {
   ArmedForcesStatus,
   AssessmentDecision,
   AssessmentResult,
-  AssessmentResultType,
   Maybe,
   PoolSkillType,
   AssessmentStep,
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -253,7 +253,7 @@ const getResultsDecision = (
       hasToAssess = true;
     }
 
-    if (result.assessmentResultType === AssessmentResultType.Education) {
+    if (step.type === AssessmentStepType.ApplicationScreening) {
       switch (result.assessmentDecision) {
         case null:
           hasToAssess = true;
