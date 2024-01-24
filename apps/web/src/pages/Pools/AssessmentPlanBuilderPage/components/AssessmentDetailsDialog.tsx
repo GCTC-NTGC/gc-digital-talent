@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useMutation } from "urql";
 
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import {
@@ -21,17 +22,15 @@ import {
 } from "@gc-digital-talent/forms";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
+  graphql,
   AssessmentStepType,
   Maybe,
   PoolSkill,
-  Scalars,
   GeneralQuestion,
-  useCreateAssessmentStepMutation,
-  useCreateOrUpdateGeneralQuestionAssessmentStepMutation,
-  useUpdateAssessmentStepMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { Scalars } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
@@ -41,6 +40,44 @@ import {
   GENERAL_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   GENERAL_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
+
+const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
+  mutation createAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+const AssessmentDetailsDialog_UpdateMutation = graphql(/* GraphQL */ `
+  mutation updateAssessmentStep(
+    $id: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+const AssessmentDetailsDialog_GeneralQuestionMutation = graphql(/* GraphQL */ `
+  mutation createOrUpdateGeneralQuestionAssessmentStep(
+    $poolId: UUID!
+    $generalQuestions: [SyncGeneralQuestionsInput]
+    $assessmentStep: GeneralQuestionAssessmentStepInput
+  ) {
+    createOrUpdateGeneralQuestionAssessmentStep(
+      poolId: $poolId
+      generalQuestions: $generalQuestions
+      assessmentStep: $assessmentStep
+    ) {
+      id
+    }
+  }
+`);
 
 type DialogMode = "regular" | "general_question";
 type DialogAction = "create" | "update";
@@ -92,15 +129,15 @@ const AssessmentDetailsDialog = ({
   const [
     { fetching: createAssessmentStepFetching },
     executeCreateAssessmentStepMutation,
-  ] = useCreateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_CreateMutation);
   const [
     { fetching: updateAssessmentStepFetching },
     executeUpdateAssessmentStepMutation,
-  ] = useUpdateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_UpdateMutation);
   const [
     { fetching: createOrUpdateGeneralQuestionAssessmentStepMutationFetching },
     executeCreateOrUpdateGeneralQuestionAssessmentStepMutation,
-  ] = useCreateOrUpdateGeneralQuestionAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_GeneralQuestionMutation);
 
   if (initialValues.generalQuestions) {
     initialValues.generalQuestions.sort((a, b) =>

@@ -23,11 +23,11 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
-  PoolCandidate,
   Maybe,
   Pool,
   graphql,
   ArmedForcesStatus,
+  PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -46,6 +46,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       id
+      status
       user {
         id
         firstName
@@ -60,6 +61,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         preferredLanguageForExam
         hasPriorityEntitlement
         armedForcesStatus
+        priorityWeight
         poolCandidates {
           id
           status
@@ -159,6 +161,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
+        ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
         id
@@ -196,7 +199,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 `);
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: PoolCandidate;
+  poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
   pools: Pool[];
 }
 
@@ -393,7 +396,7 @@ export const ViewPoolCandidate = ({
     mainContent = (
       <>
         <ApplicationInformation
-          pool={poolCandidate.pool}
+          poolQuery={poolCandidate.pool}
           snapshot={parsedSnapshot}
           application={snapshotCandidate}
         />

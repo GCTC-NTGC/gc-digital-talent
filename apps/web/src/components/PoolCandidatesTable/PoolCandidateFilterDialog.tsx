@@ -1,6 +1,6 @@
 import React from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   Checkbox,
@@ -12,6 +12,16 @@ import {
   enumToOptions,
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
+import {
+  graphql,
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+  LanguageAbility,
+  PoolCandidateStatus,
+  PoolStream,
+  PublishingGroup,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   OperationalRequirementV2,
@@ -30,17 +40,6 @@ import {
   poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
-import {
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-  LanguageAbility,
-  PoolCandidateStatus,
-  PoolStream,
-  PublishingGroup,
-  WorkRegion,
-  usePoolCandidateFilterDataQuery,
-} from "~/api/generated";
-
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
@@ -52,6 +51,36 @@ const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
+
+const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
+  query PoolCandidateFilterDialog_Query {
+    classifications {
+      group
+      level
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+      stream
+    }
+    skills {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues> & {
   hidePoolFilter?: boolean;
@@ -65,7 +94,10 @@ const PoolCandidateFilterDialog = ({
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching }] = usePoolCandidateFilterDataQuery({ context });
+  const [{ data, fetching }] = useQuery({
+    query: PoolCandidateFilterDialog_Query,
+    context,
+  });
 
   const classifications = unpackMaybes(data?.classifications);
   const pools = unpackMaybes(data?.pools);
