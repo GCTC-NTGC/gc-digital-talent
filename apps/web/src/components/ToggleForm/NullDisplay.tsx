@@ -4,10 +4,12 @@ import { useIntl } from "react-intl";
 import { Well } from "@gc-digital-talent/ui";
 
 type NullDisplayProps = {
+  title?: React.ReactNode;
+  content?: React.ReactNode;
   optional?: boolean;
 };
 
-const NullDisplay = ({ optional }: NullDisplayProps) => {
+const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
   const intl = useIntl();
   return (
     <Well
@@ -18,7 +20,7 @@ const NullDisplay = ({ optional }: NullDisplayProps) => {
       data-h2-padding="base(x1)"
     >
       <p data-h2-font-weight="base(700)">
-        {optional
+        {title || optional
           ? intl.formatMessage({
               defaultMessage: "This information is optional.",
               id: "xm2o/k",
@@ -31,11 +33,12 @@ const NullDisplay = ({ optional }: NullDisplayProps) => {
             })}
       </p>
       <p data-h2-font-weight="base(400)">
-        {intl.formatMessage({
-          defaultMessage: `Use the "Edit" button to get started.`,
-          id: "2m5USi",
-          description: "Null message on sections for edit pool page.",
-        })}
+        {content ||
+          intl.formatMessage({
+            defaultMessage: `Use the "Edit" button to get started.`,
+            id: "2m5USi",
+            description: "Null message on sections for edit pool page.",
+          })}
       </p>
     </Well>
   );
