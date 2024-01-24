@@ -10,6 +10,7 @@ import {
   AssessmentDecision,
   AssessmentResult,
   AssessmentResultType,
+  AssessmentStepType,
   Pool,
   PoolCandidate,
   PoolSkillType,
@@ -21,6 +22,11 @@ const fakePool = fakePools(1)[0];
 const fakePoolAssessmentSteps = fakeAssessmentSteps(2);
 const fakeCandidates = fakePoolCandidates(6);
 
+const requiredAssessment = {
+  ...fakePoolAssessmentSteps[0],
+  type: AssessmentStepType.ApplicationScreening,
+};
+
 const getAssessmentResult = (
   decision?: AssessmentDecision | null,
 ): AssessmentResult => ({
@@ -28,7 +34,7 @@ const getAssessmentResult = (
   assessmentDecision:
     typeof decision === "undefined" ? AssessmentDecision.Successful : decision,
   assessmentResultType: AssessmentResultType.Education,
-  assessmentStep: fakePoolAssessmentSteps[0],
+  assessmentStep: requiredAssessment,
 });
 
 export const priorityEntitlementCandidate: PoolCandidate = {
@@ -138,7 +144,7 @@ export const poolWithAssessmentSteps: Pool = {
       assessmentResults: [],
     },
     {
-      ...fakePoolAssessmentSteps[0],
+      ...requiredAssessment,
       sortOrder: 1,
     },
   ],
