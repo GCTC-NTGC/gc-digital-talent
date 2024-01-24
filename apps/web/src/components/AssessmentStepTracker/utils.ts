@@ -15,6 +15,7 @@ import {
   PoolSkillType,
   AssessmentStep,
   AssessmentStepType,
+  AssessmentResultType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -248,11 +249,14 @@ const getResultsDecision = (
 
   // Check for Education requirement if this is an ApplicationScreening step
   if (step.type === AssessmentStepType.ApplicationScreening) {
-    const educationResults = stepResults.filter(result => result.assessmentResultType === AssessmentResultType.Education);
+    const educationResults = stepResults.filter(
+      (result) =>
+        result.assessmentResultType === AssessmentResultType.Education,
+    );
     if (educationResults.length === 0) {
       hasToAssess = true;
     }
-    educationResults .forEach((result) => {
+    educationResults.forEach((result) => {
       // Any "to assess" should be marked
       if (result.assessmentDecision === null) {
         hasToAssess = true;
