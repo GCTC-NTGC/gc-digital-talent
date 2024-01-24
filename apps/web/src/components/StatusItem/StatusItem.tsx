@@ -4,10 +4,15 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
-import { Link, IconType, ScrollToLink, Color } from "@gc-digital-talent/ui";
+import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
-export type Status = "error" | "success" | "warning" | "secondary"; // TODO: Rename to optional (?)
-export type StatusColor = "black" | "secondary" | Status;
+export type Status = "error" | "success" | "warning" | "optional";
+export type StatusColor =
+  | "black"
+  | "error"
+  | "success"
+  | "warning"
+  | "secondary";
 type Layout = "compact" | "hero";
 
 const iconColorMap: Record<StatusColor, Record<string, string>> = {
@@ -49,7 +54,7 @@ const StatusItemTitle = ({
   href?: string;
   scrollTo?: string;
   children?: React.ReactElement;
-  color?: Color;
+  color?: StatusColor;
 }) => {
   if (href) {
     return (
@@ -106,7 +111,7 @@ const StatusItem = ({
     case "warning":
       Icon = ExclamationTriangleIcon;
       break;
-    case "secondary":
+    case "optional":
       Icon = QuestionMarkCircleIcon;
       break;
     default:
@@ -127,7 +132,14 @@ const StatusItem = ({
     </>
   );
 
-  const effectiveIconColor = status ?? iconColor;
+  let effectiveIconColor = iconColor;
+  switch (status) {
+    case "optional":
+      effectiveIconColor = "secondary";
+      break;
+    default:
+      effectiveIconColor = status ?? iconColor;
+  }
   const effectiveTitleColor = status === "error" ? "error" : titleColor;
 
   return (

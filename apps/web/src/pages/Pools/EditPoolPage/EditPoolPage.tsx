@@ -11,7 +11,6 @@ import {
   Link,
   TableOfContents,
   Heading,
-  Pill,
   Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -39,8 +38,6 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
-import AdminHero from "~/components/Hero/AdminHero";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
 import PoolNameSection, {
@@ -176,7 +173,7 @@ export const EditPoolForm = ({
         id: "+6tF6S",
         description: "Sub title for the special note section",
       }),
-      status: specialNoteIsNull(pool) ? "secondary" : "success",
+      status: specialNoteIsNull(pool) ? "optional" : "success",
     },
     educationRequirements: {
       id: "education-requirements",
@@ -277,7 +274,7 @@ export const EditPoolForm = ({
       }),
       icon: QuestionMarkCircleIcon,
       color: "secondary",
-      status: "secondary",
+      status: "optional",
     },
     whatToExpect: {
       id: "what-to-expect",
@@ -297,7 +294,7 @@ export const EditPoolForm = ({
         id: "/a9+0W",
         description: "Sub title for the general questions section",
       }),
-      status: "secondary",
+      status: "optional",
     },
   };
 
