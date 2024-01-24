@@ -110,11 +110,7 @@ const WhatToExpectSection = ({
       <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay />
-          ) : (
-            <Display pool={pool} subtitle={subtitle} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
