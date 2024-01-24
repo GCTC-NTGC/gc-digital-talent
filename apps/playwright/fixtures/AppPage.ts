@@ -32,7 +32,7 @@ export class AppPage {
     const res = await this.page.request.post("/graphql", {
       headers: {
         "Content-Type": "application/json",
-        //Authorization: `Bearer ${tokens.accessToken}`,
+        Authorization: `Bearer ${tokens.accessToken}`,
       },
       data: {
         query,
