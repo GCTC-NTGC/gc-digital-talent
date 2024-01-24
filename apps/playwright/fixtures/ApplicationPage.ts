@@ -19,10 +19,10 @@ export class ApplicationPage extends AppPage {
   /** Start application */
   async create() {
     await this.page.goto("/en/browse/pools");
-    await this.waitForGraphqlResponse("browsePools");
+    await this.waitForGraphqlResponse("BrowsePoolsPage");
 
     await this.page.locator(`a[href*="${this.poolId}"]`).click();
-    await this.waitForGraphqlResponse("getPool");
+    await this.waitForGraphqlResponse("PoolAdvertisementPage");
 
     await this.page
       .getByRole("link", { name: /apply for this process/i })
