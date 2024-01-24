@@ -135,11 +135,11 @@ describe("Pools", () => {
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /Create a new recruitment/i })
+    cy.findByText("Digital Community Management")
       .should("exist")
       .and("be.visible");
 
-    cy.findByText("Digital Community Management")
+    cy.findByRole("heading", { name: /basic information/i })
       .should("exist")
       .and("be.visible");
 
