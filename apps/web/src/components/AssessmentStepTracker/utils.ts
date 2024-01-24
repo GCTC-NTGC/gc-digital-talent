@@ -246,14 +246,17 @@ const getResultsDecision = (
     });
   });
 
-  // Could be an education requirement that is not an essential skill
-  stepResults.forEach((result) => {
-    // Any "to assess" should be marked
-    if (result.assessmentDecision === null) {
+  // Check for Education requirement if this is an ApplicationScreening step
+  if (step.type === AssessmentStepType.ApplicationScreening) {
+    const educationResults = stepResults.filter(result => result.assessmentResultType === AssessmentResultType.Education);
+    if (educationResults.length === 0) {
       hasToAssess = true;
     }
-
-    if (step.type === AssessmentStepType.ApplicationScreening) {
+    educationResults .forEach((result) => {
+      // Any "to assess" should be marked
+      if (result.assessmentDecision === null) {
+        hasToAssess = true;
+      }
       switch (result.assessmentDecision) {
         case null:
           hasToAssess = true;
@@ -266,8 +269,8 @@ const getResultsDecision = (
           break;
         default:
       }
-    }
-  });
+    });
+  }
 
   if (hasFailure) {
     return AssessmentDecision.Unsuccessful;
