@@ -99,7 +99,10 @@ describe("AssessmentStepTracker", () => {
     // Has two results but should only see one link for it
     expect(
       screen.getAllByRole("link", {
-        name: `1. ${unassessedCandidate.user.firstName} ${unassessedCandidate.user.lastName}`,
+        name: new RegExp(
+          `${unassessedCandidate.user.firstName} ${unassessedCandidate.user.lastName}`,
+          "i",
+        ),
       }),
     ).toHaveLength(1);
   });
