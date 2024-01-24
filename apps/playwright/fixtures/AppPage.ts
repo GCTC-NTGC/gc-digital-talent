@@ -27,6 +27,7 @@ export class AppPage {
    */
   async graphqlRequest(query: string, variables?: Record<string, unknown>) {
     await this.gotoHome();
+    await this.page.waitForURL("/en");
     const tokens = await getAuthTokens(this.page);
     const res = await this.page.request.post("/graphql", {
       headers: {
