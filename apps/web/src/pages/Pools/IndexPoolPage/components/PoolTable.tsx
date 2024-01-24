@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -12,9 +13,9 @@ import {
   getPublishingGroup,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
+import { graphql, Pool, PoolTableQuery } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Pool, useAllPoolsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
@@ -38,7 +39,7 @@ import {
 
 const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {
-  pools: Pool[];
+  pools: NonNullable<PoolTableQuery["pools"][0]>[];
   title: string;
 }
 
@@ -252,8 +253,45 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
   );
 };
 
+const PoolTable_Query = graphql(/* GraphQL */ `
+  query PoolTable {
+    pools {
+      id
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+      owner {
+        id
+        email
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      status
+      stream
+      processNumber
+      publishingGroup
+      createdDate
+      updatedDate
+    }
+  }
+`);
+
 const PoolTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useAllPoolsQuery();
+  const [{ data, fetching, error }] = useQuery({ query: PoolTable_Query });
   const { roleAssignments } = useAuthorization();
   const pools = unpackMaybes(data?.pools).filter((pool) => {
     if (

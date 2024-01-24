@@ -63,6 +63,7 @@ class PoolCandidate extends Model
         'suspended_at' => 'datetime',
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
+        'is_bookmarked' => 'boolean',
     ];
 
     /**
@@ -232,7 +233,7 @@ class PoolCandidate extends Model
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param  array|null  $classifications Each classification is an object with a group and a level field.
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -269,8 +270,8 @@ class PoolCandidate extends Model
      *
      * Restrict a query by specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
-     * @param  ?array  $publishingGroups The publishing groups to scope the query by
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
+     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
@@ -293,7 +294,7 @@ class PoolCandidate extends Model
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)

@@ -159,7 +159,7 @@ type ScreeningQuestion {
   pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
-  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  # screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
 type Pool {
@@ -206,7 +206,7 @@ type ScreeningQuestionResponse {
   id: ID!
   answer: String
   screeningQuestion: ScreeningQuestion @belongsTo
-  poolCandidate: PoolCandidate @belongsTo
+  poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
 }
 
 type AssessmentStep {

@@ -24,7 +24,7 @@ final class Notification
     /**
      * Decide which GraphQL type a resolved value has.
      *
-     * @param  mixed  $rootValue The value that was resolved by the field. Usually an Eloquent model.
+     * @param  mixed  $rootValue  The value that was resolved by the field. Usually an Eloquent model.
      */
     public function __invoke($rootValue, GraphQLContext $context, ResolveInfo $resolveInfo): Type
     {

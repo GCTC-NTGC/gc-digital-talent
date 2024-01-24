@@ -7,10 +7,11 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useClient } from "urql";
+import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   commonMessages,
   errorMessages,
@@ -19,12 +20,11 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { graphql, PoolCandidate } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  useGetPoolCandidatesPaginatedQuery,
   Pool,
   Maybe,
   PoolCandidateWithSkillCount,
@@ -43,22 +43,26 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState, SelectingFor } from "../Table/ResponsiveTable/types";
 import {
+  bookmarkCell,
+  bookmarkHeader,
   PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
+  candidateNameCell,
   currentLocationAccessor,
+  finalDecisionCell,
+  jobPlacementCell,
   notesCell,
   priorityCell,
   statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
   transformSortStateToOrderByClause,
-  viewPoolCandidateCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -71,6 +75,119 @@ import {
 } from "./poolCandidateCsv";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
+
+const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
+  query CandidatesTableCandidatesPaginated_Query(
+    $where: PoolCandidateSearchInput
+    $first: Int
+    $page: Int
+    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+  ) {
+    poolCandidatesPaginated(
+      where: $where
+      first: $first
+      page: $page
+      orderBy: [
+        { column: "is_bookmarked", order: DESC }
+        { column: "status_weight", order: ASC }
+        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+        $sortingInput
+      ]
+    ) {
+      data {
+        id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            # Personal info
+            id
+            email
+            firstName
+            lastName
+            telephone
+            preferredLang
+            preferredLanguageForInterview
+            preferredLanguageForExam
+            currentCity
+            currentProvince
+            citizenship
+            armedForcesStatus
+
+            # Language
+            lookingForEnglish
+            lookingForFrench
+            lookingForBilingual
+            bilingualEvaluation
+            comprehensionLevel
+            writtenLevel
+            verbalLevel
+            estimatedLanguageAbility
+
+            # Gov info
+            isGovEmployee
+            govEmployeeType
+            currentClassification {
+              id
+              group
+              level
+              name {
+                en
+                fr
+              }
+            }
+            department {
+              id
+              departmentNumber
+              name {
+                en
+                fr
+              }
+            }
+            hasPriorityEntitlement
+            priorityNumber
+
+            # Employment equity
+            isWoman
+            isVisibleMinority
+            hasDisability
+            indigenousCommunities
+            indigenousDeclarationSignature
+
+            # Applicant info
+            hasDiploma
+            locationPreferences
+            locationExemptions
+            acceptedOperationalRequirements
+            positionDuration
+            priorityWeight
+          }
+          isBookmarked
+          cmoIdentifier
+          expiryDate
+          status
+          submittedAt
+          notes
+          archivedAt
+          suspendedAt
+        }
+        skillCount
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+    }
+  }
+`);
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -111,6 +228,7 @@ const PoolCandidatesTable = ({
   const [selectedCandidates, setSelectedCandidates] = React.useState<
     PoolCandidate[]
   >([]);
+  const { recordOfDecision } = useFeatureFlags();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(
@@ -202,7 +320,7 @@ const PoolCandidatesTable = ({
       // from fancy filter
       applicantFilter: {
         ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
+        hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
       },
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
@@ -213,7 +331,8 @@ const PoolCandidatesTable = ({
     };
   };
 
-  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
+  const [{ data, fetching }] = useQuery({
+    query: CandidatesTableCandidatesPaginated_Query,
     variables: {
       where: addSearchToPoolCandidateFilterInput(
         filterState,
@@ -268,6 +387,37 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
+    columnHelper.display({
+      id: "isBookmarked",
+      header: () => bookmarkHeader(intl),
+      enableHiding: false,
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => bookmarkCell(poolCandidate),
+      meta: {
+        shrink: true,
+        hideMobileHeader: true,
+      },
+    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) =>
+        getFullNameLabel(user.firstName, user.lastName, intl),
+      {
+        id: "candidateName",
+        header: intl.formatMessage(tableMessages.candidateName),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: { poolCandidate },
+          },
+        }) => candidateNameCell(poolCandidate, paths, intl),
+        meta: {
+          isRowTitle: true,
+        },
+      },
+    ),
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
@@ -276,6 +426,7 @@ const PoolCandidatesTable = ({
       {
         id: "status",
         header: intl.formatMessage(tableMessages.status),
+        enableHiding: false,
         cell: ({
           row: {
             original: { poolCandidate },
@@ -283,6 +434,7 @@ const PoolCandidatesTable = ({
         }) => statusCell(poolCandidate.status, intl),
         meta: {
           sortingLocked: true,
+          hideMobileHeader: true,
         },
       },
     ),
@@ -309,39 +461,51 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({ poolCandidate: { status } }) =>
+        intl.formatMessage(
+          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
+        ),
+      {
+        id: "finalDecision",
+        header: intl.formatMessage(tableMessages.finalDecision),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { status },
+            },
+          },
+        }) => finalDecisionCell(intl, status),
+        meta: {
+          sortingLocked: true,
+        },
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { status } }) =>
+        intl.formatMessage(
+          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
+        ),
+      {
+        id: "jobPlacement",
+        header: intl.formatMessage(tableMessages.jobPlacement),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { status },
+            },
+          },
+        }) => jobPlacementCell(intl, status),
+        meta: {
+          sortingLocked: true,
+        },
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate }) =>
         candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.candidacyStatus),
-      },
-    ),
-    columnHelper.display({
-      id: "view",
-      header: intl.formatMessage(tableMessages.view),
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => viewPoolCandidateCell(poolCandidate, paths, intl),
-    }),
-    columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getFullNameLabel(user.firstName, user.lastName, intl),
-      {
-        id: "candidateName",
-        header: intl.formatMessage(tableMessages.candidateName),
-        sortingFn: normalizedText,
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { user },
-            },
-          },
-        }) => getFullNameHtml(user.firstName, user.lastName, intl),
-        meta: {
-          isRowTitle: true,
-        },
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
@@ -423,13 +587,18 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
+  let hiddenColumnIds = ["candidacyStatus", "notes"];
+  if (recordOfDecision) {
+    hiddenColumnIds = [...hiddenColumnIds, "status"];
+  }
+
   return (
     <Table<PoolCandidateWithSkillCount>
       caption={title}
       data={filteredData}
       columns={columns}
       isLoading={fetching || fetchingSkills}
-      hiddenColumnIds={["candidacyStatus", "notes"]}
+      hiddenColumnIds={hiddenColumnIds}
       search={{
         internal: false,
         label: intl.formatMessage({

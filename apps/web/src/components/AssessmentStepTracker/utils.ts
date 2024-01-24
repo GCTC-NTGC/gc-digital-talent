@@ -12,6 +12,7 @@ import {
   AssessmentResult,
   Maybe,
 } from "~/api/generated";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 
 type DecisionInfo = {
@@ -31,12 +32,7 @@ export const getDecisionInfo = (
       colorStyle: {
         "data-h2-color": "base(warning)",
       },
-      name: intl.formatMessage({
-        defaultMessage: "To assess",
-        id: "/+naWC",
-        description:
-          "Message displayed when candidate has yet to be assessed at a specific assessment step",
-      }),
+      name: intl.formatMessage(poolCandidateMessages.toAssess),
     };
   }
 

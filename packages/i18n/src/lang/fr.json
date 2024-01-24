@@ -607,6 +607,10 @@
     "defaultMessage": "Région de Québec (excluant Gatineau)",
     "description": "The work region of Canada described as Quebec."
   },
+  "JqjYZq": {
+    "defaultMessage": "Ce champ est obligatoire. Veuillez inscrire une valeur.",
+    "description": "Error message that this field must filled for the form to be valid."
+  },
   "K/npC7": {
     "defaultMessage": "Pour les besoins à venir (la classification ou le financement n’a pas encore été mis(e) en place",
     "description": "Option for searching candidates for an upcoming staffing need"
@@ -618,10 +622,6 @@
   "K9SPL+": {
     "defaultMessage": "À un stade initial de développement",
     "description": "The behavioural skill level for beginner"
-  },
-  "KC/sxi": {
-    "defaultMessage": "Ce champ est obligatoire.",
-    "description": "Error message that this field must filled for the form to be valid."
   },
   "KGX4bI": {
     "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
