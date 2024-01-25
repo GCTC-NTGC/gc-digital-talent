@@ -74,14 +74,7 @@ export const SearchForm = ({
   }, [classifications, pools, watch]);
 
   const handleSubmit = (values: FormValues) => {
-    let poolIds: { id: string }[] = [];
-    if (values.pool) {
-      if (Array.isArray(values.pool)) {
-        poolIds = values.pool.map((id) => ({ id }));
-      } else {
-        poolIds = [{ id: values.pool }];
-      }
-    }
+    const poolIds = values.pool ? [{ id: values.pool }] : [];
     const selectedPool = pools.find((pool) => pool.id === values.pool);
 
     navigate(paths.request(), {
@@ -98,8 +91,6 @@ export const SearchForm = ({
       },
     });
   };
-
-  const resultPools = unpackMaybes(results?.map((result) => result.pool.id));
 
   return (
     <div
@@ -184,10 +175,10 @@ export const SearchForm = ({
               color="primary"
               type="submit"
               {...poolSubmitProps}
-              value={resultPools}
+              value=""
               onClick={() => {
                 setValue("allPools", true);
-                setValue("pool", resultPools);
+                setValue("pool", "");
                 setValue("count", candidateCount);
               }}
             >
