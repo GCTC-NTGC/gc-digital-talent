@@ -263,7 +263,7 @@ class AssessmentStepTest extends TestCase
         assertEquals(0, count(PoolSkill::first()->assessmentSteps));
     }
 
-    // test that you cannot add general or application related assessment steps
+    // test that you cannot add screening or application related assessment steps
     public function testAssessmentStepTypeValidation(): void
     {
         $this->actingAs($this->teamUser, 'api')
@@ -283,23 +283,24 @@ class AssessmentStepTest extends TestCase
             ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
     }
 
-    // test general questions and pool skills
-    public function testGeneralQuestionsAndSkills(): void
+    // test screening questions and pool skills
+    public function testScreeningQuestionsAndSkills(): void
     {
         Skill::factory()->count(3)->create();
         $testPool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
         ]);
-        $generalQuestion = $testPool->generalQuestions[0]; // first factory created question
+        // to be pointed at the screening question model when created
+        $screeningQuestion = $testPool->generalQuestions[0]; // first factory created question
 
-        // can sync up general questions and connect no pool skills
+        // can sync up screening questions and connect no pool skills
         $this->actingAs($this->teamUser, 'api')->graphQL(
             $this->createOrUpdateGeneralQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
                 'generalQuestions' => [
                     [
-                        'id' => $generalQuestion->id,
+                        'id' => $screeningQuestion->id,
                         'question' => [
                             'en' => 'en?',
                             'fr' => 'fr?',
@@ -318,7 +319,7 @@ class AssessmentStepTest extends TestCase
             ])
             ->assertSuccessful();
 
-        // only one general question now attached
+        // only one screening question now attached
         $testPool->refresh();
         assertEquals(1, count($testPool->generalQuestions));
 

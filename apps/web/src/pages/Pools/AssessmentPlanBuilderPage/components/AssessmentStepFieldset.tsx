@@ -44,8 +44,9 @@ const AssessmentStepFieldset = ({
       ?.filter(notEmpty)
       .map((poolSkill) => getLocalizedName(poolSkill?.skill?.name, intl)) ?? [];
   skillNames.sort();
-  const generalQuestions = pool.generalQuestions?.filter(notEmpty) ?? [];
-  generalQuestions.sort((a, b) =>
+  // to be pointed at screening questions once the field is added
+  const screeningQuestions = pool.generalQuestions?.filter(notEmpty) ?? [];
+  screeningQuestions.sort((a, b) =>
     (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
     (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
       ? 1
@@ -91,7 +92,7 @@ const AssessmentStepFieldset = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            generalQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <ActionButton
@@ -189,9 +190,9 @@ const AssessmentStepFieldset = ({
                 data-h2-padding-left="base(0)"
                 data-h2-list-style-position="base(inside)"
               >
-                {generalQuestions.map((generalQuestion) => (
-                  <li key={generalQuestion.id} data-h2-margin-top="base(x.5)">
-                    {generalQuestion.question?.en}
+                {screeningQuestions.map((screeningQuestion) => (
+                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                    {screeningQuestion.question?.en}
                   </li>
                 ))}
               </ol>
@@ -207,9 +208,9 @@ const AssessmentStepFieldset = ({
                 data-h2-padding-left="base(0)"
                 data-h2-list-style-position="base(inside)"
               >
-                {generalQuestions.map((generalQuestion) => (
-                  <li key={generalQuestion.id} data-h2-margin-top="base(x.5)">
-                    {generalQuestion.question?.fr}
+                {screeningQuestions.map((screeningQuestion) => (
+                  <li key={screeningQuestion.id} data-h2-margin-top="base(x.5)">
+                    {screeningQuestion.question?.fr}
                   </li>
                 ))}
               </ol>
