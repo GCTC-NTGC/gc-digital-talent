@@ -17,8 +17,8 @@ if (container) {
     <React.StrictMode>
       <ContextContainer messages={messages}>
         <Router />
+        <Toast />
       </ContextContainer>
-      <Toast />
     </React.StrictMode>,
   );
 }
