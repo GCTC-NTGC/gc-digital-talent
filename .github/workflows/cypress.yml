@@ -63,7 +63,7 @@ jobs:
         run: npm install --location=global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v6.6.0
+        uses: cypress-io/github-action@v6.6.1
         with:
           spec: "**/*.cy.ts"
           browser: electron
