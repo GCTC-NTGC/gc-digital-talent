@@ -4,7 +4,12 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
   FragmentType,
+  GeneralQuestionResponse,
+  LocalizedString,
+  Maybe,
+  Pool,
   PoolCandidate,
+  Scalars,
   SkillCategory,
   User,
   getFragment,
@@ -67,9 +72,38 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   }
 `);
 
+// stopgap as screening questions become general questions while a new screening questions backend is set up
+// preserve snapshot functionality
+type ScreeningQuestion = {
+  id: Scalars["ID"]["output"];
+  pool?: Maybe<Pool>;
+  question?: Maybe<LocalizedString>;
+  sortOrder?: Maybe<Scalars["Int"]["output"]>;
+};
+
+type ScreeningQuestionResponse = {
+  answer?: Maybe<Scalars["String"]["output"]>;
+  screeningQuestion?: Maybe<ScreeningQuestion>;
+  id: Scalars["ID"]["output"];
+};
+
+function isScreeningQuestionResponse(
+  response: ScreeningQuestionResponse | GeneralQuestionResponse,
+): response is ScreeningQuestionResponse {
+  return (
+    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
+  );
+}
+
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
-  application?: PoolCandidate | null;
+  application?:
+    | (PoolCandidate & {
+        screeningQuestionResponses?: Maybe<
+          Array<Maybe<ScreeningQuestionResponse>>
+        >;
+      })
+    | null;
   snapshot: User;
 }
 
@@ -91,6 +125,15 @@ const ApplicationInformation = ({
   const generalQuestionResponses = unpackMaybes(
     application?.generalQuestionResponses ?? [],
   );
+
+  const screeningQuestionResponses = unpackMaybes(
+    application?.screeningQuestionResponses ?? [],
+  );
+
+  const mergedQuestionResponses: (
+    | GeneralQuestionResponse
+    | ScreeningQuestionResponse
+  )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
 
   const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
   const technicalEssentialSkills = unpackMaybes(
@@ -191,13 +234,13 @@ const ApplicationInformation = ({
             <PersonalInformationDisplay user={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
-        {generalQuestionResponses.length > 0 ? (
+        {mergedQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {generalQuestionResponses.map((response, index) => (
+              {mergedQuestionResponses.map((response, index) => (
                 <React.Fragment key={response.id}>
                   <Heading
                     level="h4"
@@ -207,7 +250,12 @@ const ApplicationInformation = ({
                       "data-h2-margin-top": "base(0)",
                     })}
                   >
-                    {getLocalizedName(response.generalQuestion?.question, intl)}
+                    {getLocalizedName(
+                      isScreeningQuestionResponse(response)
+                        ? response.screeningQuestion?.question
+                        : response.generalQuestion?.question,
+                      intl,
+                    )}
                   </Heading>
                   <p>{response.answer}</p>
                 </React.Fragment>
