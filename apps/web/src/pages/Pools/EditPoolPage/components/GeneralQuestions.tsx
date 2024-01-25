@@ -20,7 +20,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
-const MAX_SCREENING_QUESTIONS = 3;
+const MAX_GENERAL_QUESTIONS = 3;
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
@@ -118,7 +118,7 @@ const GeneralQuestions = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const canAdd = fields.length < MAX_SCREENING_QUESTIONS;
+  const canAdd = fields.length < MAX_GENERAL_QUESTIONS;
 
   const customNullMessage = (
     <>
@@ -153,7 +153,7 @@ const GeneralQuestions = ({
             description:
               "Message displayed when a user adds the maximum number of questions",
           },
-          { maxItems: MAX_SCREENING_QUESTIONS },
+          { maxItems: MAX_GENERAL_QUESTIONS },
         )}
       </p>
       <p>
@@ -188,7 +188,7 @@ const GeneralQuestions = ({
             name="questions"
             total={fields.length}
             showAdd={canAdd && !formDisabled}
-            maxItems={MAX_SCREENING_QUESTIONS}
+            maxItems={MAX_GENERAL_QUESTIONS}
             onAdd={() => {
               append({
                 id: "new",
