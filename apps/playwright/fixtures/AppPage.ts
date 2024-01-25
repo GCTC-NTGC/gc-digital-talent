@@ -13,7 +13,8 @@ export class AppPage {
   constructor(public readonly page: Page) {}
 
   async gotoHome(locale: "en" | "fr" = "en") {
-    await this.page.goto(`${locale}`);
+    // Timeout is for Firefox having issues with this navigation
+    await this.page.goto(`/${locale}`, { timeout: 60 * 1000 });
   }
 
   /**

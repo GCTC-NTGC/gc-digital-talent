@@ -22,7 +22,8 @@ export async function graphqlRequest(
     storageState: storageState ?? auth.STATE.ADMIN,
   });
   const page = await apiContext.newPage();
-  await page.goto("/");
+  await page.goto("/en");
+  await page.waitForURL("/en");
   const tokens = await getAuthTokens(page);
   const res = await page.request.post("/graphql", {
     headers: {
