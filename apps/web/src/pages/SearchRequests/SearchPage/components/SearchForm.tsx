@@ -90,6 +90,7 @@ export const SearchForm = ({
           ...applicantFilter,
           pools: poolIds,
         },
+        allPools: values.allPools,
         candidateCount: values.count,
         selectedClassifications: selectedPool
           ? selectedPool.classifications?.filter(notEmpty)
@@ -185,6 +186,7 @@ export const SearchForm = ({
               {...poolSubmitProps}
               value={resultPools}
               onClick={() => {
+                setValue("allPools", true);
                 setValue("pool", resultPools);
                 setValue("count", candidateCount);
               }}

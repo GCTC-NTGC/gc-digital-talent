@@ -27,6 +27,7 @@ export type FormValues = Pick<
   pool?: Scalars["ID"] | Scalars["ID"][];
   selectedClassifications?: Classification[];
   count?: number;
+  allPools?: boolean; // Prevent `was_empty` when requesting all pools
 };
 
 export type LocationState = BrowserHistoryState | null;
@@ -36,4 +37,5 @@ export type BrowserHistoryState = {
   candidateCount: number;
   initialValues?: FormValues;
   selectedClassifications?: SimpleClassification[];
+  allPools?: boolean;
 };
