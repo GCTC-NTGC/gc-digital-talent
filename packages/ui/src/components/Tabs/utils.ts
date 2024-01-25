@@ -38,7 +38,7 @@ export const commonTabStyles = {
     `,
     "data-h2-color": `
       base(black)
-      base:selectors[[data-state='active']](primary.darker)
+      base:selectors[[data-state='active']](black.darker)
     `,
     "data-h2-margin-top": "base(x.25) base:hover(0)",
     "data-h2-outline": "base(none) base:children[a](none)",
