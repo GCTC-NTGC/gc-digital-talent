@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Heading, Pending, Separator } from "@gc-digital-talent/ui";
+import { Button, Heading, Pending, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -13,6 +13,7 @@ import {
   ApplicantFilterInput,
   Skill,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
@@ -56,7 +57,8 @@ export const SearchForm = ({
     mode: "onSubmit",
     reValidateMode: "onBlur",
   });
-  const { watch } = methods;
+  const { watch, register, setValue } = methods;
+  const poolSubmitProps = register("pool");
 
   React.useEffect(() => {
     const subscription = watch((newValues) => {
@@ -72,7 +74,14 @@ export const SearchForm = ({
   }, [classifications, pools, watch]);
 
   const handleSubmit = (values: FormValues) => {
-    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    let poolIds: { id: string }[] = [];
+    if (values.pool) {
+      if (Array.isArray(values.pool)) {
+        poolIds = values.pool.map((id) => ({ id }));
+      } else {
+        poolIds = [{ id: values.pool }];
+      }
+    }
     const selectedPool = pools.find((pool) => pool.id === values.pool);
 
     navigate(paths.request(), {
@@ -88,6 +97,8 @@ export const SearchForm = ({
       },
     });
   };
+
+  const resultPools = unpackMaybes(results?.map((result) => result.pool.id));
 
   return (
     <div
@@ -167,6 +178,37 @@ export const SearchForm = ({
             )}
           </Heading>
           <SearchFilterAdvice filters={applicantFilter} />
+          <p data-h2-margin="base(x1, 0)">
+            <Button
+              color="primary"
+              type="submit"
+              {...poolSubmitProps}
+              value={resultPools}
+              onClick={() => {
+                setValue("pool", resultPools);
+                setValue("count", candidateCount);
+              }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Request candidates from all pools",
+                id: "DxNuJ9",
+                description:
+                  "Button text to submit search request for candidates across all pools",
+              })}
+            </Button>
+          </p>
+          <p
+            data-h2-font-size="base(h4)"
+            data-h2-margin="base(x1.5, 0, x.25, 0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Or request candidates by pool",
+              id: "l1f8zy",
+              description:
+                "Lead-in text to list of pools managers can request candidates from",
+            })}
+            {intl.formatMessage(commonMessages.dividingColon)}
+          </p>
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"

@@ -24,7 +24,7 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pools?: SimplePool[];
-  pool?: Scalars["ID"];
+  pool?: Scalars["ID"] | Scalars["ID"][];
   selectedClassifications?: Classification[];
   count?: number;
 };
