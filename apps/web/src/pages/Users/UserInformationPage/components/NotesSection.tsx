@@ -1,23 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
+import { useMutation } from "urql";
 
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
+import { UpdatePoolCandidateAsAdminInput } from "@gc-digital-talent/graphql";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import {
-  UpdatePoolCandidateAsAdminInput,
-  useUpdatePoolCandidateMutation,
-} from "~/api/generated";
 
 import { BasicUserInformationProps } from "../types";
+import AdminUpdatePoolCandidate_Mutation from "./mutation";
 
 const NotesSection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
 
-  const [, executeMutation] = useUpdatePoolCandidateMutation();
+  const [, executeMutation] = useMutation(AdminUpdatePoolCandidate_Mutation);
 
   const handleUpdateCandidate = async (
     id: string,

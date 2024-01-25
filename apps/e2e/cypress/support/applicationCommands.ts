@@ -1,23 +1,27 @@
 import {
-  CreateApplicationDocument,
-  UpdatePoolCandidateStatusDocument,
-  CreateApplicationMutation,
   EducationRequirementOption,
-  UpdatePoolCandidateMutation,
-} from "@gc-digital-talent/web/src/api/generated";
-
-import { getGqlString } from "./graphql-test-utils";
-import {
+  Command_CreateApplicationMutation,
   Command_SubmitApplicationMutation,
   Command_UpdateApplicationMutation,
+  Command_UpdatePoolCandidateAsAdminMutation,
   graphql,
 } from "@gc-digital-talent/graphql";
 
+const commandCreateApplicationDoc = /* GraphQL */ `
+  mutation Command_CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
+      id
+    }
+  }
+`;
+
+const Command_CreateApplicationMutation = graphql(commandCreateApplicationDoc);
+
 // create an application that is ready to submit, for use with createApplicant
 Cypress.Commands.add("createApplication", (userId, poolId) => {
-  cy.graphqlRequest<CreateApplicationMutation>({
-    operationName: "createApplication",
-    query: getGqlString(CreateApplicationDocument),
+  cy.graphqlRequest<Command_CreateApplicationMutation>({
+    operationName: "Command_CreateApplication",
+    query: commandCreateApplicationDoc,
     variables: {
       userId,
       poolId,
@@ -89,12 +93,30 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
   });
 });
 
+const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
+  mutation Command_UpdatePoolCandidateAsAdmin(
+    $id: ID!
+    $input: UpdatePoolCandidateAsAdminInput!
+  ) {
+    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      notes
+      status
+    }
+  }
+`;
+
+const Command_UpdatePoolCandidateAsAdminMutation = graphql(
+  commandUpdatePoolCandidateAsAdminDoc,
+);
+
 Cypress.Commands.add(
   "updatePoolCandidateAsAdmin",
   (applicationId, updatePoolCandidateAsAdminInput) => {
-    cy.graphqlRequest<UpdatePoolCandidateMutation>({
-      operationName: "UpdatePoolCandidateStatus",
-      query: getGqlString(UpdatePoolCandidateStatusDocument),
+    cy.graphqlRequest<Command_UpdatePoolCandidateAsAdminMutation>({
+      operationName: "Command_UpdatePoolCandidateAsAdmin",
+      query: commandUpdatePoolCandidateAsAdminDoc,
       variables: {
         id: applicationId,
         input: updatePoolCandidateAsAdminInput,

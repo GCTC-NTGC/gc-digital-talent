@@ -17,6 +17,7 @@ import {
   getLocationPreference,
   getLookingForLanguage,
   getOperationalRequirements,
+  sanitizeCSVString,
   yesOrNo,
 } from "~/utils/csvUtils";
 import { User, PositionDuration } from "~/api/generated";
@@ -55,8 +56,8 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
       hasDisability,
       experiences,
     }) => ({
-      firstName: firstName || "",
-      lastName: lastName || "",
+      firstName: sanitizeCSVString(firstName),
+      lastName: sanitizeCSVString(lastName),
       armedForcesStatus: armedForcesStatus
         ? intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))
         : "",
@@ -86,8 +87,8 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
         : "",
       isGovEmployee: yesOrNo(isGovEmployee, intl),
       hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement, intl),
-      priorityNumber: priorityNumber || "",
-      department: department?.name[locale] || "",
+      priorityNumber: sanitizeCSVString(priorityNumber),
+      department: sanitizeCSVString(department?.name[locale]),
       govEmployeeType: govEmployeeType
         ? employeeTypeToString(govEmployeeType, intl)
         : "",
@@ -95,7 +96,7 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
         ? `${currentClassification.group}-${currentClassification.level}`
         : "",
       locationPreferences: getLocationPreference(locationPreferences, intl),
-      locationExemptions: locationExemptions || "",
+      locationExemptions: sanitizeCSVString(locationExemptions),
       wouldAcceptTemporary: yesOrNo(
         positionDuration?.includes(PositionDuration.Temporary),
         intl,

@@ -1,19 +1,18 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Accordion, CardRepeater, Heading, Well } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-
 import {
+  graphql,
   AssessmentStep,
   AssessmentStepType,
   Pool,
   PoolStatus,
-  useDeleteAssessmentStepMutation,
-  useSwapAssessmentStepOrderMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 import { PAGE_SECTION_ID } from "../navigation";
@@ -30,6 +29,21 @@ const sectionTitle = defineMessage({
   description: "Title for the organize section in the assessment plan builder",
 });
 
+const OrganizeSection_DeleteMutation = graphql(/* GraphQL */ `
+  mutation deleteAssessmentStep($id: UUID!) {
+    deleteAssessmentStep(id: $id) {
+      id
+    }
+  }
+`);
+const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
+  mutation swapAssessmentStepOrder($stepIdA: UUID!, $stepIdB: UUID!) {
+    swapAssessmentStepOrder(stepIdA: $stepIdA, stepIdB: $stepIdB) {
+      id
+    }
+  }
+`);
+
 export interface OrganizeSectionProps {
   pool: Pool;
   pageIsLoading: boolean;
@@ -41,10 +55,12 @@ const OrganizeSection = ({
 }: OrganizeSectionProps) => {
   const intl = useIntl();
 
-  const [{ fetching: deleteFetching }, executeDeleteMutation] =
-    useDeleteAssessmentStepMutation();
-  const [{ fetching: swapFetching }, executeSwapMutation] =
-    useSwapAssessmentStepOrderMutation();
+  const [{ fetching: deleteFetching }, executeDeleteMutation] = useMutation(
+    OrganizeSection_DeleteMutation,
+  );
+  const [{ fetching: swapFetching }, executeSwapMutation] = useMutation(
+    OrganizeSection_SwapMutation,
+  );
 
   const steps = sortBy(
     unpackMaybes(pool.assessmentSteps),

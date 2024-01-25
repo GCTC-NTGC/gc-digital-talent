@@ -3,10 +3,12 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
-  Pool,
+  FragmentType,
   PoolCandidate,
   SkillCategory,
   User,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -31,18 +33,53 @@ import { SECTION_KEY } from "./types";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 
+const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationInformation_PoolFragment on Pool {
+    essentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    ...ApplicationPrintDocument_PoolFragment
+  }
+`);
+
 interface ApplicationInformationProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   application?: PoolCandidate | null;
   snapshot: User;
 }
 
 const ApplicationInformation = ({
-  pool,
+  poolQuery,
   snapshot,
   application,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
+  const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
   const [openSections, setOpenSections] = React.useState<string[]>([]);
   const hasOpenSections = openSections.length > 0;
 

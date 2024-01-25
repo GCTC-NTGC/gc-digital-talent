@@ -56,6 +56,7 @@ const SearchRequestFilterDialog = ({
           name="status"
           isMulti
           label={intl.formatMessage(adminMessages.status)}
+          doNotSort
           options={enumToOptions(PoolCandidateSearchStatus, [
             PoolCandidateSearchStatus.New,
             PoolCandidateSearchStatus.InProgress,

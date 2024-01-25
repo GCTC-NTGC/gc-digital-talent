@@ -6,6 +6,7 @@ import {
   matchStringCaseDiacriticInsensitive,
   enumToOptions,
   countNumberOfWords,
+  alphaSort,
 } from "./utils";
 
 describe("string matching tests", () => {
@@ -109,4 +110,93 @@ describe("countNumberOfWords tests", () => {
     numOfWords = countNumberOfWords(textWithBoth);
     expect(numOfWords).toEqual(7);
   });
+});
+
+test("should sort array of strings alphabetically", () => {
+  // alphabetical handling of capitalization
+  let sortedList = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff"];
+
+  let unsortedList = ["Dd", "Ee", "Aa", "Bb", "Ff", "Cc"];
+
+  let modifiedList = alphaSort(unsortedList);
+  expect(modifiedList).toStrictEqual(sortedList);
+
+  // handling of French accented characters
+  sortedList = ["à", "ä", "Ç", "é", "É", "ü"];
+
+  unsortedList = ["Ç", "à", "é", "ü", "É", "ä"];
+
+  modifiedList = alphaSort(unsortedList, "fr");
+  expect(modifiedList).toStrictEqual(sortedList);
+
+  // handling of non-alphanumeric characters
+  // Non-alphanumeric sort order: _-,;:!?.'"()@*/\&#%`^<>|~$ (https://support.google.com/drive/thread/150638299?hl=en&msgid=150657957)
+  sortedList = [
+    "_",
+    "-",
+    ",",
+    ";",
+    ":",
+    "!",
+    "?",
+    ".",
+    "@",
+    "*",
+    "&",
+    "#",
+    "%",
+    "~",
+    "$",
+  ];
+
+  unsortedList = [
+    "_",
+    ";",
+    ":",
+    "$",
+    "?",
+    "!",
+    "~",
+    ",",
+    "-",
+    "@",
+    "*",
+    "%",
+    ".",
+    "#",
+    "&",
+  ];
+
+  modifiedList = alphaSort(unsortedList);
+  expect(modifiedList).toStrictEqual(sortedList);
+
+  // handling all edge cases together
+  sortedList = [
+    ".NET Programming",
+    "~alpha",
+    "azure",
+    "C#",
+    "C++",
+    "Database Design & Data Administration",
+    "F# or Visual Basic",
+    "integrity",
+    "python",
+    "React",
+  ];
+
+  unsortedList = [
+    "React",
+    "azure",
+    ".NET Programming",
+    "integrity",
+    "~alpha",
+    "C#",
+    "F# or Visual Basic",
+    "python",
+    "Database Design & Data Administration",
+    "C++",
+  ];
+
+  modifiedList = alphaSort(unsortedList);
+  expect(modifiedList).toStrictEqual(sortedList);
 });

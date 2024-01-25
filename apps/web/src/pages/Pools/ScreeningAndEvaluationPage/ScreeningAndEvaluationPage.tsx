@@ -16,6 +16,33 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 const ScreeningAndEvaluation_AssessmentResultFragment = graphql(/* GraphQL */ `
   fragment ScreeningAndEvaluation_Pool on Pool {
     id
+    poolCandidates {
+      id
+      isBookmarked
+      pool {
+        id
+      }
+      user {
+        id
+        firstName
+        lastName
+        armedForcesStatus
+        hasPriorityEntitlement
+      }
+      assessmentResults {
+        id
+        assessmentStep {
+          id
+        }
+        assessmentDecision
+        assessmentDecisionLevel
+        assessmentResultType
+        poolSkill {
+          id
+          type
+        }
+      }
+    }
     assessmentSteps {
       id
       title {
@@ -24,25 +51,9 @@ const ScreeningAndEvaluation_AssessmentResultFragment = graphql(/* GraphQL */ `
       }
       type
       sortOrder
-      assessmentResults {
+      poolSkills {
         id
-        assessmentDecision
-        assessmentDecisionLevel
-        assessmentResultType
-        poolCandidate {
-          id
-          isBookmarked
-          pool {
-            id
-          }
-          user {
-            id
-            firstName
-            lastName
-            armedForcesStatus
-            hasPriorityEntitlement
-          }
-        }
+        type
       }
     }
   }
