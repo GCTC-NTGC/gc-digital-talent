@@ -39,6 +39,7 @@ export const commonTabStyles = {
     "data-h2-color": `
       base(black)
       base:children[a:focus-visible](black)
+      base:focus-visible:children[span](black)
       base:selectors[[data-state='active']](primary.darker)
     `,
     "data-h2-margin-top": "base(x.25) base:hover(0)",
