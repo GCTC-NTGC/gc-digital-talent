@@ -103,6 +103,7 @@ const SpecialNoteSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h2"
+        size="h3"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
