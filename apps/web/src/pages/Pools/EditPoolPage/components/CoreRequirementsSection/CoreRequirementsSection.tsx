@@ -175,7 +175,11 @@ const CoreRequirementsSection = ({
                     />
                   </>
                 ) : undefined}
-                <div data-h2-display="base(flex)" data-h2-gap="base(x1)">
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
+                  data-h2-gap="base(x1)"
+                >
                   <Select
                     id="languageRequirement"
                     label={intl.formatMessage(
@@ -198,6 +202,7 @@ const CoreRequirementsSection = ({
                       label: intl.formatMessage(getLanguageRequirement(value)),
                     }))}
                     disabled={formDisabled}
+                    data-h2-width="base(100%)"
                   />
                   <Select
                     id="securityRequirement"
@@ -219,6 +224,7 @@ const CoreRequirementsSection = ({
                       label: intl.formatMessage(getSecurityClearance(value)),
                     }))}
                     disabled={formDisabled}
+                    data-h2-width="base(100%)"
                   />
                 </div>
               </div>
