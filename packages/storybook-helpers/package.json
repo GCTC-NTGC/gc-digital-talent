@@ -20,7 +20,7 @@
     "wonka": "^6.3.4"
   },
   "devDependencies": {
-    "@formatjs/ts-transformer": "^3.13.9",
+    "@formatjs/ts-transformer": "^3.13.12",
     "@storybook/addon-a11y": "^7.6.10",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",
