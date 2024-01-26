@@ -72,7 +72,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-presets": "*",
     "react": "^18.2.0",
-    "react-intl": "^6.5.5",
+    "react-intl": "^6.6.2",
     "react-router-dom": "^6.21.1",
     "tsconfig": "*",
     "tsup": "^8.0.1",
