@@ -22,7 +22,7 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bash_profile
 nvm install v20.11.0
 #nvm install-latest-npm
-npm install -g npm@10.2.4
+npm install -g npm@9.9.2
 
 ### API
 
