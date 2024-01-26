@@ -122,7 +122,7 @@ const YourImpactSection = ({
                 data-h2-display="base(grid)"
                 data-h2-gap="base(x1)"
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin="base(x1 0)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <RichTextInput
                   id="yourImpactEn"

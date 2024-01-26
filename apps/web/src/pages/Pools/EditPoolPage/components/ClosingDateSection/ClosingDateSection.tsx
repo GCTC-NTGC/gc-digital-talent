@@ -139,7 +139,7 @@ const ClosingDateSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin="base(x1 0)">
+              <div data-h2-margin-bottom="base(x1)">
                 <DateInput
                   id="endDate"
                   legend={experienceFormLabels.endDate}

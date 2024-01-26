@@ -118,7 +118,7 @@ const CoreRequirementsSection = ({
                 data-h2-display="base(flex)"
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
-                data-h2-margin="base(x1 0)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <RadioGroup
                   idPrefix="locationOption"

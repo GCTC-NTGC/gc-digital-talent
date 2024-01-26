@@ -182,7 +182,7 @@ const GeneralQuestions = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
-      <p data-h2-margin="base(x1, 0)">
+      <p data-h2-margin="base(x1, 0, x.5, 0)">
         {intl.formatMessage({
           defaultMessage:
             "This section allows you to <strong>optionally</strong> add up to 3 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
