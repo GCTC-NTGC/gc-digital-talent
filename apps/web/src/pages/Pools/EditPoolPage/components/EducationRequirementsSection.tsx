@@ -8,7 +8,7 @@ import { getLocale } from "@gc-digital-talent/i18n";
 import { PublishingGroup } from "~/api/generated";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { getClassificationGroup } from "~/utils/poolUtils";
-import { hasAllEmptyFields } from "~/validators/process/classification";
+import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -25,7 +25,7 @@ const EducationRequirementsSection = ({
 }: EducationRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const isNull = hasAllEmptyFields(pool);
+  const isNull = isInNullState(pool);
   const { icon } = useToggleSectionInfo({
     isNull,
     emptyRequired: isNull, // Not a required field
