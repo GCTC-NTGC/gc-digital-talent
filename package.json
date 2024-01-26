@@ -5,9 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": "20.11.0",
-    "npm": "10.2.4"
+    "npm": "9.9.2"
   },
-  "packageManager": "npm@10.2.4",
+  "packageManager": "npm@9.9.2",
   "workspaces": [
     "apps/*",
     "packages/*"

@@ -19,7 +19,7 @@ jobs:
     name: Translations
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "10.2.4"
+      NPM_VERSION: "9.9.2"
 
     steps:
       - uses: actions/checkout@v4
