@@ -79,7 +79,7 @@
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.3",
-    "@parcel/watcher": "^2.3.0",
+    "@parcel/watcher": "^2.4.0",
     "@storybook/addon-actions": "^7.6.10",
     "@storybook/addon-viewport": "^7.6.10",
     "@storybook/react": "^7.6.10",
