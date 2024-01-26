@@ -354,7 +354,7 @@ export const EditPoolForm = ({
                   >
                     <div>
                       <Heading
-                        level="h3"
+                        level="h2"
                         Icon={sectionMetadata.basicInfo.icon}
                         color={sectionMetadata.basicInfo.color}
                         data-h2-margin="base(0)"
@@ -413,7 +413,7 @@ export const EditPoolForm = ({
                   >
                     <div>
                       <Heading
-                        level="h3"
+                        level="h2"
                         Icon={sectionMetadata.skillRequirements.icon}
                         color={sectionMetadata.skillRequirements.color}
                         data-h2-margin="base(0)"
@@ -451,7 +451,7 @@ export const EditPoolForm = ({
                     >
                       <div>
                         <Heading
-                          level="h3"
+                          level="h2"
                           Icon={sectionMetadata.aboutRole.icon}
                           color={sectionMetadata.aboutRole.color}
                           data-h2-margin="base(0)"
@@ -490,7 +490,7 @@ export const EditPoolForm = ({
                     >
                       <div>
                         <Heading
-                          level="h3"
+                          level="h2"
                           Icon={sectionMetadata.commonQuestions.icon}
                           color={sectionMetadata.commonQuestions.color}
                           data-h2-margin="base(0)"

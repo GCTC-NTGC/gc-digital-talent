@@ -174,7 +174,12 @@ const GeneralQuestions = ({
 
   return (
     <>
-      <ToggleSection.Header Icon={icon.icon} color={icon.color} level="h3">
+      <ToggleSection.Header
+        Icon={icon.icon}
+        color={icon.color}
+        level="h2"
+        size="h3"
+      >
         {sectionMetadata.title}
       </ToggleSection.Header>
       <p data-h2-margin="base(x1, 0)">
