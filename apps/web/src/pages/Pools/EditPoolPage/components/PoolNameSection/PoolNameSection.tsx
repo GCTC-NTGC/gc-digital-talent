@@ -19,7 +19,7 @@ import {
   Maybe,
 } from "~/api/generated";
 import {
-  hasAllEmptyFields,
+  isInNullState,
   hasEmptyRequiredFields,
 } from "~/validators/process/classification";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -50,7 +50,7 @@ const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
-  const isNull = hasAllEmptyFields(pool);
+  const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({

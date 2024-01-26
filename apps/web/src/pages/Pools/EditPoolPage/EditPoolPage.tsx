@@ -31,7 +31,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import {
   hasEmptyRequiredFields as poolNameError,
-  hasAllEmptyFields as educationRequirementIsNull,
+  isInNullState as educationRequirementIsNull,
 } from "~/validators/process/classification";
 import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
