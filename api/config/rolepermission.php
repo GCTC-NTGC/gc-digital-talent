@@ -293,10 +293,6 @@ return [
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
         ],
 
-        'view-own-applicationNotes' => [
-            'en' => 'View the notes associated with my own Applications',
-            'fr' => 'Consulter les notes associés avec mes propres candidatures',
-        ],
         'view-team-applicationNotes' => [
             'en' => 'View the notes of Applications submitted to this Team\'s Pools',
             'fr' => 'Consulter les notes des candidatures soumises aux bassins de cette équipe.',
