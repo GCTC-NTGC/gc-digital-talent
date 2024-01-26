@@ -170,54 +170,57 @@ export const SearchForm = ({
             )}
           </Heading>
           <SearchFilterAdvice filters={applicantFilter} />
-          <p data-h2-margin="base(x1, 0)">
-            <Button
-              color="primary"
-              type="submit"
-              {...poolSubmitProps}
-              value=""
-              onClick={() => {
-                setValue("allPools", true);
-                setValue("pool", "");
-                setValue("count", candidateCount);
-              }}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Request candidates from all pools",
-                id: "DxNuJ9",
-                description:
-                  "Button text to submit search request for candidates across all pools",
-              })}
-            </Button>
-          </p>
-          <p
-            data-h2-font-size="base(h4)"
-            data-h2-margin="base(x1.5, 0, x.25, 0)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Or request candidates by pool",
-              id: "l1f8zy",
-              description:
-                "Lead-in text to list of pools managers can request candidates from",
-            })}
-            {intl.formatMessage(commonMessages.dividingColon)}
-          </p>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
-            {results?.length && candidateCount > 0 ? (
-              results.map(({ pool, candidateCount: resultsCount }) => (
-                <SearchResultCard
-                  key={pool.id}
-                  candidateCount={resultsCount}
-                  pool={pool}
-                />
-              ))
-            ) : (
-              <NoResults />
-            )}
-          </div>
+
+          {results?.length && candidateCount > 0 ? (
+            <>
+              <p data-h2-margin="base(x1, 0)">
+                <Button
+                  color="primary"
+                  type="submit"
+                  {...poolSubmitProps}
+                  value=""
+                  onClick={() => {
+                    setValue("allPools", true);
+                    setValue("pool", "");
+                    setValue("count", candidateCount);
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Request candidates from all pools",
+                    id: "DxNuJ9",
+                    description:
+                      "Button text to submit search request for candidates across all pools",
+                  })}
+                </Button>
+              </p>
+              <p
+                data-h2-font-size="base(h4)"
+                data-h2-margin="base(x1.5, 0, x.25, 0)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Or request candidates by pool",
+                  id: "l1f8zy",
+                  description:
+                    "Lead-in text to list of pools managers can request candidates from",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+              </p>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+              >
+                {results.map(({ pool, candidateCount: resultsCount }) => (
+                  <SearchResultCard
+                    key={pool.id}
+                    candidateCount={resultsCount}
+                    pool={pool}
+                  />
+                ))}
+              </div>
+            </>
+          ) : (
+            <NoResults />
+          )}
         </form>
       </FormProvider>
     </div>
