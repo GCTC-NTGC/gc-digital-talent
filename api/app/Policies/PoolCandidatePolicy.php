@@ -82,7 +82,7 @@ class PoolCandidatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate, $request)
+    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate, $request = null)
     {
         $poolCandidate->loadMissing('pool.team');
         $candidatePoolTeam = $poolCandidate->pool->team;
@@ -90,7 +90,7 @@ class PoolCandidatePolicy
         if (! $isDraft && ($user->isAbleTo('update-any-applicationStatus')
                     || $user->isAbleTo('update-team-applicationStatus', $candidatePoolTeam))
         ) {
-            if (array_key_exists('notes', $request)
+            if ($request && array_key_exists('notes', $request)
                 && !$user->isAbleTo('update-any-applicationNotes')
                 && !$user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
                 return false;
