@@ -16,7 +16,7 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-align-items="base(center)"
-      data-h2-gap="base(x1 0)"
+      data-h2-gap="base(x.5, 0)"
       data-h2-padding="base(x1)"
     >
       <p data-h2-font-weight="base(700)">
