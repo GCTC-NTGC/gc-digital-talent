@@ -22,7 +22,7 @@
     "cypress-terminal-report": "^5.3.12",
     "dotenv": "^16.3.1",
     "eslint-plugin-cypress": "^2.15.1",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.4",
     "tsconfig": "*",
     "typescript": "4.9.5"
   }
