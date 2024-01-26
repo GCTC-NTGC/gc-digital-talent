@@ -199,7 +199,7 @@ WithItems.args = {
 export const MaxItems = Template.bind({});
 MaxItems.args = {
   ...WithItems.args,
-  max: 4,
+  max: 6,
 };
 
 export const HiddenIndex = Template.bind({});
