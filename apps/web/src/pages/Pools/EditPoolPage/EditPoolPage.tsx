@@ -261,8 +261,8 @@ export const EditPoolForm = ({
       id: "common-questions",
       hasError: false, // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
-        defaultMessage: "Common Questions",
-        id: "d81CEm",
+        defaultMessage: "Common questions",
+        id: "RahVQS",
         description: "Title for common questions",
       }),
       subtitle: intl.formatMessage({
