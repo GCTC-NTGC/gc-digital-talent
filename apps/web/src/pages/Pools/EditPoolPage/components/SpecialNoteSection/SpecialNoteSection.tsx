@@ -138,8 +138,8 @@ const SpecialNoteSection = ({
                   })}
                   label={intl.formatMessage({
                     defaultMessage:
-                      "I need a special note. I have reviewed my job advertisement preview and I confirm that this information is not covered anywhere else on the job advertisement.",
-                    id: "BMJeFv",
+                      "“I need a special note. I have reviewed my job advertisement preview and I confirm that this information is not covered anywhere else on the job advertisement.”",
+                    id: "XgmS+Y",
                     description:
                       "Checkbox selection that confirms need for a special note on edit page.",
                   })}
