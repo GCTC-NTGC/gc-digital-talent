@@ -1,6 +1,5 @@
 import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
-import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
@@ -12,7 +11,6 @@ import {
   Link,
   TableOfContents,
   Heading,
-  Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -525,19 +523,6 @@ export const EditPoolForm = ({
               </div>
             </TableOfContents.Content>
           </TableOfContents.Wrapper>
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
-          <Link
-            mode="solid"
-            href={paths.poolView(pool.id)}
-            icon={ChevronDoubleLeftIcon}
-          >
-            {intl.formatMessage(backMessage)}
-          </Link>
         </div>
       </AdminContentWrapper>
     </>
