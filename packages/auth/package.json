@@ -32,7 +32,7 @@
     "urql": "4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.102",
+    "@swc/core": "^1.3.106",
     "@types/path-browserify": "^1.0.2",
     "@types/react": "^18.2.48",
     "eslint": "^8.56.0",
