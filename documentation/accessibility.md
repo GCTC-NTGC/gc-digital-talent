@@ -131,7 +131,7 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Check that page titles and copy are crafted with key words that our readers would use when doing a web search for our product.
 - [ ] Verify that readers who do not have knowledge of our platform can read related pages on the site. 
 - [ ] Check that copy explains things succinctly so each page can stand on its own.
-- [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use “click here” or “ Learn more” as links).
+- [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use “click here” or “Learn more” as links).
 - [ ] Verify that unnecessary or redundant words have been eliminated.
 
 ## Final Thoughts
