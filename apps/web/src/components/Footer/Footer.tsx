@@ -34,7 +34,7 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
     {
-      href: `/${intl.locale}/privacy-notice`,
+      href: `/${intl.locale}/privacy-policy`,
       external: true,
       children: intl.formatMessage({
         defaultMessage: "Privacy Policy",
