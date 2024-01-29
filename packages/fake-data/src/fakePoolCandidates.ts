@@ -18,11 +18,11 @@ import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   const pool = faker.helpers.arrayElement(pools);
-  const screeningQuestionResponses =
-    pool.screeningQuestions?.map((screeningQuestion) => ({
+  const generalQuestionResponses =
+    pool.generalQuestions?.map((generalQuestion) => ({
       id: faker.string.uuid(),
       answer: faker.lorem.sentence(),
-      screeningQuestion,
+      generalQuestion,
     })) || [];
   return {
     id: faker.string.uuid(),
@@ -49,7 +49,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     isBookmarked: faker.datatype.boolean(0.2),
-    screeningQuestionResponses,
+    generalQuestionResponses,
   };
 };
 

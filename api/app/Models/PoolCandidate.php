@@ -134,9 +134,9 @@ class PoolCandidate extends Model
         return $this->belongsTo(Pool::class)->withTrashed();
     }
 
-    public function screeningQuestionResponses(): HasMany
+    public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(ScreeningQuestionResponse::class);
+        return $this->hasMany(GeneralQuestionResponse::class);
     }
 
     // education_requirement_option fulfilled by what experience models
@@ -566,8 +566,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -772,8 +772,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

@@ -8,8 +8,8 @@ import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
-  CreateScreeningQuestionInput,
-  UpdateScreeningQuestionInput,
+  CreateGeneralQuestionInput,
+  UpdateGeneralQuestionInput,
   LocalizedString,
   Pool,
   Scalars,
@@ -20,41 +20,41 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
-const MAX_SCREENING_QUESTIONS = 3;
+const MAX_GENERAL_QUESTIONS = 3;
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
-type ScreeningQuestionValue = {
+type GeneralQuestionValue = {
   id?: Scalars["ID"];
   question: LocalizedString;
 };
 
 type FormValues = {
-  questions?: Array<ScreeningQuestionValue>;
+  questions?: Array<GeneralQuestionValue>;
 };
 
-export type ScreeningQuestionsSubmitData = Pick<
+export type GeneralQuestionsSubmitData = Pick<
   UpdatePoolInput,
-  "screeningQuestions"
+  "generalQuestions"
 >;
 
-interface ScreeningQuestionsProps {
+interface GeneralQuestionsProps {
   pool: Pool;
   sectionMetadata: EditPoolSectionMetadata;
-  onSave: (submitData: ScreeningQuestionsSubmitData) => void;
+  onSave: (submitData: GeneralQuestionsSubmitData) => void;
 }
 
-const ScreeningQuestions = ({
+const GeneralQuestions = ({
   pool,
   sectionMetadata,
   onSave,
-}: ScreeningQuestionsProps) => {
+}: GeneralQuestionsProps) => {
   const intl = useIntl();
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
-      initialData?.screeningQuestions
+      initialData?.generalQuestions
         ?.filter(notEmpty)
         .map(({ id, question }) => ({
           id: id || "new",
@@ -76,9 +76,9 @@ const ScreeningQuestions = ({
   });
 
   const handleSave = (formValues: FormValues) => {
-    const create: Array<CreateScreeningQuestionInput> = [];
-    const update: Array<UpdateScreeningQuestionInput> = [];
-    const toBeDeleted = pool.screeningQuestions
+    const create: Array<CreateGeneralQuestionInput> = [];
+    const update: Array<UpdateGeneralQuestionInput> = [];
+    const toBeDeleted = pool.generalQuestions
       ?.filter((existingQuestion) => {
         return !formValues.questions?.some(
           (question) =>
@@ -104,7 +104,7 @@ const ScreeningQuestions = ({
     });
 
     onSave({
-      screeningQuestions: {
+      generalQuestions: {
         update,
         create,
         delete: toBeDeleted,
@@ -118,7 +118,7 @@ const ScreeningQuestions = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const canAdd = fields.length < MAX_SCREENING_QUESTIONS;
+  const canAdd = fields.length < MAX_GENERAL_QUESTIONS;
 
   const customNullMessage = (
     <>
@@ -153,7 +153,7 @@ const ScreeningQuestions = ({
             description:
               "Message displayed when a user adds the maximum number of questions",
           },
-          { maxItems: MAX_SCREENING_QUESTIONS },
+          { maxItems: MAX_GENERAL_QUESTIONS },
         )}
       </p>
       <p>
@@ -188,7 +188,7 @@ const ScreeningQuestions = ({
             name="questions"
             total={fields.length}
             showAdd={canAdd && !formDisabled}
-            maxItems={MAX_SCREENING_QUESTIONS}
+            maxItems={MAX_GENERAL_QUESTIONS}
             onAdd={() => {
               append({
                 id: "new",
@@ -284,4 +284,4 @@ const ScreeningQuestions = ({
   );
 };
 
-export default ScreeningQuestions;
+export default GeneralQuestions;

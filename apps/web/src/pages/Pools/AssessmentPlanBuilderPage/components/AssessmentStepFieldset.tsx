@@ -44,7 +44,8 @@ const AssessmentStepFieldset = ({
       ?.filter(notEmpty)
       .map((poolSkill) => getLocalizedName(poolSkill?.skill?.name, intl)) ?? [];
   skillNames.sort();
-  const screeningQuestions = pool.screeningQuestions?.filter(notEmpty) ?? [];
+  // to be pointed at screening questions once the field is added
+  const screeningQuestions = pool.generalQuestions?.filter(notEmpty) ?? [];
   screeningQuestions.sort((a, b) =>
     (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
     (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
@@ -91,7 +92,7 @@ const AssessmentStepFieldset = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <ActionButton
