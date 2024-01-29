@@ -10,8 +10,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";
 
-import comments from "./utils";
-
 export type SectionKey =
   | "usingFiles"
   | "providingContent"
@@ -219,6 +217,69 @@ const TermsAndConditions = () => {
       url: paths.accessibility(),
     },
   ]);
+
+  const comments = [
+    intl.formatMessage({
+      defaultMessage: "include personal information",
+      id: "z8b14H",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "LDrXbc",
+      defaultMessage:
+        "include protected or classified information of the Government of Canada",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "wvxZxx",
+      defaultMessage:
+        "infringe upon intellectual property or proprietary rights",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "z6omvn",
+      defaultMessage:
+        "are contrary to the principles of the Canadian Charter of Rights and Freedoms, Constitution Act, 1982",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "dxwgXw",
+      defaultMessage:
+        "are racist, hateful, sexist, homophobic or defamatory, or contain or refer to any obscenity or pornography",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "TPw/0u",
+      defaultMessage: "are threatening, violent, intimidating or harassing",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "Xe39xZ",
+      defaultMessage:
+        "are contrary to any federal, provincial or territorial laws of Canada",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "QnfjbI",
+      defaultMessage: "constitute impersonation, advertising or spam",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "x4HViJ",
+      defaultMessage: "encourage or incite any criminal activity",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "nZ8ZLR",
+      defaultMessage: "are written in a language other than English or French",
+      description: "Comments or contributions list item",
+    }),
+    intl.formatMessage({
+      id: "GTqXN1",
+      defaultMessage: "otherwise violate this notice",
+      description: "Comments or contributions list item",
+    }),
+  ];
 
   return (
     <>
@@ -652,9 +713,9 @@ const TermsAndConditions = () => {
                     })}
                   </p>
                   <ul>
-                    {Object.values(comments).map((comment) => (
+                    {comments.map((comment) => (
                       <li key={uniqueId()} data-h2-margin-bottom="base(x.25)">
-                        {comment.defaultMessage}
+                        {comment}
                       </li>
                     ))}
                   </ul>
