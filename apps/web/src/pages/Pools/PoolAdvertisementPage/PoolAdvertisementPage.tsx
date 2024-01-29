@@ -1,12 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
-import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
-import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
-import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useQuery } from "urql";
+import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import {
   ThrowNotFound,
@@ -14,9 +10,9 @@ import {
   Accordion,
   TableOfContents,
   Heading,
-  Pill,
   Link,
-  Alert,
+  Well,
+  CardBasic,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -26,6 +22,7 @@ import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -43,6 +40,7 @@ import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
   getClassificationGroup,
+  getClassificationSalaryRangeUrl,
   getFullPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
@@ -60,6 +58,7 @@ import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
+import WorkLocationDialog from "./components/WorkLocationDialog";
 
 type SectionContent = {
   id: string;
@@ -100,6 +99,17 @@ export const PoolPoster = ({
     });
   }
   const fullTitle = getFullPoolTitleLabel(intl, pool);
+  const salaryRangeUrl = getClassificationSalaryRangeUrl(
+    locale,
+    classification,
+  );
+  const workLocation = pool.isRemote
+    ? intl.formatMessage({
+        defaultMessage: "Remote, hybrid or on-site",
+        id: "swESO/",
+        description: "Location requirement when a pool advertisement is remote",
+      })
+    : getLocalizedName(pool.location, intl);
 
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
@@ -141,26 +151,12 @@ export const PoolPoster = ({
   ]);
 
   const sections: Record<string, SectionContent> = {
-    summary: {
-      id: "summary-section",
-      linkText: intl.formatMessage({
-        defaultMessage: "Opportunity summary",
-        id: "lKQBZj",
-        description: "Link text for a summary of a job poster",
-      }),
+    employmentDetails: {
+      id: "employment-details",
       title: intl.formatMessage({
-        defaultMessage: "About the opportunity",
-        id: "WDsKjD",
-        description: "Title for a summary of a pool advertisement",
-      }),
-    },
-    specialNote: {
-      id: "special-note-section",
-      title: intl.formatMessage({
-        defaultMessage: "Special note for this process",
-        id: "4yFgQW",
-        description:
-          "Title for the special note for this process section of a pool advertisement",
+        defaultMessage: "Employment details",
+        id: "5+jnam",
+        description: "Title for a employment details of a pool advertisement",
       }),
     },
     impactTasks: {
@@ -254,17 +250,10 @@ export const PoolPoster = ({
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.summary.id}>
-                  {sections.summary.linkText}
+                <TableOfContents.AnchorLink id={sections.employmentDetails.id}>
+                  {sections.employmentDetails.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {showSpecialNote && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.specialNote.id}>
-                    {sections.specialNote.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
               {showImpactTasks && (
                 <TableOfContents.ListItem>
                   <TableOfContents.AnchorLink id={sections.impactTasks.id}>
@@ -313,8 +302,9 @@ export const PoolPoster = ({
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections.summary.id}>
+            <TableOfContents.Section id={sections.employmentDetails.id}>
               <div
+                data-h2-align-items="base(baseline)"
                 data-h2-display="base(flex)"
                 data-h2-gap="base(0 x1)"
                 data-h2-flex-wrap="base(wrap)"
@@ -322,18 +312,235 @@ export const PoolPoster = ({
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
+                    icon={MapIcon}
+                    color="primary"
                     data-h2-margin="base(0, 0, x1, 0)"
                   >
-                    {sections.summary.title}
+                    {sections.employmentDetails.title}
                   </TableOfContents.Heading>
                 </div>
                 <div
                   data-h2-flex-shrink="base(0)"
                   data-h2-margin-top="base(x.75) p-tablet(0)"
                 >
-                  {applyBtn}
+                  <ApplicationLink
+                    poolId={pool.id}
+                    applicationId={applicationId}
+                    hasApplied={hasApplied}
+                    canApply={canApply}
+                    linkProps={{
+                      mode: "inline",
+                      color: "primary",
+                    }}
+                  />
                 </div>
               </div>
+              {showSpecialNote && (
+                <Well data-h2-margin="base(x1 0)">
+                  <Heading
+                    level="h3"
+                    size="h6"
+                    data-h2-margin-top="base(0)"
+                    data-h2-font-size="base(body)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Special note for this process",
+                      id: "cbwWa0",
+                      description:
+                        "Heading for a special note in pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.specialNote, intl),
+                    )}
+                  />
+                </Well>
+              )}
+
+              <CardBasic>
+                <DataRow
+                  hideSeparator
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Work category",
+                      id: "pVCsBB",
+                      description: "Label for pool advertisement stream",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={
+                    pool.stream
+                      ? intl.formatMessage(getPoolStream(pool.stream))
+                      : notAvailable
+                  }
+                  suffix={
+                    classification?.group === "IT" ? (
+                      <Link
+                        mode="icon_only"
+                        external
+                        newTab
+                        href={
+                          locale === "fr"
+                            ? "https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique/carriere-domaine-numerique.html#technologies-information"
+                            : "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html#information-technology"
+                        }
+                        icon={InformationCircleIcon}
+                        aria-label={intl.formatMessage({
+                          defaultMessage:
+                            "Information technology (IT) work streams",
+                          id: "FZ5qdE",
+                          description:
+                            "Link text to more information about information technology work streams",
+                        })}
+                      />
+                    ) : undefined
+                  }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Salary range",
+                      id: "GgBjAd",
+                      description: "Label for pool advertisement salary range",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={
+                    localizeSalaryRange(
+                      classification?.minSalary,
+                      classification?.maxSalary,
+                      locale,
+                    ) || notAvailable
+                  }
+                  suffix={
+                    salaryRangeUrl && (
+                      <Link
+                        mode="icon_only"
+                        external
+                        newTab
+                        href={salaryRangeUrl}
+                        icon={InformationCircleIcon}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Salary range information",
+                          id: "IvJ9Xd",
+                          description:
+                            "Link text to more information about classification salary range",
+                        })}
+                      />
+                    )
+                  }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Deadline",
+                      id: "FVEh7L",
+                      description: "Label for pool advertisement closing date",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={
+                    pool.closingDate
+                      ? intl.formatMessage(
+                          {
+                            defaultMessage: "Apply on or before {closingDate}",
+                            id: "LjYzkS",
+                            description:
+                              "Message to apply to the pool before deadline",
+                          },
+                          {
+                            closingDate: formatDate({
+                              date: parseDateTimeUtc(pool.closingDate),
+                              formatString: "PPP",
+                              intl,
+                              timeZone: "Canada/Pacific",
+                            }),
+                          },
+                        )
+                      : notAvailable
+                  }
+                  suffix={
+                    pool.closingDate ? (
+                      <DeadlineDialog
+                        deadline={parseDateTimeUtc(pool.closingDate)}
+                      />
+                    ) : null
+                  }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Work location",
+                      id: "2aE/gp",
+                      description:
+                        "Label for pool advertisement location requirement",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={workLocation}
+                  suffix={<WorkLocationDialog workLocation={workLocation} />}
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Language requirement",
+                      id: "totVDg",
+                      description:
+                        "Label for pool advertisement language requirement",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={languageRequirement}
+                  suffix={
+                    <Link
+                      newTab
+                      external
+                      color="secondary"
+                      mode="icon_only"
+                      icon={InformationCircleIcon}
+                      href={
+                        locale === "fr"
+                          ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+                          : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+                      }
+                      aria-label={intl.formatMessage({
+                        defaultMessage: "Learn more about language testing",
+                        id: "Swde4t",
+                        description:
+                          "Link text for language testing information",
+                      })}
+                    />
+                  }
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Security clearance",
+                      id: "e4eYvU",
+                      description:
+                        "Label for pool advertisement security clearance requirement",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={securityClearance}
+                  suffix={
+                    <Link
+                      newTab
+                      external
+                      color="secondary"
+                      mode="icon_only"
+                      icon={InformationCircleIcon}
+                      href={
+                        locale === "fr"
+                          ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
+                          : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
+                      }
+                      aria-label={intl.formatMessage({
+                        defaultMessage: "Learn more about security clearances",
+                        id: "WlMSeh",
+                        description:
+                          "Link text for security clearance information",
+                      })}
+                    />
+                  }
+                />
+              </CardBasic>
+
               <Accordion.Root size="sm" type="single" collapsible>
                 <Accordion.Item value="when">
                   <Accordion.Trigger>
@@ -383,108 +590,7 @@ export const PoolPoster = ({
                   </>
                 ) : null}
               </Accordion.Root>
-              <div data-h2-margin-bottom="base(x3)">
-                <DataRow
-                  Icon={CurrencyDollarIcon}
-                  label={
-                    intl.formatMessage({
-                      defaultMessage: "Salary range",
-                      id: "GgBjAd",
-                      description: "Label for pool advertisement salary range",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
-                  }
-                  value={
-                    localizeSalaryRange(
-                      classification?.minSalary,
-                      classification?.maxSalary,
-                      locale,
-                    ) || notAvailable
-                  }
-                />
-                <DataRow
-                  Icon={CalendarIcon}
-                  label={intl.formatMessage({
-                    defaultMessage: "Deadline:",
-                    id: "l9CTjM",
-                    description: "Label for pool advertisement closing date",
-                  })}
-                  value={
-                    pool.closingDate
-                      ? intl.formatMessage(
-                          {
-                            defaultMessage: "Apply on or before {closingDate}",
-                            id: "LjYzkS",
-                            description:
-                              "Message to apply to the pool before deadline",
-                          },
-                          {
-                            closingDate: formatDate({
-                              date: parseDateTimeUtc(pool.closingDate),
-                              formatString: "PPP",
-                              intl,
-                              timeZone: "Canada/Pacific",
-                            }),
-                          },
-                        )
-                      : notAvailable
-                  }
-                  suffix={
-                    pool.closingDate ? (
-                      <DeadlineDialog
-                        deadline={parseDateTimeUtc(pool.closingDate)}
-                      />
-                    ) : null
-                  }
-                />
-                <DataRow
-                  Icon={BoltIcon}
-                  label={intl.formatMessage({
-                    defaultMessage: "Required skills:",
-                    id: "iSaTbE",
-                    description:
-                      "Label for pool advertisement's required skills",
-                  })}
-                  value={
-                    pool?.essentialSkills?.length ? (
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-gap="base(x.15)"
-                        data-h2-flex-wrap="base(wrap)"
-                      >
-                        {pool.essentialSkills.map((skill) => (
-                          <Pill color="secondary" mode="outline" key={skill.id}>
-                            {getLocalizedName(skill.name, intl)}
-                          </Pill>
-                        ))}
-                      </div>
-                    ) : (
-                      notAvailable
-                    )
-                  }
-                />
-              </div>
             </TableOfContents.Section>
-            {showSpecialNote && (
-              <TableOfContents.Section id={sections.specialNote.id}>
-                <div>
-                  <Alert.Root type="info" data-h2-shadow="base(none)">
-                    <Alert.Title>
-                      {intl.formatMessage({
-                        defaultMessage: "Special note for this process",
-                        id: "cbwWa0",
-                        description:
-                          "Heading for a special note in pool advertisement.",
-                      })}
-                    </Alert.Title>
-                    <RichTextRenderer
-                      node={htmlToRichTextJSON(
-                        getLocalizedName(pool.specialNote, intl),
-                      )}
-                    />
-                  </Alert.Root>
-                </div>
-              </TableOfContents.Section>
-            )}
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
                 <TableOfContents.Heading
@@ -725,82 +831,6 @@ export const PoolPoster = ({
                     "Lead-in text for other requirements on a pool advertisement",
                 })}
               </Text>
-              <DataRow
-                Icon={MapPinIcon}
-                label={intl.formatMessage({
-                  defaultMessage: "Location:",
-                  id: "H7M6Yv",
-                  description:
-                    "Label for pool advertisement location requirement",
-                })}
-                value={
-                  pool.isRemote
-                    ? intl.formatMessage({
-                        defaultMessage: "Remote, hybrid or on-site",
-                        id: "swESO/",
-                        description:
-                          "Location requirement when a pool advertisement is remote",
-                      })
-                    : getLocalizedName(pool.location, intl)
-                }
-              />
-              <DataRow
-                Icon={ChatBubbleLeftRightIcon}
-                label={intl.formatMessage({
-                  defaultMessage: "Language:",
-                  id: "6eA/CF",
-                  description:
-                    "Label for pool advertisement language requirement",
-                })}
-                value={languageRequirement}
-                suffix={
-                  <Link
-                    newTab
-                    external
-                    color="black"
-                    href={
-                      locale === "fr"
-                        ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
-                        : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
-                    }
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Learn more about language testing",
-                      id: "Swde4t",
-                      description: "Link text for language testing information",
-                    })}
-                  </Link>
-                }
-              />
-              <DataRow
-                Icon={LockClosedIcon}
-                label={intl.formatMessage({
-                  defaultMessage: "Security clearance:",
-                  id: "mmCU6z",
-                  description:
-                    "Label for pool advertisement security clearance requirement",
-                })}
-                value={securityClearance}
-                suffix={
-                  <Link
-                    newTab
-                    external
-                    color="black"
-                    href={
-                      locale === "fr"
-                        ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
-                        : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
-                    }
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Learn more about security clearances",
-                      id: "WlMSeh",
-                      description:
-                        "Link text for security clearance information",
-                    })}
-                  </Link>
-                }
-              />
             </TableOfContents.Section>
             {contactEmail && (
               <TableOfContents.Section id={sections.contact.id}>

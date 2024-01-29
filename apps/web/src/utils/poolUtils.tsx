@@ -8,9 +8,10 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
 import {
+  Locales,
+  commonMessages,
   getLocalizedName,
   getPoolStatus,
-  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -25,7 +26,6 @@ import {
   RoleAssignment,
   PoolStatus,
   Maybe,
-  PoolStream,
   Classification,
   Pool,
 } from "@gc-digital-talent/graphql";
@@ -115,37 +115,38 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Classification> | undefined;
-  stream: Maybe<PoolStream> | undefined;
   intl: IntlShape;
 }
 
 export const formattedPoolPosterTitle = ({
   title,
   classification,
-  stream,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: React.ReactNode;
   label: string;
 } => {
-  const streamString = stream
-    ? `${intl.formatMessage(getPoolStream(stream))}`
-    : "";
-
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : null ?? "";
 
-  const genericTitle = `${groupAndLevel} ${streamString}`.trim();
+  const genericTitle = `${groupAndLevel.trim()}${intl.formatMessage(
+    commonMessages.dividingColon,
+  )}`;
+  const hasGroupAndLevel = groupAndLevel.length > 0;
 
   return {
     html: (
       <>
-        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
-        {streamString ? ` ${streamString}` : ""})
+        {hasGroupAndLevel
+          ? `${wrapAbbr(groupAndLevel, intl)}${intl.formatMessage(
+              commonMessages.dividingColon,
+            )} `
+          : ""}
+        {title || ""}
       </>
     ),
-    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+    label: `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim(),
   };
 };
 
@@ -185,7 +186,6 @@ export const fullPoolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classifications?.[0],
-    stream: pool.stream,
     intl,
   });
 
@@ -453,4 +453,39 @@ export const formatClosingDate = (
   }
 
   return {};
+};
+
+export const getClassificationSalaryRangeUrl = (
+  locale: Locales,
+  classification: Maybe<Classification>,
+): string | null => {
+  let localizedUrl: Record<Locales, string> | null = null;
+  switch (classification?.group) {
+    case "CS":
+    case "IT":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
+      };
+      break;
+    case "AS":
+    case "PM":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
+      };
+      break;
+    case "EC":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
+      };
+      break;
+    default:
+      break;
+  }
+
+  if (localizedUrl) return localizedUrl[locale];
+
+  return null;
 };
