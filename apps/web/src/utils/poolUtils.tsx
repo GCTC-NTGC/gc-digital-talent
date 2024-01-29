@@ -138,11 +138,12 @@ export const formattedPoolPosterTitle = ({
   return {
     html: (
       <>
-        {hasGroupAndLevel
-          ? `${wrapAbbr(groupAndLevel, intl)}${intl.formatMessage(
-              commonMessages.dividingColon,
-            )} `
-          : ""}
+        {hasGroupAndLevel ? (
+          <>
+            {wrapAbbr(groupAndLevel, intl)}
+            {intl.formatMessage(commonMessages.dividingColon)}
+          </>
+        ) : null}
         {title || ""}
       </>
     ),
