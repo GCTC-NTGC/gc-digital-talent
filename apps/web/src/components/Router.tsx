@@ -62,6 +62,22 @@ const SupportPage = React.lazy(() =>
       ),
   ),
 );
+const TermsAndConditions = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSupportPage" */ "../pages/TermsAndConditions/TermsAndConditions"
+      ),
+  ),
+);
+const PrivacyPolicy = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSupportPage" */ "../pages/PrivacyPolicy/PrivacyPolicy"
+      ),
+  ),
+);
 const AccessibilityPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -769,6 +785,14 @@ const createRoute = (
             {
               path: "support",
               element: <SupportPage />,
+            },
+            {
+              path: "terms-and-conditions",
+              element: <TermsAndConditions />,
+            },
+            {
+              path: "privacy-policy",
+              element: <PrivacyPolicy />,
             },
             {
               path: "accessibility-statement",
