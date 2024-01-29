@@ -72,7 +72,7 @@ There are some tools that can assist with this and make testing easier. Unfortun
   - Color Blindness Simulator
   - **Note:** This adheres to WCAG 2.0/2.1, with 3.0 there is a proposal to change to a [new formula](https://www.w3.org/TR/wcag-3.0/#visual-contrast-of-text) to better estimate colour perception
 
-#### Methodology
+### Methodology
 
 When manually testing the application, it is good for you to ask yourself some questions so you can effectively find areas of concern. Some questions/tasks you should completed are:
 
@@ -88,6 +88,51 @@ When manually testing the application, it is good for you to ask yourself some q
   - Is your focus moved to the dialog on open?
   - Does the focus return to the element that triggered the opening of the dialog when closing?
 - Are you able to freely navigate the application without being "trapped"?
+
+### Testing Steps
+
+- Select and document a representative sample of pages (with URLs) and features for testing.
+- List pages to be tested with urls
+- Document Automated tools and AT configurations (Operating System, Browser, Technology)
+- Confirm the checks below with Keyboard, colour contrast checker and automated testing tools.
+- Review pages using the AT chosen configuration.
+
+#### Non-Technical checks
+
+- [ ] Confirm that the heading structure is hierarchical.
+- [ ] Check for consistent use of white space so pages are easy to scan.
+- [ ] Review non-text elements for information or functional value, proper labelling and/or alternative text for non-text elements with value.
+- [ ] Confirm that objects with informative or functional value have meaningful alternative or ARIA labels.
+- [ ] Review colour contrast for a contrast ratio of 4:5:1 between foreground and background. 
+- [ ] Review colour contrast for perceived colour contrast in addition to computed values. 
+- [ ] Confirm link texts are descriptive and that their "underline" signifier is present. Alternatively, they should have a contrast ratio of 3:1.
+- [ ] Confirm that key pages do not rely solely on colour to convey meaning or instruction. 
+
+#### Technical checks
+
+- [ ] Test for the presence of proper landmarks roles and labels (e.g., Main, Nav, aside, section , header, footer)
+- [ ] Confirm that all components/widgets have appropriate ARIA roles.
+- [ ] Review page titles and headings for descriptive titles and proper structure.
+- [ ] Review reading order and focus management (focus order, component triggers, modals, etc.). 
+- [ ] Confirm that meaningful graphical elements (those with informational value) have a contrast value of 3:1.
+- [ ] Confirm that touch targets are usable (24pi x24 pi vs 48pi x 48pi range)
+- [ ] Create a page example with text size enlarged to 200% to test text resizing and reflow. 
+- [ ] Test any new selectable components (toggle buttons, radio buttons, checkboxes, list boxes, text boxes, etc.) to see if it triggers an expected change in context.
+- [ ] Confirm if users have multiple ways to navigate to each page in the pattern. 
+- [ ] Check French-language pages for proper default language. 
+- [ ] Confirm that the platform does not require users to re-enter information they have already provided (e.g., in a previous step of the RoD process).
+
+#### Plain Language confirmations
+
+- [ ] Confirm that the copy reflects the light mode with fidelity.
+- [ ] Check that documents are broken into separate topics using semantic headers.
+- [ ] Check that short lists and bullets are used to organize information when appropriate.
+- [ ] Flag if information on each page is presented in more than two semantic heading levels.
+- [ ] Check that page titles and copy are crafted with key words that our readers would use when doing a web search for our product.
+- [ ] Verify that readers who do not have knowledge of our platform can read related pages on the site. 
+- [ ] Check that copy explains things succinctly so each page can stand on its own.
+- [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use “click here” or “ Learn more” as links).
+- [ ] Verify that unnecessary or redundant words have been eliminated.
 
 ## Final Thoughts
 
