@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Link, Pill } from "@gc-digital-talent/ui";
+import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -45,33 +45,59 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
       >
         {getFullPoolTitleHtml(intl, pool)}
       </p>
-      <p data-h2-margin="base(x.5, 0, x1, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage: "Process run by {team} at {departments}",
-            id: "e2qUId",
-            description: "Team and department of pool",
-          },
-          {
-            team: pool?.team
-              ? getLocalizedName(pool.team.displayName, intl)
-              : intl.formatMessage({
-                  defaultMessage: "Digital Community Management Team",
-                  id: "S82O61",
-                  description: "Default team for pool",
-                }),
-            departments: departments
-              ? departments.join(", ")
-              : intl.formatMessage({
-                  defaultMessage: "Treasury Board of Canada Secretariat",
-                  id: "SZ2DsZ",
-                  description: "Default department for pool",
-                }),
-          },
-        )}
-        .
+      <p
+        data-h2-margin="base(x.5, 0, x1, 0)"
+        data-h2-display="base(flex)"
+        data-h2-gap="base(0, x.5)"
+      >
+        <span>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Process run by {team} at {departments}",
+              id: "e2qUId",
+              description: "Team and department of pool",
+            },
+            {
+              team: pool?.team
+                ? getLocalizedName(pool.team.displayName, intl)
+                : intl.formatMessage({
+                    defaultMessage: "Digital Community Management Team",
+                    id: "S82O61",
+                    description: "Default team for pool",
+                  }),
+              departments: departments
+                ? departments.join(", ")
+                : intl.formatMessage({
+                    defaultMessage: "Treasury Board of Canada Secretariat",
+                    id: "SZ2DsZ",
+                    description: "Default department for pool",
+                  }),
+            },
+          )}
+        </span>
+        <span aria-hidden>&bull;</span>
+        <span
+          data-h2-font-weight="base(700)"
+          data-h2-color="base(secondary.darker)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: `{candidateCount, plural,
+                one {<testId>{candidateCount}</testId> approximate match}
+                other {<testId>{candidateCount}</testId> approximate matches}
+              }`,
+              id: "Gki8Ex",
+              description:
+                "Message for total estimated matching candidates in pool",
+            },
+            {
+              testId,
+              candidateCount,
+            },
+          )}
+        </span>
       </p>
-      <p data-h2-margin="base(x1, 0, x.25, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(x1, 0, x.25, 0)">
         {intl.formatMessage({
           defaultMessage:
             "These essential skills were assessed during the process:",
@@ -83,35 +109,26 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
       <p
         data-h2-display="base(flex)"
         data-h2-flex-wrap="base(wrap)"
-        data-h2-gap="base(x.125)"
+        data-h2-gap="base(0, x.5)"
+        data-h2-font-size="base(caption)"
       >
         {pool?.essentialSkills && pool?.essentialSkills.length > 0
-          ? pool.essentialSkills.map((skill) => (
-              <span key={skill.id}>
-                <Pill key={skill.id} color="secondary" mode="outline">
+          ? pool.essentialSkills.map((skill, index) => (
+              <>
+                {index !== 0 && <span aria-hidden>&bull;</span>}
+                <span key={skill.id}>
                   {getLocalizedName(skill?.name, intl)}
-                </Pill>
-              </span>
+                </span>
+              </>
             ))
           : null}
       </p>
-      <p data-h2-margin="base(x1, 0)">
-        {intl.formatMessage(
-          {
-            defaultMessage: `{candidateCount, plural,
-              one {There is approximately <strong><testId>{candidateCount}</testId></strong> matching candidate in this pool.}
-              other {There are approximately <strong><testId>{candidateCount}</testId></strong> matching candidates in this pool.}
-            }`,
-            id: "JZk4NZ",
-            description:
-              "Message for total estimated matching candidates in pool",
-          },
-          {
-            testId,
-            candidateCount,
-          },
-        )}
-      </p>
+      <Separator
+        orientation="horizontal"
+        decorative
+        data-h2-background-color="base(gray)"
+        data-h2-margin="base(x1 0)"
+      />
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(row)"
@@ -123,6 +140,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         <Button
           color="secondary"
           type="submit"
+          mode="inline"
           {...poolSubmitProps}
           value={pool.id}
           onClick={() => {
@@ -130,12 +148,15 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             setValue("count", candidateCount);
           }}
         >
-          {intl.formatMessage({
-            defaultMessage: "Request candidates",
-            id: "3BfvIy",
-            description:
-              "Button link message on search page that takes user to the request form.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage: "Request candidates from {poolName}",
+              id: "JbHieN",
+              description:
+                "Button link message on search page that takes user to the request form.",
+            },
+            { poolName: getLocalizedName(pool.name, intl) },
+          )}
         </Button>
         <Link
           mode="inline"
