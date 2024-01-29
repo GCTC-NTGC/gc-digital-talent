@@ -105,7 +105,7 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Confirm that objects with informative or functional value have meaningful alternative or ARIA labels.
 - [ ] Review colour contrast for a contrast ratio of 4:5:1 between foreground and background. 
 - [ ] Review colour contrast for perceived colour contrast in addition to computed values. 
-- [ ] Confirm link texts are descriptive and that their "underline" signifier is present. Alternatively, they should have a contrast ratio of 3:1.
+- [ ] Confirm link texts are descriptive and that their "underline" signifier is present. Alternatively, they should have a contrast ratio of 3:1 with adjacent text and present other non-colour signifier on hover/focus.
 - [ ] Confirm that key pages do not rely solely on colour to convey meaning or instruction. 
 
 #### Technical checks
@@ -115,7 +115,7 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Review page titles and headings for descriptive titles and proper structure.
 - [ ] Review reading order and focus management (focus order, component triggers, modals, etc.). 
 - [ ] Confirm that meaningful graphical elements (those with informational value) have a contrast value of 3:1.
-- [ ] Confirm that touch targets are usable (24pi x24 pi vs 48pi x 48pi range)
+- [ ] Confirm that touch targets are usable (pointer input  is at least 44 by 44 pixels)
 - [ ] Create a page example with text size enlarged to 200% to test text resizing and reflow. 
 - [ ] Test any new selectable components (toggle buttons, radio buttons, checkboxes, list boxes, text boxes, etc.) to see if it triggers an expected change in context.
 - [ ] Confirm if users have multiple ways to navigate to each page in the pattern. 
@@ -124,14 +124,13 @@ When manually testing the application, it is good for you to ask yourself some q
 
 #### Plain Language confirmations
 
-- [ ] Confirm that the copy reflects the light mode with fidelity.
 - [ ] Check that documents are broken into separate topics using semantic headers.
 - [ ] Check that short lists and bullets are used to organize information when appropriate.
 - [ ] Flag if information on each page is presented in more than two semantic heading levels.
 - [ ] Check that page titles and copy are crafted with key words that our readers would use when doing a web search for our product.
 - [ ] Verify that readers who do not have knowledge of our platform can read related pages on the site. 
 - [ ] Check that copy explains things succinctly so each page can stand on its own.
-- [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use “click here” or “Learn more” as links).
+- [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use "click here" or "Learn more" as links).
 - [ ] Verify that unnecessary or redundant words have been eliminated.
 
 ## Final Thoughts
