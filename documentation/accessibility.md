@@ -34,10 +34,6 @@ In the following example, we have a `<nav>` element where we capture an `onKeyDo
 
 _Note:_ This may change but should remain similar.
 
-### `pa11y`
-
-[`pa11y`](https://github.com/pa11y/pa11y) is an automated a11y testing tool that we intend to add to our CI/CD pipeline. It will check for a11y warnings/errors by crawling the site from a provided `sitemap.xml` and running `axe-core` on all pages. However, it will only check the initial page load and cannot check application state changes.
-
 ### `cypress-axe`
 
 We are doing automated a11y testing in our E2E testing with [`cypress-axe`](https://www.npmjs.com/package/cypress-axe). When writing tests your cypress tests, it is considered best practice to add `cy.checkA11y()` when changing the state of the application. Some examples (non-exhaustive) of when to check a11y with cypress are:
