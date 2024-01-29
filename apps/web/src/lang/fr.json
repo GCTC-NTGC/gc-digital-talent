@@ -2915,6 +2915,10 @@
     "defaultMessage": "Type d'employé",
     "description": "CSV Header, Employee Type column"
   },
+  "DxNuJ9": {
+    "defaultMessage": "Demander à recevoir des candidats de tous les bassins",
+    "description": "Button text to submit search request for candidates across all pools"
+  },
   "DxqFM1": {
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
@@ -8634,6 +8638,10 @@
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
+  },
+  "l1f8zy": {
+    "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
+    "description": "Lead-in text to list of pools managers can request candidates from"
   },
   "l62TJM": {
     "defaultMessage": "Disponibilité",
