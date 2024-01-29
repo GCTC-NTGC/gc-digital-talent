@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
+import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import {
   ThrowNotFound,
@@ -159,6 +160,14 @@ export const PoolPoster = ({
         description: "Title for a employment details of a pool advertisement",
       }),
     },
+    minEducation: {
+      id: "minimum-education",
+      title: intl.formatMessage({
+        defaultMessage: "Minimum education",
+        id: "Gc11BQ",
+        description: "Title for a education details of a pool advertisement",
+      }),
+    },
     impactTasks: {
       id: "impact-section",
       title: intl.formatMessage({
@@ -252,6 +261,11 @@ export const PoolPoster = ({
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={sections.employmentDetails.id}>
                   {sections.employmentDetails.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.minEducation.id}>
+                  {sections.minEducation.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               {showImpactTasks && (
@@ -591,6 +605,28 @@ export const PoolPoster = ({
                 ) : null}
               </Accordion.Root>
             </TableOfContents.Section>
+            <TableOfContents.Section id={sections.minEducation.id}>
+              <TableOfContents.Heading
+                size="h3"
+                icon={AcademicCapIcon}
+                color="secondary"
+                data-h2-margin="base(x3, 0, x1, 0)"
+              >
+                {sections.minEducation.title}
+              </TableOfContents.Heading>
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you'll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the Government of Canada's education standard.",
+                  id: "Mr93f0",
+                  description: "Description of minimum education requirements",
+                })}
+              </Text>
+              <EducationRequirements
+                isIAP={pool.publishingGroup === PublishingGroup.Iap}
+                classificationGroup={classificationGroup}
+              />
+            </TableOfContents.Section>
             {showImpactTasks && (
               <TableOfContents.Section id={sections.impactTasks.id}>
                 <TableOfContents.Heading
@@ -641,35 +677,6 @@ export const PoolPoster = ({
               >
                 {sections.experienceSkills.title}
               </TableOfContents.Heading>
-              <Heading
-                level="h3"
-                size="h4"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Minimum experience or equivalent education",
-                  id: "LvYEdh",
-                  description:
-                    "Title for Minimum experience or equivalent education",
-                })}
-              </Heading>
-              <Text>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{title} roles require a minimum amount of experience or a relevant degree.",
-                    id: "LnISTX",
-                    description:
-                      "Descriptive text about experience or education requirements of a pool advertisement",
-                  },
-                  { title: fullTitle },
-                )}
-              </Text>
-              <EducationRequirements
-                isIAP={pool.publishingGroup === PublishingGroup.Iap}
-                classificationGroup={classificationGroup}
-              />
               <Heading
                 level="h3"
                 size="h4"
