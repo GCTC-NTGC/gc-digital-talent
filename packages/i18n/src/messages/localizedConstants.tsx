@@ -286,9 +286,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     ? defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "Graduation with degree",
@@ -306,9 +305,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     : defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "2-year post-secondary",
@@ -1764,10 +1762,30 @@ const abbreviations = defineMessages({
     id: "sMi0QI",
     description: "Full name of abbreviation for GC",
   },
+  EX: {
+    defaultMessage: "Executive Group",
+    id: "oXrkBM",
+    description: "Full name of abbreviation for EX",
+  },
   IT: {
     defaultMessage: "Information Technology",
     id: "n3Gt3n",
     description: "Full name of abbreviation for IT",
+  },
+  PM: {
+    defaultMessage: "Programme Administration",
+    id: "CF69qZ",
+    description: "Full name of abbreviation for PM",
+  },
+  CS: {
+    defaultMessage: "Computer Systems",
+    id: "HVMI8t",
+    description: "Full name of abbreviation for CS",
+  },
+  EC: {
+    defaultMessage: "Economics and Social Science Services",
+    id: "W5Dkd1",
+    description: "Full name of abbreviation for EC",
   },
 });
 
@@ -2102,22 +2120,23 @@ export const getSearchRequestReason = (
   );
 
 const assessmentDecisions = defineMessages({
-  [AssessmentDecision.NotSure]: {
-    defaultMessage: "Not sure",
-    id: "D8JhKX",
-    description: "Option for assessment decision when manager is not sure.",
-  },
   [AssessmentDecision.Successful]: {
     defaultMessage: "Demonstrated",
     id: "5wKh/o",
     description:
       "Option for assessment decision when candidate has successful assessment.",
   },
-  [AssessmentDecision.Unsuccessful]: {
-    defaultMessage: "Not demonstrated",
-    id: "oxUjS3",
+  [AssessmentDecision.Hold]: {
+    defaultMessage: "Not demonstrated (Hold for further assessment)",
+    id: "MMtY88",
     description:
-      "Option for assessment decision when candidate has unsuccessful assessment.",
+      "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
+  },
+  [AssessmentDecision.Unsuccessful]: {
+    defaultMessage: "Not demonstrated (Remove from process)",
+    id: "zXkLL2",
+    description:
+      "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
   },
 });
 

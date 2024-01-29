@@ -262,8 +262,8 @@ export const ApplicationCareerTimeline = ({
         <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VRxiNC",
-            description: "A link back to the instructions for this section",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>

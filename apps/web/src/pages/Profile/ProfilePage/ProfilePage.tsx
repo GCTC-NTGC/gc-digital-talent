@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -35,11 +36,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
 
   const crumbs = useBreadcrumbs([
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {

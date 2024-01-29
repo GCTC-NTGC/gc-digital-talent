@@ -127,36 +127,32 @@ const ExperienceSkills = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "What did you accomplish, create or deliver using this skill?",
-                  id: "aaFVT3",
-                  description:
-                    "Question list item in link featured skills section of experience form (accomplish).",
+                  id: "WEVxYV",
+                  description: "Question for clarifying skill details",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
                     "What tasks or activities did you do that relate to this skill?",
-                  id: "ibT7BK",
-                  description:
-                    "Question list item in link featured skills section of experience form (tasks).",
+                  id: "ac1z9L",
+                  description: "Question about related tasks to a skill",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
                     "Were there any special techniques or approaches that you used?",
-                  id: "x2xN5X",
-                  description:
-                    "Question list item in link featured skills section of experience form (techniques).",
+                  id: "Ivvi/F",
+                  description: "Question about techniques used for a skill",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
                     "How much responsibility did you have in this role?",
-                  id: "u/IV5p",
-                  description:
-                    "Question list item in link featured skills section of experience form (responsibilities).",
+                  id: "Qjpmm8",
+                  description: "Question for clarifying skill details",
                 })}
               </li>
             </ul>

@@ -129,9 +129,9 @@ export const UpdateSkillForm = ({
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating skill failed",
-            id: "eSyXWT",
+            id: "kfjmTt",
             description:
-              "Message displayed to user after skill fails to get updated.",
+              "Message displayed to user after skill fails to be updated",
           }),
         );
       });

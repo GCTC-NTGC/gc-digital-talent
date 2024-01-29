@@ -18,7 +18,7 @@
     "@gc-digital-talent/env": "workspace:*"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.101",
+    "@swc/core": "^1.3.106",
     "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",

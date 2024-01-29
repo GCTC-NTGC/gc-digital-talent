@@ -7,27 +7,26 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
+import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   commonMessages,
+  errorMessages,
   getLanguage,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { graphql, PoolCandidate } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateSearchInput,
   InputMaybe,
-  useGetPoolCandidatesPaginatedQuery,
-  useGetSelectedPoolCandidatesQuery,
   Pool,
   Maybe,
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-  PoolStream,
   PoolCandidateWithSkillCount,
   useGetSkillsQuery,
   PublishingGroup,
@@ -37,14 +36,6 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import {
-  stringToEnumCandidateExpiry,
-  stringToEnumCandidateSuspended,
-  stringToEnumLanguage,
-  stringToEnumLocation,
-  stringToEnumOperational,
-  stringToEnumPoolCandidateStatus,
-} from "~/utils/userUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
@@ -52,76 +43,151 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
-import usePoolCandidateCsvData from "./usePoolCandidateCsvData";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import { SearchState, SelectingFor } from "../Table/ResponsiveTable/types";
 import {
+  bookmarkCell,
+  bookmarkHeader,
+  PoolCandidatesTable_SelectPoolCandidatesQuery,
   candidacyStatusAccessor,
+  candidateNameCell,
   currentLocationAccessor,
+  finalDecisionCell,
+  jobPlacementCell,
   notesCell,
   priorityCell,
   statusCell,
+  transformFormValuesToFilterState,
+  transformPoolCandidateSearchInputToFormValues,
   transformSortStateToOrderByClause,
-  viewPoolCandidateCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import PoolCandidateFilterDialog, {
-  FormValues,
-} from "./PoolCandidateFilterDialog";
+import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import { FormValues } from "./types";
+import {
+  getPoolCandidateCsvData,
+  getPoolCandidateCsvHeaders,
+} from "./poolCandidateCsv";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
-function transformPoolCandidateSearchInputToFormValues(
-  input: PoolCandidateSearchInput | undefined,
-): FormValues {
-  return {
-    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
-    classifications:
-      input?.applicantFilter?.qualifiedClassifications
-        ?.filter(notEmpty)
-        .map((c) => `${c.group}-${c.level}`) ?? [],
-    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? "",
-    workRegion:
-      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
-    operationalRequirement:
-      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
-    equity: input?.applicantFilter?.equity
-      ? [
-          ...(input.applicantFilter.equity.hasDisability
-            ? ["hasDisability"]
-            : []),
-          ...(input.applicantFilter.equity.isIndigenous
-            ? ["isIndigenous"]
-            : []),
-          ...(input.applicantFilter.equity.isVisibleMinority
-            ? ["isVisibleMinority"]
-            : []),
-          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
-        ]
-      : [],
-    pools:
-      input?.applicantFilter?.pools
-        ?.filter(notEmpty)
-        .map((poolFilter) => poolFilter.id) ?? [],
-    skills:
-      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
-    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
-    expiryStatus: input?.expiryStatus
-      ? input.expiryStatus
-      : CandidateExpiryFilter.Active,
-    suspendedStatus: input?.suspendedStatus
-      ? input.suspendedStatus
-      : CandidateSuspendedFilter.Active,
-    govEmployee: input?.isGovEmployee ? "true" : "",
-  };
-}
+const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
+  query CandidatesTableCandidatesPaginated_Query(
+    $where: PoolCandidateSearchInput
+    $first: Int
+    $page: Int
+    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+  ) {
+    poolCandidatesPaginated(
+      where: $where
+      first: $first
+      page: $page
+      orderBy: [
+        { column: "is_bookmarked", order: DESC }
+        { column: "status_weight", order: ASC }
+        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+        $sortingInput
+      ]
+    ) {
+      data {
+        id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            # Personal info
+            id
+            email
+            firstName
+            lastName
+            telephone
+            preferredLang
+            preferredLanguageForInterview
+            preferredLanguageForExam
+            currentCity
+            currentProvince
+            citizenship
+            armedForcesStatus
+
+            # Language
+            lookingForEnglish
+            lookingForFrench
+            lookingForBilingual
+            bilingualEvaluation
+            comprehensionLevel
+            writtenLevel
+            verbalLevel
+            estimatedLanguageAbility
+
+            # Gov info
+            isGovEmployee
+            govEmployeeType
+            currentClassification {
+              id
+              group
+              level
+              name {
+                en
+                fr
+              }
+            }
+            department {
+              id
+              departmentNumber
+              name {
+                en
+                fr
+              }
+            }
+            hasPriorityEntitlement
+            priorityNumber
+
+            # Employment equity
+            isWoman
+            isVisibleMinority
+            hasDisability
+            indigenousCommunities
+            indigenousDeclarationSignature
+
+            # Applicant info
+            hasDiploma
+            locationPreferences
+            locationExemptions
+            acceptedOperationalRequirements
+            positionDuration
+            priorityWeight
+          }
+          isBookmarked
+          cmoIdentifier
+          expiryDate
+          status
+          submittedAt
+          notes
+          archivedAt
+          suspendedAt
+        }
+        skillCount
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+    }
+  }
+`);
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -142,19 +208,27 @@ const defaultState = {
   },
 };
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const PoolCandidatesTable = ({
   initialFilterInput,
   currentPool,
   title,
+  hidePoolFilter,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "essentialSkills" | "nonessentialSkills">>;
+  currentPool?: Maybe<Pool>;
   title: string;
+  hidePoolFilter?: boolean;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
+  const client = useClient();
+  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
+  const [selectedCandidates, setSelectedCandidates] = React.useState<
+    PoolCandidate[]
+  >([]);
+  const { recordOfDecision } = useFeatureFlags();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(
@@ -174,8 +248,7 @@ const PoolCandidatesTable = ({
       : INITIAL_STATE.paginationState,
   );
 
-  const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
   const [searchState, setSearchState] = React.useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
@@ -214,58 +287,8 @@ const PoolCandidatesTable = ({
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    const transformedData: PoolCandidateSearchInput = {
-      applicantFilter: {
-        languageAbility: data.languageAbility
-          ? stringToEnumLanguage(data.languageAbility)
-          : undefined,
-        qualifiedClassifications: data.classifications.map((classification) => {
-          const splitString = classification.split("-");
-          return { group: splitString[0], level: Number(splitString[1]) };
-        }),
-        qualifiedStreams: data.stream as PoolStream[],
-        operationalRequirements: data.operationalRequirement
-          .map((requirement) => {
-            return stringToEnumOperational(requirement);
-          })
-          .filter(notEmpty),
-        locationPreferences: data.workRegion
-          .map((region) => {
-            return stringToEnumLocation(region);
-          })
-          .filter(notEmpty),
-        equity: {
-          ...(data.equity.includes("isWoman") && { isWoman: true }),
-          ...(data.equity.includes("hasDisability") && { hasDisability: true }),
-          ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
-          ...(data.equity.includes("isVisibleMinority") && {
-            isVisibleMinority: true,
-          }),
-        },
-        pools: data.pools.map((id) => {
-          return { id };
-        }),
-        skills: data.skills.map((id) => {
-          return { id };
-        }),
-      },
-      poolCandidateStatus: data.poolCandidateStatus
-        .map((status) => {
-          return stringToEnumPoolCandidateStatus(status);
-        })
-        .filter(notEmpty),
-      priorityWeight: data.priorityWeight.map((priority) => {
-        return Number(priority);
-      }),
-      expiryStatus: data.expiryStatus
-        ? stringToEnumCandidateExpiry(data.expiryStatus)
-        : undefined,
-      suspendedStatus: data.suspendedStatus
-        ? stringToEnumCandidateSuspended(data.suspendedStatus)
-        : undefined,
-      isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
-      publishingGroups: data.publishingGroups as PublishingGroup[],
-    };
+    const transformedData: PoolCandidateSearchInput =
+      transformFormValuesToFilterState(data);
 
     setFilterState(transformedData);
     if (!isEqual(transformedData, filterRef.current)) {
@@ -297,7 +320,7 @@ const PoolCandidatesTable = ({
       // from fancy filter
       applicantFilter: {
         ...fancyFilterState?.applicantFilter,
-        hasDiploma: null, // disconnect education selection for useGetPoolCandidatesPaginatedQuery
+        hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
       },
       poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
       priorityWeight: fancyFilterState?.priorityWeight,
@@ -308,7 +331,8 @@ const PoolCandidatesTable = ({
     };
   };
 
-  const [{ data, fetching }] = useGetPoolCandidatesPaginatedQuery({
+  const [{ data, fetching }] = useQuery({
+    query: CandidatesTableCandidatesPaginated_Query,
     variables: {
       where: addSearchToPoolCandidateFilterInput(
         filterState,
@@ -333,44 +357,67 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const [
-    {
-      data: selectedCandidatesData,
-      fetching: selectedCandidatesFetching,
-      error: selectedCandidatesError,
-    },
-  ] = useGetSelectedPoolCandidatesQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
+  const querySelected = async (action: SelectingFor) => {
+    setSelectingFor(action);
+    setIsSelecting(true);
+    return client
+      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+        ids: selectedRows,
+      })
+      .toPromise()
+      .then((result) => {
+        const poolCandidates: PoolCandidate[] = unpackMaybes(
+          result.data?.poolCandidates,
+        );
 
-  const selectedCandidates =
-    selectedCandidatesData?.poolCandidates.filter(notEmpty) ?? [];
+        if (result.error) {
+          toast.error(intl.formatMessage(errorMessages.unknown));
+        } else if (!poolCandidates.length) {
+          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+        }
 
-  const csv = usePoolCandidateCsvData(selectedCandidates, currentPool);
-
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedCandidatesFetching ||
-      !!selectedCandidatesError ||
-      !selectedCandidatesData?.poolCandidates.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
+        setSelectedCandidates(poolCandidates);
+        setIsSelecting(false);
+        setSelectingFor(null);
+        return poolCandidates;
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.unknown));
+      });
   };
 
   const columns = [
+    columnHelper.display({
+      id: "isBookmarked",
+      header: () => bookmarkHeader(intl),
+      enableHiding: false,
+      cell: ({
+        row: {
+          original: { poolCandidate },
+        },
+      }) => bookmarkCell(poolCandidate),
+      meta: {
+        shrink: true,
+        hideMobileHeader: true,
+      },
+    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { user } }) =>
+        getFullNameLabel(user.firstName, user.lastName, intl),
+      {
+        id: "candidateName",
+        header: intl.formatMessage(tableMessages.candidateName),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: { poolCandidate },
+          },
+        }) => candidateNameCell(poolCandidate, paths, intl),
+        meta: {
+          isRowTitle: true,
+        },
+      },
+    ),
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
@@ -379,6 +426,7 @@ const PoolCandidatesTable = ({
       {
         id: "status",
         header: intl.formatMessage(tableMessages.status),
+        enableHiding: false,
         cell: ({
           row: {
             original: { poolCandidate },
@@ -386,6 +434,7 @@ const PoolCandidatesTable = ({
         }) => statusCell(poolCandidate.status, intl),
         meta: {
           sortingLocked: true,
+          hideMobileHeader: true,
         },
       },
     ),
@@ -412,39 +461,51 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({ poolCandidate: { status } }) =>
+        intl.formatMessage(
+          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
+        ),
+      {
+        id: "finalDecision",
+        header: intl.formatMessage(tableMessages.finalDecision),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { status },
+            },
+          },
+        }) => finalDecisionCell(intl, status),
+        meta: {
+          sortingLocked: true,
+        },
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { status } }) =>
+        intl.formatMessage(
+          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
+        ),
+      {
+        id: "jobPlacement",
+        header: intl.formatMessage(tableMessages.jobPlacement),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { status },
+            },
+          },
+        }) => jobPlacementCell(intl, status),
+        meta: {
+          sortingLocked: true,
+        },
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate }) =>
         candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.candidacyStatus),
-      },
-    ),
-    columnHelper.display({
-      id: "view",
-      header: intl.formatMessage(tableMessages.view),
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => viewPoolCandidateCell(poolCandidate, paths, intl),
-    }),
-    columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
-        getFullNameLabel(user.firstName, user.lastName, intl),
-      {
-        id: "candidateName",
-        header: intl.formatMessage(tableMessages.candidateName),
-        sortingFn: normalizedText,
-        cell: ({
-          row: {
-            original: {
-              poolCandidate: { user },
-            },
-          },
-        }) => getFullNameHtml(user.firstName, user.lastName, intl),
-        meta: {
-          isRowTitle: true,
-        },
       },
     ),
     columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
@@ -526,13 +587,18 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
+  let hiddenColumnIds = ["candidacyStatus", "notes"];
+  if (recordOfDecision) {
+    hiddenColumnIds = [...hiddenColumnIds, "status"];
+  }
+
   return (
     <Table<PoolCandidateWithSkillCount>
       caption={title}
       data={filteredData}
       columns={columns}
       isLoading={fetching || fetchingSkills}
-      hiddenColumnIds={["candidacyStatus", "notes"]}
+      hiddenColumnIds={hiddenColumnIds}
       search={{
         internal: false,
         label: intl.formatMessage({
@@ -554,6 +620,7 @@ const PoolCandidatesTable = ({
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
+            {...{ hidePoolFilter }}
             onSubmit={handleFilterSubmit}
             resetValues={transformPoolCandidateSearchInputToFormValues(
               initialFilterInput,
@@ -578,9 +645,15 @@ const PoolCandidatesTable = ({
           }),
       }}
       download={{
+        disableBtn: isSelecting,
+        fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
-            ...csv,
+            headers: getPoolCandidateCsvHeaders(intl, currentPool),
+            data: async () => {
+              const selected = await querySelected("download");
+              return getPoolCandidateCsvData(selected ?? [], intl);
+            },
             fileName: intl.formatMessage(
               {
                 defaultMessage: "pool_candidates_{date}.csv",
@@ -598,7 +671,11 @@ const PoolCandidatesTable = ({
         component: (
           <UserProfilePrintButton
             users={selectedCandidates}
-            beforePrint={handlePrint}
+            beforePrint={async () => {
+              await querySelected("print");
+            }}
+            disabled={isSelecting}
+            fetching={isSelecting && selectingFor === "print"}
             color="whiteFixed"
             mode="inline"
             fontSize="caption"

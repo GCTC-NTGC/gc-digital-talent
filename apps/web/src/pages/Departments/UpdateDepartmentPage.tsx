@@ -20,7 +20,7 @@ import {
   useUpdateDepartmentMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
@@ -179,7 +179,7 @@ const UpdateDepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.departments),
+      label: intl.formatMessage(indexDepartmentPageTitle),
       url: routes.departmentTable(),
     },
     ...(departmentId

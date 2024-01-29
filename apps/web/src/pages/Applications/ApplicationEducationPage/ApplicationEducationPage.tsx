@@ -64,9 +64,9 @@ export const getPageInfo: GetPageNavInfo = ({
   const path = paths.applicationEducation(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Minimum experience or education",
-      id: "6esMaA",
-      description: "Page title for the application education page",
+      defaultMessage: "Minimum experience or equivalent education",
+      id: "LvYEdh",
+      description: "Title for Minimum experience or equivalent education",
     }),
     subtitle: intl.formatMessage({
       defaultMessage:
@@ -87,8 +87,8 @@ export const getPageInfo: GetPageNavInfo = ({
       url: path,
       label: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "dlJCeM",
-        description: "Link text for the application education page",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
   };

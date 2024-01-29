@@ -28,30 +28,33 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
-
 import {
+  graphql,
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
   User,
   BilingualEvaluation,
   IndigenousCommunity,
-  Pool,
   SkillCategory,
-} from "~/api/generated";
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
+import processMessages from "~/messages/processMessages";
 
 import SkillWithExperiences from "./SkillWithExperiences";
 import EducationRequirementExperience from "./EducationRequirementExperience";
 
 interface ApplicationPrintDocumentProps {
   user: User;
-  pool: Pool;
+  poolQuery: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -72,12 +75,30 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationPrintDocument_PoolFragment on Pool {
+    id
+    essentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+  }
+`);
+
 const ApplicationPrintDocument = React.forwardRef<
   HTMLDivElement,
   ApplicationPrintDocumentProps
->(({ user, pool }, ref) => {
+>(({ user, poolQuery }, ref) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const pool = getFragment(ApplicationPrintDocument_PoolFragment, poolQuery);
 
   // data manipulation
   // pull pool candidate for the pool in question out of snapshot
@@ -248,7 +269,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     poolEssentialTechnicalSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -260,16 +281,15 @@ const ApplicationPrintDocument = React.forwardRef<
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Asset skills",
-                      id: "Xpo+u6",
-                      description:
-                        "Title for the optional skills snapshot section",
+                      id: "K0Zkdw",
+                      description: "Title for optional skills",
                     })}
                   </Heading>
                   {usedAssetsSkills.length > 0 ? (
                     usedAssetsSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -279,12 +299,7 @@ const ApplicationPrintDocument = React.forwardRef<
                 </BreakingPageSection>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Screening questions",
-                      id: "mqWvWR",
-                      description:
-                        "Title for the screening questions snapshot section",
-                    })}
+                    {intl.formatMessage(processMessages.screeningQuestions)}
                   </Heading>
                   <ul>
                     {relevantPoolCandidate.screeningQuestionResponses?.map(

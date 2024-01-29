@@ -39,9 +39,8 @@ const getLabels = (intl: IntlShape) => {
     }),
     businessOwnerJobTitle: intl.formatMessage({
       defaultMessage: "Job title",
-      id: "wRhcac",
-      description:
-        "Label for _business owner job title_ field in the _digital services contracting questionnaire_",
+      id: "HBuWZ0",
+      description: "Title for job title for a position",
     }),
     businessOwnerEmail: intl.formatMessage({
       defaultMessage: "Email",
@@ -57,9 +56,8 @@ const getLabels = (intl: IntlShape) => {
     }),
     financialAuthorityJobTitle: intl.formatMessage({
       defaultMessage: "Job title",
-      id: "dgVAPq",
-      description:
-        "Label for _financial authority job title_ field in the _digital services contracting questionnaire_",
+      id: "HBuWZ0",
+      description: "Title for job title for a position",
     }),
     financialAuthorityEmail: intl.formatMessage({
       defaultMessage: "Email",

@@ -6,6 +6,9 @@ import get from "lodash/get";
 import omit from "lodash/omit";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
+import isSameDay from "date-fns/isSameDay";
+import isSameMonth from "date-fns/isSameMonth";
+import isSameYear from "date-fns/isSameYear";
 import isValid from "date-fns/isValid";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 
@@ -79,6 +82,22 @@ const DateInput = ({
     );
   };
 
+  // Check for equality only within the scope of available fields
+  const isRelativelyEqual = (dateA: Date | number, dateB: Date | number) => {
+    if (show.includes(DATE_SEGMENT.Year)) {
+      if (show.includes(DATE_SEGMENT.Month)) {
+        if (show.includes(DATE_SEGMENT.Day)) {
+          return isSameDay(dateA, dateB);
+        }
+        return isSameMonth(dateA, dateB);
+      }
+      return isSameYear(dateA, dateB);
+    }
+
+    // What is this input actually for?
+    return false;
+  };
+
   const isAfterMin = (value: string) => {
     if (!rules.min) {
       return true;
@@ -89,7 +108,11 @@ const DateInput = ({
 
     const currentDate = formDateStringToDate(value);
     const minDate = formDateStringToDate(rules.min.value);
-    return isAfter(currentDate, minDate) || rules.min.message;
+    return (
+      isAfter(currentDate, minDate) ||
+      isRelativelyEqual(currentDate, minDate) ||
+      rules.min.message
+    );
   };
 
   const isBeforeMax = (value: string) => {
@@ -102,7 +125,11 @@ const DateInput = ({
 
     const currentDate = formDateStringToDate(value);
     const maxDate = formDateStringToDate(rules.max.value);
-    return isBefore(currentDate, maxDate) || rules.max.message;
+    return (
+      isBefore(currentDate, maxDate) ||
+      isRelativelyEqual(currentDate, maxDate) ||
+      rules.max.message
+    );
   };
 
   return (

@@ -35,6 +35,20 @@ import {
 import experienceMessages from "~/messages/experienceMessages";
 
 /**
+ * Sanitize a string for use in a CSV
+ *
+ * - Replaces '"' with '""' for proper double quotes
+ * - Removes new lines (\r\n) that create new rows
+ *
+ * @param value
+ * @returns string
+ */
+export const sanitizeCSVString = (value?: Maybe<string>) => {
+  if (!value) return "";
+  return value.replace(/"/g, "").replace(/(\r\n|\n|\r)/gm, "");
+};
+
+/**
  * Converts a possible boolean
  * to yes or no string
  *
@@ -78,9 +92,7 @@ const listOrEmptyString = (value: string[] | undefined) => {
  * @returns string                      Comma separated list or empty
  */
 const sanitizeJustifications = (values: string[] | undefined) => {
-  const sanitizedList = values
-    ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
-    : "";
+  const sanitizedList = values ? values.map((v) => sanitizeCSVString(v)) : "";
   return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
@@ -372,7 +384,7 @@ export const getExperienceTitles = (
     ?.filter(notEmpty)
     .map((experience) => getExperienceName(experience, intl));
 
-  return titles?.join(", ") || "";
+  return sanitizeCSVString(titles?.join(", "));
 };
 
 /**
@@ -389,7 +401,7 @@ export const getScreeningQuestionResponses = (
     data = {
       ...data,
       // Note: API sends Maybe with everything, but this should never be null or undefined
-      [screeningQuestion?.id || id]: answer ?? "",
+      [screeningQuestion?.id || id]: sanitizeCSVString(answer),
     };
   });
 

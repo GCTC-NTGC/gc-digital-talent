@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit } from "@gc-digital-talent/forms";
@@ -12,21 +13,20 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
-
 import {
+  graphql,
   RoleAssignment,
   CreatePoolInput,
-  useCreatePoolMutation,
   CreatePoolMutation,
-  useGetMePoolCreationQuery,
   Classification,
   Maybe,
   Team,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
@@ -196,10 +196,53 @@ const roleAssignmentsToTeams = (
   return teamsArray;
 };
 
+const CreatePoolPage_Query = graphql(/* GraphQL */ `
+  query CreatePoolPage {
+    me {
+      id
+      authInfo {
+        id
+        roleAssignments {
+          id
+          team {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
+          }
+        }
+      }
+    }
+    classifications {
+      name {
+        en
+        fr
+      }
+      level
+      group
+      id
+    }
+  }
+`);
+
+const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
+  mutation CreatePool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
+    createPool(userId: $userId, teamId: $teamId, pool: $pool) {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreatePoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [lookupResult] = useGetMePoolCreationQuery();
+  const [lookupResult] = useQuery({ query: CreatePoolPage_Query });
   const { data: lookupData, fetching, error } = lookupResult;
 
   // current user
@@ -211,7 +254,7 @@ const CreatePoolPage = () => {
     unpackMaybes(lookupData?.me?.authInfo?.roleAssignments) ?? [];
   const teamsArray = roleAssignmentsToTeams(roleAssignments);
 
-  const [, executeMutation] = useCreatePoolMutation();
+  const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
     teamId: string,
@@ -234,7 +277,7 @@ const CreatePoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: intl.formatMessage(indexPoolPageTitle),
       url: routes.poolTable(),
     },
     {

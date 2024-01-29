@@ -116,12 +116,7 @@ export const statusCell = (
 export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
   return (
     <Link href={url} color="black">
-      {label ||
-        intl.formatMessage({
-          defaultMessage: "No name provided",
-          id: "L9Ked5",
-          description: "Fallback for team display name value",
-        })}
+      {label || intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }

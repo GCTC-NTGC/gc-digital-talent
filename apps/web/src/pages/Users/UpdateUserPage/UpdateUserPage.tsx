@@ -162,11 +162,7 @@ export const UpdateUserForm = ({
           />
           <Input
             id="telephone"
-            label={intl.formatMessage({
-              defaultMessage: "Telephone",
-              id: "8L5kDc",
-              description: "Label displayed on the user form telephone field.",
-            })}
+            label={intl.formatMessage(commonMessages.telephone)}
             type="tel"
             name="telephone"
           />
@@ -196,10 +192,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForInterview"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Spoken Interview Language",
-              id: "RIMCZn",
-              description:
-                "Label displayed on the user form preferred spoken interview language field.",
+              defaultMessage: "Preferred spoken interview language",
+              id: "DB9pFd",
+              description: "Title for preferred spoken interview language",
             })}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
@@ -219,10 +214,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForExam"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Written Exam Language",
-              id: "SxP9zE",
-              description:
-                "Label displayed on the user form preferred written exam language field.",
+              defaultMessage: "Preferred written exam language",
+              id: "fg2wla",
+              description: "Title for preferred written exam language",
             })}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({

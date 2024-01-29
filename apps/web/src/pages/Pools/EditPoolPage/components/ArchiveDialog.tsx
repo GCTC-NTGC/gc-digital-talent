@@ -36,9 +36,8 @@ const ArchiveDialog = ({
           >
             {intl.formatMessage({
               defaultMessage: "Archive this pool",
-              id: "Jp0Beg",
-              description:
-                "Button to archive the pool in the archive pool dialog",
+              id: "PdE7yp",
+              description: "Archive this pool action",
             })}
           </Button>
         </Dialog.Close>
@@ -61,8 +60,8 @@ const ArchiveDialog = ({
         <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Archive this pool",
-            id: "7gOyU5",
-            description: "Heading for the archive pool dialog",
+            id: "PdE7yp",
+            description: "Archive this pool action",
           })}
         </Dialog.Header>
         <Dialog.Body>

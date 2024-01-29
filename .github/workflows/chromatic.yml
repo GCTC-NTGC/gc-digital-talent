@@ -23,7 +23,7 @@ jobs:
     if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.11.0"
+      NPM_VERSION: "9.9.2"
     steps:
       - uses: actions/checkout@v4
         with:

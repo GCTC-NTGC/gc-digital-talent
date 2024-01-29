@@ -29,6 +29,8 @@ type FilterDialogProps<TFieldValues extends FieldValues> = {
   resetValues: CommonFilterDialogProps<TFieldValues>["resetValues"];
   defaultOpen?: boolean;
   children: React.ReactNode;
+  /** Modify the filter count in the button (most commonly used for hidden filters) */
+  modifyFilterCount?: number;
 };
 
 const FilterDialog = <TFieldValues extends FieldValues>({
@@ -36,6 +38,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   options,
   children,
   resetValues,
+  modifyFilterCount,
   defaultOpen = false,
 }: FilterDialogProps<TFieldValues>) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
@@ -99,7 +102,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           type="button"
           icon={AdjustmentsVerticalIcon}
           {...(filterCount > 0 && {
-            counter: filterCount,
+            counter: filterCount + (modifyFilterCount ?? 0),
           })}
         >
           {intl.formatMessage({

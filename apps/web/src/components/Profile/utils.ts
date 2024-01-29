@@ -14,18 +14,16 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "personal",
     defineMessage({
       defaultMessage: "Personal and contact information",
-      id: "fyEFN7",
-      description:
-        "Heading for the personal info section on the application profile",
+      id: "BWh6S1",
+      description: "Title for the personal and contact information section",
     }),
   ],
   [
     "work",
     defineMessage({
       defaultMessage: "Work preferences",
-      id: "XTaRza",
-      description:
-        "Heading for the work preferences section on the application profile",
+      id: "nnMYWr",
+      description: "Name of Work preferences page",
     }),
   ],
   [
@@ -41,9 +39,8 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "government",
     defineMessage({
       defaultMessage: "Government employee information",
-      id: "AwzZwe",
-      description:
-        "Heading for the government information section on the application profile",
+      id: "Jf3vT5",
+      description: "Title for the government employee information section",
     }),
   ],
   [

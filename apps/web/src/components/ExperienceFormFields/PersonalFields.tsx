@@ -45,15 +45,7 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
         label={labels.experienceTitle}
         name="experienceTitle"
         type="text"
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-          maxLength: {
-            message: intl.formatMessage(errorMessages.overCharacterLimit, {
-              value: 256,
-            }),
-            value: 255,
-          },
-        }}
+        rules={{ required: intl.formatMessage(errorMessages.required) }}
       />
       <TextArea
         id="experienceDescription"

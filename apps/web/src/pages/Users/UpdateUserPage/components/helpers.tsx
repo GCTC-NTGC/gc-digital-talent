@@ -14,7 +14,7 @@ import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 
 export function roleCell(displayName: string) {
   return (
-    <Pill color="black" mode="solid">
+    <Pill color="blackFixed" mode="solid">
       {displayName}
     </Pill>
   );
@@ -25,7 +25,7 @@ export function teamRolesCell(displayNames: string[]) {
     <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
       {displayNames.map((displayName) => {
         return (
-          <Pill color="black" mode="solid" key={displayName}>
+          <Pill color="blackFixed" mode="solid" key={displayName}>
             {displayName}
           </Pill>
         );

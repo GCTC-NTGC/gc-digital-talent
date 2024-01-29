@@ -328,6 +328,14 @@ const IAPHomePage = React.lazy(() =>
       ),
   ),
 );
+const IAPManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
+      ),
+  ),
+);
 
 /** Admin */
 const AdminHomePage = React.lazy(() =>
@@ -495,6 +503,14 @@ const ViewPoolCandidatePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+      ),
+  ),
+);
+const RODViewPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
       ),
   ),
 );
@@ -1574,7 +1590,11 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  <ViewPoolCandidatePage />
+                  {featureFlags.recordOfDecision ? (
+                    <RODViewPoolCandidatePage />
+                  ) : (
+                    <ViewPoolCandidatePage />
+                  )}
                 </RequireAuth>
               ),
             },
@@ -1804,6 +1824,10 @@ const createRoute = (
         {
           index: true,
           element: <IAPHomePage />,
+        },
+        {
+          path: "hire",
+          element: <IAPManagerHomePage />,
         },
         {
           path: "*",

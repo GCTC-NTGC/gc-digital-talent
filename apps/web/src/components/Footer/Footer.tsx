@@ -18,9 +18,9 @@ const Footer = ({ width }: FooterProps) => {
     {
       href: `/${intl.locale}/support`,
       children: intl.formatMessage({
-        defaultMessage: "Contact Us",
-        id: "AWiMVP",
-        description: "Label for the support link in the Footer.",
+        defaultMessage: "Contact us",
+        id: "RIi/3q",
+        description: "Title for Contact us action",
       }),
       state: { referrer: window.location.href },
     },

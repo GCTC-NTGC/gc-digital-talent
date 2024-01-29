@@ -24,7 +24,6 @@ type Query {
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -81,6 +80,7 @@ type Mutation {
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  togglePoolCandidateBookmark(id: ID!): Boolean
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -273,7 +273,6 @@ type ScreeningQuestion {
   pool: Pool
   question: LocalizedString
   sortOrder: Int
-  screeningQuestionResponses: [ScreeningQuestionResponse]
 }
 
 type Pool {
@@ -337,6 +336,7 @@ type AssessmentResult {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 type PoolSkill {
@@ -360,6 +360,7 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
+  isBookmarked: Boolean
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -877,6 +878,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -891,6 +893,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1196,6 +1199,7 @@ input CreateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1206,6 +1210,7 @@ input UpdateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -2246,7 +2251,7 @@ enum AssessmentResultType {
 }
 
 enum AssessmentDecision {
-  NOT_SURE
+  HOLD
   SUCCESSFUL
   UNSUCCESSFUL
 }

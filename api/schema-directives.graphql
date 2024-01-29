@@ -966,6 +966,13 @@ The arguments are a map from directive names to namespaces.
 """
 directive @namespace repeatable on FIELD_DEFINITION | OBJECT
 
+# Directive class: Nuwave\Lighthouse\Schema\Directives\NamespacedDirective
+"""
+Provides a no-op field resolver that allows nesting of queries and mutations.
+Useful to implement [namespacing by separation of concerns](https://www.apollographql.com/docs/technotes/TN0012-namespacing-by-separation-of-concern).
+"""
+directive @namespaced on FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NeqDirective
 """
 Use the client given value to add a not-equal conditional to a database query.
@@ -1447,9 +1454,241 @@ Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-In
 """
 scalar CanArgs
 
+# Directive class: Nuwave\Lighthouse\Auth\CanFindDirective
+"""
+Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
+"""
+scalar CanArgs
+
+enum CanAction {
+    """
+    Pass exception to the client.
+    """
+    EXCEPTION_PASS
+
+    """
+    Throw generic "not authorized" exception to conceal the real error.
+    """
+    EXCEPTION_NOT_AUTHORIZED
+
+    """
+    Return the value specified in `value` argument to conceal the real error.
+    """
+    RETURN_VALUE
+}
+
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+Query for specific model instances to check the policy against, using primary key(s) from specified argument.
+"""
+directive @canFind(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Action to do if the user is not authorized.
+  """
+  action: CanAction! = EXCEPTION_PASS
+
+  """
+  Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
+  """
+  returnValue: CanArgs
+
+  """
+  Specify the name of the field argument that contains its primary key(s).
+
+  You may pass the string in dot notation to use nested inputs.
+  """
+  find: String!
+
+  """
+  Should the query fail when the models of `find` were not found?
+  """
+  findOrFail: Boolean! = true
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\CanModelDirective
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+Check the policy against the root model.
+"""
+directive @canModel(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Action to do if the user is not authorized.
+  """
+  action: CanAction! = EXCEPTION_PASS
+
+  """
+  Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
+  """
+  returnValue: CanArgs
+
+  """
+  The model name to check against.
+  """
+  model: String
+
+) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\CanQueryDirective
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+Query for specific model instances to check the policy against, using arguments
+with directives that add constraints to the query builder, such as `@eq`.
+"""
+directive @canQuery(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Action to do if the user is not authorized.
+  """
+  action: CanAction! = EXCEPTION_PASS
+
+  """
+  Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
+  """
+  returnValue: CanArgs
+
+  """
+  Apply scopes to the underlying query.
+  """
+  scopes: [String!]
+) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\CanResolvedDirective
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+Check the policy against the model instances returned by the field resolver.
+Only use this if the field does not mutate data, it is run before checking.
+"""
+directive @canResolved(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Action to do if the user is not authorized.
+  """
+  action: CanAction! = EXCEPTION_PASS
+
+  """
+  Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
+  """
+  returnValue: CanArgs
+) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Auth\CanRootDirective
+"""
+Check a Laravel Policy to ensure the current user is authorized to access a field.
+
+Check the policy against the root object.
+"""
+directive @canRoot(
+  """
+  The ability to check permissions for.
+  """
+  ability: String!
+
+  """
+  Pass along the client given input data as arguments to `Gate::check`.
+  """
+  injectArgs: Boolean! = false
+
+  """
+  Statically defined arguments that are passed to `Gate::check`.
+
+  You may pass arbitrary GraphQL literals,
+  e.g.: [1, 2, 3] or { foo: "bar" }
+  """
+  args: CanArgs
+
+  """
+  Action to do if the user is not authorized.
+  """
+  action: CanAction! = EXCEPTION_PASS
+
+  """
+  Value to return if the user is not authorized and `action` is `RETURN_VALUE`.
+  """
+  returnValue: CanArgs
+) repeatable on FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Auth\GuardDirective
 """
-Run authentication through one or more guards.
+Run authentication through one or more guards from `config/auth.php`.
 
 This is run per field and may allow unauthenticated
 users to still receive partial results.

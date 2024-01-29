@@ -8,22 +8,29 @@ import {
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
+import { useClient } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLanguage } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLanguage,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import {
   User,
   UserFilterInput,
   useAllUsersPaginatedQuery,
-  useSelectedUsersQuery,
 } from "~/api/generated";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import {
+  SearchState,
+  SelectingFor,
+} from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -36,15 +43,16 @@ import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
 
 import {
+  UsersTable_SelectUsersQuery,
   rolesAccessor,
   transformFormValuesToUserFilterInput,
   transformSortStateToOrderByClause,
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import useUserCsvData from "../hooks/useUserCsvData";
 import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
+import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -71,11 +79,16 @@ interface UserTableProps {
   title: React.ReactNode;
 }
 
-const initialState = getTableStateFromSearchParams(defaultState);
-
 const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const initialState = getTableStateFromSearchParams(defaultState);
+  const client = useClient();
+  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
+  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
+  const [selectedApplicants, setSelectedApplicants] = React.useState<User[]>(
+    [],
+  );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: UserFilterInput = React.useMemo(
@@ -91,8 +104,7 @@ const UserTable = ({ title }: UserTableProps) => {
         }
       : INITIAL_STATE.paginationState,
   );
-  const { selectedRows, setSelectedRows, hasSelected } =
-    useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
   const [searchState, setSearchState] = React.useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
@@ -173,11 +185,7 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
     columnHelper.accessor("telephone", {
       id: "telephone",
-      header: intl.formatMessage({
-        defaultMessage: "Telephone",
-        id: "fXMsoK",
-        description: "Title displayed for the User table Telephone column.",
-      }),
+      header: intl.formatMessage(commonMessages.telephone),
       cell: ({ getValue }) => cells.phone(getValue()),
     }),
     columnHelper.accessor("preferredLang", {
@@ -266,41 +274,31 @@ const UserTable = ({ title }: UserTableProps) => {
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);
 
-  const [
-    {
-      data: selectedUsersData,
-      fetching: selectedUsersFetching,
-      error: selectedUsersError,
-    },
-  ] = useSelectedUsersQuery({
-    variables: {
-      ids: selectedRows,
-    },
-    pause: !hasSelected,
-  });
+  const querySelected = async (action: SelectingFor) => {
+    setSelectingFor(action);
+    setIsSelecting(true);
+    return client
+      .query(UsersTable_SelectUsersQuery, {
+        ids: selectedRows,
+      })
+      .toPromise()
+      .then((result) => {
+        const users: User[] = unpackMaybes(result.data?.applicants);
 
-  const selectedApplicants =
-    selectedUsersData?.applicants.filter(notEmpty) ?? [];
+        if (result.error) {
+          toast.error(intl.formatMessage(errorMessages.unknown));
+        } else if (!users.length) {
+          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+        }
 
-  const csv = useUserCsvData(selectedApplicants);
-
-  const handlePrint = (onPrint: () => void) => {
-    if (
-      selectedUsersFetching ||
-      !!selectedUsersError ||
-      !selectedUsersData?.applicants.length
-    ) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Download failed: No rows selected",
-          id: "k4xm25",
-          description:
-            "Alert message displayed when a user attempts to print without selecting items first",
-        }),
-      );
-    } else if (onPrint) {
-      onPrint();
-    }
+        setSelectedApplicants(users);
+        setIsSelecting(false);
+        setSelectingFor(null);
+        return users;
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.unknown));
+      });
   };
 
   return (
@@ -330,9 +328,15 @@ const UserTable = ({ title }: UserTableProps) => {
           }),
       }}
       download={{
+        disableBtn: isSelecting,
+        fetching: isSelecting && selectingFor === "download",
         selection: {
           csv: {
-            ...csv,
+            headers: getUserCsvHeaders(intl),
+            data: async () => {
+              const selected = await querySelected("download");
+              return getUserCsvData(selected ?? [], intl);
+            },
             fileName: intl.formatMessage(
               {
                 defaultMessage: "users_{date}.csv",
@@ -351,7 +355,10 @@ const UserTable = ({ title }: UserTableProps) => {
           <span>
             <UserProfilePrintButton
               users={selectedApplicants}
-              beforePrint={handlePrint}
+              beforePrint={async () => {
+                await querySelected("print");
+              }}
+              fetching={isSelecting && selectingFor === "print"}
               color="whiteFixed"
               mode="inline"
               fontSize="caption"

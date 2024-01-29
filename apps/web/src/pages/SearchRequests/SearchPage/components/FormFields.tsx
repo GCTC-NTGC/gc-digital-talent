@@ -10,6 +10,7 @@ import {
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
   getLanguageAbility,
@@ -27,6 +28,7 @@ import {
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -104,11 +106,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
           />
           <Select
             id="stream"
-            label={intl.formatMessage({
-              defaultMessage: "Stream",
-              id: "qYWmzA",
-              description: "Label for stream filter in search form.",
-            })}
+            label={intl.formatMessage(processMessages.stream)}
             name="stream"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a job stream",
@@ -193,12 +191,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       </FilterBlock>
       <FilterBlock
         id="employmentEquityFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Employment equity",
-          id: "ITkmBQ",
-          description:
-            "Heading for employment equity section of the search form.",
-        })}
+        title={intl.formatMessage(commonMessages.employmentEquity)}
         text={intl.formatMessage({
           defaultMessage:
             "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",

@@ -1,19 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  graphql,
+  PoolStatus,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import {
-  PoolStatus,
-  PublishingGroup,
-  Pool,
-  useBrowsePoolsQuery,
-} from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -36,21 +37,120 @@ const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-z-index": "base(-1)",
 });
 
-export interface BrowsePoolsProps {
-  pools: Pool[];
-}
+const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
+  query BrowsePoolsPage($closingAfter: DateTime) {
+    publishedPools(closingAfter: $closingAfter) {
+      id
+      name {
+        en
+        fr
+      }
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishedAt
+      publishingGroup
+    }
+    ...OngoingRecruitmentSection
+  }
+`);
 
-export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
+const now = nowUTCDateTime();
+
+export const BrowsePools = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Browse jobs",
-    id: "8EFvJf",
-    description: "Page title for the direct intake browse pools page.",
+  const [{ data, fetching, error }] = useQuery({
+    query: BrowsePoolsPage_Query,
+    variables: { closingAfter: now }, // pass current dateTime into query argument
   });
+
+  const pools =
+    data?.publishedPools.filter(
+      (pool) => typeof pool !== `undefined` && !!pool,
+    ) ?? [];
+
+  const title = intl.formatMessage(navigationMessages.browseJobs);
 
   const crumbs = useBreadcrumbs([
     {
@@ -94,14 +194,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   };
 
   return (
-    <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Browse jobs",
-          id: "ApyEMy",
-          description: "Title for the browse pools page",
-        })}
-      />
+    <Pending fetching={fetching} error={error}>
+      <SEO title={intl.formatMessage(navigationMessages.browseJobs)} />
       <Hero
         imgPath={browseHeroImg}
         title={title}
@@ -136,7 +230,10 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           </div>
           {ongoingRecruitmentPools.length > 0 && (
             <div>
-              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+              <OngoingRecruitmentSection
+                pools={ongoingRecruitmentPools}
+                query={data}
+              />
             </div>
           )}
           <CallToActionCard
@@ -255,12 +352,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 {
                   href: paths.search(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Find talent",
-                    id: "7waBmC",
-                    description:
-                      "Link text to go to the search page on browse jobs page",
-                  }),
+                  label: intl.formatMessage(navigationMessages.findTalent),
                 },
               ]}
             >
@@ -284,26 +376,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
         </div>
       </div>
       <Flourish />
-    </>
-  );
-};
-
-const now = nowUTCDateTime();
-
-const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolsQuery({
-    variables: { closingAfter: now }, // pass current dateTime into query argument
-  });
-
-  const filteredPools = data?.publishedPools.filter(
-    (pool) => typeof pool !== `undefined` && !!pool,
-  ) as Pool[];
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <BrowsePools pools={filteredPools} />
     </Pending>
   );
 };
 
-export default BrowsePoolsApi;
+export default BrowsePools;

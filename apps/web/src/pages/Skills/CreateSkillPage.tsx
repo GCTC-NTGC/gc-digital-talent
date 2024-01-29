@@ -341,9 +341,9 @@ const CreateSkillPage = () => {
   ];
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create Skill",
-    id: "qZd17O",
-    description: "Title displayed on the create a skill form.",
+    defaultMessage: "Create skill",
+    id: "71mPNh",
+    description: "Title for Create skill",
   });
 
   return (

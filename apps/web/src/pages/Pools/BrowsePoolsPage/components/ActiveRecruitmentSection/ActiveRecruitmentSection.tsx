@@ -6,7 +6,6 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import { Pool } from "~/api/generated";
 import PoolCard from "~/components/PoolCard/PoolCard";
-import HolidayAlert from "~/components/HolidayAlert/HolidayAlert";
 
 export interface ActiveRecruitmentSectionProps {
   pools: Pool[];
@@ -23,7 +22,6 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
 
   return (
     <>
-      <HolidayAlert />
       <Heading
         level="h2"
         size="h3"

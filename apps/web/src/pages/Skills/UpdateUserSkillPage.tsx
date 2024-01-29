@@ -17,6 +17,7 @@ import {
   commonMessages,
   formMessages,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -157,9 +158,9 @@ export const UpdateUserSkillForm = ({
       msg ||
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
-          id: "CUxHd8",
+          id: "kfjmTt",
           description:
-            "Message displayed to user after skill fails to be updated.",
+            "Message displayed to user after skill fails to be updated",
         }),
     );
   };
@@ -219,19 +220,11 @@ export const UpdateUserSkillForm = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
     {

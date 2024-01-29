@@ -37,13 +37,7 @@ const UserSkillFormFields = ({
     value: skillLevel,
     label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
     contentBelow: (
-      <p
-        data-h2-margin="base(x.15, 0, x.5, x1)"
-        data-h2-color="base(black.light)"
-        data-h2-font-size="base(caption)"
-      >
-        {intl.formatMessage(levelDefinitionGetter(skillLevel))}
-      </p>
+      <p>{intl.formatMessage(levelDefinitionGetter(skillLevel))}</p>
     ),
   }));
 

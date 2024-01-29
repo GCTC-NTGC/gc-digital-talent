@@ -115,8 +115,8 @@ export const getConsideredLangItems = (intl: IntlShape) => [
     value: "lookingForBilingual",
     label: intl.formatMessage({
       defaultMessage: "Bilingual positions (English and French)",
-      id: "Mu+1pI",
-      description: "Message for the bilingual positions option",
+      id: "6eCvv1",
+      description: "Bilingual Positions message",
     }),
   },
 ];

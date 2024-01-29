@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -10,18 +11,23 @@ import {
   errorMessages,
 } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import {
-  Scalars,
-  useCreateApplicationMutation,
-  useMyApplicationsQuery,
-} from "~/api/generated";
+import { useMyApplicationsQuery } from "~/api/generated";
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
+
+const CreateApplication_Mutation = graphql(/* GraphQL */ `
+  mutation CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
+      id
+    }
+  }
+`);
 
 /**
  * Note: This is not a real page
@@ -34,8 +40,9 @@ const CreateApplication = () => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const auth = useAuthorization();
-  const [{ data: newApplicationData }, executeMutation] =
-    useCreateApplicationMutation();
+  const [{ data: newApplicationData }, executeMutation] = useMutation(
+    CreateApplication_Mutation,
+  );
   const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
 
   // Store path to redirect to later on

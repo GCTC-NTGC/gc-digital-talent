@@ -259,7 +259,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step five
-    cy.findByRole("heading", { name: /Minimum experience or education/i })
+    cy.findByRole("heading", {
+      name: /Minimum experience or equivalent education/i,
+    })
       .should("exist")
       .and("be.visible");
     cy.findByRole("radio", {

@@ -292,7 +292,7 @@ export const ScreeningDecisionDialog = ({
     justifications: null,
     otherJustificationNotes: null,
     skillDecisionNotes: null,
-    notesForThisAssessment: null,
+    assessmentNotes: null,
   };
 
   return (

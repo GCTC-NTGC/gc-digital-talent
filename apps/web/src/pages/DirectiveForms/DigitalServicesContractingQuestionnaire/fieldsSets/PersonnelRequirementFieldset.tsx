@@ -151,9 +151,8 @@ const PersonnelRequirementFieldset = ({
       <SignPost
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "v27PDJ",
-          description:
-            "Title for _skills_ fieldset in the _digital services contracting questionnaire_",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         introduction={intl.formatMessage({
           defaultMessage:

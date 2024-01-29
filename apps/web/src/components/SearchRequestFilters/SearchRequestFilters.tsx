@@ -10,6 +10,7 @@ import {
   getWorkRegion,
   getLocale,
   getPoolStream,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
@@ -22,6 +23,7 @@ import {
   PoolCandidateFilter,
 } from "~/api/generated";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 
@@ -116,9 +118,8 @@ const ApplicantFilters = ({
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "7GRDML",
-            description:
-              "Message for indigenous option in the employment equity section of the request page.",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           }),
         ]
       : []),
@@ -185,11 +186,7 @@ const ApplicantFilters = ({
             )}
           />
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Stream",
-              id: "Ua/X9Q",
-              description: "Title for stream on summary of filters section",
-            })}
+            title={intl.formatMessage(processMessages.stream)}
             content={
               applicantFilter?.qualifiedStreams?.map((stream) => {
                 return intl.formatMessage(getPoolStream(stream as string));
@@ -258,10 +255,9 @@ const ApplicantFilters = ({
           {employmentDuration && (
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Employment Duration",
-                id: "PmMr9l",
-                description:
-                  "Title for work language on summary of filters section",
+                defaultMessage: "Employment duration",
+                description: "Title for Employment duration section",
+                id: "Muh/+P",
               })}
               content={employmentDuration}
             />
@@ -276,12 +272,7 @@ const ApplicantFilters = ({
             content={workLocations}
           />
           <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Employment equity",
-              id: "+aowPB",
-              description:
-                "Title for employment equity section on summary of filters section",
-            })}
+            title={intl.formatMessage(commonMessages.employmentEquity)}
             content={employmentEquity}
           />
           <FilterBlock
@@ -379,9 +370,8 @@ const SearchRequestFilters = ({
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "7GRDML",
-            description:
-              "Message for indigenous option in the employment equity section of the request page.",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           }),
         ]
       : []),
@@ -445,11 +435,7 @@ const SearchRequestFilters = ({
               content={classifications}
             />
             <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Stream",
-                id: "Ua/X9Q",
-                description: "Title for stream on summary of filters section",
-              })}
+              title={intl.formatMessage(processMessages.stream)}
               content={streams}
             />
             <FilterBlock
@@ -484,12 +470,7 @@ const SearchRequestFilters = ({
               />
 
               <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Employment equity",
-                  id: "+aowPB",
-                  description:
-                    "Title for employment equity section on summary of filters section",
-                })}
+                title={intl.formatMessage(commonMessages.employmentEquity)}
                 content={employmentEquity}
               />
               <FilterBlock

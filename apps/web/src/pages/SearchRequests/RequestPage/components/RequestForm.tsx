@@ -144,7 +144,7 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
-      wasEmpty: candidateCount === 0,
+      wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
           positionDuration:
@@ -293,9 +293,9 @@ export const RequestForm = ({
                 type="text"
                 name="fullName"
                 label={intl.formatMessage({
-                  defaultMessage: "Full Name",
-                  id: "dRnKNR",
-                  description: "Label for full name input in the request form",
+                  defaultMessage: "Full name",
+                  id: "IBc2sp",
+                  description: "Label for full name",
                 })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),

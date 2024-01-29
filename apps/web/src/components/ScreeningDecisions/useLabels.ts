@@ -28,7 +28,7 @@ const getLabels = (intl: IntlShape) => {
       description:
         "Label for demonstrated notes text area in the screening decision dialog.",
     }),
-    notesForThisAssessment: intl.formatMessage({
+    assessmentNotes: intl.formatMessage({
       defaultMessage: "Notes for this assessment",
       id: "vHDpXX",
       description:

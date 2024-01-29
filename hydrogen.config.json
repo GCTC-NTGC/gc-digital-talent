@@ -6,9 +6,7 @@
     "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
     "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": [
-    "../*/src/views/*.html"
-  ],
+  "temp": ["../*/src/views/*.html"],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
@@ -389,15 +387,6 @@
           },
           "dark": {
             "shadow": "inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, .5)"
-          }
-        },
-        {
-          "key": "holidayInset",
-          "default": {
-            "shadow": "inset 0 0 10px 10px #FFFFFF"
-          },
-          "dark": {
-            "shadow": "inset 0 0 10px 10px #3e4253"
           }
         },
         {

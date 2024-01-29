@@ -5,6 +5,8 @@ import OutlineCheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon"
 import SolidCheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import OutlineXCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
 import SolidXCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
+import OutlinePauseCircleIcon from "@heroicons/react/24/outline/PauseCircleIcon";
+import SolidPauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import {
   CardOption,
@@ -21,6 +23,9 @@ import {
   getAssessmentDecisionLevel,
   getAssessmentJustification,
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+import { NO_DECISION } from "~/utils/assessmentResults";
 
 import OutlineEducationIcon from "./Icons/outline/EducationIcon";
 import SolidEducationIcon from "./Icons/solid/EducationIcon";
@@ -47,13 +52,11 @@ const useOptions = (
 
   const assessmentDecisionItems: CardOption[] = [
     {
-      label: intl.formatMessage(
-        getAssessmentDecision(AssessmentDecision.NotSure),
-      ),
+      label: intl.formatMessage(commonMessages.notSure),
       selectedIcon: SolidExclamationTriangleIcon,
       selectedIconColor: "warning",
       unselectedIcon: OutlineExclamationTriangleIcon,
-      value: AssessmentDecision.NotSure,
+      value: NO_DECISION,
     },
     {
       label: intl.formatMessage(
@@ -72,6 +75,13 @@ const useOptions = (
       selectedIconColor: "error",
       unselectedIcon: OutlineXCircleIcon,
       value: AssessmentDecision.Unsuccessful,
+    },
+    {
+      label: intl.formatMessage(getAssessmentDecision(AssessmentDecision.Hold)),
+      selectedIcon: SolidPauseCircleIcon,
+      selectedIconColor: "warning",
+      unselectedIcon: OutlinePauseCircleIcon,
+      value: AssessmentDecision.Hold,
     },
   ];
 

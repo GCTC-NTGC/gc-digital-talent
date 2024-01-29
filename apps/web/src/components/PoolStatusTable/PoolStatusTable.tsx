@@ -20,6 +20,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
+import processMessages from "~/messages/processMessages";
 
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
@@ -86,12 +87,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Publishing group",
-          id: "rYgaTA",
-          description:
-            "Title displayed for the Pool table publishing group column.",
-        }),
+        header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
     columnHelper.accessor(
@@ -186,9 +182,8 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
     <Table<PoolCandidate>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "CpjTkh",
-        description:
-          "Caption for the table that contains a users pool statuses",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       })}
       data={data}
       columns={columns}

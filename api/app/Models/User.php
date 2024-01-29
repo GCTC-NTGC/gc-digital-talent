@@ -183,14 +183,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $this->belongsTo(Classification::class, 'current_classification');
     }
 
-    /**
-     * @deprecated
-     */
-    public function isAdmin(): bool
-    {
-        return $this->hasRole('platform_admin');
-    }
-
     // All the relationships for experiences
     public function awardExperiences(): HasMany
     {
@@ -372,7 +364,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Filters users by the Pools they are in.
      *
-     * @param  array  $poolFilters Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
+     * @param  array  $poolFilters  Each pool filter must contain a poolId, and may contain expiryStatus, statuses, and suspendedStatus fields
      */
     public static function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
@@ -547,7 +539,7 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Scopes the query to only return users who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param  array|null  $classifications Each classification is an object with a group and a level field.
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -583,8 +575,8 @@ class User extends Model implements Authenticatable, LaratrustUser
      *
      * Restrict a query by specific publishing groups
      *
-     * @param  Eloquent\Builder  $query The existing query being built
-     * @param  ?array  $publishingGroups The publishing groups to scope the query by
+     * @param  Eloquent\Builder  $query  The existing query being built
+     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
      * @return Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
@@ -607,7 +599,7 @@ class User extends Model implements Authenticatable, LaratrustUser
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)
@@ -670,7 +662,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         $query->where(function ($query) use ($equityVars) {
             foreach ($equityVars as $index => $equityInstance) {
                 if ($equityInstance === 'is_indigenous') {
-                    $query->whereJsonLength('indigenous_communities', '>', 0);
+                    $query->orWhereJsonLength('indigenous_communities', '>', 0);
                 } else {
                     $query->orWhere($equityVars[$index], true);
                 }

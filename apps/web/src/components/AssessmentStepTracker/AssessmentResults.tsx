@@ -1,19 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import { Board, Link } from "@gc-digital-talent/ui";
+import { Maybe } from "@gc-digital-talent/graphql";
 
-import {
-  ArmedForcesStatus,
-  AssessmentResult as AssessmentResultType,
-  AssessmentStepType,
-  Maybe,
-} from "~/api/generated";
+import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 import useRoutes from "../../hooks/useRoutes";
-import { getDecisionInfo, sortResults } from "./utils";
+import {
+  CandidateAssessmentResult,
+  getDecisionInfo,
+  sortResultsAndAddOrdinal,
+} from "./utils";
 
 interface PriorityProps {
   type: "veteran" | "entitlement";
@@ -52,24 +52,26 @@ const Priority = ({ type }: PriorityProps) => {
 };
 
 interface AssessmentResultProps {
-  result: AssessmentResultType;
-  ordinal: number;
+  result: CandidateAssessmentResult & { ordinal: number };
   isApplicationStep: boolean;
 }
 
 const AssessmentResult = ({
   result,
-  ordinal,
   isApplicationStep,
 }: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
+  const [isBookmarked, setIsBookmarked] = React.useState<boolean>(
+    result.poolCandidate?.isBookmarked ?? false,
+  );
+
   // We should always have one, but if not, don't show anything
   if (!result.poolCandidate) return null;
 
   const { icon, colorStyle, name } = getDecisionInfo(
-    result.assessmentDecision,
+    result.decision,
     isApplicationStep,
     intl,
   );
@@ -88,11 +90,15 @@ const AssessmentResult = ({
         data-h2-gap="base(0 x.25)"
         data-h2-padding="base(x.125 0)"
         data-h2-width="base(100%)"
+        {...(isBookmarked && {
+          "data-h2-radius": "base(5px)",
+          "data-h2-background-color": "base(primary.lightest)",
+        })}
       >
-        <BookmarkIcon
-          {...iconStyles}
-          data-h2-color="base(gray)"
-          data-h2-flex-shrink="base(0)"
+        <CandidateBookmark
+          candidate={result.poolCandidate}
+          bookmarked={isBookmarked}
+          onBookmarkChange={setIsBookmarked}
         />
         <span data-h2-flex-grow="base(1)">
           <Link
@@ -100,7 +106,7 @@ const AssessmentResult = ({
             color="black"
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
           >
-            {ordinal}.{" "}
+            {result.ordinal}.{" "}
             {getFullNameLabel(
               result.poolCandidate.user.firstName,
               result.poolCandidate.user.lastName,
@@ -127,22 +133,21 @@ const AssessmentResult = ({
 };
 
 interface AssessmentResultsProps {
-  results: AssessmentResultType[];
-  stepType: Maybe<AssessmentStepType> | undefined;
+  results: CandidateAssessmentResult[];
+  stepType?: Maybe<AssessmentStepType>;
 }
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
-  const sortedResults = sortResults(results);
+  const sortedResults = sortResultsAndAddOrdinal(results);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
   return (
     <Board.List>
-      {sortedResults.map((result, index) => (
+      {sortedResults.map((result) => (
         <AssessmentResult
-          key={result.id}
-          result={result}
-          ordinal={index + 1}
+          key={result.poolCandidate.id}
+          result={{ ...result }}
           isApplicationStep={isApplicationStep}
         />
       ))}

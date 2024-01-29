@@ -34,8 +34,8 @@ function EditLink({
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Edit {label}",
-          id: "GG15JI",
-          description: "Aria Label displayed for the Edit column.",
+          id: "2jFKrM",
+          description: "Label for link to edit a specific item in a table",
         },
         { label },
       )}

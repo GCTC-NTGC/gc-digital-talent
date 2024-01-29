@@ -52,8 +52,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: ClipboardDocumentListIcon,
         title: intl.formatMessage({
           defaultMessage: "Team information",
-          id: "UHH1Oh",
-          description: "Title for the team information page",
+          id: "b+KdqW",
+          description: "Title for team information page",
         }),
         link: {
           url: paths.teamView(team.id),
@@ -66,8 +66,8 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
         icon: Cog8ToothIcon,
         title: intl.formatMessage({
           defaultMessage: "Edit team information",
-          id: "05m1mY",
-          description: "Title for the team edit page",
+          id: "vSMCIR",
+          description: "Title for the edit team page",
         }),
         link: {
           url: paths.teamUpdate(team.id),
