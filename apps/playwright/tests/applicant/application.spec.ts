@@ -105,7 +105,7 @@ test.describe("Application", () => {
                 },
                 isRemote: true,
                 publishingGroup: PublishingGroup.ItJobs,
-                screeningQuestions: {
+                generalQuestions: {
                   create: [
                     {
                       question: { en: "Question EN", fr: "Question FR" },
