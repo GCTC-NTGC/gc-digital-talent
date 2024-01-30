@@ -679,7 +679,8 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are used during the application process",
                 })}
               </Text>
-              <SkillLevelDialog />
+              {/** Uncomment in #8828 */}
+              {/** <SkillLevelDialog /> */}
               <Accordion.Root
                 type="multiple"
                 mode="card"
