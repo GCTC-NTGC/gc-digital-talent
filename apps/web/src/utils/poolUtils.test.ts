@@ -27,7 +27,7 @@ describe("poolUtils tests", () => {
     };
     test("should combine title, classification and stream if all are provided", () => {
       expect(formattedPoolPosterTitle(baseInputs).label).toBe(
-        "IT-01: Web Developer",
+        "Web Developer (IT-01 Software Solutions)",
       );
     });
     test("should just be classification and stream in brackets if title is empty, null or undefined", () => {
@@ -36,19 +36,19 @@ describe("poolUtils tests", () => {
           ...baseInputs,
           title: null,
         }).label,
-      ).toBe("IT-01: ");
+      ).toBe("(IT-01 Software Solutions)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           title: undefined,
         }).label,
-      ).toBe("(IT-01: ");
+      ).toBe("(IT-01 Software Solutions)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           title: "",
         }).label,
-      ).toBe("IT-01: ");
+      ).toBe("(IT-01 Software Solutions)");
     });
     test("should just be ignore classification if it is null or undefined", () => {
       expect(
@@ -56,37 +56,41 @@ describe("poolUtils tests", () => {
           ...baseInputs,
           classification: null,
         }).label,
-      ).toBe("Web Developer");
+      ).toBe("Web Developer (Software Solutions)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: undefined,
         }).label,
-      ).toBe("Web Developer");
+      ).toBe("Web Developer (Software Solutions)");
     });
     test("should just be ignore stream if it is null or undefined", () => {
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
+          stream: null,
         }).label,
-      ).toBe("IT-01: Web Developer");
+      ).toBe("Web Developer (IT-01)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
+          stream: undefined,
         }).label,
-      ).toBe("IT-01: Web Developer");
+      ).toBe("Web Developer (IT-01)");
     });
     test("should leave out parentheses entirely if classification and stream are both empty", () => {
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: undefined,
+          stream: null,
         }).label,
       ).toBe("Web Developer");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: null,
+          stream: undefined,
         }).label,
       ).toBe("Web Developer");
     });
@@ -95,6 +99,7 @@ describe("poolUtils tests", () => {
         formattedPoolPosterTitle({
           title: "",
           classification: null,
+          stream: null,
           intl,
         }).label,
       ).toBe("");
