@@ -1,7 +1,7 @@
 <?php
 
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\ScreeningQuestion;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 use function PHPUnit\Framework\assertSame;
 
-class ScreeningQuestionTest extends TestCase
+class GeneralQuestionTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
@@ -30,7 +30,7 @@ class ScreeningQuestionTest extends TestCase
     '
         mutation updatePool($id: ID! ,$pool: UpdatePoolInput!) {
             updatePool(id: $id, pool: $pool) {
-                screeningQuestions {
+                generalQuestions {
                     id
                     question {
                         en
@@ -61,14 +61,14 @@ class ScreeningQuestionTest extends TestCase
             ]);
     }
 
-    public function testCreatingScreeningQuestions(): void
+    public function testCreatingGeneralQuestions(): void
     {
         // create a question and assert it appears in the response
 
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
-                'screeningQuestions' => [
+                'generalQuestions' => [
                     'create' => [
                         [
                             'question' => [
@@ -85,20 +85,20 @@ class ScreeningQuestionTest extends TestCase
 
         // assert question count for pool went from 3 -> 4
 
-        $poolQuestions = $this->pool->screeningQuestions()->pluck('id')->toArray();
+        $poolQuestions = $this->pool->generalQuestions()->pluck('id')->toArray();
         assertSame(4, count($poolQuestions));
     }
 
-    public function testUpdatingScreeningQuestions(): void
+    public function testUpdatingGeneralQuestions(): void
     {
-        $questionId = ScreeningQuestion::first()->id;
+        $questionId = GeneralQuestion::first()->id;
 
         // update a question and assert it changed in the response
 
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
-                'screeningQuestions' => [
+                'generalQuestions' => [
                     'update' => [
                         [
                             'id' => $questionId,
@@ -116,20 +116,20 @@ class ScreeningQuestionTest extends TestCase
 
         // assert question count remained the same at 3
 
-        $poolQuestions = $this->pool->screeningQuestions()->pluck('id')->toArray();
+        $poolQuestions = $this->pool->generalQuestions()->pluck('id')->toArray();
         assertSame(3, count($poolQuestions));
     }
 
-    public function testDeletingScreeningQuestion(): void
+    public function testDeletingGeneralQuestion(): void
     {
-        $questionId = ScreeningQuestion::first()->id;
+        $questionId = GeneralQuestion::first()->id;
 
         // delete a question and assert it isn't present in the response
 
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
-                'screeningQuestions' => [
+                'generalQuestions' => [
                     'delete' => [
                         'id' => $questionId,
                     ],
@@ -141,7 +141,7 @@ class ScreeningQuestionTest extends TestCase
 
         // assert question count went down from 3 -> 2
 
-        $poolQuestions = $this->pool->screeningQuestions()->pluck('id')->toArray();
+        $poolQuestions = $this->pool->generalQuestions()->pluck('id')->toArray();
         assertSame(2, count($poolQuestions));
     }
 }

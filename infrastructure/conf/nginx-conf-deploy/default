@@ -92,6 +92,24 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+    # For debugging FPM.  Only accessible locally.
+    location ~ ^/(fpm-status)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9001;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
+    # For checking FPM status.  Enabled in prod locally to test post_deply script.
+    location ~ ^/(fpm-ping)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
 
     # rewrite root-level possible lang prefix to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/?$" {

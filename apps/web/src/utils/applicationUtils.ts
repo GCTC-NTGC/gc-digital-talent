@@ -46,7 +46,7 @@ export const getApplicationSteps = ({
     careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
+    ...(application.pool.generalQuestions?.length ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];

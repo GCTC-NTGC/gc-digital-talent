@@ -1574,6 +1574,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}

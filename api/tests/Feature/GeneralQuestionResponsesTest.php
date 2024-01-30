@@ -1,9 +1,9 @@
 <?php
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,7 +11,7 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
-class ScreeningQuestionResponsesTest extends TestCase
+class GeneralQuestionResponsesTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
@@ -32,10 +32,10 @@ class ScreeningQuestionResponsesTest extends TestCase
     '
         mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
             updateApplication(id: $id, application: $application) {
-                screeningQuestionResponses {
+                generalQuestionResponses {
                     id
                     answer
-                    screeningQuestion {
+                    generalQuestion {
                         id
                       }
                 }
@@ -61,25 +61,25 @@ class ScreeningQuestionResponsesTest extends TestCase
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',
             ]);
-        $this->questionId = $this->pool->screeningQuestions()->pluck('id')->toArray()[0];
+        $this->questionId = $this->pool->generalQuestions()->pluck('id')->toArray()[0];
     }
 
-    public function testCreatingScreeningQuestionResponses(): void
+    public function testCreatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
-        ScreeningQuestionResponse::all()->each->delete();
+        GeneralQuestionResponse::all()->each->delete();
 
         // assert response is successfully created
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'create' => [
                         [
-                            'screeningQuestion' => [
+                            'generalQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
@@ -95,10 +95,10 @@ class ScreeningQuestionResponsesTest extends TestCase
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'create' => [
                         [
-                            'screeningQuestion' => [
+                            'generalQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer 2',
@@ -111,21 +111,21 @@ class ScreeningQuestionResponsesTest extends TestCase
         ]);
     }
 
-    public function testUpdatingScreeningQuestionResponses(): void
+    public function testUpdatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
-        ScreeningQuestionResponse::all()->each->delete();
+        GeneralQuestionResponse::all()->each->delete();
 
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'create' => [
                         [
-                            'screeningQuestion' => [
+                            'generalQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
@@ -137,13 +137,13 @@ class ScreeningQuestionResponsesTest extends TestCase
             'answer' => 'the answer',
         ]);
 
-        $createdResponseId = ScreeningQuestionResponse::sole()['id'];
+        $createdResponseId = GeneralQuestionResponse::sole()['id'];
 
         // assert updating works
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'update' => [
                         [
                             'id' => $createdResponseId,
@@ -157,21 +157,21 @@ class ScreeningQuestionResponsesTest extends TestCase
         ]);
     }
 
-    public function testDeletingScreeningQuestionResponses(): void
+    public function testDeletingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
             'user_id' => $this->teamUser->id,
         ]);
-        ScreeningQuestionResponse::all()->each->delete();
+        GeneralQuestionResponse::all()->each->delete();
 
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'create' => [
                         [
-                            'screeningQuestion' => [
+                            'generalQuestion' => [
                                 'connect' => $this->questionId,
                             ],
                             'answer' => 'the answer',
@@ -183,13 +183,13 @@ class ScreeningQuestionResponsesTest extends TestCase
             'answer' => 'the answer',
         ]);
 
-        $createdResponseId = ScreeningQuestionResponse::sole()['id'];
+        $createdResponseId = GeneralQuestionResponse::sole()['id'];
 
         // assert deleting works
         $this->actingAs($this->teamUser, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
-                'screeningQuestionResponses' => [
+                'generalQuestionResponses' => [
                     'delete' => [
                         $createdResponseId,
                     ],

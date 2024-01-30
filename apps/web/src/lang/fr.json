@@ -5962,6 +5962,10 @@
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
   },
+  "VWLWLY": {
+    "defaultMessage": "Ajouter une nouvelle évaluation",
+    "description": "Button text to add a new assessment to the assessment plan"
+  },
   "VX3Og5": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title for work language on summary of filters section"
@@ -8698,10 +8702,6 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "jwCFf7": {
-    "defaultMessage": "Ajouter une nouvelle évaluation ({currentCount}/{maxCount})",
-    "description": "Button text to add a new assessment to the assessment plan"
-  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -8781,10 +8781,6 @@
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
-  },
-  "kZWII8": {
-    "defaultMessage": "Étape du plan d’évaluation {index}",
-    "description": "Legend for assessment plan step fieldset"
   },
   "kZs3Nk": {
     "defaultMessage": "Autres recrutements",

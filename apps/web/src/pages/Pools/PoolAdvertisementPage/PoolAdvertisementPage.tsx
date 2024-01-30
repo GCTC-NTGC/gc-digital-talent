@@ -1033,7 +1033,7 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       stream
       processNumber
       publishingGroup
-      screeningQuestions {
+      generalQuestions {
         id
         question {
           en
