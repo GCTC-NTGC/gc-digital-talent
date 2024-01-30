@@ -116,7 +116,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           ? pool.essentialSkills.map((skill, index) => (
               <React.Fragment key={skill.id}>
                 {index !== 0 && <span aria-hidden>&bull;</span>}
-                <span key={skill.id}>
+                <span key={skill.id} data-h2-color="base(black.light)">
                   {getLocalizedName(skill?.name, intl)}
                 </span>
               </React.Fragment>
