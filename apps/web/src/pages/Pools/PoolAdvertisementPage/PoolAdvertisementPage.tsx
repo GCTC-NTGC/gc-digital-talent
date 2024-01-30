@@ -8,6 +8,7 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
   ThrowNotFound,
@@ -60,7 +61,9 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-import ApplicationLink from "./components/ApplicationLink";
+import ApplicationLink, {
+  ApplicationLinkProps,
+} from "./components/ApplicationLink";
 import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
@@ -108,6 +111,7 @@ export const PoolPoster = ({
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
+  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
 
   const classification = pool.classifications ? pool.classifications[0] : null;
   const genericJobTitles =
@@ -169,14 +173,12 @@ export const PoolPoster = ({
     }
   };
 
-  const applyBtn = (
-    <ApplicationLink
-      poolId={pool.id}
-      applicationId={applicationId}
-      hasApplied={hasApplied}
-      canApply={canApply}
-    />
-  );
+  const applicationLinkProps: ApplicationLinkProps = {
+    poolId: pool.id,
+    applicationId,
+    hasApplied,
+    canApply,
+  };
 
   const links = useBreadcrumbs([
     {
@@ -293,6 +295,54 @@ export const PoolPoster = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
             </TableOfContents.List>
+            <ApplicationLink {...applicationLinkProps} />
+            <Text
+              data-h2-display="base(flex)"
+              data-h2-gap="base(x.25)"
+              data-h2-flex-wrap="base(wrap)"
+            >
+              <span data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Share",
+                  id: "E2nMR3",
+                  description: "Label for sharing a pool advertisement",
+                }) + intl.formatMessage(commonMessages.dividingColon)}
+              </span>
+              <Button
+                mode="inline"
+                color="secondary"
+                icon={linkCopied ? CheckIcon : undefined}
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  setLinkCopied(true);
+                }}
+                aria-label={intl.formatMessage(
+                  {
+                    defaultMessage: "Copy {title} URL to clipboard",
+                    id: "QF/z5s",
+                    description:
+                      "Button text to copy a specific qualified recruitment's ID",
+                  },
+                  {
+                    title: poolTitle,
+                  },
+                )}
+              >
+                {linkCopied
+                  ? intl.formatMessage({
+                      defaultMessage: "Link copied",
+                      id: "br+QLe",
+                      description:
+                        "Button text to indicate that a pool advertisements URL has been copied",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Copy link",
+                      id: "1HiKy8",
+                      description:
+                        "Button text to copy a pool advertisements URL",
+                    })}
+              </Button>
+            </Text>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.employmentDetails.id}>
@@ -317,14 +367,8 @@ export const PoolPoster = ({
                   data-h2-margin-top="base(x.75) p-tablet(0)"
                 >
                   <ApplicationLink
-                    poolId={pool.id}
-                    applicationId={applicationId}
-                    hasApplied={hasApplied}
-                    canApply={canApply}
-                    linkProps={{
-                      mode: "inline",
-                      color: "primary",
-                    }}
+                    {...applicationLinkProps}
+                    linkProps={{ mode: "inline", color: "primary" }}
                   />
                 </div>
               </div>
@@ -975,7 +1019,7 @@ export const PoolPoster = ({
                     "Text letting users know the application will allow them setup a profile",
                 })}
               </Text>
-              {applyBtn}
+              <ApplicationLink {...applicationLinkProps} />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

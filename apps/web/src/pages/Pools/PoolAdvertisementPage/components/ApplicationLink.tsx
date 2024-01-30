@@ -6,7 +6,7 @@ import { Link, LinkProps } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
 
-interface ApplicationLinkProps {
+export interface ApplicationLinkProps {
   poolId: Scalars["ID"];
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
