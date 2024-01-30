@@ -19,20 +19,24 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
       data-h2-gap="base(x.5, 0)"
       data-h2-padding="base(x1)"
     >
-      <p data-h2-font-weight="base(700)">
-        {title || optional
-          ? intl.formatMessage({
-              defaultMessage: "This information is optional.",
-              id: "xm2o/k",
-              description: "Null message on sections for edit pool page.",
-            })
-          : intl.formatMessage({
-              defaultMessage: "You haven't filled this information out yet.",
-              id: "xsIcls",
-              description: "Null message on sections for edit pool page.",
-            })}
-      </p>
-      <p data-h2-font-weight="base(400)">
+      {title ? (
+        <p data-h2-font-weight="base(700)">{title}</p>
+      ) : (
+        <p data-h2-font-weight="base(700)">
+          {optional
+            ? intl.formatMessage({
+                defaultMessage: "This information is optional.",
+                id: "xm2o/k",
+                description: "Null message on sections for edit pool page.",
+              })
+            : intl.formatMessage({
+                defaultMessage: "You haven't filled this information out yet.",
+                id: "xsIcls",
+                description: "Null message on sections for edit pool page.",
+              })}
+        </p>
+      )}
+      <p data-h2-font-weight="base(400)" data-h2-text-align="base(center)">
         {content ||
           intl.formatMessage({
             defaultMessage: `Use the "Edit" button to get started.`,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
@@ -8,7 +8,6 @@ import { useQuery } from "urql";
 import {
   NotFound,
   Pending,
-  Link,
   TableOfContents,
   Heading,
 } from "@gc-digital-talent/ui";
@@ -24,7 +23,6 @@ import {
 
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import {
@@ -100,7 +98,6 @@ export const EditPoolForm = ({
   onSave,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
-  const paths = useRoutes();
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
