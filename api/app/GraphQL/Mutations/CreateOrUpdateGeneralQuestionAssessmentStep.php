@@ -4,13 +4,13 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\PoolSkill;
-use App\Models\ScreeningQuestion;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
-final class CreateOrUpdateScreeningQuestionAssessmentStep
+final class CreateOrUpdateGeneralQuestionAssessmentStep
 {
     /**
      * @param  null  $_
@@ -22,8 +22,8 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
         DB::beginTransaction();
         try {
             $pool = Pool::find($args['poolId']);
-            $existingQuestions = ScreeningQuestion::where('pool_id', '=', $args['poolId'])->get();
-            $incomingQuestions = is_array($args['screeningQuestions']) ? $args['screeningQuestions'] : [];
+            $existingQuestions = GeneralQuestion::where('pool_id', '=', $args['poolId'])->get();
+            $incomingQuestions = is_array($args['generalQuestions']) ? $args['generalQuestions'] : [];
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
 
@@ -33,7 +33,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                     array_push($incomingQuestionIds, $incomingQuestion['id']);
                     $questionToUpdate = $existingQuestions->find($incomingQuestion['id']);
                     if ($questionToUpdate === null) {
-                        throw new Exception('ScreeningQuestionNotExist');
+                        throw new Exception('GeneralQuestionNotExist');
                     }
 
                     $questionToUpdate->question = $incomingQuestion['question'];
@@ -43,7 +43,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $pool->screeningQuestions()->Create([
+                    $pool->generalQuestions()->Create([
                         'question' => $incomingQuestion['question'],
                         'sort_order' => isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null,
                     ]);

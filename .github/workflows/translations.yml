@@ -19,7 +19,7 @@ jobs:
     name: Translations
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "10.2.4"
+      NPM_VERSION: "9.9.2"
 
     steps:
       - uses: actions/checkout@v4
@@ -101,7 +101,7 @@ jobs:
 
       - name: "Upload untranslated files: all workspaces"
         if: always()
-        uses: actions/upload-artifact@v4.1.0
+        uses: actions/upload-artifact@v4.3.0
         with:
           name: untranslated
           path: |

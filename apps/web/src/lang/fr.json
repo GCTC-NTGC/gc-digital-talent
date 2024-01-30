@@ -2915,6 +2915,10 @@
     "defaultMessage": "Type d'employé",
     "description": "CSV Header, Employee Type column"
   },
+  "DxNuJ9": {
+    "defaultMessage": "Demander à recevoir des candidats de tous les bassins",
+    "description": "Button text to submit search request for candidates across all pools"
+  },
   "DxqFM1": {
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
@@ -5827,6 +5831,10 @@
     "defaultMessage": "Partagez vos diplômes, certificats, cours en ligne, stages, licences ou autres justificatifs ayant été reçus de la part d’établissements d’enseignement.",
     "description": "Description for education experience section"
   },
+  "VWLWLY": {
+    "defaultMessage": "Ajouter une nouvelle évaluation",
+    "description": "Button text to add a new assessment to the assessment plan"
+  },
   "VX3Og5": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title for work language on summary of filters section"
@@ -8499,10 +8507,6 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "jwCFf7": {
-    "defaultMessage": "Ajouter une nouvelle évaluation ({currentCount}/{maxCount})",
-    "description": "Button text to add a new assessment to the assessment plan"
-  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -8583,10 +8587,6 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "kZWII8": {
-    "defaultMessage": "Étape du plan d’évaluation {index}",
-    "description": "Legend for assessment plan step fieldset"
-  },
   "kZs3Nk": {
     "defaultMessage": "Autres recrutements",
     "description": "Heading for table of a users other applications and recruitments"
@@ -8634,6 +8634,10 @@
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
+  },
+  "l1f8zy": {
+    "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
+    "description": "Lead-in text to list of pools managers can request candidates from"
   },
   "l62TJM": {
     "defaultMessage": "Disponibilité",

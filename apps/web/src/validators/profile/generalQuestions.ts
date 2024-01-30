@@ -3,23 +3,23 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Pool, PoolCandidate } from "~/api/generated";
 
-type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
+type PartialPoolCandidate = Pick<PoolCandidate, "generalQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
   pool: Pool | null,
 ): boolean {
   const poolQuestionIds =
-    pool?.screeningQuestions
+    pool?.generalQuestions
       ?.map((q) => {
         return q?.id;
       })
       .filter(notEmpty) ?? [];
 
   const answeredQuestionIds =
-    poolCandidate.screeningQuestionResponses
+    poolCandidate.generalQuestionResponses
       ?.map((r) => {
-        return r?.screeningQuestion?.id;
+        return r?.generalQuestion?.id;
       })
       .filter(notEmpty) ?? [];
 

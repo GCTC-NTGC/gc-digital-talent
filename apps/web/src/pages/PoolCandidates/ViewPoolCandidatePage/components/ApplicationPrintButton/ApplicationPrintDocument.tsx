@@ -302,13 +302,13 @@ const ApplicationPrintDocument = React.forwardRef<
                     {intl.formatMessage(processMessages.screeningQuestions)}
                   </Heading>
                   <ul>
-                    {relevantPoolCandidate.screeningQuestionResponses?.map(
+                    {relevantPoolCandidate.generalQuestionResponses?.map(
                       (instance) => {
                         return (
                           <li key={instance?.id}>
                             <p data-h2-font-weight="base(700)">
                               {getLocalizedName(
-                                instance?.screeningQuestion?.question,
+                                instance?.generalQuestion?.question,
                                 intl,
                               )}
                             </p>
