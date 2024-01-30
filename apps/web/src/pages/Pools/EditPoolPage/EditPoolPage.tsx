@@ -21,7 +21,6 @@ import {
   Classification,
   Skill,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
@@ -39,7 +38,6 @@ import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/pr
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
-import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -103,7 +101,6 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the GeneralQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -299,13 +296,6 @@ export const EditPoolForm = ({
       }),
       status: "optional",
     },
-  };
-
-  // remove once RoD flag is gone
-  const generalQuestionMetadata: EditPoolSectionMetadata = {
-    id: "general-questions",
-    hasError: false, // Optional
-    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({
@@ -525,13 +515,11 @@ export const EditPoolForm = ({
                 <TableOfContents.Section
                   id={sectionMetadata.generalQuestions.id}
                 >
-                  {!recordOfDecisionFlag && (
-                    <GeneralQuestions
-                      pool={pool}
-                      sectionMetadata={generalQuestionMetadata}
-                      onSave={onSave}
-                    />
-                  )}
+                  <GeneralQuestions
+                    pool={pool}
+                    sectionMetadata={sectionMetadata.generalQuestions}
+                    onSave={onSave}
+                  />
                 </TableOfContents.Section>
               </div>
             </TableOfContents.Content>
