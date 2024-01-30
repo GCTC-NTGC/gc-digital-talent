@@ -105,7 +105,7 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Confirm that objects with informative or functional value have meaningful alternative or ARIA labels.
 - [ ] Review colour contrast for a contrast ratio of 4:5:1 between foreground and background. 
 - [ ] Review colour contrast for perceived colour contrast in addition to computed values. 
-- [ ] Confirm link texts are descriptive and that their "underline" signifier is present. Alternatively, they should have a contrast ratio of 3:1 with adjacent text and present other non-colour signifier on hover/focus.
+- [ ] Confirm link texts are descriptive and that their "underline" signifier is present. The link color must have a contrast ratio of 3:1 with adjacent text.
 - [ ] Confirm that key pages do not rely solely on colour to convey meaning or instruction. 
 
 #### Technical checks
