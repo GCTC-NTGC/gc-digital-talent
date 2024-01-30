@@ -153,7 +153,7 @@ class RolePermissionTest extends TestCase
             'view-team-assessmentResult',
             'update-team-assessmentResult',
             'view-team-assessmentPlan',
-            'update-team-assessmentPlan'
+            'update-team-assessmentPlan',
         ];
 
         $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));
@@ -185,7 +185,7 @@ class RolePermissionTest extends TestCase
             'update-any-searchRequest',
             'delete-any-searchRequest',
             'view-any-assessmentPlan',
-            'view-any-assessmentResult'
+            'view-any-assessmentResult',
         ];
 
         $this->assertTrue($this->user->hasRole('request_responder'));

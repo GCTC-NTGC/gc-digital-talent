@@ -493,8 +493,6 @@ class PoolCandidateTest extends TestCase
 
     /**
      * Status access permissions are similar to notes, except a candidate can see their own status
-     *
-     * @return void
      */
     public function testStatusAccess(): void
     {

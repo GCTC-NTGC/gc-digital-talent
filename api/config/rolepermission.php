@@ -439,19 +439,19 @@ return [
 
         'view-any-assessmentPlan' => [
             'en' => 'View the assessment plan (assessment steps) for any pool.',
-            'fr' => 'Consulter le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.'
+            'fr' => 'Consulter le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
         ],
         'view-team-assessmentPlan' => [
             'en' => 'View the assessment plan (assessment steps) for pools run by your team only.',
-            'fr' => 'Consultez le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.'
+            'fr' => 'Consultez le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
         ],
         'update-any-assessmentPlan' => [
             'en' => 'Edit the assessment plan (assessment steps) for any pool.',
-            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.'
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
         ],
         'update-team-assessmentPlan' => [
             'en' => 'Edit the assessment plan (assessment steps) for pools run by your team only.',
-            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.'
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
         ],
 
         'view-any-assessmentResult' => [
@@ -663,7 +663,7 @@ return [
             ],
             'applicationStatus' => [
                 'own' => ['view'],
-            ]
+            ],
         ],
 
         'pool_operator' => [
@@ -695,7 +695,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view', 'update']
+                'team' => ['view', 'update'],
             ],
             'assessmentResult' => [
                 'team' => ['view', 'update'],
@@ -719,7 +719,7 @@ return [
                 'any' => ['view'],
             ],
             'assessmentPlan' => [
-                'any' => ['view']
+                'any' => ['view'],
             ],
             'assessmentResult' => [
                 'any' => ['view'],
@@ -744,7 +744,7 @@ return [
             ],
             'assessmentPlan' => [
                 'any' => ['view'],
-            ]
+            ],
         ],
 
         'platform_admin' => [

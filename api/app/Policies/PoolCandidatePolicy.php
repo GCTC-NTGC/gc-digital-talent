@@ -91,8 +91,8 @@ class PoolCandidatePolicy
                     || $user->isAbleTo('update-team-applicationStatus', $candidatePoolTeam))
         ) {
             if ($request && array_key_exists('notes', $request)
-                && !$user->isAbleTo('update-any-applicationNotes')
-                && !$user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
+                && ! $user->isAbleTo('update-any-applicationNotes')
+                && ! $user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
                 return false;
             }
 
@@ -201,6 +201,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
     }
 
@@ -210,6 +211,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
     }
 
@@ -219,6 +221,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->team);
     }
 
@@ -228,6 +231,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
     }
 
@@ -235,8 +239,6 @@ class PoolCandidatePolicy
      * NOTE: this logic must be kept up to date with AssessmentResultPolicy->view, but may be used
      *       to check for permission to view all of a candidate's results with one function call, where convenient.
      *
-     * @param User $user
-     * @param PoolCandidate $poolCandidate
      * @return void
      */
     public function viewAssessmentResults(User $user, PoolCandidate $poolCandidate)
@@ -245,6 +247,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
     }
 }
