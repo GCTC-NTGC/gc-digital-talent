@@ -1,4 +1,7 @@
-import { aliasQuery } from "cypress/support/graphql-test-utils";
+import {
+  aliasQuery,
+  hasOperationName,
+} from "cypress/support/graphql-test-utils";
 
 // https://stackoverflow.com/a/67096081
 const uuidRegex =
@@ -20,8 +23,7 @@ describe("Login and logout", () => {
       // start the login process
       cy.visit("/login");
       cy.fixture("users.json").then((users) => {
-        const applicantUser = users.applicant;
-        cy.get("input[name=username]").type(applicantUser.subject);
+        cy.get("input[name=username]").type(users.applicant.subject);
       });
       cy.findByRole("button", { name: "Sign-in" }).click();
 
@@ -49,9 +51,46 @@ describe("Login and logout", () => {
         });
       });
     });
-    // it("will show a message when logged in as a deleted user", () => {
-    //   // If you log in as a deleted user you end up on the "user deleted" page.
-    // });
+
+    // If you log in as a deleted user you end up on the "user deleted" page.
+    it("will show a message when logged in as a deleted user", () => {
+      // stub the "user deleted" API response
+      cy.fixture("users.json").then((users) => {
+        cy.intercept("POST", "/graphql", (req) => {
+          if (hasOperationName(req, "authorizationQuery")) {
+            // Declare the alias from the initial intercept in the beforeEach
+            req.alias = "gqlauthorizationQueryQuery";
+            // Set req.reply to modify the response
+            req.reply({
+              data: { myAuth: null },
+              errors: [
+                {
+                  message: `Login as deleted user: ${users.applicant.subject}`,
+                  extensions: {
+                    reason: "user_deleted",
+                  },
+                },
+              ],
+            });
+          }
+        });
+      });
+
+      // start the login process
+      cy.visit("/login");
+      cy.fixture("users.json").then((users) => {
+        cy.get("input[name=username]").type(users.applicant.subject);
+      });
+      cy.findByRole("button", { name: "Sign-in" }).click();
+
+      // the auth response will indicate the user was deleted
+
+      // eventually, we should get to the "user deleted page"
+      cy.findByRole("heading", {
+        name: "Account deleted",
+        level: 1,
+      }).should("exist");
+    });
   });
 
   context("refresh", () => {
@@ -64,8 +103,7 @@ describe("Login and logout", () => {
       cy.findByRole("button", { name: "Get a token" }).click();
 
       cy.fixture("users.json").then((users) => {
-        const applicantUser = users.applicant;
-        cy.get("input[name=username]").type(applicantUser.subject);
+        cy.get("input[name=username]").type(users.applicant.subject);
       });
       cy.findByRole("button", { name: "Sign-in" }).click();
 
