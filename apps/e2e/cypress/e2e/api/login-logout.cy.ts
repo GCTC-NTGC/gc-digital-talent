@@ -1,14 +1,5 @@
 import { aliasQuery } from "cypress/support/graphql-test-utils";
 
-type TokenResponse = {
-  token_type: string;
-  id_token: string;
-  access_token: string;
-  refresh_token: string;
-  expires_in: number;
-  scope: string;
-};
-
 // https://stackoverflow.com/a/67096081
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -46,9 +37,9 @@ describe("Login and logout", () => {
       // auth context provider will update itself
       cy.wait("@gqlauthorizationQueryQuery").then((interception) => {
         // make sure we get a user ID back
-        cy.wrap(interception.response.body)
-          .its("data.myAuth.id")
-          .should("match", uuidRegex);
+        expect(interception.response.body)
+          .nested.property("data.myAuth.id")
+          .matches(uuidRegex);
 
         cy.get("@accessToken").then((accessToken) => {
           // make sure it uses the access token
@@ -87,34 +78,29 @@ describe("Login and logout", () => {
       });
 
       // Return to the app with the debugger token response
-      cy.get<TokenResponse>("@firstTokens").then((firstTokens) => {
+      cy.get("@firstTokens").then((firstTokens) => {
         const appUrl = new URL(
           "http://localhost:8000/en/applicant/profile-and-applications",
         );
-        appUrl.searchParams.set("token_type", firstTokens.token_type);
-        appUrl.searchParams.set("id_token", firstTokens.id_token);
-        appUrl.searchParams.set("access_token", firstTokens.access_token);
-        appUrl.searchParams.set("refresh_token", firstTokens.refresh_token);
-        appUrl.searchParams.set(
-          "expires_in",
-          firstTokens.expires_in.toString(),
-        );
-        appUrl.searchParams.set("scope", firstTokens.scope);
+        appUrl.searchParams.set("token_type", firstTokens["token_type"]);
+        appUrl.searchParams.set("id_token", firstTokens["id_token"]);
+        appUrl.searchParams.set("access_token", firstTokens["access_token"]);
+        appUrl.searchParams.set("refresh_token", firstTokens["refresh_token"]);
+        appUrl.searchParams.set("expires_in", firstTokens["expires_in"]);
+        appUrl.searchParams.set("scope", firstTokens["scope"]);
 
         cy.visit(appUrl.toString());
       });
 
       // expect an immediate refresh
       cy.wait("@refresh").then((interception) => {
-        cy.get<TokenResponse>("@firstTokens").then((firstTokens) => {
+        cy.get("@firstTokens").then((firstTokens) => {
           // make sure it uses the refresh token
-          expect(interception.request.query.refresh_token).to.eq(
-            firstTokens.refresh_token,
+          expect(interception.request.query["refresh_token"]).to.eq(
+            firstTokens["refresh_token"],
           );
 
-          const secondTokens: TokenResponse = JSON.parse(
-            interception.response.body,
-          ); //  #9148
+          const secondTokens = JSON.parse(interception.response.body); //  #9148
           cy.wrap(secondTokens).as("secondTokens");
         });
       });
@@ -122,14 +108,14 @@ describe("Login and logout", () => {
       // auth context provider will update itself -
       cy.wait("@gqlauthorizationQueryQuery").then((interception) => {
         // make sure we get a user ID back
-        cy.wrap(interception.response.body)
-          .its("data.myAuth.id")
-          .should("match", uuidRegex);
+        expect(interception.response.body)
+          .nested.property("data.myAuth.id")
+          .matches(uuidRegex);
 
-        cy.get<TokenResponse>("@secondTokens").then((secondTokens) => {
+        cy.get("@secondTokens").then((secondTokens) => {
           // make sure it uses the new access token
           expect(interception.request.headers["authorization"]).to.eq(
-            `Bearer ${secondTokens.access_token}`,
+            `Bearer ${secondTokens["access_token"]}`,
           );
         });
       });
