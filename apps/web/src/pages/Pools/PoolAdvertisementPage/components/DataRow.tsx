@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconType, Separator } from "@gc-digital-talent/ui";
+import { Separator } from "@gc-digital-talent/ui";
 
 interface DataRowProps {
   label: string;
