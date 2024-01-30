@@ -64,6 +64,10 @@ const OrganizeSection = ({
     setSteps(initialSteps);
   }, [initialSteps]);
 
+  const resetSteps = () => {
+    setSteps(initialSteps);
+  };
+
   const [{ fetching: deleteFetching }, executeDeleteMutation] = useMutation(
     OrganizeSection_DeleteMutation,
   );
@@ -98,7 +102,8 @@ const OrganizeSection = ({
           }),
         );
       })
-      .catch(() =>
+      .catch(() => {
+        resetSteps();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving assessment step failed.",
@@ -106,8 +111,8 @@ const OrganizeSection = ({
             description:
               "Message displayed to user after assessment step fails to be saved.",
           }),
-        ),
-      );
+        );
+      });
   };
 
   const move = (indexFrom: number, indexTo: number) => {
@@ -136,7 +141,8 @@ const OrganizeSection = ({
           }),
         );
       })
-      .catch(() =>
+      .catch(() => {
+        resetSteps();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Not all assessment steps changes saved.",
@@ -144,8 +150,8 @@ const OrganizeSection = ({
             description:
               "Error message displayed after all some steps were not changed",
           }),
-        ),
-      );
+        );
+      });
   };
   // first index is application screening and can never be moved
   const moveDisabledIndexes = [0];
@@ -264,6 +270,7 @@ const OrganizeSection = ({
                   })}
                 </CardRepeater.Add>
               }
+              onError={resetSteps}
               allPoolSkills={unpackMaybes(pool.poolSkills)}
               disallowStepTypes={
                 alreadyHasAScreeningQuestionsStep

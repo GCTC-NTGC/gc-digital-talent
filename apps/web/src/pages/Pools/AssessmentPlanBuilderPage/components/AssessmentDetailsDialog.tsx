@@ -115,6 +115,7 @@ interface AssessmentDetailsDialogProps {
   allPoolSkills: PoolSkill[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
+  onError?: () => void;
 }
 
 const AssessmentDetailsDialog = ({
@@ -122,6 +123,7 @@ const AssessmentDetailsDialog = ({
   allPoolSkills,
   disallowStepTypes = [],
   trigger,
+  onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
@@ -337,6 +339,7 @@ const AssessmentDetailsDialog = ({
         reset(); // the create dialog could be used several times in a row
       })
       .catch(() => {
+        onError?.();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving assessment step failed.",
