@@ -69,6 +69,7 @@ import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
+import SkillLevelDialog from "./components/SkillLevelDialog";
 
 type SectionContent = {
   id: string;
@@ -678,10 +679,12 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are used during the application process",
                 })}
               </Text>
+              <SkillLevelDialog />
               <Accordion.Root
                 type="multiple"
                 mode="card"
                 size="sm"
+                data-h2-margin-top="base(x1)"
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >
