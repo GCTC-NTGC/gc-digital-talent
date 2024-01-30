@@ -40,7 +40,7 @@ const AssessmentStepCard = ({
   );
   skillNames.sort();
   const screeningQuestions = sortBy(
-    unpackMaybes(pool.screeningQuestions),
+    unpackMaybes(pool.generalQuestions),
     (question) => question.sortOrder,
   );
 
@@ -72,7 +72,7 @@ const AssessmentStepCard = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <CardRepeater.Edit

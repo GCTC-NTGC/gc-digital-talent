@@ -66,12 +66,12 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
-  const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
-  const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+  const generalQuestions =
+    application.pool.generalQuestions?.filter(notEmpty) || [];
+  const generalQuestionResponses =
+    application.generalQuestionResponses?.filter(notEmpty) || [];
   const handleSubmit = async (formValues: FormValues) => {
-    const data = formValuesToSubmitData(formValues, screeningQuestionResponses);
+    const data = formValuesToSubmitData(formValues, generalQuestionResponses);
     executeMutation({
       id: application.id,
       application: {
@@ -149,13 +149,13 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         onSubmit={handleSubmit}
         options={{
           defaultValues: dataToFormValues(
-            screeningQuestions,
-            screeningQuestionResponses,
+            generalQuestions,
+            generalQuestionResponses,
           ),
         }}
       >
-        {screeningQuestions.length ? (
-          screeningQuestions.map((question, index) => (
+        {generalQuestions.length ? (
+          generalQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
               <Heading
                 level="h3"

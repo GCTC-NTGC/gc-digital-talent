@@ -22,7 +22,7 @@ import {
   IndigenousCommunity,
   Maybe,
   Experience,
-  ScreeningQuestionResponse,
+  GeneralQuestionResponse,
 } from "~/api/generated";
 import {
   isAwardExperience,
@@ -388,20 +388,20 @@ export const getExperienceTitles = (
 };
 
 /**
- * Converts screening question responses to column data
+ * Converts general question responses to column data
  *
- * @param screeningQuestionResponses[]
+ * @param generalQuestionResponses[]
  */
-export const getScreeningQuestionResponses = (
-  responses: Maybe<Maybe<ScreeningQuestionResponse>[]> | undefined,
+export const getGeneralQuestionResponses = (
+  responses: Maybe<Maybe<GeneralQuestionResponse>[]> | undefined,
 ) => {
   let data: Record<string, string> = {};
 
-  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+  responses?.filter(notEmpty).forEach(({ id, generalQuestion, answer }) => {
     data = {
       ...data,
       // Note: API sends Maybe with everything, but this should never be null or undefined
-      [screeningQuestion?.id || id]: sanitizeCSVString(answer),
+      [generalQuestion?.id || id]: sanitizeCSVString(answer),
     };
   });
 

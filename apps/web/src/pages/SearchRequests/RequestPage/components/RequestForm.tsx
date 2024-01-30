@@ -144,7 +144,7 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
-      wasEmpty: candidateCount === 0,
+      wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
           positionDuration:
