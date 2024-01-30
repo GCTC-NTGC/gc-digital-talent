@@ -32,7 +32,7 @@ import {
   getPoolStream,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
@@ -45,7 +45,6 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 
-import { categorizeSkill } from "~/utils/skillUtils";
 import {
   formatClassificationString,
   getClassificationGroup,
@@ -111,6 +110,7 @@ export const PoolPoster = ({
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
+  const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
 
   const classification = pool.classifications ? pool.classifications[0] : null;
@@ -148,8 +148,8 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = categorizeSkill(pool.essentialSkills);
-  const nonEssentialSkills = categorizeSkill(pool.nonessentialSkills);
+  const essentialSkills = unpackMaybes(pool.essentialSkills);
+  const nonEssentialSkills = unpackMaybes(pool.nonessentialSkills);
 
   const contactEmail = pool.team?.contactEmail;
 
@@ -170,6 +170,17 @@ export const PoolPoster = ({
       );
 
       setMoreInfoValue([...newMoreInfoValue, ...jobTitleValues]);
+    }
+  };
+
+  const toggleSkillsValue = () => {
+    if (moreInfoValue.length > 0) {
+      setSkillsValue([]);
+    } else {
+      const essentialIds = essentialSkills.map((skill) => skill.id);
+      const nonEssentialIds = nonEssentialSkills.map((skill) => skill.id);
+
+      setSkillsValue([...essentialIds, ...nonEssentialIds]);
     }
   };
 
@@ -601,158 +612,86 @@ export const PoolPoster = ({
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.skillRequirements.id}>
-              <TableOfContents.Heading
-                size="h3"
-                icon={BoltIcon}
-                color="quaternary"
-                data-h2-margin="base(x3, 0, x1, 0)"
+              <div
+                data-h2-align-items="base(baseline)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x1)"
+                data-h2-flex-wrap="base(wrap)"
               >
-                {sections.skillRequirements.title}
-              </TableOfContents.Heading>
-              <Heading
-                level="h3"
-                size="h4"
-                data-h2-font-weight="base(700)"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Skill requirements",
-                  id: "tON7JL",
-                  description: "Title for skill requirements",
-                })}
-              </Heading>
+                <div data-h2-flex-grow="base(1)">
+                  <TableOfContents.Heading
+                    size="h3"
+                    icon={BoltIcon}
+                    color="quaternary"
+                    data-h2-margin="base(x3, 0, x1, 0)"
+                  >
+                    {sections.skillRequirements.title}
+                  </TableOfContents.Heading>
+                </div>
+                <div
+                  data-h2-flex-shrink="base(0)"
+                  data-h2-margin-top="base(x.75) p-tablet(0)"
+                >
+                  <Button
+                    mode="inline"
+                    color="secondary"
+                    onClick={toggleSkillsValue}
+                    aria-label={
+                      skillsValue.length > 0
+                        ? intl.formatMessage({
+                            defaultMessage: "Collapse all skills",
+                            id: "+PGnDL",
+                            description:
+                              "Accessible link text to collapse all accordions for skills",
+                          })
+                        : intl.formatMessage({
+                            defaultMessage: "Expand all skills",
+                            id: "MZSPTS",
+                            description:
+                              "Accessible link text to expand all accordions for skills",
+                          })
+                    }
+                  >
+                    {intl.formatMessage(
+                      skillsValue.length > 0
+                        ? uiMessages.collapseAll
+                        : uiMessages.expandAll,
+                    )}
+                  </Button>
+                </div>
+              </div>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'All opportunities on this platform require you to use your application to demonstrate a handful of required "occupational" or "technical" skills. Some opportunities will also assess “behavioural” or "soft" skills independently of your application, though you\'re free to add them to your career timeline.',
-                  id: "SiF2cz",
+                    'In order to apply for this job you will need to be able to demonstrate that you have <strong>all the skills</strong> marked <heavyPrimary>"Required"</heavyPrimary>. If you have any of the <heavySecondary>"Optional"</heavySecondary> skills you are encouraged to include them because it will increase your chances of a job placement.',
+                  id: "eihm6A",
                   description:
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
               </Text>
-              <Heading
-                level="h4"
-                size="h6"
-                data-h2-margin="base(x2, 0, x.5, 0)"
+              <Text>
+                {intl.formatMessage({
+                  defaultMessage:
+                    'To make the application process shorter, information is only collected on specific skills during the application stage. Theses are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
+                  id: "awavNQ",
+                  description:
+                    "Descriptive text about how skills are used during the application process",
+                })}
+              </Text>
+              <Accordion.Root
+                type="multiple"
+                mode="card"
+                size="sm"
+                value={skillsValue}
+                onValueChange={setSkillsValue}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Required technical skills",
-                  id: "9V8bnL",
-                  description:
-                    "Title for required technical skills section of a pool advertisement",
-                })}
-              </Heading>
-              <p data-h2-margin="base(x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The following skills are essential to this role and must be demonstrated as a part of your application.",
-                  id: "Ewa83p",
-                  description:
-                    "Descriptive text about how required technical skills are used in the application process",
-                })}
-              </p>
-              <SkillAccordion
-                skills={essentialSkills.TECHNICAL?.filter(notEmpty) || []}
-                nullMessage={intl.formatMessage({
-                  defaultMessage:
-                    "No required technical skills are being considered for this role.",
-                  id: "AFuhfl",
-                  description:
-                    "Message displayed when a pool advertisement has no required technical skills",
-                })}
-              />
-              <Heading
-                level="h4"
-                size="h6"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Optional technical skills",
-                  id: "mm1X02",
-                  description: "Title for optional technical skills section",
-                })}
-              </Heading>
-              <p data-h2-margin="base(x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "mqRhhe",
-                  description:
-                    "Descriptive text about how optional skills are used in the application process",
-                })}
-              </p>
-              <SkillAccordion
-                skills={nonEssentialSkills.TECHNICAL?.filter(notEmpty) || []}
-                nullMessage={intl.formatMessage({
-                  defaultMessage:
-                    "No optional technical skills are being considered for this role.",
-                  id: "8XIYUA",
-                  description:
-                    "Message displayed when a pool advertisement has no optional technical skills",
-                })}
-              />
-              <Heading
-                level="h4"
-                size="h6"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Required behavioural skills",
-                  id: "t9HxQm",
-                  description:
-                    "Title for required behavioural skills section of a pool advertisement",
-                })}
-              </Heading>
-              <p data-h2-margin="base(x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The following skills are required for this role, but aren't required as a part of your application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
-                  id: "v8LEMv",
-                  description:
-                    "Descriptive text about how required behavioural skills are used in the application process",
-                })}
-              </p>
-              <SkillAccordion
-                skills={essentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
-                nullMessage={intl.formatMessage({
-                  defaultMessage:
-                    "No required behavioural skills are being considered for this role.",
-                  id: "E+AYNX",
-                  description:
-                    "Message displayed when a pool advertisement has no required behavioural skills",
-                })}
-              />
-              <Heading
-                level="h4"
-                size="h6"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Optional behavioural skills",
-                  id: "LeVJmQ",
-                  description:
-                    "Title for optional behavioural skills section of a pool advertisement",
-                })}
-              </Heading>
-              <p data-h2-margin="base(x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-                  id: "mqRhhe",
-                  description:
-                    "Descriptive text about how optional skills are used in the application process",
-                })}
-              </p>
-              <SkillAccordion
-                skills={nonEssentialSkills.BEHAVIOURAL?.filter(notEmpty) || []}
-                nullMessage={intl.formatMessage({
-                  defaultMessage:
-                    "No optional behavioural skills are being considered for this role.",
-                  id: "KRkZS6",
-                  description:
-                    "Message displayed when a pool advertisement has no optional behavioural skills",
-                })}
-              />
+                {essentialSkills.map((skill) => (
+                  <SkillAccordion key={skill.id} skill={skill} required />
+                ))}
+                {nonEssentialSkills.map((skill) => (
+                  <SkillAccordion key={skill.id} skill={skill} />
+                ))}
+              </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.aboutRole.id}>
               <TableOfContents.Heading
@@ -862,6 +801,7 @@ export const PoolPoster = ({
               <Accordion.Root
                 type="multiple"
                 mode="card"
+                size="sm"
                 value={moreInfoValue}
                 onValueChange={setMoreInfoValue}
               >
@@ -979,7 +919,6 @@ export const PoolPoster = ({
                 )}
               </Accordion.Root>
             </TableOfContents.Section>
-
             <TableOfContents.Section id={sections.startAnApplication.id}>
               <TableOfContents.Heading
                 size="h3"
