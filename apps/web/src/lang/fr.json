@@ -3419,6 +3419,10 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
   },
+  "Gki8Ex": {
+    "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
+    "description": "Message for total estimated matching candidates in pool"
+  },
   "GplLic": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
@@ -3831,13 +3835,13 @@
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner",
     "description": "Description of a users technical skills to be improved"
   },
-  "JZk4NZ": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
-    "description": "Message for total estimated matching candidates in pool"
-  },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
+  },
+  "JbHieN": {
+    "defaultMessage": "Demander pour les candidats du bassin {poolName}",
+    "description": "Button link message on search page that takes user to the request form."
   },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
