@@ -69,7 +69,7 @@ import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
-import SkillLevelDialog from "./components/SkillLevelDialog";
+// import SkillLevelDialog from "./components/SkillLevelDialog";
 
 type SectionContent = {
   id: string;
