@@ -54,17 +54,21 @@ const OrganizeSection = ({
   pageIsLoading: pageLoading,
 }: OrganizeSectionProps) => {
   const intl = useIntl();
+  const initialSteps = React.useMemo(
+    () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
+    [pool.assessmentSteps],
+  );
+  const [steps, setSteps] = React.useState<AssessmentStep[]>(initialSteps);
+
+  React.useEffect(() => {
+    setSteps(initialSteps);
+  }, [initialSteps]);
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] = useMutation(
     OrganizeSection_DeleteMutation,
   );
   const [{ fetching: swapFetching }, executeSwapMutation] = useMutation(
     OrganizeSection_SwapMutation,
-  );
-
-  const steps = sortBy(
-    unpackMaybes(pool.assessmentSteps),
-    (step) => step.sortOrder,
   );
 
   const disabledIndexes = steps
@@ -247,6 +251,7 @@ const OrganizeSection = ({
           moveDisabledIndexes={moveDisabledIndexes}
           editDisabledIndexes={disabledIndexes}
           removeDisabledIndexes={disabledIndexes}
+          onUpdate={setSteps}
           add={
             <AssessmentDetailsDialog
               trigger={
