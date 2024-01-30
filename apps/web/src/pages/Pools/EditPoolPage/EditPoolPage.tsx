@@ -298,13 +298,6 @@ export const EditPoolForm = ({
     },
   };
 
-  const backMessage = defineMessage({
-    defaultMessage: "Back to process information",
-    id: "wCvkgI",
-    description:
-      "Text on a link to navigate back to the process information page",
-  });
-
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
@@ -331,13 +324,6 @@ export const EditPoolForm = ({
                     </TableOfContents.ListItem>
                   ))}
               </TableOfContents.List>
-              <Link
-                mode="solid"
-                href={paths.poolView(pool.id)}
-                color="secondary"
-              >
-                {intl.formatMessage(backMessage)}
-              </Link>
             </TableOfContents.Navigation>
             <TableOfContents.Content>
               <div
@@ -361,7 +347,7 @@ export const EditPoolForm = ({
                       >
                         {sectionMetadata.basicInfo.title}
                       </Heading>
-                      <p data-h2-margin="base(x1 0)">
+                      <p data-h2-margin-top="base(x1)">
                         {sectionMetadata.basicInfo.subtitle}
                       </p>
                     </div>
@@ -421,7 +407,7 @@ export const EditPoolForm = ({
                       >
                         {sectionMetadata.skillRequirements.title}
                       </Heading>
-                      <p data-h2-margin="base(x1 0)">
+                      <p data-h2-margin-top="base(x1)">
                         {sectionMetadata.skillRequirements.subtitle}
                       </p>
                     </div>
@@ -460,7 +446,7 @@ export const EditPoolForm = ({
                         >
                           {sectionMetadata.aboutRole.title}
                         </Heading>
-                        <p data-h2-margin="base(x1 0)">
+                        <p data-h2-margin-top="base(x1)">
                           {sectionMetadata.aboutRole.subtitle}
                         </p>
                       </div>
@@ -500,7 +486,7 @@ export const EditPoolForm = ({
                         >
                           {sectionMetadata.commonQuestions.title}
                         </Heading>
-                        <p data-h2-margin="base(x1 0)">
+                        <p data-h2-margin-top="base(x1)">
                           {sectionMetadata.commonQuestions.subtitle}
                         </p>
                       </div>

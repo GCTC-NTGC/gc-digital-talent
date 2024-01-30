@@ -61,7 +61,13 @@ const EducationRequirementsSection = ({
 
   return (
     <div>
-      <Heading Icon={icon.icon} color={icon.color} level="h2" size="h3">
+      <Heading
+        Icon={icon.icon}
+        color={icon.color}
+        level="h2"
+        size="h3"
+        data-h2-margin-top="base(0)"
+      >
         {sectionMetadata.title}
       </Heading>
       <p data-h2-margin="base(x1 0)">

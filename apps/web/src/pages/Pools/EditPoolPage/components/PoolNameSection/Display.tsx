@@ -51,11 +51,7 @@ const Display = ({ pool }: DisplayProps) => {
       >
         {name?.fr || notProvided}
       </ToggleForm.FieldDisplay>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
         <ToggleForm.FieldDisplay
           hasError={!processNumber}
           label={intl.formatMessage(processMessages.processNumber)}
