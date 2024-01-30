@@ -276,8 +276,11 @@ export const AssessmentPlanBuilderPage = () => {
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
       (authorizedRoleAssignment) =>
-        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
-        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
   // figure out what content should be displayed
