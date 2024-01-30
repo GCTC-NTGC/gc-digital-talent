@@ -12,7 +12,7 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Color, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
@@ -37,10 +37,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  isDisqualifiedStatus,
-  isQualifiedStatus,
-  isRemovedStatus,
-  isToAssessStatus,
+  getFinalDecisionPillColor,
   statusToFinalDecision,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
@@ -221,28 +218,6 @@ export const currentLocationAccessor = (
       ? getProvinceOrTerritory(province as string)
       : commonMessages.notFound,
   )}`;
-
-const getFinalDecisionPillColor = (
-  status?: Maybe<PoolCandidateStatus>,
-): Color => {
-  if (isToAssessStatus(status)) {
-    return "warning";
-  }
-
-  if (isDisqualifiedStatus(status)) {
-    return "error";
-  }
-
-  if (isRemovedStatus(status)) {
-    return "black";
-  }
-
-  if (isQualifiedStatus(status)) {
-    return "success";
-  }
-
-  return "white";
-};
 
 export const finalDecisionCell = (
   intl: IntlShape,

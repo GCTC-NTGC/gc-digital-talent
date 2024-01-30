@@ -16,10 +16,10 @@ import {
   CardBasic,
   Button,
   Link,
-  Chip,
+  Pill,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -35,6 +35,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import AdminHero from "~/components/Hero/AdminHero";
+import { getCandidateStatusPill } from "~/utils/poolCandidate";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -161,12 +162,28 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
+        assessmentSteps {
+          id
+          title {
+            en
+            fr
+          }
+          type
+          sortOrder
+          poolSkills {
+            id
+            type
+          }
+        }
         ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
         id
         assessmentDecision
         assessmentResultType
+        assessmentStep {
+          id
+        }
         poolSkill {
           id
           skill {
@@ -222,6 +239,11 @@ export const ViewPoolCandidate = ({
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
+  const statusPill = getCandidateStatusPill(
+    poolCandidate,
+    unpackMaybes(poolCandidate.pool.assessmentSteps),
+    intl,
+  );
 
   const sections: Record<string, SectionContent> = {
     statusForm: {
@@ -456,29 +478,33 @@ export const ViewPoolCandidate = ({
       data-h2-align-items="base(center)"
       data-h2-gap="base(x.5)"
     >
+      <Pill
+        mode="outline"
+        color={statusPill.color}
+        icon={statusPill.icon}
+        data-h2-font-weight="base(700)"
+      >
+        {statusPill.label}
+      </Pill>
       {poolCandidate.user.hasPriorityEntitlement ||
       poolCandidate.user.priorityWeight === 10 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Priority",
             id: "xGMcBO",
             description: "Label for priority chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
       {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
       poolCandidate.user.priorityWeight === 20 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Veteran",
             id: "16iCWc",
             description: "Label for veteran chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
     </div>
   );
