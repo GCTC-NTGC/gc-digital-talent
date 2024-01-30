@@ -7,18 +7,18 @@ import {
   fakeUsers,
   fakePools,
 } from "@gc-digital-talent/fake-data";
-import { ScreeningQuestionResponse, User } from "@gc-digital-talent/graphql";
+import { GeneralQuestionResponse, User } from "@gc-digital-talent/graphql";
 
 import ApplicationInformation from "./ApplicationInformation";
 
 faker.seed(0);
 
 const question = faker.lorem.words(6);
-const screeningQuestionResponses: ScreeningQuestionResponse[] = [
+const generalQuestionResponses: GeneralQuestionResponse[] = [
   {
     id: faker.string.uuid(),
     answer: faker.lorem.sentences(3),
-    screeningQuestion: {
+    generalQuestion: {
       id: faker.string.uuid(),
       question: {
         en: `${question}? (EN)`,
@@ -35,7 +35,7 @@ mockPoolCandidate = {
   educationRequirementExperiences: [],
   ...mockPoolCandidate,
   pool: mockPool,
-  screeningQuestionResponses,
+  generalQuestionResponses,
 };
 
 let mockUser: User = fakeUsers(1)[0];

@@ -26,7 +26,7 @@ import {
   flattenExperiencesToSkills,
   skillKeyAndJustifications,
   getExperienceTitles,
-  getScreeningQuestionResponses,
+  getGeneralQuestionResponses,
   getIndigenousCommunities,
   sanitizeCSVString,
 } from "~/utils/csvUtils";
@@ -46,7 +46,7 @@ export const getPoolCandidateCsvData = (
       expiryDate,
       educationRequirementOption,
       educationRequirementExperiences,
-      screeningQuestionResponses,
+      generalQuestionResponses,
       user,
       pool: poolAd,
     }) => {
@@ -157,7 +157,7 @@ export const getPoolCandidateCsvData = (
           educationRequirementExperiences,
           intl,
         ),
-        ...getScreeningQuestionResponses(screeningQuestionResponses),
+        ...getGeneralQuestionResponses(generalQuestionResponses),
         skills: flattenExperiencesToSkills(user.experiences, locale),
         ...skillKeyAndJustifications(user.experiences, poolSkills || [], intl),
       };
@@ -202,23 +202,21 @@ export const getPoolCandidateCsvHeaders = (
       })
     : [];
 
-  const screeningQuestionHeaders = pool?.screeningQuestions
-    ? pool.screeningQuestions
-        .filter(notEmpty)
-        .map((screeningQuestion, index) => ({
-          id: screeningQuestion.id,
-          displayName: intl.formatMessage(
-            {
-              defaultMessage: "Screening question {index}: {question}",
-              id: "5nlauT",
-              description: "CSV Header, Screening question column. ",
-            },
-            {
-              index: screeningQuestion.sortOrder || index + 1,
-              question: getLocalizedName(screeningQuestion.question, intl),
-            },
-          ),
-        }))
+  const generalQuestionHeaders = pool?.generalQuestions
+    ? pool.generalQuestions.filter(notEmpty).map((generalQuestion, index) => ({
+        id: generalQuestion.id,
+        displayName: intl.formatMessage(
+          {
+            defaultMessage: "Screening question {index}: {question}",
+            id: "5nlauT",
+            description: "CSV Header, Screening question column. ",
+          },
+          {
+            index: generalQuestion.sortOrder || index + 1,
+            question: getLocalizedName(generalQuestion.question, intl),
+          },
+        ),
+      }))
     : [];
 
   return [
@@ -522,7 +520,7 @@ export const getPoolCandidateCsvHeaders = (
         description: "CSV Header, Education Requirement Experiences column",
       }),
     },
-    ...screeningQuestionHeaders,
+    ...generalQuestionHeaders,
     {
       id: "skills",
       displayName: intl.formatMessage(adminMessages.skills),

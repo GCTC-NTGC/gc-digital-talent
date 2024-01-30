@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
 
-import { ScreeningQuestion } from "@gc-digital-talent/graphql";
+import { GeneralQuestion } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
 
-export default (): ScreeningQuestion[] => {
+export default (): GeneralQuestion[] => {
   return [
     {
       id: faker.string.uuid(),

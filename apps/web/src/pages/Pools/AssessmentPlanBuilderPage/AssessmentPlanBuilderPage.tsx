@@ -203,7 +203,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
         }
       }
       status
-      screeningQuestions {
+      generalQuestions {
         id
         question {
           en
