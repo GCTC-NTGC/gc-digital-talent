@@ -8,7 +8,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
 import { UpdatePoolCandidateAsAdminInput } from "@gc-digital-talent/graphql";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
 import { BasicUserInformationProps } from "../types";
 import AdminUpdatePoolCandidate_Mutation from "./mutation";
@@ -46,7 +46,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -62,7 +62,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -107,7 +107,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                        poolName: getShortPoolTitleHtml(intl, candidate.pool),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}

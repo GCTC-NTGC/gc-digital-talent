@@ -9803,6 +9803,10 @@
     "defaultMessage": "Votre impact",
     "description": "Sub title for the pool introduction"
   },
+  "MOpG7g": {
+    "defaultMessage": "Your impact",
+    "description": "Title for impact section on a pool advertisement."
+  },
   "rz21yp": {
     "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
     "description": "Learn more dialog question five heading"

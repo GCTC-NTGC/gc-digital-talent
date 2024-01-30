@@ -4,6 +4,10 @@ import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 
 import {
   ThrowNotFound,
@@ -14,6 +18,7 @@ import {
   Link,
   Well,
   CardBasic,
+  Button,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -24,6 +29,7 @@ import {
   getLocalizedName,
   navigationMessages,
   getPoolStream,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -35,6 +41,7 @@ import {
   Scalars,
   Pool,
   PublishingGroup,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 
 import { categorizeSkill } from "~/utils/skillUtils";
@@ -42,10 +49,10 @@ import {
   formatClassificationString,
   getClassificationGroup,
   getClassificationSalaryRangeUrl,
-  getFullPoolTitleLabel,
+  getFullPoolTitleHtml,
+  getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
-import { wrapAbbr } from "~/utils/nameUtils";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -67,11 +74,23 @@ type SectionContent = {
   title: string;
 };
 
-const anchorTag = (chunks: React.ReactNode, email: string) => (
-  <Link external href={`mailto:${email}`}>
-    {chunks}
-  </Link>
-);
+const anchorTag = (chunks: React.ReactNode, email?: Maybe<string>) => {
+  return email ? (
+    <Link external href={`mailto:${email}`}>
+      {chunks}
+    </Link>
+  ) : (
+    chunks
+  );
+};
+
+const moreInfoAccordions = {
+  whoCanApply: "who-can-apply",
+  dei: "diversity-equity-inclusion",
+  accommodations: "accommodations",
+  whatToExpectApply: "what-to-expect-apply",
+  whatToExpectIfSuccessful: "what-to-expect-success",
+};
 
 interface PoolAdvertisementProps {
   pool: Pool;
@@ -88,6 +107,7 @@ export const PoolPoster = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+  const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
 
   const classification = pool.classifications ? pool.classifications[0] : null;
   const genericJobTitles =
@@ -99,7 +119,8 @@ export const PoolPoster = ({
       level: classification?.level,
     });
   }
-  const fullTitle = getFullPoolTitleLabel(intl, pool);
+  const poolTitle = getShortPoolTitleLabel(intl, pool);
+  const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,
     classification,
@@ -113,7 +134,6 @@ export const PoolPoster = ({
     : getLocalizedName(pool.location, intl);
 
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
-  const showImpactTasks = !!(pool.keyTasks || pool.yourImpact);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
 
   const languageRequirement = pool.language
@@ -131,6 +151,24 @@ export const PoolPoster = ({
 
   const canApply = !!(pool?.status === PoolStatus.Published);
 
+  const toggleMoreInfoValue = () => {
+    if (moreInfoValue.length > 0) {
+      setMoreInfoValue([]);
+    } else {
+      const newMoreInfoValue = Object.values(moreInfoAccordions).filter(
+        (id) => {
+          if (!pool.whatToExpect && id === "what-to-expect-apply") return false;
+          return true;
+        },
+      );
+      const jobTitleValues = genericJobTitles.map(
+        (genericJobTitle) => genericJobTitle.id,
+      );
+
+      setMoreInfoValue([...newMoreInfoValue, ...jobTitleValues]);
+    }
+  };
+
   const applyBtn = (
     <ApplicationLink
       poolId={pool.id}
@@ -146,7 +184,7 @@ export const PoolPoster = ({
       url: paths.browsePools(),
     },
     {
-      label: fullTitle,
+      label: poolTitle,
       url: paths.pool(pool.id),
     },
   ]);
@@ -168,67 +206,36 @@ export const PoolPoster = ({
         description: "Title for a education details of a pool advertisement",
       }),
     },
-    impactTasks: {
-      id: "impact-section",
+    skillRequirements: {
+      id: "skill-requirements",
       title: intl.formatMessage({
-        defaultMessage: "Impact and tasks",
-        id: "s5iy2Z",
-        description:
-          "Title for the impact and tasks section of a pool advertisement",
+        defaultMessage: "Skill requirements",
+        id: "h2h7Df",
+        description: "Title for the skills section of a pool advertisement",
       }),
     },
-    experienceSkills: {
-      id: "experience-skills-section",
+    aboutRole: {
+      id: "about-role",
       title: intl.formatMessage({
-        defaultMessage: "Experience and skill requirements",
-        id: "VXHomP",
-        description:
-          "Title for the experience and skills section of a pool advertisement",
+        defaultMessage: "About this role",
+        id: "wim0F6",
+        description: "Title for the about section of a pool advertisement",
       }),
     },
-    locationLangSecurity: {
-      id: "loc-lang-sec-section",
+    moreInfo: {
+      id: "more-information",
       title: intl.formatMessage({
-        defaultMessage: "Location, language, and security",
-        id: "ARSDO1",
-        description:
-          "Title for the location, language and security section of a pool advertisement",
+        defaultMessage: "More information",
+        id: "9ALMEp",
+        description: "Title for the about section of a pool advertisement",
       }),
     },
-    contact: {
-      id: "contact-section",
+    startAnApplication: {
+      id: "start-an-application",
       title: intl.formatMessage({
-        defaultMessage: "Contact and accommodation",
-        id: "BLg0f4",
-        description:
-          "Title for the contact and accommodation section of a pool advertisement",
-      }),
-    },
-    whoCanApply: {
-      id: "who-can-apply-section",
-      title: intl.formatMessage({
-        defaultMessage: "Who can apply?",
-        id: "UwdpPS",
-        description:
-          "Title for the hiring policies section of a pool advertisement",
-      }),
-    },
-    whatToExpect: {
-      id: "what-to-expect-section",
-      title: intl.formatMessage({
-        defaultMessage: "What to expect after you apply",
-        id: "D2HsoO",
-        description:
-          "Title for the what to expect section of a pool advertisement",
-      }),
-    },
-    apply: {
-      id: "apply-section",
-      title: intl.formatMessage({
-        defaultMessage: "Apply now",
-        id: "C6YPk3",
-        description:
-          "Title for the apply button section of a pool advertisement",
+        defaultMessage: "Start an application",
+        id: "Qx8ezq",
+        description: "Title for the apply now section of a pool advertisement",
       }),
     },
   };
@@ -237,18 +244,15 @@ export const PoolPoster = ({
 
   return (
     <>
-      <SEO title={fullTitle} />
+      <SEO title={poolTitle} />
       <Hero
-        title={fullTitle}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage:
-              "Learn more about {title} opportunities and begin an application.",
-            id: "gPEnzf",
-            description: "Subtitle for a pool advertisement page",
-          },
-          { title: fullTitle },
-        )}
+        title={poolTitle}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Learn more about this opportunity and begin an application.",
+          id: "H5EXEi",
+          description: "Subtitle for a pool advertisement page",
+        })}
         crumbs={links}
       />
       <div
@@ -268,51 +272,26 @@ export const PoolPoster = ({
                   {sections.minEducation.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {showImpactTasks && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.impactTasks.id}>
-                    {sections.impactTasks.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.experienceSkills.id}>
-                  {sections.experienceSkills.title}
+                <TableOfContents.AnchorLink id={sections.skillRequirements.id}>
+                  {sections.skillRequirements.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={sections.locationLangSecurity.id}
-                >
-                  {sections.locationLangSecurity.title}
+                <TableOfContents.AnchorLink id={sections.aboutRole.id}>
+                  {sections.aboutRole.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {contactEmail && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.contact.id}>
-                    {sections.contact.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
-              {showWhatToExpect && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.whatToExpect.id}>
-                    {sections.whatToExpect.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.whoCanApply.id}>
-                  {sections.whoCanApply.title}
+                <TableOfContents.AnchorLink id={sections.moreInfo.id}>
+                  {sections.moreInfo.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {canApply && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.apply.id}>
-                    {sections.apply.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={sections.startAnApplication.id}>
+                  {sections.startAnApplication.title}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
@@ -554,56 +533,6 @@ export const PoolPoster = ({
                   }
                 />
               </CardBasic>
-
-              <Accordion.Root size="sm" type="single" collapsible>
-                <Accordion.Item value="when">
-                  <Accordion.Trigger>
-                    {intl.formatMessage({
-                      defaultMessage: "What are pool recruitments?",
-                      id: "KYFarS",
-                      description:
-                        "Title for accordion describing pool recruitments",
-                    })}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <Text>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "When you apply to this process, you are not applying for a specific position. This process is intended to create and maintain an inventory to staff various positions at the same level in different departments and agencies across the Government of Canada.",
-                        id: "kH4Jsf",
-                        description:
-                          "Description of pool recruitment, paragraph one",
-                      })}
-                    </Text>
-                    <Text>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "When hiring managers have <abbreviation>IT</abbreviation> staffing needs and positions become available, applicants who meet the qualifications for this process may be contacted for further assessment. This means various managers may reach out to you about specific opportunities.",
-                          id: "7b0U9u",
-                          description:
-                            "Description of pool recruitment, paragraph two",
-                        },
-                        {
-                          abbreviation: (text: React.ReactNode) =>
-                            wrapAbbr(text, intl),
-                        },
-                      )}
-                    </Text>
-                  </Accordion.Content>
-                </Accordion.Item>
-                {genericJobTitles.length ? (
-                  <>
-                    {genericJobTitles.map((genericJobTitle) => (
-                      <GenericJobTitleAccordion
-                        key={genericJobTitle.id}
-                        classification={classificationString}
-                        genericJobTitle={genericJobTitle}
-                      />
-                    ))}
-                  </>
-                ) : null}
-              </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.minEducation.id}>
               <TableOfContents.Heading
@@ -627,55 +556,14 @@ export const PoolPoster = ({
                 classificationGroup={classificationGroup}
               />
             </TableOfContents.Section>
-            {showImpactTasks && (
-              <TableOfContents.Section id={sections.impactTasks.id}>
-                <TableOfContents.Heading
-                  size="h3"
-                  data-h2-margin="base(x3, 0, x1, 0)"
-                >
-                  {sections.impactTasks.title}
-                </TableOfContents.Heading>
-                {pool.yourImpact && (
-                  <div>
-                    <RichTextRenderer
-                      node={htmlToRichTextJSON(
-                        getLocalizedName(pool.yourImpact, intl),
-                      )}
-                    />
-                  </div>
-                )}
-                {pool.keyTasks && (
-                  <>
-                    <Heading
-                      level="h3"
-                      size="h4"
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin="base(x3, 0, x1, 0)"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Common tasks in this role",
-                        id: "ATO0GK",
-                        description:
-                          "Title for key tasks on a pool advertisement.",
-                      })}
-                    </Heading>
-                    <div data-h2-margin-top="base(x1)">
-                      <RichTextRenderer
-                        node={htmlToRichTextJSON(
-                          getLocalizedName(pool.keyTasks, intl),
-                        )}
-                      />
-                    </div>
-                  </>
-                )}
-              </TableOfContents.Section>
-            )}
-            <TableOfContents.Section id={sections.experienceSkills.id}>
+            <TableOfContents.Section id={sections.skillRequirements.id}>
               <TableOfContents.Heading
                 size="h3"
+                icon={BoltIcon}
+                color="quaternary"
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
-                {sections.experienceSkills.title}
+                {sections.skillRequirements.title}
               </TableOfContents.Heading>
               <Heading
                 level="h3"
@@ -822,113 +710,273 @@ export const PoolPoster = ({
                 })}
               />
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections.locationLangSecurity.id}>
+            <TableOfContents.Section id={sections.aboutRole.id}>
               <TableOfContents.Heading
                 size="h3"
+                icon={ClipboardDocumentIcon}
+                color="tertiary"
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
-                {sections.locationLangSecurity.title}
+                {sections.aboutRole.title}
               </TableOfContents.Heading>
-              <Text>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These opportunities have the following requirements:",
-                  id: "t9Zy30",
-                  description:
-                    "Lead-in text for other requirements on a pool advertisement",
-                })}
-              </Text>
-            </TableOfContents.Section>
-            {contactEmail && (
-              <TableOfContents.Section id={sections.contact.id}>
-                <TableOfContents.Heading
-                  size="h3"
-                  data-h2-margin="base(x3, 0, x1, 0)"
-                >
-                  {sections.contact.title}
-                </TableOfContents.Heading>
-                <Text>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
-                      id: "rKUVdL",
+              {pool.yourImpact && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin="base(x3, 0, x1, 0)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Your impact",
+                      id: "MOpG7g",
                       description:
-                        "Opening sentence asking if accommodations are needed",
-                    },
-                    {
-                      a: (chunks: React.ReactNode) =>
-                        anchorTag(chunks, contactEmail),
-                      name: getLocalizedName(pool.team?.displayName, intl),
-                    },
-                  )}
-                </Text>
-              </TableOfContents.Section>
-            )}
-            {showWhatToExpect && (
-              <TableOfContents.Section id={sections.whatToExpect.id}>
-                <TableOfContents.Heading
-                  size="h3"
-                  data-h2-margin="base(x3, 0, x1, 0)"
-                >
-                  {sections.whatToExpect.title}
-                </TableOfContents.Heading>
-                <div data-h2-margin-top="base(x1)">
+                        "Title for impact section on a pool advertisement.",
+                    })}
+                  </Heading>
                   <RichTextRenderer
                     node={htmlToRichTextJSON(
-                      getLocalizedName(pool.whatToExpect, intl),
+                      getLocalizedName(pool.yourImpact, intl),
                     )}
                   />
+                </>
+              )}
+              {pool.keyTasks && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin="base(x3, 0, x1, 0)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Common tasks in this role",
+                      id: "ATO0GK",
+                      description:
+                        "Title for key tasks on a pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.keyTasks, intl),
+                    )}
+                  />
+                </>
+              )}
+            </TableOfContents.Section>
+            <TableOfContents.Section id={sections.moreInfo.id}>
+              <div
+                data-h2-align-items="base(baseline)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x1)"
+                data-h2-flex-wrap="base(wrap)"
+              >
+                <div data-h2-flex-grow="base(1)">
+                  <TableOfContents.Heading
+                    size="h3"
+                    icon={QuestionMarkCircleIcon}
+                    color="quinary"
+                    data-h2-margin="base(x3, 0, x1, 0)"
+                  >
+                    {sections.moreInfo.title}
+                  </TableOfContents.Heading>
                 </div>
-              </TableOfContents.Section>
-            )}
-            <TableOfContents.Section id={sections.whoCanApply.id}>
+                <div
+                  data-h2-flex-shrink="base(0)"
+                  data-h2-margin-top="base(x.75) p-tablet(0)"
+                >
+                  <Button
+                    mode="inline"
+                    color="secondary"
+                    onClick={toggleMoreInfoValue}
+                    aria-label={
+                      moreInfoValue.length > 0
+                        ? intl.formatMessage({
+                            defaultMessage:
+                              "Collapse all more information sections",
+                            id: "V6Y2Np",
+                            description:
+                              "Accessible link text to collapse all accordions for more information",
+                          })
+                        : intl.formatMessage({
+                            defaultMessage:
+                              "Expand all more information sections",
+                            id: "hAAMFa",
+                            description:
+                              "Accessible link text to expand all accordions for more information",
+                          })
+                    }
+                  >
+                    {intl.formatMessage(
+                      moreInfoValue.length > 0
+                        ? uiMessages.collapseAll
+                        : uiMessages.expandAll,
+                    )}
+                  </Button>
+                </div>
+              </div>
+              <Accordion.Root
+                type="multiple"
+                mode="card"
+                value={moreInfoValue}
+                onValueChange={setMoreInfoValue}
+              >
+                <Accordion.Item value={moreInfoAccordions.whoCanApply}>
+                  <Accordion.Trigger>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        '"Who can apply to this recruitment process?"',
+                      id: "EpL8MD",
+                      description:
+                        "Button text to toggle the accordion for who can apply",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
+                        id: "faWz84",
+                        description:
+                          "List of criteria needed in order to apply",
+                      })}
+                    </Text>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
+                        id: "aCg/OZ",
+                        description:
+                          "First hiring policy for pool advertisement",
+                      })}
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                {genericJobTitles.length ? (
+                  <>
+                    {genericJobTitles.map((genericJobTitle) => (
+                      <GenericJobTitleAccordion
+                        key={genericJobTitle.id}
+                        classification={classificationString}
+                        genericJobTitle={genericJobTitle}
+                      />
+                    ))}
+                  </>
+                ) : null}
+                <Accordion.Item value={moreInfoAccordions.dei}>
+                  <Accordion.Trigger>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        '"How are equity and inclusion considered in this recruitment process?"',
+                      id: "fkw2eD",
+                      description:
+                        "Button text to toggle the accordion for diversity, equity and inclusion",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
+                        id: "2sQI9l",
+                        description:
+                          "Information on commitment to diversity, equity and inclusion",
+                      })}
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                <Accordion.Item value={moreInfoAccordions.accommodations}>
+                  <Accordion.Trigger>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        '"Who can I contact with questions or accommodation needs?"',
+                      id: "IbWzvu",
+                      description:
+                        "Button text to toggle the accordion for accommodations contact",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Please contact the <a>{name} team</a> by email if you have <strong>any questions</strong> or <strong>require an accommodation</strong> during this process.",
+                          id: "rKUVdL",
+                          description:
+                            "Opening sentence asking if accommodations are needed",
+                        },
+                        {
+                          a: (chunks: React.ReactNode) =>
+                            anchorTag(chunks, contactEmail),
+                          name: getLocalizedName(pool.team?.displayName, intl),
+                        },
+                      )}
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                {showWhatToExpect && (
+                  <Accordion.Item value={moreInfoAccordions.accommodations}>
+                    <Accordion.Trigger>
+                      {intl.formatMessage({
+                        defaultMessage: '"What should I expect after I apply?"',
+                        id: "pdi2SU",
+                        description:
+                          "Button text to toggle the accordion for what to expect after you apply",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpect, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
+              </Accordion.Root>
+            </TableOfContents.Section>
+
+            <TableOfContents.Section id={sections.startAnApplication.id}>
               <TableOfContents.Heading
                 size="h3"
+                icon={RocketLaunchIcon}
+                color="primary"
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
-                {sections.whoCanApply.title}
+                {sections.startAnApplication.title}
               </TableOfContents.Heading>
               <Text>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we’d love to hear from you! ",
+                    id: "o8bIuI",
+                    description:
+                      "Lead-in text to the apply call to action at the end of a pool advertisement",
+                  },
+                  { title: fullPoolTitle },
+                )}
+              </Text>
+              <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
-                  id: "faWz84",
-                  description: "List of criteria needed in order to apply",
+                    "If you have a profile on GC Digital Talent, your information will automatically be added to help speed up the process. You'll have the opportunity to review and edit this information, as well as the chance to complete any information that might be missing. Changes you make to your profile as a part of the application will be saved so that you can use that information at a later time.",
+                  id: "/AH0m5",
+                  description:
+                    "Description of how user profiles assist in application completion",
                 })}
               </Text>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
-                  id: "aCg/OZ",
-                  description: "First hiring policy for pool advertisement",
+                    "Don't have a profile yet? The application process will walk you through everything you need.",
+                  id: "uOTYlH",
+                  description:
+                    "Text letting users know the application will allow them setup a profile",
                 })}
               </Text>
+              {applyBtn}
             </TableOfContents.Section>
-            {canApply && (
-              <TableOfContents.Section id={sections.apply.id}>
-                <TableOfContents.Heading
-                  size="h3"
-                  data-h2-margin="base(x3, 0, x1, 0)"
-                >
-                  {sections.apply.title}
-                </TableOfContents.Heading>
-                <Text>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we'd love to hear from you! This platform allows you to submit an application using the existing information in your profile and you'll be able to update that information in the next step.",
-                      id: "Io6+0T",
-                      description:
-                        "Lead-in text to the apply call to action at the end of a pool advertisement",
-                    },
-                    { title: fullTitle },
-                  )}
-                </Text>
-                {applyBtn}
-              </TableOfContents.Section>
-            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>

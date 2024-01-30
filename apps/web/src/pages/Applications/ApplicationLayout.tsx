@@ -15,7 +15,7 @@ import IapContactDialog from "~/components/Dialog/IapContactDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { fullPoolTitle, isIAPPool } from "~/utils/poolUtils";
+import { poolTitle, isIAPPool } from "~/utils/poolUtils";
 import {
   applicationStepsToStepperArgs,
   getApplicationSteps,
@@ -49,7 +49,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     application,
     experienceId,
   });
-  const title = fullPoolTitle(intl, application.pool);
+  const title = poolTitle(intl, application.pool);
   const isIAP = isIAPPool(application.pool);
 
   const pageTitle = defineMessage({

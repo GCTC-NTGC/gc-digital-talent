@@ -12,6 +12,7 @@ import {
   commonMessages,
   getLocalizedName,
   getPoolStatus,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -28,6 +29,7 @@ import {
   Maybe,
   Classification,
   Pool,
+  PoolStream,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -115,28 +117,37 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Classification> | undefined;
+  stream?: Maybe<PoolStream>;
+  short?: boolean;
   intl: IntlShape;
 }
 
 export const formattedPoolPosterTitle = ({
   title,
   classification,
+  stream,
+  short,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: React.ReactNode;
   label: string;
 } => {
+  const streamString = stream
+    ? `${intl.formatMessage(getPoolStream(stream))}`
+    : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : null ?? "";
 
-  const genericTitle = `${groupAndLevel.trim()}${intl.formatMessage(
-    commonMessages.dividingColon,
-  )}`;
+  const genericTitle = short
+    ? `${groupAndLevel.trim()}${intl.formatMessage(
+        commonMessages.dividingColon,
+      )}`
+    : `${groupAndLevel} ${streamString}`.trim();
   const hasGroupAndLevel = groupAndLevel.length > 0;
 
   return {
-    html: (
+    html: short ? (
       <>
         {hasGroupAndLevel ? (
           <>
@@ -146,19 +157,27 @@ export const formattedPoolPosterTitle = ({
         ) : null}
         {title || ""}
       </>
+    ) : (
+      <>
+        {title || ""} ({wrapAbbr(groupAndLevel, intl)}
+        {streamString ? ` ${streamString}` : ""})
+      </>
     ),
-    label: `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim(),
+    label: short
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
+      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
-interface FullPoolTitleOptions {
+interface PoolTitleOptions {
   defaultTitle?: React.ReactNode;
+  short?: boolean;
 }
 
-export const fullPoolTitle = (
+export const poolTitle = (
   intl: IntlShape,
   pool: Maybe<Pool>,
-  options?: FullPoolTitleOptions,
+  options?: PoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
@@ -187,6 +206,8 @@ export const fullPoolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classifications?.[0],
+    stream: pool?.stream,
+    short: options?.short,
     intl,
   });
 
@@ -200,13 +221,33 @@ export const getFullPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => fullPoolTitle(intl, pool, options).html;
+): React.ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): string => fullPoolTitle(intl, pool, options).label;
+): string => poolTitle(intl, pool, options).label;
+
+export const getShortPoolTitleHtml = (
+  intl: IntlShape,
+  pool: Maybe<Pool>,
+  options?: { defaultTitle?: string },
+): React.ReactNode =>
+  poolTitle(intl, pool, {
+    ...options,
+    short: true,
+  }).html;
+
+export const getShortPoolTitleLabel = (
+  intl: IntlShape,
+  pool: Maybe<Pool>,
+  options?: { defaultTitle?: string },
+): string =>
+  poolTitle(intl, pool, {
+    ...options,
+    short: true,
+  }).label;
 
 export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();

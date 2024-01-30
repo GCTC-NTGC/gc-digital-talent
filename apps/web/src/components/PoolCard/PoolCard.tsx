@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -110,7 +110,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-max-width="p-tablet(75%)"
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
-            {getFullPoolTitleHtml(intl, pool)}
+            {getShortPoolTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-background-color="base(secondary)"
