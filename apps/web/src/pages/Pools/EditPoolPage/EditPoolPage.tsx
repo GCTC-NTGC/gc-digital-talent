@@ -21,6 +21,7 @@ import {
   Classification,
   Skill,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
@@ -38,6 +39,7 @@ import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/pr
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -61,7 +63,9 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import { type ScreeningQuestionsSubmitData } from "./components/ScreeningQuestions";
+import GeneralQuestions, {
+  type GeneralQuestionsSubmitData,
+} from "./components/GeneralQuestions";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -71,7 +75,6 @@ import WhatToExpectSection, {
 import EditPoolContext from "./components/EditPoolContext";
 import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
-import GeneralQuestions from "./components/GeneralQuestions";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
@@ -83,7 +86,7 @@ export type PoolSubmitData =
   | YourImpactSubmitData
   | WhatToExpectSubmitData
   | SpecialNoteSubmitData
-  | ScreeningQuestionsSubmitData;
+  | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
   pool: Pool;
@@ -100,6 +103,7 @@ export const EditPoolForm = ({
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the GeneralQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -295,6 +299,13 @@ export const EditPoolForm = ({
       }),
       status: "optional",
     },
+  };
+
+  // remove once RoD flag is gone
+  const generalQuestionMetadata: EditPoolSectionMetadata = {
+    id: "general-questions",
+    hasError: false, // Optional
+    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({
@@ -514,11 +525,13 @@ export const EditPoolForm = ({
                 <TableOfContents.Section
                   id={sectionMetadata.generalQuestions.id}
                 >
-                  <GeneralQuestions
-                    pool={pool}
-                    sectionMetadata={sectionMetadata.generalQuestions}
-                    onSave={onSave}
-                  />
+                  {!recordOfDecisionFlag && (
+                    <GeneralQuestions
+                      pool={pool}
+                      sectionMetadata={generalQuestionMetadata}
+                      onSave={onSave}
+                    />
+                  )}
                 </TableOfContents.Section>
               </div>
             </TableOfContents.Content>
@@ -626,7 +639,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       stream
       processNumber
       publishingGroup
-      screeningQuestions {
+      generalQuestions {
         id
         question {
           en

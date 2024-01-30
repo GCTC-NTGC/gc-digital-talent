@@ -110,7 +110,7 @@ describe("Submit Application Workflow Tests", () => {
                       },
                       isRemote: true,
                       publishingGroup: PublishingGroup.ItJobs,
-                      screeningQuestions: {
+                      generalQuestions: {
                         create: [
                           {
                             question: { en: "Question EN", fr: "Question FR" },

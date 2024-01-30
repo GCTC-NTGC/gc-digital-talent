@@ -1,21 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { TableOfContents } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Repeater, TextArea, Submit } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  CreateScreeningQuestionInput,
-  UpdatePoolInput,
-  UpdateScreeningQuestionInput,
-} from "@gc-digital-talent/graphql";
 
-import { LocalizedString, Pool, Scalars, PoolStatus } from "~/api/generated";
+import {
+  CreateGeneralQuestionInput,
+  UpdateGeneralQuestionInput,
+  LocalizedString,
+  Pool,
+  Scalars,
+  PoolStatus,
+  UpdatePoolInput,
+} from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import { useEditPoolContext } from "./EditPoolContext";
 
@@ -34,7 +35,7 @@ type FormValues = {
 
 export type GeneralQuestionsSubmitData = Pick<
   UpdatePoolInput,
-  "screeningQuestions" // TODO: Replaced with general questions after issue #8676
+  "generalQuestions"
 >;
 
 interface GeneralQuestionsProps {
@@ -49,17 +50,11 @@ const GeneralQuestions = ({
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
-  const { icon } = useToggleSectionInfo({
-    isNull: true,
-    emptyRequired: false,
-    fallbackIcon: AcademicCapIcon,
-    optional: true,
-  });
   const { isSubmitting } = useEditPoolContext();
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
     questions:
-      initialData?.screeningQuestions
+      initialData?.generalQuestions
         ?.filter(notEmpty)
         .map(({ id, question }) => ({
           id: id || "new",
@@ -81,9 +76,9 @@ const GeneralQuestions = ({
   });
 
   const handleSave = (formValues: FormValues) => {
-    const create: Array<CreateScreeningQuestionInput> = [];
-    const update: Array<UpdateScreeningQuestionInput> = [];
-    const toBeDeleted = pool.screeningQuestions
+    const create: Array<CreateGeneralQuestionInput> = [];
+    const update: Array<UpdateGeneralQuestionInput> = [];
+    const toBeDeleted = pool.generalQuestions
       ?.filter((existingQuestion) => {
         return !formValues.questions?.some(
           (question) =>
@@ -109,7 +104,7 @@ const GeneralQuestions = ({
     });
 
     onSave({
-      screeningQuestions: {
+      generalQuestions: {
         update,
         create,
         delete: toBeDeleted,
@@ -129,16 +124,17 @@ const GeneralQuestions = ({
     <>
       <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
-          defaultMessage: "You haven't added any questions yet.",
-          id: "A13auj",
+          defaultMessage: "You have no questions.",
+          id: "izt28e",
           description:
             "Message that appears when there are no screening messages for a pool",
         })}
       </p>
       <p>
         {intl.formatMessage({
-          defaultMessage: `You can add items using the "Add a new question" button provided.`,
-          id: "z4wfGZ",
+          defaultMessage:
+            "Start adding some questions using the following button.",
+          id: "vDqzWG",
           description:
             "Instructions on how to add a question when there are none",
         })}
@@ -152,8 +148,8 @@ const GeneralQuestions = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "You have reached the maximum amount ({maxItems}) of general questions per poster.",
-            id: "scMsVu",
+              "You have reached the maximum amount ({maxItems}) of screening questions per poster.",
+            id: "Kklz7F",
             description:
               "Message displayed when a user adds the maximum number of questions",
           },
@@ -173,20 +169,15 @@ const GeneralQuestions = ({
   );
 
   return (
-    <>
-      <ToggleSection.Header
-        Icon={icon.icon}
-        color={icon.color}
-        level="h2"
-        size="h3"
-      >
+    <TableOfContents.Section id={sectionMetadata.id}>
+      <TableOfContents.Heading data-h2-margin-top="base(0)">
         {sectionMetadata.title}
-      </ToggleSection.Header>
-      <p data-h2-margin="base(x1, 0, x.5, 0)">
+      </TableOfContents.Heading>
+      <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "This section allows you to <strong>optionally</strong> add up to 3 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
-          id: "cEJDff",
+            "Include up to 3 questions in your application process.",
+          id: "P3WkJv",
           description:
             "Helper message indicating max screening questions allowed",
         })}
@@ -208,12 +199,13 @@ const GeneralQuestions = ({
               });
             }}
             addText={intl.formatMessage({
-              defaultMessage: "Add a new question",
-              id: "6A9428",
-              description: "Button text to add a new general question",
+              defaultMessage: "Add screening question",
+              id: "vf7/Xq",
+              description: "Button text to add a new screening question",
             })}
             customNullMessage={customNullMessage}
             maxItemsMessage={maxItemsMessage}
+            showUnsavedChanges
             data-h2-margin-bottom="base(1rem)"
           >
             {fields.map((item, index) => (
@@ -227,9 +219,9 @@ const GeneralQuestions = ({
                 disabled={formDisabled}
                 legend={intl.formatMessage(
                   {
-                    defaultMessage: "General question {index}",
-                    id: "JmRJnP",
-                    description: "Legend for general question fieldset",
+                    defaultMessage: "Screening question {index}",
+                    id: "s+ObMR",
+                    description: "Legend for screening question fieldset",
                   },
                   {
                     index: index + 1,
@@ -276,10 +268,10 @@ const GeneralQuestions = ({
           {!formDisabled && (
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Save general questions",
-                id: "+rcdSM",
+                defaultMessage: "Save screening questions",
+                id: "lTkp5g",
                 description:
-                  "Text on a button to save the pool general questions",
+                  "Text on a button to save the pool screening questions",
               })}
               color="secondary"
               mode="solid"
@@ -288,7 +280,7 @@ const GeneralQuestions = ({
           )}
         </form>
       </FormProvider>
-    </>
+    </TableOfContents.Section>
   );
 };
 

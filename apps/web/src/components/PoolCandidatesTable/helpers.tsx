@@ -679,10 +679,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             endDate
           }
         }
-        screeningQuestionResponses {
+        generalQuestionResponses {
           id
           answer
-          screeningQuestion {
+          generalQuestion {
             id
             question {
               en

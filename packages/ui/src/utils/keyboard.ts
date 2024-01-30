@@ -9,3 +9,14 @@ export const ARROW_KEY = {
 export type ArrowKey = (typeof ARROW_KEY)[keyof typeof ARROW_KEY];
 
 export const arrowKeys = Object.values(ARROW_KEY);
+
+/**
+ * Determine if a key being pressed is an
+ * arrow key or, not
+ *
+ * @param k {string}
+ * @returns {boolean}
+ */
+export function isArrowKey(k: React.KeyboardEvent["key"]): k is ArrowKey {
+  return arrowKeys.includes(k as ArrowKey);
+}
