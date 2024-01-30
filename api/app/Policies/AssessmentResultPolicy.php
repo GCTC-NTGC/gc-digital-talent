@@ -12,7 +12,7 @@ class AssessmentResultPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view
+     * NOTE: the logic for PoolCandidatePolicy->viewAssessmentResults should be kept in sync with this function.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
