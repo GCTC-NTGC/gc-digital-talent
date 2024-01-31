@@ -252,6 +252,17 @@ declare global {
 
       /**
        * ======================================
+       * Token Commands
+       * ======================================
+       */
+      /**
+       * Custom command to get and immediately expiring token from the auth debugger
+       * @example cy.getDCM().then(team => {})
+       */
+      getFastExpireTokens(userSubject: string): Chainable<Record<string, string>;
+
+      /**
+       * ======================================
        * Generic Getter Commands
        * ======================================
        */
