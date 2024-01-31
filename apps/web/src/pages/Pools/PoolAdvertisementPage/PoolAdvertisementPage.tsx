@@ -327,18 +327,30 @@ export const PoolPoster = ({
                 onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
                   setLinkCopied(true);
+                  setTimeout(() => {
+                    setLinkCopied(false);
+                  }, 2000);
                 }}
-                aria-label={intl.formatMessage(
-                  {
-                    defaultMessage: "Copy {title} URL to clipboard",
-                    id: "QF/z5s",
-                    description:
-                      "Button text to copy a specific qualified recruitment's ID",
-                  },
-                  {
-                    title: poolTitle,
-                  },
-                )}
+                aria-label={
+                  linkCopied
+                    ? intl.formatMessage({
+                        defaultMessage: "Link copied",
+                        id: "br+QLe",
+                        description:
+                          "Button text to indicate that a pool advertisements URL has been copied",
+                      })
+                    : intl.formatMessage(
+                        {
+                          defaultMessage: "Copy {title} URL to clipboard",
+                          id: "QF/z5s",
+                          description:
+                            "Button text to copy a specific qualified recruitment's ID",
+                        },
+                        {
+                          title: poolTitle,
+                        },
+                      )
+                }
               >
                 {linkCopied
                   ? intl.formatMessage({
