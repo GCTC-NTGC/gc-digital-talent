@@ -139,6 +139,11 @@ class PoolCandidate extends Model
         return $this->hasMany(GeneralQuestionResponse::class);
     }
 
+    public function screeningQuestionResponses(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestionResponse::class);
+    }
+
     // education_requirement_option fulfilled by what experience models
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
