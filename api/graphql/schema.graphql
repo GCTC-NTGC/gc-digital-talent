@@ -1545,7 +1545,7 @@ type Mutation {
     @can(
       ability: "updateAsAdmin"
       find: "id"
-      model: "poolCandidate"
+      model: "PoolCandidate"
       injectArgs: true
     )
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
