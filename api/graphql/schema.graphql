@@ -162,6 +162,15 @@ type GeneralQuestion {
   # generalQuestionResponses: [GeneralQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
+type ScreeningQuestion {
+  id: ID!
+  assessmentStep: AssessmentStep
+    @belongsTo
+    @canOnParent(ability: "viewAssessmentStep")
+  question: LocalizedString
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
@@ -192,6 +201,9 @@ type Pool {
   generalQuestions: [GeneralQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
@@ -209,6 +221,12 @@ type GeneralQuestionResponse {
   poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
 }
 
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion @belongsTo
+}
+
 type AssessmentStep {
   id: ID!
   pool: Pool @belongsTo
@@ -219,6 +237,7 @@ type AssessmentStep {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canOnParent(ability: "viewAssessmentResults")
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type AssessmentResult {
@@ -275,6 +294,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   generalQuestionResponses: [GeneralQuestionResponse] @hasMany
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption

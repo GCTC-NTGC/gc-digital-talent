@@ -275,6 +275,13 @@ type GeneralQuestion {
   sortOrder: Int
 }
 
+type ScreeningQuestion {
+  id: ID!
+  assessmentStep: AssessmentStep
+  question: LocalizedString
+  sortOrder: Int
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile
@@ -300,6 +307,7 @@ type Pool {
   createdDate: DateTime
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
+  screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
   archivedAt: DateTime
@@ -315,6 +323,12 @@ type GeneralQuestionResponse {
   poolCandidate: PoolCandidate
 }
 
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion
+}
+
 type AssessmentStep {
   id: ID!
   pool: Pool
@@ -323,6 +337,7 @@ type AssessmentStep {
   title: LocalizedString
   poolSkills: [PoolSkill]
   assessmentResults: [AssessmentResult]
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type AssessmentResult {
@@ -365,6 +380,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   generalQuestionResponses: [GeneralQuestionResponse]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
