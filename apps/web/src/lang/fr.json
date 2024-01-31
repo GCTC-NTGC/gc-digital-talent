@@ -6067,7 +6067,7 @@
     "description": "Title for the list of team members page"
   },
   "Vz719J": {
-    "defaultMessage": "Learn more about how GC Digital Talent handles user privacy.",
+    "defaultMessage": "Apprenez-en advantage sur la façon don’t le site GC Talents numériques traite de la vie privée des utilisateurs.",
     "description": "Sub title for the websites privacy policy"
   },
   "W+Lub4": {
@@ -10433,6 +10433,10 @@
   "uHx3G7": {
     "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
+  },
+  "uIUSdN": {
+    "defaultMessage": "Apprenez-en davantage sur les modalités du site GC Talents numériques.",
+    "description": "Subtitle for the terms and conditions page."
   },
   "uIWCnb": {
     "defaultMessage": "Veuillez préciser l’autorité",
