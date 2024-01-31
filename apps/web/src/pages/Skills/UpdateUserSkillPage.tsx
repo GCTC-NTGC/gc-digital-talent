@@ -229,15 +229,19 @@ export const UpdateUserSkillForm = ({
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
-    fromShowcase
-      ? {
-          label: intl.formatMessage(navigationMessages.skillShowcase),
-          url: paths.skillShowcase(),
-        }
-      : {
-          label: intl.formatMessage(navigationMessages.skillLibrary),
-          url: paths.skillLibrary(),
-        },
+
+    {
+      label: intl.formatMessage(navigationMessages.skillLibrary),
+      url: paths.skillLibrary(),
+    },
+    ...(fromShowcase
+      ? [
+          {
+            label: intl.formatMessage(navigationMessages.skillShowcase),
+            url: paths.skillShowcase(),
+          },
+        ]
+      : []),
     {
       label: skillName,
       url: paths.editUserSkill(skill.id),
