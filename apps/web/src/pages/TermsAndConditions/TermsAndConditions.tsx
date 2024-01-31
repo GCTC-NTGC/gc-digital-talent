@@ -2,8 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 
-import { Heading, Link, TableOfContents } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import {
+  Flourish,
+  Heading,
+  Link,
+  TableOfContents,
+} from "@gc-digital-talent/ui";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -24,126 +29,126 @@ type Section = {
   title: React.ReactNode;
 };
 
+const privacyPolicyLink = (path: string, chunks: React.ReactNode) => (
+  <Link href={path}>{chunks}</Link>
+);
+
+const langActLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/O-3.01/"
+        : "https://laws-lois.justice.gc.ca/fra/lois/o-3.01/"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const langRegulationsLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws.justice.gc.ca/eng/regulations/SOR-92-48/index.html"
+        : "https://laws.justice.gc.ca/fra/reglements/DORS-92-48/index.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const privacyActLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/P-21/index.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/p-21/index.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const questionsLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/contact/questions.html"
+        : "https://www.canada.ca/fr/contact/questions.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const copyrightLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/C-42/index.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/c-42/index.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const trademarkLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/topics/government-communications/federal-identity-requirements/legal-protection-official-symbols-government-canada.html"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/communications-gouvernementales/exigences-image-marque/protection-juridique-symboles-officiels-gouvernement-canada.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const accessibilityLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=23601"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=23601"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const optimizeLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=27088"
+        : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=27088"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const TermsAndConditions = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-
-  const privacyPolicyLink = (chunks: React.ReactNode) => (
-    <Link href={paths.privacyPolicy()}>{chunks}</Link>
-  );
-
-  const langActLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/O-3.01/"
-          : "https://laws-lois.justice.gc.ca/fra/lois/o-3.01/"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const langRegulationsLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws.justice.gc.ca/eng/regulations/SOR-92-48/index.html"
-          : "https://laws.justice.gc.ca/fra/reglements/DORS-92-48/index.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const privacyActLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/P-21/index.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/p-21/index.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const questionsLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.canada.ca/en/contact/questions.html"
-          : "https://www.canada.ca/fr/contact/questions.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const copyrightLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/C-42/index.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/c-42/index.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const trademarkLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.canada.ca/en/treasury-board-secretariat/topics/government-communications/federal-identity-requirements/legal-protection-official-symbols-government-canada.html"
-          : "https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/communications-gouvernementales/exigences-image-marque/protection-juridique-symboles-officiels-gouvernement-canada.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const accessibilityLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=23601"
-          : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=23601"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const optimizeLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=27088"
-          : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=27088"
-      }
-    >
-      {chunks}
-    </Link>
-  );
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Terms and conditions",
@@ -323,7 +328,8 @@ const TermsAndConditions = () => {
                     description: "Paragraph describing using files section",
                   },
                   {
-                    privacyPolicyLink,
+                    privacyPolicyLink: (chunks: React.ReactNode) =>
+                      privacyPolicyLink(paths.privacyPolicy(), chunks),
                   },
                 )}
               </p>
@@ -345,8 +351,10 @@ const TermsAndConditions = () => {
                       "Paragraph describing providing content section",
                   },
                   {
-                    langActLink,
-                    langRegulationsLink,
+                    langActLink: (chunks: React.ReactNode) =>
+                      langActLink(locale, chunks),
+                    langRegulationsLink: (chunks: React.ReactNode) =>
+                      langRegulationsLink(locale, chunks),
                   },
                 )}
               </p>
@@ -376,8 +384,10 @@ const TermsAndConditions = () => {
                       "Paragraph two describing linking to gov section",
                   },
                   {
-                    privacyActLink,
-                    langActLink,
+                    privacyActLink: (chunks: React.ReactNode) =>
+                      privacyActLink(locale, chunks),
+                    langActLink: (chunks: React.ReactNode) =>
+                      langActLink(locale, chunks),
                   },
                 )}
               </p>
@@ -489,7 +499,8 @@ const TermsAndConditions = () => {
                           description: "Commercial reproduction list item",
                         },
                         {
-                          questionsLink,
+                          questionsLink: (chunks: React.ReactNode) =>
+                            questionsLink(locale, chunks),
                         },
                       )}
                     </li>
@@ -504,7 +515,8 @@ const TermsAndConditions = () => {
                           "Commercial reproduction list description in ownership and usage section",
                       },
                       {
-                        copyrightLink,
+                        copyrightLink: (chunks: React.ReactNode) =>
+                          copyrightLink(locale, chunks),
                       },
                     )}
                   </p>
@@ -528,7 +540,8 @@ const TermsAndConditions = () => {
                       "Paragraph describing trademark notice section",
                   },
                   {
-                    trademarkLink,
+                    trademarkLink: (chunks: React.ReactNode) =>
+                      trademarkLink(locale, chunks),
                   },
                 )}
               </p>
@@ -550,8 +563,10 @@ const TermsAndConditions = () => {
                       "Paragraph describing accessibility commitment section",
                   },
                   {
-                    accessibilityLink,
-                    optimizeLink,
+                    accessibilityLink: (chunks: React.ReactNode) =>
+                      accessibilityLink(locale, chunks),
+                    optimizeLink: (chunks: React.ReactNode) =>
+                      optimizeLink(locale, chunks),
                   },
                 )}
               </p>
@@ -579,11 +594,7 @@ const TermsAndConditions = () => {
                   description: "Paragraph describing social media section",
                 })}
               </p>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x3)"
-              >
+              <div data-h2-margin-bottom="base:children[> div:not(:last-child)](x3)">
                 <div>
                   <Heading
                     level="h3"
@@ -779,7 +790,8 @@ const TermsAndConditions = () => {
                           "Paragraph for comments and interaction section",
                       },
                       {
-                        copyrightLink,
+                        copyrightLink: (chunks: React.ReactNode) =>
+                          copyrightLink(locale, chunks),
                       },
                     )}
                   </p>
@@ -834,7 +846,8 @@ const TermsAndConditions = () => {
                           "Paragraph for comments and interaction section",
                       },
                       {
-                        langActLink,
+                        langActLink: (chunks: React.ReactNode) =>
+                          langActLink(locale, chunks),
                       },
                     )}
                   </p>
@@ -844,11 +857,7 @@ const TermsAndConditions = () => {
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-      <div
-        data-h2-background-image="base(main-linear)"
-        data-h2-display="base(block)"
-        data-h2-height="base(x1)"
-      />
+      <Flourish />
     </>
   );
 };

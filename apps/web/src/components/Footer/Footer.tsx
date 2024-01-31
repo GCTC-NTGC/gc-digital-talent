@@ -4,6 +4,8 @@ import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
 import VersionLink from "./VersionLink";
 
@@ -13,10 +15,11 @@ interface FooterProps {
 
 const Footer = ({ width }: FooterProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const links: LinkProps[] = [
     {
-      href: `/${intl.locale}/support`,
+      href: paths.support(),
       children: intl.formatMessage({
         defaultMessage: "Contact us",
         id: "RIi/3q",
@@ -25,8 +28,7 @@ const Footer = ({ width }: FooterProps) => {
       state: { referrer: window.location.href },
     },
     {
-      href: `/${intl.locale}/terms-and-conditions`,
-      external: true,
+      href: paths.termsAndConditions(),
       children: intl.formatMessage({
         defaultMessage: "Terms & Conditions",
         id: "ZGpncy",
@@ -34,8 +36,7 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
     {
-      href: `/${intl.locale}/privacy-policy`,
-      external: true,
+      href: paths.privacyPolicy(),
       children: intl.formatMessage({
         defaultMessage: "Privacy Policy",
         id: "VcOlXA",
@@ -43,8 +44,7 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
     {
-      // This needs a real route and translated label
-      href: `/${intl.locale}/accessibility-statement`,
+      href: paths.accessibility(),
       children: intl.formatMessage({
         defaultMessage: "Accessibility statement",
         id: "2iCpAL",

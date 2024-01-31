@@ -1,99 +1,99 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link, TableOfContents } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { Flourish, Link, TableOfContents } from "@gc-digital-talent/ui";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
+const justiceLaws7Link = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/F-11/section-7.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/f-11/section-7.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+const justiceLaws15Link = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-15.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/P-33.01/section-15.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+const justiceLaws29Link = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-29.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/P-33.01/section-29.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const justiceLaws30Link = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-30.html"
+        : "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/section-30.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const publicServiceLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/public-service-commission/services/oversight-activities/investigations.html"
+        : "https://www.canada.ca/fr/commission-fonction-publique/services/activites-surveillance/enquetes.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const personalInfoLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/treasury-board-secretariat-sources-federal-government-employee-information-info-source.html"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/transparence/secretariat-conseil-tresor-sources-renseignements-gouvernement-federal-fonctionnaires-federaux-info-source.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const PrivacyPolicy = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-
-  const justiceLaws7Link = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/F-11/section-7.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/f-11/section-7.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-  const justiceLaws15Link = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-15.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/P-33.01/section-15.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-  const justiceLaws29Link = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-29.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/P-33.01/section-29.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const justiceLaws30Link = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://laws-lois.justice.gc.ca/eng/acts/P-33.01/section-30.html"
-          : "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/section-30.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const publicServiceLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.canada.ca/en/public-service-commission/services/oversight-activities/investigations.html"
-          : "https://www.canada.ca/fr/commission-fonction-publique/services/activites-surveillance/enquetes.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
-
-  const personalInfoLink = (chunks: React.ReactNode) => (
-    <Link
-      newTab
-      external
-      href={
-        locale === "en"
-          ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/treasury-board-secretariat-sources-federal-government-employee-information-info-source.html"
-          : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/transparence/secretariat-conseil-tresor-sources-renseignements-gouvernement-federal-fonctionnaires-federaux-info-source.html"
-      }
-    >
-      {chunks}
-    </Link>
-  );
 
   const id = "privacy";
   const pageTitle = intl.formatMessage({
@@ -147,10 +147,14 @@ const PrivacyPolicy = () => {
                     description: "Paragraph for privacy policy page",
                   },
                   {
-                    justiceLaws7Link,
-                    justiceLaws15Link,
-                    justiceLaws29Link,
-                    justiceLaws30Link,
+                    justiceLaws7Link: (chunks: React.ReactNode) =>
+                      justiceLaws7Link(locale, chunks),
+                    justiceLaws15Link: (chunks: React.ReactNode) =>
+                      justiceLaws15Link(locale, chunks),
+                    justiceLaws29Link: (chunks: React.ReactNode) =>
+                      justiceLaws29Link(locale, chunks),
+                    justiceLaws30Link: (chunks: React.ReactNode) =>
+                      justiceLaws30Link(locale, chunks),
                   },
                 )}
               </p>
@@ -171,7 +175,8 @@ const PrivacyPolicy = () => {
                     description: "Paragraph for privacy policy page",
                   },
                   {
-                    publicServiceLink,
+                    publicServiceLink: (chunks: React.ReactNode) =>
+                      publicServiceLink(locale, chunks),
                   },
                 )}
               </p>
@@ -200,7 +205,8 @@ const PrivacyPolicy = () => {
                     description: "Paragraph for privacy policy page",
                   },
                   {
-                    personalInfoLink,
+                    personalInfoLink: (chunks: React.ReactNode) =>
+                      personalInfoLink(locale, chunks),
                   },
                 )}
               </p>
@@ -208,11 +214,7 @@ const PrivacyPolicy = () => {
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-      <div
-        data-h2-background-image="base(main-linear)"
-        data-h2-display="base(block)"
-        data-h2-height="base(x1)"
-      />
+      <Flourish />
     </>
   );
 };
