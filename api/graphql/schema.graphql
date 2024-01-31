@@ -1535,7 +1535,7 @@ type Mutation {
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
-    @can(ability: "updateAsAdmin", find: "id", model: "poolCandidate")
+    @can(ability: "updateAsAdmin", find: "id", model: "PoolCandidate")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
