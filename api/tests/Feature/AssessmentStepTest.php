@@ -95,17 +95,17 @@ class AssessmentStepTest extends TestCase
         }
     ';
 
-    protected $createOrUpdateGeneralQuestionAssessmentStep =
+    protected $createOrUpdateScreeningQuestionAssessmentStep =
     /** @lang GraphQL */
     '
-        mutation createOrUpdateGeneralQuestionAssessmentStep(
+        mutation createOrUpdateScreeningQuestionAssessmentStep(
             $poolId: UUID!,
-            $generalQuestions: [SyncGeneralQuestionsInput],
-            $assessmentStep: GeneralQuestionAssessmentStepInput
+            $screeningQuestions: [SyncScreeningQuestionsInput],
+            $assessmentStep: ScreeningQuestionAssessmentStepInput
             ) {
-                createOrUpdateGeneralQuestionAssessmentStep(
+                createOrUpdateScreeningQuestionAssessmentStep(
                     poolId: $poolId,
-                    generalQuestions: $generalQuestions,
+                    screeningQuestions: $screeningQuestions,
                     assessmentStep: $assessmentStep
                     ) {
                     id
@@ -290,15 +290,15 @@ class AssessmentStepTest extends TestCase
         $testPool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
         ]);
-        // to be pointed at the screening question model when created
-        $screeningQuestion = $testPool->generalQuestions[0]; // first factory created question
+
+        $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
 
         // can sync up screening questions and connect no pool skills
         $this->actingAs($this->teamUser, 'api')->graphQL(
-            $this->createOrUpdateGeneralQuestionAssessmentStep,
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
-                'generalQuestions' => [
+                'screeningQuestions' => [
                     [
                         'id' => $screeningQuestion->id,
                         'question' => [
@@ -321,7 +321,7 @@ class AssessmentStepTest extends TestCase
 
         // only one screening question now attached
         $testPool->refresh();
-        assertEquals(1, count($testPool->generalQuestions));
+        assertEquals(1, count($testPool->screeningQuestions));
 
         $totalSteps = AssessmentStep::where('pool_id', $testPool->id)->get();
         $screeningStep = AssessmentStep::where('pool_id', $testPool->id)
