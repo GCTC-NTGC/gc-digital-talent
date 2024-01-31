@@ -4679,10 +4679,6 @@
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
   },
-  "O7Lkda": {
-    "defaultMessage": "Descriptive subtitle explaining tasks on the page.",
-    "description": "Subtitle for the terms and conditions page."
-  },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"

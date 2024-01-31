@@ -156,6 +156,13 @@ const TermsAndConditions = () => {
     description: "Title for the websites terms and conditions",
   });
 
+  const subtitle = intl.formatMessage({
+    defaultMessage:
+      "Learn more about GC Digital Talent's terms and conditions.",
+    id: "uIUSdN",
+    description: "Subtitle for the terms and conditions page.",
+  });
+
   const sections: Record<SectionKey, Section> = {
     usingFiles: {
       id: "using-files",
@@ -291,11 +298,7 @@ const TermsAndConditions = () => {
       <Hero
         imgPath={heroImg}
         title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Descriptive subtitle explaining tasks on the page.",
-          id: "O7Lkda",
-          description: "Subtitle for the terms and conditions page.",
-        })}
+        subtitle={subtitle}
         crumbs={crumbs}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
