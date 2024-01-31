@@ -131,9 +131,11 @@ describe("Login and logout", () => {
         });
       });
     });
-    // it("can share the refresh", () => {
-    //   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
-    // });
+
+    // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
+    it.skip("can share the refresh", () => {
+      // not sure how to do this yet
+    });
 
     // will log in, do a token refresh, and do a second token refresh from that
     it("can chain two refreshes", () => {
@@ -200,11 +202,19 @@ describe("Login and logout", () => {
     it("can log out", () => {
       cy.intercept({ pathname: "/oxauth/endsession" }).as("endsession");
 
-      cy.loginBySubject(testUserSubject);
+      cy.loginBySubject(testUserSubject).then(() => {
+        cy.wrap(localStorage.getItem("id_token")).as("idToken");
+      });
+
       cy.visit("/en/logged-out");
       cy.findByRole("button", { name: "Sign out" }).click();
 
-      cy.wait("@endsession");
+      cy.wait("@endsession").then((interception) => {
+        expect(interception.request.query["post_logout_redirect_uri"]).to.exist;
+        cy.get("@idToken").then((idToken) => {
+          expect(interception.request.query["id_token_hint"]).to.eq(idToken);
+        });
+      });
 
       cy.findByRole("heading", {
         name: "See you next time!",
@@ -212,14 +222,41 @@ describe("Login and logout", () => {
       }).should("exist");
     });
 
-    it("will log out when introspection fails", () => {
-      // If introspection fails the user is immediately logged out.
+    // If token validation fails the user is immediately logged out.
+    it("will log out when token validation fails", () => {
+      cy.intercept({ pathname: "/oxauth/endsession" }).as("endsession");
+
+      cy.loginBySubject(testUserSubject);
+
+      // simulate the API indicating the token is inactive
+      cy.intercept(
+        { method: "POST", pathname: "/graphql" },
+        {
+          errors: [
+            {
+              message: "Mock token validation message",
+              extensions: {
+                reason: "token_validation",
+              },
+            },
+          ],
+        },
+      );
+
+      // try to visit a page
+      cy.visit("/en");
+
+      // expect a session end and logout
+      cy.wait("@endsession");
+      cy.findByRole("heading", {
+        name: "See you next time!",
+        level: 1,
+      }).should("exist");
     });
-    it("will log out when refresh fails", () => {
-      // Breaking refresh by restarting the auth container -> leads to logged out page
-    });
-    it("will affect all tabs when logged out", () => {
-      // Logout appears to affect all logged in tabs
+
+    // Logout appears to affect all logged in tabs
+    it.skip("will affect all tabs when logged out", () => {
+      // not sure how to do this yet
     });
   });
 });
