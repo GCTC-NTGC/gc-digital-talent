@@ -12,15 +12,7 @@ import { Field, Input, SwitchInput } from "@gc-digital-talent/forms";
 import { NO_DECISION } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ResultFilters } from "./utils";
-
-export const initialValues: ResultFilters = {
-  query: "",
-  [NO_DECISION]: true,
-  [AssessmentDecision.Successful]: true,
-  [AssessmentDecision.Hold]: true,
-  [AssessmentDecision.Unsuccessful]: true,
-};
+import { ResultFilters, defaultFilters } from "./utils";
 
 interface FiltersProps {
   defaultValues?: ResultFilters;
@@ -29,12 +21,12 @@ interface FiltersProps {
 
 const Filters = ({
   onFiltersChange,
-  defaultValues = initialValues,
+  defaultValues = defaultFilters,
 }: FiltersProps) => {
   const intl = useIntl();
   const methods = useForm<ResultFilters>({
     defaultValues: {
-      ...initialValues,
+      ...defaultFilters,
       ...defaultValues,
     },
     mode: "onChange",
@@ -44,7 +36,7 @@ const Filters = ({
   React.useEffect(() => {
     const subscription = watch((newValues) => {
       onFiltersChange({
-        ...initialValues,
+        ...defaultFilters,
         ...newValues,
       });
     });

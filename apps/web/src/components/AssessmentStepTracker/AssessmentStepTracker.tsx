@@ -14,8 +14,9 @@ import {
   ResultFilters,
   filterResults,
   groupPoolCandidatesByStep,
+  defaultFilters,
 } from "./utils";
-import Filters, { initialValues } from "./Filters";
+import Filters from "./Filters";
 
 export interface AssessmentStepTrackerProps {
   pool: Pool;
@@ -23,7 +24,7 @@ export interface AssessmentStepTrackerProps {
 
 const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
-  const [filters, setFilters] = React.useState<ResultFilters>(initialValues);
+  const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
   const steps = unpackMaybes(pool.assessmentSteps);
   const candidates = unpackMaybes(pool.poolCandidates);
   const groupedSteps = groupPoolCandidatesByStep(steps, candidates);

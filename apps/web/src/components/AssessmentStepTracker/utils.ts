@@ -435,6 +435,14 @@ export type ResultFilters = {
   [AssessmentDecision.Unsuccessful]: boolean;
 };
 
+export const defaultFilters: ResultFilters = {
+  query: "",
+  [NO_DECISION]: true,
+  [AssessmentDecision.Successful]: true,
+  [AssessmentDecision.Hold]: true,
+  [AssessmentDecision.Unsuccessful]: true,
+};
+
 const statusIsAvailable = (filter?: boolean) => {
   return typeof filter !== "undefined" && filter;
 };

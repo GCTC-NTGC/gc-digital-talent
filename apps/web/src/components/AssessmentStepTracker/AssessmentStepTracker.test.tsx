@@ -9,20 +9,28 @@ import { screen, within } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { AssessmentDecision } from "@gc-digital-talent/graphql";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import AssessmentStepTracker, {
   AssessmentStepTrackerProps,
 } from "./AssessmentStepTracker";
-import { groupPoolCandidatesByStep, sortResultsAndAddOrdinal } from "./utils";
+import {
+  groupPoolCandidatesByStep,
+  sortResultsAndAddOrdinal,
+  filterResults,
+  defaultFilters,
+} from "./utils";
 import {
   armedForcesCandidate,
   bookmarkedCandidate,
   firstByName,
   lastByFirstName,
+  lastByStatus,
   poolWithAssessmentSteps,
   priorityEntitlementCandidate,
+  secondLastByStatus,
   testCandidates,
   unassessedCandidate,
 } from "./testData";
@@ -31,7 +39,6 @@ import {
 const defaultProps: AssessmentStepTrackerProps = {
   pool: poolWithAssessmentSteps,
 };
-
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
   // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
@@ -89,6 +96,16 @@ describe("AssessmentStepTracker", () => {
     expect(
       screen.getByRole("link", {
         name: `6. ${bookmarkedCandidate.user.firstName} ${bookmarkedCandidate.user.lastName}`,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: `7. ${secondLastByStatus.user.firstName} ${secondLastByStatus.user.lastName}`,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: `8. ${lastByStatus.user.firstName} ${lastByStatus.user.lastName}`,
       }),
     ).toBeInTheDocument();
   });
@@ -160,6 +177,12 @@ describe("AssessmentStepTracker", () => {
     expect(modifiedResults[4].ordinal).toEqual(4);
     expect(modifiedResults[5].poolCandidate.id).toEqual("last-by-first-name");
     expect(modifiedResults[5].ordinal).toEqual(5);
+    expect(modifiedResults[6].poolCandidate.id).toEqual(
+      "second-last-by-status",
+    );
+    expect(modifiedResults[6].ordinal).toEqual(7);
+    expect(modifiedResults[7].poolCandidate.id).toEqual("last-by-status");
+    expect(modifiedResults[7].ordinal).toEqual(8);
   });
 
   it("should have working group function", () => {
@@ -200,6 +223,107 @@ describe("AssessmentStepTracker", () => {
           poolCandidate: expect.objectContaining({
             id: "unassessed",
           }),
+        }),
+      ]),
+    );
+  });
+
+  it("should have working filter function", () => {
+    const groupedResults = groupPoolCandidatesByStep(
+      unpackMaybes(poolWithAssessmentSteps.assessmentSteps),
+      unpackMaybes(poolWithAssessmentSteps.poolCandidates),
+    );
+
+    const [{ results: onlyArmedForcesResults }] = filterResults(
+      {
+        ...defaultFilters,
+        query: "armed",
+      },
+      groupedResults,
+    );
+
+    // Only one item should appear (armed forces)
+    expect(onlyArmedForcesResults.length).toEqual(1);
+    expect(onlyArmedForcesResults).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          poolCandidate: expect.objectContaining({
+            id: "armed-forces",
+          }),
+        }),
+      ]),
+    );
+
+    const [{ results: noToAssessResults }] = filterResults(
+      {
+        ...defaultFilters,
+        [NO_DECISION]: false,
+      },
+      groupedResults,
+    );
+
+    // Only one item should be removed (unassessed candidate)
+    expect(noToAssessResults.length).toEqual(testCandidates.length - 1);
+    expect(noToAssessResults).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          poolCandidate: expect.objectContaining({
+            id: "unassessed",
+          }),
+        }),
+      ]),
+    );
+
+    const [{ results: noSuccessfulResults }] = filterResults(
+      {
+        ...defaultFilters,
+        [AssessmentDecision.Successful]: false,
+      },
+      groupedResults,
+    );
+
+    // Five item should be removed (unassessed candidate)
+    expect(noSuccessfulResults.length).toEqual(testCandidates.length - 5);
+    expect(noSuccessfulResults).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          decision: AssessmentDecision.Successful,
+        }),
+      ]),
+    );
+
+    const [{ results: noUnsuccessfulResults }] = filterResults(
+      {
+        ...defaultFilters,
+        [AssessmentDecision.Unsuccessful]: false,
+      },
+      groupedResults,
+    );
+
+    // Five item should be removed (unassessed candidate)
+    expect(noUnsuccessfulResults.length).toEqual(testCandidates.length - 1);
+    expect(noUnsuccessfulResults).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          decision: AssessmentDecision.Unsuccessful,
+        }),
+      ]),
+    );
+
+    const [{ results: noHoldResults }] = filterResults(
+      {
+        ...defaultFilters,
+        [AssessmentDecision.Hold]: false,
+      },
+      groupedResults,
+    );
+
+    // Five item should be removed (unassessed candidate)
+    expect(noHoldResults.length).toEqual(testCandidates.length - 1);
+    expect(noHoldResults).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          decision: AssessmentDecision.Hold,
         }),
       ]),
     );

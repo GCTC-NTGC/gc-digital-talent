@@ -20,7 +20,7 @@ faker.seed(0);
 
 const fakePool = fakePools(1)[0];
 const fakePoolAssessmentSteps = fakeAssessmentSteps(2);
-const fakeCandidates = fakePoolCandidates(6);
+const fakeCandidates = fakePoolCandidates(8);
 
 const requiredAssessment = {
   ...fakePoolAssessmentSteps[0],
@@ -124,6 +124,32 @@ export const firstByName: PoolCandidate = {
     armedForcesStatus: ArmedForcesStatus.NonCaf,
   },
 };
+export const secondLastByStatus: PoolCandidate = {
+  ...fakeCandidates[6],
+  id: "second-last-by-status",
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult(AssessmentDecision.Hold)],
+  user: {
+    id: faker.string.uuid(),
+    firstName: "on",
+    lastName: "hold",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+};
+export const lastByStatus: PoolCandidate = {
+  ...fakeCandidates[7],
+  id: "last-by-status",
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult(AssessmentDecision.Unsuccessful)],
+  user: {
+    id: faker.string.uuid(),
+    firstName: "not",
+    lastName: "successful",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+};
 
 export const testCandidates = [
   priorityEntitlementCandidate,
@@ -132,6 +158,8 @@ export const testCandidates = [
   unassessedCandidate,
   lastByFirstName,
   firstByName,
+  lastByStatus,
+  secondLastByStatus,
 ];
 
 // eslint-disable-next-line import/prefer-default-export
