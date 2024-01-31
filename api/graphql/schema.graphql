@@ -1336,7 +1336,7 @@ input UpdateGeneralQuestionsHasMany {
   delete: [ID!]
 }
 
-input SyncGeneralQuestionsInput {
+input SyncScreeningQuestionsInput {
   id: ID
   question: LocalizedStringInput!
   sortOrder: Int
@@ -1393,7 +1393,7 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input GeneralQuestionAssessmentStepInput {
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1802,10 +1802,10 @@ type Mutation {
     @guard
     @can(ability: "update", find: "stepIdA")
     @can(ability: "update", find: "stepIdB")
-  createOrUpdateGeneralQuestionAssessmentStep(
+  createOrUpdateScreeningQuestionAssessmentStep(
     poolId: UUID!
-    generalQuestions: [SyncGeneralQuestionsInput]
-    assessmentStep: GeneralQuestionAssessmentStepInput
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
   ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
