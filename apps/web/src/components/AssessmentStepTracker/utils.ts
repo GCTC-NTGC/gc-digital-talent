@@ -426,3 +426,64 @@ export const groupPoolCandidatesByStep = (
 
   return stepsWithGroupedCandidates;
 };
+
+export type ResultFilters = {
+  query: string;
+  [NO_DECISION]: boolean;
+  [AssessmentDecision.Successful]: boolean;
+  [AssessmentDecision.Hold]: boolean;
+  [AssessmentDecision.Unsuccessful]: boolean;
+};
+
+const statusIsAvailable = (filter?: boolean) => {
+  return typeof filter !== "undefined" && filter;
+};
+
+export const filterResults = (
+  filters: ResultFilters,
+  steps: StepWithGroupedCandidates[],
+): StepWithGroupedCandidates[] => {
+  return steps.map((step) => {
+    const filteredResults = step.results.filter(
+      ({ poolCandidate: { user }, decision }) => {
+        if (filters.query) {
+          const fullName = [user.firstName, user.lastName]
+            .filter(notEmpty)
+            .join(" ");
+          if (!fullName.includes(filters.query)) {
+            return false;
+          }
+        }
+
+        let available: boolean = true;
+        switch (decision) {
+          case NO_DECISION:
+            available = statusIsAvailable(filters[NO_DECISION]);
+            break;
+          case AssessmentDecision.Hold:
+            available = statusIsAvailable(filters[AssessmentDecision.Hold]);
+            break;
+          case AssessmentDecision.Successful:
+            available = statusIsAvailable(
+              filters[AssessmentDecision.Successful],
+            );
+            break;
+          case AssessmentDecision.Unsuccessful:
+            available = statusIsAvailable(
+              filters[AssessmentDecision.Unsuccessful],
+            );
+            break;
+          default:
+            break;
+        }
+
+        return available;
+      },
+    );
+
+    return {
+      ...step,
+      results: filteredResults,
+    };
+  });
+};

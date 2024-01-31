@@ -12,15 +12,9 @@ import { Field, Input, SwitchInput } from "@gc-digital-talent/forms";
 import { NO_DECISION } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-export type FormValues = {
-  query: string;
-  [NO_DECISION]: boolean;
-  [AssessmentDecision.Successful]: boolean;
-  [AssessmentDecision.Hold]: boolean;
-  [AssessmentDecision.Unsuccessful]: boolean;
-};
+import { ResultFilters } from "./utils";
 
-export const initialValues: FormValues = {
+export const initialValues: ResultFilters = {
   query: "",
   [NO_DECISION]: true,
   [AssessmentDecision.Successful]: true,
@@ -29,8 +23,8 @@ export const initialValues: FormValues = {
 };
 
 interface FiltersProps {
-  defaultValues?: FormValues;
-  onFiltersChange: (newFilters: FormValues) => void;
+  defaultValues?: ResultFilters;
+  onFiltersChange: (newFilters: ResultFilters) => void;
 }
 
 const Filters = ({
@@ -38,7 +32,7 @@ const Filters = ({
   defaultValues = initialValues,
 }: FiltersProps) => {
   const intl = useIntl();
-  const methods = useForm<FormValues>({
+  const methods = useForm<ResultFilters>({
     defaultValues: {
       ...initialValues,
       ...defaultValues,
