@@ -112,10 +112,10 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill]
-  topBehaviouralSkillsRanking: [UserSkill]
-  improveTechnicalSkillsRanking: [UserSkill]
-  improveBehaviouralSkillsRanking: [UserSkill]
+  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
