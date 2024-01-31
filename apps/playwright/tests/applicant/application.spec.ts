@@ -43,82 +43,70 @@ test.describe("Application", () => {
   test.beforeAll(async ({ adminPage }) => {
     const poolPage = new PoolPage(adminPage.page);
     const skills = await getSkills();
-    await adminPage
-      .createUser({
-        email: `${sub}@example.org`,
-        sub,
-        currentProvince: ProvinceOrTerritory.Ontario,
-        currentCity: "Test City",
-        telephone: "+10123456789",
-        armedForcesStatus: ArmedForcesStatus.NonCaf,
-        citizenship: CitizenshipStatus.Citizen,
-        lookingForEnglish: true,
-        isGovEmployee: false,
-        hasPriorityEntitlement: false,
-        locationPreferences: [WorkRegion.Ontario],
-        positionDuration: [PositionDuration.Permanent],
-      })
-      .then(async (u) => {
-        user = u;
-        await adminPage.addRolesToUser(u.id, [
-          "guest",
-          "base_user",
-          "applicant",
-        ]);
+    const createdUser = await adminPage.createUser({
+      email: `${sub}@example.org`,
+      sub,
+      currentProvince: ProvinceOrTerritory.Ontario,
+      currentCity: "Test City",
+      telephone: "+10123456789",
+      armedForcesStatus: ArmedForcesStatus.NonCaf,
+      citizenship: CitizenshipStatus.Citizen,
+      lookingForEnglish: true,
+      isGovEmployee: false,
+      hasPriorityEntitlement: false,
+      locationPreferences: [WorkRegion.Ontario],
+      positionDuration: [PositionDuration.Permanent],
+    });
+    await adminPage.addRolesToUser(createdUser.id, [
+      "guest",
+      "base_user",
+      "applicant",
+    ]);
+    const team = await getDCM();
+    const classifications = await getClassifications();
+    const createdPool = await poolPage.createPool(createdUser.id, team.id, {
+      classifications: {
+        sync: [classifications[0].id],
+      },
+    });
+    await await poolPage.updatePool(createdPool.id, {
+      name: {
+        en: "Playwright Test Pool EN",
+        fr: "Playwright Test Pool FR",
+      },
+      stream: PoolStream.BusinessAdvisoryServices,
+      closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
+      yourImpact: {
+        en: "test impact EN",
+        fr: "test impact FR",
+      },
+      keyTasks: { en: "key task EN", fr: "key task FR" },
+      essentialSkills: {
+        sync: [
+          skills.find((skill) => skill.category === SkillCategory.Technical).id,
+        ],
+      },
+      language: PoolLanguage.Various,
+      securityClearance: SecurityStatus.Secret,
+      location: {
+        en: "test location EN",
+        fr: "test location FR",
+      },
+      isRemote: true,
+      publishingGroup: PublishingGroup.ItJobs,
+      generalQuestions: {
+        create: [
+          {
+            question: { en: "Question EN", fr: "Question FR" },
+            sortOrder: 1,
+          },
+        ],
+      },
+    });
+    await poolPage.publishPool(createdPool.id);
 
-        const team = await getDCM();
-        const classifications = await getClassifications();
-
-        await poolPage
-          .createPool(user.id, team.id, {
-            classifications: {
-              sync: [classifications[0].id],
-            },
-          })
-          .then(async (p) => {
-            pool = p;
-            await poolPage
-              .updatePool(p.id, {
-                name: {
-                  en: "Playwright Test Pool EN",
-                  fr: "Playwright Test Pool FR",
-                },
-                stream: PoolStream.BusinessAdvisoryServices,
-                closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
-                yourImpact: {
-                  en: "test impact EN",
-                  fr: "test impact FR",
-                },
-                keyTasks: { en: "key task EN", fr: "key task FR" },
-                essentialSkills: {
-                  sync: [
-                    skills.find(
-                      (skill) => skill.category === SkillCategory.Technical,
-                    ).id,
-                  ],
-                },
-                language: PoolLanguage.Various,
-                securityClearance: SecurityStatus.Secret,
-                location: {
-                  en: "test location EN",
-                  fr: "test location FR",
-                },
-                isRemote: true,
-                publishingGroup: PublishingGroup.ItJobs,
-                generalQuestions: {
-                  create: [
-                    {
-                      question: { en: "Question EN", fr: "Question FR" },
-                      sortOrder: 1,
-                    },
-                  ],
-                },
-              })
-              .then(async (pool) => {
-                await poolPage.publishPool(pool.id);
-              });
-          });
-      });
+    user = createdUser;
+    pool = createdPool;
   });
 
   test("Can submit application", async ({ appPage }) => {

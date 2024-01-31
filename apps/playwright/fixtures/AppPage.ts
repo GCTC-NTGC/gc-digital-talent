@@ -14,7 +14,7 @@ export class AppPage {
 
   async gotoHome(locale: "en" | "fr" = "en") {
     // Timeout is for Firefox having issues with this navigation
-    await this.page.goto(`/${locale}`, { timeout: 60 * 1000 });
+    await this.page.goto(`/${locale}`, { timeout: 120 * 1000 });
   }
 
   /**
@@ -28,7 +28,7 @@ export class AppPage {
    */
   async graphqlRequest(query: string, variables?: Record<string, unknown>) {
     await this.gotoHome();
-    await this.page.waitForURL("/en");
+    await this.waitForGraphqlResponse("authorizationQuery");
     const tokens = await getAuthTokens(this.page);
     const res = await this.page.request.post("/graphql", {
       headers: {
