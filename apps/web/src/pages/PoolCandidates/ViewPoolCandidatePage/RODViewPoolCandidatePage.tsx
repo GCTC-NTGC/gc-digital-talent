@@ -183,9 +183,11 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         assessmentResultType
         assessmentStep {
           id
+          type
         }
         poolSkill {
           id
+          type
           skill {
             id
             key
