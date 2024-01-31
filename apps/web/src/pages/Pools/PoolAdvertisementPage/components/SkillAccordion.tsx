@@ -46,7 +46,7 @@ const SkillAccordion = ({ skill, required }: SkillAccordionProps) => {
 
   return (
     <Accordion.Item value={skill.id}>
-      <Accordion.Trigger as="h4" context={<Context required={required} />}>
+      <Accordion.Trigger as="h3" context={<Context required={required} />}>
         {getLocalizedName(skill.name, intl)}
       </Accordion.Trigger>
       <Accordion.Content>

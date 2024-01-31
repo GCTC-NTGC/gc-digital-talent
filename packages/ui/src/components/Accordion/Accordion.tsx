@@ -159,73 +159,77 @@ const Trigger = React.forwardRef<
     const Icon = icon;
 
     return (
-      <AccordionPrimitive.Header className="Accordion__Header" {...titleProps}>
-        <AccordionPrimitive.Trigger
-          ref={forwardedRef}
-          className="Accordion__Trigger"
-          data-h2-align-items="base(flex-start)"
-          data-h2-background-color="base(transparent) base:focus-visible(focus)"
-          data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
-          data-h2-cursor="base(pointer)"
-          data-h2-display="base(flex)"
-          data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
-          data-h2-gap="base(0, x.5)"
-          data-h2-outline="base(none)"
-          data-h2-justify-content="base(flex-start)"
-          data-h2-text-align="base(left)"
-          data-h2-width="base(100%)"
-          data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
-          data-h2-transform="
+      <AccordionPrimitive.Header asChild {...titleProps}>
+        <div className="Accordion__Header">
+          <AccordionPrimitive.Trigger
+            ref={forwardedRef}
+            className="Accordion__Trigger"
+            data-h2-align-items="base(flex-start)"
+            data-h2-background-color="base(transparent) base:focus-visible(focus)"
+            data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
+            data-h2-cursor="base(pointer)"
+            data-h2-display="base(flex)"
+            data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
+            data-h2-gap="base(0, x.5)"
+            data-h2-outline="base(none)"
+            data-h2-justify-content="base(flex-start)"
+            data-h2-text-align="base(left)"
+            data-h2-width="base(100%)"
+            data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
+            data-h2-transform="
             base:children[.Accordion__Icon--chevron](rotate(0deg))
             base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(90deg))"
-          {...rest}
-        >
-          <span
-            className="Accordion__Chevron"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-flex-shrink="base(0)"
+            {...rest}
           >
-            <ChevronRightIcon
-              className="Accordion__Icon Accordion__Icon--chevron"
-              data-h2-transition="base(transform 150ms ease)"
-            />
-          </span>
-
-          <span
-            data-h2-flex-grow="base(1)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.25 0)"
-          >
-            <Heading
-              className="Accordion__Heading"
-              data-h2-margin="base(0)"
-              data-h2-font-weight="base(700)"
+            <span
+              className="Accordion__Chevron"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-flex-shrink="base(0)"
             >
-              {children}
-            </Heading>
-            {subtitle && (
-              <span
-                className="Accordion__Subtitle"
-                data-h2-font-size="base(body)"
+              <ChevronRightIcon
+                className="Accordion__Icon Accordion__Icon--chevron"
+                data-h2-transition="base(transform 150ms ease)"
+              />
+            </span>
+
+            <span
+              data-h2-flex-grow="base(1)"
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.25 0)"
+            >
+              <Heading
+                className="Accordion__Heading"
+                data-h2-margin="base(0)"
+                data-h2-font-weight="base(700)"
               >
-                {subtitle}
+                {children}
+              </Heading>
+              {subtitle && (
+                <span
+                  className="Accordion__Subtitle"
+                  data-h2-font-size="base(body)"
+                >
+                  {subtitle}
+                </span>
+              )}
+            </span>
+
+            {(Icon || context) && (
+              <span
+                data-h2-align-items="base(center)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(0 x.25)"
+              >
+                {context && (
+                  <span data-h2-font-size="base(body)">{context}</span>
+                )}
+                {Icon && <Icon className="Accordion__Icon" />}
               </span>
             )}
-          </span>
-
-          {(Icon || context) && (
-            <span
-              data-h2-align-items="base(center)"
-              data-h2-display="base(flex)"
-              data-h2-gap="base(0 x.25)"
-            >
-              {context && <span data-h2-font-size="base(body)">{context}</span>}
-              {Icon && <Icon className="Accordion__Icon" />}
-            </span>
-          )}
-        </AccordionPrimitive.Trigger>
+          </AccordionPrimitive.Trigger>
+        </div>
       </AccordionPrimitive.Header>
     );
   },

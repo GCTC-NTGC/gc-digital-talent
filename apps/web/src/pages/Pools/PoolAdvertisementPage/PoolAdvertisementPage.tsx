@@ -810,7 +810,7 @@ export const PoolPoster = ({
                 onValueChange={setMoreInfoValue}
               >
                 <Accordion.Item value={moreInfoAccordions.whoCanApply}>
-                  <Accordion.Trigger>
+                  <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
                         '"Who can apply to this recruitment process?"',
@@ -852,7 +852,7 @@ export const PoolPoster = ({
                   </>
                 ) : null}
                 <Accordion.Item value={moreInfoAccordions.dei}>
-                  <Accordion.Trigger>
+                  <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
                         '"How are equity and inclusion considered in this recruitment process?"',
@@ -874,7 +874,7 @@ export const PoolPoster = ({
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
-                  <Accordion.Trigger>
+                  <Accordion.Trigger as="h3">
                     {intl.formatMessage({
                       defaultMessage:
                         '"Who can I contact with questions or accommodation needs?"',
@@ -904,7 +904,7 @@ export const PoolPoster = ({
                 </Accordion.Item>
                 {showWhatToExpect && (
                   <Accordion.Item value={moreInfoAccordions.accommodations}>
-                    <Accordion.Trigger>
+                    <Accordion.Trigger as="h3">
                       {intl.formatMessage({
                         defaultMessage: '"What should I expect after I apply?"',
                         id: "pdi2SU",
