@@ -373,15 +373,16 @@ export const PoolPoster = ({
               <div
                 data-h2-align-items="base(baseline)"
                 data-h2-display="base(flex)"
-                data-h2-gap="base(0 x1)"
+                data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
                     icon={MapIcon}
                     color="primary"
-                    data-h2-margin="base(0, 0, x1, 0)"
+                    data-h2-margin="base(0)"
                   >
                     {sections.employmentDetails.title}
                   </TableOfContents.Heading>
@@ -628,23 +629,21 @@ export const PoolPoster = ({
               <div
                 data-h2-align-items="base(baseline)"
                 data-h2-display="base(flex)"
-                data-h2-gap="base(0 x1)"
+                data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
                     icon={BoltIcon}
                     color="quaternary"
-                    data-h2-margin="base(x3, 0, x1, 0)"
+                    data-h2-margin="base(x3, 0, 0, 0)"
                   >
                     {sections.skillRequirements.title}
                   </TableOfContents.Heading>
                 </div>
-                <div
-                  data-h2-flex-shrink="base(0)"
-                  data-h2-margin-top="base(x.75) p-tablet(0)"
-                >
+                <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
                     color="secondary"
@@ -720,12 +719,7 @@ export const PoolPoster = ({
               </TableOfContents.Heading>
               {pool.yourImpact && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin="base(x3, 0, x1, 0)"
-                  >
+                  <Heading level="h3" size="h4" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Your impact",
                       id: "MOpG7g",
@@ -742,12 +736,7 @@ export const PoolPoster = ({
               )}
               {pool.keyTasks && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin="base(x3, 0, x1, 0)"
-                  >
+                  <Heading level="h3" size="h4" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Common tasks in this role",
                       id: "ATO0GK",
@@ -767,23 +756,21 @@ export const PoolPoster = ({
               <div
                 data-h2-align-items="base(baseline)"
                 data-h2-display="base(flex)"
-                data-h2-gap="base(0 x1)"
+                data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
                     icon={QuestionMarkCircleIcon}
                     color="quinary"
-                    data-h2-margin="base(x3, 0, x1, 0)"
+                    data-h2-margin="base(x3, 0, 0, 0)"
                   >
                     {sections.moreInfo.title}
                   </TableOfContents.Heading>
                 </div>
-                <div
-                  data-h2-flex-shrink="base(0)"
-                  data-h2-margin-top="base(x.75) p-tablet(0)"
-                >
+                <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
                     color="secondary"
@@ -832,7 +819,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text>
+                    <Text data-h2-margin-top="base(0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "Persons residing in Canada, and Canadian citizens and permanent residents abroad.",
@@ -841,7 +828,7 @@ export const PoolPoster = ({
                           "List of criteria needed in order to apply",
                       })}
                     </Text>
-                    <Text>
+                    <Text data-h2-margin-bottom="base(0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "Preference will be given to veterans, Canadian citizens, and to permanent residents.",
@@ -874,7 +861,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text>
+                    <Text data-h2-margin="base(0)">
                       {intl.formatMessage({
                         defaultMessage:
                           "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
@@ -896,7 +883,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text>
+                    <Text data-h2-margin="base(0)">
                       {intl.formatMessage(
                         {
                           defaultMessage:
@@ -915,7 +902,7 @@ export const PoolPoster = ({
                   </Accordion.Content>
                 </Accordion.Item>
                 {showWhatToExpect && (
-                  <Accordion.Item value={moreInfoAccordions.accommodations}>
+                  <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
                     <Accordion.Trigger as="h3">
                       {intl.formatMessage({
                         defaultMessage: '"What should I expect after I apply?"',

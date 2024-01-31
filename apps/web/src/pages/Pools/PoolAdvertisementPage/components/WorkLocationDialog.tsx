@@ -88,8 +88,8 @@ const WorkLocationDialog = ({
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Remote positions</strong offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.",
-                  id: "sYU7rM",
+                    "<strong>Remote positions</strong> offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.",
+                  id: "CM70i0",
                   description: "Definition for 'remote positions'",
                 })}
               </li>

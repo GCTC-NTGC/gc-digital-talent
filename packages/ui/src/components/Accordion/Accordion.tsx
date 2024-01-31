@@ -164,7 +164,7 @@ const Trigger = React.forwardRef<
           <AccordionPrimitive.Trigger
             ref={forwardedRef}
             className="Accordion__Trigger"
-            data-h2-align-items="base(flex-start)"
+            data-h2-align-items="base(center)"
             data-h2-background-color="base(transparent) base:focus-visible(focus)"
             data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
             data-h2-cursor="base(pointer)"
@@ -182,38 +182,46 @@ const Trigger = React.forwardRef<
             {...rest}
           >
             <span
-              className="Accordion__Chevron"
+              data-h2-align-items="base(flex-start) p-tablet(center)"
               data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
+              data-h2-gap="base(0, x.5)"
+              data-h2-flex-grow="base(1)"
               data-h2-flex-shrink="base(0)"
             >
-              <ChevronRightIcon
-                className="Accordion__Icon Accordion__Icon--chevron"
-                data-h2-transition="base(transform 150ms ease)"
-              />
-            </span>
-
-            <span
-              data-h2-flex-grow="base(1)"
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x.25 0)"
-            >
-              <Heading
-                className="Accordion__Heading"
-                data-h2-margin="base(0)"
-                data-h2-font-weight="base(700)"
+              <span
+                className="Accordion__Chevron"
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-flex-shrink="base(0)"
               >
-                {children}
-              </Heading>
-              {subtitle && (
-                <span
-                  className="Accordion__Subtitle"
-                  data-h2-font-size="base(body)"
+                <ChevronRightIcon
+                  className="Accordion__Icon Accordion__Icon--chevron"
+                  data-h2-transition="base(transform 150ms ease)"
+                />
+              </span>
+
+              <span
+                data-h2-flex-grow="base(1)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x.25 0)"
+              >
+                <Heading
+                  className="Accordion__Heading"
+                  data-h2-margin="base(0)"
+                  data-h2-font-weight="base(700)"
                 >
-                  {subtitle}
-                </span>
-              )}
+                  {children}
+                </Heading>
+                {subtitle && (
+                  <span
+                    className="Accordion__Subtitle"
+                    data-h2-font-size="base(body)"
+                  >
+                    {subtitle}
+                  </span>
+                )}
+              </span>
             </span>
 
             {(Icon || context) && (
