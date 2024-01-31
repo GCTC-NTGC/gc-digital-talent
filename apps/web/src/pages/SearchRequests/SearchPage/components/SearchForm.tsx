@@ -30,6 +30,12 @@ const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 
+const styledCount = (chunks: React.ReactNode) => (
+  <span data-h2-font-weight="base(700)" data-h2-color="base(secondary.dark)">
+    {chunks}
+  </span>
+);
+
 interface SearchFormProps {
   pools: Pool[];
   classifications: Classification[];
@@ -155,17 +161,34 @@ export const SearchForm = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{totalCandidateCount, plural,
-                  =0 {Results: <testId>{totalCandidateCount}</testId> matching candidates}
-                  =1 {Results: <testId>{totalCandidateCount}</testId> matching candidate}
-                  other {Results: <testId>{totalCandidateCount}</testId> matching candidates}
+                  =0 {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidates}
+                  =1 {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidate}
+                  other {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidates}
                 }`,
-                id: "eeWkWi",
+                id: "noxThS",
                 description:
                   "Heading for total matching candidates in results section of search page.",
               },
               {
                 testId,
+                styledCount,
                 totalCandidateCount: candidateCount,
+              },
+            )}
+            {intl.formatMessage(
+              {
+                defaultMessage: `{numPools, plural,
+                  =0 { across <styledCount>{numPools}</styledCount> pools}
+                  =1 { across <styledCount>{numPools}</styledCount> pool}
+                  other { across <styledCount>{numPools}</styledCount> pools}
+                }`,
+                id: "T/8qWO",
+                description:
+                  "Heading for total matching pools in results section of search page.",
+              },
+              {
+                styledCount,
+                numPools: results?.length || 0,
               },
             )}
           </Heading>
