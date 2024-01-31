@@ -54,12 +54,7 @@ export const getDecisionInfo = (
       colorStyle: {
         "data-h2-color": "base(warning)",
       },
-      name: intl.formatMessage({
-        defaultMessage: "On hold",
-        id: "qA8+f5",
-        description:
-          "Message displayed when candidate was unsuccessful but put on hold",
-      }),
+      name: intl.formatMessage(poolCandidateMessages.onHold),
     };
   }
 
@@ -70,18 +65,8 @@ export const getDecisionInfo = (
         "data-h2-color": "base(error)",
       },
       name: isApplicationStep
-        ? intl.formatMessage({
-            defaultMessage: "Screened out",
-            id: "3xCX4b",
-            description:
-              "Message displayed when candidate has been screened out at a specific assessment step",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Unsuccessful",
-            id: "TIAla1",
-            description:
-              "Message displayed when candidate has not passed an assessment step",
-          }),
+        ? intl.formatMessage(poolCandidateMessages.screenedOut)
+        : intl.formatMessage(poolCandidateMessages.unsuccessful),
     };
   }
 
@@ -91,18 +76,8 @@ export const getDecisionInfo = (
       "data-h2-color": "base(success)",
     },
     name: isApplicationStep
-      ? intl.formatMessage({
-          defaultMessage: "Screened in",
-          id: "3W/NbE",
-          description:
-            "Message displayed when candidate has been screened in at a specific assessment step",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Successful",
-          id: "Whq2Xl",
-          description:
-            "Message displayed when candidate has successfully passed an assessment step",
-        }),
+      ? intl.formatMessage(poolCandidateMessages.screenedIn)
+      : intl.formatMessage(poolCandidateMessages.successful),
   };
 };
 
