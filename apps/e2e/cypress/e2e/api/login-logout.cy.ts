@@ -159,7 +159,7 @@ describe("Login and logout", () => {
       // the second access token is used
       cy.wait("@anyGraphql").then((interception) => {
         cy.get("@secondTokenSet").then((secondTokenSet) => {
-          // make sure it uses the new access token
+          // make sure it uses the second access token
           expect(interception.request.headers["authorization"]).to.eq(
             `Bearer ${secondTokenSet["access_token"]}`,
           );
@@ -174,7 +174,7 @@ describe("Login and logout", () => {
       // expect a second refresh to get third tokens
       cy.wait("@refresh").then((interception) => {
         cy.get("@secondTokenSet").then((secondTokenSet) => {
-          // make sure it uses the refresh token
+          // make sure it uses the second refresh token
           expect(interception.request.query["refresh_token"]).to.eq(
             secondTokenSet["refresh_token"],
           );
@@ -186,7 +186,7 @@ describe("Login and logout", () => {
       // the third access token is used
       cy.wait("@anyGraphql").then((interception) => {
         cy.get("@thirdTokenSet").then((thirdTokenSet) => {
-          // make sure it uses the new access token
+          // make sure it uses the third access token
           expect(interception.request.headers["authorization"]).to.eq(
             `Bearer ${thirdTokenSet["access_token"]}`,
           );
@@ -195,18 +195,31 @@ describe("Login and logout", () => {
     });
   });
 
-  // context("log out", () => {
-  //   it("can log out", () => {
-  //     // Can log out (with SiC endsession).
-  //   });
-  //   it("will log out when introspection fails", () => {
-  //     // If introspection fails the user is immediately logged out.
-  //   });
-  //   it("will log out when refresh fails", () => {
-  //     // Breaking refresh by restarting the auth container -> leads to logged out page
-  //   });
-  //   it("will affect all tabs when logged out", () => {
-  //     // Logout appears to affect all logged in tabs
-  //   });
-  // });
+  context("log out", () => {
+    // properly logs out, including ending the session with the auth provider
+    it("can log out", () => {
+      cy.intercept({ pathname: "/oxauth/endsession" }).as("endsession");
+
+      cy.loginBySubject(testUserSubject);
+      cy.visit("/en/logged-out");
+      cy.findByRole("button", { name: "Sign out" }).click();
+
+      cy.wait("@endsession");
+
+      cy.findByRole("heading", {
+        name: "See you next time!",
+        level: 1,
+      }).should("exist");
+    });
+
+    it("will log out when introspection fails", () => {
+      // If introspection fails the user is immediately logged out.
+    });
+    it("will log out when refresh fails", () => {
+      // Breaking refresh by restarting the auth container -> leads to logged out page
+    });
+    it("will affect all tabs when logged out", () => {
+      // Logout appears to affect all logged in tabs
+    });
+  });
 });
