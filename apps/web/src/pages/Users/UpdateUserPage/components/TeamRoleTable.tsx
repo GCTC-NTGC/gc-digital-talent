@@ -5,9 +5,14 @@ import { useIntl } from "react-intl";
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { UpdateUserRolesInput } from "@gc-digital-talent/graphql";
 
-import { Role, Scalars, Team, User } from "~/api/generated";
+import {
+  UpdateUserRolesInput,
+  Role,
+  Scalars,
+  Team,
+  User,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";

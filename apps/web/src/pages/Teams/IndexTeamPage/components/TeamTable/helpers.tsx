@@ -1,10 +1,11 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { Maybe, RoleAssignment, Team } from "@gc-digital-talent/graphql";
 import { Link, Pill } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { Maybe, RoleAssignment, Team } from "~/api/generated";
 
 import { MyRoleTeam } from "./types";
 
@@ -16,12 +17,7 @@ export function viewCell(
 ) {
   return (
     <Link href={url} color="black" state={{ from: currentUrl ?? null }}>
-      {label ||
-        intl.formatMessage({
-          defaultMessage: "No name provided",
-          id: "L9Ked5",
-          description: "Fallback for team display name value",
-        })}
+      {label || intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }

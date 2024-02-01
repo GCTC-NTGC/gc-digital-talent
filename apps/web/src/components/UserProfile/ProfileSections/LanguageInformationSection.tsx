@@ -220,14 +220,7 @@ const LanguageInformationSection = ({
                 </>
               )}
               {!editPath && (
-                <>
-                  {intl.formatMessage({
-                    defaultMessage: "No information has been provided.",
-                    id: "xjtRjr",
-                    description:
-                      "Message on Admin side when user not filled language section.",
-                  })}
-                </>
+                <>{intl.formatMessage(commonMessages.noInformationProvided)}</>
               )}
             </p>
           </div>

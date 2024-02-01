@@ -1,0 +1,14 @@
+export const SECTION_KEY = {
+  CONTACT: "contact",
+  SCREENING: "screening",
+  EDUCATION: "education",
+  ESSENTIAL: "essentialSkills",
+  ASSET: "assetSkills",
+  LANGUAGE: "language",
+  WORK_PREF: "workPref",
+  GOV_INFO: "govInfo",
+  DEI: "dei",
+  SIGNATURE: "signature",
+} as const;
+
+export type SectionKey = (typeof SECTION_KEY)[keyof typeof SECTION_KEY];

@@ -10,8 +10,8 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { ContractingRationale, YesNo } from "@gc-digital-talent/graphql";
 
+import { ContractingRationale, YesNo } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -14,6 +14,16 @@ import {
   Dialog,
 } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
+  formMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { BasicForm } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
+
+import {
   Experience,
   Maybe,
   Scalars,
@@ -26,16 +36,7 @@ import {
   useDeleteUserSkillMutation,
   useUpdateUserSkillMutation,
   useUserSkillQuery,
-} from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  formMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { BasicForm } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
@@ -119,11 +120,17 @@ export const UpdateUserSkillForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
   const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
+  const from = searchParams.get("from");
+  const fromShowcase = from && from === "showcase";
+  const returnPath = fromShowcase
+    ? paths.skillShowcase()
+    : paths.skillLibrary();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -149,7 +156,7 @@ export const UpdateUserSkillForm = ({
           description: "Message displayed when a user updates a skill",
         }),
     );
-    navigate(paths.skillLibrary());
+    navigate(returnPath);
   };
 
   const handleError = (msg?: React.ReactNode) => {
@@ -157,9 +164,9 @@ export const UpdateUserSkillForm = ({
       msg ||
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
-          id: "CUxHd8",
+          id: "kfjmTt",
           description:
-            "Message displayed to user after skill fails to be updated.",
+            "Message displayed to user after skill fails to be updated",
         }),
     );
   };
@@ -219,21 +226,22 @@ export const UpdateUserSkillForm = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
+
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
+    ...(fromShowcase
+      ? [
+          {
+            label: intl.formatMessage(navigationMessages.skillShowcase),
+            url: paths.skillShowcase(),
+          },
+        ]
+      : []),
     {
       label: skillName,
       url: paths.editUserSkill(skill.id),

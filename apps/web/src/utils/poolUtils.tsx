@@ -20,7 +20,6 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
 import {
   PublishingGroup,
   RoleAssignment,
@@ -29,7 +28,8 @@ import {
   PoolStream,
   Classification,
   Pool,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
@@ -113,9 +113,9 @@ export const formatClassificationString = ({
   return `${group}-0${level}`;
 };
 interface formattedPoolPosterTitleProps {
-  title: Maybe<string>;
-  classification: Maybe<Classification>;
-  stream: Maybe<PoolStream>;
+  title: Maybe<string> | undefined;
+  classification: Maybe<Classification> | undefined;
+  stream: Maybe<PoolStream> | undefined;
   intl: IntlShape;
 }
 
@@ -173,7 +173,7 @@ export const fullPoolTitle = (
       label: fallbackTitle.toString(),
     };
 
-  const specificTitle = getLocalizedName(pool.name, intl);
+  const specificTitle = getLocalizedName(pool?.name, intl);
 
   if (isIAPPool(pool)) {
     return {
@@ -207,7 +207,7 @@ export const getFullPoolTitleLabel = (
   options?: { defaultTitle?: string },
 ): string => fullPoolTitle(intl, pool, options).label;
 
-export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
+export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
@@ -233,9 +233,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
@@ -246,9 +245,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
           "screening",
           {
             title: intl.formatMessage({
-              defaultMessage: "Screening and evaluation",
-              id: "IEGaTJ",
-              description: "Title for the screening and evaluation page",
+              defaultMessage: "Screening and assessment",
+              id: "R8Naqm",
+              description: "Heading for the information of an application",
             }),
             link: {
               url: paths.screeningAndEvaluation(pool.id),
@@ -297,9 +296,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
@@ -330,7 +328,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
 };
 
 export const isOngoingPublishingGroup = (
-  publishingGroup: Maybe<PublishingGroup>,
+  publishingGroup: Maybe<PublishingGroup> | undefined,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 

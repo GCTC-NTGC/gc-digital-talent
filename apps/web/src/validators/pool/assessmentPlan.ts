@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { AssessmentStepType, Pool } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { AssessmentStepType, Pool } from "~/api/generated";
 import { PoolCompleteness } from "~/types/pool";
 
 export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {

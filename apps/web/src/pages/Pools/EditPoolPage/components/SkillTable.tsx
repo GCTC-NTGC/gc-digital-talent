@@ -2,10 +2,10 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
-import { Scalars, Skill } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
 
+import { Scalars, Skill } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -108,7 +108,7 @@ const SkillTable = ({
           ? {
               component: (
                 <SkillBrowserDialog
-                  context="experience"
+                  context="pool"
                   showCategory={false}
                   skills={availableSkills}
                   onSave={async (value) => {

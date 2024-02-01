@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { UserSkill } from "@gc-digital-talent/graphql";
 import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
+
+import { UserSkill } from "~/api/generated";
 
 import SkillRankListItem from "./SkillRankListItem";
 import NullMessage, { NullMessageProps } from "./NullMessage";

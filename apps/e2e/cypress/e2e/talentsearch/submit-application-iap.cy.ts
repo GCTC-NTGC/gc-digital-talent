@@ -10,7 +10,7 @@ import {
   WorkRegion,
   SkillCategory,
   User,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { addRolesToUser } from "../../support/userHelpers";
@@ -19,7 +19,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "getMyExperiences");
+      aliasQuery(req, "Application");
     });
 
     cy.getSkills().then((allSkills) => {
@@ -247,7 +247,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.expectToast(/Successfully added experience!/i);
-    cy.wait("@gqlgetMyExperiencesQuery");
+    cy.wait("@gqlApplicationQuery");
     // returned to main career timeline review page
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
@@ -259,7 +259,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step five
-    cy.findByRole("heading", { name: /Minimum experience or education/i })
+    cy.findByRole("heading", {
+      name: /Minimum experience or equivalent education/i,
+    })
       .should("exist")
       .and("be.visible");
     cy.findByRole("radio", {

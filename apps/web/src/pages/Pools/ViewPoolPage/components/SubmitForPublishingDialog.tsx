@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Maybe } from "@gc-digital-talent/graphql";
+
+import { Maybe } from "~/api/generated";
 
 const contactLink = (chunks: React.ReactNode) => (
   <Link

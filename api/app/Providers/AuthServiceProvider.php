@@ -88,7 +88,7 @@ class AuthServiceProvider extends ServiceProvider
                 foreach ($e->violations() as $violationError) {
                     array_push($violations, $violationError->getMessage());
                 }
-                throw new AuthenticationException('Authorization token not valid: '.$violations, 'invalid_token');
+                throw new AuthenticationException('Authorization token not valid: '.implode(',', $violations), 'invalid_token');
             } catch (Throwable $e) {
                 throw new AuthenticationException('Error while validating authorization token: '.$e->getMessage(), 'token_validation');
             }

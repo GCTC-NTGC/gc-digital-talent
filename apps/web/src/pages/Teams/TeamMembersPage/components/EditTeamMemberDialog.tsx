@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -14,25 +14,22 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
-import { Role, Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
+import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
+import useAvailableRoles from "./useAvailableRoles";
 
 interface EditTeamMemberDialogProps {
   user: TeamMember;
   team: Team;
-  availableRoles: Array<Role>;
 }
 
-const EditTeamMemberDialog = ({
-  user,
-  team,
-  availableRoles,
-}: EditTeamMemberDialogProps) => {
+const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
+  const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useUpdateUserTeamRolesMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -88,7 +85,7 @@ const EditTeamMemberDialog = ({
       });
   };
 
-  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
+  const roleOptions = getTeamBasedRoleOptions(roles, intl);
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
@@ -171,9 +168,11 @@ const EditTeamMemberDialog = ({
                     },
                   ]}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
+                  isMulti
+                  fetching={fetching}
                   label={intl.formatMessage({
                     defaultMessage: "Membership roles",
                     id: "cOJVBW",

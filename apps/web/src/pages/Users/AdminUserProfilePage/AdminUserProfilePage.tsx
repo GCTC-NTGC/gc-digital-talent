@@ -8,10 +8,7 @@ import UserProfile from "~/components/UserProfile";
 import { User, Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import UserProfilePrintButton from "./components/UserProfilePrintButton";
 
@@ -56,50 +53,14 @@ type RouteParams = {
 const AdminUserProfilePage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
-  const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId || "" },
   });
 
   const user = lookupData?.user;
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.users),
-      url: routes.userTable(),
-    },
-    ...(userId
-      ? [
-          {
-            label: getFullNameLabel(user?.firstName, user?.lastName, intl),
-            url: routes.userView(userId),
-          },
-        ]
-      : []),
-    ...(userId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Profile",
-              id: "1wONOC",
-              description: "User profile breadcrumb text",
-            }),
-            url: routes.userProfile(userId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Candidate details",

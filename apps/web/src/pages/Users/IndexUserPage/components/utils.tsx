@@ -2,6 +2,10 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
+
 import {
   InputMaybe,
   OrderByClause,
@@ -10,10 +14,7 @@ import {
   SortOrder,
   Trashed,
   UserFilterInput,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-
+} from "~/api/generated";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,
@@ -21,7 +22,7 @@ import {
   stringToEnumOperational,
 } from "~/utils/userUtils";
 
-import { FormValues } from "./UserTableFilterDialog/UserTableFilterDialog";
+import { FormValues } from "./UserFilterDialog";
 
 export function rolesAccessor(
   roleAssignments: RoleAssignment[],
@@ -49,7 +50,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<UserFilterInput> {
+): InputMaybe<UserFilterInput> | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -60,7 +61,8 @@ export function transformUserInput(
 
   return {
     // search bar
-    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    generalSearch:
+      searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     name: searchType === "name" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,
@@ -107,25 +109,28 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility[0]
-        ? stringToEnumLanguage(data.languageAbility[0])
+      languageAbility: data.languageAbility
+        ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      locationPreferences: data.workRegion.map((region) => {
-        return stringToEnumLocation(region);
-      }),
-      operationalRequirements: data.operationalRequirement.map(
-        (requirement) => {
+      locationPreferences: data.workRegion
+        .map((region) => {
+          return stringToEnumLocation(region);
+        })
+        .filter(notEmpty),
+      operationalRequirements: data.operationalRequirement
+        .map((requirement) => {
           return stringToEnumOperational(requirement);
-        },
-      ),
+        })
+        .filter(notEmpty),
       skills: data.skills.map((skill) => {
         const skillString = skill;
         return { id: skillString };
       }),
-      positionDuration:
-        data.employmentDuration[0] === "TERM" // either filter for TEMPORARY or do nothing
-          ? [durationToEnumPositionDuration(data.employmentDuration[0])]
-          : undefined,
+      positionDuration: data.employmentDuration
+        ? [durationToEnumPositionDuration(data.employmentDuration)].filter(
+            notEmpty,
+          )
+        : undefined,
     },
     isGovEmployee: data.govEmployee[0] ? true : undefined,
     isProfileComplete: data.profileComplete[0] ? true : undefined,
@@ -142,9 +147,7 @@ export function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
   return {
-    languageAbility: input?.applicantFilter?.languageAbility
-      ? [input?.applicantFilter?.languageAbility]
-      : [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
       input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirement:
@@ -156,15 +159,228 @@ export function transformUserFilterInputToFormValues(
       input.applicantFilter.positionDuration.includes(
         PositionDuration.Temporary,
       )
-        ? ["TERM"]
-        : [],
-    govEmployee: input?.isGovEmployee ? ["true"] : [],
-    profileComplete: input?.isProfileComplete ? ["true"] : [],
+        ? "TERM"
+        : "INDETERMINATE",
+    govEmployee: input?.isGovEmployee ? "true" : "",
+    profileComplete: input?.isProfileComplete ? "true" : "",
     pools:
       input?.poolFilters
         ?.filter(notEmpty)
         .map((poolFilter) => poolFilter.poolId) ?? [],
     roles: input?.roles?.filter(notEmpty) ?? [],
-    trashed: input?.trashed ? ["true"] : [],
+    trashed: input?.trashed ? "true" : "",
   };
 }
+
+export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
+  query UsersTable_SelectUsers($ids: [ID]!) {
+    applicants(includeIds: $ids) {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      govEmployeeType
+      hasPriorityEntitlement
+      priorityNumber
+      locationPreferences
+      locationExemptions
+      positionDuration
+      acceptedOperationalRequirements
+      isWoman
+      indigenousCommunities
+      indigenousDeclarationSignature
+      isVisibleMinority
+      hasDisability
+      citizenship
+      armedForcesStatus
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      experiences {
+        id
+        __typename
+        user {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+      poolCandidates {
+        status
+        expiryDate
+        user {
+          id
+        }
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            group
+            level
+          }
+        }
+        id
+      }
+      topTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      topBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+    }
+  }
+`);

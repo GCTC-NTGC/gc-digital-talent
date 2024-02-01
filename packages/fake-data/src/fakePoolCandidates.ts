@@ -9,19 +9,33 @@ import {
   PoolCandidate,
   Pool,
   User,
+  EducationRequirementOption,
 } from "@gc-digital-talent/graphql";
 
+import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
+  const pool = faker.helpers.arrayElement(pools);
+  const generalQuestionResponses =
+    pool.generalQuestions?.map((generalQuestion) => ({
+      id: faker.string.uuid(),
+      answer: faker.lorem.sentence(),
+      generalQuestion,
+    })) || [];
   return {
     id: faker.string.uuid(),
-    pool: faker.helpers.arrayElement(pools),
+    pool,
     user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
     ),
+    educationRequirementExperiences: fakeExperiences(1),
+    educationRequirementOption:
+      faker.helpers.arrayElement<EducationRequirementOption>(
+        Object.values(EducationRequirementOption),
+      ),
     expiryDate: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
@@ -34,6 +48,8 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     ),
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
+    isBookmarked: faker.datatype.boolean(0.2),
+    generalQuestionResponses,
   };
 };
 

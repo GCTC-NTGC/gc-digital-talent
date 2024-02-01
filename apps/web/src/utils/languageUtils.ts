@@ -1,6 +1,6 @@
 import { MessageDescriptor } from "react-intl";
 
-import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
+import { User, Pool, PoolLanguage } from "~/api/generated";
 
 export type PartialUser = Pick<User, "lookingForBilingual">;
 
@@ -29,8 +29,8 @@ export const getMissingLanguageRequirements = (
   if (isMissingLookingForBilingual(user, pool))
     errorMessages.push({
       defaultMessage: "Bilingual positions (English and French)",
-      id: "Mu+1pI",
-      description: "Message for the bilingual positions option",
+      id: "6eCvv1",
+      description: "Bilingual Positions message",
     });
 
   return errorMessages;

@@ -4,14 +4,14 @@ import { useIntl } from "react-intl";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  UpdateUserSubInput,
-  UpdateUserSubMutation,
-} from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { User } from "~/api/generated";
+import {
+  UpdateUserSubInput,
+  UpdateUserSubMutation,
+  User,
+} from "~/api/generated";
 
 type FormValues = {
   sub: string;

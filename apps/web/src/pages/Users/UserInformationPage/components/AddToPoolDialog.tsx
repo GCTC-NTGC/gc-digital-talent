@@ -2,10 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { DateInput, MultiSelectField } from "@gc-digital-talent/forms";
+import { DateInput, Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -13,18 +14,36 @@ import {
 } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-
-import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import {
+  graphql,
   PoolStatus,
   User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
-  useCreatePoolCandidateMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+
+const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
+  mutation AddToPoolDialog_Mutation(
+    $poolCandidate: CreatePoolCandidateAsAdminInput!
+  ) {
+    createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
+      pool {
+        id
+      }
+      user {
+        id
+      }
+      cmoIdentifier
+      expiryDate
+      status
+    }
+  }
+`);
 
 type FormValues = {
   pools: Array<Pool["id"]>;
@@ -41,7 +60,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [{ fetching }, executeMutation] = useCreatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useMutation(AddToPoolDialog_Mutation);
 
   const currentPools: string[] = [];
   user.poolCandidates?.forEach((candidate) => {
@@ -199,9 +218,10 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <MultiSelectField
+                <Combobox
                   id="addToPoolDialog-pools"
                   name="pools"
+                  isMulti
                   label={intl.formatMessage(adminMessages.pools)}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select a pool",

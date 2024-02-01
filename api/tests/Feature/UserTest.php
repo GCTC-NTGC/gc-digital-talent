@@ -2074,7 +2074,7 @@ class UserTest extends TestCase
             ],
         ]);
 
-        // Assert filtering for phone digit in general search returns correct count
+        // Assert more than one search term results in AND filtering
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -2088,14 +2088,14 @@ class UserTest extends TestCase
         ',
             [
                 'where' => [
-                    'generalSearch' => '9',
+                    'generalSearch' => ['sam', '67890'],
                 ],
             ]
         )->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2,
+                        'total' => 1,
                     ],
                 ],
             ],

@@ -100,9 +100,9 @@ export function durationToEnumPositionDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: Maybe<EvaluatedLanguageAbility>,
-  writtenLevel: Maybe<EvaluatedLanguageAbility>,
-  verbalLevel: Maybe<EvaluatedLanguageAbility>,
+  comprehensionLevel: Maybe<EvaluatedLanguageAbility> | undefined,
+  writtenLevel: Maybe<EvaluatedLanguageAbility> | undefined,
+  verbalLevel: Maybe<EvaluatedLanguageAbility> | undefined,
 ): React.ReactNode => {
   return [
     comprehensionLevel

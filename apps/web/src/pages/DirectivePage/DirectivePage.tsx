@@ -7,7 +7,11 @@ import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGla
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
 import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
-import { Locales, useLocale } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  navigationMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
@@ -23,6 +27,7 @@ import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
 import getFormLinks from "./utils";
+import Resources from "./Resources";
 
 const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link
@@ -164,11 +169,7 @@ const DirectivePage = () => {
               color="secondary"
               icon={MagnifyingGlassCircleIcon}
             >
-              {intl.formatMessage({
-                defaultMessage: "Find talent",
-                id: "NKr2Rg",
-                description: "Link text for find talent (search) page",
-              })}
+              {intl.formatMessage(navigationMessages.findTalent)}
             </Link>
           </>
         }
@@ -463,6 +464,7 @@ const DirectivePage = () => {
               </p>
             </CardFlat>
           </div>
+          <Resources />
         </div>
       </div>
       <div

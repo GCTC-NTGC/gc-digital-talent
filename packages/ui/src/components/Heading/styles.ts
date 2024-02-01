@@ -56,19 +56,23 @@ export const iconStyles: Record<Color, Record<string, string>> = {
     "data-h2-color": "base(primary)",
   },
   secondary: {
-    "data-h2-color": "base(secondary)",
+    "data-h2-color": "base(secondary) base:iap:dark(secondary.lighter)",
   },
   secondaryDarkFixed: {
-    "data-h2-color": "base(secondary)",
+    "data-h2-color":
+      "base(secondary) base:iap(secondary) base:iap:dark(secondary.lighter)",
   },
   tertiary: {
-    "data-h2-color": "base(tertiary)",
+    "data-h2-color":
+      "base(tertiary) base:iap(secondary) base:iap:dark(secondary.lighter)",
   },
   quaternary: {
-    "data-h2-color": "base(quaternary)",
+    "data-h2-color":
+      "base(quaternary) base:iap(secondary) base:iap:dark(secondary.lighter)",
   },
   quinary: {
-    "data-h2-color": "base(quinary)",
+    "data-h2-color":
+      "base(quinary) base:iap(secondary) base:iap:dark(secondary.lighter)",
   },
   error: {
     "data-h2-color": "base(error)",

@@ -1,12 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import {
-  Maybe,
-  Skill,
-  SkillCategory,
-  SkillFamily,
-} from "@gc-digital-talent/graphql";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pill } from "@gc-digital-talent/ui";
@@ -14,6 +8,8 @@ import {
   LocalizedArray,
   getLocalizedArray,
 } from "@gc-digital-talent/i18n/src/utils/localize";
+
+import { Maybe, Skill, SkillCategory, SkillFamily } from "~/api/generated";
 
 export function categoryAccessor(
   category: Maybe<SkillCategory>,
@@ -25,7 +21,7 @@ export function categoryAccessor(
 }
 
 export function skillFamiliesCell(
-  skillFamilies: Maybe<Maybe<SkillFamily>[]>,
+  skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
   intl: IntlShape,
 ) {
   const families = skillFamilies

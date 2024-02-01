@@ -472,6 +472,7 @@ enum PoolCandidateSearchStatus {
   IN_PROGRESS
   WAITING
   DONE
+  DONE_NO_CANDIDATES
 }
 
 enum PoolCandidateSearchPositionType {
@@ -735,7 +736,7 @@ enum AssessmentResultType {
 }
 
 enum AssessmentDecision {
-  NOT_SURE
+  HOLD
   SUCCESSFUL
   UNSUCCESSFUL
 }

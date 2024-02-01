@@ -6,18 +6,7 @@ const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require("dotenv").config({ path: "./.env" });
-const shell = require("shelljs");
-const fs = require("fs");
 
-const meta = {
-  title: "GC Digital Talent | Talents numériques du GC",
-  description:
-    "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
-  url: "https://talent.canada.ca/",
-  domain: "talent.canada.ca",
-  image: "",
-  type: "website",
-};
 
 const gitCommand = (cmd) => {
   let result;
@@ -34,12 +23,18 @@ const gitCommand = (cmd) => {
   return result;
 };
 
-module.exports = (basePath) => {
+module.exports = (basePath, appMeta) => {
   let version, commitHash;
   if (gitCommand("--version")) {
     version = gitCommand("describe --abbrev=0");
     commitHash = gitCommand("rev-parse --short HEAD");
   }
+
+  const meta = {
+    type: "website",
+    ...appMeta
+  };
+
   return {
     plugins: [
       // process and copy CSS files
@@ -85,15 +80,15 @@ module.exports = (basePath) => {
         template: "./public/index.html",
         meta: {
           description: meta.description,
-          "og:url": meta.url,
-          "og:type": meta.type,
-          "og:title": meta.title,
-          "og:description": meta.description,
-          "og:image": meta.image,
-          "twitter:domain": meta.domain,
-          "twitter:url": meta.url,
-          "twitter:title": meta.title,
-          "twitter:image": meta.image,
+          "og:url": { property: 'og:url', content: meta.url },
+          "og:type": { property: 'og:type', content: meta.type },
+          "og:title": { property: 'og:title', content: meta.title },
+          "og:description": { property: 'og:description', content: meta.description },
+          "og:image": { property: 'og:image', content: meta.image },
+          "twitter:domain": { property: 'twitter:domain', content: meta.domain },
+          "twitter:url": { property: 'twitter:url', content: meta.url },
+          "twitter:title": { property: 'twitter:title', content: meta.title },
+          "twitter:image": { property: 'twitter:image', content: meta.image },
         },
       }),
 

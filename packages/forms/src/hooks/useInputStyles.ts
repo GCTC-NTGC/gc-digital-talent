@@ -9,7 +9,8 @@ const useInputStyles: UseInputStyles = (inputType) => {
     "data-h2-outline": "base(none) base:focus-visible(2px solid focus)",
     "data-h2-outline-offset": "base(2px)",
     "data-h2-radius": "base(rounded)",
-    "data-h2-color": "base(black)",
+    "data-h2-opacity": "base:selectors[::placeholder](.7)",
+    "data-h2-color": "base(black) base:selectors[::placeholder](gray.darkest)",
   };
   let padding = { "data-h2-padding": "base(x.5)" };
   let selectIcon = {};

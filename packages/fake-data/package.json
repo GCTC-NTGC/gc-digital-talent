@@ -14,7 +14,7 @@
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@faker-js/faker": "^8.3.1",
+    "@faker-js/faker": "^8.4.0",
     "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/graphql": "*",
     "enforce-unique": "^1.2.0",
@@ -23,6 +23,6 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }

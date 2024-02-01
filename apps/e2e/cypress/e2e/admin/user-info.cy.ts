@@ -4,7 +4,7 @@ import {
   Pool,
   Skill,
   User,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
@@ -112,8 +112,11 @@ describe("User Information Page", () => {
         cy.loginByRole(`${role}`);
         cy.visit(`/en/admin/users/${testUser.id}`);
         cy.findByRole("heading", {
-          name: /Cypress User/i,
+          name: /view user/i,
         })
+          .should("exist")
+          .and("be.visible");
+        cy.findByText(/cypress user/i)
           .should("exist")
           .and("be.visible");
       };

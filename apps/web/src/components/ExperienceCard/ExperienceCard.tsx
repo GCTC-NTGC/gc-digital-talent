@@ -38,24 +38,32 @@ import EditLink from "./EditLink";
 type EditMode = "link" | "dialog";
 
 interface ExperienceCardProps {
+  // Override ID if more than one card is used, for uniqueness
+  id?: string;
   experience: AnyExperience;
   headingLevel?: HeadingRank;
   showSkills?: boolean | Skill | Array<Skill>;
   showEdit?: boolean;
+  hideDetails?: boolean;
   editParam?: string;
   // Override the edit path if needed
   editPath?: string;
   editMode?: EditMode;
+  // Allows passing in a link to view a specific experience
+  view?: React.ReactNode;
   onSave?: () => void;
   linkTo?: Skill;
   editTrigger?: React.ReactNode;
 }
 
 const ExperienceCard = ({
+  id,
   experience,
   editParam,
   editPath: editPathProp,
   editMode = "link",
+  view = null,
+  hideDetails = false,
   onSave,
   linkTo,
   editTrigger,
@@ -117,7 +125,8 @@ const ExperienceCard = ({
 
   return (
     <div
-      data-h2-border-left="base(x.5 solid tertiary)"
+      id={id || `experience-${experience.id}`}
+      data-h2-border-left="base(x.5 solid tertiary) base:iap(x.5 solid secondary) base:iap:dark(x.5 solid secondary.lighter)"
       data-h2-padding="base(x1)"
       data-h2-shadow="base(larger)"
       data-h2-radius="base(0 rounded rounded 0)"
@@ -141,6 +150,7 @@ const ExperienceCard = ({
           <span>{titleHtml}</span>
         </Heading>
         {showEdit && edit}
+        {view}
       </div>
       <p
         data-h2-display="base(flex)"
@@ -177,183 +187,187 @@ const ExperienceCard = ({
               },
             )}
           </Heading>
-          <p data-h2-margin-bottom="base(x1)">
-            {singleSkill.experienceSkillRecord.details}
-          </p>
+          <p>{singleSkill.experienceSkillRecord.details}</p>
         </>
       )}
-      <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Collapsible.Trigger asChild>
-          <Button
-            type="button"
-            mode="inline"
-            color="black"
-            data-h2-transform="base:children[.ExperienceCard__Chevron](rotate(0deg)) base:selectors[[data-state='open']]:children[.ExperienceCard__Chevron](rotate(90deg))"
-            aria-label={
-              isOpen
-                ? intl
-                    .formatMessage(
-                      {
-                        defaultMessage: "Hide {experienceName} details",
-                        id: "pLef1V",
-                        description:
-                          "Button text to hide a specific experience's details",
-                      },
-                      { experienceName: title },
-                    )
-                    .toString()
-                : intl
-                    .formatMessage(
-                      {
-                        defaultMessage: "Show {experienceName} details",
-                        id: "ge40rv",
-                        description:
-                          "Button text to show a specific experience's details",
-                      },
-                      { experienceName: title },
-                    )
-                    .toString()
-            }
-          >
-            <span
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(0 x.25)"
+      {!hideDetails && (
+        <Collapsible.Root
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          data-h2-margin-top="base(x1)"
+        >
+          <Collapsible.Trigger asChild>
+            <Button
+              type="button"
+              mode="inline"
+              color="black"
+              data-h2-transform="base:children[.ExperienceCard__Chevron](rotate(0deg)) base:selectors[[data-state='open']]:children[.ExperienceCard__Chevron](rotate(90deg))"
+              aria-label={
+                isOpen
+                  ? intl
+                      .formatMessage(
+                        {
+                          defaultMessage: "Hide {experienceName} details",
+                          id: "pLef1V",
+                          description:
+                            "Button text to hide a specific experience's details",
+                        },
+                        { experienceName: title },
+                      )
+                      .toString()
+                  : intl
+                      .formatMessage(
+                        {
+                          defaultMessage: "Show {experienceName} details",
+                          id: "ge40rv",
+                          description:
+                            "Button text to show a specific experience's details",
+                        },
+                        { experienceName: title },
+                      )
+                      .toString()
+              }
             >
-              <ChevronRightIcon
-                data-h2-height="base(x1.25)"
-                data-h2-width="base(x1.25)"
-                className="ExperienceCard__Chevron"
-              />
-              <span>
-                {isOpen
-                  ? intl.formatMessage({
-                      defaultMessage: "Hide this experience's details",
-                      id: "IxngA3",
-                      description:
-                        "Button text to hide a miscellaneous experience's details",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "Show this experience's details",
-                      id: "zxLL3N",
-                      description:
-                        "Button text to show a miscellaneous experience's details",
-                    })}
+              <span
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(center)"
+                data-h2-gap="base(0 x.25)"
+              >
+                <ChevronRightIcon
+                  data-h2-height="base(x1.25)"
+                  data-h2-width="base(x1.25)"
+                  className="ExperienceCard__Chevron"
+                />
+                <span>
+                  {isOpen
+                    ? intl.formatMessage({
+                        defaultMessage: "Hide this experience's details",
+                        id: "IxngA3",
+                        description:
+                          "Button text to hide a miscellaneous experience's details",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Show this experience's details",
+                        id: "zxLL3N",
+                        description:
+                          "Button text to show a miscellaneous experience's details",
+                      })}
+                </span>
               </span>
-            </span>
-          </Button>
-        </Collapsible.Trigger>
-        <Collapsible.Content data-h2-padding-left="base(x1.5)">
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
-          {isAwardExperience(experience) && (
-            <AwardContent
-              experience={experience}
-              headingLevel={contentHeadingLevel}
-            />
-          )}
-          {isCommunityExperience(experience) && (
-            <CommunityContent
-              experience={experience}
-              headingLevel={contentHeadingLevel}
-            />
-          )}
-          {isEducationExperience(experience) && (
-            <EducationContent
-              experience={experience}
-              headingLevel={contentHeadingLevel}
-            />
-          )}
-          {isWorkExperience(experience) && (
-            <WorkContent
-              experience={experience}
-              headingLevel={contentHeadingLevel}
-            />
-          )}
-          {/** Personal type has no custom content so separator is redundant */}
-          {!isPersonalExperience(experience) && (
+            </Button>
+          </Collapsible.Trigger>
+          <Collapsible.Content data-h2-padding-left="base(x1.5)">
             <Separator
               orientation="horizontal"
               decorative
-              data-h2-background-color="base(gray.lighter)"
+              data-h2-background-color="base(gray)"
               data-h2-margin="base(x1 0)"
             />
-          )}
-          <ContentSection
-            title={experienceLabels.details}
-            headingLevel={headingLevel}
-          >
-            {experience.details ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </ContentSection>
-          {showSkills && !singleSkill && (
-            <>
+            {isAwardExperience(experience) && (
+              <AwardContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
+            {isCommunityExperience(experience) && (
+              <CommunityContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
+            {isEducationExperience(experience) && (
+              <EducationContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
+            {isWorkExperience(experience) && (
+              <WorkContent
+                experience={experience}
+                headingLevel={contentHeadingLevel}
+              />
+            )}
+            {/** Personal type has no custom content so separator is redundant */}
+            {!isPersonalExperience(experience) && (
               <Separator
                 orientation="horizontal"
                 decorative
-                data-h2-background-color="base(gray.lighter)"
+                data-h2-background-color="base(gray)"
                 data-h2-margin="base(x1 0)"
               />
-              <ContentSection
-                headingLevel={headingLevel}
-                title={intl.formatMessage({
-                  defaultMessage: "Featured skills",
-                  id: "a8wd8c",
-                  description:
-                    "Label displayed for featured skills attached to an experience",
-                })}
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The following skills have been linked to this experience through your skills showcase or job applications. You link new skills by editing this experience or adding the skill to your library in the showcase.",
-                  id: "xLIImd",
-                  description:
-                    "Lead in text for list of skills linked to a specific experience",
-                })}
-              </ContentSection>
-              <div data-h2-margin-top="base(x1)">
-                {skills && skillCount ? (
-                  <ul
-                    data-h2-list-style-position="base(outside)"
-                    data-h2-padding-left="base(x.75)"
-                  >
-                    {skills.map((skill) => (
-                      <li key={skill.id} data-h2-margin-bottom="base(x.25)">
-                        <span
-                          data-h2-font-weight="base(700)"
-                          data-h2-display="base(block)"
-                        >
-                          {getLocalizedName(skill.name, intl)}
-                        </span>
-                        <span>
-                          {skill.experienceSkillRecord?.details ??
-                            intl.formatMessage(commonMessages.notAvailable)}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <Well data-h2-margin-top>
-                    <p data-h2-text-align="base(center)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "No skills have been linked to this experience.",
-                        id: "exxM/M",
-                        description:
-                          "Text displayed when no skills have been linked to an experience",
-                      })}
-                    </p>
-                  </Well>
-                )}
-              </div>
-            </>
-          )}
-        </Collapsible.Content>
-      </Collapsible.Root>
+            )}
+            <ContentSection
+              title={experienceLabels.details}
+              headingLevel={headingLevel}
+            >
+              {experience.details ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </ContentSection>
+            {showSkills && !singleSkill && (
+              <>
+                <Separator
+                  orientation="horizontal"
+                  decorative
+                  data-h2-background-color="base(gray)"
+                  data-h2-margin="base(x1 0)"
+                />
+                <ContentSection
+                  headingLevel={headingLevel}
+                  title={intl.formatMessage({
+                    defaultMessage: "Featured skills",
+                    id: "a8wd8c",
+                    description:
+                      "Label displayed for featured skills attached to an experience",
+                  })}
+                >
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The following skills have been linked to this experience through your skills showcase or job applications. You link new skills by editing this experience or adding the skill to your library in the showcase.",
+                    id: "xLIImd",
+                    description:
+                      "Lead in text for list of skills linked to a specific experience",
+                  })}
+                </ContentSection>
+                <div data-h2-margin-top="base(x1)">
+                  {skills && skillCount ? (
+                    <ul
+                      data-h2-list-style-position="base(outside)"
+                      data-h2-padding-left="base(x.75)"
+                    >
+                      {skills.map((skill) => (
+                        <li key={skill.id} data-h2-margin-bottom="base(x.25)">
+                          <span
+                            data-h2-font-weight="base(700)"
+                            data-h2-display="base(block)"
+                          >
+                            {getLocalizedName(skill.name, intl)}
+                          </span>
+                          <span>
+                            {skill.experienceSkillRecord?.details ??
+                              intl.formatMessage(commonMessages.notAvailable)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <Well data-h2-margin-top>
+                      <p data-h2-text-align="base(center)">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "No skills have been linked to this experience.",
+                          id: "exxM/M",
+                          description:
+                            "Text displayed when no skills have been linked to an experience",
+                        })}
+                      </p>
+                    </Well>
+                  )}
+                </div>
+              </>
+            )}
+          </Collapsible.Content>
+        </Collapsible.Root>
+      )}
     </div>
   );
 };

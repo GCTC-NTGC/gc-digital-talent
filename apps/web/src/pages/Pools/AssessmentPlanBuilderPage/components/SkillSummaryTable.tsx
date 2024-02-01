@@ -12,6 +12,7 @@ import {
   getPoolSkillType,
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
+
 import {
   AssessmentStep,
   AssessmentStepType,
@@ -20,8 +21,7 @@ import {
   PoolSkillType,
   Skill,
   SkillCategory,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 
@@ -51,7 +51,7 @@ const CheckCircleIconElement = (
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-      data-h2-color="base(success)"
+      data-h2-color="base(success) base:dark(success.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "{localizedName} has assessments",
@@ -81,7 +81,7 @@ const XCircleIconElement = (
       data-h2-display="base(inline-block)"
       data-h2-vertical-align="base(bottom)"
       data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-      data-h2-color="base(error)"
+      data-h2-color="base(error) base:dark(error.light)"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "{localizedName} missing assessments",
@@ -97,7 +97,7 @@ const XCircleIconElement = (
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<AssessmentStepType>,
+  assessmentStepType: Maybe<AssessmentStepType> | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {

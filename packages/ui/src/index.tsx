@@ -20,6 +20,9 @@ import Card, {
   type CardProps,
 } from "./components/Card";
 import CardLink, { type CardLinkProps } from "./components/CardLink";
+import CardRepeater, {
+  useCardRepeaterContext,
+} from "./components/CardRepeater/CardRepeater";
 import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
@@ -42,6 +45,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
 import Pill, {
@@ -56,6 +60,7 @@ import SideMenu, {
   SideMenuButton,
   SideMenuItem,
   SideMenuContentWrapper,
+  SideMenuCategory,
   type SideMenuProps,
   type SideMenuItemProps,
 } from "./components/SideMenu";
@@ -135,6 +140,7 @@ export {
   CardBasic,
   CardFlat,
   CardLink,
+  CardRepeater,
   Chips,
   Chip,
   Collapsible,
@@ -147,6 +153,7 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  NavTabs,
   Loading,
   Pending,
   NotFound,
@@ -159,6 +166,7 @@ export {
   Sidebar,
   SideMenuButton,
   SideMenuItem,
+  SideMenuCategory,
   SideMenuContentWrapper,
   Spoiler,
   Stepper,
@@ -171,4 +179,4 @@ export {
   Well,
 };
 
-export { incrementHeadingRank, decrementHeadingRank };
+export { incrementHeadingRank, decrementHeadingRank, useCardRepeaterContext };

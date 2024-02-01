@@ -7,13 +7,12 @@ import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import AboutSection from "./components/AboutSection";
@@ -55,12 +54,7 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
     },
     {
       id: "employment-equity",
-      title: intl.formatMessage({
-        defaultMessage: "Employment equity",
-        id: "BYGKiT",
-        description:
-          "Title of the 'Employment equity' section of the view-user page",
-      }),
+      title: intl.formatMessage(commonMessages.employmentEquity),
       titleIcon: InformationCircleIcon,
       content: <EmploymentEquitySection user={user} />,
     },
@@ -110,7 +104,6 @@ type RouteParams = {
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
-  const routes = useRoutes();
   const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
     variables: { id: userId },
   });
@@ -118,31 +111,8 @@ const UserInformationPage = () => {
   const user = lookupData?.user;
   const pools = lookupData?.pools.filter(notEmpty);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.users),
-      url: routes.userTable(),
-    },
-    ...(userId
-      ? [
-          {
-            label: getFullNameLabel(user?.firstName, user?.lastName, intl),
-            url: routes.userView(userId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Candidate details",

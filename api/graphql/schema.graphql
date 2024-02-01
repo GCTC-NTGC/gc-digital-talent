@@ -78,11 +78,6 @@ type User {
   # Employment equity
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
-  isIndigenous: Boolean
-    @rename(attribute: "is_indigenous")
-    @deprecated(
-      reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662."
-    )
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
   indigenousCommunities: [IndigenousCommunity]
     @rename(attribute: "indigenous_communities")
@@ -159,12 +154,12 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   lastName: String @rename(attribute: "last_name")
 }
 
-type ScreeningQuestion {
+type GeneralQuestion {
   id: ID!
   pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
-  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  # generalQuestionResponses: [GeneralQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
 type Pool {
@@ -194,7 +189,7 @@ type Pool {
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
-  screeningQuestions: [ScreeningQuestion]
+  generalQuestions: [GeneralQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
@@ -207,11 +202,11 @@ type Pool {
   poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
 }
 
-type ScreeningQuestionResponse {
+type GeneralQuestionResponse {
   id: ID!
   answer: String
-  screeningQuestion: ScreeningQuestion @belongsTo
-  poolCandidate: PoolCandidate @belongsTo
+  generalQuestion: GeneralQuestion @belongsTo
+  poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
 }
 
 type AssessmentStep {
@@ -241,6 +236,7 @@ type AssessmentResult {
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 type PoolSkill {
@@ -260,18 +256,25 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
-  status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  statusWeight: Int @rename(attribute: "status_weight")
-  notes: String
+  status: PoolCandidateStatus
+    @rename(attribute: "pool_candidate_status")
+    @canOnParent(ability: "viewStatus")
+  statusWeight: Int
+    @rename(attribute: "status_weight")
+    @canOnParent(ability: "viewStatus")
+  notes: String @canOnParent(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  isBookmarked: Boolean
+    @rename(attribute: "is_bookmarked")
+    @canOnParent(ability: "viewNotes")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
-  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
+  generalQuestionResponses: [GeneralQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
@@ -585,7 +588,7 @@ input UserFilterInput {
   telephone: String @scope
   email: String @scope
   name: String @scope
-  generalSearch: String @scope
+  generalSearch: [String] @scope
   roles: [ID] @scope(name: "roleAssignments")
   trashed: Trashed @trashed
 }
@@ -610,7 +613,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope
-  generalSearch: String @scope
+  generalSearch: [String] @scope
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
@@ -697,7 +700,7 @@ type Query {
     @find
     @guard
     @can(ability: "view", query: true)
-  poolCandidates(includeIds: [ID] @in(key: "id")): [PoolCandidate]!
+  poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
     @can(ability: "view", resolved: true)
@@ -741,22 +744,6 @@ type Query {
   classifications: [Classification]! @all @can(ability: "viewAny")
   department(id: UUID! @eq): Department @find @can(ability: "view")
   departments: [Department]! @all @can(ability: "viewAny")
-  poolCandidateFilters: [PoolCandidateFilter]!
-    @all
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @throttle(name: "graphql")
-    @deprecated(
-      reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658."
-    )
-  applicantFilters: [ApplicantFilter]!
-    @all
-    @guard
-    @can(ability: "viewAny", model: "PoolCandidateSearchRequest")
-    @throttle(name: "graphql")
-    @deprecated(
-      reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654."
-    )
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
@@ -1047,6 +1034,7 @@ input CreatePoolCandidateAsAdminInput {
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -1061,6 +1049,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1257,6 +1246,9 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
+  # This is an alias of connect since it is a custom command that can do both (insert and update)
+  # It is here to avoid confusion when using it on the frontend
+  update: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
   disconnect: [ID!] @resolveWith(method: "disconnectSkills")
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
@@ -1307,24 +1299,24 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
 }
 
-input CreateScreeningQuestionInput {
+input CreateGeneralQuestionInput {
   question: LocalizedStringInput!
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
-input UpdateScreeningQuestionInput {
+input UpdateGeneralQuestionInput {
   id: ID!
   question: LocalizedStringInput
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
-input UpdateScreeningQuestionsHasMany {
-  create: [CreateScreeningQuestionInput!]
-  update: [UpdateScreeningQuestionInput!]
+input UpdateGeneralQuestionsHasMany {
+  create: [CreateGeneralQuestionInput!]
+  update: [UpdateGeneralQuestionInput!]
   delete: [ID!]
 }
 
-input SyncScreeningQuestionsInput {
+input SyncGeneralQuestionsInput {
   id: ID
   question: LocalizedStringInput!
   sortOrder: Int
@@ -1368,7 +1360,7 @@ input UpdatePoolInput {
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  screeningQuestions: UpdateScreeningQuestionsHasMany
+  generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
 input AssessmentStepInput {
@@ -1381,7 +1373,7 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input ScreeningQuestionAssessmentStepInput {
+input GeneralQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1403,6 +1395,7 @@ input CreateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input UpdateAssessmentResultInput
@@ -1420,6 +1413,7 @@ input UpdateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input PoolSkillBelongsToMany {
@@ -1456,23 +1450,23 @@ input UpdateUserTeamRolesInput {
   roleAssignments: RolesForTeamHasMany!
 }
 
-input ScreeningResponseBelongsTo {
+input GeneralResponseBelongsTo {
   connect: ID!
 }
 
-input CreateScreeningQuestionResponseInput {
-  screeningQuestion: ScreeningResponseBelongsTo!
+input CreateGeneralQuestionResponseInput {
+  generalQuestion: GeneralResponseBelongsTo!
   answer: String!
 }
 
-input UpdateScreeningQuestionResponseInput {
+input UpdateGeneralQuestionResponseInput {
   id: ID!
   answer: String
 }
 
-input UpdateScreeningQuestionResponsesHasMany {
-  create: [CreateScreeningQuestionResponseInput!]
-  update: [UpdateScreeningQuestionResponseInput!]
+input UpdateGeneralQuestionResponsesHasMany {
+  create: [CreateGeneralQuestionResponseInput!]
+  update: [UpdateGeneralQuestionResponseInput!]
   delete: [ID!]
 }
 
@@ -1483,7 +1477,7 @@ input UpdateEducationExperiencesRequirementBelongsToMany {
 input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
-  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
@@ -1541,7 +1535,19 @@ type Mutation {
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
+  ): PoolCandidate
+    @update
+    @guard
+    @can(ability: "updateAsAdmin", find: "id", injectArgs: true)
+  # Return a boolean to prevent automatically updating the client's cache
+  togglePoolCandidateBookmark(id: ID!): Boolean
+    @guard
+    @can(
+      ability: "updateAsAdmin"
+      find: "id"
+      model: "PoolCandidate"
+      injectArgs: true
+    )
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
@@ -1776,10 +1782,10 @@ type Mutation {
     @guard
     @can(ability: "update", find: "stepIdA")
     @can(ability: "update", find: "stepIdB")
-  createOrUpdateScreeningQuestionAssessmentStep(
+  createOrUpdateGeneralQuestionAssessmentStep(
     poolId: UUID!
-    screeningQuestions: [SyncScreeningQuestionsInput]
-    assessmentStep: ScreeningQuestionAssessmentStepInput
+    generalQuestions: [SyncGeneralQuestionsInput]
+    assessmentStep: GeneralQuestionAssessmentStepInput
   ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete

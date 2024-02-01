@@ -8,6 +8,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -29,8 +30,8 @@ const HomePage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Managers community",
-    id: "Izo/vB",
-    description: "Page title for the managers homepage",
+    id: "l75mNg",
+    description: "Title for Managers community",
   });
 
   return (
@@ -49,11 +50,7 @@ const HomePage = () => {
               icon={MagnifyingGlassIcon}
               href={paths.search()}
             >
-              {intl.formatMessage({
-                defaultMessage: "Find talent",
-                id: "sbEk4X",
-                description: "Link text for hiring manager call to action",
-              })}
+              {intl.formatMessage(navigationMessages.findTalent)}
             </Link>
             <Link
               color="secondary"
@@ -109,20 +106,12 @@ const HomePage = () => {
         >
           <CardFlat
             color="quaternary"
-            title={intl.formatMessage({
-              defaultMessage: "Find talent",
-              id: "93Dk4Q",
-              description: "Heading for the digital government talent search",
-            })}
+            title={intl.formatMessage(navigationMessages.findTalent)}
             links={[
               {
                 href: paths.search(),
                 mode: "solid",
-                label: intl.formatMessage({
-                  defaultMessage: "Find talent",
-                  id: "sbEk4X",
-                  description: "Link text for hiring manager call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.findTalent),
               },
             ]}
           >
@@ -159,9 +148,8 @@ const HomePage = () => {
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage: "Contact us",
-                  description:
-                    "Link text to contact the the team about starting a recruitment process",
-                  id: "g0/bWP",
+                  description: "Title for Contact us action",
+                  id: "RIi/3q",
                 }),
               },
             ]}
@@ -282,9 +270,8 @@ const HomePage = () => {
               img: { path: peopleGatheredAroundLaptop },
               title: intl.formatMessage({
                 defaultMessage: "Get hiring experience",
-                id: "azBrrC",
-                description:
-                  "Title for the feature about getting hiring experience",
+                id: "SfhT1q",
+                description: "Title to get hiring experience",
               }),
               summary: (
                 <>
@@ -349,12 +336,7 @@ const HomePage = () => {
               ),
               link: {
                 path: paths.browsePools(), // Note: Update once we have a manager specific page
-                label: intl.formatMessage({
-                  defaultMessage: "Browse jobs",
-                  id: "NNosUu",
-                  description:
-                    "Link text for manager jobs in government call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.browseJobs),
               },
             }}
           />

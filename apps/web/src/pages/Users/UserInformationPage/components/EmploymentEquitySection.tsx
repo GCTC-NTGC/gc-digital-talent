@@ -3,15 +3,18 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 
 import { Well } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { BasicUserInformationProps } from "../types";
 
 const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
 
+  const isIndigenous = unpackMaybes(user.indigenousCommunities)?.length > 0;
+
   return (
     <Well>
-      {!user.isIndigenous &&
+      {!isIndigenous &&
         !user.hasDisability &&
         !user.isVisibleMinority &&
         !user.isWoman &&
@@ -22,14 +25,14 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           description:
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
-      {user.isIndigenous && (
+      {isIndigenous && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "HrXZ6X",
-            description: "Text on view-user page that the user is indigenous",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           })}
         </div>
       )}

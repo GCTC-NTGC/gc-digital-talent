@@ -112,9 +112,9 @@ const IndigenousDialog = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                      id: "cVszq/",
+                      id: "7i+qEB",
                       description:
-                        "Sentence before signature space on the add indigenous identity dialog",
+                        "Disclaimer before signing Indigenous self-declaration form",
                     })}
                   </p>
                   <Input

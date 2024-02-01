@@ -11,9 +11,10 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { useUpdateApplicationMutation } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -29,11 +30,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationQuestions(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "sTij/C",
-      description: "Page title for the application screening questions page",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
       id: "GTHuSJ",
@@ -69,12 +66,12 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
-  const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
-  const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+  const generalQuestions =
+    application.pool.generalQuestions?.filter(notEmpty) || [];
+  const generalQuestionResponses =
+    application.generalQuestionResponses?.filter(notEmpty) || [];
   const handleSubmit = async (formValues: FormValues) => {
-    const data = formValuesToSubmitData(formValues, screeningQuestionResponses);
+    const data = formValuesToSubmitData(formValues, generalQuestionResponses);
     executeMutation({
       id: application.id,
       application: {
@@ -134,9 +131,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         >
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VcpIlx",
-            description:
-              "Link text to return to an introduction page on an application",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>
@@ -153,13 +149,13 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         onSubmit={handleSubmit}
         options={{
           defaultValues: dataToFormValues(
-            screeningQuestions,
-            screeningQuestionResponses,
+            generalQuestions,
+            generalQuestionResponses,
           ),
         }}
       >
-        {screeningQuestions.length ? (
-          screeningQuestions.map((question, index) => (
+        {generalQuestions.length ? (
+          generalQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
               <Heading
                 level="h3"

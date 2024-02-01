@@ -37,7 +37,7 @@ describe("SkillAccordion", () => {
     cache,
   );
 
-  const openAccordion = async (name: Maybe<string>) => {
+  const openAccordion = async (name: Maybe<string> | undefined) => {
     fireEvent.click(
       screen.getByRole("button", {
         name: new RegExp(name || "", "i"),

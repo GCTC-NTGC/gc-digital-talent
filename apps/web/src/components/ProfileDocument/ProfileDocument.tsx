@@ -26,6 +26,7 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
+
 import {
   GovEmployeeType,
   OperationalRequirement,
@@ -34,8 +35,7 @@ import {
   BilingualEvaluation,
   IndigenousCommunity,
   PoolCandidate,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
@@ -283,8 +283,9 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <Heading level="h3" data-h2-font-weight="base(700)">
                           {intl.formatMessage({
                             defaultMessage: "General information",
-                            id: "OHRL9N",
-                            description: "Title for general info",
+                            id: "Ot2eBH",
+                            description:
+                              "Title for general information section",
                           })}
                         </Heading>
                       </PageSection>

@@ -5,7 +5,7 @@ import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
@@ -20,8 +20,9 @@ import {
   useUpdateClassificationMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -83,13 +84,6 @@ export const UpdateClassificationForm = ({
   };
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Update Classification",
-          id: "U+WqrO",
-          description: "Title displayed on the update a classification form.",
-        })}
-      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -261,7 +255,7 @@ const UpdateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: intl.formatMessage(indexClassificationPageTitle),
       url: routes.classificationTable(),
     },
     ...(classificationId
@@ -279,41 +273,47 @@ const UpdateClassification = () => {
       : []),
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Update classification",
+    id: "OCmMDP",
+    description: "Page title for the edit classification page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Update classification",
-          id: "OCmMDP",
-          description: "Page title for the edit classification page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        {classificationData?.classification ? (
-          <UpdateClassificationForm
-            initialClassification={classificationData?.classification}
-            handleUpdateClassification={handleUpdateClassification}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Classification {classificationId} not found.",
-                  id: "b3VnhM",
-                  description:
-                    "Message displayed for classification not found.",
-                },
-                { classificationId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {classificationData?.classification ? (
+            <UpdateClassificationForm
+              initialClassification={classificationData?.classification}
+              handleUpdateClassification={handleUpdateClassification}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Classification {classificationId} not found.",
+                    id: "b3VnhM",
+                    description:
+                      "Message displayed for classification not found.",
+                  },
+                  { classificationId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

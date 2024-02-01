@@ -83,7 +83,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         data-h2-transform="base:selectors[::before](translate(0, 1.5rem)) base:selectors[::after](translate(0, 1.5rem))"
       >
         <span
-          data-h2-color="base(black) base:iap(white)"
+          data-h2-color="base:all(black) base:iap(white)"
           data-h2-font-weight="base(700)"
           data-h2-font-size="base(h5, 1)"
           data-h2-layer="base(2)"
@@ -146,6 +146,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: "PPP",
                       intl,
+                      timeZone: "Canada/Pacific",
                     }),
                   },
                 )
@@ -158,12 +159,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </IconLabel>
           <IconLabel
             icon={CurrencyDollarIcon}
-            label={intl.formatMessage({
-              id: "TrO4uL",
-              defaultMessage: "Salary range: ",
-              description:
-                "Label for the range of salary expected for a classification",
-            })}
+            label={
+              intl.formatMessage({
+                defaultMessage: "Salary range",
+                id: "GgBjAd",
+                description: "Label for pool advertisement salary range",
+              }) + intl.formatMessage(commonMessages.dividingColon)
+            }
           >
             {salaryRanges ? salaryRanges[0] : nullMessage}
           </IconLabel>

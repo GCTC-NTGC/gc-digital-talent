@@ -1,7 +1,11 @@
 import React from "react";
+import { IntlShape } from "react-intl";
 
-import { Maybe } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
+import { Scalars } from "@gc-digital-talent/graphql";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+
+import { Maybe } from "~/api/generated";
 
 import Actions, { ActionsProps } from "./Actions";
 import CommaList, { CommaListProps } from "./CommaList";
@@ -70,6 +74,19 @@ function phoneCell(telephone?: Maybe<string>) {
   );
 }
 
+function dateCell(
+  value: Maybe<Scalars["DateTime"]["output"]> | undefined,
+  intl: IntlShape,
+): string {
+  return value
+    ? formatDate({
+        date: parseDateTimeUtc(value),
+        formatString: "PPP p",
+        intl,
+      })
+    : "";
+}
+
 export default {
   actions: actionsCell,
   edit: editCell,
@@ -78,4 +95,5 @@ export default {
   jsx: jsxCell,
   email: emailCell,
   phone: phoneCell,
+  date: dateCell,
 };

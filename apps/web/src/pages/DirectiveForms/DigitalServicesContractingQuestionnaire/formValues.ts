@@ -1,3 +1,6 @@
+import { emptyToNull } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
+
 import {
   ContractAuthority,
   ContractCommodity,
@@ -19,9 +22,7 @@ import {
   YesNo,
   YesNoUnsure,
   Maybe,
-} from "@gc-digital-talent/graphql";
-import { emptyToNull } from "@gc-digital-talent/helpers";
-import { defaultLogger } from "@gc-digital-talent/logger";
+} from "~/api/generated";
 
 import { OTHER_ID, stringToEnum } from "../util";
 

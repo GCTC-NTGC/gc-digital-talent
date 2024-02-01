@@ -1,9 +1,9 @@
 // Note: We need snake case for tokens
 /* eslint-disable camelcase */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
-import { defaultLogger } from "@gc-digital-talent/logger";
+import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
 
 import {
   ACCESS_TOKEN,
@@ -14,22 +14,16 @@ import {
 
 export interface AuthenticationState {
   loggedIn: boolean;
-  accessToken: string | null;
-  refreshToken: string | null;
-  idToken: string | null;
   logout: (postLogoutUri?: string) => void;
-  refreshTokenSet: () => Promise<TokenSet | null>;
+  refreshTokenSet: () => Promise<void>;
 }
 
 const defaultAuthState = {
   loggedIn: false,
-  accessToken: null,
-  refreshToken: null,
-  idToken: null,
   logout: () => {
     /** do nothing */
   },
-  refreshTokenSet: () => Promise.resolve(null),
+  refreshTokenSet: () => Promise.resolve(),
 };
 
 interface TokenSet {
@@ -83,51 +77,6 @@ const logoutAndRefreshPage = (
   }
 };
 
-const refreshTokenSet = async (
-  refreshPath: string,
-  // refreshToken: string,
-  setTokens: (tokens: TokenSet) => void,
-): Promise<TokenSet | null> => {
-  // Local storage should be most up to date, especially if a refresh happened in a different tab.
-  // This is a bit hacky.  It would be better to have the refreshToken passed in as parameter like before.
-  // The provider state could be kept in sync with something like storage events (https://dev.to/cassiolacerda/how-to-syncing-react-state-across-multiple-tabs-with-usestate-hook-4bdm)
-  defaultLogger.notice("Attempting to refresh the auth token set");
-  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-
-  if (refreshToken === null) {
-    return null;
-  }
-
-  const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
-  if (response.ok) {
-    const responseBody: {
-      access_token: string;
-      refresh_token: string;
-      expires_in: string | null;
-      id_token: string | null;
-    } = await response.json();
-
-    const newTokens: TokenSet = {
-      accessToken: responseBody.access_token,
-      refreshToken: responseBody.refresh_token,
-      idToken: responseBody.id_token,
-    };
-
-    if (newTokens.accessToken) {
-      setTokens(newTokens);
-      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
-      if (newTokens?.refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
-      }
-      if (newTokens?.idToken) {
-        localStorage.setItem(ID_TOKEN, newTokens.idToken);
-      }
-      return newTokens;
-    }
-  }
-  return null;
-};
-
 function getTokensFromLocation(): TokenSet | null {
   const params = new URLSearchParams(window.location.search);
   const accessToken: string | null = params.get("access_token") ?? null;
@@ -160,63 +109,80 @@ const AuthenticationContainer = ({
   logoutRedirectUri,
   children,
 }: AuthenticationContainerProps) => {
-  const [existingTokens, setTokens] = useState({
-    accessToken: localStorage.getItem(ACCESS_TOKEN),
-    refreshToken: localStorage.getItem(REFRESH_TOKEN),
-    idToken: localStorage.getItem(ID_TOKEN),
-  });
+  const logger = useLogger();
 
   const newTokens = getTokensFromLocation();
+  logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
+  if (newTokens?.accessToken) {
+    logger.debug("set new tokens from location in localStorage");
+    localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
+    if (newTokens?.refreshToken) {
+      localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
+    }
+    if (newTokens?.idToken) {
+      localStorage.setItem(ID_TOKEN, newTokens.idToken);
+    }
+  }
 
-  // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
+  // We have saved it in local storage , then clear query parameters.
   useEffect(() => {
     if (newTokens?.accessToken) {
-      setTokens({
-        accessToken: newTokens.accessToken,
-        refreshToken: newTokens.refreshToken,
-        idToken: newTokens.idToken,
-      });
-      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
-      if (newTokens?.refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
-      }
-      if (newTokens?.idToken) {
-        localStorage.setItem(ID_TOKEN, newTokens.idToken);
-      }
+      logger.debug("Running newTokens clearQueryParams");
       clearQueryParams();
     }
-  }, [newTokens?.accessToken, newTokens?.refreshToken, newTokens?.idToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
+  }, [newTokens?.accessToken, logger]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
-  const tokens = newTokens ?? existingTokens;
+  // this is a memoized object so get the tokens from storage.
   const state = useMemo<AuthenticationState>(() => {
     return {
-      accessToken: tokens.accessToken,
-      idToken: tokens.idToken,
-      refreshToken: tokens.refreshToken,
-      loggedIn: !!tokens.accessToken,
-      logout: tokens.accessToken
+      loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
+      logout: localStorage.getItem(ACCESS_TOKEN)
         ? (postLogoutUri) =>
             logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },
-      refreshTokenSet: () =>
-        tokens.refreshToken
-          ? refreshTokenSet(
-              tokenRefreshPath,
-              /* tokens.refreshToken, */ setTokens,
-            )
-          : Promise.resolve(null),
+      refreshTokenSet: async () => {
+        const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN);
+        if (storedRefreshToken === null) {
+          logger.notice("No refresh token available.  Can't refresh.");
+          return;
+        }
+        defaultLogger.notice("Attempting to refresh the auth token set");
+        const response = await fetch(
+          `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
+        );
+        if (response.ok) {
+          const responseBody: {
+            access_token: string;
+            refresh_token: string;
+            expires_in: string | null;
+            id_token: string | null;
+          } = await response.json();
+          logger.debug(`Got refresh response: ${JSON.stringify(responseBody)}`);
+
+          const refreshedTokens: TokenSet = {
+            accessToken: responseBody.access_token,
+            refreshToken: responseBody.refresh_token,
+            idToken: responseBody.id_token,
+          };
+
+          if (refreshedTokens.accessToken) {
+            localStorage.setItem(ACCESS_TOKEN, refreshedTokens.accessToken);
+            if (refreshedTokens?.refreshToken) {
+              localStorage.setItem(REFRESH_TOKEN, refreshedTokens.refreshToken);
+            }
+            if (refreshedTokens?.idToken) {
+              localStorage.setItem(ID_TOKEN, refreshedTokens.idToken);
+            }
+          }
+        } else {
+          logger.notice("Failed to refresh auth state.");
+          logoutAndRefreshPage(logoutUri, logoutRedirectUri);
+        }
+      },
     };
-  }, [
-    tokens.accessToken,
-    tokens.idToken,
-    tokens.refreshToken,
-    logoutUri,
-    logoutRedirectUri,
-    tokenRefreshPath,
-  ]);
+  }, [logoutUri, logoutRedirectUri, tokenRefreshPath, logger]);
 
   return (
     <AuthenticationContext.Provider value={state}>

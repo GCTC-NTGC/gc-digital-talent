@@ -2,14 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Select,
-  enumToOptions,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Select, enumToOptions, Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -17,9 +14,6 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStatus,
   User,
@@ -27,8 +21,12 @@ import {
   PoolCandidate,
   PoolCandidateStatus,
   UpdatePoolCandidateAsAdminInput,
-  useUpdatePoolCandidateMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getFullNameHtml } from "~/utils/nameUtils";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
+
+import AdminUpdatePoolCandidate_Mutation from "./mutation";
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -50,7 +48,9 @@ const ChangeStatusDialog = ({
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [{ fetching }, executeMutation] = useUpdatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useMutation(
+    AdminUpdatePoolCandidate_Mutation,
+  );
 
   // an array of the user's pool candidates and filter out all the nulls and maybes
   const userPoolCandidatesSafe = user.poolCandidates
@@ -266,9 +266,10 @@ const ChangeStatusDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <MultiSelectField
+                <Combobox
                   id="changeStatusDialog-additionalPools"
                   name="additionalPools"
+                  isMulti
                   label={intl.formatMessage({
                     defaultMessage: "Additional pools",
                     id: "8V8WwR",

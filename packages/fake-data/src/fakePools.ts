@@ -17,8 +17,10 @@ import {
   PublishingGroup,
   SecurityStatus,
   Skill,
+  GeneralQuestion,
 } from "@gc-digital-talent/graphql";
 
+import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 import fakeSkillFamilies from "./fakeSkillFamilies";
@@ -78,6 +80,9 @@ const generatePool = (
       Object.values(SecurityStatus),
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
+    generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
+      fakeGeneralQuestions(),
+    ),
   };
 };
 

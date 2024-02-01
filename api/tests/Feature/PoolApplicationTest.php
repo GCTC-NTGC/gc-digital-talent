@@ -6,10 +6,10 @@ use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
+use App\Models\GeneralQuestion;
+use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\ScreeningQuestion;
-use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
@@ -543,15 +543,15 @@ class PoolApplicationTest extends TestCase
             );
     }
 
-    public function testApplicationSubmitScreeningQuestions(): void
+    public function testApplicationSubmitGeneralQuestions(): void
     {
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        ScreeningQuestion::where('pool_id', $newPool->id)->delete();
-        $screeningQuestion = ScreeningQuestion::factory()->create([
+        GeneralQuestion::where('pool_id', $newPool->id)->delete();
+        $generalQuestion = GeneralQuestion::factory()->create([
             'pool_id' => $newPool,
         ]);
 
@@ -564,7 +564,7 @@ class PoolApplicationTest extends TestCase
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
         // Remove any responses created by factory
-        ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
+        GeneralQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
         $submitArgs = [
             'id' => $newPoolCandidate->id,
@@ -578,9 +578,9 @@ class PoolApplicationTest extends TestCase
             ]);
 
         // Respond to the question
-        ScreeningQuestionResponse::create([
+        GeneralQuestionResponse::create([
             'pool_candidate_id' => $newPoolCandidate->id,
-            'screening_question_id' => $screeningQuestion->id,
+            'general_question_id' => $generalQuestion->id,
             'answer' => 'answer',
         ]);
         // assert successful submission after responding to question

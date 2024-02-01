@@ -12,9 +12,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { UserSkill, SkillLevel } from "@gc-digital-talent/graphql";
 
 import {
+  UserSkill,
+  SkillLevel,
   Experience,
   Maybe,
   Skill,
@@ -94,7 +95,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>>,
+  skills: Maybe<Array<Skill>> | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -114,8 +115,8 @@ export function filterUserSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>>,
-): Record<SkillCategory, Maybe<Array<Skill>>> {
+  skills: Maybe<Array<Skill>> | undefined,
+): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -130,7 +131,7 @@ export function categorizeSkill(
 
 export function categorizeUserSkill(
   userSkills: Maybe<Array<UserSkill>>,
-): Record<SkillCategory, Maybe<Array<UserSkill>>> {
+): Record<SkillCategory, Maybe<Array<UserSkill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterUserSkillsByCategory(
       userSkills,
@@ -222,12 +223,12 @@ export const differentiateMissingSkills = (
  */
 export const getExperienceSkills = (
   experiences: Experience[],
-  skill: Skill,
+  skill?: Pick<Skill, "id">,
 ): Experience[] => {
   return experiences.filter(
     (experience) =>
       experience.skills?.some(
-        (experienceSkill) => experienceSkill.id === skill.id,
+        (experienceSkill) => experienceSkill.id === skill?.id,
       ),
   );
 };

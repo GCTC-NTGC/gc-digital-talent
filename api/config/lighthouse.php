@@ -46,6 +46,9 @@ return [
             // Logs incoming GraphQL queries made by an admin
             App\Http\Middleware\AuditQueryMiddleware::class,
 
+            // Logs slow running GraphQL queries
+            App\Http\Middleware\SlowQueryLoggerMiddleware::class,
+
             // Throttles based on RateLimiter in RouteServiceProvider.
             'throttle:graphql',
         ],

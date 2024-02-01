@@ -317,7 +317,7 @@ export const formValuesToSubmitData = (
             ? data.skills.map((skill) => {
                 return {
                   id: skill.skillId,
-                  details: skill.details,
+                  details: skill.details ?? "",
                 };
               })
             : []),
@@ -325,7 +325,7 @@ export const formValuesToSubmitData = (
             ? hiddenSkills.map((skill) => {
                 return {
                   id: skill.id,
-                  details: skill.experienceSkillRecord?.details,
+                  details: skill.experienceSkillRecord?.details ?? "",
                 };
               })
             : []),
@@ -335,7 +335,7 @@ export const formValuesToSubmitData = (
 
   return {
     details: data.details,
-    skills: data.skills ? { sync: skillSync } : undefined,
+    skills: { sync: skillSync },
     ...(type ? dataMap[type] : {}),
   };
 };

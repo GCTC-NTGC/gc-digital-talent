@@ -19,6 +19,7 @@ import "./applicationCommands";
 import "./classificationCommands";
 import "./commands";
 import "./departmentCommands";
+import "./featureFlagCommands";
 import "./genericJobTitleCommands";
 import "./poolCommands";
 import "./searchRequestCommands";

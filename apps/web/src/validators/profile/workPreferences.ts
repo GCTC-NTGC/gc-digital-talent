@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 
-import { User } from "@gc-digital-talent/graphql";
+import { User } from "~/api/generated";
 
 export type PartialUser = Pick<
   User,

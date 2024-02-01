@@ -13,7 +13,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
-import AdminLayout from "~/components/Layout/AdminLayout";
+import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
@@ -328,6 +328,14 @@ const IAPHomePage = React.lazy(() =>
       ),
   ),
 );
+const IAPManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
+      ),
+  ),
+);
 
 /** Admin */
 const AdminHomePage = React.lazy(() =>
@@ -495,6 +503,14 @@ const ViewPoolCandidatePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+      ),
+  ),
+);
+const RODViewPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
       ),
   ),
 );
@@ -1534,6 +1550,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1574,7 +1591,11 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  <ViewPoolCandidatePage />
+                  {featureFlags.recordOfDecision ? (
+                    <RODViewPoolCandidatePage />
+                  ) : (
+                    <ViewPoolCandidatePage />
+                  )}
                 </RequireAuth>
               ),
             },
@@ -1806,6 +1827,10 @@ const createRoute = (
           element: <IAPHomePage />,
         },
         {
+          path: "hire",
+          element: <IAPManagerHomePage />,
+        },
+        {
           path: "*",
           loader: () => {
             throw new Response("Not Found", { status: 404 });
@@ -1824,6 +1849,8 @@ const Router = () => {
     <RouterProvider
       router={router}
       fallbackElement={<Loading />}
+      // Note: This is required for turning on a version 7 feature flag in react-router: https://reactrouter.com/en/main/routers/router-provider#future
+      // eslint-disable-next-line camelcase
       future={{ v7_startTransition: true }}
     />
   );

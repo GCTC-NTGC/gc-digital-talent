@@ -18,4 +18,5 @@ export const tsup: Options = {
   target: "es2020",
   outDir: "dist",
   external: ["react", "lodash"],
+  treeshake: true,
 };

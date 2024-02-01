@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 
+import { PoolCandidate } from "~/api/generated";
 import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
@@ -293,52 +293,6 @@ const VisitCareerTimelineAction = ({
     </Link>
   );
 };
-interface ManageAvailabilityActionProps extends ActionProps {
-  userID: string;
-  application: Application;
-}
-
-const ManageAvailabilityAction = ({
-  show,
-  userID,
-  application,
-}: ManageAvailabilityActionProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
-
-  if (!show) {
-    return null;
-  }
-
-  return (
-    <Link
-      href={paths.profile(userID)}
-      mode="inline"
-      color="black"
-      fontSize="caption"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage:
-            "Manage your availability for the {title} recruitment",
-          id: "3QkRNc",
-          description:
-            "Link text to direct a user to change the availability of the specific recruitment process",
-        },
-        {
-          title: jobTitle,
-        },
-      )}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Manage availability",
-        id: "SjhNGq",
-        description:
-          "Link text to direct a user to change the availability of the specific recruitment process",
-      })}
-    </Link>
-  );
-};
 
 export interface DeleteActionProps extends ActionProps {
   application: Application;
@@ -441,5 +395,4 @@ export default {
   ViewAction,
   CopyApplicationIdAction,
   VisitCareerTimelineAction,
-  ManageAvailabilityAction,
 };

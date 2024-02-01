@@ -10,6 +10,7 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+
 import {
   PersonnelLanguage,
   PersonnelOtherRequirement,
@@ -17,7 +18,7 @@ import {
   PersonnelWorkLocation,
   Skill,
   YesNo,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";

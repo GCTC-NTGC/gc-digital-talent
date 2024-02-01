@@ -5,12 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Input,
-  TextArea,
-  Submit,
-  MultiSelectField,
-} from "@gc-digital-talent/forms";
+import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
@@ -27,6 +22,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -205,9 +201,10 @@ export const CreateSkillFamilyForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <MultiSelectField
+            <Combobox
               id="skills"
               name="skills"
+              isMulti
               label={intl.formatMessage(adminMessages.skills)}
               placeholder={intl.formatMessage({
                 defaultMessage: "Select one or more skills",
@@ -266,22 +263,28 @@ const CreateSkillFamilyPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create skill family",
+    id: "FCQnWB",
+    description: "Page title for the skill family creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create skill family",
-          id: "FCQnWB",
-          description: "Page title for the skill family creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        <CreateSkillFamilyForm
-          handleCreateSkillFamily={handleCreateSkillFamily}
-          skills={skills}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          <CreateSkillFamilyForm
+            handleCreateSkillFamily={handleCreateSkillFamily}
+            skills={skills}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

@@ -1,20 +1,22 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
+import { Pool } from "~/api/generated";
 import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
-
-import useRequiredParams from "../../hooks/useRequiredParams";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import AdminHero from "~/components/Hero/AdminHero";
 
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classifications" | "stream" | "name">;
+  pool: Pick<Pool, "id" | "classifications" | "stream" | "name" | "team">;
 }
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
@@ -24,16 +26,53 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const poolTitle = getFullPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
+  const subtitle = pool.team
+    ? getLocalizedName(pool.team?.displayName, intl)
+    : currentPage?.subtitle;
 
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={currentPage?.subtitle} navItems={pages}>
-        {poolTitle}
-      </PageHeader>
+      <AdminHero
+        title={poolTitle}
+        subtitle={subtitle}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
     </>
   );
 };
+
+const PoolLayout_Query = graphql(/* GraphQL */ `
+  query PoolLayout($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 type RouteParams = {
   poolId: string;
@@ -41,7 +80,8 @@ type RouteParams = {
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: PoolLayout_Query,
     variables: {
       poolId,
     },
@@ -49,12 +89,9 @@ const PoolLayout = () => {
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

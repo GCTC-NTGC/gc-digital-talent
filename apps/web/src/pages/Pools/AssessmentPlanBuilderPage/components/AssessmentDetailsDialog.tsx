@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useMutation } from "urql";
 
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import {
@@ -19,18 +20,18 @@ import {
   Option,
   Field,
 } from "@gc-digital-talent/forms";
+import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import { toast } from "@gc-digital-talent/toast";
 import {
+  graphql,
   AssessmentStepType,
   Maybe,
   PoolSkill,
-  Scalars,
-  ScreeningQuestion,
-  useCreateAssessmentStepMutation,
-  useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
-  useUpdateAssessmentStepMutation,
+  GeneralQuestion,
 } from "@gc-digital-talent/graphql";
-import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-import { toast } from "@gc-digital-talent/toast";
+
+import { Scalars } from "~/api/generated";
+import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -39,6 +40,45 @@ import {
   SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
+
+const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
+  mutation createAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+const AssessmentDetailsDialog_UpdateMutation = graphql(/* GraphQL */ `
+  mutation updateAssessmentStep(
+    $id: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+// to be connected to ScreeningQuestion once type added
+const AssessmentDetailsDialog_GeneralQuestionMutation = graphql(/* GraphQL */ `
+  mutation createOrUpdateGeneralQuestionAssessmentStep(
+    $poolId: UUID!
+    $generalQuestions: [SyncGeneralQuestionsInput]
+    $assessmentStep: GeneralQuestionAssessmentStepInput
+  ) {
+    createOrUpdateGeneralQuestionAssessmentStep(
+      poolId: $poolId
+      generalQuestions: $generalQuestions
+      assessmentStep: $assessmentStep
+    ) {
+      id
+    }
+  }
+`);
 
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
@@ -67,7 +107,7 @@ type InitialValues = Omit<
   "poolId" | "screeningQuestionFieldArray"
 > & {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: Array<ScreeningQuestion>;
+  screeningQuestions?: Array<GeneralQuestion>;
 };
 
 interface AssessmentDetailsDialogProps {
@@ -75,6 +115,7 @@ interface AssessmentDetailsDialogProps {
   allPoolSkills: PoolSkill[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
+  onError?: () => void;
 }
 
 const AssessmentDetailsDialog = ({
@@ -82,6 +123,7 @@ const AssessmentDetailsDialog = ({
   allPoolSkills,
   disallowStepTypes = [],
   trigger,
+  onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
@@ -90,15 +132,15 @@ const AssessmentDetailsDialog = ({
   const [
     { fetching: createAssessmentStepFetching },
     executeCreateAssessmentStepMutation,
-  ] = useCreateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_CreateMutation);
   const [
     { fetching: updateAssessmentStepFetching },
     executeUpdateAssessmentStepMutation,
-  ] = useUpdateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_UpdateMutation);
   const [
-    { fetching: createOrUpdateScreeningQuestionAssessmentStepMutationFetching },
-    executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
-  ] = useCreateOrUpdateScreeningQuestionAssessmentStepMutation();
+    { fetching: createOrUpdateGeneralQuestionAssessmentStepMutationFetching },
+    executeCreateOrUpdateGeneralQuestionAssessmentStepMutation,
+  ] = useMutation(AssessmentDetailsDialog_GeneralQuestionMutation);
 
   if (initialValues.screeningQuestions) {
     initialValues.screeningQuestions.sort((a, b) =>
@@ -233,12 +275,12 @@ const AssessmentDetailsDialog = ({
     );
   };
 
-  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = (
+  const submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation = (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
       poolId: values.poolId,
-      screeningQuestions: values.screeningQuestionFieldArray?.map(
+      generalQuestions: values.screeningQuestionFieldArray?.map(
         ({ screeningQuestion }, index) => ({
           question: {
             en: screeningQuestion.en,
@@ -261,10 +303,10 @@ const AssessmentDetailsDialog = ({
         },
       },
     };
-    return executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
+    return executeCreateOrUpdateGeneralQuestionAssessmentStepMutation(
       mutationParameters,
     ).then((res) => {
-      if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
+      if (res?.data?.createOrUpdateGeneralQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
       return Promise.reject();
@@ -276,7 +318,7 @@ const AssessmentDetailsDialog = ({
 
     if (dialogMode === "screening_question") {
       mutationPromise =
-        submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation(values);
+        submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation(values);
     } else if (dialogAction === "update") {
       mutationPromise = submitUpdateAssessmentStepMutation(values);
     } else {
@@ -297,6 +339,7 @@ const AssessmentDetailsDialog = ({
         reset(); // the create dialog could be used several times in a row
       })
       .catch(() => {
+        onError?.();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving assessment step failed.",
@@ -349,7 +392,7 @@ const AssessmentDetailsDialog = ({
   const dialogBusy =
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
-    createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
+    createOrUpdateGeneralQuestionAssessmentStepMutationFetching;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -441,12 +484,7 @@ const AssessmentDetailsDialog = ({
                   <>
                     <div>
                       <div data-h2-font-weight="base(700)">
-                        {intl.formatMessage({
-                          defaultMessage: "Screening questions",
-                          id: "V62J5w",
-                          description:
-                            "title of 'screening questions' section of the assessment builder",
-                        })}
+                        {intl.formatMessage(processMessages.screeningQuestions)}
                       </div>
                       <div data-h2-margin-top="base(x.25)">
                         {intl.formatMessage({

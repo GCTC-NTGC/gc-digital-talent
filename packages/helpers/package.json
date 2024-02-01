@@ -21,10 +21,10 @@
     "graphql": "^16.8.1",
     "lodash": "4.17.21",
     "react": "^18.2.0",
-    "urql": "3.0.4"
+    "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.99",
+    "@swc/core": "^1.3.106",
     "@types/lodash": "4.14.202",
     "eslint-config-custom": "*",
     "tsconfig": "*",

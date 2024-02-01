@@ -49,7 +49,6 @@ query getMe {
     }
     isWoman
     hasDisability
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
@@ -114,10 +113,10 @@ query getMe {
       educationRequirementExperiences {
         ...profileExperience
       }
-      screeningQuestionResponses {
+      generalQuestionResponses {
         id
         answer
-        screeningQuestion {
+        generalQuestion {
           id
           sortOrder
           question {

@@ -99,24 +99,29 @@ export function isItemSelected<T extends Option>(
 export function getSingleDefaultValue<T extends Option>(
   options: T[],
   defaultValue?: string,
+  currentValue?: string,
 ): Option | undefined {
-  return defaultValue
-    ? options.find((option) => option.value === defaultValue)
+  const searchValue: string | undefined = currentValue ?? defaultValue;
+  return searchValue
+    ? options.find((option) => option.value === searchValue)
     : undefined;
 }
 
 export function getMultiDefaultValue<T extends Option>(
   options: T[],
   defaultValue?: string[] | string,
+  currentValue?: string[] | string,
 ): Option[] {
   let value: Option[] = [];
-  if (isArray(defaultValue)) {
+  const searchValue: string | string[] | undefined =
+    currentValue ?? defaultValue;
+  if (isArray(searchValue)) {
     value = options.filter(
       (option) =>
-        defaultValue?.some((defaultItem) => defaultItem === option.value),
+        searchValue?.some((defaultItem) => defaultItem === option.value),
     );
   } else {
-    const singleValue = getSingleDefaultValue(options, defaultValue);
+    const singleValue = getSingleDefaultValue(options, searchValue);
     if (singleValue) {
       value = [singleValue];
     }

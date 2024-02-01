@@ -1,25 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  AssessmentDecision,
-  AssessmentStep,
-  AssessmentStepType,
-} from "@gc-digital-talent/graphql";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 
-import {
-  getDecisionInfo,
-  getResultDecisionCount,
-  decisionOrder,
-} from "./utils";
+import { NullableDecision } from "~/utils/assessmentResults";
+import { ResultDecisionCounts } from "~/utils/poolCandidate";
+
+import { getDecisionInfo, decisionOrder } from "./utils";
 
 interface StatusCountProps {
   counter: number;
-  decision: AssessmentDecision;
+  decision: NullableDecision;
   isApplicationStep: boolean;
 }
 
@@ -75,22 +69,27 @@ const StatusCount = ({
 
 interface ResultsDetailsProps {
   step: AssessmentStep;
+  resultCounts?: ResultDecisionCounts;
 }
 
-const ResultsDetails = ({ step }: ResultsDetailsProps) => {
+const ResultsDetails = ({ step, resultCounts }: ResultsDetailsProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const intl = useIntl();
-  const assessmentResults = step.assessmentResults?.filter(notEmpty);
-  const stepCounts = getResultDecisionCount(assessmentResults ?? []);
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
     step.type === AssessmentStepType.ApplicationScreening;
+  const totalCount = Object.values(resultCounts ?? {}).reduce(
+    (total, decisionCount) => {
+      return total + decisionCount;
+    },
+    0,
+  );
 
   return (
     <Board.Info
       open={isOpen}
       onOpenChange={setIsOpen}
-      counter={assessmentResults?.length}
+      counter={totalCount}
       title={
         isOpen
           ? intl.formatMessage(
@@ -120,7 +119,7 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
           <StatusCount
             key={decision}
             decision={decision}
-            counter={stepCounts[decision]}
+            counter={resultCounts ? resultCounts[decision] : 0}
             isApplicationStep={isApplicationStep}
           />
         ))}

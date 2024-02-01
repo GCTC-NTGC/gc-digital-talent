@@ -8,33 +8,32 @@ import {
   Button,
   Heading,
   Link,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  ApplicationStep,
+  Experience,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill } from "~/utils/skillUtils";
-import {
-  SkillCategory,
-  useUpdateApplicationMutation,
-  ApplicationStep,
-  useGetMyExperiencesQuery,
-  useGetApplicationQuery,
-} from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
+import SkillTree from "~/components/SkillTree/SkillTree";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import SkillTree from "./components/SkillTree";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 const careerTimelineLink = (children: React.ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -54,8 +53,8 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Skill requirements",
-      id: "AtGnJW",
-      description: "Page title for the application skills page",
+      id: "tON7JL",
+      description: "Title for skill requirements",
     }),
     subtitle: intl.formatMessage({
       defaultMessage:
@@ -124,8 +123,9 @@ export const ApplicationSkills = ({
   const optionalDisclaimer = intl.formatMessage({
     defaultMessage:
       "All the following skills are optionally beneficial to the role, and demonstrating them might benefit you when being considered.",
-    id: "LazN9T",
-    description: "Instructions on  optional skills for a pool advertisement",
+    id: "mqRhhe",
+    description:
+      "Descriptive text about how optional skills are used in the application process",
   });
 
   const handleSubmit = async () => {
@@ -161,6 +161,16 @@ export const ApplicationSkills = ({
       });
   };
 
+  React.useEffect(() => {
+    setValue(
+      "skillsMissingExperiences",
+      isSkillsExperiencesIncomplete ? 1 : 0,
+      {
+        shouldValidate: true,
+      },
+    );
+  }, [isSkillsExperiencesIncomplete, setValue]);
+
   return (
     <>
       <div
@@ -180,8 +190,8 @@ export const ApplicationSkills = ({
         <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VRxiNC",
-            description: "A link back to the instructions for this section",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>
@@ -247,8 +257,8 @@ export const ApplicationSkills = ({
           >
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
-              id: "OZe0NZ",
-              description: "Heading for optional technical skills section",
+              id: "mm1X02",
+              description: "Title for optional technical skills section",
             })}
           </Heading>
           <p>{optionalDisclaimer}</p>
@@ -312,27 +322,30 @@ export const ApplicationSkills = ({
       ) : null}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Input
-            id="skillsMissingExperiences"
-            name="skillsMissingExperiences"
-            label=""
-            type="number"
-            hidden
-            rules={{
-              max: {
-                value: 0,
-                message: intl.formatMessage(
-                  apiMessages.MISSING_ESSENTIAL_SKILLS,
-                ),
-              },
-            }}
-          />
           <Separator
             orientation="horizontal"
             decorative
             data-h2-background="base(gray)"
             data-h2-margin="base(x2, 0)"
           />
+          {/* -x.25 removes stray gap from flex layout */}
+          <div data-h2-margin="base(-x.25 0 x1 0)">
+            <Input
+              id="skillsMissingExperiences"
+              name="skillsMissingExperiences"
+              label=""
+              type="number"
+              hidden
+              rules={{
+                max: {
+                  value: 0,
+                  message: intl.formatMessage(
+                    apiMessages.MISSING_ESSENTIAL_SKILLS,
+                  ),
+                },
+              }}
+            />
+          </div>
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"
@@ -365,44 +378,14 @@ export const ApplicationSkills = ({
 };
 
 const ApplicationSkillsPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
+  const { application } = useApplication();
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as AnyExperience[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application ? (
-        <ApplicationSkills
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application ? (
+    <ApplicationSkills application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 export default ApplicationSkillsPage;

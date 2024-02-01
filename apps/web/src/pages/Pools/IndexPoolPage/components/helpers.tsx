@@ -1,16 +1,11 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import {
-  Classification,
-  LocalizedString,
-  Maybe,
-  Pool,
-} from "@gc-digital-talent/graphql";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Classification, LocalizedString, Maybe, Pool } from "~/api/generated";
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
@@ -43,14 +38,14 @@ export function poolCandidatesViewCell(
 export function viewCell(url: string, pool: Pool, intl: IntlShape) {
   return (
     <Link color="black" href={url}>
-      {getFullPoolTitleHtml(intl, pool)}
+      {getLocalizedName(pool.name, intl)}
     </Link>
   );
 }
 
 export function viewTeamLinkCell(
-  url: Maybe<string>,
-  displayName: Maybe<LocalizedString>,
+  url: Maybe<string> | undefined,
+  displayName: Maybe<LocalizedString> | undefined,
   intl: IntlShape,
 ) {
   return url ? (
@@ -78,7 +73,7 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -122,7 +117,7 @@ export function classificationSortFn(rowA: Pool, rowB: Pool) {
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
 ) {
   const filteredClassifications = classifications
     ? classifications.filter(notEmpty)

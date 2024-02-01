@@ -9,6 +9,7 @@ Authorizable
 behavioural
 Behavioural
 BEHAVIOURAL
+camelcase
 Canonicalizing
 chra
 chrc
@@ -23,6 +24,7 @@ darkgray
 darknavy
 darkpink
 darkpurple
+datas
 datetime
 DCMO
 dedup

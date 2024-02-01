@@ -1,4 +1,7 @@
-import { AllSkillsQuery, AllSkillsDocument } from "@gc-digital-talent/graphql";
+import {
+  AllSkillsQuery,
+  AllSkillsDocument,
+} from "@gc-digital-talent/web/src/api/generated";
 
 import { getGqlString } from "./graphql-test-utils";
 

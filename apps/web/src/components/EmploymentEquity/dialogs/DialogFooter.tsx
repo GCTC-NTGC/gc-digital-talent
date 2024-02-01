@@ -3,6 +3,7 @@ import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 interface DialogFooterProps {
   saveText?: string;
@@ -20,14 +21,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
         color="secondary"
         disabled={disabled || isSubmitting}
       >
-        <span>
-          {saveText ||
-            intl.formatMessage({
-              defaultMessage: "Save changes",
-              id: "m8S3S/",
-              description: "Button text to submit employment equity form.",
-            })}
-        </span>
+        <span>{saveText || intl.formatMessage(formMessages.saveChanges)}</span>
       </Button>
       <Dialog.Close
         data-h2-align-self="base(center)"

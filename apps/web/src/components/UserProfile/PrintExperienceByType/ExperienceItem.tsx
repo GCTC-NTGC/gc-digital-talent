@@ -9,9 +9,8 @@ import {
   getEducationStatus,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
 
-import { Experience, Maybe } from "~/api/generated";
+import { Skill, Experience, Maybe } from "~/api/generated";
 import {
   getExperienceFormLabels,
   isAwardExperience,
@@ -33,8 +32,8 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
   const experienceLabels = getExperienceFormLabels(intl);
 
   const normalizedDateRange = (
-    startDate: Maybe<string>,
-    endDate: Maybe<string>,
+    startDate: Maybe<string> | undefined,
+    endDate: Maybe<string> | undefined,
   ) => {
     return getDateRange({
       startDate,
@@ -43,7 +42,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     });
   };
 
-  const renderSkills = (skills: Maybe<Skill[]>) =>
+  const renderSkills = (skills: Maybe<Skill[]> | undefined) =>
     skills ? (
       <ul>
         {skills?.map((skill) => (

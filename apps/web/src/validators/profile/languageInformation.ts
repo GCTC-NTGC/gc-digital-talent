@@ -1,5 +1,4 @@
-import { User, BilingualEvaluation, Pool } from "@gc-digital-talent/graphql";
-
+import { User, BilingualEvaluation, Pool } from "~/api/generated";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 export type PartialUser = Pick<

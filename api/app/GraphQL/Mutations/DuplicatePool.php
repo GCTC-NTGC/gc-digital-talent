@@ -29,10 +29,10 @@ final class DuplicatePool
         $newPool->setEssentialPoolSkills($pool->essentialSkills->pluck('id'));
         $newPool->setNonessentialPoolSkills($pool->nonessentialSkills->pluck('id'));
 
-        foreach ($pool->screeningQuestions as $screeningQuestion) {
-            $newQuestion = $screeningQuestion->replicate();
+        foreach ($pool->generalQuestions as $generalQuestion) {
+            $newQuestion = $generalQuestion->replicate();
             $newQuestion->save();
-            $newPool->screeningQuestions()->save($newQuestion);
+            $newPool->generalQuestions()->save($newQuestion);
         }
 
         return $newPool;

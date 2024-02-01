@@ -1,15 +1,6 @@
 import { IntlShape } from "react-intl";
 
 import {
-  User,
-  GovEmployeeType,
-  Skill,
-  IndigenousCommunity,
-  Maybe,
-  Experience,
-  ScreeningQuestionResponse,
-} from "@gc-digital-talent/graphql";
-import {
   Locales,
   getIndigenousCommunity,
   getOperationalRequirement,
@@ -25,6 +16,15 @@ import {
 } from "@gc-digital-talent/helpers";
 
 import {
+  User,
+  GovEmployeeType,
+  Skill,
+  IndigenousCommunity,
+  Maybe,
+  Experience,
+  GeneralQuestionResponse,
+} from "~/api/generated";
+import {
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -35,6 +35,20 @@ import {
 import experienceMessages from "~/messages/experienceMessages";
 
 /**
+ * Sanitize a string for use in a CSV
+ *
+ * - Replaces '"' with '""' for proper double quotes
+ * - Removes new lines (\r\n) that create new rows
+ *
+ * @param value
+ * @returns string
+ */
+export const sanitizeCSVString = (value?: Maybe<string>) => {
+  if (!value) return "";
+  return value.replace(/"/g, "").replace(/(\r\n|\n|\r)/gm, "");
+};
+
+/**
  * Converts a possible boolean
  * to yes or no string
  *
@@ -42,7 +56,7 @@ import experienceMessages from "~/messages/experienceMessages";
  * @param intl react-intl object
  * @returns React.ReactNode  "yes" or "no"
  */
-export const yesOrNo = (value: Maybe<boolean>, intl: IntlShape) => {
+export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
   if (empty(value)) {
     return "";
   }
@@ -78,9 +92,7 @@ const listOrEmptyString = (value: string[] | undefined) => {
  * @returns string                      Comma separated list or empty
  */
 const sanitizeJustifications = (values: string[] | undefined) => {
-  const sanitizedList = values
-    ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
-    : "";
+  const sanitizedList = values ? values.map((v) => sanitizeCSVString(v)) : "";
   return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
@@ -95,9 +107,9 @@ const sanitizeJustifications = (values: string[] | undefined) => {
  * @returns
  */
 export const getLookingForLanguage = (
-  english: Maybe<boolean>,
-  french: Maybe<boolean>,
-  bilingual: Maybe<boolean>,
+  english: Maybe<boolean> | undefined,
+  french: Maybe<boolean> | undefined,
+  bilingual: Maybe<boolean> | undefined,
   intl: IntlShape,
 ) => {
   if (english && !french && !bilingual) {
@@ -365,31 +377,31 @@ export const skillKeyAndJustifications = (
  * @returns string
  */
 export const getExperienceTitles = (
-  experiences: Maybe<Maybe<Experience>[]>,
+  experiences: Maybe<Maybe<Experience>[]> | undefined,
   intl: IntlShape,
 ) => {
   const titles = experiences
     ?.filter(notEmpty)
     .map((experience) => getExperienceName(experience, intl));
 
-  return titles?.join(", ") || "";
+  return sanitizeCSVString(titles?.join(", "));
 };
 
 /**
- * Converts screening question responses to column data
+ * Converts general question responses to column data
  *
- * @param screeningQuestionResponses[]
+ * @param generalQuestionResponses[]
  */
-export const getScreeningQuestionResponses = (
-  responses: Maybe<Maybe<ScreeningQuestionResponse>[]>,
+export const getGeneralQuestionResponses = (
+  responses: Maybe<Maybe<GeneralQuestionResponse>[]> | undefined,
 ) => {
   let data: Record<string, string> = {};
 
-  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+  responses?.filter(notEmpty).forEach(({ id, generalQuestion, answer }) => {
     data = {
       ...data,
       // Note: API sends Maybe with everything, but this should never be null or undefined
-      [screeningQuestion?.id || id]: answer ?? "",
+      [generalQuestion?.id || id]: sanitizeCSVString(answer),
     };
   });
 
@@ -404,7 +416,7 @@ export const getScreeningQuestionResponses = (
  * @param IndigenousCommunity[]
  */
 export const getIndigenousCommunities = (
-  communities: Maybe<Maybe<IndigenousCommunity>[]>,
+  communities: Maybe<Maybe<IndigenousCommunity>[]> | undefined,
   intl: IntlShape,
 ) => {
   const communityNames = communities

@@ -6,14 +6,15 @@ import { OperationContext } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+
 import {
   Skill,
   SkillCategory,
   UserSkill,
   useUserSkillsQuery,
-} from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
-
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -44,25 +45,21 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
       id: "behavioural",
       title: intl.formatMessage({
         defaultMessage: "Behavioural skill library",
-        id: "uknA15",
-        description: "Title for the skill library behavioural skills section",
+        id: "yzqnvb",
+        description: "Title for behavioural skill library section",
       }),
     },
     technical: {
       id: "technical",
       title: intl.formatMessage({
         defaultMessage: "Technical skill library",
-        id: "tM8SXS",
-        description: "Title for the skill library technical skills section",
+        id: "FEK54g",
+        description: "Title for technical skill library section",
       }),
     },
     showcase: {
       id: "showcase",
-      title: intl.formatMessage({
-        defaultMessage: "Skill showcase",
-        id: "gntui6",
-        description: "Title for the skill library skills showcase section",
-      }),
+      title: intl.formatMessage(navigationMessages.skillShowcase),
     },
   };
 
@@ -76,28 +73,16 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill library",
-        id: "Oi6fll",
-        description: "Breadcrumb for skill library page.",
-      }),
+      label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
   ];
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Skill library",
-    description: "Page title for the skill library page",
-    id: "ySkRmX",
-  });
+  const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

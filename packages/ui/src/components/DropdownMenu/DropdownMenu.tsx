@@ -17,7 +17,7 @@ const Trigger = React.forwardRef<
 
 const contentStyles = {
   "data-h2-font-family": "base(sans)",
-  "data-h2-background-color": "base(white)",
+  "data-h2-background-color": "base(foreground)",
   "data-h2-padding": "base(x.5)",
   "data-h2-radius": "base(s)",
   "data-h2-shadow": "base(s)",

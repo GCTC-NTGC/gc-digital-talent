@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// Note: Disable camelcase since variables are being used by API
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -5,12 +7,9 @@ import { useLocation } from "react-router-dom";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  apiMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import { Heading, Pending, Button, Link } from "@gc-digital-talent/ui";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import { Heading, Pending, Button } from "@gc-digital-talent/ui";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { useGetMeQuery, User } from "~/api/generated";
@@ -40,9 +39,9 @@ interface SupportFormSuccessProps {
 }
 
 const anchorTag = (chunks: React.ReactNode) => (
-  <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
-    {chunks}
-  </Link>
+  // Toast is not within the IntlProvider, can't use Link component.
+  // eslint-disable-next-line react/forbid-elements
+  <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
 );
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
@@ -110,6 +109,7 @@ const SupportForm = ({
 }: SupportFormProps) => {
   const intl = useIntl();
   const location = useLocation();
+  const logger = useLogger();
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -124,9 +124,41 @@ const SupportForm = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateTicket(data).then(() => {
+    try {
+      await handleCreateTicket(data);
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Ticket created successfully!",
+          id: "jHuiRm",
+          description: "Support form toast message success",
+        }),
+      );
       onFormToggle(false);
-    });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : intl.formatMessage(errorMessages.unknown);
+      logger.error(`Exception during ticket submission: ${errorMessage}`);
+      toast.error(
+        <>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
+              id: "rNVDaA",
+              description: "Support form toast message error",
+            },
+            {
+              anchorTag,
+              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+              errorCode: errorMessage,
+            },
+          )}
+        </>,
+        { autoClose: 20000 },
+      );
+    }
   };
   return showSupportForm ? (
     <section>
@@ -254,57 +286,25 @@ const SupportForm = ({
 };
 
 const SupportFormApi = () => {
-  const intl = useIntl();
-  const handleCreateTicket = (data: FormValues) =>
-    fetch(API_SUPPORT_ENDPOINT, {
+  const logger = useLogger();
+  const handleCreateTicket = async (data: FormValues) => {
+    const response = await fetch(API_SUPPORT_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((response) => {
-      if (response.status === 200) {
-        // status code 201 = created.
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Ticket created successfully!",
-            id: "jHuiRm",
-            description: "Support form toast message success",
-          }),
-        );
-        return Promise.resolve(response.status);
-      }
-      if (response.status === 422) {
-        // status code 422 = missing params.
-        toast.error(intl.formatMessage(errorMessages.unknown));
-        return Promise.reject(response.status);
-      }
-      if (response.status === 429) {
-        toast.error(<>{intl.formatMessage(apiMessages.RATE_LIMIT)}</>, {
-          autoClose: 20000,
-        });
-        return Promise.reject(response.status);
-      }
-      toast.error(
-        <>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
-              id: "rNVDaA",
-              description: "Support form toast message error",
-            },
-            {
-              anchorTag,
-              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
-              errorCode: response.status,
-            },
-          )}
-        </>,
-        { autoClose: 20000 },
-      );
-      return Promise.reject(response.status);
     });
+    if (response.ok) {
+      logger.info("Ticket successfully submitted");
+      return;
+    }
+
+    logger.error(
+      `Failed to submit ticket: ${response.status} - ${response.statusText}`,
+    );
+    throw new Error(`${response.status} - ${response.statusText}`);
+  };
 
   const [{ data, fetching, error }] = useGetMeQuery();
   const [showSupportForm, setShowSupportForm] = React.useState(true);

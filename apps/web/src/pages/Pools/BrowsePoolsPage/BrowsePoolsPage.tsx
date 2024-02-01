@@ -1,20 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  graphql,
+  PoolStatus,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import {
-  PoolStatus,
-  PublishingGroup,
-  Pool,
-  useBrowsePoolsQuery,
-} from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -37,22 +37,120 @@ const getFlourishStyles = (isTop: boolean) => ({
   "data-h2-z-index": "base(-1)",
 });
 
-export interface BrowsePoolsProps {
-  pools: Pool[];
-}
+const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
+  query BrowsePoolsPage($closingAfter: DateTime) {
+    publishedPools(closingAfter: $closingAfter) {
+      id
+      name {
+        en
+        fr
+      }
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishedAt
+      publishingGroup
+    }
+    ...OngoingRecruitmentSection
+  }
+`);
 
-export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
+const now = nowUTCDateTime();
+
+export const BrowsePools = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
   const paths = useRoutes();
-  const { executiveTeaser } = useFeatureFlags();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Browse jobs",
-    id: "8EFvJf",
-    description: "Page title for the direct intake browse pools page.",
+  const [{ data, fetching, error }] = useQuery({
+    query: BrowsePoolsPage_Query,
+    variables: { closingAfter: now }, // pass current dateTime into query argument
   });
+
+  const pools =
+    data?.publishedPools.filter(
+      (pool) => typeof pool !== `undefined` && !!pool,
+    ) ?? [];
+
+  const title = intl.formatMessage(navigationMessages.browseJobs);
 
   const crumbs = useBreadcrumbs([
     {
@@ -64,7 +162,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   const activeRecruitmentPools = pools.filter(
     (p) =>
       p.status === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      p.publishingGroup === PublishingGroup.ItJobs, // and which are meant to be published on the IT Jobs page
+      (p.publishingGroup === PublishingGroup.ItJobs ||
+        p.publishingGroup === PublishingGroup.ExecutiveJobs),
   );
 
   const ongoingRecruitmentPools = pools.filter(
@@ -95,14 +194,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
   };
 
   return (
-    <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Browse jobs",
-          id: "ApyEMy",
-          description: "Title for the browse pools page",
-        })}
-      />
+    <Pending fetching={fetching} error={error}>
+      <SEO title={intl.formatMessage(navigationMessages.browseJobs)} />
       <Hero
         imgPath={browseHeroImg}
         title={title}
@@ -135,72 +228,52 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
           <div>
             <ActiveRecruitmentSection pools={activeRecruitmentPools} />
           </div>
-          {executiveTeaser && (
-            <CallToActionCard
-              heading={intl.formatMessage({
-                defaultMessage: "Executive (EX) process coming soon",
-                id: "dFCH1c",
-                description: "Heading for the teaser of executive processes",
-              })}
-              link={profileLink}
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Our first executive (EX) process for an EX-03 position will be published on the GC Digital Talent platform in November 2023. Check this space for an opportunity to submit your candidacy to be a digital leader in government.",
-                  id: "3yg5j7",
-                  description:
-                    "Text describing upcoming executive opportunities instructing users to create a profile when anonymous",
-                })}
-              </p>
-            </CallToActionCard>
-          )}
           {ongoingRecruitmentPools.length > 0 && (
             <div>
-              <OngoingRecruitmentSection pools={ongoingRecruitmentPools} />
+              <OngoingRecruitmentSection
+                pools={ongoingRecruitmentPools}
+                query={data}
+              />
             </div>
           )}
-          {!executiveTeaser && (
-            <CallToActionCard
-              heading={
-                areOpportunitiesShowing
-                  ? intl.formatMessage({
-                      defaultMessage: "More opportunities are coming soon!",
-                      id: "g+JcDC",
-                      description:
-                        "Heading for message about upcoming opportunities",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "No opportunities are available right now, but more are coming soon!",
-                      id: "xHjgXz",
-                      description:
-                        "Text displayed when there are no pool advertisements to display",
-                    })
-              }
-              link={profileLink}
-              data-h2-margin="base(x1, 0, 0, 0)"
-            >
-              <p>
-                {loggedIn
-                  ? intl.formatMessage({
-                      defaultMessage:
-                        "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                      id: "9SZDCq",
-                      description:
-                        "Text describing upcoming opportunities instructing users to update a profile when signed in",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                      id: "3sbLPV",
-                      description:
-                        "Text describing upcoming opportunities instructing users to create a profile when anonymous",
-                    })}
-              </p>
-            </CallToActionCard>
-          )}
+          <CallToActionCard
+            heading={
+              areOpportunitiesShowing
+                ? intl.formatMessage({
+                    defaultMessage: "More opportunities are coming soon!",
+                    id: "g+JcDC",
+                    description:
+                      "Heading for message about upcoming opportunities",
+                  })
+                : intl.formatMessage({
+                    defaultMessage:
+                      "No opportunities are available right now, but more are coming soon!",
+                    id: "xHjgXz",
+                    description:
+                      "Text displayed when there are no pool advertisements to display",
+                  })
+            }
+            link={profileLink}
+            data-h2-margin="base(x1, 0, 0, 0)"
+          >
+            <p>
+              {loggedIn
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                    id: "9SZDCq",
+                    description:
+                      "Text describing upcoming opportunities instructing users to update a profile when signed in",
+                  })
+                : intl.formatMessage({
+                    defaultMessage:
+                      "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                    id: "3sbLPV",
+                    description:
+                      "Text describing upcoming opportunities instructing users to create a profile when anonymous",
+                  })}
+            </p>
+          </CallToActionCard>
         </div>
         <img
           alt=""
@@ -279,12 +352,7 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
                 {
                   href: paths.search(),
                   mode: "solid",
-                  label: intl.formatMessage({
-                    defaultMessage: "Find talent",
-                    id: "7waBmC",
-                    description:
-                      "Link text to go to the search page on browse jobs page",
-                  }),
+                  label: intl.formatMessage(navigationMessages.findTalent),
                 },
               ]}
             >
@@ -308,26 +376,8 @@ export const BrowsePools = ({ pools }: BrowsePoolsProps) => {
         </div>
       </div>
       <Flourish />
-    </>
-  );
-};
-
-const now = nowUTCDateTime();
-
-const BrowsePoolsApi = () => {
-  const [{ data, fetching, error }] = useBrowsePoolsQuery({
-    variables: { closingAfter: now }, // pass current dateTime into query argument
-  });
-
-  const filteredPools = data?.publishedPools.filter(
-    (pool) => typeof pool !== `undefined` && !!pool,
-  ) as Pool[];
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <BrowsePools pools={filteredPools} />
     </Pending>
   );
 };
 
-export default BrowsePoolsApi;
+export default BrowsePools;

@@ -51,10 +51,30 @@ const navigationMessages = defineMessages({
     id: "TUfJUD",
     description: "Name of Career timeline page",
   },
+  skillLibrary: {
+    defaultMessage: "Skill library",
+    id: "rbhjTC",
+    description: "Name of the skill library page",
+  },
   skillShowcase: {
     defaultMessage: "Skill showcase",
     id: "MBnBcY",
     description: "Name of the skill showcase page",
+  },
+  browseJobs: {
+    defaultMessage: "Browse jobs",
+    id: "rjHrNp",
+    description: "Name of Browse jobs page",
+  },
+  findTalent: {
+    defaultMessage: "Find talent",
+    id: "Og8iHn",
+    description: "Name of Find talent (search) page",
+  },
+  profileAndApplications: {
+    defaultMessage: "Profile and applications",
+    id: "gBoG9M",
+    description: "Name of Profile and applications page",
   },
 });
 

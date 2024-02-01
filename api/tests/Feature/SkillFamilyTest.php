@@ -61,7 +61,7 @@ class SkillFamilyTest extends TestCase
      *
      * @return void
      */
-    public function test_view_any_skill_family()
+    public function testViewAnySkillFamily()
     {
         $this->graphQL('query { skillFamilies { id } }')
             ->assertJsonFragment(['id' => $this->uuid]);
@@ -72,7 +72,7 @@ class SkillFamilyTest extends TestCase
      *
      * @return void
      */
-    public function test_view_skill_family()
+    public function testViewSkillFamily()
     {
 
         $variables = ['id' => $this->uuid];
@@ -96,7 +96,7 @@ class SkillFamilyTest extends TestCase
      *
      * @return void
      */
-    public function test_update_skill_family()
+    public function testUpdateSkillFamily()
     {
 
         $variables = [
@@ -137,7 +137,7 @@ class SkillFamilyTest extends TestCase
      *
      * @return void
      */
-    public function test_create_skill_family()
+    public function testCreateSkillFamily()
     {
         $variables = [
             'skillFamily' => [

@@ -20,3 +20,33 @@ For deployment in production, there needs to be a way to change variables in the
 
 To check what variables have been set in the app, open the console of your browser and enter:
 `window.__SERVER_CONFIG__`
+
+#### End-to-End Testing
+
+Since run-time variables are used to maintain the current feature set and can be changed, tests should be run against both versions of a specific feature set. In order to do this, the feature flags must be overridden in the test specifications.
+
+When writing test specifications, run-time variables can be modified for the entire spec, or for specific tests using the `cy.overrideFeatureFlags(flags: Object): void` command.
+
+##### Override for entire spec
+
+```tsx
+describe("Override for all tests", () => {
+  beforeEach(() => {
+    cy.overrideFeatureFlags({ FEATURE_FLAG: null });
+  });
+});
+```
+
+##### Override for specific test
+
+```tsx
+describe("Override for specific test", () => {
+  it("Is overridden", () => {
+    cy.overrideFeatureFlags({ FEATURE_FLAG: null }); // Must be called before visiting a page
+    cy.visit("/");
+  });
+  it("Is default", () => {
+    cy.visit("/");
+  });
+});
+```

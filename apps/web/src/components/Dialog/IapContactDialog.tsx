@@ -15,9 +15,8 @@ const IapContactDialog = () => {
 
   const title = intl.formatMessage({
     defaultMessage: "Contact us",
-    id: "k1rUj5",
-    description:
-      "Title for the contact dialog for the IT Apprenticeship Program for Indigenous Peoples application process",
+    id: "RIi/3q",
+    description: "Title for Contact us action",
   });
 
   return (

@@ -10,7 +10,7 @@ const StyledOverlay = React.forwardRef<
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Overlay
     data-h2-position="base(fixed)"
-    data-h2-background-color="base(black.light.9)"
+    data-h2-background-color="base(black.light.9) base:dark(black.light.9)"
     data-h2-location="base(0)"
     style={{ zIndex: 9998 }}
     ref={forwardedRef}
@@ -25,6 +25,8 @@ const StyledContent = React.forwardRef<
   <AlertDialogPrimitive.Content
     data-h2-font-family="base(sans)"
     data-h2-background-color="base(foreground)"
+    data-h2-border="base(1px solid black.2)"
+    data-h2-color="base(black)"
     data-h2-margin="base(x3, auto)"
     data-h2-padding="base(x1)"
     data-h2-position="base(fixed)"
@@ -122,14 +124,14 @@ const Footer = ({ children }: AlertDialogFooterProps) => (
     <hr
       data-h2-border="base(none)"
       data-h2-height="base(1px)"
-      data-h2-background="base(gray.lighter)"
+      data-h2-background="base(black.2)"
       data-h2-margin="base(0 0 x1 0)"
     />
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
       data-h2-justify-content="base(flex-end)"
-      data-h2-gap="base(0 x.5)"
+      data-h2-gap="base(0 x1)"
     >
       {children}
     </div>

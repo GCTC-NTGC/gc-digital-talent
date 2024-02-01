@@ -5,8 +5,7 @@ import {
   PoolStream,
   UserPoolFilterInput,
   Classification,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { SimpleClassification, SimplePool } from "~/types/pool";
 
 export const NullSelection = "NULL_SELECTION";
@@ -28,6 +27,7 @@ export type FormValues = Pick<
   pool?: Scalars["ID"];
   selectedClassifications?: Classification[];
   count?: number;
+  allPools?: boolean; // Prevent `was_empty` when requesting all pools
 };
 
 export type LocationState = BrowserHistoryState | null;
@@ -37,4 +37,5 @@ export type BrowserHistoryState = {
   candidateCount: number;
   initialValues?: FormValues;
   selectedClassifications?: SimpleClassification[];
+  allPools?: boolean;
 };

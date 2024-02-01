@@ -17,11 +17,11 @@ on:
   merge_group:
     branches: [main]
 jobs:
-  run-linters:
-    name: Run linters
+  lint:
+    name: Lint
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.11.0"
+      NPM_VERSION: "9.9.2"
 
     services:
       postgres:

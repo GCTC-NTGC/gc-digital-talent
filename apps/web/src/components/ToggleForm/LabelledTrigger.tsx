@@ -1,6 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { commonMessages } from "@gc-digital-talent/i18n";
+
 import SectionTrigger from "./Trigger";
 
 interface LabelledTriggerProps {
@@ -24,12 +26,7 @@ const LabelledTrigger = ({ disabled, sectionTitle }: LabelledTriggerProps) => {
         },
       )}
     >
-      {intl.formatMessage({
-        defaultMessage: "Edit this section",
-        id: "co9aIV",
-        description:
-          "Button text to start editing one of the profile sections.",
-      })}
+      {intl.formatMessage(commonMessages.editThisSection)}
     </SectionTrigger>
   ) : undefined;
 };

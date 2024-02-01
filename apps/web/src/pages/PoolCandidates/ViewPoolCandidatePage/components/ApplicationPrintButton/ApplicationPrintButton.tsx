@@ -4,16 +4,17 @@ import { useReactToPrint } from "react-to-print";
 import PrinterIcon from "@heroicons/react/20/solid/PrinterIcon";
 
 import { Button, ButtonLinkMode, Color } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
+import { FragmentType, User } from "@gc-digital-talent/graphql";
 
-import { User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 
-import ApplicationPrintDocument from "./ApplicationPrintDocument";
+import ApplicationPrintDocument, {
+  ApplicationPrintDocument_PoolFragment,
+} from "./ApplicationPrintDocument";
 
 interface ApplicationPrintButtonProps {
   user: User;
-  pool: Pool;
+  pool: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
   color: Color;
   mode: ButtonLinkMode;
 }
@@ -51,7 +52,11 @@ const ApplicationPrintButton = ({
           description: "Print application",
         })}
       </Button>
-      <ApplicationPrintDocument user={user} pool={pool} ref={componentRef} />
+      <ApplicationPrintDocument
+        user={user}
+        poolQuery={pool}
+        ref={componentRef}
+      />
     </>
   );
 };

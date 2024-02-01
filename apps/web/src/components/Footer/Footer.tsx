@@ -18,9 +18,9 @@ const Footer = ({ width }: FooterProps) => {
     {
       href: `/${intl.locale}/support`,
       children: intl.formatMessage({
-        defaultMessage: "Contact Us",
-        id: "AWiMVP",
-        description: "Label for the support link in the Footer.",
+        defaultMessage: "Contact us",
+        id: "RIi/3q",
+        description: "Title for Contact us action",
       }),
       state: { referrer: window.location.href },
     },
@@ -112,10 +112,10 @@ const Footer = ({ width }: FooterProps) => {
                 <span>
                   {intl.formatMessage(
                     {
-                      defaultMessage: "Date Modified: {modifiedDate}",
-                      id: "Fc/i3e",
+                      defaultMessage: "Date modified: {modifiedDate}",
+                      id: "Jkg004",
                       description:
-                        "Header for the sites last date modification found in the footer.",
+                        "Header for the date of the last modification of the site",
                     },
                     {
                       modifiedDate: new Date(

@@ -14,6 +14,7 @@ export interface CardProps {
   subtitle?: string;
   color?: Color;
   bold?: boolean;
+  noPadding?: boolean;
   children: React.ReactNode;
 }
 
@@ -58,6 +59,7 @@ const Card = ({
   color = "primary",
   bold,
   children,
+  noPadding,
   ...rest
 }: CardProps & React.HTMLProps<HTMLDivElement>) => {
   return (
@@ -91,7 +93,9 @@ const Card = ({
         data-h2-background-color="base(foreground)"
         data-h2-color="base(black)"
         data-h2-flex-grow="base(1)"
-        data-h2-padding="base(x1)"
+        {...(noPadding
+          ? { "data-h2-padding": "base(0)" }
+          : { "data-h2-padding": "base(x1)" })}
         data-h2-flex="base(1)"
       >
         {children}

@@ -43,7 +43,7 @@ class NotifyTest extends TestCase
      *
      * @return void
      */
-    public function test_email()
+    public function testEmail()
     {
         $this->checkKey('notify.templates.test_email', 'Email template not found.');
 
@@ -61,7 +61,7 @@ class NotifyTest extends TestCase
      *
      * @return void
      */
-    public function test_sms()
+    public function testSms()
     {
         $this->checkKey('notify.templates.test_sms', 'Email template not found.');
 
@@ -79,7 +79,7 @@ class NotifyTest extends TestCase
      *
      * @return void
      */
-    public function test_bulk_sms()
+    public function testBulkSms()
     {
         $this->markTestSkipped('Prevent hitting the server.');
 
@@ -119,7 +119,7 @@ class NotifyTest extends TestCase
      *
      * @return void
      */
-    public function test_bulk_email()
+    public function testBulkEmail()
     {
         $this->markTestSkipped('Prevent hitting the server.');
 

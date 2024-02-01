@@ -1,6 +1,7 @@
 import React from "react";
 import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -10,15 +11,17 @@ import {
   commonMessages,
   getLocalizedName,
   getPublishingGroup,
+  getPoolStream,
 } from "@gc-digital-talent/i18n";
+import { graphql, Pool, PoolTableQuery } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Pool, useAllPoolsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
@@ -36,7 +39,7 @@ import {
 
 const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {
-  pools: Pool[];
+  pools: NonNullable<PoolTableQuery["pools"][0]>[];
   title: string;
 }
 
@@ -54,8 +57,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage({
-        defaultMessage: "Pool Name",
-        id: "HocLRh",
+        defaultMessage: "Name",
+        id: "gWaU+D",
         description: "Title displayed for the Pool table pool name column.",
       }),
       meta: {
@@ -64,6 +67,37 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       cell: ({ row: { original: pool } }) =>
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
+    columnHelper.accessor(
+      (row) => classificationAccessor(row.classifications),
+      {
+        id: "classifications",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+          classificationSortFn(rowA.original, rowB.original),
+        cell: ({ row: { original: pool } }) =>
+          classificationsCell(pool.classifications),
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        intl.formatMessage(
+          row.stream ? getPoolStream(row.stream) : commonMessages.notFound,
+        ),
+      {
+        id: "stream",
+        header: intl.formatMessage({
+          defaultMessage: "Stream",
+          id: "9KGR0d",
+          description: "Title displayed for the Pool table Stream column.",
+        }),
+        sortingFn: normalizedText,
+      },
+    ),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -74,12 +108,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Publishing group",
-          id: "rYgaTA",
-          description:
-            "Title displayed for the Pool table publishing group column.",
-        }),
+        header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
     columnHelper.display({
@@ -105,22 +134,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           id: "ioqFVF",
           description: "Title displayed for the Pool table status column.",
         }),
-      },
-    ),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
       },
     ),
     columnHelper.accessor(
@@ -169,32 +182,36 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
           getLocalizedName(pool.name, intl),
         ),
     }),
-    columnHelper.accessor(
-      ({ createdDate }) => accessors.date(createdDate, intl),
-      {
-        id: "createdDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Created",
-          id: "zAqJMe",
-          description: "Title displayed on the Pool table Date Created column",
-        }),
-      },
-    ),
-    columnHelper.accessor(
-      ({ updatedDate }) => accessors.date(updatedDate, intl),
-      {
-        id: "updatedDate",
-        enableColumnFilter: false,
-        sortingFn: "datetime",
-        header: intl.formatMessage({
-          defaultMessage: "Updated",
-          id: "R2sSy9",
-          description: "Title displayed for the User table Date Updated column",
-        }),
-      },
-    ),
+    columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
+      id: "createdDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Created",
+        id: "zAqJMe",
+        description: "Title displayed on the Pool table Date Created column",
+      }),
+      cell: ({
+        row: {
+          original: { createdDate },
+        },
+      }) => cells.date(createdDate, intl),
+    }),
+    columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
+      id: "updatedDate",
+      enableColumnFilter: false,
+      sortingFn: "datetime",
+      header: intl.formatMessage({
+        defaultMessage: "Updated",
+        id: "R2sSy9",
+        description: "Title displayed for the User table Date Updated column",
+      }),
+      cell: ({
+        row: {
+          original: { updatedDate },
+        },
+      }) => cells.date(updatedDate, intl),
+    }),
   ] as ColumnDef<Pool>[];
 
   const data = pools.filter(notEmpty);
@@ -236,8 +253,45 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
   );
 };
 
+const PoolTable_Query = graphql(/* GraphQL */ `
+  query PoolTable {
+    pools {
+      id
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+      owner {
+        id
+        email
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      status
+      stream
+      processNumber
+      publishingGroup
+      createdDate
+      updatedDate
+    }
+  }
+`);
+
 const PoolTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useAllPoolsQuery();
+  const [{ data, fetching, error }] = useQuery({ query: PoolTable_Query });
   const { roleAssignments } = useAuthorization();
   const pools = unpackMaybes(data?.pools).filter((pool) => {
     if (

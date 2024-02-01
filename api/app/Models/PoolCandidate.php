@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
+ * @property bool $is_bookmarked
  */
 class PoolCandidate extends Model
 {
@@ -62,6 +63,7 @@ class PoolCandidate extends Model
         'suspended_at' => 'datetime',
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
+        'is_bookmarked' => 'boolean',
     ];
 
     /**
@@ -81,12 +83,37 @@ class PoolCandidate extends Model
         'pool_candidate_status',
     ];
 
+    protected $touches = ['user'];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_bookmarked' => false,
+    ];
+
     /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            // Check if the 'notes' attribute is being updated and if so, update the searchable user model
+            // Seems to work without this but not sure why
+            if ($model->user()->exists() && $model->isDirty('notes')) {
+                $model->user()->searchable();
+            }
+
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -107,9 +134,9 @@ class PoolCandidate extends Model
         return $this->belongsTo(Pool::class)->withTrashed();
     }
 
-    public function screeningQuestionResponses(): HasMany
+    public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(ScreeningQuestionResponse::class);
+        return $this->hasMany(GeneralQuestionResponse::class);
     }
 
     // education_requirement_option fulfilled by what experience models
@@ -206,7 +233,7 @@ class PoolCandidate extends Model
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param  array|null  $classifications Each classification is an object with a group and a level field.
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -243,8 +270,8 @@ class PoolCandidate extends Model
      *
      * Restrict a query by specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
-     * @param  ?array  $publishingGroups The publishing groups to scope the query by
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
+     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
@@ -267,7 +294,7 @@ class PoolCandidate extends Model
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)
@@ -346,17 +373,15 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    public function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
-        if (empty($search)) {
+        if (empty($searchTerms)) {
             return $query;
         }
 
-        $query->where(function ($query) use ($search) {
-            $query->whereHas('user', function ($query) use ($search) {
-                User::scopeGeneralSearch($query, $search);
-            })->orWhere(function ($query) use ($search) {
-                self::scopeNotes($query, $search);
+        $query->where(function ($query) use ($searchTerms) {
+            $query->whereHas('user', function ($query) use ($searchTerms) {
+                User::scopeGeneralSearch($query, $searchTerms);
             });
         });
 
@@ -541,8 +566,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -747,8 +772,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

@@ -3,6 +3,7 @@ import {
   FieldValues,
   FormProvider,
   Path,
+  SubmitErrorHandler,
   SubmitHandler,
   useForm,
   UseFormProps,
@@ -17,6 +18,7 @@ import {
 
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
+import { flattenErrors } from "../utils";
 
 export type FieldLabels = Record<string, React.ReactNode>;
 
@@ -73,21 +75,8 @@ function BasicForm<TFieldValues extends FieldValues>({
 
   const {
     reset,
-    formState: { isDirty, errors, isSubmitting },
+    formState: { isDirty },
   } = methods;
-
-  React.useEffect(() => {
-    // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting) {
-      setShowErrorSummary(true);
-    }
-  }, [isSubmitting, errors]);
-
-  React.useEffect(() => {
-    if (errorSummaryRef.current) {
-      errorSummaryRef.current.focus();
-    }
-  }, [showErrorSummary, errorSummaryRef]);
 
   const handleSubmit = async (data: TFieldValues) => {
     // Reset form to clear dirty values
@@ -98,9 +87,21 @@ function BasicForm<TFieldValues extends FieldValues>({
       // Clear the cache as well (no longer needed)
       removeFromSessionStorage(cacheKey);
     }
+    setShowErrorSummary(false);
     // Fire the submit we passed in
     return onSubmit(data);
   };
+
+  const handleInvalidSubmit: SubmitErrorHandler<TFieldValues> = (errors) => {
+    const flatErrors = flattenErrors(errors);
+    setShowErrorSummary(flatErrors.length > 0);
+
+    errorSummaryRef.current?.focus();
+  };
+
+  React.useEffect(() => {
+    errorSummaryRef.current?.focus();
+  }, [showErrorSummary]);
 
   React.useEffect(() => {
     if (cacheKey) {
@@ -142,11 +143,11 @@ function BasicForm<TFieldValues extends FieldValues>({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
+      <form onSubmit={methods.handleSubmit(handleSubmit, handleInvalidSubmit)}>
         <ErrorSummary
           ref={errorSummaryRef}
           labels={labels}
-          show={errors && showErrorSummary}
+          show={showErrorSummary}
         />
         <UnsavedChanges
           labels={labels}

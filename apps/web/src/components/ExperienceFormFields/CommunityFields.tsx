@@ -40,9 +40,8 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
             id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
-              id: "wASF5V",
-              description:
-                "Label displayed on Community Experience form for current role input",
+              id: "mOx5K1",
+              description: "Label displayed for current role input",
             })}
             name="currentRole"
           />

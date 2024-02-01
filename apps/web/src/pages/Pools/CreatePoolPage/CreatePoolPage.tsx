@@ -2,7 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import Squares2X2Icon from "@heroicons/react/24/outline/Squares2X2Icon";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Select, Submit } from "@gc-digital-talent/forms";
@@ -13,22 +13,21 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, Link } from "@gc-digital-talent/ui";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
-
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import PageHeader from "~/components/PageHeader/PageHeader";
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
+  graphql,
+  RoleAssignment,
   CreatePoolInput,
-  useCreatePoolMutation,
   CreatePoolMutation,
-  useGetMePoolCreationQuery,
   Classification,
   Maybe,
   Team,
-} from "~/api/generated";
-import adminMessages from "~/messages/adminMessages";
+} from "@gc-digital-talent/graphql";
+
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -109,98 +108,75 @@ export const CreatePoolForm = ({
     .sort((a, b) => (a.label >= b.label ? 1 : -1));
 
   return (
-    <section data-h2-container="base(left, small, 0)">
-      <PageHeader icon={Squares2X2Icon}>
-        {intl.formatMessage({
-          defaultMessage: "Create New Pool",
-          id: "+umNAP",
-          description: "Header for page to create pool advertisements",
-        })}
-      </PageHeader>
-      <div data-h2-margin="base(x2, 0, 0, 0)">
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h2 data-h2-margin="base(x.25, 0)" data-h2-font-size="base(h3)">
-              {intl.formatMessage({
-                defaultMessage: "Start blank job poster",
-                id: "gv1Hwu",
-                description: "Form header to create new pool",
+    <div data-h2-container="base(left, small, 0)">
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          >
+            <Select
+              id="classification"
+              label={intl.formatMessage({
+                defaultMessage: "Starting group and level",
+                id: "gN5gy5",
+                description:
+                  "Label displayed on the pool form classification field.",
               })}
-            </h2>
-            <p data-h2-margin-bottom="base(x1)">
-              {intl.formatMessage({
-                defaultMessage: "Create a new job poster from scratch",
-                id: "QodYZE",
-                description: "Form blurb describing create pool form",
+              name="classification"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a classification",
+                id: "tD99Wf",
+                description:
+                  "Placeholder displayed on the pool form classification field.",
               })}
-            </p>
+              options={classificationOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="team"
+              label={intl.formatMessage({
+                defaultMessage: "Parent team",
+                id: "mOS8rj",
+                description:
+                  "Label displayed for selecting what team a new pool belongs to.",
+              })}
+              name="team"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a team",
+                id: "COJ3St",
+                description: "Placeholder displayed for team selection input.",
+              })}
+              options={teamOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
             <div
               data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x.5 0)"
+              data-h2-gap="base(x1)"
+              data-h2-align-items="base(center)"
             >
-              <Select
-                id="classification"
-                label={intl.formatMessage({
-                  defaultMessage: "Starting group and level",
-                  id: "gN5gy5",
+              <Submit
+                color="secondary"
+                text={intl.formatMessage({
+                  defaultMessage: "Create new pool",
+                  id: "TLl20s",
                   description:
-                    "Label displayed on the pool form classification field.",
+                    "Label displayed on submit button for new pool form.",
                 })}
-                name="classification"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a classification",
-                  id: "tD99Wf",
-                  description:
-                    "Placeholder displayed on the pool form classification field.",
-                })}
-                options={classificationOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
               />
-              <Select
-                id="team"
-                label={intl.formatMessage({
-                  defaultMessage: "Parent team",
-                  id: "mOS8rj",
-                  description:
-                    "Label displayed for selecting what team a new pool belongs to.",
-                })}
-                name="team"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a team",
-                  id: "COJ3St",
-                  description:
-                    "Placeholder displayed for team selection input.",
-                })}
-                options={teamOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <div data-h2-align-self="base(flex-start)">
-                <Submit
-                  color="secondary"
-                  text={intl.formatMessage({
-                    defaultMessage: "Create new pool",
-                    id: "TLl20s",
-                    description:
-                      "Label displayed on submit button for new pool form.",
-                  })}
-                />
-              </div>
+              <Link href={paths.poolTable()} mode="inline" color="quaternary">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Link>
             </div>
-          </form>
-        </FormProvider>
-      </div>
-
-      <div data-h2-margin="base(x2, 0, 0, 0)">
-        <Link href={paths.poolTable()} mode="solid" color="primary">
-          {intl.formatMessage(formMessages.cancelGoBack)}
-        </Link>
-      </div>
-    </section>
+          </div>
+        </form>
+      </FormProvider>
+    </div>
   );
 };
 
@@ -220,10 +196,53 @@ const roleAssignmentsToTeams = (
   return teamsArray;
 };
 
+const CreatePoolPage_Query = graphql(/* GraphQL */ `
+  query CreatePoolPage {
+    me {
+      id
+      authInfo {
+        id
+        roleAssignments {
+          id
+          team {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
+          }
+        }
+      }
+    }
+    classifications {
+      name {
+        en
+        fr
+      }
+      level
+      group
+      id
+    }
+  }
+`);
+
+const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
+  mutation CreatePool($userId: ID!, $teamId: ID!, $pool: CreatePoolInput!) {
+    createPool(userId: $userId, teamId: $teamId, pool: $pool) {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreatePoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [lookupResult] = useGetMePoolCreationQuery();
+  const [lookupResult] = useQuery({ query: CreatePoolPage_Query });
   const { data: lookupData, fetching, error } = lookupResult;
 
   // current user
@@ -235,7 +254,7 @@ const CreatePoolPage = () => {
     unpackMaybes(lookupData?.me?.authInfo?.roleAssignments) ?? [];
   const teamsArray = roleAssignmentsToTeams(roleAssignments);
 
-  const [, executeMutation] = useCreatePoolMutation();
+  const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
     teamId: string,
@@ -258,7 +277,7 @@ const CreatePoolPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.pools),
+      label: intl.formatMessage(indexPoolPageTitle),
       url: routes.poolTable(),
     },
     {
@@ -271,24 +290,35 @@ const CreatePoolPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create pool",
+    id: "zwYuly",
+    description: "Page title for the pool creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create pool",
-          id: "zwYuly",
-          description: "Page title for the pool creation page",
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        subtitle={intl.formatMessage({
+          defaultMessage: "Create a new job poster from scratch",
+          id: "QodYZE",
+          description: "Form blurb describing create pool form",
         })}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        <CreatePoolForm
-          userId={userIdQuery}
-          classificationsArray={classificationsData}
-          handleCreatePool={handleCreatePool}
-          teamsArray={teamsArray}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          <CreatePoolForm
+            userId={userIdQuery}
+            classificationsArray={classificationsData}
+            handleCreatePool={handleCreatePool}
+            teamsArray={teamsArray}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

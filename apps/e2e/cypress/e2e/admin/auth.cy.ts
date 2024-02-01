@@ -22,7 +22,7 @@ describe("Auth flows (development)", () => {
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "me");
+      aliasQuery(req, "AdminDashboard_Query");
     });
   });
 
@@ -133,7 +133,7 @@ describe("Auth flows (development)", () => {
       };
 
       const userDataLoaded = () => {
-        cy.wait("@gqlmeQuery");
+        cy.wait("@gqlAdminDashboard_QueryQuery");
       };
 
       cy.visit("/admin");

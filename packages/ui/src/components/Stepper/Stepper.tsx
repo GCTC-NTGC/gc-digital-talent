@@ -10,7 +10,7 @@ import { StepState, StepType } from "./types";
 
 const deriveStepState = (
   stepIndex: number,
-  currentIndex: Maybe<number>,
+  currentIndex?: Maybe<number>,
   completed?: boolean | null,
   disabled?: boolean | null,
   error?: boolean | null,

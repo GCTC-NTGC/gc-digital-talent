@@ -1,7 +1,7 @@
 import {
   GetDigitalContractingQuestionnaireDocument,
   GetDigitalContractingQuestionnaireQuery,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/web/src/api/generated";
 
 import {
   aliasMutation,

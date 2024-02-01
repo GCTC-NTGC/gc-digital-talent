@@ -7,7 +7,6 @@ import { useIntl } from "react-intl";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -16,7 +15,8 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -69,13 +69,6 @@ export const CreateClassificationForm = ({
   };
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Create Classification",
-          id: "D8Pgbs",
-          description: "Title displayed on the create a classification form.",
-        })}
-      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -226,7 +219,7 @@ const CreateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: intl.formatMessage(indexClassificationPageTitle),
       url: routes.classificationTable(),
     },
     {
@@ -240,19 +233,25 @@ const CreateClassification = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create classification",
+    id: "fYyK2p",
+    description: "Page title for the classification creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create classification",
-          id: "fYyK2p",
-          description: "Page title for the classification creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <CreateClassificationForm
-        handleCreateClassification={handleCreateClassification}
-      />
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <CreateClassificationForm
+          handleCreateClassification={handleCreateClassification}
+        />
+      </AdminContentWrapper>
+    </>
   );
 };
 

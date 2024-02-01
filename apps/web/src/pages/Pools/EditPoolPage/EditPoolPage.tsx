@@ -2,6 +2,7 @@ import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -12,23 +13,22 @@ import {
   Pill,
   Separator,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
-import SEO from "~/components/SEO/SEO";
-import StatusItem from "~/components/StatusItem/StatusItem";
 import {
+  graphql,
   Pool,
   Scalars,
   Classification,
-  useGetEditPoolDataQuery,
   Skill,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
 import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
@@ -36,6 +36,7 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as otherRequirementsError } from "~/validators/process/otherRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
+import processMessages from "~/messages/processMessages";
 
 import PoolNameSection, {
   type PoolNameSubmitData,
@@ -59,9 +60,9 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import ScreeningQuestions, {
-  type ScreeningQuestionsSubmitData,
-} from "./components/ScreeningQuestions";
+import GeneralQuestions, {
+  type GeneralQuestionsSubmitData,
+} from "./components/GeneralQuestions";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -86,7 +87,7 @@ export type PoolSubmitData =
   | YourImpactSubmitData
   | WhatToExpectSubmitData
   | SpecialNoteSubmitData
-  | ScreeningQuestionsSubmitData;
+  | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
   pool: Pool;
@@ -105,12 +106,12 @@ export const EditPoolForm = ({
   const paths = useRoutes();
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the ScreeningQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
+  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags(); // Can remove the GeneralQuestionsSubmitData type from PoolSubmitData when the flag is removed, too.
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Advertisement information",
-    id: "rwQPZE",
-    description: "Page title for process' advertisement information page",
+    id: "yM04jy",
+    description: "Title for advertisement information of a process",
   });
 
   const pageSubtitle = intl.formatMessage({
@@ -188,9 +189,8 @@ export const EditPoolForm = ({
       }),
       shortTitle: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "m/Ch5y",
-        description:
-          "Shorter version of the title  for the pool essential skills",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     educationRequirements: {
@@ -198,8 +198,8 @@ export const EditPoolForm = ({
       hasError: false, // Optional section
       title: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "mWJOIX",
-        description: "Sub title for the process' education requirements",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
     otherRequirements: {
@@ -244,14 +244,10 @@ export const EditPoolForm = ({
   };
 
   // remove once RoD flag is gone
-  const screeningQuestionMetadata: EditPoolSectionMetadata = {
-    id: "screening-questions",
+  const generalQuestionMetadata: EditPoolSectionMetadata = {
+    id: "general-questions",
     hasError: false, // Optional
-    title: intl.formatMessage({
-      defaultMessage: "Screening questions",
-      id: "c+QwbR",
-      description: "Subtitle for the pool screening questions",
-    }),
+    title: intl.formatMessage(processMessages.screeningQuestions),
   };
 
   const backMessage = defineMessage({
@@ -299,7 +295,7 @@ export const EditPoolForm = ({
             >
               {[
                 ...Object.values(sectionMetadata),
-                ...(!recordOfDecisionFlag ? [screeningQuestionMetadata] : []), // remove when RoD flag is gone
+                ...(!recordOfDecisionFlag ? [generalQuestionMetadata] : []), // remove when RoD flag is gone
               ].map((meta) => (
                 <TableOfContents.ListItem key={meta.id}>
                   <StatusItem
@@ -399,9 +395,9 @@ export const EditPoolForm = ({
                 />
               </TableOfContents.Section>
               {!recordOfDecisionFlag && (
-                <ScreeningQuestions
+                <GeneralQuestions
                   pool={pool}
-                  sectionMetadata={screeningQuestionMetadata}
+                  sectionMetadata={generalQuestionMetadata}
                   onSave={onSave}
                 />
               )}
@@ -426,14 +422,167 @@ export const EditPoolForm = ({
   );
 };
 
+const EditPoolPage_Query = graphql(/* GraphQL */ `
+  query EditPoolPage($poolId: UUID!) {
+    # the existing data of the pool to edit
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      closingDate
+      status
+      language
+      securityClearance
+      isComplete
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      whatToExpect {
+        en
+        fr
+      }
+      specialNote {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishingGroup
+      generalQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+      }
+    }
+
+    # all classifications to populate form dropdown
+    classifications {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+
+    # all skills to populate skill pickers
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
 
   const notFoundMessage = intl.formatMessage(
     {
@@ -451,7 +600,8 @@ export const EditPoolPage = () => {
     });
   }
 
-  const [{ data, fetching, error }] = useGetEditPoolDataQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: EditPoolPage_Query,
     variables: { poolId },
   });
 
@@ -461,35 +611,8 @@ export const EditPoolPage = () => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(data?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Edit<hidden> pool</hidden>",
-        id: "D6HIId",
-        description: "Edit pool breadcrumb text",
-      }),
-      url: routes.poolUpdate(poolId),
-    },
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.pool ? (
           <EditPoolContext.Provider value={ctx}>

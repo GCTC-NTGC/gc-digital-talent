@@ -9,7 +9,7 @@ import {
   Input,
   TextArea,
   Submit,
-  MultiSelectField,
+  Combobox,
   enumToOptions,
   Select,
 } from "@gc-digital-talent/forms";
@@ -19,7 +19,7 @@ import {
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
-import { Pending, Heading } from "@gc-digital-talent/ui";
+import { Pending } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -35,6 +35,7 @@ import {
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -124,186 +125,178 @@ export const CreateSkillForm = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Create Skill",
-          id: "qZd17O",
-          description: "Title displayed on the create a skill form.",
-        })}
-      </Heading>
-      <div>
-        <FormProvider {...methods}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1 0)"
-          >
-            <Input
-              id="key"
-              name="key"
-              label={intl.formatMessage({
-                defaultMessage: "Key",
-                id: "CvV2l6",
-                description: "Label for an entity 'key' field",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
-                id: "jthonT",
-                description:
-                  "Additional context describing the purpose of the skills 'key' field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: keyStringRegex,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "Please use only lowercase letters and underscores.",
-                    id: "3owqTQ",
-                    description: "Description for rule pattern on key field",
-                  }),
-                },
-              }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "gnu0Eb",
-                description:
-                  "Label displayed on the create a skill form name (English) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "ZU3fd5",
-                description:
-                  "Label displayed on the create a skill form name (French) field.",
-              })}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="description_en"
-              name="description.en"
-              label={intl.formatMessage({
-                defaultMessage: "Description (English)",
-                id: "rJqCuH",
-                description:
-                  "Label displayed on the create a skill form description (English) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <TextArea
-              id="description_fr"
-              name="description.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Description (French)",
-                id: "a+bWz1",
-                description:
-                  "Label displayed on the create a skill form description (French) field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="keywords_en"
-              name="keywords.en"
-              label={intl.formatMessage({
-                defaultMessage: "Keywords (English)",
-                id: "FiylOa",
-                description:
-                  "Label displayed on the skill form keywords field in English.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "This field accepts a list of comma separated keywords associated with the skill.",
-                id: "NT3jrI",
-                description:
-                  "Additional context describing the purpose of the skills 'keyword' field.",
-              })}
-              type="text"
-            />
-            <Input
-              id="keywords_fr"
-              name="keywords.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Keywords (French)",
-                id: "fOl4Ez",
-                description:
-                  "Label displayed on the skill form keywords field in French.",
-              })}
-              context={intl.formatMessage({
-                defaultMessage:
-                  "This field accepts a list of comma separated keywords associated with the skill.",
-                id: "NT3jrI",
-                description:
-                  "Additional context describing the purpose of the skills 'keyword' field.",
-              })}
-              type="text"
-            />
-            <Select
-              id="category"
-              name="category"
-              label={intl.formatMessage({
-                defaultMessage: "Category",
-                id: "KZR3ad",
-                description:
-                  "Label displayed on the skill family form category field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a category",
-                id: "+hRCVl",
-                description:
-                  "Placeholder displayed on the skill family form category field.",
-              })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-              options={enumToOptions(SkillCategory).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(getSkillCategory(value)),
-              }))}
-            />
-            <MultiSelectField
-              id="families"
-              name="families"
-              label={intl.formatMessage({
-                defaultMessage: "Families",
-                id: "xx8yaE",
-                description:
-                  "Label displayed on the skill form skill families field.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Select one or more skill families",
-                id: "GNhFh2",
-                description:
-                  "Placeholder displayed on the skill form skill families field.",
-              })}
-              options={skillFamilyOptions}
-            />
-            <div data-h2-align-self="base(flex-start)">
-              <Submit />
-            </div>
-          </form>
-        </FormProvider>
-      </div>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x1 0)"
+        >
+          <Input
+            id="key"
+            name="key"
+            label={intl.formatMessage({
+              defaultMessage: "Key",
+              id: "CvV2l6",
+              description: "Label for an entity 'key' field",
+            })}
+            context={intl.formatMessage({
+              defaultMessage:
+                "The 'key' is a string that uniquely identifies a skill. It should be based on the skills English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular skill, so it cannot be changed later.",
+              id: "jthonT",
+              description:
+                "Additional context describing the purpose of the skills 'key' field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              pattern: {
+                value: keyStringRegex,
+                message: intl.formatMessage({
+                  defaultMessage:
+                    "Please use only lowercase letters and underscores.",
+                  id: "3owqTQ",
+                  description: "Description for rule pattern on key field",
+                }),
+              },
+            }}
+          />
+          <Input
+            id="name_en"
+            name="name.en"
+            label={intl.formatMessage({
+              defaultMessage: "Name (English)",
+              id: "gnu0Eb",
+              description:
+                "Label displayed on the create a skill form name (English) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="name_fr"
+            name="name.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Name (French)",
+              id: "ZU3fd5",
+              description:
+                "Label displayed on the create a skill form name (French) field.",
+            })}
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <TextArea
+            id="description_en"
+            name="description.en"
+            label={intl.formatMessage({
+              defaultMessage: "Description (English)",
+              id: "rJqCuH",
+              description:
+                "Label displayed on the create a skill form description (English) field.",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <TextArea
+            id="description_fr"
+            name="description.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Description (French)",
+              id: "a+bWz1",
+              description:
+                "Label displayed on the create a skill form description (French) field.",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="keywords_en"
+            name="keywords.en"
+            label={intl.formatMessage({
+              defaultMessage: "Keywords (English)",
+              id: "FiylOa",
+              description:
+                "Label displayed on the skill form keywords field in English.",
+            })}
+            context={intl.formatMessage({
+              defaultMessage:
+                "This field accepts a list of comma separated keywords associated with the skill.",
+              id: "NT3jrI",
+              description:
+                "Additional context describing the purpose of the skills 'keyword' field.",
+            })}
+            type="text"
+          />
+          <Input
+            id="keywords_fr"
+            name="keywords.fr"
+            label={intl.formatMessage({
+              defaultMessage: "Keywords (French)",
+              id: "fOl4Ez",
+              description:
+                "Label displayed on the skill form keywords field in French.",
+            })}
+            context={intl.formatMessage({
+              defaultMessage:
+                "This field accepts a list of comma separated keywords associated with the skill.",
+              id: "NT3jrI",
+              description:
+                "Additional context describing the purpose of the skills 'keyword' field.",
+            })}
+            type="text"
+          />
+          <Select
+            id="category"
+            name="category"
+            label={intl.formatMessage({
+              defaultMessage: "Category",
+              id: "KZR3ad",
+              description:
+                "Label displayed on the skill family form category field.",
+            })}
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Select a category",
+              id: "+hRCVl",
+              description:
+                "Placeholder displayed on the skill family form category field.",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            options={enumToOptions(SkillCategory).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getSkillCategory(value)),
+            }))}
+          />
+          <Combobox
+            id="families"
+            name="families"
+            isMulti
+            label={intl.formatMessage({
+              defaultMessage: "Families",
+              id: "xx8yaE",
+              description:
+                "Label displayed on the skill form skill families field.",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Select one or more skill families",
+              id: "GNhFh2",
+              description:
+                "Placeholder displayed on the skill form skill families field.",
+            })}
+            options={skillFamilyOptions}
+          />
+          <div data-h2-align-self="base(flex-start)">
+            <Submit />
+          </div>
+        </form>
+      </FormProvider>
     </section>
   );
 };
@@ -347,22 +340,28 @@ const CreateSkillPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create skill",
+    id: "71mPNh",
+    description: "Title for Create skill",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create Skill",
-          id: "qZd17O",
-          description: "Title displayed on the create a skill form.",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        <CreateSkillForm
-          handleCreateSkill={handleCreateSkill}
-          families={families}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          <CreateSkillForm
+            handleCreateSkill={handleCreateSkill}
+            families={families}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

@@ -203,6 +203,8 @@ return [
         App\Providers\GraphQLServiceProvider::class,
         App\Providers\BearerTokenServiceProvider::class,
         App\Providers\NotifyServiceProvider::class,
+        ScoutEngines\Postgres\PostgresEngineServiceProvider::class,
+        \Laravel\Scout\ScoutServiceProvider::class,
 
     ],
 
@@ -263,5 +265,4 @@ return [
         'Notify' => App\Facades\Notify::class,
 
     ],
-
 ];

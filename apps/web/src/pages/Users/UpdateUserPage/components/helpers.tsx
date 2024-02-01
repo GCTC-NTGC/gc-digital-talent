@@ -1,10 +1,11 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { Role, User } from "@gc-digital-talent/graphql";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+
+import { Role, User } from "~/api/generated";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
@@ -13,7 +14,7 @@ import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 
 export function roleCell(displayName: string) {
   return (
-    <Pill color="black" mode="solid">
+    <Pill color="blackFixed" mode="solid">
       {displayName}
     </Pill>
   );
@@ -24,7 +25,7 @@ export function teamRolesCell(displayNames: string[]) {
     <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
       {displayNames.map((displayName) => {
         return (
-          <Pill color="black" mode="solid" key={displayName}>
+          <Pill color="blackFixed" mode="solid" key={displayName}>
             {displayName}
           </Pill>
         );

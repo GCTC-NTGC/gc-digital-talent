@@ -28,7 +28,7 @@ describe("Admin Workflow Tests", () => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "AllUsersPaginated");
       aliasQuery(req, "User");
-      aliasQuery(req, "selectedUsers");
+      aliasQuery(req, "UsersTable_SelectUsers");
       aliasMutation(req, "UpdateUserAsAdmin");
     });
 
@@ -114,9 +114,9 @@ describe("Admin Workflow Tests", () => {
       .should("be.visible")
       .click();
 
-    cy.wait("@gqlselectedUsersQuery");
+    cy.findByRole("button", { name: /download csv/i }).click();
 
-    cy.findByRole("link", { name: /download csv/i }).click();
+    cy.wait("@gqlUsersTable_SelectUsersQuery");
 
     cy.verifyDownload(".csv", { contains: true });
   });

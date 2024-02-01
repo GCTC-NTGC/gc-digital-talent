@@ -7,15 +7,15 @@ import {
   notEmpty,
   pickMap,
 } from "@gc-digital-talent/helpers";
+import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   ApplicantFilterInput,
   Classification,
-  CountApplicantsQueryVariables,
+  CandidateCountQueryVariables,
   Maybe,
   Pool,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import { EmploymentDuration } from "@gc-digital-talent/i18n";
 
 import { SimpleClassification } from "~/types/pool";
 import { FormValues, NullSelection } from "~/types/searchRequest";
@@ -103,7 +103,7 @@ export const durationSelectionToEnum = (
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
-): CountApplicantsQueryVariables => {
+): CandidateCountQueryVariables => {
   if (empty(filter)) {
     return {};
   }
@@ -120,7 +120,7 @@ export const applicantFilterToQueryArgs = (
         ? pickMap(filter.qualifiedClassifications, ["group", "level"])
         : undefined,
       skills: filter?.skills ? pickMap(filter.skills, "id") : undefined,
-      hasDiploma: undefined, // disconnect education selection for useCountApplicantsAndCountPoolCandidatesByPoolQuery
+      hasDiploma: undefined, // disconnect education selection for CountApplicants_Query
 
       // Override the filter's pool if one is provided separately.
       pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
@@ -170,6 +170,7 @@ export const dataToFormValues = (
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
+    allPools: false,
   };
 };
 
@@ -192,7 +193,7 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedClassifications: [selectedClassification],
+    qualifiedClassifications: [selectedClassification].filter(notEmpty),
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)

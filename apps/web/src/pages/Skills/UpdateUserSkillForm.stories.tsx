@@ -8,7 +8,8 @@ import {
   fakeUserSkills,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+
+import { SkillCategory } from "~/api/generated";
 
 import { UpdateUserSkillForm } from "./UpdateUserSkillPage";
 

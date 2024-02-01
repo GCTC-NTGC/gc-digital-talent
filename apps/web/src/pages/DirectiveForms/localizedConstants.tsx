@@ -1,5 +1,8 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 
+import { getOrThrowError } from "@gc-digital-talent/helpers";
+import { formMessages } from "@gc-digital-talent/i18n";
+
 import {
   ContractAuthority,
   ContractCommodity,
@@ -18,9 +21,7 @@ import {
   PersonnelWorkLocation,
   YesNo,
   YesNoUnsure,
-} from "@gc-digital-talent/graphql";
-import { getOrThrowError } from "@gc-digital-talent/helpers";
-import { formMessages } from "@gc-digital-talent/i18n";
+} from "~/api/generated";
 
 const yesNoUnsureValues = defineMessages({
   [YesNoUnsure.Yes]: {

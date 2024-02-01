@@ -15,7 +15,6 @@ import {
   Button,
   ButtonLinkMode,
 } from "@gc-digital-talent/ui";
-import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -25,16 +24,18 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
-import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import {
+  Skill,
+  UserSkill,
   Scalars,
   SkillCategory,
   useCreateUserSkillMutation,
   useUpdateUserSkillMutation,
 } from "~/api/generated";
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -80,7 +81,7 @@ const UpdateSkillShowcase = ({
     defaultValues: initialSkills,
   });
   const { control, watch, formState } = methods;
-  const { remove, move, fields } = useFieldArray({
+  const { remove, move, fields, append } = useFieldArray({
     control,
     name: "userSkills",
   });
@@ -102,9 +103,9 @@ const UpdateSkillShowcase = ({
       msg ||
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
-          id: "CUxHd8",
+          id: "kfjmTt",
           description:
-            "Message displayed to user after skill fails to be updated.",
+            "Message displayed to user after skill fails to be updated",
         }),
     );
   };
@@ -133,6 +134,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.updateUserSkill?.skill.id) {
+            append({
+              skill: res.data.updateUserSkill.skill.id,
+              skillLevel: res.data.updateUserSkill.skillLevel ?? undefined,
+            });
             // having claimed a user skill in the modal and the mutation successful, update the ranking
             onAddition(
               existingSkillsRankingFiltered,
@@ -153,6 +158,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.createUserSkill?.skill.id) {
+            append({
+              skill: res.data.createUserSkill.skill.id,
+              skillLevel: res.data.createUserSkill.skillLevel ?? undefined,
+            });
             onAddition(
               existingSkillsRankingFiltered,
               res.data.createUserSkill.skill.id,

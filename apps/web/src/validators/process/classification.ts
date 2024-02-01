@@ -1,5 +1,6 @@
-import { Pool } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
+
+import { Pool } from "~/api/generated";
 
 export function hasAllEmptyFields({
   classifications,

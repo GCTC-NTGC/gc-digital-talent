@@ -18,7 +18,12 @@ import step1Image from "~/assets/img/sign-in-steps-1.webp";
 import step2Image from "~/assets/img/sign-in-steps-2.webp";
 import step3Image from "~/assets/img/sign-in-steps-3.webp";
 import step4Image from "~/assets/img/sign-in-steps-4.webp";
+import step1ImageDark from "~/assets/img/sign-in-steps-1-dark.webp";
+import step2ImageDark from "~/assets/img/sign-in-steps-2-dark.webp";
+import step3ImageDark from "~/assets/img/sign-in-steps-3-dark.webp";
+import step4ImageDark from "~/assets/img/sign-in-steps-4-dark.webp";
 import Instructions from "~/components/Instructions";
+import gckeyMessages from "~/messages/gckeyMessages";
 
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
@@ -133,7 +138,10 @@ const SignInPage = () => {
                 })}
               </Heading>
               <Instructions.List>
-                <Instructions.Step image={step1Image}>
+                <Instructions.Step
+                  image={step1Image}
+                  imageDark={step1ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "1. Sign in with your username and password. Remember, <strong>your username is separate from your email address</strong>.",
@@ -141,7 +149,10 @@ const SignInPage = () => {
                     description: "Text for first sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step2Image}>
+                <Instructions.Step
+                  image={step2Image}
+                  imageDark={step2ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "2. <strong>Open the authenticator app</strong> on your device.",
@@ -149,7 +160,10 @@ const SignInPage = () => {
                     description: "Text for second sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step3Image}>
+                <Instructions.Step
+                  image={step3Image}
+                  imageDark={step3ImageDark}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "3. Enter your <strong>unique one-time six-digit code</strong> from your <strong>authenticator app</strong> into the verification bar.",
@@ -157,7 +171,11 @@ const SignInPage = () => {
                     description: "Text for third sign in step.",
                   })}
                 </Instructions.Step>
-                <Instructions.Step image={step4Image} includeArrow={false}>
+                <Instructions.Step
+                  image={step4Image}
+                  imageDark={step4ImageDark}
+                  includeArrow={false}
+                >
                   {intl.formatMessage({
                     defaultMessage:
                       "4. Hooray! <strong>You've signed in with GCKey</strong> and will be returned to the <strong>GC Digital Talent platform</strong>.",
@@ -190,163 +208,68 @@ const SignInPage = () => {
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What if I deleted the app or changed phone and I don't have the recovery codes?",
-                      id: "m+IDnG",
-                      description:
-                        "First of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionRecoveryCodes)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Although your login cannot be recovered, you can contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-                          id: "KpR9l5",
-                          description:
-                            "First answer of the Frequently Asked Questions for logging in",
-                        },
-                        {
-                          helpLink,
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="two">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can you remove the two-factor authentication from my account so I can reset it?",
-                      id: "Val79M",
-                      description:
-                        "Second of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionRemove2FA)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "We cannot remove the two factor authentication from your account, but you can contact our <helpLink>Help Desk</helpLink> and they can assist you with account recovery.",
-                          id: "G1bgOX",
-                          description:
-                            "First answer of the Frequently Asked Questions for logging in",
-                        },
-                        {
-                          helpLink,
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.answerRemove2FA, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="three">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "What can I do if my authenticator codes are no longer being accepted?",
-                      id: "5myYda",
-                      description:
-                        "Third of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthCodes)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Please contact our <helpLink>Help Desk</helpLink>, and they can help you recover your account.",
-                          id: "qQgtWZ",
-                          description:
-                            "Third answer of the Frequently Asked Questions for logging in",
-                        },
-                        {
-                          helpLink,
-                        },
-                      )}
+                      {intl.formatMessage(gckeyMessages.questionAuthCodes, {
+                        helpLink,
+                      })}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="four">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage: "Already have a GCKey account?",
-                      id: "ACa+rP",
-                      description:
-                        "Fourth of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionExistingAccount)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p data-h2-margin-bottom="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you already have a GCKey account you can sign in to your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before.",
-                        id: "3/YwR9",
-                        description:
-                          "Fourth answer of the Frequently Asked Questions for logging in - paragraph 1",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
-                        id: "n4eLy+",
-                        description:
-                          "Fourth answer of the Frequently Asked Questions for logging in - paragraph 2",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerExistingAccount)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="five">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage: "What is a GCKey?",
-                      id: "w3vO23",
-                      description:
-                        "Fifth of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionWhatGCKey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
-                        id: "1NliRt",
-                        description:
-                          "Fifth answer of the Frequently Asked Questions for logging in",
-                      })}
-                    </p>
+                    <p>{intl.formatMessage(gckeyMessages.answerWhatGCKey)}</p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="six">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Who do I contact if I have questions about GCKey?",
-                      id: "13Cbkq",
-                      description:
-                        "Sixth of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionContactGCkey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p data-h2-margin-bottom="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "If you have questions about GCKey, please contact the GCKey team at:",
-                        id: "gw/WSP",
-                        description:
-                          "Sixth answer of the Frequently Asked Questions for logging in - intro sentence",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
                     </p>
                     <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Canada and the United States",
-                        id: "8NNqcv",
-                        description:
-                          "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
                     </p>
                     <Link
                       color="black"
@@ -358,12 +281,7 @@ const SignInPage = () => {
                       1-855-438-1102
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage: "Text Telephone (TTY/TDD)",
-                        id: "g1MMTj",
-                        description:
-                          "Sixth answer of the Frequently Asked Questions for logging in - second way to 'contact us'",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
                     </p>
                     <Link
                       color="black"
@@ -375,12 +293,7 @@ const SignInPage = () => {
                       1-855-438-1103
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage: "Outside Canada and the United States",
-                        id: "ConlR5",
-                        description:
-                          "Sixth answer of the Frequently Asked Questions for logging in - valid area for phone number",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
                     </p>
                     <Link
                       color="black"
@@ -392,74 +305,31 @@ const SignInPage = () => {
                       1-800-2318-6290
                     </Link>
                     <p data-h2-margin-top="base(x0.5)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Customer Service Representatives are available to assist you by phone, year round, 24 hours a day, 7 days a week.",
-                        id: "HqQzy1",
-                        description:
-                          "Sixth answer of the Frequently Asked Questions for logging in - final sentence",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="seven">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Which authenticator app should I install?",
-                      id: "YWxGL/",
-                      description:
-                        "Seventh of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthApp)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "As the Government of Canada we cannot recommend any specific third-party vendors or apps. Well known digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-                        id: "DL/hpF",
-                        description:
-                          "Seventh answer of the Frequently Asked Questions for logging in",
-                      })}
-                    </p>
+                    <p>{intl.formatMessage(gckeyMessages.answerAuthApp)}</p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="eight">
                   <Accordion.Trigger as="h4">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Can I use SMS or email authentication instead of an app?",
-                      id: "ClrNAj",
-                      description:
-                        "Eighth of the Frequently Asked Questions for logging in",
-                    })}
+                    {intl.formatMessage(gckeyMessages.questionAuthAlternative)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Currently, our site only supports authentication through an authenticator app.",
-                        id: "CIkGjy",
-                        description:
-                          "Eighth answer of the Frequently Asked Questions for logging in",
-                      })}
+                      {intl.formatMessage(gckeyMessages.answerAuthAlternative)}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion.Root>
               <p data-h2-margin-top="base(x1)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Read all the FAQ's and still stuck? <helpLink>Contact our team for help</helpLink>",
-                    id: "3M1/4Y",
-                    description:
-                      "Sentence following the Frequently Asked Questions about logging in",
-                  },
-                  {
-                    helpLink,
-                  },
-                )}
+                {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
               </p>
             </>
           ) : (

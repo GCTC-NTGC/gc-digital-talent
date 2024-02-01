@@ -10,16 +10,17 @@ import {
   getPoolStream,
   getPublishingGroup,
 } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { PoolCandidate } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
+import processMessages from "~/messages/processMessages";
 
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
@@ -86,12 +87,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Publishing group",
-          id: "rYgaTA",
-          description:
-            "Title displayed for the Pool table publishing group column.",
-        }),
+        header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
     columnHelper.accessor(
@@ -166,7 +162,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         }),
       },
     ),
-    columnHelper.accessor((row) => accessors.date(row.expiryDate, intl), {
+    columnHelper.accessor((row) => accessors.date(row.expiryDate), {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
@@ -186,9 +182,8 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
     <Table<PoolCandidate>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "CpjTkh",
-        description:
-          "Caption for the table that contains a users pool statuses",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       })}
       data={data}
       columns={columns}

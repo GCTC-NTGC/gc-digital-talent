@@ -160,6 +160,7 @@ const EducationRequirements = ({
           </Card>
         </Wrapper>
       );
+    case "AS":
     case "PM":
       return (
         <Wrapper>
@@ -229,8 +230,9 @@ const EducationRequirements = ({
                   })
                 : intl.formatMessage({
                     defaultMessage: "2-year post-secondary",
-                    id: "ZIwaDE",
-                    description: "Title for the education requirements",
+                    id: "TiIkSF",
+                    description:
+                      "Option for education requirement, 2-year post-secondary",
                   })}
             </Heading>
             <Text>

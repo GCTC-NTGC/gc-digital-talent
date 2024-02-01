@@ -1,19 +1,11 @@
-import { IntlShape } from "react-intl";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { Maybe, Scalars } from "~/api/generated";
 
 function dateAccessor(
-  value: Maybe<Scalars["DateTime"]>,
-  intl: IntlShape,
-): string {
-  return value
-    ? formatDate({
-        date: parseDateTimeUtc(value),
-        formatString: "PPP p",
-        intl,
-      })
-    : "";
+  value: Maybe<Scalars["DateTime"]> | undefined,
+): Date | null {
+  return value ? parseDateTimeUtc(value) : null;
 }
 
 export default {

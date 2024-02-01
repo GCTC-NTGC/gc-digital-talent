@@ -13,7 +13,8 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+
+import { PoolCandidateStatus } from "~/api/generated";
 
 import QualifiedRecruitmentCard, {
   QualifiedRecruitmentCardProps,

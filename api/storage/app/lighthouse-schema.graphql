@@ -18,14 +18,12 @@ type Query {
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
+  poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -82,6 +80,7 @@ type Mutation {
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  togglePoolCandidateBookmark(id: ID!): Boolean
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -138,7 +137,7 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
-  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
+  createOrUpdateGeneralQuestionAssessmentStep(poolId: UUID!, generalQuestions: [SyncGeneralQuestionsInput], assessmentStep: GeneralQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
@@ -217,7 +216,6 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662.")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -270,12 +268,11 @@ type UserPublicProfile {
   lastName: String
 }
 
-type ScreeningQuestion {
+type GeneralQuestion {
   id: ID!
   pool: Pool
   question: LocalizedString
   sortOrder: Int
-  screeningQuestionResponses: [ScreeningQuestionResponse]
 }
 
 type Pool {
@@ -302,7 +299,7 @@ type Pool {
   publishingGroup: PublishingGroup
   createdDate: DateTime
   updatedDate: DateTime
-  screeningQuestions: [ScreeningQuestion]
+  generalQuestions: [GeneralQuestion]
   closingDate: DateTime
   publishedAt: DateTime
   archivedAt: DateTime
@@ -311,10 +308,10 @@ type Pool {
   poolSkills: [PoolSkill]
 }
 
-type ScreeningQuestionResponse {
+type GeneralQuestionResponse {
   id: ID!
   answer: String
-  screeningQuestion: ScreeningQuestion
+  generalQuestion: GeneralQuestion
   poolCandidate: PoolCandidate
 }
 
@@ -339,6 +336,7 @@ type AssessmentResult {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 type PoolSkill {
@@ -362,10 +360,11 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
+  isBookmarked: Boolean
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
-  screeningQuestionResponses: [ScreeningQuestionResponse]
+  generalQuestionResponses: [GeneralQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
@@ -638,7 +637,7 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: String
+  generalSearch: [String]
   roles: [ID]
   trashed: Trashed
 }
@@ -660,7 +659,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: String
+  generalSearch: [String]
   name: String
   notes: String
   isGovEmployee: Boolean
@@ -879,6 +878,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -893,6 +893,7 @@ input UpdatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus
   notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1071,6 +1072,7 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  update: [ConnectExperienceSkills!]
   disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
@@ -1125,24 +1127,24 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
 }
 
-input CreateScreeningQuestionInput {
+input CreateGeneralQuestionInput {
   question: LocalizedStringInput!
   sortOrder: Int
 }
 
-input UpdateScreeningQuestionInput {
+input UpdateGeneralQuestionInput {
   id: ID!
   question: LocalizedStringInput
   sortOrder: Int
 }
 
-input UpdateScreeningQuestionsHasMany {
-  create: [CreateScreeningQuestionInput!]
-  update: [UpdateScreeningQuestionInput!]
+input UpdateGeneralQuestionsHasMany {
+  create: [CreateGeneralQuestionInput!]
+  update: [UpdateGeneralQuestionInput!]
   delete: [ID!]
 }
 
-input SyncScreeningQuestionsInput {
+input SyncGeneralQuestionsInput {
   id: ID
   question: LocalizedStringInput!
   sortOrder: Int
@@ -1173,7 +1175,7 @@ input UpdatePoolInput {
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
-  screeningQuestions: UpdateScreeningQuestionsHasMany
+  generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
 input AssessmentStepInput {
@@ -1182,7 +1184,7 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input ScreeningQuestionAssessmentStepInput {
+input GeneralQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1197,6 +1199,7 @@ input CreateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1207,6 +1210,7 @@ input UpdateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -1240,23 +1244,23 @@ input UpdateUserTeamRolesInput {
   roleAssignments: RolesForTeamHasMany!
 }
 
-input ScreeningResponseBelongsTo {
+input GeneralResponseBelongsTo {
   connect: ID!
 }
 
-input CreateScreeningQuestionResponseInput {
-  screeningQuestion: ScreeningResponseBelongsTo!
+input CreateGeneralQuestionResponseInput {
+  generalQuestion: GeneralResponseBelongsTo!
   answer: String!
 }
 
-input UpdateScreeningQuestionResponseInput {
+input UpdateGeneralQuestionResponseInput {
   id: ID!
   answer: String
 }
 
-input UpdateScreeningQuestionResponsesHasMany {
-  create: [CreateScreeningQuestionResponseInput!]
-  update: [UpdateScreeningQuestionResponseInput!]
+input UpdateGeneralQuestionResponsesHasMany {
+  create: [CreateGeneralQuestionResponseInput!]
+  update: [UpdateGeneralQuestionResponseInput!]
   delete: [ID!]
 }
 
@@ -1266,7 +1270,7 @@ input UpdateEducationExperiencesRequirementBelongsToMany {
 
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
-  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
+  generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
   educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
@@ -2247,7 +2251,7 @@ enum AssessmentResultType {
 }
 
 enum AssessmentDecision {
-  NOT_SURE
+  HOLD
   SUCCESSFUL
   UNSUCCESSFUL
 }

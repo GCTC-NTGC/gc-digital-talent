@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, ComponentMeta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -19,9 +19,13 @@ export default {
   },
 } as ComponentMeta<typeof Dialog.Header>;
 
-const Template: ComponentStory<typeof Dialog.Header> = (args) => {
+type Args = React.ComponentProps<typeof Dialog.Header> & {
+  theme: "dark" | "light";
+};
+
+const Template: StoryFn<Args> = (args) => {
   const [container, setContainer] = React.useState<HTMLElement | null>(null);
-  const { children, subtitle } = args;
+  const { children, subtitle, theme } = args;
   faker.seed(0);
   return (
     <>
@@ -41,19 +45,35 @@ const Template: ComponentStory<typeof Dialog.Header> = (args) => {
           </Dialog.Body>
         </Dialog.Content>
       </Dialog.Root>
-      <div ref={setContainer} />
+      <div ref={setContainer} data-h2={theme} />
     </>
   );
 };
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const BasicLight = Template.bind({});
+BasicLight.args = {
   children: "Basic Dialog",
+  theme: "light",
 };
 
-export const WithSubtitle = Template.bind({});
-WithSubtitle.args = {
+export const BasicDark = Template.bind({});
+BasicDark.args = {
+  children: "Basic Dialog",
+  theme: "dark",
+};
+
+export const WithSubtitleLight = Template.bind({});
+WithSubtitleLight.args = {
   children: "Basic Dialog",
   subtitle:
     "A dialog is a window overlaid on either the primary window or another dialog window.",
+  theme: "light",
+};
+
+export const WithSubtitleDark = Template.bind({});
+WithSubtitleDark.args = {
+  children: "Basic Dialog",
+  subtitle:
+    "A dialog is a window overlaid on either the primary window or another dialog window.",
+  theme: "dark",
 };

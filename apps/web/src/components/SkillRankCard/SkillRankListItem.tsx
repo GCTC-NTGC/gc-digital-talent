@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Scalars, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -10,6 +9,7 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 
+import { Scalars, SkillCategory, UserSkill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {
@@ -19,10 +19,12 @@ interface SkillLinkProps {
 
 const SkillLink = ({ id, children }: SkillLinkProps) => {
   const paths = useRoutes();
+  const searchParams = new URLSearchParams();
+  searchParams.set("from", "showcase");
 
   return (
     <Link
-      href={paths.editUserSkill(id ?? "")}
+      href={`${paths.editUserSkill(id ?? "")}?${searchParams.toString()}`}
       mode="text"
       color="black"
       data-h2-text-align="base(left)"
@@ -35,6 +37,7 @@ const SkillLink = ({ id, children }: SkillLinkProps) => {
 interface SkillRankListItemProps {
   userSkill: UserSkill;
   editable?: boolean;
+  from?: string;
 }
 
 const SkillRankListItem = ({

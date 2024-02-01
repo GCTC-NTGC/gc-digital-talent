@@ -11,18 +11,17 @@ import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
-} from "@gc-digital-talent/graphql";
-
-import {
   PoolCandidateSearchRequest,
   useGetPoolCandidateSearchRequestsPaginatedQuery,
 } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
@@ -38,12 +37,13 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "../Table/ResponsiveTable/constants";
+import SearchRequestFilterDialog from "./components/SearchRequestFilterDialog";
 import {
   FormValues,
   transformFormValuesToSearchRequestFilterInput,
+  transformSearchRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
 } from "./components/utils";
-import SearchRequestsTableFilters from "./components/SearchRequestsTableFilterDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateSearchRequest>();
 
@@ -173,12 +173,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           .join(","),
       {
         id: "stream",
-        header: intl.formatMessage({
-          defaultMessage: "Stream",
-          id: "LoKxJe",
-          description:
-            "Title displayed on the search request table stream column.",
-        }),
+        header: intl.formatMessage(processMessages.stream),
         enableColumnFilter: false,
         enableSorting: false,
         cell: ({ row: { original: row } }) =>
@@ -236,16 +231,21 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         statusCell(searchRequest.status, intl),
     }),
     columnHelper.accessor(
-      ({ requestedDate }) => accessors.date(requestedDate, intl),
+      ({ requestedDate }) => accessors.date(requestedDate),
       {
         id: "requestedDate",
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Date Received",
           id: "r2gD/4",
           description:
             "Title displayed on the search request table requested date column.",
         }),
-        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: { requestedDate },
+          },
+        }) => cells.date(requestedDate, intl),
       },
     ),
     columnHelper.accessor("adminNotes", {
@@ -345,7 +345,16 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }}
       filter={{
         state: filterRef.current,
-        component: <SearchRequestsTableFilters onSubmit={handleFilterSubmit} />,
+        component: (
+          <SearchRequestFilterDialog
+            onSubmit={handleFilterSubmit}
+            // Required for reset
+            resetValues={transformSearchRequestFilterInputToFormValues({})}
+            initialValues={transformSearchRequestFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );

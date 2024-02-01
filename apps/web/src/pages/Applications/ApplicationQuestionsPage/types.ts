@@ -1,8 +1,8 @@
-import { Scalars } from "~/api/generated";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 type QuestionResponse = {
-  id: Scalars["ID"];
-  questionId: Scalars["ID"];
+  id: Scalars["ID"]["output"];
+  questionId: Scalars["ID"]["output"];
   answer: string;
 };
 

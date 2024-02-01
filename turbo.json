@@ -16,10 +16,18 @@
       "inputs": [
         "../../api/storage/app/lighthouse-schema.graphql",
         "src/**/*.graphql",
-        "../../packages/**/src/**/*.graphql"
+        "../../packages/**/src/**/*.graphql",
+        "../../packages/**/src/**/*.ts",
+        "../../packages/**/src/**/*.tsx",
+        "../../apps/e2e/**/src/**/*.graphql",
+        "../../apps/e2e/**/src/**/*.ts",
+        "../../apps/e2e/**/src/**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.tsx"
       ],
       "outputs": ["src/api/generated.ts", "src/index.ts"],
-      "outputMode": "new-only"
+      "outputMode": "new-only",
+      "cache": false
     },
     "dev": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],

@@ -1,12 +1,9 @@
 import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
-import {
-  PoolCandidateStatus,
-  Maybe,
-  PoolCandidate,
-} from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
+
+import { PoolCandidateStatus, Maybe, PoolCandidate } from "~/api/generated";
 
 // Status that represent the combination of pool candidate status and the suspendedAt timestamp
 type CombinedStatus =
@@ -33,19 +30,19 @@ const HIRED_STATUSES: CombinedStatus[] = [
   "HIRED_INDETERMINATE",
 ];
 export const isHiredCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? HIRED_STATUSES.includes(status) : false);
 const READY_TO_HIRE_STATUSES: CombinedStatus[] = ["READY_TO_HIRE"];
 export const isReadyToHireCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? READY_TO_HIRE_STATUSES.includes(status) : false);
 const SUSPENDED_STATUSES: CombinedStatus[] = ["NOT_INTERESTED"];
 export const isSuspendedCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? SUSPENDED_STATUSES.includes(status) : false);
 const EXPIRED_STATUSES: CombinedStatus[] = ["EXPIRED"];
 export const isExpiredCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? EXPIRED_STATUSES.includes(status) : false);
 const INACTIVE_STATUSES: CombinedStatus[] = [
   "NOT_INTERESTED",
@@ -53,18 +50,18 @@ const INACTIVE_STATUSES: CombinedStatus[] = [
   "WITHDREW",
 ];
 export const isInactiveCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
 const ERROR_STATUSES: CombinedStatus[] = ["REMOVED"];
 export const isErrorCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? ERROR_STATUSES.includes(status) : false);
 const HIRED_LONG_TERM_STATUSES: CombinedStatus[] = [
   "HIRED_INDETERMINATE",
   "HIRED_TERM",
 ];
 export const isHiredLongTermCombinedStatus = (
-  status: Maybe<CombinedStatus>,
+  status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? HIRED_LONG_TERM_STATUSES.includes(status) : false);
 
 // Map combined statuses to their labels
@@ -195,9 +192,9 @@ const suspendedStatusMap = new Map<PoolCandidateStatus, CombinedStatus>([
  * @returns Maybe<CombinedStatus>    Returns the combined status or null
  */
 export const deriveCombinedStatus = (
-  status: Maybe<PoolCandidateStatus>,
+  status: Maybe<PoolCandidateStatus> | undefined,
   suspendedAt: PoolCandidate["suspendedAt"],
-): Maybe<CombinedStatus> => {
+): Maybe<CombinedStatus> | undefined => {
   if (!status) return null;
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 

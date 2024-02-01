@@ -3,9 +3,9 @@ import * as React from "react";
 import { IntlShape } from "react-intl";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import { PoolCandidate } from "~/api/generated";
 import { formatSubmittedAt } from "~/utils/poolCandidate";
 
 type Application = Omit<PoolCandidate, "user">;
@@ -45,6 +45,7 @@ export const getApplicationDeadlineMessage = (
         date: parseDateTimeUtc(application.pool.closingDate),
         formatString: "PPP",
         intl,
+        timeZone: "Canada/Pacific",
       }),
     },
   );

@@ -2,11 +2,11 @@ import React from "react";
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 
-import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import { Maybe, Role, Team } from "~/api/generated";
 import { TeamMember } from "~/utils/teamUtils";
 
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
@@ -25,22 +25,21 @@ export function orderRoles(roles: Array<Role>, intl: IntlShape) {
   });
 }
 
-export const actionCell = (
-  user: TeamMember,
-  team: Team,
-  roles: Array<Role>,
-) => (
+export const actionCell = (user: TeamMember, team: Team) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25)"
   >
-    <EditTeamMemberDialog user={user} team={team} availableRoles={roles} />
+    <EditTeamMemberDialog user={user} team={team} />
     <RemoveTeamMemberDialog user={user} team={team} />
   </div>
 );
 
-export function emailLinkCell(email: Maybe<string>, intl: IntlShape) {
+export function emailLinkCell(
+  email: Maybe<string> | undefined,
+  intl: IntlShape,
+) {
   if (email) {
     return (
       <Link color="black" external href={`mailto:${email}`}>
@@ -64,7 +63,7 @@ export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
   const nonEmptyRoles = roles?.filter(notEmpty);
   const rolePills = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Pill color="black" mode="solid" key={role.id}>
+        <Pill color="blackFixed" mode="solid" key={role.id}>
           {getLocalizedName(role.displayName, intl)}
         </Pill>
       ))

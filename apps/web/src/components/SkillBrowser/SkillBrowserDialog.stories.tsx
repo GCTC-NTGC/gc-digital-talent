@@ -6,7 +6,8 @@ import { faker } from "@faker-js/faker";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import Toast from "@gc-digital-talent/toast";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
-import { Skill } from "@gc-digital-talent/graphql";
+
+import { Skill } from "~/api/generated";
 
 import SkillBrowserDialog from "./SkillBrowserDialog";
 import { FormValues } from "./types";

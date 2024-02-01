@@ -79,7 +79,6 @@ class UserResource extends JsonResource
             'currentClassification' => (new ClassificationResource($this->currentClassification)),
             'isWoman' => $this->is_woman,
             'hasDisability' => $this->has_disability,
-            'isIndigenous' => $this->is_indigenous,
             'isVisibleMinority' => $this->is_visible_minority,
             'indigenousCommunities' => $this->indigenous_communities,
             'indigenousDeclarationSignature' => $this->indigenous_declaration_signature,
