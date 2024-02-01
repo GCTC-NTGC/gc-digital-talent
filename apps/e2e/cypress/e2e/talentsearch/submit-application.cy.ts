@@ -146,7 +146,7 @@ describe("Submit Application Workflow Tests", () => {
     cy.findByRole("heading", { name: /Start an application/i })
       .should("exist")
       .and("be.visible");
-    cy.findAllByRole("link", { name: /Apply for this process/i })
+    cy.findAllByRole("link", { name: /apply now/i })
       .first()
       .click();
     cy.wait("@gqlCreateApplicationMutation");
