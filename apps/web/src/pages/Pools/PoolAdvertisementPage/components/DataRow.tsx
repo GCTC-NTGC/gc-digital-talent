@@ -27,7 +27,7 @@ const DataRow = ({
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-align-items="base(flex-start) p-tablet(flex-end)"
+      data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-gap="base(x.25)"
     >
       <div data-h2-flex-shrink="base(0)">
