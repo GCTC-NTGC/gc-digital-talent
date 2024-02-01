@@ -175,7 +175,7 @@ export const PoolPoster = ({
   };
 
   const toggleSkillsValue = () => {
-    if (moreInfoValue.length > 0) {
+    if (skillsValue.length > 0) {
       setSkillsValue([]);
     } else {
       const essentialIds = essentialSkills.map((skill) => skill.id);
