@@ -1877,16 +1877,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v10.8.1",
+            "version": "v10.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "2f670f5b927b21c5f7e9d25f61a9bf727e16e9c0"
+                "reference": "4b5766ac110ef116c6571f4b3a29193bfd01c27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/2f670f5b927b21c5f7e9d25f61a9bf727e16e9c0",
-                "reference": "2f670f5b927b21c5f7e9d25f61a9bf727e16e9c0",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/4b5766ac110ef116c6571f4b3a29193bfd01c27c",
+                "reference": "4b5766ac110ef116c6571f4b3a29193bfd01c27c",
                 "shasum": ""
             },
             "require": {
@@ -1950,7 +1950,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2024-01-23T16:27:01+00:00"
+            "time": "2024-01-30T18:52:49+00:00"
         },
         {
             "name": "laravel/serializable-closure",
