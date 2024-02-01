@@ -59,6 +59,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import { sortSkillsByCategory } from "~/utils/skillUtils";
 
 import ApplicationLink, {
   ApplicationLinkProps,
@@ -149,8 +150,12 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = unpackMaybes(pool.essentialSkills);
-  const nonEssentialSkills = unpackMaybes(pool.nonessentialSkills);
+  const essentialSkills = sortSkillsByCategory(
+    unpackMaybes(pool.essentialSkills),
+  );
+  const nonEssentialSkills = sortSkillsByCategory(
+    unpackMaybes(pool.nonessentialSkills),
+  );
 
   const contactEmail = pool.team?.contactEmail;
 
