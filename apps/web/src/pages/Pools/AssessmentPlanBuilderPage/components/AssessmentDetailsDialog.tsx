@@ -297,9 +297,8 @@ const AssessmentDetailsDialog = ({
         },
         poolSkills: {
           sync:
-            values.assessedSkillsScreeningQuestions?.length &&
-            values.assessedSkillsScreeningQuestions.length > 0
-              ? values.assessedSkillsScreeningQuestions
+            values.assessedSkills?.length && values.assessedSkills.length > 0
+              ? values.assessedSkills
               : [],
         },
       },
