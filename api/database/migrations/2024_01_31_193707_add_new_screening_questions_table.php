@@ -33,7 +33,9 @@ return new class extends Migration
             $table->uuid('pool_id');
             $table->foreign('pool_id')->references('id')->on('pools');
             $table->uuid('assessment_step_id');
-            $table->foreign('assessment_step_id')->references('id')->on('assessment_steps');
+            $table->foreign('assessment_step_id')->references('id')->on('assessment_steps')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->integer('sort_order')->nullable()->default(null);
             $table->jsonb('question');
             $table->timestamps();
