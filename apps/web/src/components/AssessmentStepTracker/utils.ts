@@ -443,10 +443,6 @@ export const defaultFilters: ResultFilters = {
   [AssessmentDecision.Unsuccessful]: true,
 };
 
-const statusIsAvailable = (filter?: boolean) => {
-  return typeof filter !== "undefined" && filter;
-};
-
 export const filterResults = (
   filters: ResultFilters,
   steps: StepWithGroupedCandidates[],
@@ -466,20 +462,16 @@ export const filterResults = (
         let available: boolean = true;
         switch (decision) {
           case NO_DECISION:
-            available = statusIsAvailable(filters[NO_DECISION]);
+            available = !!filters[NO_DECISION];
             break;
           case AssessmentDecision.Hold:
-            available = statusIsAvailable(filters[AssessmentDecision.Hold]);
+            available = !!filters[AssessmentDecision.Hold];
             break;
           case AssessmentDecision.Successful:
-            available = statusIsAvailable(
-              filters[AssessmentDecision.Successful],
-            );
+            available = !!filters[AssessmentDecision.Successful];
             break;
           case AssessmentDecision.Unsuccessful:
-            available = statusIsAvailable(
-              filters[AssessmentDecision.Unsuccessful],
-            );
+            available = !!filters[AssessmentDecision.Unsuccessful];
             break;
           default:
             break;
