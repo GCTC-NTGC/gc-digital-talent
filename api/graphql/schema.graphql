@@ -237,7 +237,7 @@ type AssessmentStep {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canOnParent(ability: "viewAssessmentResults")
-  screeningQuestions: [ScreeningQuestion]
+  screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
 type AssessmentResult {
