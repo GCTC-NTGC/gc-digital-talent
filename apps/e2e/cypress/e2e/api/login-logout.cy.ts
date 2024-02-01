@@ -255,8 +255,33 @@ describe("Login and logout", () => {
     });
 
     // Logout appears to affect all logged in tabs
+    // Bug in app prevents this test from completing: #9188
     it.skip("will affect all tabs when logged out", () => {
-      // not sure how to do this yet
+      cy.loginBySubject(testUserSubject);
+      cy.visit("/en/applicant/profile-and-applications");
+
+      // confirm login
+      cy.findByRole("heading", {
+        name: "Welcome back, Applicant",
+        level: 1,
+      }).should("exist");
+
+      // simulate logged out in a different tab
+      cy.clearLocalStorage("access_token");
+      cy.clearLocalStorage("refresh_token");
+
+      // not important, just need an API request to occur
+      cy.findByRole("navigation", { name: "Personal information" }).within(
+        () => {
+          cy.findByRole("link", { name: "Personal information" }).click();
+        },
+      );
+
+      // forcibly logged out
+      cy.findByRole("heading", {
+        name: "See you next time!",
+        level: 1,
+      }).should("exist");
     });
   });
 });
