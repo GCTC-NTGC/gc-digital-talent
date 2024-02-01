@@ -27,7 +27,7 @@ import {
   AssessmentStepType,
   Maybe,
   PoolSkill,
-  GeneralQuestion,
+  ScreeningQuestion,
 } from "@gc-digital-talent/graphql";
 
 import { Scalars } from "~/api/generated";
@@ -63,22 +63,23 @@ const AssessmentDetailsDialog_UpdateMutation = graphql(/* GraphQL */ `
   }
 `);
 
-// to be connected to ScreeningQuestion once type added
-const AssessmentDetailsDialog_GeneralQuestionMutation = graphql(/* GraphQL */ `
-  mutation createOrUpdateGeneralQuestionAssessmentStep(
-    $poolId: UUID!
-    $generalQuestions: [SyncGeneralQuestionsInput]
-    $assessmentStep: GeneralQuestionAssessmentStepInput
-  ) {
-    createOrUpdateGeneralQuestionAssessmentStep(
-      poolId: $poolId
-      generalQuestions: $generalQuestions
-      assessmentStep: $assessmentStep
+const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
+  /* GraphQL */ `
+    mutation createOrUpdateScreeningScreeningAssessmentStep(
+      $poolId: UUID!
+      $screeningQuestions: [SyncScreeningQuestionsInput]
+      $assessmentStep: ScreeningQuestionAssessmentStepInput
     ) {
-      id
+      createOrUpdateScreeningQuestionAssessmentStep(
+        poolId: $poolId
+        screeningQuestions: $screeningQuestions
+        assessmentStep: $assessmentStep
+      ) {
+        id
+      }
     }
-  }
-`);
+  `,
+);
 
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
@@ -107,7 +108,7 @@ type InitialValues = Omit<
   "poolId" | "screeningQuestionFieldArray"
 > & {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: Array<GeneralQuestion>;
+  screeningQuestions?: Array<ScreeningQuestion>;
 };
 
 interface AssessmentDetailsDialogProps {
@@ -138,9 +139,9 @@ const AssessmentDetailsDialog = ({
     executeUpdateAssessmentStepMutation,
   ] = useMutation(AssessmentDetailsDialog_UpdateMutation);
   const [
-    { fetching: createOrUpdateGeneralQuestionAssessmentStepMutationFetching },
-    executeCreateOrUpdateGeneralQuestionAssessmentStepMutation,
-  ] = useMutation(AssessmentDetailsDialog_GeneralQuestionMutation);
+    { fetching: createOrUpdateScreeningQuestionAssessmentStepMutationFetching },
+    executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
+  ] = useMutation(AssessmentDetailsDialog_ScreeningQuestionMutation);
 
   if (initialValues.screeningQuestions) {
     initialValues.screeningQuestions.sort((a, b) =>
@@ -235,7 +236,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -261,7 +262,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -275,12 +276,12 @@ const AssessmentDetailsDialog = ({
     );
   };
 
-  const submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation = (
+  const submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation = (
     values: FormValues,
   ): Promise<void> => {
     const mutationParameters = {
       poolId: values.poolId,
-      generalQuestions: values.screeningQuestionFieldArray?.map(
+      screeningQuestions: values.screeningQuestionFieldArray?.map(
         ({ screeningQuestion }, index) => ({
           question: {
             en: screeningQuestion.en,
@@ -299,14 +300,14 @@ const AssessmentDetailsDialog = ({
             values.assessedSkillsScreeningQuestions?.length &&
             values.assessedSkillsScreeningQuestions.length > 0
               ? values.assessedSkillsScreeningQuestions
-              : null,
+              : [],
         },
       },
     };
-    return executeCreateOrUpdateGeneralQuestionAssessmentStepMutation(
+    return executeCreateOrUpdateScreeningQuestionAssessmentStepMutation(
       mutationParameters,
     ).then((res) => {
-      if (res?.data?.createOrUpdateGeneralQuestionAssessmentStep?.id) {
+      if (res?.data?.createOrUpdateScreeningQuestionAssessmentStep?.id) {
         return Promise.resolve();
       }
       return Promise.reject();
@@ -318,7 +319,7 @@ const AssessmentDetailsDialog = ({
 
     if (dialogMode === "screening_question") {
       mutationPromise =
-        submitCreateOrUpdateAssessmentWithGeneralQuestionsMutation(values);
+        submitCreateOrUpdateAssessmentWithScreeningQuestionsMutation(values);
     } else if (dialogAction === "update") {
       mutationPromise = submitUpdateAssessmentStepMutation(values);
     } else {
@@ -392,7 +393,7 @@ const AssessmentDetailsDialog = ({
   const dialogBusy =
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
-    createOrUpdateGeneralQuestionAssessmentStepMutationFetching;
+    createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
