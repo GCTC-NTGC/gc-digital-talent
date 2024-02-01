@@ -1490,6 +1490,26 @@ input UpdateGeneralQuestionResponsesHasMany {
   delete: [ID!]
 }
 
+input ScreeningResponseBelongsTo {
+  connect: ID!
+}
+
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
+}
+
 input UpdateEducationExperiencesRequirementBelongsToMany {
   sync: [ID!]
 }
@@ -1498,6 +1518,7 @@ input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
