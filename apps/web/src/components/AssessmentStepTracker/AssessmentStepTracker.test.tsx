@@ -282,7 +282,7 @@ describe("AssessmentStepTracker", () => {
       groupedResults,
     );
 
-    // Five item should be removed (unassessed candidate)
+    // Five item should be removed (successful candidates)
     expect(noSuccessfulResults.length).toEqual(testCandidates.length - 5);
     expect(noSuccessfulResults).not.toEqual(
       expect.arrayContaining([
@@ -300,7 +300,7 @@ describe("AssessmentStepTracker", () => {
       groupedResults,
     );
 
-    // Five item should be removed (unassessed candidate)
+    // Five item should be removed (unsuccessful candidate)
     expect(noUnsuccessfulResults.length).toEqual(testCandidates.length - 1);
     expect(noUnsuccessfulResults).not.toEqual(
       expect.arrayContaining([
@@ -318,9 +318,29 @@ describe("AssessmentStepTracker", () => {
       groupedResults,
     );
 
-    // Five item should be removed (unassessed candidate)
+    // Five item should be removed (on hold candidate)
     expect(noHoldResults.length).toEqual(testCandidates.length - 1);
     expect(noHoldResults).not.toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          decision: AssessmentDecision.Hold,
+        }),
+      ]),
+    );
+
+    //
+    const [{ results: noHoldOrSuccessResults }] = filterResults(
+      {
+        ...defaultFilters,
+        [AssessmentDecision.Hold]: false,
+        [AssessmentDecision.Successful]: false,
+      },
+      groupedResults,
+    );
+
+    // Fix items should be removed (successful + on hold candidate)
+    expect(noHoldOrSuccessResults.length).toEqual(testCandidates.length - 6);
+    expect(noHoldOrSuccessResults).not.toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           decision: AssessmentDecision.Hold,
