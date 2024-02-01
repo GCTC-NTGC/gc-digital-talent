@@ -59,12 +59,12 @@ const WorkLocationDialog = ({
                 description:
                   "First paragraph for the pool work location dialog",
               }) + intl.formatMessage(commonMessages.dividingColon)}
-              <div
+              <span
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
                 {workLocation}
-              </div>
+              </span>
             </p>
             <p>
               {intl.formatMessage({
