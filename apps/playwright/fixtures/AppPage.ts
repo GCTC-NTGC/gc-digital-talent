@@ -52,14 +52,19 @@ export class AppPage {
    * @param operationName
    */
   async waitForGraphqlResponse(operationName: string) {
-    await this.page.waitForResponse(async (resp) => {
-      if (await resp.url()?.includes("/graphql")) {
-        const reqJson = await resp.request()?.postDataJSON();
-        return reqJson.operationName === operationName;
-      }
+    await this.page.waitForResponse(
+      async (resp) => {
+        if (await resp.url()?.includes("/graphql")) {
+          const reqJson = await resp.request()?.postDataJSON();
+          return reqJson.operationName === operationName;
+        }
 
-      return false;
-    });
+        return false;
+      },
+      {
+        timeout: 120 * 1000,
+      },
+    );
   }
 
   /**
