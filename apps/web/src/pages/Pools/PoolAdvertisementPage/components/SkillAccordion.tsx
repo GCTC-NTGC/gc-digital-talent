@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
+import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
 
 interface ContextProps {
   required?: boolean;
@@ -44,9 +44,28 @@ interface SkillAccordionProps {
 const SkillAccordion = ({ skill, required }: SkillAccordionProps) => {
   const intl = useIntl();
 
+  const screeningTime =
+    skill.category === SkillCategory.Technical
+      ? intl.formatMessage({
+          defaultMessage: "Assessed during initial application",
+          id: "gLNQYB",
+          description:
+            "Message displayed for technical skills telling users at what point it will be assessed",
+        })
+      : intl.formatMessage({
+          defaultMessage: "Assessed at a later time",
+          id: "PNtGco",
+          description:
+            "Message displayed for behavioural skills telling users at what point it will be assessed",
+        });
+
   return (
     <Accordion.Item value={skill.id}>
-      <Accordion.Trigger as="h3" context={<Context required={required} />}>
+      <Accordion.Trigger
+        as="h3"
+        context={<Context required={required} />}
+        subtitle={screeningTime}
+      >
         {getLocalizedName(skill.name, intl)}
       </Accordion.Trigger>
       <Accordion.Content>
