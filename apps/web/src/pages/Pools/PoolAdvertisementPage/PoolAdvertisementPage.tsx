@@ -935,8 +935,8 @@ export const PoolPoster = ({
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we’d love to hear from you! ",
-                    id: "o8bIuI",
+                      "If you feel like your skills and experience are a good fit for the <strong>{title}</strong> role, we'd love to hear from you!",
+                    id: "qvfSHZ",
                     description:
                       "Lead-in text to the apply call to action at the end of a pool advertisement",
                   },
