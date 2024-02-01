@@ -34,7 +34,7 @@
     "@heroicons/react": "2.1.1",
     "@hookform/error-message": "^2.0.1",
     "@tiptap/extension-character-count": "^2.1.16",
-    "@tiptap/extension-link": "^2.1.16",
+    "@tiptap/extension-link": "^2.2.1",
     "@tiptap/react": "^2.1.16",
     "@tiptap/starter-kit": "^2.1.16",
     "date-fns": "^2.30.0",
