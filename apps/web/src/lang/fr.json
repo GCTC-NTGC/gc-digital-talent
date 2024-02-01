@@ -20,7 +20,7 @@
     "description": "Title for personal learning section"
   },
   "+AnEvv": {
-    "defaultMessage": "Jusitificatif du certificat numérique",
+    "defaultMessage": "Certificat numérique",
     "description": "Title of the 'Digital certificate credential' subsection"
   },
   "+C20lR": {
@@ -420,7 +420,7 @@
     "description": "Title for skill families"
   },
   "0Ew2uu": {
-    "defaultMessage": "En lien direct avec l'avancement de la Réconciliation, le programme a été conçu par, pour et en collaboration avec les Premières Nations, des Inuit, et des Métis.",
+    "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
   },
   "0H0CLx": {
@@ -432,7 +432,7 @@
     "description": "Descriptive text explaining valid applied work experiences."
   },
   "0IZsNR": {
-    "defaultMessage": "Au cours d'une période s'échelonnant sur 24 mois, les apprentis apprennent sur les lieux avec des partenaires pairs (4 jours par semaine), et suivent un programme de formation en ligne organisé qu'ils suivent à leur propre rythme (1 jour par semaine), dans le cadre de leur perfectionnement.",
+    "defaultMessage": "Au cours des 24 mois, les apprenti·es apprennent en cours d’emploi avec un·e partenaire pair (4 jours par semaine) et suivent un programme de formation en ligne à leur rythme (1 jour par semaine) dans le cadre de leur perfectionnement.",
     "description": "Paragraph 1 of the 'Work integrated learning and IT training' subsection"
   },
   "0IggSg": {
@@ -616,7 +616,7 @@
     "description": "Label for the user select field on team membership form"
   },
   "1C9UWI": {
-    "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est une équipe qui appuie le programme.",
+    "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est l’équipe qui soutient le programme.",
     "description": "Paragraph 4 of the 'About the program' section"
   },
   "1CRt78": {
@@ -792,7 +792,7 @@
     "description": "Heading for pool operator dashboard links"
   },
   "29o8/W": {
-    "defaultMessage": "Un engagement envers des talents numériques diversifiés",
+    "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
   },
   "2FBdeQ": {
@@ -944,7 +944,7 @@
     "description": "Subtitle for the manager homepage"
   },
   "39RER8": {
-    "defaultMessage": "Embauchez un apprentis en TI",
+    "defaultMessage": "Embaucher un·e apprenti·e en TI",
     "description": "Page title for IAP manager homepage"
   },
   "3AmNSJ": {
@@ -1960,7 +1960,7 @@
     "description": "CSV Header, Location Exemptions column"
   },
   "8n9opI": {
-    "defaultMessage": "Le talent autochtone prêt pour les partenariats sur la TI",
+    "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "8ownC2": {
@@ -2744,7 +2744,7 @@
     "description": "Label for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "D3mwyg": {
-    "defaultMessage": "Le Programme d'apprentissage en TI pour les peuples autochtones est une initiative novatrice du gouvernement du Canada qui offre une voie à l'emploi au sein de la fonction publique fédérale pour les peuples autochtones qui sont passionnés de la technologie de l'information.",
+    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative novatrice du gouvernement du Canada qui offre une voie d’accès à l’emploi dans la fonction publique fédérale aux personnes autochtones passionnées par les technologies de l’information.",
     "description": "Paragraph 1 of the 'About the program' section"
   },
   "D5Hqhf": {
@@ -3572,7 +3572,7 @@
     "description": "Lead in text for the remove role from user dialog"
   },
   "HyNRz8": {
-    "defaultMessage": "Ensemble, nous avoir le pouvoir de miser sur la diversité de l'expérience et des idées que les peuples autochtones amènent à la fonction publique, et nous contribuons à la réconciliation au Canada.",
+    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Paragraph 2 of the 'A commitment to diverse digital talent' section"
   },
   "I+GYIo": {
@@ -4276,7 +4276,7 @@
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
   },
   "LzJpQo": {
-    "defaultMessage": "Une fois qu'ils auront réussi leur stage, les diplômés reçoivent un certificat numérique et un justificatif vérifiable et portable. Celui-ci est entériné par le dirigeant principal de l'information du Canada, et officiellement reconnu comme répondant à la <link>norme de qualification alternative du GC pour le groupe professionnel de la TI</link>.",
+    "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
   },
   "Lzd38d": {
@@ -4348,7 +4348,7 @@
     "description": "Title for work location section on summary of filters section"
   },
   "MZChNU": {
-    "defaultMessage": "Diplômés et talent avancé",
+    "defaultMessage": "Diplômés et talents avancés",
     "description": "Title of the 'Graduates and advanced talent' section"
   },
   "MZHzIW": {
@@ -5207,12 +5207,16 @@
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
   },
+  "RiGj9w": {
+    "defaultMessage": "Étape {currentStep}",
+    "description": "Label for the candidates current assessment step"
+  },
   "RjYGPw": {
     "defaultMessage": "Chercher une compétence",
     "description": "Label for the skill library table search input"
   },
   "Rk1i9Q": {
-    "defaultMessage": "Ce programme vient abolir l'un des principaux obstacles à l'emploi en accordant une valeur au potentiel d'une personne, plutôt qu'au niveau de scolarité qu'elle a pu atteindre. Ainsi, cette initiative vient combler les lacunes en matière d'éducation, d'emploi et d'économie auxquelles plusieurs personnes autochtones sont confrontées au Canada.",
+    "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
   "Rl+0Er": {
@@ -5424,7 +5428,7 @@
     "description": "Label for applicant's employment type"
   },
   "T4xKEw": {
-    "defaultMessage": "– Darcy Pierlot, dirigeante principale de l'information et sous-ministre adjointe, Immigration, Réfugiés et Citoyenneté Canada",
+    "defaultMessage": "– Darcy Pierlot, dirigeant principal de l’information et sous-ministre adjoint, Immigration, Réfugiés et Citoyenneté Canada",
     "description": "Quote attribution for Quote from Darcy Pierlot about working with apprentices"
   },
   "T5QT/C": {
@@ -5444,7 +5448,7 @@
     "description": "Describes selecting additional requirements for a process."
   },
   "TB5Pnf": {
-    "defaultMessage": "Étant donné la nature du stage, le programme a développé un cercle de soutien à l'intention des apprentis. Parmi ceux-ci, on compte un partenaire pair qui est jumelé pour le travail et le soutien au quotidien, de même qu'un mentor qui offre une orientation d'expérience.",
+    "defaultMessage": "En raison de la nature de l’apprentissage, le programme a élaboré un cercle unique de soutien pour les apprenti·es. Il s’agit notamment d’un·e partenaire pair pour le jumelage et le soutien au quotidien, ainsi que d’un mentor qui fournit des conseils expérimentés.",
     "description": "Paragraph 1 of the 'Circle of Support' subsection"
   },
   "TBsQMo": {
@@ -5636,7 +5640,7 @@
     "description": "Email contact info"
   },
   "UJPrY7": {
-    "defaultMessage": "Comment embaucher un apprentis",
+    "defaultMessage": "Comment commencer le processus d’embauche d’un·e apprenti·e",
     "description": "Title for the 'How to begin hiring an apprentice' section"
   },
   "UN2Ncr": {
@@ -6112,7 +6116,7 @@
     "description": "Button text to cancel deleting a skill"
   },
   "Wvybds": {
-    "defaultMessage": "A été interviewé(e)",
+    "defaultMessage": "Passer un entretien",
     "description": "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "Wwb8Lb": {
@@ -6376,7 +6380,7 @@
     "description": "Label for _method of supply_ fieldset in the _digital services contracting questionnaire_"
   },
   "YSnedz": {
-    "defaultMessage": "Ayant eu le privilège de travailler de près avec les apprentis autochtones et ayant été témoins de l'immense talent et potentiel qu'ils possèdent, notre équipe d'IRCC a confiance que cet investissement apportera une immense valeur tant à notre ministère qu'aux apprentis comme tels.",
+    "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
   },
   "YUx5ti": {
@@ -7372,7 +7376,7 @@
     "description": "Label for status as Government of Canada employee"
   },
   "e5xrSy": {
-    "defaultMessage": "Avez embauché un employé à terme",
+    "defaultMessage": "Embauché à titre d’employé pour une période déterminée",
     "description": "Title of the 'Hired as a term employee' subsection"
   },
   "e6hj69": {
@@ -7544,7 +7548,7 @@
     "description": "First paragraph about who the program is for"
   },
   "f3KZGn": {
-    "defaultMessage": "Les méthodes de soutien additionnelles comprennent les cercles de partage, l'accès à un(e) conseiller(-ère) en soutien de la TI, et des facilitateurs visant à assurer la réussite des apprentis. Bien que ces facilitateurs représentent surtout une ressource pour les apprentis, ils offrent également un soutien aux gestionnaires et superviseurs.",
+    "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
   },
   "f9UKuz": {
@@ -7572,7 +7576,7 @@
     "description": "English or French Positions message"
   },
   "fHEsA5": {
-    "defaultMessage": "Le BIA est dédié à attirer le talent autochtone à la main-d'oeuvre de la TI du GC en simplifiant le processus d'embauche pour vous.",
+    "defaultMessage": "Le BIA a pour mission d’intégrer les talents autochtones dans la main-d’œuvre des TI du GC et de simplifier le processus d’embauche pour vous.",
     "description": "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "fK+EvE": {
@@ -7756,7 +7760,7 @@
     "description": "GCKey answer for who to contact about GCKey, text telephone title"
   },
   "gJ7CQw": {
-    "defaultMessage": "Communiquez avec l'équipe",
+    "defaultMessage": "Communiquez avec l’équipe",
     "description": "Link to send an email to the team"
   },
   "gKXZaj": {
@@ -8176,7 +8180,7 @@
     "description": "Text explaining what will happen when archiving a process"
   },
   "iGXXjP": {
-    "defaultMessage": "Téléchargez la trousse",
+    "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
   },
   "iIMpOW": {
@@ -8516,7 +8520,7 @@
     "description": "Heading for the manager opportunities"
   },
   "k1uZ7o": {
-    "defaultMessage": "Une cote de sécurité valide",
+    "defaultMessage": "Une cote de fiabilité valide",
     "description": "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "k29AEC": {
@@ -8668,7 +8672,7 @@
     "description": "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_"
   },
   "lDnHjr": {
-    "defaultMessage": "Vous cherchez à embaucher un(e) diplômé(e) pour le programme ou un talent autochtone pour des postes plus importants en TI? Veuillez communiquer avec notre équipe pour discuter des placements possibles de diplômés et des références de talents avancés.",
+    "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
     "description": "Paragraph 1 of the 'Graduates and advanced talent' section"
   },
   "lE92J0": {
@@ -9028,7 +9032,7 @@
     "description": "Email label and colon"
   },
   "mtLAap": {
-    "defaultMessage": "Ensemble, nous pouvons confronter les obstacles à la Réconciliation, à la diversité et à l'inclusion",
+    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Hero subtitle for IAP manager homepage"
   },
   "muduUA": {
@@ -9268,7 +9272,7 @@
     "description": "CSV Header, Department column"
   },
   "oES0/4": {
-    "defaultMessage": "Les apprentis autochtones sont embauchés par une organisation hôte au niveau d'entrée du groupe de la TI (IT-01 ou l'équivalent), pour un terme de 24 mois.",
+    "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
   "oIM22z": {
@@ -9544,7 +9548,7 @@
     "description": "list a number of personal experiences"
   },
   "q0oPjr": {
-    "defaultMessage": "Pleinement évalué(e) selon l'énoncé des critères de mérite du Programme d'apprentissage en TI pour les peuples autochtones, et se qualifiant pour le rôle d'apprentis d'un poste IT-01 (ou l'équivalent)",
+    "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
     "description": "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "q3Gl23": {
@@ -9636,7 +9640,7 @@
     "description": "Label displayed on award form for award title input"
   },
   "qlVBtp": {
-    "defaultMessage": "Embauchez un apprentis",
+    "defaultMessage": "Embaucher un·e apprenti·e",
     "description": "Link to send an email to the team"
   },
   "qmKVmr": {
@@ -10632,7 +10636,7 @@
     "description": "Notice that re-adding a skill will not add it back to a users skill showcase"
   },
   "xb4jXA": {
-    "defaultMessage": "Apprentissage et formation en TI intégrés au travail",
+    "defaultMessage": "Apprentissage intégré au travail et formation en TI",
     "description": "Title of the 'Work integrated learning and IT training' subsection"
   },
   "xcsYTa": {
@@ -10820,7 +10824,7 @@
     "description": "Title displayed for the Classification table Level column."
   },
   "yaf/jx": {
-    "defaultMessage": "Un Code d'identification de dossier personnel (CIDP)",
+    "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
   "ybzxmU": {
@@ -11012,7 +11016,7 @@
     "description": "Heading for required behavioural skills section"
   },
   "zvXWQB": {
-    "defaultMessage": "Veuillez télécharger la trousse du gestionnaire pour obtenir de plus amples renseignements, puis communiquer avec l'équipe pour entamer le processus.",
+    "defaultMessage": "Téléchargez la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
   "zwYuly": {

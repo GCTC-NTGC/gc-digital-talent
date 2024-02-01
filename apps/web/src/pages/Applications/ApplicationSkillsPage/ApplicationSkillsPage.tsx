@@ -322,27 +322,30 @@ export const ApplicationSkills = ({
       ) : null}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Input
-            id="skillsMissingExperiences"
-            name="skillsMissingExperiences"
-            label=""
-            type="number"
-            hidden
-            rules={{
-              max: {
-                value: 0,
-                message: intl.formatMessage(
-                  apiMessages.MISSING_ESSENTIAL_SKILLS,
-                ),
-              },
-            }}
-          />
           <Separator
             orientation="horizontal"
             decorative
             data-h2-background="base(gray)"
             data-h2-margin="base(x2, 0)"
           />
+          {/* -x.25 removes stray gap from flex layout */}
+          <div data-h2-margin="base(-x.25 0 x1 0)">
+            <Input
+              id="skillsMissingExperiences"
+              name="skillsMissingExperiences"
+              label=""
+              type="number"
+              hidden
+              rules={{
+                max: {
+                  value: 0,
+                  message: intl.formatMessage(
+                    apiMessages.MISSING_ESSENTIAL_SKILLS,
+                  ),
+                },
+              }}
+            />
+          </div>
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"
