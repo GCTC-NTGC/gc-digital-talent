@@ -1230,7 +1230,7 @@ input UpdateAssessmentResultInput {
 }
 
 input PoolSkillBelongsToMany {
-  sync: [UUID!]
+  sync: [UUID!]!
 }
 
 input RolesInput {

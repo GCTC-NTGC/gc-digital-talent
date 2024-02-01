@@ -290,10 +290,10 @@ class AssessmentStepTest extends TestCase
         $testPool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
         ]);
-
         $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
+        $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 
-        // can sync up screening questions and connect no pool skills
+        // fails if no pool skills attached
         $this->actingAs($this->teamUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
@@ -317,6 +317,34 @@ class AssessmentStepTest extends TestCase
                     ],
                 ],
             ])
+            ->assertJsonFragment([
+                'message' => 'Variable "$assessmentStep" got invalid value null at "assessmentStep.poolSkills.sync"; Expected non-nullable type "[UUID!]!" not to be null.',
+            ]);
+
+        // successful now that pool skills is non-null
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            [
+                'poolId' => $testPool->id,
+                'screeningQuestions' => [
+                    [
+                        'id' => $screeningQuestion->id,
+                        'question' => [
+                            'en' => 'en?',
+                            'fr' => 'fr?',
+                        ],
+                    ],
+                ],
+                'assessmentStep' => [
+                    'title' => [
+                        'en' => 'title en',
+                        'fr' => 'title fr',
+                    ],
+                    'poolSkills' => [
+                        'sync' => [$poolSkillId],
+                    ],
+                ],
+            ])
             ->assertSuccessful();
 
         // only one screening question now attached
@@ -329,8 +357,8 @@ class AssessmentStepTest extends TestCase
             ->with('poolSkills')
             ->first();
 
-        // assert two assessments steps exist, and the screening question step is not attached to any skills
+        // assert two assessments steps exist, and the screening question step is attached to one skill
         assertEquals(2, count($totalSteps));
-        assertEquals(0, count($screeningStep->poolSkills));
+        assertEquals(1, count($screeningStep->poolSkills));
     }
 }
