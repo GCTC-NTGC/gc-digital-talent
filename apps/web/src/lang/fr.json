@@ -5207,6 +5207,10 @@
     "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
     "description": "Link text to edit diversity, equity and inclusion information on profile."
   },
+  "RiGj9w": {
+    "defaultMessage": "Étape {currentStep}",
+    "description": "Label for the candidates current assessment step"
+  },
   "RjYGPw": {
     "defaultMessage": "Chercher une compétence",
     "description": "Label for the skill library table search input"

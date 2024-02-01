@@ -4,11 +4,12 @@ import { useIntl } from "react-intl";
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
+import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 
-import { AssessmentStep, AssessmentStepType } from "~/api/generated";
 import { NullableDecision } from "~/utils/assessmentResults";
+import { ResultDecisionCounts } from "~/utils/poolCandidate";
 
-import { getDecisionInfo, decisionOrder, ResultDecisionCounts } from "./utils";
+import { getDecisionInfo, decisionOrder } from "./utils";
 
 interface StatusCountProps {
   counter: number;
