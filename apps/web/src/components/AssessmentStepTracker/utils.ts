@@ -459,25 +459,7 @@ export const filterResults = (
           }
         }
 
-        let available: boolean = true;
-        switch (decision) {
-          case NO_DECISION:
-            available = !!filters[NO_DECISION];
-            break;
-          case AssessmentDecision.Hold:
-            available = !!filters[AssessmentDecision.Hold];
-            break;
-          case AssessmentDecision.Successful:
-            available = !!filters[AssessmentDecision.Successful];
-            break;
-          case AssessmentDecision.Unsuccessful:
-            available = !!filters[AssessmentDecision.Unsuccessful];
-            break;
-          default:
-            break;
-        }
-
-        return available;
+        return filters[decision];
       },
     );
 
