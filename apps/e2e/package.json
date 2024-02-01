@@ -17,7 +17,7 @@
     "@types/node": "^20.11.14",
     "axe-core": "^4.8.3",
     "cy-verify-downloads": "^0.2.3",
-    "cypress": "^13.6.3",
+    "cypress": "^13.6.4",
     "cypress-axe": "^1.5.0",
     "cypress-terminal-report": "^5.3.12",
     "dotenv": "^16.4.1",
