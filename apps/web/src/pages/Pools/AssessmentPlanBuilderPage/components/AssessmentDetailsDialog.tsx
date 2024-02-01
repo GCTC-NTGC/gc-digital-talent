@@ -651,29 +651,16 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                 </div>
-                {selectedTypeOfAssessment ===
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkillsScreeningQuestions"
-                    id="assessedSkillsScreeningQuestions"
-                    name="assessedSkillsScreeningQuestions"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                  />
-                )}
-                {selectedTypeOfAssessment !==
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkills"
-                    id="assessedSkills"
-                    name="assessedSkills"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                )}
+                <Checklist
+                  idPrefix="assessedSkills"
+                  id="assessedSkills"
+                  name="assessedSkills"
+                  legend={intl.formatMessage(labels.assessedSkills)}
+                  items={assessedSkillsItems}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
                 {!assessedSkillsItems.length ? (
                   <Field.Error>
                     {intl.formatMessage({

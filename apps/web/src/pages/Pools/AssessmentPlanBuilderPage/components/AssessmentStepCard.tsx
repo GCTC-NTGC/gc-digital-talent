@@ -88,9 +88,7 @@ const AssessmentStepCard = ({
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ||
-      assessmentStep.type ===
-        AssessmentStepType.ScreeningQuestionsAtApplication ? (
+      {skillNames.length ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"
