@@ -28,10 +28,7 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const steps = unpackMaybes(pool.assessmentSteps);
   const candidates = unpackMaybes(pool.poolCandidates);
   const groupedSteps = groupPoolCandidatesByStep(steps, candidates);
-
-  const filteredSteps = React.useMemo(() => {
-    return filterResults(filters, groupedSteps);
-  }, [groupedSteps, filters]);
+  const filteredSteps = filterResults(filters, groupedSteps);
 
   return (
     <>
