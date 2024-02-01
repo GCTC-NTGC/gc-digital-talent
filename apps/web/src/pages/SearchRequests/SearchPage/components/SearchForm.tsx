@@ -160,35 +160,25 @@ export const SearchForm = ({
           <Heading level="h3" size="h4" id="results">
             {intl.formatMessage(
               {
-                defaultMessage: `{totalCandidateCount, plural,
-                  =0 {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidates}
-                  =1 {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidate}
-                  other {Results: <testId><styledCount>{totalCandidateCount}</styledCount></testId> matching candidates}
-                }`,
-                id: "noxThS",
+                defaultMessage: `Results:
+                    { totalCandidateCount, plural,
+                      =0 {<testId><b>{totalCandidateCount}</b></testId> matching candidates}
+                      =1 {<testId><b>{totalCandidateCount}</b></testId> matching candidate}
+                      other {<testId><b>{totalCandidateCount}</b></testId> matching candidates} }
+                    across
+                    { numPools, plural,
+                      =0 {<b>{numPools}</b> pools}
+                      =1 {<b>{numPools}</b> pool}
+                      other {<b>{numPools}</b> pools} }`,
+                id: "j2qiFb",
                 description:
-                  "Heading for total matching candidates in results section of search page.",
+                  "Heading for total matching candidates across a certain number of pools in results section of search page.",
               },
               {
                 testId,
-                styledCount,
+                b: styledCount,
                 totalCandidateCount: candidateCount,
-              },
-            )}
-            {intl.formatMessage(
-              {
-                defaultMessage: `{numPools, plural,
-                  =0 { across <styledCount>{numPools}</styledCount> pools}
-                  =1 { across <styledCount>{numPools}</styledCount> pool}
-                  other { across <styledCount>{numPools}</styledCount> pools}
-                }`,
-                id: "T/8qWO",
-                description:
-                  "Heading for total matching pools in results section of search page.",
-              },
-              {
-                styledCount,
-                numPools: results?.length || 0,
+                numPools: results?.length ?? 0,
               },
             )}
           </Heading>
