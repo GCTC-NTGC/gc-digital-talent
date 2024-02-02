@@ -7467,10 +7467,6 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Shorter version of the title for the pool essential skills"
   },
-  "eeWkWi": {
-    "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
-    "description": "Heading for total matching candidates in results section of search page."
-  },
   "eeyR6R": {
     "defaultMessage": "étiqueter et compléter les jeux de données fournis, le cas échéant, pour l’établissement de rapports",
     "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -8338,6 +8334,10 @@
   "j12uou": {
     "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
     "description": "technological change factor - new technological system"
+  },
+  "j2qiFb": {
+    "defaultMessage": "Résultats: { totalCandidateCount, plural, =0 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} =1 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} other {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants à l'échelle } } de { numPools, plural, =0 {<b>{numPools}</b> bassins} =1 {<b>{numPools}</b> bassins} other {<b>{numPools}</b> bassins} }",
+    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>TI-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
