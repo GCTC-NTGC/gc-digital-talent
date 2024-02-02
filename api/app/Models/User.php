@@ -871,6 +871,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function scopeAuthorizedToView(Builder $query)
     {
+        /** @var \App\Models\User */
         $user = Auth::user();
 
         if (! $user) {

@@ -675,7 +675,9 @@ class PoolCandidate extends Model
      */
     public function scopeAuthorizedToView(Builder $query)
     {
-        $user = User::find(Auth::id());
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
         if (! $user) {
             return $query->where('id', null);
         }
