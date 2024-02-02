@@ -38,8 +38,8 @@ const DataRow = ({
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.25)"
       >
-        {value}
-        {suffix && <span>{suffix}</span>}
+        <span>{value}</span>
+        {suffix}
       </span>
     </div>
   </>
