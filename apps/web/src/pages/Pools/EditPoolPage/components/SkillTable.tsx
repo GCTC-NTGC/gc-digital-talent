@@ -9,6 +9,7 @@ import { Scalars, Skill } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
+import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
 
 const columnHelper = createColumnHelper<Skill>();
 
@@ -42,6 +43,7 @@ interface SkillTableProps {
   allSkills: Skill[];
   onSave: (submitData: Scalars["ID"][]) => Promise<void>;
   disableAdd?: boolean;
+  nullMessage?: NullMessageProps;
 }
 
 const SkillTable = ({
@@ -50,6 +52,7 @@ const SkillTable = ({
   allSkills,
   onSave,
   disableAdd,
+  nullMessage,
 }: SkillTableProps) => {
   const intl = useIntl();
   const availableSkills = allSkills.filter(
@@ -129,6 +132,7 @@ const SkillTable = ({
         total: data.length,
         pageSizes: [10, 20, 50],
       }}
+      nullMessage={nullMessage}
     />
   );
 };

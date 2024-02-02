@@ -49,7 +49,7 @@ describe("Talent Search Workflow Tests", () => {
       cy.findByRole("article", {
         name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).within(() => {
-        cy.contains("There is approximately 1 matching candidate in this pool");
+        cy.contains("1 approximate match");
 
         cy.findByRole("button", { name: /Request candidates/i })
           .should("exist")
