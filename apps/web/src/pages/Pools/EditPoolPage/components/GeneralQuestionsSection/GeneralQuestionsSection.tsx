@@ -67,7 +67,7 @@ const GeneralQuestionsSection = ({
   };
 
   return (
-    <TableOfContents.Section id={sectionMetadata.id}>
+    <>
       <TableOfContents.Heading icon={QuestionMarkCircleIcon} color="secondary">
         {sectionMetadata.title}
       </TableOfContents.Heading>
@@ -118,7 +118,7 @@ const GeneralQuestionsSection = ({
           </p>
         </Well>
       ) : null}
-    </TableOfContents.Section>
+    </>
   );
 };
 
