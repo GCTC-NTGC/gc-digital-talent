@@ -90,7 +90,7 @@ class PoolCandidateFactory extends Factory
             $screeningQuestionsIdArray = $poolCandidate->pool->screeningQuestions()->pluck('id')->toArray();
             if (isset($screeningQuestionsIdArray) && count($screeningQuestionsIdArray) > 0) {
                 for ($i = 0; $i < count($screeningQuestionsIdArray); $i++) {
-                    ScreeningQuestionResponse::create([
+                    ScreeningQuestionResponse::factory()->create([
                         'pool_candidate_id' => $candidateId,
                         'screening_question_id' => $screeningQuestionsIdArray[$i],
                         'answer' => $this->faker->paragraph(),

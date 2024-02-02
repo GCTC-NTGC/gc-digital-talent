@@ -41,8 +41,6 @@ class ScreeningQuestion extends Model
     protected $fillable = [
         'question',
         'sort_order',
-        'pool_id',
-        'assessment_step_id',
     ];
 
     public function pool(): BelongsTo

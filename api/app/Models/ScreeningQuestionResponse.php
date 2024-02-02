@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,6 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class ScreeningQuestionResponse extends Model
 {
+    use HasFactory;
+
     protected $keyType = 'string';
 
     /**
@@ -33,8 +36,6 @@ class ScreeningQuestionResponse extends Model
      * @var array
      */
     protected $fillable = [
-        'pool_candidate_id',
-        'screening_question_id',
         'answer',
     ];
 
