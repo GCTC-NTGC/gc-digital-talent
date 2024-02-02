@@ -17,7 +17,7 @@ import { ClassificationGroup } from "~/utils/poolUtils";
 type TextProps = React.HTMLProps<HTMLParagraphElement>;
 
 const Text = (props: TextProps) => (
-  <p data-h2-margin="base(x1, 0)" {...props} />
+  <p data-h2-margin="base(x.5, 0)" {...props} />
 );
 
 const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
@@ -105,7 +105,7 @@ const EducationRequirements = ({
       return (
         <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr 1fr)">
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage({
                 defaultMessage: "Professional designation",
                 id: "KqEyqD",
@@ -121,7 +121,7 @@ const EducationRequirements = ({
           </Card>
           <Or data-h2-left="l-tablet(33%)" />
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -137,7 +137,7 @@ const EducationRequirements = ({
           </Card>
           <Or data-h2-left="l-tablet(67%)" />
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage({
                 defaultMessage: "Graduation with degree",
                 id: "ijg+sm",
@@ -166,7 +166,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -180,7 +180,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage(applicationMessages.secondarySchoolHeading)}
             </Heading>
             <Text>
@@ -195,7 +195,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -221,7 +221,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+            <Heading level="h4" size="h6" data-h2-margin="base(0 0 x.5 0)">
               {isIAP
                 ? intl.formatMessage({
                     defaultMessage: "High school diploma or GED",

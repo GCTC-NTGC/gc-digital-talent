@@ -617,7 +617,7 @@ export const PoolPoster = ({
               >
                 {sections.minEducation.title}
               </TableOfContents.Heading>
-              <Text>
+              <Text data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
                     "This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you'll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the Government of Canada's education standard.",
@@ -724,7 +724,12 @@ export const PoolPoster = ({
               </TableOfContents.Heading>
               {pool.yourImpact && (
                 <>
-                  <Heading level="h3" size="h4" data-h2-font-weight="base(700)">
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
                     {intl.formatMessage({
                       defaultMessage: "Your impact",
                       id: "MOpG7g",
@@ -741,7 +746,12 @@ export const PoolPoster = ({
               )}
               {pool.keyTasks && (
                 <>
-                  <Heading level="h3" size="h4" data-h2-font-weight="base(700)">
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
                     {intl.formatMessage({
                       defaultMessage: "Common tasks in this role",
                       id: "ATO0GK",
