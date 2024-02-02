@@ -58,7 +58,7 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $pool->screeningQuestions()->Create([
+                    $pool->screeningQuestions()->create([
                         'assessment_step_id' => $assessmentStep->id,
                         'question' => $incomingQuestion['question'],
                         'sort_order' => isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null,
