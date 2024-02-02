@@ -508,7 +508,7 @@ export const IAPManagerHomePage = () => {
                 description: "Title of a quotes section",
               })}
             </Heading>
-            <div
+            <blockquote
               data-h2-display="base(grid)"
               // 70rem - iap-home container width
               data-h2-grid-template-columns="base(minmax(x4, auto) minmax(0, 70rem) minmax(x4, auto))"
@@ -521,15 +521,13 @@ export const IAPManagerHomePage = () => {
                   data-h2-font-size="base(h3) p-tablet(h2)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <blockquote>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-                      id: "YSnedz",
-                      description:
-                        "Quote from Darcy Pierlot about working with apprentices",
-                    })}
-                  </blockquote>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+                    id: "YSnedz",
+                    description:
+                      "Quote from Darcy Pierlot about working with apprentices",
+                  })}
                 </p>
               </div>
               <div data-h2-grid-column="base(2)" data-h2-grid-row="base(2)">
@@ -558,7 +556,7 @@ export const IAPManagerHomePage = () => {
               >
                 <CloseQuote data-h2-width="base(x2) p-tablet(x3)" />
               </div>
-            </div>
+            </blockquote>
           </div>
         </div>
       </div>

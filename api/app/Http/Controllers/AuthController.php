@@ -136,6 +136,6 @@ class AuthController extends Controller
                 'refresh_token' => $refreshToken,
             ]);
 
-        return response($response);
+        return response($response)->header('Content-Type', 'application/json');
     }
 }

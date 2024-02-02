@@ -1,6 +1,7 @@
 import "./mocks/drag";
 import "./mocks/clipboard";
 import "./mocks/matchMedia";
+import "./mocks/resizeObserver";
 
 import Providers from "./components/Providers";
 import axeTest from "./utils/axe";

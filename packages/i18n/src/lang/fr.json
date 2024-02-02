@@ -155,6 +155,10 @@
     "defaultMessage": "Oui, évaluation en anglais terminée",
     "description": "Completed an English language evaluation"
   },
+  "2wKf2U": {
+    "defaultMessage": "Modifier",
+    "description": "Text to trigger edit action"
+  },
   "3I2Qke": {
     "defaultMessage": "S’ouvre dans un nouvel onglet",
     "description": "Label for setting a link to open in a new tab in the rich text editor"
