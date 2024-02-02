@@ -65,7 +65,7 @@ class AssessmentStepPolicy
             return true;
         }
 
-        $assessmentStep->pool->loadMissing('team');
+        $assessmentStep->loadMissing('pool.team');
 
         return $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
     }
