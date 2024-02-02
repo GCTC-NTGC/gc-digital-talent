@@ -66,7 +66,7 @@ return new class extends Migration
         Schema::dropIfExists('screening_questions');
 
         // make migration reversible by recreating the incorrect foreign key names
-        // renaming reversed after foreign keys created
+        // Note: the renaming will be reversed after foreign keys are created
         Schema::rename('general_questions', 'screening_questions');
         Schema::rename('general_question_responses', 'screening_question_responses');
         Schema::table('screening_question_responses', function (Blueprint $table) {
