@@ -204,11 +204,11 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can view pool assessments
+     * Determine whether the user can view pool's assessment plan
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAssessments(User $user, Pool $pool)
+    public function viewAssessmentPlan(User $user, Pool $pool)
     {
         if ($user->isAbleTo('view-any-assessmentPlan')) {
             return true;

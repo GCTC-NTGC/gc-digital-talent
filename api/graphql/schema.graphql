@@ -210,8 +210,8 @@ type Pool {
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canOnParent(ability: "viewAssessments")
-  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
+    @canOnParent(ability: "viewAssessmentPlan")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessmentPlan")
 }
 
 type GeneralQuestionResponse {
