@@ -30,6 +30,12 @@ const testId = (chunks: React.ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 
+const styledCount = (chunks: React.ReactNode) => (
+  <span data-h2-font-weight="base(700)" data-h2-color="base(secondary.dark)">
+    {chunks}
+  </span>
+);
+
 interface SearchFormProps {
   pools: Pool[];
   classifications: Classification[];
@@ -154,18 +160,25 @@ export const SearchForm = ({
           <Heading level="h3" size="h4" id="results">
             {intl.formatMessage(
               {
-                defaultMessage: `{totalCandidateCount, plural,
-                  =0 {Results: <testId>{totalCandidateCount}</testId> matching candidates}
-                  =1 {Results: <testId>{totalCandidateCount}</testId> matching candidate}
-                  other {Results: <testId>{totalCandidateCount}</testId> matching candidates}
-                }`,
-                id: "eeWkWi",
+                defaultMessage: `Results:
+                    { totalCandidateCount, plural,
+                      =0 {<testId><b>{totalCandidateCount}</b></testId> matching candidates}
+                      =1 {<testId><b>{totalCandidateCount}</b></testId> matching candidate}
+                      other {<testId><b>{totalCandidateCount}</b></testId> matching candidates} }
+                    across
+                    { numPools, plural,
+                      =0 {<b>{numPools}</b> pools}
+                      =1 {<b>{numPools}</b> pool}
+                      other {<b>{numPools}</b> pools} }`,
+                id: "j2qiFb",
                 description:
-                  "Heading for total matching candidates in results section of search page.",
+                  "Heading for total matching candidates across a certain number of pools in results section of search page.",
               },
               {
                 testId,
+                b: styledCount,
                 totalCandidateCount: candidateCount,
+                numPools: results?.length ?? 0,
               },
             )}
           </Heading>

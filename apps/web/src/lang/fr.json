@@ -3419,6 +3419,10 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the role table display roles column"
   },
+  "Gki8Ex": {
+    "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
+    "description": "Message for total estimated matching candidates in pool"
+  },
   "GplLic": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
@@ -3831,13 +3835,13 @@
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner",
     "description": "Description of a users technical skills to be improved"
   },
-  "JZk4NZ": {
-    "defaultMessage": "{candidateCount, plural, one {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères dans ce bassin.} other {Il y a environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères dans ce bassin.}}",
-    "description": "Message for total estimated matching candidates in pool"
-  },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
+  },
+  "JbHieN": {
+    "defaultMessage": "Demander pour les candidats du bassin {poolName}",
+    "description": "Button link message on search page that takes user to the request form."
   },
   "Jdlnz6": {
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
@@ -7471,10 +7475,6 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Shorter version of the title for the pool essential skills"
   },
-  "eeWkWi": {
-    "defaultMessage": "{totalCandidateCount, plural, =0 {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères} =1 {Résultats : <testId>{totalCandidateCount}</testId> candidat correspondant à vos critères} other {Résultats : <testId>{totalCandidateCount}</testId> candidats correspondants à vos critères}}",
-    "description": "Heading for total matching candidates in results section of search page."
-  },
   "eeyR6R": {
     "defaultMessage": "étiqueter et compléter les jeux de données fournis, le cas échéant, pour l’établissement de rapports",
     "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -8342,6 +8342,10 @@
   "j12uou": {
     "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
     "description": "technological change factor - new technological system"
+  },
+  "j2qiFb": {
+    "defaultMessage": "Résultats: { totalCandidateCount, plural, =0 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} =1 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} other {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants à l'échelle } } de { numPools, plural, =0 {<b>{numPools}</b> bassins} =1 {<b>{numPools}</b> bassins} other {<b>{numPools}</b> bassins} }",
+    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>TI-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
