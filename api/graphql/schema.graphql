@@ -166,7 +166,7 @@ type ScreeningQuestion {
   id: ID!
   assessmentStep: AssessmentStep
     @belongsTo
-    @canOnParent(ability: "viewAssessmentStep")
+    @can(ability: "view", resolved: true)
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
 }
