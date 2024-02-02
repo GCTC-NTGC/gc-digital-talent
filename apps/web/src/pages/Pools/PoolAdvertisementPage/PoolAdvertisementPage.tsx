@@ -689,8 +689,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'To make the application process shorter, information is only collected on specific skills during the application stage. Theses are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
-                  id: "awavNQ",
+                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
+                  id: "WppiY9",
                   description:
                     "Descriptive text about how skills are used during the application process",
                 })}
