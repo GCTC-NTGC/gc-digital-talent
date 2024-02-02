@@ -5051,6 +5051,10 @@
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
   },
+  "QsILUL": {
+    "defaultMessage": "Filtrer les candidats par ordre de statut",
+    "description": "Legend for filtering candidates by assessment decisions"
+  },
   "QsWizb": {
     "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créez-en un</a>.",
     "description": "Instruction on what to do if user does not have a GCKey"
@@ -6550,6 +6554,10 @@
   "ZA20CY": {
     "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
     "description": "Text displayed for gaining hiring experience"
+  },
+  "ZAcxSx": {
+    "defaultMessage": "Filtrer les candidats par ordre de nom",
+    "description": "Label for candidate search input"
   },
   "ZAeStR": {
     "defaultMessage": "Compétences à améliorer",
