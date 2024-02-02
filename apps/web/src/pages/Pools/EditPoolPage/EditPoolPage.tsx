@@ -24,6 +24,11 @@ import {
   Skill,
 } from "@gc-digital-talent/graphql";
 
+import { EditPoolSectionMetadata } from "~/types/pool";
+import {
+  getAdvertisementStatus,
+  getPoolCompletenessBadge,
+} from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRoutes from "~/hooks/useRoutes";
@@ -62,7 +67,7 @@ import AssetSkillsSection, {
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import GeneralQuestions, {
   type GeneralQuestionsSubmitData,
-} from "./components/GeneralQuestions";
+} from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -70,12 +75,7 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
-import {
-  getAdvertisementStatus,
-  getPoolCompletenessBadge,
-} from "../../../utils/poolUtils";
 
 export type PoolSubmitData =
   | AssetSkillsSubmitData
@@ -394,13 +394,11 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-              {!recordOfDecisionFlag && (
-                <GeneralQuestions
-                  pool={pool}
-                  sectionMetadata={generalQuestionMetadata}
-                  onSave={onSave}
-                />
-              )}
+              <GeneralQuestions
+                pool={pool}
+                sectionMetadata={generalQuestionMetadata}
+                onSave={onSave}
+              />
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -521,6 +519,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       publishingGroup
       generalQuestions {
         id
+        sortOrder
         question {
           en
           fr
