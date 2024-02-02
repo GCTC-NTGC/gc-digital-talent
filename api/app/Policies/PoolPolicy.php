@@ -210,12 +210,12 @@ class PoolPolicy
      */
     public function viewAssessments(User $user, Pool $pool)
     {
-        if ($user->isAbleTo('view-any-pool')) {
+        if ($user->isAbleTo('view-any-assessmentPlan')) {
             return true;
         }
 
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('view-team-pool', $pool->team);
+        return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
     }
 }
