@@ -19,10 +19,12 @@ interface SkillLinkProps {
 
 const SkillLink = ({ id, children }: SkillLinkProps) => {
   const paths = useRoutes();
+  const searchParams = new URLSearchParams();
+  searchParams.set("from", "showcase");
 
   return (
     <Link
-      href={paths.editUserSkill(id ?? "")}
+      href={`${paths.editUserSkill(id ?? "")}?${searchParams.toString()}`}
       mode="text"
       color="black"
       data-h2-text-align="base(left)"
@@ -35,6 +37,7 @@ const SkillLink = ({ id, children }: SkillLinkProps) => {
 interface SkillRankListItemProps {
   userSkill: UserSkill;
   editable?: boolean;
+  from?: string;
 }
 
 const SkillRankListItem = ({
