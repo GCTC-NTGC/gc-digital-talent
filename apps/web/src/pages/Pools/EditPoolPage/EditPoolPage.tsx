@@ -65,7 +65,7 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import GeneralQuestions, {
+import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
 } from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import SpecialNoteSection, {
@@ -394,11 +394,13 @@ export const EditPoolForm = ({
                   onSave={onSave}
                 />
               </TableOfContents.Section>
-              <GeneralQuestions
-                pool={pool}
-                sectionMetadata={generalQuestionMetadata}
-                onSave={onSave}
-              />
+              {!recordOfDecisionFlag && (
+                <GeneralQuestionsSection
+                  pool={pool}
+                  sectionMetadata={generalQuestionMetadata}
+                  onSave={onSave}
+                />
+              )}
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
