@@ -452,13 +452,13 @@ export const PoolPoster = ({
                             : "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html#information-technology"
                         }
                         icon={InformationCircleIcon}
-                        aria-label={intl.formatMessage({
+                        aria-label={`${intl.formatMessage({
                           defaultMessage:
                             "Information technology (IT) work streams",
                           id: "FZ5qdE",
                           description:
                             "Link text to more information about information technology work streams",
-                        })}
+                        })} ${intl.formatMessage(uiMessages.newTab)}`}
                       />
                     ) : undefined
                   }
@@ -486,12 +486,12 @@ export const PoolPoster = ({
                         newTab
                         href={salaryRangeUrl}
                         icon={InformationCircleIcon}
-                        aria-label={intl.formatMessage({
+                        aria-label={`${intl.formatMessage({
                           defaultMessage: "Salary range information",
                           id: "IvJ9Xd",
                           description:
                             "Link text to more information about classification salary range",
-                        })}
+                        })} ${intl.formatMessage(uiMessages.newTab)}`}
                       />
                     )
                   }
@@ -566,12 +566,12 @@ export const PoolPoster = ({
                           ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
                           : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
                       }
-                      aria-label={intl.formatMessage({
+                      aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about language testing",
                         id: "Swde4t",
                         description:
                           "Link text for language testing information",
-                      })}
+                      })} ${intl.formatMessage(uiMessages.newTab)}`}
                     />
                   }
                 />
@@ -597,12 +597,12 @@ export const PoolPoster = ({
                           ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
                           : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
                       }
-                      aria-label={intl.formatMessage({
+                      aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about security clearances",
                         id: "WlMSeh",
                         description:
                           "Link text for security clearance information",
-                      })}
+                      })} ${intl.formatMessage(uiMessages.newTab)}`}
                     />
                   }
                 />
