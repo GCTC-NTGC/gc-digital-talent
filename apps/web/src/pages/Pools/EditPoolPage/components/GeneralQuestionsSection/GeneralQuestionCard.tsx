@@ -1,49 +1,28 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
+import { CardRepeater } from "@gc-digital-talent/ui";
 import { GeneralQuestion } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { GeneralQuestionsSubmit, labels } from "./utils";
+import { labels } from "./utils";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
 type GeneralQuestionCardProps = {
   index: number;
   generalQuestion: GeneralQuestion;
-  onSave: GeneralQuestionsSubmit;
-  onRemove: (index: number) => void;
-  onMove: (fromIndex: number, toIndex: number) => void;
 };
 
 const GeneralQuestionCard = ({
   index,
   generalQuestion,
-  onSave,
-  onRemove,
-  onMove,
 }: GeneralQuestionCardProps) => {
   const intl = useIntl();
-  const { move, remove } = useCardRepeaterContext();
-
-  const handleMove = (from: number, to: number) => {
-    move(from, to);
-    onMove(from, to);
-  };
-
-  const handleRemove = (removeIndex: number) => {
-    remove(removeIndex);
-    onRemove(removeIndex);
-  };
 
   return (
     <CardRepeater.Card
       index={index}
-      onMove={handleMove}
-      onRemove={handleRemove}
-      edit={
-        <GeneralQuestionDialog question={generalQuestion} onSave={onSave} />
-      }
+      edit={<GeneralQuestionDialog question={generalQuestion} index={index} />}
     >
       <div
         data-h2-display="base(grid)"

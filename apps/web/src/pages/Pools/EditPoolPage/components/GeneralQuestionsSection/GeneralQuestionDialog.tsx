@@ -11,13 +11,9 @@ import {
 } from "@gc-digital-talent/ui";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { TextArea } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  FormValues,
-  GeneralQuestionsSubmit,
-  dataToFormValues,
-  labels,
-} from "./utils";
+import { FormValues, dataToFormValues, labels } from "./utils";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
@@ -25,13 +21,11 @@ const TEXT_AREA_MAX_WORDS = 200;
 interface GeneralQuestionDialogProps {
   question?: GeneralQuestion;
   index?: number;
-  onSave: GeneralQuestionsSubmit;
 }
 
 const GeneralQuestionDialog = ({
   question,
   index,
-  onSave,
 }: GeneralQuestionDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -39,19 +33,15 @@ const GeneralQuestionDialog = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(question),
   });
-  const { setValue, register } = methods;
+  const { setValue, register, reset } = methods;
   const actionProps = register("action");
   const { append, remove, update } = useCardRepeaterContext();
 
   const handleSubmit = (values: FormValues) => {
-    let submitData = {};
     const isDelete = values.action === "delete";
     const isAdd = values.id === "new";
     if (isDelete) {
       if (index) remove(index);
-      submitData = {
-        delete: [{ id: values.id }],
-      };
     } else if (values.id) {
       const newQuestion = {
         en: values.questionEn,
@@ -59,25 +49,15 @@ const GeneralQuestionDialog = ({
       };
       if (isAdd) {
         append({ id: "new", question: newQuestion });
-      } else if (index) {
+        reset(dataToFormValues());
+      } else if (notEmpty(index)) {
         update(index, {
           id: values.id,
           question: newQuestion,
         });
       }
-      submitData = {
-        [isAdd ? "create" : "update"]: [
-          {
-            id: isAdd ? undefined : values.id,
-            question: newQuestion,
-          },
-        ],
-      };
     }
-
-    return onSave({ generalQuestions: submitData }).then(() => {
-      setIsOpen(false);
-    });
+    setIsOpen(false);
   };
 
   return (

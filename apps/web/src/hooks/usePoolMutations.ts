@@ -11,6 +11,9 @@ const UpdatePool_Mutation = graphql(/* GraphQL */ `
   mutation UpdatePool($id: ID!, $pool: UpdatePoolInput!) {
     updatePool(id: $id, pool: $pool) {
       id
+      generalQuestions {
+        id
+      }
     }
   }
 `);
