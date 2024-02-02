@@ -31,14 +31,14 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
   specificLocationFr: initialData.location?.fr,
 });
 
-export type OtherRequirementsSubmitData = Pick<
+export type CoreRequirementsSubmitData = Pick<
   UpdatePoolInput,
   "language" | "location" | "securityClearance" | "isRemote" | "publishingGroup"
 >;
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
-): OtherRequirementsSubmitData => {
+): CoreRequirementsSubmitData => {
   return {
     language: formValues.languageRequirement
       ? formValues.languageRequirement

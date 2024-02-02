@@ -51,6 +51,8 @@ const SkillsQuickSummary = ({
         return intl.formatMessage(commonMessages.warning);
       case "error":
         return intl.formatMessage(commonMessages.error);
+      case "optional":
+        return "";
       default:
         return assertUnreachable(status);
     }
