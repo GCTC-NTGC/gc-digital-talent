@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/tc-report/README.md",
   "dependencies": {
-    "@hydrogen-design-system/hydrogen.css": "^1.1.17"
+    "@hydrogen-design-system/hydrogen.css": "^1.1.20"
   },
   "overrides": {
     "socket.io-parser": "3.4.3"
