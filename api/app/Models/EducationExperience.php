@@ -37,9 +37,4 @@ class EducationExperience extends Experience
         'end_date' => 'date',
     ];
 
-    // Define the relationship to the User model
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }

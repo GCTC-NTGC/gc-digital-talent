@@ -33,10 +33,4 @@ class PersonalExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
-
-    // Define the relationship to the User model
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }
