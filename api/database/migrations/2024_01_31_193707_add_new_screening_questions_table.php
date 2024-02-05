@@ -30,9 +30,9 @@ return new class extends Migration
 
         Schema::create('screening_questions', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
-            $table->uuid('pool_id');
+            $table->uuid('pool_id')->nullable();
             $table->foreign('pool_id')->references('id')->on('pools');
-            $table->uuid('assessment_step_id');
+            $table->uuid('assessment_step_id')->nullable();
             $table->foreign('assessment_step_id')->references('id')->on('assessment_steps')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
