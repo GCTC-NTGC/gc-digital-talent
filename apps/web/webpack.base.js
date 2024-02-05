@@ -6,7 +6,7 @@ require("dotenv").config({ path: "./.env" });
 
 const basePath = path.resolve(__dirname);
 
-const appUrl = process.env.APP_URL ?? "https://talent.canada.ca";
+const appUrl = "https://talent.canada.ca";
 
 const meta = {
   title:
