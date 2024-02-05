@@ -27,45 +27,8 @@ abstract class Experience extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
         return $this->belongsTo(User::class)
-            ->select(['id',
-                'email',
-                'first_name',
-                'last_name',
-                'telephone',
-                'preferred_lang',
-                'current_province',
-                'current_city',
-                'looking_for_english',
-                'looking_for_french',
-                'looking_for_bilingual',
-                'bilingual_evaluation',
-                'comprehension_level',
-                'written_level',
-                'verbal_level',
-                'estimated_language_ability',
-                'is_gov_employee',
-                'has_priority_entitlement',
-                'priority_number',
-                'department',
-                'current_classification',
-                'citizenship',
-                'armed_forces_status',
-                'is_woman',
-                'has_disability',
-                'is_visible_minority',
-                'has_diploma',
-                'location_preferences',
-                'location_exemptions',
-                'position_duration',
-                'accepted_operational_requirements',
-                'gov_employee_type',
-                'priority_weight',
-                'indigenous_declaration_signature',
-                'indigenous_communities',
-                'preferred_language_for_interview',
-                'preferred_language_for_exam']);
+            ->select(['id']);
     }
 
     public function userSkills(): MorphToMany

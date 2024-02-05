@@ -477,11 +477,6 @@ type UserSkill {
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
     @with(relation: "workExperiences") # All experiences that a user owns
-  awardExperiences: [AwardExperience!] @hasMany
-  communityExperiences: [CommunityExperience!] @hasMany
-  educationExperiences: [EducationExperience!] @hasMany
-  personalExperiences: [PersonalExperience!] @hasMany
-  workExperiences: [WorkExperience!] @hasMany
 }
 
 type SkillKeywords {
