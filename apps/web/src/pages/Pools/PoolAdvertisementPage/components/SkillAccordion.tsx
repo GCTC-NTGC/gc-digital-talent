@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
 
 interface ContextProps {
@@ -69,7 +69,18 @@ const SkillAccordion = ({ skill, required }: SkillAccordionProps) => {
         {getLocalizedName(skill.name, intl)}
       </Accordion.Trigger>
       <Accordion.Content>
-        {getLocalizedName(skill.description, intl)}
+        {skill.description && (
+          <p>
+            <span data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Skill definition",
+                id: "N44sQc",
+                description: "Label for the definition of a specific skill",
+              }) + intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            {getLocalizedName(skill.description, intl)}
+          </p>
+        )}
       </Accordion.Content>
     </Accordion.Item>
   );
