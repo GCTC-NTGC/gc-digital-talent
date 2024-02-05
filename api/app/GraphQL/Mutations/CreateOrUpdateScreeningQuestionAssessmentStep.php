@@ -58,11 +58,12 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $pool->screeningQuestions()->create([
-                        'assessment_step_id' => $assessmentStep->id,
-                        'question' => $incomingQuestion['question'],
-                        'sort_order' => isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null,
-                    ]);
+                    $newQuestion = new ScreeningQuestion;
+                    $newQuestion->assessment_step_id = $assessmentStep->id;
+                    $newQuestion->question = $incomingQuestion['question'];
+                    $newQuestion->sort_order = isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null;
+                    $newQuestion->save();
+                    $pool->screeningQuestions()->save($newQuestion);
                 }
             }
 
