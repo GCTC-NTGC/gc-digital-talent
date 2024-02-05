@@ -6,16 +6,18 @@ require("dotenv").config({ path: "./.env" });
 
 const basePath = path.resolve(__dirname);
 
-const appUrl = process.env.APP_URL ?? "http://localhost:8000";
+const appUrl = process.env.APP_URL ?? "https://talent.canada.ca";
 
 const meta = {
-  title: process.env.APP_TITLE ?? "GC Digital Talent | Talents numériques du GC",
+  title:
+    process.env.APP_TITLE ?? "GC Digital Talent | Talents numériques du GC",
   description:
-    process.env.APP_DESCRIPTION ?? "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
+    process.env.APP_DESCRIPTION ??
+    "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
   url: appUrl,
   domain: process.env.APP_DOMAIN ?? "talent.canada.ca",
   image: `${appUrl}/images/digital-talent/banner.jpg`,
-}
+};
 
 module.exports = merge(base(basePath, meta), {
   entry: {
