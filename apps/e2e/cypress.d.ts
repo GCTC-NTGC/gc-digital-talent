@@ -256,10 +256,13 @@ declare global {
        * ======================================
        */
       /**
-       * Custom command to get and immediately expiring token from the auth debugger
-       * @example cy.getDCM().then(team => {})
+       * Custom command to get a token set from the auth debugger
+       * @example  cy.getTokensFromDebugger({issuerId: "oxauth", userSubject: testUserSubject}).as("tokenSet");
        */
-      getFastExpireTokens(userSubject: string): Chainable<Record<string, string>;
+      getTokensFromDebugger(opts: {
+        issuerId?: string;
+        userSubject: string;
+      }): Chainable<Record<string, string>;
 
       /**
        * ======================================

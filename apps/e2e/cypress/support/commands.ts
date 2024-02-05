@@ -117,10 +117,18 @@ const setLocalStorageTokensFromResponse = (resp) => {
   expect(uri.query).to.have.property("access_token");
   expect(uri.query).to.have.property("refresh_token");
 
-  // Store tokens in localStorage.
-  window.localStorage.setItem("id_token", String(uri.query.id_token));
-  window.localStorage.setItem("access_token", String(uri.query.access_token));
-  window.localStorage.setItem("refresh_token", String(uri.query.refresh_token));
+  cy.window().then((browserWindow) => {
+    // Store tokens in localStorage.
+    browserWindow.localStorage.setItem("id_token", String(uri.query.id_token));
+    browserWindow.localStorage.setItem(
+      "access_token",
+      String(uri.query.access_token),
+    );
+    browserWindow.localStorage.setItem(
+      "refresh_token",
+      String(uri.query.refresh_token),
+    );
+  });
 };
 
 // No-op placeholder function to document how our mock-oauth2-server works.
