@@ -50,7 +50,7 @@ export default {
   args: {
     snapshot: mockUser,
     application: mockPoolCandidate,
-    pool: mockPool,
+    poolQuery: mockPool,
   },
 };
 
