@@ -1,7 +1,7 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 
 import { getOrThrowError } from "@gc-digital-talent/helpers";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
   ContractAuthority,

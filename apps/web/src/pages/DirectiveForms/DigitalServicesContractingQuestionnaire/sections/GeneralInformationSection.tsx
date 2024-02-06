@@ -11,8 +11,8 @@ import {
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
-  formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";

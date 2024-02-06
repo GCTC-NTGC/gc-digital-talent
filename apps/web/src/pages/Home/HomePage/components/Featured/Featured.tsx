@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
