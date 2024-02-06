@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 
 import ThemeSwitcher from "./ThemeSwitcher";
