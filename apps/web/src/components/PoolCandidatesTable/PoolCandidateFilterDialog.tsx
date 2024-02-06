@@ -218,7 +218,7 @@ const PoolCandidateFilterDialog = ({
           id="poolCandidateStatus"
           name="poolCandidateStatus"
           isMulti
-          label={intl.formatMessage(adminMessages.status)}
+          label={intl.formatMessage(commonMessages.status)}
           options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
             value,
             label: intl.formatMessage(getPoolCandidateStatus(value)),

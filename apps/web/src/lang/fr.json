@@ -2535,10 +2535,6 @@
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
   },
-  "C0ABZu": {
-    "defaultMessage": "Statut",
-    "description": "CSV Header, Status column"
-  },
   "C1wuXs": {
     "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
     "description": "Description on how to use behavioural skills"
@@ -4299,10 +4295,6 @@
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
   },
-  "Lzd38d": {
-    "defaultMessage": "Statut",
-    "description": "Title for the status block in the manager info section of the single search request view."
-  },
   "M051tF": {
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
@@ -4658,10 +4650,6 @@
   "OOHY6f": {
     "defaultMessage": "Transfert de connaissances",
     "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
-  },
-  "OQhL7A": {
-    "defaultMessage": "Statut",
-    "description": "Label displayed on Education form for status input"
   },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
@@ -5074,10 +5062,6 @@
   "Qt9Q8k": {
     "defaultMessage": "Le programme dure combien de temps?",
     "description": "Learn more dialog question two heading"
-  },
-  "QtzRCh": {
-    "defaultMessage": "Statut",
-    "description": "Title for status"
   },
   "QuHfUJ": {
     "defaultMessage": "2. <strong>Ouvrez l'application d'authentification</strong> sur votre appareil.",
@@ -8331,10 +8315,6 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
   },
-  "ioqFVF": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed for the Pool table status column."
-  },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
@@ -8666,10 +8646,6 @@
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
-  },
-  "l+cu8R": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed for the Pool Candidates table Status column."
   },
   "l/jGX9": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui :",
@@ -9935,10 +9911,6 @@
     "defaultMessage": "J'accepterais un emploi qui",
     "description": "Start of sentence describing a users accepted working condition"
   },
-  "sUx3ZS": {
-    "defaultMessage": "Statut",
-    "description": "Title of the 'Status' column for the table on view-user page"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -10046,10 +10018,6 @@
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
-  },
-  "t3sEc+": {
-    "defaultMessage": "Statut",
-    "description": "Title displayed on the search request table status column."
   },
   "t4WPUU": {
     "defaultMessage": "Publier",

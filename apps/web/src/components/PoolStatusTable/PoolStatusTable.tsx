@@ -97,12 +97,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         enableHiding: false,
         cell: ({ row: { original: candidate } }) =>
           statusCell(candidate, user, pools),
-        header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "sUx3ZS",
-          description:
-            "Title of the 'Status' column for the table on view-user page",
-        }),
+        header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
     ),

@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  status: {
-    defaultMessage: "Status",
-    id: "l+cu8R",
-    description: "Title displayed for the Pool Candidates table Status column.",
-  },
   category: {
     defaultMessage: "Category",
     id: "qrDCTV",

@@ -129,11 +129,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       {
         id: "status",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "ioqFVF",
-          description: "Title displayed for the Pool table status column.",
-        }),
+        header: intl.formatMessage(commonMessages.status),
       },
     ),
     columnHelper.accessor(

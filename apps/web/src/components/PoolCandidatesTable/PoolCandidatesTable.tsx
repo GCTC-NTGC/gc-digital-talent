@@ -425,7 +425,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "status",
-        header: intl.formatMessage(tableMessages.status),
+        header: intl.formatMessage(commonMessages.status),
         enableHiding: false,
         cell: ({
           row: {

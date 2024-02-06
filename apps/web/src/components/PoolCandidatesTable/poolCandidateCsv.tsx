@@ -223,11 +223,7 @@ export const getPoolCandidateCsvHeaders = (
   return [
     {
       id: "status",
-      displayName: intl.formatMessage({
-        defaultMessage: "Status",
-        id: "C0ABZu",
-        description: "CSV Header, Status column",
-      }),
+      displayName: intl.formatMessage(commonMessages.status),
     },
     {
       id: "priority",

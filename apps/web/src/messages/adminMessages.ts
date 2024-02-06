@@ -56,11 +56,6 @@ const messages = defineMessages({
     id: "RW0Ukc",
     description: "Title for streams",
   },
-  status: {
-    defaultMessage: "Status",
-    id: "QtzRCh",
-    description: "Title for status",
-  },
   manager: {
     defaultMessage: "Manager",
     id: "TXl1qY",

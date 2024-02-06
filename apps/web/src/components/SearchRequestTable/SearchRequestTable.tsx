@@ -219,12 +219,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     ),
     columnHelper.accessor("status", {
       id: "status",
-      header: intl.formatMessage({
-        defaultMessage: "Status",
-        id: "t3sEc+",
-        description:
-          "Title displayed on the search request table status column.",
-      }),
+      header: intl.formatMessage(commonMessages.status),
       enableColumnFilter: false,
       cell: ({ row: { original: searchRequest } }) =>
         statusCell(searchRequest.status, intl),
