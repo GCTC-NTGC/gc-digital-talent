@@ -16,6 +16,7 @@ chrc
 codegen
 colour
 colours
+columnheader
 combobox
 corejs
 CRTC
