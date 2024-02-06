@@ -295,11 +295,9 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "preferredCommunicationLanguage",
-      displayName: intl.formatMessage({
-        defaultMessage: "Preferred Communication Language",
-        id: "d9OIGt",
-        description: "CSV Header, Preferred Communication Language column",
-      }),
+      displayName: intl.formatMessage(
+        commonMessages.preferredCommunicationLanguage,
+      ),
     },
     {
       id: "preferredLanguageForInterview",

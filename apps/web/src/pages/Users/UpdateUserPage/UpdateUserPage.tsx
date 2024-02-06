@@ -164,12 +164,9 @@ export const UpdateUserForm = ({
           />
           <Select
             id="preferredLang"
-            label={intl.formatMessage({
-              defaultMessage: "Preferred Communication Language",
-              id: "Vvc9/b",
-              description:
-                "Label displayed on the user form preferred communication language field.",
-            })}
+            label={intl.formatMessage(
+              commonMessages.preferredCommunicationLanguage,
+            )}
             name="preferredLang"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a language",

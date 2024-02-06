@@ -559,6 +559,10 @@
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
   },
+  "Ho94JY": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed preferred communication language"
+  },
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."

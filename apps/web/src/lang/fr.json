@@ -2611,10 +2611,6 @@
     "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
     "description": "Message displayed to users when there are no screening questions for a process"
   },
-  "CfXIqC": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Title displayed for the User table Preferred Communication Language column."
-  },
   "Cjp2F6": {
     "defaultMessage": "Information sur le bassin",
     "description": "Title for the pool info page"
@@ -5819,10 +5815,6 @@
     "defaultMessage": "L’utilisateur perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
   },
-  "Vvc9/b": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Label displayed on the user form preferred communication language field."
-  },
   "VwVXYb": {
     "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
     "description": "Lead in text describing the skills assessed for a qualified recruitment"
@@ -7087,10 +7079,6 @@
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
     "description": "Titles for a page section to manage your qualified recruitment processes"
   },
-  "d9OIGt": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "CSV Header, Preferred Communication Language column"
-  },
   "dAopan": {
     "defaultMessage": "l’optimisation des résultats de la recherche en matière de l'expérience utilisateur",
     "description": "List item four, things designers consider for accessibility"
@@ -7318,10 +7306,6 @@
   "eMrYDr": {
     "defaultMessage": "Compte d'utilisateur supprimé",
     "description": "Title for the alert displayed after a user signs into a deleted account"
-  },
-  "eN8J/9": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Title displayed on the Pool Candidates table Preferred Communication Language column."
   },
   "eNFq24": {
     "defaultMessage": "Télécharger (texte clair)",

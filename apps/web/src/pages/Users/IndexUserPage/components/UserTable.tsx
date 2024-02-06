@@ -187,12 +187,7 @@ const UserTable = ({ title }: UserTableProps) => {
     columnHelper.accessor("preferredLang", {
       id: "preferredLang",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Preferred Communication Language",
-        id: "CfXIqC",
-        description:
-          "Title displayed for the User table Preferred Communication Language column.",
-      }),
+      header: intl.formatMessage(commonMessages.preferredCommunicationLanguage),
       cell: ({
         row: {
           original: { preferredLang },

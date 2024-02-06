@@ -527,7 +527,9 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "preferredLang",
-        header: intl.formatMessage(tableMessages.preferredLang),
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
       },
     ),
     columnHelper.display({

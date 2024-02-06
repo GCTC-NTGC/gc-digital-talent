@@ -16,12 +16,6 @@ const messages = defineMessages({
     id: "p/Qp/u",
     description: "Title displayed on the Pool Candidates table name column.",
   },
-  preferredLang: {
-    defaultMessage: "Preferred Communication Language",
-    id: "eN8J/9",
-    description:
-      "Title displayed on the Pool Candidates table Preferred Communication Language column.",
-  },
   skillCount: {
     defaultMessage: "Number of skills matched",
     id: "0dQ62G",
