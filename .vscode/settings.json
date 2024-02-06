@@ -91,5 +91,19 @@
       "overrideName": true,
       "icon": "terminal-ubuntu"
     },
+  },
+  "terminal.integrated.profiles.osx": {
+    "Maintenance": {
+      "path": "docker-compose",
+      "args": [
+         "run",
+         "--rm",
+         "--workdir=/var/www/html",
+         "maintenance",
+         "bash",
+      ],
+      "overrideName": true,
+      "icon": "terminal-ubuntu"
+    },
   }
 }
