@@ -79,16 +79,21 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
     return {
       ...defaults,
       trigger: intl.formatMessage({
-        defaultMessage: "Add a skill",
-        id: "mS15HC",
+        defaultMessage: "Add a new skill",
+        id: "ZYqWBR",
         description: "Button text to open the skill dialog and add a skill",
       }),
       title: intl.formatMessage({
-        defaultMessage: "Add a skill to this process",
-        id: "Z4iL1M",
+        defaultMessage: "Manage a skill criteria",
+        id: "Pi5icf",
         description: "Title for the find a skill dialog within a pool",
       }),
-      subtitle: null,
+      subtitle: intl.formatMessage({
+        defaultMessage:
+          "Select from a variety of skills and identify the level required of applicants.",
+        id: "md/sEi",
+        description: "Subtitle for the find a skill dialog within a pool",
+      }),
     };
   }
 
