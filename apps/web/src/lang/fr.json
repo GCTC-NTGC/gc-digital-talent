@@ -1143,10 +1143,6 @@
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
   },
-  "4N/PxH": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
-    "description": "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page"
-  },
   "4QEl+4": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
@@ -8347,10 +8343,6 @@
     "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
     "description": "First paragraph describing the directive on digital talent"
   },
-  "k4Vsh0": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
-    "description": "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples."
-  },
   "k4xm25": {
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
@@ -9074,10 +9066,6 @@
   "oJri9k": {
     "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
     "description": "Text to confirm the pool to be duplicated"
-  },
-  "oMpO+C": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
-    "description": "Title tag for IT Apprenticeship Program for Indigenous Peoples site"
   },
   "oOPwam": {
     "defaultMessage": "6 à 12 mois",

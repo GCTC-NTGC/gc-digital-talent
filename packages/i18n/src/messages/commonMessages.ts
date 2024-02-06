@@ -6,6 +6,11 @@ const commonMessages = defineMessages({
     id: "1i0PsT",
     description: "Title of GC Digital Talent",
   },
+  iapTitle: {
+    defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
+    id: "0OSmXn",
+    description: "Title of IT Apprenticeship Program for Indigenous Peoples",
+  },
   loadingTitle: {
     defaultMessage: "Loading",
     id: "o/6zAs",

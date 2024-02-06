@@ -75,12 +75,7 @@ const Featured = () => {
     },
     {
       key: "hiring-indigenous-talent",
-      title: intl.formatMessage({
-        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
-        id: "4N/PxH",
-        description:
-          "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
-      }),
+      title: intl.formatMessage(commonMessages.iapTitle),
       summary: (
         <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({

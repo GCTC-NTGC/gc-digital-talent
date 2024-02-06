@@ -67,6 +67,10 @@
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
   },
+  "0OSmXn": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
+  },
   "0bcof1": {
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
     "description": "Prefix when a step is the currently active one."
