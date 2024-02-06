@@ -64,7 +64,7 @@ server {
 
     # local auth
     location ^~ /oxauth {
-        proxy_pass "http://mock-auth:8081";
+        proxy_pass "http://mock-auth:8080";
         # Header X-Forwarded-Proto tells mock-oauth2-proxy to use Host for
         # urls in response from /oxauth/.well-known/openid-confifiguration
         #
