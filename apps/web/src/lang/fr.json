@@ -523,10 +523,6 @@
     "defaultMessage": "Vise à lancer le programme au début de 2023.",
     "description": "Talent portal strategy item 4 content"
   },
-  "0iSfwq": {
-    "defaultMessage": "Sélectionnez une option",
-    "description": "Null selection for select status in the education form."
-  },
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
@@ -3926,10 +3922,6 @@
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
-  },
-  "KWLDYe": {
-    "defaultMessage": "Sélectionnez une option",
-    "description": "Null selection for select input in the awarded to form."
   },
   "KXEuON": {
     "defaultMessage": "la conformité avec les Règles d’accessibilité <wcagLink>WCAG 2.1</wcagLink>",
@@ -7671,10 +7663,6 @@
     "defaultMessage": "Aucune expérience trouvée",
     "description": "Null state messages for career timeline list when no experiences are found."
   },
-  "gIXZ1i": {
-    "defaultMessage": "Sélectionnez une option",
-    "description": "Null selection for select education type in the education form."
-  },
   "gImGmr": {
     "defaultMessage": "Téléphone textuel (TTY/ATS)",
     "description": "GCKey answer for who to contact about GCKey, text telephone title"
@@ -10570,10 +10558,6 @@
   "xx8yaE": {
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form skill families field."
-  },
-  "xyHtkt": {
-    "defaultMessage": "Sélectionnez une option",
-    "description": "Null selection for select input in the award scope form."
   },
   "xzSXz9": {
     "defaultMessage": "Type d’emploi",
