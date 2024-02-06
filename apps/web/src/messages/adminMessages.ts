@@ -81,6 +81,11 @@ const messages = defineMessages({
     id: "HBljcn",
     description: "Title for name in English",
   },
+  nameFr: {
+    defaultMessage: "Name (French)",
+    id: "Jt4kG1",
+    description: "Title for name in French",
+  },
   noneProvided: {
     defaultMessage: "(None provided)",
     id: "4bWCNR",

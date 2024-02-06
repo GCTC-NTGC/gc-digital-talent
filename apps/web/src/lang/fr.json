@@ -551,10 +551,6 @@
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
     "description": "Link to Statistics Canada's employment equity definitions"
   },
-  "0oqRIl": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the create a skill family form name (French) field."
-  },
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
@@ -3831,6 +3827,10 @@
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Label for a process' closing date in pacific timezone"
   },
+  "Jt4kG1": {
+    "defaultMessage": "Nom (français)",
+    "description": "Title for name in French"
+  },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
     "description": "Page title for the application review page."
@@ -6543,10 +6543,6 @@
     "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
     "description": "Link text to the ongoing recruitments section on the browse page"
   },
-  "ZU3fd5": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the create a skill form name (French) field."
-  },
   "ZUO1OX": {
     "defaultMessage": "Numéro de priorité :",
     "description": "Label for applicant's priority number value"
@@ -6958,10 +6954,6 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
-  },
-  "c0n+2j": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the create a department form name (French) field."
   },
   "c39xT8": {
     "defaultMessage": "Modifier les options de votre expérience.",
@@ -8234,10 +8226,6 @@
   "j/28Dz": {
     "defaultMessage": "Envisagerait d'accepter un emploi d'une durée de :",
     "description": "Label for what length of position user prefers, followed by colon"
-  },
-  "j01W+1": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the update a skill form name (French) field."
   },
   "j12uou": {
     "defaultMessage": "un nouveau système technologique, logiciel ou matériel d’une nature fondamentalement différente de ceux utilisés précédemment;",
@@ -10054,10 +10042,6 @@
   "u98IOx": {
     "defaultMessage": "Partie 1 : Création d’un compte CléGC",
     "description": "Heading for section of the sign up page showing the create steps"
-  },
-  "uAmdiU": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the classification form name (French) field."
   },
   "uBmoxQ": {
     "defaultMessage": "Rôle",
