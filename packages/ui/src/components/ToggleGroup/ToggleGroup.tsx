@@ -16,7 +16,7 @@ const Item = React.forwardRef<
     data-h2-outline="base(none)"
     data-h2-padding="base(x.25)"
     data-h2-radius="base(m)"
-    data-h2-width="base:children[svg](x1)"
+    data-h2-width="base:children[svg](x.75)"
     ref={forwardedRef}
     {...props}
   />
@@ -36,18 +36,21 @@ const Root = React.forwardRef<
     <ToggleGroupPrimitive.Root
       data-h2-align-items="base(center)"
       data-h2-background-color="
-        base(background)
+        base(foreground) base:dark(white)
         base:children[button](background.dark)
         base:children[button:hover](background.darkest)
         base:children[button:focus-visible](focus)
-        base:children[button[data-state='on']](quaternary)
-        base:dark:children[button[data-state='on']](quaternary.light)
+        base:all:children[button[data-state='on']](quaternary.light)
       "
       data-h2-color="
-        base(black) base:children[button](black)
+        base(black)
+        base:children[button](black)
+        base:iap:children[button](black)
         base:children[button:hover](white)
-        base:children[button:focus-visible]:all(black)
+        base:all:children[button:focus-visible](black)
         base:all:children[button[data-state='on']](black)
+        base:iap:all:children[button[data-state='on']](white)
+        base:iap:children[button:hover[data-state='on']](white)
       "
       data-h2-border="base(1px solid background.darker)"
       data-h2-display="base(inline-flex)"
