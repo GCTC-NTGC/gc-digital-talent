@@ -116,7 +116,7 @@ const poolQueryDoc = /* GraphQL */ `
       stream
       processNumber
       publishingGroup
-      screeningQuestions {
+      generalQuestions {
         id
         question {
           en

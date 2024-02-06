@@ -3,10 +3,17 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
+  FragmentType,
+  GeneralQuestionResponse,
+  LocalizedString,
+  Maybe,
   Pool,
   PoolCandidate,
+  Scalars,
   SkillCategory,
   User,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -31,18 +38,82 @@ import { SECTION_KEY } from "./types";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 
+const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationInformation_PoolFragment on Pool {
+    essentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    ...ApplicationPrintDocument_PoolFragment
+  }
+`);
+
+// stopgap as screening questions become general questions while a new screening questions backend is set up
+// preserve snapshot functionality
+type ScreeningQuestion = {
+  id: Scalars["ID"]["output"];
+  pool?: Maybe<Pool>;
+  question?: Maybe<LocalizedString>;
+  sortOrder?: Maybe<Scalars["Int"]["output"]>;
+};
+
+type ScreeningQuestionResponse = {
+  answer?: Maybe<Scalars["String"]["output"]>;
+  screeningQuestion?: Maybe<ScreeningQuestion>;
+  id: Scalars["ID"]["output"];
+};
+
+function isScreeningQuestionResponse(
+  response: ScreeningQuestionResponse | GeneralQuestionResponse,
+): response is ScreeningQuestionResponse {
+  return (
+    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
+  );
+}
+
 interface ApplicationInformationProps {
-  pool: Pool;
-  application?: PoolCandidate | null;
+  poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
+  application?:
+    | (PoolCandidate & {
+        screeningQuestionResponses?: Maybe<
+          Array<Maybe<ScreeningQuestionResponse>>
+        >;
+      })
+    | null;
   snapshot: User;
 }
 
 const ApplicationInformation = ({
-  pool,
+  poolQuery,
   snapshot,
   application,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
+  const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
   const [openSections, setOpenSections] = React.useState<string[]>([]);
   const hasOpenSections = openSections.length > 0;
 
@@ -51,9 +122,18 @@ const ApplicationInformation = ({
     setOpenSections(newValue);
   };
 
+  const generalQuestionResponses = unpackMaybes(
+    application?.generalQuestionResponses ?? [],
+  );
+
   const screeningQuestionResponses = unpackMaybes(
     application?.screeningQuestionResponses ?? [],
   );
+
+  const mergedQuestionResponses: (
+    | GeneralQuestionResponse
+    | ScreeningQuestionResponse
+  )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
 
   const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
   const technicalEssentialSkills = unpackMaybes(
@@ -154,13 +234,13 @@ const ApplicationInformation = ({
             <PersonalInformationDisplay user={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
-        {screeningQuestionResponses.length > 0 ? (
+        {mergedQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {screeningQuestionResponses.map((response, index) => (
+              {mergedQuestionResponses.map((response, index) => (
                 <React.Fragment key={response.id}>
                   <Heading
                     level="h4"
@@ -171,7 +251,9 @@ const ApplicationInformation = ({
                     })}
                   >
                     {getLocalizedName(
-                      response.screeningQuestion?.question,
+                      isScreeningQuestionResponse(response)
+                        ? response.screeningQuestion?.question
+                        : response.generalQuestion?.question,
                       intl,
                     )}
                   </Heading>

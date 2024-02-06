@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
@@ -16,18 +16,18 @@ import {
   CardBasic,
   Button,
   Link,
-  Chip,
+  Pill,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
-  PoolCandidate,
   Maybe,
   Pool,
   graphql,
   ArmedForcesStatus,
+  PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -35,6 +35,10 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import AdminHero from "~/components/Hero/AdminHero";
+import { getCandidateStatusPill } from "~/utils/poolCandidate";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -42,10 +46,17 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 
+const screeningAndAssessmentTitle = defineMessage({
+  defaultMessage: "Screening and assessment",
+  id: "R8Naqm",
+  description: "Heading for the information of an application",
+});
+
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       id
+      status
       user {
         id
         firstName
@@ -60,6 +71,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         preferredLanguageForExam
         hasPriorityEntitlement
         armedForcesStatus
+        priorityWeight
         poolCandidates {
           id
           status
@@ -152,20 +164,39 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
-        screeningQuestions {
+        generalQuestions {
           id
           question {
             en
             fr
           }
         }
+        assessmentSteps {
+          id
+          title {
+            en
+            fr
+          }
+          type
+          sortOrder
+          poolSkills {
+            id
+            type
+          }
+        }
+        ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
         id
         assessmentDecision
         assessmentResultType
+        assessmentStep {
+          id
+          type
+        }
         poolSkill {
           id
+          type
           skill {
             id
             key
@@ -196,7 +227,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 `);
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: PoolCandidate;
+  poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
   pools: Pool[];
 }
 
@@ -219,6 +250,11 @@ export const ViewPoolCandidate = ({
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
+  const statusPill = getCandidateStatusPill(
+    poolCandidate,
+    unpackMaybes(poolCandidate.pool.assessmentSteps),
+    intl,
+  );
 
   const sections: Record<string, SectionContent> = {
     statusForm: {
@@ -393,7 +429,7 @@ export const ViewPoolCandidate = ({
     mainContent = (
       <>
         <ApplicationInformation
-          pool={poolCandidate.pool}
+          poolQuery={poolCandidate.pool}
           snapshot={parsedSnapshot}
           application={snapshotCandidate}
         />
@@ -453,38 +489,76 @@ export const ViewPoolCandidate = ({
       data-h2-align-items="base(center)"
       data-h2-gap="base(x.5)"
     >
+      <Pill
+        mode="outline"
+        color={statusPill.color}
+        icon={statusPill.icon}
+        data-h2-font-weight="base(700)"
+      >
+        {statusPill.label}
+      </Pill>
       {poolCandidate.user.hasPriorityEntitlement ||
       poolCandidate.user.priorityWeight === 10 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Priority",
             id: "xGMcBO",
             description: "Label for priority chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
       {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
       poolCandidate.user.priorityWeight === 20 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Veteran",
             id: "16iCWc",
             description: "Label for veteran chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
     </div>
   );
 
+  const candidateName = getFullNameLabel(
+    poolCandidate.user.firstName,
+    poolCandidate.user.lastName,
+    intl,
+  );
+
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: paths.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage(indexPoolPageTitle),
+      url: paths.poolTable(),
+    },
+    {
+      label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+      url: paths.poolView(poolCandidate.pool.id),
+    },
+    {
+      label: intl.formatMessage(screeningAndAssessmentTitle),
+      url: paths.screeningAndEvaluation(poolCandidate.pool.id),
+    },
+    {
+      label: candidateName,
+      url: paths.poolCandidateApplication(poolCandidate.id),
+    },
+  ];
+
   return (
     <>
       <AdminHero
-        title={`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}
+        title={candidateName}
         contentRight={pills}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       >
         <ProfileDetails user={poolCandidate.user} />
       </AdminHero>
@@ -595,11 +669,7 @@ export const ViewPoolCandidate = ({
                 color="quaternary"
                 data-h2-margin="base(x.75, 0, x1, 0)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Screening and assessment",
-                  id: "R8Naqm",
-                  description: "Heading for the information of an application",
-                })}
+                {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
               <div>Coming soon!</div>
             </div>

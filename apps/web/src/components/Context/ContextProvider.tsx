@@ -16,6 +16,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
+import Toast from "@gc-digital-talent/toast";
 
 interface ContextContainerProps {
   messages: Messages;
@@ -28,6 +29,7 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
       <LocaleProvider>
         <AuthenticationProvider>
           <LanguageProvider messages={messages}>
+            <Toast />
             <ThemeProvider>
               <ClientProvider>
                 <AppInsightsProvider>

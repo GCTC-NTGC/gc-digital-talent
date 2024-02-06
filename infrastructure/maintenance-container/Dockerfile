@@ -26,7 +26,7 @@ RUN cd /usr/local/bin \
 RUN git config --global --add safe.directory /var/www/html
 
 # bump npm version
-RUN npm install --location=global npm@10.2.4
+RUN npm install --location=global npm@9.9.2
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer

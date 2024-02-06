@@ -1,6 +1,7 @@
 import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useQuery } from "urql";
 
 import {
   commonMessages,
@@ -19,12 +20,12 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-
 import {
-  Scalars,
-  GetAssessmentPlanBuilderDataQuery,
-  useGetAssessmentPlanBuilderDataQuery,
-} from "~/api/generated";
+  AssessmentPlanBuilderPageQuery,
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+import { Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
@@ -51,7 +52,7 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the assessment plan builder",
 });
 export interface AssessmentPlanBuilderProps {
-  pool: NonNullable<GetAssessmentPlanBuilderDataQuery["pool"]>;
+  pool: NonNullable<AssessmentPlanBuilderPageQuery["pool"]>;
   pageIsLoading: boolean;
 }
 
@@ -154,6 +155,70 @@ type RouteParams = {
   poolId: Scalars["ID"];
 };
 
+const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
+  query AssessmentPlanBuilderPage($poolId: UUID!) {
+    # the existing data of the pool to edit
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      publishedAt
+      poolSkills {
+        id
+        type
+        skill {
+          name {
+            en
+            fr
+          }
+          # three junk fields required by schema since non-nullable
+          id
+          category
+          key
+        }
+      }
+      assessmentSteps {
+        id
+        sortOrder
+        type
+        title {
+          en
+          fr
+        }
+        poolSkills {
+          id
+          type
+          skill {
+            name {
+              en
+              fr
+            }
+            # three junk fields required by schema since non-nullable
+            id
+            category
+            key
+          }
+        }
+      }
+      status
+      generalQuestions {
+        id
+        question {
+          en
+          fr
+        }
+        sortOrder
+      }
+      team {
+        id
+        name
+      }
+    }
+  }
+`);
+
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -177,7 +242,8 @@ export const AssessmentPlanBuilderPage = () => {
   }
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
-    useGetAssessmentPlanBuilderDataQuery({
+    useQuery({
+      query: AssessmentPlanBuilderPage_Query,
       variables: { poolId },
     });
 
@@ -210,8 +276,11 @@ export const AssessmentPlanBuilderPage = () => {
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
       (authorizedRoleAssignment) =>
-        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
-        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
   // figure out what content should be displayed

@@ -193,9 +193,8 @@ const Multi = ({
   }, [options]);
 
   const handleClear = () => {
-    if (onInputChange) {
-      onInputChange("");
-    }
+    setInputValue("");
+    onInputChange?.("");
     inputRef?.current?.focus();
   };
 

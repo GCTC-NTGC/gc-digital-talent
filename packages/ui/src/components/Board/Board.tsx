@@ -10,9 +10,9 @@ import Collapsible from "../Collapsible";
 import Counter from "../Button/Counter";
 import useControllableState from "../../hooks/useControllableState";
 import { BoardProvider, useBoardContext } from "./BoardProvider";
-import { ARROW_KEY } from "./constants";
-import { findColumns, isArrowKey } from "./utils";
+import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
+import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 
 type RootProps = React.HTMLProps<HTMLDivElement> & {
   defaultItem?: number;

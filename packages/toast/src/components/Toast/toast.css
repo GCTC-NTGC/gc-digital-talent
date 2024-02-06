@@ -6,7 +6,7 @@
 .Toastify__toast-container {
   position: fixed;
   width: calc(100vw - calc(2 * var(--toast-space)));
-  z-index: 9999; /* Display over everything else */
+  z-index: 999999; /* Display over everything else */
 }
 
 @media screen and (min-width: 48rem) {

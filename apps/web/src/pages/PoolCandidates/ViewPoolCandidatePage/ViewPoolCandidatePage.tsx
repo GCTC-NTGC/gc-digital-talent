@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -21,16 +22,15 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
 import {
+  ViewPoolCandidatesPageQuery,
+  graphql,
   User,
-  Scalars,
-  useGetPoolCandidateSnapshotQuery,
-  PoolCandidate,
   Maybe,
   SkillCategory,
-  Pool,
-} from "~/api/generated";
+  Scalars,
+} from "@gc-digital-talent/graphql";
+
 import {
   getFullPoolTitleHtml,
   getFullPoolTitleLabel,
@@ -58,8 +58,8 @@ import ApplicationPrintButton from "./components/ApplicationPrintButton/Applicat
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: PoolCandidate;
-  pools: Pool[];
+  poolCandidate: NonNullable<ViewPoolCandidatesPageQuery["poolCandidate"]>;
+  poolData: ViewPoolCandidatesPageQuery["pools"];
 }
 
 type SectionContent = {
@@ -70,10 +70,12 @@ type SectionContent = {
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
+  poolData,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const features = useFeatureFlags();
+
+  const pools = poolData.filter(notEmpty);
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -259,7 +261,7 @@ export const ViewPoolCandidate = ({
       mainContent = (
         <>
           <ApplicationInformation
-            pool={poolCandidate.pool}
+            poolQuery={poolCandidate.pool}
             snapshot={parsedSnapshot}
             application={snapshotCandidate}
           />
@@ -408,7 +410,7 @@ export const ViewPoolCandidate = ({
             >
               {sections.questions.title}
             </TableOfContents.Heading>
-            {snapshotCandidate?.screeningQuestionResponses
+            {snapshotCandidate?.generalQuestionResponses
               ?.filter(notEmpty)
               .map((response) => (
                 <React.Fragment key={response.id}>
@@ -418,7 +420,7 @@ export const ViewPoolCandidate = ({
                     data-h2-margin-bottom="base(x.5)"
                   >
                     {getLocalizedName(
-                      response?.screeningQuestion?.question,
+                      response?.generalQuestion?.question,
                       intl,
                     )}
                   </Heading>
@@ -741,7 +743,7 @@ export const ViewPoolCandidate = ({
                   >
                     {sections.statusForm.title}
                   </TableOfContents.Heading>
-                  <ApplicationStatusForm id={poolCandidate.id} />
+                  <ApplicationStatusForm candidateQuery={poolCandidate} />
                   <Separator
                     data-h2-background-color="base(black.lightest)"
                     data-h2-margin="base(x1, 0, 0, 0)"
@@ -773,7 +775,7 @@ export const ViewPoolCandidate = ({
                *
                * This is here to keep tests passing
                */}
-              <ApplicationStatusForm id={poolCandidate.id} />
+              <ApplicationStatusForm candidateQuery={poolCandidate} />
               {mainContent}
             </Sidebar.Content>
           </Sidebar.Wrapper>
@@ -783,15 +785,128 @@ export const ViewPoolCandidate = ({
   );
 };
 
+const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
+  query ViewPoolCandidatesPage($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      profileSnapshot
+      submittedAt
+      user {
+        id
+        firstName
+        lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
+        poolCandidates {
+          id
+          status
+          suspendedAt
+          expiryDate
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            publishingGroup
+            stream
+            classifications {
+              id
+              group
+              level
+            }
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+          user {
+            id
+          }
+        }
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        publishingGroup
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        ...ApplicationInformation_PoolFragment
+        ...ApplicationPrintDocument_PoolFragment
+      }
+      ...ApplicationStatusForm_PoolCandidateFragment
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      status
+      stream
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  poolId: Scalars["ID"];
-  poolCandidateId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
+  poolCandidateId: Scalars["ID"]["output"];
 };
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
-  const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewPoolCandidatesPage_Query,
     variables: { poolCandidateId },
   });
 
@@ -800,7 +915,7 @@ export const ViewPoolCandidatePage = () => {
       {data?.poolCandidate && data?.pools ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          pools={data.pools.filter(notEmpty)}
+          poolData={data.pools}
         />
       ) : (
         <AdminContentWrapper>

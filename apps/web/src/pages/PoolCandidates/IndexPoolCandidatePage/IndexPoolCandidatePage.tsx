@@ -1,14 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-
 import {
+  graphql,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
   Scalars,
-  useGetPoolQuery,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -16,8 +17,144 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
+
+const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
+  query IndexPoolCandidatePage($id: UUID!) {
+    me {
+      id
+      poolCandidates {
+        id
+        pool {
+          id
+        }
+        submittedAt
+      }
+    }
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      whatToExpect {
+        en
+        fr
+      }
+      specialNote {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishingGroup
+      generalQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+        contactEmail
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
@@ -25,7 +162,8 @@ export const IndexPoolCandidatePage = () => {
 
   const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
 
-  const [{ data, fetching, error }] = useGetPoolQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: IndexPoolCandidatePage_Query,
     variables: {
       id: poolId,
     },

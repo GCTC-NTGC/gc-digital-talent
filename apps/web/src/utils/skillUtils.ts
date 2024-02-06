@@ -223,7 +223,7 @@ export const differentiateMissingSkills = (
  */
 export const getExperienceSkills = (
   experiences: Experience[],
-  skill?: Skill,
+  skill?: Pick<Skill, "id">,
 ): Experience[] => {
   return experiences.filter(
     (experience) =>

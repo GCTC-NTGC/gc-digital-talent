@@ -1,14 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
+import { useQuery } from "urql";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import { Pool, useGetBasicPoolInfoQuery } from "~/api/generated";
-import { getFullPoolTitleLabel, useAdminPoolPages } from "~/utils/poolUtils";
+import { Pool } from "~/api/generated";
+import {
+  getAdvertisementStatus,
+  getPoolCompletenessBadge,
+  getFullPoolTitleLabel,
+  useAdminPoolPages,
+} from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -28,6 +35,9 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
+  const advertisementStatus = getAdvertisementStatus(pool);
+  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+
   return (
     <>
       <SEO title={currentPage?.title} />
@@ -41,10 +51,48 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
             url: page.link.url,
           })),
         }}
+        contentRight={
+          <Pill
+            bold
+            mode="outline"
+            color={advertisementBadge.color}
+            data-h2-flex-shrink="base(0)"
+          >
+            {intl.formatMessage(advertisementBadge.label)}
+          </Pill>
+        }
       />
     </>
   );
 };
+
+const PoolLayout_Query = graphql(/* GraphQL */ `
+  query PoolLayout($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      publishedAt
+      isComplete
+      team {
+        id
+        name
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 type RouteParams = {
   poolId: string;
@@ -52,7 +100,8 @@ type RouteParams = {
 
 const PoolLayout = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const [{ data, fetching, error }] = useGetBasicPoolInfoQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: PoolLayout_Query,
     variables: {
       poolId,
     },

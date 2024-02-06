@@ -3,13 +3,20 @@ import { useIntl } from "react-intl";
 
 import { Board } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Pool } from "@gc-digital-talent/graphql";
 
-import { Pool } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
+import {
+  ResultFilters,
+  filterResults,
+  groupPoolCandidatesByStep,
+  defaultFilters,
+} from "./utils";
+import Filters from "./Filters";
 
 export interface AssessmentStepTrackerProps {
   pool: Pool;
@@ -17,26 +24,31 @@ export interface AssessmentStepTrackerProps {
 
 const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
+  const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
+  const steps = unpackMaybes(pool.assessmentSteps);
+  const candidates = unpackMaybes(pool.poolCandidates);
+  const groupedSteps = groupPoolCandidatesByStep(steps, candidates);
+  const filteredSteps = filterResults(filters, groupedSteps);
 
   return (
-    <Board.Root>
-      {pool.assessmentSteps?.filter(notEmpty).map((step, index) => (
-        <Board.Column key={step.id}>
-          <Board.ColumnHeader
-            prefix={intl.formatMessage(applicationMessages.numberedStep, {
-              stepOrdinal: index + 1,
-            })}
-          >
-            {getLocalizedName(step.title, intl)}
-          </Board.ColumnHeader>
-          <ResultsDetails step={step} />
-          <AssessmentResults
-            stepType={step.type}
-            results={step.assessmentResults?.filter(notEmpty) ?? []}
-          />
-        </Board.Column>
-      ))}
-    </Board.Root>
+    <>
+      <Filters onFiltersChange={setFilters} />
+      <Board.Root>
+        {filteredSteps.map(({ step, resultCounts, results }, index) => (
+          <Board.Column key={step.id}>
+            <Board.ColumnHeader
+              prefix={intl.formatMessage(applicationMessages.numberedStep, {
+                stepOrdinal: index + 1,
+              })}
+            >
+              {getLocalizedName(step.title, intl)}
+            </Board.ColumnHeader>
+            <ResultsDetails {...{ resultCounts, step }} />
+            <AssessmentResults stepType={step.type} {...{ results }} />
+          </Board.Column>
+        ))}
+      </Board.Root>
+    </>
   );
 };
 

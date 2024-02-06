@@ -5,9 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": "20.11.0",
-    "npm": "10.2.4"
+    "npm": "9.9.2"
   },
-  "packageManager": "npm@10.2.4",
+  "packageManager": "npm@9.9.2",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -53,6 +53,6 @@
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.2",
     "prettier": "^3.1.1",
-    "turbo": "^1.11.3"
+    "turbo": "^1.12.2"
   }
 }

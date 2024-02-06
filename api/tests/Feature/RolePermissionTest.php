@@ -112,6 +112,7 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->hasRole('applicant'));
         $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
+            'view-own-applicationStatus',
             'submit-own-application',
             'create-own-draftApplication',
             'delete-own-draftApplication',
@@ -143,11 +144,16 @@ class RolePermissionTest extends TestCase
             'update-team-poolClosingDate',
             'delete-team-draftPool',
             'view-team-submittedApplication',
+            'view-team-applicationStatus',
             'update-team-applicationStatus',
+            'view-team-applicationNotes',
+            'update-team-applicationNotes',
             'view-team-teamMembers',
             'view-team-applicantProfile',
             'view-team-assessmentResult',
             'update-team-assessmentResult',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
         ];
 
         $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));
@@ -171,9 +177,15 @@ class RolePermissionTest extends TestCase
 
         $permissionsToCheck = [
             'view-any-submittedApplication',
+            'view-any-applicationStatus',
+            'update-any-applicationStatus',
+            'view-any-applicationNotes',
+            'update-any-applicationNotes',
             'view-any-searchRequest',
             'update-any-searchRequest',
             'delete-any-searchRequest',
+            'view-any-assessmentPlan',
+            'view-any-assessmentResult',
         ];
 
         $this->assertTrue($this->user->hasRole('request_responder'));

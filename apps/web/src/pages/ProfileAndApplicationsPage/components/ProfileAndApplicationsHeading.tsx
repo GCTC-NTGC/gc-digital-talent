@@ -18,7 +18,6 @@ import {
   ScrollToLink,
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
@@ -82,7 +81,6 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { skillLibrary: skillLibraryFlag } = useFeatureFlags();
 
   const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
   const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
@@ -286,15 +284,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
-        {...(skillLibraryFlag
-          ? {
-              "data-h2-grid-template-columns":
-                "base(100%) l-tablet(repeat(3, minmax(0, 1fr)))",
-            }
-          : {
-              "data-h2-grid-template-columns":
-                "base(100%) p-tablet(repeat(2, minmax(0, 1fr)))",
-            })}
+        data-h2-grid-template-columns="base(100%) l-tablet(repeat(3, minmax(0, 1fr)))"
       >
         <HeroCard
           asNav
@@ -457,56 +447,54 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
           />
         </HeroCard>
-        {skillLibraryFlag ? (
-          <HeroCard
-            color="quaternary"
-            title={intl.formatMessage(navigationMessages.skillLibrary)}
-            href={skillLibraryUrl}
-          >
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Behavioural skill library",
-                id: "yzqnvb",
-                description: "Title for behavioural skill library section",
-              })}
-              itemCount={behaviouralSkillLibraryCount}
-              status={behaviouralSkillLibraryStatus}
-              href={`${skillLibraryUrl}#behavioural`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Technical skill library",
-                id: "FEK54g",
-                description: "Title for technical skill library section",
-              })}
-              itemCount={technicalSkillLibraryCount}
-              status={technicalSkillLibraryStatus}
-              href={`${skillLibraryUrl}#technical`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Top skills",
-                id: "deiylo",
-                description: "Title for top skills showcase section",
-              })}
-              status={topSkillsStatus}
-              href={`${skillShowcaseUrl}#top-skills`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Skills to improve",
-                id: "FvbONe",
-                description: "Title for skills to improve showcase section",
-              })}
-              status={skillsToImproveStatus}
-              href={`${skillShowcaseUrl}#skills-to-improve`}
-            />
-          </HeroCard>
-        ) : null}
+        <HeroCard
+          color="quaternary"
+          title={intl.formatMessage(navigationMessages.skillLibrary)}
+          href={skillLibraryUrl}
+        >
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Behavioural skill library",
+              id: "yzqnvb",
+              description: "Title for behavioural skill library section",
+            })}
+            itemCount={behaviouralSkillLibraryCount}
+            status={behaviouralSkillLibraryStatus}
+            href={`${skillLibraryUrl}#behavioural`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Technical skill library",
+              id: "FEK54g",
+              description: "Title for technical skill library section",
+            })}
+            itemCount={technicalSkillLibraryCount}
+            status={technicalSkillLibraryStatus}
+            href={`${skillLibraryUrl}#technical`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Top skills",
+              id: "deiylo",
+              description: "Title for top skills showcase section",
+            })}
+            status={topSkillsStatus}
+            href={`${skillShowcaseUrl}#top-skills`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Skills to improve",
+              id: "FvbONe",
+              description: "Title for skills to improve showcase section",
+            })}
+            status={skillsToImproveStatus}
+            href={`${skillShowcaseUrl}#skills-to-improve`}
+          />
+        </HeroCard>
       </div>
     </Hero>
   );

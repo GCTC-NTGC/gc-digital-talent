@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
 import {
+  graphql,
   ApplicantFilterInput,
   CandidateSearchPoolResult,
   Pool,
-  useCountApplicantsAndCountPoolCandidatesByPoolQuery,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { FormValues, LocationState } from "~/types/searchRequest";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
@@ -40,6 +41,58 @@ export const useInitialFilters = (pools: Pool[]): UseInitialState => {
   };
 };
 
+const CandidateCount_Query = graphql(/* GraphQL */ `
+  query CandidateCount($where: ApplicantFilterInput) {
+    countApplicants(where: $where)
+    countPoolCandidatesByPool(where: $where) {
+      pool {
+        id
+        owner {
+          id
+          firstName
+          lastName
+        }
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          category
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+          departments {
+            id
+            departmentNumber
+            name {
+              en
+              fr
+            }
+          }
+        }
+      }
+      candidateCount
+    }
+  }
+`);
+
 type UseCandidateCountReturn = {
   fetching: boolean;
   candidateCount: number;
@@ -65,11 +118,11 @@ export const useCandidateCount = (
 
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
-  const [{ data, fetching }] =
-    useCountApplicantsAndCountPoolCandidatesByPoolQuery({
-      variables: queryArgs,
-      pause: !hasPools, // If filter does not include pools, we wil manually return 0 count.
-    });
+  const [{ data, fetching }] = useQuery({
+    query: CandidateCount_Query,
+    variables: queryArgs,
+    pause: !hasPools, // If filter does not include pools, we wil manually return 0 count.
+  });
 
   const candidateCount =
     hasPools && data?.countApplicants ? data.countApplicants : 0;

@@ -3,17 +3,31 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
+import sortBy from "lodash/sortBy";
 
 import { IconType } from "@gc-digital-talent/ui";
-
 import {
+  PoolCandidate,
   ArmedForcesStatus,
   AssessmentDecision,
-  AssessmentResult,
   Maybe,
-} from "~/api/generated";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
+  AssessmentStep,
+} from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import {
+  ResultDecisionCounts,
+  determineCandidateStatusPerStep,
+  determineCurrentStepPerCandidate,
+  getDecisionCountForEachStep,
+} from "~/utils/poolCandidate";
+
+export type CandidateAssessmentResult = {
+  poolCandidate: PoolCandidate;
+  decision: NullableDecision;
+};
 
 type DecisionInfo = {
   colorStyle: Record<string, string>;
@@ -42,12 +56,7 @@ export const getDecisionInfo = (
       colorStyle: {
         "data-h2-color": "base(warning)",
       },
-      name: intl.formatMessage({
-        defaultMessage: "On hold",
-        id: "qA8+f5",
-        description:
-          "Message displayed when candidate was unsuccessful but put on hold",
-      }),
+      name: intl.formatMessage(poolCandidateMessages.onHold),
     };
   }
 
@@ -58,18 +67,8 @@ export const getDecisionInfo = (
         "data-h2-color": "base(error)",
       },
       name: isApplicationStep
-        ? intl.formatMessage({
-            defaultMessage: "Screened out",
-            id: "3xCX4b",
-            description:
-              "Message displayed when candidate has been screened out at a specific assessment step",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Unsuccessful",
-            id: "TIAla1",
-            description:
-              "Message displayed when candidate has not passed an assessment step",
-          }),
+        ? intl.formatMessage(poolCandidateMessages.screenedOut)
+        : intl.formatMessage(poolCandidateMessages.unsuccessful),
     };
   }
 
@@ -79,42 +78,9 @@ export const getDecisionInfo = (
       "data-h2-color": "base(success)",
     },
     name: isApplicationStep
-      ? intl.formatMessage({
-          defaultMessage: "Screened in",
-          id: "3W/NbE",
-          description:
-            "Message displayed when candidate has been screened in at a specific assessment step",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Successful",
-          id: "Whq2Xl",
-          description:
-            "Message displayed when candidate has successfully passed an assessment step",
-        }),
+      ? intl.formatMessage(poolCandidateMessages.screenedIn)
+      : intl.formatMessage(poolCandidateMessages.successful),
   };
-};
-
-export type ResultDecisionCounts = Record<NullableDecision, number>;
-
-export const getResultDecisionCount = (results: AssessmentResult[]) => {
-  const stepAccumulation: ResultDecisionCounts = {
-    noDecision: 0,
-    [AssessmentDecision.Hold]: 0,
-    [AssessmentDecision.Successful]: 0,
-    [AssessmentDecision.Unsuccessful]: 0,
-  };
-
-  return results.reduce(
-    (accumulator: ResultDecisionCounts, assessmentResult: AssessmentResult) => {
-      const decision: NullableDecision =
-        assessmentResult.assessmentDecision ?? NO_DECISION;
-      return {
-        ...accumulator,
-        [decision]: accumulator[decision] + 1,
-      };
-    },
-    stepAccumulation,
-  );
 };
 
 export const decisionOrder: NullableDecision[] = [
@@ -124,47 +90,47 @@ export const decisionOrder: NullableDecision[] = [
   AssessmentDecision.Unsuccessful,
 ];
 
-const getBookmarkValue = (result: AssessmentResult & { ordinal?: number }) => {
+const getBookmarkValue = (result: CandidateAssessmentResult) => {
   return Number(result.poolCandidate?.isBookmarked);
 };
-const getDecisionValue = (result: AssessmentResult & { ordinal?: number }) => {
-  return decisionOrder.indexOf(result.assessmentDecision ?? NO_DECISION);
+const getDecisionValue = (decision: NullableDecision) => {
+  return decisionOrder.indexOf(decision ?? NO_DECISION);
 };
-const getPriorityValue = (result: AssessmentResult & { ordinal?: number }) => {
+const getPriorityValue = (result: CandidateAssessmentResult) => {
   return Number(result.poolCandidate?.user.hasPriorityEntitlement);
 };
-const getVeteranValue = (result: AssessmentResult & { ordinal?: number }) => {
+const getVeteranValue = (result: CandidateAssessmentResult) => {
   return Number(
     result.poolCandidate?.user.armedForcesStatus === ArmedForcesStatus.Veteran,
   );
 };
 const compareLastNames = (
-  resultA: AssessmentResult & { ordinal?: number },
-  resultB: AssessmentResult & { ordinal?: number },
+  resultA: CandidateAssessmentResult,
+  resultB: CandidateAssessmentResult,
 ) => {
   const user1Name: string = resultA.poolCandidate?.user.lastName || "";
   const user2Name: string = resultB.poolCandidate?.user.lastName || "";
   return user1Name.localeCompare(user2Name);
 };
 const compareFirstNames = (
-  resultA: AssessmentResult & { ordinal?: number },
-  resultB: AssessmentResult & { ordinal?: number },
+  resultA: CandidateAssessmentResult,
+  resultB: CandidateAssessmentResult,
 ) => {
   const user1Name: string = resultA.poolCandidate?.user.firstName || "";
   const user2Name: string = resultB.poolCandidate?.user.firstName || "";
   return user1Name.localeCompare(user2Name);
 };
 
-/** Adds the ordinal for candidates based on their sort order ignoring bookmarks
+/** Adds the ordinal for poolCandidates based on their sort order ignoring bookmarks
  * then resorts them with bookmarking and returns the result
  */
 export const sortResultsAndAddOrdinal = (
-  results: AssessmentResult[],
-): (AssessmentResult & { ordinal: number })[] => {
+  results: CandidateAssessmentResult[],
+): (CandidateAssessmentResult & { ordinal: number })[] => {
   // Do the first sort to determine order without bookmarking
   const firstSortResults = results.sort((resultA, resultB) => {
     return (
-      getDecisionValue(resultA) - getDecisionValue(resultB) ||
+      getDecisionValue(resultA.decision) - getDecisionValue(resultB.decision) ||
       getPriorityValue(resultB) - getPriorityValue(resultA) ||
       getVeteranValue(resultB) - getVeteranValue(resultA) ||
       compareLastNames(resultA, resultB) ||
@@ -184,11 +150,116 @@ export const sortResultsAndAddOrdinal = (
   return resultsWithOrdinal.sort((resultA, resultB) => {
     return (
       getBookmarkValue(resultB) - getBookmarkValue(resultA) ||
-      getDecisionValue(resultA) - getDecisionValue(resultB) ||
+      getDecisionValue(resultA.decision) - getDecisionValue(resultB.decision) ||
       getPriorityValue(resultB) - getPriorityValue(resultA) ||
       getVeteranValue(resultB) - getVeteranValue(resultA) ||
       compareLastNames(resultA, resultB) ||
       compareFirstNames(resultA, resultB)
     );
+  });
+};
+
+type StepWithGroupedCandidates = {
+  step: AssessmentStep;
+  resultCounts?: ResultDecisionCounts;
+  results: CandidateAssessmentResult[];
+};
+
+export const groupPoolCandidatesByStep = (
+  steps: AssessmentStep[],
+  candidates: PoolCandidate[],
+): StepWithGroupedCandidates[] => {
+  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const candidateResults = determineCandidateStatusPerStep(
+    candidates,
+    orderedSteps,
+  );
+  const candidateCurrentSteps = determineCurrentStepPerCandidate(
+    candidateResults,
+    steps,
+  );
+  const stepCounts = getDecisionCountForEachStep(
+    steps,
+    candidateResults,
+    candidateCurrentSteps,
+  );
+
+  const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
+    orderedSteps.map((step, index) => {
+      const resultCounts = stepCounts.get(step.id);
+
+      const stepCandidates = Array.from(candidateResults.keys()).filter(
+        (id) => {
+          const currentStep = candidateCurrentSteps.get(id);
+          if (typeof currentStep === "undefined") return false;
+          return currentStep === null || currentStep >= index;
+        },
+      );
+
+      const results: CandidateAssessmentResult[] = stepCandidates
+        .map((id) => {
+          const poolCandidate = candidates.find(
+            (candidate) => candidate.id === id,
+          );
+          const decisions = candidateResults.get(id);
+          return poolCandidate
+            ? {
+                poolCandidate,
+                decision: decisions?.get(step.id) ?? NO_DECISION,
+              }
+            : undefined;
+        })
+        .filter(notEmpty);
+
+      return {
+        step,
+        resultCounts,
+        results,
+      };
+    });
+
+  return stepsWithGroupedCandidates;
+};
+
+export type ResultFilters = {
+  query: string;
+  [NO_DECISION]: boolean;
+  [AssessmentDecision.Successful]: boolean;
+  [AssessmentDecision.Hold]: boolean;
+  [AssessmentDecision.Unsuccessful]: boolean;
+};
+
+export const defaultFilters: ResultFilters = {
+  query: "",
+  [NO_DECISION]: true,
+  [AssessmentDecision.Successful]: true,
+  [AssessmentDecision.Hold]: true,
+  [AssessmentDecision.Unsuccessful]: true,
+};
+
+export const filterResults = (
+  filters: ResultFilters,
+  steps: StepWithGroupedCandidates[],
+): StepWithGroupedCandidates[] => {
+  return steps.map((step) => {
+    const filteredResults = step.results.filter(
+      ({ poolCandidate: { user }, decision }) => {
+        if (filters.query) {
+          const fullName = [user.firstName, user.lastName]
+            .filter(notEmpty)
+            .join(" ");
+          if (!fullName.includes(filters.query)) {
+            return false;
+          }
+        }
+
+        return filters[decision];
+      },
+    );
+
+    return {
+      ...step,
+      results: filteredResults,
+    };
   });
 };

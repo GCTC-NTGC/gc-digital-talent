@@ -21,7 +21,7 @@ describe("Pools", () => {
    * Check for success toast
    */
   const expectUpdate = () => {
-    cy.wait("@gqlupdatePoolMutation")
+    cy.wait("@gqlUpdatePoolMutation")
       .its("response.body.data.updatePool")
       .should("have.property", "id");
     cy.expectToast(/pool updated successfully/i);
@@ -29,15 +29,15 @@ describe("Pools", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "getEditPoolData");
-      aliasQuery(req, "getMePoolCreation");
-      aliasQuery(req, "GetProcessInfo");
-      aliasQuery(req, "allPools");
-      aliasMutation(req, "createPool");
-      aliasMutation(req, "updatePool");
+      aliasQuery(req, "EditPoolPage");
+      aliasQuery(req, "CreatePoolPage");
+      aliasQuery(req, "ViewPoolPage");
+      aliasQuery(req, "PoolTable");
+      aliasMutation(req, "CreatePool");
+      aliasMutation(req, "UpdatePool");
       aliasMutation(req, "publishPool");
       aliasMutation(req, "closePool");
-      aliasMutation(req, "deletePool");
+      aliasMutation(req, "DeletePool");
     });
   });
 
@@ -76,7 +76,7 @@ describe("Pools", () => {
   it("Should show teams pools if user has pool operator role", () => {
     loginAndGoToPoolsPage("pool_operator");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -85,7 +85,7 @@ describe("Pools", () => {
   it("Should show all pools if user has platform admin role", () => {
     loginAndGoToPoolsPage("platform_admin");
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("heading", { name: /processes/i }).should("exist");
     cy.findByRole("table").should("exist");
@@ -94,11 +94,11 @@ describe("Pools", () => {
   it("should create a new pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("link", { name: /create pool/i }).click();
 
-    cy.wait("@gqlgetMePoolCreationQuery");
+    cy.wait("@gqlCreatePoolPageQuery");
 
     // Ensure we got to the correct page
     cy.findByRole("heading", { name: /create pool/i })
@@ -131,19 +131,19 @@ describe("Pools", () => {
 
     // Submit form
     cy.findByRole("button", { name: /create new pool/i }).click();
-    cy.wait("@gqlcreatePoolMutation");
+    cy.wait("@gqlCreatePoolMutation");
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /advertisement information/i })
-      .should("exist")
-      .and("be.visible");
-
     cy.findByText("Digital Community Management")
       .should("exist")
       .and("be.visible");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click();
+    cy.findByRole("heading", { name: /basic information/i })
+      .should("exist")
+      .and("be.visible");
+
+    cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Update the classification field
     cy.findByRole("combobox", { name: /classification/i }).select(
@@ -158,20 +158,16 @@ describe("Pools", () => {
     });
 
     const title = "Test Pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
-      `${title} EN`,
-    );
+    cy.findByRole("textbox", { name: /Job title \(EN\)/i }).type(`${title} EN`);
 
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).should(
+    cy.findByRole("textbox", { name: /Job title \(EN\)/i }).should(
       "have.value",
       `${title} EN`,
     );
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i }).type(
-      `${title} FR`,
-    );
+    cy.findByRole("textbox", { name: /Job title \(FR\)/i }).type(`${title} FR`);
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i }).should(
+    cy.findByRole("textbox", { name: /Job title \(FR\)/i }).should(
       "have.value",
       `${title} FR`,
     );
@@ -185,7 +181,7 @@ describe("Pools", () => {
     });
 
     // Submit the form
-    cy.findByRole("button", { name: /save pool name/i }).click();
+    cy.findByRole("button", { name: /save advertisement details/i }).click();
     expectUpdate();
 
     cy.findByRole("button", { name: /edit closing date/i }).click();
@@ -202,7 +198,7 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
 
-    cy.findByRole("button", { name: /edit other requirements/i }).click();
+    cy.findByRole("button", { name: /edit core requirements/i }).click();
 
     const langRequirement = "Bilingual intermediate";
     cy.findByRole("combobox", { name: /language requirement/i }).select(
@@ -220,7 +216,7 @@ describe("Pools", () => {
       cy.get("option:selected").should("have.text", securityRequirement);
     });
 
-    cy.findByRole("button", { name: /save other requirements/i }).click();
+    cy.findByRole("button", { name: /save core requirements/i }).click();
     expectUpdate();
   });
 
@@ -230,7 +226,7 @@ describe("Pools", () => {
   it("should update the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
@@ -240,31 +236,26 @@ describe("Pools", () => {
       .first()
       .click();
 
-    cy.wait("@gqlgetEditPoolDataQuery");
+    cy.wait("@gqlEditPoolPageQuery");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click();
+    cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Set a process number
     const processNumber = "process 123";
     cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
 
     const title = "New test pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).clear();
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
-      `${title} EN`,
-    );
+    cy.findByRole("textbox", { name: /job title \(EN\)/i }).clear();
+    cy.findByRole("textbox", { name: /job title \(EN\)/i }).type(`${title} EN`);
 
     // Submit the form
-    cy.findByRole("button", { name: /save pool name/i }).click();
+    cy.findByRole("button", { name: /save advertisement details/i }).click();
     expectUpdate();
 
     // Navigate to view pool page
     cy.findAllByRole("link", { name: /Process information/i })
       .first()
       .click();
-
-    // Confirm process number has new value
-    cy.findByRole("heading", { name: /new test pool/i });
   });
 
   /**
@@ -273,7 +264,7 @@ describe("Pools", () => {
   it("should delete the pool", () => {
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     // Navigate to edit pool page
     cy.findByRole("button", { name: /show 10/i }).click();
@@ -283,7 +274,7 @@ describe("Pools", () => {
       .first()
       .click();
 
-    cy.wait("@gqlGetProcessInfoQuery");
+    cy.wait("@gqlViewPoolPageQuery");
 
     cy.findByRole("button", { name: /delete/i }).click();
 
@@ -294,7 +285,7 @@ describe("Pools", () => {
         cy.findByRole("button", { name: /delete/i }).click();
       });
 
-    cy.wait("@gqldeletePoolMutation");
+    cy.wait("@gqlDeletePoolMutation");
 
     cy.expectToast(/pool deleted successfully/i);
   });

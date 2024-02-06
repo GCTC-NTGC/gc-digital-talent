@@ -449,6 +449,17 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
+        // Assert request responder can view notes
+        $this->actingAs($this->requestResponderUser, 'api')
+            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'notes' => $candidate->notes,
+                    ],
+                ],
+            ]);
+
         // Assert admin can view notes
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
@@ -460,7 +471,7 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert applicant can query candidate
+        // Assert applicant can query candidate, but not access notes
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($basicQuery, ['id' => $candidate->id])
             ->assertJson([
@@ -470,9 +481,7 @@ class PoolCandidateTest extends TestCase
                     ],
                 ],
             ]);
-
-        // Assert request responder cannot query candidate notes
-        $this->actingAs($this->requestResponderUser, 'api')
+        $this->actingAs($this->applicantUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
@@ -480,10 +489,77 @@ class PoolCandidateTest extends TestCase
         $this->actingAs($this->unAssociatedTeamUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
 
-        // Assert applicant cannot query candidate notes
+    /**
+     * Status access permissions are similar to notes, except a candidate can see their own status
+     */
+    public function testStatusAccess(): void
+    {
+        $candidate = PoolCandidate::factory()->create([
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $statusQuery = /** @lang GraphQL */
+        '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    status
+                }
+            }
+         ';
+
+        // Assert team member can view status
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => $candidate->pool_candidate_status,
+                    ],
+                ],
+            ]);
+
+        // Assert request responder can view status
+        $this->actingAs($this->requestResponderUser, 'api')
+            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => $candidate->pool_candidate_status,
+                    ],
+                ],
+            ]);
+
+        // Assert admin can view status
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => $candidate->pool_candidate_status,
+                    ],
+                ],
+            ]);
+
+        // Assert applicant can access status
         $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => $candidate->pool_candidate_status,
+                    ],
+                ],
+            ]);
+
+        // Assert an unassociated pool operator cannot query candidate status
+        $this->actingAs($this->unAssociatedTeamUser, 'api')
+            ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

@@ -28,17 +28,19 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
-
 import {
+  graphql,
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
   User,
   BilingualEvaluation,
   IndigenousCommunity,
-  Pool,
   SkillCategory,
-} from "~/api/generated";
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
@@ -52,7 +54,7 @@ import EducationRequirementExperience from "./EducationRequirementExperience";
 
 interface ApplicationPrintDocumentProps {
   user: User;
-  pool: Pool;
+  poolQuery: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -73,12 +75,30 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationPrintDocument_PoolFragment on Pool {
+    id
+    essentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+  }
+`);
+
 const ApplicationPrintDocument = React.forwardRef<
   HTMLDivElement,
   ApplicationPrintDocumentProps
->(({ user, pool }, ref) => {
+>(({ user, poolQuery }, ref) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const pool = getFragment(ApplicationPrintDocument_PoolFragment, poolQuery);
 
   // data manipulation
   // pull pool candidate for the pool in question out of snapshot
@@ -249,7 +269,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     poolEssentialTechnicalSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -269,7 +289,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     usedAssetsSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -282,13 +302,13 @@ const ApplicationPrintDocument = React.forwardRef<
                     {intl.formatMessage(processMessages.screeningQuestions)}
                   </Heading>
                   <ul>
-                    {relevantPoolCandidate.screeningQuestionResponses?.map(
+                    {relevantPoolCandidate.generalQuestionResponses?.map(
                       (instance) => {
                         return (
                           <li key={instance?.id}>
                             <p data-h2-font-weight="base(700)">
                               {getLocalizedName(
-                                instance?.screeningQuestion?.question,
+                                instance?.generalQuestion?.question,
                                 intl,
                               )}
                             </p>
