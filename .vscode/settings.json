@@ -100,7 +100,7 @@
          "--rm",
          "--workdir=/var/www/html",
          "maintenance",
-         "bash",
+         "bash"
       ],
       "overrideName": true,
       "icon": "terminal-ubuntu"
