@@ -1,12 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  category: {
-    defaultMessage: "Category",
-    id: "qrDCTV",
-    description:
-      "Title displayed for the Pool Candidates table Priority column.",
-  },
   view: {
     defaultMessage: "View",
     id: "VhBuJ/",

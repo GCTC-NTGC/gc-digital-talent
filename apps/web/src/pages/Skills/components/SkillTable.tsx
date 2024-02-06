@@ -82,12 +82,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
       id: "category",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Category",
-        id: "m5RwGF",
-        description:
-          "Title displayed for the Skill Family table Category column.",
-      }),
+      header: intl.formatMessage(adminMessages.category),
     }),
   ] as ColumnDef<Skill>[];
 

@@ -178,12 +178,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="priorityWeight"
           name="priorityWeight"
-          legend={intl.formatMessage({
-            defaultMessage: "Category",
-            id: "qrDCTV",
-            description:
-              "Title displayed for the Pool Candidates table Priority column.",
-          })}
+          legend={intl.formatMessage(adminMessages.category)}
           items={Object.keys(poolCandidatePriorities).map((key) => ({
             value: Number(key),
             label: intl.formatMessage(

@@ -236,12 +236,7 @@ export const UpdateSkillForm = ({
           <Select
             id="category"
             name="category"
-            label={intl.formatMessage({
-              defaultMessage: "Category",
-              id: "KZR3ad",
-              description:
-                "Label displayed on the skill family form category field.",
-            })}
+            label={intl.formatMessage(adminMessages.category)}
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a category",
               id: "+hRCVl",

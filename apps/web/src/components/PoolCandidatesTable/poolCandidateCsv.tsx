@@ -227,11 +227,7 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "priority",
-      displayName: intl.formatMessage({
-        defaultMessage: "Category",
-        id: "o9B983",
-        description: "CSV Header, Priority column",
-      }),
+      displayName: intl.formatMessage(adminMessages.category),
     },
     {
       id: "availability",

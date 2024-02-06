@@ -3911,10 +3911,6 @@
     "defaultMessage": "Que sont les recrutements en bassin?",
     "description": "Title for accordion describing pool recruitments"
   },
-  "KZR3ad": {
-    "defaultMessage": "Catégorie",
-    "description": "Label displayed on the skill family form category field."
-  },
   "KZk48E": {
     "defaultMessage": "Sauvegarder et poursuivre",
     "description": "Button text to save an application step and continue to the next one"
@@ -5158,6 +5154,10 @@
   "S2if5C": {
     "defaultMessage": "Questionnaire sauvegardé avec succès.",
     "description": "Message displayed to user if the questionnaire was saved successfully."
+  },
+  "S6x9Sg": {
+    "defaultMessage": "Catégorie",
+    "description": "Title for category"
   },
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
@@ -8635,10 +8635,6 @@
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
   },
-  "m5RwGF": {
-    "defaultMessage": "Catégorie",
-    "description": "Title displayed for the Skill Family table Category column."
-  },
   "m7ppfC": {
     "defaultMessage": "Titre spécifique (français)",
     "description": "Label for a process' French title"
@@ -9075,10 +9071,6 @@
     "defaultMessage": "Créer<hidden> des équipes</hidden>",
     "description": "Breadcrumb title for the create team page link."
   },
-  "o9B983": {
-    "defaultMessage": "Catégorie",
-    "description": "CSV Header, Priority column"
-  },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
@@ -9470,10 +9462,6 @@
   "qqkQ/h": {
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision dialog header"
-  },
-  "qrDCTV": {
-    "defaultMessage": "Catégorie",
-    "description": "Title displayed for the Pool Candidates table Priority column."
   },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",

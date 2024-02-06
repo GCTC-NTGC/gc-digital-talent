@@ -447,7 +447,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "priority",
-        header: intl.formatMessage(tableMessages.category),
+        header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
             original: {
