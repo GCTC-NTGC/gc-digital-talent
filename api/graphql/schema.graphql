@@ -173,6 +173,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @can(ability: "view", resolved: true)
+    @guard
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
@@ -256,16 +257,20 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
-  status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  statusWeight: Int @rename(attribute: "status_weight")
-  notes: String @canOnParent(ability: "viewAssessmentResults")
+  status: PoolCandidateStatus
+    @rename(attribute: "pool_candidate_status")
+    @canOnParent(ability: "viewStatus")
+  statusWeight: Int
+    @rename(attribute: "status_weight")
+    @canOnParent(ability: "viewStatus")
+  notes: String @canOnParent(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
-    @canOnParent(ability: "viewAssessmentResults")
+    @canOnParent(ability: "viewNotes")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -1531,11 +1536,19 @@ type Mutation {
   updatePoolCandidateAsAdmin(
     id: ID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate @update @guard @can(ability: "updateAsAdmin", find: "id")
+  ): PoolCandidate
+    @update
+    @guard
+    @can(ability: "updateAsAdmin", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
-    @can(ability: "updateAsAdmin", find: "id", model: "poolCandidate")
+    @can(
+      ability: "updateAsAdmin"
+      find: "id"
+      model: "PoolCandidate"
+      injectArgs: true
+    )
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard

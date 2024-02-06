@@ -5,7 +5,7 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -33,7 +33,7 @@ export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
-const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
+const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
 
 const SpecialNoteSection = ({
   pool,
@@ -47,6 +47,7 @@ const SpecialNoteSection = ({
     isNull,
     emptyRequired: false, // Not a required field
     fallbackIcon: NewspaperIcon,
+    optional: true,
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -101,8 +102,8 @@ const SpecialNoteSection = ({
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
-        level="h3"
-        size="h5"
+        level="h2"
+        size="h3"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
@@ -112,15 +113,19 @@ const SpecialNoteSection = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          <Display pool={pool} subtitle={subtitle} />
+          {isNull ? (
+            <ToggleForm.NullDisplay optional />
+          ) : (
+            <Display pool={pool} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin="base(x1 0)">
+              <div data-h2-margin-bottom="base(x1)">
                 <Checkbox
                   id="has-special-note"
                   name="hasSpecialNote"
@@ -133,8 +138,8 @@ const SpecialNoteSection = ({
                   })}
                   label={intl.formatMessage({
                     defaultMessage:
-                      "I need a special note. I have reviewed my job advertisement preview and I confirm that this information is not covered anywhere else on the job advertisement.",
-                    id: "BMJeFv",
+                      "“I need a special note. I have reviewed my job advertisement preview and I confirm that this information is not covered anywhere else on the job advertisement.”",
+                    id: "XgmS+Y",
                     description:
                       "Checkbox selection that confirms need for a special note on edit page.",
                   })}
@@ -182,7 +187,8 @@ const SpecialNoteSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save special note",
                       id: "SH3WsZ",
                       description:

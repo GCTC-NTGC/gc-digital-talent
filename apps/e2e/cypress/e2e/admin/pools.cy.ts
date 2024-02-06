@@ -135,15 +135,15 @@ describe("Pools", () => {
     cy.expectToast(/pool created successfully/i);
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /advertisement information/i })
-      .should("exist")
-      .and("be.visible");
-
     cy.findByText("Digital Community Management")
       .should("exist")
       .and("be.visible");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click();
+    cy.findByRole("heading", { name: /basic information/i })
+      .should("exist")
+      .and("be.visible");
+
+    cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Update the classification field
     cy.findByRole("combobox", { name: /classification/i }).select(
@@ -158,20 +158,16 @@ describe("Pools", () => {
     });
 
     const title = "Test Pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
-      `${title} EN`,
-    );
+    cy.findByRole("textbox", { name: /Job title \(EN\)/i }).type(`${title} EN`);
 
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).should(
+    cy.findByRole("textbox", { name: /Job title \(EN\)/i }).should(
       "have.value",
       `${title} EN`,
     );
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i }).type(
-      `${title} FR`,
-    );
+    cy.findByRole("textbox", { name: /Job title \(FR\)/i }).type(`${title} FR`);
 
-    cy.findByRole("textbox", { name: /specific title \(french\)/i }).should(
+    cy.findByRole("textbox", { name: /Job title \(FR\)/i }).should(
       "have.value",
       `${title} FR`,
     );
@@ -185,7 +181,7 @@ describe("Pools", () => {
     });
 
     // Submit the form
-    cy.findByRole("button", { name: /save pool name/i }).click();
+    cy.findByRole("button", { name: /save advertisement details/i }).click();
     expectUpdate();
 
     cy.findByRole("button", { name: /edit closing date/i }).click();
@@ -202,7 +198,7 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /save closing date/i }).click();
     expectUpdate();
 
-    cy.findByRole("button", { name: /edit other requirements/i }).click();
+    cy.findByRole("button", { name: /edit core requirements/i }).click();
 
     const langRequirement = "Bilingual intermediate";
     cy.findByRole("combobox", { name: /language requirement/i }).select(
@@ -220,7 +216,7 @@ describe("Pools", () => {
       cy.get("option:selected").should("have.text", securityRequirement);
     });
 
-    cy.findByRole("button", { name: /save other requirements/i }).click();
+    cy.findByRole("button", { name: /save core requirements/i }).click();
     expectUpdate();
   });
 
@@ -242,29 +238,24 @@ describe("Pools", () => {
 
     cy.wait("@gqlEditPoolPageQuery");
 
-    cy.findByRole("button", { name: /edit pool name/i }).click();
+    cy.findByRole("button", { name: /edit advertisement details/i }).click();
 
     // Set a process number
     const processNumber = "process 123";
     cy.findByRole("textbox", { name: /process number/i }).type(processNumber);
 
     const title = "New test pool";
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).clear();
-    cy.findByRole("textbox", { name: /specific title \(english\)/i }).type(
-      `${title} EN`,
-    );
+    cy.findByRole("textbox", { name: /job title \(EN\)/i }).clear();
+    cy.findByRole("textbox", { name: /job title \(EN\)/i }).type(`${title} EN`);
 
     // Submit the form
-    cy.findByRole("button", { name: /save pool name/i }).click();
+    cy.findByRole("button", { name: /save advertisement details/i }).click();
     expectUpdate();
 
     // Navigate to view pool page
     cy.findAllByRole("link", { name: /Process information/i })
       .first()
       .click();
-
-    // Confirm process number has new value
-    cy.findByRole("heading", { name: /new test pool/i });
   });
 
   /**

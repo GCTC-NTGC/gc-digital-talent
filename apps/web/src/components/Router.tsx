@@ -891,83 +891,83 @@ const createRoute = (
                       children: [
                         {
                           index: true,
-                          element: featureFlags.skillLibrary ? (
+                          element: (
                             <RequireAuth
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <SkillLibraryPage />
                             </RequireAuth>
-                          ) : null,
+                          ),
                         },
                         {
                           path: ":skillId",
-                          element: featureFlags.skillLibrary ? (
+                          element: (
                             <RequireAuth
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <UpdateUserSkillPage />
                             </RequireAuth>
-                          ) : null,
+                          ),
                         },
                         {
                           path: "showcase",
                           children: [
                             {
                               index: true,
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <SkillShowcasePage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "top-5-behavioural-skills",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <TopBehaviouralSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "top-10-technical-skills",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <TopTechnicalSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "3-behavioural-skills-to-improve",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ImproveBehaviouralSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "5-technical-skills-to-train",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ImproveTechnicalSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                           ],
                         },
@@ -1550,6 +1550,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}

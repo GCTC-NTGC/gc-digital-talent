@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -120,11 +120,17 @@ export const UpdateUserSkillForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
   const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
+  const from = searchParams.get("from");
+  const fromShowcase = from && from === "showcase";
+  const returnPath = fromShowcase
+    ? paths.skillShowcase()
+    : paths.skillLibrary();
 
   const availableExperiences = experiences.filter(
     (exp) =>
@@ -150,7 +156,7 @@ export const UpdateUserSkillForm = ({
           description: "Message displayed when a user updates a skill",
         }),
     );
-    navigate(paths.skillLibrary());
+    navigate(returnPath);
   };
 
   const handleError = (msg?: React.ReactNode) => {
@@ -223,10 +229,19 @@ export const UpdateUserSkillForm = ({
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
+
     {
       label: intl.formatMessage(navigationMessages.skillLibrary),
       url: paths.skillLibrary(),
     },
+    ...(fromShowcase
+      ? [
+          {
+            label: intl.formatMessage(navigationMessages.skillShowcase),
+            url: paths.skillShowcase(),
+          },
+        ]
+      : []),
     {
       label: skillName,
       url: paths.editUserSkill(skill.id),

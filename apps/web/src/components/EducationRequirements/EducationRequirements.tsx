@@ -46,7 +46,8 @@ const Or = (props: React.HTMLProps<HTMLDivElement>) => {
   return (
     <span
       aria-hidden="true"
-      data-h2-background-color="base(white)"
+      data-h2-background-color="base(secondary)"
+      data-h2-color="base(black)"
       data-h2-display="base(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"

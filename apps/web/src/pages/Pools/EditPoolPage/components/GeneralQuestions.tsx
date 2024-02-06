@@ -148,8 +148,8 @@ const GeneralQuestions = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "You have reached the maximum amount ({maxItems}) of screening questions per poster.",
-            id: "Kklz7F",
+              "You have reached the maximum amount ({maxItems}) of general questions per poster.",
+            id: "scMsVu",
             description:
               "Message displayed when a user adds the maximum number of questions",
           },
@@ -160,9 +160,9 @@ const GeneralQuestions = ({
         {intl.formatMessage({
           defaultMessage:
             "Remember, applicants will submit information on how they meet each skill requirement through the regular application process.",
-          id: "fNYEBT",
+          id: "0C6Skt",
           description:
-            "Disclaimer reminding admins of how the application process works when they reach the maximum screening questions",
+            "Disclaimer reminding admins of how the application process works when they reach the maximum general questions",
         })}
       </p>
     </>
@@ -177,9 +177,9 @@ const GeneralQuestions = ({
         {intl.formatMessage({
           defaultMessage:
             "Include up to 3 questions in your application process.",
-          id: "P3WkJv",
+          id: "EUUVNl",
           description:
-            "Helper message indicating max screening questions allowed",
+            "Helper message indicating max general questions allowed",
         })}
       </p>
       <FormProvider {...methods}>
@@ -199,8 +199,8 @@ const GeneralQuestions = ({
               });
             }}
             addText={intl.formatMessage({
-              defaultMessage: "Add screening question",
-              id: "vf7/Xq",
+              defaultMessage: "Add general questions",
+              id: "gLaBpz",
               description: "Button text to add a new screening question",
             })}
             customNullMessage={customNullMessage}
@@ -219,9 +219,9 @@ const GeneralQuestions = ({
                 disabled={formDisabled}
                 legend={intl.formatMessage(
                   {
-                    defaultMessage: "Screening question {index}",
-                    id: "s+ObMR",
-                    description: "Legend for screening question fieldset",
+                    defaultMessage: "General questions {index}",
+                    id: "Ca/BTI",
+                    description: "Legend for general questions fieldset",
                   },
                   {
                     index: index + 1,
@@ -268,10 +268,10 @@ const GeneralQuestions = ({
           {!formDisabled && (
             <Submit
               text={intl.formatMessage({
-                defaultMessage: "Save screening questions",
-                id: "lTkp5g",
+                defaultMessage: "Save general questions",
+                id: "+rcdSM",
                 description:
-                  "Text on a button to save the pool screening questions",
+                  "Text on a button to save the pool general questions",
               })}
               color="secondary"
               mode="solid"
