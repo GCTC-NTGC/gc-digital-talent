@@ -26,6 +26,11 @@ const messages = defineMessages({
     id: "+d/NdU",
     description: "Title for departments",
   },
+  team: {
+    defaultMessage: "Team",
+    id: "kKSGje",
+    description: "Title for team",
+  },
   pools: {
     defaultMessage: "Pools",
     id: "Myfw+L",

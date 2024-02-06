@@ -132,11 +132,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       (row) => getLocalizedName(row.team?.displayName, intl, true),
       {
         id: "team",
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "fCXZ4R",
-          description: "Title displayed for the Pool table Team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         sortingFn: normalizedText,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(

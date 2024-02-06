@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -64,11 +65,7 @@ export const TeamTable = ({
     columnHelper.accessor((team) => getLocalizedName(team.displayName, intl), {
       id: "teamName",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Team",
-        id: "KIWVbp",
-        description: "Title displayed for the teams table team column.",
-      }),
+      header: intl.formatMessage(adminMessages.team),
       cell: ({ row: { original: team }, getValue }) =>
         viewCell(paths.teamView(team.id), getValue(), intl, currentUrl),
       meta: {

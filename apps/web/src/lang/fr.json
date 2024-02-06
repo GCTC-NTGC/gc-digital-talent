@@ -403,10 +403,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0AaeXe": {
-    "defaultMessage": "Équipe",
-    "description": "Label for the team select field on team membership form"
-  },
   "0C6Skt": {
     "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
     "description": "Disclaimer reminding admins of how the application process works when they reach the maximum general questions"
@@ -986,10 +982,6 @@
   "3HKoKM": {
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
-  },
-  "3IZ3mN": {
-    "defaultMessage": "Équipe",
-    "description": "Title displayed for the role table display team column"
   },
   "3JL02L": {
     "defaultMessage": "Décerné à :",
@@ -3315,10 +3307,6 @@
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
     "description": "Toast for failed add user to pool on view-user page"
   },
-  "GaMSN8": {
-    "defaultMessage": "Équipe",
-    "description": "Label for the input to select team of a team role"
-  },
   "GaX7sd": {
     "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 5 à 10 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
@@ -3894,10 +3882,6 @@
   "KFdDjj": {
     "defaultMessage": "25 000 $ à 50 000 $",
     "description": "Contract value range between twenty-five-thousand and fifty-thousand"
-  },
-  "KIWVbp": {
-    "defaultMessage": "Équipe",
-    "description": "Title displayed for the teams table team column."
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -7467,10 +7451,6 @@
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
   },
-  "fCXZ4R": {
-    "defaultMessage": "Équipe",
-    "description": "Title displayed for the Pool table Team column"
-  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -8426,6 +8406,10 @@
   "kK1Z9U": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for the browse executive jobs section"
+  },
+  "kKSGje": {
+    "defaultMessage": "Équipe",
+    "description": "Title for team"
   },
   "kLGIuJ": {
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
