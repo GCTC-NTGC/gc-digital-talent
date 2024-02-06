@@ -5203,6 +5203,10 @@
     "defaultMessage": "Bref résumé des compétences",
     "description": "Title for skills quick summary sidebar"
   },
+  "RTR3mh": {
+    "defaultMessage": "Bêta",
+    "description": "Label to indicate a feature is in beta"
+  },
   "RTf/0v": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
     "description": "Text notifying user which role will be removed from the user"
