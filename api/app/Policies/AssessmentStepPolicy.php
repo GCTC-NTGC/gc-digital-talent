@@ -55,6 +55,22 @@ class AssessmentStepPolicy
     }
 
     /**
+     * Determine whether the user can view assessment step
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view(User $user, AssessmentStep $assessmentStep)
+    {
+        if ($user->isAbleTo('view-any-assessmentPlan')) {
+            return true;
+        }
+
+        $assessmentStep->loadMissing('pool.team');
+
+        return $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
+    }
+
+    /**
      * Determine whether the user can view attached assessment results
      *
      * @return \Illuminate\Auth\Access\Response|bool

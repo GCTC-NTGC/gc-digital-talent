@@ -5,6 +5,7 @@ use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolSkill;
+use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
@@ -95,17 +96,17 @@ class AssessmentStepTest extends TestCase
         }
     ';
 
-    protected $createOrUpdateGeneralQuestionAssessmentStep =
+    protected $createOrUpdateScreeningQuestionAssessmentStep =
     /** @lang GraphQL */
     '
-        mutation createOrUpdateGeneralQuestionAssessmentStep(
+        mutation createOrUpdateScreeningQuestionAssessmentStep(
             $poolId: UUID!,
-            $generalQuestions: [SyncGeneralQuestionsInput],
-            $assessmentStep: GeneralQuestionAssessmentStepInput
+            $screeningQuestions: [SyncScreeningQuestionsInput],
+            $assessmentStep: ScreeningQuestionAssessmentStepInput
             ) {
-                createOrUpdateGeneralQuestionAssessmentStep(
+                createOrUpdateScreeningQuestionAssessmentStep(
                     poolId: $poolId,
-                    generalQuestions: $generalQuestions,
+                    screeningQuestions: $screeningQuestions,
                     assessmentStep: $assessmentStep
                     ) {
                     id
@@ -290,15 +291,15 @@ class AssessmentStepTest extends TestCase
         $testPool = Pool::factory()->draft()->create([
             'team_id' => $this->team->id,
         ]);
-        // to be pointed at the screening question model when created
-        $screeningQuestion = $testPool->generalQuestions[0]; // first factory created question
+        $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
+        $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 
-        // can sync up screening questions and connect no pool skills
+        // fails if no pool skills attached
         $this->actingAs($this->teamUser, 'api')->graphQL(
-            $this->createOrUpdateGeneralQuestionAssessmentStep,
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
-                'generalQuestions' => [
+                'screeningQuestions' => [
                     [
                         'id' => $screeningQuestion->id,
                         'question' => [
@@ -317,11 +318,39 @@ class AssessmentStepTest extends TestCase
                     ],
                 ],
             ])
-            ->assertSuccessful();
+            ->assertJsonFragment([
+                'message' => 'Variable "$assessmentStep" got invalid value null at "assessmentStep.poolSkills.sync"; Expected non-nullable type "[UUID!]!" not to be null.',
+            ]);
+
+        // successful now that pool skills is non-null
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            [
+                'poolId' => $testPool->id,
+                'screeningQuestions' => [
+                    [
+                        'id' => $screeningQuestion->id,
+                        'question' => [
+                            'en' => 'en?',
+                            'fr' => 'fr?',
+                        ],
+                    ],
+                ],
+                'assessmentStep' => [
+                    'title' => [
+                        'en' => 'title en',
+                        'fr' => 'title fr',
+                    ],
+                    'poolSkills' => [
+                        'sync' => [$poolSkillId],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['id' => $testPool->id]);
 
         // only one screening question now attached
         $testPool->refresh();
-        assertEquals(1, count($testPool->generalQuestions));
+        assertEquals(1, count($testPool->screeningQuestions));
 
         $totalSteps = AssessmentStep::where('pool_id', $testPool->id)->get();
         $screeningStep = AssessmentStep::where('pool_id', $testPool->id)
@@ -329,8 +358,56 @@ class AssessmentStepTest extends TestCase
             ->with('poolSkills')
             ->first();
 
-        // assert two assessments steps exist, and the screening question step is not attached to any skills
+        // assert two assessments steps exist, and the screening question step is attached to one skill
         assertEquals(2, count($totalSteps));
-        assertEquals(0, count($screeningStep->poolSkills));
+        assertEquals(1, count($screeningStep->poolSkills));
+    }
+
+    // test screening questions mutation creates the associated assessment step
+    public function testScreeningQuestionsCreatingAssessmentStep(): void
+    {
+        Skill::factory()->count(3)->create();
+        $testPool = Pool::factory()->draft()->create([
+            'team_id' => $this->team->id,
+        ]);
+        AssessmentStep::truncate();
+        $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
+
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            [
+                'poolId' => $testPool->id,
+                'screeningQuestions' => [
+                    [
+                        'question' => [
+                            'en' => 'en?',
+                            'fr' => 'fr?',
+                        ],
+                        'sortOrder' => 2,
+                    ],
+                ],
+                'assessmentStep' => [
+                    'title' => [
+                        'en' => 'title en',
+                        'fr' => 'title fr',
+                    ],
+                    'poolSkills' => [
+                        'sync' => [$poolSkillId],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['id' => $testPool->id]);
+
+        // single assessment step created of screening questions type
+        $assessmentSteps = AssessmentStep::all();
+        $assessmentStep = $assessmentSteps[0];
+        assertEquals(1, count($assessmentSteps));
+        assertEquals(AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name, $assessmentStep->type);
+
+        // single screening question exists with correct sort order value
+        $screeningQuestions = ScreeningQuestion::all();
+        $screeningQuestion = $screeningQuestions[0];
+        assertEquals(1, count($screeningQuestions));
+        assertEquals(2, $screeningQuestion->sort_order);
     }
 }

@@ -24,6 +24,13 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
       answer: faker.lorem.sentence(),
       generalQuestion,
     })) || [];
+  const screeningQuestionResponses =
+    pool.screeningQuestions?.map((screeningQuestion) => ({
+      id: faker.string.uuid(),
+      answer: faker.lorem.sentence(),
+      screeningQuestion,
+    })) || [];
+
   return {
     id: faker.string.uuid(),
     pool,
@@ -50,6 +57,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
+    screeningQuestionResponses,
   };
 };
 
