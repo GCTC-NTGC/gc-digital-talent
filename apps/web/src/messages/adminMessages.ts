@@ -66,11 +66,6 @@ const messages = defineMessages({
     id: "TXl1qY",
     description: "Title for manager full name",
   },
-  email: {
-    defaultMessage: "Email",
-    id: "dJd5/f",
-    description: "Title for email",
-  },
   jobTitle: {
     defaultMessage: "Job title",
     id: "HBuWZ0",

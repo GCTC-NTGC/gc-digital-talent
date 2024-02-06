@@ -38,11 +38,6 @@ const messages = defineMessages({
     id: "0dQ62G",
     description: "Title displayed on the candidate skill count column.",
   },
-  email: {
-    defaultMessage: "Email",
-    id: "BSVnmg",
-    description: "Title displayed for the Pool Candidates table Email column.",
-  },
   currentLocation: {
     defaultMessage: "Current Location",
     id: "1sPszf",

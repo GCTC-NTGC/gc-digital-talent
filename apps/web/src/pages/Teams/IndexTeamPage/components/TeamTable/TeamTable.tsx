@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
@@ -101,11 +101,7 @@ export const TeamTable = ({
     }),
     columnHelper.accessor("contactEmail", {
       id: "contactEmail",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "TREL4U",
-        description: "Title displayed for the teams table email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => emailCell(getValue() ?? "", intl),
     }),
   ] as ColumnDef<Team>[];

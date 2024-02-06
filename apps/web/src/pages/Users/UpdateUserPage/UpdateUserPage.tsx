@@ -126,11 +126,7 @@ export const UpdateUserForm = ({
         >
           <Input
             id="email"
-            label={intl.formatMessage({
-              defaultMessage: "Email",
-              id: "sZHcsV",
-              description: "Label displayed on the user form email field.",
-            })}
+            label={intl.formatMessage(commonMessages.email)}
             type="email"
             name="email"
           />

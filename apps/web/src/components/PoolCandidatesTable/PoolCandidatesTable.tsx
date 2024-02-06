@@ -551,7 +551,7 @@ const PoolCandidatesTable = ({
     }),
     columnHelper.accessor(({ poolCandidate: { user } }) => user.email, {
       id: "email",
-      header: intl.formatMessage(tableMessages.email),
+      header: intl.formatMessage(commonMessages.email),
       sortingFn: normalizedText,
       cell: ({
         row: {

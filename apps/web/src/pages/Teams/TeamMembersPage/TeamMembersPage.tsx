@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { Scalars, Team, useGetTeamQuery } from "~/api/generated";
@@ -60,11 +61,7 @@ const TeamMembers = ({ members, team }: TeamMembersProps) => {
     ),
     columnHelper.accessor("email", {
       id: "email",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "3/lHSy",
-        description: "Title displayed for the team members table email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
       cell: ({ row: { original: member } }) =>
         emailLinkCell(member.email, intl),
     }),

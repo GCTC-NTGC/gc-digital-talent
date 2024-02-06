@@ -14,6 +14,7 @@ import {
   getEducationRequirementOption,
   getLocalizedName,
   getEvaluatedLanguageAbility,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -298,11 +299,7 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "email",
-      displayName: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "H02JZe",
-        description: "CSV Header, Email column",
-      }),
+      displayName: intl.formatMessage(commonMessages.email),
     },
     {
       id: "preferredCommunicationLanguage",

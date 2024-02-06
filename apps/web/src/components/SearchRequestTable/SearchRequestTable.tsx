@@ -10,7 +10,11 @@ import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 
 import {
   InputMaybe,
@@ -197,12 +201,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
     columnHelper.accessor("email", {
       id: "email",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "hiZAeF",
-        description:
-          "Title displayed on the search request table email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
     }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.department?.name, intl, true),

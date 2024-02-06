@@ -166,11 +166,7 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
     columnHelper.accessor("email", {
       id: "email",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "0+g2jN",
-        description: "Title displayed for the User table Email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
     columnHelper.accessor(

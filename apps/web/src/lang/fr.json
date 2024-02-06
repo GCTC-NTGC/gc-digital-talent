@@ -387,10 +387,6 @@
     "defaultMessage": "Exigence d’études",
     "description": "Education requirement section header."
   },
-  "0+g2jN": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed for the User table Email column."
-  },
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
@@ -947,10 +943,6 @@
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
   },
-  "3/lHSy": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed for the team members table email column."
-  },
   "304KKb": {
     "defaultMessage": "Responsabilités liées à la Directive",
     "description": "Link text for the page call to action"
@@ -1314,10 +1306,6 @@
   "51B5l9": {
     "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
     "description": "Link text to continue a specific application"
-  },
-  "51Hc86": {
-    "defaultMessage": "Courriel",
-    "description": "Label for _financial authority email_ field in the _digital services contracting questionnaire_"
   },
   "52MYM4": {
     "defaultMessage": "Sélectionnez toutes les autres exigences qui s’appliquent.",
@@ -2451,10 +2439,6 @@
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
   },
-  "BSVnmg": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed for the Pool Candidates table Email column."
-  },
   "BSkVBd": {
     "defaultMessage": "Veuillez préciser la langue de travail",
     "description": "Label for _other required work languages_ fieldset in the _digital services contracting questionnaire_"
@@ -2926,10 +2910,6 @@
   "DspBFX": {
     "defaultMessage": "Changer la date",
     "description": "Command to change a date"
-  },
-  "DuPnGd": {
-    "defaultMessage": "Courriel",
-    "description": "Email label"
   },
   "Duswz0": {
     "defaultMessage": "Résultats du candidat",
@@ -3478,10 +3458,6 @@
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
-  },
-  "H02JZe": {
-    "defaultMessage": "Courriel",
-    "description": "CSV Header, Email column"
   },
   "H0RLNn": {
     "defaultMessage": "Maintenance du serveur prevue",
@@ -5543,10 +5519,6 @@
     "defaultMessage": "Enregistrer et retourner",
     "description": "Text on a button to save the skill order and return to skill showcase"
   },
-  "TREL4U": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed for the teams table email column."
-  },
   "TRqbR/": {
     "defaultMessage": "Créer une famille de compétences",
     "description": "Heading displayed above the Create Skill Family form."
@@ -7311,10 +7283,6 @@
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in browse opportunities form."
   },
-  "dJd5/f": {
-    "defaultMessage": "Courriel",
-    "description": "Title for email"
-  },
   "dQseX7": {
     "defaultMessage": "1 expérience",
     "description": "Pluralization for one experience"
@@ -8134,10 +8102,6 @@
   "hhE2b6": {
     "defaultMessage": "Votre signature",
     "description": "label for the signature input on the self-declaration form"
-  },
-  "hiZAeF": {
-    "defaultMessage": "Courriel",
-    "description": "Title displayed on the search request table email column."
   },
   "hj9jLb": {
     "defaultMessage": "Besoins en personnel {index}",
@@ -9979,10 +9943,6 @@
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
   },
-  "sZHcsV": {
-    "defaultMessage": "Courriel",
-    "description": "Label displayed on the user form email field."
-  },
   "sa8LdD": {
     "defaultMessage": "Situation des RH – solutions de dotation disponible non viables",
     "description": "HR situation contracting rationale"
@@ -10010,10 +9970,6 @@
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
-  },
-  "sg9olk": {
-    "defaultMessage": "Courriel",
-    "description": "Label for _business owner email_ field in the _digital services contracting questionnaire_"
   },
   "sgaZcd": {
     "defaultMessage": "Compétences que vous souhaitez améliorer",
