@@ -231,10 +231,6 @@
     "defaultMessage": "Sélectionnez un niveau",
     "description": "Null selection for form."
   },
-  "/JLaO5": {
-    "defaultMessage": "Annuler",
-    "description": "Link text to cancel deleting application."
-  },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
@@ -1535,10 +1531,6 @@
     "defaultMessage": "Vos cinq principales compétences comportementales",
     "description": "Page title for the top behavioural skills page"
   },
-  "6JL/mL": {
-    "defaultMessage": "Annuler",
-    "description": "Button text to cancel editing a profile form"
-  },
   "6Ji7g2": {
     "defaultMessage": "Vos options en matière d'équité",
     "description": "Title for the subsection for viewing/selecting employment equity"
@@ -2266,10 +2258,6 @@
   "AgUBsQ": {
     "defaultMessage": "Quel est le titre de votre poste?",
     "description": "Input label asking for the user's job title."
-  },
-  "AhNR6n": {
-    "defaultMessage": "Annuler",
-    "description": "Link text to cancel logging out."
   },
   "AhQ6xv": {
     "defaultMessage": "Ces compétences requises sont absentes de votre profil :",
@@ -4047,10 +4035,6 @@
     "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
     "description": "Description for award section"
   },
-  "KnE2Rk": {
-    "defaultMessage": "Annuler",
-    "description": "Cancel confirmation"
-  },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
     "description": "Heading for making major changes to a user"
@@ -4230,10 +4214,6 @@
   "LizQuG": {
     "defaultMessage": "Veuillez préciser les exigences suivantes pour ce poste.",
     "description": "Introduction for _other requirements_ section in the _digital services contracting questionnaire_"
-  },
-  "LjE48l": {
-    "defaultMessage": "Annuler",
-    "description": "Button text to close employment equity form."
   },
   "LjYzkS": {
     "defaultMessage": "Postulez le ou avant le {closingDate}",
@@ -4638,10 +4618,6 @@
   "OUXmYd": {
     "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
     "description": "Application step for screening questions, introduction description, paragraph two"
-  },
-  "OVBFto": {
-    "defaultMessage": "Annuler",
-    "description": "Button text to cancel and close the skill dialog"
   },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
@@ -10742,10 +10718,6 @@
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
     "description": "Title for the 404 page not found page."
-  },
-  "yFIC7K": {
-    "defaultMessage": "Annuler",
-    "description": "Label for close availability dialog."
   },
   "yFMCqD": {
     "defaultMessage": "Vous vous demandez quelle est la suite dans votre carrière? Vous souhaitez être pris en considération pour des possibilités de poste de cadre supérieur au sein de la collectivité du numérique du GC? L’équipe de direction de la collectivité du numérique procède à une mise en correspondance des talents pour les gestionnaires qui sont prêts à passer à l’étape suivante. Consultez notre page sur les cadres supérieurs du numérique pour voir ce qui s’offre à vous.",

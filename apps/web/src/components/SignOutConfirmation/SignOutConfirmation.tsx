@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import authMessages from "~/messages/authMessages";
 
@@ -31,11 +32,7 @@ const SignOutConfirmation = ({ children }: SignOutConfirmationProps) => {
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
             <Button color="primary" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "AhNR6n",
-                description: "Link text to cancel logging out.",
-              })}
+              {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
