@@ -229,7 +229,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function userSkills(): HasMany
     {
-        return $this->hasMany(UserSkill::class, 'user_id')->select(['id', 'user_id', 'skill_id']);
+        return $this->hasMany(UserSkill::class, 'user_id');
     }
 
     public function skills()
