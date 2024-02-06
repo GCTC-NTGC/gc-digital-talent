@@ -84,8 +84,8 @@
       "args": [
          "run",
          "--rm",
-         "--workdir=/var/www/html"
-         "maintenance"
+         "--workdir=/var/www/html",
+         "maintenance",
          "bash"
       ],
       "overrideName": true,
