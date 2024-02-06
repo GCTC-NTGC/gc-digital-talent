@@ -5403,10 +5403,6 @@
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
     "description": "Legend for considered position languages check list in language information form"
   },
-  "TiY6v4": {
-    "defaultMessage": "Télécharger (texte clair)",
-    "description": "Button text to download guidance for procurement plain text."
-  },
   "TiutAx": {
     "defaultMessage": "Raison de l’octroi de contrats",
     "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
@@ -5794,10 +5790,6 @@
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
     "description": "Advance contract award notice contract solicitation procedure"
-  },
-  "VnjZMU": {
-    "defaultMessage": "Télécharger (texte clair)",
-    "description": "Button text to download guidance for managers plain text."
   },
   "VplMpm": {
     "defaultMessage": "Embauché (Période déterminée)",
@@ -7302,10 +7294,6 @@
   "eMrYDr": {
     "defaultMessage": "Compte d'utilisateur supprimé",
     "description": "Title for the alert displayed after a user signs into a deleted account"
-  },
-  "eNFq24": {
-    "defaultMessage": "Télécharger (texte clair)",
-    "description": "Button text to download guidance for human resources plain text."
   },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",

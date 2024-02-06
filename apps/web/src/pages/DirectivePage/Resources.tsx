@@ -5,7 +5,7 @@ import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/outline/ArrowDownOnSquareIcon";
 
 import { Card, CardBasic, Heading, Link } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
 
 import trainingSession from "~/assets/img/Directive_landing_page_graphics_R1-01.webp";
 import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
@@ -256,12 +256,7 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (plain text)",
-                    id: "VnjZMU",
-                    description:
-                      "Button text to download guidance for managers plain text.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPlainText)}
                 </Link>
               </div>
             </div>
@@ -348,12 +343,7 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (plain text)",
-                    id: "eNFq24",
-                    description:
-                      "Button text to download guidance for human resources plain text.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPlainText)}
                 </Link>
               </div>
             </div>
@@ -449,12 +439,7 @@ const Resources = () => {
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (plain text)",
-                    id: "TiY6v4",
-                    description:
-                      "Button text to download guidance for procurement plain text.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPlainText)}
                 </Link>
               </div>
             </div>

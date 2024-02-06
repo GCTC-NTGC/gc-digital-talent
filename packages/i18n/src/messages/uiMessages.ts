@@ -121,6 +121,11 @@ const uiMessages = defineMessages({
     id: "xEkbvy",
     description: "Null selection of level for select input",
   },
+  downloadPlainText: {
+    defaultMessage: "Download (plain text)",
+    id: "WwAqER",
+    description: "Download (plain text) action",
+  },
 });
 
 export default uiMessages;

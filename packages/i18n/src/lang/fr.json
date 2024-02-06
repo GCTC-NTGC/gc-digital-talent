@@ -1067,6 +1067,10 @@
     "defaultMessage": "Pas le bon domaine ou la bonne spécialisation.",
     "description": "Option for justification when assessment decision is unsuccessful."
   },
+  "WwAqER": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Download (plain text) action"
+  },
   "XCKYVJ": {
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
