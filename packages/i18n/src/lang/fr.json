@@ -195,10 +195,6 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
     "description": "Pool Stream described as Business Line Advisory Services."
   },
-  "48qVi9": {
-    "defaultMessage": "Autre",
-    "description": "user is neither a citizen or permanent resident of Canada"
-  },
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
@@ -471,10 +467,6 @@
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
   },
-  "E6JTyY": {
-    "defaultMessage": "Autre",
-    "description": "The selection to choose when the expected option is not available"
-  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -639,10 +631,6 @@
     "defaultMessage": "Pour les besoins à venir (la classification ou le financement n’a pas encore été mis(e) en place",
     "description": "Option for searching candidates for an upcoming staffing need"
   },
-  "K80psp": {
-    "defaultMessage": "Autre",
-    "description": "Priority text for users with no priority"
-  },
   "K9SPL+": {
     "defaultMessage": "À un stade initial de développement",
     "description": "The behavioural skill level for beginner"
@@ -678,6 +666,10 @@
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
+  },
+  "LJ2r4A": {
+    "defaultMessage": "Autre",
+    "description": "Different or distinct from one already mentioned"
   },
   "LJpdaI": {
     "defaultMessage": "Provincial",
@@ -1299,10 +1291,6 @@
     "defaultMessage": "P",
     "description": "The evaluated language ability level of P"
   },
-  "eGg734": {
-    "defaultMessage": "Autre",
-    "description": "Other selection for education type input"
-  },
   "eNUS2A": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "The selection for being part of an indigenous community not already listed"
@@ -1531,10 +1519,6 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
-  "lr2+2R": {
-    "defaultMessage": "Autre",
-    "description": "declaring one to be neither a citizen or permanent resident of Canada"
-  },
   "lsFH+y": {
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
@@ -1562,10 +1546,6 @@
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
-  },
-  "mv7JO3": {
-    "defaultMessage": "Autre",
-    "description": "The publishing group called Other"
   },
   "n+SiHy": {
     "defaultMessage": "Juillet",

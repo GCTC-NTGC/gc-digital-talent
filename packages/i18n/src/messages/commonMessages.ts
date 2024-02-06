@@ -130,6 +130,11 @@ const commonMessages = defineMessages({
     id: "gM4WDL",
     description: "Negative answer",
   },
+  other: {
+    defaultMessage: "Other",
+    id: "LJ2r4A",
+    description: "Different or distinct from one already mentioned",
+  },
   status: {
     defaultMessage: "Status",
     id: "QtzRCh",

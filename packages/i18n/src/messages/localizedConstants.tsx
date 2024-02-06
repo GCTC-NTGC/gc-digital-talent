@@ -162,12 +162,7 @@ const citizenshipStatusesProfile = defineMessages({
     id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "lr2+2R",
-    description:
-      "declaring one to be neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesProfile = (
@@ -190,11 +185,7 @@ const citizenshipStatusesAdmin = defineMessages({
     id: "xCBinq",
     description: "user is a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "48qVi9",
-    description: "user is neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesAdmin = (
@@ -1105,11 +1096,7 @@ const educationTypeMessages = defineMessages({
     id: "jS69se",
     description: "Certification selection for education type input",
   },
-  [EducationType.Other]: {
-    defaultMessage: "Other",
-    id: "eGg734",
-    description: "Other selection for education type input",
-  },
+  [EducationType.Other]: commonMessages.other,
 });
 
 export const getEducationType = (
@@ -1694,11 +1681,7 @@ export const poolCandidatePriorities = defineMessages({
     id: "oMyc4e",
     description: "Priority text for citizens of canada",
   },
-  40: {
-    defaultMessage: "Other",
-    id: "K80psp",
-    description: "Priority text for users with no priority",
-  },
+  40: commonMessages.other,
 });
 
 export const getPoolCandidatePriorities = (
@@ -1732,11 +1715,7 @@ const publishingGroups = defineMessages({
     id: "1YuZjR",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
-  [PublishingGroup.Other]: {
-    defaultMessage: "Other",
-    id: "mv7JO3",
-    description: "The publishing group called Other",
-  },
+  [PublishingGroup.Other]: commonMessages.other,
 });
 
 export const getPublishingGroup = (

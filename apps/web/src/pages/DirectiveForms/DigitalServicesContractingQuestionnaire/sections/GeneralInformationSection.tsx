@@ -148,7 +148,7 @@ const GeneralInformationSection = ({
             ...objectsToSortedOptions(departments, intl),
             {
               value: OTHER_ID,
-              label: intl.formatMessage(formMessages.other),
+              label: intl.formatMessage(commonMessages.other),
             },
           ]}
           rules={{
