@@ -2367,10 +2367,6 @@
     "defaultMessage": "Lorsque vous liez une expérience, essayez de répondre à au moins l’une de ces questions :",
     "description": "Lead-in text for the list of skill experience questions"
   },
-  "BDo1aH": {
-    "defaultMessage": "Ministère",
-    "description": "Title displayed for the teams table department column."
-  },
   "BDrP1l": {
     "defaultMessage": "« Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
@@ -2546,10 +2542,6 @@
   "C9jYms": {
     "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour un candidat qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'il peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
     "description": "Second paragraph for pool closing date dialog"
-  },
-  "CBnsBK": {
-    "defaultMessage": "Ministère",
-    "description": "Department label"
   },
   "CCyraT": {
     "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
@@ -4266,10 +4258,6 @@
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
-  },
-  "M7bb1V": {
-    "defaultMessage": "Ministère",
-    "description": "Label for applicant's Government of Canada department"
   },
   "M9ij/0": {
     "defaultMessage": "Évaluation bilingue",
@@ -8103,10 +8091,6 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
-  "i3C5Hn": {
-    "defaultMessage": "Ministère",
-    "description": "Title displayed on the search request table department column."
-  },
   "i4171w": {
     "defaultMessage": "Ajouter d’autres commentaires concernant cette demande. Ils ne seront visibles qu’aux gestionnaires responsables de ce processus.",
     "description": "Subtitle for view notes dialog on view pool candidate page"
@@ -9218,10 +9202,6 @@
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
     "description": "The skill is not attached to any experience"
-  },
-  "oCX5SP": {
-    "defaultMessage": "Ministère",
-    "description": "CSV Header, Department column"
   },
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
@@ -10978,10 +10958,6 @@
   "zwYuly": {
     "defaultMessage": "Créer un bassin",
     "description": "Page title for the pool creation page"
-  },
-  "zwcUgi": {
-    "defaultMessage": "Ministère",
-    "description": "Title for the department block in the manager info section of the single search request view."
   },
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",

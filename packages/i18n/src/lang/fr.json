@@ -335,6 +335,10 @@
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
   },
+  "9aW0M6": {
+    "defaultMessage": "Ministère",
+    "description": "Title for department"
+  },
   "9ays+c": {
     "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
     "description": "Casual selection for government employee type."

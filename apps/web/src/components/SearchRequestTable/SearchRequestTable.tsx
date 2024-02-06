@@ -207,12 +207,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       (row) => getLocalizedName(row.department?.name, intl, true),
       {
         id: "departments",
-        header: intl.formatMessage({
-          defaultMessage: "Department",
-          id: "i3C5Hn",
-          description:
-            "Title displayed on the search request table department column.",
-        }),
+        header: intl.formatMessage(commonMessages.department),
         enableColumnFilter: false,
         enableSorting: false,
       },

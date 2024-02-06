@@ -395,11 +395,7 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "department",
-      displayName: intl.formatMessage({
-        defaultMessage: "Department",
-        id: "oCX5SP",
-        description: "CSV Header, Department column",
-      }),
+      displayName: intl.formatMessage(commonMessages.department),
     },
     {
       id: "govEmployeeType",

@@ -93,11 +93,7 @@ export const TeamTable = ({
     columnHelper.accessor((team) => departmentAccessor(team, intl), {
       id: "departments",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Department",
-        id: "BDo1aH",
-        description: "Title displayed for the teams table department column.",
-      }),
+      header: intl.formatMessage(commonMessages.department),
     }),
     columnHelper.accessor("contactEmail", {
       id: "contactEmail",

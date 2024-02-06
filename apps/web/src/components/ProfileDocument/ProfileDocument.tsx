@@ -476,12 +476,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         </p>
                         {result.isGovEmployee && result.department && (
                           <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Department",
-                              id: "M7bb1V",
-                              description:
-                                "Label for applicant's Government of Canada department",
-                            })}
+                            {intl.formatMessage(commonMessages.department)}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {result.department.name[locale]}
                           </p>
