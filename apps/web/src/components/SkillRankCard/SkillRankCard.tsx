@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { UserSkill } from "~/api/generated";
 
@@ -55,11 +56,7 @@ const SkillRankCard = ({
             href={editLink.href}
             aria-label={editLink.label}
           >
-            {intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "igcM7/",
-              description: "Link text for editing a list of skill rankings",
-            })}
+            {intl.formatMessage(commonMessages.edit)}
           </Link>
         )}
       </div>

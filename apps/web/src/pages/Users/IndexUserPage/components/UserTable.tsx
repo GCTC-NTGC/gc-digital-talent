@@ -202,7 +202,7 @@ const UserTable = ({ title }: UserTableProps) => {
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: user } }) =>
         cells.edit(
           user.id,

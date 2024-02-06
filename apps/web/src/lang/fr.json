@@ -8115,10 +8115,6 @@
     "defaultMessage": "Les candidatures pour le bassin de talents et les possibilités de recrutement en cours peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
     "description": "Description for the track applications section on the profile and applications, paragraph one."
   },
-  "igcM7/": {
-    "defaultMessage": "Modifier",
-    "description": "Link text for editing a list of skill rankings"
-  },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
     "description": "Support form success title"
@@ -10179,10 +10175,6 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
-  "vXwT4K": {
-    "defaultMessage": "Modifier",
-    "description": "Generic link text to edit a miscellaneous item"
-  },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'database management' IT work stream"
@@ -10630,10 +10622,6 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
-  },
-  "yZoSaY": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for a tables Edit column."
   },
   "yZqUAU": {
     "defaultMessage": "Niveau",

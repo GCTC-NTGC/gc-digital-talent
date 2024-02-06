@@ -88,7 +88,7 @@ export const ClassificationTable = ({
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: classification } }) =>
         cells.edit(
           classification.id,
