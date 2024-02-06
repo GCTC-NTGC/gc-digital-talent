@@ -27,7 +27,7 @@ class RemoveExpiryDates extends Command
      */
     public function handle()
     {
-        PoolCandidate::WhereIn('pool_candidate_status', [
+        $modelsUpdatedCount = PoolCandidate::WhereIn('pool_candidate_status', [
             PoolCandidateStatus::DRAFT->name,
             PoolCandidateStatus::DRAFT_EXPIRED->name,
             PoolCandidateStatus::NEW_APPLICATION->name,
@@ -41,6 +41,8 @@ class RemoveExpiryDates extends Command
         ])
             ->whereNotNull('expiry_date')
             ->update(['expiry_date' => null]);
+
+        $this->info("$modelsUpdatedCount models updated");
 
         return Command::SUCCESS;
     }
