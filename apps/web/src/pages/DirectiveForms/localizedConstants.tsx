@@ -1,7 +1,7 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 
 import { getOrThrowError } from "@gc-digital-talent/helpers";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   ContractAuthority,
@@ -29,16 +29,12 @@ const yesNoUnsureValues = defineMessages({
     id: "IKkBm7",
     description: "The affirmative option to answer a question",
   },
-  [YesNoUnsure.No]: {
-    defaultMessage: "No",
-    id: "LTmcVS",
-    description: "The negative option to answer a question",
-  },
   [YesNoUnsure.IDontKnow]: {
     defaultMessage: "I don’t know",
     id: "mcZbcM",
     description: "The unsure option to answer a question",
   },
+  [YesNoUnsure.No]: commonMessages.no,
 });
 
 export const getYesNoUnsure = (
@@ -62,11 +58,7 @@ const yesNoValues = defineMessages({
     id: "IKkBm7",
     description: "The affirmative option to answer a question",
   },
-  [YesNo.No]: {
-    defaultMessage: "No",
-    id: "LTmcVS",
-    description: "The negative option to answer a question",
-  },
+  [YesNo.No]: commonMessages.no,
 });
 
 export const yesNoSortOrder = [YesNo.Yes, YesNo.No];
@@ -619,11 +611,7 @@ const personnelTeleworkOptions = defineMessages({
     id: "hP2Dxo",
     description: "Part-time personnel telework option",
   },
-  [PersonnelTeleworkOption.No]: {
-    defaultMessage: "No",
-    id: "hVLtXr",
-    description: "No personnel telework option",
-  },
+  [PersonnelTeleworkOption.No]: commonMessages.no,
 });
 
 export const getPersonnelTeleworkOption = (

@@ -40,6 +40,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
+import commonMessages from "./commonMessages";
 
 const employmentEquityGroups = defineMessages({
   woman: {
@@ -1665,11 +1666,7 @@ const bilingualEvaluations = defineMessages({
     id: "DUuisY",
     description: "Completed a French language evaluation",
   },
-  [BilingualEvaluation.NotCompleted]: {
-    defaultMessage: "No",
-    id: "ZEsIZi",
-    description: "No, did not complete a language evaluation",
-  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
 });
 
 export const getBilingualEvaluation = (

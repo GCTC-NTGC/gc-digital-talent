@@ -1111,10 +1111,6 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
-  "ZEsIZi": {
-    "defaultMessage": "Non",
-    "description": "No, did not complete a language evaluation"
-  },
   "ZSA4lO": {
     "defaultMessage": "Vous pouvez ajouter des éléments à l’aide du bouton \"Ajouter un nouvel élément\".",
     "description": "Secondary message displayed when no items have been added to repeater."

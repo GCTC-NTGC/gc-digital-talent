@@ -4159,10 +4159,6 @@
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
   },
-  "LTmcVS": {
-    "defaultMessage": "Non",
-    "description": "The negative option to answer a question"
-  },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
     "description": "Experience requirement, formal education."
@@ -7991,10 +7987,6 @@
     "defaultMessage": "Groupe et classification actuels",
     "description": "Field label before government employment group and level"
   },
-  "hVLtXr": {
-    "defaultMessage": "Non",
-    "description": "No personnel telework option"
-  },
   "hWHT65": {
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
@@ -9502,10 +9494,6 @@
   "q5rd9x": {
     "defaultMessage": " Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
-  },
-  "q7bz0J": {
-    "defaultMessage": "Non",
-    "description": "Message for when a value is false"
   },
   "qA8+f5": {
     "defaultMessage": "En attente",
