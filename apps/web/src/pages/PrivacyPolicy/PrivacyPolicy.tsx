@@ -95,7 +95,6 @@ const PrivacyPolicy = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const id = "privacy";
   const pageTitle = intl.formatMessage({
     defaultMessage: "Privacy policy",
     id: "cYNDhP",
