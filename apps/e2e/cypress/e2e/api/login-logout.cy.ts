@@ -114,7 +114,7 @@ describe("Login and logout", () => {
             firstTokenSet["refresh_token"],
           );
 
-          const secondTokenSet = JSON.parse(interception.response.body); //  #9148
+          const secondTokenSet = interception.response.body;
           cy.wrap(secondTokenSet).as("secondTokenSet");
         });
       });
@@ -204,7 +204,7 @@ describe("Login and logout", () => {
 
       // expect a first refresh to get second tokens
       cy.wait("@refresh").then((interception) => {
-        const secondTokenSet = JSON.parse(interception.response.body); //  #9148
+        const secondTokenSet = interception.response.body;
         cy.wrap(secondTokenSet).as("secondTokenSet");
       });
 
@@ -230,7 +230,7 @@ describe("Login and logout", () => {
           expect(interception.request.query["refresh_token"]).to.eq(
             secondTokenSet["refresh_token"],
           );
-          const thirdTokenSet = JSON.parse(interception.response.body); //  #9148
+          const thirdTokenSet = interception.response.body;
           cy.wrap(thirdTokenSet).as("thirdTokenSet");
         });
       });
