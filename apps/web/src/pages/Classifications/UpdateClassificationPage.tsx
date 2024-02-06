@@ -8,7 +8,11 @@ import { useIntl } from "react-intl";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  commonMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -133,12 +137,9 @@ export const UpdateClassificationForm = ({
               description:
                 "Label displayed on the classification form level field.",
             })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a level",
-              id: "Le4EQq",
-              description:
-                "Placeholder displayed on the classification form level field.",
-            })}
+            nullSelection={intl.formatMessage(
+              uiMessages.nullSelectionOptionLevel,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

@@ -227,10 +227,6 @@
     "defaultMessage": "À venir",
     "description": "Message displayed when a feature is in development and not ready yet"
   },
-  "/ImWz4": {
-    "defaultMessage": "Sélectionnez un niveau",
-    "description": "Null selection for form."
-  },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
@@ -1138,10 +1134,6 @@
   "4Irijj": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
     "description": "Button to add user to pool on the view-user page"
-  },
-  "4JS9Yp": {
-    "defaultMessage": "Sélectionnez un niveau",
-    "description": "Placeholder displayed on the language information form written field."
   },
   "4Jc5pN": {
     "defaultMessage": "Ajouter une nouvelle compétence",
@@ -4150,10 +4142,6 @@
   "Ldzk4k": {
     "defaultMessage": "Critères constituent un atout",
     "description": "Asset criteria heading"
-  },
-  "Le4EQq": {
-    "defaultMessage": "Sélectionnez un niveau",
-    "description": "Placeholder displayed on the classification form level field."
   },
   "LeVJmQ": {
     "defaultMessage": "Compétences comportementales facultatives",
@@ -8803,10 +8791,6 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
-  "mX4+Dq": {
-    "defaultMessage": "Sélectionnez un niveau",
-    "description": "Placeholder displayed on the language information form comprehension field."
-  },
   "mYuXWF": {
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
@@ -9954,10 +9938,6 @@
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",
     "description": "Text on a button to save the pool work tasks"
-  },
-  "tl7bV2": {
-    "defaultMessage": "Sélectionnez un niveau",
-    "description": "Placeholder displayed on the language information form verbal field."
   },
   "tlAiJm": {
     "defaultMessage": "La création de la candidature a échoué",

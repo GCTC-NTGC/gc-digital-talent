@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -118,12 +118,9 @@ export const CreateClassificationForm = ({
               description:
                 "Label displayed on the classification form level field.",
             })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a level",
-              id: "Le4EQq",
-              description:
-                "Placeholder displayed on the classification form level field.",
-            })}
+            nullSelection={intl.formatMessage(
+              uiMessages.nullSelectionOptionLevel,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

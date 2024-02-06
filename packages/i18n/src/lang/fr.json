@@ -1887,6 +1887,10 @@
     "defaultMessage": "Résident permanent",
     "description": "user is a permanent resident"
   },
+  "xEkbvy": {
+    "defaultMessage": "Sélectionnez un niveau",
+    "description": "Null selection of level for select input"
+  },
   "xH10Pp": {
     "defaultMessage": "Ce numéro de ministère est déjà utilisé",
     "description": "Error message that the input department number is already in use."

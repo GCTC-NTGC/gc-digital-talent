@@ -116,6 +116,11 @@ const uiMessages = defineMessages({
     id: "fUF8rg",
     description: "Null selection for select input",
   },
+  nullSelectionOptionLevel: {
+    defaultMessage: "Select a level",
+    id: "xEkbvy",
+    description: "Null selection of level for select input",
+  },
 });
 
 export default uiMessages;
