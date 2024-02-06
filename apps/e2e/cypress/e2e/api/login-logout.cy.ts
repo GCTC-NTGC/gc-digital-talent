@@ -2,11 +2,26 @@ import {
   aliasQuery,
   hasOperationName,
 } from "cypress/support/graphql-test-utils";
+import { decodeToken, TokenSigner, type TokenInterface } from "jsontokens";
 
 // https://stackoverflow.com/a/67096081
 const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const testUserSubject = "applicant@test.com";
+
+// this is not a secure key - it is the example key from https://github.com/stacks-network/jsontokens-js
+const rawPrivateKey =
+  "278a5de700e29faae8e40e366ec5012b5ec63d36ec77e8a2417154cc1d25383f";
+const expireToken = (token: string) => {
+  const decodedToken: TokenInterface = decodeToken(token);
+  if (typeof decodedToken.payload === "object" && decodedToken.payload.exp) {
+    decodedToken.payload.exp = Math.round(Date.now().valueOf() / 1000);
+  }
+  const reencodedToken = new TokenSigner("ES256K", rawPrivateKey).sign(
+    decodedToken.payload,
+  );
+  return reencodedToken;
+};
 
 describe("Login and logout", () => {
   // Prepare to intercept/detect relevant GraphQL requests.
@@ -92,40 +107,47 @@ describe("Login and logout", () => {
     // will log in and refresh the token successfully
     it("can refresh the token", () => {
       cy.intercept({ pathname: "/refresh*" }).as("refresh");
-      cy.getTokensFromDebugger({
-        issuerId: "fast-expire",
-        userSubject: testUserSubject,
-      }).as("firstTokenSet");
-
-      // Return to the app with the debugger token response
-      cy.get("@firstTokenSet").then((firstTokenSet) => {
-        const appUrl = new URL("http://localhost:8000/en"); // navigate to /en to avoid the extra redirect
-        Object.keys(firstTokenSet).forEach((key) =>
-          appUrl.searchParams.set(key, firstTokenSet[key]),
-        );
-        cy.visit(appUrl.toString());
-      });
-
-      // expect an immediate refresh
-      cy.wait("@refresh").then((interception) => {
-        cy.get("@firstTokenSet").then((firstTokenSet) => {
-          // make sure it uses the refresh token
-          expect(interception.request.query["refresh_token"]).to.eq(
-            firstTokenSet["refresh_token"],
+      cy.loginBySubject(testUserSubject).then(() => {
+        // manually expire the tokens to force a refresh
+        cy.window().then((browserWindow) => {
+          const idToken = browserWindow.localStorage.getItem("id_token");
+          browserWindow.localStorage.setItem("id_token", expireToken(idToken));
+          const accessToken =
+            browserWindow.localStorage.getItem("access_token");
+          browserWindow.localStorage.setItem(
+            "access_token",
+            expireToken(accessToken),
           );
-
-          const secondTokenSet = interception.response.body;
-          cy.wrap(secondTokenSet).as("secondTokenSet");
+          const refreshToken =
+            browserWindow.localStorage.getItem("refresh_token");
+          // no expiry date in refresh token
+          cy.wrap(refreshToken).as("firstRefreshToken");
         });
+
+        cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
       });
 
-      // auth context provider will update itself -
-      cy.wait("@gqlauthorizationQueryQuery").then((interception) => {
-        // make sure we get a user ID back
-        expect(interception.response.body)
-          .nested.property("data.myAuth.id")
-          .matches(uuidRegex);
+      cy.get("@firstRefreshToken")
+        .then((firstRefreshToken) => {
+          // expect an immediate refresh
+          cy.wait("@refresh").then((interception) => {
+            // make sure it uses the first refresh token
+            expect(interception.request.query["refresh_token"]).to.eq(
+              firstRefreshToken,
+            );
+            const secondTokenSet = interception.response.body;
+            cy.wrap(secondTokenSet).as("secondTokenSet");
+          });
+        })
+        .then(() => {
+          // get ready to catch the next graqphql request
+          cy.intercept({ method: "POST  ", pathname: "/graphql", times: 1 }).as(
+            "anyGraphql",
+          );
+        });
 
+      // auth context provider will update itself
+      cy.wait("@anyGraphql").then((interception) => {
         cy.get("@secondTokenSet").then((secondTokenSet) => {
           // make sure it uses the new access token
           expect(interception.request.headers["authorization"]).to.eq(
@@ -137,43 +159,37 @@ describe("Login and logout", () => {
 
     // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
     it("can share the refresh", () => {
-      cy.getTokensFromDebugger({
-        issuerId: "fast-expire",
-        userSubject: testUserSubject,
-      }).then((firstTokenSet) => {
-        // Return to the app with the debugger token response
-        const appUrl = new URL(
-          "http://localhost:8000/en/applicant/profile-and-applications",
-        ); // navigate to /en to avoid the extra redirect
-        Object.keys(firstTokenSet).forEach((key) =>
-          appUrl.searchParams.set(key, firstTokenSet[key]),
-        );
-        cy.visit(appUrl.toString());
+      cy.loginBySubject(testUserSubject).then(() => {
+        cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
       });
 
-      // confirm login
       cy.findByRole("heading", {
         name: "Welcome back, Applicant",
         level: 1,
-      });
+      })
+        .then(() => {
+          // simulate a refresh in a second tab by logging in with a different set of tokens
+          cy.loginBySubject(testUserSubject);
+          cy.window().then((browserWindow) => {
+            const newAccessToken =
+              browserWindow.localStorage.getItem("access_token");
+            console.debug("access token after injection", newAccessToken);
+            cy.wrap(newAccessToken).as("secondTabAccessToken");
+          });
+        })
+        .then(() => {
+          // get ready to catch the next graqphql request
+          cy.intercept({ method: "POST  ", pathname: "/graphql", times: 1 }).as(
+            "anyGraphql",
+          );
 
-      // simulate a refresh in a second tab by logging in with a different set of tokens
-      cy.loginBySubject(testUserSubject);
-      cy.window().then((browserWindow) => {
-        const newAccessToken =
-          browserWindow.localStorage.getItem("access_token");
-        console.debug("access token after injection", newAccessToken);
-        cy.wrap(newAccessToken).as("secondTabAccessToken");
-      });
-
-      cy.intercept({ method: "POST  ", pathname: "/graphql" }).as("anyGraphql");
-
-      // not important, just need an API request to occur
-      cy.findByRole("navigation", { name: "Personal information" }).within(
-        () => {
-          cy.findByRole("link", { name: "Personal information" }).click();
-        },
-      );
+          // not important, just need an API request to occur
+          cy.findByRole("navigation", { name: "Personal information" }).within(
+            () => {
+              cy.findByRole("link", { name: "Personal information" }).click();
+            },
+          );
+        });
 
       // the second access token is used
       cy.wait("@anyGraphql").then((interception) => {
@@ -189,27 +205,47 @@ describe("Login and logout", () => {
     // will log in, do a token refresh, and do a second token refresh from that
     it("can chain two refreshes", () => {
       cy.intercept({ pathname: "/refresh*" }).as("refresh");
-      cy.intercept({ method: "POST  ", pathname: "/graphql" }).as("anyGraphql");
-      cy.getTokensFromDebugger({
-        issuerId: "fast-expire",
-        userSubject: testUserSubject,
-      }).then((firstTokenSet) => {
-        // Return to the app with the debugger token response
-        const appUrl = new URL("http://localhost:8000/en"); // navigate to /en to avoid the extra redirect
-        Object.keys(firstTokenSet).forEach((key) =>
-          appUrl.searchParams.set(key, firstTokenSet[key]),
-        );
-        cy.visit(appUrl.toString());
+
+      cy.loginBySubject(testUserSubject).then(() => {
+        // manually expire the tokens to force a refresh
+        cy.window().then((browserWindow) => {
+          const idToken = browserWindow.localStorage.getItem("id_token");
+          browserWindow.localStorage.setItem("id_token", expireToken(idToken));
+          const accessToken =
+            browserWindow.localStorage.getItem("access_token");
+          browserWindow.localStorage.setItem(
+            "access_token",
+            expireToken(accessToken),
+          );
+          const refreshToken =
+            browserWindow.localStorage.getItem("refresh_token");
+          // no expiry date in refresh token
+          cy.wrap({
+            id_token: idToken,
+            access_token: accessToken,
+            refresh_token: refreshToken,
+          }).as("firstTokenSet");
+        });
+
+        cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
       });
 
       // expect a first refresh to get second tokens
       cy.wait("@refresh").then((interception) => {
+        cy.get("@firstTokenSet").then((firstTokenSet) => {
+          expect(interception.request.query["refresh_token"]).to.eq(
+            firstTokenSet["refresh_token"],
+          );
+        });
         const secondTokenSet = interception.response.body;
         cy.wrap(secondTokenSet).as("secondTokenSet");
+        cy.intercept({ method: "POST  ", pathname: "/graphql", times: 1 }).as(
+          "anyGraphql1",
+        );
       });
 
       // the second access token is used
-      cy.wait("@anyGraphql").then((interception) => {
+      cy.wait("@anyGraphql1").then((interception) => {
         cy.get("@secondTokenSet").then((secondTokenSet) => {
           // make sure it uses the second access token
           expect(interception.request.headers["authorization"]).to.eq(
@@ -218,25 +254,70 @@ describe("Login and logout", () => {
         });
       });
 
-      // not important, just need an API request to occur
-      cy.findByRole("navigation", { name: "Main menu" }).within(() => {
-        cy.findByRole("link", { name: "Find talent" }).click();
-      });
+      cy.findByRole("heading", {
+        name: "Welcome back, Applicant",
+        level: 1,
+      })
+        .then(() => {
+          // manually expire the tokens to force a refresh
+          cy.window().then((browserWindow) => {
+            const idToken = browserWindow.localStorage.getItem("id_token");
+            browserWindow.localStorage.setItem(
+              "id_token",
+              expireToken(idToken),
+            );
+            const accessToken =
+              browserWindow.localStorage.getItem("access_token");
+            browserWindow.localStorage.setItem(
+              "access_token",
+              expireToken(accessToken),
+            );
+            const refreshToken =
+              browserWindow.localStorage.getItem("refresh_token");
+            // no expiry date in refresh token
+            cy.wrap({
+              id_token: idToken,
+              access_token: accessToken,
+              refresh_token: refreshToken,
+            }).as("secondTokenSetExpired");
+          });
+        })
+        .then(() => {
+          // not important, just need an API request to occur
+          cy.findByRole("navigation", { name: "Personal information" }).within(
+            () => {
+              cy.findByRole("link", { name: "Personal information" }).click();
+            },
+          );
+        });
 
       // expect a second refresh to get third tokens
       cy.wait("@refresh").then((interception) => {
-        cy.get("@secondTokenSet").then((secondTokenSet) => {
+        cy.get("@secondTokenSetExpired").then((secondTokenSetExpired) => {
           // make sure it uses the second refresh token
           expect(interception.request.query["refresh_token"]).to.eq(
-            secondTokenSet["refresh_token"],
+            secondTokenSetExpired["refresh_token"],
           );
           const thirdTokenSet = interception.response.body;
           cy.wrap(thirdTokenSet).as("thirdTokenSet");
+          cy.intercept({ method: "POST  ", pathname: "/graphql", times: 1 }).as(
+            "anyGraphql2",
+          );
+        });
+      });
+
+      cy.findByRole("heading", {
+        name: "Personal information",
+        level: 1,
+      }).then(() => {
+        // not important, just need an API request to occur
+        cy.findByRole("navigation", { name: "Account menu" }).within(() => {
+          cy.findByRole("link", { name: "Profile and applications" }).click();
         });
       });
 
       // the third access token is used
-      cy.wait("@anyGraphql").then((interception) => {
+      cy.wait("@anyGraphql2").then((interception) => {
         cy.get("@thirdTokenSet").then((thirdTokenSet) => {
           // make sure it uses the third access token
           expect(interception.request.headers["authorization"]).to.eq(
