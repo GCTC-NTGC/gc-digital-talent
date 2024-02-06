@@ -128,11 +128,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         >
           <IconLabel
             icon={CalendarIcon}
-            label={intl.formatMessage({
-              defaultMessage: "Deadline:",
-              id: "l9CTjM",
-              description: "Label for pool advertisement closing date",
-            })}
+            label={
+              intl.formatMessage({
+                defaultMessage: "Deadline",
+                id: "FVEh7L",
+                description: "Label for pool advertisement closing date",
+              }) + intl.formatMessage(commonMessages.dividingColon)
+            }
           >
             {pool.closingDate
               ? intl.formatMessage(

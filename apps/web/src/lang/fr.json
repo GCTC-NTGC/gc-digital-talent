@@ -5951,10 +5951,6 @@
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
-  "W2YIEA": {
-    "defaultMessage": "Postulez pour ce processus",
-    "description": "Link text to apply for a pool advertisement"
-  },
   "W2qRX5": {
     "defaultMessage": "Erreur : Échec de la création du bassin",
     "description": "Message displayed to pool after pool fails to get created."
