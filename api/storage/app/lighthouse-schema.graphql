@@ -81,6 +81,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
+  updatePoolCandidateNotes(id: UUID!, notes: String!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification

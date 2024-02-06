@@ -1590,6 +1590,10 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
+  updatePoolCandidateNotes(id: UUID!, notes: String!): PoolCandidate
+    @update
+    @guard
+    @can(ability: "updateNotes", find: "id")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
