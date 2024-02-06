@@ -879,10 +879,6 @@
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
   },
-  "2lZuxx": {
-    "defaultMessage": "Télécharger (PDF)",
-    "description": "Button text to download guidance for procurement pdf."
-  },
   "2m5USi": {
     "defaultMessage": "Utilisez le bouton \"Modifier\" pour commencer. ",
     "description": "Null message on sections for edit pool page."
@@ -8555,10 +8551,6 @@
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
   },
-  "lu+49Z": {
-    "defaultMessage": "Télécharger (PDF)",
-    "description": "Button text to download guidance for human resources pdf."
-  },
   "luZnRG": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a skill family form description (English) field."
@@ -8882,10 +8874,6 @@
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
-  },
-  "nJB8I6": {
-    "defaultMessage": "Télécharger (PDF)",
-    "description": "Button text to download guidance for managers pdf."
   },
   "nKCUhO": {
     "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",

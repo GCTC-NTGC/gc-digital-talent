@@ -126,6 +126,11 @@ const uiMessages = defineMessages({
     id: "WwAqER",
     description: "Download (plain text) action",
   },
+  downloadPdf: {
+    defaultMessage: "Download (PDF)",
+    id: "YOji06",
+    description: "Download (PDF) action",
+  },
 });
 
 export default uiMessages;

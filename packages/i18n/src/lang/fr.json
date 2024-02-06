@@ -1115,6 +1115,10 @@
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
   },
+  "YOji06": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Download (PDF) action"
+  },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"

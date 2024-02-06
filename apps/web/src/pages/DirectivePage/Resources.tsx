@@ -228,12 +228,7 @@ const Resources = () => {
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (PDF)",
-                    id: "nJB8I6",
-                    description:
-                      "Button text to download guidance for managers pdf.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPdf)}
                 </Link>
                 <Link
                   mode="inline"
@@ -319,12 +314,7 @@ const Resources = () => {
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (PDF)",
-                    id: "lu+49Z",
-                    description:
-                      "Button text to download guidance for human resources pdf.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPdf)}
                 </Link>
                 <Link
                   mode="inline"
@@ -411,12 +401,7 @@ const Resources = () => {
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Download (PDF)",
-                    id: "2lZuxx",
-                    description:
-                      "Button text to download guidance for procurement pdf.",
-                  })}
+                  {intl.formatMessage(uiMessages.downloadPdf)}
                 </Link>
                 <Link
                   mode="inline"
