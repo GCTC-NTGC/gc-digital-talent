@@ -418,11 +418,7 @@ export const ExperienceForm = ({
                               color="primary"
                               onClick={handleDeleteExperience}
                             >
-                              {intl.formatMessage({
-                                defaultMessage: "Delete",
-                                id: "sBksyQ",
-                                description: "Delete confirmation",
-                              })}
+                              {intl.formatMessage(commonMessages.delete)}
                             </Button>
                           </AlertDialog.Action>
                         </AlertDialog.Footer>

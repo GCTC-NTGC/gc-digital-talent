@@ -3075,10 +3075,6 @@
     "defaultMessage": "Sélectionnez un ou plusieurs ministères",
     "description": "Placeholder text for the team departments input"
   },
-  "FA+cJX": {
-    "defaultMessage": "Supprimer",
-    "description": "Button to delete the pool in the delete pool dialog"
-  },
   "FAOzjP": {
     "defaultMessage": "Portée :",
     "description": "The scope of the award given"
@@ -3587,10 +3583,6 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
   },
-  "IFGKCz": {
-    "defaultMessage": "Supprimer",
-    "description": "Text on a button to delete the pool"
-  },
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
@@ -3626,10 +3618,6 @@
   "ITLoHV": {
     "defaultMessage": "Nous proposons également des processus de recrutement passif qui nous permettent de trouver rapidement des talents lorsque la demande se fait sentir. Bien qu’il n’y ait aucune garantie qu’un emploi résultera des possibilités ci-dessous, il s’agit d’un moyen facile pour permettre aux gestionnaires de trouver votre nom et votre parcours professionnel le moment venu. N’hésitez pas à soumettre votre nom à toute filière correspondant à vos compétences.",
     "description": "instructions for section with ongoing pool advertisements"
-  },
-  "IUQGA0": {
-    "defaultMessage": "Supprimer",
-    "description": "Link text to delete."
   },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
@@ -8151,10 +8139,6 @@
     "defaultMessage": "Copier l’identifiant de recrutement",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
-  "iOgr3Z": {
-    "defaultMessage": "Supprimer",
-    "description": "Heading for the delete pool dialog"
-  },
   "iPuAKE": {
     "defaultMessage": "Cacher la disponibilité pour le recrutement",
     "description": "Heading for closing the recruitment availability accordion in account and privacy"
@@ -9758,10 +9742,6 @@
   "s9unRt": {
     "defaultMessage": "Heures supplémentaires à court terme",
     "description": "Overtime on short notice personnel other requirement"
-  },
-  "sBksyQ": {
-    "defaultMessage": "Supprimer",
-    "description": "Delete confirmation"
   },
   "sDqpzq": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",

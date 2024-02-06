@@ -371,11 +371,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
           </AlertDialog.Cancel>
           <AlertDialog.Action>
             <Button mode="solid" color="error" type="button" onClick={onDelete}>
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "IUQGA0",
-                description: "Link text to delete.",
-              })}
+              {intl.formatMessage(commonMessages.delete)}
             </Button>
           </AlertDialog.Action>
         </AlertDialog.Footer>

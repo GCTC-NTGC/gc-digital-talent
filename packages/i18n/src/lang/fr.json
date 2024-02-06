@@ -111,6 +111,10 @@
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
   },
+  "2/YsnJ": {
+    "defaultMessage": "Supprimer",
+    "description": "Delete action"
+  },
   "25reyq": {
     "defaultMessage": "Nouveau",
     "description": "The status is new."

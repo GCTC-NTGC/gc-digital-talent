@@ -130,6 +130,11 @@ const commonMessages = defineMessages({
     id: "atqjXB",
     description: "Stop the current action",
   },
+  delete: {
+    defaultMessage: "Delete",
+    id: "2/YsnJ",
+    description: "Delete action",
+  },
   name: {
     defaultMessage: "Name",
     id: "WhLeuS",
