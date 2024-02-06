@@ -3611,10 +3611,6 @@
     "defaultMessage": "Important",
     "description": "Important note or caption"
   },
-  "IKkBm7": {
-    "defaultMessage": "Oui",
-    "description": "The affirmative option to answer a question"
-  },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
@@ -5614,10 +5610,6 @@
   "UNMEfB": {
     "defaultMessage": "Processus de recrutement des cadres",
     "description": "Heading for the executive opportunities"
-  },
-  "UOO1gW": {
-    "defaultMessage": "Oui",
-    "description": "Message for when a value is true"
   },
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",

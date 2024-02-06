@@ -62,11 +62,7 @@ export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
     return "";
   }
   return value
-    ? intl.formatMessage({
-        defaultMessage: "Yes",
-        id: "UOO1gW",
-        description: "Message for when a value is true",
-      })
+    ? intl.formatMessage(commonMessages.yes)
     : intl.formatMessage(commonMessages.no);
 };
 

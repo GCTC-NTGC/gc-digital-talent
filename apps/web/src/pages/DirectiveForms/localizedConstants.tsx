@@ -24,16 +24,12 @@ import {
 } from "~/api/generated";
 
 const yesNoUnsureValues = defineMessages({
-  [YesNoUnsure.Yes]: {
-    defaultMessage: "Yes",
-    id: "IKkBm7",
-    description: "The affirmative option to answer a question",
-  },
   [YesNoUnsure.IDontKnow]: {
     defaultMessage: "I don’t know",
     id: "mcZbcM",
     description: "The unsure option to answer a question",
   },
+  [YesNoUnsure.Yes]: commonMessages.yes,
   [YesNoUnsure.No]: commonMessages.no,
 });
 
@@ -53,11 +49,7 @@ export const yesNoUnsureSortOrder = [
 ];
 
 const yesNoValues = defineMessages({
-  [YesNo.Yes]: {
-    defaultMessage: "Yes",
-    id: "IKkBm7",
-    description: "The affirmative option to answer a question",
-  },
+  [YesNo.Yes]: commonMessages.yes,
   [YesNo.No]: commonMessages.no,
 });
 
