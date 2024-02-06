@@ -919,10 +919,6 @@
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
   },
-  "2wo24b": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the create a skill family form name (English) field."
-  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -1231,10 +1227,6 @@
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
   },
-  "4boO/6": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the create a department form name (English) field."
-  },
   "4f5qcw": {
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
@@ -1338,10 +1330,6 @@
   "5DsB2D": {
     "defaultMessage": "Compétences techniques",
     "description": "Heading for a list of users technical skills"
-  },
-  "5F/aKm": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the update a skill form name (English) field."
   },
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
@@ -1806,10 +1794,6 @@
   "7vOa71": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
-  },
-  "7wYPgC": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the classification form name (English) field."
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -3446,6 +3430,10 @@
   "HAkMnl": {
     "defaultMessage": "Diversité, équité, inclusion",
     "description": "Title of the Diversity, equity and inclusion link section"
+  },
+  "HBljcn": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Title for name in English"
   },
   "HBuWZ0": {
     "defaultMessage": "Titre du poste",
@@ -7794,10 +7782,6 @@
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
-  },
-  "gnu0Eb": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the create a skill form name (English) field."
   },
   "gpKGjq": {
     "defaultMessage": "Salaire maximal",

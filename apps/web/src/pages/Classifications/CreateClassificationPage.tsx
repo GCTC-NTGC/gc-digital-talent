@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -79,12 +80,7 @@ export const CreateClassificationForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "7wYPgC",
-              description:
-                "Label displayed on the classification form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),

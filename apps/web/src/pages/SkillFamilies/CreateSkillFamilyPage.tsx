@@ -150,12 +150,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "2wo24b",
-                description:
-                  "Label displayed on the create a skill family form name (English) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),

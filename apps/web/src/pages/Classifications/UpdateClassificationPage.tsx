@@ -23,6 +23,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -94,12 +95,7 @@ export const UpdateClassificationForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "7wYPgC",
-              description:
-                "Label displayed on the classification form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),

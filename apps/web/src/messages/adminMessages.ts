@@ -76,6 +76,11 @@ const messages = defineMessages({
     id: "EK+25s",
     description: "Title for admin notes shorthand",
   },
+  nameEn: {
+    defaultMessage: "Name (English)",
+    id: "HBljcn",
+    description: "Title for name in English",
+  },
   noneProvided: {
     defaultMessage: "(None provided)",
     id: "4bWCNR",
