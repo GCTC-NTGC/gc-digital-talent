@@ -426,7 +426,7 @@ const PoolCandidatesTable = ({
       {
         id: "status",
         header: intl.formatMessage(tableMessages.status),
-        enableHiding: false,
+        enableHiding: !recordOfDecision, // After record of decision is turned on, we can remove this property entirely (it defaults to true)
         cell: ({
           row: {
             original: { poolCandidate },
