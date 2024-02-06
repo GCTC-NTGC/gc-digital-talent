@@ -11,7 +11,6 @@ import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
