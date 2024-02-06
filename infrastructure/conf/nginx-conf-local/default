@@ -73,16 +73,6 @@ server {
         proxy_set_header Host localhost:8000;
         break;
     }
-    location ^~ /fast-expire {
-        proxy_pass "http://mock-auth:8081";
-        # Header X-Forwarded-Proto tells mock-oauth2-proxy to use Host for
-        # urls in response from /oxauth/.well-known/openid-confifiguration
-        #
-        # See: https://github.com/navikt/mock-oauth2-server/pull/187
-        proxy_set_header X-Forwarded-Proto http;
-        proxy_set_header Host localhost:8000;
-        break;
-    }
 
     # enable serving gzip-ed files
     gzip_static on;

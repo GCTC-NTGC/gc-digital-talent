@@ -25,7 +25,6 @@ import "./poolCommands";
 import "./searchRequestCommands";
 import "./skillCommands";
 import "./teamsCommands";
-import "./tokenCommands";
 import "./userCommands";
 import "./artisanCommands";
 

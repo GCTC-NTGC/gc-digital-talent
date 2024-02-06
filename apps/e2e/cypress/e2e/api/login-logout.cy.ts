@@ -9,6 +9,37 @@ const uuidRegex =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const testUserSubject = "applicant@test.com";
 
+interface TokenSet {
+  id_token: string;
+  access_token: string;
+  refresh_token: string;
+}
+
+function retrieveTokenSetFromStorage(browserWindow: Window): TokenSet {
+  const idToken = browserWindow.localStorage.getItem("id_token");
+  const accessToken = browserWindow.localStorage.getItem("access_token");
+  const refreshToken = browserWindow.localStorage.getItem("refresh_token");
+  return {
+    id_token: idToken,
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  };
+}
+
+function expireAndReencodeTokens(tokensIn: TokenSet): TokenSet {
+  return {
+    id_token: expireToken(tokensIn.id_token),
+    access_token: expireToken(tokensIn.access_token),
+    refresh_token: tokensIn.refresh_token, // no exp value
+  };
+}
+
+function storeTokensToStorage(tokens: TokenSet, browserWindow: Window) {
+  browserWindow.localStorage.setItem("id_token", tokens.id_token);
+  browserWindow.localStorage.setItem("access_token", tokens.access_token);
+  browserWindow.localStorage.setItem("refresh_token", tokens.refresh_token);
+}
+
 // this is not a secure key - it is the example key from https://github.com/stacks-network/jsontokens-js
 const rawPrivateKey =
   "278a5de700e29faae8e40e366ec5012b5ec63d36ec77e8a2417154cc1d25383f";
@@ -110,18 +141,10 @@ describe("Login and logout", () => {
       cy.loginBySubject(testUserSubject).then(() => {
         // manually expire the tokens to force a refresh
         cy.window().then((browserWindow) => {
-          const idToken = browserWindow.localStorage.getItem("id_token");
-          browserWindow.localStorage.setItem("id_token", expireToken(idToken));
-          const accessToken =
-            browserWindow.localStorage.getItem("access_token");
-          browserWindow.localStorage.setItem(
-            "access_token",
-            expireToken(accessToken),
-          );
-          const refreshToken =
-            browserWindow.localStorage.getItem("refresh_token");
-          // no expiry date in refresh token
-          cy.wrap(refreshToken).as("firstRefreshToken");
+          const originalTokens = retrieveTokenSetFromStorage(browserWindow);
+          const expiredTokens = expireAndReencodeTokens(originalTokens);
+          storeTokensToStorage(expiredTokens, browserWindow);
+          cy.wrap(expiredTokens.refresh_token).as("firstRefreshToken");
         });
 
         cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
@@ -209,22 +232,10 @@ describe("Login and logout", () => {
       cy.loginBySubject(testUserSubject).then(() => {
         // manually expire the tokens to force a refresh
         cy.window().then((browserWindow) => {
-          const idToken = browserWindow.localStorage.getItem("id_token");
-          browserWindow.localStorage.setItem("id_token", expireToken(idToken));
-          const accessToken =
-            browserWindow.localStorage.getItem("access_token");
-          browserWindow.localStorage.setItem(
-            "access_token",
-            expireToken(accessToken),
-          );
-          const refreshToken =
-            browserWindow.localStorage.getItem("refresh_token");
-          // no expiry date in refresh token
-          cy.wrap({
-            id_token: idToken,
-            access_token: accessToken,
-            refresh_token: refreshToken,
-          }).as("firstTokenSet");
+          const originalTokens = retrieveTokenSetFromStorage(browserWindow);
+          const expiredTokens = expireAndReencodeTokens(originalTokens);
+          storeTokensToStorage(expiredTokens, browserWindow);
+          cy.wrap(expiredTokens).as("firstTokenSet");
         });
 
         cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
@@ -261,25 +272,10 @@ describe("Login and logout", () => {
         .then(() => {
           // manually expire the tokens to force a refresh
           cy.window().then((browserWindow) => {
-            const idToken = browserWindow.localStorage.getItem("id_token");
-            browserWindow.localStorage.setItem(
-              "id_token",
-              expireToken(idToken),
-            );
-            const accessToken =
-              browserWindow.localStorage.getItem("access_token");
-            browserWindow.localStorage.setItem(
-              "access_token",
-              expireToken(accessToken),
-            );
-            const refreshToken =
-              browserWindow.localStorage.getItem("refresh_token");
-            // no expiry date in refresh token
-            cy.wrap({
-              id_token: idToken,
-              access_token: accessToken,
-              refresh_token: refreshToken,
-            }).as("secondTokenSetExpired");
+            const originalTokens = retrieveTokenSetFromStorage(browserWindow);
+            const expiredTokens = expireAndReencodeTokens(originalTokens);
+            storeTokensToStorage(expiredTokens, browserWindow);
+            cy.wrap(expiredTokens).as("secondTokenSetExpired");
           });
         })
         .then(() => {

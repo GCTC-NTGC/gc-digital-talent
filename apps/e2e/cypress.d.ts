@@ -252,20 +252,6 @@ declare global {
 
       /**
        * ======================================
-       * Token Commands
-       * ======================================
-       */
-      /**
-       * Custom command to get a token set from the auth debugger
-       * @example  cy.getTokensFromDebugger({issuerId: "oxauth", userSubject: testUserSubject}).as("tokenSet");
-       */
-      getTokensFromDebugger(opts: {
-        issuerId?: string;
-        userSubject: string;
-      }): Chainable<Record<string, string>;
-
-      /**
-       * ======================================
        * Generic Getter Commands
        * ======================================
        */
