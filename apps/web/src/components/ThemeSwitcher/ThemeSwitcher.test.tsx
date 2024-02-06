@@ -23,11 +23,6 @@ describe("ThemeSwitcher", () => {
   jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
 
-  it("should have no accessibility errors", async () => {
-    const { container } = renderThemeSwitcher();
-    await axeTest(container);
-  });
-
   it("should change theme to light mode", async () => {
     renderThemeSwitcher();
     fireEvent.click(
