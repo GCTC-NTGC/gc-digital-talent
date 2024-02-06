@@ -38,12 +38,7 @@ export const SkillFamilyTable = ({
       {
         id: "name",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "VphXhu",
-          description:
-            "Title displayed for the Skill Family table Name column.",
-        }),
+        header: intl.formatMessage(commonMessages.name),
         meta: {
           isRowTitle: true,
         },

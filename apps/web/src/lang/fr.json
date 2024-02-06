@@ -923,10 +923,6 @@
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
   },
-  "2wmzS1": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the Department table Name column."
-  },
   "2wo24b": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a skill family form name (English) field."
@@ -2223,10 +2219,6 @@
     "defaultMessage": "Tâches courantes dans ce poste",
     "description": "Title for key tasks on a pool advertisement."
   },
-  "AUOq9D": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the team members table Name column."
-  },
   "AUtIo9": {
     "defaultMessage": "Foire aux questions (FAQ)",
     "description": "Heading for Frequently Asked Questions section on sign in page"
@@ -2298,10 +2290,6 @@
   "Aixzmb": {
     "defaultMessage": "Supprimer le candidat",
     "description": "Button label for remove candidate on view pool candidate page"
-  },
-  "AkuIfT": {
-    "defaultMessage": "Nom",
-    "description": "Label for _business owner name_ field in the _digital services contracting questionnaire_"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -2422,10 +2410,6 @@
   "BNEY8G": {
     "defaultMessage": "Date d'expiration",
     "description": "CSV Header, Expiry Date column"
-  },
-  "BOeBpE": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the skill table Name column."
   },
   "BQsJSG": {
     "defaultMessage": "Saisissez une nouvelle date de clôture :",
@@ -3514,10 +3498,6 @@
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
-  },
-  "HUCIzc": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the Classification table Name column."
   },
   "HUy0EA": {
     "defaultMessage": "Langue de l'entrevue de vive voix",
@@ -5943,10 +5923,6 @@
     "defaultMessage": "Télécharger (texte clair)",
     "description": "Button text to download guidance for managers plain text."
   },
-  "VphXhu": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the Skill Family table Name column."
-  },
   "VplMpm": {
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
@@ -7826,10 +7802,6 @@
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
-  },
-  "gWaU+D": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the Pool table pool name column."
   },
   "gZKJeF": {
     "defaultMessage": "Exigence en matière de langue officielle",
@@ -10118,10 +10090,6 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
-  },
-  "ttIQ0Q": {
-    "defaultMessage": "Nom",
-    "description": "Label for _financial authority name_ field in the _digital services contracting questionnaire_"
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",

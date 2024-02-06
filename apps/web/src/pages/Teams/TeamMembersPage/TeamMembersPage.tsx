@@ -48,12 +48,7 @@ const TeamMembers = ({ members, team }: TeamMembersProps) => {
       (member) => getFullNameLabel(member.firstName, member.lastName, intl),
       {
         id: "name",
-        header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "AUOq9D",
-          description:
-            "Title displayed for the team members table Name column.",
-        }),
+        header: intl.formatMessage(commonMessages.name),
         meta: {
           isRowTitle: true,
         },

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import { Department, useDepartmentsQuery } from "~/api/generated";
@@ -41,11 +41,7 @@ export const DepartmentTable = ({
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "2wmzS1",
-        description: "Title displayed for the Department table Name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
     }),
     columnHelper.display({
       id: "edit",

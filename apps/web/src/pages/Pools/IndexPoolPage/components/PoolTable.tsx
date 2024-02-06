@@ -56,11 +56,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "gWaU+D",
-        description: "Title displayed for the Pool table pool name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
       meta: {
         isRowTitle: true,
       },

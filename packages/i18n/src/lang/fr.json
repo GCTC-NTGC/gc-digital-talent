@@ -1035,6 +1035,10 @@
     "defaultMessage": "Anglais seulement",
     "description": "The language ability is English only."
   },
+  "WhLeuS": {
+    "defaultMessage": "Nom",
+    "description": "Title for name"
+  },
   "WhXfSx": {
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
