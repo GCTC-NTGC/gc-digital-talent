@@ -69,20 +69,12 @@ const ThemeProvider = ({
     getDefaultTheme(override),
   );
   const { key, mode } = theme;
-
-  const computedMode = React.useMemo(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const isSetLight = localStorage.theme === "light";
-
-    let themeMode: ThemeMode = mode;
-    if (mode === "pref") {
-      themeMode = prefersDark && !isSetLight ? "dark" : "light";
-    }
-
-    return themeMode;
-  }, [mode]);
+  let computedMode: ThemeMode = mode;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isSetLight = localStorage.theme === "light";
+  if (mode === "pref") {
+    computedMode = prefersDark && !isSetLight ? "dark" : "light";
+  }
 
   const setKey = React.useCallback(
     (newKey: ThemeKey) => {
