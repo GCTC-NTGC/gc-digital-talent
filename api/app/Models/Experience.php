@@ -28,7 +28,7 @@ abstract class Experience extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)
-            ->select(['id']);
+            ->select(['id', 'email', 'first_name', 'last_name']);
     }
 
     public function userSkills(): MorphToMany

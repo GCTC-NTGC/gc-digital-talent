@@ -529,11 +529,6 @@ type UserSkill {
   topSkillsRank: Int
   improveSkillsRank: Int
   experiences: [Experience!]
-  awardExperiences: [AwardExperience!]
-  communityExperiences: [CommunityExperience!]
-  educationExperiences: [EducationExperience!]
-  personalExperiences: [PersonalExperience!]
-  workExperiences: [WorkExperience!]
 }
 
 type SkillKeywords {
