@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 interface HeaderProps {
   width?: string;
@@ -90,7 +91,9 @@ const Header = ({ width }: HeaderProps) => {
             data-h2-justify-content="base(center) p-tablet(flex-end)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
-            <div>{/* <ThemeSwitcher / > */}</div>
+            <div>
+              <ThemeSwitcher />
+            </div>
             <div>
               <a
                 data-h2-background-color="base:focus-visible(focus)"

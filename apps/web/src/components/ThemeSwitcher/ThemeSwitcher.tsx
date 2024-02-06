@@ -5,11 +5,11 @@ import SunIcon from "@heroicons/react/24/solid/SunIcon";
 import MoonIcon from "@heroicons/react/24/solid/MoonIcon";
 
 import { ToggleGroup } from "@gc-digital-talent/ui";
-import { useTheme, ThemeMode } from "@gc-digital-talent/theme";
+import { useTheme } from "@gc-digital-talent/theme";
 
 const ThemeSwitcher = () => {
   const intl = useIntl();
-  const { mode, setMode, isPref } = useTheme();
+  const { setMode, fullMode } = useTheme();
 
   const groupLabel = intl.formatMessage({
     defaultMessage: "Theme colour mode switcher",
@@ -22,10 +22,8 @@ const ThemeSwitcher = () => {
     <ToggleGroup.Root
       type="single"
       color="secondary"
-      value={isPref ? "pref" : mode}
-      onValueChange={(newMode: string) =>
-        setMode((newMode as ThemeMode) || "pref")
-      }
+      value={fullMode}
+      onValueChange={setMode}
       aria-label={groupLabel}
     >
       <ToggleGroup.Item
