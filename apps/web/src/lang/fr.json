@@ -4207,10 +4207,6 @@
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
   },
-  "MS9dB9": {
-    "defaultMessage": "Talents numériques du GC",
-    "description": "Application title"
-  },
   "MSitul": {
     "defaultMessage": "Présentation des séances de formation à venir très bientôt.",
     "description": "Message under training session image on directive page."
@@ -4306,10 +4302,6 @@
   "Myfw+L": {
     "defaultMessage": "Bassins",
     "description": "Title for pools"
-  },
-  "Mz+gUV": {
-    "defaultMessage": "Talents numériques du GC",
-    "description": "Title tag for Talent Search site"
   },
   "Mz61q/": {
     "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
@@ -7915,10 +7907,6 @@
     "defaultMessage": "Si « {choice} » est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>bassin de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
     "description": "introduction paragraph 1 to needing more information about the talent search"
   },
-  "hfI9v3": {
-    "defaultMessage": "Talents numériques du GC",
-    "description": "Link to the homepage for GC Digital Talent."
-  },
   "hgxH8y": {
     "defaultMessage": "Groupe",
     "description": "Label displayed for the classification form group field."
@@ -10122,10 +10110,6 @@
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
-  },
-  "vD6Uia": {
-    "defaultMessage": "Talents numériques du GC",
-    "description": "Default title for the site"
   },
   "vDb+O+": {
     "defaultMessage": "« Je suis Inuk »",

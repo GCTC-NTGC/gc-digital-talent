@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { MenuLink } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { Maybe, UserAuthInfo } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -58,11 +59,7 @@ const IAPNavMenu = ({ loggedIn, userAuthInfo }: IAPNavMenuProps) => {
           })}
         </MenuLink>,
         <MenuLink key="home" to={paths.home()} end>
-          {intl.formatMessage({
-            defaultMessage: "GC Digital Talent",
-            id: "hfI9v3",
-            description: "Link to the homepage for GC Digital Talent.",
-          })}
+          {intl.formatMessage(commonMessages.projectTitle)}
         </MenuLink>,
       ]}
     />

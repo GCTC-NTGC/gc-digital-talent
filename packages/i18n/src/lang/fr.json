@@ -107,6 +107,10 @@
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
   },
+  "1i0PsT": {
+    "defaultMessage": "Talents numériques du GC",
+    "description": "Title of GC Digital Talent"
+  },
   "1pMCyl": {
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
