@@ -156,12 +156,7 @@ export const UpdateSkillForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "5F/aKm",
-              description:
-                "Label displayed on the update a skill form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -170,12 +165,7 @@ export const UpdateSkillForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "j01W+1",
-              description:
-                "Label displayed on the update a skill form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -246,12 +236,7 @@ export const UpdateSkillForm = ({
           <Select
             id="category"
             name="category"
-            label={intl.formatMessage({
-              defaultMessage: "Category",
-              id: "KZR3ad",
-              description:
-                "Label displayed on the skill family form category field.",
-            })}
+            label={intl.formatMessage(adminMessages.category)}
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a category",
               id: "+hRCVl",

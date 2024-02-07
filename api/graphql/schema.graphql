@@ -162,6 +162,15 @@ type GeneralQuestion {
   # generalQuestionResponses: [GeneralQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
+type ScreeningQuestion {
+  id: ID!
+  assessmentStep: AssessmentStep
+    @belongsTo
+    @can(ability: "view", resolved: true)
+  question: LocalizedString
+  sortOrder: Int @rename(attribute: "sort_order")
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
@@ -173,6 +182,7 @@ type Pool {
   poolCandidates: [PoolCandidate]
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @can(ability: "view", resolved: true)
+    @guard
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
@@ -192,14 +202,17 @@ type Pool {
   generalQuestions: [GeneralQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
+  screeningQuestions: [ScreeningQuestion]
+    @hasMany
+    @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canOnParent(ability: "viewAssessments")
-  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessments")
+    @canOnParent(ability: "viewAssessmentPlan")
+  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessmentPlan")
 }
 
 type GeneralQuestionResponse {
@@ -207,6 +220,12 @@ type GeneralQuestionResponse {
   answer: String
   generalQuestion: GeneralQuestion @belongsTo
   poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
+}
+
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion @belongsTo
 }
 
 type AssessmentStep {
@@ -219,6 +238,7 @@ type AssessmentStep {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canOnParent(ability: "viewAssessmentResults")
+  screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
 type AssessmentResult {
@@ -275,6 +295,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   generalQuestionResponses: [GeneralQuestionResponse] @hasMany
+  screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
@@ -1316,7 +1337,7 @@ input UpdateGeneralQuestionsHasMany {
   delete: [ID!]
 }
 
-input SyncGeneralQuestionsInput {
+input SyncScreeningQuestionsInput {
   id: ID
   question: LocalizedStringInput!
   sortOrder: Int
@@ -1373,7 +1394,7 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input GeneralQuestionAssessmentStepInput {
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1417,7 +1438,7 @@ input UpdateAssessmentResultInput
 }
 
 input PoolSkillBelongsToMany {
-  sync: [UUID!]
+  sync: [UUID!]!
 }
 
 input RolesInput
@@ -1470,6 +1491,26 @@ input UpdateGeneralQuestionResponsesHasMany {
   delete: [ID!]
 }
 
+input ScreeningResponseBelongsTo {
+  connect: ID!
+}
+
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
+}
+
 input UpdateEducationExperiencesRequirementBelongsToMany {
   sync: [ID!]
 }
@@ -1478,6 +1519,7 @@ input UpdateApplicationInput {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: ApplicationStep
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
@@ -1782,10 +1824,10 @@ type Mutation {
     @guard
     @can(ability: "update", find: "stepIdA")
     @can(ability: "update", find: "stepIdB")
-  createOrUpdateGeneralQuestionAssessmentStep(
+  createOrUpdateScreeningQuestionAssessmentStep(
     poolId: UUID!
-    generalQuestions: [SyncGeneralQuestionsInput]
-    assessmentStep: GeneralQuestionAssessmentStepInput
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
   ): Pool @guard @can(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete

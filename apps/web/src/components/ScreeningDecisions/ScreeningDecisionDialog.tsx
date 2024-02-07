@@ -152,29 +152,32 @@ const AssessmentStepTypeSection = ({
   }
 };
 
-const GeneralQuestions = ({
+const ScreeningQuestions = ({
   poolCandidate,
 }: {
   poolCandidate: PoolCandidate;
 }) => {
   const intl = useIntl();
-  const generalQuestions =
-    poolCandidate.pool.generalQuestions?.filter(notEmpty) || [];
-  const generalQuestionResponses =
-    poolCandidate.generalQuestionResponses?.filter(notEmpty) || [];
+  const screeningQuestions =
+    poolCandidate.pool.screeningQuestions?.filter(notEmpty) || [];
+  const screeningQuestionResponses =
+    poolCandidate.screeningQuestionResponses?.filter(notEmpty) || [];
   return (
     <Accordion.Root type="multiple" data-h2-margin-bottom="base(x1)">
-      {generalQuestions.length &&
-        generalQuestions.map((generalQuestion) => (
-          <Accordion.Item value={generalQuestion.id} key={generalQuestion.id}>
+      {screeningQuestions.length &&
+        screeningQuestions.map((screeningQuestion) => (
+          <Accordion.Item
+            value={screeningQuestion.id}
+            key={screeningQuestion.id}
+          >
             <Accordion.Trigger>
-              {getLocalizedName(generalQuestion.question, intl)}
+              {getLocalizedName(screeningQuestion.question, intl)}
             </Accordion.Trigger>
             <Accordion.Content>
               {
-                generalQuestionResponses.filter(
+                screeningQuestionResponses.filter(
                   (response) =>
-                    response.generalQuestion?.id === generalQuestion.id,
+                    response.screeningQuestion?.id === screeningQuestion.id,
                 )[0].answer
               }
             </Accordion.Content>
@@ -316,7 +319,7 @@ export const ScreeningDecisionDialog = ({
               educationRequirementOption={educationRequirementOption}
             />
             {dialogType === "SCREENING_QUESTIONS" ? (
-              <GeneralQuestions poolCandidate={poolCandidate} />
+              <ScreeningQuestions poolCandidate={poolCandidate} />
             ) : (
               <SupportingEvidence experiences={experiences} skill={skill} />
             )}

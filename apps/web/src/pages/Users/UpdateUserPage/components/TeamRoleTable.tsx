@@ -16,6 +16,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -73,11 +74,7 @@ const TeamRoleTable = ({
       {
         id: "team",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "3IZ3mN",
-          description: "Title displayed for the role table display team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         cell: ({
           row: {
             original: { team },

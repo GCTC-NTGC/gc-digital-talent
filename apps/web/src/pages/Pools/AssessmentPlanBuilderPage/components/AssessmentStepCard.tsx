@@ -40,7 +40,7 @@ const AssessmentStepCard = ({
   );
   skillNames.sort();
   const screeningQuestions = sortBy(
-    unpackMaybes(pool.generalQuestions),
+    unpackMaybes(pool.screeningQuestions),
     (question) => question.sortOrder,
   );
 
@@ -72,7 +72,7 @@ const AssessmentStepCard = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <CardRepeater.Edit
@@ -88,9 +88,7 @@ const AssessmentStepCard = ({
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ||
-      assessmentStep.type ===
-        AssessmentStepType.ScreeningQuestionsAtApplication ? (
+      {skillNames.length ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"

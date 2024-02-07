@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   Locales,
+  commonMessages,
   getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
@@ -61,16 +62,8 @@ export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
     return "";
   }
   return value
-    ? intl.formatMessage({
-        defaultMessage: "Yes",
-        id: "UOO1gW",
-        description: "Message for when a value is true",
-      })
-    : intl.formatMessage({
-        defaultMessage: "No",
-        id: "q7bz0J",
-        description: "Message for when a value is false",
-      });
+    ? intl.formatMessage(commonMessages.yes)
+    : intl.formatMessage(commonMessages.no);
 };
 
 /**

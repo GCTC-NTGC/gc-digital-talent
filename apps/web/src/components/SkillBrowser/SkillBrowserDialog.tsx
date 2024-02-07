@@ -172,12 +172,7 @@ const SkillBrowserDialog = ({
                 </Button>
                 <Dialog.Close>
                   <Button type="button" mode="inline" color="quaternary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel",
-                      id: "OVBFto",
-                      description:
-                        "Button text to cancel and close the skill dialog",
-                    })}
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>
               </Dialog.Footer>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
 interface FormActionsProps {
@@ -30,11 +30,7 @@ const FormActions = ({ isUpdating }: FormActionsProps) => {
       </Button>
       <ToggleSection.Close>
         <Button mode="inline" color="warning">
-          {intl.formatMessage({
-            defaultMessage: "Cancel",
-            id: "6JL/mL",
-            description: "Button text to cancel editing a profile form",
-          })}
+          {intl.formatMessage(commonMessages.cancel)}
         </Button>
       </ToggleSection.Close>
     </div>

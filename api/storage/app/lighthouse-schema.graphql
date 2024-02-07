@@ -137,7 +137,7 @@ type Mutation {
   createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
-  createOrUpdateGeneralQuestionAssessmentStep(poolId: UUID!, generalQuestions: [SyncGeneralQuestionsInput], assessmentStep: GeneralQuestionAssessmentStepInput): Pool
+  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
@@ -275,6 +275,13 @@ type GeneralQuestion {
   sortOrder: Int
 }
 
+type ScreeningQuestion {
+  id: ID!
+  assessmentStep: AssessmentStep
+  question: LocalizedString
+  sortOrder: Int
+}
+
 type Pool {
   id: ID!
   owner: UserPublicProfile
@@ -300,6 +307,7 @@ type Pool {
   createdDate: DateTime
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
+  screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
   archivedAt: DateTime
@@ -315,6 +323,12 @@ type GeneralQuestionResponse {
   poolCandidate: PoolCandidate
 }
 
+type ScreeningQuestionResponse {
+  id: ID!
+  answer: String
+  screeningQuestion: ScreeningQuestion
+}
+
 type AssessmentStep {
   id: ID!
   pool: Pool
@@ -323,6 +337,7 @@ type AssessmentStep {
   title: LocalizedString
   poolSkills: [PoolSkill]
   assessmentResults: [AssessmentResult]
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type AssessmentResult {
@@ -365,6 +380,7 @@ type PoolCandidate {
   signature: String
   submittedSteps: [ApplicationStep!]
   generalQuestionResponses: [GeneralQuestionResponse]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
@@ -1144,7 +1160,7 @@ input UpdateGeneralQuestionsHasMany {
   delete: [ID!]
 }
 
-input SyncGeneralQuestionsInput {
+input SyncScreeningQuestionsInput {
   id: ID
   question: LocalizedStringInput!
   sortOrder: Int
@@ -1184,7 +1200,7 @@ input AssessmentStepInput {
   poolSkills: PoolSkillBelongsToMany
 }
 
-input GeneralQuestionAssessmentStepInput {
+input ScreeningQuestionAssessmentStepInput {
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -1214,7 +1230,7 @@ input UpdateAssessmentResultInput {
 }
 
 input PoolSkillBelongsToMany {
-  sync: [UUID!]
+  sync: [UUID!]!
 }
 
 input RolesInput {
@@ -1264,6 +1280,26 @@ input UpdateGeneralQuestionResponsesHasMany {
   delete: [ID!]
 }
 
+input ScreeningResponseBelongsTo {
+  connect: ID!
+}
+
+input CreateScreeningQuestionResponseInput {
+  screeningQuestion: ScreeningResponseBelongsTo!
+  answer: String!
+}
+
+input UpdateScreeningQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateScreeningQuestionResponsesHasMany {
+  create: [CreateScreeningQuestionResponseInput!]
+  update: [UpdateScreeningQuestionResponseInput!]
+  delete: [ID!]
+}
+
 input UpdateEducationExperiencesRequirementBelongsToMany {
   sync: [ID!]
 }
@@ -1271,6 +1307,7 @@ input UpdateEducationExperiencesRequirementBelongsToMany {
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
+  screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
   educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany

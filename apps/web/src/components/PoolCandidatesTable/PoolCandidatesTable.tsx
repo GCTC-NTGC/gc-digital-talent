@@ -425,7 +425,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "status",
-        header: intl.formatMessage(tableMessages.status),
+        header: intl.formatMessage(commonMessages.status),
         enableHiding: false,
         cell: ({
           row: {
@@ -447,7 +447,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "priority",
-        header: intl.formatMessage(tableMessages.category),
+        header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
             original: {
@@ -527,7 +527,9 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "preferredLang",
-        header: intl.formatMessage(tableMessages.preferredLang),
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
       },
     ),
     columnHelper.display({
@@ -551,7 +553,7 @@ const PoolCandidatesTable = ({
     }),
     columnHelper.accessor(({ poolCandidate: { user } }) => user.email, {
       id: "email",
-      header: intl.formatMessage(tableMessages.email),
+      header: intl.formatMessage(commonMessages.email),
       sortingFn: normalizedText,
       cell: ({
         row: {

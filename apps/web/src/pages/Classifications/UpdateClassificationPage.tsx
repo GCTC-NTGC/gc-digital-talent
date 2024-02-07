@@ -8,7 +8,11 @@ import { useIntl } from "react-intl";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  commonMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -23,6 +27,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -94,12 +99,7 @@ export const UpdateClassificationForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "7wYPgC",
-              description:
-                "Label displayed on the classification form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -108,12 +108,7 @@ export const UpdateClassificationForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "uAmdiU",
-              description:
-                "Label displayed on the classification form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -142,12 +137,9 @@ export const UpdateClassificationForm = ({
               description:
                 "Label displayed on the classification form level field.",
             })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a level",
-              id: "Le4EQq",
-              description:
-                "Placeholder displayed on the classification form level field.",
-            })}
+            nullSelection={intl.formatMessage(
+              uiMessages.nullSelectionOptionLevel,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
