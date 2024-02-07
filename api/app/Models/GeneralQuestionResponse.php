@@ -45,6 +45,6 @@ class GeneralQuestionResponse extends Model
 
     public function generalQuestion(): BelongsTo
     {
-        return $this->belongsTo(GeneralQuestion::class);
+        return $this->belongsTo(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 }

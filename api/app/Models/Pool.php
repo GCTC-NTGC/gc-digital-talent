@@ -105,7 +105,7 @@ class Pool extends Model
 
     public function user(): BelongsTo
     {
-         // avoid selecting searchable column from user table
+        // avoid selecting searchable column from user table
         return $this->belongsTo(User::class)
             ->select(['id',
                 'email',
@@ -245,7 +245,7 @@ class Pool extends Model
 
     public function generalQuestions(): HasMany
     {
-        return $this->hasMany(GeneralQuestion::class);
+        return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
