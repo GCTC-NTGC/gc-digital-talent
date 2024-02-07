@@ -191,6 +191,36 @@ const EducationRequirements = ({
           </Card>
         </Wrapper>
       );
+    case "EC":
+      return (
+        <Wrapper>
+          <Card>
+            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationHeading,
+              )}
+            </Heading>
+            <Text>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationDescription,
+              )}
+            </Text>
+          </Card>
+          <Or />
+          <Card>
+            <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusHeading,
+              )}
+            </Heading>
+            <Text>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusDescription,
+              )}
+            </Text>
+          </Card>
+        </Wrapper>
+      );
     default:
       return (
         <Wrapper>
