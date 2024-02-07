@@ -1263,6 +1263,10 @@
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
   },
+  "4f9Xsc": {
+    "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
+    "description": "Paragraph for privacy policy page"
+  },
   "4faEVw": {
     "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
     "description": "Text including link to language proficiency evaluation in language information form"
@@ -3546,10 +3550,6 @@
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
-  },
-  "H2l4rG": {
-    "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
-    "description": "Paragraph for privacy policy page"
   },
   "H3Za3e": {
     "defaultMessage": "Enregistrer et aller sur mon profil",

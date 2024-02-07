@@ -157,8 +157,8 @@ const PrivacyPolicy = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "  The information you provide may also be used for statistical and research purposes, and may be disclosed to the <publicServiceLink>Public Service Commission Investigation Directorate</publicServiceLink> when necessary.",
-              id: "H2l4rG",
+                "The information you provide may also be used for statistical and research purposes, and may be disclosed to the <publicServiceLink>Public Service Commission Investigation Directorate</publicServiceLink> when necessary.",
+              id: "4f9Xsc",
               description: "Paragraph for privacy policy page",
             },
             {
