@@ -332,7 +332,7 @@ export const isOngoingPublishingGroup = (
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
-export type ClassificationGroup = "AS" | "EX" | "PM" | "IT";
+export type ClassificationGroup = "AS" | "EX" | "PM" | "IT" | "EC";
 
 export function getClassificationGroup(
   pool: Maybe<Pool>,
