@@ -8,7 +8,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
 import { Maybe, PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -123,9 +123,6 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
                 id="notes"
                 name="notes"
                 label={intl.formatMessage(adminMessages.notes)}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
               />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Dialog.Close>
