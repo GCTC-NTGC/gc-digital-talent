@@ -81,7 +81,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateAsAdmin(id: UUID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
-  updatePoolCandidateNotes(id: UUID!, notes: String!): PoolCandidate
+  updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -909,7 +909,6 @@ input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
-  notes: String
   isBookmarked: Boolean
 }
 

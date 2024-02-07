@@ -1069,7 +1069,6 @@ input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  notes: String
   isBookmarked: Boolean
 }
 
@@ -1590,7 +1589,7 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
-  updatePoolCandidateNotes(id: UUID!, notes: String!): PoolCandidate
+  updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
     @can(ability: "updateNotes", find: "id")
