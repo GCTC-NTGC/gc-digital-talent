@@ -159,13 +159,13 @@ server {
     }
 
     # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
+        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
      # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
+        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html
