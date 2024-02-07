@@ -9,7 +9,11 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { navigationMessages, useLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  navigationMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -112,11 +116,7 @@ const Layout = () => {
     <>
       <Favicon locale={locale} project="digital-talent" />
       <SEO
-        title={intl.formatMessage({
-          defaultMessage: "GC Digital Talent",
-          id: "Mz+gUV",
-          description: "Title tag for Talent Search site",
-        })}
+        title={intl.formatMessage(commonMessages.projectTitle)}
         description={intl.formatMessage({
           defaultMessage:
             "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",

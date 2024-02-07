@@ -4,14 +4,13 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
@@ -41,15 +40,11 @@ export const DepartmentTable = ({
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "2wmzS1",
-        description: "Title displayed for the Department table Name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: department } }) =>
         cells.edit(
           department.id,

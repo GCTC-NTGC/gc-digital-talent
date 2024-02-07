@@ -17,6 +17,7 @@ import {
 import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -155,12 +156,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
                     uiMessages.nullSelectionOption,
                   )}
                   disabled
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "0AaeXe",
-                    description:
-                      "Label for the team select field on team membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.team)}
                   options={[
                     {
                       value: team.id,

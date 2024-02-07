@@ -164,12 +164,7 @@ export const CreateSkillForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "gnu0Eb",
-              description:
-                "Label displayed on the create a skill form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -178,12 +173,7 @@ export const CreateSkillForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "ZU3fd5",
-              description:
-                "Label displayed on the create a skill form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -254,12 +244,7 @@ export const CreateSkillForm = ({
           <Select
             id="category"
             name="category"
-            label={intl.formatMessage({
-              defaultMessage: "Category",
-              id: "KZR3ad",
-              description:
-                "Label displayed on the skill family form category field.",
-            })}
+            label={intl.formatMessage(adminMessages.category)}
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a category",
               id: "+hRCVl",
