@@ -3471,6 +3471,10 @@
     "defaultMessage": "Créer une équipe ",
     "description": "Link text to create a new team in the admin portal"
   },
+  "GurdF+": {
+    "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
+    "description": "Description for the `just education` option for EC education requirements"
+  },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
@@ -3654,6 +3658,10 @@
   "IEkhMc": {
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
+  },
+  "IEp0sR": {
+    "defaultMessage": "Un grade est quand même requis. Cependant, la spécialisation en économie, en sociologie ou en statistique peut également être formée d’un agencement acceptable d’études, de formation ou d’expérience.",
+    "description": "Description for the `other education with specialization` option for EC education requirements"
   },
   "IFGKCz": {
     "defaultMessage": "Supprimer",
@@ -4878,6 +4886,10 @@
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
+  },
+  "PbLJnr": {
+    "defaultMessage": "Grade en économie, en sociologie ou en statistique",
+    "description": "Heading for the `just education` option for EC education requirements"
   },
   "PdE7yp": {
     "defaultMessage": "Archiver ce bassin",
@@ -6114,6 +6126,10 @@
   "WSo3Y/": {
     "defaultMessage": "Le commissaire à l’accessibilité est responsable de faire appliquer la <acaLink>Loi canadienne sur l’accessibilité</acaLink> et le <acrLink>Règlement canadien sur l’accessibilité</acrLink> dans la fonction publique fédérale. Le commissaire traitera également certaines <complaintsLink>plaintes en matière d’accessibilité</complaintsLink>. Le commissaire à l’accessibilité est membre de la Commission canadienne des droits de la personne.",
     "description": "Text describing accessibility commissioner"
+  },
+  "WT+5to": {
+    "defaultMessage": "Autre grade avec spécialisation",
+    "description": "Heading for the `other education with specialization` option for EC education requirements"
   },
   "WVTDgX": {
     "defaultMessage": "Bienvenue à Talents numériques du GC",
