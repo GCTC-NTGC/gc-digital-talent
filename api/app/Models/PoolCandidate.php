@@ -170,12 +170,28 @@ class PoolCandidate extends Model
 
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class)->withTrashed();
+        return $this->belongsTo(Pool::class)->withTrashed()->select(['id',
+            'name',
+            'stream',
+            'publishing_group',
+            'published_at',
+            'archived_at',
+            'team_id',
+            'closing_date',
+            'is_remote',
+            'key_tasks',
+            'special_note',
+            'advertisement_language',
+        ]);
     }
 
     public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(GeneralQuestionResponse::class);
+        return $this->hasMany(GeneralQuestionResponse::class)->select(['id',
+            'pool_candidate_id',
+            'general_question_id',
+            'answer',
+        ]);
     }
 
     public function screeningQuestionResponses(): HasMany
