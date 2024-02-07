@@ -3603,10 +3603,6 @@
     "defaultMessage": "Un grade est quand même requis. Cependant, la spécialisation en économie, en sociologie ou en statistique peut également être formée d’un agencement acceptable d’études, de formation ou d’expérience.",
     "description": "Description for the `other education with specialization` option for EC education requirements"
   },
-  "IFGKCz": {
-    "defaultMessage": "Supprimer",
-    "description": "Text on a button to delete the pool"
-  },
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
