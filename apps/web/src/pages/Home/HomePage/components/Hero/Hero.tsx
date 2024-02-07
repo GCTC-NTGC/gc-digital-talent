@@ -4,7 +4,7 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import HomeHero from "~/components/Hero/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
@@ -65,11 +65,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
       }
     >
       <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
-        {intl.formatMessage({
-          defaultMessage: "GC Digital Talent",
-          id: "MS9dB9",
-          description: "Application title",
-        })}
+        {intl.formatMessage(commonMessages.projectTitle)}
       </Heading>
       <p
         data-h2-font-size="base(h6, 1.4)"

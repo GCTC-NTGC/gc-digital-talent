@@ -10,7 +10,11 @@ import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 
 import {
   InputMaybe,
@@ -197,35 +201,20 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
     columnHelper.accessor("email", {
       id: "email",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "hiZAeF",
-        description:
-          "Title displayed on the search request table email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
     }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.department?.name, intl, true),
       {
         id: "departments",
-        header: intl.formatMessage({
-          defaultMessage: "Department",
-          id: "i3C5Hn",
-          description:
-            "Title displayed on the search request table department column.",
-        }),
+        header: intl.formatMessage(commonMessages.department),
         enableColumnFilter: false,
         enableSorting: false,
       },
     ),
     columnHelper.accessor("status", {
       id: "status",
-      header: intl.formatMessage({
-        defaultMessage: "Status",
-        id: "t3sEc+",
-        description:
-          "Title displayed on the search request table status column.",
-      }),
+      header: intl.formatMessage(commonMessages.status),
       enableColumnFilter: false,
       cell: ({ row: { original: searchRequest } }) =>
         statusCell(searchRequest.status, intl),

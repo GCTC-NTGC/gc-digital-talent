@@ -5,7 +5,7 @@ import { OperationContext } from "urql";
 import { useLocation } from "react-router-dom";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 
 import {
@@ -44,12 +44,7 @@ export const ClassificationTable = ({
         isRowTitle: true,
       },
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "HUCIzc",
-        description:
-          "Title displayed for the Classification table Name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
     }),
     columnHelper.accessor("group", {
       id: "group",
@@ -93,7 +88,7 @@ export const ClassificationTable = ({
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: classification } }) =>
         cells.edit(
           classification.id,
