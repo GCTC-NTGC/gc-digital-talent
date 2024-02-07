@@ -6,3 +6,4 @@ declare module "*.pdf";
 declare module "*.doc";
 declare module "*.docx";
 declare module "*.webp";
+declare module "*.pptx";
