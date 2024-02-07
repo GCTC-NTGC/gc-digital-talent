@@ -6,7 +6,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -595,15 +594,13 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public static function scopeAvailableInITPool(Builder $query): Builder
     {
         return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
             PoolCandidate::scopeAvailable($innerQueryBuilder);
             PoolCandidate::scopeInITPublishingGroup($innerQueryBuilder);
+
             return $innerQueryBuilder;
         });
     }
