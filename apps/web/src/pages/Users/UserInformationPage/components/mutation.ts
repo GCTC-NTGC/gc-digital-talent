@@ -2,7 +2,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 
 const AdminUpdatePoolCandidate_Mutation = graphql(/* GraphQL */ `
   mutation AdminUpdatePoolCandidate_Mutation(
-    $id: ID!
+    $id: UUID!
     $poolCandidate: UpdatePoolCandidateAsAdminInput!
   ) {
     updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {

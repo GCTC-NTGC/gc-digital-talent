@@ -1575,7 +1575,7 @@ type Mutation {
     @can(ability: "create")
     @injectNow(name: "submitted_at")
   updatePoolCandidateAsAdmin(
-    id: ID!
+    id: UUID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
     @update

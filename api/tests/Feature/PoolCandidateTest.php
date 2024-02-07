@@ -503,7 +503,7 @@ class PoolCandidateTest extends TestCase
 
         $notesMutation = /** @lang GraphQL */
         '
-            mutation UpdatePoolCandidateNotes($id: UUID!, $notes: String!) {
+            mutation UpdatePoolCandidateNotes($id: ID!, $notes: String!) {
                 updatePoolCandidateNotes(id: $id, notes: $notes) {
                     id
                     notes

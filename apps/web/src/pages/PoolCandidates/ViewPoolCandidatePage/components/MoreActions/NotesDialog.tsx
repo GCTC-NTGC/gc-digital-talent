@@ -22,11 +22,8 @@ interface NotesDialogProps {
 }
 
 const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateNotes(
-    $id: ID!
-    $input: UpdatePoolCandidateAsAdminInput!
-  ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+  mutation PoolCandidate_UpdateNotes($id: UUID!, $notes: String!) {
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
       notes
     }
@@ -59,9 +56,9 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    await executeMutation({ id: poolCandidateId, input: values })
+    await executeMutation({ id: poolCandidateId, notes: values.notes ?? "" })
       .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
+        if (result.data?.updatePoolCandidateNotes) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",
