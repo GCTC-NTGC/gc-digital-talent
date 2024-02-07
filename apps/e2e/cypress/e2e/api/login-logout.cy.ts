@@ -138,7 +138,7 @@ describe("Login and logout", () => {
 
   context("refresh", () => {
     // will log in and refresh the token successfully
-    it.only("can refresh the token", () => {
+    it("can refresh the token", () => {
       cy.intercept({ pathname: "/refresh*" }).as("refresh");
       cy.loginBySubject(testUserSubject).then(() => {
         // manually expire the tokens to force a refresh
