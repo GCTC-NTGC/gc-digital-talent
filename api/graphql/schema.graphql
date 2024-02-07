@@ -105,6 +105,7 @@ type User {
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
     @with(relation: "workExperiences") # All experiences that a user own
+    @with(relation: "workExperiences") # All experiences that a user own
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")

@@ -106,6 +106,7 @@ class Pool extends Model
     public function user(): BelongsTo
     {
         // avoid selecting searchable column from user table
+        // avoid selecting searchable column from user table
         return $this->belongsTo(User::class)
             ->select(['id',
                 'email',
