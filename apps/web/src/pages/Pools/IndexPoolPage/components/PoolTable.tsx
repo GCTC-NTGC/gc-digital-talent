@@ -56,11 +56,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "gWaU+D",
-        description: "Title displayed for the Pool table pool name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
       meta: {
         isRowTitle: true,
       },
@@ -129,22 +125,14 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       {
         id: "status",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "ioqFVF",
-          description: "Title displayed for the Pool table status column.",
-        }),
+        header: intl.formatMessage(commonMessages.status),
       },
     ),
     columnHelper.accessor(
       (row) => getLocalizedName(row.team?.displayName, intl, true),
       {
         id: "team",
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "fCXZ4R",
-          description: "Title displayed for the Pool table Team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         sortingFn: normalizedText,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
@@ -174,7 +162,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: pool } }) =>
         cells.edit(
           pool.id,

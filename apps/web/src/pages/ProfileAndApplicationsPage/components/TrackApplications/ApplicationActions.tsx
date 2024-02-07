@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { PoolCandidate } from "~/api/generated";
 import {
@@ -368,20 +369,12 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
         <AlertDialog.Footer>
           <AlertDialog.Cancel>
             <Button color="primary" type="button">
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "/JLaO5",
-                description: "Link text to cancel deleting application.",
-              })}
+              {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
             <Button mode="solid" color="error" type="button" onClick={onDelete}>
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "IUQGA0",
-                description: "Link text to delete.",
-              })}
+              {intl.formatMessage(commonMessages.delete)}
             </Button>
           </AlertDialog.Action>
         </AlertDialog.Footer>

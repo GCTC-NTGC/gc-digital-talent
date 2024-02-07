@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { poolTitle } from "~/utils/poolUtils";
@@ -185,11 +186,7 @@ const RecruitmentAvailabilityDialog = ({
                 </Button>
                 <Dialog.Close>
                   <Button mode="inline" color="secondary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel",
-                      id: "yFIC7K",
-                      description: "Label for close availability dialog.",
-                    })}
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>
               </Dialog.Footer>

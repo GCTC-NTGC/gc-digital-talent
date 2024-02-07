@@ -14,6 +14,7 @@ import {
 import {
   errorMessages,
   getGovEmployeeType,
+  uiMessages,
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -214,11 +215,9 @@ const FormFields = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a level",
-                    id: "/ImWz4",
-                    description: "Null selection for form.",
-                  })}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOptionLevel,
+                  )}
                   options={levelOptions}
                 />
               </div>

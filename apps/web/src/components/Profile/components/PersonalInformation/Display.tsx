@@ -123,11 +123,7 @@ const Display = ({
         <DisplayColumn>
           <FieldDisplay
             hasError={!email}
-            label={intl.formatMessage({
-              defaultMessage: "Email",
-              id: "DuPnGd",
-              description: "Email label",
-            })}
+            label={intl.formatMessage(commonMessages.email)}
           >
             {email || notProvided}
           </FieldDisplay>

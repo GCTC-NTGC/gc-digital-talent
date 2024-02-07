@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { OperationContext } from "urql";
 import { useLocation } from "react-router-dom";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 
@@ -40,11 +40,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     }),
     columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
       id: "name",
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "BOeBpE",
-        description: "Title displayed for the skill table Name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
       sortingFn: normalizedText,
       meta: {
         isRowTitle: true,
@@ -86,12 +82,7 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
     columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
       id: "category",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Category",
-        id: "m5RwGF",
-        description:
-          "Title displayed for the Skill Family table Category column.",
-      }),
+      header: intl.formatMessage(adminMessages.category),
     }),
   ] as ColumnDef<Skill>[];
 

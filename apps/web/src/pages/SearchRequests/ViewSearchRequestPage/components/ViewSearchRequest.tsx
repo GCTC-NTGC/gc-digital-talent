@@ -113,12 +113,7 @@ const ManagerInfo = ({
                 data-h2-height="base(100%)"
               >
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "zwcUgi",
-                    description:
-                      "Title for the department block in the manager info section of the single search request view.",
-                  })}
+                  title={intl.formatMessage(commonMessages.department)}
                   content={department?.name?.[locale]}
                 />
                 <FilterBlock
@@ -163,12 +158,7 @@ const ManagerInfo = ({
                 data-h2-height="base(100%)"
               >
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Status",
-                    id: "Lzd38d",
-                    description:
-                      "Title for the status block in the manager info section of the single search request view.",
-                  })}
+                  title={intl.formatMessage(commonMessages.status)}
                   content={
                     status
                       ? intl.formatMessage(getPoolCandidateSearchStatus(status))

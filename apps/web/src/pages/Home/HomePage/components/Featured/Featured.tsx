@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -75,12 +76,7 @@ const Featured = () => {
     },
     {
       key: "hiring-indigenous-talent",
-      title: intl.formatMessage({
-        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
-        id: "4N/PxH",
-        description:
-          "Heading for the IT Apprenticeship Program for Indigenous Peoples on home page",
-      }),
+      title: intl.formatMessage(commonMessages.iapTitle),
       summary: (
         <p data-h2-margin-bottom="base(x1)">
           {intl.formatMessage({

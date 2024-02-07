@@ -14,6 +14,7 @@ import {
   getEducationRequirementOption,
   getLocalizedName,
   getEvaluatedLanguageAbility,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -222,19 +223,11 @@ export const getPoolCandidateCsvHeaders = (
   return [
     {
       id: "status",
-      displayName: intl.formatMessage({
-        defaultMessage: "Status",
-        id: "C0ABZu",
-        description: "CSV Header, Status column",
-      }),
+      displayName: intl.formatMessage(commonMessages.status),
     },
     {
       id: "priority",
-      displayName: intl.formatMessage({
-        defaultMessage: "Category",
-        id: "o9B983",
-        description: "CSV Header, Priority column",
-      }),
+      displayName: intl.formatMessage(adminMessages.category),
     },
     {
       id: "availability",
@@ -298,19 +291,13 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "email",
-      displayName: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "H02JZe",
-        description: "CSV Header, Email column",
-      }),
+      displayName: intl.formatMessage(commonMessages.email),
     },
     {
       id: "preferredCommunicationLanguage",
-      displayName: intl.formatMessage({
-        defaultMessage: "Preferred Communication Language",
-        id: "d9OIGt",
-        description: "CSV Header, Preferred Communication Language column",
-      }),
+      displayName: intl.formatMessage(
+        commonMessages.preferredCommunicationLanguage,
+      ),
     },
     {
       id: "preferredLanguageForInterview",
@@ -402,11 +389,7 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "department",
-      displayName: intl.formatMessage({
-        defaultMessage: "Department",
-        id: "oCX5SP",
-        description: "CSV Header, Department column",
-      }),
+      displayName: intl.formatMessage(commonMessages.department),
     },
     {
       id: "govEmployeeType",

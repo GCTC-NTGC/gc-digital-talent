@@ -21,6 +21,7 @@ import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
 import processMessages from "~/messages/processMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
@@ -61,11 +62,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
       {
         id: "team",
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "fCXZ4R",
-          description: "Title displayed for the Pool table Team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         sortingFn: normalizedText,
         cell: ({ row: { original: poolCandidate } }) =>
           viewTeamLinkCell(
@@ -97,12 +94,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         enableHiding: false,
         cell: ({ row: { original: candidate } }) =>
           statusCell(candidate, user, pools),
-        header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "sUx3ZS",
-          description:
-            "Title of the 'Status' column for the table on view-user page",
-        }),
+        header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
     ),
