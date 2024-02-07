@@ -75,13 +75,7 @@ const Display = ({
       </FieldDisplay>
       {isGovEmployee && (
         <>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Department",
-              id: "CBnsBK",
-              description: "Department label",
-            })}
-          >
+          <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
             {department ? getLocalizedName(department.name, intl) : notProvided}
           </FieldDisplay>
           <FieldDisplay

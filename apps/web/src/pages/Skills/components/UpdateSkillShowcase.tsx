@@ -18,6 +18,7 @@ import {
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   getBehaviouralSkillLevel,
   getLocalizedName,
   getTechnicalSkillLevel,
@@ -351,11 +352,7 @@ const UpdateSkillShowcase = ({
                           navigate(pageInfo.returnPath);
                         }}
                       >
-                        {intl.formatMessage({
-                          defaultMessage: "Cancel",
-                          id: "yFIC7K",
-                          description: "Label for close availability dialog.",
-                        })}
+                        {intl.formatMessage(commonMessages.cancel)}
                       </Button>
                     </div>
                   </form>

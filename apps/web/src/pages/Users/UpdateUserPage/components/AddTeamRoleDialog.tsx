@@ -22,6 +22,7 @@ import {
   useListTeamsQuery,
 } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   roles: Array<string>;
@@ -147,12 +148,7 @@ const AddTeamRoleDialog = ({
                     id: "5C8xs4",
                     description: "Placeholder text for team selection input",
                   })}
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "GaMSN8",
-                    description:
-                      "Label for the input to select team of a team role",
-                  })}
+                  label={intl.formatMessage(adminMessages.team)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}

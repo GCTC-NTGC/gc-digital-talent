@@ -226,12 +226,6 @@ const formMessages = defineMessages({
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
   },
-  other: {
-    defaultMessage: "Other",
-    id: "E6JTyY",
-    description:
-      "The selection to choose when the expected option is not available",
-  },
 });
 
 export default formMessages;
