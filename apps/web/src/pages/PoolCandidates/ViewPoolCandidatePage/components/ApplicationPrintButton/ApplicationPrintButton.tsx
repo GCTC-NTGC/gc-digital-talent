@@ -17,11 +17,18 @@ import printStyles from "~/styles/printStyles";
 import ApplicationPrintDocument, {
   ApplicationPrintDocument_PoolFragment,
 } from "./ApplicationPrintDocument";
+import ProfileDocument from "../../../../../components/ProfileDocument/ProfileDocument";
 
 const documentTitle = defineMessage({
   defaultMessage: "Application snapshot",
   id: "ipsXat",
   description: "Document title for printing a user's application snapshot.",
+});
+
+const printApplication = defineMessage({
+  defaultMessage: "Print application",
+  id: "0pDCvX",
+  description: "Print application",
 });
 
 interface ApplicationPrintButtonProps {
@@ -44,15 +51,21 @@ const ApplicationPrintButton = ({
     documentTitle: intl.formatMessage(documentTitle),
   };
 
-  const anonymousComponentRef = useRef(null);
-  const handleAnonymousPrint = useReactToPrint({
-    content: () => anonymousComponentRef.current,
+  const applicationRef = useRef(null);
+  const handleApplicationPrint = useReactToPrint({
+    content: () => applicationRef.current,
     ...commonArgs,
   });
 
-  const fullComponentRef = useRef(null);
+  const fullProfileRef = useRef(null);
   const handleFullPrint = useReactToPrint({
-    content: () => fullComponentRef.current,
+    content: () => fullProfileRef.current,
+    ...commonArgs,
+  });
+
+  const anonymousProfileRef = useRef(null);
+  const handleAnonymousPrint = useReactToPrint({
+    content: () => anonymousProfileRef.current,
     ...commonArgs,
   });
 
@@ -66,41 +79,36 @@ const ApplicationPrintButton = ({
             utilityIcon={ChevronDownIcon}
             icon={PrinterIcon}
           >
-            {intl.formatMessage({
-              defaultMessage: "Print application",
-              id: "0pDCvX",
-              description: "Print application",
-            })}
+            {intl.formatMessage(printApplication)}
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end" collisionPadding={2}>
+          <DropdownMenu.Item onSelect={handleApplicationPrint}>
+            {intl.formatMessage(printApplication)}
+          </DropdownMenu.Item>
           <DropdownMenu.Item onSelect={handleFullPrint}>
             {intl.formatMessage({
-              defaultMessage: "Print with all information",
-              id: "qN+dwB",
-              description: "Button label for print user profile.",
+              defaultMessage: "Print full profile",
+              id: "UzbDEi",
+              description: "Button label for print full user profile",
             })}
           </DropdownMenu.Item>
           <DropdownMenu.Item onSelect={handleAnonymousPrint}>
             {intl.formatMessage({
-              defaultMessage: "Print without contact information",
-              id: "c795MO",
-              description: "Button label for print user anonymous profile.",
+              defaultMessage: "Print profile without contact information",
+              id: "Y2PPGY",
+              description: "Button label for print user anonymous profile",
             })}
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <ApplicationPrintDocument
-        anonymous
         user={user}
         poolQuery={pool}
-        ref={anonymousComponentRef}
+        ref={applicationRef}
       />
-      <ApplicationPrintDocument
-        user={user}
-        poolQuery={pool}
-        ref={fullComponentRef}
-      />
+      <ProfileDocument results={[user]} ref={fullProfileRef} />
+      <ProfileDocument anonymous results={[user]} ref={anonymousProfileRef} />
     </>
   );
 };
