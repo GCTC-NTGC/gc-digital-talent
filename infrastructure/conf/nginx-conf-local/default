@@ -223,6 +223,16 @@ server {
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
