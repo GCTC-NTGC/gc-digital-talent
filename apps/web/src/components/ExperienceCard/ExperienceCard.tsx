@@ -108,11 +108,7 @@ const ExperienceCard = ({
           )
           .toString()}
       >
-        {intl.formatMessage({
-          defaultMessage: "Edit",
-          id: "vXwT4K",
-          description: "Generic link text to edit a miscellaneous item",
-        })}
+        {intl.formatMessage(commonMessages.edit)}
       </EditLink>
     ) : (
       <ExperienceSkillFormDialog

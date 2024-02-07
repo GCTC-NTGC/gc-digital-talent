@@ -8,6 +8,7 @@ import {
   getLanguageProficiency,
   getLocale,
   getEvaluatedLanguageAbility,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -210,11 +211,7 @@ export const getUserCsvHeaders = (intl: IntlShape) => [
   },
   {
     id: "department",
-    displayName: intl.formatMessage({
-      defaultMessage: "Department",
-      id: "oCX5SP",
-      description: "CSV Header, Department column",
-    }),
+    displayName: intl.formatMessage(commonMessages.department),
   },
   {
     id: "govEmployeeType",

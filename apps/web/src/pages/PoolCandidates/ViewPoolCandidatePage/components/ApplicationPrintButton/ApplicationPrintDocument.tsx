@@ -598,12 +598,7 @@ const ApplicationPrintDocument = React.forwardRef<
               </p>
               {user.isGovEmployee && user.department && (
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "M7bb1V",
-                    description:
-                      "Label for applicant's Government of Canada department",
-                  })}
+                  {intl.formatMessage(commonMessages.department)}
                   {intl.formatMessage(commonMessages.dividingColon)}
                   {user.department.name[locale]}
                 </p>

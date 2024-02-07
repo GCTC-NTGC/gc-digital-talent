@@ -53,6 +53,8 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => path.join(baseUrl, "logged-out"),
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
+    termsAndConditions: () => path.join(baseUrl, "terms-and-conditions"),
+    privacyPolicy: () => path.join(baseUrl, "privacy-policy"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),

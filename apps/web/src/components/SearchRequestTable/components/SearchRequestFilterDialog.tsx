@@ -4,6 +4,7 @@ import { OperationContext } from "urql";
 
 import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   getLocalizedName,
   getPoolCandidateSearchStatus,
   getPoolStream,
@@ -55,7 +56,7 @@ const SearchRequestFilterDialog = ({
           id="status"
           name="status"
           isMulti
-          label={intl.formatMessage(adminMessages.status)}
+          label={intl.formatMessage(commonMessages.status)}
           doNotSort
           options={enumToOptions(PoolCandidateSearchStatus, [
             PoolCandidateSearchStatus.New,
