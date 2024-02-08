@@ -13,7 +13,12 @@ import {
 } from "../types";
 
 export interface ThemeState {
+  /** Full mode stores three values to determine the current setting */
   fullMode: ThemeMode;
+  /**
+   * Mode omits "pref" and is used by hydrogen that only supports light/dark
+   * where pref will fallback to one based on users `prefers-color-scheme`
+   * */
   mode: Omit<ThemeMode, "pref">;
   key: ThemeKey;
   isPref: boolean;
