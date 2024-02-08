@@ -22,6 +22,26 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "eIxShU",
       description: "IT-04 classification label including titles",
     },
+    "PM-01": {
+      defaultMessage: "PM-01: Junior Officer",
+      id: "kfPc04",
+      description: "PM-01 classification label including titles",
+    },
+    "PM-02": {
+      defaultMessage: "PM-02: Junior Analyst",
+      id: "RJtGM5",
+      description: "PM-02 classification label including titles",
+    },
+    "PM-03": {
+      defaultMessage: "PM-03: Officer",
+      id: "Kf7cYc",
+      description: "PM-03 classification label including titles",
+    },
+    "PM-04": {
+      defaultMessage: "PM-04: Analyst",
+      id: "46pgKa",
+      description: "PM-04 classification label including titles",
+    },
   });
 
 export const classificationAriaLabels: Record<string, MessageDescriptor> =
@@ -45,5 +65,25 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Senior Advisor or Manager I T 4",
       id: "jAPSUd",
       description: "IT-04 classification aria label including titles",
+    },
+    "PM-01": {
+      defaultMessage: "Junior Officer P M 1",
+      id: "eyC9oh",
+      description: "PM-01 classification aria label including titles",
+    },
+    "PM-02": {
+      defaultMessage: "Junior Analyst P M 2",
+      id: "vRpgNs",
+      description: "PM-02 classification aria label including titles",
+    },
+    "PM-03": {
+      defaultMessage: "Officer P M 3",
+      id: "UjkAHp",
+      description: "PM-03 classification aria label including titles",
+    },
+    "PM-04": {
+      defaultMessage: "Analyst P M 4",
+      id: "g54x1Z",
+      description: "PM-04 classification aria label including titles",
     },
   });
