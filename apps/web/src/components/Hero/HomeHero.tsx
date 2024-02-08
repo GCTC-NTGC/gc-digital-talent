@@ -4,13 +4,14 @@ interface HomeHeroProps {
   children: React.ReactNode;
   callToAction?: React.ReactNode;
   img: {
+    srcset: string;
     src: string;
     alt: string;
   };
 }
 
 const HomeHero = ({
-  img: { src, alt },
+  img: { srcset, src, alt },
   callToAction,
   children,
 }: HomeHeroProps) => (
@@ -18,7 +19,7 @@ const HomeHero = ({
     data-h2-background-color="base(#000)"
     data-h2-position="base(relative)"
     data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
-    data-h2-padding-bottom="base(calc(50vh + 3%)) p-tablet(calc(60vh + 3%)) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%))"
+    data-h2-padding-bottom="p-tablet(calc(x4 + 3%)) l-tablet(calc(x6 + 3%))"
     data-h2-overflow="base(hidden)"
   >
     <div
@@ -44,18 +45,20 @@ const HomeHero = ({
         </div>
       ) : null}
     </div>
-    <img
-      alt={alt}
-      src={src}
-      data-h2-position="base(absolute)"
-      data-h2-height="base(50vh) p-tablet(60vh) l-tablet(110%)"
-      data-h2-width="base(auto)"
-      data-h2-left="base(50%) l-tablet(60%)"
-      data-h2-top="p-tablet(50%) l-tablet(0)"
-      data-h2-bottom="base(-7%)"
-      data-h2-transform="base(translate(-50%)) l-tablet(translate(-30%))"
-      data-h2-max-width="base(200%) p-tablet(100%)"
-    />
+    <div data-h2-padding-top="base(x3) p-tablet(0)">
+      <img
+        srcSet={srcset}
+        sizes="(min-width: 48em) 1200px, (min-width: 1px) 600px, 1200px"
+        src={src}
+        alt={alt}
+        data-h2-height="p-tablet(100%)"
+        data-h2-margin-bottom="base(-x2) p-tablet(0)"
+        data-h2-position="base(relative) p-tablet(absolute)"
+        data-h2-top="p-tablet(0)"
+        data-h2-left="p-tablet(50%)"
+        data-h2-width="base(100%) p-tablet(auto)"
+      />
+    </div>
   </div>
 );
 

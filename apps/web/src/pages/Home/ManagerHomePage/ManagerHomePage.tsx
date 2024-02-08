@@ -17,7 +17,8 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import managerHero from "~/assets/img/manager-hero.webp";
+import managerHeroPortrait from "~/assets/img/manager-hero-portrait.webp";
+import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
@@ -39,7 +40,8 @@ const HomePage = () => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          src: managerHero,
+          srcset: `${managerHeroPortrait} 600w, ${managerHeroLandscape} 1200w`,
+          src: managerHeroLandscape,
           alt: "",
         }}
         callToAction={
@@ -74,7 +76,7 @@ const HomePage = () => {
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
           data-h2-margin="base(x1, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
+          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
           {intl.formatMessage({
             defaultMessage: "Grow your career and find talent for your team.",

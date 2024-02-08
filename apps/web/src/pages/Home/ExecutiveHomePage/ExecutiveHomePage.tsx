@@ -28,7 +28,8 @@ import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import executiveHero from "~/assets/img/people-sitting-in-line-shaking-hands.webp";
+import executiveHeroPortrait from "~/assets/img/exec-hero-portrait.webp";
+import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
 
 interface HomePageProps {
@@ -50,7 +51,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          src: executiveHero,
+          srcset: `${executiveHeroPortrait} 600w, ${executiveHeroLandscape} 1200w`,
+          src: executiveHeroLandscape,
           alt: "",
         }}
       >
@@ -60,8 +62,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
-          data-h2-margin="base(x1, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
+          data-h2-margin="base(x1, 0, 0, 0)"
+          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
           {intl.formatMessage({
             defaultMessage:
