@@ -25,7 +25,7 @@
     "@storybook/addon-essentials": "^7.6.12",
     "@storybook/addon-links": "^7.6.13",
     "@storybook/addon-viewport": "^7.6.10",
-    "@storybook/addons": "^7.6.10",
+    "@storybook/addons": "^7.6.13",
     "@storybook/react-webpack5": "^7.6.12",
     "hydrogen-webpack-plugin": "*",
     "react": "^18.2.0",
