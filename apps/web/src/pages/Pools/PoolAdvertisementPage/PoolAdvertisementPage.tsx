@@ -31,6 +31,7 @@ import {
   navigationMessages,
   getPoolStream,
   uiMessages,
+  Locales,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -87,6 +88,20 @@ const anchorTag = (chunks: React.ReactNode, email?: Maybe<string>) => {
     chunks
   );
 };
+
+const standardsLink = (locale: Locales, chunks: React.ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html"
+        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
 
 const moreInfoAccordions = {
   whoCanApply: "who-can-apply",
@@ -618,12 +633,19 @@ export const PoolPoster = ({
                 {sections.minEducation.title}
               </TableOfContents.Heading>
               <Text data-h2-margin-bottom="base(x1)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you'll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the Government of Canada's education standard.",
-                  id: "Mr93f0",
-                  description: "Description of minimum education requirements",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you'll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the <link>Government of Canada's qualification standard</link>.",
+                    id: "gXFpR1",
+                    description:
+                      "Description of minimum education requirements",
+                  },
+                  {
+                    link: (chunks: React.ReactNode) =>
+                      standardsLink(locale, chunks),
+                  },
+                )}
               </Text>
               <EducationRequirements
                 isIAP={pool.publishingGroup === PublishingGroup.Iap}
