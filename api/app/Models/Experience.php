@@ -64,7 +64,9 @@ abstract class Experience extends Model
                 'indigenous_declaration_signature',
                 'indigenous_communities',
                 'preferred_language_for_interview',
-                'preferred_language_for_exam']);
+                'preferred_language_for_exam',
+                'deleted_at'
+            ]);
     }
 
     public function userSkills(): MorphToMany
