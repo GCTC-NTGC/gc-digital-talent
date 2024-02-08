@@ -129,7 +129,7 @@ const ThemeProvider = ({
         item.dataset.h2 = themeString;
       }
     });
-  }, [computedMode, key, mode, themeSelector]);
+  }, [computedMode, darkMode, key, mode, themeSelector]);
 
   const testDark = React.useCallback(() => {
     const isSet = mode && mode !== "pref";
