@@ -29,7 +29,7 @@
     "@storybook/react-webpack5": "^7.6.12",
     "hydrogen-webpack-plugin": "*",
     "react": "^18.2.0",
-    "storybook": "^7.6.12",
+    "storybook": "^7.6.13",
     "storybook-addon-intl": "^3.2.0",
     "tsconfig": "*",
     "tsconfig-paths-webpack-plugin": "^4.1.0"
