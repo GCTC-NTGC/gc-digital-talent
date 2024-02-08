@@ -21,6 +21,7 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@gc-digital-talent/env": "*",
     "@gc-digital-talent/storage": "*"
   },
   "devDependencies": {
