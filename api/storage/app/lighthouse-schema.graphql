@@ -226,6 +226,11 @@ type User {
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
   userSkills(includeSkillIds: [UUID]): [UserSkill]
   topTechnicalSkillsRanking: [UserSkill]
   topBehaviouralSkillsRanking: [UserSkill]
@@ -537,6 +542,7 @@ interface Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type WorkExperience implements Experience {
@@ -550,6 +556,7 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type PersonalExperience implements Experience {
@@ -562,6 +569,7 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type CommunityExperience implements Experience {
@@ -575,6 +583,7 @@ type CommunityExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type EducationExperience implements Experience {
@@ -590,6 +599,7 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type AwardExperience implements Experience {
@@ -603,6 +613,7 @@ type AwardExperience implements Experience {
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
+  deletedDate: DateTime
 }
 
 type ExperienceSkillRecord {

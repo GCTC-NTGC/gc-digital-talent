@@ -104,7 +104,12 @@ type User {
     @with(relation: "communityExperiences")
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
-    @with(relation: "workExperiences") # All experiences that a user own
+    @with(relation: "workExperiences") # All experiences that a user owns
+  awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
+  communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
+  educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
+  personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
+  workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -487,6 +492,7 @@ interface Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type WorkExperience implements Experience {
@@ -502,6 +508,7 @@ type WorkExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -515,6 +522,7 @@ type PersonalExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -529,6 +537,7 @@ type CommunityExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -545,6 +554,7 @@ type EducationExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -559,6 +569,7 @@ type AwardExperience implements Experience {
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
 type ExperienceSkillRecord {

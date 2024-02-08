@@ -36,6 +36,7 @@ abstract class Experience extends Model
                 'preferred_lang',
                 'current_province',
                 'current_city',
+                'current_classification',
                 'looking_for_english',
                 'looking_for_french',
                 'looking_for_bilingual',
@@ -65,7 +66,7 @@ abstract class Experience extends Model
                 'indigenous_communities',
                 'preferred_language_for_interview',
                 'preferred_language_for_exam',
-                'deleted_at'
+                'deleted_at',
             ]);
     }
 
