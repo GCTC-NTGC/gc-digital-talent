@@ -19,13 +19,6 @@ import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
 
 const landscapeRandomize = (index?: number | undefined) => {
-  // const items = [
-  //   hero1Landscape,
-  //   hero2Landscape,
-  //   hero3Landscape,
-  //   hero4Landscape,
-  // ];
-  // return items[index ?? Math.floor(Math.random() * items.length)];
   const imageSets = {
     "1": {
       mobile: hero1Portrait,
