@@ -34,7 +34,7 @@
     "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.3.106",
+    "@swc/core": "^1.4.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.14.202",
     "@types/react": "^18.2.55",
