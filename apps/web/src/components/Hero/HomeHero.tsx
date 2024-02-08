@@ -48,14 +48,15 @@ const HomeHero = ({
     <div data-h2-padding-top="base(x3) p-tablet(0)">
       <img
         srcSet={srcset}
-        sizes="(min-width: 48em) 1200px, (min-width: 1px) 600px, 1200px"
+        sizes="(min-width: 67.5em) 1200px, (min-width: 48em) 900px, (min-width: 1px) 600px, 1200px"
         src={src}
         alt={alt}
         data-h2-height="p-tablet(100%)"
         data-h2-margin-bottom="base(-x2) p-tablet(0)"
         data-h2-position="base(relative) p-tablet(absolute)"
         data-h2-top="p-tablet(0)"
-        data-h2-left="p-tablet(50%)"
+        data-h2-left="p-tablet(auto) l-tablet(50%)"
+        data-h2-right="p-tablet(0px) l-tablet(auto)"
         data-h2-width="base(100%) p-tablet(auto)"
       />
     </div>

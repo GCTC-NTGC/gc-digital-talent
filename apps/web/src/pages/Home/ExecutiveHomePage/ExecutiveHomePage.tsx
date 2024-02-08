@@ -29,6 +29,7 @@ import PoolCard from "~/components/PoolCard/PoolCard";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import executiveHeroPortrait from "~/assets/img/exec-hero-portrait.webp";
+import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
 import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
 
@@ -51,7 +52,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          srcset: `${executiveHeroPortrait} 600w, ${executiveHeroLandscape} 1200w`,
+          srcset: `${executiveHeroPortrait} 600w, ${executiveHeroTablet} 900w, ${executiveHeroLandscape} 1200w`,
           src: executiveHeroLandscape,
           alt: "",
         }}

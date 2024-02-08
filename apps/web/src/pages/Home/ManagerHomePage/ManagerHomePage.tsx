@@ -18,6 +18,7 @@ import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContai
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import managerHeroPortrait from "~/assets/img/manager-hero-portrait.webp";
+import managerHeroTablet from "~/assets/img/manager-hero-tablet-portrait.webp";
 import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
@@ -40,7 +41,7 @@ const HomePage = () => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          srcset: `${managerHeroPortrait} 600w, ${managerHeroLandscape} 1200w`,
+          srcset: `${managerHeroPortrait} 600w, ${managerHeroTablet} 900w, ${managerHeroLandscape} 1200w`,
           src: managerHeroLandscape,
           alt: "",
         }}

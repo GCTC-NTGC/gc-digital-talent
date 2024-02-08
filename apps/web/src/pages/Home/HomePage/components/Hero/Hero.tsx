@@ -11,29 +11,37 @@ import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
 import hero1Portrait from "~/assets/img/hero-1-portrait.webp";
+import hero1Tablet from "~/assets/img/hero-1-tablet-portrait.webp";
 import hero2Landscape from "~/assets/img/hero-2-landscape.webp";
 import hero2Portrait from "~/assets/img/hero-2-portrait.webp";
+import hero2Tablet from "~/assets/img/hero-2-tablet-portrait.webp";
 import hero3Landscape from "~/assets/img/hero-3-landscape.webp";
 import hero3Portrait from "~/assets/img/hero-3-portrait.webp";
+import hero3Tablet from "~/assets/img/hero-3-tablet-portrait.webp";
 import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 import hero4Portrait from "~/assets/img/hero-4-portrait.webp";
+import hero4Tablet from "~/assets/img/hero-4-tablet-portrait.webp";
 
 const landscapeRandomize = (index?: number | undefined) => {
   const imageSets = {
     "1": {
       mobile: hero1Portrait,
+      tablet: hero1Tablet,
       desktop: hero1Landscape,
     },
     "2": {
       mobile: hero2Portrait,
+      tablet: hero2Tablet,
       desktop: hero2Landscape,
     },
     "3": {
       mobile: hero3Portrait,
+      tablet: hero3Tablet,
       desktop: hero3Landscape,
     },
     "4": {
       mobile: hero4Portrait,
+      tablet: hero4Tablet,
       desktop: hero4Landscape,
     },
   };
@@ -49,11 +57,12 @@ const Hero = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const homeMobile = landscapeRandomize(defaultImage).mobile;
+  const homeTablet = landscapeRandomize(defaultImage).tablet;
   const homeDesktop = landscapeRandomize(defaultImage).desktop;
   return (
     <HomeHero
       img={{
-        srcset: `${homeMobile} 600w, ${homeDesktop} 1200w`,
+        srcset: `${homeMobile} 600w, ${homeTablet} 900w, ${homeDesktop} 1200w`,
         src: homeDesktop,
         alt: intl.formatMessage({
           defaultMessage:
