@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   ThemeMode,
@@ -69,6 +70,7 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
+  const { darkMode } = useFeatureFlags();
   const [theme, setTheme] = useLocalStorage<Theme>(
     "theme",
     getDefaultTheme(override),
@@ -109,6 +111,9 @@ const ThemeProvider = ({
 
     if (computedMode && key) {
       themeString = `${key} ${computedMode}`;
+      if (!darkMode) {
+        themeString = key;
+      }
     } else if (key) {
       themeString = key;
     } else if (mode) {
