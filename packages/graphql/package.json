@@ -19,7 +19,7 @@
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.2.2",
     "@graphql-codegen/client-preset-swc-plugin": "^0.2.0",
-    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript": "^4.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
     "@parcel/watcher": "^2.4.0",
