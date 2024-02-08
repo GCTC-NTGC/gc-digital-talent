@@ -58,7 +58,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-intl": "^6.6.2",
-    "react-router-dom": "^6.21.3",
+    "react-router-dom": "^6.22.0",
     "react-to-print": "^2.14.15",
     "urql": "^4.0.6"
   },
