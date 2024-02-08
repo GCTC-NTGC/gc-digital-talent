@@ -5738,6 +5738,10 @@
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
   },
+  "UzbDEi": {
+    "defaultMessage": "Imprimer le profil au complet",
+    "description": "Button label for print full user profile"
+  },
   "Uzx5dR": {
     "defaultMessage": "Vous ne voyez pas de processus de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
     "description": "summary for section with ongoing pool advertisements"
@@ -6345,6 +6349,10 @@
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
+  },
+  "Y2PPGY": {
+    "defaultMessage": "Imprimer le profil sans les coordonnées",
+    "description": "Button label for print user anonymous profile"
   },
   "Y2ULHN": {
     "defaultMessage": "Associer une expérience",
