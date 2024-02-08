@@ -74,7 +74,7 @@
     "@gc-digital-talent/storybook-helpers": "*",
     "@gc-digital-talent/webpack-config": "*",
     "@graphql-codegen/add": "^5.0.0",
-    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-urql": "^3.7.3",
