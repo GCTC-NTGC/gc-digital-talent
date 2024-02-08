@@ -82,7 +82,7 @@
     "@parcel/watcher": "^2.4.0",
     "@storybook/addon-actions": "^7.6.10",
     "@storybook/addon-viewport": "^7.6.10",
-    "@storybook/react": "^7.6.12",
+    "@storybook/react": "^7.6.13",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
