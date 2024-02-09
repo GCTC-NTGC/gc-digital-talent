@@ -13,7 +13,7 @@ jobs:
   - job: build_artifact
     displayName: Build artifact
     pool:
-      vmImage: ubuntu-22.04
+      vmImage: ubuntu-20.04
     steps:
       - checkout: self
         clean: true
