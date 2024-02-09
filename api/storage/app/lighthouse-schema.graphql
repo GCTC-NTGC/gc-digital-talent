@@ -670,10 +670,7 @@ input UserFilterInput {
 }
 
 input UserPublicProfileFilterInput {
-  telephone: String
-  email: String
-  name: String
-  generalSearch: [String]
+  publicProfileSearch: String
 }
 
 input ApplicantFilterInput {

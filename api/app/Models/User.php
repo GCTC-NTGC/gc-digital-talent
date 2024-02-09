@@ -690,6 +690,20 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
+    public static function scopePublicProfileSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                self::scopeName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+            });
+        }
+
+        return $query;
+    }
+
     public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {

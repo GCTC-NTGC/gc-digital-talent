@@ -615,10 +615,7 @@ input UserFilterInput {
 }
 
 input UserPublicProfileFilterInput {
-  telephone: String @scope
-  email: String @scope
-  name: String @scope
-  generalSearch: [String] @scope
+  publicProfileSearch: String @scope
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
