@@ -56,14 +56,12 @@ export interface HeroProps {
 const Hero = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const homeMobile = landscapeRandomize(defaultImage).mobile;
-  const homeTablet = landscapeRandomize(defaultImage).tablet;
-  const homeDesktop = landscapeRandomize(defaultImage).desktop;
+  const getHeroImage = landscapeRandomize(defaultImage);
   return (
     <HomeHero
       img={{
-        srcset: `${homeMobile} 600w, ${homeTablet} 900w, ${homeDesktop} 1200w`,
-        src: homeDesktop,
+        srcset: `${getHeroImage.mobile} 600w, ${getHeroImage.tablet} 900w, ${getHeroImage.desktop} 1200w`,
+        src: getHeroImage.desktop,
         alt: intl.formatMessage({
           defaultMessage:
             "A diverse group of people, representing all races, genders, and backgrounds, gathered together in unity. Everyone is welcome here!",
