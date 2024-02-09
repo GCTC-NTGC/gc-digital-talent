@@ -614,6 +614,13 @@ input UserFilterInput {
   trashed: Trashed @trashed
 }
 
+input UserPublicProfileFilterInput {
+  telephone: String @scope
+  email: String @scope
+  name: String @scope
+  generalSearch: [String] @scope
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -703,6 +710,14 @@ type Query {
     @deprecated(
       reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!"
     )
+  userPublicProfilesPaginated(
+    where: UserPublicProfileFilterInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [UserPublicProfile]!
+    @orderBy(column: "created_at", direction: DESC)
+    @paginate(defaultCount: 10, maxCount: 1000)
+    @guard
+    @can(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["inITPublishingGroup"])
