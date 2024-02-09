@@ -2,7 +2,6 @@ import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { useQuery } from "urql";
 
@@ -45,6 +44,7 @@ import ApplicationInformation from "./components/ApplicationInformation/Applicat
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
+import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -646,20 +646,10 @@ export const ViewPoolCandidate = ({
                 })}
               </p>
               <p>Step 1: Screening Application (Replace with fetched value)</p>
-              <Link
-                href="#replace-with-link"
-                icon={ArrowRightCircleIcon}
-                type="button"
-                color="primary"
-                mode="inline"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Go to next candidate",
-                  id: "oTNbp0",
-                  description:
-                    "Link label to view next candidate on view pool candidate page",
-                })}
-              </Link>
+              <CandidateNavigation
+                candidateId={poolCandidate.id}
+                poolId={poolCandidate.pool.id}
+              />
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
