@@ -12,6 +12,31 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+Help()
+{
+  echo "Deploy the project from Azure Pipelines."
+  echo
+  echo "Syntax: deploy.sh [-h|d] <ROOT_DIR>"
+  echo "   -h   Show this help message."
+  echo "   -d   Setup the environment with dev dependencies."
+  echo
+}
+
+GCDT_DEV=false
+
+while getopts ":hd" option; do
+  case $option in
+    h) # display Help
+      Help
+      exit;;
+    d) # setup for dev
+      GCDT_DEV=true;;
+    \?) # incorrect option
+      echo "Error: Invalid option"
+      exit;;
+  esac
+done
+
 ROOT_DIR=$1
 
 sudo composer selfupdate
@@ -28,7 +53,11 @@ npm install -g npm@9.9.2
 
 cd $ROOT_DIR/api
 
-composer install --no-dev
+if [ "$GCDT_DEV" = true ]; then
+  composer install
+else
+  composer install --no-dev
+fi
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 php artisan lighthouse:print-schema --write
