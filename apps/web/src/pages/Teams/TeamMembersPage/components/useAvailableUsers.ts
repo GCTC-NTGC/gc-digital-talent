@@ -31,8 +31,6 @@ const TeamMembers_AvailableUsersQuery = graphql(/* GraphQL */ `
         email
       }
       paginatorInfo {
-        lastPage
-        currentPage
         total
       }
     }
@@ -41,6 +39,7 @@ const TeamMembers_AvailableUsersQuery = graphql(/* GraphQL */ `
 
 type UseAvailableUsersReturn = {
   users: UserPublicProfile[];
+  total: number;
   fetching: boolean;
 };
 
@@ -59,9 +58,12 @@ const useAvailableUsers = (
   });
 
   const users = unpackMaybes(data?.userPublicProfilesPaginated.data);
+  const total =
+    data?.userPublicProfilesPaginated.paginatorInfo?.total ?? users.length;
 
   return {
     users,
+    total,
     fetching,
   };
 };

@@ -37,8 +37,12 @@ const AddTeamMemberDialog = ({
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = React.useState<string>("");
-  const { users, fetching: usersFetching } = useAvailableUsers(members, {
-    generalSearch: query ? query.split(",") : undefined,
+  const {
+    users,
+    total,
+    fetching: usersFetching,
+  } = useAvailableUsers(members, {
+    publicProfileSearch: query || undefined,
   });
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useUpdateUserTeamRolesMutation();
@@ -148,6 +152,7 @@ AddTeamMemberDialogProps) => {
                   fetching={usersFetching}
                   isExternalSearch
                   onSearch={handleDebouncedSearch}
+                  total={total}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
