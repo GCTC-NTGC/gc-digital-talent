@@ -268,8 +268,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
               url: paths.poolCandidateTable(pool.id),
               label: intl.formatMessage({
                 defaultMessage: "Talent placement",
-                id: "ohRBJ3",
-                description: "Title for a process's candidates tab",
+                id: "0YpfAG",
+                description: "Title for candidates tab for a process",
               }),
             },
           },
