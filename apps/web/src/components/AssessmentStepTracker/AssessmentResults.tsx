@@ -142,7 +142,7 @@ interface AssessmentResultsProps {
 
 const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
   const sortedResults = sortResultsAndAddOrdinal(results);
-  const candidateIds = results.map((result) => result.poolCandidate.id);
+  const candidateIds = sortedResults.map((result) => result.poolCandidate.id);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
