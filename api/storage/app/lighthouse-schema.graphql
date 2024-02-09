@@ -50,6 +50,7 @@ type Query {
   ): UserPaginator!
   userPublicProfilesPaginated(
     where: UserPublicProfileFilterInput
+    excludeIds: [ID!]
     orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
