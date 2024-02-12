@@ -9126,6 +9126,10 @@
     "defaultMessage": "Compétence linguistique estimée",
     "description": "CSV Header, Estimated Language Ability column"
   },
+  "nUokX9": {
+    "defaultMessage": "Retourner au suivi des évaluations",
+    "description": "Link label to return to assessment tracker"
+  },
   "nWZiWr": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Education requirement (IT Apprenticeship Program for Indigenous Peoples)"
@@ -10657,6 +10661,10 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "xfHjyy": {
+    "defaultMessage": "Passer au candidat précédent",
+    "description": "Link label to view previous candidate on view pool candidate page"
   },
   "xff04x": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en français.",
