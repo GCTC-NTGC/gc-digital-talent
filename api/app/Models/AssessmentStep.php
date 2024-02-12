@@ -63,6 +63,11 @@ class AssessmentStep extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
+    public function screeningQuestions(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestion::class);
+    }
+
     /**
      * Boot function for using with AssessmentStep Events
      *
@@ -90,9 +95,9 @@ class AssessmentStep extends Model
         });
 
         static::deleted(function (AssessmentStep $step) {
-            // If this was the screening question step delete all general questions as well
+            // If this was the screening question step delete all screening questions as well
             if (isset($step['type']) && $step['type'] === AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name) {
-                $questions = GeneralQuestion::where('pool_id', '=', $step->pool_id)->get();
+                $questions = ScreeningQuestion::where('pool_id', '=', $step->pool_id)->get();
                 foreach ($questions as $question) {
                     $question->delete();
                 }

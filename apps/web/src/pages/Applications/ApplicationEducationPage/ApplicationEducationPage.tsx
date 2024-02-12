@@ -359,6 +359,7 @@ const ApplicationEducation = ({
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}
+            classificationGroup={classificationGroup}
           />
           <Separator
             orientation="horizontal"

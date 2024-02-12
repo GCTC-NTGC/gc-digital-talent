@@ -33,6 +33,7 @@ services:
       - ./infrastructure/conf/nginx-conf-local:/etc/nginx/sites-available/
       - ./infrastructure/conf/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ./infrastructure/conf/php-fpm-www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./infrastructure/conf/php-fpm-docker.conf:/usr/local/etc/php-fpm.d/docker.conf:ro
     ports:
       - 8000:8080
     environment:

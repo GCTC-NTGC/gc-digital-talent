@@ -1,15 +1,15 @@
 import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
-import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
-import BanknotesIcon from "@heroicons/react/24/outline/BanknotesIcon";
-import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
+import BanknotesIcon from "@heroicons/react/20/solid/BanknotesIcon";
+import UserIcon from "@heroicons/react/20/solid/UserIcon";
 
 import ToggleGroupDocs from "./ToggleGroup.docs.mdx";
 import ToggleGroup from "./ToggleGroup";
 
 export default {
   component: ToggleGroup.Root,
-  title: "Components/ToggleGroup",
+  title: "Components/Toggle Group",
   args: {
     type: "single",
   },
@@ -28,48 +28,8 @@ export default {
 
 const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1, 0)"
-      data-h2-align-items="base(center)"
-    >
+    <div data-h2-padding="base(x2)">
       <ToggleGroup.Root {...args}>
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="primary.dark">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="secondary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="tertiary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="quaternary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="quinary">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="black">
-        <ToggleGroup.Item value="one">One</ToggleGroup.Item>
-        <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
-        <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
-      </ToggleGroup.Root>
-      <ToggleGroup.Root {...args} color="white">
         <ToggleGroup.Item value="one">One</ToggleGroup.Item>
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
         <ToggleGroup.Item value="three">Three</ToggleGroup.Item>
@@ -81,7 +41,11 @@ const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
 const Template: StoryFn<typeof ToggleGroup.Root> = (args) => {
   const { children, ...rest } = args;
 
-  return <ToggleGroup.Root {...rest}>{children}</ToggleGroup.Root>;
+  return (
+    <div data-h2-padding="base(x2)">
+      <ToggleGroup.Root {...rest}>{children}</ToggleGroup.Root>
+    </div>
+  );
 };
 
 export const Single = AllTemplate.bind({});
@@ -113,6 +77,12 @@ export const WithTwoOptions = Template.bind({});
 WithTwoOptions.args = {
   type: "single",
   children: <TwoOptionsChildren />,
+};
+
+export const WithPrefix = AllTemplate.bind({});
+WithPrefix.args = {
+  type: "single",
+  label: <span>Prefix</span>,
 };
 
 export const WithIcons = Template.bind({});

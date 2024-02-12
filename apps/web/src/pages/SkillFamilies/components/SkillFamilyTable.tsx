@@ -3,7 +3,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 
@@ -38,12 +38,7 @@ export const SkillFamilyTable = ({
       {
         id: "name",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Name",
-          id: "VphXhu",
-          description:
-            "Title displayed for the Skill Family table Name column.",
-        }),
+        header: intl.formatMessage(commonMessages.name),
         meta: {
           isRowTitle: true,
         },
@@ -64,7 +59,7 @@ export const SkillFamilyTable = ({
     ),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: skillFamily } }) =>
         cells.edit(
           skillFamily.id,

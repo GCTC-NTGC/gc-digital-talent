@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -79,12 +80,7 @@ export const CreateClassificationForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "7wYPgC",
-              description:
-                "Label displayed on the classification form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -93,12 +89,7 @@ export const CreateClassificationForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "uAmdiU",
-              description:
-                "Label displayed on the classification form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -127,12 +118,9 @@ export const CreateClassificationForm = ({
               description:
                 "Label displayed on the classification form level field.",
             })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a level",
-              id: "Le4EQq",
-              description:
-                "Placeholder displayed on the classification form level field.",
-            })}
+            nullSelection={intl.formatMessage(
+              uiMessages.nullSelectionOptionLevel,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

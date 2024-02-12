@@ -4,106 +4,65 @@
 import React from "react";
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 
-type Color =
-  | "primary"
-  | "primary.dark"
-  | "secondary"
-  | "tertiary"
-  | "quaternary"
-  | "quinary"
-  | "white"
-  | "black";
-
-const colorMap: Record<Color, Record<string, string>> = {
-  primary: {
-    "data-h2-background-color": "base(primary)",
-    "data-h2-color":
-      "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  "primary.dark": {
-    "data-h2-background-color": "base(primary.dark)",
-    "data-h2-color":
-      "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  secondary: {
-    "data-h2-background-color": "base(secondary) base:dark(secondary.lighter)",
-    "data-h2-color":
-      "base:children[>*](black) base:dark:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](black)",
-  },
-  tertiary: {
-    "data-h2-background-color": "base(tertiary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  quaternary: {
-    "data-h2-background-color": "base(quaternary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  quinary: {
-    "data-h2-background-color": "base(quinary)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  white: {
-    "data-h2-background-color": "base(white) base:dark(black.lighter)",
-    "data-h2-color":
-      "base:children[>*](black) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-  black: {
-    "data-h2-background-color": "base(black) base:dark(black.lighter)",
-    "data-h2-color":
-      "base:children[>*](white) base:children[>[data-state='on']](black) base:dark:children[>[data-state='on']](white)",
-  },
-};
-
 const Item = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
 >((props, forwardedRef) => (
   <ToggleGroupPrimitive.Item
     data-h2-align-items="base(center)"
-    data-h2-background-color="
-      base(transparent)
-      base:selectors[[data-state='on']](white)
-      base:dark:selectors[[data-state='on']](black)
-      base:hover(white.15)
-      base:dark:hover(black.15)
-      base:focus-visible(focus)
-      base:dark:selectors[[data-state='on']]:focus-visible(focus)"
     data-h2-cursor="base:hover(pointer)"
     data-h2-display="base(flex)"
     data-h2-line-height="base(1)"
     data-h2-outline="base(none)"
-    data-h2-padding="base(x.25, x.5)"
+    data-h2-padding="base(x.25)"
     data-h2-radius="base(m)"
-    data-h2-text-decoration="base:selectors[[data-state='off']](underline)"
-    data-h2-width="base:children[svg](var(--h2-font-size-copy))"
+    data-h2-width="base:children[svg](x.75)"
     ref={forwardedRef}
     {...props}
   />
 ));
 
-type ToggleGroupType = typeof ToggleGroupPrimitive.Root;
-export interface ToggleGroupProps extends ToggleGroupType {
-  color?: Color;
-}
+export type RootProps = React.ComponentPropsWithoutRef<
+  typeof ToggleGroupPrimitive.Root
+> & {
+  label?: React.ReactNode;
+};
 
 const Root = React.forwardRef<
-  React.ElementRef<ToggleGroupType>,
-  React.ComponentPropsWithoutRef<ToggleGroupProps>
->(({ color = "primary", ...rest }, forwardedRef) => {
+  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+  RootProps
+>(({ label, children, ...rest }, forwardedRef) => {
   return (
     <ToggleGroupPrimitive.Root
-      className={`ToggleGroup ToggleGroup--${color}`}
-      {...colorMap[color as Color]}
+      data-h2-align-items="base(center)"
+      data-h2-background-color="
+        base(foreground) base:dark(white)
+        base:children[button](background.dark)
+        base:children[button:hover](background.darkest)
+        base:children[button:focus-visible](focus)
+        base:all:children[button[data-state='on']](quaternary.light)
+      "
+      data-h2-color="
+        base(black)
+        base:children[button](black)
+        base:iap:children[button](black)
+        base:children[button:hover](white)
+        base:all:children[button:focus-visible](black)
+        base:all:children[button[data-state='on']](black)
+        base:iap:all:children[button[data-state='on']](white)
+        base:iap:children[button:hover[data-state='on']](white)
+      "
+      data-h2-border="base(1px solid background.darker)"
       data-h2-display="base(inline-flex)"
       data-h2-padding="base(x.25)"
       data-h2-radius="base(m)"
       data-h2-gap="base(0, x.25)"
       ref={forwardedRef}
       {...rest}
-    />
+    >
+      {label && <div>{label}</div>}
+      {children}
+    </ToggleGroupPrimitive.Root>
   );
 });
 

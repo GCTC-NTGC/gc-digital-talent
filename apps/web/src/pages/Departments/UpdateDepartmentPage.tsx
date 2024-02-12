@@ -23,6 +23,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -107,12 +108,7 @@ export const UpdateDepartmentForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "4boO/6",
-              description:
-                "Label displayed on the create a department form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -121,12 +117,7 @@ export const UpdateDepartmentForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "c0n+2j",
-              description:
-                "Label displayed on the create a department form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
