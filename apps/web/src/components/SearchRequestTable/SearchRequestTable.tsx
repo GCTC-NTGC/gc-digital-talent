@@ -8,6 +8,7 @@ import {
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
+import { useQuery } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -15,13 +16,13 @@ import {
   getLocalizedName,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
   PoolCandidateSearchRequest,
-  useGetPoolCandidateSearchRequestsPaginatedQuery,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
@@ -100,6 +101,64 @@ const sortInitialState = [
     desc: true,
   },
 ];
+
+const SearchRequestTable_Query = graphql(/* GraphQL */ `
+  query SearchRequestTable(
+    $where: PoolCandidateSearchRequestInput
+    $first: Int
+    $page: Int
+    $orderBy: [OrderByClause!]
+  ) {
+    poolCandidateSearchRequestsPaginated(
+      where: $where
+      first: $first
+      page: $page
+      orderBy: $orderBy
+    ) {
+      data {
+        additionalComments
+        adminNotes
+        applicantFilter {
+          id
+          qualifiedClassifications {
+            id
+            group
+            level
+          }
+          qualifiedStreams
+        }
+        department {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+        email
+        fullName
+        id
+        jobTitle
+        managerJobTitle
+        positionType
+        requestedDate
+        status
+        statusChangedAt
+        wasEmpty
+      }
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
+    }
+  }
+`);
 
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
@@ -277,7 +336,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     });
   };
 
-  const [{ data, fetching }] = useGetPoolCandidateSearchRequestsPaginatedQuery({
+  const [{ data, fetching }] = useQuery({
+    query: SearchRequestTable_Query,
     variables: {
       where: transformSearchRequestInput(
         filterState,
