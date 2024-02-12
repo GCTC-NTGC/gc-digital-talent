@@ -2,7 +2,6 @@ import React from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
-import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
@@ -228,20 +227,6 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
           },
         ],
         [
-          "edit",
-          {
-            icon: Cog8ToothIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Advertisement information",
-              id: "yM04jy",
-              description: "Title for advertisement information of a process",
-            }),
-            link: {
-              url: paths.poolUpdate(pool.id),
-            },
-          },
-        ],
-        [
           "screening",
           {
             title: intl.formatMessage({
@@ -287,20 +272,6 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             }),
             link: {
               url: paths.poolView(pool.id),
-            },
-          },
-        ],
-        [
-          "edit",
-          {
-            icon: Cog8ToothIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Advertisement information",
-              id: "yM04jy",
-              description: "Title for advertisement information of a process",
-            }),
-            link: {
-              url: paths.poolUpdate(pool.id),
             },
           },
         ],
