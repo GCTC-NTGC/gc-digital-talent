@@ -495,6 +495,10 @@
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
   },
+  "0YpfAG": {
+    "defaultMessage": "Placement de talents",
+    "description": "Title for a process's candidates tab"
+  },
   "0a8nPa": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
