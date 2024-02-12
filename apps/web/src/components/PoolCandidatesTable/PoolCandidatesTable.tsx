@@ -338,7 +338,12 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        recordOfDecision,
+      ),
     },
   });
 
