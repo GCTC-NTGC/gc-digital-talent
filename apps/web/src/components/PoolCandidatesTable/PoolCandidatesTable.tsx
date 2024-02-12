@@ -439,7 +439,7 @@ const PoolCandidatesTable = ({
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -462,7 +462,7 @@ const PoolCandidatesTable = ({
           },
         }) => priorityCell(user.priorityWeight, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
         },
       },
     ),
