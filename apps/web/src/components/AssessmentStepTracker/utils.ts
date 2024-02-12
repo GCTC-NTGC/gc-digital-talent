@@ -247,8 +247,9 @@ export const filterResults = (
         if (filters.query) {
           const fullName = [user.firstName, user.lastName]
             .filter(notEmpty)
-            .join(" ");
-          if (!fullName.includes(filters.query)) {
+            .join(" ")
+            .toLowerCase();
+          if (!fullName.includes(filters.query.toLowerCase())) {
             return false;
           }
         }

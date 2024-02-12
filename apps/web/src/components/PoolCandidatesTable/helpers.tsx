@@ -355,6 +355,28 @@ export function transformSortStateToOrderByClause(
   };
 }
 
+export function getSortOrder(
+  sortingRules?: SortingState,
+  filterState?: PoolCandidateSearchInput,
+  doNotUseBookmark?: boolean,
+): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+  return [
+    ...(doNotUseBookmark
+      ? []
+      : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
+    { column: "status_weight", order: SortOrder.Asc },
+    {
+      user: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column:
+          "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+      },
+      order: SortOrder.Asc,
+    },
+    transformSortStateToOrderByClause(sortingRules, filterState),
+  ];
+}
+
 export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
   /* GraphQL */ `
     query PoolCandidatesTable_SelectPoolCandidates($ids: [ID]!) {

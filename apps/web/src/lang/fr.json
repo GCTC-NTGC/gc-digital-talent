@@ -1,8 +1,4 @@
 {
-  "++WV3O": {
-    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3 (88 000 $ à 110 000 $)",
-    "description": "IT-03 classification aria label including titles and salaries"
-  },
   "+5+rJS": {
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
@@ -435,10 +431,6 @@
     "defaultMessage": "Familles de compétences",
     "description": "Title for skill families"
   },
-  "0Ew2uu": {
-    "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
-    "description": "Paragraph 2 of the 'About the program' section"
-  },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
     "description": "Label displayed on Award form for awarded to input"
@@ -506,6 +498,10 @@
   "0YZeO0": {
     "defaultMessage": "Embauché (Temporaire)",
     "description": "Status for an application that has been hired with a casual contract"
+  },
+  "0YpfAG": {
+    "defaultMessage": "Placement de talents",
+    "description": "Title for candidates tab for a process"
   },
   "0a8nPa": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin.",
@@ -714,10 +710,6 @@
   "1bWLa3": {
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
     "description": "Heading for a users skills they would like to improve"
-  },
-  "1c+inU": {
-    "defaultMessage": "Technicien(ne) T I 1 (60 000 $ à 78 000 $)",
-    "description": "IT-01 classification aria label including titles and salaries"
   },
   "1dZLbs": {
     "defaultMessage": "Une fois que vous avez terminé votre parcours professionnel et que vous êtes satisfait(e) des expériences que vous avez ajoutées, vous les utiliserez dans les étapes suivantes pour nous aider à mieux comprendre en quoi vous répondez aux exigences en matière de compétences pour cette possibilité.",
@@ -1119,6 +1111,10 @@
     "defaultMessage": "Vous êtes sur le point de PUBLIER ce bassin.",
     "description": "First paragraph for publish pool dialog"
   },
+  "46pgKa": {
+    "defaultMessage": "PM-04: Analyste",
+    "description": "PM-04 classification label including titles"
+  },
   "491LrZ": {
     "defaultMessage": "Je suis actuellement actif dans ces études",
     "description": "Label displayed on Education Experience form for current education input"
@@ -1311,6 +1307,10 @@
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
   },
+  "56jSOM": {
+    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
+    "description": "Hero subtitle for IAP manager homepage"
+  },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
@@ -1398,10 +1398,6 @@
   "5WOqlf": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
-  },
-  "5YzNJj": {
-    "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire (101 000 $ à 126 000 $)",
-    "description": "IT-04 classification label including titles and salaries"
   },
   "5Z/SAX": {
     "defaultMessage": "Les compétences techniques désignent les connaissances et les capacités techniques associées à des postes ou des rôles précis au sein de l’organisation. Les compétences techniques sont habituellement acquises dans le cadre d’une formation ou d’une expérience de travail particulières où la personne met en application ses connaissances et compétences.",
@@ -2227,10 +2223,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "Aa8SIB": {
-    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe (88 000 $ à 110 000 $)",
-    "description": "IT-03 classification label including titles and salaries"
-  },
   "Aaas0w": {
     "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
     "description": "Helper message for changing the pool closing date"
@@ -2454,10 +2446,6 @@
   "BhtXXY": {
     "defaultMessage": "Fermer",
     "description": "Text on a button to close the pool"
-  },
-  "BkHx2X": {
-    "defaultMessage": "Analyste T I 2 (75 000 $ à 91 000 $)",
-    "description": "IT-02 classification aria label including titles and salaries"
   },
   "BkJbK1": {
     "defaultMessage": "L’initiative sur le numérique fait avancer le plan pour les talents",
@@ -3187,6 +3175,10 @@
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
     "description": "Aria label for download guidance for managers pdf link."
   },
+  "Fe9Cje": {
+    "defaultMessage": "IT-01: Technicien(ne)",
+    "description": "IT-01 classification label including titles"
+  },
   "FffxNt": {
     "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
     "description": "Subtitle for Assessment details dialog"
@@ -3431,6 +3423,10 @@
     "defaultMessage": "Créer une équipe ",
     "description": "Link text to create a new team in the admin portal"
   },
+  "GurdF+": {
+    "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
+    "description": "Description for the `just education` option for EC education requirements"
+  },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
@@ -3615,6 +3611,10 @@
     "defaultMessage": "Prénom",
     "description": "Label displayed for the first name field in create account form."
   },
+  "IEp0sR": {
+    "defaultMessage": "Un grade est quand même requis. Cependant, la spécialisation en économie, en sociologie ou en statistique peut également être formée d’un agencement acceptable d’études, de formation ou d’expérience.",
+    "description": "Description for the `other education with specialization` option for EC education requirements"
+  },
   "IFKgSr": {
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
@@ -3742,10 +3742,6 @@
   "Iw+DU/": {
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
     "description": "Link text for editing a users technical skills to improve"
-  },
-  "Ix0KgU": {
-    "defaultMessage": "Conseiller principal ou Gestionnaire I T 4 (101 000 $ à 126 000 $)",
-    "description": "IT-04 classification aria label including titles and salaries"
   },
   "IxngA3": {
     "defaultMessage": "Dissimuler les détails de cette expérience",
@@ -4023,6 +4019,10 @@
     "defaultMessage": "Bilingue (avancé – CBC/CBC)",
     "description": "Bilingual advanced personnel language"
   },
+  "Kf7cYc": {
+    "defaultMessage": "PM-03: Agent(e)",
+    "description": "PM-03 classification label including titles"
+  },
   "Kg8PlJ": {
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
@@ -4270,6 +4270,10 @@
   "M9ij/0": {
     "defaultMessage": "Évaluation bilingue",
     "description": "CSV Header, Bilingual Evaluation column"
+  },
+  "MCBdYy": {
+    "defaultMessage": "Analyste T I 2",
+    "description": "IT-02 classification aria label including titles"
   },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
@@ -4803,6 +4807,10 @@
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
   },
+  "PbLJnr": {
+    "defaultMessage": "Grade en économie, en sociologie ou en statistique",
+    "description": "Heading for the `just education` option for EC education requirements"
+  },
   "PdE7yp": {
     "defaultMessage": "Archiver ce bassin",
     "description": "Archive this pool action"
@@ -5127,9 +5135,17 @@
     "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
     "description": "GCKey question for when user does not have recovery codes"
   },
+  "RHTrvR": {
+    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe",
+    "description": "IT-03 classification label including titles"
+  },
   "RIi/3q": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for Contact us action"
+  },
+  "RJtGM5": {
+    "defaultMessage": "PM-02: Analyste subalterne",
+    "description": "PM-02 classification label including titles"
   },
   "RNI+IH": {
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
@@ -5146,6 +5162,10 @@
   "RSx3Ni": {
     "defaultMessage": "Bref résumé des compétences",
     "description": "Title for skills quick summary sidebar"
+  },
+  "RTR3mh": {
+    "defaultMessage": "Bêta",
+    "description": "Label to indicate a feature is in beta"
   },
   "RTf/0v": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
@@ -5663,10 +5683,6 @@
     "defaultMessage": "Flux de travail",
     "description": "Label displayed on the pool form stream/job title field."
   },
-  "UN2Ncr": {
-    "defaultMessage": "IT-02: Analyste (75 000 $ à 91 000 $)",
-    "description": "IT-02 classification label including titles and salaries"
-  },
   "UNLuiP": {
     "defaultMessage": "3 à 6 mois",
     "description": "Contract start timeframe of three to six months"
@@ -5715,6 +5731,10 @@
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
+  "UjkAHp": {
+    "defaultMessage": "Agent(e) P M 3",
+    "description": "PM-03 classification aria label including titles"
+  },
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
@@ -5753,6 +5773,10 @@
   "Uy5Dg2": {
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
+  },
+  "UzbDEi": {
+    "defaultMessage": "Imprimer le profil au complet",
+    "description": "Button label for print full user profile"
   },
   "Uzx5dR": {
     "defaultMessage": "Vous ne voyez pas de processus de recrutement actif correspondant à vos compétences ? Pas de problème, nous voulons toujours avoir de vos nouvelles.",
@@ -6058,6 +6082,10 @@
     "defaultMessage": "Le commissaire à l’accessibilité est responsable de faire appliquer la <acaLink>Loi canadienne sur l’accessibilité</acaLink> et le <acrLink>Règlement canadien sur l’accessibilité</acrLink> dans la fonction publique fédérale. Le commissaire traitera également certaines <complaintsLink>plaintes en matière d’accessibilité</complaintsLink>. Le commissaire à l’accessibilité est membre de la Commission canadienne des droits de la personne.",
     "description": "Text describing accessibility commissioner"
   },
+  "WT+5to": {
+    "defaultMessage": "Autre grade avec spécialisation",
+    "description": "Heading for the `other education with specialization` option for EC education requirements"
+  },
   "WVTDgX": {
     "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Title for the create account page for applicant profiles."
@@ -6133,6 +6161,10 @@
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
     "description": "Title for the additional comments block in the search request filters"
+  },
+  "WsR0FB": {
+    "defaultMessage": "IT-02: Analyste",
+    "description": "IT-02 classification label including titles"
   },
   "WuMMRK": {
     "defaultMessage": "Dans cette section, vous trouverez les ébauches et les candidatures qui ont été présentées et qui sont toujours en cours de traitement.",
@@ -6349,6 +6381,10 @@
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
+  },
+  "Y2PPGY": {
+    "defaultMessage": "Imprimer le profil sans les coordonnées",
+    "description": "Button label for print user anonymous profile"
   },
   "Y2ULHN": {
     "defaultMessage": "Associer une expérience",
@@ -6697,10 +6733,6 @@
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
-  },
-  "ZuyuPO": {
-    "defaultMessage": "IT-01: Technicien(ne) (60 000 $ à 78 000 $)",
-    "description": "IT-01 classification label including titles and salaries"
   },
   "ZyA0CC": {
     "defaultMessage": "Les principales compétences du candidat",
@@ -7482,6 +7514,10 @@
     "defaultMessage": "Plan d'évaluation",
     "description": "Title for card for actions related to a process' assessment plan"
   },
+  "eIxShU": {
+    "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire",
+    "description": "IT-04 classification label including titles"
+  },
   "eKPE3F": {
     "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user has suspended an application to a recruitment"
@@ -7593,6 +7629,10 @@
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
     "description": "Text displayed when no skills have been linked to an experience"
+  },
+  "eyC9oh": {
+    "defaultMessage": "Agent(e) subalterne P M 1",
+    "description": "PM-01 classification aria label including titles"
   },
   "ezstJx": {
     "defaultMessage": "Exigences",
@@ -7742,6 +7782,10 @@
     "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
     "description": "Label for the form to remove a role from a user"
   },
+  "fzkrgq": {
+    "defaultMessage": "Technicien(ne) T I 1",
+    "description": "IT-01 classification aria label including titles"
+  },
   "fzqya3": {
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
@@ -7765,6 +7809,10 @@
   "g2We9g": {
     "defaultMessage": "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <copyrightLink>Loi sur le droit d’auteur</copyrightLink> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes.",
     "description": "Commercial reproduction list description in ownership and usage section"
+  },
+  "g54x1Z": {
+    "defaultMessage": "Analyste P M 4",
+    "description": "PM-04 classification aria label including titles"
   },
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
@@ -8266,6 +8314,10 @@
     "defaultMessage": "Cacher la disponibilité pour le recrutement",
     "description": "Heading for closing the recruitment availability accordion in account and privacy"
   },
+  "iSbtcK": {
+    "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
+    "description": "Paragraph 2 of the 'About the program' section"
+  },
   "iUAe/2": {
     "defaultMessage": "Langues",
     "description": "Label for language ability field"
@@ -8414,6 +8466,10 @@
     "defaultMessage": "Découvrez les dernières perspectives d’emploi du <abbreviation>GC</abbreviation> dans le domaine du numérique et de la technologie, des candidats en début de carrière aux professionnels chevronnés ayant plusieurs années d'expérience de travail. Les possibilités d’emploi peuvent varier de postes de niveau d’entrée à des postes de niveau supérieur.",
     "description": "Description for the digital government job opportunities"
   },
+  "jAPSUd": {
+    "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
+    "description": "IT-04 classification aria label including titles"
+  },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
@@ -8445,6 +8501,10 @@
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
+  },
+  "jNqZ46": {
+    "defaultMessage": "Conseiller technique ou Chef d'équipe T I 3",
+    "description": "IT-03 classification aria label including titles"
   },
   "jO2uif": {
     "defaultMessage": "Apprenez-en davantage sur la nouvelle Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de nouvelles exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
@@ -8637,6 +8697,10 @@
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
+  },
+  "kfPc04": {
+    "defaultMessage": "PM-01: Agent(e) subalterne",
+    "description": "PM-01 classification label including titles"
   },
   "kfjmTt": {
     "defaultMessage": "Erreur : Échec de la mise à jour de la compétence",
@@ -9053,10 +9117,6 @@
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
-  },
-  "mtLAap": {
-    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
-    "description": "Hero subtitle for IAP manager homepage"
   },
   "muduUA": {
     "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
@@ -10377,6 +10437,10 @@
   "vPPz4w": {
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
+  },
+  "vRpgNs": {
+    "defaultMessage": "Analyste subalterne P M 2",
+    "description": "PM-02 classification aria label including titles"
   },
   "vSMCIR": {
     "defaultMessage": "Modifier les renseignements de l'équipe",

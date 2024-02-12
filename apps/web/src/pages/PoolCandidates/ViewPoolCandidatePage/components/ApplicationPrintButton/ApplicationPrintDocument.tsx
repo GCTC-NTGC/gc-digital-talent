@@ -55,6 +55,7 @@ import EducationRequirementExperience from "./EducationRequirementExperience";
 interface ApplicationPrintDocumentProps {
   user: User;
   poolQuery: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
+  anonymous?: boolean;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -94,7 +95,7 @@ export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
 const ApplicationPrintDocument = React.forwardRef<
   HTMLDivElement,
   ApplicationPrintDocumentProps
->(({ user, poolQuery }, ref) => {
+>(({ user, poolQuery, anonymous }, ref) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -202,7 +203,17 @@ const ApplicationPrintDocument = React.forwardRef<
               })}
             </Heading>
             <Heading level="h2" data-h2-font-weight="base(700)">
-              <>{getFullNameLabel(user.firstName, user.lastName, intl)}</>
+              {anonymous ? (
+                <>
+                  {getFullNameLabel(
+                    user.firstName,
+                    user.lastName ? `${user.lastName?.slice(0, 1)}.` : null,
+                    intl,
+                  )}
+                </>
+              ) : (
+                <>{getFullNameLabel(user.firstName, user.lastName, intl)}</>
+              )}
             </Heading>
             {relevantPoolCandidate && (
               <>
@@ -351,80 +362,83 @@ const ApplicationPrintDocument = React.forwardRef<
                   "Profile and applications card title for profile card",
               })}
             </Heading>
-            <PageSection>
-              <Heading level="h3" data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Contact information",
-                  id: "XqF3wS",
-                  description: "Profile section title for contact information",
-                })}
-              </Heading>
-              {user.email && (
-                <p>
-                  {intl.formatMessage(commonMessages.email)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.email}
-                </p>
-              )}
-              {user.telephone && (
-                <p>
-                  {intl.formatMessage(commonMessages.telephone)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.telephone}
-                </p>
-              )}
-              {user.currentCity && user.currentProvince && (
-                <p>
+            {!anonymous && (
+              <PageSection>
+                <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
-                    defaultMessage: "City",
-                    id: "QjO3Y0",
-                    description: "Label for city and province/territory",
+                    defaultMessage: "Contact information",
+                    id: "XqF3wS",
+                    description:
+                      "Profile section title for contact information",
                   })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.currentCity},{" "}
-                  {intl.formatMessage(
-                    getProvinceOrTerritory(user.currentProvince),
-                  )}
-                </p>
-              )}
-              {user.preferredLang && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Communication language",
-                    id: "BzKGyK",
-                    description: "Label for communication language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(getLanguage(user.preferredLang))}
-                </p>
-              )}
-              {user.preferredLanguageForInterview && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Spoken interview language",
-                    id: "HUy0EA",
-                    description: "Label for spoken interview language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getLanguage(user.preferredLanguageForInterview),
-                  )}
-                </p>
-              )}
-              {user.preferredLanguageForExam && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Written exam language",
-                    id: "Yh1Y7Z",
-                    description: "Label for written exam language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getLanguage(user.preferredLanguageForExam),
-                  )}
-                </p>
-              )}
-            </PageSection>
+                </Heading>
+                {user.email && (
+                  <p>
+                    {intl.formatMessage(commonMessages.email)}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.email}
+                  </p>
+                )}
+                {user.telephone && (
+                  <p>
+                    {intl.formatMessage(commonMessages.telephone)}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.telephone}
+                  </p>
+                )}
+                {user.currentCity && user.currentProvince && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "City",
+                      id: "QjO3Y0",
+                      description: "Label for city and province/territory",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.currentCity},{" "}
+                    {intl.formatMessage(
+                      getProvinceOrTerritory(user.currentProvince),
+                    )}
+                  </p>
+                )}
+                {user.preferredLang && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Communication language",
+                      id: "BzKGyK",
+                      description: "Label for communication language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(getLanguage(user.preferredLang))}
+                  </p>
+                )}
+                {user.preferredLanguageForInterview && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Spoken interview language",
+                      id: "HUy0EA",
+                      description: "Label for spoken interview language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getLanguage(user.preferredLanguageForInterview),
+                    )}
+                  </p>
+                )}
+                {user.preferredLanguageForExam && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Written exam language",
+                      id: "Yh1Y7Z",
+                      description: "Label for written exam language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getLanguage(user.preferredLanguageForExam),
+                    )}
+                  </p>
+                )}
+              </PageSection>
+            )}
             <PageSection>
               <Heading level="h4" data-h2-font-weight="base(700)">
                 {intl.formatMessage(commonMessages.status)}
