@@ -423,10 +423,6 @@
     "defaultMessage": "Familles de compétences",
     "description": "Title for skill families"
   },
-  "0Ew2uu": {
-    "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
-    "description": "Paragraph 2 of the 'About the program' section"
-  },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
     "description": "Label displayed on Award form for awarded to input"
@@ -1278,6 +1274,10 @@
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
     "description": "Button text to set no theme mode"
+  },
+  "56jSOM": {
+    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
+    "description": "Hero subtitle for IAP manager homepage"
   },
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
@@ -8258,6 +8258,10 @@
     "defaultMessage": "Compétences requises :",
     "description": "Label for pool advertisement's required skills"
   },
+  "iSbtcK": {
+    "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
+    "description": "Paragraph 2 of the 'About the program' section"
+  },
   "iUAe/2": {
     "defaultMessage": "Langues",
     "description": "Label for language ability field"
@@ -9061,10 +9065,6 @@
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
-  },
-  "mtLAap": {
-    "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
-    "description": "Hero subtitle for IAP manager homepage"
   },
   "muduUA": {
     "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
