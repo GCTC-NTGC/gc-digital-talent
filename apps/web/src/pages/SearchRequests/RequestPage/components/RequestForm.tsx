@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import {
   Checkbox,
@@ -23,14 +24,10 @@ import {
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
 import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-
 import {
   EquitySelections,
   Department,
   CreatePoolCandidateSearchRequestInput,
-  useGetPoolCandidateSearchRequestDataQuery,
-  useCreatePoolCandidateSearchRequestMutation,
-  CreatePoolCandidateSearchRequestMutation,
   Maybe,
   DepartmentBelongsTo,
   Classification,
@@ -41,7 +38,10 @@ import {
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
-} from "~/api/generated";
+  type RequestForm_CreateRequestMutation as CreateRequestMutation,
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
@@ -56,7 +56,6 @@ const directiveLink = (chunks: React.ReactNode, href: string) => (
     {chunks}
   </Link>
 );
-
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -98,9 +97,7 @@ export interface RequestFormProps {
   selectedClassifications?: Maybe<SimpleClassification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
-  ) => Promise<
-    CreatePoolCandidateSearchRequestMutation["createPoolCandidateSearchRequest"]
-  >;
+  ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
 }
 
 export const RequestForm = ({
@@ -563,6 +560,68 @@ export const RequestForm = ({
   );
 };
 
+const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
+  mutation RequestForm_CreateRequest(
+    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ) {
+    createPoolCandidateSearchRequest(
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      id
+      fullName
+      email
+      department {
+        id
+      }
+      jobTitle
+      additionalComments
+      poolCandidateFilter {
+        id
+      }
+    }
+  }
+`);
+
+const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
+  query RequestForm_SearchRequestData {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      stream
+    }
+  }
+`);
+
 const RequestFormApi = ({
   applicantFilter,
   candidateCount,
@@ -575,9 +634,9 @@ const RequestFormApi = ({
   selectedClassifications?: Maybe<SimpleClassification>[];
 }) => {
   const intl = useIntl();
-  const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: RequestForm_SearchRequestDataQuery,
+  });
   const classifications: Classification[] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const departments: Department[] =
@@ -585,7 +644,7 @@ const RequestFormApi = ({
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
   const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (
     data: CreatePoolCandidateSearchRequestInput,
   ) =>
