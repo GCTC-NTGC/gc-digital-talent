@@ -346,12 +346,15 @@ export function transformSortStateToOrderByClause(
     };
   }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-  // default tertiary sort is submitted_at,
+  // default final sort is column candidateName,
 
   return {
-    column: "submitted_at",
+    column: undefined,
     order: SortOrder.Asc,
-    user: undefined,
+    user: {
+      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+      column: "FIRST_NAME" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+    },
   };
 }
 
