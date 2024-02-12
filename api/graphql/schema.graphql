@@ -713,7 +713,11 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [UserPublicProfile]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["authorizedToViewBasicInfo"]
+    )
     @guard
     @can(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
