@@ -19,12 +19,12 @@ class SkillSeeder extends Seeder
         /* To recreate the JSON file, run this GraphQL query:
             query Skills {
                 skills {
-                key
-                name { en fr }
-                description { en fr }
-                category
-                keywords { en fr }
-                families { key }
+                    key
+                    name { en fr }
+                    description { en fr }
+                    category
+                    keywords { en fr }
+                    families { key }
                 }
             }
 
