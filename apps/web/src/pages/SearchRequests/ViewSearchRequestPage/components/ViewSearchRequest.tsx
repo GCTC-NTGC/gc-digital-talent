@@ -8,6 +8,7 @@ import {
   getPoolCandidateSearchStatus,
   getLocalizedName,
   getPoolCandidateSearchPositionType,
+  getSearchRequestReason,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -17,7 +18,6 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import {
   FragmentType,
   PoolCandidateSearchRequest,

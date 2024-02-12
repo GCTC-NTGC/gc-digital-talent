@@ -15,7 +15,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending } from "@gc-digital-talent/ui";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -23,7 +23,6 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import {
   EquitySelections,
   Department,
