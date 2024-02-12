@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   getLocale,
@@ -17,12 +18,14 @@ import {
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import {
+  FragmentType,
+  PoolCandidateSearchRequest,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import {
-  PoolCandidateSearchRequest,
-  useGetPoolCandidateSearchRequestQuery,
-} from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -200,16 +203,129 @@ const ManagerInfo = ({
   );
 };
 
+const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
+  fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
+    id
+    fullName
+    email
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    jobTitle
+    managerJobTitle
+    positionType
+    reason
+    wasEmpty
+    additionalComments
+    poolCandidateFilter {
+      id
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      hasDiploma
+      equity {
+        hasDisability
+        isIndigenous
+        isVisibleMinority
+        isWoman
+      }
+      languageAbility
+      operationalRequirements
+      workRegions
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+    requestedDate
+    status
+    statusChangedAt
+    adminNotes
+    applicantFilter {
+      id
+      hasDiploma
+      equity {
+        hasDisability
+        isIndigenous
+        isVisibleMinority
+        isWoman
+      }
+      languageAbility
+      operationalRequirements
+      locationPreferences
+      positionDuration
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+      }
+      qualifiedClassifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      qualifiedStreams
+    }
+  }
+`);
+
 interface SingleSearchRequestProps {
-  searchRequest: PoolCandidateSearchRequest;
+  searchRequestQuery: FragmentType<
+    typeof ViewSearchRequest_SearchRequestFragment
+  >;
 }
 
 export const ViewSearchRequest = ({
-  searchRequest,
+  searchRequestQuery,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   const locale = getLocale(intl);
+  const searchRequest = getFragment(
+    ViewSearchRequest_SearchRequestFragment,
+    searchRequestQuery,
+  );
   const {
     id,
     additionalComments,
@@ -387,22 +503,30 @@ export const ViewSearchRequest = ({
   );
 };
 
+const ViewSearchRequest_Query = graphql(/* GraphQL */ `
+  query ViewSearchRequest($id: ID!) {
+    poolCandidateSearchRequest(id: $id) {
+      ...ViewSearchRequest_SearchRequest
+    }
+  }
+`);
+
 const ViewSearchRequestApi = ({
   searchRequestId,
 }: {
   searchRequestId: string;
 }) => {
   const intl = useIntl();
-  const [{ data: searchRequestData, fetching, error }] =
-    useGetPoolCandidateSearchRequestQuery({
-      variables: { id: searchRequestId },
-    });
+  const [{ data: searchRequestData, fetching, error }] = useQuery({
+    query: ViewSearchRequest_Query,
+    variables: { id: searchRequestId },
+  });
 
   return (
     <Pending fetching={fetching} error={error}>
       {searchRequestData?.poolCandidateSearchRequest ? (
         <ViewSearchRequest
-          searchRequest={searchRequestData?.poolCandidateSearchRequest}
+          searchRequestQuery={searchRequestData.poolCandidateSearchRequest}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
