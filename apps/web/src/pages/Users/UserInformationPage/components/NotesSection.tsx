@@ -6,25 +6,32 @@ import { useMutation } from "urql";
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
-import { UpdatePoolCandidateAsAdminInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 
 import { BasicUserInformationProps } from "../types";
-import AdminUpdatePoolCandidate_Mutation from "./mutation";
+
+const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
+  mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String) {
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
+      id
+      notes
+    }
+  }
+`);
 
 const NotesSection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
 
-  const [, executeMutation] = useMutation(AdminUpdatePoolCandidate_Mutation);
+  const [, executeMutation] = useMutation(
+    AdminUpdatePoolCandidateNotes_Mutation,
+  );
 
-  const handleUpdateCandidate = async (
-    id: string,
-    values: UpdatePoolCandidateAsAdminInput,
-  ) => {
-    const res = await executeMutation({ id, poolCandidate: values });
-    if (res.data?.updatePoolCandidateAsAdmin) {
-      return res.data.updatePoolCandidateAsAdmin;
+  const handleUpdateCandidate = async (id: string, notes: string) => {
+    const res = await executeMutation({ id, notes });
+    if (res.data?.updatePoolCandidateNotes) {
+      return res.data.updatePoolCandidateNotes;
     }
     return Promise.reject(res.error);
   };
@@ -32,9 +39,10 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
   const handleSubmit = async (formValues: { [x: string]: string }) => {
     user?.poolCandidates?.forEach(async (candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
-        await handleUpdateCandidate(candidate.id, {
-          notes: formValues[candidate.id],
-        })
+        await handleUpdateCandidate(
+          candidate.id,
+          formValues[candidate.id] ?? "",
+        )
           .then(() => {
             toast.success(
               intl.formatMessage(
