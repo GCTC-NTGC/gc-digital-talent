@@ -9,8 +9,7 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-
-import { CreatePoolCandidateSearchRequestInput } from "~/api/generated";
+import { CreatePoolCandidateSearchRequestInput } from "@gc-digital-talent/graphql";
 
 import { RequestForm, RequestFormProps } from "./RequestForm";
 
