@@ -1,0 +1,55 @@
+import React from "react";
+import { useIntl } from "react-intl";
+
+import { CardRepeater } from "@gc-digital-talent/ui";
+import { GeneralQuestion } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+import { labels } from "./utils";
+import GeneralQuestionDialog from "./GeneralQuestionDialog";
+
+type GeneralQuestionCardProps = {
+  index: number;
+  generalQuestion: GeneralQuestion;
+};
+
+const GeneralQuestionCard = ({
+  index,
+  generalQuestion,
+}: GeneralQuestionCardProps) => {
+  const intl = useIntl();
+
+  return (
+    <CardRepeater.Card
+      index={index}
+      edit={<GeneralQuestionDialog question={generalQuestion} index={index} />}
+    >
+      <div
+        data-h2-display="base(grid)"
+        data-h2-gap="base(x1)"
+        data-h2-grid-template-columns="l-tablet(1fr 1fr)"
+      >
+        <div>
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+            {intl.formatMessage(labels.questionEn)}
+          </p>
+          <p>
+            {generalQuestion.question?.en ??
+              intl.formatMessage(commonMessages.notProvided)}
+          </p>
+        </div>
+        <div>
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+            {intl.formatMessage(labels.questionFr)}
+          </p>
+          <p>
+            {generalQuestion.question?.fr ??
+              intl.formatMessage(commonMessages.notProvided)}
+          </p>
+        </div>
+      </div>
+    </CardRepeater.Card>
+  );
+};
+
+export default GeneralQuestionCard;
