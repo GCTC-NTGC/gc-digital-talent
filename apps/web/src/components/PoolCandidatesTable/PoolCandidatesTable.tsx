@@ -338,7 +338,12 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        recordOfDecision,
+      ),
     },
   });
 
@@ -434,7 +439,7 @@ const PoolCandidatesTable = ({
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -457,7 +462,7 @@ const PoolCandidatesTable = ({
           },
         }) => priorityCell(user.priorityWeight, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
         },
       },
     ),
@@ -476,9 +481,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -496,9 +499,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => jobPlacementCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
