@@ -642,14 +642,14 @@ export const ViewPoolCandidate = ({
               data-h2-padding="base(x1)"
               data-h2-background-color="base(error.lightest.3)"
             >
-              <p data-h2-font-weight="base(700)">
+              <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
                 {intl.formatMessage({
                   defaultMessage: "Candidate status",
                   id: "ETrCOq",
                   description:
                     "Title for admin editing a pool candidates status",
                 })}
-              </p>
+              </Heading>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
