@@ -102,9 +102,9 @@ const GeneralQuestionsSection = ({
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "You haven't added any questions yet.",
-              id: "A13auj",
+              id: "jXUnrt",
               description:
-                "Message that appears when there are no screening messages for a pool",
+                "Message that appears when there are no general messages for a pool",
             })}
           </p>
           <p>

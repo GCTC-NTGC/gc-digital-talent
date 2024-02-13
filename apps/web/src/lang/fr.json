@@ -2135,6 +2135,10 @@
     "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
+  "A2stXT": {
+    "defaultMessage": "Gérer une question d’ordre général",
+    "description": "Title for general question dialog"
+  },
   "A2ycww": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
@@ -2154,6 +2158,10 @@
   "AFuhfl": {
     "defaultMessage": "Aucune compétence technique obligatoire n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no required technical skills"
+  },
+  "AJs1VQ": {
+    "defaultMessage": "Question (FR)",
+    "description": "Label for an French general question"
   },
   "AKQeBC": {
     "defaultMessage": "Membre ajouté avec succès",
@@ -5659,6 +5667,10 @@
     "defaultMessage": "En attente d’évaluation des compétences",
     "description": "Status for an application that is having skills reviewed"
   },
+  "UanJxB": {
+    "defaultMessage": "Supprimer cette question",
+    "description": "Button text to delete a general question"
+  },
   "Ude1JQ": {
     "defaultMessage": "Texte",
     "description": "Title for the application’s profile snapshot."
@@ -6718,6 +6730,10 @@
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
   },
+  "aCKQVB": {
+    "defaultMessage": "Question (EN)",
+    "description": "Label for an English general question"
+  },
   "aCg/OZ": {
     "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
     "description": "First hiring policy for pool advertisement"
@@ -7289,6 +7305,10 @@
   "de/Vcy": {
     "defaultMessage": "Ville actuelle",
     "description": "Label for current city field in About Me form"
+  },
+  "deE+LO": {
+    "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
+    "description": "Subtitle for general question dialog"
   },
   "deFarB": {
     "defaultMessage": "5 millions de dollars à 10 millions de dollars",
@@ -8154,6 +8174,10 @@
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
   },
+  "iAG/IN": {
+    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 3 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
+    "description": "Helper message indicating what general questions are and how they differ from screening questions"
+  },
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
@@ -8401,6 +8425,10 @@
   "jVfVFG": {
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
+  },
+  "jXUnrt": {
+    "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",
+    "description": "Message that appears when there are no general messages for a pool"
   },
   "jYPyWq": {
     "defaultMessage": "Sélectionner une famille de compétences et une compétence pour continuer.",
@@ -9306,6 +9334,10 @@
     "defaultMessage": "Gérer « {skillName} »",
     "description": "Page title for the skill self evaluation page"
   },
+  "oqnkwR": {
+    "defaultMessage": "Sauvegarder cette question",
+    "description": "Button text to save a general question"
+  },
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
@@ -10134,6 +10166,10 @@
     "defaultMessage": "Publier le bassin",
     "description": "Button to publish the pool in the publish pool dialog"
   },
+  "uEqA50": {
+    "defaultMessage": "Ajouter une nouvelle question",
+    "description": "Button text to add a new general question to a pool"
+  },
   "uHx3G7": {
     "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
@@ -10837,6 +10873,10 @@
   "z3QvIv": {
     "defaultMessage": "Outres compétences",
     "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "z4wfGZ": {
+    "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
+    "description": "Instructions on how to add a question when there are none"
   },
   "z5YYOk": {
     "defaultMessage": "Veuillez préciser l’instrument",
