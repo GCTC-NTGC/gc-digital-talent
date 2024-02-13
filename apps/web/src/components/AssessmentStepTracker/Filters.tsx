@@ -103,7 +103,7 @@ const Filters = ({
                 name={AssessmentDecision.Hold}
                 id={AssessmentDecision.Hold}
                 label={intl.formatMessage(poolCandidateMessages.onHold)}
-                color="warning"
+                color="secondary"
                 hideLabel
                 icon={{
                   default: PauseCircleIcon,
