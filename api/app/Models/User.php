@@ -595,7 +595,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeAvailableInITPool(Builder $query): Builder
+    public static function scopeAvailableInITPublishingGroup(Builder $query): Builder
     {
         return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
             PoolCandidate::scopeAvailable($innerQueryBuilder);
