@@ -1,6 +1,7 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import debounce from "lodash/debounce";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
@@ -35,7 +36,14 @@ const AddTeamMemberDialog = ({
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
-  const { users, fetching: usersFetching } = useAvailableUsers(members);
+  const [query, setQuery] = React.useState<string>("");
+  const {
+    users,
+    total,
+    fetching: usersFetching,
+  } = useAvailableUsers(members, {
+    publicProfileSearch: query || undefined,
+  });
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useUpdateUserTeamRolesMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -91,6 +99,10 @@ AddTeamMemberDialogProps) => {
       });
   };
 
+  const handleDebouncedSearch = debounce((newQuery: string) => {
+    setQuery(newQuery);
+  }, 300);
+
   const roleOptions = getTeamBasedRoleOptions(roles, intl);
   const userOptions = users?.map((user) => ({
     value: user.id,
@@ -138,6 +150,9 @@ AddTeamMemberDialogProps) => {
                   id="userId"
                   name="userId"
                   fetching={usersFetching}
+                  isExternalSearch
+                  onSearch={handleDebouncedSearch}
+                  total={total}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}

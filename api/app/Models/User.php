@@ -683,6 +683,20 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
+    public static function scopePublicProfileSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                self::scopeName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+            });
+        }
+
+        return $query;
+    }
+
     public static function scopeName(Builder $query, ?string $name): Builder
     {
         if ($name) {
@@ -862,6 +876,36 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $sortedBehaviouralUserSkills;
     }
 
+    public function scopeAuthorizedToViewSpecific(Builder $query)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        $query->where(function (Builder $query) use ($user) {
+            if ($user->isAbleTo('view-team-applicantProfile')) {
+                $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
+                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $query->whereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
+                    });
+                });
+            }
+            if ($user->isAbleTo('view-own-user')) {
+                $query->orWhere('id', $user->id);
+            }
+        });
+
+        return $query;
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
         /** @var \App\Models\User */
@@ -872,23 +916,23 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
 
         if (! $user->isAbleTo('view-any-user')) {
-            $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-applicantProfile')) {
-                    $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                        $teamIds = $user->rolesTeams()->get()->pluck('id');
-                        $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                            return $query
-                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                                ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                });
-                        });
-                    });
-                }
-                if ($user->isAbleTo('view-own-user')) {
-                    $query->orWhere('id', $user->id);
-                }
-            });
+            $query = self::scopeAuthorizedToViewSpecific($query);
+        }
+
+        return $query;
+    }
+
+    public function scopeAuthorizedToViewBasicInfo(Builder $query)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
+            $query = self::scopeAuthorizedToViewSpecific($query);
         }
 
         return $query;
