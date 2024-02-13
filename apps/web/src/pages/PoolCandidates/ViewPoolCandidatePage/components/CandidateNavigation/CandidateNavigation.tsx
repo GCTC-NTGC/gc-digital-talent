@@ -44,8 +44,8 @@ const CandidateNavigation = ({
           {...commonLinkProps}
         >
           {intl.formatMessage({
-            defaultMessage: "Go to next candidate",
-            id: "oTNbp0",
+            defaultMessage: "Next candidate",
+            id: "y1uo+J",
             description:
               "Link label to view next candidate on view pool candidate page",
           })}
@@ -58,8 +58,8 @@ const CandidateNavigation = ({
           {...commonLinkProps}
         >
           {intl.formatMessage({
-            defaultMessage: "Go to previous candidate",
-            id: "xfHjyy",
+            defaultMessage: "Previous candidate",
+            id: "mt4AkL",
             description:
               "Link label to view previous candidate on view pool candidate page",
           })}

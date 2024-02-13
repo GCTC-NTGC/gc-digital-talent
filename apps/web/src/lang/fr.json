@@ -9302,10 +9302,6 @@
     "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
     "description": "Additional text displayed in the applications in progress section when empty."
   },
-  "oTNbp0": {
-    "defaultMessage": "Passer au prochain candidat",
-    "description": "Link label to view next candidate on view pool candidate page"
-  },
   "oTs24h": {
     "defaultMessage": "Concurrence (appel d’offres ouvert/appel d’offres sélectif/traditionnel)",
     "description": "Competitive contract solicitation procedure"
@@ -10661,10 +10657,6 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
-  },
-  "xfHjyy": {
-    "defaultMessage": "Passer au candidat précédent",
-    "description": "Link label to view previous candidate on view pool candidate page"
   },
   "xff04x": {
     "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en français.",
