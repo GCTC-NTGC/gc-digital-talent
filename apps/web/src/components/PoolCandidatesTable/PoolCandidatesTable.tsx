@@ -481,9 +481,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -501,9 +499,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => jobPlacementCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
