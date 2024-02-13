@@ -2,6 +2,7 @@ import React from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
+import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
@@ -209,6 +210,7 @@ export const getFullPoolTitleLabel = (
 export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
+  const poolName = getFullPoolTitleLabel(intl, pool);
 
   return recordOfDecisionFlag
     ? new Map<PageNavKeys, PageNavInfo>([
@@ -224,6 +226,94 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolView(pool.id),
             },
+          },
+        ],
+        [
+          "edit",
+          {
+            icon: Cog8ToothIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Advertisement information",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
+            }),
+            link: {
+              url: paths.poolUpdate(pool.id),
+            },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.poolUpdate(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Advertisement information",
+                  id: "yM04jy",
+                  description:
+                    "Title for advertisement information of a process",
+                }),
+              },
+            ],
+          },
+        ],
+        [
+          "plan",
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Assessment plan",
+              id: "fkYYe3",
+              description: "Title for the assessment plan builder",
+            }),
+            link: {
+              url: paths.assessmentPlanBuilder(pool.id),
+            },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.assessmentPlanBuilder(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Assessment plan",
+                  id: "fkYYe3",
+                  description: "Title for the assessment plan builder",
+                }),
+              },
+            ],
           },
         ],
         [
@@ -273,6 +363,51 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolView(pool.id),
             },
+          },
+        ],
+        [
+          "edit",
+          {
+            icon: Cog8ToothIcon,
+            title: intl.formatMessage({
+              defaultMessage: "Advertisement information",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
+            }),
+            link: {
+              url: paths.poolUpdate(pool.id),
+            },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.poolUpdate(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Advertisement information",
+                  id: "yM04jy",
+                  description:
+                    "Title for advertisement information of a process",
+                }),
+              },
+            ],
           },
         ],
         [
