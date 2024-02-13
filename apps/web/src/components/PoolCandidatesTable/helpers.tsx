@@ -12,13 +12,14 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
   Maybe,
+  Pool,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -54,6 +55,7 @@ import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
+import { getFullPoolTitleLabel } from "../../utils/poolUtils";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -143,6 +145,16 @@ export const candidateNameCell = (
     </span>
   );
 };
+
+export const processCell = (
+  pool: Pool,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => (
+  <Link href={paths.poolView(pool.id)}>
+    {getFullPoolTitleLabel(intl, pool)}
+  </Link>
+);
 
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,

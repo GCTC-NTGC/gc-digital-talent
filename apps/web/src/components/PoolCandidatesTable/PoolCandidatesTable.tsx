@@ -44,6 +44,8 @@ import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -63,6 +65,7 @@ import {
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
   getSortOrder,
+  processCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -95,6 +98,16 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           id
           pool {
             id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
           }
           user {
             # Personal info
@@ -419,6 +432,25 @@ const PoolCandidatesTable = ({
         },
       },
     ),
+    ...(currentPool
+      ? []
+      : [
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            {
+              id: "process",
+              header: intl.formatMessage(processMessages.process),
+              sortingFn: normalizedText,
+              cell: ({
+                row: {
+                  original: {
+                    poolCandidate: { pool },
+                  },
+                },
+              }) => processCell(pool, paths, intl),
+            },
+          ),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
