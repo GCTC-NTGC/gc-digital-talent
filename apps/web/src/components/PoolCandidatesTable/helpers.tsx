@@ -50,12 +50,13 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
-import { getFullPoolTitleLabel } from "../../utils/poolUtils";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -150,11 +151,21 @@ export const processCell = (
   pool: Pool,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-) => (
-  <Link href={paths.poolView(pool.id)}>
-    {getFullPoolTitleLabel(intl, pool)}
-  </Link>
-);
+) => {
+  const poolName = getFullPoolTitleLabel(intl, pool);
+  return (
+    <Link
+      href={paths.poolView(pool.id)}
+      aria-label={
+        intl.formatMessage(processMessages.process) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        poolName
+      }
+    >
+      {poolName}
+    </Link>
+  );
+};
 
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
