@@ -28,6 +28,7 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  AssessmentResult,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -39,6 +40,7 @@ import { getCandidateStatusPill } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -188,12 +190,48 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       assessmentResults {
         id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            id
+            userSkills {
+              id
+              user {
+                id
+              }
+              skill {
+                id
+                key
+                name {
+                  en
+                  fr
+                }
+                category
+              }
+              skillLevel
+            }
+          }
+        }
         assessmentDecision
+        assessmentDecisionLevel
+        assessmentNotes
         assessmentResultType
         assessmentStep {
           id
           type
+          title {
+            en
+            fr
+          }
         }
+        justifications
+        otherJustificationNotes
+        assessmentDecisionLevel
+        skillDecisionNotes
+        assessmentNotes
         poolSkill {
           id
           type
@@ -671,7 +709,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <div>Coming soon!</div>
+              <AssessmentResultsTable poolCandidate={poolCandidate} />
             </div>
             {mainContent}
           </Sidebar.Content>
