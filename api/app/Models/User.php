@@ -6,7 +6,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -594,22 +593,16 @@ class User extends Model implements Authenticatable, LaratrustUser
     }
 
     /**
-     * Scope is IT
-     *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT specific publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeInITPublishingGroup(Builder $query)
+    public static function scopeAvailableInITPublishingGroup(Builder $query): Builder
     {
-        $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS_ONGOING->name,
-            PublishingGroup::IT_JOBS->name,
-        ]);
+        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
+            PoolCandidate::scopeAvailable($innerQueryBuilder);
+            PoolCandidate::scopeInITPublishingGroup($innerQueryBuilder);
 
-        return $query;
+            return $innerQueryBuilder;
+        });
     }
 
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder

@@ -705,7 +705,7 @@ type Query {
     )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["inITPublishingGroup"])
+    @count(model: "User", scopes: ["availableInITPublishingGroup"])
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")

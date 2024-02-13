@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Enums\CandidateExpiryFilter;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,9 +31,6 @@ final class CountPoolCandidatesByPool
 
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
         PoolCandidate::scopeAvailable($queryBuilder);
-
-        // expiry status filter (filter active pool candidates)
-        PoolCandidate::scopeExpiryStatus($queryBuilder, CandidateExpiryFilter::ACTIVE->name);
 
         // Only display IT candidates
         PoolCandidate::scopeInITPublishingGroup($queryBuilder);
