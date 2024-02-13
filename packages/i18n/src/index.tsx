@@ -78,6 +78,7 @@ import {
   getEvaluatedLanguageAbility,
   getPoolSkillType,
   getAssessmentStepType,
+  getSearchRequestReason,
 } from "./messages/localizedConstants";
 import { STORED_LOCALE } from "./const";
 import type { Locales, Messages } from "./types";
@@ -161,6 +162,7 @@ export {
   getEvaluatedLanguageAbility,
   getPoolSkillType,
   getAssessmentStepType,
+  getSearchRequestReason,
 };
 
 export type { Locales, Messages };

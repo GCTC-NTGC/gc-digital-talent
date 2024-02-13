@@ -15,8 +15,8 @@ describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "CandidateCount");
-      aliasQuery(req, "getPoolCandidateSearchRequestData");
-      aliasMutation(req, "createPoolCandidateSearchRequest");
+      aliasQuery(req, "SearchForm");
+      aliasMutation(req, "RequestForm_CreateRequest");
     });
 
     // select some dimensions to use for testing
@@ -291,7 +291,7 @@ describe("Talent Search Workflow Tests", () => {
      * Request Page (/en/search/request)
      * I'm using findAllByText instead of findByText since the strings appear multiple times in the DOM.
      */
-    cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
+    cy.wait("@gqlSearchFormQuery");
 
     cy.findByRole("textbox", { name: /Full name/i }).type("Test Full Name");
 
@@ -358,7 +358,7 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("button", { name: /Submit Request/i }).click();
 
-    cy.wait("@gqlcreatePoolCandidateSearchRequestMutation");
+    cy.wait("@gqlRequestForm_CreateRequestMutation");
 
     cy.expectToast(/Request created successfully/i);
   });
