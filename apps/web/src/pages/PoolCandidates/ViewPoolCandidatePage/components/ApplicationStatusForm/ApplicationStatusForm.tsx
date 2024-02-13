@@ -231,7 +231,7 @@ const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
   mutation ApplicationStatusForm_Mutation(
     $id: UUID!
     $input: UpdatePoolCandidateAsAdminInput!
-    $notes: String!
+    $notes: String
   ) {
     updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
       id

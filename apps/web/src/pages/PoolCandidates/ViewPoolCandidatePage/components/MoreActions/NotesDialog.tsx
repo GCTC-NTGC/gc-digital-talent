@@ -22,7 +22,7 @@ interface NotesDialogProps {
 }
 
 const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateNotes($id: UUID!, $notes: String!) {
+  mutation PoolCandidate_UpdateNotes($id: UUID!, $notes: String) {
     updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
       notes

@@ -13,7 +13,7 @@ import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { BasicUserInformationProps } from "../types";
 
 const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
-  mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String!) {
+  mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String) {
     updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
       notes
