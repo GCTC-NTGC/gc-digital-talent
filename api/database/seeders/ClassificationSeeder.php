@@ -22,9 +22,15 @@ class ClassificationSeeder extends Seeder
             'group' => 'AS',
             'name' => ['en' => 'Administrative Services', 'fr' => 'Services administratifs'],
         ];
+        // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15
         $pmGroup = [
             'group' => 'PM',
             'name' => ['en' => 'Programme Administration', 'fr' => 'Administration des programmes'],
+        ];
+        // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4
+        $ecGroup = [
+            'group' => 'EC',
+            'name' => ['en' => 'Economics and Social Science Services', 'fr' => 'économique et services de sciences sociales'],
         ];
 
         $classifications = [
@@ -108,6 +114,128 @@ class ClassificationSeeder extends Seeder
                     'level' => 5,
                     'min_salary' => 67981,
                     'max_salary' => 73495,
+                ]
+            ),
+            // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15#toc44294244301
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 1,
+                    'min_salary' => 60424,
+                    'max_salary' => 67582,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 2,
+                    'min_salary' => 67330,
+                    'max_salary' => 72544,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 72171,
+                    'max_salary' => 77758,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 78834,
+                    'max_salary' => 85187,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 5,
+                    'min_salary' => 94113,
+                    'max_salary' => 101750,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 6,
+                    'min_salary' => 110346,
+                    'max_salary' => 126172,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 7,
+                    'min_salary' => 113939,
+                    'max_salary' => 134111,
+                ]
+            ),
+            // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4#tocxx338387
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 1,
+                    'min_salary' => 59978,
+                    'max_salary' => 69725,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 2,
+                    'min_salary' => 67102,
+                    'max_salary' => 76933,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 74116,
+                    'max_salary' => 83863,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 80005,
+                    'max_salary' => 92587,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 5,
+                    'min_salary' => 95653,
+                    'max_salary' => 110096,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 6,
+                    'min_salary' => 108068,
+                    'max_salary' => 125332,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 7,
+                    'min_salary' => 122103,
+                    'max_salary' => 140177,
+                ]
+            ),
+            array_merge(
+                $ecGroup,
+                [
+                    'level' => 8,
+                    'min_salary' => 132754,
+                    'max_salary' => 151729,
                 ]
             ),
         ];

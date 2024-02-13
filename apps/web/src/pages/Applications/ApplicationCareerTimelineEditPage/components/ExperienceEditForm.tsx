@@ -5,7 +5,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -197,11 +197,7 @@ const EditExperienceForm = ({
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
                   <Button type="button" color="secondary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel",
-                      id: "KnE2Rk",
-                      description: "Cancel confirmation",
-                    })}
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </AlertDialog.Cancel>
                 <AlertDialog.Action>
@@ -212,11 +208,7 @@ const EditExperienceForm = ({
                     disabled={isSubmitting}
                     onClick={handleDeleteExperience}
                   >
-                    {intl.formatMessage({
-                      defaultMessage: "Delete",
-                      id: "sBksyQ",
-                      description: "Delete confirmation",
-                    })}
+                    {intl.formatMessage(commonMessages.delete)}
                   </Button>
                 </AlertDialog.Action>
               </AlertDialog.Footer>

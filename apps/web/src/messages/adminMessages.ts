@@ -6,11 +6,6 @@ const messages = defineMessages({
     id: "GplLic",
     description: "Title for unique ID of a resource",
   },
-  edit: {
-    defaultMessage: "Edit",
-    id: "yZoSaY",
-    description: "Title displayed for a tables Edit column.",
-  },
   view: {
     defaultMessage: "View",
     id: "KjbjQU",
@@ -25,6 +20,16 @@ const messages = defineMessages({
     defaultMessage: "Departments",
     id: "+d/NdU",
     description: "Title for departments",
+  },
+  category: {
+    defaultMessage: "Category",
+    id: "S6x9Sg",
+    description: "Title for category",
+  },
+  team: {
+    defaultMessage: "Team",
+    id: "kKSGje",
+    description: "Title for team",
   },
   pools: {
     defaultMessage: "Pools",
@@ -56,20 +61,10 @@ const messages = defineMessages({
     id: "RW0Ukc",
     description: "Title for streams",
   },
-  status: {
-    defaultMessage: "Status",
-    id: "QtzRCh",
-    description: "Title for status",
-  },
   manager: {
     defaultMessage: "Manager",
     id: "TXl1qY",
     description: "Title for manager full name",
-  },
-  email: {
-    defaultMessage: "Email",
-    id: "dJd5/f",
-    description: "Title for email",
   },
   jobTitle: {
     defaultMessage: "Job title",
@@ -85,6 +80,16 @@ const messages = defineMessages({
     defaultMessage: "Notes",
     id: "EK+25s",
     description: "Title for admin notes shorthand",
+  },
+  nameEn: {
+    defaultMessage: "Name (English)",
+    id: "HBljcn",
+    description: "Title for name in English",
+  },
+  nameFr: {
+    defaultMessage: "Name (French)",
+    id: "Jt4kG1",
+    description: "Title for name in French",
   },
   noneProvided: {
     defaultMessage: "(None provided)",

@@ -7,7 +7,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 require("dotenv").config({ path: "./.env" });
 
-
 const gitCommand = (cmd) => {
   let result;
   try {
@@ -32,7 +31,7 @@ module.exports = (basePath, appMeta) => {
 
   const meta = {
     type: "website",
-    ...appMeta
+    ...appMeta,
   };
 
   return {
@@ -80,15 +79,21 @@ module.exports = (basePath, appMeta) => {
         template: "./public/index.html",
         meta: {
           description: meta.description,
-          "og:url": { property: 'og:url', content: meta.url },
-          "og:type": { property: 'og:type', content: meta.type },
-          "og:title": { property: 'og:title', content: meta.title },
-          "og:description": { property: 'og:description', content: meta.description },
-          "og:image": { property: 'og:image', content: meta.image },
-          "twitter:domain": { property: 'twitter:domain', content: meta.domain },
-          "twitter:url": { property: 'twitter:url', content: meta.url },
-          "twitter:title": { property: 'twitter:title', content: meta.title },
-          "twitter:image": { property: 'twitter:image', content: meta.image },
+          "og:url": { property: "og:url", content: meta.url },
+          "og:type": { property: "og:type", content: meta.type },
+          "og:title": { property: "og:title", content: meta.title },
+          "og:description": {
+            property: "og:description",
+            content: meta.description,
+          },
+          "og:image": { property: "og:image", content: meta.image },
+          "twitter:domain": {
+            property: "twitter:domain",
+            content: meta.domain,
+          },
+          "twitter:url": { property: "twitter:url", content: meta.url },
+          "twitter:title": { property: "twitter:title", content: meta.title },
+          "twitter:image": { property: "twitter:image", content: meta.image },
         },
       }),
 
@@ -141,7 +146,7 @@ module.exports = (basePath, appMeta) => {
           type: "asset/resource",
         },
         {
-          test: /\.(pdf|doc|docx)$/i,
+          test: /\.(pdf|doc|docx|pptx)$/i,
           type: "asset/resource",
           generator: {
             filename: "documents/[name][ext]",

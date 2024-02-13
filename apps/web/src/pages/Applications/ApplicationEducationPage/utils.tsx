@@ -101,6 +101,43 @@ export const getEducationRequirementOptions = (
   isIAP = false,
 ): Radio[] => {
   switch (classificationGroup) {
+    case "EC":
+      return [
+        {
+          value: EducationRequirementOption.Education,
+          label: (
+            <strong>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationHeading,
+              )}
+            </strong>
+          ),
+          contentBelow: (
+            <p>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationDescription,
+              )}
+            </p>
+          ),
+        },
+        {
+          value: EducationRequirementOption.AppliedWork,
+          label: (
+            <strong>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusHeading,
+              )}
+            </strong>
+          ),
+          contentBelow: (
+            <p>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusDescription,
+              )}
+            </p>
+          ),
+        },
+      ];
     case "EX":
       return [
         {

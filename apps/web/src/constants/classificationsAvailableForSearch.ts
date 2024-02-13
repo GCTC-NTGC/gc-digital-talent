@@ -18,5 +18,21 @@ export default (): Pick<Classification, "group" | "level">[] => {
       group: "IT",
       level: 4,
     },
+    {
+      group: "PM",
+      level: 1,
+    },
+    {
+      group: "PM",
+      level: 2,
+    },
+    {
+      group: "PM",
+      level: 3,
+    },
+    {
+      group: "PM",
+      level: 4,
+    },
   ];
 };
