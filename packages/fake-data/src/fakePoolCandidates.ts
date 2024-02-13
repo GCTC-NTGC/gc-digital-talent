@@ -10,14 +10,21 @@ import {
   Pool,
   User,
   EducationRequirementOption,
+  AssessmentResult,
+  PoolSkillType,
+  Skill,
+  AssessmentResultType,
+  PoolSkill,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
+import fakeAssessmentResults from "./fakeAssessmentResults";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
-  const pool = faker.helpers.arrayElement(pools);
+  const pool = faker.helpers.arrayElement<Pool>(pools);
+  const user = faker.helpers.arrayElement<User>(users);
   const generalQuestionResponses =
     pool.generalQuestions?.map((generalQuestion) => ({
       id: faker.string.uuid(),
@@ -31,10 +38,39 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
       screeningQuestion,
     })) || [];
 
+  console.log(pool.assessmentSteps);
+
+  // const assessmentResults =
+  //   pool.assessmentSteps?.map(
+  //     (assessmentStep) =>
+  //       fakeAssessmentResults(
+  //         1,
+  //         assessmentStep,
+  //         assessmentStep?.poolSkills
+  //           ? faker.helpers.arrayElement(
+  //               assessmentStep?.poolSkills as PoolSkill[],
+  //             )
+  //           : { id: faker.string.uuid() },
+  //       )[0],
+  //   ) || [];
+
+  // const userSkills =
+  //   pool.assessmentSteps?.map((assessmentStep) => {
+  //     const skill = assessmentStep?.poolSkills
+  //       ? faker.helpers.arrayElement(
+  //           assessmentStep?.poolSkills.skill as Skill[],
+  //         )
+  //       : fakeSkills(1)[0];
+  //     return {
+  //       id: faker.string.uuid(),
+  //       user,
+  //       skill,
+  //     };
+  //   }) || [];
   return {
     id: faker.string.uuid(),
     pool,
-    user: faker.helpers.arrayElement<User>(users),
+    user,
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
     ),
@@ -58,6 +94,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
+    // assessmentResults,
   };
 };
 

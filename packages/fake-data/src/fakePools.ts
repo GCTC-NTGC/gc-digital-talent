@@ -19,8 +19,12 @@ import {
   Skill,
   GeneralQuestion,
   ScreeningQuestion,
+  AssessmentStep,
+  AssessmentStepType,
+  PoolSkill,
 } from "@gc-digital-talent/graphql";
 
+import fakePoolSkills from "./fakePoolSkills";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeUsers from "./fakeUsers";
@@ -28,6 +32,7 @@ import fakeClassifications from "./fakeClassifications";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
+import fakeAssessmentSteps from "./fakeAssessmentSteps";
 
 const generatePool = (
   users: User[],
@@ -88,6 +93,15 @@ const generatePool = (
     screeningQuestions: faker.helpers.arrayElements<ScreeningQuestion>(
       fakeScreeningQuestions(),
     ),
+    assessmentSteps: [
+      fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening)[0],
+      fakeAssessmentSteps(
+        1,
+        AssessmentStepType.ScreeningQuestionsAtApplication,
+      )[0],
+      fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
+    ],
+    poolSkills: faker.helpers.arrayElements<PoolSkill>(fakePoolSkills()),
   };
 };
 
@@ -102,12 +116,20 @@ export default (
   return [...Array(numToGenerate)].map((index) => {
     switch (index) {
       case 0:
-        return generatePool(users, skills, classifications, "CMO", "CMO");
+        return generatePool(
+          users,
+          skills,
+          classifications,
+
+          "CMO",
+          "CMO",
+        );
       case 1:
         return generatePool(
           users,
           skills,
           classifications,
+
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
         );

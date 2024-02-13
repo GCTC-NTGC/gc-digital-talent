@@ -19,10 +19,10 @@ const generateSkill = (
   });
   return {
     id: uniqueId,
-    key: faker.helpers.slugify(name),
+    key: faker.helpers.slugify(faker.lorem.word()),
     name: {
-      en: `EN ${name}`,
-      fr: `FR ${name}`,
+      en: `EN ${faker.lorem.word()}`,
+      fr: `FR ${faker.lorem.word()}`,
     },
     description: {
       en: `EN skill description ${faker.lorem.sentences()}`,

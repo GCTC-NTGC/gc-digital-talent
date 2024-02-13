@@ -1,10 +1,14 @@
 import { faker } from "@faker-js/faker";
 
 import {
+  PoolSkillType,
+  PoolSkill,
   AssessmentStep,
   AssessmentStepType,
   Maybe,
 } from "@gc-digital-talent/graphql";
+
+import fakeSkills from "./fakeSkills";
 
 const generateAssessmentStep = (
   amount: number,
@@ -24,7 +28,15 @@ const generateAssessmentStep = (
       en: `${faker.lorem.word()} EN`,
       fr: `${faker.lorem.word()} FR`,
     },
-    poolSkills: [],
+    poolSkills: [
+      {
+        id: faker.string.uuid(),
+        type: faker.helpers.arrayElement<PoolSkillType>(
+          Object.values(PoolSkillType),
+        ),
+        skill: fakeSkills(1)[0],
+      },
+    ],
   };
 };
 
