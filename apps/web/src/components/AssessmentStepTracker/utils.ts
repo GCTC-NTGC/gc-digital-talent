@@ -54,7 +54,7 @@ export const getDecisionInfo = (
     return {
       icon: PauseCircleIcon,
       colorStyle: {
-        "data-h2-color": "base(warning)",
+        "data-h2-color": "base(secondary)",
       },
       name: intl.formatMessage(poolCandidateMessages.onHold),
     };
@@ -247,8 +247,9 @@ export const filterResults = (
         if (filters.query) {
           const fullName = [user.firstName, user.lastName]
             .filter(notEmpty)
-            .join(" ");
-          if (!fullName.includes(filters.query)) {
+            .join(" ")
+            .toLowerCase();
+          if (!fullName.includes(filters.query.toLowerCase())) {
             return false;
           }
         }

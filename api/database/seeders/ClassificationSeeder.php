@@ -22,6 +22,7 @@ class ClassificationSeeder extends Seeder
             'group' => 'AS',
             'name' => ['en' => 'Administrative Services', 'fr' => 'Services administratifs'],
         ];
+        // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15
         $pmGroup = [
             'group' => 'PM',
             'name' => ['en' => 'Programme Administration', 'fr' => 'Administration des programmes'],
@@ -113,6 +114,63 @@ class ClassificationSeeder extends Seeder
                     'level' => 5,
                     'min_salary' => 67981,
                     'max_salary' => 73495,
+                ]
+            ),
+            // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15#toc44294244301
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 1,
+                    'min_salary' => 60424,
+                    'max_salary' => 67582,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 2,
+                    'min_salary' => 67330,
+                    'max_salary' => 72544,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 72171,
+                    'max_salary' => 77758,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 78834,
+                    'max_salary' => 85187,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 5,
+                    'min_salary' => 94113,
+                    'max_salary' => 101750,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 6,
+                    'min_salary' => 110346,
+                    'max_salary' => 126172,
+                ]
+            ),
+            array_merge(
+                $pmGroup,
+                [
+                    'level' => 7,
+                    'min_salary' => 113939,
+                    'max_salary' => 134111,
                 ]
             ),
             // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4#tocxx338387

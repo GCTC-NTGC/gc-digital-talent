@@ -614,6 +614,10 @@ input UserFilterInput {
   trashed: Trashed @trashed
 }
 
+input UserPublicProfileFilterInput {
+  publicProfileSearch: String @scope
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -696,16 +700,22 @@ type Query {
     @deprecated(
       reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
     )
-  userPublicProfiles: [UserPublicProfile]!
-    @all
+  userPublicProfilesPaginated(
+    where: UserPublicProfileFilterInput
+    excludeIds: [ID!] @notIn(key: "id")
+    orderBy: [OrderByClause!] @orderBy
+  ): [UserPublicProfile]!
+    @orderBy(column: "created_at", direction: DESC)
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["authorizedToViewBasicInfo"]
+    )
     @guard
     @can(ability: "viewBasicInfo", model: "User")
-    @deprecated(
-      reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!"
-    )
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["inITPublishingGroup"])
+    @count(model: "User", scopes: ["availableInITPublishingGroup"])
   pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
@@ -1069,7 +1079,6 @@ input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  notes: String
   isBookmarked: Boolean
 }
 
@@ -1292,9 +1301,13 @@ input UpdateUserSkillInput {
 input UpdateUserSkillRankingsInput {
   # array of skill ids
   topTechnicalSkillsRanked: [UUID]
+    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   topBehaviouralSkillsRanked: [UUID]
+    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveTechnicalSkillsRanked: [UUID]
+    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveBehaviouralSkillsRanked: [UUID]
+    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
 }
 
 input WorkExperienceHasMany {
@@ -1575,7 +1588,7 @@ type Mutation {
     @can(ability: "create")
     @injectNow(name: "submitted_at")
   updatePoolCandidateAsAdmin(
-    id: ID!
+    id: UUID!
     poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
     @update
@@ -1590,6 +1603,10 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
+  updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
+    @update
+    @guard
+    @can(ability: "updateNotes", find: "id")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard

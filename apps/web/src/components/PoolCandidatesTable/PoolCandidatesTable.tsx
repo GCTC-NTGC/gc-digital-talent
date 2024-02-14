@@ -62,7 +62,7 @@ import {
   statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  transformSortStateToOrderByClause,
+  getSortOrder,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -81,18 +81,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
-    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+    $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
   ) {
     poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
-      orderBy: [
-        { column: "is_bookmarked", order: DESC }
-        { column: "status_weight", order: ASC }
-        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-        $sortingInput
-      ]
+      orderBy: $sortingInput
     ) {
       data {
         id
@@ -213,11 +208,13 @@ const PoolCandidatesTable = ({
   currentPool,
   title,
   hidePoolFilter,
+  doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pool>;
   title: string;
   hidePoolFilter?: boolean;
+  doNotUseBookmark?: boolean;
 }) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -341,7 +338,12 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: transformSortStateToOrderByClause(sortState, filterState),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        recordOfDecision,
+      ),
     },
   });
 
@@ -387,20 +389,24 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
-    columnHelper.display({
-      id: "isBookmarked",
-      header: () => bookmarkHeader(intl),
-      enableHiding: false,
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => bookmarkCell(poolCandidate),
-      meta: {
-        shrink: true,
-        hideMobileHeader: true,
-      },
-    }),
+    ...(doNotUseBookmark
+      ? []
+      : [
+          columnHelper.display({
+            id: "isBookmarked",
+            header: () => bookmarkHeader(intl),
+            enableHiding: false,
+            cell: ({
+              row: {
+                original: { poolCandidate },
+              },
+            }) => bookmarkCell(poolCandidate),
+            meta: {
+              shrink: true,
+              hideMobileHeader: true,
+            },
+          }),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getFullNameLabel(user.firstName, user.lastName, intl),
@@ -433,7 +439,7 @@ const PoolCandidatesTable = ({
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -456,7 +462,7 @@ const PoolCandidatesTable = ({
           },
         }) => priorityCell(user.priorityWeight, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
         },
       },
     ),
@@ -475,9 +481,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -495,9 +499,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => jobPlacementCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(

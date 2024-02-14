@@ -457,6 +457,9 @@ class PoolCandidate extends Model
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
+            })
+            ->where(function ($query) {
+                self::scopeExpiryStatus($query, CandidateExpiryFilter::ACTIVE->name);
             });
 
         return $query;

@@ -88,6 +88,11 @@ const UpdateSkillShowcase = ({
   });
   const watchedSkills = watch("userSkills");
 
+  const existingSkillsRanking = initialSkills.userSkills.map(
+    (userSkill) => userSkill.skill,
+  );
+  const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
+
   const handleSuccess = (msg?: React.ReactNode) => {
     toast.success(
       msg ||
@@ -118,10 +123,6 @@ const UpdateSkillShowcase = ({
         .length > 0 ||
       watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
         .length > 0;
-    const existingSkillsRanking = initialSkills.userSkills.map(
-      (userSkill) => userSkill.skill,
-    );
-    const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -256,12 +257,22 @@ const UpdateSkillShowcase = ({
                         id: addId,
                         button: (
                           <SkillBrowserDialog
-                            inLibrary={userSkills.map(
-                              (userSkill) => userSkill.skill,
-                            )}
+                            inLibrary={userSkills
+                              .map((userSkill) => userSkill.skill)
+                              .filter(
+                                (skill) =>
+                                  !existingSkillsRankingFiltered.includes(
+                                    skill.id,
+                                  ),
+                              )}
                             trigger={triggerProps}
                             context="showcase"
-                            skills={skills}
+                            skills={skills.filter(
+                              (skill) =>
+                                !existingSkillsRankingFiltered.includes(
+                                  skill.id,
+                                ),
+                            )}
                             onSave={handleSave}
                             showCategory={false}
                             noToast

@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
 import {
@@ -10,18 +10,40 @@ import {
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
 import {
   PoolCandidateSearchStatus,
   PoolStream,
-  useSearchRequestFilterDataQuery,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
 import { FormValues } from "./utils";
+
+const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
+  query SearchRequestFilterData {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+  }
+`);
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Classification", "Department"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -37,7 +59,10 @@ const SearchRequestFilterDialog = ({
 }: SearchRequestFilterDialogProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching }] = useSearchRequestFilterDataQuery({ context });
+  const [{ data, fetching }] = useQuery({
+    query: SearchRequestFilterData_Query,
+    context,
+  });
 
   const departments = unpackMaybes(data?.departments);
   const classifications = unpackMaybes(data?.classifications);

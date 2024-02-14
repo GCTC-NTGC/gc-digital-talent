@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   ThemeMode,
@@ -13,7 +14,13 @@ import {
 } from "../types";
 
 export interface ThemeState {
-  mode: ThemeMode;
+  /** Full mode stores three values to determine the current setting */
+  fullMode: ThemeMode;
+  /**
+   * Mode omits "pref" and is used by hydrogen that only supports light/dark
+   * where pref will fallback to one based on users `prefers-color-scheme`
+   * */
+  mode: Omit<ThemeMode, "pref">;
   key: ThemeKey;
   isPref: boolean;
   setMode: SetThemeModeFunc;
@@ -22,7 +29,8 @@ export interface ThemeState {
 }
 
 const defaultThemeState = {
-  mode: "pref" as ThemeMode,
+  fullMode: "pref" as ThemeMode,
+  mode: "light" as ThemeMode,
   key: "default" as ThemeKey,
   isPref: true,
   setMode: () => {
@@ -62,11 +70,18 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
+  const { darkMode } = useFeatureFlags();
   const [theme, setTheme] = useLocalStorage<Theme>(
     "theme",
     getDefaultTheme(override),
   );
   const { key, mode } = theme;
+  let computedMode: ThemeMode = mode;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isSetLight = localStorage.theme === "light";
+  if (mode === "pref") {
+    computedMode = prefersDark && !isSetLight ? "dark" : "light";
+  }
 
   const setKey = React.useCallback(
     (newKey: ThemeKey) => {
@@ -93,14 +108,16 @@ const ThemeProvider = ({
       themeSelector || "html[data-h2], body[data-h2]",
     );
     let themeString: string | undefined = "";
-    if (mode && key) {
-      themeString = `${key} ${mode}`;
-      // TO DO: Remove this line to re-enable dark mode
-      themeString = key;
+
+    if (computedMode && key) {
+      themeString = `${key} ${computedMode}`;
+      if (!darkMode) {
+        themeString = key;
+      }
     } else if (key) {
       themeString = key;
     } else if (mode) {
-      themeString = mode;
+      themeString = computedMode;
     } else {
       themeString = undefined;
     }
@@ -112,22 +129,14 @@ const ThemeProvider = ({
         item.dataset.h2 = themeString;
       }
     });
-  }, [key, mode, themeSelector]);
+  }, [computedMode, darkMode, key, mode, themeSelector]);
 
   const testDark = React.useCallback(() => {
-    const isSet = key || (mode && mode !== "pref");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const isSetDark = localStorage.theme === "dark";
-    const isSetLight = localStorage.theme === "light";
-
-    const isDark =
-      (prefersDark && (!isSet || !isSetLight)) || (isSet && isSetDark);
-    if (isDark) {
+    const isSet = mode && mode !== "pref";
+    if (!isSet) {
       setTheme({
         key,
-        mode: "dark",
+        mode: "pref",
       });
     }
   }, [key, mode, setTheme]);
@@ -159,14 +168,24 @@ const ThemeProvider = ({
 
   const state = React.useMemo(
     () => ({
-      mode: override?.mode || mode,
+      fullMode: override?.mode || mode,
+      mode: override?.mode || computedMode,
       key: override?.key || key,
       setTheme,
       setMode,
       setKey,
       isPref: !mode || mode === "pref",
     }),
-    [mode, key, setTheme, setMode, setKey, override],
+    [
+      override?.mode,
+      override?.key,
+      computedMode,
+      key,
+      setTheme,
+      setMode,
+      setKey,
+      mode,
+    ],
   );
 
   return (
