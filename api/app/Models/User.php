@@ -433,7 +433,11 @@ class User extends Model implements Authenticatable, LaratrustUser
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
+                'statuses' => [
+                    PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                    PoolCandidateStatus::PLACED_CASUAL->name,
+                    PoolCandidateStatus::PLACED_TENTATIVE->name,
+                ],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
