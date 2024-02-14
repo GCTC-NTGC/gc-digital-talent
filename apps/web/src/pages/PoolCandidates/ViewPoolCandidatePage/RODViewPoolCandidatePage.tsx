@@ -28,7 +28,6 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  AssessmentResult,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

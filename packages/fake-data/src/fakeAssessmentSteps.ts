@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker";
 
 import {
   PoolSkillType,
-  PoolSkill,
   AssessmentStep,
   AssessmentStepType,
   Maybe,

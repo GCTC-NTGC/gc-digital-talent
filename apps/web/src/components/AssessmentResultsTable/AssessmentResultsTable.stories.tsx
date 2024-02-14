@@ -1,13 +1,6 @@
 import React from "react";
 import type { StoryFn } from "@storybook/react";
 
-import {
-  fakeExperiences,
-  fakePoolCandidates,
-  fakeSkills,
-  fakeUserSkills,
-} from "@gc-digital-talent/fake-data";
-
 import AssessmentResultsTable from "./AssessmentResultsTable";
 import { testPoolCandidate } from "./testData";
 

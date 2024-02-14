@@ -19,7 +19,6 @@ import {
   Skill,
   GeneralQuestion,
   ScreeningQuestion,
-  AssessmentStep,
   AssessmentStepType,
   PoolSkill,
 } from "@gc-digital-talent/graphql";
