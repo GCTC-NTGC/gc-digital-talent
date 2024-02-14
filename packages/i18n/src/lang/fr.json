@@ -1467,6 +1467,10 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
+  "k/+pcc": {
+    "defaultMessage": "Offre en cours",
+    "description": "The pool candidate's status is Offer in Progress, tentatively placed"
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
