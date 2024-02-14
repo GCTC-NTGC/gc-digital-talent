@@ -23,7 +23,7 @@ return new class extends Migration
 
         DB::table('settings')->insert(
             [
-                'key' => 'maintenance_announcement',
+                'key' => 'sitewide_announcement',
                 'value' => json_encode([
                     'isEnabled' => false,
                     'publishDate' => Carbon::today()->toDateTimeString(),

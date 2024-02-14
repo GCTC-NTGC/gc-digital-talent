@@ -7,7 +7,7 @@ namespace App\GraphQL\Mutations;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-final readonly class UpdateMaintenanceAnnouncement
+final readonly class UpdateSitewideAnnouncement
 {
     /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
@@ -23,7 +23,7 @@ final readonly class UpdateMaintenanceAnnouncement
         ];
 
         DB::table('settings')
-            ->where('key', 'maintenance_announcement')
+            ->where('key', 'sitewide_announcement')
             ->update(['value' => json_encode($parsedObj)]);
 
         return $parsedObj;

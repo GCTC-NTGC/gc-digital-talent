@@ -65,6 +65,7 @@ recruitments
 recrutementgiti
 rolepermission
 roundtable
+Sitewide
 skillset
 Spatie
 spinbutton

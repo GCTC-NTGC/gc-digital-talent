@@ -665,14 +665,14 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
-type MaintenanceAnnouncement {
+type SitewideAnnouncement {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
   message: LocalizedString!
 }
 
-input MaintenanceAnnouncementInput {
+input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
@@ -801,7 +801,7 @@ type Query {
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
 
-  maintenanceAnnouncement: MaintenanceAnnouncement!
+  sitewideAnnouncement: SitewideAnnouncement!
 }
 
 input ClassificationBelongsTo {
@@ -1863,9 +1863,9 @@ type Mutation {
     @delete
     @can(ability: "update", find: "id")
 
-  updateMaintenanceAnnouncement(
-    maintenanceAnnouncementInput: MaintenanceAnnouncementInput! @spread
-  ): MaintenanceAnnouncement
+  updateSitewideAnnouncement(
+    sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
+  ): SitewideAnnouncement
   #todo guard
 }
 

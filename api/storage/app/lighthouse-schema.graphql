@@ -34,7 +34,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
-  maintenanceAnnouncement: MaintenanceAnnouncement!
+  sitewideAnnouncement: SitewideAnnouncement!
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -143,7 +143,7 @@ type Mutation {
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
-  updateMaintenanceAnnouncement(maintenanceAnnouncementInput: MaintenanceAnnouncementInput!): MaintenanceAnnouncement
+  updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -707,14 +707,14 @@ type CandidateSearchPoolResult {
   candidateCount: Int!
 }
 
-type MaintenanceAnnouncement {
+type SitewideAnnouncement {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
   message: LocalizedString!
 }
 
-input MaintenanceAnnouncementInput {
+input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
