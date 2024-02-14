@@ -801,7 +801,7 @@ type Query {
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
 
-  sitewideAnnouncement: SitewideAnnouncement!
+  sitewideAnnouncement: SitewideAnnouncement
 }
 
 input ClassificationBelongsTo {
