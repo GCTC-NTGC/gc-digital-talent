@@ -5,13 +5,19 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\UnauthorizedException;
 
 final readonly class UpdateSitewideAnnouncement
 {
     /** @param  array{}  $args */
     public function __invoke(null $_, array $args)
     {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+        throw_unless($user->isAbleTo('update-any-sitewideAnnouncement'), UnauthorizedException::class);
+
         // parse and save the input
         $parsedObj = [
             'isEnabled' => boolval($args['isEnabled']),

@@ -675,7 +675,7 @@ type SitewideAnnouncement {
 input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
-  expiryDate: DateTime!
+  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
   message: LocalizedStringInput!
 }
 
@@ -1865,8 +1865,7 @@ type Mutation {
 
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
-  ): SitewideAnnouncement
-  #todo guard
+  ): SitewideAnnouncement @guard
 }
 
 #import directiveForms.graphql

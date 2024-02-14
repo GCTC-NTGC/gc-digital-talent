@@ -34,7 +34,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
-  sitewideAnnouncement: SitewideAnnouncement!
+  sitewideAnnouncement: SitewideAnnouncement
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
