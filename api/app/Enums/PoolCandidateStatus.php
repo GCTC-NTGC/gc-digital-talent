@@ -17,6 +17,7 @@ enum PoolCandidateStatus
     case QUALIFIED_AVAILABLE;
     case QUALIFIED_UNAVAILABLE;
     case QUALIFIED_WITHDREW;
+    case PLACED_TENTATIVE;
     case PLACED_CASUAL;
     case PLACED_TERM;
     case PLACED_INDETERMINATE;
