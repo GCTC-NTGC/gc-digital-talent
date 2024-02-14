@@ -602,4 +602,171 @@ class PoolCandidateTest extends TestCase
             ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
+
+    public function testOrderByPoolName(): void
+    {
+        $query =
+            /** @lang GraphQL */
+            '
+            query PoolCandidates($orderBy: PoolCandidatePoolNameOrderByInput) {
+                poolCandidatesPaginated(orderByPoolName: $orderBy) {
+                    data {
+                        id
+                        poolCandidate {
+                            id
+                            pool {
+                                id
+                                name {
+                                    en
+                                    fr
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ';
+
+        $poolOne = Pool::factory()->published()->create([
+            'name' => ['en' => 'AA (EN)', 'fr' => 'ÀÉ (FR)'],
+        ]);
+
+        $poolTwo = Pool::factory()->published()->create([
+            'name' => ['en' => 'AB (EN)', 'fr' => 'ÀÀ (FR)'],
+        ]);
+
+        $userOneCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $poolOne->id,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $userTwoCandidate = PoolCandidate::factory()->create([
+            'pool_id' => $poolTwo->id,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+
+        // Assert sorting by EN ASC returns proper order
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'locale' => 'en',
+                    'order' => 'ASC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolOne->name,
+                                    ],
+                                ],
+                            ],
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolTwo->name,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // Assert sorting by FR ASC returns proper order
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'locale' => 'fr',
+                    'order' => 'ASC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolTwo->name,
+                                    ],
+                                ],
+                            ],
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolOne->name,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // Assert sorting by EN DESC returns proper order
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'locale' => 'en',
+                    'order' => 'DESC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolTwo->name,
+                                    ],
+                                ],
+                            ],
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolOne->name,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // Assert sorting by FR DESC returns proper order
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'locale' => 'fr',
+                    'order' => 'DESC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolOne->name,
+                                    ],
+                                ],
+                            ],
+                            [
+                                'poolCandidate' => [
+                                    'pool' => [
+                                        'name' => $poolTwo->name,
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+    }
 }
