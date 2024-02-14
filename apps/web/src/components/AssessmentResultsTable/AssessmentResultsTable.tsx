@@ -5,13 +5,14 @@ import uniqueId from "lodash/uniqueId";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { AssessmentResult } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getAssessmentStepType,
   getPoolSkillType,
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import adminMessages from "~/messages/adminMessages";
 import {
   AssessmentResultType,
   AssessmentStep,
@@ -50,6 +51,7 @@ const AssessmentResultsTable = ({
     return unpackMaybes(poolCandidate?.assessmentResults);
   }, [poolCandidate.assessmentResults]);
 
+  // Create data for table containing pool skill with matching results
   const assessmentStepsResults: Array<AssessmentStepResult> = poolSkills.map(
     (poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
@@ -74,7 +76,7 @@ const AssessmentResultsTable = ({
         AssessmentResultType.Education,
     );
 
-  // Find the education requirement assessment result
+  // Create the education requirement assessment step result
   const educationStepResult: AssessmentStepResult = {
     poolSkill: undefined,
     assessmentResults: educationResults ?? [],
@@ -118,35 +120,6 @@ const AssessmentResultsTable = ({
             status,
           }),
         ];
-        // The steps are already sorted, however as a back measure set order in switch case as well
-        // switch (assessmentStep.type) {
-        //   case AssessmentStepType.ApplicationScreening: {
-        //     return [
-        //       column({
-        //         id,
-        //         header,
-        //       }),
-        //       ...accumulator,
-        //     ];
-        //   }
-        //   case AssessmentStepType.ScreeningQuestionsAtApplication: {
-        //     return [
-        //       ...accumulator,
-        //       column({
-        //         id,
-        //         header,
-        //       }),
-        //     ];
-        //   }
-        //   default:
-        //     return [
-        //       ...accumulator,
-        //       column({
-        //         id,
-        //         header,
-        //       }),
-        //     ];
-        // }
       },
       [],
     );
@@ -156,8 +129,13 @@ const AssessmentResultsTable = ({
       columnHelper.accessor(
         ({ poolSkill }) => getLocalizedName(poolSkill?.skill?.name, intl),
         {
-          id: "header",
-          header: "Header",
+          id: "requirement",
+          header: intl.formatMessage({
+            defaultMessage: "Requirement",
+            id: "jAWP0X",
+            description:
+              "Header for requirement section of assessment results table",
+          }),
           cell: ({ row: { original } }) =>
             cells.jsx(
               <div>
@@ -198,7 +176,7 @@ const AssessmentResultsTable = ({
   return (
     <Table<AssessmentStepResult>
       data={data}
-      caption="AssessmentResultsTable" // TODO: Replace with localized title
+      caption={intl.formatMessage(adminMessages.assessmentResults)}
       columns={getColumns()}
     />
   );

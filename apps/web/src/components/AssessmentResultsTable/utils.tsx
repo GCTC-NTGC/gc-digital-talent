@@ -192,8 +192,6 @@ export const buildColumn = ({
 
         if (!hasPoolSkill) return null;
 
-        console.log(assessmentResult);
-
         if (assessmentResult)
           return cells.jsx(
             <Dialog

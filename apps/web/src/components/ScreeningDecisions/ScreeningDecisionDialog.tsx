@@ -38,7 +38,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  getAssessmentDecision,
   getAssessmentDecisionLevel,
   getTableAssessmentDecision,
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
@@ -476,8 +475,6 @@ const ScreeningDecisionDialogApi = ({
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
     assessmentNotes: assessmentResult?.assessmentNotes,
   };
-
-  console.log(initialValues.justifications);
 
   const [, executeCreateMutation] = useCreateAssessmentResultMutation();
   const [, executeUpdateMutation] = useUpdateAssessmentResultMutation();

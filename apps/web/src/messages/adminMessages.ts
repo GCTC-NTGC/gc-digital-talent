@@ -11,6 +11,11 @@ const messages = defineMessages({
     id: "KjbjQU",
     description: "Title displayed for a tables View column.",
   },
+  assessmentResults: {
+    defaultMessage: "Assessment results",
+    id: "+Xn2ke",
+    description: "Title for assessment results",
+  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",
