@@ -21,8 +21,7 @@ export type AssessmentStepResultColumnProps = {
   poolCandidate: PoolCandidate;
   assessmentStep: AssessmentStep;
   intl: IntlShape;
-  status: ColumnStatus;
-  header: string;
+  header: JSX.Element;
 };
 
 export type StatusColor =
@@ -32,4 +31,8 @@ export type StatusColor =
   | "success"
   | "gray";
 
-export type ColumnStatus = { icon: IconType | null; color: StatusColor | null };
+export type ColumnStatus = {
+  icon: IconType | null;
+  color: StatusColor;
+  ariaLabel: string;
+};

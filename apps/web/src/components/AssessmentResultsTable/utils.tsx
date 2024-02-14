@@ -4,6 +4,7 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import { IntlShape } from "react-intl";
 
 import {
   AssessmentDecision,
@@ -46,6 +47,7 @@ const iconColorMap: Record<StatusColor, Record<string, string>> = {
 
 export const columnHeader = (header: string, status: ColumnStatus) => {
   const Icon = status.icon;
+
   return (
     <p
       data-h2-display="base(flex)"
@@ -54,9 +56,12 @@ export const columnHeader = (header: string, status: ColumnStatus) => {
     >
       {Icon && (
         <Icon
-          {...iconColorMap[status.color ?? "gray"]}
-          data-h2-height="base(x1)"
+          role="img"
+          title={status.ariaLabel}
+          aria-hidden="false"
+          {...iconColorMap[status.color]}
           data-h2-width="base(x1)"
+          data-h2-height="base(x1)"
         />
       )}
       <span>{header}</span>
@@ -67,7 +72,9 @@ export const columnHeader = (header: string, status: ColumnStatus) => {
 export const columnStatus = (
   assessmentStep: AssessmentStep,
   assessmentResults: AssessmentResult[],
+  intl: IntlShape,
 ): ColumnStatus => {
+  const { type } = assessmentStep;
   // Grab all assessment results from assessment step that have an essential pool skill
   const allEssentialAssessmentResultsOfStep =
     assessmentResults?.filter(
@@ -85,6 +92,21 @@ export const columnStatus = (
     return {
       icon: XCircleIcon,
       color: "error",
+      ariaLabel:
+        type === AssessmentStepType.ApplicationScreening ||
+        type === AssessmentStepType.ScreeningQuestionsAtApplication
+          ? intl.formatMessage({
+              defaultMessage: "Screened Out",
+              id: "0ywybu",
+              description:
+                "Aria Label for error icon on assessment result table",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Unsuccessful",
+              id: "YWs5Uw",
+              description:
+                "Aria Label for error icon on assessment result table",
+            }),
     };
 
   // If at least one result has the assessmentDecision === HOLD, then set to warning icon.
@@ -95,6 +117,11 @@ export const columnStatus = (
     return {
       icon: PauseCircleIcon,
       color: "secondary",
+      ariaLabel: intl.formatMessage({
+        defaultMessage: "Hold for assessment",
+        id: "otE152",
+        description: "Aria Label for pause icon on assessment result table",
+      }),
     };
 
   // First get all essential pool skills from the assessment step.
@@ -119,6 +146,11 @@ export const columnStatus = (
     return {
       icon: ExclamationCircleIcon,
       color: "quaternary",
+      ariaLabel: intl.formatMessage({
+        defaultMessage: "To assess",
+        id: "JmmTl/",
+        description: "Aria Label for alert icon on assessment result table",
+      }),
     };
 
   // If all the results have the assessmentDecision === SUCCESSFUL, then set to success icon.
@@ -130,11 +162,27 @@ export const columnStatus = (
     return {
       icon: CheckCircleIcon,
       color: "success",
+      ariaLabel:
+        type === AssessmentStepType.ApplicationScreening ||
+        type === AssessmentStepType.ScreeningQuestionsAtApplication
+          ? intl.formatMessage({
+              defaultMessage: "Screened In",
+              id: "fIb32U",
+              description:
+                "Aria Label for success icon on assessment result table",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Successful",
+              id: "+R27gm",
+              description:
+                "Aria Label for success icon on assessment result table",
+            }),
     };
 
   return {
     icon: null,
-    color: null,
+    color: "gray",
+    ariaLabel: intl.formatMessage(commonMessages.notApplicable),
   };
 };
 
@@ -145,12 +193,11 @@ export const buildColumn = ({
   poolCandidate,
   assessmentStep,
   intl,
-  status,
   header,
 }: AssessmentStepResultColumnProps): AssessmentStepResultColumn => {
   return columnHelper.accessor(
-    ({ assessmentResults: results }) => {
-      const assessmentResult = results.find(
+    ({ assessmentResults }) => {
+      const assessmentResult = assessmentResults.find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
       return intl.formatMessage(
@@ -161,7 +208,7 @@ export const buildColumn = ({
     },
     {
       id,
-      header: () => columnHeader(header, status),
+      header: () => header,
       cell: ({ row: { original } }) => {
         // Check if an assessmentResult exists on the assessment step
         const assessmentResult = original.assessmentResults.find(

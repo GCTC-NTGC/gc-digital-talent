@@ -22,7 +22,7 @@ import {
 } from "~/api/generated";
 
 import cells from "../Table/cells";
-import { buildColumn, columnStatus } from "./utils";
+import { buildColumn, columnHeader, columnStatus } from "./utils";
 import { AssessmentStepResult } from "./types";
 
 const columnHelper = createColumnHelper<AssessmentStepResult>();
@@ -106,8 +106,11 @@ const AssessmentResultsTable = ({
         const type = assessmentStep.type ?? "unknownType"; // Should always have a type, if not return localized error
         const id =
           getAssessmentStepType(type).id ?? uniqueId("results-table-column");
-        const header = intl.formatMessage(getAssessmentStepType(type));
-        const status = columnStatus(assessmentStep, assessmentResults);
+        const status = columnStatus(assessmentStep, assessmentResults, intl);
+        const header = columnHeader(
+          intl.formatMessage(getAssessmentStepType(type)),
+          status,
+        );
 
         return [
           ...accumulator,
@@ -117,7 +120,6 @@ const AssessmentResultsTable = ({
             poolCandidate,
             assessmentStep,
             intl,
-            status,
           }),
         ];
       },
