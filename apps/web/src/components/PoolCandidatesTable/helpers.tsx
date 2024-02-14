@@ -4,6 +4,7 @@ import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
+  Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -20,6 +21,7 @@ import {
   PublishingGroup,
   Maybe,
   Pool,
+  PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -393,6 +395,7 @@ export function getSortOrder(
   doNotUseBookmark?: boolean,
   recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
   return [
     ...(doNotUseBookmark
       ? []
@@ -410,8 +413,25 @@ export function getSortOrder(
             order: SortOrder.Asc,
           },
         ]),
-    transformSortStateToOrderByClause(sortingRules, filterState),
+    // Do not apply other filters if we are sorting by process
+    ...(!hasProcess
+      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
+      : []),
   ];
+}
+
+export function getPoolNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolCandidatePoolNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
 }
 
 export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(

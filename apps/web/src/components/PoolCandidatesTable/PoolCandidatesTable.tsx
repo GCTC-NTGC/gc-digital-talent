@@ -16,6 +16,7 @@ import {
   commonMessages,
   errorMessages,
   getLanguage,
+  getLocale,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
@@ -66,6 +67,7 @@ import {
   transformPoolCandidateSearchInputToFormValues,
   getSortOrder,
   processCell,
+  getPoolNameSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -84,12 +86,14 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
+    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
   ) {
     poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
+      orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
     ) {
       data {
@@ -230,6 +234,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark?: boolean;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
@@ -351,6 +356,7 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
+      poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(
         sortState,
         filterState,
