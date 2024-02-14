@@ -599,19 +599,23 @@ export const ViewPoolCandidate = ({
                   poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
                 }
               />
-              <Button
-                icon={HandRaisedIcon}
-                type="button"
-                color="primary"
-                mode="inline"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Remove candidate",
-                  id: "Aixzmb",
-                  description:
-                    "Button label for remove candidate on view pool candidate page",
-                })}
-              </Button>
+              {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
+              page (#9198) */}
+              {false && (
+                <Button
+                  icon={HandRaisedIcon}
+                  type="button"
+                  color="primary"
+                  mode="inline"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Remove candidate",
+                    id: "Aixzmb",
+                    description:
+                      "Button label for remove candidate on view pool candidate page",
+                  })}
+                </Button>
+              )}
               <NotesDialog
                 poolCandidateId={poolCandidate.id}
                 notes={poolCandidate.notes}
