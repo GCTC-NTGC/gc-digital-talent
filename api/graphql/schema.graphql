@@ -665,6 +665,20 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+type MaintenanceAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  message: LocalizedString!
+}
+
+input MaintenanceAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  message: LocalizedStringInput!
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -786,6 +800,8 @@ type Query {
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
+
+  maintenanceAnnouncement: MaintenanceAnnouncement!
 }
 
 input ClassificationBelongsTo {
@@ -1846,6 +1862,11 @@ type Mutation {
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
+
+  updateMaintenanceAnnouncement(
+    maintenanceAnnouncementInput: MaintenanceAnnouncementInput! @spread
+  ): MaintenanceAnnouncement
+  #todo guard
 }
 
 #import directiveForms.graphql

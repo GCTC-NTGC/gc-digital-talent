@@ -34,6 +34,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  maintenanceAnnouncement: MaintenanceAnnouncement!
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -142,6 +143,7 @@ type Mutation {
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
+  updateMaintenanceAnnouncement(maintenanceAnnouncementInput: MaintenanceAnnouncementInput!): MaintenanceAnnouncement
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -703,6 +705,20 @@ input PoolCandidateSearchRequestInput {
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int!
+}
+
+type MaintenanceAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  message: LocalizedString!
+}
+
+input MaintenanceAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  message: LocalizedStringInput!
 }
 
 input ClassificationBelongsTo {
