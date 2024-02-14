@@ -5,6 +5,13 @@ ORIG_FILE_NAME=$1
 NEW_FILE_NAME=$2
 VARIABLES_TO_EXPAND=$3
 
-envsubst "$VARIABLES_TO_EXPAND" < $ORIG_FILE_NAME > $NEW_FILE_NAME
+if [ -z "$VARIABLES_TO_EXPAND" ]; then
+    # no variables specified, substitute everything
+    envsubst < $ORIG_FILE_NAME > $NEW_FILE_NAME
+else
+    # variables specified, do only those
+    envsubst "$VARIABLES_TO_EXPAND" < $ORIG_FILE_NAME > $NEW_FILE_NAME
+fi
+
 chmod --reference=$ORIG_FILE_NAME $NEW_FILE_NAME
 chown --reference=$ORIG_FILE_NAME $NEW_FILE_NAME

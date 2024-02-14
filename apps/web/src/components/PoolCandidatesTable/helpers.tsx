@@ -320,6 +320,8 @@ export function transformSortStateToOrderByClause(
     ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
+    ["priority", "PRIORITY_WEIGHT"],
+    ["status", "status_weight"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -329,7 +331,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -341,9 +343,13 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
-      sortingRule.id,
-    )
+    [
+      "candidateName",
+      "email",
+      "preferredLang",
+      "currentLocation",
+      "priority",
+    ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -369,12 +375,15 @@ export function transformSortStateToOrderByClause(
     };
   }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-  // default tertiary sort is submitted_at,
+  // default final sort is column candidateName,
 
   return {
-    column: "submitted_at",
+    column: undefined,
     order: SortOrder.Asc,
-    user: undefined,
+    user: {
+      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+      column: "FIRST_NAME" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+    },
   };
 }
 
@@ -382,20 +391,25 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
+  recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   return [
     ...(doNotUseBookmark
       ? []
       : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
-    { column: "status_weight", order: SortOrder.Asc },
-    {
-      user: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column:
-          "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
-      },
-      order: SortOrder.Asc,
-    },
+    ...(recordDecisionActive
+      ? []
+      : [
+          { column: "status_weight", order: SortOrder.Asc },
+          {
+            user: {
+              aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+              column:
+                "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+            },
+            order: SortOrder.Asc,
+          },
+        ]),
     transformSortStateToOrderByClause(sortingRules, filterState),
   ];
 }

@@ -175,15 +175,6 @@ mutation CreateTeam($team: CreateTeamInput!) {
   }
 }
 
-query AllUsersNames {
-  userPublicProfiles {
-    id
-    firstName
-    lastName
-    email
-  }
-}
-
 mutation UpdateUserTeamRoles($teamRoleAssignments: UpdateUserTeamRolesInput!) {
   updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
     roleAssignments {

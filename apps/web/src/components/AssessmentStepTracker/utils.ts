@@ -54,7 +54,7 @@ export const getDecisionInfo = (
     return {
       icon: PauseCircleIcon,
       colorStyle: {
-        "data-h2-color": "base(warning)",
+        "data-h2-color": "base(secondary)",
       },
       name: intl.formatMessage(poolCandidateMessages.onHold),
     };
