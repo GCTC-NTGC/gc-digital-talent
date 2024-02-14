@@ -87,7 +87,6 @@ const ScreeningDecisionDialogForm = ({
     }
 
     if (isAssessmentDecisionSuccessful) {
-      resetDirtyField("justifications");
       if (!otherReasonSelected) {
         resetDirtyField("otherJustificationNotes");
       }
