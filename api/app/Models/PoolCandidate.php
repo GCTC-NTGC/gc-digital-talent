@@ -773,6 +773,25 @@ class PoolCandidate extends Model
         ]);
     }
 
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function scopeOrderByPoolName(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        if ($order && $locale) {
+            $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
+        }
+
+        return $query;
+
+    }
+
     public function setApplicationSnapshot()
     {
         $user = User::with([

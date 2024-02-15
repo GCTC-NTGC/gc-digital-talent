@@ -6058,6 +6058,10 @@
     "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
     "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
   },
+  "WSMupE": {
+    "defaultMessage": "Processus",
+    "description": "Title for process sections"
+  },
   "WSo3Y/": {
     "defaultMessage": "Le commissaire à l’accessibilité est responsable de faire appliquer la <acaLink>Loi canadienne sur l’accessibilité</acaLink> et le <acrLink>Règlement canadien sur l’accessibilité</acrLink> dans la fonction publique fédérale. Le commissaire traitera également certaines <complaintsLink>plaintes en matière d’accessibilité</complaintsLink>. Le commissaire à l’accessibilité est membre de la Commission canadienne des droits de la personne.",
     "description": "Text describing accessibility commissioner"
