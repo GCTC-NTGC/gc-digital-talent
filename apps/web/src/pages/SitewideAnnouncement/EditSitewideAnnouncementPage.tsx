@@ -5,13 +5,16 @@ import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import { useQuery, useMutation } from "urql";
 
-import { formDateTimeStringToDate } from "@gc-digital-talent/date-helpers";
+import {
+  formDateTimeStringToDate,
+  nowUTCDateTime,
+} from "@gc-digital-talent/date-helpers";
 import {
   Scalars,
   SitewideAnnouncement,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Pending, NotFound, IconType } from "@gc-digital-talent/ui";
+import { Pending, IconType } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Input,
@@ -40,12 +43,14 @@ const invalidDateTimeMessage = defineMessage({
   description: "Instructions to enter the date in the API DateTime scalar form",
 });
 
-const apiDataToFormValues = (apiData: SitewideAnnouncement): FormValues => ({
-  isEnabled: !!apiData.isEnabled,
-  publishDate: apiData.publishDate,
-  expiryDate: apiData.expiryDate,
-  messageEn: apiData.message.en ?? "",
-  messageFr: apiData.message.fr ?? "",
+const apiDataToFormValues = (
+  apiData: SitewideAnnouncement | null | undefined,
+): FormValues => ({
+  isEnabled: !!apiData?.isEnabled,
+  publishDate: apiData?.publishDate ?? nowUTCDateTime(),
+  expiryDate: apiData?.expiryDate ?? nowUTCDateTime(),
+  messageEn: apiData?.message.en ?? "",
+  messageFr: apiData?.message.fr ?? "",
 });
 
 const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
@@ -262,20 +267,10 @@ const EditSitewideAnnouncementPage = () => {
 
       <AdminContentWrapper>
         <Pending fetching={queryFetching} error={queryError}>
-          {initialData?.sitewideAnnouncement ? (
-            <EditSitewideAnnouncementForm
-              initialData={apiDataToFormValues(
-                initialData.sitewideAnnouncement,
-              )}
-              onUpdate={handleUpdate}
-            />
-          ) : (
-            <NotFound
-              headingMessage={intl.formatMessage(commonMessages.notFound)}
-            >
-              {intl.formatMessage(errorMessages.unknown)}
-            </NotFound>
-          )}
+          <EditSitewideAnnouncementForm
+            initialData={apiDataToFormValues(initialData?.sitewideAnnouncement)}
+            onUpdate={handleUpdate}
+          />
         </Pending>
       </AdminContentWrapper>
     </>
