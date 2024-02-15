@@ -3135,6 +3135,10 @@
     "defaultMessage": "Direction générale",
     "description": "Label for _branch_ field in the _digital services contracting questionnaire_"
   },
+  "FXpcgW": {
+    "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
+    "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
+  },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
