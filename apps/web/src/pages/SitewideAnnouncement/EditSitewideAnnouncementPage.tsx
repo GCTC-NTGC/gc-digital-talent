@@ -1,10 +1,11 @@
 import * as React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, ValidateResult, useForm } from "react-hook-form";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import { useQuery, useMutation } from "urql";
 
+import { formDateTimeStringToDate } from "@gc-digital-talent/date-helpers";
 import {
   Scalars,
   SitewideAnnouncement,
@@ -32,6 +33,12 @@ type FormValues = {
   messageEn: string;
   messageFr: string;
 };
+
+const invalidDateTimeMessage = defineMessage({
+  defaultMessage: "Enter the date in the form yyyy-MM-dd HH:mm:ss",
+  id: "OSoezC",
+  description: "Instructions to enter the date in the API DateTime scalar form",
+});
 
 const apiDataToFormValues = (apiData: SitewideAnnouncement): FormValues => ({
   isEnabled: !!apiData.isEnabled,
@@ -66,6 +73,21 @@ export const EditSitewideAnnouncementForm = ({
   });
   const { handleSubmit } = methods;
 
+  const validateDateTimeInput = (value: string | null): ValidateResult => {
+    if (!value) {
+      return intl.formatMessage(invalidDateTimeMessage);
+    }
+    try {
+      const parsedValue = formDateTimeStringToDate(value);
+      if (Number.isNaN(parsedValue.getTime())) {
+        return intl.formatMessage(invalidDateTimeMessage);
+      }
+      return undefined;
+    } catch {
+      return intl.formatMessage(invalidDateTimeMessage);
+    }
+  };
+
   return (
     <section data-h2-container="base(left, s)">
       <FormProvider {...methods}>
@@ -94,6 +116,10 @@ export const EditSitewideAnnouncementForm = ({
             })}
             name="publishDate"
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              validate: validateDateTimeInput,
+            }}
           />
           <Input
             id="expiryDate"
@@ -105,6 +131,10 @@ export const EditSitewideAnnouncementForm = ({
             })}
             name="expiryDate"
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              validate: validateDateTimeInput,
+            }}
           />
           <RichTextInput
             id="messageEn"
@@ -114,6 +144,9 @@ export const EditSitewideAnnouncementForm = ({
               description: "The message, in English",
             })}
             name="messageEn"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
           <RichTextInput
             id="messageFr"
@@ -123,6 +156,9 @@ export const EditSitewideAnnouncementForm = ({
               description: "The message, in English",
             })}
             name="messageFr"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
 
           <div data-h2-align-self="base(flex-start)">
