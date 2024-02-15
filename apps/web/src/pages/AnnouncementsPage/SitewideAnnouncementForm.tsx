@@ -19,6 +19,8 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import labels from "./labels";
+
 const invalidDateTimeMessage = defineMessage({
   defaultMessage: "Enter the date in the form yyyy-MM-dd HH:mm:ss",
   id: "OSoezC",
@@ -53,17 +55,17 @@ const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
   },
 });
 
-interface EditSitewideAnnouncementFormProps {
+interface SitewideAnnouncementFormProps {
   initialData: SitewideAnnouncement | null | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   setIsEditing: (isEditing: boolean) => void;
 }
 
-export const EditSitewideAnnouncementForm = ({
+export const SitewideAnnouncementForm = ({
   initialData,
   onUpdate,
   setIsEditing,
-}: EditSitewideAnnouncementFormProps) => {
+}: SitewideAnnouncementFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: apiDataToFormValues(initialData),
@@ -108,20 +110,11 @@ export const EditSitewideAnnouncementForm = ({
           <SwitchInput
             id="isEnabled"
             name="isEnabled"
-            label={intl.formatMessage({
-              defaultMessage: "Enabled",
-              id: "QpghXO",
-              description: "A switch to enable or disable a setting",
-            })}
+            label={intl.formatMessage(labels.isEnabled)}
           />
           <Input
             id="publishDate"
-            label={intl.formatMessage({
-              defaultMessage: "Publish date (UTC)",
-              id: "5cll86",
-              description:
-                "A date at which data will be published, in the UTC time standard",
-            })}
+            label={intl.formatMessage(labels.publishDateUtc)}
             name="publishDate"
             type="text"
             rules={{
@@ -131,12 +124,7 @@ export const EditSitewideAnnouncementForm = ({
           />
           <Input
             id="expiryDate"
-            label={intl.formatMessage({
-              defaultMessage: "Expiry date (UTC)",
-              id: "j9zYRY",
-              description:
-                "A date at which data will expire, in the UTC time standard",
-            })}
+            label={intl.formatMessage(labels.expiryDateUtc)}
             name="expiryDate"
             type="text"
             rules={{
@@ -146,11 +134,7 @@ export const EditSitewideAnnouncementForm = ({
           />
           <RichTextInput
             id="messageEn"
-            label={intl.formatMessage({
-              defaultMessage: "English - Message",
-              id: "0Vjyzx",
-              description: "The message, in English",
-            })}
+            label={intl.formatMessage(labels.messageEn)}
             name="messageEn"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -158,11 +142,7 @@ export const EditSitewideAnnouncementForm = ({
           />
           <RichTextInput
             id="messageFr"
-            label={intl.formatMessage({
-              defaultMessage: "French - Message",
-              id: "V/xaU2",
-              description: "The message, in English",
-            })}
+            label={intl.formatMessage(labels.messageFr)}
             name="messageFr"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -178,4 +158,4 @@ export const EditSitewideAnnouncementForm = ({
   );
 };
 
-export default EditSitewideAnnouncementForm;
+export default SitewideAnnouncementForm;

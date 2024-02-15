@@ -1,0 +1,99 @@
+import * as React from "react";
+import { useIntl } from "react-intl";
+
+import {
+  DATETIME_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
+import { Scalars, SitewideAnnouncement } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+
+import labels from "./labels";
+
+export type FormValues = {
+  isEnabled: Scalars["Boolean"]["input"];
+  publishDate: Scalars["DateTime"]["input"];
+  expiryDate: Scalars["DateTime"]["input"];
+  messageEn: string;
+  messageFr: string;
+};
+
+interface SitewideAnnouncementDisplayProps {
+  initialData: SitewideAnnouncement | null | undefined;
+}
+
+export const SitewideAnnouncementDisplay = ({
+  initialData,
+}: SitewideAnnouncementDisplayProps) => {
+  const intl = useIntl();
+  if (!initialData) {
+    return <ToggleForm.NullDisplay />;
+  }
+
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const { isEnabled, publishDate, expiryDate, message } = initialData;
+  const { en: messageEn, fr: messageFr } = message;
+  return (
+    <div
+      data-h2-display="base(grid)"
+      data-h2-gap="base(x1)"
+      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
+    >
+      <ToggleForm.FieldDisplay label={intl.formatMessage(labels.isEnabled)}>
+        {isEnabled
+          ? intl.formatMessage(commonMessages.yes)
+          : intl.formatMessage(commonMessages.no)}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!publishDate}
+        label={intl.formatMessage(labels.publishDateUtc)}
+      >
+        {publishDate
+          ? formatDate({
+              date: parseDateTimeUtc(publishDate),
+              formatString: DATETIME_FORMAT_STRING,
+              intl,
+            })
+          : notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!expiryDate}
+        label={intl.formatMessage(labels.expiryDateUtc)}
+      >
+        {expiryDate
+          ? formatDate({
+              date: parseDateTimeUtc(expiryDate),
+              formatString: DATETIME_FORMAT_STRING,
+              intl,
+            })
+          : notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!messageEn}
+        label={intl.formatMessage(labels.messageEn)}
+      >
+        {messageEn ? (
+          <RichTextRenderer node={htmlToRichTextJSON(messageEn)} />
+        ) : (
+          notProvided
+        )}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!messageFr}
+        label={intl.formatMessage(labels.messageFr)}
+      >
+        {messageFr ? (
+          <RichTextRenderer node={htmlToRichTextJSON(messageFr)} />
+        ) : (
+          notProvided
+        )}
+      </ToggleForm.FieldDisplay>
+    </div>
+  );
+};
+
+export default SitewideAnnouncementDisplay;

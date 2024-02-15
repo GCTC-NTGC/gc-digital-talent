@@ -12,7 +12,8 @@ import { IconType, ToggleSection } from "@gc-digital-talent/ui";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import EditSitewideAnnouncementForm from "./SitewideAnnouncementForm";
+import SitewideAnnouncementForm from "./SitewideAnnouncementForm";
+import SitewideAnnouncementDisplay from "./SitewideAnnouncementDisplay";
 
 const hasEmptyRequiredFields = (
   apiData: SitewideAnnouncement | null | undefined,
@@ -74,11 +75,11 @@ const SitewideAnnouncementSection = ({
           {hasAllEmptyFields(initialData) ? (
             <ToggleForm.NullDisplay />
           ) : (
-            <span>InitialContent</span>
+            <SitewideAnnouncementDisplay initialData={initialData} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <EditSitewideAnnouncementForm
+          <SitewideAnnouncementForm
             initialData={initialData}
             onUpdate={onUpdate}
             setIsEditing={setIsEditing}
