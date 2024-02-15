@@ -4680,16 +4680,16 @@
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",
-            "version": "v1.19.2",
+            "version": "v1.19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/staudenmeir/eloquent-has-many-deep.git",
-                "reference": "4192ef405f74a52fbac47f515a40260b7c45e319"
+                "reference": "35e6a2f18a6605cbeda69573080c4ba008501971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/4192ef405f74a52fbac47f515a40260b7c45e319",
-                "reference": "4192ef405f74a52fbac47f515a40260b7c45e319",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep/zipball/35e6a2f18a6605cbeda69573080c4ba008501971",
+                "reference": "35e6a2f18a6605cbeda69573080c4ba008501971",
                 "shasum": ""
             },
             "require": {
@@ -4736,7 +4736,7 @@
             "description": "Laravel Eloquent HasManyThrough relationships with unlimited levels",
             "support": {
                 "issues": "https://github.com/staudenmeir/eloquent-has-many-deep/issues",
-                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.19.2"
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep/tree/v1.19.3"
             },
             "funding": [
                 {
@@ -4744,7 +4744,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-12-19T15:44:14+00:00"
+            "time": "2024-02-07T21:23:00+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep-contracts",
