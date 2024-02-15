@@ -157,9 +157,8 @@ const getRoutes = (lang: Locales) => {
     departmentUpdate: (departmentId: string) =>
       path.join(adminUrl, "settings", "departments", departmentId, "edit"),
 
-    // Admin - sitewide announcement
-    sitewideAnnouncementEdit: () =>
-      path.join(adminUrl, "settings", "sitewide-announcement", "edit"),
+    // Admin - Announcements
+    announcements: () => path.join(adminUrl, "settings", "announcements"),
 
     // IAP
     iap: () => path.join(baseUrl, "indigenous-it-apprentice"),

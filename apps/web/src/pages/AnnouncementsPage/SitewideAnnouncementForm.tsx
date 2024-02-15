@@ -1,9 +1,6 @@
 import * as React from "react";
 import { FormProvider, ValidateResult, useForm } from "react-hook-form";
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
-import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
-import { useQuery, useMutation } from "urql";
+import { defineMessage, useIntl } from "react-intl";
 
 import {
   formDateTimeStringToDate,
@@ -12,36 +9,29 @@ import {
 import {
   Scalars,
   SitewideAnnouncement,
-  graphql,
+  SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
-import { Pending, IconType } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 import {
   Input,
   RichTextInput,
   Submit,
   SwitchInput,
 } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/Hero/AdminHero";
-
-type FormValues = {
-  isEnabled: Scalars["Boolean"]["input"];
-  publishDate: Scalars["DateTime"]["input"];
-  expiryDate: Scalars["DateTime"]["input"];
-  messageEn: string;
-  messageFr: string;
-};
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 const invalidDateTimeMessage = defineMessage({
   defaultMessage: "Enter the date in the form yyyy-MM-dd HH:mm:ss",
   id: "OSoezC",
   description: "Instructions to enter the date in the API DateTime scalar form",
 });
+
+export type FormValues = {
+  isEnabled: Scalars["Boolean"]["input"];
+  publishDate: Scalars["DateTime"]["input"];
+  expiryDate: Scalars["DateTime"]["input"];
+  messageEn: string;
+  messageFr: string;
+};
 
 const apiDataToFormValues = (
   apiData: SitewideAnnouncement | null | undefined,
@@ -64,19 +54,32 @@ const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
 });
 
 interface EditSitewideAnnouncementFormProps {
-  initialData: FormValues;
-  onUpdate: (data: FormValues) => Promise<void>;
+  initialData: SitewideAnnouncement | null | undefined;
+  onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
 export const EditSitewideAnnouncementForm = ({
   initialData,
-  onUpdate: handleUpdate,
+  onUpdate,
+  setIsEditing,
 }: EditSitewideAnnouncementFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
-    defaultValues: initialData,
+    defaultValues: apiDataToFormValues(initialData),
   });
   const { handleSubmit } = methods;
+
+  const handleSave = async (formValues: FormValues) => {
+    return onUpdate(formValuesToApiData(formValues))
+      .then(() => {
+        methods.reset(formValues, {
+          keepDirty: false,
+        });
+        setIsEditing(false);
+      })
+      .catch(() => methods.reset(formValues));
+  };
 
   const validateDateTimeInput = (value: string | null): ValidateResult => {
     if (!value) {
@@ -97,7 +100,7 @@ export const EditSitewideAnnouncementForm = ({
     <section data-h2-container="base(left, s)">
       <FormProvider {...methods}>
         <form
-          onSubmit={handleSubmit(handleUpdate)}
+          onSubmit={handleSubmit(handleSave)}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
@@ -175,106 +178,4 @@ export const EditSitewideAnnouncementForm = ({
   );
 };
 
-const EditSitewideAnnouncementPage_Query = graphql(/* GraphQL */ `
-  query EditSitewideAnnouncementPage {
-    sitewideAnnouncement {
-      isEnabled
-      publishDate
-      expiryDate
-      message {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateSitewideAnnouncement(
-    $sitewideAnnouncementInput: SitewideAnnouncementInput!
-  ) {
-    updateSitewideAnnouncement(
-      sitewideAnnouncementInput: $sitewideAnnouncementInput
-    ) {
-      isEnabled
-      publishDate
-      expiryDate
-      message {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Sitewide announcement",
-  id: "gChYmW",
-  description: "Page title for the update sitewide announcement page",
-});
-export const pageOutlineIcon: IconType = MegaphoneOutlineIcon;
-export const pageSolidIcon: IconType = MegaphoneSolidIcon;
-
-const EditSitewideAnnouncementPage = () => {
-  const intl = useIntl();
-  const routes = useRoutes();
-  const formattedPageTitle = intl.formatMessage(pageTitle);
-
-  const [{ data: initialData, fetching: queryFetching, error: queryError }] =
-    useQuery({
-      query: EditSitewideAnnouncementPage_Query,
-    });
-
-  const [, executeMutation] = useMutation(UpdateSitewideAnnouncement_Mutation);
-
-  const handleUpdateError = () => {
-    toast.error(intl.formatMessage(commonMessages.error));
-
-    throw new Error("UpdateSitewideAnnouncementError");
-  };
-
-  const handleUpdate = async (formValues: FormValues) => {
-    const apiData = formValuesToApiData(formValues);
-    await executeMutation({ sitewideAnnouncementInput: apiData })
-      .then((result) => {
-        if (result.data?.updateSitewideAnnouncement) {
-          toast.success(intl.formatMessage(commonMessages.success));
-        } else {
-          handleUpdateError();
-        }
-      })
-      .catch(handleUpdateError);
-  };
-
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-  ];
-
-  return (
-    <>
-      <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-
-      <AdminContentWrapper>
-        <Pending fetching={queryFetching} error={queryError}>
-          <EditSitewideAnnouncementForm
-            initialData={apiDataToFormValues(initialData?.sitewideAnnouncement)}
-            onUpdate={handleUpdate}
-          />
-        </Pending>
-      </AdminContentWrapper>
-    </>
-  );
-};
-
-export default EditSitewideAnnouncementPage;
+export default EditSitewideAnnouncementForm;

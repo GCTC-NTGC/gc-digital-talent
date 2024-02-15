@@ -733,12 +733,12 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-/** Sitewide Announcement */
-const EditSitewideAnnouncementPage = React.lazy(() =>
+/** Announcements */
+const AnnouncementsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminEditSitewideAnnouncementPage" */ "../pages/SitewideAnnouncement/EditSitewideAnnouncementPage"
+        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
       ),
   ),
 );
@@ -1836,20 +1836,15 @@ const createRoute = (
                   ],
                 },
                 {
-                  path: "sitewide-announcement",
-                  children: [
-                    {
-                      path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <EditSitewideAnnouncementPage />
-                        </RequireAuth>
-                      ),
-                    },
-                  ],
+                  path: "announcements",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <AnnouncementsPage />
+                    </RequireAuth>
+                  ),
                 },
               ],
             },
