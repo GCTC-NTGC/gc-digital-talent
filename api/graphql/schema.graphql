@@ -664,6 +664,11 @@ input PoolCandidateSearchRequestInput {
   generalSearch: String @scope
 }
 
+input PoolCandidatePoolNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 type CandidateSearchPoolResult {
   pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
@@ -740,6 +745,7 @@ type Query {
     )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderBy: _
       @orderBy(
         relations: [
