@@ -4332,7 +4332,7 @@
     "description": "Page title for the Support page"
   },
   "MZSPTS": {
-    "defaultMessage": "Afficher toutes les compétences",
+    "defaultMessage": "Agrandir toutes les compétences",
     "description": "Accessible link text to expand all accordions for skills"
   },
   "Md/cQS": {
@@ -8079,7 +8079,7 @@
     "description": "CSV Header, Priority Entitlement column"
   },
   "hAAMFa": {
-    "defaultMessage": "Afficher toutes les sections d'informations complémentaires",
+    "defaultMessage": "Agrandir toutes les sections d'informations complémentaires",
     "description": "Accessible link text to expand all accordions for more information"
   },
   "hBDz/h": {
