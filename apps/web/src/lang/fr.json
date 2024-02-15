@@ -8002,10 +8002,6 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "h7l8Sd": {
-    "defaultMessage": "Filtrage en cours :",
-    "description": "Label for currently screening section on view pool candidate page"
-  },
   "h8AdRp": {
     "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user does not have recovery codes"
@@ -8926,6 +8922,10 @@
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
   },
+  "mNYw+h": {
+    "defaultMessage": "Filtrage en cours",
+    "description": "Label for currently screening section on view pool candidate page"
+  },
   "mNfi9b": {
     "defaultMessage": "Sélectionnez le lieu géographique où le travail doit être effectué.",
     "description": "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_"
@@ -9078,6 +9078,10 @@
     "defaultMessage": "Posez une question",
     "description": "Support form subject field question option label"
   },
+  "mt4AkL": {
+    "defaultMessage": "Candidat(e) precedent(e)",
+    "description": "Link label to view previous candidate on view pool candidate page"
+  },
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
@@ -9169,6 +9173,10 @@
   "nRtrPx": {
     "defaultMessage": "Compétence linguistique estimée",
     "description": "CSV Header, Estimated Language Ability column"
+  },
+  "nUokX9": {
+    "defaultMessage": "Retourner au suivi des évaluations",
+    "description": "Link label to return to assessment tracker"
   },
   "nWZiWr": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -9341,10 +9349,6 @@
   "oSPdz1": {
     "defaultMessage": "Consulter les possibilités offertes pour commencer à remplir une candidature.",
     "description": "Additional text displayed in the applications in progress section when empty."
-  },
-  "oTNbp0": {
-    "defaultMessage": "Passer au prochain candidat",
-    "description": "Link label to view next candidate on view pool candidate page"
   },
   "oTs24h": {
     "defaultMessage": "Concurrence (appel d’offres ouvert/appel d’offres sélectif/traditionnel)",
@@ -10769,6 +10773,10 @@
   "y+r+ej": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the search request table group and level column."
+  },
+  "y1uo+J": {
+    "defaultMessage": "Prochain(e) candidat(e)",
+    "description": "Link label to view next candidate on view pool candidate page"
   },
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
