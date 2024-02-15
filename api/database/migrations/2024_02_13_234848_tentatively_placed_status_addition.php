@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // regenerate the generated column status_weight, for the addition of PLACED_TENTATIVE
         DB::statement('ALTER TABLE pool_candidates DROP COLUMN status_weight;');
         DB::statement("ALTER TABLE pool_candidates ADD COLUMN status_weight INT
             GENERATED ALWAYS AS
