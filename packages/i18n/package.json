@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@formatjs/cli": "^6.2.7",
-    "@swc/core": "^1.4.0",
+    "@swc/core": "^1.4.1",
     "@types/react": "^18.2.55",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.56.0",

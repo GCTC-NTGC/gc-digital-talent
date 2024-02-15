@@ -24,7 +24,7 @@
     "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.0",
+    "@swc/core": "^1.4.1",
     "@types/lodash": "4.14.202",
     "eslint-config-custom": "*",
     "tsconfig": "*",
