@@ -289,6 +289,14 @@ const determineCurrentStep = (
     if (result === AssessmentDecision.Unsuccessful || result === NO_DECISION) {
       return index;
     }
+    // A candidate can be qualified with some Hold decisions, as long as they are followed by a Successful decision.
+    // That means that if the final step is Hold, we treat it more like NO_DECISION.
+    if (
+      index === assessmentOrdering.length - 1 &&
+      result === AssessmentDecision.Hold
+    ) {
+      return index;
+    }
   }
   return null;
 };
@@ -396,12 +404,37 @@ export const getCandidateStatusPill = (
       [candidate],
       orderedSteps,
     );
+
+    const assessmentResults = Array.from(
+      candidateResults.get(candidate.id)?.values() ?? [],
+    );
+    const hasUnsuccessful = assessmentResults.some(
+      (decision) => decision === AssessmentDecision.Unsuccessful,
+    );
+    if (hasUnsuccessful) {
+      return {
+        label:
+          intl.formatMessage(poolCandidateMessages.disqualified) +
+          intl.formatMessage(commonMessages.dividingColon) +
+          intl.formatMessage(poolCandidateMessages.pendingDecision),
+        color: "error",
+      };
+    }
     const candidateCurrentSteps = determineCurrentStepPerCandidate(
       candidateResults,
       steps,
     );
-    const currentStep = candidateCurrentSteps.get(candidate.id) ?? 0;
-
+    const currentStep = candidateCurrentSteps.get(candidate.id);
+    // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
+    if (currentStep === null || currentStep === undefined) {
+      return {
+        label:
+          intl.formatMessage(poolCandidateMessages.qualified) +
+          intl.formatMessage(commonMessages.dividingColon) +
+          intl.formatMessage(poolCandidateMessages.pendingDecision),
+        color: "success",
+      };
+    }
     icon = ExclamationTriangleIcon;
     suffix =
       intl.formatMessage(commonMessages.dividingColon) +
