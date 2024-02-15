@@ -52,26 +52,53 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+        $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
         ]);
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
+        $ITPool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]);
+        $EXPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
 
         PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
         PoolCandidate::factory()->count(4)->create([
-            'pool_id' => $pool2['id'],
+            'pool_id' => $ITPool2['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
-        // Assert empty filter returns all
+        // Unqualified candidate - should not appear in searches
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $ITPool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::SCREENED_IN->name,
+        ]);
+
+        // Expired candidate- should not appear in searches
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $ITPool1['id'],
+            'expiry_date' => config('constants.past_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+        ]);
+
+        // Executive pool - should not appear in searches
+        PoolCandidate::factory()->create([
+            'pool_id' => $EXPool['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+        ]);
+
+        // Assert empty filter returns only available applicants in IT pools
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -88,7 +115,7 @@ class ApplicantTest extends TestCase
             ],
         ]);
 
-        // Assert pool1 filter returns only pool1
+        // Assert ITPool1 filter returns only ITPool1
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -99,7 +126,7 @@ class ApplicantTest extends TestCase
             [
                 'where' => [
                     'pools' => [
-                        ['id' => $pool1['id']],
+                        ['id' => $ITPool1['id']],
                     ],
                 ],
             ]

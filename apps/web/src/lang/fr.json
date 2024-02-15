@@ -147,10 +147,6 @@
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
     "description": "Text for first sign up -> create step."
   },
-  "+rcdSM": {
-    "defaultMessage": "Enregistrer les questions générales",
-    "description": "Text on a button to save the pool general questions"
-  },
   "+s+emq": {
     "defaultMessage": "Nom d'utilisateur :",
     "description": "Label for the user name input in the delete user dialog"
@@ -410,10 +406,6 @@
   "09ijOa": {
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
-  },
-  "0C6Skt": {
-    "defaultMessage": "Rappel : Les candidats doivent fournir des renseignements sur la manière dont leurs compétences répondent à chaque exigence dans le cadre du processus de candidature normale.",
-    "description": "Disclaimer reminding admins of how the application process works when they reach the maximum general questions"
   },
   "0D3ZhO": {
     "defaultMessage": "Demandes",
@@ -2159,6 +2151,10 @@
     "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
   },
+  "A2stXT": {
+    "defaultMessage": "Gérer une question d’ordre général",
+    "description": "Title for general question dialog"
+  },
   "A2ycww": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
@@ -2174,6 +2170,10 @@
   "AAmd5G": {
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
+  },
+  "AJs1VQ": {
+    "defaultMessage": "Question (FR)",
+    "description": "Label for an French general question"
   },
   "AKQeBC": {
     "defaultMessage": "Membre ajouté avec succès",
@@ -2627,10 +2627,6 @@
     "defaultMessage": "notes pour {name}",
     "description": "Link text suffix to read more notes for a pool candidate"
   },
-  "Ca/BTI": {
-    "defaultMessage": "Questions générales {index}",
-    "description": "Legend for general questions fieldset"
-  },
   "CaDy8n": {
     "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
     "description": "Message displayed to user after the request status fails to be updated."
@@ -2959,10 +2955,6 @@
     "defaultMessage": "Entrevues de vive voix",
     "description": "Label for preferred lang for interviews in profile details box."
   },
-  "EUUVNl": {
-    "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
-    "description": "Helper message indicating max general questions allowed"
-  },
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
@@ -3182,6 +3174,10 @@
   "FffxNt": {
     "defaultMessage": "Fournir d’autres renseignements sur cette évaluation",
     "description": "Subtitle for Assessment details dialog"
+  },
+  "FhWYXz": {
+    "defaultMessage": "Annuler",
+    "description": "Label for close general question dialog."
   },
   "FiylOa": {
     "defaultMessage": "Mots-clés (anglais)",
@@ -5727,6 +5723,10 @@
     "defaultMessage": "En attente d’évaluation des compétences",
     "description": "Status for an application that is having skills reviewed"
   },
+  "UanJxB": {
+    "defaultMessage": "Supprimer cette question",
+    "description": "Button text to delete a general question"
+  },
   "Ude1JQ": {
     "defaultMessage": "Texte",
     "description": "Title for the application’s profile snapshot."
@@ -6085,6 +6085,10 @@
   "WNqXQa": {
     "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
     "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "WSMupE": {
+    "defaultMessage": "Processus",
+    "description": "Title for process sections"
   },
   "WSo3Y/": {
     "defaultMessage": "Le commissaire à l’accessibilité est responsable de faire appliquer la <acaLink>Loi canadienne sur l’accessibilité</acaLink> et le <acrLink>Règlement canadien sur l’accessibilité</acrLink> dans la fonction publique fédérale. Le commissaire traitera également certaines <complaintsLink>plaintes en matière d’accessibilité</complaintsLink>. Le commissaire à l’accessibilité est membre de la Commission canadienne des droits de la personne.",
@@ -6794,6 +6798,10 @@
     "defaultMessage": "Compétences mises en évidence",
     "description": "Label displayed for featured skills attached to an experience"
   },
+  "aCKQVB": {
+    "defaultMessage": "Question (EN)",
+    "description": "Label for an English general question"
+  },
   "aCg/OZ": {
     "defaultMessage": "La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
     "description": "First hiring policy for pool advertisement"
@@ -7374,6 +7382,10 @@
     "defaultMessage": "Ville actuelle",
     "description": "Label for current city field in About Me form"
   },
+  "deE+LO": {
+    "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
+    "description": "Subtitle for general question dialog"
+  },
   "deFarB": {
     "defaultMessage": "5 millions de dollars à 10 millions de dollars",
     "description": "Contract value range between five-million and ten-million"
@@ -7886,10 +7898,6 @@
     "defaultMessage": "Évaluées lors de la demande initiale",
     "description": "Message displayed for technical skills telling users at what point it will be assessed"
   },
-  "gLaBpz": {
-    "defaultMessage": "Ajouter des questions générales",
-    "description": "Button text to add a new screening question"
-  },
   "gMaDG/": {
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
@@ -8290,6 +8298,10 @@
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
   },
+  "iAG/IN": {
+    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 3 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
+    "description": "Helper message indicating what general questions are and how they differ from screening questions"
+  },
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
@@ -8430,10 +8442,6 @@
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
   },
-  "izt28e": {
-    "defaultMessage": "Vous n’avez pas de question.",
-    "description": "Message that appears when there are no screening messages for a pool"
-  },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -8553,6 +8561,10 @@
   "jVfVFG": {
     "defaultMessage": "Pourquoi faut-il recueillir ces données?",
     "description": "Heading for the Why collect section on the digital services contracting questionnaire"
+  },
+  "jXUnrt": {
+    "defaultMessage": "Vous n’avez toujours pas ajouté de questions.",
+    "description": "Message that appears when there are no general messages for a pool"
   },
   "jYPyWq": {
     "defaultMessage": "Sélectionner une famille de compétences et une compétence pour continuer.",
@@ -9454,6 +9466,10 @@
     "defaultMessage": "Gérer « {skillName} »",
     "description": "Page title for the skill self evaluation page"
   },
+  "oqnkwR": {
+    "defaultMessage": "Sauvegarder cette question",
+    "description": "Button text to save a general question"
+  },
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
@@ -10026,10 +10042,6 @@
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
   },
-  "scMsVu": {
-    "defaultMessage": "Vous avez atteint le nombre maximal ({maxItems}) de questions générales par affiche",
-    "description": "Message displayed when a user adds the maximum number of questions"
-  },
   "scef3o": {
     "defaultMessage": "Profils des candidats",
     "description": "Document title for printing User table results"
@@ -10298,6 +10310,10 @@
     "defaultMessage": "Publier le bassin",
     "description": "Button to publish the pool in the publish pool dialog"
   },
+  "uEqA50": {
+    "defaultMessage": "Ajouter une nouvelle question",
+    "description": "Button text to add a new general question to a pool"
+  },
   "uHx3G7": {
     "defaultMessage": "de toute durée. (à court terme, à long terme ou indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
@@ -10425,10 +10441,6 @@
   "vDb+O+": {
     "defaultMessage": "« Je suis Inuk »",
     "description": "Label text for Inuk community declaration"
-  },
-  "vDqzWG": {
-    "defaultMessage": "Ajoutez des questions en utilisant le bouton suivant.",
-    "description": "Instructions on how to add a question when there are none"
   },
   "vEniKQ": {
     "defaultMessage": "Annulation des modifications",
@@ -11021,6 +11033,10 @@
   "z3QvIv": {
     "defaultMessage": "Outres compétences",
     "description": "Title that appears for skills not in one of the other categories on the users profile."
+  },
+  "z4wfGZ": {
+    "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
+    "description": "Instructions on how to add a question when there are none"
   },
   "z5YYOk": {
     "defaultMessage": "Veuillez préciser l’instrument",
