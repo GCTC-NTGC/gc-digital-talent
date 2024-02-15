@@ -52,7 +52,7 @@
     "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.4.0",
+    "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/storybook-helpers": "*",
     "@storybook/addon-actions": "^7.6.15",
