@@ -9030,6 +9030,10 @@
     "defaultMessage": "Posez une question",
     "description": "Support form subject field question option label"
   },
+  "mt4AkL": {
+    "defaultMessage": "Candidat(e) precedent(e)",
+    "description": "Link label to view previous candidate on view pool candidate page"
+  },
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
@@ -10721,6 +10725,10 @@
   "y+r+ej": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed on the search request table group and level column."
+  },
+  "y1uo+J": {
+    "defaultMessage": "Prochain(e) candidat(e)",
+    "description": "Link label to view next candidate on view pool candidate page"
   },
   "y2Rl/m": {
     "defaultMessage": "Étapes relatives à l’application",
