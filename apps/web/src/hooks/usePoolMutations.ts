@@ -11,6 +11,9 @@ const UpdatePool_Mutation = graphql(/* GraphQL */ `
   mutation UpdatePool($id: ID!, $pool: UpdatePoolInput!) {
     updatePool(id: $id, pool: $pool) {
       id
+      generalQuestions {
+        id
+      }
     }
   }
 `);
@@ -93,7 +96,7 @@ const usePoolMutations = (returnPath?: string) => {
       }),
     );
 
-    throw new Error("PoolEditError");
+    return Promise.reject();
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
@@ -107,9 +110,10 @@ const usePoolMutations = (returnPath?: string) => {
               description: "Message displayed to user after pool is updated",
             }),
           );
-        } else {
-          handleUpdateError();
+
+          return Promise.resolve();
         }
+        return handleUpdateError();
       })
       .catch(handleUpdateError);
   };

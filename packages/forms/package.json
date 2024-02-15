@@ -39,18 +39,18 @@
     "@tiptap/starter-kit": "^2.2.2",
     "date-fns": "^2.30.0",
     "downshift": "^8.3.1",
-    "framer-motion": "^11.0.3",
+    "framer-motion": "^11.0.5",
     "lodash": "4.17.21",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.4.0",
+    "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/fake-data": "*",
     "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/storybook-helpers": "*",
-    "@storybook/addon-actions": "^7.6.10",
-    "@storybook/react": "^7.6.12",
-    "@swc/core": "^1.4.0",
+    "@storybook/addon-actions": "^7.6.16",
+    "@storybook/react": "^7.6.16",
+    "@swc/core": "^1.4.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
@@ -66,7 +66,7 @@
     "react-hook-form": "^7.50.1",
     "react-intl": "^6.6.2",
     "tsconfig": "*",
-    "tsup": "^8.0.1",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }
 }

@@ -491,6 +491,46 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
+    public function testNotesUpdate(): void
+    {
+        $candidate = PoolCandidate::factory()->create([
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_id' => $this->pool->id,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $notesMutation = /** @lang GraphQL */
+        '
+            mutation UpdatePoolCandidateNotes($id: UUID!, $notes: String) {
+                updatePoolCandidateNotes(id: $id, notes: $notes) {
+                    id
+                    notes
+                }
+            }
+         ';
+
+        $notesVariables = ['id' => $candidate->id, 'notes' => 'new notes'];
+
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->unAssociatedTeamUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert team member can update notes
+        $this->actingAs($this->teamUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertJson([
+                'data' => [
+                    'updatePoolCandidateNotes' => $notesVariables,
+                ],
+            ]);
+    }
+
     /**
      * Status access permissions are similar to notes, except a candidate can see their own status
      */

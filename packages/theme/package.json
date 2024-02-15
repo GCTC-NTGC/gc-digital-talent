@@ -21,10 +21,11 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@gc-digital-talent/env": "*",
     "@gc-digital-talent/storage": "*"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.0",
+    "@swc/core": "^1.4.1",
     "@types/react": "^18.2.55",
     "eslint": "^8.56.0",
     "eslint-config-custom": "*",
@@ -32,7 +33,7 @@
     "jest-presets": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
-    "tsup": "^8.0.1",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }
 }

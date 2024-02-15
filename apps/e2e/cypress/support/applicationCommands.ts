@@ -95,13 +95,12 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
 
 const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
   mutation Command_UpdatePoolCandidateAsAdmin(
-    $id: ID!
+    $id: UUID!
     $input: UpdatePoolCandidateAsAdminInput!
   ) {
     updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
       id
       expiryDate
-      notes
       status
     }
   }
