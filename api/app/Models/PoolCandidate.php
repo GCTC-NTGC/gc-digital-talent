@@ -172,6 +172,7 @@ class PoolCandidate extends Model
     {
         return $this->belongsTo(Pool::class)->withTrashed()->select(['id',
             'name',
+            'user_id',
             'stream',
             'publishing_group',
             'published_at',
