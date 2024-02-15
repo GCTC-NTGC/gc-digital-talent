@@ -24,15 +24,9 @@ export type AssessmentStepResultColumnProps = {
   header: JSX.Element;
 };
 
-export type StatusColor =
-  | "error"
-  | "secondary"
-  | "quaternary"
-  | "success"
-  | "gray";
+export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";
 
 export type ColumnStatus = {
   icon: IconType | null;
   color: StatusColor;
-  ariaLabel: string;
 };

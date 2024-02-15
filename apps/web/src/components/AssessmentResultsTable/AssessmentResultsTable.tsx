@@ -103,13 +103,16 @@ const AssessmentResultsTable = ({
         accumulator: ColumnDef<AssessmentStepResult>[],
         assessmentStep: AssessmentStep,
       ) => {
-        const type = assessmentStep.type ?? "unknownType"; // Should always have a type, if not return localized error
+        const type = assessmentStep.type ?? null;
         const id =
-          getAssessmentStepType(type).id ?? uniqueId("results-table-column");
-        const status = columnStatus(assessmentStep, assessmentResults, intl);
+          getAssessmentStepType(type ?? "unknownType").id ??
+          uniqueId("results-table-column");
+        const status = columnStatus(assessmentStep, assessmentResults);
         const header = columnHeader(
-          intl.formatMessage(getAssessmentStepType(type)),
+          intl.formatMessage(getAssessmentStepType(type ?? "unknownType")),
           status,
+          type,
+          intl,
         );
 
         return [
