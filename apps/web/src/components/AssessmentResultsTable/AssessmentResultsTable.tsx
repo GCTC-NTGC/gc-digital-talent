@@ -37,19 +37,19 @@ const AssessmentResultsTable = ({
   const intl = useIntl();
 
   // Get assessment steps from pool
-  const assessmentSteps: Array<AssessmentStep> = React.useMemo(() => {
-    return unpackMaybes(poolCandidate?.pool?.assessmentSteps);
-  }, [poolCandidate.pool.assessmentSteps]);
+  const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
+    poolCandidate?.pool?.assessmentSteps,
+  );
 
   // Get all pool skills from assessment steps and remove duplicates
-  const poolSkills: Array<PoolSkill> = React.useMemo(() => {
-    return unpackMaybes(poolCandidate?.pool?.poolSkills);
-  }, [poolCandidate.pool.poolSkills]);
+  const poolSkills: Array<PoolSkill> = unpackMaybes(
+    poolCandidate?.pool?.poolSkills,
+  );
 
   // create assessment step results from pool skills
-  const assessmentResults: Array<AssessmentResult> = React.useMemo(() => {
-    return unpackMaybes(poolCandidate?.assessmentResults);
-  }, [poolCandidate.assessmentResults]);
+  const assessmentResults: Array<AssessmentResult> = unpackMaybes(
+    poolCandidate?.assessmentResults,
+  );
 
   // Create data for table containing pool skill with matching results
   const assessmentStepsResults: Array<AssessmentStepResult> = poolSkills.map(
