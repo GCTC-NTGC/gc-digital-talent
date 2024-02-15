@@ -71,14 +71,14 @@ const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
 interface SitewideAnnouncementFormProps {
   initialData: SitewideAnnouncement | null | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
-  setIsEditing: (isEditing: boolean) => void;
+  onOpenChange: (isOpen: boolean) => void;
   isSubmitting: boolean;
 }
 
-export const SitewideAnnouncementForm = ({
+const SitewideAnnouncementForm = ({
   initialData,
   onUpdate,
-  setIsEditing,
+  onOpenChange,
   isSubmitting,
 }: SitewideAnnouncementFormProps) => {
   const intl = useIntl();
@@ -93,7 +93,7 @@ export const SitewideAnnouncementForm = ({
         methods.reset(formValues, {
           keepDirty: false,
         });
-        setIsEditing(false);
+        onOpenChange(false);
       })
       .catch(() => methods.reset(formValues));
   };

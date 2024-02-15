@@ -17,15 +17,23 @@ import SitewideAnnouncementDisplay from "./SitewideAnnouncementDisplay";
 
 const hasEmptyRequiredFields = (
   apiData: SitewideAnnouncement | null | undefined,
-): boolean => {
-  return false;
-};
+): boolean =>
+  !apiData?.publishDate ||
+  !apiData?.expiryDate ||
+  !apiData?.title.en ||
+  !apiData?.title.fr ||
+  !apiData?.message.en ||
+  !apiData?.message.fr;
 
 const hasAllEmptyFields = (
   apiData: SitewideAnnouncement | null | undefined,
-): boolean => {
-  return false;
-};
+): boolean =>
+  !apiData?.publishDate &&
+  !apiData?.expiryDate &&
+  !apiData?.title.en &&
+  !apiData?.title.fr &&
+  !apiData?.message.en &&
+  !apiData?.message.fr;
 
 export const sectionTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Sitewide announcement",
@@ -84,7 +92,7 @@ const SitewideAnnouncementSection = ({
           <SitewideAnnouncementForm
             initialData={initialData}
             onUpdate={onUpdate}
-            setIsEditing={setIsEditing}
+            onOpenChange={setIsEditing}
             isSubmitting={isSubmitting}
           />
         </ToggleSection.OpenContent>

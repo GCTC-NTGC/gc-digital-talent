@@ -18,7 +18,7 @@ interface SitewideAnnouncementDisplayProps {
   initialData: SitewideAnnouncement | null | undefined;
 }
 
-export const SitewideAnnouncementDisplay = ({
+const SitewideAnnouncementDisplay = ({
   initialData,
 }: SitewideAnnouncementDisplayProps) => {
   const intl = useIntl();

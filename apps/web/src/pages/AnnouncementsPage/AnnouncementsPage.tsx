@@ -8,7 +8,6 @@ import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
 import { Pending, IconType } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { useLogger } from "@gc-digital-talent/logger";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -68,7 +67,6 @@ export const pageSolidIcon: IconType = MegaphoneSolidIcon;
 const AnnouncementsPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const logger = useLogger();
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
@@ -80,22 +78,16 @@ const AnnouncementsPage = () => {
     UpdateSitewideAnnouncement_Mutation,
   );
 
-  const handleUpdateError = () => {
-    toast.error(intl.formatMessage(commonMessages.error));
-
-    logger.error("Failed to save announcement");
-  };
-
   const handleSave = async (input: SitewideAnnouncementInput) => {
-    await executeMutation({ sitewideAnnouncementInput: input })
-      .then((result) => {
+    return executeMutation({ sitewideAnnouncementInput: input }).then(
+      (result) => {
         if (result.data?.updateSitewideAnnouncement) {
           toast.success(intl.formatMessage(commonMessages.success));
-        } else {
-          handleUpdateError();
+          return;
         }
-      })
-      .catch(handleUpdateError);
+        throw new Error("Failed to save announcement");
+      },
+    );
   };
 
   const navigationCrumbs = [
