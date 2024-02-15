@@ -62,6 +62,10 @@ import {
   pageTitle as indexSkillFamilyPageTitle,
   pageOutlineIcon as indexSkillFamilyPageIcon,
 } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
+import {
+  pageTitle as editSitewideAnnouncementPageTitle,
+  pageOutlineIcon as editSitewideAnnouncementPageIcon,
+} from "~/pages/SitewideAnnouncement/EditSitewideAnnouncementPage";
 
 import MaintenanceBanner from "../MaintenanceBanner";
 import SkipLink from "../SkipLink";
@@ -280,6 +284,14 @@ const AdminLayout = () => {
                 icon={indexSkillFamilyPageIcon}
               >
                 {intl.formatMessage(indexSkillFamilyPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.sitewideAnnouncementEdit()}
+                icon={editSitewideAnnouncementPageIcon}
+              >
+                {intl.formatMessage(editSitewideAnnouncementPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>

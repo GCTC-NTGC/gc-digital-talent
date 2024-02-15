@@ -733,6 +733,16 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
+/** Sitewide Announcement */
+const EditSitewideAnnouncementPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminEditSitewideAnnouncementPage" */ "../pages/SitewideAnnouncement/EditSitewideAnnouncementPage"
+      ),
+  ),
+);
+
 /** Directive on Digital Talent */
 const DirectivePage = React.lazy(() =>
   lazyRetry(
@@ -1822,6 +1832,22 @@ const createRoute = (
                           ],
                         },
                       ],
+                    },
+                  ],
+                },
+                {
+                  path: "sitewide-announcement",
+                  children: [
+                    {
+                      path: "edit",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.PlatformAdmin]}
+                          loginPath={loginPath}
+                        >
+                          <EditSitewideAnnouncementPage />
+                        </RequireAuth>
+                      ),
                     },
                   ],
                 },
