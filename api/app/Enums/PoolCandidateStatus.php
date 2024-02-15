@@ -23,4 +23,13 @@ enum PoolCandidateStatus
     case PLACED_INDETERMINATE;
     case EXPIRED;
     case REMOVED;
+
+    public static function qualifiedEquivalentGroup(): array
+    {
+        return [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+        ];
+    }
 }

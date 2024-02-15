@@ -222,11 +222,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-            ]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -254,11 +250,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-            ]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -461,11 +453,7 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        $query->whereIn('pool_candidate_status', [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-        ])
+        $query->whereIn('pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup())
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
