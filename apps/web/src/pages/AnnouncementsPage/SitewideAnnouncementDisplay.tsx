@@ -6,21 +6,13 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { Scalars, SitewideAnnouncement } from "@gc-digital-talent/graphql";
+import { SitewideAnnouncement } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import labels from "./labels";
-
-export type FormValues = {
-  isEnabled: Scalars["Boolean"]["input"];
-  publishDate: Scalars["DateTime"]["input"];
-  expiryDate: Scalars["DateTime"]["input"];
-  messageEn: string;
-  messageFr: string;
-};
 
 interface SitewideAnnouncementDisplayProps {
   initialData: SitewideAnnouncement | null | undefined;
@@ -35,7 +27,8 @@ export const SitewideAnnouncementDisplay = ({
   }
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const { isEnabled, publishDate, expiryDate, message } = initialData;
+  const { isEnabled, publishDate, expiryDate, title, message } = initialData;
+  const { en: titleEn, fr: titleFr } = title;
   const { en: messageEn, fr: messageFr } = message;
   return (
     <div
@@ -73,6 +66,12 @@ export const SitewideAnnouncementDisplay = ({
           : notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
+        hasError={!titleEn}
+        label={intl.formatMessage(labels.titleEn)}
+      >
+        {titleEn || notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
         hasError={!messageEn}
         label={intl.formatMessage(labels.messageEn)}
       >
@@ -81,6 +80,12 @@ export const SitewideAnnouncementDisplay = ({
         ) : (
           notProvided
         )}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!titleFr}
+        label={intl.formatMessage(labels.titleFr)}
+      >
+        {titleFr || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!messageFr}

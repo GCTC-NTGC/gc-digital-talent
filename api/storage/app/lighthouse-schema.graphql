@@ -711,6 +711,7 @@ type SitewideAnnouncement {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
+  title: LocalizedString!
   message: LocalizedString!
 }
 
@@ -718,6 +719,7 @@ input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
+  title: LocalizedStringInput!
   message: LocalizedStringInput!
 }
 

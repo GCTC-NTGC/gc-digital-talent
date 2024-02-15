@@ -669,6 +669,7 @@ type SitewideAnnouncement {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
+  title: LocalizedString!
   message: LocalizedString!
 }
 
@@ -676,6 +677,7 @@ input SitewideAnnouncementInput {
   isEnabled: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime! @rules(apply: ["after:publishDate"])
+  title: LocalizedStringInput!
   message: LocalizedStringInput!
 }
 

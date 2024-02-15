@@ -17,6 +17,16 @@ const labels = {
     id: "j9zYRY",
     description: "A date at which data will expire, in the UTC time standard",
   }),
+  titleEn: defineMessage({
+    defaultMessage: "English - Title",
+    id: "Ng7dwm",
+    description: "The title, in English",
+  }),
+  titleFr: defineMessage({
+    defaultMessage: "French - Title",
+    id: "sC8mrj",
+    description: "The title, in French",
+  }),
   messageEn: defineMessage({
     defaultMessage: "English - Message",
     id: "0Vjyzx",
@@ -24,8 +34,8 @@ const labels = {
   }),
   messageFr: defineMessage({
     defaultMessage: "French - Message",
-    id: "V/xaU2",
-    description: "The message, in English",
+    id: "/k2RKP",
+    description: "The message, in French",
   }),
 } as const;
 

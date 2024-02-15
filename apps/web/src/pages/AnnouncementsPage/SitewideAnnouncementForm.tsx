@@ -31,7 +31,9 @@ export type FormValues = {
   isEnabled: Scalars["Boolean"]["input"];
   publishDate: Scalars["DateTime"]["input"];
   expiryDate: Scalars["DateTime"]["input"];
+  titleEn: string;
   messageEn: string;
+  titleFr: string;
   messageFr: string;
 };
 
@@ -41,7 +43,9 @@ const apiDataToFormValues = (
   isEnabled: !!apiData?.isEnabled,
   publishDate: apiData?.publishDate ?? nowUTCDateTime(),
   expiryDate: apiData?.expiryDate ?? nowUTCDateTime(),
+  titleEn: apiData?.title.en ?? "",
   messageEn: apiData?.message.en ?? "",
+  titleFr: apiData?.title.fr ?? "",
   messageFr: apiData?.message.fr ?? "",
 });
 
@@ -49,6 +53,10 @@ const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
   isEnabled: formValues.isEnabled,
   publishDate: formValues.publishDate,
   expiryDate: formValues.expiryDate,
+  title: {
+    en: formValues.titleEn,
+    fr: formValues.titleFr,
+  },
   message: {
     en: formValues.messageEn,
     fr: formValues.messageFr,
@@ -132,10 +140,28 @@ export const SitewideAnnouncementForm = ({
               validate: validateDateTimeInput,
             }}
           />
+          <Input
+            id="titleEn"
+            label={intl.formatMessage(labels.titleEn)}
+            name="titleEn"
+            type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
           <RichTextInput
             id="messageEn"
             label={intl.formatMessage(labels.messageEn)}
             name="messageEn"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Input
+            id="titleFr"
+            label={intl.formatMessage(labels.titleFr)}
+            name="titleFr"
+            type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

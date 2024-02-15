@@ -82,7 +82,7 @@ return [
         'teamRole' => 'teamRole',
         'assessmentPlan' => 'assessmentPlan',
         'assessmentResult' => 'assessmentResult',
-        'sitewideAnnouncement' => 'sitewideAnnouncement',
+        'announcement' => 'announcement',
     ],
 
     /*
@@ -468,13 +468,13 @@ return [
             'fr' => 'Modifier les objets de résultats d\'évaluation',
         ],
 
-        'view-any-sitewideAnnouncement' => [
-            'en' => 'View any sitewide announcement',
-            'fr' => 'Voir toute annonce sur l\'ensemble du site',
+        'view-any-announcement' => [
+            'en' => 'View any announcement',
+            'fr' => 'Voir toutes les annonces',
         ],
-        'update-any-sitewideAnnouncement' => [
-            'en' => 'Update any sitewide announcement',
-            'fr' => 'Mise à jour de toute annonce sur l\'ensemble du site',
+        'update-any-announcement' => [
+            'en' => 'Update any announcement',
+            'fr' => 'Mise à jour de toute annonce',
         ],
     ],
 
@@ -623,7 +623,7 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'sitewideAnnouncement' => [
+            'announcement' => [
                 'any' => ['view'],
             ],
         ],
@@ -662,7 +662,7 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'sitewideAnnouncement' => [
+            'announcement' => [
                 'any' => ['view'],
             ],
         ],
@@ -809,7 +809,7 @@ return [
             'assessmentResult' => [
                 'any' => ['view'],
             ],
-            'sitewideAnnouncement' => [
+            'announcement' => [
                 'any' => ['update'],
             ],
         ],

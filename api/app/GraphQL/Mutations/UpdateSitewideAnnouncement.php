@@ -16,13 +16,17 @@ final readonly class UpdateSitewideAnnouncement
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        throw_unless($user->isAbleTo('update-any-sitewideAnnouncement'), UnauthorizedException::class);
+        throw_unless($user->isAbleTo('update-any-announcement'), UnauthorizedException::class);
 
         // parse and save the input
         $parsedObj = [
             'isEnabled' => boolval($args['isEnabled']),
             'publishDate' => Carbon::parse($args['publishDate'])->toDateTimeString(),
             'expiryDate' => Carbon::parse($args['expiryDate'])->toDateTimeString(),
+            'title' => [
+                'en' => strval($args['title']['en']),
+                'fr' => strval($args['title']['fr']),
+            ],
             'message' => [
                 'en' => strval($args['message']['en']),
                 'fr' => strval($args['message']['fr']),

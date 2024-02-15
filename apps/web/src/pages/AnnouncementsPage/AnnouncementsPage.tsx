@@ -23,6 +23,10 @@ const EditSitewideAnnouncementPage_Query = graphql(/* GraphQL */ `
       isEnabled
       publishDate
       expiryDate
+      title {
+        en
+        fr
+      }
       message {
         en
         fr
@@ -41,6 +45,10 @@ const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
       isEnabled
       publishDate
       expiryDate
+      title {
+        en
+        fr
+      }
       message {
         en
         fr
