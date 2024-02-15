@@ -1,14 +1,11 @@
 /* eslint-disable import/no-duplicates */
 import React from "react";
-import { useIntl } from "react-intl";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
-import isEqual from "date-fns/isEqual";
 import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Alert } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
