@@ -4027,6 +4027,10 @@
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
   },
+  "KghI8A": {
+    "defaultMessage": "Postulez dès-maintenant",
+    "description": "Link text to apply for a pool advertisement"
+  },
   "KifUVY": {
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
     "description": "Label for _contract on behalf of gc_ fieldset in the _digital services contracting questionnaire_"
@@ -4778,6 +4782,10 @@
   "PH+6C9": {
     "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
+  },
+  "PNtGco": {
+    "defaultMessage": "Évaluées ultérieurement",
+    "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
   },
   "POvUB0": {
     "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
@@ -6157,6 +6165,10 @@
   "Wpj2OY": {
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
+  },
+  "WppiY9": {
+    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention \"Évaluées à l’étape initiale de la demande\". D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie.",
+    "description": "Descriptive text about how skills are used during the application process"
   },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
@@ -7870,6 +7882,10 @@
     "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
     "description": "Third paragraph for publish pool dialog"
   },
+  "gLNQYB": {
+    "defaultMessage": "Évaluées lors de la demande initiale",
+    "description": "Message displayed for technical skills telling users at what point it will be assessed"
+  },
   "gLaBpz": {
     "defaultMessage": "Ajouter des questions générales",
     "description": "Button text to add a new screening question"
@@ -7897,6 +7913,10 @@
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
+  },
+  "gXFpR1": {
+    "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
+    "description": "Description of minimum education requirements"
   },
   "gZKJeF": {
     "defaultMessage": "Exigence en matière de langue officielle",
