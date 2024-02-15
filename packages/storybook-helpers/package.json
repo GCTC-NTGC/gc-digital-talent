@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@formatjs/ts-transformer": "^3.13.12",
-    "@storybook/addon-a11y": "^7.6.13",
+    "@storybook/addon-a11y": "^7.6.16",
     "@storybook/addon-essentials": "^7.6.15",
     "@storybook/addon-links": "^7.6.15",
     "@storybook/addon-viewport": "^7.6.10",
