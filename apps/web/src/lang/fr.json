@@ -2992,7 +2992,7 @@
     "description": "Display text for the phone number field on users"
   },
   "EpL8MD": {
-    "defaultMessage": "\"À qui s'adresse ce processus de recrutement?\"",
+    "defaultMessage": "« À qui s'adresse ce processus de recrutement? »",
     "description": "Button text to toggle the accordion for who can apply"
   },
   "EqUTLs": {
@@ -3660,7 +3660,7 @@
     "description": "Page title for the individual pool page"
   },
   "IbWzvu": {
-    "defaultMessage": "\"Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation?\"",
+    "defaultMessage": "« Qui puis-je contacter si j'ai des questions ou des besoins en matière de mesures d'adaptation? »",
     "description": "Button text to toggle the accordion for accommodations contact"
   },
   "Ibt1fL": {
@@ -7779,7 +7779,7 @@
     "description": "Title for the assessment plan builder"
   },
   "fkw2eD": {
-    "defaultMessage": "\"De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement?\"",
+    "defaultMessage": "« De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement? »",
     "description": "Button text to toggle the accordion for diversity, equity and inclusion"
   },
   "fpdcE/": {
@@ -9611,7 +9611,7 @@
     "description": "Label for the roles table search input"
   },
   "pdi2SU": {
-    "defaultMessage": "\"À quoi dois-je m'attendre après avoir soumise ma demande d'emploi?\"",
+    "defaultMessage": "« À quoi dois-je m'attendre après avoir soumise ma demande d'emploi? »",
     "description": "Button text to toggle the accordion for what to expect after you apply"
   },
   "pe5WkF": {
@@ -9807,7 +9807,7 @@
     "description": "Title for the compliance enforcement section."
   },
   "qvfSHZ": {
-    "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de<strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
+    "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
   },
   "r2gD/4": {
