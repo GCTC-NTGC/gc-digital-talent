@@ -7974,10 +7974,6 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau de la dirigeante principale de l’information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "mNYw+h": {
-    "defaultMessage": "Filtrage en cours",
-    "description": "Label for currently screening section on view pool candidate page"
-  },
   "h8AdRp": {
     "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter votre <helpLink>Bureau d'aide</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for when user does not have recovery codes"
@@ -8877,6 +8873,10 @@
   "mNNgEF": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
+  },
+  "mNYw+h": {
+    "defaultMessage": "Filtrage en cours",
+    "description": "Label for currently screening section on view pool candidate page"
   },
   "mNfi9b": {
     "defaultMessage": "Sélectionnez le lieu géographique où le travail doit être effectué.",
