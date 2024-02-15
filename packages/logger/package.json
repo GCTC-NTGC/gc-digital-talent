@@ -22,7 +22,7 @@
     "eslint": "^8.56.0",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "tsup": "^8.0.1",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }
 }

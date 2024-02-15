@@ -28,6 +28,6 @@
     "@types/lodash": "4.14.202",
     "eslint-config-custom": "*",
     "tsconfig": "*",
-    "tsup": "^8.0.1"
+    "tsup": "^8.0.2"
   }
 }
