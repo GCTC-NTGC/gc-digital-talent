@@ -258,11 +258,11 @@ export const getEducationRequirementOptions = (
               }),
           contentBelow: (
             <>
-              <p>
+              <p data-h2-margin="base(0, 0, x.5, 0)">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <ul>
-                {Object.values(appliedWorkListMessages).map((value) => (
+                {appliedWorkListMessages(isIAP).map((value) => (
                   <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
                     {intl.formatMessage(value)}
                   </li>
