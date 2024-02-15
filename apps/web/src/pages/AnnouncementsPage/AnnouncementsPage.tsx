@@ -99,6 +99,10 @@ const AnnouncementsPage = () => {
       }),
       url: routes.adminDashboard(),
     },
+    {
+      label: formattedPageTitle,
+      url: routes.announcements(),
+    },
   ];
 
   return (
