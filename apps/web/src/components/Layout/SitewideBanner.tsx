@@ -9,7 +9,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { Alert } from "@gc-digital-talent/ui";
 
-const MaintenanceBanner = () => {
+const SitewideBanner = () => {
   const intl = useIntl();
   // Outage time range, date, starttime
   const maintenanceBannerPublicDate = getRuntimeVariable(
@@ -81,4 +81,4 @@ const MaintenanceBanner = () => {
   ) : null;
 };
 
-export default MaintenanceBanner;
+export default SitewideBanner;

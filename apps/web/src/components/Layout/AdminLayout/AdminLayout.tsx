@@ -67,7 +67,7 @@ import {
   pageOutlineIcon as announcementsPageIcon,
 } from "~/pages/AnnouncementsPage/AnnouncementsPage";
 
-import MaintenanceBanner from "../MaintenanceBanner";
+import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
 import SignInOrSignOut from "./SignInOrSignOut";
 
@@ -303,7 +303,7 @@ const AdminLayout = () => {
             data-h2-flex-direction="base(column)"
           >
             <Header width="full" />
-            <MaintenanceBanner />
+            <SitewideBanner />
             <OpenMenuButton
               onClick={() => setMenuOpen(true)}
               show={isSmallScreen}
