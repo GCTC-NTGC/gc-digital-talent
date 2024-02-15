@@ -39,6 +39,12 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate has yet to be assessed at a specific assessment step",
   },
+  holdForAssessment: {
+    defaultMessage: "Hold for assessment",
+    id: "ndW6vI",
+    description:
+      "Message displayed when candidate is on hold at a specific assessment step",
+  },
   disqualified: {
     defaultMessage: "Disqualified",
     id: "/dy2CX",

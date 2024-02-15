@@ -271,6 +271,10 @@
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
   },
+  "6pBOi2": {
+    "defaultMessage": "Démontré",
+    "description": "Table assessment decision when candidate has successful assessment."
+  },
   "6tekaa": {
     "defaultMessage": "Septembre",
     "description": "Name of the ninth month"
@@ -466,6 +470,10 @@
   "DoFRsj": {
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
+  },
+  "EOzHrh": {
+    "defaultMessage": "Non démontré",
+    "description": "Table assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
@@ -682,6 +690,10 @@
   "LwZY5H": {
     "defaultMessage": "Qualifié non disponible",
     "description": "The pool candidate's status is Qualified Unavailable."
+  },
+  "LyVI+p": {
+    "defaultMessage": "En attente d’une évaluation plus approfondie",
+    "description": "Table assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",

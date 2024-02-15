@@ -17,6 +17,8 @@ import { getAssessmentDecision } from "@gc-digital-talent/i18n/src/messages/loca
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+
 import {
   AssessmentStepResult,
   AssessmentStepResultColumn,
@@ -58,49 +60,21 @@ export const columnHeader = (
       ariaLabel =
         type === AssessmentStepType.ApplicationScreening ||
         type === AssessmentStepType.ScreeningQuestionsAtApplication
-          ? intl.formatMessage({
-              defaultMessage: "Screened Out",
-              id: "0ywybu",
-              description:
-                "Aria Label for error icon on assessment result table",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Unsuccessful",
-              id: "YWs5Uw",
-              description:
-                "Aria Label for error icon on assessment result table",
-            });
+          ? intl.formatMessage(poolCandidateMessages.screenedOut)
+          : intl.formatMessage(poolCandidateMessages.unsuccessful);
       break;
     case "hold":
-      ariaLabel = intl.formatMessage({
-        defaultMessage: "Hold for assessment",
-        id: "otE152",
-        description: "Aria Label for pause icon on assessment result table",
-      });
+      ariaLabel = intl.formatMessage(poolCandidateMessages.holdForAssessment);
       break;
     case "toAssess":
-      ariaLabel = intl.formatMessage({
-        defaultMessage: "To assess",
-        id: "JmmTl/",
-        description: "Aria Label for alert icon on assessment result table",
-      });
+      ariaLabel = intl.formatMessage(poolCandidateMessages.toAssess);
       break;
     case "success":
       ariaLabel =
         type === AssessmentStepType.ApplicationScreening ||
         type === AssessmentStepType.ScreeningQuestionsAtApplication
-          ? intl.formatMessage({
-              defaultMessage: "Screened In",
-              id: "fIb32U",
-              description:
-                "Aria Label for success icon on assessment result table",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Successful",
-              id: "+R27gm",
-              description:
-                "Aria Label for success icon on assessment result table",
-            });
+          ? intl.formatMessage(poolCandidateMessages.screenedIn)
+          : intl.formatMessage(poolCandidateMessages.successful);
       break;
     default:
       ariaLabel = intl.formatMessage(commonMessages.notApplicable);

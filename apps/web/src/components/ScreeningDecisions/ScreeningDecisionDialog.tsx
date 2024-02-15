@@ -49,6 +49,7 @@ import {
 } from "~/api/generated";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
 import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
@@ -373,13 +374,7 @@ export const ScreeningDecisionDialog = ({
               </p>
             </>
           ) : (
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "To assess",
-                id: "+7IaSK",
-                description: "Button label to open screening decision dialog",
-              })}
-            </p>
+            <p>{intl.formatMessage(poolCandidateMessages.toAssess)}</p>
           )}
         </Button>
       </Dialog.Trigger>
