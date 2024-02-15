@@ -16,8 +16,8 @@ import AdminHero from "~/components/Hero/AdminHero";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
-const EditSitewideAnnouncementPage_Query = graphql(/* GraphQL */ `
-  query EditSitewideAnnouncementPage {
+const AnnouncementPage_Query = graphql(/* GraphQL */ `
+  query AnnouncementPage {
     sitewideAnnouncement {
       isEnabled
       publishDate
@@ -71,7 +71,7 @@ const AnnouncementsPage = () => {
 
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
     useQuery({
-      query: EditSitewideAnnouncementPage_Query,
+      query: AnnouncementPage_Query,
     });
 
   const [{ fetching: isSubmitting }, executeMutation] = useMutation(

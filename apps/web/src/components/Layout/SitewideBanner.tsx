@@ -4,81 +4,84 @@ import { useIntl } from "react-intl";
 import isAfter from "date-fns/isAfter";
 import isBefore from "date-fns/isBefore";
 import isEqual from "date-fns/isEqual";
+import { useQuery } from "urql";
 
+import { graphql } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { Alert } from "@gc-digital-talent/ui";
+import { useLocale } from "@gc-digital-talent/i18n";
+import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+
+const SitewideBanner_Query = graphql(/* GraphQL */ `
+  query SitewideBanner {
+    sitewideAnnouncement {
+      isEnabled
+      publishDate
+      expiryDate
+      title {
+        en
+        fr
+      }
+      message {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const SitewideBanner = () => {
-  const intl = useIntl();
+  const { locale } = useLocale();
+
+  const [{ data }] = useQuery({
+    query: SitewideBanner_Query,
+  });
+
   // Outage time range, date, starttime
-  const maintenanceBannerPublicDate = getRuntimeVariable(
-    "MAINTENANCE_BANNER_PUBLIC_DATE",
-  );
-  const serverMaintenanceDate = getRuntimeVariable(
-    "MAINTENANCE_BANNER_START_DATE",
-  );
-  const serverMaintenanceDuration = getRuntimeVariable(
-    "MAINTENANCE_BANNER_DURATION",
-  );
-
-  const startDate = serverMaintenanceDate
-    ? formatDate({
-        date: parseDateTimeUtc(serverMaintenanceDate),
-        formatString: `PPPPpp`,
-        intl,
-      })
+  const announcementPublishDate = data?.sitewideAnnouncement?.publishDate
+    ? parseDateTimeUtc(data.sitewideAnnouncement.publishDate)
     : null;
+  const announcementPublishDateIsValid =
+    announcementPublishDate && !Number.isNaN(announcementPublishDate.getTime());
 
-  const duration = serverMaintenanceDuration || null;
+  const announcementExpiryDate = data?.sitewideAnnouncement?.expiryDate
+    ? parseDateTimeUtc(data.sitewideAnnouncement.expiryDate)
+    : null;
+  const announcementExpiryDateIsValid =
+    announcementExpiryDate && !Number.isNaN(announcementExpiryDate.getTime());
 
   const showMaintenanceBanner =
-    maintenanceBannerPublicDate && serverMaintenanceDate
-      ? (isEqual(new Date(), parseDateTimeUtc(maintenanceBannerPublicDate)) ||
-          isAfter(new Date(), parseDateTimeUtc(maintenanceBannerPublicDate))) &&
-        isBefore(
-          parseDateTimeUtc(maintenanceBannerPublicDate),
-          parseDateTimeUtc(serverMaintenanceDate),
-        )
-      : false;
+    announcementPublishDateIsValid &&
+    isAfter(Date.now(), announcementPublishDate) &&
+    announcementExpiryDateIsValid &&
+    isBefore(Date.now(), announcementExpiryDate);
 
-  return showMaintenanceBanner &&
-    serverMaintenanceDate &&
-    serverMaintenanceDuration ? (
-    <div data-h2-background-color="base:all(warning.lightest)">
-      <div data-h2-container="base(center, large, x1)">
-        <Alert.Root
-          type="warning"
-          live
-          banner
-          data-h2-shadow="base(none)"
-          data-h2-margin="base(0, -x1, 0, -x1)"
-        >
-          <Alert.Title>
-            {intl.formatMessage({
-              defaultMessage: "Scheduled server maintenance",
-              id: "H0RLNn",
-              description: "Heading for a server maintenance banner.",
-            })}
-          </Alert.Title>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Please note that GC Digital Talent will be unavailable for an expected period of <strong>{duration} hour(s)</strong> on <strong>{startDate}</strong>. We apologize for any inconvenience.",
-                id: "2oqp21",
-                description: "Description for a server maintenance banner.",
-              },
-              {
-                duration,
-                startDate,
-              },
-            )}
-          </p>
-        </Alert.Root>
+  const title = data?.sitewideAnnouncement?.title[locale];
+  const message = data?.sitewideAnnouncement?.message[locale];
+
+  if (!title || !message) {
+    return null;
+  }
+
+  return (
+    showMaintenanceBanner && (
+      <div data-h2-background-color="base:all(warning.lightest)">
+        <div data-h2-container="base(center, large, x1)">
+          <Alert.Root
+            type="warning"
+            live
+            banner
+            data-h2-shadow="base(none)"
+            data-h2-margin="base(0, -x1, 0, -x1)"
+          >
+            <Alert.Title>{title}</Alert.Title>
+            <RichTextRenderer node={htmlToRichTextJSON(message)} />
+          </Alert.Root>
+        </div>
       </div>
-    </div>
-  ) : null;
+    )
+  );
 };
 
 export default SitewideBanner;
