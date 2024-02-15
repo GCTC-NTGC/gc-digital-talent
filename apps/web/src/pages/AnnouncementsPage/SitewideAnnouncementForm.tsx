@@ -17,7 +17,12 @@ import {
   Submit,
   SwitchInput,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
 import labels from "./labels";
 
@@ -67,12 +72,14 @@ interface SitewideAnnouncementFormProps {
   initialData: SitewideAnnouncement | null | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   setIsEditing: (isEditing: boolean) => void;
+  isSubmitting: boolean;
 }
 
 export const SitewideAnnouncementForm = ({
   initialData,
   onUpdate,
   setIsEditing,
+  isSubmitting,
 }: SitewideAnnouncementFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
@@ -107,80 +114,102 @@ export const SitewideAnnouncementForm = ({
   };
 
   return (
-    <section data-h2-container="base(left, s)">
-      <FormProvider {...methods}>
-        <form
-          onSubmit={handleSubmit(handleSave)}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+    <FormProvider {...methods}>
+      <form
+        onSubmit={handleSubmit(handleSave)}
+        data-h2-display="base(grid)"
+        data-h2-gap="base(x1)"
+        data-h2-grid-template-columns="base(repeat(2, 1fr))"
+      >
+        <div data-h2-grid-column="base(span 2)">
           <SwitchInput
             id="isEnabled"
             name="isEnabled"
             label={intl.formatMessage(labels.isEnabled)}
           />
-          <Input
-            id="publishDate"
-            label={intl.formatMessage(labels.publishDateUtc)}
-            name="publishDate"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              validate: validateDateTimeInput,
-            }}
-          />
-          <Input
-            id="expiryDate"
-            label={intl.formatMessage(labels.expiryDateUtc)}
-            name="expiryDate"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              validate: validateDateTimeInput,
-            }}
-          />
-          <Input
-            id="titleEn"
-            label={intl.formatMessage(labels.titleEn)}
-            name="titleEn"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <RichTextInput
-            id="messageEn"
-            label={intl.formatMessage(labels.messageEn)}
-            name="messageEn"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="titleFr"
-            label={intl.formatMessage(labels.titleFr)}
-            name="titleFr"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <RichTextInput
-            id="messageFr"
-            label={intl.formatMessage(labels.messageFr)}
-            name="messageFr"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
+        </div>
+        <Input
+          id="publishDate"
+          label={intl.formatMessage(labels.publishDateUtc)}
+          name="publishDate"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            validate: validateDateTimeInput,
+          }}
+        />
+        <Input
+          id="expiryDate"
+          label={intl.formatMessage(labels.expiryDateUtc)}
+          name="expiryDate"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            validate: validateDateTimeInput,
+          }}
+        />
+        <Input
+          id="titleEn"
+          label={intl.formatMessage(labels.titleEn)}
+          name="titleEn"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <Input
+          id="titleFr"
+          label={intl.formatMessage(labels.titleFr)}
+          name="titleFr"
+          type="text"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <RichTextInput
+          id="messageEn"
+          label={intl.formatMessage(labels.messageEn)}
+          name="messageEn"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <RichTextInput
+          id="messageFr"
+          label={intl.formatMessage(labels.messageFr)}
+          name="messageFr"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+
+        <div
+          data-h2-grid-column="base(span 2)"
+          data-h2-display="base(flex)"
+          data-h2-gap="base(x.5)"
+          data-h2-align-items="base(center)"
+          data-h2-flex-wrap="base(wrap)"
+        >
+          <Submit
+            text={intl.formatMessage(formMessages.saveChanges)}
+            aria-label={intl.formatMessage({
+              defaultMessage: "Save sitewide announcement",
+              id: "dyzeVv",
+              description: "Text on a button to save the sitewide announcement",
+            })}
+            color="secondary"
+            mode="solid"
+            isSubmitting={isSubmitting}
           />
 
-          <div data-h2-align-self="base(flex-start)">
-            <Submit />
-          </div>
-        </form>
-      </FormProvider>
-    </section>
+          <ToggleSection.Close>
+            <Button mode="inline" type="button" color="quaternary">
+              {intl.formatMessage(commonMessages.cancel)}
+            </Button>
+          </ToggleSection.Close>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
 

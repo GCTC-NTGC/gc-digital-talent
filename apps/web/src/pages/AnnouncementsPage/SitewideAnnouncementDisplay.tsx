@@ -34,9 +34,12 @@ export const SitewideAnnouncementDisplay = ({
     <div
       data-h2-display="base(grid)"
       data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
+      data-h2-grid-template-columns="base(repeat(2, 1fr))"
     >
-      <ToggleForm.FieldDisplay label={intl.formatMessage(labels.isEnabled)}>
+      <ToggleForm.FieldDisplay
+        label={intl.formatMessage(labels.isEnabled)}
+        data-h2-grid-column="base(span 2)"
+      >
         {isEnabled
           ? intl.formatMessage(commonMessages.yes)
           : intl.formatMessage(commonMessages.no)}
@@ -44,6 +47,12 @@ export const SitewideAnnouncementDisplay = ({
       <ToggleForm.FieldDisplay
         hasError={!publishDate}
         label={intl.formatMessage(labels.publishDateUtc)}
+      >
+        {publishDate ?? notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!publishDate}
+        label={intl.formatMessage(labels.publishDateLocal)}
       >
         {publishDate
           ? formatDate({
@@ -56,6 +65,12 @@ export const SitewideAnnouncementDisplay = ({
       <ToggleForm.FieldDisplay
         hasError={!expiryDate}
         label={intl.formatMessage(labels.expiryDateUtc)}
+      >
+        {expiryDate ?? notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!expiryDate}
+        label={intl.formatMessage(labels.expiryDateLocal)}
       >
         {expiryDate
           ? formatDate({
@@ -72,6 +87,12 @@ export const SitewideAnnouncementDisplay = ({
         {titleEn || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
+        hasError={!titleFr}
+        label={intl.formatMessage(labels.titleFr)}
+      >
+        {titleFr || notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
         hasError={!messageEn}
         label={intl.formatMessage(labels.messageEn)}
       >
@@ -80,12 +101,6 @@ export const SitewideAnnouncementDisplay = ({
         ) : (
           notProvided
         )}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        hasError={!titleFr}
-        label={intl.formatMessage(labels.titleFr)}
-      >
-        {titleFr || notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!messageFr}

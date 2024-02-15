@@ -38,11 +38,13 @@ export const sectionSolidIcon: IconType = MegaphoneSolidIcon;
 interface SitewideAnnouncementSectionProps {
   initialData: SitewideAnnouncement | null | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
+  isSubmitting: boolean;
 }
 
 const SitewideAnnouncementSection = ({
   initialData,
   onUpdate,
+  isSubmitting,
 }: SitewideAnnouncementSectionProps) => {
   const intl = useIntl();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
@@ -83,6 +85,7 @@ const SitewideAnnouncementSection = ({
             initialData={initialData}
             onUpdate={onUpdate}
             setIsEditing={setIsEditing}
+            isSubmitting={isSubmitting}
           />
         </ToggleSection.OpenContent>
       </ToggleSection.Content>

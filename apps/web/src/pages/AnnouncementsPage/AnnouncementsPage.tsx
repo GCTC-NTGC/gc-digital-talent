@@ -76,7 +76,9 @@ const AnnouncementsPage = () => {
       query: EditSitewideAnnouncementPage_Query,
     });
 
-  const [, executeMutation] = useMutation(UpdateSitewideAnnouncement_Mutation);
+  const [{ fetching: isSubmitting }, executeMutation] = useMutation(
+    UpdateSitewideAnnouncement_Mutation,
+  );
 
   const handleUpdateError = () => {
     toast.error(intl.formatMessage(commonMessages.error));
@@ -120,6 +122,7 @@ const AnnouncementsPage = () => {
           <SitewideAnnouncementSection
             initialData={initialData?.sitewideAnnouncement}
             onUpdate={handleSave}
+            isSubmitting={isSubmitting}
           />
         </Pending>
       </AdminContentWrapper>
