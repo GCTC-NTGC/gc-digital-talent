@@ -186,7 +186,6 @@ const Trigger = React.forwardRef<
               data-h2-display="base(flex)"
               data-h2-gap="base(0, x.5)"
               data-h2-flex-grow="base(1)"
-              data-h2-flex-shrink="base(0)"
             >
               <span
                 className="Accordion__Chevron"
