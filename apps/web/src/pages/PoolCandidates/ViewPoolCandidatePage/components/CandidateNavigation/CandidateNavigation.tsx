@@ -4,6 +4,7 @@ import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
 import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -22,13 +23,18 @@ const CandidateNavigation = ({
   const paths = useRoutes();
   const candidateNavigation = usePoolCandidateNavigation(candidateId);
   if (!candidateNavigation) return null;
-  const { nextCandidate, previousCandidate, lastCandidate, candidateIds } =
-    candidateNavigation;
+  const {
+    nextCandidate,
+    previousCandidate,
+    lastCandidate,
+    candidateIds,
+    stepName,
+  } = candidateNavigation;
 
   const commonLinkProps: LinkProps = {
     color: "primary",
     mode: "inline",
-    state: { candidateIds },
+    state: { candidateIds, stepName },
   };
 
   return (
@@ -37,6 +43,19 @@ const CandidateNavigation = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.5 0)"
     >
+      {stepName && (
+        <div>
+          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+            {intl.formatMessage({
+              defaultMessage: "Currently screening",
+              id: "mNYw+h",
+              description:
+                "Label for currently screening section on view pool candidate page",
+            }) + intl.formatMessage(commonMessages.dividingColon)}
+          </p>
+          <p>{stepName}</p>
+        </div>
+      )}
       {nextCandidate && (
         <Link
           href={paths.poolCandidateApplication(nextCandidate)}

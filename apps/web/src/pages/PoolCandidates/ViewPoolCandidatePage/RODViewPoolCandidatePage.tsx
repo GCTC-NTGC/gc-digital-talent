@@ -637,15 +637,6 @@ export const ViewPoolCandidate = ({
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"
             >
-              <p data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Currently screening:",
-                  id: "h7l8Sd",
-                  description:
-                    "Label for currently screening section on view pool candidate page",
-                })}
-              </p>
-              <p>Step 1: Screening Application (Replace with fetched value)</p>
               <CandidateNavigation
                 candidateId={poolCandidate.id}
                 poolId={poolCandidate.pool.id}

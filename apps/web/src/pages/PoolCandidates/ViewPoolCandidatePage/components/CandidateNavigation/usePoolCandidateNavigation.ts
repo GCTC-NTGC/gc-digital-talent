@@ -3,11 +3,13 @@ import { useLocation } from "react-router-dom";
 type CandidateLocation = {
   state?: {
     candidateIds?: string[];
+    stepName?: string;
   };
 };
 
 type UsePoolCandidateNavigationReturn = {
   candidateIds?: string[];
+  stepName?: string;
   previousCandidate?: string;
   nextCandidate?: string;
   lastCandidate?: boolean;
@@ -18,7 +20,7 @@ const usePoolCandidateNavigation = (
 ): UsePoolCandidateNavigationReturn => {
   const { state }: CandidateLocation = useLocation();
   if (!state?.candidateIds || !candidateId) return null;
-  const { candidateIds } = state;
+  const { candidateIds, stepName } = state;
 
   const currentIndex = candidateIds.findIndex((id) => id === candidateId);
   if (currentIndex < 0) return null;
@@ -27,7 +29,7 @@ const usePoolCandidateNavigation = (
   const previousCandidate = candidateIds[currentIndex - 1];
 
   if (currentIndex === 0) {
-    return { nextCandidate, candidateIds };
+    return { nextCandidate, candidateIds, stepName };
   }
 
   if (currentIndex === candidateIds.length - 1) {
@@ -35,10 +37,11 @@ const usePoolCandidateNavigation = (
       previousCandidate,
       candidateIds,
       lastCandidate: true,
+      stepName,
     };
   }
 
-  return { previousCandidate, nextCandidate, candidateIds };
+  return { previousCandidate, nextCandidate, candidateIds, stepName };
 };
 
 export default usePoolCandidateNavigation;
