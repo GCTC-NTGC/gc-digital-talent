@@ -660,6 +660,12 @@ const poolCandidateStatuses = defineMessages({
     id: "yRxy3a",
     description: "The pool candidate's status is Qualified Withdrew.",
   },
+  [PoolCandidateStatus.PlacedTentative]: {
+    defaultMessage: "Offer in Progress",
+    id: "k/+pcc",
+    description:
+      "The pool candidate's status is Offer in Progress, tentatively placed",
+  },
   [PoolCandidateStatus.PlacedCasual]: {
     defaultMessage: "Placed Casual",
     id: "ACppq6",

@@ -10,7 +10,7 @@ import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import applicationMessages from "~/messages/applicationMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
@@ -72,7 +72,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getFullPoolTitleHtml(intl, application.pool);
+  const poolName = getShortPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);

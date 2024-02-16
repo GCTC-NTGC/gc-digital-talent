@@ -17,7 +17,7 @@ import {
   Link,
   Pill,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
@@ -475,12 +475,7 @@ export const ViewPoolCandidate = ({
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage({
-        defaultMessage: "Diversity, equity, and inclusion",
-        id: "zLeH2i",
-        description:
-          "Title for the diversity, equity, and inclusion snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
     },
     government: {
       id: "government",
