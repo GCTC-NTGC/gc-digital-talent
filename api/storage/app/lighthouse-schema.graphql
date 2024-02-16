@@ -316,6 +316,7 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  opportunityLength: PoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
@@ -1211,6 +1212,7 @@ input UpdatePoolInput {
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
@@ -1975,6 +1977,14 @@ enum PoolLanguage {
   VARIOUS
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
+}
+
+enum PoolOpportunityLength {
+  TERM_SIX_MONTHS
+  TERM_ONE_YEAR
+  TERM_TWO_YEARS
+  INDETERMINATE
+  VARIOUS
 }
 
 enum PublishingGroup {

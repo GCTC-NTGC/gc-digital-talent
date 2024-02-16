@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
@@ -138,6 +139,7 @@ class PoolFactory extends Factory
                 'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
+                'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
             ];
         });
     }
