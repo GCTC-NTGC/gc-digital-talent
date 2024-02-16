@@ -73,6 +73,7 @@ const SitewideBanner = () => {
             banner
             data-h2-shadow="base(none)"
             data-h2-margin="base(0, -x1, 0, -x1)"
+            data-h2-color="base:all(warning.darkest)"
           >
             <Alert.Title>{title}</Alert.Title>
             <RichTextRenderer node={htmlToRichTextJSON(message)} />

@@ -10,10 +10,7 @@ const NoNode: NodeRenderer = ({ children }) => {
 };
 
 const DocNode: NodeRenderer = ({ children }) => (
-  <div
-    data-h2-color="base(black)"
-    data-h2-margin="base:children[>p:not(:first-child)](x.5, 0, 0, 0)"
-  >
+  <div data-h2-margin="base:children[>p:not(:first-child)](x.5, 0, 0, 0)">
     {children}
   </div>
 );
