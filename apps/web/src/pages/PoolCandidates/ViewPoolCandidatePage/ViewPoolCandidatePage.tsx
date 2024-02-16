@@ -425,7 +425,8 @@ export const ViewPoolCandidate = ({
                     )}
                   </Heading>
                   <div
-                    data-h2-background-color="base(white) base:dark(black)"
+                    data-h2-background-color="base(foreground)"
+                    data-h2-color="base(black)"
                     data-h2-padding="base(x1)"
                     data-h2-border-left="base(x.5 solid primary)"
                     data-h2-radius="base(0 rounded rounded 0)"
