@@ -45,7 +45,6 @@ const Or = (props: React.HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
   return (
     <span
-      aria-hidden="true"
       data-h2-background-color="base(secondary)"
       data-h2-color="base:all(black)"
       data-h2-display="base(flex)"
