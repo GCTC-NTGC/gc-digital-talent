@@ -343,12 +343,7 @@ export const ViewPoolCandidate = ({
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage({
-        defaultMessage: "Diversity, equity, and inclusion",
-        id: "zLeH2i",
-        description:
-          "Title for the diversity, equity, and inclusion snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
     },
     government: {
       id: "government",

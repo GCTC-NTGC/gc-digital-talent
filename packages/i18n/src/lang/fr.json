@@ -55,6 +55,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
+  "0ClMl1": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity, and inclusion page"
+  },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
@@ -1186,10 +1190,6 @@
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
-  },
-  "ad4mTC": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Name of Diversity, equity and inclusion page"
   },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",

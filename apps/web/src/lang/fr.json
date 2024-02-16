@@ -519,10 +519,6 @@
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
   },
-  "0jfEjz": {
-    "defaultMessage": "Mettre en œuvre et appuyer des initiatives pour faire progresser la diversité, l’équité et l’inclusion dans la collectivité du numérique",
-    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
-  },
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
@@ -910,10 +906,6 @@
   "2pY3lT": {
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
-  },
-  "2sQI9l": {
-    "defaultMessage": "Vous pouvez en savoir plus sur notre engagement envers l'équité et l'inclusion en lisant notre énoncé sur l'inclusion. Nous fournissons également un énoncé sur l'accessibilité qui décrit la manière dont la plateforme prend en compte et met en œuvre les pratiques exemplaires en matière d'accessibilité.",
-    "description": "Information on commitment to diversity, equity and inclusion"
   },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
@@ -3463,10 +3455,6 @@
     "defaultMessage": "Erreur : Le désarchivage du bassin a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
   },
-  "HAkMnl": {
-    "defaultMessage": "Diversité, équité, inclusion",
-    "description": "Title of the Diversity, equity and inclusion link section"
-  },
   "HBljcn": {
     "defaultMessage": "Nom (anglais)",
     "description": "Title for name in English"
@@ -4143,6 +4131,10 @@
     "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
     "description": "Introductory text displayed in sign in and authentication accordion."
   },
+  "LCVNJq": {
+    "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
+    "description": "Message displayed when a user successfully updates their diversity, equity, and inclusion information."
+  },
   "LDrXbc": {
     "defaultMessage": "contiennent des renseignements protégés ou classifiés du gouvernement du Canada",
     "description": "Comments or contributions list item"
@@ -4743,6 +4735,10 @@
     "defaultMessage": "Bassin publié avec succès!",
     "description": "Message displayed to user after pool is published"
   },
+  "P6EhD6": {
+    "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
+    "description": "Link text to edit diversity, equity, and inclusion information on profile."
+  },
   "P6jGb4": {
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
     "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
@@ -5231,10 +5227,6 @@
     "defaultMessage": "Renseignements de base",
     "description": "Basic information"
   },
-  "RggAL8": {
-    "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
-    "description": "Link text to edit diversity, equity and inclusion information on profile."
-  },
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
     "description": "Label for the candidates current assessment step"
@@ -5370,10 +5362,6 @@
   "STIhQg": {
     "defaultMessage": "Si plusieurs types de ressources sont nécessaires, veuillez inclure un numéro de suivi pour chaque ressource qui relève d’un volet de travail de la TI et/ou d’un niveau distinct. Séparez chaque numéro de suivi par une virgule.",
     "description": "introduction paragraph 2 to needing more information about the talent search"
-  },
-  "SUUqzt": {
-    "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
-    "description": "Message displayed when a user successfully updates their diversity, equity and inclusion information."
   },
   "SXyhoR": {
     "defaultMessage": "Ce ne sont pas toutes les plaintes qui parviennent directement au commissaire à l’accessibilité. Certaines exceptions s’appliquent : ",
@@ -5698,6 +5686,10 @@
   "UNMEfB": {
     "defaultMessage": "Processus de recrutement des cadres",
     "description": "Heading for the executive opportunities"
+  },
+  "UOHEw1": {
+    "defaultMessage": "Vous pouvez en savoir plus sur notre engagement envers l'équité et l'inclusion en lisant notre énoncé sur l'inclusion. Nous fournissons également un énoncé sur l'accessibilité qui décrit la manière dont la plateforme prend en compte et met en œuvre les pratiques exemplaires en matière d'accessibilité.",
+    "description": "Information on commitment to diversity, equity, and inclusion"
   },
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",
@@ -6089,6 +6081,10 @@
   "WNqXQa": {
     "defaultMessage": "Il y a deux façons de soumettre ce questionnaire. La première façon est de remplir ce questionnaire en ligne ici. Veuillez prendre note que le questionnaire doit être rempli et soumis en une seule fois. Vous ne pouvez pas enregistrer vos réponses en tant que brouillon. La deuxième façon de remplir ce questionnaire est de le télécharger en tant que fichier, de le compléter en dehors de la plateforme et de l’envoyer par courriel à la boîte aux lettres <link>Talents numériques du GC</link>.",
     "description": "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "WPJAiw": {
+    "defaultMessage": "« De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement? »",
+    "description": "Button text to toggle the accordion for diversity, equity, and inclusion"
   },
   "WSMupE": {
     "defaultMessage": "Processus",
@@ -7782,10 +7778,6 @@
     "defaultMessage": "Plan d’évaluation",
     "description": "Title for the assessment plan builder"
   },
-  "fkw2eD": {
-    "defaultMessage": "« De quelle façon l'équité et l'inclusion sont-elles prises en considération dans ce processus de recrutement? »",
-    "description": "Button text to toggle the accordion for diversity, equity and inclusion"
-  },
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
@@ -8801,6 +8793,10 @@
   "lDRl7g": {
     "defaultMessage": "Type de produit",
     "description": "Label for _commodity type_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "lDSa8Q": {
+    "defaultMessage": "Mettre en œuvre et appuyer des initiatives pour faire progresser la diversité, l’équité et l’inclusion dans la collectivité du numérique",
+    "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "lDnHjr": {
     "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
@@ -10270,10 +10266,6 @@
     "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
     "description": "Description of how the skills-based hiring platform assess candidates."
   },
-  "u1N0nT": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Heading for the diversity, equity, and inclusion section on the application profile"
-  },
   "u3eefq": {
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
     "description": "Page title for the request candidates form page"
@@ -11105,10 +11097,6 @@
   "zJdfyv": {
     "defaultMessage": "Prenez une longueur d’avance sur les prochaines étapes ou découvrez d’autres occasions.",
     "description": "Subtitle for the application success page"
-  },
-  "zLeH2i": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Title for the diversity, equity, and inclusion snapshot section"
   },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
