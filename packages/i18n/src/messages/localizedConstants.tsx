@@ -37,6 +37,7 @@ import {
   AssessmentDecision,
   AssessmentResultJustification,
   AssessmentDecisionLevel,
+  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -2219,4 +2220,41 @@ export const getAssessmentDecisionLevel = (
     assessmentDecisionLevels,
     assessmentDecisionLevelId,
     `Invalid Search Request Reason '${assessmentDecisionLevelId}'`,
+  );
+
+const poolOpportunityLengths = defineMessages({
+  [PoolOpportunityLength.Indeterminate]: {
+    defaultMessage: "Indeterminate (Permanent)",
+    id: "261Ycu",
+    description: "Option for pool opportunity length",
+  },
+  [PoolOpportunityLength.TermOneYear]: {
+    defaultMessage: "Term (1 year)",
+    id: "BoTqZU",
+    description: "Option for pool opportunity length",
+  },
+  [PoolOpportunityLength.TermSixMonths]: {
+    defaultMessage: "Term (6 months)",
+    id: "MrQfby",
+    description: "Option for pool opportunity length",
+  },
+  [PoolOpportunityLength.TermTwoYears]: {
+    defaultMessage: "Term (2 years)",
+    id: "LldtPo",
+    description: "Option for pool opportunity length",
+  },
+  [PoolOpportunityLength.Various]: {
+    defaultMessage: "Various",
+    id: "9L4c8m",
+    description: "Option for pool opportunity length",
+  },
+});
+
+export const getPoolOpportunityLength = (
+  poolOpportunityLengthId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolOpportunityLengths,
+    poolOpportunityLengthId,
+    `Invalid Pool Opportunity Length '${poolOpportunityLengthId}'`,
   );

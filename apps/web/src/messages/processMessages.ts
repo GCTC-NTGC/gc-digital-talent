@@ -16,6 +16,11 @@ const messages = defineMessages({
     id: "9pYlYz",
     description: "Label for a process' stream",
   },
+  opportunityLength: {
+    defaultMessage: "Length of opportunity",
+    id: "08rkLr",
+    description: "Label for a process' opportunity employment duration",
+  },
   titleEn: {
     defaultMessage: "Specific title (English)",
     id: "QISMlC",

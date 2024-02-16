@@ -16,8 +16,14 @@ import { DisplayProps } from "../../types";
 const Display = ({ pool }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const { classifications, stream, name, processNumber, publishingGroup } =
-    pool;
+  const {
+    classifications,
+    stream,
+    name,
+    processNumber,
+    publishingGroup,
+    opportunityLength,
+  } = pool;
 
   return (
     <div
@@ -52,6 +58,12 @@ const Display = ({ pool }: DisplayProps) => {
         {name?.fr || notProvided}
       </ToggleForm.FieldDisplay>
       <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+        <ToggleForm.FieldDisplay
+          hasError={!opportunityLength}
+          label={intl.formatMessage(processMessages.opportunityLength)}
+        >
+          {opportunityLength || notProvided}
+        </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!processNumber}
           label={intl.formatMessage(processMessages.processNumber)}
