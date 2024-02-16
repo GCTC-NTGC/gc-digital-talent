@@ -32,8 +32,8 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
-  getFullPoolTitleHtml,
-  getFullPoolTitleLabel,
+  getShortPoolTitleHtml,
+  getShortPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -599,7 +599,7 @@ export const ViewPoolCandidate = ({
         })}
         subtitle={`${poolCandidate.user.firstName} ${
           poolCandidate.user.lastName
-        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
+        } / ${getShortPoolTitleLabel(intl, poolCandidate.pool)}`}
         nav={{
           mode: "subNav",
           items: Array.from(pages.values()).map((page) => ({
@@ -622,7 +622,7 @@ export const ViewPoolCandidate = ({
                 },
                 {
                   submittedAt: poolCandidate.submittedAt,
-                  poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, poolCandidate.pool),
                 },
               )}
             </p>
