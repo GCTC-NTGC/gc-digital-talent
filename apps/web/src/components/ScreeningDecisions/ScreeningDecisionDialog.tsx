@@ -6,9 +6,11 @@ import {
   AssessmentDecision,
   AssessmentResult,
   AssessmentResultJustification,
+  AssessmentResultType,
   AssessmentStep,
   CreateAssessmentResultInput,
   Experience,
+  Maybe,
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
@@ -59,8 +61,6 @@ import useHeaders from "./useHeaders";
 import {
   convertFormValuesToApiCreateInput,
   convertFormValuesToApiUpdateInput,
-  FormValuesToApiCreateInputArgs,
-  FormValuesToApiUpdateInputArgs,
   getLocalizedSkillLevel,
   FormValues,
 } from "./utils";
@@ -179,6 +179,13 @@ const ScreeningQuestions = ({
     poolCandidate.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     poolCandidate.screeningQuestionResponses?.filter(notEmpty) || [];
+
+  if (screeningQuestions.length === 0)
+    return (
+      <p data-h2-margin-bottom="base(x1)">
+        {intl.formatMessage(commonMessages.notProvided)}
+      </p>
+    );
   return (
     <Accordion.Root type="multiple" data-h2-margin-bottom="base(x1)">
       {screeningQuestions.length &&
@@ -191,12 +198,10 @@ const ScreeningQuestions = ({
               {getLocalizedName(screeningQuestion.question, intl)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {
-                screeningQuestionResponses.filter(
-                  (response) =>
-                    response.screeningQuestion?.id === screeningQuestion.id,
-                )[0].answer
-              }
+              {screeningQuestionResponses.find(
+                (response) =>
+                  response.screeningQuestion?.id === screeningQuestion.id,
+              )?.answer || intl.formatMessage(commonMessages.notFound)}
             </Accordion.Content>
           </Accordion.Item>
         ))}
@@ -350,29 +355,35 @@ export const ScreeningDecisionDialog = ({
           data-h2-text-align="base(left)"
         >
           {hasBeenAssessed ? (
-            <>
-              <p>
-                {intl.formatMessage(
-                  initialValues?.assessmentDecision
-                    ? getTableAssessmentDecision(
-                        initialValues.assessmentDecision,
-                      )
-                    : commonMessages.notFound,
-                )}
-              </p>
-              <p
-                data-h2-color="base(gray.darker)"
-                data-h2-text-decoration="base(none)"
-              >
-                {intl.formatMessage(
-                  initialValues?.assessmentDecisionLevel
-                    ? getAssessmentDecisionLevel(
-                        initialValues.assessmentDecisionLevel,
-                      )
-                    : commonMessages.notFound,
-                )}
-              </p>
-            </>
+            <span>
+              {initialValues?.assessmentDecision === "noDecision" ? (
+                <p>{intl.formatMessage(commonMessages.notSure)}</p>
+              ) : (
+                <>
+                  <p>
+                    {intl.formatMessage(
+                      initialValues?.assessmentDecision
+                        ? getTableAssessmentDecision(
+                            initialValues.assessmentDecision,
+                          )
+                        : commonMessages.notFound,
+                    )}
+                  </p>
+                  <p
+                    data-h2-color="base(gray.darker)"
+                    data-h2-text-decoration="base(none)"
+                  >
+                    {intl.formatMessage(
+                      initialValues?.assessmentDecisionLevel
+                        ? getAssessmentDecisionLevel(
+                            initialValues.assessmentDecisionLevel,
+                          )
+                        : commonMessages.notFound,
+                    )}
+                  </p>
+                </>
+              )}
+            </span>
           ) : (
             <p>{intl.formatMessage(poolCandidateMessages.toAssess)}</p>
           )}
@@ -451,9 +462,20 @@ const ScreeningDecisionDialogApi = ({
 
   const assessmentResultId = assessmentResult?.id;
   const poolSkill = assessmentResult?.poolSkill ?? poolSkillToAssess;
+  const assessmentResultType = educationRequirement
+    ? AssessmentResultType.Education
+    : AssessmentResultType.Skill;
+
+  const hasBeenAssessed = !!assessmentResultId;
+  let assessmentDecision: Maybe<AssessmentDecision> | "noDecision" | undefined;
+  if (hasBeenAssessed) {
+    assessmentDecision = assessmentResult?.assessmentDecision || "noDecision";
+  } else {
+    assessmentDecision = assessmentResult?.assessmentDecision;
+  }
 
   const initialValues: FormValues = {
-    assessmentDecision: assessmentResult?.assessmentDecision,
+    assessmentDecision,
     assessmentDecisionLevel: assessmentResult?.assessmentDecisionLevel,
     justifications: assessmentResult?.justifications?.some(
       (justification) =>
@@ -532,19 +554,25 @@ const ScreeningDecisionDialogApi = ({
       assessmentStep={assessmentStep}
       poolSkill={poolSkill}
       initialValues={initialValues}
-      hasBeenAssessed={!!assessmentResultId}
+      hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
       onSubmit={(formValues) =>
-        assessmentResultId
+        hasBeenAssessed
           ? handleUpdateAssessment(
               convertFormValuesToApiUpdateInput({
                 formValues,
-              } as FormValuesToApiUpdateInputArgs),
+                assessmentResultId,
+                assessmentResultType,
+              }),
             )
           : handleCreateAssessment(
               convertFormValuesToApiCreateInput({
                 formValues,
-              } as FormValuesToApiCreateInputArgs),
+                assessmentResultType,
+                assessmentStepId: assessmentStep.id,
+                poolCandidateId: poolCandidate.id,
+                skillId: poolSkill?.id || "",
+              }),
             )
       }
     />

@@ -107,7 +107,78 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
+        userSkills {
+          id
+          user {
+            id
+          }
+          skill {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+          }
+          skillLevel
+        }
       }
+      educationRequirementExperiences {
+        id
+        __typename
+        details
+        user {
+          id
+          email
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+          details
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+          details
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+          details
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+          details
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+          details
+        }
+      }
+      educationRequirementOption
       profileSnapshot
       notes
       signature
@@ -187,6 +258,26 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             type
           }
         }
+        poolSkills {
+          id
+          type
+          skill {
+            name {
+              en
+              fr
+            }
+            id
+            category
+            key
+          }
+        }
+        screeningQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
         ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
@@ -246,6 +337,10 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
+      }
+      screeningQuestionResponses {
+        id
+        answer
       }
     }
     pools {
@@ -466,7 +561,7 @@ export const ViewPoolCandidate = ({
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
     mainContent = (
-      <>
+      <div data-h2-margin-top="base(x2)">
         <ApplicationInformation
           poolQuery={poolCandidate.pool}
           snapshot={parsedSnapshot}
@@ -490,7 +585,7 @@ export const ViewPoolCandidate = ({
           </Accordion.Root>
         </div>
         <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-      </>
+      </div>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (

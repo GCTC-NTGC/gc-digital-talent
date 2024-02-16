@@ -93,8 +93,11 @@ export const columnHeader = (
           title={ariaLabel}
           aria-hidden="false"
           {...iconColorMap[status.color]}
-          data-h2-width="base(x1)"
-          data-h2-height="base(x1)"
+          data-h2-display="p-tablet(inline-block)"
+          data-h2-vertical-align="base(middle)"
+          data-h2-height="base(auto)"
+          data-h2-flex-shrink="base(0)"
+          data-h2-width="base(x.85)"
         />
       )}
       <span>{header}</span>
@@ -212,7 +215,7 @@ export const buildColumn = ({
         if (
           isEducationRequirement &&
           assessmentStep.type === AssessmentStepType.ApplicationScreening
-        )
+        ) {
           return cells.jsx(
             <Dialog
               assessmentStep={assessmentStep}
@@ -221,14 +224,16 @@ export const buildColumn = ({
               educationRequirement
             />,
           );
+        }
 
-        // Check if pool skill is not associated with the assessment step
-        const hasPoolSkill = assessmentStep.poolSkills?.find(
-          (poolSkill) => poolSkill?.id === original.poolSkill?.id,
-        );
+        // Display nothing for types other than Application Screening on education requirement step
+        if (
+          isEducationRequirement &&
+          assessmentStep.type !== AssessmentStepType.ApplicationScreening
+        )
+          return null;
 
-        if (!hasPoolSkill) return null;
-
+        // Update the existing assessment result
         if (assessmentResult)
           return cells.jsx(
             <Dialog
