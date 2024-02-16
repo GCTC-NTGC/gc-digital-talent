@@ -65,15 +65,16 @@ const SitewideBanner = () => {
 
   return (
     showMaintenanceBanner && (
-      <div data-h2-background-color="base:all(warning.lightest)">
+      <div
+        data-h2-background-color="base(foreground) base:dark(white)"
+        data-h2-padding="base(x1, 0)"
+      >
         <div data-h2-container="base(center, large, x1)">
           <Alert.Root
             type="warning"
             live
-            banner
             data-h2-shadow="base(none)"
             data-h2-margin="base(0, -x1, 0, -x1)"
-            data-h2-color="base:all(warning.darkest)"
           >
             <Alert.Title>{title}</Alert.Title>
             <RichTextRenderer node={htmlToRichTextJSON(message)} />
