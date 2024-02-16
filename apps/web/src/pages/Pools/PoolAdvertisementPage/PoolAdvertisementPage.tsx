@@ -32,6 +32,7 @@ import {
   getPoolStream,
   uiMessages,
   Locales,
+  getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -156,6 +157,10 @@ export const PoolPoster = ({
 
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
+
+  const opportunityLength = pool.opportunityLength
+    ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
+    : "";
 
   const languageRequirement = pool.language
     ? intl.formatMessage(getLanguageRequirement(pool.language))
@@ -558,6 +563,37 @@ export const PoolPoster = ({
                   }
                   value={workLocation}
                   suffix={<WorkLocationDialog workLocation={workLocation} />}
+                />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Employment length",
+                      id: "EGNLD7",
+                      description:
+                        "Label for pool advertisement employment length",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={opportunityLength}
+                  suffix={
+                    <Link
+                      newTab
+                      external
+                      color="secondary"
+                      mode="icon_only"
+                      icon={InformationCircleIcon}
+                      href={
+                        locale === "fr"
+                          ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
+                          : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
+                      }
+                      aria-label={`${intl.formatMessage({
+                        defaultMessage: "Learn more about employment durations",
+                        id: "zlHeEz",
+                        description:
+                          "Link text for employment durations information",
+                      })} ${intl.formatMessage(uiMessages.newTab)}`}
+                    />
+                  }
                 />
                 <DataRow
                   label={
@@ -1048,6 +1084,7 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       status
       language
       securityClearance
+      opportunityLength
       classifications {
         id
         group
