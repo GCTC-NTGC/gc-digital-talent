@@ -199,6 +199,10 @@
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
+  "4WvSir": {
+    "defaultMessage": "Agrandir tout",
+    "description": "Generic link text to expand all accordions in a section"
+  },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
     "description": "The operational requirement described as regular overtime."
@@ -778,6 +782,10 @@
   "OaB49n": {
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
+  },
+  "OeTCOs": {
+    "defaultMessage": "Réduire tout",
+    "description": "Generic link text to collapse all accordions in a section"
   },
   "Og8iHn": {
     "defaultMessage": "Trouver des talents",

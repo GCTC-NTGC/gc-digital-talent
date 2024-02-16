@@ -44,6 +44,24 @@ const primary = (text: React.ReactNode) => (
 );
 
 /**
+ * Wraps text in tags to make it the secondary color with a heavy weight
+ * @param text text to wrap.
+ */
+const heavySecondary = (text: React.ReactNode) => (
+  <span data-h2-color="base(secondary.darker)" data-h2-font-weight="base(700)">
+    {text}
+  </span>
+);
+
+/**
+ * Wraps text in tags to make it the secondary color
+ * @param text text to wrap.
+ */
+const secondary = (text: React.ReactNode) => (
+  <span data-h2-color="base(secondary.darker)">{text}</span>
+);
+
+/**
  * Wraps text in tags to make it red
  * @param text  text to wrap
  */
@@ -123,6 +141,8 @@ export default {
   hidden,
   heavyPrimary,
   primary,
+  heavySecondary,
+  secondary,
   red,
   heavyRed,
   warning,
