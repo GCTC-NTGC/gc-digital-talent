@@ -29,6 +29,7 @@ jobs:
       - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
         displayName: "PHP version"
 
+        # -r option to specify the root directory
       - script: infrastructure/bin/deploy.sh -r $(System.DefaultWorkingDirectory)
         displayName: Dependencies
         env:

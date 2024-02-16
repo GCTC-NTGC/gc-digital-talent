@@ -22,6 +22,7 @@ jobs:
       - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
         displayName: "PHP version"
 
+        # -d option to install dev dependencies and -r option to specify the root directory
       - script: infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
         displayName: Dependencies
         env:
