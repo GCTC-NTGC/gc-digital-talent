@@ -249,13 +249,13 @@ export const finalDecisionCell = (
   poolCandidate: PoolCandidate,
   poolAssessmentSteps: AssessmentStep[],
 ) => {
-  const { color, icon, label } = getCandidateStatusPill(
+  const { color, label } = getCandidateStatusPill(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
   );
   return (
-    <Pill mode="outline" color={color} icon={icon}>
+    <Pill mode="outline" color={color}>
       {label}
     </Pill>
   );

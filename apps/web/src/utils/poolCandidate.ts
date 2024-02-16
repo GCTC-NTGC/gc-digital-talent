@@ -12,7 +12,7 @@ import {
   commonMessages,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
-import { Color, IconType } from "@gc-digital-talent/ui";
+import { Color } from "@gc-digital-talent/ui";
 import {
   AssessmentDecision,
   AssessmentResult,
@@ -486,7 +486,6 @@ const computeInAssessmentStatusPill = (
 type StatusPill = {
   color: Color;
   label: React.ReactNode;
-  icon?: IconType;
 };
 
 export const getCandidateStatusPill = (

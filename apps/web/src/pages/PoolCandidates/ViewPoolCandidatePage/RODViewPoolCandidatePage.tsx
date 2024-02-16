@@ -494,7 +494,6 @@ export const ViewPoolCandidate = ({
       <Pill
         mode="outline"
         color={statusPill.color}
-        icon={statusPill.icon}
         data-h2-font-weight="base(700)"
       >
         {statusPill.label}
