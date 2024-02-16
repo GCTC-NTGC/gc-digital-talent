@@ -1,8 +1,7 @@
-import { IntlShape } from "react-intl";
+import { IntlShape, MessageDescriptor } from "react-intl";
 import isPast from "date-fns/isPast";
 import React from "react";
 import sortBy from "lodash/sortBy";
-import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 
 import {
   formatDate,
@@ -221,6 +220,12 @@ export const sumDecisionTypes = (results: NullableDecision[]) => {
   }, stepAccumulation);
 };
 
+/**
+ *
+ * @param poolCandidates assessmentResults must be loaded and part of the candidate object.
+ * @param steps
+ * @returns
+ */
 export const determineCandidateStatusPerStep = (
   poolCandidates: PoolCandidate[],
   steps: AssessmentStep[],
@@ -327,7 +332,7 @@ export const determineCurrentStepPerCandidate = (
   return candidateToCurrentStep;
 };
 
-export const getFinalDecisionPillColor = (
+const getFinalDecisionPillColor = (
   status?: Maybe<PoolCandidateStatus>,
 ): Color => {
   if (isToAssessStatus(status)) {
@@ -349,26 +354,6 @@ export const getFinalDecisionPillColor = (
   return "white";
 };
 
-export const statusToFinalDecision = (status?: Maybe<PoolCandidateStatus>) => {
-  if (isToAssessStatus(status)) {
-    return poolCandidateMessages.toAssess;
-  }
-
-  if (isDisqualifiedStatus(status)) {
-    return poolCandidateMessages.disqualified;
-  }
-
-  if (isRemovedStatus(status)) {
-    return poolCandidateMessages.removed;
-  }
-
-  if (isQualifiedStatus(status)) {
-    return poolCandidateMessages.qualified;
-  }
-
-  return commonMessages.notAvailable;
-};
-
 export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
   if (status) {
     if (isNotPlacedStatus(status)) {
@@ -383,6 +368,121 @@ export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
   return commonMessages.notAvailable;
 };
 
+// Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!
+const statusToPillMessageMapping: Record<
+  PoolCandidateStatus,
+  MessageDescriptor | MessageDescriptor[]
+> = {
+  [PoolCandidateStatus.Draft]: poolCandidateMessages.toAssess,
+  [PoolCandidateStatus.DraftExpired]: poolCandidateMessages.toAssess,
+  [PoolCandidateStatus.NewApplication]: poolCandidateMessages.toAssess,
+  [PoolCandidateStatus.ApplicationReview]: poolCandidateMessages.toAssess,
+  [PoolCandidateStatus.ScreenedIn]: poolCandidateMessages.toAssess,
+  [PoolCandidateStatus.UnderAssessment]: poolCandidateMessages.toAssess,
+
+  [PoolCandidateStatus.ScreenedOutApplication]:
+    poolCandidateMessages.disqualified,
+  [PoolCandidateStatus.ScreenedOutAssessment]:
+    poolCandidateMessages.disqualified,
+
+  [PoolCandidateStatus.QualifiedAvailable]: poolCandidateMessages.qualified,
+  [PoolCandidateStatus.PlacedCasual]: poolCandidateMessages.qualified,
+  [PoolCandidateStatus.PlacedTerm]: poolCandidateMessages.qualified,
+  [PoolCandidateStatus.PlacedIndeterminate]: poolCandidateMessages.qualified,
+
+  [PoolCandidateStatus.ScreenedOutNotInterested]: [
+    poolCandidateMessages.removed,
+    commonMessages.dividingColon,
+    poolCandidateMessages.toAssess,
+  ],
+  [PoolCandidateStatus.ScreenedOutNotResponsive]: [
+    poolCandidateMessages.removed,
+    commonMessages.dividingColon,
+    poolCandidateMessages.toAssess,
+  ],
+  [PoolCandidateStatus.QualifiedUnavailable]: [
+    poolCandidateMessages.removed,
+    commonMessages.dividingColon,
+    poolCandidateMessages.qualified,
+  ],
+  [PoolCandidateStatus.QualifiedWithdrew]: [
+    poolCandidateMessages.removed,
+    commonMessages.dividingColon,
+    poolCandidateMessages.qualified,
+  ],
+  [PoolCandidateStatus.Expired]: [
+    poolCandidateMessages.expired,
+    commonMessages.dividingColon,
+    poolCandidateMessages.qualified,
+  ],
+  [PoolCandidateStatus.Removed]: poolCandidateMessages.removed,
+};
+
+/**
+ * The inAssessment statuses have extra business logic for deciding how to present the status pill,
+ * since the candidate may or may not be ready for a final decision.
+ */
+const computeInAssessmentStatusPill = (
+  candidate: PoolCandidate,
+  steps: AssessmentStep[],
+  intl: IntlShape,
+): StatusPill => {
+  const orderedSteps = sortBy(steps, (step) => step.sortOrder);
+  const candidateResults = determineCandidateStatusPerStep(
+    [candidate],
+    orderedSteps,
+  );
+  const assessmentResults = Array.from(
+    candidateResults.get(candidate.id)?.values() ?? [],
+  );
+  const isUnsuccessful = assessmentResults.some(
+    (decision) => decision === AssessmentDecision.Unsuccessful,
+  );
+  if (isUnsuccessful) {
+    return {
+      label:
+        intl.formatMessage(poolCandidateMessages.disqualified) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        intl.formatMessage(poolCandidateMessages.pendingDecision),
+      color: "error",
+    };
+  }
+  const candidateCurrentSteps = determineCurrentStepPerCandidate(
+    candidateResults,
+    steps,
+  );
+  const currentStep = candidateCurrentSteps.get(candidate.id);
+
+  // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
+  if (currentStep === null || currentStep === undefined) {
+    return {
+      label:
+        intl.formatMessage(poolCandidateMessages.qualified) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        intl.formatMessage(poolCandidateMessages.pendingDecision),
+      color: "success",
+    };
+  }
+
+  return {
+    label:
+      intl.formatMessage(poolCandidateMessages.toAssess) +
+      intl.formatMessage(commonMessages.dividingColon) +
+      intl.formatMessage(
+        {
+          defaultMessage: "Step {currentStep}",
+          id: "RiGj9w",
+          description: "Label for the candidates current assessment step",
+        },
+        {
+          currentStep: currentStep + 1,
+        },
+      ),
+    // icon: ExclamationTriangleIcon,
+    color: "warning",
+  };
+};
+
 type StatusPill = {
   color: Color;
   label: React.ReactNode;
@@ -394,65 +494,21 @@ export const getCandidateStatusPill = (
   steps: AssessmentStep[],
   intl: IntlShape,
 ): StatusPill => {
-  const isToAssess = isToAssessStatus(candidate.status);
-  let suffix = "";
-  let icon;
-
-  if (isToAssess) {
-    const orderedSteps = sortBy(steps, (step) => step.sortOrder);
-    const candidateResults = determineCandidateStatusPerStep(
-      [candidate],
-      orderedSteps,
-    );
-
-    const assessmentResults = Array.from(
-      candidateResults.get(candidate.id)?.values() ?? [],
-    );
-    const hasUnsuccessful = assessmentResults.some(
-      (decision) => decision === AssessmentDecision.Unsuccessful,
-    );
-    if (hasUnsuccessful) {
-      return {
-        label:
-          intl.formatMessage(poolCandidateMessages.disqualified) +
-          intl.formatMessage(commonMessages.dividingColon) +
-          intl.formatMessage(poolCandidateMessages.pendingDecision),
-        color: "error",
-      };
-    }
-    const candidateCurrentSteps = determineCurrentStepPerCandidate(
-      candidateResults,
-      steps,
-    );
-    const currentStep = candidateCurrentSteps.get(candidate.id);
-    // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
-    if (currentStep === null || currentStep === undefined) {
-      return {
-        label:
-          intl.formatMessage(poolCandidateMessages.qualified) +
-          intl.formatMessage(commonMessages.dividingColon) +
-          intl.formatMessage(poolCandidateMessages.pendingDecision),
-        color: "success",
-      };
-    }
-    icon = ExclamationTriangleIcon;
-    suffix =
-      intl.formatMessage(commonMessages.dividingColon) +
-      intl.formatMessage(
-        {
-          defaultMessage: "Step {currentStep}",
-          id: "RiGj9w",
-          description: "Label for the candidates current assessment step",
-        },
-        {
-          currentStep: currentStep + 1,
-        },
-      );
+  if (isToAssessStatus(candidate.status)) {
+    return computeInAssessmentStatusPill(candidate, steps, intl);
   }
-
+  const messages =
+    statusToPillMessageMapping[
+      candidate.status ?? PoolCandidateStatus.NewApplication
+    ];
+  const label = Array.isArray(messages)
+    ? messages.reduce(
+        (combined, item) => combined + intl.formatMessage(item),
+        "",
+      )
+    : intl.formatMessage(messages);
   return {
-    label: intl.formatMessage(statusToFinalDecision(candidate.status)) + suffix,
+    label,
     color: getFinalDecisionPillColor(candidate.status),
-    icon,
   };
 };

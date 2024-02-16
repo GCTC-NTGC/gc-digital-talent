@@ -23,7 +23,7 @@ import {
   Pool,
   PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -36,12 +36,12 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
+  AssessmentStep,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getFinalDecisionPillColor,
-  statusToFinalDecision,
+  getCandidateStatusPill,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -246,11 +246,17 @@ export const currentLocationAccessor = (
 
 export const finalDecisionCell = (
   intl: IntlShape,
-  status?: Maybe<PoolCandidateStatus>,
+  poolCandidate: PoolCandidate,
+  poolAssessmentSteps: AssessmentStep[],
 ) => {
+  const { color, icon, label } = getCandidateStatusPill(
+    poolCandidate,
+    unpackMaybes(poolAssessmentSteps),
+    intl,
+  );
   return (
-    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
-      {intl.formatMessage(statusToFinalDecision(status))}
+    <Pill mode="outline" color={color} icon={icon}>
+      {label}
     </Pill>
   );
 };
