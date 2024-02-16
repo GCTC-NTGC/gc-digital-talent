@@ -892,9 +892,9 @@ export const PoolPoster = ({
                     {intl.formatMessage({
                       defaultMessage:
                         '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "fkw2eD",
+                      id: "WPJAiw",
                       description:
-                        "Button text to toggle the accordion for diversity, equity and inclusion",
+                        "Button text to toggle the accordion for diversity, equity, and inclusion",
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
@@ -902,9 +902,9 @@ export const PoolPoster = ({
                       {intl.formatMessage({
                         defaultMessage:
                           "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
-                        id: "2sQI9l",
+                        id: "UOHEw1",
                         description:
-                          "Information on commitment to diversity, equity and inclusion",
+                          "Information on commitment to diversity, equity, and inclusion",
                       })}
                     </Text>
                   </Accordion.Content>
