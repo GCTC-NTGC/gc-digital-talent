@@ -60,6 +60,7 @@ type Query {
   ): UserPublicProfilePaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -713,6 +714,11 @@ input PoolCandidateSearchRequestInput {
   additionalComments: String
   adminNotes: String
   generalSearch: String
+}
+
+input PoolCandidatePoolNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 type CandidateSearchPoolResult {

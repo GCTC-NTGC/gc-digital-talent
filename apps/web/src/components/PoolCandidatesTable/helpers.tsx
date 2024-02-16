@@ -4,6 +4,7 @@ import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
+  Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -12,13 +13,15 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
   Maybe,
+  Pool,
+  PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -49,6 +52,8 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { FormValues } from "./types";
@@ -141,6 +146,26 @@ export const candidateNameCell = (
         ),
       )}
     </span>
+  );
+};
+
+export const processCell = (
+  pool: Pool,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => {
+  const poolName = getFullPoolTitleLabel(intl, pool);
+  return (
+    <Link
+      href={paths.poolView(pool.id)}
+      aria-label={
+        intl.formatMessage(processMessages.process) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        poolName
+      }
+    >
+      {poolName}
+    </Link>
   );
 };
 
@@ -370,6 +395,7 @@ export function getSortOrder(
   doNotUseBookmark?: boolean,
   recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
   return [
     ...(doNotUseBookmark
       ? []
@@ -387,8 +413,25 @@ export function getSortOrder(
             order: SortOrder.Asc,
           },
         ]),
-    transformSortStateToOrderByClause(sortingRules, filterState),
+    // Do not apply other filters if we are sorting by process
+    ...(!hasProcess
+      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
+      : []),
   ];
+}
+
+export function getPoolNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolCandidatePoolNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
 }
 
 export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
