@@ -11,7 +11,7 @@ import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 import DataLoader from "dataloader";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   commonMessages,
