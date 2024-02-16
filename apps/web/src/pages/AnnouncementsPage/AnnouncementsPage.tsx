@@ -68,10 +68,15 @@ const AnnouncementsPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const formattedPageTitle = intl.formatMessage(pageTitle);
-
+  // Keep the reference stable.
+  const context = React.useMemo(
+    () => ({ additionalTypenames: ["SitewideAnnouncement"] }),
+    [],
+  );
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: AnnouncementPage_Query,
+      context,
     });
 
   const [{ fetching: isSubmitting }, executeMutation] = useMutation(
@@ -79,7 +84,7 @@ const AnnouncementsPage = () => {
   );
 
   const handleSave = async (input: SitewideAnnouncementInput) => {
-    return executeMutation({ sitewideAnnouncementInput: input }).then(
+    return executeMutation({ sitewideAnnouncementInput: input }, context).then(
       (result) => {
         if (result.data?.updateSitewideAnnouncement) {
           toast.success(intl.formatMessage(commonMessages.success));
