@@ -389,6 +389,7 @@ const statusToPillMessageMapping: Record<
   [PoolCandidateStatus.PlacedCasual]: poolCandidateMessages.qualified,
   [PoolCandidateStatus.PlacedTerm]: poolCandidateMessages.qualified,
   [PoolCandidateStatus.PlacedIndeterminate]: poolCandidateMessages.qualified,
+  [PoolCandidateStatus.PlacedTentative]: poolCandidateMessages.qualified,
 
   [PoolCandidateStatus.ScreenedOutNotInterested]: [
     poolCandidateMessages.removed,

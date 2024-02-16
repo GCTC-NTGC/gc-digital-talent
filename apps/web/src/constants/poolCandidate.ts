@@ -37,6 +37,7 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedIndeterminate,
   PoolCandidateStatus.PlacedTerm,
+  // Its unclear whether PlacedTentative should be here - it probably depends on the context.
 ];
 
 export const NOT_PLACED_STATUSES = [
