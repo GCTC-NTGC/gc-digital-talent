@@ -10,6 +10,7 @@ import {
   WorkRegion,
   SkillCategory,
   User,
+  PoolOpportunityLength,
 } from "@gc-digital-talent/web/src/api/generated";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
@@ -110,6 +111,7 @@ describe("Submit Application Workflow Tests", () => {
                       },
                       isRemote: true,
                       publishingGroup: PublishingGroup.ItJobs,
+                      opportunityLength: PoolOpportunityLength.Various,
                       generalQuestions: {
                         create: [
                           {
