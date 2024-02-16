@@ -30,6 +30,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         PoolCandidateStatus.QualifiedAvailable,
         PoolCandidateStatus.QualifiedUnavailable,
         PoolCandidateStatus.QualifiedWithdrew,
+        PoolCandidateStatus.PlacedTentative,
         PoolCandidateStatus.PlacedCasual,
         PoolCandidateStatus.PlacedIndeterminate,
         PoolCandidateStatus.PlacedTerm,

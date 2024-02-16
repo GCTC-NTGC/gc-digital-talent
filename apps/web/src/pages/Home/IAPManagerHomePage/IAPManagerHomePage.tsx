@@ -135,8 +135,8 @@ export const IAPManagerHomePage = () => {
             <p data-h2-font-size="base(h5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Together we can address barriers to Reconciliation, diversity and inclusion",
-                id: "mtLAap",
+                  "Together we can address barriers to reconciliation, diversity and inclusion",
+                id: "56jSOM",
                 description: "Hero subtitle for IAP manager homepage",
               })}
             </p>
@@ -272,8 +272,8 @@ export const IAPManagerHomePage = () => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "Linked directly to the advancement of Reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
-                      id: "0Ew2uu",
+                        "Linked directly to the advancement of reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
+                      id: "iSbtcK",
                       description:
                         "Paragraph 2 of the 'About the program' section",
                     })}

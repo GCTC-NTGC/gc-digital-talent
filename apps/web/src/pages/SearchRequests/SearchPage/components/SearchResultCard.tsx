@@ -5,9 +5,9 @@ import { useFormContext } from "react-hook-form";
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pool } from "@gc-digital-talent/graphql";
 
-import { Pool } from "~/api/generated";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 const testId = (text: React.ReactNode) => (
@@ -43,7 +43,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         data-h2-font-weight="base(700)"
         id={`search_pool_${pool.id}`}
       >
-        {getFullPoolTitleHtml(intl, pool)}
+        {getShortPoolTitleHtml(intl, pool)}
       </p>
       <p
         data-h2-margin="base(x.5, 0, x1, 0)"
