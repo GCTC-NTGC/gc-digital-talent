@@ -36,6 +36,7 @@ const SitewideBanner = () => {
   });
 
   // Outage time range, date, starttime
+  const announcementIsEnabled = !!data?.sitewideAnnouncement?.isEnabled;
   const announcementPublishDate = data?.sitewideAnnouncement?.publishDate
     ? parseDateTimeUtc(data.sitewideAnnouncement.publishDate)
     : null;
@@ -49,6 +50,7 @@ const SitewideBanner = () => {
     announcementExpiryDate && !Number.isNaN(announcementExpiryDate.getTime());
 
   const showMaintenanceBanner =
+    announcementIsEnabled &&
     announcementPublishDateIsValid &&
     isAfter(Date.now(), announcementPublishDate) &&
     announcementExpiryDateIsValid &&
