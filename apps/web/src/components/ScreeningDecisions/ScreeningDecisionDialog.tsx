@@ -571,7 +571,7 @@ const ScreeningDecisionDialogApi = ({
                 assessmentResultType,
                 assessmentStepId: assessmentStep.id,
                 poolCandidateId: poolCandidate.id,
-                skillId: poolSkill?.id || "",
+                poolSkillId: poolSkill?.id || "",
               }),
             )
       }

@@ -35,7 +35,7 @@ export type FormValuesToApiCreateInputArgs = {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
-  skillId: string;
+  poolSkillId: string;
   assessmentResultType: AssessmentResultType;
 };
 
@@ -49,7 +49,7 @@ export function convertFormValuesToApiCreateInput({
   formValues,
   assessmentStepId,
   poolCandidateId,
-  skillId,
+  poolSkillId,
   assessmentResultType,
 }: FormValuesToApiCreateInputArgs): CreateAssessmentResultInput {
   const {
@@ -71,7 +71,7 @@ export function convertFormValuesToApiCreateInput({
       ? [...justifications]
       : justifications && [justifications],
     otherJustificationNotes,
-    poolSkillId: skillId,
+    poolSkillId,
     skillDecisionNotes,
   };
 }
