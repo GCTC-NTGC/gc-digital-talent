@@ -64,15 +64,15 @@ export const pageTitle: MessageDescriptor = defineMessage({
 export const pageOutlineIcon: IconType = MegaphoneOutlineIcon;
 export const pageSolidIcon: IconType = MegaphoneSolidIcon;
 
+// To help the URQL cache work
+// Keep the reference stable.
+const context = { additionalTypenames: ["SitewideAnnouncement"] };
+
 const AnnouncementsPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const formattedPageTitle = intl.formatMessage(pageTitle);
-  // Keep the reference stable.
-  const context = React.useMemo(
-    () => ({ additionalTypenames: ["SitewideAnnouncement"] }),
-    [],
-  );
+
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: AnnouncementPage_Query,
