@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import DataLoader from "dataloader";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -359,33 +360,69 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const querySelected = async (action: SelectingFor) => {
-    setSelectingFor(action);
-    setIsSelecting(true);
-    return client
-      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
-        ids: selectedRows,
-      })
-      .toPromise()
-      .then((result) => {
-        const poolCandidates: PoolCandidate[] = unpackMaybes(
-          result.data?.poolCandidates,
+  const isPoolCandidate = (
+    candidate: Error | PoolCandidate | null,
+  ): candidate is PoolCandidate =>
+    candidate !== null && !(candidate instanceof Error);
+
+  const batchLoader = new DataLoader<string, PoolCandidate | null>(
+    async (ids) => {
+      const batchSize = 50; // Limit the batch size to 5 IDs
+      const batches = [];
+
+      for (let i = 0; i < ids.length; i += batchSize) {
+        const batchIds = ids.slice(i, i + batchSize);
+        batches.push(
+          client
+            .query<{
+              poolCandidates: PoolCandidate[];
+            }>(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+              ids: batchIds,
+            })
+            .then((result) => result.data?.poolCandidates ?? []),
         );
+      }
 
-        if (result.error) {
-          toast.error(intl.formatMessage(errorMessages.unknown));
-        } else if (!poolCandidates.length) {
-          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
-        }
+      try {
+        const batchResults = await Promise.all(batches);
+        const candidates = batchResults.flat(); // Flatten the array
 
-        setSelectedCandidates(poolCandidates);
-        setIsSelecting(false);
-        setSelectingFor(null);
-        return poolCandidates;
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.unknown));
-      });
+        return ids.map(
+          (id) => candidates.find((candidate) => candidate.id === id) ?? null,
+        );
+      } catch (error) {
+        return ids.map(() => null); // Return null for all IDs in case of an error
+      }
+    },
+    {
+      // Configure DataLoader to cache the results for each ID
+      cacheKeyFn: (key) => key,
+    },
+  );
+
+  const querySelected = async (
+    action: SelectingFor,
+  ): Promise<PoolCandidate[]> => {
+    try {
+      setSelectingFor(action);
+      setIsSelecting(true);
+      const poolCandidates = await batchLoader.loadMany(selectedRows);
+      const filteredPoolCandidates = poolCandidates.filter(isPoolCandidate);
+
+      if (filteredPoolCandidates.length === 0) {
+        toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+      } else {
+        setSelectedCandidates(filteredPoolCandidates);
+      }
+
+      return filteredPoolCandidates;
+    } catch (error) {
+      toast.error(intl.formatMessage(errorMessages.unknown));
+      throw error;
+    } finally {
+      setIsSelecting(false);
+      setSelectingFor(null);
+    }
   };
 
   const columns = [
