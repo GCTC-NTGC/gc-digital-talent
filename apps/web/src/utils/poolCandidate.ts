@@ -478,7 +478,6 @@ const computeInAssessmentStatusPill = (
           currentStep: currentStep + 1,
         },
       ),
-    // icon: ExclamationTriangleIcon,
     color: "warning",
   };
 };
