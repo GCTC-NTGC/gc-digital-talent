@@ -8,6 +8,7 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -27,10 +28,13 @@ export const getPageInfo: GetPageNavInfo = ({
   paths,
   intl,
   stepOrdinal,
+  RoDFlag,
 }) => {
   const path = paths.applicationQuestions(application.id);
   return {
-    title: intl.formatMessage(processMessages.screeningQuestions),
+    title: RoDFlag
+      ? intl.formatMessage(processMessages.additionalQuestions)
+      : intl.formatMessage(processMessages.screeningQuestions),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
       id: "GTHuSJ",
@@ -54,24 +58,28 @@ export const getPageInfo: GetPageNavInfo = ({
 const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const navigate = useNavigate();
-  const { currentStepOrdinal, isIAP } = useApplicationContext();
-  const pageInfo = getPageInfo({
-    intl,
-    paths,
-    application,
-    stepOrdinal: currentStepOrdinal,
-  });
+  const { isIAP } = useApplicationContext();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
+  const screeningQuestions = features.recordOfDecision
+    ? application.pool.screeningQuestions?.filter(notEmpty) || []
+    : [];
+  const screeningQuestionResponses =
+    application.screeningQuestionResponses?.filter(notEmpty) || [];
   const generalQuestions =
     application.pool.generalQuestions?.filter(notEmpty) || [];
   const generalQuestionResponses =
     application.generalQuestionResponses?.filter(notEmpty) || [];
   const handleSubmit = async (formValues: FormValues) => {
-    const data = formValuesToSubmitData(formValues, generalQuestionResponses);
+    const data = formValuesToSubmitData(
+      formValues,
+      screeningQuestionResponses,
+      generalQuestionResponses,
+    );
     executeMutation({
       id: application.id,
       application: {
@@ -83,11 +91,10 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
         if (!res.error) {
           toast.success(
             intl.formatMessage({
-              defaultMessage:
-                "Successfully updated screening question responses!",
-              id: "kJUKrT",
+              defaultMessage: "Successfully updated question responses!",
+              id: "Bs/9PZ",
               description:
-                "Message displayed to users when saving screening question responses is successful.",
+                "Message displayed to users when saving question responses is successful.",
             }),
           );
           navigate(
@@ -100,62 +107,64 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: adding experience failed",
-            id: "moKAQP",
+            defaultMessage: "Error: updating question responses failed",
+            id: "38dkpl",
             description:
-              "Message displayed to user after experience fails to be created.",
+              "Message displayed to user after application question responses fail to be updated.",
           }),
         );
       });
   };
 
   return (
-    <>
-      <div
-        data-h2-display="p-tablet(flex)"
-        data-h2-align-items="p-tablet(flex-end)"
-        data-h2-justify-content="p-tablet(space-between)"
-        data-h2-margin-bottom="base(x1)"
-      >
-        <Heading
-          data-h2-margin="base(0)"
-          data-h2-font-weight="base(400)"
-          size="h3"
-        >
-          {pageInfo.title}
-        </Heading>
-        <Link
-          color="secondary"
-          mode="inline"
-          href={paths.applicationQuestionsIntro(application.id)}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Review instructions",
-            id: "cCSlti",
-            description: "Title for review instructions action",
-          })}
-        </Link>
-      </div>
-      <p data-h2-margin="base(x1, 0, x3, 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            'Don\'t forget to take a break if you need to! Using the "Save and quit for now" button, you can record your progress and return to questions you might be stuck on later.',
-          id: "tMnjyJ",
-          description:
-            "Notice that application can be saved and returned to at a later time.",
-        })}
-      </p>
-      <BasicForm
-        onSubmit={handleSubmit}
-        options={{
-          defaultValues: dataToFormValues(
-            generalQuestions,
-            generalQuestionResponses,
-          ),
-        }}
-      >
-        {generalQuestions.length ? (
-          generalQuestions.map((question, index) => (
+    <BasicForm
+      onSubmit={handleSubmit}
+      options={{
+        defaultValues: dataToFormValues(
+          screeningQuestions,
+          screeningQuestionResponses,
+          generalQuestions,
+          generalQuestionResponses,
+        ),
+      }}
+    >
+      {/* Screening Questions */}
+      {screeningQuestions.length > 0 && features.recordOfDecision && (
+        <div data-h2-margin-bottom="base(x4)">
+          <div
+            data-h2-display="p-tablet(flex)"
+            data-h2-align-items="p-tablet(flex-end)"
+            data-h2-justify-content="p-tablet(space-between)"
+            data-h2-margin-bottom="base(x1)"
+          >
+            <Heading
+              data-h2-margin="base(0)"
+              data-h2-font-weight="base(400)"
+              size="h3"
+            >
+              {intl.formatMessage(processMessages.screeningQuestions)}
+            </Heading>
+            <Link
+              color="secondary"
+              mode="inline"
+              href={paths.applicationQuestionsIntro(application.id)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Review instructions",
+                id: "cCSlti",
+                description: "Title for review instructions action",
+              })}
+            </Link>
+          </div>
+          <p data-h2-margin="base(x1, 0, x3, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Remember, the questions in this section will be used to evaluate your application.",
+              id: "8TyO/X",
+              description: "Reminder what screening questions are used for.",
+            })}
+          </p>
+          {screeningQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
               <Heading
                 level="h3"
@@ -172,27 +181,99 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                   { number: index + 1 },
                 )}
               </Heading>
-              <input type="hidden" name={`answers.${index}.id`} />
-              <input type="hidden" name={`answers.${index}.questionId`} />
+              <input type="hidden" name={`screeningAnswers.${index}.id`} />
+              <input
+                type="hidden"
+                name={`screeningAnswers.${index}.questionId`}
+              />
               <AnswerInput index={index} question={question} />
             </React.Fragment>
-          ))
-        ) : (
-          <Well>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This process has no screening questions. You may continue on to the next step.",
-                id: "CfNtWn",
-                description:
-                  "Message displayed to users when there are no screening questions for a process",
-              })}
-            </p>
-          </Well>
-        )}
-        <FormActions disabled={mutating} />
-      </BasicForm>
-    </>
+          ))}
+        </div>
+      )}
+
+      {/* General Questions */}
+      {(generalQuestions.length > 0 || !features.recordOfDecision) && (
+        <>
+          <div
+            data-h2-display="p-tablet(flex)"
+            data-h2-align-items="p-tablet(flex-end)"
+            data-h2-justify-content="p-tablet(space-between)"
+            data-h2-margin-bottom="base(x1)"
+          >
+            <Heading
+              data-h2-margin="base(0)"
+              data-h2-font-weight="base(400)"
+              size="h3"
+            >
+              {intl.formatMessage(processMessages.generalQuestions)}
+            </Heading>
+            {(!features.recordOfDecision ||
+              screeningQuestions.length === 0) && (
+              <Link
+                color="secondary"
+                mode="inline"
+                href={paths.applicationQuestionsIntro(application.id)}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Review instructions",
+                  id: "cCSlti",
+                  description: "Title for review instructions action",
+                })}
+              </Link>
+            )}
+          </div>
+          <p data-h2-margin="base(x1, 0, x3, 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "Please answer these questions to the best of your ability to help hiring managers gain a stronger understanding of your fit to the opportunity.",
+              id: "zH8887",
+              description: "Reminder what general questions are used for.",
+            })}
+          </p>
+          {generalQuestions.length ? (
+            generalQuestions.map((question, index) => (
+              <React.Fragment key={question.id}>
+                <Heading
+                  level="h3"
+                  size="h4"
+                  data-h2-font-weight="base(700)"
+                  data-h2-margin="base(x2, 0, x1, 0)"
+                >
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Question {number}",
+                      id: "/sBGov",
+                      description: "Heading for a specific screening question",
+                    },
+                    { number: index + 1 },
+                  )}
+                </Heading>
+                <input type="hidden" name={`generalAnswers.${index}.id`} />
+                <input
+                  type="hidden"
+                  name={`generalAnswers.${index}.questionId`}
+                />
+                <AnswerInput index={index} question={question} />
+              </React.Fragment>
+            ))
+          ) : (
+            <Well>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This process has no screening questions. You may continue on to the next step.",
+                  id: "CfNtWn",
+                  description:
+                    "Message displayed to users when there are no screening questions for a process",
+                })}
+              </p>
+            </Well>
+          )}
+        </>
+      )}
+      <FormActions disabled={mutating} />
+    </BasicForm>
   );
 };
 

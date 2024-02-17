@@ -17,6 +17,7 @@ type GetApplicationStepInfoArgs = {
   resourceId?: Scalars["ID"];
   intl: IntlShape;
   stepOrdinal?: number;
+  RoDFlag: boolean;
 };
 
 export type ApplicationStepInfo = {

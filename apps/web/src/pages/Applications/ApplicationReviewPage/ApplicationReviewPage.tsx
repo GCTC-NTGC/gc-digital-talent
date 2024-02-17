@@ -17,6 +17,7 @@ import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { Experience, SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -94,6 +95,7 @@ const ApplicationReview = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { currentStepOrdinal, followingPageUrl, isIAP } =
     useApplicationContext();
@@ -102,6 +104,7 @@ const ApplicationReview = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 

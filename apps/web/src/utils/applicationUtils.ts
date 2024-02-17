@@ -29,6 +29,7 @@ type GetApplicationPagesArgs = {
   intl: IntlShape;
   application: Application_PoolCandidateFragment;
   experienceId?: string;
+  RoDFlag: boolean;
 };
 
 // Dynamically build the list of application steps for this application
@@ -37,6 +38,7 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
+  RoDFlag,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   // build the order of step functions to call
   const stepInfoFunctions = [
@@ -59,6 +61,7 @@ export const getApplicationSteps = ({
       application,
       resourceId: experienceId,
       stepOrdinal: index + 1,
+      RoDFlag,
     }),
   );
 
