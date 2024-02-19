@@ -733,6 +733,16 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
+/** Announcements */
+const AnnouncementsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
+      ),
+  ),
+);
+
 /** Directive on Digital Talent */
 const DirectivePage = React.lazy(() =>
   lazyRetry(
@@ -1824,6 +1834,17 @@ const createRoute = (
                       ],
                     },
                   ],
+                },
+                {
+                  path: "announcements",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <AnnouncementsPage />
+                    </RequireAuth>
+                  ),
                 },
               ],
             },

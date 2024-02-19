@@ -33,6 +33,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  sitewideAnnouncement: SitewideAnnouncement
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -154,6 +155,7 @@ type Mutation {
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
+  updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -724,6 +726,22 @@ input PoolCandidatePoolNameOrderByInput {
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int!
+}
+
+type SitewideAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedString!
+  message: LocalizedString!
+}
+
+input SitewideAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedStringInput!
+  message: LocalizedStringInput!
 }
 
 input ClassificationBelongsTo {

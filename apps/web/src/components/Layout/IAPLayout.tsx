@@ -24,7 +24,7 @@ import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
-import MaintenanceBanner from "./MaintenanceBanner";
+import SitewideBanner from "./SitewideBanner";
 
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
@@ -86,7 +86,7 @@ const Layout = () => {
           >
             <div>
               <Header />
-              <MaintenanceBanner />
+              <SitewideBanner />
               <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
             </div>
             <main id="main">
