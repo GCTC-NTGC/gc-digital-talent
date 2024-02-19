@@ -134,31 +134,6 @@ query ViewTeam($id: UUID!) {
   }
 }
 
-query TeamMembers($id: UUID!) {
-  team(id: $id) {
-    ...team
-  }
-  roles {
-    id
-    name
-    isTeamBased
-    displayName {
-      en
-      fr
-    }
-  }
-  users {
-    id
-    email
-    firstName
-    lastName
-    telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-  }
-}
-
 query TeamName($id: UUID!) {
   team(id: $id) {
     id
