@@ -331,6 +331,10 @@
     "defaultMessage": "N’importe quelle langue",
     "description": "Label for the any language option"
   },
+  "/k2RKP": {
+    "defaultMessage": "Français - Message",
+    "description": "The message, in French"
+  },
   "/ldR5A": {
     "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
@@ -482,6 +486,10 @@
   "0T3NB0": {
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
+  },
+  "0Vjyzx": {
+    "defaultMessage": "Anglais - Message",
+    "description": "The message, in English"
   },
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
@@ -890,10 +898,6 @@
   "2ni0ia": {
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
-  },
-  "2oqp21": {
-    "defaultMessage": "Veuillez prendre note que le site des Talents numériques du GC ne sera pas accessible pour une période prévue de <strong>{duration} heure(s)</strong> le <strong>{startDate}</strong>. Nous nous excusons de tout contretemps.",
-    "description": "Description for a server maintenance banner."
   },
   "2pY3lT": {
     "defaultMessage": "Numéro de processus",
@@ -1378,6 +1382,10 @@
   "5cW3Ns": {
     "defaultMessage": "De plus amples renseignements ayant trait à la demande du candidat.",
     "description": "Description for more actions sidebar on view pool candidate page"
+  },
+  "5cll86": {
+    "defaultMessage": "Date de publication (UTC)",
+    "description": "A date at which data will be published, in the UTC time standard"
   },
   "5dFzBc": {
     "defaultMessage": "Mettre à jour et passer en revue les informations relatives à votre parcours professionnel.",
@@ -2759,6 +2767,10 @@
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
   },
+  "DQ8q0K": {
+    "defaultMessage": "Date de publication (heure locale)",
+    "description": "A date at which data will be published, in the local time zone"
+  },
   "DRYl88": {
     "defaultMessage": "Prix et reconnaissance",
     "description": "Title for award experience section"
@@ -3415,10 +3427,6 @@
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
   },
-  "H0RLNn": {
-    "defaultMessage": "Maintenance du serveur prevue",
-    "description": "Heading for a server maintenance banner."
-  },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
@@ -3938,6 +3946,10 @@
   "KFdDjj": {
     "defaultMessage": "25 000 $ à 50 000 $",
     "description": "Contract value range between twenty-five-thousand and fifty-thousand"
+  },
+  "KH3yb6": {
+    "defaultMessage": "Date d’expiration (heure locale)",
+    "description": "A date at which data will expire, in the local time zone"
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -4491,6 +4503,10 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
+  "Ng7dwm": {
+    "defaultMessage": "Anglais - Titre",
+    "description": "The title, in English"
+  },
   "NivtzV": {
     "defaultMessage": "Cette opération créera un nouveau processus et copiera toute l’information existante.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -4598,6 +4614,10 @@
   "OOHY6f": {
     "defaultMessage": "Transfert de connaissances",
     "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
+  },
+  "OSoezC": {
+    "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
+    "description": "Instructions to enter the date in the API DateTime scalar form"
   },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
@@ -5010,6 +5030,10 @@
   "QpfFEG": {
     "defaultMessage": "Ces renseignements seront utilisés sous une forme anonyme à des fins statistiques.",
     "description": "Explanation on how employment equity information will be used, item three"
+  },
+  "QpghXO": {
+    "defaultMessage": "Activé",
+    "description": "A switch to enable or disable a setting"
   },
   "QsILUL": {
     "defaultMessage": "Filtrer les candidats par ordre de statut",
@@ -7414,6 +7438,10 @@
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
     "description": "Comments or contributions list item"
   },
+  "dyzeVv": {
+    "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
+    "description": "Text on a button to save the sitewide announcement"
+  },
   "e+xir3": {
     "defaultMessage": "Autres exigences",
     "description": "Signpost title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -7797,6 +7825,10 @@
   "gBKyL2": {
     "defaultMessage": "Sauvegarder l’information relative à l’équipe",
     "description": "Button text for the update team form submit button"
+  },
+  "gChYmW": {
+    "defaultMessage": "Annonce à l’échelle du site",
+    "description": "Page title for the update sitewide announcement page"
   },
   "gEnOmo": {
     "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
@@ -8406,6 +8438,10 @@
     "defaultMessage": "Date de réception",
     "description": "En-tête CSV, colonne Date de réception"
   },
+  "j9zYRY": {
+    "defaultMessage": "Date d’expiration (UTC)",
+    "description": "A date at which data will expire, in the UTC time standard"
+  },
   "jA4kuU": {
     "defaultMessage": "Les apprentis seront-ils payés?",
     "description": "Learn more dialog question four heading"
@@ -8797,6 +8833,10 @@
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
+  },
+  "ll9u08": {
+    "defaultMessage": "Annonces",
+    "description": "Page title for the announcements page"
   },
   "lmD1ef": {
     "defaultMessage": "Sélection de la compétence",
@@ -9873,6 +9913,10 @@
   "sB7wVn": {
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
     "description": "Paragraph for comments and interaction section"
+  },
+  "sC8mrj": {
+    "defaultMessage": "Français - Titre",
+    "description": "The title, in French"
   },
   "sDqpzq": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
