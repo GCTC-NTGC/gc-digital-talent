@@ -269,24 +269,6 @@ mutation UpdateSkill($id: ID!, $skill: UpdateSkillInput!) {
   }
 }
 
-mutation CreateSkill($skill: CreateSkillInput!) {
-  createSkill(skill: $skill) {
-    key
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-  }
-}
-
 mutation CreateUserSkill(
   $userId: UUID!
   $skillId: UUID!
