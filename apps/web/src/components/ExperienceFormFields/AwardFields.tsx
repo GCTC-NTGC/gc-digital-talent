@@ -12,6 +12,7 @@ import {
   errorMessages,
   getAwardedScope,
   getAwardedTo,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
@@ -42,12 +43,7 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             id="awardedTo"
             label={labels.awardedTo}
             name="awardedTo"
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select an option",
-              id: "KWLDYe",
-              description:
-                "Null selection for select input in the awarded to form.",
-            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -76,12 +72,7 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             id="awardedScope"
             label={labels.awardedScope}
             name="awardedScope"
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select an option",
-              id: "xyHtkt",
-              description:
-                "Null selection for select input in the award scope form.",
-            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

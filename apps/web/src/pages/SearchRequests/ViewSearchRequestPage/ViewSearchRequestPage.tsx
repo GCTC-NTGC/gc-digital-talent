@@ -1,12 +1,13 @@
 import React from "react";
 
-import { Scalars } from "~/api/generated";
+import { Scalars } from "@gc-digital-talent/graphql";
+
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
 type RouteParams = {
-  searchRequestId: Scalars["ID"];
+  searchRequestId: Scalars["ID"]["output"];
 };
 
 export const SingleSearchRequestPage = () => {

@@ -11,6 +11,7 @@ import {
 import {
   errorMessages,
   getEvaluatedLanguageAbility,
+  uiMessages,
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
@@ -172,12 +173,9 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               id="comprehensionLevel"
               name="comprehensionLevel"
               label={labels.comprehensionLevel}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level",
-                id: "mX4+Dq",
-                description:
-                  "Placeholder displayed on the language information form comprehension field.",
-              })}
+              nullSelection={intl.formatMessage(
+                uiMessages.nullSelectionOptionLevel,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -188,12 +186,9 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               id="writtenLevel"
               name="writtenLevel"
               label={labels.writtenLevel}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level",
-                id: "4JS9Yp",
-                description:
-                  "Placeholder displayed on the language information form written field.",
-              })}
+              nullSelection={intl.formatMessage(
+                uiMessages.nullSelectionOptionLevel,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -204,12 +199,9 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               id="verbalLevel"
               name="verbalLevel"
               label={labels.verbalLevel}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a level",
-                id: "tl7bV2",
-                description:
-                  "Placeholder displayed on the language information form verbal field.",
-              })}
+              nullSelection={intl.formatMessage(
+                uiMessages.nullSelectionOptionLevel,
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}

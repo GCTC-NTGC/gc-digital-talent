@@ -23,7 +23,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
 import {
   getAdvertisementStatus,
-  getFullPoolTitleHtml,
+  getShortPoolTitleHtml,
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
@@ -63,7 +63,7 @@ export const ViewPool = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
-  const poolName = getFullPoolTitleHtml(intl, pool);
+  const poolName = getShortPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);

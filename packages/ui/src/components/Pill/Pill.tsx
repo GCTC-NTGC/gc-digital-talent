@@ -22,8 +22,8 @@ const h2ChipColors = {
   primary: {
     solid: {
       "data-h2-border": "base(1px solid primary.light)",
-      "data-h2-background-color": "base(primary.light) ",
-      "data-h2-color": "base(black) ",
+      "data-h2-background-color": "base(primary.light) base:iap(primary)",
+      "data-h2-color": "base(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid primary.darker)",
@@ -35,7 +35,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid secondary)",
       "data-h2-background-color": "base(secondary)",
-      "data-h2-color": "base(black) base:iap(white)",
+      "data-h2-color": "base:all(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid secondary.darker)",
@@ -47,7 +47,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid secondary)",
       "data-h2-background-color": "base(secondary)",
-      "data-h2-color": "base:all(white) base:iap:all(black)",
+      "data-h2-color": "base:all(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base:all(1px solid secondary.lighter)",
@@ -59,7 +59,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid tertiary)",
       "data-h2-background-color": "base(tertiary)",
-      "data-h2-color": "base(black) base:iap(white)",
+      "data-h2-color": "base:all(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid tertiary.darker)",
@@ -71,7 +71,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid quaternary)",
       "data-h2-background-color": "base(quaternary)",
-      "data-h2-color": "base(black) base:iap(white)",
+      "data-h2-color": "base:all(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid quaternary.darker)",
@@ -83,7 +83,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid quinary)",
       "data-h2-background-color": "base(quinary)",
-      "data-h2-color": "base(black) base:iap(white)",
+      "data-h2-color": "base:all(black) base:iap:all(white)",
     },
     outline: {
       "data-h2-border": "base(1px solid quinary.darker)",
@@ -107,7 +107,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid warning)",
       "data-h2-background-color": "base(warning)",
-      "data-h2-color": "base(black)",
+      "data-h2-color": "base:all(black)",
     },
     outline: {
       "data-h2-border": "base(1px solid warning.darker)",
@@ -131,7 +131,7 @@ const h2ChipColors = {
     solid: {
       "data-h2-border": "base(1px solid gray.light)",
       "data-h2-background-color": "base(gray.light)",
-      "data-h2-color": "base(black)",
+      "data-h2-color": "base:all(black)",
     },
     outline: {
       "data-h2-border": "base(1px solid gray.darker)",

@@ -1,6 +1,5 @@
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-
-import { Maybe, PositionDuration } from "~/api/generated";
+import { Maybe, PositionDuration } from "@gc-digital-talent/graphql";
 
 // eslint-disable-next-line import/prefer-default-export
 export const positionDurationToEmploymentDuration = (

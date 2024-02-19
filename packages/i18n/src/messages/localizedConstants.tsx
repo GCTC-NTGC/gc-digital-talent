@@ -40,6 +40,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
+import commonMessages from "./commonMessages";
 
 const employmentEquityGroups = defineMessages({
   woman: {
@@ -161,12 +162,7 @@ const citizenshipStatusesProfile = defineMessages({
     id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "lr2+2R",
-    description:
-      "declaring one to be neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesProfile = (
@@ -189,11 +185,7 @@ const citizenshipStatusesAdmin = defineMessages({
     id: "xCBinq",
     description: "user is a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "48qVi9",
-    description: "user is neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesAdmin = (
@@ -668,6 +660,12 @@ const poolCandidateStatuses = defineMessages({
     id: "yRxy3a",
     description: "The pool candidate's status is Qualified Withdrew.",
   },
+  [PoolCandidateStatus.PlacedTentative]: {
+    defaultMessage: "Offer in Progress",
+    id: "k/+pcc",
+    description:
+      "The pool candidate's status is Offer in Progress, tentatively placed",
+  },
   [PoolCandidateStatus.PlacedCasual]: {
     defaultMessage: "Placed Casual",
     id: "ACppq6",
@@ -1104,11 +1102,7 @@ const educationTypeMessages = defineMessages({
     id: "jS69se",
     description: "Certification selection for education type input",
   },
-  [EducationType.Other]: {
-    defaultMessage: "Other",
-    id: "eGg734",
-    description: "Other selection for education type input",
-  },
+  [EducationType.Other]: commonMessages.other,
 });
 
 export const getEducationType = (
@@ -1665,11 +1659,7 @@ const bilingualEvaluations = defineMessages({
     id: "DUuisY",
     description: "Completed a French language evaluation",
   },
-  [BilingualEvaluation.NotCompleted]: {
-    defaultMessage: "No",
-    id: "ZEsIZi",
-    description: "No, did not complete a language evaluation",
-  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
 });
 
 export const getBilingualEvaluation = (
@@ -1697,11 +1687,7 @@ export const poolCandidatePriorities = defineMessages({
     id: "oMyc4e",
     description: "Priority text for citizens of canada",
   },
-  40: {
-    defaultMessage: "Other",
-    id: "K80psp",
-    description: "Priority text for users with no priority",
-  },
+  40: commonMessages.other,
 });
 
 export const getPoolCandidatePriorities = (
@@ -1735,11 +1721,7 @@ const publishingGroups = defineMessages({
     id: "1YuZjR",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
-  [PublishingGroup.Other]: {
-    defaultMessage: "Other",
-    id: "mv7JO3",
-    description: "The publishing group called Other",
-  },
+  [PublishingGroup.Other]: commonMessages.other,
 });
 
 export const getPublishingGroup = (

@@ -14,7 +14,11 @@ import {
   AlertDialog,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { formMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  formMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 
 import {
   Scalars,
@@ -404,11 +408,7 @@ export const ExperienceForm = ({
                         <AlertDialog.Footer>
                           <AlertDialog.Cancel>
                             <Button type="button" color="secondary">
-                              {intl.formatMessage({
-                                defaultMessage: "Cancel",
-                                id: "KnE2Rk",
-                                description: "Cancel confirmation",
-                              })}
+                              {intl.formatMessage(commonMessages.cancel)}
                             </Button>
                           </AlertDialog.Cancel>
                           <AlertDialog.Action>
@@ -418,11 +418,7 @@ export const ExperienceForm = ({
                               color="primary"
                               onClick={handleDeleteExperience}
                             >
-                              {intl.formatMessage({
-                                defaultMessage: "Delete",
-                                id: "sBksyQ",
-                                description: "Delete confirmation",
-                              })}
+                              {intl.formatMessage(commonMessages.delete)}
                             </Button>
                           </AlertDialog.Action>
                         </AlertDialog.Footer>

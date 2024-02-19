@@ -135,6 +135,32 @@ const messages = defineMessages({
     description:
       "External link message for the EX graduation with degree requirement.",
   },
+  educationRequirementECJustEducationHeading: {
+    defaultMessage: "Degree in economics, sociology or statistics",
+    id: "PbLJnr",
+    description:
+      "Heading for the `just education` option for EC education requirements",
+  },
+  educationRequirementECJustEducationDescription: {
+    defaultMessage:
+      "Graduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.",
+    id: "GurdF+",
+    description:
+      "Description for the `just education` option for EC education requirements",
+  },
+  educationRequirementECEducationPlusHeading: {
+    defaultMessage: "Other degree with specialization",
+    id: "WT+5to",
+    description:
+      "Heading for the `other education with specialization` option for EC education requirements",
+  },
+  educationRequirementECEducationPlusDescription: {
+    defaultMessage:
+      "A degree is still required. However, the specialization in economics, sociology, or statistics may also be obtained through an acceptable combination of education, training, or experience.",
+    id: "IEp0sR",
+    description:
+      "Description for the `other education with specialization` option for EC education requirements",
+  },
 });
 
 export default messages;

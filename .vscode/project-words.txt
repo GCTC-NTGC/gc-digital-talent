@@ -38,6 +38,7 @@ gctalent
 headlessui
 Helpdesk
 heroicons
+Inclusivity
 INDIGENOUSAPPRENTICESHIP
 Inuk
 jwks

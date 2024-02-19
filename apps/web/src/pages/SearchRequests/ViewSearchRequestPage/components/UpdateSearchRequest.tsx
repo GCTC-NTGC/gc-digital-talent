@@ -2,6 +2,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useMutation } from "urql";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import {
@@ -16,13 +17,13 @@ import {
   getPoolCandidateSearchStatus,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-
 import {
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
   UpdatePoolCandidateSearchRequestInput,
-  useUpdatePoolCandidateSearchRequestMutation,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
@@ -262,12 +263,28 @@ export const UpdateSearchRequestForm = ({
   );
 };
 
+const UpdateSearchRequest_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateSearchRequest(
+    $id: ID!
+    $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+  ) {
+    updatePoolCandidateSearchRequest(
+      id: $id
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      id
+      status
+      adminNotes
+    }
+  }
+`);
+
 const UpdateSearchRequest = ({
   initialSearchRequest,
 }: {
   initialSearchRequest: PoolCandidateSearchRequest;
 }) => {
-  const [, executeMutation] = useUpdatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useMutation(UpdateSearchRequest_Mutation);
   const handleUpdateSearchRequest = (
     id: string,
     data: UpdatePoolCandidateSearchRequestInput,

@@ -8,14 +8,13 @@ import {
   commonMessages,
   getPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
-
 import {
   Classification,
   Maybe,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
   Scalars,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 export function classificationAccessor(
   classifications: Maybe<Maybe<Classification>[]> | undefined,
@@ -51,7 +50,10 @@ export function classificationsCell(
   );
 }
 
-export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+export function dateCell(
+  date: Maybe<Scalars["DateTime"]["output"]>,
+  intl: IntlShape,
+) {
   return date ? (
     <span>
       {formatDate({

@@ -4,13 +4,16 @@ on:
   push:
     branches: ["main"]
     paths:
+      - chromatic.config.json
       - .github/workflows/storybook.yml
       - packages/**
       - apps/**
+
   merge_group:
     branches: [main]
   pull_request:
     paths:
+      - chromatic.config.json
       - .github/workflows/storybook.yml
       - packages/**
       - apps/**

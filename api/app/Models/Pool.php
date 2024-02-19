@@ -210,6 +210,11 @@ class Pool extends Model
         return $this->hasMany(GeneralQuestion::class);
     }
 
+    public function screeningQuestions(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestion::class);
+    }
+
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
