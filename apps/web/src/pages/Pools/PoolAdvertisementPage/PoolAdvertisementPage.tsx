@@ -555,18 +555,6 @@ export const PoolPoster = ({
                 <DataRow
                   label={
                     intl.formatMessage({
-                      defaultMessage: "Work location",
-                      id: "2aE/gp",
-                      description:
-                        "Label for pool advertisement location requirement",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
-                  }
-                  value={workLocation}
-                  suffix={<WorkLocationDialog workLocation={workLocation} />}
-                />
-                <DataRow
-                  label={
-                    intl.formatMessage({
                       defaultMessage: "Employment length",
                       id: "EGNLD7",
                       description:
@@ -595,6 +583,19 @@ export const PoolPoster = ({
                     />
                   }
                 />
+                <DataRow
+                  label={
+                    intl.formatMessage({
+                      defaultMessage: "Work location",
+                      id: "2aE/gp",
+                      description:
+                        "Label for pool advertisement location requirement",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
+                  }
+                  value={workLocation}
+                  suffix={<WorkLocationDialog workLocation={workLocation} />}
+                />
+
                 <DataRow
                   label={
                     intl.formatMessage({
