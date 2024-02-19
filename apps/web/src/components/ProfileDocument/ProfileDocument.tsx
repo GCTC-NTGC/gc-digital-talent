@@ -283,8 +283,9 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <Heading level="h3" data-h2-font-weight="base(700)">
                           {intl.formatMessage({
                             defaultMessage: "General information",
-                            id: "OHRL9N",
-                            description: "Title for general info",
+                            id: "Ot2eBH",
+                            description:
+                              "Title for general information section",
                           })}
                         </Heading>
                       </PageSection>
@@ -475,12 +476,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         </p>
                         {result.isGovEmployee && result.department && (
                           <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Department",
-                              id: "M7bb1V",
-                              description:
-                                "Label for applicant's Government of Canada department",
-                            })}
+                            {intl.formatMessage(commonMessages.department)}
                             {intl.formatMessage(commonMessages.dividingColon)}
                             {result.department.name[locale]}
                           </p>

@@ -1,0 +1,15 @@
+mutation CreateAssessmentResult(
+  $createAssessmentResult: CreateAssessmentResultInput!
+) {
+  createAssessmentResult(createAssessmentResult: $createAssessmentResult) {
+    id
+  }
+}
+
+mutation UpdateAssessmentResult(
+  $updateAssessmentResult: UpdateAssessmentResultInput!
+) {
+  updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
+    id
+  }
+}

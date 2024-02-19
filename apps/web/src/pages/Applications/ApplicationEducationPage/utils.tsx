@@ -5,8 +5,8 @@ import uniqueId from "lodash/uniqueId";
 import { Locales } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { Radio } from "@gc-digital-talent/forms";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import { EducationRequirementOption } from "~/api/generated";
 import applicationMessages from "~/messages/applicationMessages";
 import { ClassificationGroup } from "~/utils/poolUtils";
 
@@ -101,6 +101,43 @@ export const getEducationRequirementOptions = (
   isIAP = false,
 ): Radio[] => {
   switch (classificationGroup) {
+    case "EC":
+      return [
+        {
+          value: EducationRequirementOption.Education,
+          label: (
+            <strong>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationHeading,
+              )}
+            </strong>
+          ),
+          contentBelow: (
+            <p>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECJustEducationDescription,
+              )}
+            </p>
+          ),
+        },
+        {
+          value: EducationRequirementOption.AppliedWork,
+          label: (
+            <strong>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusHeading,
+              )}
+            </strong>
+          ),
+          contentBelow: (
+            <p>
+              {intl.formatMessage(
+                applicationMessages.educationRequirementECEducationPlusDescription,
+              )}
+            </p>
+          ),
+        },
+      ];
     case "EX":
       return [
         {
@@ -113,17 +150,11 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.5, x1)">
-              <p>
-                {intl.formatMessage(
-                  applicationMessages.professionalDesignation,
-                  {
-                    link: (msg: React.ReactNode) =>
-                      eligibilityLink(msg, locale),
-                  },
-                )}
-              </p>
-            </div>
+            <p>
+              {intl.formatMessage(applicationMessages.professionalDesignation, {
+                link: (msg: React.ReactNode) => eligibilityLink(msg, locale),
+              })}
+            </p>
           ),
         },
         {
@@ -136,13 +167,11 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.5, x1)">
-              <p>
-                {intl.formatMessage(applicationMessages.appliedWorkExpEXGroup, {
-                  link: (msg: React.ReactNode) => acceptableLink(msg, locale),
-                })}
-              </p>
-            </div>
+            <p>
+              {intl.formatMessage(applicationMessages.appliedWorkExpEXGroup, {
+                link: (msg: React.ReactNode) => acceptableLink(msg, locale),
+              })}
+            </p>
           ),
         },
         {
@@ -155,7 +184,7 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.15, x1)">
+            <>
               <p>
                 {intl.formatMessage(applicationMessages.graduationWithDegree, {
                   degreeLink: (msg: React.ReactNode) => degreeLink(msg, locale),
@@ -169,7 +198,7 @@ export const getEducationRequirementOptions = (
                     foreignDegreeLink(msg, locale),
                 })}
               </p>
-            </div>
+            </>
           ),
         },
       ];
@@ -185,11 +214,9 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.5, x1)">
-              <p>
-                {intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}
-              </p>
-            </div>
+            <p>
+              {intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}
+            </p>
           ),
         },
         {
@@ -202,13 +229,11 @@ export const getEducationRequirementOptions = (
               "Radio group option for education requirement filter in application education form.",
           }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.15, x1)">
-              <p>
-                {intl.formatMessage(
-                  applicationMessages.secondarySchoolDescription,
-                )}
-              </p>
-            </div>
+            <p>
+              {intl.formatMessage(
+                applicationMessages.secondarySchoolDescription,
+              )}
+            </p>
           ),
         },
       ];
@@ -232,18 +257,18 @@ export const getEducationRequirementOptions = (
                   "Radio group option for education requirement filter in application education form.",
               }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.5, x1)">
-              <p>
+            <>
+              <p data-h2-margin="base(0, 0, x.5, 0)">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <ul>
-                {Object.values(appliedWorkListMessages).map((value) => (
+                {appliedWorkListMessages(isIAP).map((value) => (
                   <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
                     {intl.formatMessage(value)}
                   </li>
                 ))}
               </ul>
-            </div>
+            </>
           ),
         },
         {
@@ -264,25 +289,23 @@ export const getEducationRequirementOptions = (
                   "Radio group option for education requirement filter in application education form.",
               }),
           contentBelow: (
-            <div data-h2-margin="base(x.15, 0, x.15, x1)">
-              <p>
-                {isIAP
-                  ? intl.formatMessage({
-                      defaultMessage:
-                        "Successful completion of a standard high school diploma or GED equivalent.",
-                      id: "nIJlba",
-                      description:
-                        "Message under radio button in IAP application education page.",
-                    })
-                  : intl.formatMessage(
-                      applicationMessages.postSecondaryEducation,
-                      {
-                        link: (msg: React.ReactNode) =>
-                          qualityStandardsLink(msg, locale),
-                      },
-                    )}
-              </p>
-            </div>
+            <p>
+              {isIAP
+                ? intl.formatMessage({
+                    defaultMessage:
+                      "Successful completion of a standard high school diploma or GED equivalent.",
+                    id: "nIJlba",
+                    description:
+                      "Message under radio button in IAP application education page.",
+                  })
+                : intl.formatMessage(
+                    applicationMessages.postSecondaryEducation,
+                    {
+                      link: (msg: React.ReactNode) =>
+                        qualityStandardsLink(msg, locale),
+                    },
+                  )}
+            </p>
           ),
         },
       ];

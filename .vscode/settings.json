@@ -13,7 +13,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.workingDirectories": ["apps", "packages"],
   "[typescriptreact]": {
@@ -77,5 +77,33 @@
   },
   "laravel-pint.enable": true,
   "laravel-pint.configPath": "api/pint.json",
-  "laravel-pint.executablePath": "api/vendor/bin/pint"
+  "laravel-pint.executablePath": "api/vendor/bin/pint",
+  "terminal.integrated.profiles.linux": {
+    "Maintenance": {
+      "path": "docker-compose",
+      "args": [
+         "run",
+         "--rm",
+         "--workdir=/var/www/html",
+         "maintenance",
+         "bash"
+      ],
+      "overrideName": true,
+      "icon": "terminal-ubuntu"
+    },
+  },
+  "terminal.integrated.profiles.osx": {
+    "Maintenance": {
+      "path": "docker-compose",
+      "args": [
+         "run",
+         "--rm",
+         "--workdir=/var/www/html",
+         "maintenance",
+         "bash"
+      ],
+      "overrideName": true,
+      "icon": "terminal-ubuntu"
+    },
+  }
 }

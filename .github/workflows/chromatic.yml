@@ -1,0 +1,70 @@
+name: Chromatic
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - chromatic.config.json
+      - .github/workflows/storybook.yml
+      - packages/**
+      - apps/**
+
+  merge_group:
+    branches: [main]
+  pull_request:
+    paths:
+      - chromatic.config.json
+      - .github/workflows/storybook.yml
+      - packages/**
+      - apps/**
+
+jobs:
+  chromatic:
+    name: Chromatic
+    # 1. Always run for commits on main branch, and for any other commits...
+    # 2. Never run automatically on first trigger event, only on manual re-run.
+    if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
+    runs-on: ubuntu-22.04
+    env:
+      NPM_VERSION: "9.9.2"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Chromatic requires full git history.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: "./.nvmrc"
+          cache: npm
+          cache-dependency-path: |
+            ./package-lock.json
+
+      - name: Upgrade to latest npm
+        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: ./
+        run: |
+          npm install
+
+      - name: "Setup: all workspaces"
+        working-directory: ./
+        run: |
+          npm run codegen
+          npm run intl-compile
+
+      - name: "Build: all workspaces"
+        working-directory: ./
+        run: |
+          npm run build
+
+      - name: "Publish Storybook: all"
+        uses: chromaui/action@v10
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Auto-accept UI Tests on Chromatic platform.
+          # We use this setting because we're not relying on UI Tests at the
+          # moment, and want the GitHub status check in PRs (for "UI Tests") to
+          # display immediately as "passing".
+          autoAcceptChanges: true

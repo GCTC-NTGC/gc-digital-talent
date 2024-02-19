@@ -39,9 +39,9 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  skillLibrary: checkFeatureFlag("FEATURE_SKILL_LIBRARY"),
   directiveForms: checkFeatureFlag("FEATURE_DIRECTIVE_FORMS"),
   recordOfDecision: checkFeatureFlag("FEATURE_RECORD_OF_DECISION"),
+  darkMode: checkFeatureFlag("FEATURE_DARK_MODE"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

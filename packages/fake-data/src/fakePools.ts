@@ -17,8 +17,12 @@ import {
   PublishingGroup,
   SecurityStatus,
   Skill,
+  GeneralQuestion,
+  ScreeningQuestion,
 } from "@gc-digital-talent/graphql";
 
+import fakeScreeningQuestions from "./fakeScreeningQuestions";
+import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 import fakeSkillFamilies from "./fakeSkillFamilies";
@@ -78,6 +82,12 @@ const generatePool = (
       Object.values(SecurityStatus),
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
+    generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
+      fakeGeneralQuestions(),
+    ),
+    screeningQuestions: faker.helpers.arrayElements<ScreeningQuestion>(
+      fakeScreeningQuestions(),
+    ),
   };
 };
 

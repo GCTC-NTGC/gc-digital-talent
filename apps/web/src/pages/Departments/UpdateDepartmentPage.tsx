@@ -7,7 +7,7 @@ import pick from "lodash/pick";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
+import { Pending, NotFound } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,8 +20,10 @@ import {
   useUpdateDepartmentMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -81,13 +83,6 @@ export const UpdateDepartmentForm = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Update Department",
-          id: "KSNNgE",
-          description: "Title displayed on the update a department form.",
-        })}
-      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -113,12 +108,7 @@ export const UpdateDepartmentForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "4boO/6",
-              description:
-                "Label displayed on the create a department form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -127,12 +117,7 @@ export const UpdateDepartmentForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "c0n+2j",
-              description:
-                "Label displayed on the create a department form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -185,7 +170,7 @@ const UpdateDepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.departments),
+      label: intl.formatMessage(indexDepartmentPageTitle),
       url: routes.departmentTable(),
     },
     ...(departmentId
@@ -203,39 +188,45 @@ const UpdateDepartmentPage = () => {
       : []),
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Edit department",
+    id: "GKo3Df",
+    description: "Page title for the department edit page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Edit department",
-          id: "GKo3Df",
-          description: "Page title for the department edit page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        {departmentData?.department ? (
-          <UpdateDepartmentForm
-            initialDepartment={departmentData.department}
-            handleUpdateDepartment={handleUpdateDepartment}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Department {departmentId} not found.",
-                  id: "8Otaw9",
-                  description: "Message displayed for department not found.",
-                },
-                { departmentId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {departmentData?.department ? (
+            <UpdateDepartmentForm
+              initialDepartment={departmentData.department}
+              handleUpdateDepartment={handleUpdateDepartment}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department {departmentId} not found.",
+                    id: "8Otaw9",
+                    description: "Message displayed for department not found.",
+                  },
+                  { departmentId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

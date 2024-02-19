@@ -35,6 +35,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -147,12 +148,7 @@ export const UpdateSkillFamilyForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "2wo24b",
-                description:
-                  "Label displayed on the create a skill family form name (English) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -161,12 +157,7 @@ export const UpdateSkillFamilyForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "0oqRIl",
-                description:
-                  "Label displayed on the create a skill family form name (French) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -283,40 +274,46 @@ const UpdateSkillFamilyPage = () => {
       : []),
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Edit skill family",
+    id: "azdo5+",
+    description: "Page title for the skill family edit page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Edit skill family",
-          id: "azdo5+",
-          description: "Page title for the skill family edit page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        {lookupData?.skillFamily ? (
-          <UpdateSkillFamilyForm
-            initialSkillFamily={lookupData?.skillFamily}
-            skills={skills}
-            handleUpdateSkillFamily={handleUpdateSkillFamily}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                  id: "ZWnKEJ",
-                  description: "Message displayed for skillFamily not found.",
-                },
-                { skillFamilyId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {lookupData?.skillFamily ? (
+            <UpdateSkillFamilyForm
+              initialSkillFamily={lookupData?.skillFamily}
+              skills={skills}
+              handleUpdateSkillFamily={handleUpdateSkillFamily}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                    id: "ZWnKEJ",
+                    description: "Message displayed for skillFamily not found.",
+                  },
+                  { skillFamilyId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

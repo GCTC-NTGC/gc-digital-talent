@@ -6,7 +6,6 @@ import { useIntl } from "react-intl";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -16,6 +15,8 @@ import {
   useCreateDepartmentMutation,
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
+import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateDepartmentInput;
@@ -68,13 +69,6 @@ export const CreateDepartmentForm = ({
 
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Create Department",
-          id: "XBY4Fq",
-          description: "Title displayed on the create a department form.",
-        })}
-      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -100,12 +94,7 @@ export const CreateDepartmentForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "4boO/6",
-              description:
-                "Label displayed on the create a department form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -114,12 +103,7 @@ export const CreateDepartmentForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "c0n+2j",
-              description:
-                "Label displayed on the create a department form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -156,7 +140,7 @@ const CreateDepartmentPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.departments),
+      label: intl.formatMessage(indexDepartmentPageTitle),
       url: routes.departmentTable(),
     },
     {
@@ -169,17 +153,23 @@ const CreateDepartmentPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create department",
+    id: "PRrRRN",
+    description: "Page title for the department creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create department",
-          id: "PRrRRN",
-          description: "Page title for the department creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <CreateDepartmentForm handleCreateDepartment={handleCreateDepartment} />
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <CreateDepartmentForm handleCreateDepartment={handleCreateDepartment} />
+      </AdminContentWrapper>
+    </>
   );
 };
 

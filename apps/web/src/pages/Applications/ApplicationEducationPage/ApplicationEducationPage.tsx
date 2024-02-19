@@ -7,23 +7,19 @@ import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChar
 import {
   Button,
   Heading,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   EducationRequirementOption,
   Experience,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-  useUpdateApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import applicationMessages from "~/messages/applicationMessages";
 import {
   isAwardExperience,
@@ -36,11 +32,12 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
-import useApplicationId from "../useApplicationId";
 import { getEducationRequirementOptions } from "./utils";
+import useApplication from "../useApplication";
 
 type EducationRequirementExperiences = {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -67,9 +64,9 @@ export const getPageInfo: GetPageNavInfo = ({
   const path = paths.applicationEducation(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "Minimum experience or education",
-      id: "6esMaA",
-      description: "Page title for the application education page",
+      defaultMessage: "Minimum experience or equivalent education",
+      id: "LvYEdh",
+      description: "Title for Minimum experience or equivalent education",
     }),
     subtitle: intl.formatMessage({
       defaultMessage:
@@ -90,8 +87,8 @@ export const getPageInfo: GetPageNavInfo = ({
       url: path,
       label: intl.formatMessage({
         defaultMessage: "Education requirements",
-        id: "dlJCeM",
-        description: "Link text for the application education page",
+        id: "+t5Z7B",
+        description: "Title for application education",
       }),
     },
   };
@@ -362,6 +359,7 @@ const ApplicationEducation = ({
             experiences={experiences}
             watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}
+            classificationGroup={classificationGroup}
           />
           <Separator
             orientation="horizontal"
@@ -409,45 +407,14 @@ const ApplicationEducation = ({
 };
 
 const ApplicationEducationPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
+  const { application } = useApplication();
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching || applicationStale}
-      error={applicationError || experienceError}
-    >
-      {application?.pool ? (
-        <ApplicationEducation
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool ? (
+    <ApplicationEducation application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

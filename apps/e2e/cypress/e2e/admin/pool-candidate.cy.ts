@@ -14,7 +14,7 @@ describe("Pool Candidates", () => {
     cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
 
-    cy.findByRole("heading", { name: /pools/i })
+    cy.findByRole("heading", { name: /processes/i })
       .should("exist")
       .and("be.visible");
 
@@ -22,13 +22,13 @@ describe("Pool Candidates", () => {
   };
 
   beforeEach(() => {
+    cy.overrideFeatureFlags({ FEATURE_RECORD_OF_DECISION: false });
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "GetPoolCandidateStatus");
-      aliasQuery(req, "getPoolCandidateSnapshot");
-      aliasQuery(req, "allPools");
-      aliasQuery(req, "GetPoolCandidatesPaginated");
+      aliasQuery(req, "ViewPoolCandidatesPage");
+      aliasQuery(req, "PoolTable");
+      aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");
 
-      aliasMutation(req, "UpdatePoolCandidateStatus");
+      aliasMutation(req, "ApplicationStatusForm_Mutation");
     });
 
     // select some dimensions to use for testing
@@ -108,26 +108,25 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("textbox", { name: /search/i }).type("cypress");
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })
       .should("exist")
       .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
     cy.findAllByRole("link", { name: /view(.+)application/i })
       .eq(0)
       .click();
 
-    cy.wait("@gqlgetPoolCandidateSnapshotQuery");
-    cy.wait("@gqlGetPoolCandidateStatusQuery");
+    cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",
@@ -148,7 +147,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("button", { name: /save changes/i }).click();
 
-    cy.wait("@gqlUpdatePoolCandidateStatusMutation");
+    cy.wait("@gqlApplicationStatusForm_MutationMutation");
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });
@@ -219,26 +218,25 @@ describe("Pool Candidates", () => {
 
     loginAndGoToPoolsPage();
 
-    cy.wait("@gqlallPoolsQuery");
+    cy.wait("@gqlPoolTableQuery");
 
     cy.findByRole("textbox", { name: /search/i }).type("cypress");
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })
       .should("exist")
       .click();
-    cy.wait("@gqlGetPoolCandidatesPaginatedQuery");
+    cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
     cy.findAllByRole("link", { name: /view(.+)application/i })
       .eq(0)
       .click();
 
-    cy.wait("@gqlgetPoolCandidateSnapshotQuery");
-    cy.wait("@gqlGetPoolCandidateStatusQuery");
+    cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
       "Screened In",
@@ -257,7 +255,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("button", { name: /save changes/i }).click();
 
-    cy.wait("@gqlUpdatePoolCandidateStatusMutation");
+    cy.wait("@gqlApplicationStatusForm_MutationMutation");
 
     cy.expectToast(/pool candidate status updated successfully/i);
   });

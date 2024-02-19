@@ -17,9 +17,11 @@ import { PoolCandidate } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
+import processMessages from "~/messages/processMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
@@ -40,7 +42,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const paths = useRoutes();
 
   const columns = [
-    columnHelper.accessor((row) => getFullPoolTitleLabel(intl, row.pool), {
+    columnHelper.accessor((row) => getShortPoolTitleLabel(intl, row.pool), {
       id: "pool",
       meta: {
         isRowTitle: true,
@@ -60,11 +62,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
       {
         id: "team",
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "fCXZ4R",
-          description: "Title displayed for the Pool table Team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         sortingFn: normalizedText,
         cell: ({ row: { original: poolCandidate } }) =>
           viewTeamLinkCell(
@@ -86,12 +84,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Publishing group",
-          id: "rYgaTA",
-          description:
-            "Title displayed for the Pool table publishing group column.",
-        }),
+        header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
     columnHelper.accessor(
@@ -101,12 +94,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         enableHiding: false,
         cell: ({ row: { original: candidate } }) =>
           statusCell(candidate, user, pools),
-        header: intl.formatMessage({
-          defaultMessage: "Status",
-          id: "sUx3ZS",
-          description:
-            "Title of the 'Status' column for the table on view-user page",
-        }),
+        header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },
     ),
@@ -166,7 +154,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
         }),
       },
     ),
-    columnHelper.accessor((row) => accessors.date(row.expiryDate, intl), {
+    columnHelper.accessor((row) => accessors.date(row.expiryDate), {
       id: "expiryDate",
       enableHiding: false,
       sortingFn: "datetime",
@@ -186,9 +174,8 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
     <Table<PoolCandidate>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "CpjTkh",
-        description:
-          "Caption for the table that contains a users pool statuses",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       })}
       data={data}
       columns={columns}

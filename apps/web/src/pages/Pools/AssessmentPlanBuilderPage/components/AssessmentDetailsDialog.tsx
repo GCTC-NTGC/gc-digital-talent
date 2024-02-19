@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { useMutation } from "urql";
 
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import {
@@ -21,17 +22,16 @@ import {
 } from "@gc-digital-talent/forms";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
+  graphql,
   AssessmentStepType,
   Maybe,
   PoolSkill,
-  Scalars,
   ScreeningQuestion,
-  useCreateAssessmentStepMutation,
-  useCreateOrUpdateScreeningQuestionAssessmentStepMutation,
-  useUpdateAssessmentStepMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { Scalars } from "~/api/generated";
+import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
 import {
@@ -40,6 +40,46 @@ import {
   SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
+
+const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
+  mutation createAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+const AssessmentDetailsDialog_UpdateMutation = graphql(/* GraphQL */ `
+  mutation updateAssessmentStep(
+    $id: UUID!
+    $assessmentStep: AssessmentStepInput
+  ) {
+    updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`);
+
+const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
+  /* GraphQL */ `
+    mutation createOrUpdateScreeningScreeningAssessmentStep(
+      $poolId: UUID!
+      $screeningQuestions: [SyncScreeningQuestionsInput]
+      $assessmentStep: ScreeningQuestionAssessmentStepInput
+    ) {
+      createOrUpdateScreeningQuestionAssessmentStep(
+        poolId: $poolId
+        screeningQuestions: $screeningQuestions
+        assessmentStep: $assessmentStep
+      ) {
+        id
+      }
+    }
+  `,
+);
 
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
@@ -76,6 +116,7 @@ interface AssessmentDetailsDialogProps {
   allPoolSkills: PoolSkill[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
+  onError?: () => void;
 }
 
 const AssessmentDetailsDialog = ({
@@ -83,6 +124,7 @@ const AssessmentDetailsDialog = ({
   allPoolSkills,
   disallowStepTypes = [],
   trigger,
+  onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
@@ -91,15 +133,15 @@ const AssessmentDetailsDialog = ({
   const [
     { fetching: createAssessmentStepFetching },
     executeCreateAssessmentStepMutation,
-  ] = useCreateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_CreateMutation);
   const [
     { fetching: updateAssessmentStepFetching },
     executeUpdateAssessmentStepMutation,
-  ] = useUpdateAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_UpdateMutation);
   const [
     { fetching: createOrUpdateScreeningQuestionAssessmentStepMutationFetching },
     executeCreateOrUpdateScreeningQuestionAssessmentStepMutation,
-  ] = useCreateOrUpdateScreeningQuestionAssessmentStepMutation();
+  ] = useMutation(AssessmentDetailsDialog_ScreeningQuestionMutation);
 
   if (initialValues.screeningQuestions) {
     initialValues.screeningQuestions.sort((a, b) =>
@@ -194,7 +236,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -220,7 +262,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -255,10 +297,9 @@ const AssessmentDetailsDialog = ({
         },
         poolSkills: {
           sync:
-            values.assessedSkillsScreeningQuestions?.length &&
-            values.assessedSkillsScreeningQuestions.length > 0
-              ? values.assessedSkillsScreeningQuestions
-              : null,
+            values.assessedSkills?.length && values.assessedSkills.length > 0
+              ? values.assessedSkills
+              : [],
         },
       },
     };
@@ -298,6 +339,7 @@ const AssessmentDetailsDialog = ({
         reset(); // the create dialog could be used several times in a row
       })
       .catch(() => {
+        onError?.();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving assessment step failed.",
@@ -442,12 +484,7 @@ const AssessmentDetailsDialog = ({
                   <>
                     <div>
                       <div data-h2-font-weight="base(700)">
-                        {intl.formatMessage({
-                          defaultMessage: "Screening questions",
-                          id: "V62J5w",
-                          description:
-                            "title of 'screening questions' section of the assessment builder",
-                        })}
+                        {intl.formatMessage(processMessages.screeningQuestions)}
                       </div>
                       <div data-h2-margin-top="base(x.25)">
                         {intl.formatMessage({
@@ -613,29 +650,16 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                 </div>
-                {selectedTypeOfAssessment ===
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkillsScreeningQuestions"
-                    id="assessedSkillsScreeningQuestions"
-                    name="assessedSkillsScreeningQuestions"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                  />
-                )}
-                {selectedTypeOfAssessment !==
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkills"
-                    id="assessedSkills"
-                    name="assessedSkills"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                )}
+                <Checklist
+                  idPrefix="assessedSkills"
+                  id="assessedSkills"
+                  name="assessedSkills"
+                  legend={intl.formatMessage(labels.assessedSkills)}
+                  items={assessedSkillsItems}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
                 {!assessedSkillsItems.length ? (
                   <Field.Error>
                     {intl.formatMessage({

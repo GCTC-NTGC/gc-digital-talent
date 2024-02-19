@@ -18,7 +18,7 @@ import {
   ScrollToLink,
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -45,6 +45,7 @@ import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import experienceMessages from "~/messages/experienceMessages";
 
 import { PartialUser } from "../types";
 import { categorizeUserSkill } from "../../../utils/skillUtils";
@@ -80,7 +81,6 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { skillLibrary: skillLibraryFlag } = useFeatureFlags();
 
   const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
   const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
@@ -284,15 +284,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
-        {...(skillLibraryFlag
-          ? {
-              "data-h2-grid-template-columns":
-                "base(100%) l-tablet(repeat(3, minmax(0, 1fr)))",
-            }
-          : {
-              "data-h2-grid-template-columns":
-                "base(100%) p-tablet(repeat(2, minmax(0, 1fr)))",
-            })}
+        data-h2-grid-template-columns="base(100%) l-tablet(repeat(3, minmax(0, 1fr)))"
       >
         <HeroCard
           asNav
@@ -321,11 +313,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <StatusItem
             asListItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "Pf+PA/",
-              description: "Title of the Work Location link section",
-            })}
+            title={intl.formatMessage(navigationMessages.workPreferences)}
             status={
               workLocationSectionHasEmptyRequiredFields(user) ||
               workPreferencesSectionHasEmptyRequiredFields(user)
@@ -341,12 +329,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <StatusItem
             asListItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Diversity, equity, inclusion",
-              id: "HAkMnl",
-              description:
-                "Title of the Diversity, equity and inclusion link section",
-            })}
+            title={intl.formatMessage(
+              navigationMessages.diversityEquityInclusion,
+            )}
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
             icon={UserGroupIcon}
           />
@@ -411,49 +396,33 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             layout="hero"
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
-              id: "LOmX3T",
-              description: "Title for work experience section",
+              id: "QvyQc3",
+              description: "Heading for work experiences",
             })}
             itemCount={workExperiences?.length}
             icon={BriefcaseIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Education and certificates",
-              id: "PFoM2I",
-              description: "Title for education experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.education)}
             itemCount={educationExperiences?.length}
             icon={BookOpenIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Community participation",
-              id: "Uy5Dg2",
-              description: "Title for community experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.community)}
             itemCount={communityExperiences?.length}
             icon={UsersIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Personal learning",
-              id: "UDMUHH",
-              description: "Title for personal experience section",
-            })}
+            title={intl.formatMessage(experienceMessages.personal)}
             itemCount={personalExperiences?.length}
             icon={LightBulbIcon}
           />
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Awards and recognition",
-              id: "mWnekb",
-              description: "Title for award section",
-            })}
+            title={intl.formatMessage(experienceMessages.award)}
             itemCount={awardExperiences?.length}
             icon={StarIcon}
           />
@@ -475,60 +444,54 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             })}
           />
         </HeroCard>
-        {skillLibraryFlag ? (
-          <HeroCard
-            color="quaternary"
+        <HeroCard
+          color="quaternary"
+          title={intl.formatMessage(navigationMessages.skillLibrary)}
+          href={skillLibraryUrl}
+        >
+          <StatusItem
+            layout="hero"
             title={intl.formatMessage({
-              defaultMessage: "Skill library",
-              id: "iWzkOn",
-              description: "applicant dashboard card title for skill library",
+              defaultMessage: "Behavioural skill library",
+              id: "yzqnvb",
+              description: "Title for behavioural skill library section",
             })}
-            href={skillLibraryUrl}
-          >
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Behavioural skill library",
-                id: "yzqnvb",
-                description: "Title for behavioural skill library section",
-              })}
-              itemCount={behaviouralSkillLibraryCount}
-              status={behaviouralSkillLibraryStatus}
-              href={`${skillLibraryUrl}#behavioural`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Technical skill library",
-                id: "FEK54g",
-                description: "Title for technical skill library section",
-              })}
-              itemCount={technicalSkillLibraryCount}
-              status={technicalSkillLibraryStatus}
-              href={`${skillLibraryUrl}#technical`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Top skills",
-                id: "deiylo",
-                description: "Title for top skills showcase section",
-              })}
-              status={topSkillsStatus}
-              href={`${skillShowcaseUrl}#top-skills`}
-            />
-            <StatusItem
-              layout="hero"
-              title={intl.formatMessage({
-                defaultMessage: "Skills to improve",
-                id: "FvbONe",
-                description: "Title for skills to improve showcase section",
-              })}
-              status={skillsToImproveStatus}
-              href={`${skillShowcaseUrl}#skills-to-improve`}
-            />
-          </HeroCard>
-        ) : null}
+            itemCount={behaviouralSkillLibraryCount}
+            status={behaviouralSkillLibraryStatus}
+            href={`${skillLibraryUrl}#behavioural`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Technical skill library",
+              id: "FEK54g",
+              description: "Title for technical skill library section",
+            })}
+            itemCount={technicalSkillLibraryCount}
+            status={technicalSkillLibraryStatus}
+            href={`${skillLibraryUrl}#technical`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Top skills",
+              id: "deiylo",
+              description: "Title for top skills showcase section",
+            })}
+            status={topSkillsStatus}
+            href={`${skillShowcaseUrl}#top-skills`}
+          />
+          <StatusItem
+            layout="hero"
+            title={intl.formatMessage({
+              defaultMessage: "Skills to improve",
+              id: "FvbONe",
+              description: "Title for skills to improve showcase section",
+            })}
+            status={skillsToImproveStatus}
+            href={`${skillShowcaseUrl}#skills-to-improve`}
+          />
+        </HeroCard>
       </div>
     </Hero>
   );

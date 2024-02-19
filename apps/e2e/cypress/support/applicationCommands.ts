@@ -1,22 +1,27 @@
 import {
-  CreateApplicationDocument,
-  SubmitApplicationDocument,
-  UpdateApplicationDocument,
-  UpdateApplicationMutation,
-  UpdatePoolCandidateStatusDocument,
-  CreateApplicationMutation,
   EducationRequirementOption,
-  SubmitApplicationMutation,
-  UpdatePoolCandidateMutation,
-} from "@gc-digital-talent/web/src/api/generated";
+  Command_CreateApplicationMutation,
+  Command_SubmitApplicationMutation,
+  Command_UpdateApplicationMutation,
+  Command_UpdatePoolCandidateAsAdminMutation,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
-import { getGqlString } from "./graphql-test-utils";
+const commandCreateApplicationDoc = /* GraphQL */ `
+  mutation Command_CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
+      id
+    }
+  }
+`;
+
+const Command_CreateApplicationMutation = graphql(commandCreateApplicationDoc);
 
 // create an application that is ready to submit, for use with createApplicant
 Cypress.Commands.add("createApplication", (userId, poolId) => {
-  cy.graphqlRequest<CreateApplicationMutation>({
-    operationName: "createApplication",
-    query: getGqlString(CreateApplicationDocument),
+  cy.graphqlRequest<Command_CreateApplicationMutation>({
+    operationName: "Command_CreateApplication",
+    query: commandCreateApplicationDoc,
     variables: {
       userId,
       poolId,
@@ -38,23 +43,23 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
   });
 });
 
-Cypress.Commands.add("submitApplication", (applicationId, signature) => {
-  cy.graphqlRequest<SubmitApplicationMutation>({
-    operationName: "SubmitApplication",
-    query: getGqlString(SubmitApplicationDocument),
-    variables: {
-      id: applicationId,
-      signature,
-    },
-  }).then((data) => {
-    cy.wrap(data.submitApplication);
-  });
-});
+const commandUpdateApplicationDoc = /* GraphQL */ `
+  mutation Command_UpdateApplication(
+    $id: ID!
+    $application: UpdateApplicationInput!
+  ) {
+    updateApplication(id: $id, application: $application) {
+      id
+    }
+  }
+`;
+
+const Command_UpdateApplicationMutation = graphql(commandUpdateApplicationDoc);
 
 Cypress.Commands.add("updateApplication", (applicationId, application) => {
-  cy.graphqlRequest<UpdateApplicationMutation>({
-    operationName: "UpdateApplication",
-    query: getGqlString(UpdateApplicationDocument),
+  cy.graphqlRequest<Command_UpdateApplicationMutation>({
+    operationName: "Command_UpdateApplication",
+    query: commandUpdateApplicationDoc,
     variables: {
       id: applicationId,
       application,
@@ -64,12 +69,53 @@ Cypress.Commands.add("updateApplication", (applicationId, application) => {
   });
 });
 
+const commandSubmitApplicationDoc = /* GraphQL */ `
+  mutation Command_SubmitApplication($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+      signature
+    }
+  }
+`;
+
+const Command_SubmitApplicationMutation = graphql(commandSubmitApplicationDoc);
+
+Cypress.Commands.add("submitApplication", (applicationId, signature) => {
+  cy.graphqlRequest<Command_SubmitApplicationMutation>({
+    operationName: "Command_SubmitApplication",
+    query: commandSubmitApplicationDoc,
+    variables: {
+      id: applicationId,
+      signature,
+    },
+  }).then((data) => {
+    cy.wrap(data.submitApplication);
+  });
+});
+
+const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
+  mutation Command_UpdatePoolCandidateAsAdmin(
+    $id: UUID!
+    $input: UpdatePoolCandidateAsAdminInput!
+  ) {
+    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      status
+    }
+  }
+`;
+
+const Command_UpdatePoolCandidateAsAdminMutation = graphql(
+  commandUpdatePoolCandidateAsAdminDoc,
+);
+
 Cypress.Commands.add(
   "updatePoolCandidateAsAdmin",
   (applicationId, updatePoolCandidateAsAdminInput) => {
-    cy.graphqlRequest<UpdatePoolCandidateMutation>({
-      operationName: "UpdatePoolCandidateStatus",
-      query: getGqlString(UpdatePoolCandidateStatusDocument),
+    cy.graphqlRequest<Command_UpdatePoolCandidateAsAdminMutation>({
+      operationName: "Command_UpdatePoolCandidateAsAdmin",
+      query: commandUpdatePoolCandidateAsAdminDoc,
       variables: {
         id: applicationId,
         input: updatePoolCandidateAsAdminInput,

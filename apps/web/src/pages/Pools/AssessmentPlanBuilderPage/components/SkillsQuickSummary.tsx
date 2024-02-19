@@ -51,6 +51,8 @@ const SkillsQuickSummary = ({
         return intl.formatMessage(commonMessages.warning);
       case "error":
         return intl.formatMessage(commonMessages.error);
+      case "optional":
+        return "";
       default:
         return assertUnreachable(status);
     }
@@ -106,7 +108,7 @@ const SkillsQuickSummary = ({
         <Separator
           orientation="horizontal"
           decorative
-          data-h2-background-color="base(gray.lighter)"
+          data-h2-background-color="base(gray)"
           data-h2-margin="base(x1, 0, x1, 0)"
         />
 

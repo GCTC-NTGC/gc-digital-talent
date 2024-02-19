@@ -2,9 +2,10 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import { useQuery } from "urql";
 
 import { Pending, NotFound, Link, Heading, Pill } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
   formatDate,
@@ -12,22 +13,17 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { graphql, Pool, PoolStatus } from "@gc-digital-talent/graphql";
 
-import {
-  useGetProcessInfoQuery,
-  Scalars,
-  Pool,
-  PoolStatus,
-} from "~/api/generated";
+import { Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
 import {
   getAdvertisementStatus,
-  getFullPoolTitleHtml,
+  getShortPoolTitleHtml,
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
@@ -67,7 +63,7 @@ export const ViewPool = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
-  const poolName = getFullPoolTitleHtml(intl, pool);
+  const poolName = getShortPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);
@@ -138,9 +134,9 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
                 {intl.formatMessage({
                   defaultMessage: "Advertisement information",
-                  id: "myH7I0",
+                  id: "yM04jy",
                   description:
-                    "Title for card for actions related to a process advertisement",
+                    "Title for advertisement information of a process",
                 })}
               </Heading>
               <Pill
@@ -412,40 +408,66 @@ type RouteParams = {
   poolId: Scalars["ID"];
 };
 
+const ViewPoolPage_Query = graphql(/* GraphQL */ `
+  query ViewPoolPage($id: UUID!) {
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      publishedAt
+      isComplete
+      status
+      stream
+      closingDate
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      poolCandidates {
+        id
+        pool {
+          id
+        }
+        user {
+          id
+        }
+      }
+      team {
+        id
+        name
+      }
+      poolSkills {
+        id
+      }
+      assessmentSteps {
+        id
+        type
+        poolSkills {
+          id
+        }
+      }
+    }
+  }
+`);
+
 const ViewPoolPage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const { isFetching, mutations } = usePoolMutations();
-  const [{ data, fetching, error }] = useGetProcessInfoQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewPoolPage_Query,
     variables: { id: poolId },
   });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.home(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    ...(poolId
-      ? [
-          {
-            label: getLocalizedName(data?.pool?.name, intl),
-            url: routes.poolView(poolId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {poolId && data?.pool ? (
           <ViewPool

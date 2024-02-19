@@ -1,19 +1,31 @@
 import React from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   Checkbox,
   Checklist,
   Combobox,
+  HiddenInput,
   RadioGroup,
   Select,
   enumToOptions,
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
+import {
+  graphql,
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+  LanguageAbility,
+  PoolCandidateStatus,
+  PoolStream,
+  PublishingGroup,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   OperationalRequirementV2,
+  commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
   getEmploymentEquityGroup,
@@ -28,54 +40,64 @@ import {
   poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
-import {
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-  LanguageAbility,
-  PoolCandidateStatus,
-  PoolStream,
-  PublishingGroup,
-  WorkRegion,
-  usePoolCandidateFilterDataQuery,
-} from "~/api/generated";
-
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
 import adminMessages from "../../messages/adminMessages";
-import { getFullPoolTitleLabel } from "../../utils/poolUtils";
-
-export type FormValues = {
-  languageAbility: string;
-  classifications: string[];
-  stream: string[];
-  operationalRequirement: string[];
-  workRegion: string[];
-  equity: string[];
-  poolCandidateStatus: string[];
-  priorityWeight: string[];
-  pools: string[];
-  skills: string[];
-  expiryStatus: string;
-  suspendedStatus: string;
-  publishingGroups: string[];
-  govEmployee: string;
-};
+import { getShortPoolTitleLabel } from "../../utils/poolUtils";
+import { FormValues } from "./types";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues>;
+const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
+  query PoolCandidateFilterDialog_Query {
+    classifications {
+      group
+      level
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+      stream
+    }
+    skills {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+type PoolCandidateFilterDialogProps = CommonFilterDialogProps<FormValues> & {
+  hidePoolFilter?: boolean;
+};
 
 const PoolCandidateFilterDialog = ({
   onSubmit,
-  defaultValues,
+  resetValues,
+  initialValues,
+  hidePoolFilter,
 }: PoolCandidateFilterDialogProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching }] = usePoolCandidateFilterDataQuery({ context });
+  const [{ data, fetching }] = useQuery({
+    query: PoolCandidateFilterDialog_Query,
+    context,
+  });
 
   const classifications = unpackMaybes(data?.classifications);
   const pools = unpackMaybes(data?.pools);
@@ -87,25 +109,37 @@ const PoolCandidateFilterDialog = ({
   });
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      options={{ defaultValues: initialValues }}
+      // Remove hidden pools filter from count
+      {...(hidePoolFilter && {
+        modifyFilterCount: -1,
+      })}
+      {...{ resetValues, onSubmit }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
         data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) p-tablet(repeat(3, 1fr))"
       >
-        <div data-h2-grid-column="l-tablet(span 3)">
-          <Combobox
-            id="pools"
-            name="pools"
-            {...{ fetching }}
-            isMulti
-            label={intl.formatMessage(adminMessages.pools)}
-            options={pools.map((pool) => ({
-              value: pool.id,
-              label: getFullPoolTitleLabel(intl, pool),
-            }))}
-          />
-        </div>
+        {hidePoolFilter ? (
+          <HiddenInput name="pools" />
+        ) : (
+          <div data-h2-grid-column="l-tablet(span 3)">
+            <Combobox
+              id="pools"
+              name="pools"
+              {...{ fetching }}
+              isMulti
+              label={intl.formatMessage(adminMessages.pools)}
+              options={pools.map((pool) => ({
+                value: pool.id,
+                label: getShortPoolTitleLabel(intl, pool),
+              }))}
+            />
+          </div>
+        )}
+
         <Checklist
           idPrefix="publishingGroups"
           name="publishingGroups"
@@ -124,11 +158,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="equity"
           name="equity"
-          legend={intl.formatMessage({
-            defaultMessage: "Employment equity",
-            id: "9e6Xph",
-            description: "Label for the employment equity field",
-          })}
+          legend={intl.formatMessage(commonMessages.employmentEquity)}
           items={[
             equityOption("isWoman", getEmploymentEquityGroup("woman")),
             equityOption(
@@ -148,12 +178,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="priorityWeight"
           name="priorityWeight"
-          legend={intl.formatMessage({
-            defaultMessage: "Category",
-            id: "qrDCTV",
-            description:
-              "Title displayed for the Pool Candidates table Priority column.",
-          })}
+          legend={intl.formatMessage(adminMessages.category)}
           items={Object.keys(poolCandidatePriorities).map((key) => ({
             value: Number(key),
             label: intl.formatMessage(
@@ -188,7 +213,7 @@ const PoolCandidateFilterDialog = ({
           id="poolCandidateStatus"
           name="poolCandidateStatus"
           isMulti
-          label={intl.formatMessage(adminMessages.status)}
+          label={intl.formatMessage(commonMessages.status)}
           options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
             value,
             label: intl.formatMessage(getPoolCandidateStatus(value)),

@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -13,18 +14,39 @@ import {
 } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
-
-import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import {
+  graphql,
   PoolStatus,
   User,
   CreatePoolCandidateAsAdminInput,
   Pool,
   PoolCandidate,
-  useCreatePoolCandidateMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import {
+  getShortPoolTitleLabel,
+  getShortPoolTitleHtml,
+} from "~/utils/poolUtils";
+import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
+
+const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
+  mutation AddToPoolDialog_Mutation(
+    $poolCandidate: CreatePoolCandidateAsAdminInput!
+  ) {
+    createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
+      pool {
+        id
+      }
+      user {
+        id
+      }
+      cmoIdentifier
+      expiryDate
+      status
+    }
+  }
+`);
 
 type FormValues = {
   pools: Array<Pool["id"]>;
@@ -41,7 +63,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [{ fetching }, executeMutation] = useCreatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useMutation(AddToPoolDialog_Mutation);
 
   const currentPools: string[] = [];
   user.poolCandidates?.forEach((candidate) => {
@@ -119,7 +141,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getFullPoolTitleHtml(intl, rejected.pool)}
+                    {getShortPoolTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -150,7 +172,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     .map((pool) => {
       return {
         value: pool.id,
-        label: getFullPoolTitleLabel(intl, pool),
+        label: getShortPoolTitleLabel(intl, pool),
       };
     });
 

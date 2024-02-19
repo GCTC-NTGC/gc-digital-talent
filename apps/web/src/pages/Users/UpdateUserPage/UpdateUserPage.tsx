@@ -34,7 +34,6 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import UserRoleTable from "./components/IndividualRoleTable";
@@ -127,11 +126,7 @@ export const UpdateUserForm = ({
         >
           <Input
             id="email"
-            label={intl.formatMessage({
-              defaultMessage: "Email",
-              id: "sZHcsV",
-              description: "Label displayed on the user form email field.",
-            })}
+            label={intl.formatMessage(commonMessages.email)}
             type="email"
             name="email"
           />
@@ -163,22 +158,15 @@ export const UpdateUserForm = ({
           />
           <Input
             id="telephone"
-            label={intl.formatMessage({
-              defaultMessage: "Telephone",
-              id: "8L5kDc",
-              description: "Label displayed on the user form telephone field.",
-            })}
+            label={intl.formatMessage(commonMessages.telephone)}
             type="tel"
             name="telephone"
           />
           <Select
             id="preferredLang"
-            label={intl.formatMessage({
-              defaultMessage: "Preferred Communication Language",
-              id: "Vvc9/b",
-              description:
-                "Label displayed on the user form preferred communication language field.",
-            })}
+            label={intl.formatMessage(
+              commonMessages.preferredCommunicationLanguage,
+            )}
             name="preferredLang"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a language",
@@ -197,10 +185,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForInterview"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Spoken Interview Language",
-              id: "RIMCZn",
-              description:
-                "Label displayed on the user form preferred spoken interview language field.",
+              defaultMessage: "Preferred spoken interview language",
+              id: "DB9pFd",
+              description: "Title for preferred spoken interview language",
             })}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
@@ -220,10 +207,9 @@ export const UpdateUserForm = ({
           <Select
             id="preferredLanguageForExam"
             label={intl.formatMessage({
-              defaultMessage: "Preferred Written Exam Language",
-              id: "SxP9zE",
-              description:
-                "Label displayed on the user form preferred written exam language field.",
+              defaultMessage: "Preferred written exam language",
+              id: "fg2wla",
+              description: "Title for preferred written exam language",
             })}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({
@@ -260,7 +246,6 @@ type RouteParams = {
 
 const UpdateUserPage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
     useListRolesQuery();
@@ -339,47 +324,8 @@ const UpdateUserPage = () => {
 
   const availableRoles = rolesData?.roles.filter(notEmpty);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.users),
-      url: routes.userTable(),
-    },
-    ...(userId
-      ? [
-          {
-            label: getFullNameLabel(
-              userData?.user?.firstName,
-              userData?.user?.lastName,
-              intl,
-            ),
-            url: routes.userView(userId),
-          },
-        ]
-      : []),
-    ...(userId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> user</hidden>",
-              id: "0WIPpI",
-              description: "Edit user breadcrumb text",
-            }),
-            url: routes.userUpdate(userId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",

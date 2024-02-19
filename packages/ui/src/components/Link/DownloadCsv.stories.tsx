@@ -76,7 +76,7 @@ const Template: Story = () => {
                       mode={mode}
                       color={color}
                       icon={InformationCircleIcon}
-                      headers={[{ key: "test", label: "label" }]}
+                      headers={[{ id: "test", displayName: "label" }]}
                       data={[{ key: "test", label: "label" }]}
                       fileName=""
                     >

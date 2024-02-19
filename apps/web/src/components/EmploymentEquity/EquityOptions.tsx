@@ -90,10 +90,10 @@ const EquityOptions = ({
           toast.success(
             intl.formatMessage({
               defaultMessage:
-                "Diversity, equity and inclusion information updated successfully!",
-              id: "SUUqzt",
+                "Diversity, equity, and inclusion information updated successfully!",
+              id: "LCVNJq",
               description:
-                "Message displayed when a user successfully updates their diversity, equity and inclusion information.",
+                "Message displayed when a user successfully updates their diversity, equity, and inclusion information.",
             }),
           );
         }

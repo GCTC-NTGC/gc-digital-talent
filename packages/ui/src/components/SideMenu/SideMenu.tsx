@@ -2,15 +2,11 @@
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
-import Bars3Icon from "@heroicons/react/24/outline/Bars3Icon";
-import { useIntl } from "react-intl";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-import { uiMessages } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import useControllableState from "../../hooks/useControllableState";
-import { SideMenuButton } from "./SideMenuItem";
 import { SideMenuProvider } from "./SideMenuProvider";
 
 export interface SideMenuProps {
@@ -22,8 +18,6 @@ export interface SideMenuProps {
   onOpenChange?: (open: boolean) => void;
   /** Accessible name for the navigation region */
   label: string;
-  /** Add items to the start of the menu */
-  header?: React.ReactNode;
   /** Add items to the end of the menu */
   footer?: JSX.Element;
   /** Ref for the button that triggers the opening (for focus management)  */
@@ -39,12 +33,10 @@ const SideMenu = ({
   open: openProp,
   onOpenChange,
   label,
-  header,
   footer,
   children,
   triggerRef,
 }: SideMenuProps) => {
-  const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
   const [open = false, setOpen] = useControllableState<boolean>({
     controlledProp: openProp,
@@ -115,21 +107,14 @@ const SideMenu = ({
               >
                 <RemoveScroll
                   enabled={isSmallScreen && open}
-                  data-h2-background-color="base:all(black.9) base:all:iap(secondary.light)"
+                  data-h2-background-color="base:all(gray.darkest) base:all:iap(secondary.light)"
+                  data-h2-border-right="l-tablet(1px solid black.2)"
                   data-h2-overflow-y="base(auto)"
                   data-h2-overflow-x="base(hidden)"
                   data-h2-display="base(flex)"
                   data-h2-flex-direction="base(column)"
                   data-h2-height="base(100%)"
                 >
-                  <div data-h2-margin="base(0, 0, x2, 0)">
-                    <SideMenuButton onClick={handleOpenToggle} icon={Bars3Icon}>
-                      {open
-                        ? intl.formatMessage(uiMessages.closeMenu)
-                        : intl.formatMessage(uiMessages.openMenu)}
-                    </SideMenuButton>
-                    {header}
-                  </div>
                   <nav
                     /**
                      * Ignore `no-noninteractive-element-interactions` since
@@ -144,12 +129,22 @@ const SideMenu = ({
                   >
                     <div
                       data-h2-display="base(flex)"
+                      data-h2-padding="base(x1.5)"
                       data-h2-flex-direction="base(column)"
-                      data-h2-flex-grow="base(1)"
+                      data-h2-align-items="base(flex-start)"
+                      data-h2-gap="base(x2)"
                     >
-                      {children}
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(column)"
+                        data-h2-align-items="base(flex-start)"
+                        data-h2-gap="base(x1.5)"
+                      >
+                        {children}
+                      </div>
+
+                      {footer && <div>{footer}</div>}
                     </div>
-                    {footer && <div>{footer}</div>}
                   </nav>
                 </RemoveScroll>
               </FocusLock>

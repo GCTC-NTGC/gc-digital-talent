@@ -2,17 +2,11 @@
 import flatMap from "lodash/flatMap";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { User, Pool, SkillCategory } from "@gc-digital-talent/graphql";
 
-import { User, Pool, SkillCategory } from "~/api/generated";
 import { filterSkillsByCategory, getMissingSkills } from "~/utils/skillUtils";
 
-type PartialUser = Pick<User, "experiences">;
-type PartialPool = Pick<Pool, "essentialSkills" | "nonessentialSkills">;
-
-export function isIncomplete(
-  applicant: PartialUser,
-  pool: PartialPool,
-): boolean {
+export function isIncomplete(applicant: User, pool: Pool): boolean {
   const poolEssentialTechnicalSkills = filterSkillsByCategory(
     pool.essentialSkills,
     SkillCategory.Technical,

@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
-import { pipe, fromValue, delay } from "wonka";
+import { fromValue } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
@@ -44,27 +44,22 @@ const publishedIAPJobsPool: Pool = {
 };
 
 describe("BrowsePoolsPage", () => {
-  function renderBrowsePoolsPage({
-    pools,
-    msDelay = 0,
-    responseData = {},
-  }: {
-    pools: Pool[];
-    msDelay?: number;
-    responseData?: object;
-  }) {
+  function renderBrowsePoolsPage({ pools }: { pools: Pool[] }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
-      executeQuery: jest.fn(() =>
-        pipe(fromValue(responseData), delay(msDelay)),
-      ),
+      executeQuery: () =>
+        fromValue({
+          data: {
+            publishedPools: pools,
+          },
+        }),
       // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
 
     return renderWithProviders(
       <GraphqlProvider value={mockClient}>
-        <BrowsePools pools={pools} />
+        <BrowsePools />
       </GraphqlProvider>,
     );
   }

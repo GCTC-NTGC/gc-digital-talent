@@ -8,28 +8,28 @@ import {
   pickMap,
 } from "@gc-digital-talent/helpers";
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-
 import {
   ApplicantFilterInput,
   Classification,
-  CountApplicantsQueryVariables,
+  CandidateCountQueryVariables,
   Maybe,
   Pool,
   PositionDuration,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { SimpleClassification } from "~/types/pool";
 import { FormValues, NullSelection } from "~/types/searchRequest";
 import {
   formatClassificationString,
   poolMatchesClassification,
 } from "~/utils/poolUtils";
-import nonExecutiveITClassifications from "~/constants/nonExecutiveITClassifications";
+import classificationsAvailable from "~/constants/classificationsAvailableForSearch";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 export const getAvailableClassifications = (
   pools: Pool[],
 ): Classification[] => {
-  const availableClassifications = pools
+  const classifications = pools
     ?.flatMap((pool) => pool?.classifications)
     .filter(notEmpty)
     .reduce((currentClassifications, classification) => {
@@ -44,10 +44,10 @@ export const getAvailableClassifications = (
       return newClassifications;
     }, [] as Classification[]);
 
-  const ITClassifications = nonExecutiveITClassifications();
+  const availableClassifications = classificationsAvailable();
 
-  return availableClassifications.filter((classification) => {
-    return ITClassifications.some(
+  return classifications.filter((classification) => {
+    return availableClassifications.some(
       (x) =>
         x?.group === classification?.group &&
         x?.level === classification?.level,
@@ -103,7 +103,7 @@ export const durationSelectionToEnum = (
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
-): CountApplicantsQueryVariables => {
+): CandidateCountQueryVariables => {
   if (empty(filter)) {
     return {};
   }
@@ -167,6 +167,7 @@ export const dataToFormValues = (
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
+    allPools: false,
   };
 };
 

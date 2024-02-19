@@ -8,6 +8,8 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
 import {
+  Locales,
+  commonMessages,
   getLocalizedName,
   getPoolStatus,
   getPoolStream,
@@ -20,16 +22,16 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
 import {
   PublishingGroup,
   RoleAssignment,
   PoolStatus,
   Maybe,
-  PoolStream,
   Classification,
   Pool,
-} from "~/api/generated";
+  PoolStream,
+} from "@gc-digital-talent/graphql";
+
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
@@ -115,7 +117,8 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Classification> | undefined;
-  stream: Maybe<PoolStream> | undefined;
+  stream?: Maybe<PoolStream>;
+  short?: boolean;
   intl: IntlShape;
 }
 
@@ -123,6 +126,7 @@ export const formattedPoolPosterTitle = ({
   title,
   classification,
   stream,
+  short,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: React.ReactNode;
@@ -131,32 +135,49 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream
     ? `${intl.formatMessage(getPoolStream(stream))}`
     : "";
-
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : null ?? "";
 
-  const genericTitle = `${groupAndLevel} ${streamString}`.trim();
+  const genericTitle = short
+    ? `${groupAndLevel.trim()}${intl.formatMessage(
+        commonMessages.dividingColon,
+      )}`
+    : `${groupAndLevel} ${streamString}`.trim();
+  const hasGroupAndLevel = groupAndLevel.length > 0;
 
   return {
-    html: (
+    html: short ? (
+      <>
+        {hasGroupAndLevel ? (
+          <>
+            {wrapAbbr(groupAndLevel, intl)}
+            {intl.formatMessage(commonMessages.dividingColon)}
+          </>
+        ) : null}
+        {title || ""}
+      </>
+    ) : (
       <>
         {title || ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
-    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+    label: short
+      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
+      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
-interface FullPoolTitleOptions {
+interface PoolTitleOptions {
   defaultTitle?: React.ReactNode;
+  short?: boolean;
 }
 
-export const fullPoolTitle = (
+export const poolTitle = (
   intl: IntlShape,
   pool: Maybe<Pool>,
-  options?: FullPoolTitleOptions,
+  options?: PoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
@@ -185,7 +206,8 @@ export const fullPoolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classifications?.[0],
-    stream: pool.stream,
+    stream: pool?.stream,
+    short: options?.short,
     intl,
   });
 
@@ -199,15 +221,35 @@ export const getFullPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => fullPoolTitle(intl, pool, options).html;
+): React.ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): string => fullPoolTitle(intl, pool, options).label;
+): string => poolTitle(intl, pool, options).label;
 
-export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
+export const getShortPoolTitleHtml = (
+  intl: IntlShape,
+  pool: Maybe<Pool>,
+  options?: { defaultTitle?: string },
+): React.ReactNode =>
+  poolTitle(intl, pool, {
+    ...options,
+    short: true,
+  }).html;
+
+export const getShortPoolTitleLabel = (
+  intl: IntlShape,
+  pool: Maybe<Pool>,
+  options?: { defaultTitle?: string },
+): string =>
+  poolTitle(intl, pool, {
+    ...options,
+    short: true,
+  }).label;
+
+export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
@@ -233,9 +275,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
@@ -246,9 +287,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
           "screening",
           {
             title: intl.formatMessage({
-              defaultMessage: "Screening and evaluation",
-              id: "IEGaTJ",
-              description: "Title for the screening and evaluation page",
+              defaultMessage: "Screening and assessment",
+              id: "R8Naqm",
+              description: "Heading for the information of an application",
             }),
             link: {
               url: paths.screeningAndEvaluation(pool.id),
@@ -268,9 +309,9 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             link: {
               url: paths.poolCandidateTable(pool.id),
               label: intl.formatMessage({
-                defaultMessage: "View Candidates",
-                id: "Rl+0Er",
-                description: "Title for the edit pool page",
+                defaultMessage: "Talent placement",
+                id: "0YpfAG",
+                description: "Title for candidates tab for a process",
               }),
             },
           },
@@ -297,9 +338,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pool) => {
             icon: Cog8ToothIcon,
             title: intl.formatMessage({
               defaultMessage: "Advertisement information",
-              id: "rwQPZE",
-              description:
-                "Page title for process' advertisement information page",
+              id: "yM04jy",
+              description: "Title for advertisement information of a process",
             }),
             link: {
               url: paths.poolUpdate(pool.id),
@@ -334,7 +374,7 @@ export const isOngoingPublishingGroup = (
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
-export type ClassificationGroup = "AS" | "EX" | "PM" | "IT";
+export type ClassificationGroup = "AS" | "EX" | "PM" | "IT" | "EC";
 
 export function getClassificationGroup(
   pool: Maybe<Pool>,
@@ -455,4 +495,39 @@ export const formatClosingDate = (
   }
 
   return {};
+};
+
+export const getClassificationSalaryRangeUrl = (
+  locale: Locales,
+  classification: Maybe<Classification>,
+): string | null => {
+  let localizedUrl: Record<Locales, string> | null = null;
+  switch (classification?.group) {
+    case "CS":
+    case "IT":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
+      };
+      break;
+    case "AS":
+    case "PM":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
+      };
+      break;
+    case "EC":
+      localizedUrl = {
+        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
+        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
+      };
+      break;
+    default:
+      break;
+  }
+
+  if (localizedUrl) return localizedUrl[locale];
+
+  return null;
 };

@@ -8,13 +8,13 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -83,9 +83,17 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={userName} icon={currentPage?.icon} navItems={pages}>
-        {currentPage?.title}
-      </PageHeader>
+      <AdminHero
+        title={currentPage?.title}
+        subtitle={userName}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
       {userDeleted ? (
         <Alert.Root
           type="warning"
@@ -119,12 +127,9 @@ const UserLayout = () => {
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

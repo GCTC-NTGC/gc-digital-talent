@@ -49,6 +49,7 @@ const Content = React.forwardRef<
   <TabsPrimitive.Content
     ref={forwardedRef}
     {...commonTabStyles.contentDivide}
+    data-h2-padding="base(x1)"
     {...props}
   />
 ));

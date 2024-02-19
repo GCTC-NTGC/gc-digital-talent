@@ -112,10 +112,10 @@ query getMe {
       educationRequirementExperiences {
         ...profileExperience
       }
-      screeningQuestionResponses {
+      generalQuestionResponses {
         id
         answer
-        screeningQuestion {
+        generalQuestion {
           id
           sortOrder
           question {

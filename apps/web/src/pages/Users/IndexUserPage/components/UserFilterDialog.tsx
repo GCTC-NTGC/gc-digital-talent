@@ -32,7 +32,7 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 export type FormValues = {
   pools: string[];
@@ -56,7 +56,8 @@ type UserFilterDialogProps = CommonFilterDialogProps<FormValues>;
 
 const UserFilterDialog = ({
   onSubmit,
-  defaultValues,
+  resetValues,
+  initialValues,
 }: UserFilterDialogProps) => {
   const intl = useIntl();
 
@@ -67,7 +68,10 @@ const UserFilterDialog = ({
   const roles = unpackMaybes(data?.roles);
 
   return (
-    <FilterDialog<FormValues> onSubmit={onSubmit} options={{ defaultValues }}>
+    <FilterDialog<FormValues>
+      options={{ defaultValues: initialValues }}
+      {...{ onSubmit, resetValues }}
+    >
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
@@ -82,7 +86,7 @@ const UserFilterDialog = ({
             label={intl.formatMessage(adminMessages.pools)}
             options={pools.map((pool) => ({
               value: pool.id,
-              label: getFullPoolTitleLabel(intl, pool),
+              label: getShortPoolTitleLabel(intl, pool),
             }))}
           />
         </div>

@@ -1,4 +1,5 @@
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
+
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,

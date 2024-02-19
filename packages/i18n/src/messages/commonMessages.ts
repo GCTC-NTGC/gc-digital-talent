@@ -1,6 +1,16 @@
 import { defineMessages } from "react-intl";
 
 const commonMessages = defineMessages({
+  projectTitle: {
+    defaultMessage: "GC Digital Talent",
+    id: "1i0PsT",
+    description: "Title of GC Digital Talent",
+  },
+  iapTitle: {
+    defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
+    id: "0OSmXn",
+    description: "Title of IT Apprenticeship Program for Indigenous Peoples",
+  },
   loadingTitle: {
     defaultMessage: "Loading",
     id: "o/6zAs",
@@ -65,6 +75,16 @@ const commonMessages = defineMessages({
     description:
       "Message displayed when a user has not provided some form of information",
   },
+  noNameProvided: {
+    defaultMessage: "No name provided",
+    id: "BXxvCZ",
+    description: "Message for when no name value",
+  },
+  noInformationProvided: {
+    defaultMessage: "No information has been provided.",
+    id: "euigxa",
+    description: "Sentence when some form of information not provided",
+  },
   requiredFieldsMissing: {
     defaultMessage: "There are <red>required</red> fields missing.",
     id: "EdAaI7",
@@ -110,6 +130,11 @@ const commonMessages = defineMessages({
     id: "gM4WDL",
     description: "Negative answer",
   },
+  other: {
+    defaultMessage: "Other",
+    id: "LJ2r4A",
+    description: "Different or distinct from one already mentioned",
+  },
   status: {
     defaultMessage: "Status",
     id: "QtzRCh",
@@ -120,15 +145,35 @@ const commonMessages = defineMessages({
     id: "atqjXB",
     description: "Stop the current action",
   },
+  delete: {
+    defaultMessage: "Delete",
+    id: "2/YsnJ",
+    description: "Delete action",
+  },
+  name: {
+    defaultMessage: "Name",
+    id: "WhLeuS",
+    description: "Title for name",
+  },
   email: {
     defaultMessage: "Email",
     id: "dJd5/f",
     description: "Title for email",
   },
+  department: {
+    defaultMessage: "Department",
+    id: "9aW0M6",
+    description: "Title for department",
+  },
   telephone: {
     defaultMessage: "Telephone",
     id: "imR1U4",
     description: "Title displayed telephone",
+  },
+  preferredCommunicationLanguage: {
+    defaultMessage: "Preferred Communication Language",
+    id: "Ho94JY",
+    description: "Title displayed preferred communication language",
   },
   unspecified: {
     defaultMessage: "Unspecified",
@@ -139,6 +184,26 @@ const commonMessages = defineMessages({
     defaultMessage: "Not applicable",
     id: "C/mdCs",
     description: "Not applicable, context or state does apply.",
+  },
+  employmentEquity: {
+    defaultMessage: "Employment equity",
+    id: "Qn/95I",
+    description: "Title for Employment equity",
+  },
+  editThisSection: {
+    defaultMessage: "Edit this section",
+    id: "XZl6Ks",
+    description: "Text to trigger edit of section action",
+  },
+  edit: {
+    defaultMessage: "Edit",
+    id: "2wKf2U",
+    description: "Text to trigger edit action",
+  },
+  notSure: {
+    defaultMessage: "Not sure",
+    id: "GLRLYT",
+    description: "A decision has not been made",
   },
 });
 

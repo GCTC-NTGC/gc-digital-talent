@@ -3,14 +3,25 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
+  FragmentType,
+  GeneralQuestionResponse,
+  LocalizedString,
+  Maybe,
   Pool,
   PoolCandidate,
+  Scalars,
   SkillCategory,
   User,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import DiversityEquityInclusionDisplay from "~/components/Profile/components/DiversityEquityInclusion/Display";
@@ -20,24 +31,89 @@ import PersonalInformationDisplay from "~/components/Profile/components/Personal
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
 import { categorizeSkill } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
 import { SECTION_KEY } from "./types";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
 
+const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationInformation_PoolFragment on Pool {
+    essentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      ...SkillWithExperiences_SkillFragment
+    }
+    ...ApplicationPrintDocument_PoolFragment
+  }
+`);
+
+// stopgap as screening questions become general questions while a new screening questions backend is set up
+// preserve snapshot functionality
+type ScreeningQuestion = {
+  id: Scalars["ID"]["output"];
+  pool?: Maybe<Pool>;
+  question?: Maybe<LocalizedString>;
+  sortOrder?: Maybe<Scalars["Int"]["output"]>;
+};
+
+type ScreeningQuestionResponse = {
+  answer?: Maybe<Scalars["String"]["output"]>;
+  screeningQuestion?: Maybe<ScreeningQuestion>;
+  id: Scalars["ID"]["output"];
+};
+
+function isScreeningQuestionResponse(
+  response: ScreeningQuestionResponse | GeneralQuestionResponse,
+): response is ScreeningQuestionResponse {
+  return (
+    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
+  );
+}
+
 interface ApplicationInformationProps {
-  pool: Pool;
-  application?: PoolCandidate | null;
+  poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
+  application?:
+    | (PoolCandidate & {
+        screeningQuestionResponses?: Maybe<
+          Array<Maybe<ScreeningQuestionResponse>>
+        >;
+      })
+    | null;
   snapshot: User;
 }
 
 const ApplicationInformation = ({
-  pool,
+  poolQuery,
   snapshot,
   application,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
+  const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
   const [openSections, setOpenSections] = React.useState<string[]>([]);
   const hasOpenSections = openSections.length > 0;
 
@@ -46,9 +122,18 @@ const ApplicationInformation = ({
     setOpenSections(newValue);
   };
 
+  const generalQuestionResponses = unpackMaybes(
+    application?.generalQuestionResponses ?? [],
+  );
+
   const screeningQuestionResponses = unpackMaybes(
     application?.screeningQuestionResponses ?? [],
   );
+
+  const mergedQuestionResponses: (
+    | GeneralQuestionResponse
+    | ScreeningQuestionResponse
+  )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
 
   const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
   const technicalEssentialSkills = unpackMaybes(
@@ -140,27 +225,22 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Personal and contact information",
-              id: "0lUoqK",
+              id: "BWh6S1",
               description:
-                "Title for the personal and contact information snapshot section",
+                "Title for the personal and contact information section",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
             <PersonalInformationDisplay user={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
-        {screeningQuestionResponses.length > 0 ? (
+        {mergedQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
-              {intl.formatMessage({
-                defaultMessage: "Screening questions",
-                id: "mqWvWR",
-                description:
-                  "Title for the screening questions snapshot section",
-              })}
+              {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {screeningQuestionResponses.map((response, index) => (
+              {mergedQuestionResponses.map((response, index) => (
                 <React.Fragment key={response.id}>
                   <Heading
                     level="h4"
@@ -171,7 +251,9 @@ const ApplicationInformation = ({
                     })}
                   >
                     {getLocalizedName(
-                      response.screeningQuestion?.question,
+                      isScreeningQuestionResponse(response)
+                        ? response.screeningQuestion?.question
+                        : response.generalQuestion?.question,
                       intl,
                     )}
                   </Heading>
@@ -185,9 +267,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Minimum experience or equivalent education",
-              id: "Fbh/MK",
+              id: "LvYEdh",
               description:
-                "Title for the minimum experience or equivalent education snapshot section.",
+                "Title for Minimum experience or equivalent education",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -217,8 +299,8 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Asset skills",
-              id: "Xpo+u6",
-              description: "Title for the optional skills snapshot section",
+              id: "K0Zkdw",
+              description: "Title for optional skills",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -246,11 +328,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
           <Accordion.Trigger>
-            {intl.formatMessage({
-              defaultMessage: "Work preferences",
-              id: "s7F24X",
-              description: "Title for the work preferences snapshot section",
-            })}
+            {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
             <WorkPreferencesDisplay user={snapshot} />
@@ -260,9 +338,9 @@ const ApplicationInformation = ({
           <Accordion.Trigger>
             {intl.formatMessage({
               defaultMessage: "Government employee information",
-              id: "nEVNHp",
+              id: "Jf3vT5",
               description:
-                "Title for the government employee information snapshot section",
+                "Title for the government employee information section",
             })}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -271,12 +349,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
           <Accordion.Trigger>
-            {intl.formatMessage({
-              defaultMessage: "Diversity, equity, and inclusion",
-              id: "zLeH2i",
-              description:
-                "Title for the diversity, equity, and inclusion snapshot section",
-            })}
+            {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
           </Accordion.Trigger>
           <Accordion.Content>
             <DiversityEquityInclusionDisplay user={snapshot} />

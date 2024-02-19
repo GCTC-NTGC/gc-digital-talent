@@ -9,7 +9,7 @@ import { BasicDialogProps } from "./types";
 const mailAccessor = (chunks: React.ReactNode) => (
   <Link
     external
-    color="primary"
+    color="secondary"
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
   >
     {chunks}

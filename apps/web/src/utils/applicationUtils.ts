@@ -3,6 +3,7 @@ import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import {
   PoolCandidateStatus,
@@ -26,7 +27,7 @@ import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/care
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   experienceId?: string;
 };
 
@@ -45,7 +46,7 @@ export const getApplicationSteps = ({
     careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
+    ...(application.pool.generalQuestions?.length ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];
@@ -179,6 +180,7 @@ export function isApplicationQualifiedRecruitment(a: Application): boolean {
     a.status === PoolCandidateStatus.QualifiedAvailable ||
     a.status === PoolCandidateStatus.QualifiedUnavailable ||
     a.status === PoolCandidateStatus.QualifiedWithdrew ||
+    a.status === PoolCandidateStatus.PlacedTentative ||
     a.status === PoolCandidateStatus.PlacedCasual ||
     a.status === PoolCandidateStatus.PlacedTerm ||
     a.status === PoolCandidateStatus.PlacedIndeterminate ||

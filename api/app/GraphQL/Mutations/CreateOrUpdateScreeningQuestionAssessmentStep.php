@@ -27,6 +27,21 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
             $incomingAssessmentStep = $args['assessmentStep'];
             $incomingQuestionIds = [];
 
+            // Upsert assessment step
+            $assessmentStep = AssessmentStep::updateOrCreate(
+                ['pool_id' => $pool->id, 'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name],
+                [...(isset($incomingAssessmentStep['title']) ? ['title' => $incomingAssessmentStep['title']] : [])]
+            );
+            if (isset($incomingAssessmentStep['poolSkills']['sync'])) {
+                foreach ($incomingAssessmentStep['poolSkills']['sync'] as $skillID) {
+                    $skill = PoolSkill::find($skillID);
+                    if ($skill === null || $skill->pool_id !== $pool->id) {
+                        throw new Exception('PoolSkillNotValid');
+                    }
+                }
+                $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']['sync']);
+            }
+
             // Create/update incoming questions based on the existence of an id
             foreach ($incomingQuestions as $incomingQuestion) {
                 if (isset($incomingQuestion['id'])) {
@@ -43,10 +58,11 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
 
                     $questionToUpdate->save();
                 } else {
-                    $pool->screeningQuestions()->Create([
-                        'question' => $incomingQuestion['question'],
-                        'sort_order' => isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null,
-                    ]);
+                    $newQuestion = new ScreeningQuestion();
+                    $newQuestion->assessment_step_id = $assessmentStep->id;
+                    $newQuestion->question = $incomingQuestion['question'];
+                    $newQuestion->sort_order = isset($incomingQuestion['sortOrder']) ? $incomingQuestion['sortOrder'] : null;
+                    $pool->screeningQuestions()->save($newQuestion);
                 }
             }
 
@@ -55,21 +71,6 @@ final class CreateOrUpdateScreeningQuestionAssessmentStep
                 if (! in_array($existing->id, $incomingQuestionIds)) {
                     $existing->delete();
                 }
-            }
-
-            // Upsert assessment step
-            $assessmentStep = AssessmentStep::updateOrCreate(
-                ['pool_id' => $pool->id, 'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name],
-                [...(isset($incomingAssessmentStep['title']) ? ['title' => $incomingAssessmentStep['title']] : [])]
-            );
-            if (isset($incomingAssessmentStep['poolSkills']['sync'])) {
-                foreach ($incomingAssessmentStep['poolSkills']['sync'] as $skillID) {
-                    $skill = PoolSkill::find($skillID);
-                    if ($skill === null || $skill->pool_id !== $pool->id) {
-                        throw new Exception('PoolSkillNotValid');
-                    }
-                }
-                $assessmentStep->poolSkills()->sync($incomingAssessmentStep['poolSkills']['sync']);
             }
 
             DB::commit();

@@ -9,7 +9,11 @@ import {
   ROLE_NAME,
   hasRole,
 } from "@gc-digital-talent/auth";
-import { useLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  navigationMessages,
+  useLocale,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
@@ -23,7 +27,7 @@ import authMessages from "~/messages/authMessages";
 
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
-import MaintenanceBanner from "./MaintenanceBanner";
+import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 
 const Layout = () => {
@@ -48,18 +52,10 @@ const Layout = () => {
       })}
     </MenuLink>,
     <MenuLink key="search" to={paths.search()}>
-      {intl.formatMessage({
-        defaultMessage: "Find talent",
-        id: "NohOkF",
-        description: "Label displayed on the Find talent menu item.",
-      })}
+      {intl.formatMessage(navigationMessages.findTalent)}
     </MenuLink>,
     <MenuLink key="browseJobs" to={paths.browsePools()}>
-      {intl.formatMessage({
-        defaultMessage: "Browse jobs",
-        id: "7GrHDl",
-        description: "Label displayed on the browse pools menu item.",
-      })}
+      {intl.formatMessage(navigationMessages.browseJobs)}
     </MenuLink>,
   ];
 
@@ -109,12 +105,7 @@ const Layout = () => {
           key="profile-applications"
           to={paths.profileAndApplications()}
         >
-          {intl.formatMessage({
-            defaultMessage: "Profile and applications",
-            id: "nBoNqj",
-            description:
-              "Label displayed on the profile and applications menu item.",
-          })}
+          {intl.formatMessage(navigationMessages.profileAndApplications)}
         </MenuLink>,
         ...authLinks,
       ];
@@ -125,11 +116,7 @@ const Layout = () => {
     <>
       <Favicon locale={locale} project="digital-talent" />
       <SEO
-        title={intl.formatMessage({
-          defaultMessage: "GC Digital Talent",
-          id: "Mz+gUV",
-          description: "Title tag for Talent Search site",
-        })}
+        title={intl.formatMessage(commonMessages.projectTitle)}
         description={intl.formatMessage({
           defaultMessage:
             "GC Digital Talent is the new recruitment platform for digital and tech jobs in the Government of Canada. Apply now!",
@@ -148,7 +135,7 @@ const Layout = () => {
       >
         <div>
           <Header />
-          <MaintenanceBanner />
+          <SitewideBanner />
           {!iapPersonality ? (
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           ) : (

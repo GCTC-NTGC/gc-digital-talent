@@ -92,6 +92,24 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+    # For debugging FPM.  Only accessible locally.
+    location ~ ^/(fpm-status)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9001;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
+    # For checking FPM status.  Enabled in prod locally to test post_deply script.
+    location ~ ^/(fpm-ping)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
 
     # rewrite root-level possible lang prefix to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/?$" {
@@ -112,15 +130,15 @@ server {
     }
 
     # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
+    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
         add_header Cache-Control "public, max-age=31536000"; # 1 year
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
      # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
+    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
         add_header Cache-Control "public, max-age=3600"; # 1 hour
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html
@@ -187,6 +205,16 @@ server {
     location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
           add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html

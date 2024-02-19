@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   getLocale,
@@ -7,6 +8,7 @@ import {
   getPoolCandidateSearchStatus,
   getLocalizedName,
   getPoolCandidateSearchPositionType,
+  getSearchRequestReason,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -16,17 +18,21 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import {
+  FragmentType,
+  PoolCandidateSearchRequest,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import {
-  PoolCandidateSearchRequest,
-  useGetPoolCandidateSearchRequestQuery,
-} from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
+import AdminHero from "~/components/Hero/AdminHero";
+import SEO from "~/components/SEO/SEO";
+import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -58,7 +64,11 @@ const ManagerInfo = ({
             "Heading for the manager info section of the single search request view.",
         })}
       </Heading>
-      <div data-h2-background-color="base(gray.lightest)">
+      <div
+        data-h2-background-color="base(foreground)"
+        data-h2-radius="base(rounded)"
+        data-h2-shadow="base(larger)"
+      >
         <div data-h2-padding="base(x1)">
           <div
             data-h2-flex-grid="base(stretch, x1, 0)"
@@ -66,7 +76,7 @@ const ManagerInfo = ({
           >
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -74,10 +84,9 @@ const ManagerInfo = ({
               >
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Full Name",
-                    id: "W9DTVh",
-                    description:
-                      "Title for the full name block in the manager info section of the single search request view.",
+                    defaultMessage: "Full name",
+                    id: "IBc2sp",
+                    description: "Label for full name",
                   })}
                   content={fullName}
                 />
@@ -100,19 +109,14 @@ const ManagerInfo = ({
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
                 data-h2-height="base(100%)"
               >
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "zwcUgi",
-                    description:
-                      "Title for the department block in the manager info section of the single search request view.",
-                  })}
+                  title={intl.formatMessage(commonMessages.department)}
                   content={department?.name?.[locale]}
                 />
                 <FilterBlock
@@ -126,7 +130,7 @@ const ManagerInfo = ({
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of4)"
-              data-h2-border-right="p-tablet(1px solid gray)"
+              data-h2-border-right="p-tablet(1px solid black.2)"
             >
               <div
                 data-h2-padding="base(0, x1, 0, 0)"
@@ -157,12 +161,7 @@ const ManagerInfo = ({
                 data-h2-height="base(100%)"
               >
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Status",
-                    id: "Lzd38d",
-                    description:
-                      "Title for the status block in the manager info section of the single search request view.",
-                  })}
+                  title={intl.formatMessage(commonMessages.status)}
                   content={
                     status
                       ? intl.formatMessage(getPoolCandidateSearchStatus(status))
@@ -204,18 +203,133 @@ const ManagerInfo = ({
   );
 };
 
+const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
+  fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
+    id
+    fullName
+    email
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    jobTitle
+    managerJobTitle
+    positionType
+    reason
+    wasEmpty
+    additionalComments
+    poolCandidateFilter {
+      id
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      equity {
+        hasDisability
+        isIndigenous
+        isVisibleMinority
+        isWoman
+      }
+      languageAbility
+      operationalRequirements
+      workRegions
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+    requestedDate
+    status
+    statusChangedAt
+    adminNotes
+    applicantFilter {
+      id
+      equity {
+        hasDisability
+        isIndigenous
+        isVisibleMinority
+        isWoman
+      }
+      languageAbility
+      operationalRequirements
+      locationPreferences
+      positionDuration
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+      }
+      qualifiedClassifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      qualifiedStreams
+    }
+  }
+`);
+
 interface SingleSearchRequestProps {
-  searchRequest: PoolCandidateSearchRequest;
+  searchRequestQuery: FragmentType<
+    typeof ViewSearchRequest_SearchRequestFragment
+  >;
 }
 
 export const ViewSearchRequest = ({
-  searchRequest,
+  searchRequestQuery,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
+  const routes = useRoutes();
   const locale = getLocale(intl);
+  const searchRequest = getFragment(
+    ViewSearchRequest_SearchRequestFragment,
+    searchRequestQuery,
+  );
   const {
+    id,
     additionalComments,
     poolCandidateFilter,
+    fullName,
+    department,
     applicantFilter,
     wasEmpty,
     jobTitle,
@@ -223,11 +337,39 @@ export const ViewSearchRequest = ({
     reason,
   } = searchRequest;
 
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: routes.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage(indexSearchRequestPageTitle),
+      url: routes.searchRequestTable(),
+    },
+    {
+      label: `${fullName} - ${getLocalizedName(department?.name, intl)}`,
+      url: routes.searchRequestView(id),
+    },
+  ];
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Request",
+    id: "WYJnLs",
+    description: "Heading displayed above the single search request component.",
+  });
+
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
+
   return (
-    <section>
-      <p data-h2-margin="base(0 0 x1 0)">
-        {intl.formatMessage(
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        subtitle={intl.formatMessage(
           {
             defaultMessage:
               "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
@@ -240,119 +382,132 @@ export const ViewSearchRequest = ({
             department: searchRequest.department?.name[locale],
           },
         )}
-      </p>
-      {wasEmpty && (
-        <p data-h2-margin="base(0 0 x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
-            id: "ruEs9/",
-            description:
-              "Message to admins that a search request resulted in no candidates being found",
-          })}
-        </p>
-      )}
-
-      <ManagerInfo searchRequest={searchRequest} />
-      <div>
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Request Information",
-            id: "AAmd5G",
-            description:
-              "Heading for the request information section of the single search request view.",
-          })}
-        </Heading>
-        <div
-          data-h2-padding="base(x1)"
-          data-h2-background-color="base(gray.lightest)"
-        >
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Reason for talent request",
-              id: "enffKD",
-              description: "Label for the reason for submitting the request.",
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        {wasEmpty && (
+          <p data-h2-margin="base(0 0 x1 0)">
+            {intl.formatMessage({
+              defaultMessage:
+                "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
+              id: "ruEs9/",
+              description:
+                "Message to admins that a search request resulted in no candidates being found",
             })}
-            content={
-              reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
-            }
-          />
-          <Separator
-            orientation="horizontal"
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin-bottom="base(x1)"
-          />
-          <SearchRequestFilters filters={abstractFilter} />
+          </p>
+        )}
+
+        <ManagerInfo searchRequest={searchRequest} />
+        <div>
+          <Heading level="h2" size="h4">
+            {intl.formatMessage({
+              defaultMessage: "Request Information",
+              id: "AAmd5G",
+              description:
+                "Heading for the request information section of the single search request view.",
+            })}
+          </Heading>
           <div
-            data-h2-padding="base(x1, 0, 0, 0)"
-            data-h2-border-top="base(1px solid gray)"
-            data-h2-margin="base(x1, 0, 0, 0)"
+            data-h2-background-color="base(foreground)"
+            data-h2-radius="base(rounded)"
+            data-h2-shadow="base(larger)"
+            data-h2-padding="base(x1)"
           >
-            <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Position job title",
-                    id: "OI7Bc7",
-                    description: "Label for an opportunity's job title.",
-                  })}
-                  content={jobTitle}
-                />
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-                <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Type of position",
-                    id: "nZT/WM",
-                    description: "Label for an opportunity's position type.",
-                  })}
-                  content={
-                    positionType
-                      ? intl.formatMessage(
-                          getPoolCandidateSearchPositionType(positionType),
-                        )
-                      : intl.formatMessage(adminMessages.noneProvided)
-                  }
-                />
-              </div>
-            </div>
             <FilterBlock
               title={intl.formatMessage({
-                defaultMessage: "Additional Comments",
-                id: "WqOnFF",
-                description:
-                  "Title for the additional comments block in the search request filters",
+                defaultMessage: "Reason for talent request",
+                id: "enffKD",
+                description: "Label for the reason for submitting the request.",
               })}
-              content={additionalComments}
+              content={
+                reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
+              }
             />
+            <Separator
+              orientation="horizontal"
+              data-h2-background-color="base(black.2)"
+              data-h2-margin-bottom="base(x1)"
+            />
+            <SearchRequestFilters filters={abstractFilter} />
+            <div
+              data-h2-padding="base(x1, 0, 0, 0)"
+              data-h2-border-top="base(1px solid black.2)"
+              data-h2-margin="base(x1, 0, 0, 0)"
+            >
+              <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                  <FilterBlock
+                    title={intl.formatMessage({
+                      defaultMessage: "Position job title",
+                      id: "OI7Bc7",
+                      description: "Label for an opportunity's job title.",
+                    })}
+                    content={jobTitle}
+                  />
+                </div>
+                <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+                  <FilterBlock
+                    title={intl.formatMessage({
+                      defaultMessage: "Type of position",
+                      id: "nZT/WM",
+                      description: "Label for an opportunity's position type.",
+                    })}
+                    content={
+                      positionType
+                        ? intl.formatMessage(
+                            getPoolCandidateSearchPositionType(positionType),
+                          )
+                        : intl.formatMessage(adminMessages.noneProvided)
+                    }
+                  />
+                </div>
+              </div>
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Additional Comments",
+                  id: "WqOnFF",
+                  description:
+                    "Title for the additional comments block in the search request filters",
+                })}
+                content={additionalComments}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Candidate Results",
-            id: "Duswz0",
-            description:
-              "Heading for the candidate results section of the single search request view.",
-          })}
-        </Heading>
-        {abstractFilter ? (
-          <SingleSearchRequestTableApi filter={abstractFilter} />
-        ) : (
-          <>
+        <div>
+          <Heading level="h2" size="h4">
             {intl.formatMessage({
-              defaultMessage: "Request doesn't include a filter!",
-              id: "hmacO5",
-              description: "Null state for a request not including a filter.",
+              defaultMessage: "Candidate Results",
+              id: "Duswz0",
+              description:
+                "Heading for the candidate results section of the single search request view.",
             })}
-          </>
-        )}
-      </div>
-      <UpdateSearchRequest initialSearchRequest={searchRequest} />
-    </section>
+          </Heading>
+          {abstractFilter ? (
+            <SingleSearchRequestTableApi filter={abstractFilter} />
+          ) : (
+            <>
+              {intl.formatMessage({
+                defaultMessage: "Request doesn't include a filter!",
+                id: "hmacO5",
+                description: "Null state for a request not including a filter.",
+              })}
+            </>
+          )}
+        </div>
+        <UpdateSearchRequest initialSearchRequest={searchRequest} />
+      </AdminContentWrapper>
+    </>
   );
 };
+
+const ViewSearchRequest_Query = graphql(/* GraphQL */ `
+  query ViewSearchRequest($id: ID!) {
+    poolCandidateSearchRequest(id: $id) {
+      ...ViewSearchRequest_SearchRequest
+    }
+  }
+`);
 
 const ViewSearchRequestApi = ({
   searchRequestId,
@@ -360,61 +515,33 @@ const ViewSearchRequestApi = ({
   searchRequestId: string;
 }) => {
   const intl = useIntl();
-  const routes = useRoutes();
-  const [{ data: searchRequestData, fetching, error }] =
-    useGetPoolCandidateSearchRequestQuery({
-      variables: { id: searchRequestId },
-    });
-
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.requests),
-      url: routes.searchRequestTable(),
-    },
-    {
-      label: `${searchRequestData?.poolCandidateSearchRequest
-        ?.fullName} - ${getLocalizedName(
-        searchRequestData?.poolCandidateSearchRequest?.department?.name,
-        intl,
-      )}`,
-      url: routes.searchRequestView(searchRequestId),
-    },
-  ];
+  const [{ data: searchRequestData, fetching, error }] = useQuery({
+    query: ViewSearchRequest_Query,
+    variables: { id: searchRequestId },
+  });
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={fetching} error={error}>
-        {searchRequestData?.poolCandidateSearchRequest ? (
-          <ViewSearchRequest
-            searchRequest={searchRequestData?.poolCandidateSearchRequest}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Search Request {searchRequestId} not found.",
-                  id: "BbaMf0",
-                  description:
-                    "Message displayed for search request not found on single search request page.",
-                },
-                { searchRequestId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+    <Pending fetching={fetching} error={error}>
+      {searchRequestData?.poolCandidateSearchRequest ? (
+        <ViewSearchRequest
+          searchRequestQuery={searchRequestData.poolCandidateSearchRequest}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Search Request {searchRequestId} not found.",
+                id: "BbaMf0",
+                description:
+                  "Message displayed for search request not found on single search request page.",
+              },
+              { searchRequestId },
+            )}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

@@ -2,6 +2,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useMutation } from "urql";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import {
@@ -16,13 +17,13 @@ import {
   getPoolCandidateSearchStatus,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-
 import {
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
   UpdatePoolCandidateSearchRequestInput,
-  useUpdatePoolCandidateSearchRequestMutation,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
@@ -131,9 +132,9 @@ export const UpdateSearchRequestForm = ({
   return (
     <div>
       <div
-        data-h2-border-bottom="base(1px solid gray)"
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-padding="base(0, 0, x1, 0)"
+        data-h2-border-bottom="base(1px solid black.2)"
+        data-h2-margin="base(0, 0, x3, 0)"
+        data-h2-padding="base(0, 0, x3, 0)"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(handleSaveNotes)}>
@@ -248,7 +249,7 @@ export const UpdateSearchRequestForm = ({
           </form>
         </FormProvider>
       </div>
-      <div data-h2-margin="base(0, 0, x1, 0)">
+      <div>
         <Link href={navigateTo} mode="inline" color="secondary">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
@@ -262,12 +263,28 @@ export const UpdateSearchRequestForm = ({
   );
 };
 
+const UpdateSearchRequest_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateSearchRequest(
+    $id: ID!
+    $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+  ) {
+    updatePoolCandidateSearchRequest(
+      id: $id
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      id
+      status
+      adminNotes
+    }
+  }
+`);
+
 const UpdateSearchRequest = ({
   initialSearchRequest,
 }: {
   initialSearchRequest: PoolCandidateSearchRequest;
 }) => {
-  const [, executeMutation] = useUpdatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useMutation(UpdateSearchRequest_Mutation);
   const handleUpdateSearchRequest = (
     id: string,
     data: UpdatePoolCandidateSearchRequestInput,

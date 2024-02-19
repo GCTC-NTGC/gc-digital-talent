@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useMutation } from "urql";
 
 import {
   Button,
   Heading,
-  Pending,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -15,14 +15,12 @@ import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
 import {
   ApplicationStep,
+  graphql,
   IndigenousCommunity,
-  useGetApplicationQuery,
-  useGetMeQuery,
-  useUpdateUserAndApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
@@ -41,7 +39,25 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import HelpLink from "./SelfDeclaration/HelpLink";
 import CommunitySelection from "./SelfDeclaration/CommunitySelection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
+
+const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
+  mutation Application_UpdateSelfDeclaration(
+    $userId: ID!
+    $userInput: UpdateUserAsUserInput!
+    $applicationId: ID!
+    $applicationInput: UpdateApplicationInput!
+  ) {
+    updateUserAsUser(id: $userId, user: $userInput) {
+      id
+      indigenousCommunities
+      indigenousDeclarationSignature
+    }
+    updateApplication(id: $applicationId, application: $applicationInput) {
+      id
+    }
+  }
+`);
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -207,9 +223,9 @@ export const ApplicationSelfDeclaration = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",
-                    id: "Dz9xib",
+                    id: "7i+qEB",
                     description:
-                      "Disclaimer displayed before signing the Indigenous self-declaration form",
+                      "Disclaimer before signing Indigenous self-declaration form",
                   })}
                 </p>
                 <div data-h2-margin="base(x1 0)">
@@ -348,32 +364,18 @@ export const ApplicationSelfDeclaration = ({
 const ApplicationSelfDeclarationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-      stale: applicationStale,
-    },
-  ] = useGetApplicationQuery({
-    requestPolicy: "cache-first",
-    variables: {
-      id,
-    },
-  });
-  const [{ data: userData, fetching: userFetching, error: userError }] =
-    useGetMeQuery();
+  const { application } = useApplication();
 
   const navigate = useNavigate();
   const { followingPageUrl } = useApplicationContext();
-  const [, executeMutation] = useUpdateUserAndApplicationMutation();
+  const [, executeMutation] = useMutation(
+    Application_UpdateSelfDeclarationMutation,
+  );
   const cancelPath = paths.profileAndApplications({ fromIapDraft: true });
   const nextStep = followingPageUrl ?? cancelPath;
 
-  const application = applicationData?.poolCandidate;
   const resolvedIndigenousCommunities =
-    userData?.me?.indigenousCommunities?.filter(notEmpty);
+    application.user?.indigenousCommunities?.filter(notEmpty);
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     // not indigenous - explore other opportunities
     if (formValues.action === "explore") {
@@ -383,13 +385,13 @@ const ApplicationSelfDeclarationPage = () => {
     const newCommunities = formValuesToApiCommunities(formValues);
     // Have to update both the user and the pool candidate in same request.  If you try to update just the user first and the application afterwards it interferes with the navigation.  I guess it creates a race condition as one of the contexts automatically refreshes.
     executeMutation({
-      userId: userData?.me?.id || "",
+      userId: application?.user?.id || "",
       userInput: {
         indigenousCommunities: newCommunities,
         indigenousDeclarationSignature:
           newCommunities.length > 0 ? formValues.signature : null,
       },
-      applicationId: id,
+      applicationId: application.id,
       applicationInput: {
         insertSubmittedStep: ApplicationStep.SelfDeclaration,
       },
@@ -419,22 +421,15 @@ const ApplicationSelfDeclarationPage = () => {
       });
   };
 
-  return (
-    <Pending
-      fetching={applicationFetching || applicationStale || userFetching}
-      error={applicationError || userError}
-    >
-      {application && userData?.me ? (
-        <ApplicationSelfDeclaration
-          application={application}
-          indigenousCommunities={resolvedIndigenousCommunities}
-          signature={userData.me.indigenousDeclarationSignature ?? null}
-          onSubmit={handleSubmit}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application && application?.user ? (
+    <ApplicationSelfDeclaration
+      application={application}
+      indigenousCommunities={resolvedIndigenousCommunities}
+      signature={application.user.indigenousDeclarationSignature ?? null}
+      onSubmit={handleSubmit}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

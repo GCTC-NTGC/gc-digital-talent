@@ -66,8 +66,8 @@ class PoolPolicy
     /**
      * Determine whether the user can create pools.
      *
-     * @param    $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
-     *      We need to use this because the model hasn't been created yet so we can't read from it
+     * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *                   We need to use this because the model hasn't been created yet so we can't read from it
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user, $request)
@@ -204,18 +204,18 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can view pool assessments
+     * Determine whether the user can view pool's assessment plan
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAssessments(User $user, Pool $pool)
+    public function viewAssessmentPlan(User $user, Pool $pool)
     {
-        if ($user->isAbleTo('view-any-pool')) {
+        if ($user->isAbleTo('view-any-assessmentPlan')) {
             return true;
         }
 
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('view-team-pool', $pool->team);
+        return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
     }
 }

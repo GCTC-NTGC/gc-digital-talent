@@ -1,8 +1,8 @@
-import { PoolCandidateSearchRequestReason } from "@gc-digital-talent/web/src/api/generated";
 import {
+  PoolCandidateSearchRequestReason,
   PoolCandidateSearchPositionType,
   WorkRegion,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 
 type CreateSearchRequestArgs = {
   classificationId: string;

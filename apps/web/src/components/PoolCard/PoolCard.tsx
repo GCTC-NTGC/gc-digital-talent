@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -83,7 +83,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         data-h2-transform="base:selectors[::before](translate(0, 1.5rem)) base:selectors[::after](translate(0, 1.5rem))"
       >
         <span
-          data-h2-color="base(black) base:iap(white)"
+          data-h2-color="base:all(black) base:iap(white)"
           data-h2-font-weight="base(700)"
           data-h2-font-size="base(h5, 1)"
           data-h2-layer="base(2)"
@@ -110,7 +110,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-max-width="p-tablet(75%)"
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
-            {getFullPoolTitleHtml(intl, pool)}
+            {getShortPoolTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-background-color="base(secondary)"
@@ -128,11 +128,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         >
           <IconLabel
             icon={CalendarIcon}
-            label={intl.formatMessage({
-              defaultMessage: "Deadline:",
-              id: "l9CTjM",
-              description: "Label for pool advertisement closing date",
-            })}
+            label={
+              intl.formatMessage({
+                defaultMessage: "Deadline",
+                id: "FVEh7L",
+                description: "Label for pool advertisement closing date",
+              }) + intl.formatMessage(commonMessages.dividingColon)
+            }
           >
             {pool.closingDate
               ? intl.formatMessage(
@@ -159,12 +161,13 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           </IconLabel>
           <IconLabel
             icon={CurrencyDollarIcon}
-            label={intl.formatMessage({
-              id: "TrO4uL",
-              defaultMessage: "Salary range: ",
-              description:
-                "Label for the range of salary expected for a classification",
-            })}
+            label={
+              intl.formatMessage({
+                defaultMessage: "Salary range",
+                id: "GgBjAd",
+                description: "Label for pool advertisement salary range",
+              }) + intl.formatMessage(commonMessages.dividingColon)
+            }
           >
             {salaryRanges ? salaryRanges[0] : nullMessage}
           </IconLabel>

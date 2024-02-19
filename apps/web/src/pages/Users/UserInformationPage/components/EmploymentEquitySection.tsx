@@ -25,14 +25,14 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
           description:
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
-      {!isIndigenous && (
+      {isIndigenous && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
-            id: "HrXZ6X",
-            description: "Text on view-user page that the user is indigenous",
+            id: "YoIRbn",
+            description: "Title for Indigenous",
           })}
         </div>
       )}

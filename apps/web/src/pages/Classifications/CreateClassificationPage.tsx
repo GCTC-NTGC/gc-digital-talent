@@ -6,8 +6,7 @@ import { useIntl } from "react-intl";
 
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading } from "@gc-digital-talent/ui";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import {
@@ -16,6 +15,8 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
+import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateClassificationInput;
@@ -69,13 +70,6 @@ export const CreateClassificationForm = ({
   };
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h1" size="h2">
-        {intl.formatMessage({
-          defaultMessage: "Create Classification",
-          id: "D8Pgbs",
-          description: "Title displayed on the create a classification form.",
-        })}
-      </Heading>
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -86,12 +80,7 @@ export const CreateClassificationForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "7wYPgC",
-              description:
-                "Label displayed on the classification form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -100,12 +89,7 @@ export const CreateClassificationForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "uAmdiU",
-              description:
-                "Label displayed on the classification form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -134,12 +118,9 @@ export const CreateClassificationForm = ({
               description:
                 "Label displayed on the classification form level field.",
             })}
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select a level",
-              id: "Le4EQq",
-              description:
-                "Placeholder displayed on the classification form level field.",
-            })}
+            nullSelection={intl.formatMessage(
+              uiMessages.nullSelectionOptionLevel,
+            )}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -226,7 +207,7 @@ const CreateClassification = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.classifications),
+      label: intl.formatMessage(indexClassificationPageTitle),
       url: routes.classificationTable(),
     },
     {
@@ -240,19 +221,25 @@ const CreateClassification = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create classification",
+    id: "fYyK2p",
+    description: "Page title for the classification creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create classification",
-          id: "fYyK2p",
-          description: "Page title for the classification creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <CreateClassificationForm
-        handleCreateClassification={handleCreateClassification}
-      />
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <CreateClassificationForm
+          handleCreateClassification={handleCreateClassification}
+        />
+      </AdminContentWrapper>
+    </>
   );
 };
 

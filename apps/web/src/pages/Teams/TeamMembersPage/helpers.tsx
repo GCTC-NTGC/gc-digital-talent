@@ -25,17 +25,13 @@ export function orderRoles(roles: Array<Role>, intl: IntlShape) {
   });
 }
 
-export const actionCell = (
-  user: TeamMember,
-  team: Team,
-  roles: Array<Role>,
-) => (
+export const actionCell = (user: TeamMember, team: Team) => (
   <div
     data-h2-display="base(flex)"
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.25)"
   >
-    <EditTeamMemberDialog user={user} team={team} availableRoles={roles} />
+    <EditTeamMemberDialog user={user} team={team} />
     <RemoveTeamMemberDialog user={user} team={team} />
   </div>
 );
@@ -67,7 +63,7 @@ export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
   const nonEmptyRoles = roles?.filter(notEmpty);
   const rolePills = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Pill color="black" mode="solid" key={role.id}>
+        <Pill color="blackFixed" mode="solid" key={role.id}>
           {getLocalizedName(role.displayName, intl)}
         </Pill>
       ))

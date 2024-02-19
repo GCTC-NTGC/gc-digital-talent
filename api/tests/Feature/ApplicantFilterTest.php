@@ -98,65 +98,58 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
-     * Test that querying all ApplicantFilter returns correct number, with correct attributes.
+     * Test that querying an applicantFilter returns with correct attributes.
      *
      * @return void
      */
-    public function testQueryAllApplicantFilters()
+    public function testQueryApplicantFilter()
     {
-        $filters = ApplicantFilter::factory()->count(2)->create();
+        $this->seed(DepartmentSeeder::class);
+
+        $filter = ApplicantFilter::factory()->create();
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'applicant_filter_id' => $filter->id,
+        ]);
 
         $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query {
-                applicantFilters {
-                    id
-                    equity {
-                        isWoman
-                        hasDisability
-                        isIndigenous
-                        isVisibleMinority
+            query poolCandidateSearchRequest($id: ID!) {
+                poolCandidateSearchRequest(id: $id) {
+                    applicantFilter {
+                        id
+                        equity {
+                            isWoman
+                            hasDisability
+                            isIndigenous
+                            isVisibleMinority
+                        }
+                        languageAbility
+                        operationalRequirements
+                        locationPreferences
+                        positionDuration
                     }
-                    languageAbility
-                    operationalRequirements
-                    locationPreferences
-                    positionDuration
                 }
             }
-        '
-        );
-        $response->assertJson([
-            'data' => [
-                'applicantFilters' => [
-                    [
-                        'id' => $filters[0]->id,
-                        'equity' => [
-                            'isWoman' => $filters[0]->is_woman,
-                            'hasDisability' => $filters[0]->has_disability,
-                            'isIndigenous' => $filters[0]->is_indigenous,
-                            'isVisibleMinority' => $filters[0]->is_visible_minority,
-                        ],
-                        'languageAbility' => $filters[0]->language_ability,
-                        'operationalRequirements' => $filters[0]->operational_requirements,
-                        'locationPreferences' => $filters[0]->location_preferences,
-                        'positionDuration' => $filters[0]->position_duration,
 
-                    ],
-                    [
-                        'id' => $filters[1]->id,
-                        'equity' => [
-                            'isWoman' => $filters[1]->is_woman,
-                            'hasDisability' => $filters[1]->has_disability,
-                            'isIndigenous' => $filters[1]->is_indigenous,
-                            'isVisibleMinority' => $filters[1]->is_visible_minority,
-                        ],
-                        'languageAbility' => $filters[1]->language_ability,
-                        'operationalRequirements' => $filters[1]->operational_requirements,
-                        'locationPreferences' => $filters[1]->location_preferences,
-                        'positionDuration' => $filters[1]->position_duration,
-                    ],
+        ',
+            [
+                'id' => $request->id,
+            ]
+        );
+        $response->assertJsonFragment([
+            'applicantFilter' => [
+                'id' => $filter->id,
+                'equity' => [
+                    'isWoman' => $filter->is_woman,
+                    'hasDisability' => $filter->has_disability,
+                    'isIndigenous' => $filter->is_indigenous,
+                    'isVisibleMinority' => $filter->is_visible_minority,
                 ],
+                'languageAbility' => $filter->language_ability,
+                'operationalRequirements' => $filter->operational_requirements,
+                'locationPreferences' => $filter->location_preferences,
+                'positionDuration' => $filter->position_duration,
             ],
         ]);
     }
@@ -189,85 +182,80 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
-     * Test that queried ApplicantFilters have the correct relationships.
+     * Test that queried ApplicantFilter has the correct relationships.
      */
     public function testQueryRelationships()
     {
         // Before we add relationships, we need to seed the related values
+        $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $this->seed(PoolSeeder::class);
 
-        $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
+        $filter = ApplicantFilter::factory()->withRelationships()->create();
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'applicant_filter_id' => $filter->id,
+        ]);
         $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query {
-                applicantFilters {
-                    id
-                    skills {
+            query poolCandidateSearchRequest($id: ID!) {
+                poolCandidateSearchRequest(id: $id) {
+                    applicantFilter {
                         id
-                        name {
-                            en
-                            fr
+                        skills {
+                            id
+                            name {
+                                en
+                                fr
+                            }
                         }
-                    }
-                    pools {
-                        id
-                        name {
-                            en
-                            fr
+                        pools {
+                            id
+                            name {
+                                en
+                                fr
+                            }
                         }
-                    }
-                    qualifiedStreams
-                    qualifiedClassifications {
-                        id
-                        name {
-                            en
-                            fr
+                        qualifiedStreams
+                        qualifiedClassifications {
+                            id
+                            name {
+                                en
+                                fr
+                            }
                         }
                     }
                 }
             }
-        '
+        ',
+            [
+                'id' => $request->id,
+            ]
         );
         // Assert that each relationship collection has the right size.
-        foreach ($response->json('data.applicantFilters') as $filter) {
-            $this->assertCount($filters->find($filter['id'])->qualifiedClassifications->count(), $filter['qualifiedClassifications']);
-            $this->assertCount($filters->find($filter['id'])->skills->count(), $filter['skills']);
-            $this->assertCount($filters->find($filter['id'])->pools->count(), $filter['pools']);
+        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+        $this->assertCount($filter->qualifiedClassifications->count(), $retrievedFilter['qualifiedClassifications']);
+        $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
+        $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
+        $this->assertCount(count($filter->qualified_streams), $retrievedFilter['qualifiedStreams']);
+
+        // Assert that all the content in each collection is correct.
+        foreach ($filter->pools as $pool) {
+            $response->assertJsonFragment(['id' => $pool->id, 'name' => $pool->name]);
         }
-        // Assert that the content of at least one item in each collection is correct.
-        $firstFilter = $response->json('data.applicantFilters.0');
-        $firstFilterModel = ApplicantFilter::where('id', $firstFilter['id'])->sole();
-        $response->assertJson([
-            'data' => [
-                'applicantFilters' => [
-                    [
-                        'id' => $firstFilterModel->id,
-                        'qualifiedClassifications' => [
-                            [
-                                'id' => $firstFilterModel->qualifiedClassifications->first()->id,
-                                'name' => $firstFilterModel->qualifiedClassifications->first()->name,
-                            ],
-                        ],
-                        'skills' => [
-                            [
-                                'id' => $firstFilterModel->skills->first()->id,
-                                'name' => $firstFilterModel->skills->first()->name,
-                            ],
-                        ],
-                        'pools' => [
-                            [
-                                'id' => $firstFilterModel->pools->first()->id,
-                                'name' => $firstFilterModel->pools->first()->name,
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ]);
+        foreach ($filter->qualifiedClassifications as $qualifiedClassification) {
+            $response->assertJsonFragment([
+                'id' => $qualifiedClassification->id,
+                'name' => $qualifiedClassification->name,
+            ]);
+        }
+        foreach ($filter->skills as $skill) {
+            $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
+        }
+
+        $response->assertJsonFragment(['qualifiedStreams' => $filter->qualified_streams]);
     }
 
     /**

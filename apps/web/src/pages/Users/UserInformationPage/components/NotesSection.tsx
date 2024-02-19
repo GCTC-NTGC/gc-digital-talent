@@ -1,31 +1,37 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
+import { useMutation } from "urql";
 
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
+import { graphql } from "@gc-digital-talent/graphql";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import {
-  UpdatePoolCandidateAsAdminInput,
-  useUpdatePoolCandidateMutation,
-} from "~/api/generated";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 
 import { BasicUserInformationProps } from "../types";
+
+const AdminUpdatePoolCandidateNotes_Mutation = graphql(/* GraphQL */ `
+  mutation AdminUpdatePoolCandidateNotes($id: UUID!, $notes: String) {
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
+      id
+      notes
+    }
+  }
+`);
 
 const NotesSection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
 
-  const [, executeMutation] = useUpdatePoolCandidateMutation();
+  const [, executeMutation] = useMutation(
+    AdminUpdatePoolCandidateNotes_Mutation,
+  );
 
-  const handleUpdateCandidate = async (
-    id: string,
-    values: UpdatePoolCandidateAsAdminInput,
-  ) => {
-    const res = await executeMutation({ id, poolCandidate: values });
-    if (res.data?.updatePoolCandidateAsAdmin) {
-      return res.data.updatePoolCandidateAsAdmin;
+  const handleUpdateCandidate = async (id: string, notes: string) => {
+    const res = await executeMutation({ id, notes });
+    if (res.data?.updatePoolCandidateNotes) {
+      return res.data.updatePoolCandidateNotes;
     }
     return Promise.reject(res.error);
   };
@@ -33,9 +39,10 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
   const handleSubmit = async (formValues: { [x: string]: string }) => {
     user?.poolCandidates?.forEach(async (candidate) => {
       if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
-        await handleUpdateCandidate(candidate.id, {
-          notes: formValues[candidate.id],
-        })
+        await handleUpdateCandidate(
+          candidate.id,
+          formValues[candidate.id] ?? "",
+        )
           .then(() => {
             toast.success(
               intl.formatMessage(
@@ -47,7 +54,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for successful update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -63,7 +70,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                     "Toast notification for failed update of candidates notes in specified pool",
                 },
                 {
-                  poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                  poolName: getShortPoolTitleHtml(intl, candidate.pool),
                 },
               ),
             );
@@ -78,9 +85,8 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
         {intl.formatMessage({
           defaultMessage:
             "These notes are shared between all managers of this pool, but not to candidates.",
-          id: "9mJuzm",
-          description:
-            "Message about the behavior of notes on the view-user page",
+          id: "JDQvla",
+          description: "Description of pool candidate notes field",
         })}
       </p>
       {isEmpty(user.poolCandidates) ? (
@@ -109,7 +115,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                           "Label for the notes field for a specific pool",
                       },
                       {
-                        poolName: getFullPoolTitleHtml(intl, candidate.pool),
+                        poolName: getShortPoolTitleHtml(intl, candidate.pool),
                       },
                     )}
                     defaultValue={candidate.notes ? candidate.notes : ""}

@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   Locales,
+  commonMessages,
   getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
@@ -22,7 +23,7 @@ import {
   IndigenousCommunity,
   Maybe,
   Experience,
-  ScreeningQuestionResponse,
+  GeneralQuestionResponse,
 } from "~/api/generated";
 import {
   isAwardExperience,
@@ -33,6 +34,20 @@ import {
   getExperienceName,
 } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
+
+/**
+ * Sanitize a string for use in a CSV
+ *
+ * - Replaces '"' with '""' for proper double quotes
+ * - Removes new lines (\r\n) that create new rows
+ *
+ * @param value
+ * @returns string
+ */
+export const sanitizeCSVString = (value?: Maybe<string>) => {
+  if (!value) return "";
+  return value.replace(/"/g, "").replace(/(\r\n|\n|\r)/gm, "");
+};
 
 /**
  * Converts a possible boolean
@@ -47,16 +62,8 @@ export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
     return "";
   }
   return value
-    ? intl.formatMessage({
-        defaultMessage: "Yes",
-        id: "UOO1gW",
-        description: "Message for when a value is true",
-      })
-    : intl.formatMessage({
-        defaultMessage: "No",
-        id: "q7bz0J",
-        description: "Message for when a value is false",
-      });
+    ? intl.formatMessage(commonMessages.yes)
+    : intl.formatMessage(commonMessages.no);
 };
 
 /**
@@ -78,9 +85,7 @@ const listOrEmptyString = (value: string[] | undefined) => {
  * @returns string                      Comma separated list or empty
  */
 const sanitizeJustifications = (values: string[] | undefined) => {
-  const sanitizedList = values
-    ? values.map((v) => v.replace(/"/g, '""')) // escape double quotes
-    : "";
+  const sanitizedList = values ? values.map((v) => sanitizeCSVString(v)) : "";
   return sanitizedList ? insertBetween("\n\n", sanitizedList).join("") : "";
 };
 
@@ -372,24 +377,24 @@ export const getExperienceTitles = (
     ?.filter(notEmpty)
     .map((experience) => getExperienceName(experience, intl));
 
-  return titles?.join(", ") || "";
+  return sanitizeCSVString(titles?.join(", "));
 };
 
 /**
- * Converts screening question responses to column data
+ * Converts general question responses to column data
  *
- * @param screeningQuestionResponses[]
+ * @param generalQuestionResponses[]
  */
-export const getScreeningQuestionResponses = (
-  responses: Maybe<Maybe<ScreeningQuestionResponse>[]> | undefined,
+export const getGeneralQuestionResponses = (
+  responses: Maybe<Maybe<GeneralQuestionResponse>[]> | undefined,
 ) => {
   let data: Record<string, string> = {};
 
-  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+  responses?.filter(notEmpty).forEach(({ id, generalQuestion, answer }) => {
     data = {
       ...data,
       // Note: API sends Maybe with everything, but this should never be null or undefined
-      [screeningQuestion?.id || id]: answer ?? "",
+      [generalQuestion?.id || id]: sanitizeCSVString(answer),
     };
   });
 

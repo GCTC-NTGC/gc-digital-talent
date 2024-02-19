@@ -5,6 +5,7 @@ const config: CodegenConfig = {
   documents: [
     "../**/*.tsx",
     "../../apps/**/src/**/*.tsx",
+    "../../apps/**/src/**/*.ts",
     "../../apps/**/cypress/**/*.ts",
   ],
   ignoreNoDocuments: true,

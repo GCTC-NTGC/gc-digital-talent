@@ -1,13 +1,13 @@
 import React from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
+import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import {
   isIAPPool,
   getClassificationGroup,
   ClassificationGroup,
 } from "~/utils/poolUtils";
-import { PoolCandidate } from "~/api/generated";
 
 interface ApplicationContextState {
   isIAP: boolean;
@@ -33,7 +33,7 @@ export const useApplicationContext = () => {
 };
 
 interface ApplicationContextProviderProps {
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
   children: React.ReactNode;
@@ -53,7 +53,7 @@ const ApplicationContextProvider = ({
       currentStepOrdinal,
       classificationGroup: getClassificationGroup(application.pool),
     }),
-    [application, followingPageUrl, currentStepOrdinal],
+    [application.pool, followingPageUrl, currentStepOrdinal],
   );
 
   React.useEffect(() => {

@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
+  process: {
+    defaultMessage: "Process",
+    id: "WSMupE",
+    description: "Title for process sections",
+  },
   classification: {
     defaultMessage: "Classification",
     id: "YmWKlv",
@@ -30,6 +35,11 @@ const messages = defineMessages({
     defaultMessage: "Publishing group",
     id: "ysKXVP",
     description: "Label for a process' publishing group",
+  },
+  closingDate: {
+    defaultMessage: "Closing date",
+    id: "CQxGrS",
+    description: "Label for a process' closing date",
   },
   closingDatePacific: {
     defaultMessage: "Closing date (Pacific timezone)",
@@ -95,6 +105,11 @@ const messages = defineMessages({
     defaultMessage: "Special note (French)",
     id: "g7RC9u",
     description: "Label for a process' French special note",
+  },
+  screeningQuestions: {
+    defaultMessage: "Screening questions",
+    id: "p8+wKq",
+    description: "Title of screening questions",
   },
 });
 

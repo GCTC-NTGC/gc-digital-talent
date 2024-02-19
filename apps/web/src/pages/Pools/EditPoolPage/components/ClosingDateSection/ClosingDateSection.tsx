@@ -11,7 +11,7 @@ import {
   convertDateTimeZone,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
@@ -24,6 +24,11 @@ import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import ClosingDateDialog from "./ClosingDateDialog";
+
+const dialog = (chunks: React.ReactNode) => (
+  <ClosingDateDialog title={chunks} />
+);
 
 type FormValues = {
   endDate?: Pool["closingDate"];
@@ -93,12 +98,17 @@ const ClosingDateSection = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const subtitle = intl.formatMessage({
-    defaultMessage:
-      "Select a closing date for your process. The closing time will be automatically set to 11:59 PM in the Pacific time zone.",
-    id: "3aiqQT",
-    description: "Describes what the selecting a closing date for a process.",
-  });
+  const subtitle = intl.formatMessage(
+    {
+      defaultMessage:
+        "The date this recruitment will stop accepting applications. <dialog>Learn more about how closing times work.</dialog>",
+      id: "LghLU9",
+      description: "Describes what the selecting a closing date for a process.",
+    },
+    {
+      dialog,
+    },
+  );
 
   return (
     <ToggleSection.Root
@@ -110,32 +120,26 @@ const ClosingDateSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {emptyRequired ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} subtitle={subtitle} />
-          )}
+          {emptyRequired ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin="base(x1 0)">
+              <div data-h2-margin-bottom="base(x1)">
                 <DateInput
                   id="endDate"
                   legend={experienceFormLabels.endDate}
@@ -162,7 +166,8 @@ const ClosingDateSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save closing date",
                       id: "jttjmJ",
                       description:

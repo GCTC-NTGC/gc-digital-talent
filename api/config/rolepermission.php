@@ -70,6 +70,7 @@ return [
         'application' => 'application',
         'submittedApplication' => 'submittedApplication',
         'draftApplication' => 'draftApplication',
+        'applicationNotes' => 'applicationNotes',
         'applicationStatus' => 'applicationStatus',
         'applicantCount' => 'applicantCount',
         'searchRequest' => 'searchRequest',
@@ -79,7 +80,9 @@ return [
         'directiveForm' => 'directiveForm',
         'applicantProfile' => 'applicantProfile',
         'teamRole' => 'teamRole',
+        'assessmentPlan' => 'assessmentPlan',
         'assessmentResult' => 'assessmentResult',
+        'announcement' => 'announcement',
     ],
 
     /*
@@ -278,14 +281,6 @@ return [
             'en' => 'Submit my own Application',
             'fr' => 'Soumettre ma propre candidature',
         ],
-        'update-team-applicationStatus' => [
-            'en' => 'Update the status of Applications submitted to this Team\'s Pools',
-            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.',
-        ],
-        'update-any-applicationStatus' => [
-            'en' => 'Update the status of any submitted Applications',
-            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.',
-        ],
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
             'fr' => 'Supprimer sa propre candidature provisoire',
@@ -297,6 +292,44 @@ return [
         'suspend-own-submittedApplication' => [
             'en' => 'Suspend or un-suspend Own Submitted Application',
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
+        ],
+
+        'view-team-applicationNotes' => [
+            'en' => 'View the notes of Applications submitted to this Team\'s Pools',
+            'fr' => 'Consulter les notes des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'view-any-applicationNotes' => [
+            'en' => 'View the notes of any submitted Application',
+            'fr' => 'Consulter les notes de n\'importe quel candidature soumise',
+        ],
+        'update-team-applicationNotes' => [
+            'en' => 'Update the notes of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
+        ],
+        'update-any-applicationNotes' => [
+            'en' => 'Update the notes of any submitted Applications',
+            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
+        ],
+
+        'view-own-applicationStatus' => [
+            'en' => 'View the status of my own Applications',
+            'fr' => 'Consulter le statut de mes propres candidatures',
+        ],
+        'view-team-applicationStatus' => [
+            'en' => 'View the status of Applications submitted to this Team\'s Pools',
+            'fr' => 'Consulter le statut des candidatures soumises aux bassins de cette équipe.',
+        ],
+        'view-any-applicationStatus' => [
+            'en' => 'View the status of any submitted Application',
+            'fr' => 'Consulter le statut de n\'importe quel candidature soumise',
+        ],
+        'update-team-applicationStatus' => [
+            'en' => 'Update the status of Applications submitted to this Team\'s Pools',
+            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.',
+        ],
+        'update-any-applicationStatus' => [
+            'en' => 'Update the status of any submitted Applications',
+            'fr' => 'Mettre à jour le statut des demandes soumises aux bassins de cette équipe.',
         ],
 
         'create-any-application' => [
@@ -405,6 +438,23 @@ return [
             'fr' => 'Supprimer tout formulaire de directive',
         ],
 
+        'view-any-assessmentPlan' => [
+            'en' => 'View the assessment plan (assessment steps) for any pool.',
+            'fr' => 'Consulter le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
+        ],
+        'view-team-assessmentPlan' => [
+            'en' => 'View the assessment plan (assessment steps) for pools run by your team only.',
+            'fr' => 'Consultez le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
+        ],
+        'update-any-assessmentPlan' => [
+            'en' => 'Edit the assessment plan (assessment steps) for any pool.',
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour n\'importe quel bassin.',
+        ],
+        'update-team-assessmentPlan' => [
+            'en' => 'Edit the assessment plan (assessment steps) for pools run by your team only.',
+            'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
+        ],
+
         'view-any-assessmentResult' => [
             'en' => 'View assessment results for any pool',
             'fr' => 'Voir les résultats de l\'évaluation pour n\'importe quel bassin',
@@ -416,6 +466,15 @@ return [
         'update-team-assessmentResult' => [
             'en' => 'Mutate assessment result objects',
             'fr' => 'Modifier les objets de résultats d\'évaluation',
+        ],
+
+        'view-any-announcement' => [
+            'en' => 'View any announcement',
+            'fr' => 'Voir toutes les annonces',
+        ],
+        'update-any-announcement' => [
+            'en' => 'Update any announcement',
+            'fr' => 'Mise à jour de toute annonce',
         ],
     ],
 
@@ -564,6 +623,9 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
+            'announcement' => [
+                'any' => ['view'],
+            ],
         ],
 
         'base_user' => [
@@ -600,6 +662,9 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
+            'announcement' => [
+                'any' => ['view'],
+            ],
         ],
 
         'applicant' => [
@@ -611,6 +676,9 @@ return [
             ],
             'submittedApplication' => [
                 'own' => ['archive', 'suspend'],
+            ],
+            'applicationStatus' => [
+                'own' => ['view'],
             ],
         ],
 
@@ -628,7 +696,10 @@ return [
                 'team' => ['view'],
             ],
             'applicationStatus' => [
-                'team' => ['update'],
+                'team' => ['view', 'update'],
+            ],
+            'applicationNotes' => [
+                'team' => ['view', 'update'],
             ],
             'teamMembers' => [
                 'team' => ['view'],
@@ -638,6 +709,9 @@ return [
             ],
             'applicantProfile' => [
                 'team' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view', 'update'],
             ],
             'assessmentResult' => [
                 'team' => ['view', 'update'],
@@ -649,12 +723,21 @@ return [
                 'any' => ['view'],
             ],
             'applicationStatus' => [
-                'any' => ['update'],
+                'any' => ['view', 'update'],
+            ],
+            'applicationNotes' => [
+                'any' => ['view', 'update'],
             ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete'],
             ],
             'user' => [
+                'any' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'any' => ['view'],
+            ],
+            'assessmentResult' => [
                 'any' => ['view'],
             ],
         ],
@@ -674,6 +757,9 @@ return [
             ],
             'teamRole' => [
                 'any' => ['assign'],
+            ],
+            'assessmentPlan' => [
+                'any' => ['view'],
             ],
         ],
 
@@ -722,6 +808,9 @@ return [
             ],
             'assessmentResult' => [
                 'any' => ['view'],
+            ],
+            'announcement' => [
+                'any' => ['update'],
             ],
         ],
     ],

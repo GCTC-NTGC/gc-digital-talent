@@ -1,4 +1,5 @@
-import { ApplicationStep } from "~/api/generated";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
+
 import {
   ApplicationStepInfo,
   GetApplicationStepInfo,

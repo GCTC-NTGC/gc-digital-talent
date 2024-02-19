@@ -5,14 +5,14 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
   useDeleteExperienceMutation,
   useExperienceMutations,
 } from "~/hooks/useExperienceMutations";
-import { Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
   formValuesToSubmitData,
@@ -35,7 +35,7 @@ type ExperienceExperienceFormValues =
     action: FormAction | "";
   };
 interface EditExperienceFormProps {
-  applicationId: Scalars["ID"];
+  applicationId: Scalars["ID"]["output"];
   experience: AnyExperience;
 }
 
@@ -73,7 +73,16 @@ const EditExperienceForm = ({
     if (executeMutation) {
       executeMutation(args)
         .then((res) => {
-          if (res.data) {
+          if (res.error) {
+            toast.error(
+              intl.formatMessage({
+                defaultMessage: "Error: updating experience failed",
+                id: "WyKJsK",
+                description:
+                  "Message displayed to user after experience fails to be updated.",
+              }),
+            );
+          } else {
             toast.success(
               intl.formatMessage({
                 defaultMessage: "Successfully updated experience!",
@@ -188,11 +197,7 @@ const EditExperienceForm = ({
               <AlertDialog.Footer>
                 <AlertDialog.Cancel>
                   <Button type="button" color="secondary">
-                    {intl.formatMessage({
-                      defaultMessage: "Cancel",
-                      id: "KnE2Rk",
-                      description: "Cancel confirmation",
-                    })}
+                    {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </AlertDialog.Cancel>
                 <AlertDialog.Action>
@@ -203,11 +208,7 @@ const EditExperienceForm = ({
                     disabled={isSubmitting}
                     onClick={handleDeleteExperience}
                   >
-                    {intl.formatMessage({
-                      defaultMessage: "Delete",
-                      id: "sBksyQ",
-                      description: "Delete confirmation",
-                    })}
+                    {intl.formatMessage(commonMessages.delete)}
                   </Button>
                 </AlertDialog.Action>
               </AlertDialog.Footer>

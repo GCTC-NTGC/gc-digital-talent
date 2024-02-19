@@ -4,6 +4,7 @@ import { SortingState } from "@tanstack/react-table";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import {
   InputMaybe,
@@ -60,7 +61,8 @@ export function transformUserInput(
 
   return {
     // search bar
-    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    generalSearch:
+      searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     name: searchType === "name" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,
@@ -169,3 +171,216 @@ export function transformUserFilterInputToFormValues(
     trashed: input?.trashed ? "true" : "",
   };
 }
+
+export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
+  query UsersTable_SelectUsers($ids: [ID]!) {
+    applicants(includeIds: $ids) {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      govEmployeeType
+      hasPriorityEntitlement
+      priorityNumber
+      locationPreferences
+      locationExemptions
+      positionDuration
+      acceptedOperationalRequirements
+      isWoman
+      indigenousCommunities
+      indigenousDeclarationSignature
+      isVisibleMinority
+      hasDisability
+      citizenship
+      armedForcesStatus
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      experiences {
+        id
+        __typename
+        user {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+      poolCandidates {
+        status
+        expiryDate
+        user {
+          id
+        }
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            group
+            level
+          }
+        }
+        id
+      }
+      topTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      topBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+    }
+  }
+`);

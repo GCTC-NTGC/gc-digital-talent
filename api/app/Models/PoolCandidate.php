@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
+ * @property bool $is_bookmarked
  */
 class PoolCandidate extends Model
 {
@@ -62,6 +63,7 @@ class PoolCandidate extends Model
         'suspended_at' => 'datetime',
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
+        'is_bookmarked' => 'boolean',
     ];
 
     /**
@@ -81,12 +83,37 @@ class PoolCandidate extends Model
         'pool_candidate_status',
     ];
 
+    protected $touches = ['user'];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_bookmarked' => false,
+    ];
+
     /**
      * The "booted" method of the model.
      */
     protected static function booted(): void
     {
         PoolCandidate::observe(PoolCandidateObserver::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($model) {
+            // Check if the 'notes' attribute is being updated and if so, update the searchable user model
+            // Seems to work without this but not sure why
+            if ($model->user()->exists() && $model->isDirty('notes')) {
+                $model->user()->searchable();
+            }
+
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -105,6 +132,11 @@ class PoolCandidate extends Model
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class)->withTrashed();
+    }
+
+    public function generalQuestionResponses(): HasMany
+    {
+        return $this->hasMany(GeneralQuestionResponse::class);
     }
 
     public function screeningQuestionResponses(): HasMany
@@ -190,7 +222,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -206,7 +238,7 @@ class PoolCandidate extends Model
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
-     * @param  array|null  $classifications Each classification is an object with a group and a level field.
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
      */
     public static function scopeQualifiedClassifications(Builder $query, ?array $classifications): Builder
     {
@@ -218,7 +250,7 @@ class PoolCandidate extends Model
         $query->where(function ($query) {
             $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
         })
-            ->whereIn('pool_candidates.pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name]) // Where the PoolCandidate is accepted into the pool and not already placed.
+            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
             })
@@ -243,8 +275,8 @@ class PoolCandidate extends Model
      *
      * Restrict a query by specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
-     * @param  ?array  $publishingGroups The publishing groups to scope the query by
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
+     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
@@ -267,7 +299,7 @@ class PoolCandidate extends Model
      * Restrict a query by pool candidates that are for pools
      * containing IT specific publishing groups
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query The existing query being built
+     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public static function scopeInITPublishingGroup(Builder $query)
@@ -346,17 +378,15 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeGeneralSearch(Builder $query, ?string $search): Builder
+    public function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
-        if (empty($search)) {
+        if (empty($searchTerms)) {
             return $query;
         }
 
-        $query->where(function ($query) use ($search) {
-            $query->whereHas('user', function ($query) use ($search) {
-                User::scopeGeneralSearch($query, $search);
-            })->orWhere(function ($query) use ($search) {
-                self::scopeNotes($query, $search);
+        $query->where(function ($query) use ($searchTerms) {
+            $query->whereHas('user', function ($query) use ($searchTerms) {
+                User::scopeGeneralSearch($query, $searchTerms);
             });
         });
 
@@ -423,10 +453,13 @@ class PoolCandidate extends Model
 
     public static function scopeAvailable(Builder $query): Builder
     {
-        $query->whereIn('pool_candidate_status', [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name])
+        $query->whereIn('pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup())
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
+            })
+            ->where(function ($query) {
+                self::scopeExpiryStatus($query, CandidateExpiryFilter::ACTIVE->name);
             });
 
         return $query;
@@ -528,8 +561,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -637,8 +670,13 @@ class PoolCandidate extends Model
      */
     public function scopeAuthorizedToView(Builder $query)
     {
-        $userId = Auth::user()->id;
-        $user = User::find($userId);
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
         if (! $user->isAbleTo('view-any-application')) {
             $query->where(function (Builder $query) use ($user) {
                 if ($user->isAbleTo('view-any-submittedApplication')) {
@@ -710,6 +748,25 @@ class PoolCandidate extends Model
         ]);
     }
 
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function scopeOrderByPoolName(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        if ($order && $locale) {
+            $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
+        }
+
+        return $query;
+
+    }
+
     public function setApplicationSnapshot()
     {
         $user = User::with([
@@ -734,8 +791,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementEducationExperiences.skills',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
             'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.generalQuestionResponses',
+            'poolCandidates.generalQuestionResponses.generalQuestion',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

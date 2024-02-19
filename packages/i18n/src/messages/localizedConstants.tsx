@@ -34,9 +34,13 @@ import {
   PoolSkillType,
   AssessmentStepType,
   PoolCandidateSearchRequestReason,
+  AssessmentDecision,
+  AssessmentResultJustification,
+  AssessmentDecisionLevel,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
+import commonMessages from "./commonMessages";
 
 const employmentEquityGroups = defineMessages({
   woman: {
@@ -158,12 +162,7 @@ const citizenshipStatusesProfile = defineMessages({
     id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "lr2+2R",
-    description:
-      "declaring one to be neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesProfile = (
@@ -186,11 +185,7 @@ const citizenshipStatusesAdmin = defineMessages({
     id: "xCBinq",
     description: "user is a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "48qVi9",
-    description: "user is neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesAdmin = (
@@ -283,9 +278,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     ? defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "Graduation with degree",
@@ -303,9 +297,8 @@ const educationRequirementOptions = (classificationGroup?: string) =>
     : defineMessages({
         [EducationRequirementOption.AppliedWork]: {
           defaultMessage: "Applied work experience",
-          description:
-            "Option for education requirement, applied work experience",
-          id: "4S30lt",
+          description: "Title for the applied work experience requirements",
+          id: "dwYJOo",
         },
         [EducationRequirementOption.Education]: {
           defaultMessage: "2-year post-secondary",
@@ -666,6 +659,12 @@ const poolCandidateStatuses = defineMessages({
     defaultMessage: "Qualified Withdrew",
     id: "yRxy3a",
     description: "The pool candidate's status is Qualified Withdrew.",
+  },
+  [PoolCandidateStatus.PlacedTentative]: {
+    defaultMessage: "Offer in Progress",
+    id: "k/+pcc",
+    description:
+      "The pool candidate's status is Offer in Progress, tentatively placed",
   },
   [PoolCandidateStatus.PlacedCasual]: {
     defaultMessage: "Placed Casual",
@@ -1103,11 +1102,7 @@ const educationTypeMessages = defineMessages({
     id: "jS69se",
     description: "Certification selection for education type input",
   },
-  [EducationType.Other]: {
-    defaultMessage: "Other",
-    id: "eGg734",
-    description: "Other selection for education type input",
-  },
+  [EducationType.Other]: commonMessages.other,
 });
 
 export const getEducationType = (
@@ -1664,11 +1659,7 @@ const bilingualEvaluations = defineMessages({
     id: "DUuisY",
     description: "Completed a French language evaluation",
   },
-  [BilingualEvaluation.NotCompleted]: {
-    defaultMessage: "No",
-    id: "ZEsIZi",
-    description: "No, did not complete a language evaluation",
-  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
 });
 
 export const getBilingualEvaluation = (
@@ -1696,11 +1687,7 @@ export const poolCandidatePriorities = defineMessages({
     id: "oMyc4e",
     description: "Priority text for citizens of canada",
   },
-  40: {
-    defaultMessage: "Other",
-    id: "K80psp",
-    description: "Priority text for users with no priority",
-  },
+  40: commonMessages.other,
 });
 
 export const getPoolCandidatePriorities = (
@@ -1734,11 +1721,7 @@ const publishingGroups = defineMessages({
     id: "1YuZjR",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
-  [PublishingGroup.Other]: {
-    defaultMessage: "Other",
-    id: "mv7JO3",
-    description: "The publishing group called Other",
-  },
+  [PublishingGroup.Other]: commonMessages.other,
 });
 
 export const getPublishingGroup = (
@@ -1761,10 +1744,30 @@ const abbreviations = defineMessages({
     id: "sMi0QI",
     description: "Full name of abbreviation for GC",
   },
+  EX: {
+    defaultMessage: "Executive Group",
+    id: "oXrkBM",
+    description: "Full name of abbreviation for EX",
+  },
   IT: {
     defaultMessage: "Information Technology",
     id: "n3Gt3n",
     description: "Full name of abbreviation for IT",
+  },
+  PM: {
+    defaultMessage: "Programme Administration",
+    id: "CF69qZ",
+    description: "Full name of abbreviation for PM",
+  },
+  CS: {
+    defaultMessage: "Computer Systems",
+    id: "HVMI8t",
+    description: "Full name of abbreviation for CS",
+  },
+  EC: {
+    defaultMessage: "Economics and Social Science Services",
+    id: "W5Dkd1",
+    description: "Full name of abbreviation for EC",
   },
 });
 
@@ -2096,4 +2099,124 @@ export const getSearchRequestReason = (
     searchRequestReasons,
     searchRequestReasonId,
     `Invalid Search Request Reason '${searchRequestReasonId}'`,
+  );
+
+const assessmentDecisions = defineMessages({
+  [AssessmentDecision.Successful]: {
+    defaultMessage: "Demonstrated",
+    id: "5wKh/o",
+    description:
+      "Option for assessment decision when candidate has successful assessment.",
+  },
+  [AssessmentDecision.Hold]: {
+    defaultMessage: "Not demonstrated (Hold for further assessment)",
+    id: "MMtY88",
+    description:
+      "Option for assessment decision when candidate has unsuccessful assessment but on hold.",
+  },
+  [AssessmentDecision.Unsuccessful]: {
+    defaultMessage: "Not demonstrated (Remove from process)",
+    id: "zXkLL2",
+    description:
+      "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
+  },
+});
+
+export const getAssessmentDecision = (
+  assessmentDecisionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentDecisions,
+    assessmentDecisionId,
+    `Invalid Search Request Reason '${assessmentDecisionId}'`,
+  );
+
+const assessmentJustifications = defineMessages({
+  [AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience]:
+    {
+      defaultMessage:
+        "Combination of education and work experience equivalency is accepted",
+      id: "faKvwp",
+      description:
+        "Option for justification when assessment decision is successful.",
+    },
+  [AssessmentResultJustification.EducationAcceptedInformation]: {
+    defaultMessage: "Education information is accepted",
+    id: "aj4GLs",
+    description:
+      "Option for justification when assessment decision is successful.",
+  },
+  [AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency]: {
+    defaultMessage: "Work experience equivalency is accepted",
+    id: "ILQGq/",
+    description:
+      "Option for justification when assessment decision is successful.",
+  },
+  [AssessmentResultJustification.EducationFailedNotRelevant]: {
+    defaultMessage: "Not the right field or specialization.",
+    id: "Wjpl9+",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.EducationFailedRequirementNotMet]: {
+    defaultMessage:
+      "Not enough education or experience to meet the requirement.",
+    id: "kSQNt5",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.SkillFailedInsufficientlyDemonstrated]: {
+    defaultMessage: "Not sufficiently demonstrated to meet the requirement.",
+    id: "VXC0uU",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.FailedNotEnoughInformation]: {
+    defaultMessage: "Not enough information provided.",
+    id: "eRPkNo",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+  [AssessmentResultJustification.FailedOther]: {
+    defaultMessage: "Other reason for screening out.",
+    id: "A1WCb/",
+    description:
+      "Option for justification when assessment decision is unsuccessful.",
+  },
+});
+
+export const getAssessmentJustification = (
+  assessmentJustificationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentJustifications,
+    assessmentJustificationId,
+    `Invalid Search Request Reason '${assessmentJustificationId}'`,
+  );
+
+const assessmentDecisionLevels = defineMessages({
+  [AssessmentDecisionLevel.AboveAndBeyondRequired]: {
+    defaultMessage: "Significantly above required level",
+    id: "+3THj+",
+    description: "Option for skill assessment decision level.",
+  },
+  [AssessmentDecisionLevel.AboveRequired]: {
+    defaultMessage: "Above required level",
+    id: "NhJY9U",
+    description: "Option for skill assessment decision level.",
+  },
+  [AssessmentDecisionLevel.AtRequired]: {
+    defaultMessage: "At required level",
+    id: "aaJPpO",
+    description: "Option for skill assessment decision level.",
+  },
+});
+
+export const getAssessmentDecisionLevel = (
+  assessmentDecisionLevelId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentDecisionLevels,
+    assessmentDecisionLevelId,
+    `Invalid Search Request Reason '${assessmentDecisionLevelId}'`,
   );

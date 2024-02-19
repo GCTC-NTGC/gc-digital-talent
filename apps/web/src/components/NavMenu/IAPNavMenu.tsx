@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { MenuLink } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { Maybe, UserAuthInfo } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
@@ -42,20 +43,18 @@ const IAPNavMenu = ({ loggedIn, userAuthInfo }: IAPNavMenuProps) => {
     <NavMenu
       utilityItems={authLinks}
       mainItems={[
-        <MenuLink key="iap-home" to={paths.iap()}>
+        <MenuLink key="iap-home" to={paths.iap()} end>
+          {intl.formatMessage(commonMessages.iapTitle)}
+        </MenuLink>,
+        <MenuLink key="iap-manager-home" to={paths.iapManager()}>
           {intl.formatMessage({
-            defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
-            id: "k4Vsh0",
-            description:
-              "Link to the homepage for IT Apprenticeship Program for Indigenous Peoples.",
+            defaultMessage: "Hire an IT apprentice",
+            id: "39RER8",
+            description: "Page title for IAP manager homepage",
           })}
         </MenuLink>,
         <MenuLink key="home" to={paths.home()} end>
-          {intl.formatMessage({
-            defaultMessage: "GC Digital Talent",
-            id: "hfI9v3",
-            description: "Link to the homepage for GC Digital Talent.",
-          })}
+          {intl.formatMessage(commonMessages.projectTitle)}
         </MenuLink>,
       ]}
     />

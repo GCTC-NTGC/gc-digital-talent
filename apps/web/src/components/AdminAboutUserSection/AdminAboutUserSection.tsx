@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
 } from "@gc-digital-talent/i18n";
@@ -41,14 +42,7 @@ const AdminAboutUserSection = ({
           !lastName &&
           !citizenship &&
           armedForcesStatus === null && (
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                id: "/fv4O0",
-                description:
-                  "Message on Admin side when user not filled WorkPreferences section.",
-              })}
-            </p>
+            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
           )}
         {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <p>

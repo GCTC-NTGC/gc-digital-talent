@@ -18,6 +18,7 @@ import {
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   getBehaviouralSkillLevel,
   getLocalizedName,
   getTechnicalSkillLevel,
@@ -81,11 +82,16 @@ const UpdateSkillShowcase = ({
     defaultValues: initialSkills,
   });
   const { control, watch, formState } = methods;
-  const { remove, move, fields } = useFieldArray({
+  const { remove, move, fields, append } = useFieldArray({
     control,
     name: "userSkills",
   });
   const watchedSkills = watch("userSkills");
+
+  const existingSkillsRanking = initialSkills.userSkills.map(
+    (userSkill) => userSkill.skill,
+  );
+  const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
   const handleSuccess = (msg?: React.ReactNode) => {
     toast.success(
@@ -103,9 +109,9 @@ const UpdateSkillShowcase = ({
       msg ||
         intl.formatMessage({
           defaultMessage: "Error: updating skill failed",
-          id: "CUxHd8",
+          id: "kfjmTt",
           description:
-            "Message displayed to user after skill fails to be updated.",
+            "Message displayed to user after skill fails to be updated",
         }),
     );
   };
@@ -117,10 +123,6 @@ const UpdateSkillShowcase = ({
         .length > 0 ||
       watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
         .length > 0;
-    const existingSkillsRanking = initialSkills.userSkills.map(
-      (userSkill) => userSkill.skill,
-    );
-    const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -134,6 +136,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.updateUserSkill?.skill.id) {
+            append({
+              skill: res.data.updateUserSkill.skill.id,
+              skillLevel: res.data.updateUserSkill.skillLevel ?? undefined,
+            });
             // having claimed a user skill in the modal and the mutation successful, update the ranking
             onAddition(
               existingSkillsRankingFiltered,
@@ -154,6 +160,10 @@ const UpdateSkillShowcase = ({
         .then((res) => {
           handleSuccess();
           if (res.data?.createUserSkill?.skill.id) {
+            append({
+              skill: res.data.createUserSkill.skill.id,
+              skillLevel: res.data.createUserSkill.skillLevel ?? undefined,
+            });
             onAddition(
               existingSkillsRankingFiltered,
               res.data.createUserSkill.skill.id,
@@ -247,12 +257,22 @@ const UpdateSkillShowcase = ({
                         id: addId,
                         button: (
                           <SkillBrowserDialog
-                            inLibrary={userSkills.map(
-                              (userSkill) => userSkill.skill,
-                            )}
+                            inLibrary={userSkills
+                              .map((userSkill) => userSkill.skill)
+                              .filter(
+                                (skill) =>
+                                  !existingSkillsRankingFiltered.includes(
+                                    skill.id,
+                                  ),
+                              )}
                             trigger={triggerProps}
                             context="showcase"
-                            skills={skills}
+                            skills={skills.filter(
+                              (skill) =>
+                                !existingSkillsRankingFiltered.includes(
+                                  skill.id,
+                                ),
+                            )}
                             onSave={handleSave}
                             showCategory={false}
                             noToast
@@ -343,11 +363,7 @@ const UpdateSkillShowcase = ({
                           navigate(pageInfo.returnPath);
                         }}
                       >
-                        {intl.formatMessage({
-                          defaultMessage: "Cancel",
-                          id: "yFIC7K",
-                          description: "Label for close availability dialog.",
-                        })}
+                        {intl.formatMessage(commonMessages.cancel)}
                       </Button>
                     </div>
                   </form>

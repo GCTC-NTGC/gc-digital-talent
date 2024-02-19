@@ -28,30 +28,34 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
-
 import {
+  graphql,
   GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
   User,
   BilingualEvaluation,
   IndigenousCommunity,
-  Pool,
   SkillCategory,
-} from "~/api/generated";
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
+
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
+import processMessages from "~/messages/processMessages";
 
 import SkillWithExperiences from "./SkillWithExperiences";
 import EducationRequirementExperience from "./EducationRequirementExperience";
 
 interface ApplicationPrintDocumentProps {
   user: User;
-  pool: Pool;
+  poolQuery: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
+  anonymous?: boolean;
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -72,12 +76,30 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
+  fragment ApplicationPrintDocument_PoolFragment on Pool {
+    id
+    essentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+    nonessentialSkills {
+      id
+      category
+      ...SkillWithExperiences_SkillFragment
+    }
+  }
+`);
+
 const ApplicationPrintDocument = React.forwardRef<
   HTMLDivElement,
   ApplicationPrintDocumentProps
->(({ user, pool }, ref) => {
+>(({ user, poolQuery, anonymous }, ref) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const pool = getFragment(ApplicationPrintDocument_PoolFragment, poolQuery);
 
   // data manipulation
   // pull pool candidate for the pool in question out of snapshot
@@ -181,7 +203,17 @@ const ApplicationPrintDocument = React.forwardRef<
               })}
             </Heading>
             <Heading level="h2" data-h2-font-weight="base(700)">
-              <>{getFullNameLabel(user.firstName, user.lastName, intl)}</>
+              {anonymous ? (
+                <>
+                  {getFullNameLabel(
+                    user.firstName,
+                    user.lastName ? `${user.lastName?.slice(0, 1)}.` : null,
+                    intl,
+                  )}
+                </>
+              ) : (
+                <>{getFullNameLabel(user.firstName, user.lastName, intl)}</>
+              )}
             </Heading>
             {relevantPoolCandidate && (
               <>
@@ -248,7 +280,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     poolEssentialTechnicalSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -260,16 +292,15 @@ const ApplicationPrintDocument = React.forwardRef<
                   <Heading level="h3" data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Asset skills",
-                      id: "Xpo+u6",
-                      description:
-                        "Title for the optional skills snapshot section",
+                      id: "K0Zkdw",
+                      description: "Title for optional skills",
                     })}
                   </Heading>
                   {usedAssetsSkills.length > 0 ? (
                     usedAssetsSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skill={skill}
+                        skillQuery={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -279,21 +310,16 @@ const ApplicationPrintDocument = React.forwardRef<
                 </BreakingPageSection>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Screening questions",
-                      id: "mqWvWR",
-                      description:
-                        "Title for the screening questions snapshot section",
-                    })}
+                    {intl.formatMessage(processMessages.screeningQuestions)}
                   </Heading>
                   <ul>
-                    {relevantPoolCandidate.screeningQuestionResponses?.map(
+                    {relevantPoolCandidate.generalQuestionResponses?.map(
                       (instance) => {
                         return (
                           <li key={instance?.id}>
                             <p data-h2-font-weight="base(700)">
                               {getLocalizedName(
-                                instance?.screeningQuestion?.question,
+                                instance?.generalQuestion?.question,
                                 intl,
                               )}
                             </p>
@@ -336,80 +362,83 @@ const ApplicationPrintDocument = React.forwardRef<
                   "Profile and applications card title for profile card",
               })}
             </Heading>
-            <PageSection>
-              <Heading level="h3" data-h2-font-weight="base(700)">
-                {intl.formatMessage({
-                  defaultMessage: "Contact information",
-                  id: "XqF3wS",
-                  description: "Profile section title for contact information",
-                })}
-              </Heading>
-              {user.email && (
-                <p>
-                  {intl.formatMessage(commonMessages.email)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.email}
-                </p>
-              )}
-              {user.telephone && (
-                <p>
-                  {intl.formatMessage(commonMessages.telephone)}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.telephone}
-                </p>
-              )}
-              {user.currentCity && user.currentProvince && (
-                <p>
+            {!anonymous && (
+              <PageSection>
+                <Heading level="h3" data-h2-font-weight="base(700)">
                   {intl.formatMessage({
-                    defaultMessage: "City",
-                    id: "QjO3Y0",
-                    description: "Label for city and province/territory",
+                    defaultMessage: "Contact information",
+                    id: "XqF3wS",
+                    description:
+                      "Profile section title for contact information",
                   })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {user.currentCity},{" "}
-                  {intl.formatMessage(
-                    getProvinceOrTerritory(user.currentProvince),
-                  )}
-                </p>
-              )}
-              {user.preferredLang && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Communication language",
-                    id: "BzKGyK",
-                    description: "Label for communication language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(getLanguage(user.preferredLang))}
-                </p>
-              )}
-              {user.preferredLanguageForInterview && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Spoken interview language",
-                    id: "HUy0EA",
-                    description: "Label for spoken interview language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getLanguage(user.preferredLanguageForInterview),
-                  )}
-                </p>
-              )}
-              {user.preferredLanguageForExam && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Written exam language",
-                    id: "Yh1Y7Z",
-                    description: "Label for written exam language",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getLanguage(user.preferredLanguageForExam),
-                  )}
-                </p>
-              )}
-            </PageSection>
+                </Heading>
+                {user.email && (
+                  <p>
+                    {intl.formatMessage(commonMessages.email)}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.email}
+                  </p>
+                )}
+                {user.telephone && (
+                  <p>
+                    {intl.formatMessage(commonMessages.telephone)}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.telephone}
+                  </p>
+                )}
+                {user.currentCity && user.currentProvince && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "City",
+                      id: "QjO3Y0",
+                      description: "Label for city and province/territory",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {user.currentCity},{" "}
+                    {intl.formatMessage(
+                      getProvinceOrTerritory(user.currentProvince),
+                    )}
+                  </p>
+                )}
+                {user.preferredLang && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Communication language",
+                      id: "BzKGyK",
+                      description: "Label for communication language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(getLanguage(user.preferredLang))}
+                  </p>
+                )}
+                {user.preferredLanguageForInterview && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Spoken interview language",
+                      id: "HUy0EA",
+                      description: "Label for spoken interview language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getLanguage(user.preferredLanguageForInterview),
+                    )}
+                  </p>
+                )}
+                {user.preferredLanguageForExam && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Written exam language",
+                      id: "Yh1Y7Z",
+                      description: "Label for written exam language",
+                    })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage(
+                      getLanguage(user.preferredLanguageForExam),
+                    )}
+                  </p>
+                )}
+              </PageSection>
+            )}
             <PageSection>
               <Heading level="h4" data-h2-font-weight="base(700)">
                 {intl.formatMessage(commonMessages.status)}
@@ -583,12 +612,7 @@ const ApplicationPrintDocument = React.forwardRef<
               </p>
               {user.isGovEmployee && user.department && (
                 <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "M7bb1V",
-                    description:
-                      "Label for applicant's Government of Canada department",
-                  })}
+                  {intl.formatMessage(commonMessages.department)}
                   {intl.formatMessage(commonMessages.dividingColon)}
                   {user.department.name[locale]}
                 </p>

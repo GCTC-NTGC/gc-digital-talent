@@ -6,11 +6,6 @@ const messages = defineMessages({
     id: "GplLic",
     description: "Title for unique ID of a resource",
   },
-  edit: {
-    defaultMessage: "Edit",
-    id: "yZoSaY",
-    description: "Title displayed for a tables Edit column.",
-  },
   view: {
     defaultMessage: "View",
     id: "KjbjQU",
@@ -25,6 +20,16 @@ const messages = defineMessages({
     defaultMessage: "Departments",
     id: "+d/NdU",
     description: "Title for departments",
+  },
+  category: {
+    defaultMessage: "Category",
+    id: "S6x9Sg",
+    description: "Title for category",
+  },
+  team: {
+    defaultMessage: "Team",
+    id: "kKSGje",
+    description: "Title for team",
   },
   pools: {
     defaultMessage: "Pools",
@@ -41,11 +46,6 @@ const messages = defineMessages({
     id: "g+lQO/",
     description: "Title for publishing groups",
   },
-  requests: {
-    defaultMessage: "Requests",
-    id: "EjhuA1",
-    description: "Title for requests",
-  },
   skillFamilies: {
     defaultMessage: "Skill families",
     id: "0E9hiS",
@@ -56,35 +56,15 @@ const messages = defineMessages({
     id: "/UKT+/",
     description: "Title for skills",
   },
-  teams: {
-    defaultMessage: "Teams",
-    id: "NWEmsp",
-    description: "Title for teams",
-  },
-  users: {
-    defaultMessage: "Users",
-    id: "F//l5D",
-    description: "Title for users",
-  },
   streams: {
     defaultMessage: "Streams",
     id: "RW0Ukc",
     description: "Title for streams",
   },
-  status: {
-    defaultMessage: "Status",
-    id: "QtzRCh",
-    description: "Title for status",
-  },
   manager: {
     defaultMessage: "Manager",
     id: "TXl1qY",
     description: "Title for manager full name",
-  },
-  email: {
-    defaultMessage: "Email",
-    id: "dJd5/f",
-    description: "Title for email",
   },
   jobTitle: {
     defaultMessage: "Job title",
@@ -100,6 +80,16 @@ const messages = defineMessages({
     defaultMessage: "Notes",
     id: "EK+25s",
     description: "Title for admin notes shorthand",
+  },
+  nameEn: {
+    defaultMessage: "Name (English)",
+    id: "HBljcn",
+    description: "Title for name in English",
+  },
+  nameFr: {
+    defaultMessage: "Name (French)",
+    id: "Jt4kG1",
+    description: "Title for name in French",
   },
   noneProvided: {
     defaultMessage: "(None provided)",
@@ -128,6 +118,12 @@ const messages = defineMessages({
     defaultMessage: "Roles and permissions",
     id: "m54J0C",
     description: "Heading for updating a users roles and permissions",
+  },
+  noRowsSelected: {
+    defaultMessage: "Download failed: No rows selected",
+    id: "k4xm25",
+    description:
+      "Alert message displayed when a user attempts to print without selecting items first",
   },
 });
 

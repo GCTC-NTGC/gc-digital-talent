@@ -7,7 +7,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 const contactLink = (chunks: React.ReactNode) => (
   <Link
-    color="primary"
+    color="secondary"
     external
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
   >

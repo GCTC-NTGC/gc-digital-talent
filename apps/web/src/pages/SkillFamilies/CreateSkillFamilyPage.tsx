@@ -22,6 +22,7 @@ import {
 } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -149,12 +150,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "2wo24b",
-                description:
-                  "Label displayed on the create a skill family form name (English) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -163,12 +159,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "0oqRIl",
-                description:
-                  "Label displayed on the create a skill family form name (French) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -262,22 +253,28 @@ const CreateSkillFamilyPage = () => {
     },
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create skill family",
+    id: "FCQnWB",
+    description: "Page title for the skill family creation page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Create skill family",
-          id: "FCQnWB",
-          description: "Page title for the skill family creation page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        <CreateSkillFamilyForm
-          handleCreateSkillFamily={handleCreateSkillFamily}
-          skills={skills}
-        />
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          <CreateSkillFamilyForm
+            handleCreateSkillFamily={handleCreateSkillFamily}
+            skills={skills}
+          />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

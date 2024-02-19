@@ -110,11 +110,6 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
-  const existingTokens = {
-    accessToken: localStorage.getItem(ACCESS_TOKEN),
-    refreshToken: localStorage.getItem(REFRESH_TOKEN),
-    idToken: localStorage.getItem(ID_TOKEN),
-  };
 
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
@@ -137,25 +132,25 @@ const AuthenticationContainer = ({
     }
   }, [newTokens?.accessToken, logger]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of local storage, which we haven't reloaded yet
-  const tokens = newTokens ?? existingTokens;
+  // this is a memoized object so get the tokens from storage.
   const state = useMemo<AuthenticationState>(() => {
     return {
-      loggedIn: !!tokens.accessToken,
-      logout: tokens.accessToken
+      loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
+      logout: localStorage.getItem(ACCESS_TOKEN)
         ? (postLogoutUri) =>
             logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },
       refreshTokenSet: async () => {
-        if (tokens.refreshToken === null) {
+        const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN);
+        if (storedRefreshToken === null) {
           logger.notice("No refresh token available.  Can't refresh.");
           return;
         }
         defaultLogger.notice("Attempting to refresh the auth token set");
         const response = await fetch(
-          `${tokenRefreshPath}?refresh_token=${tokens.refreshToken}`,
+          `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
         if (response.ok) {
           const responseBody: {
@@ -187,14 +182,7 @@ const AuthenticationContainer = ({
         }
       },
     };
-  }, [
-    tokens.accessToken,
-    tokens.refreshToken,
-    logoutUri,
-    logoutRedirectUri,
-    tokenRefreshPath,
-    logger,
-  ]);
+  }, [logoutUri, logoutRedirectUri, tokenRefreshPath, logger]);
 
   return (
     <AuthenticationContext.Provider value={state}>

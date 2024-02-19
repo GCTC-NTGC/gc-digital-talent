@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import BuildingOffice2Icon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -10,11 +9,11 @@ import {
   useDepartmentsQuery,
   useCreateTeamMutation,
 } from "~/api/generated";
-import PageHeader from "~/components/PageHeader";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
+import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
+import AdminHero from "~/components/Hero/AdminHero";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 
@@ -60,7 +59,7 @@ const CreateTeamPage = () => {
       url: routes.adminDashboard(),
     },
     {
-      label: intl.formatMessage(adminMessages.teams),
+      label: intl.formatMessage(indexTeamPageTitle),
       url: routes.teamTable(),
     },
     {
@@ -74,27 +73,24 @@ const CreateTeamPage = () => {
   ];
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={departmentsFetching} error={departmentsError}>
-        <SEO title={pageTitle} />
-        <PageHeader icon={BuildingOffice2Icon}>{pageTitle}</PageHeader>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Create a new team from scratch",
-            id: "XaYhX3",
-            description:
-              "Descriptive text for the create team page in the admin portal.",
-          })}
-        </p>
-        <hr
-          data-h2-margin="base(x1, 0, x1, 0)"
-          data-h2-height="base(1px)"
-          data-h2-background-color="base(gray)"
-          data-h2-border="base(none)"
-        />
-        <CreateTeamForm departments={departments} onSubmit={handleSubmit} />
-      </Pending>
-    </AdminContentWrapper>
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        subtitle={intl.formatMessage({
+          defaultMessage: "Create a new team from scratch",
+          id: "XaYhX3",
+          description:
+            "Descriptive text for the create team page in the admin portal.",
+        })}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      />
+      <AdminContentWrapper>
+        <Pending fetching={departmentsFetching} error={departmentsError}>
+          <CreateTeamForm departments={departments} onSubmit={handleSubmit} />
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

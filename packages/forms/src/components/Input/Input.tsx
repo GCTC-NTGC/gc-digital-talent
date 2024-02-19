@@ -1,6 +1,9 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
+
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
 import { CommonInputProps, HTMLInputProps } from "../../types";
@@ -31,6 +34,7 @@ const Input = ({
   trackUnsaved = true,
   ...rest
 }: InputProps) => {
+  const intl = useIntl();
   const {
     register,
     setValue,
@@ -75,6 +79,12 @@ const Input = ({
         {...baseStyles}
         {...stateStyles}
         {...register(name, {
+          maxLength: {
+            message: intl.formatMessage(errorMessages.overCharacterLimit, {
+              value: 256,
+            }),
+            value: 255,
+          },
           ...rules,
           onBlur: normalizeInput,
         })}

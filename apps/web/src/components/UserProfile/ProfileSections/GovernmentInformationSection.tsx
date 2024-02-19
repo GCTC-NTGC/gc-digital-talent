@@ -46,9 +46,9 @@ const GovernmentInformationSection = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "<strong>Yes</strong>, I am a Government of Canada employee.",
-                  id: "5d0vbr",
+                  id: "gto/zD",
                   description:
-                    "Message to state user is employed by government",
+                    "Label displayed for is a government employee option",
                 })}
               </span>
             </p>
@@ -230,14 +230,7 @@ const GovernmentInformationSection = ({
         !editPath && (
           <div data-h2-flex-grid="base(flex-start, x2, x1)">
             <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "No information has been provided.",
-                  id: "ugRTOW",
-                  description:
-                    "Message on Admin side when user not filled GovernmentInformation section.",
-                })}
-              </p>
+              <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
             </div>
           </div>
         )}

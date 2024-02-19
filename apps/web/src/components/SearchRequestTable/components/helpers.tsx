@@ -8,14 +8,13 @@ import {
   commonMessages,
   getPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
-
 import {
   Classification,
   Maybe,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
   Scalars,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 export function classificationAccessor(
   classifications: Maybe<Maybe<Classification>[]> | undefined,
@@ -51,7 +50,10 @@ export function classificationsCell(
   );
 }
 
-export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+export function dateCell(
+  date: Maybe<Scalars["DateTime"]["output"]>,
+  intl: IntlShape,
+) {
   return date ? (
     <span>
       {formatDate({
@@ -116,12 +118,7 @@ export const statusCell = (
 export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
   return (
     <Link href={url} color="black">
-      {label ||
-        intl.formatMessage({
-          defaultMessage: "No name provided",
-          id: "L9Ked5",
-          description: "Fallback for team display name value",
-        })}
+      {label || intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }

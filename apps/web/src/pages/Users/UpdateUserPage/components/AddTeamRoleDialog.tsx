@@ -12,7 +12,6 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 
 import {
@@ -23,6 +22,7 @@ import {
   useListTeamsQuery,
 } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   roles: Array<string>;
@@ -143,23 +143,15 @@ const AddTeamRoleDialog = ({
                 <Select
                   id="team"
                   name="team"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "GaMSN8",
-                    description:
-                      "Label for the input to select team of a team role",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  placeholder={intl.formatMessage({
+                  nullSelection={intl.formatMessage({
                     defaultMessage: "Select team",
                     id: "5C8xs4",
                     description: "Placeholder text for team selection input",
                   })}
+                  label={intl.formatMessage(adminMessages.team)}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                   options={teamOptions ?? []}
                 />
                 <Combobox

@@ -223,12 +223,12 @@ export const differentiateMissingSkills = (
  */
 export const getExperienceSkills = (
   experiences: Experience[],
-  skill: Skill,
+  skill?: Pick<Skill, "id">,
 ): Experience[] => {
   return experiences.filter(
     (experience) =>
       experience.skills?.some(
-        (experienceSkill) => experienceSkill.id === skill.id,
+        (experienceSkill) => experienceSkill.id === skill?.id,
       ),
   );
 };
@@ -320,4 +320,23 @@ export const getUserSkillLevelAndDefinition = (
         : getBehaviouralSkillLevelDefinition(skillLevel),
     ),
   };
+};
+
+const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
+
+/**
+ * Sort skills by category
+ *
+ * Technical first, behavioural second
+ *
+ * @param skills Skill[]
+ * @returns Skill[]
+ */
+export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
+  return skills.sort((skillA, skillB) => {
+    return (
+      categoryOrder.indexOf(skillA.category) -
+      categoryOrder.indexOf(skillB.category)
+    );
+  });
 };

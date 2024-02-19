@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import { useQuery } from "urql";
 
 import {
   NotFound,
@@ -18,35 +18,33 @@ import {
   commonMessages,
   getEducationRequirementOption,
   getLocalizedName,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-
-import PageHeader from "~/components/PageHeader";
 import {
+  ViewPoolCandidatesPageQuery,
+  graphql,
   User,
-  Scalars,
-  useGetPoolCandidateSnapshotQuery,
-  PoolCandidate,
   Maybe,
   SkillCategory,
-  Pool,
-} from "~/api/generated";
+  Scalars,
+} from "@gc-digital-talent/graphql";
+
 import {
-  getFullPoolTitleHtml,
-  getFullPoolTitleLabel,
+  getShortPoolTitleHtml,
+  getShortPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { categorizeSkill } from "~/utils/skillUtils";
-import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
+import processMessages from "~/messages/processMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import SkillTree from "~/components/SkillTree/SkillTree";
+import AdminHero from "~/components/Hero/AdminHero";
 
 import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
 import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
@@ -60,8 +58,8 @@ import ApplicationPrintButton from "./components/ApplicationPrintButton/Applicat
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: PoolCandidate;
-  pools: Pool[];
+  poolCandidate: NonNullable<ViewPoolCandidatesPageQuery["poolCandidate"]>;
+  poolData: ViewPoolCandidatesPageQuery["pools"];
 }
 
 type SectionContent = {
@@ -72,10 +70,12 @@ type SectionContent = {
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
+  poolData,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const features = useFeatureFlags();
+
+  const pools = poolData.filter(notEmpty);
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -98,8 +98,8 @@ export const ViewPoolCandidate = ({
       id: "pool-information",
       title: intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "Cjp2F6",
-        description: "Title for the pool info page",
+        id: "ptOxLJ",
+        description: "Title for pool information",
       }),
     },
     snapshot: {
@@ -115,9 +115,8 @@ export const ViewPoolCandidate = ({
       id: "min-experience",
       title: intl.formatMessage({
         defaultMessage: "Minimum experience or equivalent education",
-        id: "Fbh/MK",
-        description:
-          "Title for the minimum experience or equivalent education snapshot section.",
+        id: "LvYEdh",
+        description: "Title for Minimum experience or equivalent education",
       }),
     },
     essentialSkills: {
@@ -132,17 +131,13 @@ export const ViewPoolCandidate = ({
       id: "asset-skills",
       title: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "Xpo+u6",
-        description: "Title for the optional skills snapshot section",
+        id: "K0Zkdw",
+        description: "Title for optional skills",
       }),
     },
     questions: {
       id: "questions",
-      title: intl.formatMessage({
-        defaultMessage: "Screening questions",
-        id: "mqWvWR",
-        description: "Title for the screening questions snapshot section",
-      }),
+      title: intl.formatMessage(processMessages.screeningQuestions),
     },
     careerTimeline: {
       id: "career-timeline",
@@ -156,35 +151,24 @@ export const ViewPoolCandidate = ({
       id: "personal",
       title: intl.formatMessage({
         defaultMessage: "Personal and contact information",
-        id: "0lUoqK",
-        description:
-          "Title for the personal and contact information snapshot section",
+        id: "BWh6S1",
+        description: "Title for the personal and contact information section",
       }),
     },
     work: {
       id: "work",
-      title: intl.formatMessage({
-        defaultMessage: "Work preferences",
-        id: "s7F24X",
-        description: "Title for the work preferences snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.workPreferences),
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage({
-        defaultMessage: "Diversity, equity, and inclusion",
-        id: "zLeH2i",
-        description:
-          "Title for the diversity, equity, and inclusion snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
     },
     government: {
       id: "government",
       title: intl.formatMessage({
         defaultMessage: "Government employee information",
-        id: "nEVNHp",
-        description:
-          "Title for the government employee information snapshot section",
+        id: "Jf3vT5",
+        description: "Title for the government employee information section",
       }),
     },
     language: {
@@ -272,7 +256,7 @@ export const ViewPoolCandidate = ({
       mainContent = (
         <>
           <ApplicationInformation
-            pool={poolCandidate.pool}
+            poolQuery={poolCandidate.pool}
             snapshot={parsedSnapshot}
             application={snapshotCandidate}
           />
@@ -421,7 +405,7 @@ export const ViewPoolCandidate = ({
             >
               {sections.questions.title}
             </TableOfContents.Heading>
-            {snapshotCandidate?.screeningQuestionResponses
+            {snapshotCandidate?.generalQuestionResponses
               ?.filter(notEmpty)
               .map((response) => (
                 <React.Fragment key={response.id}>
@@ -431,12 +415,13 @@ export const ViewPoolCandidate = ({
                     data-h2-margin-bottom="base(x.5)"
                   >
                     {getLocalizedName(
-                      response?.screeningQuestion?.question,
+                      response?.generalQuestion?.question,
                       intl,
                     )}
                   </Heading>
                   <div
-                    data-h2-background-color="base(white) base:dark(black)"
+                    data-h2-background-color="base(foreground)"
+                    data-h2-color="base(black)"
                     data-h2-padding="base(x1)"
                     data-h2-border-left="base(x.5 solid primary)"
                     data-h2-radius="base(0 rounded rounded 0)"
@@ -601,259 +586,335 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <PageHeader
-        icon={UserCircleIcon}
-        subtitle={`${poolCandidate.user.firstName} ${
-          poolCandidate.user.lastName
-        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
-        navItems={pages}
-      >
-        {intl.formatMessage({
+      <AdminHero
+        title={intl.formatMessage({
           defaultMessage: "Candidate information",
           id: "69/cNW",
           description:
             "Heading displayed above the pool candidate application page.",
         })}
-      </PageHeader>
-      {!features.recordOfDecision ? (
-        <>
-          <p data-h2-margin="base(-x1, 0, x1, 0)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
-                id: "V2vBbu",
-                description:
-                  "Snapshot details displayed above the pool candidate application page.",
-              },
-              {
-                submittedAt: poolCandidate.submittedAt,
-                poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
-              },
+        subtitle={`${poolCandidate.user.firstName} ${
+          poolCandidate.user.lastName
+        } / ${getShortPoolTitleLabel(intl, poolCandidate.pool)}`}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
+      <AdminContentWrapper>
+        {!features.recordOfDecision ? (
+          <>
+            <p data-h2-margin="base(-x1, 0, x1, 0)">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
+                  id: "V2vBbu",
+                  description:
+                    "Snapshot details displayed above the pool candidate application page.",
+                },
+                {
+                  submittedAt: poolCandidate.submittedAt,
+                  poolName: getShortPoolTitleHtml(intl, poolCandidate.pool),
+                },
+              )}
+            </p>
+            <Separator
+              data-h2-background-color="base(black.lightest)"
+              data-h2-margin="base(x1, 0, x1, 0)"
+            />
+            {parsedSnapshot && (
+              <div
+                data-h2-container="base(center, large, 0)"
+                data-h2-text-align="base(right)"
+                data-h2-margin-right="base(0)"
+              >
+                <ApplicationPrintButton
+                  user={parsedSnapshot}
+                  pool={poolCandidate.pool}
+                  color="primary"
+                  mode="solid"
+                />
+              </div>
             )}
-          </p>
-          <Separator
-            data-h2-background-color="base(black.lightest)"
-            data-h2-margin="base(x1, 0, x1, 0)"
-          />
-          {parsedSnapshot && (
-            <div
-              data-h2-container="base(center, large, 0)"
-              data-h2-text-align="base(right)"
-              data-h2-margin-right="base(0)"
-            >
-              <ApplicationPrintButton
-                user={parsedSnapshot}
-                pool={poolCandidate.pool}
-                color="primary"
-                mode="solid"
-              />
-            </div>
-          )}
-          <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
-            <TableOfContents.Navigation>
-              <TableOfContents.List>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.statusForm.id}>
+
+            <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+              <TableOfContents.Navigation>
+                <TableOfContents.List>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink id={sections.statusForm.id}>
+                      {sections.statusForm.title}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={sections.poolInformation.id}
+                    >
+                      {sections.poolInformation.title}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink id={sections.snapshot.id}>
+                      {sections.snapshot.title}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  {showRichSnapshot && (
+                    <>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink
+                          id={sections.minExperience.id}
+                        >
+                          {sections.minExperience.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink
+                          id={sections.essentialSkills.id}
+                        >
+                          {sections.essentialSkills.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink
+                          id={sections.assetSkills.id}
+                        >
+                          {sections.assetSkills.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.questions.id}>
+                          {sections.questions.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink
+                          id={sections.careerTimeline.id}
+                        >
+                          {sections.careerTimeline.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.personal.id}>
+                          {sections.personal.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.work.id}>
+                          {sections.work.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.dei.id}>
+                          {sections.dei.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.government.id}>
+                          {sections.government.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.language.id}>
+                          {sections.language.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                      <TableOfContents.ListItem>
+                        <TableOfContents.AnchorLink id={sections.signature.id}>
+                          {sections.signature.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                    </>
+                  )}
+                </TableOfContents.List>
+              </TableOfContents.Navigation>
+              <TableOfContents.Content>
+                <TableOfContents.Section id={sections.statusForm.id}>
+                  <TableOfContents.Heading
+                    data-h2-margin="base(0, 0, x1, 0)"
+                    data-h2-font-weight="base(800)"
+                    as="h3"
+                  >
                     {sections.statusForm.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.poolInformation.id}>
+                  </TableOfContents.Heading>
+                  <ApplicationStatusForm candidateQuery={poolCandidate} />
+                  <Separator
+                    data-h2-background-color="base(black.lightest)"
+                    data-h2-margin="base(x1, 0, 0, 0)"
+                  />
+                </TableOfContents.Section>
+                <TableOfContents.Section id={sections.poolInformation.id}>
+                  <TableOfContents.Heading
+                    data-h2-margin="base(x1, 0, x1, 0)"
+                    data-h2-font-weight="base(800)"
+                    as="h3"
+                  >
                     {sections.poolInformation.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id={sections.snapshot.id}>
-                    {sections.snapshot.title}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                {showRichSnapshot && (
-                  <>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink
-                        id={sections.minExperience.id}
-                      >
-                        {sections.minExperience.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink
-                        id={sections.essentialSkills.id}
-                      >
-                        {sections.essentialSkills.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.assetSkills.id}>
-                        {sections.assetSkills.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.questions.id}>
-                        {sections.questions.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink
-                        id={sections.careerTimeline.id}
-                      >
-                        {sections.careerTimeline.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.personal.id}>
-                        {sections.personal.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.work.id}>
-                        {sections.work.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.dei.id}>
-                        {sections.dei.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.government.id}>
-                        {sections.government.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.language.id}>
-                        {sections.language.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                    <TableOfContents.ListItem>
-                      <TableOfContents.AnchorLink id={sections.signature.id}>
-                        {sections.signature.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                  </>
-                )}
-              </TableOfContents.List>
-            </TableOfContents.Navigation>
-            <TableOfContents.Content>
-              <TableOfContents.Section id={sections.statusForm.id}>
-                <TableOfContents.Heading
-                  data-h2-margin="base(0, 0, x1, 0)"
-                  data-h2-font-weight="base(800)"
-                  as="h3"
-                >
-                  {sections.statusForm.title}
-                </TableOfContents.Heading>
-                <ApplicationStatusForm id={poolCandidate.id} />
-                <Separator
-                  data-h2-background-color="base(black.lightest)"
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                />
-              </TableOfContents.Section>
-              <TableOfContents.Section id={sections.poolInformation.id}>
-                <TableOfContents.Heading
-                  data-h2-margin="base(x1, 0, x1, 0)"
-                  data-h2-font-weight="base(800)"
-                  as="h3"
-                >
-                  {sections.poolInformation.title}
-                </TableOfContents.Heading>
-                <PoolStatusTable user={poolCandidate.user} pools={pools} />
-                <Separator
-                  data-h2-background-color="base(black.lightest)"
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                />
-              </TableOfContents.Section>
+                  </TableOfContents.Heading>
+                  <PoolStatusTable user={poolCandidate.user} pools={pools} />
+                  <Separator
+                    data-h2-background-color="base(black.lightest)"
+                    data-h2-margin="base(x1, 0, 0, 0)"
+                  />
+                </TableOfContents.Section>
+                {mainContent}
+              </TableOfContents.Content>
+            </TableOfContents.Wrapper>
+          </>
+        ) : (
+          <Sidebar.Wrapper>
+            <Sidebar.Content>
+              {/**
+               * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
+               *
+               * This is here to keep tests passing
+               */}
+              <ApplicationStatusForm candidateQuery={poolCandidate} />
               {mainContent}
-            </TableOfContents.Content>
-          </TableOfContents.Wrapper>
-        </>
-      ) : (
-        <Sidebar.Wrapper>
-          <Sidebar.Content>
-            {/**
-             * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
-             *
-             * This is here to keep tests passing
-             */}
-            <ApplicationStatusForm id={poolCandidate.id} />
-            {mainContent}
-          </Sidebar.Content>
-        </Sidebar.Wrapper>
-      )}
+            </Sidebar.Content>
+          </Sidebar.Wrapper>
+        )}
+      </AdminContentWrapper>
     </>
   );
 };
 
+const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
+  query ViewPoolCandidatesPage($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      profileSnapshot
+      submittedAt
+      user {
+        id
+        firstName
+        lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
+        poolCandidates {
+          id
+          status
+          suspendedAt
+          expiryDate
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            publishingGroup
+            stream
+            classifications {
+              id
+              group
+              level
+            }
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+          user {
+            id
+          }
+        }
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        publishingGroup
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
+        ...ApplicationInformation_PoolFragment
+        ...ApplicationPrintDocument_PoolFragment
+      }
+      ...ApplicationStatusForm_PoolCandidateFragment
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      status
+      stream
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  poolId: Scalars["ID"];
-  poolCandidateId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
+  poolCandidateId: Scalars["ID"]["output"];
 };
 
 export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
-  const [{ data, fetching, error }] = useGetPoolCandidateSnapshotQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewPoolCandidatesPage_Query,
     variables: { poolCandidateId },
   });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.pools),
-      url: routes.poolTable(),
-    },
-    ...(data?.poolCandidate?.pool.id
-      ? [
-          {
-            label: getLocalizedName(data.poolCandidate.pool.name, intl),
-            url: routes.poolView(data.poolCandidate.pool.id),
-          },
-        ]
-      : []),
-    ...(data?.poolCandidate?.pool.id
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Candidates",
-              id: "zzf16k",
-              description: "Breadcrumb for the All Candidates page",
-            }),
-            url: routes.poolCandidateTable(data.poolCandidate.pool.id),
-          },
-        ]
-      : []),
-    ...(poolCandidateId
-      ? [
-          {
-            label: getFullNameLabel(
-              data?.poolCandidate?.user.firstName,
-              data?.poolCandidate?.user.lastName,
-              intl,
-            ),
-            url: routes.poolCandidateApplication(poolCandidateId),
-          },
-        ]
-      : []),
-  ];
-
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <Pending fetching={fetching} error={error}>
-        {data?.poolCandidate && data?.pools ? (
-          <ViewPoolCandidate
-            poolCandidate={data.poolCandidate}
-            pools={data.pools.filter(notEmpty)}
-          />
-        ) : (
+    <Pending fetching={fetching} error={error}>
+      {data?.poolCandidate && data?.pools ? (
+        <ViewPoolCandidate
+          poolCandidate={data.poolCandidate}
+          poolData={data.pools}
+        />
+      ) : (
+        <AdminContentWrapper>
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}
           >
@@ -869,9 +930,9 @@ export const ViewPoolCandidatePage = () => {
               )}
             </p>
           </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+        </AdminContentWrapper>
+      )}
+    </Pending>
   );
 };
 

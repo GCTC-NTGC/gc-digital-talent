@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
@@ -9,6 +10,7 @@ use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
@@ -69,7 +71,7 @@ class PoolFactory extends Factory
             $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
             $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
 
-            ScreeningQuestion::factory()
+            GeneralQuestion::factory()
                 ->count(3)
                 ->sequence(
                     ['sort_order' => 1],
@@ -77,6 +79,26 @@ class PoolFactory extends Factory
                     ['sort_order' => 3],
                 )
                 ->create(['pool_id' => $pool->id]);
+
+            $screeningAssessmentStep = AssessmentStep::factory()->create(
+                [
+                    'pool_id' => $pool->id,
+                    'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                ]
+            );
+            ScreeningQuestion::factory()
+                ->count(3)
+                ->sequence(
+                    ['sort_order' => 1],
+                    ['sort_order' => 2],
+                    ['sort_order' => 3],
+                )
+                ->create(
+                    [
+                        'pool_id' => $pool->id,
+                        'assessment_step_id' => $screeningAssessmentStep->id,
+                    ]
+                );
         });
     }
 

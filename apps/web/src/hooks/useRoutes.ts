@@ -53,6 +53,8 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => path.join(baseUrl, "logged-out"),
     userDeleted: () => path.join(baseUrl, "user-deleted"),
     createAccount: () => path.join(baseUrl, "create-account"),
+    termsAndConditions: () => path.join(baseUrl, "terms-and-conditions"),
+    privacyPolicy: () => path.join(baseUrl, "privacy-policy"),
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
@@ -134,19 +136,11 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "settings", "skills", skillId, "edit"),
 
     // Admin - Skill Families
-    skillFamilyTable: () =>
-      path.join(adminUrl, "settings", "skills", "families"),
+    skillFamilyTable: () => path.join(adminUrl, "settings", "skill-families"),
     skillFamilyCreate: () =>
-      path.join(adminUrl, "settings", "skills", "families", "create"),
+      path.join(adminUrl, "settings", "skill-families", "create"),
     skillFamilyUpdate: (skillFamilyId: string) =>
-      path.join(
-        adminUrl,
-        "settings",
-        "skills",
-        "families",
-        skillFamilyId,
-        "edit",
-      ),
+      path.join(adminUrl, "settings", "skill-families", skillFamilyId, "edit"),
 
     // Admin - Departments
     departmentTable: () => path.join(adminUrl, "settings", "departments"),
@@ -155,8 +149,12 @@ const getRoutes = (lang: Locales) => {
     departmentUpdate: (departmentId: string) =>
       path.join(adminUrl, "settings", "departments", departmentId, "edit"),
 
+    // Admin - Announcements
+    announcements: () => path.join(adminUrl, "settings", "announcements"),
+
     // IAP
     iap: () => path.join(baseUrl, "indigenous-it-apprentice"),
+    iapManager: () => path.join(baseUrl, "indigenous-it-apprentice", "hire"),
 
     // Pools
     browsePools: () => path.join(baseUrl, "browse", "pools"),

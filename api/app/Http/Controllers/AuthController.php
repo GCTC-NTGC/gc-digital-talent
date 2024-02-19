@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Services\OpenIdBearerTokenService;
+use Exception;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
@@ -68,21 +73,33 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $response = Http::asForm()->post(config('oauth.token_uri'), [
+        $response = Http::retry(times: 3, sleepMilliseconds: 500, when: function (Exception $exception, PendingRequest $request) {
+            return $exception instanceof ConnectionException;
+        }, throw: false)->asForm()->post(config('oauth.token_uri'), [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
+        if ($response->failed()) {
+            Log::error('Failed when POSTing to the token URI in authCallback');
+            Log::debug((string) $response->getBody());
 
+            return response('Failed to get token', 400);
+        }
         // decode id_token stage
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json('id_token');
 
-        $config = $this->fastSigner;
+        if (! ($idToken && is_string($idToken))) {
+            Log::debug((string) $response->body());
+            throw new InvalidArgumentException('id token is a '.gettype($idToken));
+        }
 
+        $config = $this->fastSigner;
         assert($config instanceof Configuration);
+
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
@@ -120,6 +137,6 @@ class AuthController extends Controller
                 'refresh_token' => $refreshToken,
             ]);
 
-        return response($response);
+        return response($response)->header('Content-Type', 'application/json');
     }
 }

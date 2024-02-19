@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
@@ -21,6 +21,7 @@ import {
 import { BaseProps } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
+import { alphaSortOptions } from "../../utils";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
@@ -40,6 +41,8 @@ export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
     total?: BaseProps["total"];
     /** Optional: Accept multiple values (must be array type in form values) */
     isMulti?: boolean;
+    /** Determine if it should sort options in alphanumeric ascending order */
+    doNotSort?: boolean;
   };
 
 const Combobox = ({
@@ -58,6 +61,7 @@ const Combobox = ({
   fetching = false,
   isExternalSearch = false,
   isMulti = false,
+  doNotSort = false,
 }: ComboboxProps) => {
   const intl = useIntl();
   const {
@@ -122,6 +126,9 @@ const Combobox = ({
     return value.length <= maxValue || getErrorMessage(rules.max);
   };
 
+  const optionsModified = useMemo(() => {
+    return doNotSort ? options : alphaSortOptions(options);
+  }, [doNotSort, options]);
   return (
     <Field.Wrapper>
       <Controller
@@ -145,14 +152,22 @@ const Combobox = ({
               onSelectedChange={(items) => {
                 setValue(name, items?.map((item) => item.value));
               }}
-              value={getMultiDefaultValue(options, defaultValue, currentValue)}
+              value={getMultiDefaultValue(
+                optionsModified,
+                defaultValue,
+                currentValue,
+              )}
               {...sharedProps}
             />
           ) : (
             <Single
               onInputChange={onSearch}
               onSelectedChange={(item) => setValue(name, item?.value)}
-              value={getSingleDefaultValue(options, defaultValue, currentValue)}
+              value={getSingleDefaultValue(
+                optionsModified,
+                defaultValue,
+                currentValue,
+              )}
               {...sharedProps}
             />
           )

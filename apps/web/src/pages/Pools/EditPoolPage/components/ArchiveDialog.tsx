@@ -5,7 +5,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import { Pool } from "~/api/generated";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 type ArchiveDialogProps = {
   pool: Pool;
@@ -36,9 +36,8 @@ const ArchiveDialog = ({
           >
             {intl.formatMessage({
               defaultMessage: "Archive this pool",
-              id: "Jp0Beg",
-              description:
-                "Button to archive the pool in the archive pool dialog",
+              id: "PdE7yp",
+              description: "Archive this pool action",
             })}
           </Button>
         </Dialog.Close>
@@ -61,8 +60,8 @@ const ArchiveDialog = ({
         <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Archive this pool",
-            id: "7gOyU5",
-            description: "Heading for the archive pool dialog",
+            id: "PdE7yp",
+            description: "Archive this pool action",
           })}
         </Dialog.Header>
         <Dialog.Body>
@@ -74,7 +73,7 @@ const ArchiveDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x0.5)">
-            {getFullPoolTitleLabel(intl, pool)}
+            {getShortPoolTitleLabel(intl, pool)}
           </p>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({

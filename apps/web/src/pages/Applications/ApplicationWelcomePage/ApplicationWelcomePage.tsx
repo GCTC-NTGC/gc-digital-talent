@@ -6,13 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import { useUpdateApplicationMutation, ApplicationStep } from "~/api/generated";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import applicationMessages from "~/messages/applicationMessages";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
@@ -71,7 +72,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
-  const poolName = getFullPoolTitleHtml(intl, application.pool);
+  const poolName = getShortPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);

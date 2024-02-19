@@ -1,7 +1,7 @@
 import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
@@ -14,36 +14,25 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
     "personal",
     defineMessage({
       defaultMessage: "Personal and contact information",
-      id: "fyEFN7",
-      description:
-        "Heading for the personal info section on the application profile",
+      id: "BWh6S1",
+      description: "Title for the personal and contact information section",
     }),
   ],
   [
     "work",
     defineMessage({
       defaultMessage: "Work preferences",
-      id: "XTaRza",
-      description:
-        "Heading for the work preferences section on the application profile",
+      id: "nnMYWr",
+      description: "Name of Work preferences page",
     }),
   ],
-  [
-    "dei",
-    defineMessage({
-      defaultMessage: "Diversity, equity, and inclusion",
-      id: "u1N0nT",
-      description:
-        "Heading for the diversity, equity, and inclusion section on the application profile",
-    }),
-  ],
+  ["dei", defineMessage(navigationMessages.diversityEquityInclusion)],
   [
     "government",
     defineMessage({
       defaultMessage: "Government employee information",
-      id: "AwzZwe",
-      description:
-        "Heading for the government information section on the application profile",
+      id: "Jf3vT5",
+      description: "Title for the government employee information section",
     }),
   ],
   [

@@ -10,23 +10,25 @@ import {
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
   getLanguageAbility,
   getPoolStream,
   getWorkRegion,
 } from "@gc-digital-talent/i18n";
-
 import {
   Classification,
   LanguageAbility,
   PoolStream,
   Skill,
   WorkRegion,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
@@ -51,14 +53,10 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     ),
   }));
 
-  const streamOptions = enumToOptions(PoolStream)
-    .map(({ value }) => ({
-      value: value as PoolStream,
-      label: intl.formatMessage(getPoolStream(value)),
-    }))
-    // Avoid showing the ATIP stream as an option, since we don't have pools with candidates yet.
-    // TODO: remove this when ATIP pools are ready. See ticket https://github.com/GCTC-NTGC/gc-digital-talent/issues/7601
-    .filter(({ value }) => value !== PoolStream.AccessInformationPrivacy);
+  const streamOptions = enumToOptions(PoolStream).map(({ value }) => ({
+    value: value as PoolStream,
+    label: intl.formatMessage(getPoolStream(value)),
+  }));
 
   return (
     <>
@@ -89,12 +87,6 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
               id: "V8v+/g",
               description: "Label for classification filter in search form.",
             })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select a classification",
-              id: "HHEQgM",
-              description:
-                "Placeholder for classification filter in search form.",
-            })}
             name="classification"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a classification",
@@ -110,16 +102,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
           />
           <Select
             id="stream"
-            label={intl.formatMessage({
-              defaultMessage: "Stream",
-              id: "qYWmzA",
-              description: "Label for stream filter in search form.",
-            })}
-            placeholder={intl.formatMessage({
-              defaultMessage: "Select a job stream",
-              id: "QJ5uDV",
-              description: "Placeholder for stream filter in search form.",
-            })}
+            label={intl.formatMessage(processMessages.stream)}
             name="stream"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a job stream",
@@ -204,12 +187,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       </FilterBlock>
       <FilterBlock
         id="employmentEquityFilter"
-        title={intl.formatMessage({
-          defaultMessage: "Employment equity",
-          id: "ITkmBQ",
-          description:
-            "Heading for employment equity section of the search form.",
-        })}
+        title={intl.formatMessage(commonMessages.employmentEquity)}
         text={intl.formatMessage({
           defaultMessage:
             "Managers can request candidates by employment equity group to address current and future representation gaps in the workforce. Categories reflect employment equity data defined under the Public Service Employment Act and collected through the Public Service Commission of Canada's (PSC) application process. For consistency, this platform reflects the PSC's category terminology.",
@@ -283,11 +261,6 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
             defaultMessage: "Region",
             id: "F+WFWB",
             description: "Label for work location filter in search form.",
-          })}
-          placeholder={intl.formatMessage({
-            defaultMessage: "Select a location",
-            id: "bo+d/M",
-            description: "Placeholder for work location filter in search form.",
           })}
           items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
             value,

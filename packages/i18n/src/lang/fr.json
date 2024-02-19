@@ -1,4 +1,8 @@
 {
+  "+3THj+": {
+    "defaultMessage": "Nettement supérieur au niveau requis",
+    "description": "Option for skill assessment decision level."
+  },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
@@ -51,6 +55,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
+  "0ClMl1": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity, and inclusion page"
+  },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
@@ -62,6 +70,10 @@
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
+  },
+  "0OSmXn": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
+    "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
   },
   "0bcof1": {
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
@@ -103,9 +115,17 @@
     "defaultMessage": "Emplois en TI (en cours)",
     "description": "The publishing group called IT Jobs for ongoing recruitments"
   },
+  "1i0PsT": {
+    "defaultMessage": "Talents numériques du GC",
+    "description": "Title of GC Digital Talent"
+  },
   "1pMCyl": {
     "defaultMessage": "Simple",
     "description": "Sélection simple pour le type d’employé du gouvernement."
+  },
+  "2/YsnJ": {
+    "defaultMessage": "Supprimer",
+    "description": "Delete action"
   },
   "25reyq": {
     "defaultMessage": "Nouveau",
@@ -151,6 +171,10 @@
     "defaultMessage": "Oui, évaluation en anglais terminée",
     "description": "Completed an English language evaluation"
   },
+  "2wKf2U": {
+    "defaultMessage": "Modifier",
+    "description": "Text to trigger edit action"
+  },
   "3I2Qke": {
     "defaultMessage": "S’ouvre dans un nouvel onglet",
     "description": "Label for setting a link to open in a new tab in the rich text editor"
@@ -175,17 +199,13 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activités de la TI",
     "description": "Pool Stream described as Business Line Advisory Services."
   },
-  "48qVi9": {
-    "defaultMessage": "Autre",
-    "description": "user is neither a citizen or permanent resident of Canada"
-  },
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
-  "4S30lt": {
-    "defaultMessage": "Expérience de travail appliquée",
-    "description": "Option for education requirement, applied work experience"
+  "4WvSir": {
+    "defaultMessage": "Agrandir tout",
+    "description": "Generic link text to expand all accordions in a section"
   },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
@@ -238,6 +258,10 @@
   "5owc3a": {
     "defaultMessage": "Anglais seulement",
     "description": "The language requirement is English only."
+  },
+  "5wKh/o": {
+    "defaultMessage": "Démontré",
+    "description": "Option for assessment decision when candidate has successful assessment."
   },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
@@ -327,6 +351,10 @@
     "defaultMessage": "cela m'oblige à me déplacer.",
     "description": "The operational requirement described as travel as required."
   },
+  "9aW0M6": {
+    "defaultMessage": "Ministère",
+    "description": "Title for department"
+  },
   "9ays+c": {
     "defaultMessage": "J'ai un <strong>contrat</strong> d'employé occasionnel.",
     "description": "Casual selection for government employee type."
@@ -346,6 +374,10 @@
   "9zyjjw": {
     "defaultMessage": "<hidden>Étape complétée, </hidden>{label}",
     "description": "Prefix when a step has been completed."
+  },
+  "A1WCb/": {
+    "defaultMessage": "Autre motif de l’exclusion au processus de présélection.",
+    "description": "Option for justification when assessment decision is unsuccessful."
   },
   "A1fb/r": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
@@ -370,6 +402,10 @@
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
+  },
+  "BXxvCZ": {
+    "defaultMessage": "Aucun nom n'a été fourni",
+    "description": "Message for when no name value"
   },
   "BnnVAv": {
     "defaultMessage": "Permis de conduire",
@@ -398,6 +434,10 @@
   "C8nrGM": {
     "defaultMessage": "Emplois en TI",
     "description": "The publishing group called IT Jobs"
+  },
+  "CF69qZ": {
+    "defaultMessage": "Administration des programmes",
+    "description": "Full name of abbreviation for PM"
   },
   "CGNfbu": {
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
@@ -435,10 +475,6 @@
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
   },
-  "E6JTyY": {
-    "defaultMessage": "Autre",
-    "description": "The selection to choose when the expected option is not available"
-  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -475,9 +511,17 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
+  "GLRLYT": {
+    "defaultMessage": "Pas certain",
+    "description": "A decision has not been made"
+  },
   "Gc9PeN": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler par quarts.",
     "description": "The operational requirement described as shift work."
+  },
+  "GiYTD4": {
+    "defaultMessage": "Ce champ doit contenir moins de {value} caractères.",
+    "description": "Error Message displayed when the user passes some given character or letter limit."
   },
   "Glb1Te": {
     "defaultMessage": "Diriger",
@@ -511,9 +555,17 @@
     "defaultMessage": "Retourner à ma demande",
     "description": "Link text for button to return to user application"
   },
+  "HVMI8t": {
+    "defaultMessage": "Systèmes d'ordinateurs",
+    "description": "Full name of abbreviation for CS"
+  },
   "HalXgi": {
     "defaultMessage": "Nouvelle-Écosse",
     "description": "Nova Scotia selection for province or territory input"
+  },
+  "Ho94JY": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed preferred communication language"
   },
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
@@ -534,6 +586,10 @@
   "IGl5IE": {
     "defaultMessage": "Entretien de suivi",
     "description": "Follow-up interview assessment."
+  },
+  "ILQGq/": {
+    "defaultMessage": "L’équivalence de l’expérience de travail est acceptée",
+    "description": "Option for justification when assessment decision is successful."
   },
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
@@ -575,21 +631,17 @@
     "defaultMessage": "Région de Québec (excluant Gatineau)",
     "description": "The work region of Canada described as Quebec."
   },
+  "JqjYZq": {
+    "defaultMessage": "Ce champ est obligatoire. Veuillez inscrire une valeur.",
+    "description": "Error message that this field must filled for the form to be valid."
+  },
   "K/npC7": {
     "defaultMessage": "Pour les besoins à venir (la classification ou le financement n’a pas encore été mis(e) en place",
     "description": "Option for searching candidates for an upcoming staffing need"
   },
-  "K80psp": {
-    "defaultMessage": "Autre",
-    "description": "Priority text for users with no priority"
-  },
   "K9SPL+": {
     "defaultMessage": "À un stade initial de développement",
     "description": "The behavioural skill level for beginner"
-  },
-  "KC/sxi": {
-    "defaultMessage": "Ce champ est obligatoire.",
-    "description": "Error message that this field must filled for the form to be valid."
   },
   "KGX4bI": {
     "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
@@ -623,6 +675,10 @@
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
   },
+  "LJ2r4A": {
+    "defaultMessage": "Autre",
+    "description": "Different or distinct from one already mentioned"
+  },
   "LJpdaI": {
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
@@ -644,8 +700,12 @@
     "description": "Message displayed to user after application fails to get deleted."
   },
   "MBnBcY": {
-    "defaultMessage": "Vitrine des compétences",
+    "defaultMessage": "Démonstration de compétences",
     "description": "Name of the skill showcase page"
+  },
+  "MMtY88": {
+    "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "MUjjf9": {
     "defaultMessage": "B",
@@ -695,6 +755,10 @@
     "defaultMessage": "Non réussi",
     "description": "Did not complete selection for education status input"
   },
+  "NhJY9U": {
+    "defaultMessage": "Supérieur au niveau requis",
+    "description": "Option for skill assessment decision level."
+  },
   "Nhi8rT": {
     "defaultMessage": "Vous avez presque atteint la limite!",
     "description": "Message displayed when one away from repeater limit."
@@ -722,6 +786,14 @@
   "OaB49n": {
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
+  },
+  "OeTCOs": {
+    "defaultMessage": "Réduire tout",
+    "description": "Generic link text to collapse all accordions in a section"
+  },
+  "Og8iHn": {
+    "defaultMessage": "Trouver des talents",
+    "description": "Name of Find talent (search) page"
   },
   "Ot5z0u": {
     "defaultMessage": "Menu des options de bascule",
@@ -774,6 +846,10 @@
   "QhRU19": {
     "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "Qn/95I": {
+    "defaultMessage": "Équité en matière d'emploi",
+    "description": "Title for Employment equity"
   },
   "QnlRv0": {
     "defaultMessage": "Effacer toutes les sélections",
@@ -912,7 +988,7 @@
     "description": "The operational requirement described as driver's license."
   },
   "Tw90Pi": {
-    "defaultMessage": "Enregistrement...",
+    "defaultMessage": "Sauvegarde en cours...",
     "description": "Submitting text for save button."
   },
   "U/4a27": {
@@ -935,6 +1011,10 @@
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
   },
+  "VXC0uU": {
+    "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",
+    "description": "Option for justification when assessment decision is unsuccessful."
+  },
   "VYbDJk": {
     "defaultMessage": "cela me demande de transporter, soulever et déposer des équipements pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -947,12 +1027,16 @@
     "defaultMessage": "Niveau 2 : Analyste",
     "description": "The name of the Technician Analyst role."
   },
+  "W5Dkd1": {
+    "defaultMessage": "Économique et services de sciences sociales",
+    "description": "Full name of abbreviation for EC"
+  },
   "WC5em7": {
     "defaultMessage": "Mon organisation",
     "description": "The award was given to my organization."
   },
   "WGoaKQ": {
-    "defaultMessage": "Enregistrer les modifications",
+    "defaultMessage": "Sauvegarder les modifications",
     "description": "Text for submit button on edit forms"
   },
   "WL3bq/": {
@@ -975,9 +1059,21 @@
     "defaultMessage": "Anglais seulement",
     "description": "The language ability is English only."
   },
+  "WhLeuS": {
+    "defaultMessage": "Nom",
+    "description": "Title for name"
+  },
   "WhXfSx": {
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
+  },
+  "Wjpl9+": {
+    "defaultMessage": "Pas le bon domaine ou la bonne spécialisation.",
+    "description": "Option for justification when assessment decision is unsuccessful."
+  },
+  "WwAqER": {
+    "defaultMessage": "Télécharger (texte clair)",
+    "description": "Download (plain text) action"
   },
   "XCKYVJ": {
     "defaultMessage": "Lien",
@@ -999,6 +1095,10 @@
     "defaultMessage": "Les étapes d'évaluation doivent appartenir au même bassin.",
     "description": "Error message that the assessment steps must belong to the same pool."
   },
+  "XZl6Ks": {
+    "defaultMessage": "Modifier cette section",
+    "description": "Text to trigger edit of section action"
+  },
   "XnvXtO": {
     "defaultMessage": "Tous",
     "description": "All"
@@ -1019,6 +1119,10 @@
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
   },
+  "YOji06": {
+    "defaultMessage": "Télécharger (PDF)",
+    "description": "Download (PDF) action"
+  },
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
@@ -1034,10 +1138,6 @@
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
-  },
-  "ZEsIZi": {
-    "defaultMessage": "Non",
-    "description": "No, did not complete a language evaluation"
   },
   "ZSA4lO": {
     "defaultMessage": "Vous pouvez ajouter des éléments à l’aide du bouton \"Ajouter un nouvel élément\".",
@@ -1083,17 +1183,21 @@
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
   },
+  "aaJPpO": {
+    "defaultMessage": "Au niveau requis",
+    "description": "Option for skill assessment decision level."
+  },
   "ad4CnG": {
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
   },
-  "ad4mTC": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Name of Diversity, equity and inclusion page"
-  },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
+  },
+  "aj4GLs": {
+    "defaultMessage": "Les renseignements sur les études sont acceptés",
+    "description": "Option for justification when assessment decision is successful."
   },
   "atqjXB": {
     "defaultMessage": "Annuler",
@@ -1179,6 +1283,10 @@
     "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "dwYJOo": {
+    "defaultMessage": "Exigences en matière de travail pratique",
+    "description": "Title for the applied work experience requirements"
+  },
   "dxjUnU": {
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
@@ -1191,17 +1299,21 @@
     "defaultMessage": "P",
     "description": "The evaluated language ability level of P"
   },
-  "eGg734": {
-    "defaultMessage": "Autre",
-    "description": "Other selection for education type input"
-  },
   "eNUS2A": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "The selection for being part of an indigenous community not already listed"
   },
+  "eRPkNo": {
+    "defaultMessage": "Pas suffisamment de renseignements.",
+    "description": "Option for justification when assessment decision is unsuccessful."
+  },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
+  },
+  "euigxa": {
+    "defaultMessage": "Aucun renseignement n'a été fourni.",
+    "description": "Sentence when some form of information not provided"
   },
   "euwgms": {
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre travail",
@@ -1223,6 +1335,10 @@
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
   },
+  "faKvwp": {
+    "defaultMessage": "La combinaison des études et de l’équivalence de l’expérience de travail est acceptée",
+    "description": "Option for justification when assessment decision is successful."
+  },
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
@@ -1234,6 +1350,10 @@
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
+  },
+  "gBoG9M": {
+    "defaultMessage": "Profil et candidatures",
+    "description": "Name of Profile and applications page"
   },
   "gM4WDL": {
     "defaultMessage": "Non",
@@ -1355,6 +1475,10 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
+  "k/+pcc": {
+    "defaultMessage": "Offre en cours",
+    "description": "The pool candidate's status is Offer in Progress, tentatively placed"
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1362,6 +1486,10 @@
   "kKdcZT": {
     "defaultMessage": "Bilingue avancé",
     "description": "The language requirement is bilingual advanced."
+  },
+  "kSQNt5": {
+    "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
+    "description": "Option for justification when assessment decision is unsuccessful."
   },
   "kg28xx": {
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
@@ -1403,10 +1531,6 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
-  "lr2+2R": {
-    "defaultMessage": "Autre",
-    "description": "declaring one to be neither a citizen or permanent resident of Canada"
-  },
   "lsFH+y": {
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
@@ -1434,10 +1558,6 @@
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
-  },
-  "mv7JO3": {
-    "defaultMessage": "Autre",
-    "description": "The publishing group called Other"
   },
   "n+SiHy": {
     "defaultMessage": "Juillet",
@@ -1507,6 +1627,10 @@
     "defaultMessage": "Vétéran",
     "description": "Priority text for veterans"
   },
+  "oXrkBM": {
+    "defaultMessage": "Groupe de la direction",
+    "description": "Full name of abbreviation for EX"
+  },
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",
     "description": "The operational requirement described as transport equipment up to 20kg. (short-form for limited space)"
@@ -1570,6 +1694,14 @@
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
+  },
+  "rbhjTC": {
+    "defaultMessage": "Bibliothèque des compétences",
+    "description": "Name of the skill library page"
+  },
+  "rjHrNp": {
+    "defaultMessage": "Parcourir les possibilités d'emploi",
+    "description": "Name of Browse jobs page"
   },
   "rlq4uZ": {
     "defaultMessage": "Compétences techniques",
@@ -1732,7 +1864,7 @@
     "description": "Message to display when a search is in progress."
   },
   "wCft6M": {
-    "defaultMessage": "Colombie Britannique",
+    "defaultMessage": "Colombie-Britannique",
     "description": "The work region of Canada described as British Columbia."
   },
   "wD5ZuD": {
@@ -1766,6 +1898,10 @@
   "xCBinq": {
     "defaultMessage": "Résident permanent",
     "description": "user is a permanent resident"
+  },
+  "xEkbvy": {
+    "defaultMessage": "Sélectionnez un niveau",
+    "description": "Null selection of level for select input"
   },
   "xH10Pp": {
     "defaultMessage": "Ce numéro de ministère est déjà utilisé",
@@ -1846,6 +1982,10 @@
   "zXRf0L": {
     "defaultMessage": "Mai",
     "description": "Name of the fifth month"
+  },
+  "zXkLL2": {
+    "defaultMessage": "Non démontrée (supprimée du processus)",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zafWLP": {
     "defaultMessage": "Suspendu",

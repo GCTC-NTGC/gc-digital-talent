@@ -1,8 +1,10 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
+  Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -11,7 +13,17 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Spoiler } from "@gc-digital-talent/ui";
+import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
+import {
+  graphql,
+  CandidateExpiryFilter,
+  PoolStream,
+  PublishingGroup,
+  Maybe,
+  Pool,
+  PoolCandidatePoolNameOrderByInput,
+} from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -27,8 +39,26 @@ import {
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import {
+  getFinalDecisionPillColor,
+  statusToFinalDecision,
+  statusToJobPlacement,
+} from "~/utils/poolCandidate";
+import {
+  stringToEnumCandidateExpiry,
+  stringToEnumCandidateSuspended,
+  stringToEnumLanguage,
+  stringToEnumLocation,
+  stringToEnumOperational,
+  stringToEnumPoolCandidateStatus,
+} from "~/utils/userUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
+import { FormValues } from "./types";
+import tableMessages from "./tableMessages";
+import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -87,62 +117,21 @@ export const priorityCell = (
   );
 };
 
-export const viewPoolCandidateCell = (
+export const candidateNameCell = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const isQualified =
-    candidate.status !== PoolCandidateStatus.NewApplication &&
-    candidate.status !== PoolCandidateStatus.ApplicationReview &&
-    candidate.status !== PoolCandidateStatus.ScreenedIn &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutApplication &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotInterested &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutNotResponsive &&
-    candidate.status !== PoolCandidateStatus.UnderAssessment &&
-    candidate.status !== PoolCandidateStatus.ScreenedOutAssessment;
   const candidateName = getFullNameLabel(
     candidate.user.firstName,
     candidate.user.lastName,
     intl,
   );
-  if (isQualified) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {cells.view(
-          paths.userView(candidate.user.id),
-          intl.formatMessage({
-            defaultMessage: "Profile",
-            id: "mRQ/uk",
-            description:
-              "Title displayed for the Pool Candidates table View Profile link.",
-          }),
-          undefined,
-          intl.formatMessage(
-            {
-              defaultMessage: "View {name}'s profile",
-              id: "bWTzRy",
-              description:
-                "Link text to view a candidates profile for assistive technologies",
-            },
-            {
-              name: candidateName,
-            },
-          ),
-        )}
-      </span>
-    );
-  }
   return (
     <span data-h2-font-weight="base(700)">
       {cells.view(
         paths.poolCandidateApplication(candidate.id),
-        intl.formatMessage({
-          defaultMessage: "Application",
-          id: "5iNcHS",
-          description:
-            "Title displayed for the Pool Candidates table View Application link.",
-        }),
+        candidateName,
         undefined,
         intl.formatMessage(
           {
@@ -157,6 +146,26 @@ export const viewPoolCandidateCell = (
         ),
       )}
     </span>
+  );
+};
+
+export const processCell = (
+  pool: Pool,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => {
+  const poolName = getFullPoolTitleLabel(intl, pool);
+  return (
+    <Link
+      href={paths.poolView(pool.id)}
+      aria-label={
+        intl.formatMessage(processMessages.process) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        poolName
+      }
+    >
+      {poolName}
+    </Link>
   );
 };
 
@@ -235,6 +244,35 @@ export const currentLocationAccessor = (
       : commonMessages.notFound,
   )}`;
 
+export const finalDecisionCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return (
+    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
+      {intl.formatMessage(statusToFinalDecision(status))}
+    </Pill>
+  );
+};
+
+export const jobPlacementCell = (
+  intl: IntlShape,
+  status?: Maybe<PoolCandidateStatus>,
+) => {
+  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
+};
+
+export const bookmarkCell = (candidate: PoolCandidate) => {
+  return <CandidateBookmark candidate={candidate} size="lg" />;
+};
+
+export const bookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);
+
 // row(s) are becoming selected or deselected
 // if row is null then toggle all rows on the page simultaneously
 type RowSelectedEvent<T> = {
@@ -274,6 +312,9 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
+    ["candidacyStatus", "suspended_at"],
+    ["finalDecision", "status"],
+    ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
@@ -281,6 +322,8 @@ export function transformSortStateToOrderByClause(
     ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
+    ["priority", "PRIORITY_WEIGHT"],
+    ["status", "status_weight"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -290,7 +333,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -302,9 +345,13 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
-      sortingRule.id,
-    )
+    [
+      "candidateName",
+      "email",
+      "preferredLang",
+      "currentLocation",
+      "priority",
+    ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -330,11 +377,483 @@ export function transformSortStateToOrderByClause(
     };
   }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-  // default tertiary sort is submitted_at,
+  // default final sort is column candidateName,
 
   return {
-    column: "submitted_at",
+    column: undefined,
     order: SortOrder.Asc,
-    user: undefined,
+    user: {
+      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+      column: "FIRST_NAME" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+    },
+  };
+}
+
+export function getSortOrder(
+  sortingRules?: SortingState,
+  filterState?: PoolCandidateSearchInput,
+  doNotUseBookmark?: boolean,
+  recordDecisionActive?: boolean,
+): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
+  return [
+    ...(doNotUseBookmark
+      ? []
+      : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
+    ...(recordDecisionActive
+      ? []
+      : [
+          { column: "status_weight", order: SortOrder.Asc },
+          {
+            user: {
+              aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+              column:
+                "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+            },
+            order: SortOrder.Asc,
+          },
+        ]),
+    // Do not apply other filters if we are sorting by process
+    ...(!hasProcess
+      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
+      : []),
+  ];
+}
+
+export function getPoolNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolCandidatePoolNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
+export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
+  /* GraphQL */ `
+    query PoolCandidatesTable_SelectPoolCandidates($ids: [ID]!) {
+      poolCandidates(includeIds: $ids) {
+        id
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            name {
+              en
+              fr
+            }
+            group
+            level
+          }
+        }
+        pool {
+          id
+          essentialSkills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            category
+          }
+          nonessentialSkills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            category
+          }
+        }
+        user {
+          id
+          email
+          firstName
+          lastName
+          telephone
+          preferredLang
+          preferredLanguageForInterview
+          preferredLanguageForExam
+          lookingForEnglish
+          lookingForFrench
+          lookingForBilingual
+          bilingualEvaluation
+          comprehensionLevel
+          writtenLevel
+          verbalLevel
+          estimatedLanguageAbility
+          isGovEmployee
+          govEmployeeType
+          hasPriorityEntitlement
+          priorityNumber
+          priorityWeight
+          locationPreferences
+          locationExemptions
+          positionDuration
+          acceptedOperationalRequirements
+          isWoman
+          indigenousCommunities
+          indigenousDeclarationSignature
+          isVisibleMinority
+          hasDisability
+          citizenship
+          armedForcesStatus
+          currentCity
+          currentProvince
+          topTechnicalSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          topBehaviouralSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          improveTechnicalSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          improveBehaviouralSkillsRanking {
+            id
+            user {
+              id
+            }
+            skill {
+              id
+              key
+              category
+              name {
+                en
+                fr
+              }
+            }
+            skillLevel
+            topSkillsRank
+            improveSkillsRank
+          }
+          department {
+            id
+            departmentNumber
+            name {
+              en
+              fr
+            }
+          }
+          currentClassification {
+            id
+            group
+            level
+            name {
+              en
+              fr
+            }
+          }
+          experiences {
+            id
+            __typename
+            user {
+              id
+              email
+            }
+            details
+            skills {
+              id
+              key
+              name {
+                en
+                fr
+              }
+              description {
+                en
+                fr
+              }
+              keywords {
+                en
+                fr
+              }
+              category
+              experienceSkillRecord {
+                details
+              }
+            }
+            ... on AwardExperience {
+              title
+              issuedBy
+              awardedDate
+              awardedTo
+              awardedScope
+            }
+            ... on CommunityExperience {
+              title
+              organization
+              project
+              startDate
+              endDate
+            }
+            ... on EducationExperience {
+              institution
+              areaOfStudy
+              thesisTitle
+              startDate
+              endDate
+              type
+              status
+            }
+            ... on PersonalExperience {
+              title
+              description
+              startDate
+              endDate
+            }
+            ... on WorkExperience {
+              role
+              organization
+              division
+              startDate
+              endDate
+            }
+          }
+        }
+        educationRequirementOption
+        educationRequirementExperiences {
+          id
+          __typename
+          user {
+            id
+            email
+          }
+          details
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            keywords {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+          }
+        }
+        generalQuestionResponses {
+          id
+          answer
+          generalQuestion {
+            id
+            question {
+              en
+              fr
+            }
+          }
+        }
+        cmoIdentifier
+        expiryDate
+        status
+        submittedAt
+        notes
+        archivedAt
+      }
+    }
+  `,
+);
+export function transformPoolCandidateSearchInputToFormValues(
+  input: PoolCandidateSearchInput | undefined,
+): FormValues {
+  return {
+    publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
+    classifications:
+      input?.applicantFilter?.qualifiedClassifications
+        ?.filter(notEmpty)
+        .map((c) => `${c.group}-${c.level}`) ?? [],
+    stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    workRegion:
+      input?.applicantFilter?.locationPreferences?.filter(notEmpty) ?? [],
+    operationalRequirement:
+      input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
+    equity: input?.applicantFilter?.equity
+      ? [
+          ...(input.applicantFilter.equity.hasDisability
+            ? ["hasDisability"]
+            : []),
+          ...(input.applicantFilter.equity.isIndigenous
+            ? ["isIndigenous"]
+            : []),
+          ...(input.applicantFilter.equity.isVisibleMinority
+            ? ["isVisibleMinority"]
+            : []),
+          ...(input.applicantFilter.equity.isWoman ? ["isWoman"] : []),
+        ]
+      : [],
+    pools:
+      input?.applicantFilter?.pools
+        ?.filter(notEmpty)
+        .map((poolFilter) => poolFilter.id) ?? [],
+    skills:
+      input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
+    priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
+    poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
+    expiryStatus: input?.expiryStatus
+      ? input.expiryStatus
+      : CandidateExpiryFilter.Active,
+    suspendedStatus: input?.suspendedStatus
+      ? input.suspendedStatus
+      : CandidateSuspendedFilter.Active,
+    govEmployee: input?.isGovEmployee ? "true" : "",
+  };
+}
+
+export function transformFormValuesToFilterState(
+  data: FormValues,
+): PoolCandidateSearchInput {
+  return {
+    applicantFilter: {
+      languageAbility: data.languageAbility
+        ? stringToEnumLanguage(data.languageAbility)
+        : undefined,
+      qualifiedClassifications: data.classifications.map((classification) => {
+        const splitString = classification.split("-");
+        return { group: splitString[0], level: Number(splitString[1]) };
+      }),
+      qualifiedStreams: data.stream as PoolStream[],
+      operationalRequirements: data.operationalRequirement
+        .map((requirement) => {
+          return stringToEnumOperational(requirement);
+        })
+        .filter(notEmpty),
+      locationPreferences: data.workRegion
+        .map((region) => {
+          return stringToEnumLocation(region);
+        })
+        .filter(notEmpty),
+      equity: {
+        ...(data.equity.includes("isWoman") && { isWoman: true }),
+        ...(data.equity.includes("hasDisability") && { hasDisability: true }),
+        ...(data.equity.includes("isIndigenous") && { isIndigenous: true }),
+        ...(data.equity.includes("isVisibleMinority") && {
+          isVisibleMinority: true,
+        }),
+      },
+      pools: data.pools.map((id) => {
+        return { id };
+      }),
+      skills: data.skills.map((id) => {
+        return { id };
+      }),
+    },
+    poolCandidateStatus: data.poolCandidateStatus
+      .map((status) => {
+        return stringToEnumPoolCandidateStatus(status);
+      })
+      .filter(notEmpty),
+    priorityWeight: data.priorityWeight.map((priority) => {
+      return Number(priority);
+    }),
+    expiryStatus: data.expiryStatus
+      ? stringToEnumCandidateExpiry(data.expiryStatus)
+      : undefined,
+    suspendedStatus: data.suspendedStatus
+      ? stringToEnumCandidateSuspended(data.suspendedStatus)
+      : undefined,
+    isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    publishingGroups: data.publishingGroups as PublishingGroup[],
   };
 }

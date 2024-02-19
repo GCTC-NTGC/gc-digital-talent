@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -12,7 +13,7 @@ import {
   TextArea,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-import { Pending, NotFound, Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Well } from "@gc-digital-talent/ui";
 import {
   getPoolCandidateStatus,
   commonMessages,
@@ -20,17 +21,18 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
-
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
-import adminMessages from "~/messages/adminMessages";
 import {
   PoolCandidateStatus,
-  Scalars,
   UpdatePoolCandidateAsAdminInput,
-  useGetPoolCandidateStatusQuery,
-  useUpdatePoolCandidateStatusMutation,
   type PoolCandidate,
-} from "~/api/generated";
+  FragmentType,
+  getFragment,
+  graphql,
+  ApplicationStatusForm_PoolCandidateFragmentFragment,
+} from "@gc-digital-talent/graphql";
+
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
   status?: PoolCandidate["status"];
@@ -40,8 +42,8 @@ type FormValues = {
 
 export interface ApplicationStatusFormProps {
   isSubmitting: boolean;
-  application: Omit<PoolCandidate, "user">;
-  onSubmit: (values: UpdatePoolCandidateAsAdminInput) => void;
+  application: ApplicationStatusForm_PoolCandidateFragmentFragment;
+  onSubmit: (values: UpdatePoolCandidateAsAdminInput, notes: string) => void;
 }
 
 export const ApplicationStatusForm = ({
@@ -62,11 +64,14 @@ export const ApplicationStatusForm = ({
   const { handleSubmit } = methods;
 
   const handleFormSubmit: SubmitHandler<FormValues> = (values: FormValues) => {
-    onSubmit({
-      status: values.status,
-      notes: values.notes,
-      expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
-    });
+    onSubmit(
+      {
+        status: values.status,
+
+        expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
+      },
+      values.notes ?? "",
+    );
 
     // recycle the field reset from Eric in UpdateSearchRequest.tsx
     methods.resetField("status", {
@@ -184,11 +189,10 @@ export const ApplicationStatusForm = ({
                 </Heading>
                 <p data-h2-margin="base(x0.25 0)">
                   {intl.formatMessage({
-                    id: "zLvpBy",
+                    id: "JDQvla",
                     defaultMessage:
                       "These notes are shared between all managers of this pool, but not to candidates.",
-                    description:
-                      "Description of the pool candidate notes field.",
+                    description: "Description of pool candidate notes field",
                   })}
                 </p>
                 <TextArea
@@ -202,7 +206,7 @@ export const ApplicationStatusForm = ({
                         "Label for the notes field for a specific pool",
                     },
                     {
-                      poolName: getFullPoolTitleHtml(intl, application.pool),
+                      poolName: getShortPoolTitleHtml(intl, application.pool),
                     },
                   )}
                 />
@@ -214,12 +218,7 @@ export const ApplicationStatusForm = ({
               color="primary"
               isSubmitting={isSubmitting}
               text={intl.formatMessage(formMessages.saveChanges)}
-              isSubmittingText={intl.formatMessage({
-                defaultMessage: "Saving...",
-                id: "4Czd5U",
-                description:
-                  "Text displayed on the pool candidate application submit button while saving",
-              })}
+              isSubmittingText={intl.formatMessage(commonMessages.saving)}
             />
           </p>
         </form>
@@ -228,18 +227,66 @@ export const ApplicationStatusForm = ({
   );
 };
 
+const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
+  mutation ApplicationStatusForm_Mutation(
+    $id: UUID!
+    $input: UpdatePoolCandidateAsAdminInput!
+    $notes: String
+  ) {
+    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      status
+    }
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
+      id
+      notes
+    }
+  }
+`);
+
+const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
+  fragment ApplicationStatusForm_PoolCandidateFragment on PoolCandidate {
+    id
+    expiryDate
+    status
+    notes
+    pool {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      publishingGroup
+      classifications {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
 interface ApplicationStatusFormApiProps {
-  id: Scalars["ID"];
+  candidateQuery: FragmentType<
+    typeof ApplicationStatusForm_PoolCandidateFragment
+  >;
 }
 
-const ApplicationStatusFormApi = ({ id }: ApplicationStatusFormApiProps) => {
+const ApplicationStatusFormApi = ({
+  candidateQuery,
+}: ApplicationStatusFormApiProps) => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useGetPoolCandidateStatusQuery({
-    variables: { id },
-  });
 
-  const [{ fetching: mutationFetching }, executeMutation] =
-    useUpdatePoolCandidateStatusMutation();
+  const poolCandidate = getFragment(
+    ApplicationStatusForm_PoolCandidateFragment,
+    candidateQuery,
+  );
+
+  const [{ fetching: mutationFetching }, executeMutation] = useMutation(
+    ApplicationStatusForm_Mutation,
+  );
 
   const handleError = () => {
     toast.error(
@@ -252,10 +299,16 @@ const ApplicationStatusFormApi = ({ id }: ApplicationStatusFormApiProps) => {
     );
   };
 
-  const handleUpdate = (input: UpdatePoolCandidateAsAdminInput) => {
-    executeMutation({ id, input })
+  const handleUpdate = (
+    input: UpdatePoolCandidateAsAdminInput,
+    notes: string,
+  ) => {
+    executeMutation({ id: poolCandidate.id, input, notes })
       .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
+        if (
+          result.data?.updatePoolCandidateAsAdmin &&
+          result.data.updatePoolCandidateNotes
+        ) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",
@@ -274,28 +327,11 @@ const ApplicationStatusFormApi = ({ id }: ApplicationStatusFormApiProps) => {
   };
 
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate ? (
-        <ApplicationStatusForm
-          isSubmitting={mutationFetching}
-          application={data.poolCandidate}
-          onSubmit={handleUpdate}
-        />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Pool Candidate {id} not found.",
-                id: "atniLV",
-                description: "Message displayed for pool candidate not found.",
-              },
-              { id },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
+    <ApplicationStatusForm
+      isSubmitting={mutationFetching}
+      application={poolCandidate}
+      onSubmit={handleUpdate}
+    />
   );
 };
 

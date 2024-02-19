@@ -62,6 +62,22 @@ const SupportPage = React.lazy(() =>
       ),
   ),
 );
+const TermsAndConditions = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSupportPage" */ "../pages/TermsAndConditions/TermsAndConditions"
+      ),
+  ),
+);
+const PrivacyPolicy = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsSupportPage" */ "../pages/PrivacyPolicy/PrivacyPolicy"
+      ),
+  ),
+);
 const AccessibilityPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -328,6 +344,14 @@ const IAPHomePage = React.lazy(() =>
       ),
   ),
 );
+const IAPManagerHomePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
+      ),
+  ),
+);
 
 /** Admin */
 const AdminHomePage = React.lazy(() =>
@@ -495,6 +519,14 @@ const ViewPoolCandidatePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+      ),
+  ),
+);
+const RODViewPoolCandidatePage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
       ),
   ),
 );
@@ -701,6 +733,16 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
+/** Announcements */
+const AnnouncementsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
+      ),
+  ),
+);
+
 /** Directive on Digital Talent */
 const DirectivePage = React.lazy(() =>
   lazyRetry(
@@ -753,6 +795,14 @@ const createRoute = (
             {
               path: "support",
               element: <SupportPage />,
+            },
+            {
+              path: "terms-and-conditions",
+              element: <TermsAndConditions />,
+            },
+            {
+              path: "privacy-policy",
+              element: <PrivacyPolicy />,
             },
             {
               path: "accessibility-statement",
@@ -875,83 +925,83 @@ const createRoute = (
                       children: [
                         {
                           index: true,
-                          element: featureFlags.skillLibrary ? (
+                          element: (
                             <RequireAuth
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <SkillLibraryPage />
                             </RequireAuth>
-                          ) : null,
+                          ),
                         },
                         {
                           path: ":skillId",
-                          element: featureFlags.skillLibrary ? (
+                          element: (
                             <RequireAuth
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
                               <UpdateUserSkillPage />
                             </RequireAuth>
-                          ) : null,
+                          ),
                         },
                         {
                           path: "showcase",
                           children: [
                             {
                               index: true,
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <SkillShowcasePage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "top-5-behavioural-skills",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <TopBehaviouralSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "top-10-technical-skills",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <TopTechnicalSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "3-behavioural-skills-to-improve",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ImproveBehaviouralSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                             {
                               path: "5-technical-skills-to-train",
-                              element: featureFlags.skillLibrary ? (
+                              element: (
                                 <RequireAuth
                                   roles={[ROLE_NAME.Applicant]}
                                   loginPath={loginPath}
                                 >
                                   <ImproveTechnicalSkillsPage />
                                 </RequireAuth>
-                              ) : null,
+                              ),
                             },
                           ],
                         },
@@ -1534,6 +1584,7 @@ const createRoute = (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
+                            ROLE_NAME.CommunityManager,
                             ROLE_NAME.PlatformAdmin,
                           ]}
                           loginPath={loginPath}
@@ -1574,7 +1625,11 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  <ViewPoolCandidatePage />
+                  {featureFlags.recordOfDecision ? (
+                    <RODViewPoolCandidatePage />
+                  ) : (
+                    <ViewPoolCandidatePage />
+                  )}
                 </RequireAuth>
               ),
             },
@@ -1735,50 +1790,61 @@ const createRoute = (
                         },
                       ],
                     },
+                  ],
+                },
+                {
+                  path: "skill-families",
+                  children: [
                     {
-                      path: "families",
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.PlatformAdmin]}
+                          loginPath={loginPath}
+                        >
+                          <IndexSkillFamilyPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.PlatformAdmin]}
+                          loginPath={loginPath}
+                        >
+                          <CreateSkillFamilyPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":skillFamilyId",
                       children: [
                         {
-                          index: true,
+                          path: "edit",
                           element: (
                             <RequireAuth
                               roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
-                              <IndexSkillFamilyPage />
+                              <UpdateSkillFamilyPage />
                             </RequireAuth>
                           ),
-                        },
-                        {
-                          path: "create",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <CreateSkillFamilyPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: ":skillFamilyId",
-                          children: [
-                            {
-                              path: "edit",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.PlatformAdmin]}
-                                  loginPath={loginPath}
-                                >
-                                  <UpdateSkillFamilyPage />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
                         },
                       ],
                     },
                   ],
+                },
+                {
+                  path: "announcements",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.PlatformAdmin]}
+                      loginPath={loginPath}
+                    >
+                      <AnnouncementsPage />
+                    </RequireAuth>
+                  ),
                 },
               ],
             },
@@ -1804,6 +1870,10 @@ const createRoute = (
         {
           index: true,
           element: <IAPHomePage />,
+        },
+        {
+          path: "hire",
+          element: <IAPManagerHomePage />,
         },
         {
           path: "*",

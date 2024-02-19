@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -13,9 +14,6 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { getFullNameHtml } from "~/utils/nameUtils";
-import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import {
   PoolStatus,
   User,
@@ -23,8 +21,15 @@ import {
   PoolCandidate,
   PoolCandidateStatus,
   UpdatePoolCandidateAsAdminInput,
-  useUpdatePoolCandidateMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getFullNameHtml } from "~/utils/nameUtils";
+import {
+  getShortPoolTitleHtml,
+  getShortPoolTitleLabel,
+} from "~/utils/poolUtils";
+
+import AdminUpdatePoolCandidate_Mutation from "./mutation";
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -46,7 +51,9 @@ const ChangeStatusDialog = ({
   const [open, setOpen] = React.useState(false);
   const methods = useForm<FormValues>();
 
-  const [{ fetching }, executeMutation] = useUpdatePoolCandidateMutation();
+  const [{ fetching }, executeMutation] = useMutation(
+    AdminUpdatePoolCandidate_Mutation,
+  );
 
   // an array of the user's pool candidates and filter out all the nulls and maybes
   const userPoolCandidatesSafe = user.poolCandidates
@@ -138,7 +145,7 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getFullPoolTitleHtml(intl, r.poolCandidate.pool, {
+                    {getShortPoolTitleHtml(intl, r.poolCandidate.pool, {
                       defaultTitle: r.poolCandidate.id,
                     })}
                   </li>
@@ -178,7 +185,7 @@ const ChangeStatusDialog = ({
                 status: intl.formatMessage(
                   getPoolCandidateStatus(selectedCandidate.status as string),
                 ),
-                poolName: getFullPoolTitleLabel(intl, selectedCandidate?.pool),
+                poolName: getShortPoolTitleLabel(intl, selectedCandidate?.pool),
               },
             )}
           </span>
@@ -213,7 +220,7 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getFullPoolTitleHtml(intl, selectedCandidate?.pool)}
+            - {getShortPoolTitleHtml(intl, selectedCandidate?.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -289,7 +296,7 @@ const ChangeStatusDialog = ({
                     .map((pool) => {
                       return {
                         value: pool.id,
-                        label: getFullPoolTitleLabel(intl, pool),
+                        label: getShortPoolTitleLabel(intl, pool),
                       };
                     })}
                 />
