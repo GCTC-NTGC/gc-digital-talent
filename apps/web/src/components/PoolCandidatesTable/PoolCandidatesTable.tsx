@@ -386,7 +386,7 @@ const PoolCandidatesTable = ({
 
   const batchLoader = new DataLoader<string, PoolCandidate | null>(
     async (ids) => {
-      const batchSize = 50; // Limit the batch size to 5 IDs
+      const batchSize = 8;
       const batches = [];
 
       for (let i = 0; i < ids.length; i += batchSize) {
