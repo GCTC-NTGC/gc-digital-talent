@@ -1,18 +1,14 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 import { useLocation } from "react-router-dom";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
+import { graphql, Classification } from "@gc-digital-talent/graphql";
 
-import {
-  GetClassificationsQuery,
-  useGetClassificationsQuery,
-  Classification,
-} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -22,7 +18,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 const columnHelper = createColumnHelper<Classification>();
 
 interface ClassificationTableProps {
-  classifications: GetClassificationsQuery["classifications"];
+  classifications: Classification[];
   title: string;
 }
 
@@ -143,21 +139,37 @@ export const ClassificationTable = ({
   );
 };
 
+const ClassificationTable_Query = graphql(/* GraphQL */ `
+  query Classifications {
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Classification"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of classifications will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
 const ClassificationTableApi = ({ title }: { title: string }) => {
-  const [result] = useGetClassificationsQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ClassificationTable_Query,
     context,
   });
-  const { data, fetching, error } = result;
 
   return (
     <Pending fetching={fetching} error={error}>
       <ClassificationTable
-        classifications={data?.classifications ?? []}
+        classifications={unpackMaybes(data?.classifications)}
         title={title}
       />
     </Pending>
