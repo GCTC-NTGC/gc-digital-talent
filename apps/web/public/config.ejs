@@ -9,7 +9,8 @@
 
 const data = new Map([
     // auth settings
-    ["OAUTH_POST_LOGOUT_REDIRECT", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT %>"],
+    ["OAUTH_POST_LOGOUT_REDIRECT_EN", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_EN") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT_EN %>"],
+    ["OAUTH_POST_LOGOUT_REDIRECT_FR", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_FR") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT_FR %>"],
     ["OAUTH_LOGOUT_URI", filterUnusable("$OAUTH_LOGOUT_URI") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_LOGOUT_URI %>"],
 
     // Feature flags
