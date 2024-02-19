@@ -150,7 +150,7 @@ const ApplicationReview = ({
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
-    generalQuestions: paths.applicationQuestions(application.id),
+    applicationQuestions: paths.applicationQuestions(application.id),
   };
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
@@ -164,6 +164,10 @@ const ApplicationReview = ({
     application.pool.essentialSkills,
   );
 
+  const screeningQuestions =
+    application.pool.screeningQuestions?.filter(notEmpty) || [];
+  const screeningQuestionResponses =
+    application.screeningQuestionResponses?.filter(notEmpty) || [];
   const generalQuestions =
     application.pool.generalQuestions?.filter(notEmpty) || [];
   const generalQuestionResponses =
@@ -404,58 +408,169 @@ const ApplicationReview = ({
           )}
         </div>
       </ReviewSection>
-      {generalQuestions.length > 0 && (
-        <ReviewSection
-          title={intl.formatMessage(processMessages.screeningQuestions)}
-          path={editPaths.generalQuestions}
-          editLinkAriaLabel={intl.formatMessage({
-            defaultMessage: "Edit screening questions",
-            id: "5A0a7w",
-            description:
-              "Edit link text for screening questions section of the application review page.",
-          })}
-        >
-          {generalQuestionResponses.length > 0 ? (
-            <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You’ve answered the following screening questions:",
-                  id: "Sd8883",
-                  description:
-                    "Message in screening questions section of the application review page.",
-                })}
-              </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
-                {generalQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
-                      {response.generalQuestion?.question
-                        ? response.generalQuestion.question[locale]
-                        : ""}
-                    </p>
-                    <p>{response.answer}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "It looks like you haven't answered any screening questions yet.",
-                  id: "V9lxDE",
-                  description:
-                    "Null state message in screening questions section of the application review page.",
-                })}
-              </p>
-            </Well>
+      {features.recordOfDecision ? (
+        <>
+          {screeningQuestions.length > 0 && (
+            <ReviewSection
+              title={intl.formatMessage(processMessages.screeningQuestions)}
+              path={editPaths.applicationQuestions}
+              editLinkAriaLabel={intl.formatMessage({
+                defaultMessage: "Edit screening questions",
+                id: "5A0a7w",
+                description:
+                  "Edit link text for screening questions section of the application review page.",
+              })}
+            >
+              {screeningQuestionResponses.length > 0 ? (
+                <div>
+                  <p data-h2-margin="base(x1, 0, x.5, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You’ve answered the following screening questions:",
+                      id: "Sd8883",
+                      description:
+                        "Message in screening questions section of the application review page.",
+                    })}
+                  </p>
+                  <ul data-h2-padding="base(0, 0, 0, x1)">
+                    {screeningQuestionResponses.map((response) => (
+                      <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                        <p
+                          data-h2-font-weight="base(700)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          {response.screeningQuestion?.question
+                            ? response.screeningQuestion.question[locale]
+                            : ""}
+                        </p>
+                        <p>{response.answer}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "It looks like you haven't answered any screening questions yet.",
+                      id: "V9lxDE",
+                      description:
+                        "Null state message in screening questions section of the application review page.",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </ReviewSection>
           )}
-        </ReviewSection>
+          {generalQuestions.length > 0 && (
+            <ReviewSection
+              title={intl.formatMessage(processMessages.generalQuestions)}
+              path={editPaths.applicationQuestions}
+              editLinkAriaLabel={intl.formatMessage({
+                defaultMessage: "Edit general questions",
+                id: "gIzUDr",
+                description:
+                  "Edit link text for general questions section of the application review page.",
+              })}
+            >
+              {generalQuestionResponses.length > 0 ? (
+                <div>
+                  <p data-h2-margin="base(x1, 0, x.5, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You've answered the following general questions:",
+                      id: "96AvU9",
+                      description:
+                        "Message in general questions section of the application review page.",
+                    })}
+                  </p>
+                  <ul data-h2-padding="base(0, 0, 0, x1)">
+                    {generalQuestionResponses.map((response) => (
+                      <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                        <p
+                          data-h2-font-weight="base(700)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          {response.generalQuestion?.question
+                            ? response.generalQuestion.question[locale]
+                            : ""}
+                        </p>
+                        <p>{response.answer}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "It looks like you haven't answered any general questions yet.",
+                      id: "OPbfwn",
+                      description:
+                        "Null state message in general questions section of the application review page.",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </ReviewSection>
+          )}
+        </>
+      ) : (
+        generalQuestions.length > 0 && (
+          <ReviewSection
+            title={intl.formatMessage(processMessages.screeningQuestions)}
+            path={editPaths.applicationQuestions}
+            editLinkAriaLabel={intl.formatMessage({
+              defaultMessage: "Edit screening questions",
+              id: "5A0a7w",
+              description:
+                "Edit link text for screening questions section of the application review page.",
+            })}
+          >
+            {generalQuestionResponses.length > 0 ? (
+              <div>
+                <p data-h2-margin="base(x1, 0, x.5, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You’ve answered the following screening questions:",
+                    id: "Sd8883",
+                    description:
+                      "Message in screening questions section of the application review page.",
+                  })}
+                </p>
+                <ul data-h2-padding="base(0, 0, 0, x1)">
+                  {generalQuestionResponses.map((response) => (
+                    <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                      <p
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin-bottom="base(x.25)"
+                      >
+                        {response.generalQuestion?.question
+                          ? response.generalQuestion.question[locale]
+                          : ""}
+                      </p>
+                      <p>{response.answer}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <Well>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't answered any screening questions yet.",
+                    id: "V9lxDE",
+                    description:
+                      "Null state message in screening questions section of the application review page.",
+                  })}
+                </p>
+              </Well>
+            )}
+          </ReviewSection>
+        )
       )}
 
       <section data-h2-margin="base(x3, 0, 0, 0)">
