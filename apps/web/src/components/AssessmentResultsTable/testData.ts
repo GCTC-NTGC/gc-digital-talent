@@ -84,6 +84,7 @@ export const applicationScreeningStep: AssessmentStep = {
 };
 export const applicationScreeningResults: AssessmentResult[] = [
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
+  getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(
     applicationScreeningStep,
     AssessmentResultType.Skill,
@@ -92,6 +93,10 @@ export const applicationScreeningResults: AssessmentResult[] = [
     essentialPoolSkills[1],
   ),
 ];
+
+const experience = fakeExperiences(1)[0];
+const experiencePoolSkill = fakePoolSkills(1)[0];
+experience.skills?.push(experiencePoolSkill?.skill as Skill);
 
 /* Screening questions step (Unsuccessful status) */
 export const screeningQuestionsStep: AssessmentStep = {
@@ -161,12 +166,17 @@ export const testPoolCandidate: PoolCandidate = {
       fakeUserSkills(1, essentialPoolSkills[1].skill as Skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[0].skill as Skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[1].skill as Skill)[0],
+      fakeUserSkills(1, experiencePoolSkill.skill as Skill)[0],
     ],
-    // experiences: [experience],
+    experiences: [experience],
   },
   pool: {
     ...poolCandidate.pool,
-    poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
+    poolSkills: [
+      experiencePoolSkill,
+      ...essentialPoolSkills,
+      ...nonEssentialPoolSkills,
+    ],
     assessmentSteps: [
       // set assessment steps out of order
       {
