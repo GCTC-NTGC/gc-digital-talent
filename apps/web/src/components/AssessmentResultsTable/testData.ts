@@ -12,7 +12,6 @@ import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResult,
-  AssessmentResultJustification,
   AssessmentResultType,
   AssessmentStep,
   AssessmentStepType,
