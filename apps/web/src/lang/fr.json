@@ -331,10 +331,6 @@
     "defaultMessage": "N’importe quelle langue",
     "description": "Label for the any language option"
   },
-  "ZTlEei": {
-    "defaultMessage": "Message (Français)",
-    "description": "The message, in French"
-  },
   "/ldR5A": {
     "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
@@ -486,10 +482,6 @@
   "0T3NB0": {
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
-  },
-  "XD0OVN": {
-    "defaultMessage": "Message (Anglais)",
-    "description": "The message, in English"
   },
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
@@ -1278,6 +1270,10 @@
   "52MYM4": {
     "defaultMessage": "Sélectionnez toutes les autres exigences qui s’appliquent.",
     "description": "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "55Me4a": {
+    "defaultMessage": "Titre (Français)",
+    "description": "The title, in French"
   },
   "56WpMU": {
     "defaultMessage": "Laissez les préférences de votre navigateur dicter le thème du site Web.",
@@ -4283,6 +4279,10 @@
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
   },
+  "MHZ1CD": {
+    "defaultMessage": "Titre (Anglais)",
+    "description": "The title, in English"
+  },
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
     "description": "Title for the using files section"
@@ -4503,10 +4503,6 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
-  "MHZ1CD": {
-    "defaultMessage": "Titre (Anglais)",
-    "description": "The title, in English"
-  },
   "NivtzV": {
     "defaultMessage": "Cette opération créera un nouveau processus et copiera toute l’information existante.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -4614,10 +4610,6 @@
   "OOHY6f": {
     "defaultMessage": "Transfert de connaissances",
     "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
-  },
-  "deiBi4": {
-    "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
-    "description": "Instructions to enter the date in the API DateTime scalar format"
   },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
@@ -6234,6 +6226,10 @@
     "defaultMessage": "Gérer la disponibilité pour le recrutement",
     "description": "Heading for opening the recruitment availability accordion in account and privacy"
   },
+  "XD0OVN": {
+    "defaultMessage": "Message (Anglais)",
+    "description": "The message, in English"
+  },
   "XDgkwV": {
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
@@ -6677,6 +6673,10 @@
   "ZQbSfP": {
     "defaultMessage": "Lorsqu’une candidature a été évaluée avec succès, le <a>recrutement qualifié sera ajouté à votre parcours professionnel</a> automatiquement afin que les gestionnaires puissent voir vos réalisations.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph two."
+  },
+  "ZTlEei": {
+    "defaultMessage": "Message (Français)",
+    "description": "The message, in French"
   },
   "ZTnze/": {
     "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
@@ -7361,6 +7361,10 @@
   "deFarB": {
     "defaultMessage": "5 millions de dollars à 10 millions de dollars",
     "description": "Contract value range between five-million and ten-million"
+  },
+  "deiBi4": {
+    "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
+    "description": "Instructions to enter the date in the API DateTime scalar format"
   },
   "deiylo": {
     "defaultMessage": "Meilleures compétences",
@@ -9913,10 +9917,6 @@
   "sB7wVn": {
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
     "description": "Paragraph for comments and interaction section"
-  },
-  "55Me4a": {
-    "defaultMessage": "Titre (Français)",
-    "description": "The title, in French"
   },
   "sDqpzq": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
