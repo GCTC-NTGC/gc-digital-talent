@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import random from "lodash/random";
 import { useMutation } from "urql";
 
 import {
@@ -32,9 +31,9 @@ export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
 interface UpdateSkillShowcaseProps {
   userId: Scalars["UUID"];
-  skills: Skill[];
-  userSkills: UserSkill[];
-  initialSkills: FormValues;
+  allSkills: Skill[];
+  allUserSkills: UserSkill[];
+  initialData: FormValues;
   maxItems: number;
   crumbs: { label: string; url: string }[];
   pageInfo: {
@@ -52,9 +51,9 @@ interface UpdateSkillShowcaseProps {
 
 const UpdateSkillShowcase = ({
   userId,
-  skills,
-  userSkills,
-  initialSkills,
+  allSkills,
+  allUserSkills,
+  initialData,
   maxItems,
   crumbs,
   pageInfo,
@@ -68,14 +67,14 @@ const UpdateSkillShowcase = ({
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
 
-  const fields = initialSkills.userSkills.map((userSkill) => ({
-    id: random().toString(), // TODO
-    ...userSkill,
-  }));
+  const thisShowcaseUserSkills = initialData.userSkills
+    .filter((userSkillWithId) => !!userSkillWithId.skill)
+    .map((userSkill) => ({
+      id: userSkill.skill ?? "", // we just filtered out nullish, so this is just to make TS happy
+      ...userSkill,
+    }));
 
-  const watchedSkills = initialSkills.userSkills;
-
-  const existingSkillsRanking = initialSkills.userSkills.map(
+  const existingSkillsRanking = initialData.userSkills.map(
     (userSkill) => userSkill.skill,
   );
   const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
@@ -106,15 +105,17 @@ const UpdateSkillShowcase = ({
   const handleSave = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const userHasSkill =
-      userSkills.filter((userSkill) => userSkill.skill.id === values.skill)
+      allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
         .length > 0 ||
-      watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
-        .length > 0;
+      thisShowcaseUserSkills.filter(
+        (userSkill) => userSkill.skill === values.skill,
+      ).length > 0;
 
     if (userHasSkill) {
       executeUpdateMutation({
-        id: userSkills.find((userSkill) => userSkill.skill.id === values.skill)
-          ?.id,
+        id: allUserSkills.find(
+          (userSkill) => userSkill.skill.id === values.skill,
+        )?.id,
         userSkill: {
           skillLevel: values.skillLevel,
           whenSkillUsed: values.whenSkillUsed,
@@ -161,7 +162,7 @@ const UpdateSkillShowcase = ({
     }
   };
 
-  const canAdd = fields.length < pageInfo.maxSkillCount;
+  const canAdd = thisShowcaseUserSkills.length < pageInfo.maxSkillCount;
 
   const triggerProps = canAdd
     ? {
@@ -175,7 +176,7 @@ const UpdateSkillShowcase = ({
               "Label for skill dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: watchedSkills.length,
+            numOfSkills: thisShowcaseUserSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
@@ -191,7 +192,7 @@ const UpdateSkillShowcase = ({
               "Label for disabled dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: watchedSkills.length,
+            numOfSkills: thisShowcaseUserSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
@@ -230,11 +231,11 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    items={fields}
+                    items={thisShowcaseUserSkills}
                     max={maxItems}
                     add={
                       <SkillBrowserDialog
-                        inLibrary={userSkills
+                        inLibrary={allUserSkills
                           .map((userSkill) => userSkill.skill)
                           .filter(
                             (skill) =>
@@ -242,7 +243,7 @@ const UpdateSkillShowcase = ({
                           )}
                         trigger={triggerProps}
                         context="showcase"
-                        skills={skills.filter(
+                        skills={allSkills.filter(
                           (skill) =>
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
@@ -251,15 +252,16 @@ const UpdateSkillShowcase = ({
                         noToast
                       />
                     }
+                    onUpdate={(items) => handleSubmit({ userSkills: items })}
                   >
-                    {fields.map((item, index) => (
+                    {thisShowcaseUserSkills.map((item, index) => (
                       <SkillShowcaseCard
                         key={item.skill}
                         item={item}
                         index={index}
                         onMove={() => console.debug}
                         onRemove={() => console.debug}
-                        skills={skills}
+                        skills={allSkills}
                       />
                     ))}
                   </CardRepeater.Root>
@@ -272,17 +274,6 @@ const UpdateSkillShowcase = ({
                   data-h2-flex-direction="base(column) l-tablet(row)"
                   data-h2-align-items="base(flex-start) l-tablet(center)"
                 >
-                  {/* <Submit
-                    text={intl.formatMessage({
-                      defaultMessage: "Save and return",
-                      id: "TQt+3L",
-                      description:
-                        "Text on a button to save the skill order and return to skill showcase",
-                    })}
-                    color="primary"
-                    mode="solid"
-                    disabled={formState.isSubmitting}
-                  /> */}
                   <Button
                     type="button"
                     mode="inline"

@@ -33,11 +33,13 @@ const SkillShowcaseCard = ({
     skills.find((skill) => skill.id === skillId);
 
   const handleMove = (from: number, to: number) => {
+    console.debug("Card moving");
     move(from, to);
     onMove(from, to);
   };
 
   const handleRemove = (removeIndex: number) => {
+    console.debug("Card removing");
     remove(removeIndex);
     onRemove(removeIndex);
   };
