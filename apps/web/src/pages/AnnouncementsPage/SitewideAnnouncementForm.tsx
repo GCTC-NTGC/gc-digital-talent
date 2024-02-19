@@ -27,9 +27,10 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import labels from "./labels";
 
 const invalidDateTimeMessage = defineMessage({
-  defaultMessage: "Enter the date in the form yyyy-MM-dd HH:mm:ss",
-  id: "OSoezC",
-  description: "Instructions to enter the date in the API DateTime scalar form",
+  defaultMessage: "Enter the date in the format yyyy-MM-dd HH:mm:ss",
+  id: "deiBi4",
+  description:
+    "Instructions to enter the date in the API DateTime scalar format",
 });
 
 export type FormValues = {

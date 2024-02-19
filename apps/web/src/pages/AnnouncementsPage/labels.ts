@@ -29,23 +29,23 @@ const labels = {
     description: "A date at which data will expire, in the local time zone",
   }),
   titleEn: defineMessage({
-    defaultMessage: "English - Title",
-    id: "Ng7dwm",
+    defaultMessage: "Title (English)",
+    id: "MHZ1CD",
     description: "The title, in English",
   }),
   titleFr: defineMessage({
-    defaultMessage: "French - Title",
-    id: "sC8mrj",
+    defaultMessage: "Title (French)",
+    id: "55Me4a",
     description: "The title, in French",
   }),
   messageEn: defineMessage({
-    defaultMessage: "English - Message",
-    id: "0Vjyzx",
+    defaultMessage: "Message (English)",
+    id: "XD0OVN",
     description: "The message, in English",
   }),
   messageFr: defineMessage({
-    defaultMessage: "French - Message",
-    id: "/k2RKP",
+    defaultMessage: "Message (French)",
+    id: "ZTlEei",
     description: "The message, in French",
   }),
 } as const;

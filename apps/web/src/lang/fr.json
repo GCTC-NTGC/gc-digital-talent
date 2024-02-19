@@ -331,8 +331,8 @@
     "defaultMessage": "N’importe quelle langue",
     "description": "Label for the any language option"
   },
-  "/k2RKP": {
-    "defaultMessage": "Français - Message",
+  "ZTlEei": {
+    "defaultMessage": "Message (Français)",
     "description": "The message, in French"
   },
   "/ldR5A": {
@@ -487,8 +487,8 @@
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
   },
-  "0Vjyzx": {
-    "defaultMessage": "Anglais - Message",
+  "XD0OVN": {
+    "defaultMessage": "Message (Anglais)",
     "description": "The message, in English"
   },
   "0VlOQq": {
@@ -4503,8 +4503,8 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
-  "Ng7dwm": {
-    "defaultMessage": "Anglais - Titre",
+  "MHZ1CD": {
+    "defaultMessage": "Titre (Anglais)",
     "description": "The title, in English"
   },
   "NivtzV": {
@@ -4615,9 +4615,9 @@
     "defaultMessage": "Transfert de connaissances",
     "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
   },
-  "OSoezC": {
+  "deiBi4": {
     "defaultMessage": "Entrer la date selon le format suivant : aaaa-MM-jj HH:mm:ss",
-    "description": "Instructions to enter the date in the API DateTime scalar form"
+    "description": "Instructions to enter the date in the API DateTime scalar format"
   },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
@@ -9914,8 +9914,8 @@
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
     "description": "Paragraph for comments and interaction section"
   },
-  "sC8mrj": {
-    "defaultMessage": "Français - Titre",
+  "55Me4a": {
+    "defaultMessage": "Titre (Français)",
     "description": "The title, in French"
   },
   "sDqpzq": {
