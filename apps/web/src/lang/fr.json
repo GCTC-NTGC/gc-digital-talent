@@ -3895,6 +3895,10 @@
     "defaultMessage": "Les hyperliens menant à des sites Web qui ne sont pas gérés par le gouvernement du Canada, y compris ceux qui mènent à nos comptes de médias sociaux, sont offerts uniquement par commodité aux visiteurs de notre site Web. Nous n’assumons aucune responsabilité quant à la précision, l’actualité ou la fiabilité du contenu de ces sites. Le gouvernement du Canada n’offre aucune garantie à cet égard, n’assume aucune responsabilité concernant l’information obtenue au moyen de ces liens et n’approuve ni ces sites, ni leur contenu.",
     "description": "Paragraph describing linking to gov section"
   },
+  "Jzhd0N": {
+    "defaultMessage": "Décision en attente",
+    "description": "Message displayed when candidate is qualified or disqualified according to assessment results, but a final decision is yet to be made."
+  },
   "K+F5H7": {
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
