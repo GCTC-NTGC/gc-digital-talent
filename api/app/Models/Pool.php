@@ -145,7 +145,7 @@ class Pool extends Model
                 'indigenous_communities',
                 'preferred_language_for_interview',
                 'preferred_language_for_exam',
-                'deleted_at'
+                'deleted_at',
             ]);
     }
 
