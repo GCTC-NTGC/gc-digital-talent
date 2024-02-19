@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { AssessmentResult } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -16,9 +20,9 @@ import adminMessages from "~/messages/adminMessages";
 import {
   AssessmentResultType,
   AssessmentStep,
-  AssessmentStepType,
   PoolCandidate,
   PoolSkill,
+  PoolSkillType,
 } from "~/api/generated";
 
 import cells from "../Table/cells";
@@ -35,6 +39,7 @@ const AssessmentResultsTable = ({
   poolCandidate,
 }: AssessmentResultsTableProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   // Get assessment steps from pool
   const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
@@ -52,8 +57,8 @@ const AssessmentResultsTable = ({
   );
 
   // Create data for table containing pool skill with matching results
-  const assessmentStepsResults: Array<AssessmentStepResult> = poolSkills.map(
-    (poolSkill) => {
+  const assessmentStepsResults: Array<AssessmentStepResult> = poolSkills
+    .map((poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
         (result) => result.poolSkill?.id === poolSkill.id,
       );
@@ -61,15 +66,30 @@ const AssessmentResultsTable = ({
         poolSkill,
         assessmentResults: matchingAssessmentResults,
       };
-    },
-  );
+    })
+    .sort((a, b) => {
+      if (
+        a.poolSkill.type === PoolSkillType.Essential &&
+        b.poolSkill.type === PoolSkillType.Nonessential
+      ) {
+        return -1;
+      }
 
-  const educationResults = assessmentSteps
-    .find(
-      (assessmentStep) =>
-        assessmentStep.type === AssessmentStepType.ApplicationScreening,
-    )
-    ?.assessmentResults?.filter(notEmpty)
+      if (
+        a.poolSkill.type === PoolSkillType.Nonessential &&
+        b.poolSkill.type === PoolSkillType.Essential
+      ) {
+        return 1;
+      }
+
+      return Intl.Collator().compare(
+        a.poolSkill.skill?.name?.[locale] || "",
+        b.poolSkill.skill?.name?.[locale] || "",
+      );
+    });
+
+  const educationResults = assessmentResults
+    ?.filter(notEmpty)
     .filter(
       (assessmentResult) =>
         assessmentResult.assessmentResultType ===
@@ -107,7 +127,10 @@ const AssessmentResultsTable = ({
         const id =
           getAssessmentStepType(type ?? "unknownType").id ??
           uniqueId("results-table-column");
-        const status = columnStatus(assessmentStep, assessmentResults);
+        const status = columnStatus(assessmentStep, [
+          ...educationResults,
+          ...assessmentResults,
+        ]);
         const header = columnHeader(
           intl.formatMessage(getAssessmentStepType(type ?? "unknownType")),
           status,

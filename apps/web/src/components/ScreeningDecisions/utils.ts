@@ -96,7 +96,7 @@ export function convertFormValuesToApiUpdateInput({
     assessmentResultType,
     justifications: Array.isArray(justifications)
       ? [...justifications]
-      : justifications && [justifications],
+      : [justifications] && [],
     otherJustificationNotes,
     skillDecisionNotes,
     assessmentNotes,

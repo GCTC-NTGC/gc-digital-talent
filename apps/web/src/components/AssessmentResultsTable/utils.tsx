@@ -5,17 +5,18 @@ import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { IntlShape } from "react-intl";
+import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
 import {
   AssessmentDecision,
   AssessmentResult,
+  AssessmentResultType,
   AssessmentStep,
   AssessmentStepType,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { getAssessmentDecision } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -107,30 +108,42 @@ export const columnHeader = (
 
 export const columnStatus = (
   assessmentStep: AssessmentStep,
-  assessmentResults: AssessmentResult[],
+  assessmentResults?: AssessmentResult[],
 ): ColumnStatus => {
-  // Grab all assessment results from assessment step that have an essential pool skill
-  const allEssentialAssessmentResultsOfStep =
+  const educationResult = assessmentResults?.find(
+    (assessmentResult) =>
+      assessmentResult.assessmentResultType ===
+        AssessmentResultType.Education &&
+      assessmentStep.type === AssessmentStepType.ApplicationScreening,
+  );
+
+  // Grab assessment results of step with essential pool skills, and add education result
+  const essentialAssessmentResults =
     assessmentResults?.filter(
       (ar) =>
         ar?.assessmentStep?.id === assessmentStep.id &&
         ar?.poolSkill?.type === PoolSkillType.Essential,
     ) || [];
 
-  // If at least one result has an assessmentDecision === UNSUCCESSFUL, then set to error icon.
-  const unsuccessfulResults = allEssentialAssessmentResultsOfStep.filter(
-    (ar) => ar?.assessmentDecision === AssessmentDecision.Unsuccessful,
-  );
+  const allAssessmentResults = educationResult
+    ? [educationResult, ...essentialAssessmentResults]
+    : essentialAssessmentResults;
 
+  // If at least one result has an assessmentDecision === UNSUCCESSFUL, then set to error status.
+  const unsuccessfulResults = allAssessmentResults.filter(
+    (assessmentResult) =>
+      assessmentResult?.assessmentDecision === AssessmentDecision.Unsuccessful,
+  );
   if (unsuccessfulResults.length > 0)
     return {
       icon: XCircleIcon,
       color: "error",
     };
 
-  // If at least one result has the assessmentDecision === HOLD, then set to warning icon.
-  const holdResults = allEssentialAssessmentResultsOfStep.filter(
-    (ar) => ar?.assessmentDecision === AssessmentDecision.Hold,
+  // If at least one result has the assessmentDecision === HOLD, then set to hold status.
+  const holdResults = allAssessmentResults.filter(
+    (assessmentResult) =>
+      assessmentResult?.assessmentDecision === AssessmentDecision.Hold,
   );
   if (holdResults.length > 0)
     return {
@@ -138,43 +151,33 @@ export const columnStatus = (
       color: "hold",
     };
 
-  // First get all essential pool skills from the assessment step.
-  // Then, check if the assessmentStep has any pool skills that have not been assessed (no assessment result with a matching pool skill).
-  const { poolSkills } = assessmentStep;
-  const essentialPoolSkills = assessmentStep.poolSkills
-    ? poolSkills?.filter(
-        (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
-      )
-    : [];
-  const haveBeenAssessed =
-    assessmentStep.poolSkills
-      ?.filter(notEmpty)
-      ?.filter(
-        (poolSkill) =>
-          poolSkill.id ===
-          assessmentResults.find((ar) => ar.poolSkill?.id === poolSkill.id)
-            ?.poolSkill?.id,
-      ) || [];
+  // If at least one result hasn't been assessed, then set to toAssess status
+  const hasBeenAssessed = allAssessmentResults.find(
+    (assessmentResult) =>
+      assessmentStep.poolSkills?.find(
+        (poolSkill) => poolSkill?.id === assessmentResult?.poolSkill?.id,
+      ),
+  );
 
-  if (haveBeenAssessed?.length !== essentialPoolSkills?.length)
+  if (!hasBeenAssessed) {
     return {
       icon: ExclamationCircleIcon,
       color: "toAssess",
     };
+  }
 
   // If all the results have the assessmentDecision === SUCCESSFUL, then set to success icon.
-  const allResults = allEssentialAssessmentResultsOfStep.filter(
+  const allResults = allAssessmentResults.filter(
     (ar) => ar?.assessmentDecision === AssessmentDecision.Successful,
   );
-
-  if (allResults.length === allEssentialAssessmentResultsOfStep.length)
+  if (allResults.length === allAssessmentResults.length)
     return {
       icon: CheckCircleIcon,
       color: "success",
     };
 
   return {
-    icon: null,
+    icon: QuestionMarkCircleIcon,
     color: "gray",
   };
 };
@@ -202,68 +205,46 @@ export const buildColumn = ({
     {
       id,
       header: () => header,
-      cell: ({ row: { original } }) => {
-        // Check if an assessmentResult exists on the assessment step
-        const assessmentResult = original.assessmentResults.find(
+      cell: ({
+        row: {
+          original: { poolSkill, assessmentResults },
+        },
+      }) => {
+        // Check if the pool skill (row) is associated with the assessment step (column)
+        const isEducationRequirement =
+          assessmentStep.type === AssessmentStepType.ApplicationScreening &&
+          (poolSkill === undefined || poolSkill === null);
+
+        // Check if an assessmentResult already exists on the assessment step, if show update dialog
+        // Additionally, checks if it's the  education requirement cell
+        const assessmentResult = assessmentResults.find(
           (ar) => ar.assessmentStep?.id === assessmentStep.id,
         );
-
-        // Check if pool skill is not associated with the assessment step
-        const isEducationRequirement =
-          original.poolSkill === null || original.poolSkill === undefined;
-
-        if (
-          isEducationRequirement &&
-          assessmentStep.type === AssessmentStepType.ApplicationScreening
-        ) {
+        if (assessmentResult || isEducationRequirement) {
           return cells.jsx(
             <Dialog
               assessmentStep={assessmentStep}
               assessmentResult={assessmentResult}
               poolCandidate={poolCandidate}
-              educationRequirement
+              educationRequirement={isEducationRequirement}
             />,
           );
         }
 
-        // Display nothing for types other than Application Screening on education requirement step
-        if (
-          isEducationRequirement &&
-          assessmentStep.type !== AssessmentStepType.ApplicationScreening
-        )
-          return null;
-
-        // Update the existing assessment result
-        if (assessmentResult)
-          return cells.jsx(
-            <Dialog
-              assessmentStep={assessmentStep}
-              assessmentResult={assessmentResult}
-              poolCandidate={poolCandidate}
-            />,
-          );
-
-        // Check if the assessment step has a poolSkill that is not attached to any assessmentResults yet.
-        const hasBeenAssessed = assessmentStep.poolSkills
-          ?.filter(notEmpty)
-          ?.some(
-            (poolSkill) =>
-              poolSkill.id ===
-              original.assessmentResults.find(
-                (ar) => ar.poolSkill?.id === poolSkill.id,
-              )?.poolSkill?.id,
-          );
-
-        if (!hasBeenAssessed)
+        // Does assessment step have the pool skill (or education requirement), if not return null
+        const hasPoolSkill = assessmentStep.poolSkills?.find(
+          (ps) => ps?.id === poolSkill?.id,
+        );
+        if (hasPoolSkill) {
           return cells.jsx(
             <Dialog
               assessmentStep={assessmentStep}
               poolCandidate={poolCandidate}
-              poolSkillToAssess={original.poolSkill}
+              poolSkillToAssess={poolSkill}
             />,
           );
-
-        return null; // otherwise return null
+        }
+        return null;
       },
     },
   ) as AssessmentStepResultColumn;

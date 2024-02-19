@@ -369,18 +369,21 @@ export const ScreeningDecisionDialog = ({
                         : commonMessages.notFound,
                     )}
                   </p>
-                  <p
-                    data-h2-color="base(gray.darker)"
-                    data-h2-text-decoration="base(none)"
-                  >
-                    {intl.formatMessage(
-                      initialValues?.assessmentDecisionLevel
-                        ? getAssessmentDecisionLevel(
-                            initialValues.assessmentDecisionLevel,
-                          )
-                        : commonMessages.notFound,
-                    )}
-                  </p>
+                  {initialValues?.assessmentDecision ===
+                    AssessmentDecision.Successful && !educationRequirement ? (
+                    <p
+                      data-h2-color="base(gray.darker)"
+                      data-h2-text-decoration="base(none)"
+                    >
+                      {intl.formatMessage(
+                        initialValues?.assessmentDecisionLevel
+                          ? getAssessmentDecisionLevel(
+                              initialValues.assessmentDecisionLevel,
+                            )
+                          : commonMessages.notFound,
+                      )}
+                    </p>
+                  ) : null}
                 </>
               )}
             </span>

@@ -28,7 +28,7 @@ const poolCandidate = fakePoolCandidates(1)[0];
 const assessmentSteps = poolCandidate.pool.assessmentSteps as AssessmentStep[];
 
 const essentialPoolSkills: PoolSkill[] =
-  fakePoolSkills(3).map(() => {
+  fakePoolSkills(2).map(() => {
     return {
       id: faker.string.uuid(),
       type: PoolSkillType.Essential,
@@ -64,50 +64,43 @@ const getAssessmentResult = (
   type?: AssessmentResultType,
   decision?: AssessmentDecision,
   level?: AssessmentDecisionLevel,
+  poolSkill?: PoolSkill,
 ): AssessmentResult => ({
   ...fakeAssessmentResults(1)[0],
-  assessmentDecision: decision ?? AssessmentDecision.Successful,
+  assessmentDecision: decision,
   assessmentResultType: type ?? AssessmentResultType.Skill,
   assessmentDecisionLevel: level ?? AssessmentDecisionLevel.AtRequired,
-  poolSkill: essentialPoolSkills[0],
-  justifications: [
-    AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency,
-  ],
+  poolSkill: poolSkill ?? essentialPoolSkills[0],
   assessmentStep,
 });
 
+/* Application screening step data (To assess status) */
 export const applicationScreeningStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
   type: AssessmentStepType.ApplicationScreening,
   sortOrder: 1,
-  poolSkills: [...essentialPoolSkills, nonEssentialPoolSkills[0]],
+  poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
 };
-
-// TO ASSESS
 export const applicationScreeningResults: AssessmentResult[] = [
-  getAssessmentResult(applicationScreeningStep),
+  getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(
     applicationScreeningStep,
-    AssessmentResultType.Education,
+    AssessmentResultType.Skill,
     AssessmentDecision.Successful,
     AssessmentDecisionLevel.AboveAndBeyondRequired,
+    essentialPoolSkills[1],
   ),
 ];
 
-const applicationScreeningStepUserSkill = applicationScreeningStep.poolSkills
-  ? fakeUserSkills(1, applicationScreeningStep.poolSkills[0]?.skill as Skill)[0]
-  : null;
-
+/* Screening questions step (Unsuccessful status) */
 export const screeningQuestionsStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
   type: AssessmentStepType.ScreeningQuestionsAtApplication,
   sortOrder: 2,
-  poolSkills: [...essentialPoolSkills, nonEssentialPoolSkills[1]],
+  poolSkills: [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
 };
-
-// UNSUCCESSFUL
 export const screeningQuestionsResults: AssessmentResult[] = [
   getAssessmentResult(
     screeningQuestionsStep,
@@ -116,33 +109,7 @@ export const screeningQuestionsResults: AssessmentResult[] = [
   ),
 ];
 
-const screeningQuestionsStepUserSkill = screeningQuestionsStep.poolSkills
-  ? fakeUserSkills(1, screeningQuestionsStep.poolSkills[2]?.skill as Skill)[0]
-  : null;
-
-export const interviewGroupStep: AssessmentStep = {
-  ...assessmentSteps[0],
-  id: faker.string.uuid(),
-  type: AssessmentStepType.InterviewGroup,
-  sortOrder: 3,
-  poolSkills: [essentialPoolSkills[0], nonEssentialPoolSkills[1]],
-};
-
-// SUCCESSFUL
-export const interviewGroupResults: AssessmentResult[] = [
-  getAssessmentResult(
-    interviewGroupStep,
-    AssessmentResultType.Skill,
-    AssessmentDecision.Successful,
-    AssessmentDecisionLevel.AboveRequired,
-  ),
-];
-
-const interviewGroupStepUserSkill = interviewGroupStep.poolSkills
-  ? fakeUserSkills(1, interviewGroupStep.poolSkills[0]?.skill as Skill)[0]
-  : null;
-
-// HOLD
+/* Reference check step data (Hold status) */
 export const referenceCheckStep: AssessmentStep = {
   ...assessmentSteps[0],
   id: faker.string.uuid(),
@@ -150,7 +117,6 @@ export const referenceCheckStep: AssessmentStep = {
   sortOrder: 4,
   poolSkills: [essentialPoolSkills[0]],
 };
-
 export const referenceCheckResults: AssessmentResult[] = [
   getAssessmentResult(
     referenceCheckStep,
@@ -158,12 +124,31 @@ export const referenceCheckResults: AssessmentResult[] = [
     AssessmentDecision.Hold,
   ),
 ];
-const referenceCheckStepUserSkill = referenceCheckStep.poolSkills
-  ? fakeUserSkills(1, referenceCheckStep.poolSkills[0]?.skill as Skill)[0]
-  : null;
 
-const experience = fakeExperiences(1)[0];
-experience.skills?.push(essentialPoolSkills[0].skill as Skill);
+/* Interview group step data (successful status) */
+export const interviewGroupStep: AssessmentStep = {
+  ...assessmentSteps[0],
+  id: faker.string.uuid(),
+  type: AssessmentStepType.InterviewGroup,
+  sortOrder: 3,
+  poolSkills: [...essentialPoolSkills],
+};
+export const interviewGroupResults: AssessmentResult[] = [
+  getAssessmentResult(
+    interviewGroupStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Successful,
+    AssessmentDecisionLevel.AboveAndBeyondRequired,
+    essentialPoolSkills[0],
+  ),
+  getAssessmentResult(
+    interviewGroupStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Successful,
+    AssessmentDecisionLevel.AtRequired,
+    essentialPoolSkills[1],
+  ),
+];
 
 // eslint-disable-next-line import/prefer-default-export
 export const testPoolCandidate: PoolCandidate = {
@@ -172,17 +157,18 @@ export const testPoolCandidate: PoolCandidate = {
   user: {
     ...poolCandidate.user,
     userSkills: [
-      interviewGroupStepUserSkill,
-      applicationScreeningStepUserSkill,
-      screeningQuestionsStepUserSkill,
-      referenceCheckStepUserSkill,
+      fakeUserSkills(1, essentialPoolSkills[0].skill as Skill)[0],
+      fakeUserSkills(1, essentialPoolSkills[1].skill as Skill)[0],
+      fakeUserSkills(1, nonEssentialPoolSkills[0].skill as Skill)[0],
+      fakeUserSkills(1, nonEssentialPoolSkills[1].skill as Skill)[0],
     ],
-    experiences: [experience],
+    // experiences: [experience],
   },
   pool: {
     ...poolCandidate.pool,
     poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
     assessmentSteps: [
+      // set assessment steps out of order
       {
         ...interviewGroupStep,
         assessmentResults: interviewGroupResults,
@@ -204,7 +190,7 @@ export const testPoolCandidate: PoolCandidate = {
   assessmentResults: [
     ...applicationScreeningResults,
     ...screeningQuestionsResults,
-    ...interviewGroupResults,
     ...referenceCheckResults,
+    ...interviewGroupResults,
   ],
 };

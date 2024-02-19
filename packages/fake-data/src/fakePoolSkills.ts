@@ -10,7 +10,7 @@ const generatePoolSkill = (): PoolSkill => {
     type: faker.helpers.arrayElement<PoolSkillType>(
       Object.values(PoolSkillType),
     ),
-    skill: faker.helpers.arrayElement<Skill>(fakeSkills()),
+    skill: faker.helpers.arrayElement<Skill>(fakeSkills(1)),
   };
 };
 

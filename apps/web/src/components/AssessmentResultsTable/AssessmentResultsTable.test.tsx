@@ -6,25 +6,34 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
 import {
   applicationScreeningStep,
   applicationScreeningResults,
-  interviewGroupStep,
-  interviewGroupResults,
-  referenceCheckStep,
-  referenceCheckResults,
   screeningQuestionsStep,
   screeningQuestionsResults,
+  referenceCheckStep,
+  referenceCheckResults,
+  interviewGroupStep,
+  interviewGroupResults,
 } from "./testData";
 import { columnStatus } from "./utils";
 
 describe("AssessmentResults", () => {
   it("should compute the column status correctly", async () => {
-    const toAssessStep = applicationScreeningStep;
-    const toAssessResults = applicationScreeningResults;
+    const notSureStep = applicationScreeningStep;
+    const notSureResult = applicationScreeningResults;
 
-    expect(columnStatus(toAssessStep, toAssessResults)).toEqual({
+    expect(columnStatus(notSureStep, notSureResult)).toEqual({
+      icon: QuestionMarkCircleIcon,
+      color: "gray",
+    });
+
+    const toAssessStep = applicationScreeningStep;
+    const noResults = undefined;
+
+    expect(columnStatus(toAssessStep, noResults)).toEqual({
       icon: ExclamationCircleIcon,
       color: "toAssess",
     });
@@ -53,4 +62,7 @@ describe("AssessmentResults", () => {
       color: "success",
     });
   });
+  // it("should sort first column by pool skill type", async () => {
+
+  // });
 });
