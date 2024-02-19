@@ -141,8 +141,12 @@ class OpenIdBearerTokenService
     // call the introspection endpoint to check if the OP considers the access token still valid
     public function verifyJwtWithIntrospection(string $accessToken)
     {
-        // cache for a few seconds in case of multiple API calls for a page load
-        $isTokenActive = Cache::remember('introspection_token_'.$accessToken, 3, function () use ($accessToken) {
+        $cacheKey = 'introspection_token_'.$accessToken;
+
+        if (Cache::has($cacheKey)) {
+            // use cached access token status if available
+            $isTokenActive = Cache::get($cacheKey);
+        } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
@@ -154,13 +158,17 @@ class OpenIdBearerTokenService
                 ]);
 
             if ($response->failed()) {
-                Log::error('Failed when POSTing the introspection endpoint in verifyJwtWithIntrospection');
+                Log::error('Failed when GETting the introspection verification in verifyJwtWithIntrospection');
                 Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
+                throw new Exception('Failed to get introspection');
             }
 
-            return boolval($response->json('active'));
-        });
+            $isTokenActive = boolval($response->json('active'));
+            // only cache active token
+            if ($isTokenActive) {
+                Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
+            }
+        }
 
         if (! $isTokenActive) {
             throw new UnauthorizedException('Access token is not active', 401);
