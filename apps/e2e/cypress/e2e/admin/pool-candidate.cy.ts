@@ -114,7 +114,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })
@@ -224,7 +224,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })

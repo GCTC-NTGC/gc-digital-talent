@@ -21,7 +21,7 @@ const GenericJobTitleAccordion = ({
 
   return (
     <Accordion.Item value={genericJobTitle?.id}>
-      <Accordion.Trigger>
+      <Accordion.Trigger as="h3">
         {intl.formatMessage(
           {
             defaultMessage: "What does {classification} {genericTitle} mean?",

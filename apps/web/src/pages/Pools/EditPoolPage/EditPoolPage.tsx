@@ -21,6 +21,7 @@ import {
   Skill,
 } from "@gc-digital-talent/graphql";
 
+import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -59,9 +60,9 @@ import AssetSkillsSection, {
   type AssetSkillsSubmitData,
 } from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
-import GeneralQuestions, {
+import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
-} from "./components/GeneralQuestions";
+} from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import SpecialNoteSection, {
   SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
@@ -69,7 +70,6 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { EditPoolSectionMetadata } from "../../../types/pool";
 import { SectionKey } from "./types";
 
 export type PoolSubmitData =
@@ -498,7 +498,7 @@ export const EditPoolForm = ({
                 <TableOfContents.Section
                   id={sectionMetadata.generalQuestions.id}
                 >
-                  <GeneralQuestions
+                  <GeneralQuestionsSection
                     pool={pool}
                     sectionMetadata={sectionMetadata.generalQuestions}
                     onSave={onSave}
@@ -612,6 +612,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       publishingGroup
       generalQuestions {
         id
+        sortOrder
         question {
           en
           fr

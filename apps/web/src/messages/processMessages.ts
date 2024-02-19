@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
+  process: {
+    defaultMessage: "Process",
+    id: "WSMupE",
+    description: "Title for process sections",
+  },
   classification: {
     defaultMessage: "Classification",
     id: "YmWKlv",

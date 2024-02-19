@@ -27,47 +27,176 @@ export default {
 } as Meta;
 
 const colors: Array<
-  "primary" | "secondary" | "tertiary" | "quaternary" | "quinary"
-> = ["primary", "secondary", "tertiary", "quaternary", "quinary"];
+  | "primary"
+  | "secondary"
+  | "secondaryDarkFixed"
+  | "tertiary"
+  | "quaternary"
+  | "quinary"
+> = [
+  "primary",
+  "secondary",
+  "secondaryDarkFixed",
+  "tertiary",
+  "quaternary",
+  "quinary",
+];
 const stoplight: Array<"success" | "warning" | "error"> = [
   "success",
   "warning",
   "error",
 ];
-const black: Array<"black"> = ["black"];
+const black: Array<"black" | "blackFixed"> = ["black", "blackFixed"];
 
 const TemplatePill: Story<Omit<PillProps, "color"> & { content: string }> = (
   args,
 ) => {
   const { content, ...rest } = args;
   return (
-    <div data-h2-display="base(flex)">
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {colors.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Pill key={color} color={color} {...rest}>
-              {content}
-            </Pill>
-          </p>
-        ))}
+    <>
+      <div data-h2="light">
+        <div
+          data-h2-padding="base(x2)"
+          data-h2-background-color="base(background)"
+        >
+          <div data-h2-display="base(flex)">
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {colors.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {stoplight.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {black.map((color) => (
+                <Pill key={color} color={color} {...rest}>
+                  {content}
+                </Pill>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {stoplight.map((color) => (
-          <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
-            <Pill key={color} color={color} {...rest}>
-              {content}
-            </Pill>
-          </p>
-        ))}
+      <div data-h2="dark">
+        <div
+          data-h2-padding="base(x2)"
+          data-h2-background-color="base(background)"
+        >
+          <div data-h2-display="base(flex)">
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {colors.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {stoplight.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {black.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {black.map((color) => (
-          <Pill key={color} color={color} {...rest}>
-            {content}
-          </Pill>
-        ))}
+      <div data-h2="iap light">
+        <div
+          data-h2-padding="base(x2)"
+          data-h2-background-color="base(background)"
+        >
+          <div data-h2-display="base(flex)">
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {colors.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {stoplight.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {black.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div data-h2="iap dark">
+        <div
+          data-h2-padding="base(x2)"
+          data-h2-background-color="base(background)"
+        >
+          <div data-h2-display="base(flex)">
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {colors.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {stoplight.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill key={color} color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+            <div data-h2-padding="base(x1)" data-h2-background="base(white)">
+              {black.map((color) => (
+                <p data-h2-margin="base(0, 0, x.5, 0)" key={color}>
+                  <Pill color={color} {...rest}>
+                    {content}
+                  </Pill>
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
