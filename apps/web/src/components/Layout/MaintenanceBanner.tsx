@@ -51,6 +51,7 @@ const MaintenanceBanner = () => {
           type="warning"
           live
           banner
+          data-h2-color="base:all(warning.darkest)"
           data-h2-shadow="base(none)"
           data-h2-margin="base(0, -x1, 0, -x1)"
         >
