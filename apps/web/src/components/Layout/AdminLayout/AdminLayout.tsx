@@ -270,11 +270,7 @@ const AdminLayout = () => {
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem
-                href={paths.skillTable()}
-                icon={indexSkillPageIcon}
-                end
-              >
+              <SideMenuItem href={paths.skillTable()} icon={indexSkillPageIcon}>
                 {intl.formatMessage(indexSkillPageTitle)}
               </SideMenuItem>
             )}

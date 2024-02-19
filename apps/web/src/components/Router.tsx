@@ -1790,46 +1790,46 @@ const createRoute = (
                         },
                       ],
                     },
+                  ],
+                },
+                {
+                  path: "skill-families",
+                  children: [
                     {
-                      path: "families",
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.PlatformAdmin]}
+                          loginPath={loginPath}
+                        >
+                          <IndexSkillFamilyPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.PlatformAdmin]}
+                          loginPath={loginPath}
+                        >
+                          <CreateSkillFamilyPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":skillFamilyId",
                       children: [
                         {
-                          index: true,
+                          path: "edit",
                           element: (
                             <RequireAuth
                               roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
-                              <IndexSkillFamilyPage />
+                              <UpdateSkillFamilyPage />
                             </RequireAuth>
                           ),
-                        },
-                        {
-                          path: "create",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <CreateSkillFamilyPage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: ":skillFamilyId",
-                          children: [
-                            {
-                              path: "edit",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.PlatformAdmin]}
-                                  loginPath={loginPath}
-                                >
-                                  <UpdateSkillFamilyPage />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
                         },
                       ],
                     },
