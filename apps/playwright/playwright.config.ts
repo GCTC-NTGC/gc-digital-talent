@@ -23,8 +23,8 @@ export default defineConfig({
   reporter: process.env.CI
     ? [["github"], ["dot"]]
     : [["line"], ["html", { open: "on-failure" }]],
-  timeout: 5 * 60 * 1000, // 5 mins
-  expect: { timeout: 3 * 60 * 1000 }, // 3 mins
+  timeout: Number(process.env.TEST_TIMEOUT ?? 30000), // 30 seconds
+  expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 5000) }, // 5 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
