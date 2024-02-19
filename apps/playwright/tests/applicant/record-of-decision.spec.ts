@@ -4,7 +4,7 @@ test.describe("Record of decision", () => {
   test.describe("Feature flag", () => {
     test("Status column appears when enabled", async ({ adminPage }) => {
       await adminPage.overrideFeatureFlags({
-        FEATURE_RECORD_OF_DECISION: false,
+        FEATURE_RECORD_OF_DECISION: true,
       });
 
       await adminPage.page.goto("/en/admin/pool-candidates");
