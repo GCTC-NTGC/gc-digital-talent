@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Board } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pool } from "@gc-digital-talent/graphql";
 
@@ -34,19 +34,33 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
     <>
       <Filters onFiltersChange={setFilters} />
       <Board.Root>
-        {filteredSteps.map(({ step, resultCounts, results }, index) => (
-          <Board.Column key={step.id}>
-            <Board.ColumnHeader
-              prefix={intl.formatMessage(applicationMessages.numberedStep, {
-                stepOrdinal: index + 1,
-              })}
-            >
-              {getLocalizedName(step.title, intl)}
-            </Board.ColumnHeader>
-            <ResultsDetails {...{ resultCounts, step }} />
-            <AssessmentResults stepType={step.type} {...{ results }} />
-          </Board.Column>
-        ))}
+        {filteredSteps.map(({ step, resultCounts, results }, index) => {
+          const stepName = getLocalizedName(step.title, intl);
+          const stepNumber = intl.formatMessage(
+            applicationMessages.numberedStep,
+            {
+              stepOrdinal: index + 1,
+            },
+          );
+
+          return (
+            <Board.Column key={step.id}>
+              <Board.ColumnHeader prefix={stepNumber}>
+                {stepName}
+              </Board.ColumnHeader>
+              <ResultsDetails {...{ resultCounts, step }} />
+              <AssessmentResults
+                stepType={step.type}
+                stepName={
+                  stepNumber +
+                  intl.formatMessage(commonMessages.dividingColon) +
+                  stepName
+                }
+                {...{ results }}
+              />
+            </Board.Column>
+          );
+        })}
       </Board.Root>
     </>
   );

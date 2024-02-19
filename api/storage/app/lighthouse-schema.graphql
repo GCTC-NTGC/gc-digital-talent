@@ -60,6 +60,7 @@ type Query {
   ): UserPublicProfilePaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -708,6 +709,11 @@ input PoolCandidateSearchRequestInput {
   additionalComments: String
   adminNotes: String
   generalSearch: String
+}
+
+input PoolCandidatePoolNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 type CandidateSearchPoolResult {
@@ -1944,6 +1950,7 @@ enum PoolCandidateStatus {
   QUALIFIED_AVAILABLE
   QUALIFIED_UNAVAILABLE
   QUALIFIED_WITHDREW
+  PLACED_TENTATIVE
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE

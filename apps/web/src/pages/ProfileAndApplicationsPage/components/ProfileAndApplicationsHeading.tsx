@@ -329,12 +329,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <StatusItem
             asListItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Diversity, equity, inclusion",
-              id: "HAkMnl",
-              description:
-                "Title of the Diversity, equity and inclusion link section",
-            })}
+            title={intl.formatMessage(
+              navigationMessages.diversityEquityInclusion,
+            )}
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
             icon={UserGroupIcon}
           />

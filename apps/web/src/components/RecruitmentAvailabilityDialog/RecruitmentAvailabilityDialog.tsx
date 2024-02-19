@@ -8,7 +8,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
-import { fullPoolTitle } from "~/utils/poolUtils";
+import { poolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
 
 interface RecruitmentAvailabilityDialogProps {
@@ -26,7 +26,7 @@ const RecruitmentAvailabilityDialog = ({
   const [, executeMutation] = useChangeApplicationSuspendedAtMutation();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
-  const title = fullPoolTitle(intl, candidate.pool);
+  const title = poolTitle(intl, candidate.pool);
 
   const methods = useForm<FormValues>({
     defaultValues: { isSuspended: isSuspended ? "true" : "false" },

@@ -31,7 +31,7 @@ import {
   ApplicationStatusForm_PoolCandidateFragmentFragment,
 } from "@gc-digital-talent/graphql";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
@@ -206,7 +206,7 @@ export const ApplicationStatusForm = ({
                         "Label for the notes field for a specific pool",
                     },
                     {
-                      poolName: getFullPoolTitleHtml(intl, application.pool),
+                      poolName: getShortPoolTitleHtml(intl, application.pool),
                     },
                   )}
                 />

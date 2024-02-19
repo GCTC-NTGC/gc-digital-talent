@@ -32,7 +32,7 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 export type FormValues = {
   pools: string[];
@@ -86,7 +86,7 @@ const UserFilterDialog = ({
             label={intl.formatMessage(adminMessages.pools)}
             options={pools.map((pool) => ({
               value: pool.id,
-              label: getFullPoolTitleLabel(intl, pool),
+              label: getShortPoolTitleLabel(intl, pool),
             }))}
           />
         </div>
