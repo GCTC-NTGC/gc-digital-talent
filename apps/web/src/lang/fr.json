@@ -5155,6 +5155,10 @@
     "defaultMessage": "Rétablir les filtres",
     "description": "Button text to reset table filters to the default values"
   },
+  "RRlKyW": {
+    "defaultMessage": "{label} navigation de page",
+    "description": "Label for the table pagination"
+  },
   "RSkJQR": {
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
