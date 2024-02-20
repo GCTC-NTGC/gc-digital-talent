@@ -36,7 +36,7 @@ describe("Auth flows (development)", () => {
         "/en/admin/pools",
         "/en/admin/settings/departments",
         "/en/admin/settings/skills",
-        "/en/admin/settings/skills/families",
+        "/en/admin/settings/skill-families",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         onLoginInfoPage();
@@ -193,7 +193,7 @@ describe("Auth flows (development)", () => {
         "/en/admin/pools",
         "/en/admin/settings/departments",
         "/en/admin/settings/skills",
-        "/en/admin/settings/skills/families",
+        "/en/admin/settings/skill-families",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.contains("not authorized");

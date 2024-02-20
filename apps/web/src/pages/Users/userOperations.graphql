@@ -1,16 +1,3 @@
-query AllUsers {
-  users {
-    id
-    email
-    firstName
-    lastName
-    telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-  }
-}
-
 query User($id: UUID!) {
   user(id: $id, trashed: WITH) {
     id
