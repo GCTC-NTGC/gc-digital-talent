@@ -55,7 +55,6 @@ import {
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
