@@ -128,24 +128,9 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <span data-h2-font-weight="base(700)">
-      {cells.view(
-        paths.poolCandidateApplication(candidate.id),
-        candidateName,
-        undefined,
-        intl.formatMessage(
-          {
-            defaultMessage: "View {name}'s application",
-            id: "mzGMZC",
-            description:
-              "Link text to view a candidates application for assistive technologies",
-          },
-          {
-            name: candidateName,
-          },
-        ),
-      )}
-    </span>
+    <Link href={paths.poolCandidateApplication(candidate.id)}>
+      {candidateName}
+    </Link>
   );
 };
 
