@@ -55,6 +55,10 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
+  "0ClMl1": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity, and inclusion page"
+  },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
@@ -198,6 +202,10 @@
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
+  },
+  "4WvSir": {
+    "defaultMessage": "Agrandir tout",
+    "description": "Generic link text to expand all accordions in a section"
   },
   "4dD2mf": {
     "defaultMessage": "cela m'oblige à faire <strong>des heures supplémentaires habituelles.</strong>",
@@ -779,6 +787,10 @@
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
   },
+  "OeTCOs": {
+    "defaultMessage": "Réduire tout",
+    "description": "Generic link text to collapse all accordions in a section"
+  },
   "Og8iHn": {
     "defaultMessage": "Trouver des talents",
     "description": "Name of Find talent (search) page"
@@ -1179,10 +1191,6 @@
     "defaultMessage": "Ébauche expirée",
     "description": "The pool candidate's status is Expired Draft."
   },
-  "ad4mTC": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Name of Diversity, equity and inclusion page"
-  },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
@@ -1466,6 +1474,10 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "k/+pcc": {
+    "defaultMessage": "Offre en cours",
+    "description": "The pool candidate's status is Offer in Progress, tentatively placed"
   },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",

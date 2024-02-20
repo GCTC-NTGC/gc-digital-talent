@@ -143,10 +143,10 @@ describe("Submit Application Workflow Tests", () => {
 
     // Pool poster page
     cy.wait("@gqlPoolAdvertisementPageQuery");
-    cy.findByRole("heading", { name: /Apply now/i })
+    cy.findByRole("heading", { name: /Start an application/i })
       .should("exist")
       .and("be.visible");
-    cy.findAllByRole("link", { name: /Apply for this process/i })
+    cy.findAllByRole("link", { name: /apply now/i })
       .first()
       .click();
     cy.wait("@gqlCreateApplicationMutation");

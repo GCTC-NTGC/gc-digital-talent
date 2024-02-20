@@ -31,7 +31,7 @@ import {
   ApplicationStatusForm_PoolCandidateFragmentFragment,
 } from "@gc-digital-talent/graphql";
 
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
@@ -43,7 +43,7 @@ type FormValues = {
 export interface ApplicationStatusFormProps {
   isSubmitting: boolean;
   application: ApplicationStatusForm_PoolCandidateFragmentFragment;
-  onSubmit: (values: UpdatePoolCandidateAsAdminInput) => void;
+  onSubmit: (values: UpdatePoolCandidateAsAdminInput, notes: string) => void;
 }
 
 export const ApplicationStatusForm = ({
@@ -64,11 +64,14 @@ export const ApplicationStatusForm = ({
   const { handleSubmit } = methods;
 
   const handleFormSubmit: SubmitHandler<FormValues> = (values: FormValues) => {
-    onSubmit({
-      status: values.status,
-      notes: values.notes,
-      expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
-    });
+    onSubmit(
+      {
+        status: values.status,
+
+        expiryDate: values.expiryDate || emptyToNull(values.expiryDate),
+      },
+      values.notes ?? "",
+    );
 
     // recycle the field reset from Eric in UpdateSearchRequest.tsx
     methods.resetField("status", {
@@ -203,7 +206,7 @@ export const ApplicationStatusForm = ({
                         "Label for the notes field for a specific pool",
                     },
                     {
-                      poolName: getFullPoolTitleHtml(intl, application.pool),
+                      poolName: getShortPoolTitleHtml(intl, application.pool),
                     },
                   )}
                 />
@@ -226,14 +229,18 @@ export const ApplicationStatusForm = ({
 
 const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
   mutation ApplicationStatusForm_Mutation(
-    $id: ID!
+    $id: UUID!
     $input: UpdatePoolCandidateAsAdminInput!
+    $notes: String
   ) {
     updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
       id
       expiryDate
-      notes
       status
+    }
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
+      id
+      notes
     }
   }
 `);
@@ -292,10 +299,16 @@ const ApplicationStatusFormApi = ({
     );
   };
 
-  const handleUpdate = (input: UpdatePoolCandidateAsAdminInput) => {
-    executeMutation({ id: poolCandidate.id, input })
+  const handleUpdate = (
+    input: UpdatePoolCandidateAsAdminInput,
+    notes: string,
+  ) => {
+    executeMutation({ id: poolCandidate.id, input, notes })
       .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
+        if (
+          result.data?.updatePoolCandidateAsAdmin &&
+          result.data.updatePoolCandidateNotes
+        ) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",

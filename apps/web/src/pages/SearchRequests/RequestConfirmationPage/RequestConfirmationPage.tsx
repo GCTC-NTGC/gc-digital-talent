@@ -9,19 +9,19 @@ import {
   Button,
   Link,
 } from "@gc-digital-talent/ui";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { Scalars } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 
 import RequestConfirmationPrintDocument from "./components/RequestConfirmationPrintDocument";
 
 type RequestConfirmationParams = {
-  requestId: Scalars["ID"];
+  requestId: Scalars["ID"]["output"];
 };
 
 const mailLink = (chunks: React.ReactNode) => (

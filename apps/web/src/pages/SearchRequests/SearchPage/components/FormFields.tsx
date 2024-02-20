@@ -17,14 +17,14 @@ import {
   getPoolStream,
   getWorkRegion,
 } from "@gc-digital-talent/i18n";
-
 import {
   Classification,
   LanguageAbility,
   PoolStream,
   Skill,
   WorkRegion,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";

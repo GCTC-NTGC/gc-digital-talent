@@ -17,7 +17,7 @@ import { PoolCandidate } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
 import processMessages from "~/messages/processMessages";
@@ -42,7 +42,7 @@ const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
   const paths = useRoutes();
 
   const columns = [
-    columnHelper.accessor((row) => getFullPoolTitleLabel(intl, row.pool), {
+    columnHelper.accessor((row) => getShortPoolTitleLabel(intl, row.pool), {
       id: "pool",
       meta: {
         isRowTitle: true,

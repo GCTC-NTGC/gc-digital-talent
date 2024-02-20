@@ -27,6 +27,24 @@ describe("Pools", () => {
     cy.expectToast(/pool updated successfully/i);
   };
 
+  /** Add a question */
+  const addQuestion = (index: number) => {
+    cy.findByRole("button", { name: /add a new question/i }).click();
+
+    cy.findByRole("dialog", {
+      name: /manage a general question/i,
+    }).within(() => {
+      cy.findByRole("textbox", { name: /question \(en\)/i }).type(
+        `New question ${index} (EN)`,
+      );
+      cy.findByRole("textbox", { name: /question \(fr\)/i }).type(
+        `New question ${index} (FR)`,
+      );
+
+      cy.findByRole("button", { name: /save this question/i }).click();
+    });
+  };
+
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "EditPoolPage");
@@ -218,6 +236,13 @@ describe("Pools", () => {
 
     cy.findByRole("button", { name: /save core requirements/i }).click();
     expectUpdate();
+
+    // Add first question
+    addQuestion(1);
+    expectUpdate();
+
+    addQuestion(2);
+    expectUpdate();
   });
 
   /**
@@ -250,6 +275,14 @@ describe("Pools", () => {
 
     // Submit the form
     cy.findByRole("button", { name: /save advertisement details/i }).click();
+    expectUpdate();
+
+    // Move questions
+    cy.findByRole("button", { name: /change order from 2 to 1/i }).click();
+    expectUpdate();
+
+    // Delete a question
+    cy.findByRole("button", { name: /remove item 1/i }).click();
     expectUpdate();
 
     // Navigate to view pool page

@@ -53,10 +53,10 @@ const DiversityEquityInclusionSection = ({
               <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Edit your diversity, equity and inclusion options.",
-                  id: "RggAL8",
+                    "Edit your diversity, equity, and inclusion options.",
+                  id: "P6EhD6",
                   description:
-                    "Link text to edit diversity, equity and inclusion information on profile.",
+                    "Link text to edit diversity, equity, and inclusion information on profile.",
                 })}
               </Link>
             </p>

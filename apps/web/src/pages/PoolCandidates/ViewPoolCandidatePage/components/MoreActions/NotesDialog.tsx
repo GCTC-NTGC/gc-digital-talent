@@ -8,7 +8,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
 import { Maybe, PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -22,11 +22,8 @@ interface NotesDialogProps {
 }
 
 const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateNotes(
-    $id: ID!
-    $input: UpdatePoolCandidateAsAdminInput!
-  ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+  mutation PoolCandidate_UpdateNotes($id: UUID!, $notes: String) {
+    updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
       notes
     }
@@ -59,9 +56,9 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    await executeMutation({ id: poolCandidateId, input: values })
+    await executeMutation({ id: poolCandidateId, notes: values.notes ?? "" })
       .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
+        if (result.data?.updatePoolCandidateNotes) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",
@@ -126,9 +123,6 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
                 id="notes"
                 name="notes"
                 label={intl.formatMessage(adminMessages.notes)}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
               />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Dialog.Close>

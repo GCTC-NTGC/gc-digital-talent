@@ -1,12 +1,12 @@
 import { SortingState } from "@tanstack/react-table";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-
 import {
   PoolCandidateSearchRequestInput,
   OrderByClause,
   SortOrder,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import {
   stringToEnumRequestStatus,
   stringToEnumStream,

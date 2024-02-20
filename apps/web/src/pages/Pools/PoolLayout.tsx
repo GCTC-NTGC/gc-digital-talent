@@ -13,7 +13,7 @@ import { Pool } from "~/api/generated";
 import {
   getAdvertisementStatus,
   getPoolCompletenessBadge,
-  getFullPoolTitleLabel,
+  getShortPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import { PageNavKeys } from "~/types/pool";
@@ -29,7 +29,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const pages = useAdminPoolPages(intl, pool);
 
-  const poolTitle = getFullPoolTitleLabel(intl, pool);
+  const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
   const subtitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
