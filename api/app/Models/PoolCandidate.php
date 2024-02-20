@@ -576,6 +576,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementWorkExperiences.skills',
             'poolCandidates.generalQuestionResponses',
             'poolCandidates.generalQuestionResponses.generalQuestion',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -787,6 +789,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementWorkExperiences.skills',
             'poolCandidates.generalQuestionResponses',
             'poolCandidates.generalQuestionResponses.generalQuestion',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection
