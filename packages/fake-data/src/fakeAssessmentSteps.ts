@@ -42,7 +42,7 @@ export default (
       stepType !== AssessmentStepType.ApplicationScreening &&
       stepType !== AssessmentStepType.ScreeningQuestionsAtApplication,
   );
-  return [...Array(amountToGenerate)].map((index) => {
+  return [...Array(amountToGenerate)].map((_, index) => {
     switch (index) {
       case 0:
         return generateAssessmentStep(

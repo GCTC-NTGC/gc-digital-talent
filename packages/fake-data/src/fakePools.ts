@@ -124,7 +124,7 @@ export default (
   const users = fakeUsers();
   faker.seed(0); // repeatable results
 
-  return [...Array(numToGenerate)].map((index) => {
+  return [...Array(numToGenerate)].map((_, index) => {
     switch (index) {
       case 0:
         return generatePool(
