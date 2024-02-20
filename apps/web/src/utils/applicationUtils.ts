@@ -40,6 +40,10 @@ export const getApplicationSteps = ({
   experienceId,
   RoDFlag,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
+  const showQuestionStep =
+    application.pool.generalQuestions?.length ||
+    (RoDFlag && application.pool.screeningQuestions?.length);
+
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
@@ -48,7 +52,7 @@ export const getApplicationSteps = ({
     careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(application.pool.generalQuestions?.length ? [questionsStepInfo] : []),
+    ...(showQuestionStep ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];
