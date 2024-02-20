@@ -437,7 +437,7 @@ const PoolCandidatesTable = ({
       return filteredPoolCandidates;
     } catch (error) {
       toast.error(intl.formatMessage(errorMessages.unknown));
-      throw error;
+      return [];
     } finally {
       setIsSelecting(false);
       setSelectingFor(null);
