@@ -32,8 +32,7 @@ const staticDocumentsRule = {
   },
 };
 
-const webStories =
-  "../src/**/AssessmentResultsTable.stories.@(js|jsx|ts|tsx|mdx)";
+const webStories = "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 const designStories =
   "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 let stories = [webStories, designStories];
