@@ -669,6 +669,22 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+type SitewideAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedString!
+  message: LocalizedString!
+}
+
+input SitewideAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
+  title: LocalizedStringInput!
+  message: LocalizedStringInput!
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -677,14 +693,6 @@ type Query {
     @softDeletes
     @guard
     @can(ability: "view", query: true)
-  users: [User]!
-    @all
-    @softDeletes
-    @guard
-    @can(ability: "viewAny")
-    @deprecated(
-      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
-    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -797,6 +805,8 @@ type Query {
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
+
+  sitewideAnnouncement: SitewideAnnouncement
 }
 
 input ClassificationBelongsTo {
@@ -1860,6 +1870,10 @@ type Mutation {
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
+
+  updateSitewideAnnouncement(
+    sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
+  ): SitewideAnnouncement @guard
 }
 
 #import directiveForms.graphql

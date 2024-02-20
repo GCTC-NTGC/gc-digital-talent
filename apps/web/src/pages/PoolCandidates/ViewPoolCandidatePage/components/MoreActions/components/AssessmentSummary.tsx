@@ -47,6 +47,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"
           data-h2-color="base(success)"
+          aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Demonstrated",
             id: "5wKh/o",
@@ -63,6 +64,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"
           data-h2-color="base(error)"
+          aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Not demonstrated (Remove from process)",
             id: "zXkLL2",
@@ -79,6 +81,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"
           data-h2-color="base(warning)"
+          aria-hidden="false"
           aria-label={intl.formatMessage({
             defaultMessage: "Not demonstrated (Hold for further assessment)",
             id: "MMtY88",

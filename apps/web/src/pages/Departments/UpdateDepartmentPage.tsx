@@ -3,22 +3,21 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import pick from "lodash/pick";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
   Department,
   Scalars,
   UpdateDepartmentInput,
-  UpdateDepartmentMutation,
-  useDepartmentQuery,
-  useUpdateDepartmentMutation,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -32,7 +31,7 @@ interface UpdateDepartmentProps {
   handleUpdateDepartment: (
     id: string,
     data: FormValues,
-  ) => Promise<UpdateDepartmentMutation["updateDepartment"]>;
+  ) => Promise<UpdateDepartmentInput>;
 }
 
 export const UpdateDepartmentForm = ({
@@ -133,17 +132,44 @@ export const UpdateDepartmentForm = ({
 };
 
 type RouteParams = {
-  departmentId: Scalars["ID"];
+  departmentId: Scalars["ID"]["output"];
 };
+
+const Department_Query = graphql(/* GraphQL */ `
+  query Department($id: UUID!) {
+    department(id: $id) {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
+    updateDepartment(id: $id, department: $department) {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data: departmentData, fetching, error }] = useDepartmentQuery({
+  const [{ data: departmentData, fetching, error }] = useQuery({
+    query: Department_Query,
     variables: { id: departmentId },
   });
-  const [, executeMutation] = useUpdateDepartmentMutation();
+  const [, executeMutation] = useMutation(UpdateDepartment_Mutation);
   const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>
     executeMutation({
       id,

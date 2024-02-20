@@ -34,11 +34,6 @@ export default {
           team: teamData,
         },
       },
-      AllUsers: {
-        data: {
-          users: usersData,
-        },
-      },
       ListRoles: {
         data: {
           roles: availableRoles,

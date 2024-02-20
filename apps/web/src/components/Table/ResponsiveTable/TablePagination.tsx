@@ -7,11 +7,13 @@ import Pagination from "~/components/Pagination";
 import { PaginationDef } from "./types";
 
 interface TablePaginationProps<T> {
+  label: string;
   pagination: PaginationDef;
   table: Table<T>;
 }
 
 const TablePagination = <T,>({
+  label,
   pagination,
   table,
 }: TablePaginationProps<T>) => {
@@ -49,11 +51,14 @@ const TablePagination = <T,>({
     <Pagination
       data-h2-margin-top="base(x1) l-tablet(x.5)"
       color="black"
-      ariaLabel={intl.formatMessage({
-        defaultMessage: "Page navigation",
-        description: "Label for the table pagination",
-        id: "N3sUUc",
-      })}
+      ariaLabel={intl.formatMessage(
+        {
+          defaultMessage: "{label} page navigation",
+          description: "Label for the table pagination",
+          id: "RRlKyW",
+        },
+        { label },
+      )}
       currentPage={tablePaginationState.pageIndex + 1}
       pageSize={tablePaginationState.pageSize}
       pageSizes={pagination.pageSizes}

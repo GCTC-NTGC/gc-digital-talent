@@ -252,6 +252,7 @@ export const getShortPoolTitleLabel = (
 export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
+  const poolName = getFullPoolTitleLabel(intl, pool);
 
   return recordOfDecisionFlag
     ? new Map<PageNavKeys, PageNavInfo>([
@@ -281,6 +282,80 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolUpdate(pool.id),
             },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.poolUpdate(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Advertisement information",
+                  id: "yM04jy",
+                  description:
+                    "Title for advertisement information of a process",
+                }),
+              },
+            ],
+          },
+        ],
+        [
+          "plan",
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Assessment plan",
+              id: "fkYYe3",
+              description: "Title for the assessment plan builder",
+            }),
+            link: {
+              url: paths.assessmentPlanBuilder(pool.id),
+            },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.assessmentPlanBuilder(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Assessment plan",
+                  id: "fkYYe3",
+                  description: "Title for the assessment plan builder",
+                }),
+              },
+            ],
           },
         ],
         [
@@ -344,6 +419,37 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolUpdate(pool.id),
             },
+            crumbs: [
+              {
+                url: paths.adminDashboard(),
+                label: intl.formatMessage({
+                  defaultMessage: "Home",
+                  id: "G1RNXj",
+                  description: "Link to the Homepage in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolTable(),
+                label: intl.formatMessage({
+                  defaultMessage: "Recruitments",
+                  id: "KLEaLQ",
+                  description: "Link to the Pools page in the nav menu.",
+                }),
+              },
+              {
+                url: paths.poolView(pool.id),
+                label: poolName,
+              },
+              {
+                url: paths.poolUpdate(pool.id),
+                label: intl.formatMessage({
+                  defaultMessage: "Advertisement information",
+                  id: "yM04jy",
+                  description:
+                    "Title for advertisement information of a process",
+                }),
+              },
+            ],
           },
         ],
         [

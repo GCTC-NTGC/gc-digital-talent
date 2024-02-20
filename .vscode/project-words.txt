@@ -16,6 +16,7 @@ chrc
 codegen
 colour
 colours
+columnheader
 combobox
 corejs
 CRTC
@@ -66,6 +67,7 @@ recruitments
 recrutementgiti
 rolepermission
 roundtable
+Sitewide
 skillset
 Spatie
 spinbutton
