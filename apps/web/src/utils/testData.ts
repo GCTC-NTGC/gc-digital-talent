@@ -9,16 +9,12 @@ import {
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import {
-  ArmedForcesStatus,
   AssessmentDecision,
   AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
-  AssessmentStepType,
-  Pool,
   PoolCandidate,
   PoolSkill,
-  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 

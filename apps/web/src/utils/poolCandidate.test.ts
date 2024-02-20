@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import React from "react";
 import "@testing-library/jest-dom";
 import { createIntl, createIntlCache } from "react-intl";
 
