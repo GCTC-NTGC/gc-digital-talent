@@ -95,7 +95,7 @@ describe("PoolCandidate utils", () => {
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("Qualified: Pending Decision");
+        expect(pill.label).toBe("Qualified: Pending decision");
         expect(pill.color).toBe("success");
       });
       it('should return "Qualified: Pending decision" and success color for candidates with a Hold status on a middle step, and qualified otherwise', () => {
@@ -104,43 +104,43 @@ describe("PoolCandidate utils", () => {
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("Qualified: Pending Decision");
+        expect(pill.label).toBe("Qualified: Pending decision");
         expect(pill.color).toBe("success");
       });
-      it('should return "To asses: Step 1" with warning color for candidates missing education assessment', () => {
+      it('should return "To assess: Step 1" with warning color for candidates missing education assessment', () => {
         const pill = getCandidateStatusPill(
           candidateFullyQualifiedExceptMissingEducation,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("To asses: Step 1");
+        expect(pill.label).toBe("To assess: Step 1");
         expect(pill.color).toBe("warning");
       });
-      it('should return "To asses: Step 1" with warning color for candidates with no assessments', () => {
+      it('should return "To assess: Step 1" with warning color for candidates with no assessments', () => {
         const pill = getCandidateStatusPill(
           candidateNoAssessments,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("To asses: Step 1");
+        expect(pill.label).toBe("To assess: Step 1");
         expect(pill.color).toBe("warning");
       });
-      it('should return "To asses: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
+      it('should return "To assess: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
         const pill = getCandidateStatusPill(
           candidateQualifiedExceptHoldOnFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("To asses: Step 3");
+        expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
       });
-      it('should return "To asses: Step 3" with warning color for candidate with incomplete final (third) step', () => {
+      it('should return "To assess: Step 3" with warning color for candidate with incomplete final (third) step', () => {
         let pill = getCandidateStatusPill(
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("To asses: Step 3");
+        expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
 
         pill = getCandidateStatusPill(
@@ -148,7 +148,7 @@ describe("PoolCandidate utils", () => {
           poolWithAssessmentSteps.assessmentSteps,
           intl,
         );
-        expect(pill.label).toBe("To asses: Step 3");
+        expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
       });
       it('should return "Disqualified: Pending decision" with error color for candidate with any one unsuccessful step', () => {
