@@ -1,14 +1,19 @@
-import {
-  DepartmentsQuery,
-  DepartmentsDocument,
-} from "@gc-digital-talent/web/src/api/generated";
+import { graphql, Command_DepartmentsQuery } from "@gc-digital-talent/graphql";
 
-import { getGqlString } from "./graphql-test-utils";
+const commandDepartmentsDoc = /* GraphQL */ `
+  query Command_Departments {
+    departments {
+      id
+    }
+  }
+`;
+
+const Command_DepartmentsQuery = graphql(commandDepartmentsDoc);
 
 Cypress.Commands.add("getDepartments", () => {
-  cy.graphqlRequest<DepartmentsQuery>({
-    operationName: "departments",
-    query: getGqlString(DepartmentsDocument),
+  cy.graphqlRequest<Command_DepartmentsQuery>({
+    operationName: "Command_Departments",
+    query: commandDepartmentsDoc,
     variables: {},
   }).then((data) => {
     cy.wrap(data.departments);

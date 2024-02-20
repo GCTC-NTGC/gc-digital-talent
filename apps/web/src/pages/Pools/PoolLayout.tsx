@@ -44,13 +44,23 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
       <AdminHero
         title={poolTitle}
         subtitle={subtitle}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
+        nav={
+          // Pages with crumbs are sub-pages and don't show up as tabs
+          currentPage?.crumbs
+            ? {
+                mode: "crumbs",
+                items: currentPage.crumbs,
+              }
+            : {
+                mode: "subNav",
+                items: Array.from(pages.values())
+                  .filter((page) => !page.crumbs)
+                  .map((page) => ({
+                    label: page.link.label ?? page.title,
+                    url: page.link.url,
+                  })),
+              }
+        }
         contentRight={
           <Pill
             bold

@@ -688,14 +688,6 @@ type Query {
     @softDeletes
     @guard
     @can(ability: "view", query: true)
-  users: [User]!
-    @all
-    @softDeletes
-    @guard
-    @can(ability: "viewAny")
-    @deprecated(
-      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
-    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy

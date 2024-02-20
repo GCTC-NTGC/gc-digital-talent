@@ -3947,6 +3947,10 @@
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
   },
+  "KLEaLQ": {
+    "defaultMessage": "Recrutements",
+    "description": "Link to the Pools page in the nav menu."
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
@@ -4386,10 +4390,6 @@
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
-  },
-  "N3sUUc": {
-    "defaultMessage": "Navigation dans la page",
-    "description": "Label for the table pagination"
   },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
@@ -5150,6 +5150,10 @@
   "ROfrit": {
     "defaultMessage": "Rétablir les filtres",
     "description": "Button text to reset table filters to the default values"
+  },
+  "RRlKyW": {
+    "defaultMessage": "{label} navigation de page",
+    "description": "Label for the table pagination"
   },
   "RSkJQR": {
     "defaultMessage": "Brève description de l'équipe (en français)",
