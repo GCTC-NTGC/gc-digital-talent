@@ -286,7 +286,7 @@ describe("Pools", () => {
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findAllByRole("link", { name: /Process information/i })
+    cy.findAllByRole("link", { name: /test pool en/i })
       .first()
       .click();
   });

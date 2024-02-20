@@ -7,6 +7,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "urql";
 
 import {
   TableOfContents,
@@ -24,19 +25,22 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   Skill,
   UserSkill,
   Scalars,
   SkillCategory,
-  useCreateUserSkillMutation,
-  useUpdateUserSkillMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+
+import {
+  CreateUserSkill_Mutation,
+  UpdateUserSkill_Mutation,
+} from "../operations";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -75,8 +79,8 @@ const UpdateSkillShowcase = ({
   const navigate = useNavigate();
   const addId = React.useId();
 
-  const [, executeCreateMutation] = useCreateUserSkillMutation();
-  const [, executeUpdateMutation] = useUpdateUserSkillMutation();
+  const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
+  const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
 
   const methods = useForm<FormValues>({
     defaultValues: initialSkills,
