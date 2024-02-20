@@ -15,7 +15,10 @@ import {
   AssessmentStepType,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
-import { getAssessmentDecision } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+import {
+  getAssessmentDecision,
+  getAssessmentStepType,
+} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -248,7 +251,9 @@ export const buildColumn = ({
         return null;
       },
       meta: {
-        hideMobileHeader: true,
+        mobileHeader: intl.formatMessage(
+          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
+        ),
       },
     },
   ) as AssessmentTableRowColumn;

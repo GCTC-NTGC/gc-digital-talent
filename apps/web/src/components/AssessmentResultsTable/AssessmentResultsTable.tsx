@@ -166,13 +166,13 @@ const AssessmentResultsTable = ({
           }),
           cell: ({ row: { original } }) =>
             cells.jsx(
-              <div>
+              <span>
                 {original.poolSkill ? (
                   <>
-                    <p data-h2-font-weight="base(bold)">
-                      {getLocalizedName(original.poolSkill?.skill?.name, intl)}
-                    </p>
-                    <p>
+                    <span data-h2-font-weight="base(bold)">
+                      {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
+                    </span>
+                    <span>
                       (
                       {intl.formatMessage(
                         original.poolSkill?.type
@@ -180,18 +180,18 @@ const AssessmentResultsTable = ({
                           : commonMessages.notFound,
                       )}
                       )
-                    </p>
+                    </span>
                   </>
                 ) : (
-                  <p data-h2-font-weight="base(bold)">
+                  <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage: "Education requirement",
                       id: "4xXPIe",
                       description: "Education requirement row header.",
                     })}
-                  </p>
+                  </span>
                 )}
-              </div>,
+              </span>,
             ),
         },
       ) as ColumnDef<AssessmentTableRow>,
