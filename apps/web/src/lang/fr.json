@@ -3967,6 +3967,10 @@
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
   },
+  "KLEaLQ": {
+    "defaultMessage": "Recrutements",
+    "description": "Link to the Pools page in the nav menu."
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
