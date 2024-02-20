@@ -45,6 +45,14 @@ export type FormValuesToApiUpdateInputArgs = {
   assessmentResultType: AssessmentResultType;
 };
 
+// If justification is for education requirement assessment, it is just a string, need to tuck it into an array
+const justificationsConverted = (
+  justifications: FormValues["justifications"],
+) =>
+  justifications && !Array.isArray(justifications)
+    ? [justifications]
+    : justifications;
+
 export function convertFormValuesToApiCreateInput({
   formValues,
   assessmentStepId,
@@ -67,9 +75,7 @@ export function convertFormValuesToApiCreateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: Array.isArray(justifications)
-      ? [...justifications]
-      : justifications && [justifications],
+    justifications: justificationsConverted(justifications) ?? undefined,
     otherJustificationNotes,
     poolSkillId,
     skillDecisionNotes,
@@ -88,15 +94,14 @@ export function convertFormValuesToApiUpdateInput({
     skillDecisionNotes,
     assessmentNotes,
   } = formValues;
+
   return {
     id: assessmentResultId,
     assessmentDecision:
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: Array.isArray(justifications)
-      ? [...justifications]
-      : [justifications] && [],
+    justifications: justificationsConverted(justifications) ?? undefined,
     otherJustificationNotes,
     skillDecisionNotes,
     assessmentNotes,

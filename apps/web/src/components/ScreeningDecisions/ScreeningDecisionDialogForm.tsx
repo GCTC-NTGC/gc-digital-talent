@@ -59,6 +59,14 @@ const ScreeningDecisionDialogForm = ({
   const isAssessmentOnHold =
     watchAssessmentDecision === AssessmentDecision.Hold;
   const isAssessmentDecisionNotSure = watchAssessmentDecision === NO_DECISION;
+  const educationRequirementSelected =
+    (!Array.isArray(watchJustifications) &&
+      watchJustifications ===
+        AssessmentResultJustification.EducationAcceptedInformation) ||
+    watchJustifications ===
+      AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
+    watchJustifications ===
+      AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
 
   /**
    * Reset un-rendered fields
@@ -87,6 +95,9 @@ const ScreeningDecisionDialogForm = ({
     }
 
     if (isAssessmentDecisionSuccessful) {
+      if (!educationRequirementSelected) {
+        resetDirtyField("justifications");
+      }
       if (!otherReasonSelected) {
         resetDirtyField("otherJustificationNotes");
       }
@@ -104,6 +115,7 @@ const ScreeningDecisionDialogForm = ({
     isAssessmentDecisionNotSure,
     otherReasonSelected,
     isAssessmentOnHold,
+    educationRequirementSelected,
     setValue,
   ]);
 
