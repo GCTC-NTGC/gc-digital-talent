@@ -27,9 +27,9 @@ import {
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
-import { AssessmentStepResult } from "./types";
+import { AssessmentTableRow } from "./types";
 
-const columnHelper = createColumnHelper<AssessmentStepResult>();
+const columnHelper = createColumnHelper<AssessmentTableRow>();
 
 interface AssessmentResultsTableProps {
   poolCandidate: PoolCandidate;
@@ -57,7 +57,7 @@ const AssessmentResultsTable = ({
   );
 
   // Create data for table containing pool skill with matching results
-  const assessmentStepsResults: Array<AssessmentStepResult> = poolSkills
+  const assessmentStepsResults: Array<AssessmentTableRow> = poolSkills
     .map((poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
         (result) => result.poolSkill?.id === poolSkill.id,
@@ -97,7 +97,7 @@ const AssessmentResultsTable = ({
     );
 
   // Create the education requirement assessment step result
-  const educationStepResult: AssessmentStepResult = {
+  const educationStepResult: AssessmentTableRow = {
     poolSkill: undefined,
     assessmentResults: educationResults ?? [],
   };
@@ -120,7 +120,7 @@ const AssessmentResultsTable = ({
     });
     const columns = sortedAssessmentSteps.reduce(
       (
-        accumulator: ColumnDef<AssessmentStepResult>[],
+        accumulator: ColumnDef<AssessmentTableRow>[],
         assessmentStep: AssessmentStep,
       ) => {
         const type = assessmentStep.type ?? null;
@@ -194,7 +194,7 @@ const AssessmentResultsTable = ({
               </div>,
             ),
         },
-      ) as ColumnDef<AssessmentStepResult>,
+      ) as ColumnDef<AssessmentTableRow>,
       ...columns,
     ];
   };
@@ -202,7 +202,7 @@ const AssessmentResultsTable = ({
   const data = [educationStepResult, ...assessmentStepsResults];
 
   return (
-    <Table<AssessmentStepResult>
+    <Table<AssessmentTableRow>
       data={data}
       caption={intl.formatMessage(adminMessages.assessmentResults)}
       columns={getColumns()}

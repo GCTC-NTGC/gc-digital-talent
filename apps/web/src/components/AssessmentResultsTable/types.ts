@@ -9,14 +9,14 @@ import {
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 
-export type AssessmentStepResult = {
+export type AssessmentTableRow = {
   poolSkill?: PoolSkill;
   assessmentResults: AssessmentResult[];
 };
 
-export type AssessmentStepResultColumn = ColumnDef<AssessmentStepResult>;
+export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
 
-export type AssessmentStepResultColumnProps = {
+export type AssessmentTableRowColumnProps = {
   id: string;
   poolCandidate: PoolCandidate;
   assessmentStep: AssessmentStep;

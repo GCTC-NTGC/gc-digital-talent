@@ -21,9 +21,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import {
-  AssessmentStepResult,
-  AssessmentStepResultColumn,
-  AssessmentStepResultColumnProps,
+  AssessmentTableRow,
+  AssessmentTableRowColumn,
+  AssessmentTableRowColumnProps,
   ColumnStatus,
   StatusColor,
 } from "./types";
@@ -91,8 +91,7 @@ export const columnHeader = (
       >
         {Icon && (
           <Icon
-            role="img"
-            title={ariaLabel}
+            aria-label={ariaLabel}
             aria-hidden="false"
             {...iconColorMap[status.color]}
             data-h2-display="p-tablet(inline-block)"
@@ -184,7 +183,7 @@ export const columnStatus = (
   };
 };
 
-const columnHelper = createColumnHelper<AssessmentStepResult>();
+const columnHelper = createColumnHelper<AssessmentTableRow>();
 
 export const buildColumn = ({
   id,
@@ -192,7 +191,7 @@ export const buildColumn = ({
   assessmentStep,
   intl,
   header,
-}: AssessmentStepResultColumnProps): AssessmentStepResultColumn => {
+}: AssessmentTableRowColumnProps): AssessmentTableRowColumn => {
   return columnHelper.accessor(
     ({ assessmentResults }) => {
       const assessmentResult = assessmentResults.find(
@@ -252,5 +251,5 @@ export const buildColumn = ({
         hideMobileHeader: true,
       },
     },
-  ) as AssessmentStepResultColumn;
+  ) as AssessmentTableRowColumn;
 };
