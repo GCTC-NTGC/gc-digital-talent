@@ -7,10 +7,6 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
-  users(
-    "Allows to filter if trashed elements should be fetched."
-    trashed: Trashed
-  ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
