@@ -157,7 +157,7 @@ const AssessmentStepTypeSection = ({
                     ) : (
                       <p data-h2-font-weight="base(bold)">
                         {intl.formatMessage(commonMessages.notFound)}
-                      </p> // TODO: What should the message say if user skill level is not found?
+                      </p>
                     )}
                   </div>
                 </Accordion.Content>

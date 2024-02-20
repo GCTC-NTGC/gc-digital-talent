@@ -127,6 +127,72 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
           skillLevel
         }
+        experiences {
+          id
+          __typename
+          details
+          user {
+            id
+            email
+          }
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+            details
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+            details
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+            details
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+            details
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+            details
+          }
+        }
       }
       educationRequirementExperiences {
         id
@@ -266,6 +332,10 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
+            description {
+              en
+              fr
+            }
             id
             category
             key
@@ -332,6 +402,10 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             key
             category
             name {
+              en
+              fr
+            }
+            description {
               en
               fr
             }
