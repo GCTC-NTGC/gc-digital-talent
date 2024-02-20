@@ -129,10 +129,10 @@ describe("Pool Candidates", () => {
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
-      "Screened In",
+      "Screened in",
     );
     cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
-      cy.get("option:selected").should("have.text", "Screened In");
+      cy.get("option:selected").should("have.text", "Screened in");
     });
 
     cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {
@@ -239,10 +239,10 @@ describe("Pool Candidates", () => {
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
-      "Screened In",
+      "Screened in",
     );
     cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
-      cy.get("option:selected").should("have.text", "Screened In");
+      cy.get("option:selected").should("have.text", "Screened in");
     });
 
     cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {
