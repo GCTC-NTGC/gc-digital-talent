@@ -3943,6 +3943,10 @@
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
   },
+  "KLEaLQ": {
+    "defaultMessage": "Recrutements",
+    "description": "Link to the Pools page in the nav menu."
+  },
   "KRkZS6": {
     "defaultMessage": "Aucune compétence comportementale facultative n’est prise en compte pour ce poste.",
     "description": "Message displayed when a pool advertisement has no optional behavioural skills"
