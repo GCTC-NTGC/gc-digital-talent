@@ -20,7 +20,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   ViewPoolCandidatesPageQuery,
@@ -29,6 +29,9 @@ import {
   Maybe,
   SkillCategory,
   Scalars,
+  GeneralQuestionResponse,
+  LocalizedString,
+  Pool,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -67,6 +70,29 @@ type SectionContent = {
   linkText?: string;
   title: string;
 };
+
+// stopgap as screening questions become general questions while a new screening questions backend is set up
+// preserve snapshot functionality
+type ScreeningQuestion = {
+  id: Scalars["ID"]["output"];
+  pool?: Maybe<Pool>;
+  question?: Maybe<LocalizedString>;
+  sortOrder?: Maybe<Scalars["Int"]["output"]>;
+};
+
+type ScreeningQuestionResponse = {
+  answer?: Maybe<Scalars["String"]["output"]>;
+  screeningQuestion?: Maybe<ScreeningQuestion>;
+  id: Scalars["ID"]["output"];
+};
+
+function isScreeningQuestionResponse(
+  response: ScreeningQuestionResponse | GeneralQuestionResponse,
+): response is ScreeningQuestionResponse {
+  return (
+    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
+  );
+}
 
 export const ViewPoolCandidate = ({
   poolCandidate,
@@ -252,6 +278,19 @@ export const ViewPoolCandidate = ({
       ? snapshotCandidate.pool.classifications[0]?.group
       : "";
 
+    const generalQuestionResponses = unpackMaybes(
+      snapshotCandidate?.generalQuestionResponses ?? [],
+    );
+
+    const screeningQuestionResponses = unpackMaybes(
+      snapshotCandidate?.screeningQuestionResponses ?? [],
+    );
+
+    const mergedQuestionResponses: (
+      | GeneralQuestionResponse
+      | ScreeningQuestionResponse
+    )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
+
     if (features.recordOfDecision) {
       mainContent = (
         <>
@@ -405,32 +444,28 @@ export const ViewPoolCandidate = ({
             >
               {sections.questions.title}
             </TableOfContents.Heading>
-            {snapshotCandidate?.generalQuestionResponses
-              ?.filter(notEmpty)
-              .map((response) => (
-                <React.Fragment key={response.id}>
-                  <Heading
-                    level="h5"
-                    size="h6"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    {getLocalizedName(
-                      response?.generalQuestion?.question,
-                      intl,
-                    )}
-                  </Heading>
-                  <div
-                    data-h2-background-color="base(foreground)"
-                    data-h2-color="base(black)"
-                    data-h2-padding="base(x1)"
-                    data-h2-border-left="base(x.5 solid primary)"
-                    data-h2-radius="base(0 rounded rounded 0)"
-                    data-h2-shadow="base(medium)"
-                  >
-                    <p>{response.answer}</p>
-                  </div>
-                </React.Fragment>
-              ))}
+            {mergedQuestionResponses.map((response) => (
+              <React.Fragment key={response.id}>
+                <Heading level="h5" size="h6" data-h2-margin-bottom="base(x.5)">
+                  {getLocalizedName(
+                    isScreeningQuestionResponse(response)
+                      ? response.screeningQuestion?.question
+                      : response.generalQuestion?.question,
+                    intl,
+                  )}
+                </Heading>
+                <div
+                  data-h2-background-color="base(foreground)"
+                  data-h2-color="base(black)"
+                  data-h2-padding="base(x1)"
+                  data-h2-border-left="base(x.5 solid primary)"
+                  data-h2-radius="base(0 rounded rounded 0)"
+                  data-h2-shadow="base(medium)"
+                >
+                  <p>{response.answer}</p>
+                </div>
+              </React.Fragment>
+            ))}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.careerTimeline.id}>
             <TableOfContents.Heading
