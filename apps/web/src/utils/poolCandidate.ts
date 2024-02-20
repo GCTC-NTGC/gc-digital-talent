@@ -145,6 +145,7 @@ const getResultsDecision = (
     assessmentResults.forEach((assessmentResult) => {
       switch (assessmentResult.assessmentDecision) {
         case null:
+        case undefined:
           hasToAssess = true;
           break;
         case AssessmentDecision.Hold:
