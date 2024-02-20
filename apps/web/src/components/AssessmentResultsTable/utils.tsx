@@ -83,26 +83,28 @@ export const columnHeader = (
   }
 
   return (
-    <p
-      data-h2-display="base(flex)"
-      data-h2-align-content="base(center)"
-      data-h2-gap="base(x.5)"
-    >
-      {Icon && (
-        <Icon
-          role="img"
-          title={ariaLabel}
-          aria-hidden="false"
-          {...iconColorMap[status.color]}
-          data-h2-display="p-tablet(inline-block)"
-          data-h2-vertical-align="base(middle)"
-          data-h2-height="base(auto)"
-          data-h2-flex-shrink="base(0)"
-          data-h2-width="base(x.85)"
-        />
-      )}
-      <span>{header}</span>
-    </p>
+    <span data-h2-display="base(inline)">
+      <span
+        data-h2-display="base(flex)"
+        data-h2-align-content="base(center)"
+        data-h2-gap="base(x.25)"
+      >
+        {Icon && (
+          <Icon
+            role="img"
+            title={ariaLabel}
+            aria-hidden="false"
+            {...iconColorMap[status.color]}
+            data-h2-display="p-tablet(inline-block)"
+            data-h2-vertical-align="base(middle)"
+            data-h2-height="base(auto)"
+            data-h2-flex-shrink="base(0)"
+            data-h2-width="base(x.85)"
+          />
+        )}
+        {header}
+      </span>
+    </span>
   );
 };
 
@@ -245,6 +247,9 @@ export const buildColumn = ({
           );
         }
         return null;
+      },
+      meta: {
+        hideMobileHeader: true,
       },
     },
   ) as AssessmentStepResultColumn;

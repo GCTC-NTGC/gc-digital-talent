@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Table } from "@tanstack/react-table";
+import { Table, flexRender } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -71,20 +71,34 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
               {table
                 .getAllLeafColumns()
                 .filter((c) => c.getCanHide())
-                .map((column) => (
-                  <div key={column.id} data-h2-margin="base(x.125, 0)">
-                    <label>
-                      <input
-                        {...{
-                          type: "checkbox",
-                          checked: column.getIsVisible(),
-                          onChange: column.getToggleVisibilityHandler(),
-                        }}
-                      />{" "}
-                      {column.columnDef.header?.toString() || ""}
-                    </label>
-                  </div>
-                ))}
+                .map((column) => {
+                  const header = table
+                    .getFlatHeaders()
+                    .find((h) => h.column === column);
+                  return (
+                    <div key={column.id} data-h2-margin="base(x.125, 0)">
+                      <label data-h2-display="base(flex)">
+                        <input
+                          {...{
+                            type: "checkbox",
+                            checked: column.getIsVisible(),
+                            onChange: column.getToggleVisibilityHandler(),
+                          }}
+                        />{" "}
+                        {header ? (
+                          <span data-h2-margin-left="base(x.25)">
+                            {flexRender(
+                              column.columnDef.header,
+                              header.getContext(),
+                            )}
+                          </span>
+                        ) : (
+                          column.columnDef.header?.toString() || ""
+                        )}
+                      </label>
+                    </div>
+                  );
+                })}
             </Field.BoundingBox>
           </Field.Fieldset>
         </Dialog.Body>
