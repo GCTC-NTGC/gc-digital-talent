@@ -38,6 +38,7 @@ export type ApplicationStepInfo = {
     user: User,
     pool: Pool,
     application: Omit<PoolCandidate, "pool">,
+    RoDFlag: boolean,
   ) => boolean;
 };
 

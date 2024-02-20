@@ -141,7 +141,11 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={applicationStepsToStepperArgs(steps, application)}
+              steps={applicationStepsToStepperArgs(
+                steps,
+                application,
+                features.recordOfDecision,
+              )}
             />
             {isIAP && (
               <div data-h2-margin="base(x1 0)">
