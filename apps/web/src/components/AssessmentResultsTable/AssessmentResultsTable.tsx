@@ -100,97 +100,94 @@ const AssessmentResultsTable = ({
     assessmentResults: educationResults ?? [],
   };
 
-  const getColumns = () => {
-    // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-    const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
-    const columns = sortedAssessmentSteps.reduce(
-      (
-        accumulator: ColumnDef<AssessmentTableRow>[],
-        assessmentStep: AssessmentStep,
-      ) => {
-        const type = assessmentStep.type ?? null;
-        const id =
-          getAssessmentStepType(type ?? "unknownType").id ??
-          uniqueId("results-table-column");
-        const status = columnStatus(assessmentStep, [
-          ...educationResults,
-          ...assessmentResults,
-        ]);
-        const header = columnHeader(
-          intl.formatMessage(getAssessmentStepType(type ?? "unknownType")),
-          status,
-          type,
+  // Sort the pools assessment steps then build columns for the poolCandidates assessment results
+  const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
+  const assessmentStepColumns = sortedAssessmentSteps.reduce(
+    (
+      accumulator: ColumnDef<AssessmentTableRow>[],
+      assessmentStep: AssessmentStep,
+    ) => {
+      const type = assessmentStep.type ?? null;
+      const id =
+        getAssessmentStepType(type ?? "unknownType").id ??
+        uniqueId("results-table-column");
+      const status = columnStatus(assessmentStep, [
+        ...educationResults,
+        ...assessmentResults,
+      ]);
+      const header = columnHeader(
+        intl.formatMessage(getAssessmentStepType(type ?? "unknownType")),
+        status,
+        type,
+        intl,
+      );
+
+      return [
+        ...accumulator,
+        buildColumn({
+          id,
+          header,
+          poolCandidate,
+          assessmentStep,
           intl,
-        );
+        }),
+      ];
+    },
+    [],
+  );
 
-        return [
-          ...accumulator,
-          buildColumn({
-            id,
-            header,
-            poolCandidate,
-            assessmentStep,
-            intl,
-          }),
-        ];
-      },
-      [],
-    );
-
-    return [
-      // Insert skills header at top of columns order
-      columnHelper.accessor(
-        ({ poolSkill }) => getLocalizedName(poolSkill?.skill?.name, intl),
-        {
-          id: "requirement",
-          header: intl.formatMessage({
-            defaultMessage: "Requirement",
-            id: "jAWP0X",
-            description:
-              "Header for requirement section of assessment results table",
-          }),
-          cell: ({ row: { original } }) =>
-            cells.jsx(
-              <span>
-                {original.poolSkill ? (
-                  <>
-                    <span data-h2-font-weight="base(bold)">
-                      {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
-                    </span>
-                    <span>
-                      (
-                      {intl.formatMessage(
-                        original.poolSkill?.type
-                          ? getPoolSkillType(original.poolSkill.type)
-                          : commonMessages.notFound,
-                      )}
-                      )
-                    </span>
-                  </>
-                ) : (
-                  <span data-h2-font-weight="base(bold)">
-                    {intl.formatMessage({
-                      defaultMessage: "Education requirement",
-                      id: "4xXPIe",
-                      description: "Education requirement row header.",
-                    })}
-                  </span>
-                )}
-              </span>,
-            ),
-        },
-      ) as ColumnDef<AssessmentTableRow>,
-      ...columns,
-    ];
-  };
+  // Insert skills header at top of columns order
+  const requirementsColumn = columnHelper.accessor(
+    ({ poolSkill }) => getLocalizedName(poolSkill?.skill?.name, intl),
+    {
+      id: "requirement",
+      header: intl.formatMessage({
+        defaultMessage: "Requirement",
+        id: "jAWP0X",
+        description:
+          "Header for requirement section of assessment results table",
+      }),
+      cell: ({ row: { original } }) =>
+        cells.jsx(
+          <span>
+            {original.poolSkill ? (
+              <>
+                <span data-h2-font-weight="base(bold)">
+                  {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
+                </span>
+                <span>
+                  (
+                  {intl.formatMessage(
+                    original.poolSkill?.type
+                      ? getPoolSkillType(original.poolSkill.type)
+                      : commonMessages.notFound,
+                  )}
+                  )
+                </span>
+                {/* TODO: ADD PoolSkill.skillLevel here --> {original.poolSkill.type === PoolSkillType.Essential && <span>{intl.formatMessage(getTechnicalSkillLevel(original.poolSkill.skillLevel))}</span> */}
+              </>
+            ) : (
+              <span data-h2-font-weight="base(bold)">
+                {intl.formatMessage({
+                  defaultMessage: "Education requirement",
+                  id: "4xXPIe",
+                  description: "Education requirement row header.",
+                })}
+              </span>
+            )}
+          </span>,
+        ),
+    },
+  ) as ColumnDef<AssessmentTableRow>;
 
   const data = [educationTableRow, ...assessmentTableRows];
+  const columns = [requirementsColumn, ...assessmentStepColumns];
 
   return (
     <Table<AssessmentTableRow>
       data={data}
       caption={intl.formatMessage(adminMessages.assessmentResults)}
-      columns={getColumns()}
+      columns={columns}
     />
   );
 };
