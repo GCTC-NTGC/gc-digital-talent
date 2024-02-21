@@ -42,6 +42,7 @@ import {
   SimpleClassification,
   SimplePool,
 } from "~/types/pool";
+import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
 
@@ -318,11 +319,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
         [
           "plan",
           {
-            title: intl.formatMessage({
-              defaultMessage: "Assessment plan",
-              id: "fkYYe3",
-              description: "Title for the assessment plan builder",
-            }),
+            title: intl.formatMessage(messages.assessmentPlan),
             link: {
               url: paths.assessmentPlanBuilder(pool.id),
             },
@@ -349,11 +346,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
               },
               {
                 url: paths.assessmentPlanBuilder(pool.id),
-                label: intl.formatMessage({
-                  defaultMessage: "Assessment plan",
-                  id: "fkYYe3",
-                  description: "Title for the assessment plan builder",
-                }),
+                label: intl.formatMessage(messages.assessmentPlan),
               },
             ],
           },

@@ -7570,10 +7570,6 @@
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
   },
-  "eGNxdM": {
-    "defaultMessage": "Plan d'évaluation",
-    "description": "Title for card for actions related to a process' assessment plan"
-  },
   "eIxShU": {
     "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire",
     "description": "IT-04 classification label including titles"
@@ -7811,7 +7807,7 @@
     "description": "Heading for sign and submit section of application review page."
   },
   "fkYYe3": {
-    "defaultMessage": "Plan d’évaluation",
+    "defaultMessage": "Plan d'évaluation",
     "description": "Title for the assessment plan builder"
   },
   "fpdcE/": {
