@@ -88,13 +88,10 @@ const AssessmentResultsTable = ({
       );
     });
 
-  const educationResults = assessmentResults
-    ?.filter(notEmpty)
-    .filter(
-      (assessmentResult) =>
-        assessmentResult.assessmentResultType ===
-        AssessmentResultType.Education,
-    );
+  const educationResults = assessmentResults.filter(
+    (assessmentResult) =>
+      assessmentResult.assessmentResultType === AssessmentResultType.Education,
+  );
 
   // Create the education requirement assessment step result
   const educationStepResult: AssessmentTableRow = {
