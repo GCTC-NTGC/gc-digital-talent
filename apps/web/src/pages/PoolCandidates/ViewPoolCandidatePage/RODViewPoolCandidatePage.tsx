@@ -28,6 +28,7 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -47,7 +48,6 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
