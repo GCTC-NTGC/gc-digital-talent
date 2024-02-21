@@ -130,6 +130,11 @@ const messages = defineMessages({
     description:
       "Alert message displayed when a user attempts to print without selecting items first",
   },
+  assessmentPlan: {
+    defaultMessage: "Assessment plan",
+    id: "fkYYe3",
+    description: "Title for the assessment plan builder",
+  },
 });
 
 export default messages;

@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -80,6 +81,15 @@ export const Edit = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof Button>
 >(({ children, ...rest }, forwardedRef) => (
   <Action ref={forwardedRef} icon={PencilSquareIcon} {...rest}>
+    {children}
+  </Action>
+));
+
+export const Remove = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentPropsWithoutRef<typeof Button>
+>(({ children, ...rest }, forwardedRef) => (
+  <Action ref={forwardedRef} icon={TrashIcon} color="error" {...rest}>
     {children}
   </Action>
 ));

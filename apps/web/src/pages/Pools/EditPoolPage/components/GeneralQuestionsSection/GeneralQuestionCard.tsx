@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { CardRepeater } from "@gc-digital-talent/ui";
+import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import { GeneralQuestion } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import { labels } from "./utils";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
@@ -18,11 +18,20 @@ const GeneralQuestionCard = ({
   generalQuestion,
 }: GeneralQuestionCardProps) => {
   const intl = useIntl();
+  const { remove } = useCardRepeaterContext();
 
   return (
     <CardRepeater.Card
       index={index}
       edit={<GeneralQuestionDialog question={generalQuestion} index={index} />}
+      remove={
+        <CardRepeater.Remove
+          onClick={() => remove(index)}
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index,
+          })}
+        />
+      }
     >
       <div
         data-h2-display="base(grid)"

@@ -58,7 +58,6 @@ const AssessmentStepCard = ({
     <CardRepeater.Card
       index={index}
       onMove={handleMove} // immediately fire event
-      onRemove={handleRemove}
       edit={
         <AssessmentDetailsDialog
           allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
@@ -81,6 +80,14 @@ const AssessmentStepCard = ({
               })}
             />
           }
+        />
+      }
+      remove={
+        <CardRepeater.Remove
+          onClick={() => handleRemove(index)}
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index,
+          })}
         />
       }
     >

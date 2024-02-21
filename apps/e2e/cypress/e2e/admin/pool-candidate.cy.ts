@@ -121,10 +121,13 @@ describe("Pool Candidates", () => {
       .should("exist")
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
-
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
@@ -232,9 +235,13 @@ describe("Pool Candidates", () => {
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
