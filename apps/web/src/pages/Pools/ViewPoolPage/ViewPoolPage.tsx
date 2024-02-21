@@ -30,6 +30,7 @@ import {
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import messages from "~/messages/adminMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -197,12 +198,7 @@ export const ViewPool = ({
           <ProcessCard.Root>
             <ProcessCard.Header>
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
-                {intl.formatMessage({
-                  defaultMessage: "Assessment plan",
-                  id: "eGNxdM",
-                  description:
-                    "Title for card for actions related to a process' assessment plan",
-                })}
+                {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
               {recordOfDecisionFlag && (
                 <Pill
