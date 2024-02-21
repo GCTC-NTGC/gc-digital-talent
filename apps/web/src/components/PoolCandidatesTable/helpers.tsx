@@ -55,7 +55,6 @@ import {
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -128,24 +127,9 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <span data-h2-font-weight="base(700)">
-      {cells.view(
-        paths.poolCandidateApplication(candidate.id),
-        candidateName,
-        undefined,
-        intl.formatMessage(
-          {
-            defaultMessage: "View {name}'s application",
-            id: "mzGMZC",
-            description:
-              "Link text to view a candidates application for assistive technologies",
-          },
-          {
-            name: candidateName,
-          },
-        ),
-      )}
-    </span>
+    <Link href={paths.poolCandidateApplication(candidate.id)}>
+      {candidateName}
+    </Link>
   );
 };
 
