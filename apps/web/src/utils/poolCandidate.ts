@@ -112,7 +112,7 @@ export const formatSubmittedAt = (
     : "";
 };
 
-const getResultsDecision = (
+export const getResultsDecision = (
   step: AssessmentStep,
   results?: AssessmentResult[],
 ): NullableDecision => {

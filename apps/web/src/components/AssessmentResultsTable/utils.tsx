@@ -10,10 +10,8 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircle
 import {
   AssessmentDecision,
   AssessmentResult,
-  AssessmentResultType,
   AssessmentStep,
   AssessmentStepType,
-  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import {
   getAssessmentDecision,
@@ -22,6 +20,8 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import { getResultsDecision } from "~/utils/poolCandidate";
+import { NO_DECISION } from "~/utils/assessmentResults";
 
 import {
   AssessmentTableRow,
@@ -114,67 +114,35 @@ export const columnStatus = (
   assessmentStep: AssessmentStep,
   assessmentResults?: AssessmentResult[],
 ): ColumnStatus => {
-  const educationResult = assessmentResults?.find(
-    (assessmentResult) =>
-      assessmentResult.assessmentResultType ===
-        AssessmentResultType.Education &&
-      assessmentStep.type === AssessmentStepType.ApplicationScreening,
-  );
-
-  // Grab assessment results of step with essential pool skills, and add education result
-  const essentialAssessmentResults =
-    assessmentResults?.filter(
-      (ar) =>
-        ar?.assessmentStep?.id === assessmentStep.id &&
-        ar?.poolSkill?.type === PoolSkillType.Essential,
-    ) || [];
-
-  const allAssessmentResults = educationResult
-    ? [educationResult, ...essentialAssessmentResults]
-    : essentialAssessmentResults;
-
-  // If at least one result has an assessmentDecision === UNSUCCESSFUL, then set to error status.
-  const unsuccessfulResults = allAssessmentResults.filter(
-    (assessmentResult) =>
-      assessmentResult?.assessmentDecision === AssessmentDecision.Unsuccessful,
-  );
-  if (unsuccessfulResults.length > 0)
+  if (
+    getResultsDecision(assessmentStep, assessmentResults) ===
+    AssessmentDecision.Unsuccessful
+  )
     return {
       icon: XCircleIcon,
       color: "error",
     };
 
-  // If at least one result has the assessmentDecision === HOLD, then set to hold status.
-  const holdResults = allAssessmentResults.filter(
-    (assessmentResult) =>
-      assessmentResult?.assessmentDecision === AssessmentDecision.Hold,
-  );
-  if (holdResults.length > 0)
+  if (
+    getResultsDecision(assessmentStep, assessmentResults) ===
+    AssessmentDecision.Hold
+  )
     return {
       icon: PauseCircleIcon,
       color: "hold",
     };
 
-  // If at least one result hasn't been assessed, then set to toAssess status
-  const hasBeenAssessed = allAssessmentResults.find(
-    (assessmentResult) =>
-      assessmentStep.poolSkills?.find(
-        (poolSkill) => poolSkill?.id === assessmentResult?.poolSkill?.id,
-      ),
-  );
-
-  if (!hasBeenAssessed) {
+  if (getResultsDecision(assessmentStep, assessmentResults) === NO_DECISION) {
     return {
       icon: ExclamationCircleIcon,
       color: "toAssess",
     };
   }
 
-  // If all the results have the assessmentDecision === SUCCESSFUL, then set to success icon.
-  const allResults = allAssessmentResults.filter(
-    (ar) => ar?.assessmentDecision === AssessmentDecision.Successful,
-  );
-  if (allResults.length === allAssessmentResults.length)
+  if (
+    getResultsDecision(assessmentStep, assessmentResults) ===
+    AssessmentDecision.Successful
+  )
     return {
       icon: CheckCircleIcon,
       color: "success",
