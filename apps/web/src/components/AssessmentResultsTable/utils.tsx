@@ -248,10 +248,17 @@ export const buildColumn = ({
             />,
           );
         }
-        return null;
+        return (
+          <span data-h2-visually-hidden="l-tablet(invisible)">
+            {intl.formatMessage(commonMessages.notApplicable)}
+          </span>
+        );
       },
       meta: {
         mobileHeader: intl.formatMessage(
+          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
+        ),
+        columnDialogHeader: intl.formatMessage(
           getAssessmentStepType(assessmentStep.type ?? "unknownType"),
         ),
       },

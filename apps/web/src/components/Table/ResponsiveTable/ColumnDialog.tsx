@@ -1,12 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Table, flexRender } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Field } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
+
+import { getColumnHeader } from "./utils";
 
 interface ColumnDialogProps<TData> {
   /** Instance of the `react-table` */
@@ -69,15 +71,13 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                 </Field.Label>
               </div>
               {table
-                .getAllLeafColumns()
+                .getAllColumns()
                 .filter((c) => c.getCanHide())
                 .map((column) => {
-                  const header = table
-                    .getFlatHeaders()
-                    .find((h) => h.column === column);
+                  const header = getColumnHeader(column, "columnDialogHeader");
                   return (
                     <div key={column.id} data-h2-margin="base(x.125, 0)">
-                      <label data-h2-display="base(flex)">
+                      <label>
                         <input
                           {...{
                             type: "checkbox",
@@ -85,16 +85,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                             onChange: column.getToggleVisibilityHandler(),
                           }}
                         />{" "}
-                        {header ? (
-                          <span data-h2-margin-left="base(x.25)">
-                            {flexRender(
-                              column.columnDef.header,
-                              header.getContext(),
-                            )}
-                          </span>
-                        ) : (
-                          column.columnDef.header?.toString() || ""
-                        )}
+                        {header}
                       </label>
                     </div>
                   );
