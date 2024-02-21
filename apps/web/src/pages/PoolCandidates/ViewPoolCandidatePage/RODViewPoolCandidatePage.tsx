@@ -28,6 +28,7 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -454,6 +455,7 @@ export const ViewPoolCandidate = ({
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -465,6 +467,7 @@ export const ViewPoolCandidate = ({
     poolCandidate,
     unpackMaybes(poolCandidate.pool.assessmentSteps),
     intl,
+    featureFlags.recordOfDecision,
   );
 
   const sections: Record<string, SectionContent> = {
@@ -698,7 +701,6 @@ export const ViewPoolCandidate = ({
       <Pill
         mode="outline"
         color={statusPill.color}
-        icon={statusPill.icon}
         data-h2-font-weight="base(700)"
       >
         {statusPill.label}
