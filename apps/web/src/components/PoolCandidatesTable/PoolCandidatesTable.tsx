@@ -543,6 +543,7 @@ const PoolCandidatesTable = ({
             intl,
             poolCandidate,
             unpackMaybes(poolCandidate?.pool?.assessmentSteps),
+            recordOfDecision,
           ),
         enableSorting: false,
       },

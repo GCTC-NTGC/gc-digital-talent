@@ -47,6 +47,7 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -245,6 +246,7 @@ export const ViewPoolCandidate = ({
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -256,6 +258,7 @@ export const ViewPoolCandidate = ({
     poolCandidate,
     unpackMaybes(poolCandidate.pool.assessmentSteps),
     intl,
+    featureFlags.recordOfDecision,
   );
 
   const sections: Record<string, SectionContent> = {

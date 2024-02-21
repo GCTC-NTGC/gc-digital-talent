@@ -59,6 +59,7 @@ import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -248,11 +249,13 @@ export const finalDecisionCell = (
   intl: IntlShape,
   poolCandidate: PoolCandidate,
   poolAssessmentSteps: AssessmentStep[],
+  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
   const { color, label } = getCandidateStatusPill(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
+    recordOfDecisionFlag,
   );
   return (
     <Pill mode="outline" color={color}>

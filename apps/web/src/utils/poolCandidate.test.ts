@@ -28,6 +28,8 @@ describe("PoolCandidate utils", () => {
     },
     intlCache,
   );
+  const recordOfDecisionFlag = true;
+
   describe("Candidate Status pill", () => {
     const candidate = fakePoolCandidates(1)[0];
 
@@ -41,7 +43,12 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusPill(candidate, [], intl);
+        const { label, color } = getCandidateStatusPill(
+          candidate,
+          [],
+          intl,
+          recordOfDecisionFlag,
+        );
         expect(label).toBe("Qualified");
         expect(color).toBe("success");
       });
@@ -54,7 +61,12 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusPill(candidate, [], intl);
+        const { label, color } = getCandidateStatusPill(
+          candidate,
+          [],
+          intl,
+          recordOfDecisionFlag,
+        );
         expect(label).toBe("Disqualified");
         expect(color).toBe("error");
       });
@@ -62,28 +74,33 @@ describe("PoolCandidate utils", () => {
 
     it('should return "Removed" in black color for removed statuses, along with reason for removal', () => {
       candidate.status = PoolCandidateStatus.ScreenedOutNotInterested;
-      let pill = getCandidateStatusPill(candidate, [], intl);
+      let pill = getCandidateStatusPill(
+        candidate,
+        [],
+        intl,
+        recordOfDecisionFlag,
+      );
       expect(pill.label).toBe("Removed: To assess");
       expect(pill.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.ScreenedOutNotResponsive;
-      pill = getCandidateStatusPill(candidate, [], intl);
+      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
       expect(pill.label).toBe("Removed: To assess");
       expect(pill.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.QualifiedUnavailable;
-      pill = getCandidateStatusPill(candidate, [], intl);
+      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
       expect(pill.label).toBe("Removed: Qualified");
       expect(pill.color).toBe("black");
       expect(pill.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Removed;
-      pill = getCandidateStatusPill(candidate, [], intl);
+      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
       expect(pill.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
       expect(pill.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Expired;
-      pill = getCandidateStatusPill(candidate, [], intl);
+      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
       expect(pill.label).toBe("Expired: Qualified"); // Okay technically this one doesn't say Removed
       expect(pill.color).toBe("black");
     });
@@ -93,6 +110,7 @@ describe("PoolCandidate utils", () => {
           candidateFullyQualified,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("Qualified: Pending decision");
         expect(pill.color).toBe("success");
@@ -102,6 +120,7 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnMiddleAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("Qualified: Pending decision");
         expect(pill.color).toBe("success");
@@ -111,6 +130,7 @@ describe("PoolCandidate utils", () => {
           candidateFullyQualifiedExceptMissingEducation,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("To assess: Step 1");
         expect(pill.color).toBe("warning");
@@ -120,6 +140,7 @@ describe("PoolCandidate utils", () => {
           candidateNoAssessments,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("To assess: Step 1");
         expect(pill.color).toBe("warning");
@@ -129,6 +150,7 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
@@ -138,6 +160,7 @@ describe("PoolCandidate utils", () => {
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
@@ -146,6 +169,7 @@ describe("PoolCandidate utils", () => {
           candidateUnfinishedFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("To assess: Step 3");
         expect(pill.color).toBe("warning");
@@ -155,6 +179,7 @@ describe("PoolCandidate utils", () => {
           candidateOneFailingAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
+          recordOfDecisionFlag,
         );
         expect(pill.label).toBe("Disqualified: Pending decision");
         expect(pill.color).toBe("error");
