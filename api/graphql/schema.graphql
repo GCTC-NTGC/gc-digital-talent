@@ -262,6 +262,7 @@ type AssessmentResult {
 type PoolSkill {
   id: ID!
   type: PoolSkillType
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   pool: Pool @belongsTo
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep] @belongsToMany
@@ -1413,6 +1414,15 @@ input UpdatePoolInput {
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
+input CreatePoolSkillInput {
+  type: PoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+input UpdatePoolSkillInput {
+  requiredLevel: SkillLevel
+}
+
 input AssessmentStepInput {
   type: AssessmentStepType
     @rules(
@@ -1766,6 +1776,23 @@ type Mutation {
     @update
     @guard
     @can(ability: "updateDraft", find: "id")
+  createPoolSkill(
+    poolId: ID! @rename(attribute: "pool_id")
+    skillId: ID! @rename(attribute: "skill_id")
+    poolSkill: CreatePoolSkillInput! @spread
+  ): PoolSkill
+    @create
+    @guard
+    @can(ability: "updateDraft", find: "poolId", model: "Pool")
+  updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput! @spread): PoolSkill
+    @update
+    @guard
+    @can(ability: "update", find: "id", model: "PoolSkill")
+  deletePoolSkill(id: ID!): PoolSkill
+    @delete
+    @guard
+    @can(ability: "delete", find: "id", model: "PoolSkill")
+
   publishPool(id: ID!): Pool @guard @can(ability: "publish", find: "id")
   changePoolClosingDate(
     id: ID!

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $pool_id
  * @property string $skill_id
  * @property string $type
+ * @property string $required_skill_level
  */
 class PoolSkill extends Model
 {
