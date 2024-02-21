@@ -175,6 +175,10 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "/+cTZi": {
+    "defaultMessage": "Anglais – Titre de l’évaluation facultative",
+    "description": "Label for 'English assessment title' input on the assessment details dialog"
+  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -899,6 +903,10 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
+  "2op8I5": {
+    "defaultMessage": "Anglais - Question {questionNumber}",
+    "description": "Label for 'English screening question' input on the assessment details dialog"
+  },
   "2pY3lT": {
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
@@ -914,6 +922,10 @@
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
+  },
+  "3/AA3n": {
+    "defaultMessage": "Type d’évaluation",
+    "description": "Label for 'Type of assessment' input on the assessment details dialog"
   },
   "304KKb": {
     "defaultMessage": "Responsabilités liées à la Directive",
@@ -1691,6 +1703,10 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
+  "7Jc8aA": {
+    "defaultMessage": "Compétences évaluées",
+    "description": "Label for 'assessed skills' input on the assessment details dialog"
+  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -2102,6 +2118,10 @@
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
     "description": "Title for the user edit page"
+  },
+  "9i4kZp": {
+    "defaultMessage": "Français – Question {questionNumber}",
+    "description": "Label for 'English screening question' input on the assessment details dialog"
   },
   "9nIALc": {
     "defaultMessage": "Erreur : Échec de la création de la demande",
@@ -4698,6 +4718,10 @@
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
+  },
+  "OoZjap": {
+    "defaultMessage": "Français – Titre de l’évaluation facultative",
+    "description": "Label for 'French assessment title' input on the assessment details dialog"
   },
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
@@ -7570,10 +7594,6 @@
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
   },
-  "eGNxdM": {
-    "defaultMessage": "Plan d'évaluation",
-    "description": "Title for card for actions related to a process' assessment plan"
-  },
   "eIxShU": {
     "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire",
     "description": "IT-04 classification label including titles"
@@ -7811,7 +7831,7 @@
     "description": "Heading for sign and submit section of application review page."
   },
   "fkYYe3": {
-    "defaultMessage": "Plan d’évaluation",
+    "defaultMessage": "Plan d'évaluation",
     "description": "Title for the assessment plan builder"
   },
   "fpdcE/": {
