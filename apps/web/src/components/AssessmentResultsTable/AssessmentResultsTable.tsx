@@ -9,7 +9,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { AssessmentResult } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getAssessmentStepType,
   getPoolSkillType,
@@ -24,6 +24,7 @@ import {
   PoolSkill,
   PoolSkillType,
 } from "~/api/generated";
+import { getOrderedSteps } from "~/utils/poolCandidate";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
@@ -56,8 +57,8 @@ const AssessmentResultsTable = ({
     poolCandidate?.assessmentResults,
   );
 
-  // Create data for table containing pool skill with matching results
-  const assessmentStepsResults: Array<AssessmentTableRow> = poolSkills
+  // Create data for table containing pool skill with matching results and sort pool skills
+  const assessmentTableRows: Array<AssessmentTableRow> = poolSkills
     .map((poolSkill) => {
       const matchingAssessmentResults = assessmentResults.filter(
         (result) => result.poolSkill?.id === poolSkill.id,
@@ -93,28 +94,15 @@ const AssessmentResultsTable = ({
       assessmentResult.assessmentResultType === AssessmentResultType.Education,
   );
 
-  // Create the education requirement assessment step result
-  const educationStepResult: AssessmentTableRow = {
+  // Create the education requirement assessment table row
+  const educationTableRow: AssessmentTableRow = {
     poolSkill: undefined,
     assessmentResults: educationResults ?? [],
   };
 
   const getColumns = () => {
     // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-    const sortedAssessmentSteps = assessmentSteps.sort((a, b) => {
-      if (a.sortOrder && b.sortOrder) {
-        return a.sortOrder - b.sortOrder;
-      }
-
-      if (a.title && b.title) {
-        return Intl.Collator(intl.locale).compare(
-          getLocalizedName(a.title, intl),
-          getLocalizedName(b.title, intl),
-        );
-      }
-
-      return 0;
-    });
+    const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
     const columns = sortedAssessmentSteps.reduce(
       (
         accumulator: ColumnDef<AssessmentTableRow>[],
@@ -196,7 +184,7 @@ const AssessmentResultsTable = ({
     ];
   };
 
-  const data = [educationStepResult, ...assessmentStepsResults];
+  const data = [educationTableRow, ...assessmentTableRows];
 
   return (
     <Table<AssessmentTableRow>
