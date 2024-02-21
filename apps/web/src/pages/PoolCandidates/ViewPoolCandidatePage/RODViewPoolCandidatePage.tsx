@@ -415,6 +415,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       screeningQuestionResponses {
         id
         answer
+        screeningQuestion {
+          id
+        }
       }
     }
     pools {
