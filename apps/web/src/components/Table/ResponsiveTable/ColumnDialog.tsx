@@ -71,7 +71,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                 </Field.Label>
               </div>
               {table
-                .getAllColumns()
+                .getAllLeafColumns()
                 .filter((c) => c.getCanHide())
                 .map((column) => {
                   const header = getColumnHeader(column, "columnDialogHeader");
