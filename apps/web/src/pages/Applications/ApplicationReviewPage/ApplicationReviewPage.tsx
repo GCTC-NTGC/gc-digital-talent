@@ -147,7 +147,7 @@ const ApplicationReview = ({
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
-    screeningQuestions: paths.applicationQuestions(application.id),
+    generalQuestions: paths.applicationQuestions(application.id),
   };
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
@@ -161,10 +161,10 @@ const ApplicationReview = ({
     application.pool.essentialSkills,
   );
 
-  const screeningQuestions =
-    application.pool.screeningQuestions?.filter(notEmpty) || [];
-  const screeningQuestionResponses =
-    application.screeningQuestionResponses?.filter(notEmpty) || [];
+  const generalQuestions =
+    application.pool.generalQuestions?.filter(notEmpty) || [];
+  const generalQuestionResponses =
+    application.generalQuestionResponses?.filter(notEmpty) || [];
 
   const classificationGroup = application.pool.classifications
     ? application.pool.classifications[0]?.group
@@ -401,10 +401,10 @@ const ApplicationReview = ({
           )}
         </div>
       </ReviewSection>
-      {screeningQuestions.length > 0 && (
+      {generalQuestions.length > 0 && (
         <ReviewSection
           title={intl.formatMessage(processMessages.screeningQuestions)}
-          path={editPaths.screeningQuestions}
+          path={editPaths.generalQuestions}
           editLinkAriaLabel={intl.formatMessage({
             defaultMessage: "Edit screening questions",
             id: "5A0a7w",
@@ -412,7 +412,7 @@ const ApplicationReview = ({
               "Edit link text for screening questions section of the application review page.",
           })}
         >
-          {screeningQuestionResponses.length > 0 ? (
+          {generalQuestionResponses.length > 0 ? (
             <div>
               <p data-h2-margin="base(x1, 0, x.5, 0)">
                 {intl.formatMessage({
@@ -424,14 +424,14 @@ const ApplicationReview = ({
                 })}
               </p>
               <ul data-h2-padding="base(0, 0, 0, x1)">
-                {screeningQuestionResponses.map((response) => (
+                {generalQuestionResponses.map((response) => (
                   <li key={response.id} data-h2-margin-bottom="base(x.5)">
                     <p
                       data-h2-font-weight="base(700)"
                       data-h2-margin-bottom="base(x.25)"
                     >
-                      {response.screeningQuestion?.question
-                        ? response.screeningQuestion.question[locale]
+                      {response.generalQuestion?.question
+                        ? response.generalQuestion.question[locale]
                         : ""}
                     </p>
                     <p>{response.answer}</p>

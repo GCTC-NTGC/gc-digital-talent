@@ -16,6 +16,7 @@ import {
   commonMessages,
   errorMessages,
   getLanguage,
+  getLocale,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
@@ -44,6 +45,8 @@ import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -62,7 +65,9 @@ import {
   statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  transformSortStateToOrderByClause,
+  getSortOrder,
+  processCell,
+  getPoolNameSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -81,18 +86,15 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
-    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
+    $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
   ) {
     poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
-      orderBy: [
-        { column: "is_bookmarked", order: DESC }
-        { column: "status_weight", order: ASC }
-        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-        $sortingInput
-      ]
+      orderByPoolName: $poolNameSortingInput
+      orderBy: $sortingInput
     ) {
       data {
         id
@@ -100,6 +102,16 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           id
           pool {
             id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
           }
           user {
             # Personal info
@@ -213,13 +225,16 @@ const PoolCandidatesTable = ({
   currentPool,
   title,
   hidePoolFilter,
+  doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pool>;
   title: string;
   hidePoolFilter?: boolean;
+  doNotUseBookmark?: boolean;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
@@ -341,7 +356,13 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: transformSortStateToOrderByClause(sortState, filterState),
+      poolNameSortingInput: getPoolNameSort(sortState, locale),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        recordOfDecision,
+      ),
     },
   });
 
@@ -387,20 +408,24 @@ const PoolCandidatesTable = ({
   };
 
   const columns = [
-    columnHelper.display({
-      id: "isBookmarked",
-      header: () => bookmarkHeader(intl),
-      enableHiding: false,
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => bookmarkCell(poolCandidate),
-      meta: {
-        shrink: true,
-        hideMobileHeader: true,
-      },
-    }),
+    ...(doNotUseBookmark
+      ? []
+      : [
+          columnHelper.display({
+            id: "isBookmarked",
+            header: () => bookmarkHeader(intl),
+            enableHiding: false,
+            cell: ({
+              row: {
+                original: { poolCandidate },
+              },
+            }) => bookmarkCell(poolCandidate),
+            meta: {
+              shrink: true,
+              hideMobileHeader: true,
+            },
+          }),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getFullNameLabel(user.firstName, user.lastName, intl),
@@ -418,6 +443,25 @@ const PoolCandidatesTable = ({
         },
       },
     ),
+    ...(currentPool
+      ? []
+      : [
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            {
+              id: "process",
+              header: intl.formatMessage(processMessages.process),
+              sortingFn: normalizedText,
+              cell: ({
+                row: {
+                  original: {
+                    poolCandidate: { pool },
+                  },
+                },
+              }) => processCell(pool, paths, intl),
+            },
+          ),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
@@ -425,15 +469,15 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "status",
-        header: intl.formatMessage(tableMessages.status),
-        enableHiding: false,
+        header: intl.formatMessage(commonMessages.status),
+        enableHiding: recordOfDecision, // After record of decision is turned on, we can remove this property entirely (it defaults to true)
         cell: ({
           row: {
             original: { poolCandidate },
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -447,7 +491,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "priority",
-        header: intl.formatMessage(tableMessages.category),
+        header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
             original: {
@@ -456,7 +500,7 @@ const PoolCandidatesTable = ({
           },
         }) => priorityCell(user.priorityWeight, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
         },
       },
     ),
@@ -475,9 +519,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => finalDecisionCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -495,9 +537,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => jobPlacementCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -527,7 +567,9 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "preferredLang",
-        header: intl.formatMessage(tableMessages.preferredLang),
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
       },
     ),
     columnHelper.display({
@@ -551,7 +593,7 @@ const PoolCandidatesTable = ({
     }),
     columnHelper.accessor(({ poolCandidate: { user } }) => user.email, {
       id: "email",
-      header: intl.formatMessage(tableMessages.email),
+      header: intl.formatMessage(commonMessages.email),
       sortingFn: normalizedText,
       cell: ({
         row: {

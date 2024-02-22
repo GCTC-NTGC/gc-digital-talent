@@ -205,6 +205,11 @@ class Pool extends Model
         $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
+    public function generalQuestions(): HasMany
+    {
+        return $this->hasMany(GeneralQuestion::class);
+    }
+
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);

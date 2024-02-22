@@ -295,6 +295,16 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       ? nullSearchMessage
       : nullMessage;
 
+  // manipulate pagination object prop as needed
+  // adjust total for client side only, to be post filtering
+  let paginationAdjusted: PaginationDef | undefined = pagination;
+  if (paginationAdjusted?.internal) {
+    paginationAdjusted = {
+      ...paginationAdjusted,
+      total: table.getFilteredRowModel().rows.length,
+    };
+  }
+
   return (
     <>
       <Table.Controls add={add}>
@@ -317,8 +327,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       {hasNoData || hasNoVisibleRows ? (
         <NullMessage {...(nullStateMessage ? { ...nullStateMessage } : {})} />
       ) : (
-        <div aria-labelledby={captionId}>
-          <Table.Wrapper data-h2-position="base(relative)">
+        <>
+          <Table.Wrapper
+            data-h2-position="base(relative)"
+            aria-labelledby={captionId}
+          >
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
               <Table.Head>
@@ -360,10 +373,14 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
               />
             )}
           </Table.Wrapper>
-          {pagination && (
-            <TablePagination table={table} pagination={pagination} />
+          {paginationAdjusted && (
+            <TablePagination
+              table={table}
+              pagination={paginationAdjusted}
+              label={caption?.toString() ?? ""}
+            />
           )}
-        </div>
+        </>
       )}
     </>
   );

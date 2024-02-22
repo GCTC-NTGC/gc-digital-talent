@@ -34,16 +34,13 @@ import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
+import messages from "~/messages/adminMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = defineMessage({
-  defaultMessage: "Assessment plan",
-  id: "fkYYe3",
-  description: "Title for the assessment plan builder",
-});
+const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -276,8 +273,11 @@ export const AssessmentPlanBuilderPage = () => {
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
       (authorizedRoleAssignment) =>
-        authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
-        authorizedRoleAssignment.team?.name === queryData?.pool?.team?.name,
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
+          authorizedRoleAssignment.team?.name ===
+            queryData?.pool?.team?.name) ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
+        authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
   // figure out what content should be displayed

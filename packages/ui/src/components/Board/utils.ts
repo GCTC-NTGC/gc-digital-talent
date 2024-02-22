@@ -1,16 +1,4 @@
-import { arrowKeys, ArrowKey } from "./constants";
 import { BoardColumn } from "./types";
-
-/**
- * Determine if a key being pressed is an
- * arrow key or, not
- *
- * @param k {string}
- * @returns {boolean}
- */
-export function isArrowKey(k: React.KeyboardEvent["key"]): k is ArrowKey {
-  return arrowKeys.includes(k as ArrowKey);
-}
 
 /**
  * Find columns
@@ -23,6 +11,7 @@ export function isArrowKey(k: React.KeyboardEvent["key"]): k is ArrowKey {
  * @param rootEl
  * @returns
  */
+// eslint-disable-next-line import/prefer-default-export
 export function findColumns(rootEl: HTMLDivElement | null): BoardColumn[] {
   const colDiv = rootEl?.querySelectorAll<HTMLDivElement>(".Board__Column");
   let cols: BoardColumn[] = [];

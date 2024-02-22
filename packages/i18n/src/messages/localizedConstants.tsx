@@ -40,6 +40,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
+import commonMessages from "./commonMessages";
 
 const employmentEquityGroups = defineMessages({
   woman: {
@@ -161,12 +162,7 @@ const citizenshipStatusesProfile = defineMessages({
     id: "OaB49n",
     description: "declaring one to be a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "lr2+2R",
-    description:
-      "declaring one to be neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesProfile = (
@@ -189,11 +185,7 @@ const citizenshipStatusesAdmin = defineMessages({
     id: "xCBinq",
     description: "user is a permanent resident",
   },
-  [CitizenshipStatus.Other]: {
-    defaultMessage: "Other",
-    id: "48qVi9",
-    description: "user is neither a citizen or permanent resident of Canada",
-  },
+  [CitizenshipStatus.Other]: commonMessages.other,
 });
 
 export const getCitizenshipStatusesAdmin = (
@@ -607,80 +599,86 @@ const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Draft.",
   },
   [PoolCandidateStatus.DraftExpired]: {
-    defaultMessage: "Draft Expired",
-    id: "ad4CnG",
+    defaultMessage: "Draft expired",
+    id: "39grMX",
     description: "The pool candidate's status is Expired Draft.",
   },
   [PoolCandidateStatus.NewApplication]: {
-    defaultMessage: "New Application",
-    id: "OMmTA4",
+    defaultMessage: "New application",
+    id: "kMh3VV",
     description: "The pool candidate's status is New Application.",
   },
   [PoolCandidateStatus.ApplicationReview]: {
-    defaultMessage: "Application Review",
-    id: "Yq2EZj",
+    defaultMessage: "Application review",
+    id: "U67zv6",
     description: "The pool candidate's status is Application Review.",
   },
   [PoolCandidateStatus.ScreenedIn]: {
-    defaultMessage: "Screened In",
-    id: "dnGlXQ",
+    defaultMessage: "Screened in",
+    id: "BwJ+5o",
     description: "The pool candidate's status is Screened In.",
   },
   [PoolCandidateStatus.ScreenedOutApplication]: {
-    defaultMessage: "Screened Out - Application",
-    id: "+J9x7H",
+    defaultMessage: "Screened out - Application",
+    id: "jAeSU0",
     description: "The pool candidate's status is Screened Out Application",
   },
   [PoolCandidateStatus.ScreenedOutNotInterested]: {
-    defaultMessage: "Screened Out - No Longer Interested",
-    id: "TN8HIH",
+    defaultMessage: "Screened out - No longer interested",
+    id: "Zdcq76",
     description:
       "The pool candidate's status is Screened Out because of no interest",
   },
   [PoolCandidateStatus.ScreenedOutNotResponsive]: {
-    defaultMessage: "Screened Out - Not Responsive",
-    id: "QCcpJr",
+    defaultMessage: "Screened out - Not responsive",
+    id: "+/OGZ/",
     description:
       "The pool candidate's status is Screened Out because no longer responding",
   },
   [PoolCandidateStatus.UnderAssessment]: {
-    defaultMessage: "Under Assessment",
-    id: "y5u8P0",
+    defaultMessage: "Under assessment",
+    id: "YA9hQg",
     description: "The pool candidate's status is Under Assessment.",
   },
   [PoolCandidateStatus.ScreenedOutAssessment]: {
-    defaultMessage: "Screened Out - Assessment",
-    id: "C2RURL",
+    defaultMessage: "Screened out - Assessment",
+    id: "YHAHcL",
     description: "The pool candidate's status is Screened Out Assessment.",
   },
   [PoolCandidateStatus.QualifiedAvailable]: {
-    defaultMessage: "Qualified Available",
-    id: "lx9NFI",
+    defaultMessage: "Qualified available",
+    id: "o0wsIT",
     description: "The pool candidate's status is Qualified Available",
   },
   [PoolCandidateStatus.QualifiedUnavailable]: {
-    defaultMessage: "Qualified Unavailable",
-    id: "LwZY5H",
+    defaultMessage: "Qualified unavailable",
+    id: "KhCk7Y",
     description: "The pool candidate's status is Qualified Unavailable.",
   },
   [PoolCandidateStatus.QualifiedWithdrew]: {
-    defaultMessage: "Qualified Withdrew",
-    id: "yRxy3a",
+    defaultMessage: "Qualified withdrew",
+    id: "MGug4K",
     description: "The pool candidate's status is Qualified Withdrew.",
   },
+  [PoolCandidateStatus.PlacedTentative]: {
+    defaultMessage: "Offer in progress",
+    id: "KUlql9",
+    description:
+      "The pool candidate's status is Offer in Progress, tentatively placed",
+  },
   [PoolCandidateStatus.PlacedCasual]: {
-    defaultMessage: "Placed Casual",
-    id: "ACppq6",
+    defaultMessage: "Placed casual",
+    id: "Fm6WXh",
     description: "The pool candidate's status is Placed Casual.",
   },
   [PoolCandidateStatus.PlacedTerm]: {
-    defaultMessage: "Placed Term",
-    id: "6TqakV",
+    defaultMessage: "Placed term",
+    id: "+GcpQs",
     description: "The pool candidate's status is Placed Term.",
   },
   [PoolCandidateStatus.PlacedIndeterminate]: {
-    defaultMessage: "Placed Indeterminate",
-    id: "IANM2P",
+    defaultMessage: "Placed indeterminate",
+    id: "yn7hDB",
     description: "The pool candidate's status is Placed Indeterminate.",
   },
   [PoolCandidateStatus.Expired]: {
@@ -1104,11 +1102,7 @@ const educationTypeMessages = defineMessages({
     id: "jS69se",
     description: "Certification selection for education type input",
   },
-  [EducationType.Other]: {
-    defaultMessage: "Other",
-    id: "eGg734",
-    description: "Other selection for education type input",
-  },
+  [EducationType.Other]: commonMessages.other,
 });
 
 export const getEducationType = (
@@ -1665,11 +1659,7 @@ const bilingualEvaluations = defineMessages({
     id: "DUuisY",
     description: "Completed a French language evaluation",
   },
-  [BilingualEvaluation.NotCompleted]: {
-    defaultMessage: "No",
-    id: "ZEsIZi",
-    description: "No, did not complete a language evaluation",
-  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
 });
 
 export const getBilingualEvaluation = (
@@ -1697,11 +1687,7 @@ export const poolCandidatePriorities = defineMessages({
     id: "oMyc4e",
     description: "Priority text for citizens of canada",
   },
-  40: {
-    defaultMessage: "Other",
-    id: "K80psp",
-    description: "Priority text for users with no priority",
-  },
+  40: commonMessages.other,
 });
 
 export const getPoolCandidatePriorities = (
@@ -1735,11 +1721,7 @@ const publishingGroups = defineMessages({
     id: "1YuZjR",
     description: "The publishing group called IT Jobs for ongoing recruitments",
   },
-  [PublishingGroup.Other]: {
-    defaultMessage: "Other",
-    id: "mv7JO3",
-    description: "The publishing group called Other",
-  },
+  [PublishingGroup.Other]: commonMessages.other,
 });
 
 export const getPublishingGroup = (

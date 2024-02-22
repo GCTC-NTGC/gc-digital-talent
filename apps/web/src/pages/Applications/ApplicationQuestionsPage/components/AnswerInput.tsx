@@ -3,14 +3,14 @@ import { useIntl } from "react-intl";
 
 import { TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { ScreeningQuestion } from "@gc-digital-talent/graphql";
+import { GeneralQuestion } from "@gc-digital-talent/graphql";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
 interface AnswerInputProps {
   index: number;
-  question: ScreeningQuestion;
+  question: GeneralQuestion;
 }
 
 const AnswerInput = ({ index, question }: AnswerInputProps) => {

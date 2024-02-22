@@ -43,17 +43,22 @@
     "watch": "turbo run watch --concurrency=30",
     "watch:project": "turbo run watch",
     "e2e": "pnpm run e2e --workspace=@gc-digital-talent/e2e",
+    "e2e:playwright": "pnpm run e2e:playwright --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:chromium": "pnpm run e2e:playwright:chromium --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:firefox": "pnpm run e2e:playwright:firefox --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:webkit": "pnpm run e2e:playwright:webkit --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:report": "pnpm run e2e:playwright:report --workspace=@gc-digital-talent/playwright",
     "e2e:open": "pnpm run e2e:open",
     "e2e:run:all": "pnpm run e2e:run:all --workspace=@gc-digital-talent/e2e",
     "e2e:run:inspect": "pnpm run e2e:run:inspect --workspace=@gc-digital-talent/e2e",
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/cli": "5.0.2",
     "@hydrogen-css/hydrogen": "2.0.3",
     "eslint-config-custom": "workspace:*",
     "jest-fail-on-console": "^3.1.2",
     "prettier": "^3.1.1",
-    "turbo": "^1.11.3"
+    "turbo": "^1.12.4"
   }
 }

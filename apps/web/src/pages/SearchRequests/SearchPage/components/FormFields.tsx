@@ -17,14 +17,14 @@ import {
   getPoolStream,
   getWorkRegion,
 } from "@gc-digital-talent/i18n";
-
 import {
   Classification,
   LanguageAbility,
   PoolStream,
   Skill,
   WorkRegion,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
@@ -53,14 +53,10 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     ),
   }));
 
-  const streamOptions = enumToOptions(PoolStream)
-    .map(({ value }) => ({
-      value: value as PoolStream,
-      label: intl.formatMessage(getPoolStream(value)),
-    }))
-    // Avoid showing the ATIP stream as an option, since we don't have pools with candidates yet.
-    // TODO: remove this when ATIP pools are ready. See ticket https://github.com/GCTC-NTGC/gc-digital-talent/issues/7601
-    .filter(({ value }) => value !== PoolStream.AccessInformationPrivacy);
+  const streamOptions = enumToOptions(PoolStream).map(({ value }) => ({
+    value: value as PoolStream,
+    label: intl.formatMessage(getPoolStream(value)),
+  }));
 
   return (
     <>

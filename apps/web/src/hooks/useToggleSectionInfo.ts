@@ -3,6 +3,7 @@ import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import { HeadingProps, IconType } from "@gc-digital-talent/ui";
 
@@ -11,6 +12,7 @@ interface GetToggleSectionIconArgs {
   fallback: IconType;
   completed?: boolean | null;
   error?: boolean | null;
+  optional?: boolean | null;
 }
 
 export type SectionIcon = {
@@ -25,11 +27,12 @@ export const getToggleSectionIcon: GetToggleSectionIconFn = ({
   fallback = InformationCircleIcon,
   completed,
   error,
+  optional,
 }) => {
   if (isEditing) {
     return {
       icon: PencilSquareIcon,
-      color: "warning",
+      color: "secondary",
     };
   }
 
@@ -47,6 +50,13 @@ export const getToggleSectionIcon: GetToggleSectionIconFn = ({
     };
   }
 
+  if (optional) {
+    return {
+      icon: QuestionMarkCircleIcon,
+      color: "secondary",
+    };
+  }
+
   return {
     icon: fallback,
   };
@@ -56,6 +66,7 @@ interface UseToggleSectionInfoArgs {
   fallbackIcon: IconType;
   isNull: boolean;
   emptyRequired: boolean;
+  optional?: boolean;
 }
 
 interface SectionInfo {
@@ -68,6 +79,7 @@ const useToggleSectionInfo = ({
   isNull,
   emptyRequired,
   fallbackIcon,
+  optional,
 }: UseToggleSectionInfoArgs): SectionInfo => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const icon = getToggleSectionIcon({
@@ -75,6 +87,7 @@ const useToggleSectionInfo = ({
     error: emptyRequired,
     completed: !isNull && !emptyRequired,
     fallback: fallbackIcon,
+    optional,
   });
 
   const handleOpenChange = useCallback((newIsEditing: boolean) => {

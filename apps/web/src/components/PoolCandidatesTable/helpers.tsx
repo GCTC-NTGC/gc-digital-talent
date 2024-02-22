@@ -4,6 +4,7 @@ import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
+  Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -12,13 +13,15 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Color, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
   Maybe,
+  Pool,
+  PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -37,10 +40,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  isDisqualifiedStatus,
-  isQualifiedStatus,
-  isRemovedStatus,
-  isToAssessStatus,
+  getFinalDecisionPillColor,
   statusToFinalDecision,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
@@ -52,8 +52,9 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
-import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -126,24 +127,29 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <span data-h2-font-weight="base(700)">
-      {cells.view(
-        paths.poolCandidateApplication(candidate.id),
-        candidateName,
-        undefined,
-        intl.formatMessage(
-          {
-            defaultMessage: "View {name}'s application",
-            id: "mzGMZC",
-            description:
-              "Link text to view a candidates application for assistive technologies",
-          },
-          {
-            name: candidateName,
-          },
-        ),
-      )}
-    </span>
+    <Link href={paths.poolCandidateApplication(candidate.id)}>
+      {candidateName}
+    </Link>
+  );
+};
+
+export const processCell = (
+  pool: Pool,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => {
+  const poolName = getFullPoolTitleLabel(intl, pool);
+  return (
+    <Link
+      href={paths.poolView(pool.id)}
+      aria-label={
+        intl.formatMessage(processMessages.process) +
+        intl.formatMessage(commonMessages.dividingColon) +
+        poolName
+      }
+    >
+      {poolName}
+    </Link>
   );
 };
 
@@ -221,28 +227,6 @@ export const currentLocationAccessor = (
       ? getProvinceOrTerritory(province as string)
       : commonMessages.notFound,
   )}`;
-
-const getFinalDecisionPillColor = (
-  status?: Maybe<PoolCandidateStatus>,
-): Color => {
-  if (isToAssessStatus(status)) {
-    return "warning";
-  }
-
-  if (isDisqualifiedStatus(status)) {
-    return "error";
-  }
-
-  if (isRemovedStatus(status)) {
-    return "black";
-  }
-
-  if (isQualifiedStatus(status)) {
-    return "success";
-  }
-
-  return "white";
-};
 
 export const finalDecisionCell = (
   intl: IntlShape,
@@ -322,6 +306,8 @@ export function transformSortStateToOrderByClause(
     ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
+    ["priority", "PRIORITY_WEIGHT"],
+    ["status", "status_weight"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -331,7 +317,7 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -343,9 +329,13 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
-      sortingRule.id,
-    )
+    [
+      "candidateName",
+      "email",
+      "preferredLang",
+      "currentLocation",
+      "priority",
+    ].includes(sortingRule.id)
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -371,12 +361,60 @@ export function transformSortStateToOrderByClause(
     };
   }
   // input cannot be optional for QueryPoolCandidatesPaginatedOrderByRelationOrderByClause
-  // default tertiary sort is submitted_at,
+  // default final sort is column candidateName,
 
   return {
-    column: "submitted_at",
+    column: undefined,
     order: SortOrder.Asc,
-    user: undefined,
+    user: {
+      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+      column: "FIRST_NAME" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+    },
+  };
+}
+
+export function getSortOrder(
+  sortingRules?: SortingState,
+  filterState?: PoolCandidateSearchInput,
+  doNotUseBookmark?: boolean,
+  recordDecisionActive?: boolean,
+): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
+  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
+  return [
+    ...(doNotUseBookmark
+      ? []
+      : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
+    ...(recordDecisionActive
+      ? []
+      : [
+          { column: "status_weight", order: SortOrder.Asc },
+          {
+            user: {
+              aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+              column:
+                "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
+            },
+            order: SortOrder.Asc,
+          },
+        ]),
+    // Do not apply other filters if we are sorting by process
+    ...(!hasProcess
+      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
+      : []),
+  ];
+}
+
+export function getPoolNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolCandidatePoolNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
   };
 }
 
@@ -679,10 +717,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             endDate
           }
         }
-        screeningQuestionResponses {
+        generalQuestionResponses {
           id
           answer
-          screeningQuestion {
+          generalQuestion {
             id
             question {
               en

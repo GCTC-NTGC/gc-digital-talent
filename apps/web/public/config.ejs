@@ -9,25 +9,21 @@
 
 const data = new Map([
     // auth settings
-    ["OAUTH_POST_LOGOUT_REDIRECT", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT %>"],
+    ["OAUTH_POST_LOGOUT_REDIRECT_EN", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_EN") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT_EN %>"],
+    ["OAUTH_POST_LOGOUT_REDIRECT_FR", filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_FR") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_POST_LOGOUT_REDIRECT_FR %>"],
     ["OAUTH_LOGOUT_URI", filterUnusable("$OAUTH_LOGOUT_URI") ?? "<%= htmlWebpackPlugin.options.environment.OAUTH_LOGOUT_URI %>"],
 
     // Feature flags
-    ["FEATURE_SKILL_LIBRARY", filterUnusable("$FEATURE_SKILL_LIBRARY") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_SKILL_LIBRARY %>"],
     ["FEATURE_DIRECTIVE_FORMS", filterUnusable("$FEATURE_DIRECTIVE_FORMS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTIVE_FORMS %>"],
     ["FEATURE_RECORD_OF_DECISION", filterUnusable("$FEATURE_RECORD_OF_DECISION") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_RECORD_OF_DECISION %>"],
+    ["FEATURE_DARK_MODE", filterUnusable("$FEATURE_DARK_MODE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DARK_MODE %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],
 
     // Logging levels
     ["LOG_CONSOLE_LEVEL", filterUnusable("$LOG_CONSOLE_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_CONSOLE_LEVEL %>"],
-    ["LOG_APPLICATIONINSIGHTS_LEVEL", filterUnusable("$LOG_APPLICATIONINSIGHTS_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_APPLICATIONINSIGHTS_LEVEL %>"],
-
-    // Maintenance banner
-    ["MAINTENANCE_BANNER_PUBLIC_DATE", filterUnusable("$MAINTENANCE_BANNER_PUBLIC_DATE") ?? "<%= htmlWebpackPlugin.options.environment.MAINTENANCE_BANNER_PUBLIC_DATE %>"],
-    ["MAINTENANCE_BANNER_START_DATE", filterUnusable("$MAINTENANCE_BANNER_START_DATE") ?? "<%= htmlWebpackPlugin.options.environment.MAINTENANCE_BANNER_START_DATE %>"],
-    ["MAINTENANCE_BANNER_DURATION", filterUnusable("$MAINTENANCE_BANNER_DURATION") ?? "<%= htmlWebpackPlugin.options.environment.MAINTENANCE_BANNER_DURATION %>"],
+    ["LOG_APPLICATIONINSIGHTS_LEVEL", filterUnusable("$LOG_APPLICATIONINSIGHTS_LEVEL") ?? "<%= htmlWebpackPlugin.options.environment.LOG_APPLICATIONINSIGHTS_LEVEL %>"]
 ]);
 
 window.__SERVER_CONFIG__ = data;

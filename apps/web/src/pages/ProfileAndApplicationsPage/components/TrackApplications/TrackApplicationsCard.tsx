@@ -13,7 +13,7 @@ import {
   useDeleteApplicationMutation,
 } from "~/api/generated";
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
@@ -61,7 +61,7 @@ const TrackApplicationsCard = ({
     intl,
   );
   const { userAuthInfo } = useAuthorization();
-  const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
+  const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
   return (
     <div
       data-h2-background-color="base(foreground)"

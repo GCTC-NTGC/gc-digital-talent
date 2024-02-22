@@ -5,7 +5,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   PoolStatus,
@@ -46,6 +46,7 @@ const WhatToExpectSection = ({
     isNull,
     emptyRequired: false,
     fallbackIcon: QuestionMarkCircleIcon,
+    optional: true,
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -95,36 +96,29 @@ const WhatToExpectSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} subtitle={subtitle} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div
                 data-h2-display="base(grid)"
                 data-h2-gap="base(x1)"
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin="base(x1 0)"
               >
                 <RichTextInput
                   id="whatToExpectEn"
@@ -155,7 +149,8 @@ const WhatToExpectSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
                       defaultMessage: "Save what to expect",
                       id: "wimmA1",
                       description:

@@ -62,8 +62,12 @@ import {
   pageTitle as indexSkillFamilyPageTitle,
   pageOutlineIcon as indexSkillFamilyPageIcon,
 } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
+import {
+  pageTitle as announcementsPageTitle,
+  pageOutlineIcon as announcementsPageIcon,
+} from "~/pages/AnnouncementsPage/AnnouncementsPage";
 
-import MaintenanceBanner from "../MaintenanceBanner";
+import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
 import SignInOrSignOut from "./SignInOrSignOut";
 
@@ -278,6 +282,14 @@ const AdminLayout = () => {
                 {intl.formatMessage(indexSkillFamilyPageTitle)}
               </SideMenuItem>
             )}
+            {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
+              <SideMenuItem
+                href={paths.announcements()}
+                icon={announcementsPageIcon}
+              >
+                {intl.formatMessage(announcementsPageTitle)}
+              </SideMenuItem>
+            )}
           </SideMenuCategory>
         </SideMenu>
         <SideMenuContentWrapper>
@@ -287,7 +299,7 @@ const AdminLayout = () => {
             data-h2-flex-direction="base(column)"
           >
             <Header width="full" />
-            <MaintenanceBanner />
+            <SitewideBanner />
             <OpenMenuButton
               onClick={() => setMenuOpen(true)}
               show={isSmallScreen}

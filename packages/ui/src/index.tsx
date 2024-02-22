@@ -20,6 +20,9 @@ import Card, {
   type CardProps,
 } from "./components/Card";
 import CardLink, { type CardLinkProps } from "./components/CardLink";
+import CardRepeater, {
+  useCardRepeaterContext,
+} from "./components/CardRepeater/CardRepeater";
 import Chip, { Chips, type ChipProps } from "./components/Chip";
 import Collapsible from "./components/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
@@ -137,6 +140,7 @@ export {
   CardBasic,
   CardFlat,
   CardLink,
+  CardRepeater,
   Chips,
   Chip,
   Collapsible,
@@ -175,4 +179,4 @@ export {
   Well,
 };
 
-export { incrementHeadingRank, decrementHeadingRank };
+export { incrementHeadingRank, decrementHeadingRank, useCardRepeaterContext };

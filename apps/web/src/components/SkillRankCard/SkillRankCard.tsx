@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
-
-import { UserSkill } from "~/api/generated";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { SkillShowcase_UserSkillFragment } from "@gc-digital-talent/graphql";
 
 import SkillRankListItem from "./SkillRankListItem";
 import NullMessage, { NullMessageProps } from "./NullMessage";
@@ -11,7 +11,7 @@ import NullMessage, { NullMessageProps } from "./NullMessage";
 interface SkillRankCardProps {
   title: React.ReactNode;
   description: React.ReactNode;
-  userSkills: UserSkill[];
+  userSkills: readonly SkillShowcase_UserSkillFragment[];
   titleAs?: HeadingLevel;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];
@@ -55,11 +55,7 @@ const SkillRankCard = ({
             href={editLink.href}
             aria-label={editLink.label}
           >
-            {intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "igcM7/",
-              description: "Link text for editing a list of skill rankings",
-            })}
+            {intl.formatMessage(commonMessages.edit)}
           </Link>
         )}
       </div>

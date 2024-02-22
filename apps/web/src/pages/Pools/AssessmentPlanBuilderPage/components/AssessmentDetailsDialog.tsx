@@ -65,7 +65,7 @@ const AssessmentDetailsDialog_UpdateMutation = graphql(/* GraphQL */ `
 
 const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
   /* GraphQL */ `
-    mutation createOrUpdateScreeningQuestionAssessmentStep(
+    mutation createOrUpdateScreeningScreeningAssessmentStep(
       $poolId: UUID!
       $screeningQuestions: [SyncScreeningQuestionsInput]
       $assessmentStep: ScreeningQuestionAssessmentStepInput
@@ -116,6 +116,7 @@ interface AssessmentDetailsDialogProps {
   allPoolSkills: PoolSkill[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
+  onError?: () => void;
 }
 
 const AssessmentDetailsDialog = ({
@@ -123,6 +124,7 @@ const AssessmentDetailsDialog = ({
   allPoolSkills,
   disallowStepTypes = [],
   trigger,
+  onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
@@ -234,7 +236,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -260,7 +262,7 @@ const AssessmentDetailsDialog = ({
           fr: values.assessmentTitleFr,
         },
         poolSkills: {
-          sync: values.assessedSkills,
+          sync: values.assessedSkills ?? [],
         },
       },
     };
@@ -295,10 +297,9 @@ const AssessmentDetailsDialog = ({
         },
         poolSkills: {
           sync:
-            values.assessedSkillsScreeningQuestions?.length &&
-            values.assessedSkillsScreeningQuestions.length > 0
-              ? values.assessedSkillsScreeningQuestions
-              : null,
+            values.assessedSkills?.length && values.assessedSkills.length > 0
+              ? values.assessedSkills
+              : [],
         },
       },
     };
@@ -338,6 +339,7 @@ const AssessmentDetailsDialog = ({
         reset(); // the create dialog could be used several times in a row
       })
       .catch(() => {
+        onError?.();
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: saving assessment step failed.",
@@ -648,29 +650,16 @@ const AssessmentDetailsDialog = ({
                     })}
                   </div>
                 </div>
-                {selectedTypeOfAssessment ===
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkillsScreeningQuestions"
-                    id="assessedSkillsScreeningQuestions"
-                    name="assessedSkillsScreeningQuestions"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                  />
-                )}
-                {selectedTypeOfAssessment !==
-                  AssessmentStepType.ScreeningQuestionsAtApplication && (
-                  <Checklist
-                    idPrefix="assessedSkills"
-                    id="assessedSkills"
-                    name="assessedSkills"
-                    legend={intl.formatMessage(labels.assessedSkills)}
-                    items={assessedSkillsItems}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                )}
+                <Checklist
+                  idPrefix="assessedSkills"
+                  id="assessedSkills"
+                  name="assessedSkills"
+                  legend={intl.formatMessage(labels.assessedSkills)}
+                  items={assessedSkillsItems}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
                 {!assessedSkillsItems.length ? (
                   <Field.Error>
                     {intl.formatMessage({

@@ -1,21 +1,21 @@
 import {
-  CreateScreeningQuestionResponseInput,
-  ScreeningQuestion,
-  ScreeningQuestionResponse,
-  UpdateScreeningQuestionResponseInput,
+  CreateGeneralQuestionResponseInput,
+  GeneralQuestion,
+  GeneralQuestionResponse,
+  UpdateGeneralQuestionResponseInput,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "./types";
 
 export const dataToFormValues = (
-  questions: Array<ScreeningQuestion>,
-  responses: Array<ScreeningQuestionResponse>,
+  questions: Array<GeneralQuestion>,
+  responses: Array<GeneralQuestionResponse>,
 ): FormValues => {
   return {
     action: "continue",
     answers: questions.map((question) => {
       const foundResponse = responses.find(
-        (response) => response?.screeningQuestion?.id === question.id,
+        (response) => response?.generalQuestion?.id === question.id,
       );
 
       return {
@@ -29,15 +29,15 @@ export const dataToFormValues = (
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
-  existingResponses: Array<ScreeningQuestionResponse>,
+  existingResponses: Array<GeneralQuestionResponse>,
 ) => {
-  let create: Array<CreateScreeningQuestionResponseInput> = [];
-  let update: Array<UpdateScreeningQuestionResponseInput> = [];
+  let create: Array<CreateGeneralQuestionResponseInput> = [];
+  let update: Array<UpdateGeneralQuestionResponseInput> = [];
 
   formValues.answers.forEach(({ id, questionId, answer }) => {
     const existingResponse = existingResponses.find(
       (response) =>
-        response.screeningQuestion?.id === questionId && questionId !== "new",
+        response.generalQuestion?.id === questionId && questionId !== "new",
     );
     if (existingResponse) {
       update = [
@@ -52,7 +52,7 @@ export const formValuesToSubmitData = (
         ...create,
         {
           answer,
-          screeningQuestion: {
+          generalQuestion: {
             connect: questionId,
           },
         },
@@ -61,7 +61,7 @@ export const formValuesToSubmitData = (
   });
 
   return {
-    screeningQuestionResponses: {
+    generalQuestionResponses: {
       update,
       create,
     },

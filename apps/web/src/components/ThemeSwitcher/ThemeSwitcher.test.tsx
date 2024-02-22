@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 
-import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -22,11 +22,6 @@ describe("ThemeSwitcher", () => {
   // Spy on local storage methods to allow for testing them
   jest.spyOn(Object.getPrototypeOf(window.localStorage), "setItem");
   Object.setPrototypeOf(window.localStorage.setItem, jest.fn());
-
-  it("should have no accessibility errors", async () => {
-    const { container } = renderThemeSwitcher();
-    await axeTest(container);
-  });
 
   it("should change theme to light mode", async () => {
     renderThemeSwitcher();

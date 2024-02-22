@@ -7,6 +7,7 @@ import {
   useForm,
 } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "urql";
 
 import {
   TableOfContents,
@@ -18,24 +19,28 @@ import {
 import { Repeater, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  commonMessages,
   getBehaviouralSkillLevel,
   getLocalizedName,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   Skill,
   UserSkill,
   Scalars,
   SkillCategory,
-  useCreateUserSkillMutation,
-  useUpdateUserSkillMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+
+import {
+  CreateUserSkill_Mutation,
+  UpdateUserSkill_Mutation,
+} from "../operations";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -74,8 +79,8 @@ const UpdateSkillShowcase = ({
   const navigate = useNavigate();
   const addId = React.useId();
 
-  const [, executeCreateMutation] = useCreateUserSkillMutation();
-  const [, executeUpdateMutation] = useUpdateUserSkillMutation();
+  const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
+  const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
 
   const methods = useForm<FormValues>({
     defaultValues: initialSkills,
@@ -86,6 +91,11 @@ const UpdateSkillShowcase = ({
     name: "userSkills",
   });
   const watchedSkills = watch("userSkills");
+
+  const existingSkillsRanking = initialSkills.userSkills.map(
+    (userSkill) => userSkill.skill,
+  );
+  const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
   const handleSuccess = (msg?: React.ReactNode) => {
     toast.success(
@@ -117,10 +127,6 @@ const UpdateSkillShowcase = ({
         .length > 0 ||
       watchedSkills.filter((userSkill) => userSkill.skill === values.skill)
         .length > 0;
-    const existingSkillsRanking = initialSkills.userSkills.map(
-      (userSkill) => userSkill.skill,
-    );
-    const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -255,12 +261,22 @@ const UpdateSkillShowcase = ({
                         id: addId,
                         button: (
                           <SkillBrowserDialog
-                            inLibrary={userSkills.map(
-                              (userSkill) => userSkill.skill,
-                            )}
+                            inLibrary={userSkills
+                              .map((userSkill) => userSkill.skill)
+                              .filter(
+                                (skill) =>
+                                  !existingSkillsRankingFiltered.includes(
+                                    skill.id,
+                                  ),
+                              )}
                             trigger={triggerProps}
                             context="showcase"
-                            skills={skills}
+                            skills={skills.filter(
+                              (skill) =>
+                                !existingSkillsRankingFiltered.includes(
+                                  skill.id,
+                                ),
+                            )}
                             onSave={handleSave}
                             showCategory={false}
                             noToast
@@ -351,11 +367,7 @@ const UpdateSkillShowcase = ({
                           navigate(pageInfo.returnPath);
                         }}
                       >
-                        {intl.formatMessage({
-                          defaultMessage: "Cancel",
-                          id: "yFIC7K",
-                          description: "Label for close availability dialog.",
-                        })}
+                        {intl.formatMessage(commonMessages.cancel)}
                       </Button>
                     </div>
                   </form>

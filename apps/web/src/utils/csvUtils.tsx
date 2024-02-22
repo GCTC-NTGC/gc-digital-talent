@@ -2,6 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   Locales,
+  commonMessages,
   getIndigenousCommunity,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
@@ -22,7 +23,7 @@ import {
   IndigenousCommunity,
   Maybe,
   Experience,
-  ScreeningQuestionResponse,
+  GeneralQuestionResponse,
 } from "~/api/generated";
 import {
   isAwardExperience,
@@ -61,16 +62,8 @@ export const yesOrNo = (value: Maybe<boolean> | undefined, intl: IntlShape) => {
     return "";
   }
   return value
-    ? intl.formatMessage({
-        defaultMessage: "Yes",
-        id: "UOO1gW",
-        description: "Message for when a value is true",
-      })
-    : intl.formatMessage({
-        defaultMessage: "No",
-        id: "q7bz0J",
-        description: "Message for when a value is false",
-      });
+    ? intl.formatMessage(commonMessages.yes)
+    : intl.formatMessage(commonMessages.no);
 };
 
 /**
@@ -388,20 +381,20 @@ export const getExperienceTitles = (
 };
 
 /**
- * Converts screening question responses to column data
+ * Converts general question responses to column data
  *
- * @param screeningQuestionResponses[]
+ * @param generalQuestionResponses[]
  */
-export const getScreeningQuestionResponses = (
-  responses: Maybe<Maybe<ScreeningQuestionResponse>[]> | undefined,
+export const getGeneralQuestionResponses = (
+  responses: Maybe<Maybe<GeneralQuestionResponse>[]> | undefined,
 ) => {
   let data: Record<string, string> = {};
 
-  responses?.filter(notEmpty).forEach(({ id, screeningQuestion, answer }) => {
+  responses?.filter(notEmpty).forEach(({ id, generalQuestion, answer }) => {
     data = {
       ...data,
       // Note: API sends Maybe with everything, but this should never be null or undefined
-      [screeningQuestion?.id || id]: sanitizeCSVString(answer),
+      [generalQuestion?.id || id]: sanitizeCSVString(answer),
     };
   });
 

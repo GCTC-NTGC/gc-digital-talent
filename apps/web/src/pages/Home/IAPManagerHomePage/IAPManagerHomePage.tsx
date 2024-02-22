@@ -17,8 +17,8 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.docx";
-import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.docx";
+import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.pptx";
+import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.pptx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
@@ -135,8 +135,8 @@ export const IAPManagerHomePage = () => {
             <p data-h2-font-size="base(h5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Together we can address barriers to Reconciliation, diversity and inclusion",
-                id: "mtLAap",
+                  "Together we can address barriers to reconciliation, diversity and inclusion",
+                id: "56jSOM",
                 description: "Hero subtitle for IAP manager homepage",
               })}
             </p>
@@ -272,8 +272,8 @@ export const IAPManagerHomePage = () => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "Linked directly to the advancement of Reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
-                      id: "0Ew2uu",
+                        "Linked directly to the advancement of reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
+                      id: "iSbtcK",
                       description:
                         "Paragraph 2 of the 'About the program' section",
                     })}
@@ -508,7 +508,7 @@ export const IAPManagerHomePage = () => {
                 description: "Title of a quotes section",
               })}
             </Heading>
-            <div
+            <blockquote
               data-h2-display="base(grid)"
               // 70rem - iap-home container width
               data-h2-grid-template-columns="base(minmax(x4, auto) minmax(0, 70rem) minmax(x4, auto))"
@@ -521,15 +521,13 @@ export const IAPManagerHomePage = () => {
                   data-h2-font-size="base(h3) p-tablet(h2)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
-                  <blockquote>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
-                      id: "YSnedz",
-                      description:
-                        "Quote from Darcy Pierlot about working with apprentices",
-                    })}
-                  </blockquote>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Having had the privilege of working closely with the Indigenous Apprentices and witnessing the immense talent and potential they possess, our IRCC team is confident that this investment will bring tremendous value to both our department and our apprentices themselves.",
+                    id: "YSnedz",
+                    description:
+                      "Quote from Darcy Pierlot about working with apprentices",
+                  })}
                 </p>
               </div>
               <div data-h2-grid-column="base(2)" data-h2-grid-row="base(2)">
@@ -558,7 +556,7 @@ export const IAPManagerHomePage = () => {
               >
                 <CloseQuote data-h2-width="base(x2) p-tablet(x3)" />
               </div>
-            </div>
+            </blockquote>
           </div>
         </div>
       </div>

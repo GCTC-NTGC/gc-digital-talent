@@ -44,7 +44,7 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
 import adminMessages from "../../messages/adminMessages";
-import { getFullPoolTitleLabel } from "../../utils/poolUtils";
+import { getShortPoolTitleLabel } from "../../utils/poolUtils";
 import { FormValues } from "./types";
 
 const context: Partial<OperationContext> = {
@@ -134,7 +134,7 @@ const PoolCandidateFilterDialog = ({
               label={intl.formatMessage(adminMessages.pools)}
               options={pools.map((pool) => ({
                 value: pool.id,
-                label: getFullPoolTitleLabel(intl, pool),
+                label: getShortPoolTitleLabel(intl, pool),
               }))}
             />
           </div>
@@ -178,12 +178,7 @@ const PoolCandidateFilterDialog = ({
         <Checklist
           idPrefix="priorityWeight"
           name="priorityWeight"
-          legend={intl.formatMessage({
-            defaultMessage: "Category",
-            id: "qrDCTV",
-            description:
-              "Title displayed for the Pool Candidates table Priority column.",
-          })}
+          legend={intl.formatMessage(adminMessages.category)}
           items={Object.keys(poolCandidatePriorities).map((key) => ({
             value: Number(key),
             label: intl.formatMessage(
@@ -218,7 +213,7 @@ const PoolCandidateFilterDialog = ({
           id="poolCandidateStatus"
           name="poolCandidateStatus"
           isMulti
-          label={intl.formatMessage(adminMessages.status)}
+          label={intl.formatMessage(commonMessages.status)}
           options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
             value,
             label: intl.formatMessage(getPoolCandidateStatus(value)),

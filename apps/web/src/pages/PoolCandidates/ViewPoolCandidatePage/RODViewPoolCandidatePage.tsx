@@ -1,8 +1,7 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { useQuery } from "urql";
 
@@ -16,10 +15,10 @@ import {
   CardBasic,
   Button,
   Link,
-  Chip,
+  Pill,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
   Scalars,
@@ -35,12 +34,25 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import AdminHero from "~/components/Hero/AdminHero";
+import { getCandidateStatusPill } from "~/utils/poolCandidate";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
+import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
+import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
+
+const screeningAndAssessmentTitle = defineMessage({
+  defaultMessage: "Screening and assessment",
+  id: "R8Naqm",
+  description: "Heading for the information of an application",
+});
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
@@ -154,11 +166,24 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
-        screeningQuestions {
+        generalQuestions {
           id
           question {
             en
             fr
+          }
+        }
+        assessmentSteps {
+          id
+          title {
+            en
+            fr
+          }
+          type
+          sortOrder
+          poolSkills {
+            id
+            type
           }
         }
         ...ApplicationInformation_PoolFragment
@@ -167,8 +192,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         id
         assessmentDecision
         assessmentResultType
+        assessmentStep {
+          id
+          type
+        }
         poolSkill {
           id
+          type
           skill {
             id
             key
@@ -222,6 +252,11 @@ export const ViewPoolCandidate = ({
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
+  const statusPill = getCandidateStatusPill(
+    poolCandidate,
+    unpackMaybes(poolCandidate.pool.assessmentSteps),
+    intl,
+  );
 
   const sections: Record<string, SectionContent> = {
     statusForm: {
@@ -308,12 +343,7 @@ export const ViewPoolCandidate = ({
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage({
-        defaultMessage: "Diversity, equity, and inclusion",
-        id: "zLeH2i",
-        description:
-          "Title for the diversity, equity, and inclusion snapshot section",
-      }),
+      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
     },
     government: {
       id: "government",
@@ -456,38 +486,76 @@ export const ViewPoolCandidate = ({
       data-h2-align-items="base(center)"
       data-h2-gap="base(x.5)"
     >
+      <Pill
+        mode="outline"
+        color={statusPill.color}
+        icon={statusPill.icon}
+        data-h2-font-weight="base(700)"
+      >
+        {statusPill.label}
+      </Pill>
       {poolCandidate.user.hasPriorityEntitlement ||
       poolCandidate.user.priorityWeight === 10 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Priority",
             id: "xGMcBO",
             description: "Label for priority chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
       {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
       poolCandidate.user.priorityWeight === 20 ? (
-        <Chip
-          color="black"
-          mode="outline"
-          label={intl.formatMessage({
+        <Pill color="black" mode="outline">
+          {intl.formatMessage({
             defaultMessage: "Veteran",
             id: "16iCWc",
             description: "Label for veteran chip on view candidate page",
           })}
-        />
+        </Pill>
       ) : null}
     </div>
   );
 
+  const candidateName = getFullNameLabel(
+    poolCandidate.user.firstName,
+    poolCandidate.user.lastName,
+    intl,
+  );
+
+  const navigationCrumbs = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Home",
+        id: "EBmWyo",
+        description: "Link text for the home link in breadcrumbs.",
+      }),
+      url: paths.adminDashboard(),
+    },
+    {
+      label: intl.formatMessage(indexPoolPageTitle),
+      url: paths.poolTable(),
+    },
+    {
+      label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+      url: paths.poolView(poolCandidate.pool.id),
+    },
+    {
+      label: intl.formatMessage(screeningAndAssessmentTitle),
+      url: paths.screeningAndEvaluation(poolCandidate.pool.id),
+    },
+    {
+      label: candidateName,
+      url: paths.poolCandidateApplication(poolCandidate.id),
+    },
+  ];
+
   return (
     <>
       <AdminHero
-        title={`${poolCandidate.user.firstName} ${poolCandidate.user.lastName}`}
+        title={candidateName}
         contentRight={pills}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       >
         <ProfileDetails user={poolCandidate.user} />
       </AdminHero>
@@ -528,19 +596,23 @@ export const ViewPoolCandidate = ({
                   poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
                 }
               />
-              <Button
-                icon={HandRaisedIcon}
-                type="button"
-                color="primary"
-                mode="inline"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Remove candidate",
-                  id: "Aixzmb",
-                  description:
-                    "Button label for remove candidate on view pool candidate page",
-                })}
-              </Button>
+              {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
+              page (#9198) */}
+              {false && (
+                <Button
+                  icon={HandRaisedIcon}
+                  type="button"
+                  color="primary"
+                  mode="inline"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Remove candidate",
+                    id: "Aixzmb",
+                    description:
+                      "Button label for remove candidate on view pool candidate page",
+                  })}
+                </Button>
+              )}
               <NotesDialog
                 poolCandidateId={poolCandidate.id}
                 notes={poolCandidate.notes}
@@ -565,30 +637,60 @@ export const ViewPoolCandidate = ({
               data-h2-flex-direction="base(column)"
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"
+              data-h2-margin-bottom="base(x1)"
+              data-h2-padding="base(x1)"
+              data-h2-background-color="base(error.lightest.3)"
             >
-              <p data-h2-font-weight="base(700)">
+              <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
                 {intl.formatMessage({
-                  defaultMessage: "Currently screening:",
-                  id: "h7l8Sd",
+                  defaultMessage: "Candidate status",
+                  id: "ETrCOq",
                   description:
-                    "Label for currently screening section on view pool candidate page",
+                    "Title for admin editing a pool candidates status",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "These fields will only be available for migration purposes during a limited time.",
+                  id: "FXpcgW",
+                  description:
+                    "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time",
                 })}
               </p>
-              <p>Step 1: Screening Application (Replace with fetched value)</p>
-              <Link
-                href="#replace-with-link"
-                icon={ArrowRightCircleIcon}
-                type="button"
-                color="primary"
-                mode="inline"
-              >
+              <p>
+                {intl.formatMessage(commonMessages.status)}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ChangeStatusDialog
+                  selectedCandidate={poolCandidate}
+                  user={poolCandidate.user}
+                  pools={pools}
+                />
+              </p>
+              <p>
                 {intl.formatMessage({
-                  defaultMessage: "Go to next candidate",
-                  id: "oTNbp0",
+                  defaultMessage: "Expiry date",
+                  id: "WAO4vD",
                   description:
-                    "Link label to view next candidate on view pool candidate page",
+                    "Label displayed on the date field of the change candidate expiry date dialog",
                 })}
-              </Link>
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ChangeDateDialog
+                  selectedCandidate={poolCandidate}
+                  user={poolCandidate.user}
+                />
+              </p>
+            </div>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+            >
+              <CandidateNavigation
+                candidateId={poolCandidate.id}
+                poolId={poolCandidate.pool.id}
+              />
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
@@ -598,11 +700,7 @@ export const ViewPoolCandidate = ({
                 color="quaternary"
                 data-h2-margin="base(x.75, 0, x1, 0)"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Screening and assessment",
-                  id: "R8Naqm",
-                  description: "Heading for the information of an application",
-                })}
+                {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
               <div>Coming soon!</div>
             </div>

@@ -2,16 +2,16 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
+import { graphql, Department } from "@gc-digital-talent/graphql";
 
-import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
-import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
@@ -41,15 +41,11 @@ export const DepartmentTable = ({
     columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
       id: "name",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Name",
-        id: "2wmzS1",
-        description: "Title displayed for the Department table Name column.",
-      }),
+      header: intl.formatMessage(commonMessages.name),
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: department } }) =>
         cells.edit(
           department.id,
@@ -100,15 +96,28 @@ export const DepartmentTable = ({
   );
 };
 
-const DepartmentTableApi = ({ title }: { title: string }) => {
-  const [result] = useDepartmentsQuery();
-  const { data, fetching, error } = result;
+const Departments_Query = graphql(/* GraphQL */ `
+  query Departments {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
-  const departments = data?.departments.filter(notEmpty);
+const DepartmentTableApi = ({ title }: { title: string }) => {
+  const [{ data, fetching, error }] = useQuery({ query: Departments_Query });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DepartmentTable departments={departments || []} title={title} />
+      <DepartmentTable
+        departments={unpackMaybes(data?.departments)}
+        title={title}
+      />
     </Pending>
   );
 };
