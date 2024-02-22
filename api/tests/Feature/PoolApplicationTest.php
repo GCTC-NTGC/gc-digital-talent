@@ -14,7 +14,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
 use App\Models\ScreeningQuestionResponse;
-use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
