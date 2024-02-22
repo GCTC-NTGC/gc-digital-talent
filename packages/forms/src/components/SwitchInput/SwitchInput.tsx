@@ -1,19 +1,21 @@
 import React from "react";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
+import * as SwitchPrimitive from "@radix-ui/react-switch";
 
-import { Switch, SwitchProps } from "@gc-digital-talent/ui";
+import { Switch, BaseSwitchProps } from "@gc-digital-talent/ui";
 
 import { CommonInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import Field from "../Field";
 
-export type SwitchInputProps = SwitchProps & {
-  id: CommonInputProps["id"];
-  name: CommonInputProps["name"];
-  label: CommonInputProps["label"];
-  rules?: CommonInputProps["rules"];
-  hideLabel?: boolean;
-};
+export type SwitchInputProps = BaseSwitchProps &
+  React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> & {
+    id: CommonInputProps["id"];
+    name: CommonInputProps["name"];
+    label: CommonInputProps["label"];
+    rules?: CommonInputProps["rules"];
+    hideLabel?: boolean;
+  };
 
 const SwitchInput = React.forwardRef<
   React.ElementRef<typeof Switch>,
