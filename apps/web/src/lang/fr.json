@@ -2651,10 +2651,6 @@
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
-  "CfNtWn": {
-    "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
-    "description": "Message displayed to users when there are no screening questions for a process"
-  },
   "Cjp2F6": {
     "defaultMessage": "Information sur le bassin",
     "description": "Title for the pool info page"
