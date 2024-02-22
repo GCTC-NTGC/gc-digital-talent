@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@storybook/react": "^7.6.16",
-    "@swc/core": "^1.4.1",
-    "@types/react": "^18.2.55",
+    "@storybook/react": "^7.6.17",
+    "@swc/core": "^1.4.2",
+    "@types/react": "^18.2.57",
     "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",

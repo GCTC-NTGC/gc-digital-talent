@@ -76,7 +76,7 @@ jobs:
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
       - name: Save screenshot artifacts
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: cypress-screenshots
