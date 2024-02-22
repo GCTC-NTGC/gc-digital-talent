@@ -15,6 +15,14 @@ export const Test_TeamsQueryDocument = /* GraphQL */ `
   }
 `;
 
+export const Test_CreateTeamMutationDocument = /* GraphQL */ `
+  mutation Test_CreateTeam($team: CreateTeamInput!) {
+    createTeam(team: $team) {
+      id
+    }
+  }
+`;
+
 /**
  * Get DCM
  *

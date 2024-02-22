@@ -1,6 +1,16 @@
 import { type Page } from "@playwright/test";
 
 import { AppPage } from "./AppPage";
+import {
+  Test_CreateApplicationMutationDocument,
+  Test_SubmitApplicationMutationDocument,
+  Test_UpdateApplicationMutationDocument,
+} from "../utils/applications";
+import { GraphQLResponse } from "../utils/graphql";
+import {
+  EducationRequirementOption,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
 
 /**
  * Application Page
@@ -107,5 +117,53 @@ export class ApplicationPage extends AppPage {
       .fill("Signature");
 
     this.page.getByRole("button", { name: /submit my application/i }).click();
+  }
+
+  /**
+   * Create an application using the graphql API
+   */
+  async createGraphql(
+    userId: string,
+    experienceId: string,
+  ): Promise<PoolCandidate> {
+    return this.graphqlRequest(Test_CreateApplicationMutationDocument, {
+      userId,
+      poolId: this.poolId,
+    })
+      .then(
+        (res: GraphQLResponse<"createApplication", PoolCandidate>) =>
+          res.createApplication,
+      )
+      .then(async (application) => {
+        return await this.graphqlRequest(
+          Test_UpdateApplicationMutationDocument,
+          {
+            id: application.id,
+            application: {
+              educationRequirementOption:
+                EducationRequirementOption.AppliedWork,
+              educationRequirementPersonalExperiences: {
+                sync: [experienceId],
+              },
+            },
+          },
+        ).then(
+          (res: GraphQLResponse<"updateApplication", PoolCandidate>) =>
+            res.updateApplication,
+        );
+      });
+  }
+
+  /**
+   * Submit an Application using the graphql API
+   */
+  async submitGraphql(id: string, signature: string): Promise<PoolCandidate> {
+    return this.graphqlRequest(Test_SubmitApplicationMutationDocument, {
+      id,
+      signature,
+    }).then(
+      (res: GraphQLResponse<"submitApplication", PoolCandidate>) =>
+        res.submitApplication,
+    );
   }
 }
