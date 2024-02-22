@@ -33,6 +33,7 @@
     "**/*.css"
   ],
   "dependencies": {
+    "@gc-digital-talent/app-insights": "workspace:*",
     "@gc-digital-talent/auth": "workspace:*",
     "@gc-digital-talent/client": "workspace:*",
     "@gc-digital-talent/date-helpers": "workspace:*",
