@@ -1104,7 +1104,7 @@
     "description": "First paragraph for publish pool dialog"
   },
   "46pgKa": {
-    "defaultMessage": "PM-04: Analyste",
+    "defaultMessage": "PM-04 : Analyste",
     "description": "PM-04 classification label including titles"
   },
   "491LrZ": {
@@ -3192,7 +3192,7 @@
     "description": "Aria label for download guidance for managers pdf link."
   },
   "Fe9Cje": {
-    "defaultMessage": "IT-01: Technicien(ne)",
+    "defaultMessage": "IT-01 : Technicien(ne)",
     "description": "IT-01 classification label including titles"
   },
   "FffxNt": {
@@ -4044,7 +4044,7 @@
     "description": "Bilingual advanced personnel language"
   },
   "Kf7cYc": {
-    "defaultMessage": "PM-03: Agent(e)",
+    "defaultMessage": "PM-03 : Agent(e)",
     "description": "PM-03 classification label including titles"
   },
   "Kg8PlJ": {
@@ -5184,7 +5184,7 @@
     "description": "GCKey question for when user does not have recovery codes"
   },
   "RHTrvR": {
-    "defaultMessage": "IT-03: Conseiller technique ou Chef d'équipe",
+    "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
     "description": "IT-03 classification label including titles"
   },
   "RIi/3q": {
@@ -5192,7 +5192,7 @@
     "description": "Title for Contact us action"
   },
   "RJtGM5": {
-    "defaultMessage": "PM-02: Analyste subalterne",
+    "defaultMessage": "PM-02 : Analyste subalterne",
     "description": "PM-02 classification label including titles"
   },
   "RNI+IH": {
@@ -6227,7 +6227,7 @@
     "description": "Title for the additional comments block in the search request filters"
   },
   "WsR0FB": {
-    "defaultMessage": "IT-02: Analyste",
+    "defaultMessage": "IT-02 : Analyste",
     "description": "IT-02 classification label including titles"
   },
   "WuMMRK": {
@@ -7599,7 +7599,7 @@
     "description": "Title for the skill filters on search page."
   },
   "eIxShU": {
-    "defaultMessage": "IT-04: Conseiller principal ou Gestionnaire",
+    "defaultMessage": "IT-04 : Conseiller principal ou Gestionnaire",
     "description": "IT-04 classification label including titles"
   },
   "eKPE3F": {
@@ -8791,7 +8791,7 @@
     "description": "Message displayed to users when they attempt to quit the profile form with unsaved changes"
   },
   "kfPc04": {
-    "defaultMessage": "PM-01: Agent(e) subalterne",
+    "defaultMessage": "PM-01 : Agent(e) subalterne",
     "description": "PM-01 classification label including titles"
   },
   "kfjmTt": {
