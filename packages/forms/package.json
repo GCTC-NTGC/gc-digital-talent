@@ -56,7 +56,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.14.202",
-    "@types/react": "^18.2.55",
+    "@types/react": "^18.2.57",
     "eslint": "^8.56.0",
     "eslint-config-custom": "*",
     "jest": "^29.7.0",
