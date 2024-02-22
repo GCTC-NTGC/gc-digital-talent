@@ -98,38 +98,24 @@ const TopTechnicalSkills = ({
     returnPath,
   };
 
-  const handleUpdateUserSkillRankings = (formValues: FormValues) => {
-    executeMutation({
-      userId: userAuthInfo?.id,
-      userSkillRanking: {
-        topTechnicalSkillsRanked: [
-          ...formValues.userSkills.map((userSkill) => userSkill.skill),
-        ],
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated top technical skills",
-              id: "iqmE+5",
-              description:
-                "Success message displayed after updating top technical skills",
-            }),
-          );
+  const handleUpdateUserSkillRankings = (
+    formValues: FormValues,
+  ): Promise<void> =>
+    new Promise((resolve, reject) => {
+      executeMutation({
+        userId: userAuthInfo?.id,
+        userSkillRanking: {
+          topTechnicalSkillsRanked: [
+            ...formValues.userSkills.map((userSkill) => userSkill.skill),
+          ],
+        },
+      }).then((res) => {
+        if (res.data?.updateUserSkillRankings) {
+          resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating top technical skills failed",
-            id: "D1+SmE",
-            description:
-              "Message displayed to user after top technical skills fails to update",
-          }),
-        );
+        reject();
       });
-  };
+    });
 
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],

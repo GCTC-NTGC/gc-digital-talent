@@ -21,18 +21,16 @@ type SkillShowcaseCardProps = {
 
 const SkillShowcaseCard = ({ index, item, skills }: SkillShowcaseCardProps) => {
   const intl = useIntl();
-  const { move, remove: removeFromRepeater } = useCardRepeaterContext();
+  const { remove: removeFromRepeater } = useCardRepeaterContext();
 
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
 
-  const handleMove = (from: number, to: number) => move(from, to);
   const handleRemove = (removeIndex: number) => removeFromRepeater(removeIndex);
 
   return (
     <CardRepeater.Card
       index={index}
-      onMove={handleMove} // immediately fire event
       remove={
         <RemoveDialog index={index} onRemove={() => handleRemove(index)} />
       }

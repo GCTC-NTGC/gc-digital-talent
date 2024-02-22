@@ -45,7 +45,7 @@ interface UpdateSkillShowcaseProps {
     maxSkillCount: number;
     returnPath: string;
   };
-  handleSubmit: (formValues: FormValues) => void;
+  handleSubmit: (formValues: FormValues) => Promise<void>;
   onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
 }
 
@@ -67,12 +67,19 @@ const UpdateSkillShowcase = ({
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
 
-  const thisShowcaseUserSkills = initialData.userSkills
+  const initialUserSkills = initialData.userSkills
     .filter((userSkillWithId) => !!userSkillWithId.skill)
     .map((userSkill) => ({
       id: userSkill.skill ?? "", // we just filtered out nullish, so this is just to make TS happy
       ...userSkill,
     }));
+
+  const [userSkills, setUserSkills] =
+    React.useState<SkillBrowserDialogFormValues[]>(initialUserSkills);
+
+  const resetUserSkills = () => {
+    setUserSkills(initialUserSkills);
+  };
 
   const existingSkillsRanking = initialData.userSkills.map(
     (userSkill) => userSkill.skill,
@@ -107,9 +114,8 @@ const UpdateSkillShowcase = ({
     const userHasSkill =
       allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
         .length > 0 ||
-      thisShowcaseUserSkills.filter(
-        (userSkill) => userSkill.skill === values.skill,
-      ).length > 0;
+      initialUserSkills.filter((userSkill) => userSkill.skill === values.skill)
+        .length > 0;
 
     if (userHasSkill) {
       executeUpdateMutation({
@@ -154,7 +160,7 @@ const UpdateSkillShowcase = ({
     }
   };
 
-  const canAdd = thisShowcaseUserSkills.length < pageInfo.maxSkillCount;
+  const canAdd = initialUserSkills.length < pageInfo.maxSkillCount;
 
   const triggerProps = canAdd
     ? {
@@ -168,7 +174,7 @@ const UpdateSkillShowcase = ({
               "Label for skill dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: thisShowcaseUserSkills.length,
+            numOfSkills: initialUserSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
@@ -184,12 +190,31 @@ const UpdateSkillShowcase = ({
               "Label for disabled dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: thisShowcaseUserSkills.length,
+            numOfSkills: initialUserSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
         disabled: true,
       };
+
+  const handleUpdate = (formValues: FormValues) => {
+    setUserSkills(formValues.userSkills); // optimistic update
+
+    handleSubmit(formValues)
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your skills!",
+            id: "j7nWu/",
+            description:
+              "Message displayed to users when saving skills is successful.",
+          }),
+        );
+      })
+      .catch(() => {
+        resetUserSkills(); // the client provider will pop a toast
+      });
+  };
 
   return (
     <>
@@ -223,7 +248,7 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    items={thisShowcaseUserSkills}
+                    items={initialUserSkills}
                     max={maxItems}
                     add={
                       <SkillBrowserDialog
@@ -244,9 +269,11 @@ const UpdateSkillShowcase = ({
                         noToast
                       />
                     }
-                    onUpdate={(items) => handleSubmit({ userSkills: items })}
+                    onUpdate={(items) => {
+                      handleUpdate({ userSkills: items });
+                    }}
                   >
-                    {thisShowcaseUserSkills.map((item, index) => (
+                    {userSkills.map((item, index) => (
                       <SkillShowcaseCard
                         key={item.skill}
                         item={item}

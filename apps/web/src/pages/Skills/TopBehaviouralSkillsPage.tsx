@@ -94,38 +94,24 @@ const TopBehaviouralSkills = ({
     returnPath,
   };
 
-  const handleUpdateUserSkillRankings = (formValues: FormValues) => {
-    executeMutation({
-      userId: userAuthInfo?.id,
-      userSkillRanking: {
-        topBehaviouralSkillsRanked: [
-          ...formValues.userSkills.map((userSkill) => userSkill.skill),
-        ],
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated top behavioural skills",
-              id: "GfjNqa",
-              description:
-                "Success message displayed after updating top behavioural skills",
-            }),
-          );
+  const handleUpdateUserSkillRankings = (
+    formValues: FormValues,
+  ): Promise<void> =>
+    new Promise((resolve, reject) => {
+      executeMutation({
+        userId: userAuthInfo?.id,
+        userSkillRanking: {
+          topBehaviouralSkillsRanked: [
+            ...formValues.userSkills.map((userSkill) => userSkill.skill),
+          ],
+        },
+      }).then((res) => {
+        if (res.data?.updateUserSkillRankings) {
+          resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating top behavioural skills failed",
-            id: "+dmNpa",
-            description:
-              "Message displayed to user after top behavioural skills fails to update",
-          }),
-        );
+        reject();
       });
-  };
+    });
 
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
