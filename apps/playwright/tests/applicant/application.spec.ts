@@ -17,7 +17,7 @@ import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
-import { getDCM } from "~/utils/team";
+import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 import { PoolPage } from "~/fixtures/PoolPage";
