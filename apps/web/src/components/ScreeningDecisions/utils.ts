@@ -66,6 +66,7 @@ export function convertFormValuesToApiCreateInput({
     justifications,
     otherJustificationNotes,
     skillDecisionNotes,
+    assessmentNotes,
   } = formValues;
 
   return {
@@ -79,6 +80,7 @@ export function convertFormValuesToApiCreateInput({
     otherJustificationNotes,
     poolSkillId,
     skillDecisionNotes,
+    assessmentNotes,
   };
 }
 export function convertFormValuesToApiUpdateInput({
