@@ -260,7 +260,6 @@ const UpdateSkillShowcase = ({
                         item={item}
                         index={index}
                         onMove={() => console.debug}
-                        onRemove={() => console.debug}
                         skills={allSkills}
                       />
                     ))}

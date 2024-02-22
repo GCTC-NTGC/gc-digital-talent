@@ -11,10 +11,11 @@ import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import { Skill, SkillCategory } from "~/api/generated";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
+import RemoveDialog from "./RemoveDialog";
+
 type SkillShowcaseCardProps = {
   index: number;
   item: SkillBrowserDialogFormValues;
-  onRemove: (index: number) => void;
   onMove: (fromIndex: number, toIndex: number) => void;
   skills: Skill[];
 };
@@ -22,12 +23,11 @@ type SkillShowcaseCardProps = {
 const SkillShowcaseCard = ({
   index,
   item,
-  onRemove,
   onMove,
   skills,
 }: SkillShowcaseCardProps) => {
   const intl = useIntl();
-  const { move, remove } = useCardRepeaterContext();
+  const { move, remove: removeFromRepeater } = useCardRepeaterContext();
 
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
@@ -38,17 +38,15 @@ const SkillShowcaseCard = ({
     onMove(from, to);
   };
 
-  const handleRemove = (removeIndex: number) => {
-    console.debug("Card removing");
-    remove(removeIndex);
-    onRemove(removeIndex);
-  };
+  const handleRemove = (removeIndex: number) => removeFromRepeater(removeIndex);
 
   return (
     <CardRepeater.Card
       index={index}
       onMove={handleMove} // immediately fire event
-      onRemove={handleRemove}
+      remove={
+        <RemoveDialog index={index} onRemove={() => handleRemove(index)} />
+      }
     >
       <div
         data-h2-display="base(flex)"

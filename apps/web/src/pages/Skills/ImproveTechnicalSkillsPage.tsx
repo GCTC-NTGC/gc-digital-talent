@@ -115,7 +115,7 @@ const ImproveTechnicalSkills = ({
                 "Success message displayed after updating improve technical skills",
             }),
           );
-          navigate(returnPath);
+          // navigate(returnPath);
         }
       })
       .catch(() => {

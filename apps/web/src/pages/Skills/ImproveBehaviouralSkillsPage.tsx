@@ -115,7 +115,7 @@ const ImproveBehaviouralSkills = ({
                 "Success message displayed after updating improve behavioural skills",
             }),
           );
-          navigate(returnPath);
+          // navigate(returnPath);
         }
       })
       .catch(() => {

@@ -115,7 +115,7 @@ const TopBehaviouralSkills = ({
                 "Success message displayed after updating top behavioural skills",
             }),
           );
-          navigate(returnPath);
+          // navigate(returnPath);
         }
       })
       .catch(() => {

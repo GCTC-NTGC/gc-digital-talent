@@ -119,7 +119,7 @@ const TopTechnicalSkills = ({
                 "Success message displayed after updating top technical skills",
             }),
           );
-          navigate(returnPath);
+          // navigate(returnPath);
         }
       })
       .catch(() => {
