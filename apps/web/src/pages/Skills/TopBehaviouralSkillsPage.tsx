@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
-import { useNavigate } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
@@ -35,7 +34,6 @@ const TopBehaviouralSkills = ({
   initialSkills,
 }: TopBehaviouralSkillsProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
   const { userAuthInfo } = useAuthorization();
@@ -115,7 +113,6 @@ const TopBehaviouralSkills = ({
                 "Success message displayed after updating top behavioural skills",
             }),
           );
-          // navigate(returnPath);
         }
       })
       .catch(() => {

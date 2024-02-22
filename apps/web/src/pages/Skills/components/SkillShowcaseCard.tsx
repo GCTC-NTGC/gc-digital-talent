@@ -16,28 +16,17 @@ import RemoveDialog from "./RemoveDialog";
 type SkillShowcaseCardProps = {
   index: number;
   item: SkillBrowserDialogFormValues;
-  onMove: (fromIndex: number, toIndex: number) => void;
   skills: Skill[];
 };
 
-const SkillShowcaseCard = ({
-  index,
-  item,
-  onMove,
-  skills,
-}: SkillShowcaseCardProps) => {
+const SkillShowcaseCard = ({ index, item, skills }: SkillShowcaseCardProps) => {
   const intl = useIntl();
   const { move, remove: removeFromRepeater } = useCardRepeaterContext();
 
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
 
-  const handleMove = (from: number, to: number) => {
-    console.debug("Card moving");
-    move(from, to);
-    onMove(from, to);
-  };
-
+  const handleMove = (from: number, to: number) => move(from, to);
   const handleRemove = (removeIndex: number) => removeFromRepeater(removeIndex);
 
   return (
