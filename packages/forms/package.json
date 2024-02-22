@@ -49,7 +49,7 @@
     "@gc-digital-talent/jest-helpers": "*",
     "@gc-digital-talent/storybook-helpers": "*",
     "@storybook/addon-actions": "^7.6.17",
-    "@storybook/react": "^7.6.16",
+    "@storybook/react": "^7.6.17",
     "@swc/core": "^1.4.2",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
