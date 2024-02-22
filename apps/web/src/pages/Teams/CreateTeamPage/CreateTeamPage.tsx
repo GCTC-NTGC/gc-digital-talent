@@ -1,14 +1,12 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { graphql } from "@gc-digital-talent/graphql";
 
-import {
-  CreateTeamInput,
-  useDepartmentsQuery,
-  useCreateTeamMutation,
-} from "~/api/generated";
+import { CreateTeamInput, useCreateTeamMutation } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -16,6 +14,19 @@ import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/Ind
 import AdminHero from "~/components/Hero/AdminHero";
 
 import CreateTeamForm from "./components/CreateTeamForm";
+
+const CreateTeamDepartments_Query = graphql(/* GraphQL */ `
+  query CreateTeamDepartments {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const CreateTeamPage = () => {
   const intl = useIntl();
@@ -27,7 +38,9 @@ const CreateTeamPage = () => {
       fetching: departmentsFetching,
       error: departmentsError,
     },
-  ] = useDepartmentsQuery();
+  ] = useQuery({
+    query: CreateTeamDepartments_Query,
+  });
   const [, executeMutation] = useCreateTeamMutation();
 
   const departments = departmentsData?.departments.filter(notEmpty);

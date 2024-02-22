@@ -1,0 +1,23 @@
+{
+  "name": "@gc-digital-talent/playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "e2e:playwright": "npx playwright test",
+    "e2e:playwright:chromium": "npx playwright test --project=chromium",
+    "e2e:playwright:firefox": "npx playwright test --project=firefox",
+    "e2e:playwright:webkit": "npx playwright test --project=webkit",
+    "e2e:playwright:report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@gc-digital-talent/date-helpers": "*",
+    "@gc-digital-talent/env": "*",
+    "@gc-digital-talent/graphql": "*",
+    "@playwright/test": "^1.41.2",
+    "@types/node": "^20.11.19",
+    "dotenv": "^16.4.5",
+    "eslint-plugin-playwright": "^1.3.0"
+  }
+}

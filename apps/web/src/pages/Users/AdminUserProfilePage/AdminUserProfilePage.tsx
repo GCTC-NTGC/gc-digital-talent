@@ -10,7 +10,7 @@ import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAbout
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-import UserProfilePrintButton from "./components/UserProfilePrintButton";
+import SingleUserProfilePrintButton from "./components/SingleUserProfilePrintButton";
 
 interface AdminUserProfileProps {
   user: User;
@@ -23,7 +23,11 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <UserProfilePrintButton users={[user]} color="primary" mode="solid" />
+        <SingleUserProfilePrintButton
+          users={[user]}
+          color="primary"
+          mode="solid"
+        />
       </div>
       <UserProfile
         user={user}

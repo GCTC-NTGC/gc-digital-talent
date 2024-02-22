@@ -2,28 +2,24 @@ import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { graphql, CreateDepartmentInput } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  CreateDepartmentInput,
-  CreateDepartmentMutation,
-  useCreateDepartmentMutation,
-} from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import adminMessages from "~/messages/adminMessages";
 
 type FormValues = CreateDepartmentInput;
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: FormValues,
-  ) => Promise<CreateDepartmentMutation["createDepartment"]>;
+  handleCreateDepartment: (data: FormValues) => Promise<CreateDepartmentInput>;
 }
 
 export const CreateDepartmentForm = ({
@@ -93,12 +89,7 @@ export const CreateDepartmentForm = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage({
-              defaultMessage: "Name (English)",
-              id: "4boO/6",
-              description:
-                "Label displayed on the create a department form name (English) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameEn)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -107,12 +98,7 @@ export const CreateDepartmentForm = ({
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Name (French)",
-              id: "c0n+2j",
-              description:
-                "Label displayed on the create a department form name (French) field.",
-            })}
+            label={intl.formatMessage(adminMessages.nameFr)}
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -127,10 +113,23 @@ export const CreateDepartmentForm = ({
   );
 };
 
+const CreateDepartment_Mutation = graphql(/* GraphQL */ `
+  mutation CreateDepartment($department: CreateDepartmentInput!) {
+    createDepartment(department: $department) {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [, executeMutation] = useCreateDepartmentMutation();
+  const [, executeMutation] = useMutation(CreateDepartment_Mutation);
   const handleCreateDepartment = (data: CreateDepartmentInput) =>
     executeMutation({ department: data }).then((result) => {
       if (result.data?.createDepartment) {

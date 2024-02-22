@@ -34,16 +34,13 @@ import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
+import messages from "~/messages/adminMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = defineMessage({
-  defaultMessage: "Assessment plan",
-  id: "fkYYe3",
-  description: "Title for the assessment plan builder",
-});
+const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -203,7 +200,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
         }
       }
       status
-      generalQuestions {
+      screeningQuestions {
         id
         question {
           en

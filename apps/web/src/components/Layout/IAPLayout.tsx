@@ -8,6 +8,7 @@ import {
   NestedLanguageProvider,
   Messages,
   useLocale,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
@@ -23,7 +24,7 @@ import * as ojwMessages from "~/lang/ojwCompiled.json";
 import * as micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
-import MaintenanceBanner from "./MaintenanceBanner";
+import SitewideBanner from "./SitewideBanner";
 
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
@@ -37,12 +38,7 @@ const IAPSeo = () => {
 
   return (
     <SEO
-      title={intl.formatMessage({
-        defaultMessage: "IT Apprenticeship Program for Indigenous Peoples",
-        id: "oMpO+C",
-        description:
-          "Title tag for IT Apprenticeship Program for Indigenous Peoples site",
-      })}
+      title={intl.formatMessage(commonMessages.iapTitle)}
       description={intl.formatMessage({
         defaultMessage: "Apply now to get started on your IT career journey.",
         id: "Z9W+O2",
@@ -90,7 +86,7 @@ const Layout = () => {
           >
             <div>
               <Header />
-              <MaintenanceBanner />
+              <SitewideBanner />
               <IAPNavMenu {...{ loggedIn, userAuthInfo }} />
             </div>
             <main id="main">

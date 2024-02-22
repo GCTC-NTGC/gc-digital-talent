@@ -114,25 +114,28 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })
       .should("exist")
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
-
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
-      "Screened In",
+      "Screened in",
     );
     cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
-      cy.get("option:selected").should("have.text", "Screened In");
+      cy.get("option:selected").should("have.text", "Screened in");
     });
 
     cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {
@@ -224,7 +227,7 @@ describe("Pool Candidates", () => {
 
     cy.findByRole("link", {
       name: new RegExp(
-        `View Candidates for Cypress Test Pool EN ${uniqueTestId}`,
+        `View Candidates for I T 1: Cypress Test Pool EN ${uniqueTestId}`,
         "i",
       ),
     })
@@ -232,17 +235,21 @@ describe("Pool Candidates", () => {
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
     cy.findByRole("combobox", { name: /candidate pool status/i }).select(
-      "Screened In",
+      "Screened in",
     );
     cy.findByRole("combobox", { name: /candidate pool status/i }).within(() => {
-      cy.get("option:selected").should("have.text", "Screened In");
+      cy.get("option:selected").should("have.text", "Screened in");
     });
 
     cy.findByRole("group", { name: /candidate expiry date/i }).within(() => {

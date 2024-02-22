@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -64,11 +65,7 @@ export const TeamTable = ({
     columnHelper.accessor((team) => getLocalizedName(team.displayName, intl), {
       id: "teamName",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Team",
-        id: "KIWVbp",
-        description: "Title displayed for the teams table team column.",
-      }),
+      header: intl.formatMessage(adminMessages.team),
       cell: ({ row: { original: team }, getValue }) =>
         viewCell(paths.teamView(team.id), getValue(), intl, currentUrl),
       meta: {
@@ -93,19 +90,11 @@ export const TeamTable = ({
     columnHelper.accessor((team) => departmentAccessor(team, intl), {
       id: "departments",
       sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Department",
-        id: "BDo1aH",
-        description: "Title displayed for the teams table department column.",
-      }),
+      header: intl.formatMessage(commonMessages.department),
     }),
     columnHelper.accessor("contactEmail", {
       id: "contactEmail",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "TREL4U",
-        description: "Title displayed for the teams table email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => emailCell(getValue() ?? "", intl),
     }),
   ] as ColumnDef<Team>[];

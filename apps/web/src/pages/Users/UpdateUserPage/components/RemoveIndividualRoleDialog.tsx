@@ -74,7 +74,7 @@ const RemoveIndividualRoleDialog = ({
       <Dialog.Trigger>
         <Button color="black">
           <TrashIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
-          <span data-h2-visually-hidden="base(hidden)">{label}</span>
+          <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import DataLoader from "dataloader";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -16,6 +17,7 @@ import {
   commonMessages,
   errorMessages,
   getLanguage,
+  getLocale,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
@@ -44,6 +46,8 @@ import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import processMessages from "~/messages/processMessages";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -62,7 +66,9 @@ import {
   statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  transformSortStateToOrderByClause,
+  getSortOrder,
+  processCell,
+  getPoolNameSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -81,18 +87,15 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
-    $sortingInput: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!
+    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
+    $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
   ) {
     poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
-      orderBy: [
-        { column: "is_bookmarked", order: DESC }
-        { column: "status_weight", order: ASC }
-        { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-        $sortingInput
-      ]
+      orderByPoolName: $poolNameSortingInput
+      orderBy: $sortingInput
     ) {
       data {
         id
@@ -100,6 +103,38 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           id
           pool {
             id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
+            # TODO: assessmentSteps and assessmentResults can be removed if status computations are moved to backend #8960
+            assessmentSteps {
+              id
+              type
+              sortOrder
+              poolSkills {
+                id
+                type
+              }
+            }
+          }
+          assessmentResults {
+            id
+            assessmentStep {
+              id
+            }
+            poolSkill {
+              id
+              type
+            }
+            assessmentResultType
+            assessmentDecision
           }
           user {
             # Personal info
@@ -213,13 +248,16 @@ const PoolCandidatesTable = ({
   currentPool,
   title,
   hidePoolFilter,
+  doNotUseBookmark = false,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pool>;
   title: string;
   hidePoolFilter?: boolean;
+  doNotUseBookmark?: boolean;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
@@ -341,7 +379,13 @@ const PoolCandidatesTable = ({
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      sortingInput: transformSortStateToOrderByClause(sortState, filterState),
+      poolNameSortingInput: getPoolNameSort(sortState, locale),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        recordOfDecision,
+      ),
     },
   });
 
@@ -357,50 +401,90 @@ const PoolCandidatesTable = ({
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const querySelected = async (action: SelectingFor) => {
-    setSelectingFor(action);
-    setIsSelecting(true);
-    return client
-      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
-        ids: selectedRows,
-      })
-      .toPromise()
-      .then((result) => {
-        const poolCandidates: PoolCandidate[] = unpackMaybes(
-          result.data?.poolCandidates,
+  const isPoolCandidate = (
+    candidate: Error | PoolCandidate | null,
+  ): candidate is PoolCandidate =>
+    candidate !== null && !(candidate instanceof Error);
+
+  const batchLoader = new DataLoader<string, PoolCandidate | null>(
+    async (ids) => {
+      const batchSize = 100;
+      const batches = [];
+
+      for (let i = 0; i < ids.length; i += batchSize) {
+        const batchIds = ids.slice(i, i + batchSize);
+        batches.push(
+          client
+            .query<{
+              poolCandidates: PoolCandidate[];
+            }>(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+              ids: batchIds,
+            })
+            .then((result) => result.data?.poolCandidates ?? []),
         );
+      }
 
-        if (result.error) {
-          toast.error(intl.formatMessage(errorMessages.unknown));
-        } else if (!poolCandidates.length) {
-          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
-        }
+      try {
+        const batchResults = await Promise.all(batches);
+        const candidates = batchResults.flat(); // Flatten the array
 
-        setSelectedCandidates(poolCandidates);
-        setIsSelecting(false);
-        setSelectingFor(null);
-        return poolCandidates;
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.unknown));
-      });
+        return ids.map(
+          (id) => candidates.find((candidate) => candidate.id === id) ?? null,
+        );
+      } catch (error) {
+        return ids.map(() => null); // Return null for all IDs in case of an error
+      }
+    },
+    {
+      // Configure DataLoader to cache the results for each ID
+      cacheKeyFn: (key) => key,
+    },
+  );
+
+  const querySelected = async (
+    action: SelectingFor,
+  ): Promise<PoolCandidate[]> => {
+    try {
+      setSelectingFor(action);
+      setIsSelecting(true);
+      const poolCandidates = await batchLoader.loadMany(selectedRows);
+      const filteredPoolCandidates = poolCandidates.filter(isPoolCandidate);
+
+      if (filteredPoolCandidates.length === 0) {
+        toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+      } else {
+        setSelectedCandidates(filteredPoolCandidates);
+      }
+
+      return filteredPoolCandidates;
+    } catch (error) {
+      toast.error(intl.formatMessage(errorMessages.unknown));
+      return [];
+    } finally {
+      setIsSelecting(false);
+      setSelectingFor(null);
+    }
   };
 
   const columns = [
-    columnHelper.display({
-      id: "isBookmarked",
-      header: () => bookmarkHeader(intl),
-      enableHiding: false,
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) => bookmarkCell(poolCandidate),
-      meta: {
-        shrink: true,
-        hideMobileHeader: true,
-      },
-    }),
+    ...(doNotUseBookmark
+      ? []
+      : [
+          columnHelper.display({
+            id: "isBookmarked",
+            header: () => bookmarkHeader(intl),
+            enableHiding: false,
+            cell: ({
+              row: {
+                original: { poolCandidate },
+              },
+            }) => bookmarkCell(poolCandidate),
+            meta: {
+              shrink: true,
+              hideMobileHeader: true,
+            },
+          }),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getFullNameLabel(user.firstName, user.lastName, intl),
@@ -418,6 +502,25 @@ const PoolCandidatesTable = ({
         },
       },
     ),
+    ...(currentPool
+      ? []
+      : [
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            {
+              id: "process",
+              header: intl.formatMessage(processMessages.process),
+              sortingFn: normalizedText,
+              cell: ({
+                row: {
+                  original: {
+                    poolCandidate: { pool },
+                  },
+                },
+              }) => processCell(pool, paths, intl),
+            },
+          ),
+        ]),
     columnHelper.accessor(
       ({ poolCandidate: { status } }) =>
         intl.formatMessage(
@@ -425,15 +528,15 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "status",
-        header: intl.formatMessage(tableMessages.status),
-        enableHiding: false,
+        header: intl.formatMessage(commonMessages.status),
+        enableHiding: recordOfDecision, // After record of decision is turned on, we can remove this property entirely (it defaults to true)
         cell: ({
           row: {
             original: { poolCandidate },
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -447,7 +550,7 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "priority",
-        header: intl.formatMessage(tableMessages.category),
+        header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
             original: {
@@ -456,7 +559,7 @@ const PoolCandidatesTable = ({
           },
         }) => priorityCell(user.priorityWeight, intl),
         meta: {
-          sortingLocked: true,
+          sortingLocked: !recordOfDecision,
         },
       },
     ),
@@ -470,14 +573,16 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { status },
-            },
+            original: { poolCandidate },
           },
-        }) => finalDecisionCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        }) =>
+          finalDecisionCell(
+            intl,
+            poolCandidate,
+            unpackMaybes(poolCandidate?.pool?.assessmentSteps),
+            recordOfDecision,
+          ),
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -495,9 +600,7 @@ const PoolCandidatesTable = ({
             },
           },
         }) => jobPlacementCell(intl, status),
-        meta: {
-          sortingLocked: true,
-        },
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -527,7 +630,9 @@ const PoolCandidatesTable = ({
         ),
       {
         id: "preferredLang",
-        header: intl.formatMessage(tableMessages.preferredLang),
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
       },
     ),
     columnHelper.display({
@@ -551,7 +656,7 @@ const PoolCandidatesTable = ({
     }),
     columnHelper.accessor(({ poolCandidate: { user } }) => user.email, {
       id: "email",
-      header: intl.formatMessage(tableMessages.email),
+      header: intl.formatMessage(commonMessages.email),
       sortingFn: normalizedText,
       cell: ({
         row: {

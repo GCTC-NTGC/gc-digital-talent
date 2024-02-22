@@ -40,7 +40,7 @@ const AssessmentStepCard = ({
   );
   skillNames.sort();
   const screeningQuestions = sortBy(
-    unpackMaybes(pool.generalQuestions),
+    unpackMaybes(pool.screeningQuestions),
     (question) => question.sortOrder,
   );
 
@@ -58,7 +58,6 @@ const AssessmentStepCard = ({
     <CardRepeater.Card
       index={index}
       onMove={handleMove} // immediately fire event
-      onRemove={handleRemove}
       edit={
         <AssessmentDetailsDialog
           allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
@@ -72,7 +71,7 @@ const AssessmentStepCard = ({
               assessmentStep?.poolSkills
                 ?.map((poolSkill) => poolSkill?.id)
                 ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.generalQuestions?.filter(notEmpty) ?? [],
+            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
           }}
           trigger={
             <CardRepeater.Edit
@@ -83,14 +82,20 @@ const AssessmentStepCard = ({
           }
         />
       }
+      remove={
+        <CardRepeater.Remove
+          onClick={() => handleRemove(index)}
+          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+            index,
+          })}
+        />
+      }
     >
       <Heading level="h4" size="h6" data-h2-margin-top="base(0)">
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ||
-      assessmentStep.type ===
-        AssessmentStepType.ScreeningQuestionsAtApplication ? (
+      {skillNames.length ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"

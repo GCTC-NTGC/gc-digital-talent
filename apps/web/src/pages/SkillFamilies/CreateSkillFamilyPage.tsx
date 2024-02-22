@@ -3,23 +3,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,
   SkillFamily,
   CreateSkillFamilyInput,
+  graphql,
   CreateSkillFamilyMutation,
-  useCreateSkillFamilyMutation,
-  useGetCreateSkillFamilyDataQuery,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -150,12 +150,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "2wo24b",
-                description:
-                  "Label displayed on the create a skill family form name (English) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -164,12 +159,7 @@ export const CreateSkillFamilyForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "0oqRIl",
-                description:
-                  "Label displayed on the create a skill family form name (French) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -224,14 +214,41 @@ export const CreateSkillFamilyForm = ({
   );
 };
 
+const SkillFamilySkills_Query = graphql(/* GraphQL */ `
+  query SkillFamilySkills {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+  }
+`);
+
+const CreateSkillFamily_Mutation = graphql(/* GraphQL */ `
+  mutation CreateSkillFamily($skillFamily: CreateSkillFamilyInput!) {
+    createSkillFamily(skillFamily: $skillFamily) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [lookupResult] = useGetCreateSkillFamilyDataQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-  const skills = lookupData?.skills.filter(notEmpty) ?? [];
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: SkillFamilySkills_Query,
+  });
 
-  const [, executeMutation] = useCreateSkillFamilyMutation();
+  const [, executeMutation] = useMutation(CreateSkillFamily_Mutation);
   const handleCreateSkillFamily = (data: CreateSkillFamilyInput) =>
     executeMutation({ skillFamily: data }).then((result) => {
       if (result.data?.createSkillFamily) {
@@ -280,7 +297,7 @@ const CreateSkillFamilyPage = () => {
         <Pending fetching={fetching} error={error}>
           <CreateSkillFamilyForm
             handleCreateSkillFamily={handleCreateSkillFamily}
-            skills={skills}
+            skills={unpackMaybes(lookupData?.skills)}
           />
         </Pending>
       </AdminContentWrapper>

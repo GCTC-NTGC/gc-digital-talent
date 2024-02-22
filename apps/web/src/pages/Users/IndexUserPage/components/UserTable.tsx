@@ -166,11 +166,7 @@ const UserTable = ({ title }: UserTableProps) => {
     ),
     columnHelper.accessor("email", {
       id: "email",
-      header: intl.formatMessage({
-        defaultMessage: "Email",
-        id: "0+g2jN",
-        description: "Title displayed for the User table Email column.",
-      }),
+      header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => cells.email(getValue()),
     }),
     columnHelper.accessor(
@@ -191,12 +187,7 @@ const UserTable = ({ title }: UserTableProps) => {
     columnHelper.accessor("preferredLang", {
       id: "preferredLang",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Preferred Communication Language",
-        id: "CfXIqC",
-        description:
-          "Title displayed for the User table Preferred Communication Language column.",
-      }),
+      header: intl.formatMessage(commonMessages.preferredCommunicationLanguage),
       cell: ({
         row: {
           original: { preferredLang },
@@ -206,7 +197,7 @@ const UserTable = ({ title }: UserTableProps) => {
     }),
     columnHelper.display({
       id: "edit",
-      header: intl.formatMessage(adminMessages.edit),
+      header: intl.formatMessage(commonMessages.edit),
       cell: ({ row: { original: user } }) =>
         cells.edit(
           user.id,

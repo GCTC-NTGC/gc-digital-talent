@@ -17,6 +17,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+import { ClassificationGroup } from "~/utils/poolUtils";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
@@ -70,12 +71,14 @@ interface LinkCareerTimelineProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
+  classificationGroup?: ClassificationGroup;
 }
 
 const LinkCareerTimeline = ({
   experiences,
   watchEducationRequirement,
   previousStepPath,
+  classificationGroup,
 }: LinkCareerTimelineProps) => {
   const intl = useIntl();
   const previousStepLink = (chunks: React.ReactNode) => (
@@ -168,27 +171,34 @@ const LinkCareerTimeline = ({
   );
 
   const checkListSection = (): React.ReactNode => {
+    // decide whether to show the "select experiences in" helper list
+    const showEssentialExperienceMessage: boolean =
+      classificationGroup !== "EC";
     switch (watchEducationRequirement) {
       // If "I meet the applied work experience" option is selected, checkboxes are displayed for every experience.
       case EducationRequirementOption.AppliedWork:
       case EducationRequirementOption.ProfessionalDesignation:
         return (
           <>
-            <p data-h2-margin="base(0, 0, x.5, 0)">
-              {intl.formatMessage({
-                defaultMessage: "Please select experiences in:",
-                id: "6Q1N7Z",
-                description:
-                  "Message before skills list in application education page.",
-              })}
-            </p>
-            <ul data-h2-margin="base(0, 0, x1, 0)">
-              {Object.values(essentialExperienceMessages).map((value) => (
-                <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
-                  {intl.formatMessage(value)}
-                </li>
-              ))}
-            </ul>
+            {showEssentialExperienceMessage && (
+              <>
+                <p data-h2-margin="base(0, 0, x.5, 0)">
+                  {intl.formatMessage({
+                    defaultMessage: "Please select experiences in:",
+                    id: "6Q1N7Z",
+                    description:
+                      "Message before skills list in application education page.",
+                  })}
+                </p>
+                <ul data-h2-margin="base(0, 0, x1, 0)">
+                  {Object.values(essentialExperienceMessages).map((value) => (
+                    <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
+                      {intl.formatMessage(value)}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {experienceItems.allExperiences.length === 0 ? (
               <Well>
                 <p
@@ -281,7 +291,8 @@ const LinkCareerTimeline = ({
   return (
     <>
       <Heading
-        level="h6"
+        level="h3"
+        size="h6"
         data-h2-margin="base(x2, 0, x.5, 0)"
         data-h2-font-weight="base(700)"
       >

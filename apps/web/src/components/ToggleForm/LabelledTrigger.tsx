@@ -26,7 +26,7 @@ const LabelledTrigger = ({ disabled, sectionTitle }: LabelledTriggerProps) => {
         },
       )}
     >
-      {intl.formatMessage(commonMessages.editThisSection)}
+      {intl.formatMessage(commonMessages.edit)}
     </SectionTrigger>
   ) : undefined;
 };

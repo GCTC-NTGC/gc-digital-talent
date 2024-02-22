@@ -182,11 +182,7 @@ export const getExperienceFormLabels = (
       id: "o0Yt8Q",
       description: "Label displayed on education form for institution input",
     }),
-    educationStatus: intl.formatMessage({
-      defaultMessage: "Status",
-      id: "OQhL7A",
-      description: "Label displayed on Education form for status input",
-    }),
+    educationStatus: intl.formatMessage(commonMessages.status),
     thesisTitle: intl.formatMessage({
       defaultMessage: "Thesis Title",
       id: "N87bC7",

@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 
 import { LinkProps, ScrollToLink } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { ApplicantFilterInput } from "~/api/generated";
+import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 
 interface SearchFilterAdviceProps {
   filters: ApplicantFilterInput;

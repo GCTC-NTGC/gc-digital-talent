@@ -17,8 +17,8 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.docx";
-import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.docx";
+import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.pptx";
+import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.pptx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
@@ -135,8 +135,8 @@ export const IAPManagerHomePage = () => {
             <p data-h2-font-size="base(h5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Together we can address barriers to Reconciliation, diversity and inclusion",
-                id: "mtLAap",
+                  "Together we can address barriers to reconciliation, diversity and inclusion",
+                id: "56jSOM",
                 description: "Hero subtitle for IAP manager homepage",
               })}
             </p>
@@ -272,8 +272,8 @@ export const IAPManagerHomePage = () => {
                   <p data-h2-margin="base(x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "Linked directly to the advancement of Reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
-                      id: "0Ew2uu",
+                        "Linked directly to the advancement of reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
+                      id: "iSbtcK",
                       description:
                         "Paragraph 2 of the 'About the program' section",
                     })}

@@ -25,7 +25,7 @@ const reactIntlTransformRule = {
 };
 
 const staticDocumentsRule = {
-  test: /\.(pdf|doc|docx)$/i,
+  test: /\.(pdf|doc|docx|pptx)$/i,
   type: "asset/resource",
   generator: {
     filename: "documents/[name][ext]",

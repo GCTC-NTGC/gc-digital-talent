@@ -19,6 +19,7 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -30,6 +31,18 @@ import specialErrorExchange from "../../exchanges/specialErrorExchange";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
+const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
+  let tokenIsKnownToBeExpired = false;
+  if (accessToken) {
+    const decoded = jwtDecode<JwtPayload>(accessToken);
+    if (decoded.exp) {
+      tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
+    }
+  }
+
+  return tokenIsKnownToBeExpired;
+};
+
 const ClientProvider = ({
   client,
   children,
@@ -38,6 +51,7 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
@@ -69,7 +83,7 @@ const ClientProvider = ({
 
               const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
-                authRef.current.logout("/logged-out");
+                authRef.current.logout(`/${locale}/logged-out`);
               }
 
               let errorMessages = extractErrorMessages(error);
@@ -100,16 +114,7 @@ const ClientProvider = ({
               },
               willAuthError() {
                 const accessToken = localStorage.getItem(ACCESS_TOKEN);
-                let tokenIsKnownToBeExpired = false;
-                if (accessToken) {
-                  const decoded = jwtDecode<JwtPayload>(accessToken);
-                  if (decoded.exp)
-                    tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
-                }
-
-                if (tokenIsKnownToBeExpired) return true;
-
-                return false;
+                return isTokenKnownToBeExpired(accessToken);
               },
               didAuthError(error) {
                 const didError =
@@ -138,7 +143,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger]);
+  }, [client, intl, locale, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
@@ -147,5 +152,5 @@ export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
-  extractErrorMessages,
+  isTokenKnownToBeExpired,
 };

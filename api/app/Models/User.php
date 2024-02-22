@@ -6,7 +6,6 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
-use App\Enums\PublishingGroup;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -85,6 +84,47 @@ class User extends Model implements Authenticatable, LaratrustUser
     use Searchable;
     use SoftDeletes;
 
+    protected static $selectableColumns = [
+        'id',
+        'email',
+        'first_name',
+        'last_name',
+        'telephone',
+        'preferred_lang',
+        'current_province',
+        'current_city',
+        'looking_for_english',
+        'looking_for_french',
+        'looking_for_bilingual',
+        'bilingual_evaluation',
+        'comprehension_level',
+        'written_level',
+        'verbal_level',
+        'estimated_language_ability',
+        'is_gov_employee',
+        'has_priority_entitlement',
+        'priority_number',
+        'department',
+        'current_classification',
+        'citizenship',
+        'armed_forces_status',
+        'is_woman',
+        'has_disability',
+        'is_visible_minority',
+        'has_diploma',
+        'location_preferences',
+        'location_exemptions',
+        'position_duration',
+        'accepted_operational_requirements',
+        'gov_employee_type',
+        'priority_weight',
+        'indigenous_declaration_signature',
+        'indigenous_communities',
+        'preferred_language_for_interview',
+        'preferred_language_for_exam',
+        'deleted_at',
+    ];
+
     protected $keyType = 'string';
 
     protected $casts = [
@@ -103,6 +143,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected $hidden = [
         'searchable',
     ];
+
+    public static function getSelectableColumns()
+    {
+        return self::$selectableColumns;
+    }
 
     /**
      * Get the indexable data array for the model.
@@ -434,7 +479,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
+                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
@@ -594,22 +639,16 @@ class User extends Model implements Authenticatable, LaratrustUser
     }
 
     /**
-     * Scope is IT
-     *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT specific publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
+     * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeInITPublishingGroup(Builder $query)
+    public static function scopeAvailableInITPublishingGroup(Builder $query): Builder
     {
-        $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS_ONGOING->name,
-            PublishingGroup::IT_JOBS->name,
-        ]);
+        return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
+            PoolCandidate::scopeAvailable($innerQueryBuilder);
+            PoolCandidate::scopeInITPublishingGroup($innerQueryBuilder);
 
-        return $query;
+            return $innerQueryBuilder;
+        });
     }
 
     public static function scopeHasDiploma(Builder $query, ?bool $hasDiploma): Builder
@@ -685,6 +724,20 @@ class User extends Model implements Authenticatable, LaratrustUser
 
             // Use Eloquent builder to filter results based on unique IDs
             $query->whereIn('id', $resultIds);
+        }
+
+        return $query;
+    }
+
+    public static function scopePublicProfileSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                self::scopeName($query, $search);
+                $query->orWhere(function ($query) use ($search) {
+                    self::scopeEmail($query, $search);
+                });
+            });
         }
 
         return $query;
@@ -819,58 +872,77 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getTopTechnicalSkillsRankingAttribute()
     {
-        $sortedTechnicalUserSkills = $this->userSkills()
-            ->whereNotNull('top_skills_rank')
-            ->whereHas('skill', function ($query) {
-                $query->where('category', 'TECHNICAL');
-            })
-            ->orderBy('top_skills_rank', 'asc')
-            ->get();
+        $this->userSkills->loadMissing('skill');
 
-        return $sortedTechnicalUserSkills;
+        return $this->userSkills
+            ->whereNotNull('top_skills_rank')
+            ->where('skill.category', 'TECHNICAL')
+            ->sortBy('top_skills_rank');
     }
 
     public function getTopBehaviouralSkillsRankingAttribute()
     {
-        $sortedBehaviouralUserSkills = $this->userSkills()
-            ->whereNotNull('top_skills_rank')
-            ->whereHas('skill', function ($query) {
-                $query->where('category', 'BEHAVIOURAL');
-            })
-            ->orderBy('top_skills_rank', 'asc')
-            ->get();
+        $this->userSkills->loadMissing('skill');
 
-        return $sortedBehaviouralUserSkills;
+        return $this->userSkills
+            ->whereNotNull('top_skills_rank')
+            ->where('skill.category', 'BEHAVIOURAL')
+            ->sortBy('top_skills_rank');
     }
 
     public function getImproveTechnicalSkillsRankingAttribute()
     {
-        $sortedTechnicalUserSkills = $this->userSkills()
-            ->whereNotNull('improve_skills_rank')
-            ->whereHas('skill', function ($query) {
-                $query->where('category', 'TECHNICAL');
-            })
-            ->orderBy('improve_skills_rank', 'asc')
-            ->get();
+        $this->userSkills->loadMissing('skill');
 
-        return $sortedTechnicalUserSkills;
+        return $this->userSkills
+            ->whereNotNull('improve_skills_rank')
+            ->where('skill.category', 'TECHNICAL')
+            ->sortBy('improve_skills_rank');
     }
 
     public function getImproveBehaviouralSkillsRankingAttribute()
     {
-        $sortedBehaviouralUserSkills = $this->userSkills()
-            ->whereNotNull('improve_skills_rank')
-            ->whereHas('skill', function ($query) {
-                $query->where('category', 'BEHAVIOURAL');
-            })
-            ->orderBy('improve_skills_rank', 'asc')
-            ->get();
+        $this->userSkills->loadMissing('skill');
 
-        return $sortedBehaviouralUserSkills;
+        return $this->userSkills
+            ->whereNotNull('improve_skills_rank')
+            ->where('skill.category', 'BEHAVIOURAL')
+            ->sortBy('improve_skills_rank');
+    }
+
+    public function scopeAuthorizedToViewSpecific(Builder $query)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        $query->where(function (Builder $query) use ($user) {
+            if ($user->isAbleTo('view-team-applicantProfile')) {
+                $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
+                    $teamIds = $user->rolesTeams()->get()->pluck('id');
+                    $query->whereHas('pool', function (Builder $query) use ($teamIds) {
+                        return $query
+                            ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
+                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
+                    });
+                });
+            }
+            if ($user->isAbleTo('view-own-user')) {
+                $query->orWhere('id', $user->id);
+            }
+        });
+
+        return $query;
     }
 
     public function scopeAuthorizedToView(Builder $query)
     {
+        /** @var \App\Models\User */
         $user = Auth::user();
 
         if (! $user) {
@@ -878,23 +950,23 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
 
         if (! $user->isAbleTo('view-any-user')) {
-            $query->where(function (Builder $query) use ($user) {
-                if ($user->isAbleTo('view-team-applicantProfile')) {
-                    $query->orWhereHas('poolCandidates', function (Builder $query) use ($user) {
-                        $teamIds = $user->rolesTeams()->get()->pluck('id');
-                        $query->whereHas('pool', function (Builder $query) use ($teamIds) {
-                            return $query
-                                ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                                ->whereHas('team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                });
-                        });
-                    });
-                }
-                if ($user->isAbleTo('view-own-user')) {
-                    $query->orWhere('id', $user->id);
-                }
-            });
+            $query = self::scopeAuthorizedToViewSpecific($query);
+        }
+
+        return $query;
+    }
+
+    public function scopeAuthorizedToViewBasicInfo(Builder $query)
+    {
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('id', null);
+        }
+
+        if (! $user->isAbleTo('view-any-user') && ! $user->isAbleTo('view-any-userBasicInfo')) {
+            $query = self::scopeAuthorizedToViewSpecific($query);
         }
 
         return $query;
