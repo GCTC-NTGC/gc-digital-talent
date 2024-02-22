@@ -1,13 +1,10 @@
 import { faker } from "@faker-js/faker";
 
 import {
-  PoolSkillType,
   AssessmentStep,
   AssessmentStepType,
   Maybe,
 } from "@gc-digital-talent/graphql";
-
-import fakeSkills from "./fakeSkills";
 
 const generateAssessmentStep = (
   amount: number,
