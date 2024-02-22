@@ -5,7 +5,6 @@ import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import { IntlShape } from "react-intl";
-import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
 import {
   AssessmentDecision,
@@ -149,8 +148,8 @@ export const columnStatus = (
     };
 
   return {
-    icon: QuestionMarkCircleIcon,
-    color: "gray",
+    icon: ExclamationCircleIcon,
+    color: "toAssess",
   };
 };
 

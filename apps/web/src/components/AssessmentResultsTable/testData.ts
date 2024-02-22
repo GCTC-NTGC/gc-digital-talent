@@ -110,6 +110,8 @@ export const screeningQuestionsResults: AssessmentResult[] = [
     screeningQuestionsStep,
     AssessmentResultType.Skill,
     AssessmentDecision.Unsuccessful,
+    undefined,
+    essentialPoolSkills[1],
   ),
 ];
 
@@ -126,6 +128,8 @@ export const referenceCheckResults: AssessmentResult[] = [
     referenceCheckStep,
     AssessmentResultType.Skill,
     AssessmentDecision.Hold,
+    undefined,
+    essentialPoolSkills[0],
   ),
 ];
 

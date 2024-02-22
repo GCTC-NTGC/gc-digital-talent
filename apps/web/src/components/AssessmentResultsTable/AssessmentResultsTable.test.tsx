@@ -6,7 +6,6 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
-import QuestionMarkCircleIcon from "@heroicons/react/24/solid/QuestionMarkCircleIcon";
 
 import {
   applicationScreeningStep,
@@ -26,8 +25,8 @@ describe("AssessmentResults", () => {
     const notSureResult = applicationScreeningResults;
 
     expect(columnStatus(notSureStep, notSureResult)).toEqual({
-      icon: QuestionMarkCircleIcon,
-      color: "gray",
+      icon: ExclamationCircleIcon,
+      color: "toAssess",
     });
 
     const toAssessStep = applicationScreeningStep;
@@ -62,7 +61,6 @@ describe("AssessmentResults", () => {
       color: "success",
     });
   });
-  // it("should sort first column by pool skill type", async () => {
 
   // });
 });

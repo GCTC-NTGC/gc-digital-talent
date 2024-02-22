@@ -32,6 +32,7 @@ const generateAssessmentResult = (
     ),
     justifications: faker.helpers.arrayElements<AssessmentResultJustification>(
       Object.values(AssessmentResultJustification),
+      1,
     ),
     otherJustificationNotes: "otherJustificationNotes",
     poolSkill,
