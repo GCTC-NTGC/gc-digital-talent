@@ -806,6 +806,9 @@ return [
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
+            'assessmentPlan' => [
+                'any' => ['view'],
+            ],
             'assessmentResult' => [
                 'any' => ['view'],
             ],
