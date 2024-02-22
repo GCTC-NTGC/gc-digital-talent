@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -193,7 +193,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       )}
 
       {/* General Questions */}
-      {(generalQuestions.length > 0 || !features.recordOfDecision) && (
+      {generalQuestions.length > 0 && (
         <>
           <div
             data-h2-display="p-tablet(flex)"
@@ -231,45 +231,31 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               description: "Reminder what general questions are used for.",
             })}
           </p>
-          {generalQuestions.length ? (
-            generalQuestions.map((question, index) => (
-              <React.Fragment key={question.id}>
-                <Heading
-                  level="h3"
-                  size="h4"
-                  data-h2-font-weight="base(700)"
-                  data-h2-margin="base(x2, 0, x1, 0)"
-                >
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Question {number}",
-                      id: "/sBGov",
-                      description: "Heading for a specific screening question",
-                    },
-                    { number: index + 1 },
-                  )}
-                </Heading>
-                <input type="hidden" name={`generalAnswers.${index}.id`} />
-                <input
-                  type="hidden"
-                  name={`generalAnswers.${index}.questionId`}
-                />
-                <AnswerInput index={index} question={question} />
-              </React.Fragment>
-            ))
-          ) : (
-            <Well>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This process has no screening questions. You may continue on to the next step.",
-                  id: "CfNtWn",
-                  description:
-                    "Message displayed to users when there are no screening questions for a process",
-                })}
-              </p>
-            </Well>
-          )}
+          {generalQuestions.map((question, index) => (
+            <React.Fragment key={question.id}>
+              <Heading
+                level="h3"
+                size="h4"
+                data-h2-font-weight="base(700)"
+                data-h2-margin="base(x2, 0, x1, 0)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Question {number}",
+                    id: "/sBGov",
+                    description: "Heading for a specific screening question",
+                  },
+                  { number: index + 1 },
+                )}
+              </Heading>
+              <input type="hidden" name={`generalAnswers.${index}.id`} />
+              <input
+                type="hidden"
+                name={`generalAnswers.${index}.questionId`}
+              />
+              <AnswerInput index={index} question={question} />
+            </React.Fragment>
+          ))}
         </>
       )}
       <FormActions disabled={mutating} />
