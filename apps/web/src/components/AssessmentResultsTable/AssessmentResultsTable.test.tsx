@@ -61,6 +61,4 @@ describe("AssessmentResults", () => {
       color: "success",
     });
   });
-
-  // });
 });

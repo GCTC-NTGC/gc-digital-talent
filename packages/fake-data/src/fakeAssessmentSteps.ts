@@ -30,15 +30,7 @@ const generateAssessmentStep = (
       en: `${faker.lorem.word()} EN`,
       fr: `${faker.lorem.word()} FR`,
     },
-    poolSkills: [
-      {
-        id: faker.string.uuid(),
-        type: faker.helpers.arrayElement<PoolSkillType>(
-          Object.values(PoolSkillType),
-        ),
-        skill: fakeSkills(1)[0],
-      },
-    ],
+    poolSkills: [],
   };
 };
 
