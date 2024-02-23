@@ -427,6 +427,7 @@ type PoolCandidateSearchRequest {
   department: Department @belongsTo
   jobTitle: String @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   requestedDate: DateTime @rename(attribute: "created_at")
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
@@ -655,6 +656,7 @@ input PoolCandidateSearchRequestInput {
   id: ID @scope
   jobTitle: String @scope
   additionalComments: String @scope
+  hrAdvisorEmail: String @scope
   adminNotes: String @scope
   generalSearch: String @scope
 }
@@ -1169,6 +1171,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   applicantFilter: ApplicantFilterBelongsTo!
   # status will be set to NEW by default in Postgres
   wasEmpty: Boolean @rename(attribute: "was_empty")

@@ -499,6 +499,7 @@ type PoolCandidateSearchRequest {
   department: Department
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: Email
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
@@ -705,6 +706,7 @@ input PoolCandidateSearchRequestInput {
   id: ID
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: String
   adminNotes: String
   generalSearch: String
 }
@@ -1005,6 +1007,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
+  hrAdvisorEmail: Email
   applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
   managerJobTitle: String!

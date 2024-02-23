@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->text('HR_advisor_email')->nullable()->default(null);
+            $table->text('hr_advisor_email')->nullable()->default(null);
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->dropColumn('HR_advisor_email');
+            $table->dropColumn('hr_advisor_email');
         });
     }
 };
