@@ -11,8 +11,8 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
+import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
 
-import { User, DeleteUserMutation } from "~/api/generated";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 
 type FormValues = {

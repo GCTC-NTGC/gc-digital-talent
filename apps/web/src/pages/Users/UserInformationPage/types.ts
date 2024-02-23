@@ -1,4 +1,4 @@
-import { User, Pool } from "~/api/generated";
+import { User, Pool } from "@gc-digital-talent/graphql";
 
 export interface BasicUserInformationProps {
   user: User;
