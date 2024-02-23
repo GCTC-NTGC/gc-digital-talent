@@ -69,7 +69,7 @@ test.describe("Application", () => {
         sync: [classifications[0].id],
       },
     });
-    await await poolPage.updatePool(createdPool.id, {
+    await poolPage.updatePool(createdPool.id, {
       name: {
         en: "Playwright Test Pool EN",
         fr: "Playwright Test Pool FR",
@@ -214,7 +214,7 @@ test.describe("Application", () => {
       .first()
       .click();
     await application.connectExperience("QA Testing at Playwright University");
-    await await expect(
+    await expect(
       application.page.getByText(
         /please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it/i,
       ),
