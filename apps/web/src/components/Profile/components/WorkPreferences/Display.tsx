@@ -7,8 +7,7 @@ import {
   getOperationalRequirement,
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
-
-import { PositionDuration } from "~/api/generated";
+import { PositionDuration } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";

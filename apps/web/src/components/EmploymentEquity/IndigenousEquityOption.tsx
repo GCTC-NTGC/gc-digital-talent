@@ -4,8 +4,8 @@ import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import { Button } from "@gc-digital-talent/ui";
 import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
-import { IndigenousCommunity } from "~/api/generated";
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
 import { IndigenousDialog } from "./dialogs";

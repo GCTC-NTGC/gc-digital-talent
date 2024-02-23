@@ -7,8 +7,8 @@ import {
   getEmploymentEquityStatement,
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
+import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
-import { User, IndigenousCommunity } from "~/api/generated";
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";
 import inuitIcon from "~/assets/img/inuit-true.webp";
 import metisIcon from "~/assets/img/metis-true.webp";

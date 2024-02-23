@@ -53,6 +53,7 @@ import {
   countNumberOfWords,
   objectsToSortedOptions,
   htmlToRichTextJSON,
+  flattenErrors,
 } from "./utils";
 import useInputStyles from "./hooks/useInputStyles";
 
@@ -122,4 +123,5 @@ export {
   objectsToSortedOptions,
   useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
+  flattenErrors,
 };
