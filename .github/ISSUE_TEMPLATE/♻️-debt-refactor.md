@@ -28,12 +28,3 @@ A set of assumptions which, when tested, verify that the debt was addressed and 
 
 - [ ] Criteria 1
 - [ ] Criteria 2
-
-## 🛑 Blockers
-
-Issues which must be completed before this one.
-
-```[tasklist]
-### Blocked By
-- [ ] ticket number
-```
