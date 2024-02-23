@@ -24,6 +24,7 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "@formatjs/intl": "^2.10.0",
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
@@ -34,6 +35,7 @@
     "@heroicons/react": "2.1.1",
     "@hookform/error-message": "^2.0.1",
     "@radix-ui/react-switch": "1.0.3",
+    "@tiptap/core": "^2.2.4",
     "@tiptap/extension-character-count": "^2.2.3",
     "@tiptap/extension-link": "^2.2.3",
     "@tiptap/react": "^2.2.3",

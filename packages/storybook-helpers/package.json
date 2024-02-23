@@ -10,6 +10,7 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@storybook/react": "^7.6.17",
+    "@urql/core": "4.2.3",
     "chromatic": "^11.0.0",
     "framer-motion": "^11.0.5",
     "graphql": "^16.8.1",

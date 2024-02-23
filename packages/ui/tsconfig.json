@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "lib": ["dom", "es2020"]
-  },
   "extends": "tsconfig/react-lib.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

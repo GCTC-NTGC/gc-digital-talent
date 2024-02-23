@@ -1,4 +1,5 @@
-import { Client, Provider as GraphqlProvider } from "urql";
+import { Provider as GraphqlProvider } from "urql";
+import {Client} from "@urql/core";
 import { fromValue, pipe, delay } from "wonka";
 import { useParameter } from "@storybook/addons";
 import { StoryContext, StoryFn } from "@storybook/react";

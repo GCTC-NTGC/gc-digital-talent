@@ -1,10 +1,7 @@
 {
   "extends": "./base.json",
   "compilerOptions": {
-    "lib": ["dom", "es2020", "es2020.intl"],
     "module": "ES2015",
-    "target": "ES2015",
-    "moduleResolution": "bundler",
-    "noEmit": true
+    "target": "ES2015"
   }
 }
