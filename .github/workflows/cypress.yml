@@ -35,7 +35,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      NPM_VERSION: "9.9.2"
+      PNPM_VERSION: "8.15.0"
     steps:
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
       - name: reclaim space on runner
@@ -57,10 +57,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-          cache: npm
+          cache: pnpm
 
       - name: Upgrade to latest npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+        run: npm install --location=global pnpm@${{ env.PNPM_VERSION }}
 
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v6.6.1

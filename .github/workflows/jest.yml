@@ -19,7 +19,7 @@ jobs:
     name: Jest
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "9.9.2"
+      PNPM_VERSION: "8.15.0"
 
     steps:
       - name: Get number of CPU cores
@@ -31,21 +31,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: "./.nvmrc"
-          cache: "npm"
-          cache-dependency-path: "./package-lock.json"
+          cache: pnpm
 
       - name: Upgrade npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+        run: npm install --location=global pnpm@${{ env.PNPM_VERSION }}
 
       - name: "Install dependencies: workspace"
         working-directory: ./
-        run: npm install
+        run: pnpm install
 
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
-          npm run build
+          pnpm run build
 
       - name: "Run Unit Tests: all workspaces"
         working-directory: ./
-        run: npm run test
+        run: pnpm run test
