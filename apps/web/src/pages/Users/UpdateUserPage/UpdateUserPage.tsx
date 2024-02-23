@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -14,13 +14,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import {
   UpdateUserRolesInput,
   UpdateUserSubInput,
   useUpdateUserRolesMutation,
   useUpdateUserSubMutation,
-  useListRolesQuery,
   Language,
   Scalars,
   UpdateUserAsAdminInput,
@@ -240,6 +240,20 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of roles will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
+const UpdateUserData_Query = graphql(/* GraphQL */ `
+  query UpdateUserData {
+    roles {
+      id
+      name
+      isTeamBased
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type RouteParams = {
   userId: Scalars["ID"];
 };
@@ -248,7 +262,7 @@ const UpdateUserPage = () => {
   const intl = useIntl();
   const { userId } = useRequiredParams<RouteParams>("userId");
   const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
-    useListRolesQuery();
+    useQuery({ query: UpdateUserData_Query });
   const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId },
     context,

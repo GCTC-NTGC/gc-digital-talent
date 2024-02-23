@@ -2,16 +2,13 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Team, graphql } from "@gc-digital-talent/graphql";
 
-import {
-  Team,
-  useListTeamsQuery,
-  useMeRoleAssignmentsQuery,
-} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -138,25 +135,67 @@ export const TeamTable = ({
   );
 };
 
+const TeamTableData_Query = graphql(/* GraphQL */ `
+  query TeamTableData {
+    teams {
+      id
+      name
+      contactEmail
+      displayName {
+        en
+        fr
+      }
+      departments {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      description {
+        en
+        fr
+      }
+    }
+
+    me {
+      authInfo {
+        id
+        roleAssignments {
+          id
+          role {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
+            isTeamBased
+          }
+          team {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`);
+
 const TeamTableApi = ({ title }: { title: string }) => {
-  const [{ data: dataTeam, fetching: fetchingTeam, error: errorTeam }] =
-    useListTeamsQuery();
-  const [{ data: dataMe, fetching: fetchingMe, error: errorMe }] =
-    useMeRoleAssignmentsQuery();
+  const [{ data, fetching, error }] = useQuery({ query: TeamTableData_Query });
 
-  const isFetching = fetchingTeam || fetchingMe;
-
-  const teams = dataTeam?.teams.filter(notEmpty);
+  const teams = unpackMaybes(data?.teams);
 
   let myRolesAndTeams: MyRoleTeam[] = [];
-  const roleAssignments =
-    unpackMaybes(dataMe?.me?.authInfo?.roleAssignments) ?? [];
+  const roleAssignments = unpackMaybes(data?.me?.authInfo?.roleAssignments);
   myRolesAndTeams = roleAssignmentsToRoleTeamArray(roleAssignments);
 
   return (
-    <Pending fetching={isFetching} error={errorTeam || errorMe}>
+    <Pending fetching={fetching} error={error}>
       <TeamTable
-        teams={teams || []}
+        teams={teams}
         myRolesAndTeams={myRolesAndTeams}
         title={title}
       />
