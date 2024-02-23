@@ -157,16 +157,23 @@ const ManagerInfo = ({
                 <FilterBlock
                   title={intl.formatMessage({
                     defaultMessage: "HR advisor email",
-                    id: "ufyoqJ",
+                    id: "PD7anu",
                     description:
-                      "Title for the HR advisor email block in the manager info section of the single search request view.",
+                      "Title for the government email block in the manager info section of the single search request view.",
                   })}
                   content={
                     hrAdvisorEmail ? (
                       <Link external href={`mailto:${hrAdvisorEmail}`}>
                         {hrAdvisorEmail}
                       </Link>
-                    ) : null
+                    ) : (
+                      intl.formatMessage({
+                        defaultMessage: "N/A",
+                        id: "i9AjuX",
+                        description:
+                          "Text shown when the filter was not selected",
+                      })
+                    )
                   }
                 />
               </div>
