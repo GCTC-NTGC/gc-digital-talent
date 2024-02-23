@@ -6,5 +6,5 @@ source ${parent_path}/lib/common.sh
 # setup frontend workspace
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
-npm install
-npm run dev
+pnpm install
+pnpm dev
