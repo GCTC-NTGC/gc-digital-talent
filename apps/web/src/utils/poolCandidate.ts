@@ -111,7 +111,7 @@ export const formatSubmittedAt = (
     : "";
 };
 
-const getResultsDecision = (
+export const getResultsDecision = (
   step: AssessmentStep,
   results?: AssessmentResult[],
 ): NullableDecision => {
@@ -243,6 +243,9 @@ export const determineCandidateStatusPerStep = (
   }, new Map<PoolCandidateId, Map<AssessmentStepId, NullableDecision>>());
 };
 
+export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
+  sortBy(assessmentSteps, (step) => step.sortOrder);
+
 export const getDecisionCountForEachStep = (
   assessmentSteps: AssessmentStep[],
   candidateToResults: Map<
@@ -251,7 +254,7 @@ export const getDecisionCountForEachStep = (
   >,
   candidateToCurrentStep: Map<PoolCandidateId, number | null>,
 ): Map<AssessmentStepId, ResultDecisionCounts> => {
-  const orderedSteps = sortBy(assessmentSteps, (step) => step.sortOrder);
+  const orderedSteps = getOrderedSteps(assessmentSteps);
   const decisionCountMap = new Map<AssessmentStepId, ResultDecisionCounts>();
   for (let index = 0; index < orderedSteps.length; index += 1) {
     const stepId = orderedSteps[index].id;

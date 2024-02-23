@@ -2131,6 +2131,36 @@ export const getAssessmentDecision = (
     `Invalid Search Request Reason '${assessmentDecisionId}'`,
   );
 
+const tableAssessmentDecisions = defineMessages({
+  [AssessmentDecision.Successful]: {
+    defaultMessage: "Demonstrated",
+    id: "6pBOi2",
+    description:
+      "Table assessment decision when candidate has successful assessment.",
+  },
+  [AssessmentDecision.Hold]: {
+    defaultMessage: "Hold for further assessment",
+    id: "LyVI+p",
+    description:
+      "Table assessment decision when candidate has unsuccessful assessment but on hold.",
+  },
+  [AssessmentDecision.Unsuccessful]: {
+    defaultMessage: "Not demonstrated",
+    id: "EOzHrh",
+    description:
+      "Table assessment decision when candidate has unsuccessful assessment and been removed from the process.",
+  },
+});
+
+export const getTableAssessmentDecision = (
+  assessmentDecisionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    tableAssessmentDecisions,
+    assessmentDecisionId,
+    `Invalid Search Request Reason '${assessmentDecisionId}'`,
+  );
+
 const assessmentJustifications = defineMessages({
   [AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience]:
     {

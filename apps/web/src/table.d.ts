@@ -10,6 +10,8 @@ declare module "@tanstack/table-core" {
     isRowSelect?: boolean;
     /** Override the header for the mobile view */
     mobileHeader?: React.ReactNode;
+    /** Override the column dialog header */
+    columnDialogHeader?: React.ReactNode;
     /** Hides the header for this column on the mobile */
     hideMobileHeader?: boolean;
     /** Header for the search column dropdown */

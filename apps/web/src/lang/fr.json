@@ -67,6 +67,10 @@
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
   },
+  "+Xn2ke": {
+    "defaultMessage": "Résultats de l’évaluation",
+    "description": "Title for assessment results"
+  },
   "+YUDhx": {
     "defaultMessage": "indéterminée (emploi permanent seulement).",
     "description": "Label displayed on Work Preferences form for indeterminate duration option."
@@ -638,10 +642,6 @@
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
-  },
-  "1KLw2T": {
-    "defaultMessage": "Ouvert",
-    "description": "Header for education requirement screening decision dialog."
   },
   "1MtuHa": {
     "defaultMessage": "Veuillez préciser le facteur",
@@ -1278,6 +1278,10 @@
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
+  },
+  "4xXPIe": {
+    "defaultMessage": "Exigences pédagogiques",
+    "description": "Education requirement row header."
   },
   "4yBTfg": {
     "defaultMessage": "<heavyPrimary>Ébauche</heavyPrimary>",
@@ -8558,6 +8562,10 @@
     "defaultMessage": "Conseiller principal ou Gestionnaire I T 4",
     "description": "IT-04 classification aria label including titles"
   },
+  "jAWP0X": {
+    "defaultMessage": "Exigence",
+    "description": "Header for requirement section of assessment results table"
+  },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
     "description": "Link text to learn more about the platform creation"
@@ -9341,6 +9349,10 @@
   "naE1xF": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles possibilités d’emploi.",
     "description": "Description of how application profiles works for managers/executives."
+  },
+  "ndW6vI": {
+    "defaultMessage": "En attente d’une évaluation",
+    "description": "Message displayed when candidate is on hold at a specific assessment step"
   },
   "neIH5o": {
     "defaultMessage": "Candidat mis en signet.",
