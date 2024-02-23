@@ -109,65 +109,6 @@ mutation CreateUser($user: CreateUserInput!) {
   }
 }
 
-mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
-  updateUserAsUser(id: $id, user: $user) {
-    id
-    firstName
-    lastName
-    telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
-    currentCity
-
-    preferredLang
-    lookingForEnglish
-    lookingForFrench
-    lookingForBilingual
-    bilingualEvaluation
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
-
-    isGovEmployee
-    hasPriorityEntitlement
-    priorityNumber
-    department {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
-    currentClassification {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
-
-    isWoman
-    hasDisability
-    isVisibleMinority
-    indigenousCommunities
-    indigenousDeclarationSignature
-
-    hasDiploma
-    locationPreferences
-    locationExemptions
-    acceptedOperationalRequirements
-    positionDuration
-  }
-}
-
 mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
   updateUserAsAdmin(id: $id, user: $user) {
     id
