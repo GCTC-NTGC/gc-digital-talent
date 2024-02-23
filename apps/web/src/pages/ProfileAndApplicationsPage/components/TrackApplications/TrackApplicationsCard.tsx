@@ -1,17 +1,18 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
+  graphql,
   PoolCandidate,
   PoolCandidateStatus,
-  useDeleteApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
@@ -180,6 +181,15 @@ const TrackApplicationsCard = ({
     </div>
   );
 };
+
+const TrackApplicationsCardDelete_Mutation = graphql(/* GraphQL */ `
+  mutation TrackApplicationsCardDelete($id: ID!) {
+    deleteApplication(id: $id) {
+      id
+    }
+  }
+`);
+
 interface TrackApplicationsCardApiProps {
   application: Application;
 }
@@ -187,7 +197,9 @@ interface TrackApplicationsCardApiProps {
 const TrackApplicationsCardApi = ({
   application,
 }: TrackApplicationsCardApiProps) => {
-  const [, executeDeleteMutation] = useDeleteApplicationMutation();
+  const [, executeDeleteMutation] = useMutation(
+    TrackApplicationsCardDelete_Mutation,
+  );
   const intl = useIntl();
 
   const deleteApplication = () => {
