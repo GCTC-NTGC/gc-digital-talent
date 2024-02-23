@@ -49,9 +49,6 @@ jobs:
           node-version-file: "./.nvmrc"
           cache: pnpm
 
-      - name: Upgrade npm
-        run: npm install --location=global pnpm@${{ env.PNPM_VERSION }}
-
       - name: "Install dependencies: workspace"
         working-directory: ./
         run: pnpm install
