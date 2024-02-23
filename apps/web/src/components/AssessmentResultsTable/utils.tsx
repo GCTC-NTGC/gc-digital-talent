@@ -113,44 +113,38 @@ export const columnStatus = (
   assessmentStep: AssessmentStep,
   assessmentResults?: AssessmentResult[],
 ): ColumnStatus => {
-  if (
-    getResultsDecision(assessmentStep, assessmentResults) ===
-    AssessmentDecision.Unsuccessful
-  )
-    return {
-      icon: XCircleIcon,
-      color: "error",
-    };
+  const assessmentDecisionResult = getResultsDecision(
+    assessmentStep,
+    assessmentResults,
+  );
 
-  if (
-    getResultsDecision(assessmentStep, assessmentResults) ===
-    AssessmentDecision.Hold
-  )
-    return {
-      icon: PauseCircleIcon,
-      color: "hold",
-    };
-
-  if (getResultsDecision(assessmentStep, assessmentResults) === NO_DECISION) {
-    return {
-      icon: ExclamationCircleIcon,
-      color: "toAssess",
-    };
+  switch (assessmentDecisionResult) {
+    case AssessmentDecision.Unsuccessful:
+      return {
+        icon: XCircleIcon,
+        color: "error",
+      };
+    case AssessmentDecision.Hold:
+      return {
+        icon: PauseCircleIcon,
+        color: "hold",
+      };
+    case NO_DECISION:
+      return {
+        icon: ExclamationCircleIcon,
+        color: "toAssess",
+      };
+    case AssessmentDecision.Successful:
+      return {
+        icon: CheckCircleIcon,
+        color: "success",
+      };
+    default:
+      return {
+        icon: ExclamationCircleIcon,
+        color: "toAssess",
+      };
   }
-
-  if (
-    getResultsDecision(assessmentStep, assessmentResults) ===
-    AssessmentDecision.Successful
-  )
-    return {
-      icon: CheckCircleIcon,
-      color: "success",
-    };
-
-  return {
-    icon: ExclamationCircleIcon,
-    color: "toAssess",
-  };
 };
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
