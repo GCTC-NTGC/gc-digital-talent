@@ -355,9 +355,9 @@ export const RequestForm = ({
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
-                id="hrAdvisoremail"
+                id="hrAdvisorEmail"
                 type="text"
-                name="hrAdvisoremail"
+                name="hrAdvisorEmail"
                 label={intl.formatMessage({
                   defaultMessage: "HR advisor email",
                   id: "VrLfLw",
