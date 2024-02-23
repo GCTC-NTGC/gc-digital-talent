@@ -60,7 +60,8 @@ services:
       - ./packages:/var/www/html/packages
       - ./tc-report:/var/www/html/tc-report
       - ./package.json:/var/www/html/package.json
-      - ./package-lock.json:/var/www/html/package-lock.json
+      - ./pnpm-lock.yaml:/var/www/html/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/var/www/html/pnpm-workspace.yaml
       - ./node_modules:/var/www/html/node_modules
       - ./turbo.json:/var/www/html/turbo.json
       - ./hydrogen.config.json:/var/www/html/hydrogen.config.json
