@@ -64,7 +64,7 @@ type FormValues = {
   positionType?: boolean;
   reason: CreatePoolCandidateSearchRequestInput["reason"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
-  hrAdvisoremail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
+  hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
@@ -141,7 +141,7 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
-      hrAdvisorEmail: values.hrAdvisoremail ?? "",
+      hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
@@ -356,7 +356,7 @@ export const RequestForm = ({
             <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
               <Input
                 id="hrAdvisorEmail"
-                type="text"
+                type="email"
                 name="hrAdvisorEmail"
                 label={intl.formatMessage({
                   defaultMessage: "HR advisor email",
