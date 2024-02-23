@@ -23,15 +23,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: "./.nvmrc"
           cache: pnpm
-          cache-dependency-path: "./package-lock.json"
-
-      - name: Upgrade npm
-        run: npm install --location=global npm@${{ env.PNPM_VERSION }}
 
       - name: "Install dependencies: workspace"
         working-directory: ./

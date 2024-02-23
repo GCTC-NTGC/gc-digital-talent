@@ -54,13 +54,14 @@ jobs:
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh -c
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
-
-      - name: Upgrade to latest npm
-        run: npm install --location=global pnpm@${{ env.PNPM_VERSION }}
 
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v6.6.1

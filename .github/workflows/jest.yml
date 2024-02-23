@@ -27,14 +27,14 @@ jobs:
         id: cpu-cores
 
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: "./.nvmrc"
           cache: pnpm
-
-      - name: Upgrade npm
-        run: npm install --location=global pnpm@${{ env.PNPM_VERSION }}
 
       - name: "Install dependencies: workspace"
         working-directory: ./
