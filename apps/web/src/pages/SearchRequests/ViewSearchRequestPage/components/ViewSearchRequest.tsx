@@ -49,6 +49,7 @@ const ManagerInfo = ({
     department,
     email,
     managerJobTitle,
+    hrAdvisorEmail,
     status,
     requestedDate,
     statusChangedAt,
@@ -151,6 +152,21 @@ const ManagerInfo = ({
                           intl,
                         })
                       : null
+                  }
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "HR advisor email",
+                    id: "ufyoqJ",
+                    description:
+                      "Title for the HR advisor email block in the manager info section of the single search request view.",
+                  })}
+                  content={
+                    hrAdvisorEmail ? (
+                      <Link external href={`mailto:${hrAdvisorEmail}`}>
+                        {hrAdvisorEmail}
+                      </Link>
+                    ) : null
                   }
                 />
               </div>
