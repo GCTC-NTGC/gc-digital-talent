@@ -1204,14 +1204,6 @@ input SyncScreeningQuestionsInput {
   sortOrder: Int
 }
 
-input SyncEssentialPoolSkills {
-  sync: [ID]
-}
-
-input SyncNonessentialPoolSkills {
-  sync: [ID]
-}
-
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1222,8 +1214,6 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
   specialNote: LocalizedStringInput
-  essentialSkills: SyncEssentialPoolSkills
-  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput

@@ -1373,14 +1373,6 @@ input SyncScreeningQuestionsInput {
   sortOrder: Int
 }
 
-input SyncEssentialPoolSkills {
-  sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
-}
-
-input SyncNonessentialPoolSkills {
-  sync: [ID] @resolveWith(method: "setNonessentialPoolSkills")
-}
-
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1402,9 +1394,6 @@ input UpdatePoolInput {
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Special note
   specialNote: LocalizedStringInput @rename(attribute: "special_note")
-  # Essential skills and Asset skills
-  essentialSkills: SyncEssentialPoolSkills @spread
-  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
