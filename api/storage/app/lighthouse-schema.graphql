@@ -123,6 +123,9 @@ type Mutation {
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
+  updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
+  deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePool(id: ID!): Pool
@@ -367,6 +370,7 @@ type AssessmentResult {
 type PoolSkill {
   id: ID!
   type: PoolSkillType
+  requiredLevel: SkillLevel
   pool: Pool
   skill: Skill
   assessmentSteps: [AssessmentStep]
@@ -1226,6 +1230,15 @@ input UpdatePoolInput {
   isRemote: Boolean
   publishingGroup: PublishingGroup
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input CreatePoolSkillInput {
+  type: PoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+input UpdatePoolSkillInput {
+  requiredLevel: SkillLevel
 }
 
 input AssessmentStepInput {

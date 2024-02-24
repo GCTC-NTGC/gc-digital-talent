@@ -1783,12 +1783,17 @@ type Mutation {
   ): PoolSkill
     @create
     @guard
-    @can(ability: "updateDraft", find: "poolId", model: "Pool")
+    @can(
+      ability: "updateDraft"
+      find: "pool_id"
+      model: "Pool"
+      injectArgs: true
+    )
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput! @spread): PoolSkill
     @update
     @guard
     @can(ability: "update", find: "id", model: "PoolSkill")
-  deletePoolSkill(id: ID!): PoolSkill
+  deletePoolSkill(id: ID! @whereKey): PoolSkill
     @delete
     @guard
     @can(ability: "delete", find: "id", model: "PoolSkill")
