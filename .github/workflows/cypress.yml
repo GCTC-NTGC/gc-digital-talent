@@ -44,14 +44,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache Cypress binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
 
@@ -74,6 +66,7 @@ jobs:
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v6.6.1
         with:
+          install: false
           spec: "**/*.cy.ts"
           browser: electron
           config-file: cypress.config.ts
