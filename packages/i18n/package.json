@@ -22,14 +22,14 @@
     "postbuild": "cpy --cwd=src/lang frCompiled.json ../../dist"
   },
   "jest": {
-    "preset": "jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*"
   },
   "devDependencies": {
-    "@formatjs/intl": "^2.10.0",
     "@formatjs/cli": "^6.2.7",
+    "@gc-digital-talent/jest-presets": "workspace:*",
     "@swc/core": "^1.4.2",
     "@types/node": "20.11.19",
     "@types/react": "^18.2.57",
@@ -38,7 +38,6 @@
     "eslint-config-custom": "workspace:*",
     "history": "^5.3.0",
     "jest": "^29.7.0",
-    "jest-presets": "workspace:*",
     "js-yaml": "^4.1.0",
     "json-stable-stringify": "^1.1.1",
     "react": "^18.2.0",

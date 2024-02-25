@@ -5,11 +5,9 @@ import getStyles, { SwitchColor } from "./styles";
 import { IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";
 
-export type PrimitiveSwitchProps = React.ComponentPropsWithoutRef<
+export type SwitchProps = React.ComponentPropsWithoutRef<
   typeof SwitchPrimitive.Root
->;
-
-export interface BaseSwitchProps {
+> & {
   disabled?: boolean;
   // Display an icon in the handle for the switch
   icon?: {
@@ -20,9 +18,7 @@ export interface BaseSwitchProps {
   };
   // Changes the background color when the switch is checked
   color?: SwitchColor;
-}
-
-export type SwitchProps = BaseSwitchProps & PrimitiveSwitchProps;
+};
 
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitive.Root>,

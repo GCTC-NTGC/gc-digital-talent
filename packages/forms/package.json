@@ -21,10 +21,9 @@
     "test": "jest --detectOpenHandles --forceExit"
   },
   "jest": {
-    "preset": "jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
-    "@formatjs/intl": "^2.10.0",
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
@@ -34,8 +33,6 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "2.1.1",
     "@hookform/error-message": "^2.0.1",
-    "@radix-ui/react-switch": "1.0.3",
-    "@tiptap/core": "^2.2.4",
     "@tiptap/extension-character-count": "^2.2.3",
     "@tiptap/extension-link": "^2.2.3",
     "@tiptap/react": "^2.2.3",
@@ -50,6 +47,7 @@
     "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/react": "^7.6.17",
@@ -65,7 +63,6 @@
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jest-presets": "workspace:*",
     "react": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-intl": "^6.6.2",

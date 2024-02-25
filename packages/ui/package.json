@@ -20,7 +20,7 @@
     "test": "jest --detectOpenHandles --forceExit"
   },
   "jest": {
-    "preset": "jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/browser"
   },
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
@@ -54,6 +54,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/jest-helpers": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/react": "^7.6.17",
@@ -69,8 +70,6 @@
     "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "jest-presets": "workspace:*",
     "react": "^18.2.0",
     "react-intl": "^6.6.2",
     "react-router-dom": "^6.22.1",

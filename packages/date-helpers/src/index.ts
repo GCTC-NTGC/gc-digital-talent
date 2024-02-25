@@ -11,9 +11,9 @@ import formatInTimeZone from "date-fns-tz/formatInTimeZone";
 import toDate from "date-fns-tz/toDate";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
+import { Scalars } from "@gc-digital-talent/graphql";
 
-import type { FormatDateOptions } from "./types";
+import { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_STRING,
   DATE_FORMAT_STRING,
