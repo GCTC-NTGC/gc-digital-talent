@@ -19,9 +19,8 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
     .map((poolSkill) => poolSkill.id);
   const assessedPoolSkillIds = pool.assessmentSteps
     .filter(notEmpty)
-    .flatMap(
-      (step) =>
-        step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
+    .flatMap((step) =>
+      step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
     );
   const thereAreUnassessedPoolSkills = allPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),

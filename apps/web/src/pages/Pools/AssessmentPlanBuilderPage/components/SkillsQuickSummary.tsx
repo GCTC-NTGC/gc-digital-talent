@@ -33,12 +33,11 @@ const SkillsQuickSummary = ({
 
   // count how many assessment steps there are for a given pool skill
   const assessmentStepCount = (poolSkill: PoolSkill): number => {
-    return assessmentSteps.filter(
-      (assessmentStep) =>
-        assessmentStep.poolSkills?.some(
-          (assessmentStepPoolSkill) =>
-            assessmentStepPoolSkill?.id === poolSkill.id,
-        ),
+    return assessmentSteps.filter((assessmentStep) =>
+      assessmentStep.poolSkills?.some(
+        (assessmentStepPoolSkill) =>
+          assessmentStepPoolSkill?.id === poolSkill.id,
+      ),
     ).length;
   };
 

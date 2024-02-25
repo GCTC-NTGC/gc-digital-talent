@@ -283,8 +283,9 @@ export const ScreeningDecisionDialog = ({
     locale,
     classificationGroup,
     isIAPPool(poolCandidate.pool),
-  ).find((option) => option.value === poolCandidate.educationRequirementOption)
-    ?.label;
+  ).find(
+    (option) => option.value === poolCandidate.educationRequirementOption,
+  )?.label;
 
   const defaultValues: FormValues = {
     assessmentDecision: null,

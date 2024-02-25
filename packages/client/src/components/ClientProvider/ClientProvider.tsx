@@ -8,7 +8,6 @@ import {
   fetchExchange,
   Provider,
   mapExchange,
-  CombinedError,
 } from "urql";
 import { useIntl } from "react-intl";
 
