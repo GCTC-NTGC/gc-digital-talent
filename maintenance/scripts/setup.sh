@@ -61,6 +61,8 @@ else
 fi
 chmod -R a+r,a+w \
   node_modules \
+  apps/**/node_modules \
+  packages/**/node_modules \
   apps/*/.turbo \
   apps/*/src/lang \
   apps/*/dist \
