@@ -19,7 +19,7 @@
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",
-    "production": "pnpm run build",
+    "production": "pnpm build",
     "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
     "storybook:design-system": "SB_APP=design storybook dev -p 6006",
@@ -27,7 +27,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "concurrently --kill-others-on-fail \"pnpm run codegen -- --watch\" \"webpack watch --config webpack.dev.js\""
+    "watch": "concurrently --kill-others-on-fail \"pnpm codegen -- --watch\" \"webpack watch --config webpack.dev.js\""
   },
   "sideEffects": [
     "**/*.css"
@@ -73,6 +73,7 @@
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/webpack-config": "workspace:*",
     "@graphql-codegen/add": "^5.0.0",

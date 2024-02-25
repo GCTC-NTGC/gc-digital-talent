@@ -21,7 +21,7 @@
     "test": "jest --detectOpenHandles --forceExit"
   },
   "jest": {
-    "preset": "@gc-digital-talent/jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/browser"
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",

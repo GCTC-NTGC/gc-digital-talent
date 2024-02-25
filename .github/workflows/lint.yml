@@ -55,12 +55,12 @@ jobs:
 
       - name: "Setup: all workspaces"
         working-directory: ./
-        run: pnpm run build
+        run: pnpm build
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./
         # Pass arg to eslint so that any warnings will raise error code and fail workflow.
-        run: pnpm run lint -- --max-warnings=0
+        run: pnpm lint -- --max-warnings=0
 
       - name: "Run typescript linting: all workspaces"
         # Allow tsc linting to happen even if js linting step raises errors.

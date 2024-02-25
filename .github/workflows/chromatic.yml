@@ -50,13 +50,13 @@ jobs:
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
-          pnpm run codegen
-          pnpm run intl-compile
+          pnpm codegen
+          pnpm intl-compile
 
       - name: "Build: all workspaces"
         working-directory: ./
         run: |
-          pnpm run build
+          pnpm build
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v11

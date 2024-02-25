@@ -2,9 +2,9 @@
   "name": "@gc-digital-talent/e2e",
   "version": "0.0.1",
   "scripts": {
-    "e2e": "pnpm run e2e:open",
+    "e2e": "pnpm e2e:open",
     "e2e:open": "cypress open --e2e",
-    "e2e:run": "pnpm run e2e:run:all",
+    "e2e:run": "pnpm e2e:run:all",
     "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.ts\"",
     "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.ts\" --no-exit --headed"
   },

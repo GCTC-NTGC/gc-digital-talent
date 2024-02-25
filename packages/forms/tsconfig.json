@@ -1,9 +1,5 @@
 {
   "extends": "tsconfig/react-lib.json",
-  "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node"
-  },
-  "include": ["src"],
+  "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }

@@ -8,9 +8,9 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsup src/index.ts --silent --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsc --declaration",
+    "watch": "tsup src/index.ts --watch --dts --external react --minify",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
@@ -21,9 +21,12 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@swc/core": "^1.4.2",
     "@types/lodash": "4.14.202",
+    "eslint": "^8.56.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   }
 }

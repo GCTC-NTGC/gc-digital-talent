@@ -43,8 +43,8 @@ jobs:
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
-          pnpm run build
+          pnpm build
 
       - name: "Run Unit Tests: all workspaces"
         working-directory: ./
-        run: pnpm run test
+        run: pnpm test
