@@ -51,6 +51,12 @@ jobs:
         # Need to include --build as we're caching layers.
         run: docker-compose up --detach --build
 
+      - name: Set up Cypress binary cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
+
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh -c
 
