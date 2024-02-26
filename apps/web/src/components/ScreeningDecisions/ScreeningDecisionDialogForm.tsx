@@ -49,9 +49,6 @@ const ScreeningDecisionDialogForm = ({
   const { assessmentDecisionItems, successfulOptions, unsuccessfulOptions } =
     options;
 
-  const otherReasonSelected =
-    Array.isArray(watchJustifications) &&
-    watchJustifications.includes(AssessmentResultJustification.FailedOther);
   const isAssessmentDecisionSuccessful =
     watchAssessmentDecision === AssessmentDecision.Successful;
   const isAssessmentDecisionUnSuccessful =
@@ -59,6 +56,17 @@ const ScreeningDecisionDialogForm = ({
   const isAssessmentOnHold =
     watchAssessmentDecision === AssessmentDecision.Hold;
   const isAssessmentDecisionNotSure = watchAssessmentDecision === NO_DECISION;
+  const educationRequirementSelected =
+    (!Array.isArray(watchJustifications) &&
+      watchJustifications ===
+        AssessmentResultJustification.EducationAcceptedInformation) ||
+    watchJustifications ===
+      AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
+    watchJustifications ===
+      AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
+  const otherReasonSelected =
+    Array.isArray(watchJustifications) &&
+    watchJustifications.includes(AssessmentResultJustification.FailedOther);
 
   /**
    * Reset un-rendered fields
@@ -78,16 +86,16 @@ const ScreeningDecisionDialogForm = ({
       }
     }
 
+    if (isAssessmentDecisionSuccessful) {
+      if (!educationRequirementSelected) {
+        resetDirtyField("justifications");
+      }
+      resetDirtyField("otherJustificationNotes");
+    }
+
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
-      if (!otherReasonSelected) {
-        resetDirtyField("otherJustificationNotes");
-      }
-    }
-
-    if (isAssessmentDecisionSuccessful) {
-      resetDirtyField("justifications");
       if (!otherReasonSelected) {
         resetDirtyField("otherJustificationNotes");
       }
@@ -105,6 +113,7 @@ const ScreeningDecisionDialogForm = ({
     isAssessmentDecisionNotSure,
     otherReasonSelected,
     isAssessmentOnHold,
+    educationRequirementSelected,
     setValue,
   ]);
 
@@ -239,7 +248,8 @@ const ScreeningDecisionDialogForm = ({
           </p>
         </Well>
       )}
-      {otherReasonSelected && (
+      {otherReasonSelected &&
+      (isAssessmentDecisionUnSuccessful || isAssessmentOnHold) ? (
         <div data-h2-margin="base(x1, 0)">
           <TextArea
             id="otherJustificationNotes"
@@ -250,7 +260,7 @@ const ScreeningDecisionDialogForm = ({
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
         </div>
-      )}
+      ) : null}
     </>
   );
 };

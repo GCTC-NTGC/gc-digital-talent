@@ -6,7 +6,6 @@ import { Test_CreateUserMutationDocument, defaultUser } from "~/utils/user";
 import {
   Test_RolesQueryDocument,
   Test_UpdateUserRolesMutationDocument,
-  getRoles,
 } from "~/utils/auth";
 import { GraphQLResponse } from "~/utils/graphql";
 

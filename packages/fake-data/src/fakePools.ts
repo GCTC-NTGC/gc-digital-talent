@@ -19,6 +19,7 @@ import {
   Skill,
   GeneralQuestion,
   ScreeningQuestion,
+  AssessmentStepType,
   PoolSkillType,
   PoolSkill,
 } from "@gc-digital-talent/graphql";
@@ -30,6 +31,7 @@ import fakeClassifications from "./fakeClassifications";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
+import fakeAssessmentSteps from "./fakeAssessmentSteps";
 
 const generatePool = (
   users: User[],
@@ -112,6 +114,14 @@ const generatePool = (
     screeningQuestions: faker.helpers.arrayElements<ScreeningQuestion>(
       fakeScreeningQuestions(),
     ),
+    assessmentSteps: [
+      fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening)[0],
+      fakeAssessmentSteps(
+        1,
+        AssessmentStepType.ScreeningQuestionsAtApplication,
+      )[0],
+      fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
+    ],
   };
 };
 
@@ -140,6 +150,7 @@ export default (
           users,
           skills,
           classifications,
+
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
