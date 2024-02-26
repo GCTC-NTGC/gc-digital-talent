@@ -44,7 +44,7 @@ const useLogoutChannel = (onLogout: () => void) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const postLogoutMessage = useCallback(() => {
+  const broadcastLogoutMessage = useCallback(() => {
     if (!channel) {
       logger.error("No logout channel open to post to.");
       return;
@@ -53,7 +53,7 @@ const useLogoutChannel = (onLogout: () => void) => {
   }, [channel, logger]);
 
   return {
-    postLogoutMessage,
+    broadcastLogoutMessage,
   };
 };
 

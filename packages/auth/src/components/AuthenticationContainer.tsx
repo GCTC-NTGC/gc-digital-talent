@@ -40,7 +40,7 @@ const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
   postLogoutUri?: string,
-  postLogoutMessage?: () => void,
+  broadcastLogoutMessage?: () => void,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -72,7 +72,7 @@ const logoutAndRefreshPage = (
 
   // Post a logout message to the broadcast channel
   // so they know to logout as well
-  postLogoutMessage?.();
+  broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
@@ -115,7 +115,7 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
-  const { postLogoutMessage } = useLogoutChannel(() => {
+  const { broadcastLogoutMessage } = useLogoutChannel(() => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
       window.location.href = logoutRedirectUri;
     }
@@ -167,7 +167,7 @@ const AuthenticationContainer = ({
               logoutUri,
               logoutRedirectUri,
               postLogoutUri,
-              postLogoutMessage,
+              broadcastLogoutMessage,
             )
         : () => {
             /* If not logged in, logout does nothing. */
@@ -215,7 +215,7 @@ const AuthenticationContainer = ({
   }, [
     logoutUri,
     logoutRedirectUri,
-    postLogoutMessage,
+    broadcastLogoutMessage,
     tokenRefreshPath,
     logger,
   ]);
