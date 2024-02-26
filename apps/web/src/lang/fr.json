@@ -399,6 +399,10 @@
     "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link> communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
     "description": "Third paragraph for pool closing date dialog"
   },
+  "08rkLr": {
+    "defaultMessage": "Durée de la possibilité",
+    "description": "Label for a process' opportunity employment duration"
+  },
   "094835": {
     "defaultMessage": "Je cherche à...",
     "description": "Support form subject field label"
@@ -2930,6 +2934,10 @@
   "EBmWyo": {
     "defaultMessage": "Accueil",
     "description": "Link text for the home link in breadcrumbs."
+  },
+  "EGNLD7": {
+    "defaultMessage": "Durée de l’emploi",
+    "description": "Label for pool advertisement employment length"
   },
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
@@ -11149,6 +11157,10 @@
   "zl6H2p": {
     "defaultMessage": "Questions relatives à l’Initiative en matière numérique",
     "description": "Heading for the Questions about the digital initiative section on the digital services contracting questionnaire"
+  },
+  "zlHeEz": {
+    "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
+    "description": "Link text for employment durations information"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
