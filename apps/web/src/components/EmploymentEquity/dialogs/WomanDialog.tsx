@@ -7,7 +7,6 @@ import { Checklist } from "@gc-digital-talent/forms";
 import {
   formMessages,
   getEmploymentEquityGroup,
-  getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 
 import type { EquityDialogProps } from "../types";
