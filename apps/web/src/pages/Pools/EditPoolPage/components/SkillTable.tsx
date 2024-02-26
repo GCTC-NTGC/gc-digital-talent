@@ -4,17 +4,25 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
+import { SkillLevel } from "@gc-digital-talent/graphql";
 
-import { Scalars, Skill } from "~/api/generated";
+import { Skill } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
 
-const columnHelper = createColumnHelper<Skill>();
+const columnHelper = createColumnHelper<
+  Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  }
+>();
 
 const removeCell = (
-  skill: Skill,
+  skill: Skill & {
+    poolSkillId: string;
+  },
   onClick: (id: string) => void,
   intl: IntlShape,
 ) => (
@@ -22,7 +30,7 @@ const removeCell = (
     type="button"
     mode="inline"
     color="black"
-    onClick={() => onClick(skill.id)}
+    onClick={() => onClick(skill.poolSkillId)}
   >
     {intl.formatMessage(
       {
@@ -39,20 +47,31 @@ const removeCell = (
 
 interface SkillTableProps {
   caption: string;
-  data: Skill[];
+  data: (Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  })[];
   allSkills: Skill[];
-  onSave: (submitData: Scalars["ID"][]) => Promise<void>;
   disableAdd?: boolean;
   nullMessage?: NullMessageProps;
+  onCreate: (skillSelected: string, skillLevel: SkillLevel) => Promise<void>;
+  onUpdate: (
+    poolSkillSelected: string,
+    skillLevel: SkillLevel,
+  ) => Promise<void>;
+  onRemove: (poolSkillSelected: string) => Promise<void>;
 }
 
 const SkillTable = ({
   caption,
   data,
   allSkills,
-  onSave,
   disableAdd,
   nullMessage,
+  onCreate,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onUpdate,
+  onRemove,
 }: SkillTableProps) => {
   const intl = useIntl();
   const availableSkills = allSkills.filter(
@@ -60,7 +79,7 @@ const SkillTable = ({
   );
 
   const handleRemove = (id: string) => {
-    onSave(data.filter((skill) => skill.id !== id).map((skill) => skill.id));
+    onRemove(id);
   };
 
   let columns = [
@@ -78,7 +97,12 @@ const SkillTable = ({
         isRowTitle: true,
       },
     }),
-  ] as ColumnDef<Skill>[];
+  ] as ColumnDef<
+    Skill & {
+      poolSkillId: string;
+      requiredLevel?: SkillLevel;
+    }
+  >[];
 
   if (!disableAdd) {
     columns = [
@@ -94,14 +118,19 @@ const SkillTable = ({
         meta: {
           hideMobileHeader: true,
         },
-        cell: ({ row: { original: department } }) =>
-          removeCell(department, handleRemove, intl),
+        cell: ({ row: { original: skill } }) =>
+          removeCell(skill, handleRemove, intl),
       }),
     ];
   }
 
   return (
-    <Table<Skill>
+    <Table<
+      Skill & {
+        poolSkillId: string;
+        requiredLevel?: SkillLevel;
+      }
+    >
       caption={caption}
       data={data}
       columns={columns}
@@ -116,7 +145,7 @@ const SkillTable = ({
                   skills={availableSkills}
                   onSave={async (value) => {
                     if (value.skill) {
-                      onSave([...data.map((skill) => skill.id), value.skill]);
+                      onCreate(value.skill, SkillLevel.Beginner);
                     }
                   }}
                 />

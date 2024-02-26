@@ -53,12 +53,8 @@ import WorkTasksSection, {
 import CoreRequirementsSection, {
   type CoreRequirementsSubmitData,
 } from "./components/CoreRequirementsSection/CoreRequirementsSection";
-import EssentialSkillsSection, {
-  type EssentialSkillsSubmitData,
-} from "./components/EssentialSkillsSection";
-import AssetSkillsSection, {
-  type AssetSkillsSubmitData,
-} from "./components/AssetSkillsSection";
+import EssentialSkillsSection from "./components/EssentialSkillsSection";
+import AssetSkillsSection from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
@@ -70,12 +66,10 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { SectionKey } from "./types";
+import { PoolSkillMutationsType, SectionKey } from "./types";
 
 export type PoolSubmitData =
-  | AssetSkillsSubmitData
   | ClosingDateSubmitData
-  | EssentialSkillsSubmitData
   | CoreRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
@@ -89,6 +83,7 @@ export interface EditPoolFormProps {
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
+  poolSkillMutations: PoolSkillMutationsType;
 }
 
 export const EditPoolForm = ({
@@ -96,6 +91,7 @@ export const EditPoolForm = ({
   classifications,
   skills,
   onSave,
+  poolSkillMutations,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
 
@@ -412,13 +408,13 @@ export const EditPoolForm = ({
                       pool={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.essentialSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                     <AssetSkillsSection
                       pool={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.assetSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                   </div>
                 </TableOfContents.Section>
@@ -560,45 +556,29 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        requiredLevel
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }
@@ -703,6 +683,12 @@ export const EditPoolPage = () => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
 
+  const poolSkillMutations = {
+    create: mutations.createPoolSkill,
+    update: mutations.updatePoolSkill,
+    delete: mutations.deletePoolSkill,
+  };
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.pool ? (
@@ -712,6 +698,7 @@ export const EditPoolPage = () => {
             classifications={data.classifications.filter(notEmpty)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
+            poolSkillMutations={poolSkillMutations}
           />
         </EditPoolContext.Provider>
       ) : (
