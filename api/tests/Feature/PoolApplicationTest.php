@@ -1,16 +1,19 @@
 <?php
 
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AssessmentStepType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Models\AssessmentStep;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestion;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Skill;
+use App\Models\ScreeningQuestion;
+use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
@@ -535,6 +538,73 @@ class PoolApplicationTest extends TestCase
                         'submitApplication',
                         fn ($json) => $json
                             ->has('signature')
+                            ->has('status')
+                            ->has('submittedAt')
+                            ->whereType('submittedAt', 'string')
+                    )
+                )
+            );
+    }
+
+    public function testApplicationSubmitScreeningQuestions(): void
+    {
+        if (! config('feature.record_of_decision')) {
+            $this->markTestSkipped('record_of_decision is off');
+        }
+
+        $newPool = Pool::factory()->published()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
+        ]);
+        $newPool->essentialSkills()->sync([]);
+        $assessmentStep = AssessmentStep::factory()->create([
+            'pool_id' => $newPool,
+            'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+            'sort_order' => 2,
+        ]);
+        ScreeningQuestion::where('pool_id', $newPool->id)->delete();
+        $screeningQuestion = ScreeningQuestion::factory()->create([
+            'pool_id' => $newPool,
+            'assessment_step_id' => $assessmentStep,
+        ]);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
+        ]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        // Remove any responses created by factory
+        ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
+
+        $submitArgs = [
+            'id' => $newPoolCandidate->id,
+            'sig' => 'SIGNED',
+        ];
+
+        // assert cannot submit with no question
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->submitMutationDocument, $submitArgs)->assertJsonFragment([
+                ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE,
+            ]);
+
+        // Respond to the question
+        ScreeningQuestionResponse::create([
+            'pool_candidate_id' => $newPoolCandidate->id,
+            'screening_question_id' => $screeningQuestion->id,
+            'answer' => 'answer',
+        ]);
+        // assert successful submission after responding to question
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->submitMutationDocument, $submitArgs)
+            ->assertJson(
+                fn (AssertableJson $json) => $json->has(
+                    'data',
+                    fn ($json) => $json->has(
+                        'submitApplication',
+                        fn ($json) => $json->has('signature')
                             ->has('status')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')

@@ -943,6 +943,10 @@
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
   },
+  "38dkpl": {
+    "defaultMessage": "Erreur : La mise à jour des réponses aux questions a échoué",
+    "description": "Message displayed to user after application question responses fail to be updated."
+  },
   "39RER8": {
     "defaultMessage": "Embaucher un·e apprenti·e en TI",
     "description": "Page title for IAP manager homepage"
@@ -1831,6 +1835,10 @@
     "defaultMessage": "Date de fin",
     "description": "Label displayed on the pool candidate form end date field."
   },
+  "80KL2S": {
+    "defaultMessage": "Cette étape permet aux gestionnaires d'embauche de poser deux types de questions : des questions de présélection et des questions générales. Chaque question sera étiquetée de manière à ce que vous compreniez bien la façon dont votre réponse sera évaluée.",
+    "description": "Application step for additional questions, introduction description, paragraph one"
+  },
   "80WTKY": {
     "defaultMessage": "Si vous avez répondu par l'affirmative à une ou plusieurs des questions précédentes, nous avons la solution dont vous avez besoin. Depuis 2019, nous avons établi une relation de confiance avec des centaines de dirigeants numériques de dizaines d'organisations à travers le gouvernement du Canada afin d'aider les employés talentueux à se perfectionner, à atteindre tout leur potentiel, à acquérir de nouvelles expériences et à participer au processus de planification de la relève.",
     "description": "Paragraph two, about who is eligible for exposition"
@@ -1910,6 +1918,10 @@
   "8R2XpK": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répond à vos critères.",
     "description": "Text telling users that their search produced no candidates"
+  },
+  "8TyO/X": {
+    "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
+    "description": "Reminder what screening questions are used for."
   },
   "8V8WwR": {
     "defaultMessage": "Bassins additionnels",
@@ -1998,6 +2010,10 @@
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
+  },
+  "96AvU9": {
+    "defaultMessage": "Vous avez répondu aux questions générales suivantes :",
+    "description": "Message in general questions section of the application review page."
   },
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
@@ -2491,6 +2507,10 @@
     "defaultMessage": "Erreur : échec de la création du compte.",
     "description": "Message displayed to user if account fails to get updated."
   },
+  "Bs/9PZ": {
+    "defaultMessage": "Mise à jour des réponses aux questions réussie!",
+    "description": "Message displayed to users when saving question responses is successful."
+  },
   "BuXxS9": {
     "defaultMessage": "Anglais seulement",
     "description": "English only personnel language"
@@ -2658,10 +2678,6 @@
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
-  },
-  "CfNtWn": {
-    "defaultMessage": "Ce processus ne comporte pas de questions filtres. Vous pouvez passer à l’étape suivante.",
-    "description": "Message displayed to users when there are no screening questions for a process"
   },
   "Cjp2F6": {
     "defaultMessage": "Information sur le bassin",
@@ -3875,6 +3891,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer ce membre : <strong>{userName}</strong>",
     "description": "Lead in text for the remove role from user dialog"
   },
+  "JhBsgc": {
+    "defaultMessage": "Questions supplémentaires",
+    "description": "Title of additional questions"
+  },
   "Ji2C9w": {
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
@@ -4659,6 +4679,10 @@
     "defaultMessage": "Transfert de connaissances",
     "description": "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_"
   },
+  "OPbfwn": {
+    "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
+    "description": "Null state message in general questions section of the application review page."
+  },
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
     "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
@@ -4890,6 +4914,10 @@
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
+  },
+  "PnWNZn": {
+    "defaultMessage": "Questions générales",
+    "description": "Title of general questions"
   },
   "PnyBYM": {
     "defaultMessage": "Allons-y!",
@@ -7946,6 +7974,10 @@
     "defaultMessage": "Téléphone textuel (TTY/ATS)",
     "description": "GCKey answer for who to contact about GCKey, text telephone title"
   },
+  "gIzUDr": {
+    "defaultMessage": "Modifier les questions générales",
+    "description": "Edit link text for general questions section of the application review page."
+  },
   "gJ7CQw": {
     "defaultMessage": "Communiquez avec l’équipe",
     "description": "Link to send an email to the team"
@@ -8749,10 +8781,6 @@
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
     "description": "Title for how the platform was created"
-  },
-  "kJUKrT": {
-    "defaultMessage": "Mise à jour réussie des réponses aux questions filtres!",
-    "description": "Message displayed to users when saving screening question responses is successful."
   },
   "kK1Z9U": {
     "defaultMessage": "Gérez votre carrière",
@@ -10262,10 +10290,6 @@
     "defaultMessage": "Le titulaire du poste devra-t-il superviser d'autres personnes?",
     "description": "Label for input asking whether a job opportunity will have supervising duties."
   },
-  "tMnjyJ": {
-    "defaultMessage": "N’oubliez pas de faire une pause si nécessaire! Le bouton « Enregistrer et quitter » vous permet d’enregistrer vos progrès et de revenir plus tard sur les questions qui vous posent problème.",
-    "description": "Notice that application can be saved and returned to at a later time."
-  },
   "tON7JL": {
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Title for skill requirements"
@@ -11174,6 +11198,10 @@
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres : ",
     "description": "Heading for total matching candidates in results section of search page."
   },
+  "zH8887": {
+    "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
+    "description": "Reminder what general questions are used for."
+  },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",
     "description": "Description for the Career timeline and recruitment page in applicant profile."
@@ -11241,6 +11269,10 @@
   "zotZ6j": {
     "defaultMessage": "Erreur : l'archivage du bassin a échoué",
     "description": "Message displayed to user after pool fails to get archived."
+  },
+  "zp8FqH": {
+    "defaultMessage": "Vos réponses aux  <strong>questions de présélection seront évaluées</strong> dans le cadre de votre demande d'emploi. Veillez donc à consacrer à chaque question le temps et la réflexion nécessaires pour donner une réponse qui vous reflète réellement votre identité et votre expérience.",
+    "description": "Application step for additional questions, introduction description, paragraph two"
   },
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
