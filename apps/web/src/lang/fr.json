@@ -4507,10 +4507,6 @@
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
   },
-  "NNWQdp": {
-    "defaultMessage": "Supprimé(e)",
-    "description": "Message displayed when candidate has been removed"
-  },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
@@ -10585,10 +10581,6 @@
   "vSMCIR": {
     "defaultMessage": "Modifier les renseignements de l'équipe",
     "description": "Title for the edit team page"
-  },
-  "vTyr7O": {
-    "defaultMessage": "Retiré",
-    "description": "Status for an application that has been removed from the recruitment"
   },
   "vV0SDz": {
     "defaultMessage": "{title} à {organization}",

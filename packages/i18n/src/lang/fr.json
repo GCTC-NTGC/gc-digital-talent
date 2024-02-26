@@ -779,10 +779,6 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
-  "NNFXCN": {
-    "defaultMessage": "Retiré",
-    "description": "The pool candidate's status is Removed."
-  },
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
@@ -1810,6 +1806,10 @@
   "tEUGpL": {
     "defaultMessage": "Liste",
     "description": "Label for toggling a bullet list in the rich text editor"
+  },
+  "tExKws": {
+    "defaultMessage": "Retiré",
+    "description": "Removed"
   },
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",

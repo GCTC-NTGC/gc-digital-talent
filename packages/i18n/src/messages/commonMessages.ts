@@ -210,6 +210,11 @@ const commonMessages = defineMessages({
     id: "sotCgD",
     description: "Any language",
   },
+  removed: {
+    defaultMessage: "Removed",
+    id: "tExKws",
+    description: "Removed",
+  },
 });
 
 export default commonMessages;
