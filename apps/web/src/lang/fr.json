@@ -3331,10 +3331,6 @@
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "GGPWwr": {
-    "defaultMessage": "Décision sur l’évaluation finale",
-    "description": "Final assessment decision input"
-  },
   "GHlK/f": {
     "defaultMessage": "Handicap",
     "description": "Message for disability option in the employment equity section of the request page."
@@ -9885,10 +9881,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qqkQ/h": {
-    "defaultMessage": "Décision finale relative à l’évaluation",
-    "description": "Final assessment decision dialog header"
   },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",

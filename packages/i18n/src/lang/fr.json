@@ -275,6 +275,10 @@
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
   },
+  "6/U6rm": {
+    "defaultMessage": "Décision finale relative à l’évaluation",
+    "description": "Final assessment decision"
+  },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
