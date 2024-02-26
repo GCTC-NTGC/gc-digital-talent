@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import DataLoader from "dataloader";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -21,17 +22,17 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql, PoolCandidate } from "@gc-digital-talent/graphql";
-
 import {
+  graphql,
+  PoolCandidate,
   PoolCandidateSearchInput,
   InputMaybe,
   Pool,
   Maybe,
   PoolCandidateWithSkillCount,
-  useGetSkillsQuery,
   PublishingGroup,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import {
   INITIAL_STATE,
@@ -81,6 +82,40 @@ import {
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
+const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
+  query CandidatesTableSkills {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      category
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   query CandidatesTableCandidatesPaginated_Query(
     $where: PoolCandidateSearchInput
@@ -112,6 +147,28 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               level
             }
             stream
+            # TODO: assessmentSteps and assessmentResults can be removed if status computations are moved to backend #8960
+            assessmentSteps {
+              id
+              type
+              sortOrder
+              poolSkills {
+                id
+                type
+              }
+            }
+          }
+          assessmentResults {
+            id
+            assessmentStep {
+              id
+            }
+            poolSkill {
+              id
+              type
+            }
+            assessmentResultType
+            assessmentDecision
           }
           user {
             # Personal info
@@ -371,40 +428,77 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
-  const [{ data: allSkillsData, fetching: fetchingSkills }] =
-    useGetSkillsQuery();
-  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const [{ data: allSkillsData, fetching: fetchingSkills }] = useQuery({
+    query: CandidatesTableSkills_Query,
+  });
+  const allSkills = unpackMaybes(allSkillsData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
 
-  const querySelected = async (action: SelectingFor) => {
-    setSelectingFor(action);
-    setIsSelecting(true);
-    return client
-      .query(PoolCandidatesTable_SelectPoolCandidatesQuery, {
-        ids: selectedRows,
-      })
-      .toPromise()
-      .then((result) => {
-        const poolCandidates: PoolCandidate[] = unpackMaybes(
-          result.data?.poolCandidates,
+  const isPoolCandidate = (
+    candidate: Error | PoolCandidate | null,
+  ): candidate is PoolCandidate =>
+    candidate !== null && !(candidate instanceof Error);
+
+  const batchLoader = new DataLoader<string, PoolCandidate | null>(
+    async (ids) => {
+      const batchSize = 100;
+      const batches = [];
+
+      for (let i = 0; i < ids.length; i += batchSize) {
+        const batchIds = ids.slice(i, i + batchSize);
+        batches.push(
+          client
+            .query<{
+              poolCandidates: PoolCandidate[];
+            }>(PoolCandidatesTable_SelectPoolCandidatesQuery, {
+              ids: batchIds,
+            })
+            .then((result) => result.data?.poolCandidates ?? []),
         );
+      }
 
-        if (result.error) {
-          toast.error(intl.formatMessage(errorMessages.unknown));
-        } else if (!poolCandidates.length) {
-          toast.error(intl.formatMessage(adminMessages.noRowsSelected));
-        }
+      try {
+        const batchResults = await Promise.all(batches);
+        const candidates = batchResults.flat(); // Flatten the array
 
-        setSelectedCandidates(poolCandidates);
-        setIsSelecting(false);
-        setSelectingFor(null);
-        return poolCandidates;
-      })
-      .catch(() => {
-        toast.error(intl.formatMessage(errorMessages.unknown));
-      });
+        return ids.map(
+          (id) => candidates.find((candidate) => candidate.id === id) ?? null,
+        );
+      } catch (error) {
+        return ids.map(() => null); // Return null for all IDs in case of an error
+      }
+    },
+    {
+      // Configure DataLoader to cache the results for each ID
+      cacheKeyFn: (key) => key,
+    },
+  );
+
+  const querySelected = async (
+    action: SelectingFor,
+  ): Promise<PoolCandidate[]> => {
+    try {
+      setSelectingFor(action);
+      setIsSelecting(true);
+      const poolCandidates = await batchLoader.loadMany(selectedRows);
+      const filteredPoolCandidates = poolCandidates.filter(isPoolCandidate);
+
+      if (filteredPoolCandidates.length === 0) {
+        toast.error(intl.formatMessage(adminMessages.noRowsSelected));
+      } else {
+        setSelectedCandidates(filteredPoolCandidates);
+      }
+
+      return filteredPoolCandidates;
+    } catch (error) {
+      toast.error(intl.formatMessage(errorMessages.unknown));
+      return [];
+    } finally {
+      setIsSelecting(false);
+      setSelectingFor(null);
+    }
   };
 
   const columns = [
@@ -514,11 +608,15 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { status },
-            },
+            original: { poolCandidate },
           },
-        }) => finalDecisionCell(intl, status),
+        }) =>
+          finalDecisionCell(
+            intl,
+            poolCandidate,
+            unpackMaybes(poolCandidate?.pool?.assessmentSteps),
+            recordOfDecision,
+          ),
         enableSorting: false,
       },
     ),

@@ -17,9 +17,9 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { EducationStatus, EducationType } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import { EducationStatus, EducationType } from "~/api/generated";
 
 const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();

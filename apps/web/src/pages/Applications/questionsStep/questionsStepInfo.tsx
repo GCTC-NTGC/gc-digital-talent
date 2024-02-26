@@ -14,15 +14,23 @@ const getStepInfo: GetApplicationStepInfo = ({
   paths,
   intl,
   stepOrdinal,
+  RoDFlag,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.ScreeningQuestions,
-    mainPage: questionsPageInfo({ paths, intl, application, stepOrdinal }),
+    mainPage: questionsPageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+      RoDFlag,
+    }),
     introductionPage: questionsIntroductionPageInfo({
       paths,
       intl,
       application,
       stepOrdinal,
+      RoDFlag,
     }),
     showInStepper: true,
     prerequisites: [

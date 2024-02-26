@@ -28,6 +28,7 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -38,6 +39,7 @@ import { getCandidateStatusPill } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 
@@ -106,7 +108,144 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
+        userSkills {
+          id
+          user {
+            id
+          }
+          skill {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+          }
+          skillLevel
+        }
+        experiences {
+          id
+          __typename
+          details
+          user {
+            id
+            email
+          }
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+            details
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+            details
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+            details
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+            details
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+            details
+          }
+        }
       }
+      educationRequirementExperiences {
+        id
+        __typename
+        details
+        user {
+          id
+          email
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+          details
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+          details
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+          details
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+          details
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+          details
+        }
+      }
+      educationRequirementOption
       profileSnapshot
       notes
       signature
@@ -186,16 +325,76 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             type
           }
         }
+        poolSkills {
+          id
+          type
+          skill {
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            id
+            category
+            key
+          }
+        }
+        screeningQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
         ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
         id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            id
+            userSkills {
+              id
+              user {
+                id
+              }
+              skill {
+                id
+                key
+                name {
+                  en
+                  fr
+                }
+                category
+              }
+              skillLevel
+            }
+          }
+        }
         assessmentDecision
+        assessmentDecisionLevel
+        assessmentNotes
         assessmentResultType
         assessmentStep {
           id
           type
+          title {
+            en
+            fr
+          }
         }
+        justifications
+        otherJustificationNotes
+        assessmentDecisionLevel
+        skillDecisionNotes
+        assessmentNotes
         poolSkill {
           id
           type
@@ -207,7 +406,18 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
+            description {
+              en
+              fr
+            }
           }
+        }
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
         }
       }
     }
@@ -245,6 +455,7 @@ export const ViewPoolCandidate = ({
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -256,6 +467,7 @@ export const ViewPoolCandidate = ({
     poolCandidate,
     unpackMaybes(poolCandidate.pool.assessmentSteps),
     intl,
+    featureFlags.recordOfDecision,
   );
 
   const sections: Record<string, SectionContent> = {
@@ -424,7 +636,7 @@ export const ViewPoolCandidate = ({
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
     mainContent = (
-      <>
+      <div data-h2-margin-top="base(x2)">
         <ApplicationInformation
           poolQuery={poolCandidate.pool}
           snapshot={parsedSnapshot}
@@ -448,7 +660,7 @@ export const ViewPoolCandidate = ({
           </Accordion.Root>
         </div>
         <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-      </>
+      </div>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
@@ -489,7 +701,6 @@ export const ViewPoolCandidate = ({
       <Pill
         mode="outline"
         color={statusPill.color}
-        icon={statusPill.icon}
         data-h2-font-weight="base(700)"
       >
         {statusPill.label}
@@ -702,7 +913,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <div>Coming soon!</div>
+              <AssessmentResultsTable poolCandidate={poolCandidate} />
             </div>
             {mainContent}
           </Sidebar.Content>

@@ -1,6 +1,7 @@
 export const SECTION_KEY = {
   CONTACT: "contact",
   SCREENING: "screening",
+  GENERAL: "generalQuestions",
   EDUCATION: "education",
   ESSENTIAL: "essentialSkills",
   ASSET: "assetSkills",

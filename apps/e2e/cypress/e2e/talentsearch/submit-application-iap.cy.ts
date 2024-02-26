@@ -15,6 +15,7 @@ import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasQuery } from "../../support/graphql-test-utils";
+import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
@@ -99,6 +100,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
                         fr: "test location FR",
                       },
                       isRemote: true,
+                      opportunityLength: PoolOpportunityLength.Various,
                       publishingGroup: PublishingGroup.Iap,
                     });
                     cy.publishPool(testPoolId);

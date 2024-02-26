@@ -3,6 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
@@ -14,8 +15,8 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { Team } from "@gc-digital-talent/graphql";
 
-import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -24,6 +25,7 @@ import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
+import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface AddTeamMemberDialogProps {
   team: Team;
@@ -45,7 +47,7 @@ AddTeamMemberDialogProps) => {
     publicProfileSearch: query || undefined,
   });
   const { roles, fetching: rolesFetching } = useAvailableRoles();
-  const [, executeMutation] = useUpdateUserTeamRolesMutation();
+  const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({

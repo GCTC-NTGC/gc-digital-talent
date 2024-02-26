@@ -126,17 +126,24 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)->withTrashed();
+        // avoid selecting searchable column from user table
+        return $this->belongsTo(User::class)
+            ->select(User::getSelectableColumns())
+            ->withTrashed();
     }
 
     public function pool(): BelongsTo
     {
-        return $this->belongsTo(Pool::class)->withTrashed();
+        return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
     }
 
     public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(GeneralQuestionResponse::class);
+        return $this->hasMany(GeneralQuestionResponse::class)->select(['id',
+            'pool_candidate_id',
+            'general_question_id',
+            'answer',
+        ]);
     }
 
     public function screeningQuestionResponses(): HasMany
@@ -576,6 +583,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementWorkExperiences.skills',
             'poolCandidates.generalQuestionResponses',
             'poolCandidates.generalQuestionResponses.generalQuestion',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
         $profile = new UserResource($user);
 
@@ -806,6 +815,8 @@ class PoolCandidate extends Model
             'poolCandidates.educationRequirementWorkExperiences.skills',
             'poolCandidates.generalQuestionResponses',
             'poolCandidates.generalQuestionResponses.generalQuestion',
+            'poolCandidates.screeningQuestionResponses',
+            'poolCandidates.screeningQuestionResponses.screeningQuestion',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection

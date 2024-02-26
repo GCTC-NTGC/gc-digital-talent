@@ -1,6 +1,5 @@
 import { empty } from "@gc-digital-talent/helpers";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 /*
   Checks null state for advertisement details section of edit pool page.
@@ -17,6 +16,7 @@ export function isInNullState({
     !name?.en &&
     !name?.fr &&
     !processNumber &&
+    !publishingGroup &&
     !publishingGroup
   );
 }
@@ -27,6 +27,7 @@ export function hasEmptyRequiredFields({
   name,
   processNumber,
   publishingGroup,
+  opportunityLength,
 }: Pool): boolean {
   return !!(
     empty(classifications) ||
@@ -34,6 +35,7 @@ export function hasEmptyRequiredFields({
     !name?.en ||
     !name?.fr ||
     !processNumber ||
-    !publishingGroup
+    !publishingGroup ||
+    !opportunityLength
   );
 }

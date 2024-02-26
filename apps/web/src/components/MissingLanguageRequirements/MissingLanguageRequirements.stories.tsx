@@ -2,8 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
-
-import { User, Pool, PoolLanguage } from "~/api/generated";
+import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 

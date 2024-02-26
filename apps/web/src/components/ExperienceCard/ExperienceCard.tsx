@@ -14,8 +14,8 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import {
   getExperienceFormLabels,

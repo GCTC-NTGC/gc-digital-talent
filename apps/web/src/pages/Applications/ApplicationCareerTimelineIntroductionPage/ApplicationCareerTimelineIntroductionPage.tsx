@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -51,12 +52,14 @@ const ApplicationCareerTimelineIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const nextStep = paths.applicationCareerTimeline(application.id);
 

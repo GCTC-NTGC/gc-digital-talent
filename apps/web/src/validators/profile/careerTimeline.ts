@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { User } from "~/api/generated";
+import { User } from "@gc-digital-talent/graphql";
 
 type PartialUser = Pick<User, "experiences">;
 

@@ -9,8 +9,8 @@ import {
   Color,
   DropdownMenu,
 } from "@gc-digital-talent/ui";
+import { PoolCandidate, User } from "@gc-digital-talent/graphql";
 
-import { PoolCandidate, User } from "~/api/generated";
 import printStyles from "~/styles/printStyles";
 import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";

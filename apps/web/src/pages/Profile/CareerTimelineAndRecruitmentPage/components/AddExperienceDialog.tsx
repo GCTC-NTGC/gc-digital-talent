@@ -10,13 +10,13 @@ import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 
 import { Dialog, Button, IconType, Link } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { Scalars } from "~/api/generated";
 import { ExperienceType } from "~/types/experience";
 
 type AddExperienceDialogProps = {
-  userId: Scalars["UUID"];
+  userId: Scalars["UUID"]["output"];
   defaultOpen?: boolean;
 };
 

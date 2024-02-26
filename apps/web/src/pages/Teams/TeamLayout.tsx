@@ -4,16 +4,17 @@ import { Outlet } from "react-router-dom";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Team, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/Hero/AdminHero";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { Team, useTeamNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 
 type PageNavKeys = "members" | "view" | "edit";
@@ -97,13 +98,26 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
   );
 };
 
+const TeamLayoutTeamName_Query = graphql(/* GraphQL */ `
+  query TeamName($id: UUID!) {
+    team(id: $id) {
+      id
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type RouteParams = {
   teamId: string;
 };
 
 const TeamLayout = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");
-  const [{ data, fetching, error }] = useTeamNameQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: TeamLayoutTeamName_Query,
     variables: {
       id: teamId,
     },
