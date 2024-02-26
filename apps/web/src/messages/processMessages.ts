@@ -111,6 +111,16 @@ const messages = defineMessages({
     id: "p8+wKq",
     description: "Title of screening questions",
   },
+  additionalQuestions: {
+    defaultMessage: "Additional questions",
+    id: "JhBsgc",
+    description: "Title of additional questions",
+  },
+  generalQuestions: {
+    defaultMessage: "General questions",
+    id: "PnWNZn",
+    description: "Title of general questions",
+  },
 });
 
 export default messages;

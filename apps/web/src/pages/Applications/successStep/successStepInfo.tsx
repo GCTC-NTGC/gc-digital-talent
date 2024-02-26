@@ -12,9 +12,16 @@ const getStepInfo: GetApplicationStepInfo = ({
   paths,
   intl,
   stepOrdinal,
+  RoDFlag,
 }): ApplicationStepInfo => {
   return {
-    mainPage: successPageInfo({ paths, intl, application, stepOrdinal }),
+    mainPage: successPageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+      RoDFlag,
+    }),
     showInStepper: false,
     prerequisites: [
       ApplicationStep.Welcome,

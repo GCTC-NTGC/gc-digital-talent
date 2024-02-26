@@ -465,6 +465,18 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
             endDate
           }
         }
+        screeningQuestionResponses {
+          id
+          answer
+          screeningQuestion {
+            id
+            sortOrder
+            question {
+              en
+              fr
+            }
+          }
+        }
         generalQuestionResponses {
           id
           answer
