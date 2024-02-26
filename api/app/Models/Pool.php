@@ -239,7 +239,7 @@ class Pool extends Model
     // is the pool considered "complete", filled out entirely by the pool operator
     public function getIsCompleteAttribute()
     {
-        $pool = $this->load(['classifications', 'essentialSkills']);
+        $pool = $this->load(['classifications', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
 
         $poolCompleteValidation = new PoolIsCompleteValidator;
         $validator = Validator::make($pool->toArray(),

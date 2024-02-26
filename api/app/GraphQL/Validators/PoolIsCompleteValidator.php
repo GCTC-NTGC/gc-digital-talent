@@ -52,6 +52,10 @@ final class PoolIsCompleteValidator extends Validator
                 'exists:skills,id',
                 new SkillNotDeleted,
             ],
+            'pool_skills.*.required_skill_level' => [
+                'required',
+                'string',
+            ],
             // Other requirements
             'advertisement_language' => ['required', Rule::in(array_column(PoolLanguage::cases(), 'name'))],
             'security_clearance' => ['required', Rule::in(array_column(SecurityStatus::cases(), 'name'))],
@@ -74,6 +78,7 @@ final class PoolIsCompleteValidator extends Validator
             'advertisement_location.*.required_if' => 'PoolLocationRequired',
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
+            'essential_skills.required' => 'EssentialSkillRequired',
             'essential_skills.required' => 'EssentialSkillRequired',
             'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
             'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,

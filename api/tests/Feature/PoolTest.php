@@ -6,6 +6,7 @@ use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Pool;
+use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
@@ -562,10 +563,13 @@ class PoolTest extends TestCase
     {
         // create complete but unpublished pool with a deleted skill
         $classification = Classification::factory()->create();
-        $pool = Pool::factory()->published()->create([
-            'published_at' => null,
-            'closing_date' => config('constants.far_future_datetime'),
-        ]);
+        $pool = Pool::factory()
+            ->published()
+            ->withCompletePoolSkills()
+            ->create([
+                'published_at' => null,
+                'closing_date' => config('constants.far_future_datetime'),
+            ]);
         $pool->classifications()->sync([$classification->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
@@ -688,9 +692,12 @@ class PoolTest extends TestCase
         Classification::factory()->create();
         Skill::factory()->create();
 
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->withCompletePoolSkills()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+            ]);
         $incompletePool = Pool::factory()->create([
             'closing_date' => null,
         ]);
@@ -720,6 +727,52 @@ class PoolTest extends TestCase
                 $queryPool,
                 [
                     'id' => $clearedRelationsPool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
+    }
+
+    public function testPoolIsCompleteAccessorSkillLevel(): void
+    {
+        $queryPool =
+        /** @lang GraphQL */
+        '
+            query pool($id: UUID!){
+                pool(id :$id) {
+                    isComplete
+                }
+            }
+        ';
+        Classification::factory()->create();
+        Skill::factory()->create();
+
+        $completePool = Pool::factory()
+            ->published()
+            ->withCompletePoolSkills()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+            ]);
+
+        // test complete pool is marked as true, pool skills have required levels
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => true]);
+
+        // a pool skill level was nulled out, now it should be incomplete
+        $poolSkill = PoolSkill::first();
+        $poolSkill->required_skill_level = null;
+        $poolSkill->save();
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
                 ]
             )
             ->assertJsonFragment(['isComplete' => false]);
