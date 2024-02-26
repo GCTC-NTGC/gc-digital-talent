@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
@@ -47,7 +47,6 @@ import {
   formValuesToSubmitData,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
-import useRequiredParams from "~/hooks/useRequiredParams";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -579,10 +578,7 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const { userId, experienceId } = useRequiredParams<RouteParams>([
-    "experienceId",
-    "userId",
-  ]);
+  const { experienceId, userId } = useParams<RouteParams>();
   const { state } = useLocation();
 
   const [{ data, fetching, error }] = useQuery({
