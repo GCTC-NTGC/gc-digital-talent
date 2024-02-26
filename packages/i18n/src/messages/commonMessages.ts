@@ -215,6 +215,11 @@ const commonMessages = defineMessages({
     id: "tExKws",
     description: "Removed",
   },
+  finalAssessmentDecision: {
+    defaultMessage: "Final assessment decision",
+    id: "6/U6rm",
+    description: "Final assessment decision",
+  },
 });
 
 export default commonMessages;

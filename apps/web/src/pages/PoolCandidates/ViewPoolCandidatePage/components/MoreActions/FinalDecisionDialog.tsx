@@ -13,7 +13,11 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import AssessmentSummary from "./components/AssessmentSummary";
@@ -143,11 +147,7 @@ const FinalDecisionDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage({
-            defaultMessage: "Final assessment decision",
-            id: "qqkQ/h",
-            description: "Final assessment decision dialog header",
-          })}
+          {intl.formatMessage(commonMessages.finalAssessmentDecision)}
         </Dialog.Header>
         <Dialog.Body>
           <p>
@@ -182,11 +182,9 @@ const FinalDecisionDialog = ({
               <RadioGroup
                 idPrefix="finalAssessmentDecision"
                 name="finalAssessmentDecision"
-                legend={intl.formatMessage({
-                  defaultMessage: "Final assessment decision",
-                  description: "Final assessment decision input",
-                  id: "GGPWwr",
-                })}
+                legend={intl.formatMessage(
+                  commonMessages.finalAssessmentDecision,
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
