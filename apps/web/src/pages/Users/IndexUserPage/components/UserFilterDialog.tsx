@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   EmploymentDuration,
@@ -22,17 +22,17 @@ import {
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import {
   LanguageAbility,
   WorkRegion,
-  useUserFilterDataQuery,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 export type FormValues = {
   pools: string[];
@@ -52,6 +52,45 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
+const UserFilterData_Query = graphql(/* GraphQL */ `
+  query UserFilterData {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      stream
+    }
+    roles {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type UserFilterDialogProps = CommonFilterDialogProps<FormValues>;
 
 const UserFilterDialog = ({
@@ -61,7 +100,10 @@ const UserFilterDialog = ({
 }: UserFilterDialogProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching }] = useUserFilterDataQuery({ context });
+  const [{ data, fetching }] = useQuery({
+    query: UserFilterData_Query,
+    context,
+  });
 
   const pools = unpackMaybes(data?.pools);
   const skills = unpackMaybes(data?.skills);
@@ -86,7 +128,7 @@ const UserFilterDialog = ({
             label={intl.formatMessage(adminMessages.pools)}
             options={pools.map((pool) => ({
               value: pool.id,
-              label: getFullPoolTitleLabel(intl, pool),
+              label: getShortPoolTitleLabel(intl, pool),
             }))}
           />
         </div>

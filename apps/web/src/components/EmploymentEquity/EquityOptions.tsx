@@ -9,13 +9,13 @@ import {
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import profileMessages from "~/messages/profileMessages";
 import {
   IndigenousCommunity,
   Maybe,
   UpdateUserAsUserInput,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import profileMessages from "~/messages/profileMessages";
 
 import EquityOption from "./EquityOption";
 import type { EquityKeys, UserMutationPromise } from "./types";
@@ -90,10 +90,10 @@ const EquityOptions = ({
           toast.success(
             intl.formatMessage({
               defaultMessage:
-                "Diversity, equity and inclusion information updated successfully!",
-              id: "SUUqzt",
+                "Diversity, equity, and inclusion information updated successfully!",
+              id: "LCVNJq",
               description:
-                "Message displayed when a user successfully updates their diversity, equity and inclusion information.",
+                "Message displayed when a user successfully updates their diversity, equity, and inclusion information.",
             }),
           );
         }

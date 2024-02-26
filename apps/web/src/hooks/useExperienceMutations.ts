@@ -1,25 +1,14 @@
+import { useMutation } from "urql";
+
 import {
-  useCreateAwardExperienceMutation,
-  useCreateCommunityExperienceMutation,
-  useCreateEducationExperienceMutation,
-  useCreatePersonalExperienceMutation,
-  useCreateWorkExperienceMutation,
-  useUpdateAwardExperienceMutation,
-  useUpdateCommunityExperienceMutation,
-  useUpdateEducationExperienceMutation,
-  useUpdatePersonalExperienceMutation,
-  useUpdateWorkExperienceMutation,
-  useDeleteAwardExperienceMutation,
-  useDeleteCommunityExperienceMutation,
-  useDeleteEducationExperienceMutation,
-  useDeletePersonalExperienceMutation,
-  useDeleteWorkExperienceMutation,
   CreateAwardExperienceMutation,
   CreateCommunityExperienceMutation,
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationArgs,
@@ -28,19 +17,130 @@ import type {
 
 type ExperienceMutationType = "create" | "update";
 
-type CreateMutation =
-  | ReturnType<typeof useCreateAwardExperienceMutation>[1]
-  | ReturnType<typeof useCreateCommunityExperienceMutation>[1]
-  | ReturnType<typeof useCreateEducationExperienceMutation>[1]
-  | ReturnType<typeof useCreatePersonalExperienceMutation>[1]
-  | ReturnType<typeof useCreateWorkExperienceMutation>[1];
+const CreateAwardExperience_Mutation = graphql(/* GraphQL */ `
+  mutation CreateAwardExperience(
+    $id: ID!
+    $awardExperience: AwardExperienceInput!
+  ) {
+    createAwardExperience(userId: $id, awardExperience: $awardExperience) {
+      id
+    }
+  }
+`);
 
-type UpdateMutation =
-  | ReturnType<typeof useUpdateAwardExperienceMutation>[1]
-  | ReturnType<typeof useUpdateCommunityExperienceMutation>[1]
-  | ReturnType<typeof useUpdateEducationExperienceMutation>[1]
-  | ReturnType<typeof useUpdatePersonalExperienceMutation>[1]
-  | ReturnType<typeof useUpdateWorkExperienceMutation>[1];
+const CreateCommunityExperience_Mutation = graphql(/* GraphQL */ `
+  mutation CreateCommunityExperience(
+    $id: ID!
+    $communityExperience: CommunityExperienceInput!
+  ) {
+    createCommunityExperience(
+      userId: $id
+      communityExperience: $communityExperience
+    ) {
+      id
+    }
+  }
+`);
+
+const CreateEducationExperience_Mutation = graphql(/* GraphQL */ `
+  mutation CreateEducationExperience(
+    $id: ID!
+    $educationExperience: EducationExperienceInput!
+  ) {
+    createEducationExperience(
+      userId: $id
+      educationExperience: $educationExperience
+    ) {
+      id
+    }
+  }
+`);
+
+const CreatePersonalExperience_Mutation = graphql(/* GraphQL */ `
+  mutation CreatePersonalExperience(
+    $id: ID!
+    $personalExperience: PersonalExperienceInput!
+  ) {
+    createPersonalExperience(
+      userId: $id
+      personalExperience: $personalExperience
+    ) {
+      id
+    }
+  }
+`);
+
+const CreateWorkExperience_Mutation = graphql(/* GraphQL */ `
+  mutation CreateWorkExperience(
+    $id: ID!
+    $workExperience: WorkExperienceInput!
+  ) {
+    createWorkExperience(userId: $id, workExperience: $workExperience) {
+      id
+    }
+  }
+`);
+
+const UpdateAwardExperience_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateAwardExperience(
+    $id: ID!
+    $awardExperience: AwardExperienceInput!
+  ) {
+    updateAwardExperience(id: $id, awardExperience: $awardExperience) {
+      id
+    }
+  }
+`);
+
+const UpdateCommunityExperience_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateCommunityExperience(
+    $id: ID!
+    $communityExperience: CommunityExperienceInput!
+  ) {
+    updateCommunityExperience(
+      id: $id
+      communityExperience: $communityExperience
+    ) {
+      id
+    }
+  }
+`);
+
+const UpdateEducationExperience_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateEducationExperience(
+    $id: ID!
+    $educationExperience: EducationExperienceInput!
+  ) {
+    updateEducationExperience(
+      id: $id
+      educationExperience: $educationExperience
+    ) {
+      id
+    }
+  }
+`);
+
+const UpdatePersonalExperience_Mutation = graphql(/* GraphQL */ `
+  mutation UpdatePersonalExperience(
+    $id: ID!
+    $personalExperience: PersonalExperienceInput!
+  ) {
+    updatePersonalExperience(id: $id, personalExperience: $personalExperience) {
+      id
+    }
+  }
+`);
+
+const UpdateWorkExperience_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateWorkExperience(
+    $id: ID!
+    $workExperience: WorkExperienceInput!
+  ) {
+    updateWorkExperience(id: $id, workExperience: $workExperience) {
+      id
+    }
+  }
+`);
 
 export const useExperienceMutations = (
   mutationType: ExperienceMutationType,
@@ -64,27 +164,25 @@ export const useExperienceMutations = (
     } as ExperienceMutationArgs;
   };
 
-  const [{ fetching: creatingAward }, executeCreateAwardMutation] =
-    useCreateAwardExperienceMutation();
+  const [{ fetching: creatingAward }, executeCreateAwardMutation] = useMutation(
+    CreateAwardExperience_Mutation,
+  );
   const [{ fetching: creatingCommunity }, executeCreateCommunityMutation] =
-    useCreateCommunityExperienceMutation();
+    useMutation(CreateCommunityExperience_Mutation);
   const [{ fetching: creatingEducation }, executeCreateEducationMutation] =
-    useCreateEducationExperienceMutation();
+    useMutation(CreateEducationExperience_Mutation);
   const [{ fetching: creatingPersonal }, executeCreatePersonalMutation] =
-    useCreatePersonalExperienceMutation();
-  const [{ fetching: creatingWork }, executeCreateWorkMutation] =
-    useCreateWorkExperienceMutation();
+    useMutation(CreatePersonalExperience_Mutation);
+  const [{ fetching: creatingWork }, executeCreateWorkMutation] = useMutation(
+    CreateWorkExperience_Mutation,
+  );
 
-  const [{ fetching: updatingAward }, executeUpdateAwardMutation] =
-    useUpdateAwardExperienceMutation();
-  const [{ fetching: updatingCommunity }, executeUpdateCommunityMutation] =
-    useUpdateCommunityExperienceMutation();
-  const [{ fetching: updatingEducation }, executeUpdateEducationMutation] =
-    useUpdateEducationExperienceMutation();
-  const [{ fetching: updatingPersonal }, executeUpdatePersonalMutation] =
-    useUpdatePersonalExperienceMutation();
-  const [{ fetching: updatingWork }, executeUpdateWorkMutation] =
-    useUpdateWorkExperienceMutation();
+  type CreateMutation =
+    | typeof executeCreateAwardMutation
+    | typeof executeCreateCommunityMutation
+    | typeof executeCreateEducationMutation
+    | typeof executeCreatePersonalMutation
+    | typeof executeCreateWorkMutation;
 
   const createMutations = new Map<ExperienceType, CreateMutation>();
   createMutations.set("award", executeCreateAwardMutation);
@@ -93,6 +191,26 @@ export const useExperienceMutations = (
   createMutations.set("education", executeCreateEducationMutation);
   createMutations.set("personal", executeCreatePersonalMutation);
   createMutations.set("work", executeCreateWorkMutation);
+
+  const [{ fetching: updatingAward }, executeUpdateAwardMutation] = useMutation(
+    UpdateAwardExperience_Mutation,
+  );
+  const [{ fetching: updatingCommunity }, executeUpdateCommunityMutation] =
+    useMutation(UpdateCommunityExperience_Mutation);
+  const [{ fetching: updatingEducation }, executeUpdateEducationMutation] =
+    useMutation(UpdateEducationExperience_Mutation);
+  const [{ fetching: updatingPersonal }, executeUpdatePersonalMutation] =
+    useMutation(UpdatePersonalExperience_Mutation);
+  const [{ fetching: updatingWork }, executeUpdateWorkMutation] = useMutation(
+    UpdateWorkExperience_Mutation,
+  );
+
+  type UpdateMutation =
+    | typeof executeUpdateAwardMutation
+    | typeof executeUpdateCommunityMutation
+    | typeof executeUpdateEducationMutation
+    | typeof executeUpdatePersonalMutation
+    | typeof executeUpdateWorkMutation;
 
   const updateMutations = new Map<ExperienceType, UpdateMutation>();
   updateMutations.set("award", executeUpdateAwardMutation);
@@ -202,24 +320,71 @@ export function isSuccessfulCreate(response: {
   return false;
 }
 
-type DeleteMutation =
-  | ReturnType<typeof useDeleteAwardExperienceMutation>[1]
-  | ReturnType<typeof useDeleteCommunityExperienceMutation>[1]
-  | ReturnType<typeof useDeleteEducationExperienceMutation>[1]
-  | ReturnType<typeof useDeletePersonalExperienceMutation>[1]
-  | ReturnType<typeof useDeleteWorkExperienceMutation>[1];
+const DeleteAwardExperience_Mutation = graphql(/* GraphQL */ `
+  mutation DeleteAwardExperience($id: ID!) {
+    deleteAwardExperience(id: $id) {
+      id
+    }
+  }
+`);
+
+const DeleteCommunityExperience_Mutation = graphql(/* GraphQL */ `
+  mutation DeleteCommunityExperience($id: ID!) {
+    deleteCommunityExperience(id: $id) {
+      id
+    }
+  }
+`);
+
+const DeleteEducationExperience_Mutation = graphql(/* GraphQL */ `
+  mutation DeleteEducationExperience($id: ID!) {
+    deleteEducationExperience(id: $id) {
+      id
+    }
+  }
+`);
+
+const DeletePersonalExperience_Mutation = graphql(/* GraphQL */ `
+  mutation DeletePersonalExperience($id: ID!) {
+    deletePersonalExperience(id: $id) {
+      id
+    }
+  }
+`);
+
+const DeleteWorkExperience_Mutation = graphql(/* GraphQL */ `
+  mutation DeleteWorkExperience($id: ID!) {
+    deleteWorkExperience(id: $id) {
+      id
+    }
+  }
+`);
 
 export const useDeleteExperienceMutation = (
   experienceType?: ExperienceType,
 ) => {
-  const [, executeDeleteAwardMutation] = useDeleteAwardExperienceMutation();
-  const [, executeDeleteCommunityMutation] =
-    useDeleteCommunityExperienceMutation();
-  const [, executeDeleteEducationMutation] =
-    useDeleteEducationExperienceMutation();
-  const [, executeDeletePersonalMutation] =
-    useDeletePersonalExperienceMutation();
-  const [, executeDeleteWorkMutation] = useDeleteWorkExperienceMutation();
+  const [, executeDeleteAwardMutation] = useMutation(
+    DeleteAwardExperience_Mutation,
+  );
+  const [, executeDeleteCommunityMutation] = useMutation(
+    DeleteCommunityExperience_Mutation,
+  );
+  const [, executeDeleteEducationMutation] = useMutation(
+    DeleteEducationExperience_Mutation,
+  );
+  const [, executeDeletePersonalMutation] = useMutation(
+    DeletePersonalExperience_Mutation,
+  );
+  const [, executeDeleteWorkMutation] = useMutation(
+    DeleteWorkExperience_Mutation,
+  );
+
+  type DeleteMutation =
+    | typeof executeDeleteAwardMutation
+    | typeof executeDeleteCommunityMutation
+    | typeof executeDeleteEducationMutation
+    | typeof executeDeletePersonalMutation
+    | typeof executeDeleteWorkMutation;
 
   const mutations = new Map<ExperienceType, DeleteMutation>();
 

@@ -2,6 +2,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
@@ -13,8 +14,8 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { Team } from "@gc-digital-talent/graphql";
 
-import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -22,6 +23,7 @@ import adminMessages from "~/messages/adminMessages";
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
+import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface EditTeamMemberDialogProps {
   user: TeamMember;
@@ -31,7 +33,7 @@ interface EditTeamMemberDialogProps {
 const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
   const { roles, fetching } = useAvailableRoles();
-  const [, executeMutation] = useUpdateUserTeamRolesMutation();
+  const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({

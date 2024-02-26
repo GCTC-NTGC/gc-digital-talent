@@ -4,13 +4,13 @@ import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, User } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
-import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
+import { SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import StepNavigation from "~/components/Profile/components/StepNavigation";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
@@ -67,7 +67,7 @@ export const getPageInfo: GetPageNavInfo = ({
 };
 
 interface ApplicationProfileProps extends ApplicationPageProps {
-  user: ApplicantProfileUser;
+  user: User;
 }
 
 export const ApplicationProfile = ({

@@ -52,6 +52,7 @@ use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
@@ -218,6 +219,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PoolLanguage',
                     'values' => array_column(PoolLanguage::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PoolOpportunityLength',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolOpportunityLength',
+                    'values' => array_column(PoolOpportunityLength::cases(), 'name'),
                 ]);
             }
         );

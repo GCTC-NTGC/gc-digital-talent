@@ -8,9 +8,9 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
+import { GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import { GovEmployeeType } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";

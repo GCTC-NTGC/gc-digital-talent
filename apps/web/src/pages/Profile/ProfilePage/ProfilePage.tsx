@@ -1,17 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { User, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import { useGetMeQuery, useUpdateUserAsUserMutation } from "~/api/generated";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import { ApplicantProfileUser, SectionProps } from "~/components/Profile/types";
+import { SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
@@ -20,8 +21,69 @@ import GovernmentInformation from "~/components/Profile/components/GovernmentInf
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
 
+const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
+    updateUserAsUser(id: $id, user: $user) {
+      id
+      firstName
+      lastName
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      currentProvince
+      currentCity
+
+      preferredLang
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+
+      isGovEmployee
+      hasPriorityEntitlement
+      priorityNumber
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+        minSalary
+        maxSalary
+      }
+
+      isWoman
+      hasDisability
+      isVisibleMinority
+      indigenousCommunities
+      indigenousDeclarationSignature
+
+      hasDiploma
+      locationPreferences
+      locationExemptions
+      acceptedOperationalRequirements
+      positionDuration
+    }
+  }
+`);
+
 export interface ProfilePageProps {
-  user: ApplicantProfileUser;
+  user: User;
 }
 
 export const ProfileForm = ({ user }: ProfilePageProps) => {
@@ -45,8 +107,9 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
     },
   ]);
 
-  const [{ fetching: isUpdating }, executeUpdateMutation] =
-    useUpdateUserAsUserMutation();
+  const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
+    ProfileUpdateUser_Mutation,
+  );
 
   const handleUpdate: SectionProps["onUpdate"] = async (userId, userData) => {
     return executeUpdateMutation({
@@ -156,17 +219,289 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
   );
 };
 
+const ProfileUser_Query = graphql(/* GraphQL */ `
+  query ProfileUser {
+    me {
+      id
+      authInfo {
+        id
+        sub
+      }
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      currentProvince
+      currentCity
+      citizenship
+      armedForcesStatus
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      hasPriorityEntitlement
+      priorityNumber
+      govEmployeeType
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      isWoman
+      hasDisability
+      indigenousCommunities
+      indigenousDeclarationSignature
+      isVisibleMinority
+      hasDiploma
+      locationPreferences
+      locationExemptions
+      acceptedOperationalRequirements
+      positionDuration
+      userSkills {
+        id
+        user {
+          id
+          email
+        }
+        skill {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          category
+        }
+      }
+      experiences {
+        id
+        __typename
+        user {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+      isProfileComplete
+      poolCandidates {
+        id
+        user {
+          id
+          email
+        }
+        status
+        expiryDate
+        signature
+        archivedAt
+        submittedAt
+        suspendedAt
+        pool {
+          id
+          closingDate
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            group
+            level
+            name {
+              en
+              fr
+            }
+            genericJobTitles {
+              id
+              key
+              name {
+                en
+                fr
+              }
+            }
+            minSalary
+            maxSalary
+          }
+        }
+        educationRequirementOption
+        educationRequirementExperiences {
+          id
+          __typename
+          details
+          user {
+            id
+            email
+          }
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            keywords {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+          }
+        }
+        screeningQuestionResponses {
+          id
+          answer
+          screeningQuestion {
+            id
+            sortOrder
+            question {
+              en
+              fr
+            }
+          }
+        }
+        generalQuestionResponses {
+          id
+          answer
+          generalQuestion {
+            id
+            sortOrder
+            question {
+              en
+              fr
+            }
+          }
+        }
+      }
+    }
+  }
+`);
+
 const ProfilePage = () => {
   const intl = useIntl();
-  const [result] = useGetMeQuery();
-  const { data, fetching, error } = result;
-
-  const userData = data?.me;
+  const [{ data, fetching, error }] = useQuery({ query: ProfileUser_Query });
 
   return (
     <Pending fetching={fetching} error={error}>
-      {userData ? (
-        <ProfileForm user={userData} />
+      {data?.me ? (
+        <ProfileForm user={data?.me} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

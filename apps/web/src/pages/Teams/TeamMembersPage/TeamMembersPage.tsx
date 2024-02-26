@@ -1,14 +1,15 @@
 import * as React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { graphql, Scalars, Team } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import { Scalars, Team, useGetTeamQuery } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   checkRole,
@@ -122,13 +123,58 @@ const TeamMembers = ({ members, team }: TeamMembersProps) => {
   );
 };
 
+const TeamMembersTeam_Query = graphql(/* GraphQL */ `
+  query TeamMembersTeam($teamId: UUID!) {
+    team(id: $teamId) {
+      id
+      name
+      contactEmail
+      displayName {
+        en
+        fr
+      }
+      departments {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      description {
+        en
+        fr
+      }
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        user {
+          id
+          email
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  teamId: Scalars["ID"];
+  teamId: Scalars["ID"]["output"];
 };
 
 const TeamMembersPage = () => {
   const { teamId } = useRequiredParams<RouteParams>("teamId");
-  const [{ data, fetching, error }] = useGetTeamQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: TeamMembersTeam_Query,
     variables: { teamId },
   });
 

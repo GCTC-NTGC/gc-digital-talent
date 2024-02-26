@@ -12,7 +12,6 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
@@ -20,11 +19,12 @@ import {
   User,
   Team,
   Scalars,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
-  roles: Array<Scalars["UUID"]>;
+  roles: Array<Scalars["UUID"]["output"]>;
 };
 
 interface EditTeamRoleDialogProps {
@@ -116,7 +116,7 @@ const EditTeamRoleDialog = ({
       <Dialog.Trigger>
         <Button color="black">
           <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
-          <span data-h2-visually-hidden="base(hidden)">{label}</span>
+          <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

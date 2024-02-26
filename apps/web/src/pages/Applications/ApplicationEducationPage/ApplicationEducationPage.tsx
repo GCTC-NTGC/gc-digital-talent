@@ -309,7 +309,8 @@ const ApplicationEducation = ({
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Heading
-            level="h6"
+            level="h3"
+            size="h6"
             data-h2-margin="base(x2, 0, x.5, 0)"
             data-h2-font-weight="base(700)"
           >

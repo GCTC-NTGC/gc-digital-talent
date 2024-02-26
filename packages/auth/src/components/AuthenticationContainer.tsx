@@ -11,6 +11,7 @@ import {
   ID_TOKEN,
   POST_LOGOUT_URI_KEY,
 } from "../const";
+import useLogoutChannel from "../hooks/useLogoutChannel";
 
 export interface AuthenticationState {
   loggedIn: boolean;
@@ -39,6 +40,7 @@ const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
   postLogoutUri?: string,
+  broadcastLogoutMessage?: () => void,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -68,6 +70,9 @@ const logoutAndRefreshPage = (
       authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
+  // Post a logout message to the broadcast channel
+  // so they know to logout as well
+  broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
@@ -110,6 +115,11 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
+  const { broadcastLogoutMessage } = useLogoutChannel(() => {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+      window.location.href = logoutRedirectUri;
+    }
+  });
 
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
@@ -123,6 +133,21 @@ const AuthenticationContainer = ({
       localStorage.setItem(ID_TOKEN, newTokens.idToken);
     }
   }
+
+  // Logout if the access token is removed in another way other than
+  // the user logging out manually
+  useEffect(() => {
+    const logoutOnAccessTokenRemoved = (event: StorageEvent) => {
+      if (event.key === ACCESS_TOKEN && event.newValue === null) {
+        window.location.href = logoutRedirectUri;
+      }
+    };
+
+    window.addEventListener("storage", logoutOnAccessTokenRemoved);
+
+    return () =>
+      window.removeEventListener("storage", logoutOnAccessTokenRemoved);
+  });
 
   // We have saved it in local storage , then clear query parameters.
   useEffect(() => {
@@ -138,7 +163,12 @@ const AuthenticationContainer = ({
       loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
       logout: localStorage.getItem(ACCESS_TOKEN)
         ? (postLogoutUri) =>
-            logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
+            logoutAndRefreshPage(
+              logoutUri,
+              logoutRedirectUri,
+              postLogoutUri,
+              broadcastLogoutMessage,
+            )
         : () => {
             /* If not logged in, logout does nothing. */
           },
@@ -182,7 +212,13 @@ const AuthenticationContainer = ({
         }
       },
     };
-  }, [logoutUri, logoutRedirectUri, tokenRefreshPath, logger]);
+  }, [
+    logoutUri,
+    logoutRedirectUri,
+    broadcastLogoutMessage,
+    tokenRefreshPath,
+    logger,
+  ]);
 
   return (
     <AuthenticationContext.Provider value={state}>

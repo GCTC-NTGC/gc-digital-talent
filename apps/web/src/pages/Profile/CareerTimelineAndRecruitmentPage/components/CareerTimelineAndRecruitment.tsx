@@ -5,11 +5,6 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-
-import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/Hero/Hero";
-import MissingSkills from "~/components/MissingSkills";
-import { flattenExperienceSkills } from "~/types/experience";
 import {
   AwardExperience,
   CommunityExperience,
@@ -17,7 +12,12 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import Hero from "~/components/Hero/Hero";
+import MissingSkills from "~/components/MissingSkills";
+import { flattenExperienceSkills } from "~/types/experience";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";

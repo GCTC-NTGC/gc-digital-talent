@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -20,19 +21,18 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import {
   Skill,
   SkillFamily,
   UpdateSkillFamilyInput,
   UpdateSkillFamilyMutation,
-  useUpdateSkillFamilyMutation,
-  useGetUpdateSkillFamilyDataQuery,
   Scalars,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -215,20 +215,69 @@ export const UpdateSkillFamilyForm = ({
 };
 
 type RouteParams = {
-  skillFamilyId: Scalars["ID"];
+  skillFamilyId: Scalars["ID"]["output"];
 };
+
+const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
+  query SkillFamilySkillsData($id: UUID!) {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+
+    skillFamily(id: $id) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+  }
+`);
+
+const UpdateSkillFamily_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateSkillFamily($id: ID!, $skillFamily: UpdateSkillFamilyInput!) {
+    updateSkillFamily(id: $id, skillFamily: $skillFamily) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { skillFamilyId } = useRequiredParams<RouteParams>("skillFamilyId");
-  const [{ data: lookupData, fetching, error }] =
-    useGetUpdateSkillFamilyDataQuery({
-      variables: { id: skillFamilyId || "" },
-    });
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: UpdateSkillFamilyData_Query,
+    variables: { id: skillFamilyId || "" },
+  });
   const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useUpdateSkillFamilyMutation();
+  const [, executeMutation] = useMutation(UpdateSkillFamily_Mutation);
   const handleUpdateSkillFamily = (
     id: string,
     formData: UpdateSkillFamilyInput,

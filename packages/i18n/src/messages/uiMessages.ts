@@ -116,6 +116,16 @@ const uiMessages = defineMessages({
     id: "fUF8rg",
     description: "Null selection for select input",
   },
+  expandAll: {
+    defaultMessage: "Expand all sections",
+    id: "4WvSir",
+    description: "Generic link text to expand all accordions in a section",
+  },
+  collapseAll: {
+    defaultMessage: "Collapse all sections",
+    id: "OeTCOs",
+    description: "Generic link text to collapse all accordions in a section",
+  },
   nullSelectionOptionLevel: {
     defaultMessage: "Select a level",
     id: "xEkbvy",
