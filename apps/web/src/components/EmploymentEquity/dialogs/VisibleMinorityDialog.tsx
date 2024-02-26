@@ -5,6 +5,7 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
 import {
+  formMessages,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
@@ -76,20 +77,17 @@ const VisibleMinorityDialog = ({
                   idPrefix="isVisibleMinority"
                   id="isVisibleMinority"
                   name="isVisibleMinority"
-                  legend={intl.formatMessage({
-                    defaultMessage:
-                      "Based on the definition provided, I want to add:",
-                    id: "O+fNOe",
-                    description:
-                      "Prompt text for a user selecting an employment equity group for their profile",
-                  })}
+                  legend={intl.formatMessage(formMessages.identifyAs)}
                   trackUnsaved={false}
                   items={[
                     {
                       value: "true",
-                      label: intl.formatMessage(
-                        getEmploymentEquityStatement("minority"),
-                      ),
+                      label: intl.formatMessage({
+                        defaultMessage: "a member of a visible minority.",
+                        id: "VlI6x0",
+                        description:
+                          "Statement for when someone indicates they are a visible minority",
+                      }),
                     },
                   ]}
                 />

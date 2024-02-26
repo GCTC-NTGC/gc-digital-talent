@@ -226,6 +226,12 @@ const formMessages = defineMessages({
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
   },
+  identifyAs: {
+    defaultMessage: "Based on this definition, I identify as:",
+    id: "sbmUVq",
+    description:
+      "Prompt text for a user selecting an employment equity group for their profile",
+  },
 });
 
 export default formMessages;
