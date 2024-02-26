@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";

@@ -1,4 +1,4 @@
-import { User, Maybe, Pool, PublishingGroup } from "~/api/generated";
+import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<
   User,
