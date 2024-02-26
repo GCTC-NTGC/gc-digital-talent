@@ -8,10 +8,12 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
+use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
+use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
@@ -202,6 +204,21 @@ class PoolFactory extends Factory
             $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
             $step1->poolSkills()->sync(array_slice($poolSkillArray, 0, 5, true));
             $step2->poolSkills()->sync(array_slice($poolSkillArray, 5, 5, true));
+        });
+    }
+
+    /** Update the pool's pool_skill table to be complete
+     * For use in testing and seeding convenience, edits pool skill models after the pivot table was filled
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withCompletePoolSkills()
+    {
+        return $this->afterCreating(function (Pool $pool) {
+            PoolSkill::where('pool_id', $pool->id)
+                ->update([
+                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+                ]);
         });
     }
 }
