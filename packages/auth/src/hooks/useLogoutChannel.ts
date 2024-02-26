@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef } from "react";
 
+import { useLogger } from "@gc-digital-talent/logger";
+
 const LOGOUT_MESSAGE = "LOGOUT";
-let singleChannel: BroadcastChannel;
+let singleChannel: BroadcastChannel | undefined;
 
 /**
  * Create a single broadcast channel
@@ -18,6 +20,7 @@ const getChannel = () => {
 };
 
 const useLogoutChannel = (onLogout: () => void) => {
+  const logger = useLogger();
   const channel = getChannel();
   // Prevents channel from being closed/reopened
   const isSubscribed = useRef(false);
@@ -42,8 +45,12 @@ const useLogoutChannel = (onLogout: () => void) => {
   }, []);
 
   const postLogoutMessage = useCallback(() => {
-    channel?.postMessage(LOGOUT_MESSAGE);
-  }, [channel]);
+    if (!channel) {
+      logger.error("No logout channel open to post to.");
+      return;
+    }
+    channel.postMessage(LOGOUT_MESSAGE);
+  }, [channel, logger]);
 
   return {
     postLogoutMessage,
