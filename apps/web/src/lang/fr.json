@@ -339,10 +339,6 @@
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
   },
-  "/jDW4V": {
-    "defaultMessage": "N’importe quelle langue",
-    "description": "Label for the any language option"
-  },
   "/ldR5A": {
     "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
@@ -6679,7 +6675,7 @@
     "description": "Label for the team members table search input"
   },
   "YyHN1i": {
-    "defaultMessage": "Toute langue (anglais ou français)",
+    "defaultMessage": "N'importe quelle langue (français ou anglais)",
     "description": "No preference for language ability - will accept English or French"
   },
   "Z+JxTc": {
@@ -9865,10 +9861,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qp68Mh": {
-    "defaultMessage": "Toute langue",
-    "description": "Option label for allowing any language"
   },
   "qqkQ/h": {
     "defaultMessage": "Décision finale relative à l’évaluation",
