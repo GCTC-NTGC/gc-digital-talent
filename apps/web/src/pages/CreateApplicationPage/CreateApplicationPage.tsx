@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -15,11 +15,52 @@ import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { useMyApplicationsQuery } from "~/api/generated";
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
+
+const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
+  query CreateApplicationApplications {
+    me {
+      id
+      poolCandidates {
+        id
+        status
+        archivedAt
+        submittedAt
+        pool {
+          id
+          closingDate
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            group
+            level
+            name {
+              en
+              fr
+            }
+            genericJobTitles {
+              id
+              key
+              name {
+                en
+                fr
+              }
+            }
+            minSalary
+            maxSalary
+          }
+        }
+      }
+    }
+  }
+`);
 
 const CreateApplication_Mutation = graphql(/* GraphQL */ `
   mutation CreateApplication($userId: ID!, $poolId: ID!) {
@@ -43,7 +84,9 @@ const CreateApplication = () => {
   const [{ data: newApplicationData }, executeMutation] = useMutation(
     CreateApplication_Mutation,
   );
-  const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
+  const [{ data: existingApplicationsData }] = useQuery({
+    query: CreateApplicationApplications_Query,
+  });
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId);

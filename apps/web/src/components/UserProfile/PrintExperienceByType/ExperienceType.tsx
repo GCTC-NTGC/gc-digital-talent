@@ -1,8 +1,7 @@
 import React from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
-
-import { Experience } from "~/api/generated";
+import { Experience } from "@gc-digital-talent/graphql";
 
 import ExperienceItem from "./ExperienceItem";
 

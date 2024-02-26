@@ -8,9 +8,9 @@ import {
   getGovEmployeeType,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { User, GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import { User, GovEmployeeType } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,

@@ -1,12 +1,11 @@
 import { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
 import {
   Maybe,
   Role,
   RoleAssignment,
   UserPublicProfile,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 export type TeamMember = {
   roles: Array<Role>;

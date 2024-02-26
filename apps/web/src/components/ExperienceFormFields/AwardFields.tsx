@@ -15,9 +15,9 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import { AwardedScope, AwardedTo } from "~/api/generated";
 
 const AwardFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();

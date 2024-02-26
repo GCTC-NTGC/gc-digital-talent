@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion, Tabs, HeadingRank, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import { invertSkillExperienceTree } from "~/utils/skillUtils";
 import {
@@ -13,7 +14,6 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { AwardExperience, Experience } from "~/api/generated";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";

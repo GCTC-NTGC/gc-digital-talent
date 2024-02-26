@@ -4,8 +4,7 @@ import { IntlShape } from "react-intl";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { Maybe, RoleAssignment, Team } from "~/api/generated";
+import { Maybe, RoleAssignment, Team } from "@gc-digital-talent/graphql";
 
 import { MyRoleTeam } from "./types";
 
