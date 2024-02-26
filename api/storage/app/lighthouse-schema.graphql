@@ -2050,15 +2050,6 @@ enum OperationalRequirement {
   OVERTIME_REGULAR
 }
 
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
-}
-
 enum GenericJobTitleKey {
   TECHNICIAN_IT01
   ANALYST_IT02
