@@ -1,7 +1,5 @@
 import { defineMessages } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-
 const messages = defineMessages({
   qualified: {
     defaultMessage: "Qualified",
