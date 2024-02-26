@@ -1405,11 +1405,11 @@ input UpdatePoolInput {
 
 input CreatePoolSkillInput {
   type: PoolSkillType!
-  requiredLevel: SkillLevel
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 input UpdatePoolSkillInput {
-  requiredLevel: SkillLevel
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 input AssessmentStepInput {
