@@ -135,6 +135,10 @@
     "defaultMessage": "Nouveau",
     "description": "The status is new."
   },
+  "261Ycu": {
+    "defaultMessage": "Indéterminée (Permanente)",
+    "description": "Option for pool opportunity length"
+  },
   "2G+fJt": {
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
@@ -351,6 +355,10 @@
     "defaultMessage": "Accès à l’information et protection des renseignements personnels",
     "description": "Pool Stream described as Access to Information and Privacy."
   },
+  "9L4c8m": {
+    "defaultMessage": "Divers",
+    "description": "Option for pool opportunity length"
+  },
   "9SP4JF": {
     "defaultMessage": "Maîtrise",
     "description": "Master's Degree selection for education type input"
@@ -414,6 +422,10 @@
   "BnnVAv": {
     "defaultMessage": "Permis de conduire",
     "description": "The operational requirement described as driver's license. (short-form for limited space)"
+  },
+  "BoTqZU": {
+    "defaultMessage": "Terme (1 an)",
+    "description": "Option for pool opportunity length"
   },
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
@@ -699,6 +711,10 @@
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
   },
+  "LldtPo": {
+    "defaultMessage": "Terme (2 ans)",
+    "description": "Option for pool opportunity length"
+  },
   "Lw0WrP": {
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
@@ -750,6 +766,10 @@
   "Mm+Me1": {
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
+  },
+  "MrQfby": {
+    "defaultMessage": "Terme (6 mois)",
+    "description": "Option for pool opportunity length"
   },
   "MvSp9b": {
     "defaultMessage": "Gestion de bases de données de la TI",

@@ -5,6 +5,7 @@ import {
   CreatePoolInput,
   Pool,
   PoolLanguage,
+  PoolOpportunityLength,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
@@ -99,6 +100,7 @@ export class PoolPage extends AppPage {
       },
       language: PoolLanguage.Various,
       securityClearance: SecurityStatus.Secret,
+      opportunityLength: PoolOpportunityLength.Various,
       location: {
         en: "test location EN",
         fr: "test location FR",
