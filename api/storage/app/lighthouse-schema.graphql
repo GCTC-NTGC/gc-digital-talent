@@ -371,7 +371,6 @@ type PoolSkill {
   id: ID!
   type: PoolSkillType
   requiredLevel: SkillLevel
-  pool: Pool
   skill: Skill
   assessmentSteps: [AssessmentStep]
 }

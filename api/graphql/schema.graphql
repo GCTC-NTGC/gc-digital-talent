@@ -220,7 +220,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canOnParent(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessmentPlan")
+  poolSkills: [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {
@@ -271,9 +271,10 @@ type PoolSkill {
   id: ID!
   type: PoolSkillType
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
-  pool: Pool @belongsTo
   skill: Skill @belongsTo
-  assessmentSteps: [AssessmentStep] @belongsToMany
+  assessmentSteps: [AssessmentStep]
+    @belongsToMany
+    @canOnParent(ability: "viewAssessmentSteps")
 }
 
 type PoolCandidate {
