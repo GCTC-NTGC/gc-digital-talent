@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { OperationContext, useMutation, useQuery } from "urql";
+import { OperationContext } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -12,18 +12,24 @@ import {
   commonMessages,
   getLanguage,
 } from "@gc-digital-talent/i18n";
-import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
+
 import {
   UpdateUserRolesInput,
   UpdateUserSubInput,
+  useUpdateUserRolesMutation,
+  useUpdateUserSubMutation,
+  useListRolesQuery,
   Language,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
   User,
-} from "@gc-digital-talent/graphql";
-
+  useUpdateUserAsAdminMutation,
+  useUserQuery,
+  useDeleteUserMutation,
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -34,13 +40,6 @@ import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
 import UpdateUserSubForm from "./components/UpdateUserSubForm";
-import {
-  DeleteUser_Mutation,
-  UpdateUserAsAdmin_Mutation,
-  UpdateUserData_Query,
-  UpdateUserRoles_Mutation,
-  UpdateUserSub_Mutation,
-} from "./operations";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -242,23 +241,24 @@ const context: Partial<OperationContext> = {
 };
 
 type RouteParams = {
-  userId: Scalars["ID"]["output"];
+  userId: Scalars["ID"];
 };
 
 const UpdateUserPage = () => {
   const intl = useIntl();
   const { userId } = useRequiredParams<RouteParams>("userId");
-  const [{ data, fetching, error }] = useQuery({
-    query: UpdateUserData_Query,
+  const [{ data: rolesData, fetching: rolesFetching, error: rolesError }] =
+    useListRolesQuery();
+  const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId },
     context,
   });
 
-  const [, executeUpdateMutation] = useMutation(UpdateUserAsAdmin_Mutation);
-  const [, executeUpdateRolesMutation] = useMutation(UpdateUserRoles_Mutation);
-  const [, executeUpdateSubMutation] = useMutation(UpdateUserSub_Mutation);
+  const [, executeUpdateMutation] = useUpdateUserAsAdminMutation();
+  const [, executeUpdateRolesMutation] = useUpdateUserRolesMutation();
+  const [, executeUpdateSubMutation] = useUpdateUserSubMutation();
 
-  const handleUpdateUser = (id: string, input: UpdateUserAsAdminInput) =>
+  const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
@@ -268,8 +268,8 @@ const UpdateUserPage = () => {
         id,
         // Do not include email in the request if it is not part of form data
         // to prevent accidentally setting it to null
-        email: input.email !== undefined ? emptyToNull(input.email) : undefined,
-        ...pick(input, [
+        email: data.email !== undefined ? emptyToNull(data.email) : undefined,
+        ...pick(data, [
           "firstName",
           "lastName",
           "telephone",
@@ -287,10 +287,10 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
-  const handleUpdateUserRoles = (input: UpdateUserRolesInput) =>
+  const handleUpdateUserRoles = (data: UpdateUserRolesInput) =>
     executeUpdateRolesMutation({
       updateUserRolesInput: {
-        ...input,
+        ...data,
       },
     }).then((result) => {
       if (result.data?.updateUserRoles) {
@@ -299,10 +299,10 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
-  const handleUpdateUserSub = (input: UpdateUserSubInput) =>
+  const handleUpdateUserSub = (data: UpdateUserSubInput) =>
     executeUpdateSubMutation({
       updateUserSubInput: {
-        ...input,
+        ...data,
       },
     }).then((result) => {
       if (result.data?.updateUserSub) {
@@ -311,7 +311,7 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
-  const [, executeDeleteMutation] = useMutation(DeleteUser_Mutation);
+  const [, executeDeleteMutation] = useDeleteUserMutation();
   const handleDeleteUser = (id: string) =>
     executeDeleteMutation({
       id,
@@ -322,7 +322,7 @@ const UpdateUserPage = () => {
       return Promise.reject(result.error);
     });
 
-  const availableRoles = unpackMaybes(data?.roles);
+  const availableRoles = rolesData?.roles.filter(notEmpty);
 
   return (
     <AdminContentWrapper>
@@ -333,28 +333,28 @@ const UpdateUserPage = () => {
           description: "Page title for the user edit page",
         })}
       />
-      <Pending fetching={fetching} error={error}>
-        {data?.user ? (
+      <Pending fetching={fetching || rolesFetching} error={error || rolesError}>
+        {userData?.user ? (
           <>
             <UpdateUserForm
-              initialUser={data.user}
+              initialUser={userData.user}
               handleUpdateUser={handleUpdateUser}
             />
             <UpdateUserSubForm
-              user={data.user}
+              user={userData.user}
               onUpdateSub={handleUpdateUserSub}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
               {intl.formatMessage(adminMessages.rolesAndPermissions)}
             </Heading>
             <UserRoleTable
-              user={data.user}
-              availableRoles={availableRoles}
+              user={userData.user}
+              availableRoles={availableRoles || []}
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <TeamRoleTable
-              user={data.user}
-              availableRoles={availableRoles}
+              user={userData.user}
+              availableRoles={availableRoles || []}
               onUpdateUserRoles={handleUpdateUserRoles}
             />
             <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
@@ -365,7 +365,7 @@ const UpdateUserPage = () => {
               })}
             </Heading>
             <DeleteUserSection
-              user={data.user}
+              user={userData.user}
               onDeleteUser={handleDeleteUser}
             />
           </>

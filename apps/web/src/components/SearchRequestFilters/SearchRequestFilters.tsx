@@ -13,7 +13,7 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
@@ -168,7 +168,7 @@ const ApplicantFilters = ({
             content={
               applicantFilter
                 ? applicantFilter?.pools?.map((pool) =>
-                    getShortPoolTitleHtml(intl, pool),
+                    getFullPoolTitleHtml(intl, pool),
                   )
                 : null
             }
@@ -421,7 +421,7 @@ const SearchRequestFilters = ({
               })}
               content={
                 pools
-                  ? pools.map((pool) => getShortPoolTitleHtml(intl, pool))
+                  ? pools.map((pool) => getFullPoolTitleHtml(intl, pool))
                   : null
               }
             />

@@ -11,6 +11,7 @@ import {
   iconMap,
   dismissStyleMap,
   getAlertLevelTitle,
+  bannerStyleMap,
 } from "./utils";
 import { AlertHeadingLevel, AlertType } from "./types";
 
@@ -38,11 +39,20 @@ export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
+  banner?: boolean;
 }
 
 const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
   (
-    { type, onDismiss, live = true, dismissible = false, children, ...rest },
+    {
+      type,
+      onDismiss,
+      live = true,
+      dismissible = false,
+      banner = false,
+      children,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const intl = useIntl();
@@ -79,7 +89,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             data-h2-overflow="base(hidden)"
             data-h2-margin="base(0, 0, x1, 0)"
             {...(live ? { role: "alert" } : {})}
-            {...styleMap[type]}
+            {...(!banner && { ...styleMap[type] })}
             {...rest}
           >
             <div
@@ -107,6 +117,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                 : {
                     "data-h2-padding": "base(x1) p-tablet(x1, x1, x1, x1.5)",
                   })}
+              {...(banner ? { ...bannerStyleMap[type] } : {})}
             >
               {children}
             </div>

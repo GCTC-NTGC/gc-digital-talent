@@ -126,10 +126,6 @@ export const formDateStringToDate = (value: string, fallback?: Date) => {
   return parse(value, DATE_FORMAT_STRING, fallback || new Date());
 };
 
-export const formDateTimeStringToDate = (value: string, fallback?: Date) => {
-  return parse(value, DATETIME_FORMAT_STRING, fallback || new Date());
-};
-
 // Convert a DateTime from one zone to another
 export const convertDateTimeZone = (
   sourceDateTime: Scalars["DateTime"]["input"],

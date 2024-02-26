@@ -1,4 +1,4 @@
-import { IndigenousCommunity } from "@gc-digital-talent/graphql";
+import { IndigenousCommunity } from "~/api/generated";
 
 // constrained list of community form values to avoid typos
 type FormCommunity = "firstNations" | "inuk" | "metis" | "other";

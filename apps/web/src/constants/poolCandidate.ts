@@ -4,7 +4,6 @@ export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.QualifiedUnavailable,
   PoolCandidateStatus.QualifiedWithdrew,
-  PoolCandidateStatus.PlacedTentative,
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedIndeterminate,
@@ -39,7 +38,4 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedTerm,
 ];
 
-export const NOT_PLACED_STATUSES = [
-  PoolCandidateStatus.QualifiedAvailable,
-  PoolCandidateStatus.PlacedTentative,
-];
+export const NOT_PLACED_STATUSES = [PoolCandidateStatus.QualifiedAvailable];

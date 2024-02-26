@@ -20,14 +20,14 @@ import {
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
+
+import { splitAndJoin } from "~/utils/nameUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
   GovEmployeeType,
   Department,
-} from "@gc-digital-talent/graphql";
-
-import { splitAndJoin } from "~/utils/nameUtils";
+} from "~/api/generated";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";

@@ -6,11 +6,12 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { Heading } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
+
 import {
   UpdateUserSubInput,
   UpdateUserSubMutation,
   User,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 type FormValues = {
   sub: string;

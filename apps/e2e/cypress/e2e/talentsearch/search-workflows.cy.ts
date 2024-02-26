@@ -47,7 +47,7 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchFindsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: `I T 1: Cypress Test Pool EN 1 ${uniqueTestId}`,
+        name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).within(() => {
         cy.contains("1 approximate match");
 
@@ -60,7 +60,7 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchRejectsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: `I T 1: Cypress Test Pool 1 EN ${uniqueTestId}`,
+        name: `Cypress Test Pool 1 EN ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
       }).should("not.exist");
     };
 
@@ -280,7 +280,7 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     cy.findByRole("article", {
-      name: `I T 1: Cypress Test Pool EN 1 ${uniqueTestId}`,
+      name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
     }).within(() => {
       // Finding this button is sensitive to "dom detached" errors.
       // Must not try to click it unless we know there are no inflight searches.

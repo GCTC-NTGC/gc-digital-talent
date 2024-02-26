@@ -10,8 +10,8 @@ import {
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
 
+import { Pool } from "~/api/generated";
 import {
   getMissingLanguageRequirements,
   PartialUser,

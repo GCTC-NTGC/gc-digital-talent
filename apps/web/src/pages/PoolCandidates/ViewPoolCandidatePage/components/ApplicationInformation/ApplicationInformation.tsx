@@ -357,7 +357,12 @@ const ApplicationInformation = ({
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
           <Accordion.Trigger>
-            {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
+            {intl.formatMessage({
+              defaultMessage: "Diversity, equity, and inclusion",
+              id: "zLeH2i",
+              description:
+                "Title for the diversity, equity, and inclusion snapshot section",
+            })}
           </Accordion.Trigger>
           <Accordion.Content>
             <DiversityEquityInclusionDisplay user={snapshot} />

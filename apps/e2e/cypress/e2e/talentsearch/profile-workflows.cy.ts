@@ -6,7 +6,7 @@ describe("User Profile Workflow Tests", () => {
     cy.visit("/en/users/test-applicant/personal-information");
 
     // make sure we end up on the personal information page
-    cy.wait("@gqlProfileUserQuery");
+    cy.wait("@gqlgetMeQuery");
     cy.findByRole("heading", { name: /Personal and contact information/i })
       .should("exist")
       .and("be.visible");
@@ -15,7 +15,7 @@ describe("User Profile Workflow Tests", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "ProfileUser");
+      aliasQuery(req, "getMe");
       aliasMutation(req, "UpdateUserAsUser");
     });
 

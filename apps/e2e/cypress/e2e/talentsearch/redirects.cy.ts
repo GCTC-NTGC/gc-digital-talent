@@ -13,20 +13,20 @@ describe("Redirects", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "ProfileUser");
+      aliasQuery(req, "getMe");
     });
     cy.loginByRole("applicant");
   });
 
   it("redirects /talent/profile", () => {
     cy.visit("/en/talent/profile");
-    cy.wait("@gqlProfileUserQuery");
+    cy.wait("@gqlgetMeQuery");
     expectToBeOnProfile();
   });
 
   it("redirects /users/me", () => {
     cy.visit("/en/users/me");
-    cy.wait("@gqlProfileUserQuery");
+    cy.wait("@gqlgetMeQuery");
     expectToBeOnProfile();
   });
 });

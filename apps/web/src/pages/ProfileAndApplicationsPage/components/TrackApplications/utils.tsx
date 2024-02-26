@@ -4,8 +4,8 @@ import { IntlShape } from "react-intl";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 
+import { PoolCandidate } from "~/api/generated";
 import { formatSubmittedAt } from "~/utils/poolCandidate";
 
 type Application = Omit<PoolCandidate, "user">;

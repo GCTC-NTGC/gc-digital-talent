@@ -8,7 +8,7 @@ import {
   useCardRepeaterContext,
 } from "./CardRepeaterProvider";
 import { BaseItem } from "./types";
-import { Add, Edit, Remove } from "./Button";
+import { Add, Edit } from "./Button";
 import Card, { CARD_CLASS_NAME, CardProps } from "./Card";
 import List from "./List";
 
@@ -97,7 +97,6 @@ export default {
   Card,
   Add,
   Edit,
-  Remove,
 };
 
 export { useCardRepeaterContext };

@@ -20,7 +20,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   ViewPoolCandidatesPageQuery,
@@ -29,14 +29,11 @@ import {
   Maybe,
   SkillCategory,
   Scalars,
-  GeneralQuestionResponse,
-  LocalizedString,
-  Pool,
 } from "@gc-digital-talent/graphql";
 
 import {
-  getShortPoolTitleHtml,
-  getShortPoolTitleLabel,
+  getFullPoolTitleHtml,
+  getFullPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -70,29 +67,6 @@ type SectionContent = {
   linkText?: string;
   title: string;
 };
-
-// stopgap as screening questions become general questions while a new screening questions backend is set up
-// preserve snapshot functionality
-type ScreeningQuestion = {
-  id: Scalars["ID"]["output"];
-  pool?: Maybe<Pool>;
-  question?: Maybe<LocalizedString>;
-  sortOrder?: Maybe<Scalars["Int"]["output"]>;
-};
-
-type ScreeningQuestionResponse = {
-  answer?: Maybe<Scalars["String"]["output"]>;
-  screeningQuestion?: Maybe<ScreeningQuestion>;
-  id: Scalars["ID"]["output"];
-};
-
-function isScreeningQuestionResponse(
-  response: ScreeningQuestionResponse | GeneralQuestionResponse,
-): response is ScreeningQuestionResponse {
-  return (
-    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
-  );
-}
 
 export const ViewPoolCandidate = ({
   poolCandidate,
@@ -187,7 +161,12 @@ export const ViewPoolCandidate = ({
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
+      title: intl.formatMessage({
+        defaultMessage: "Diversity, equity, and inclusion",
+        id: "zLeH2i",
+        description:
+          "Title for the diversity, equity, and inclusion snapshot section",
+      }),
     },
     government: {
       id: "government",
@@ -277,19 +256,6 @@ export const ViewPoolCandidate = ({
     const classificationGroup = snapshotCandidate?.pool.classifications
       ? snapshotCandidate.pool.classifications[0]?.group
       : "";
-
-    const generalQuestionResponses = unpackMaybes(
-      snapshotCandidate?.generalQuestionResponses ?? [],
-    );
-
-    const screeningQuestionResponses = unpackMaybes(
-      snapshotCandidate?.screeningQuestionResponses ?? [],
-    );
-
-    const mergedQuestionResponses: (
-      | GeneralQuestionResponse
-      | ScreeningQuestionResponse
-    )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
 
     if (features.recordOfDecision) {
       mainContent = (
@@ -444,28 +410,31 @@ export const ViewPoolCandidate = ({
             >
               {sections.questions.title}
             </TableOfContents.Heading>
-            {mergedQuestionResponses.map((response) => (
-              <React.Fragment key={response.id}>
-                <Heading level="h5" size="h6" data-h2-margin-bottom="base(x.5)">
-                  {getLocalizedName(
-                    isScreeningQuestionResponse(response)
-                      ? response.screeningQuestion?.question
-                      : response.generalQuestion?.question,
-                    intl,
-                  )}
-                </Heading>
-                <div
-                  data-h2-background-color="base(foreground)"
-                  data-h2-color="base(black)"
-                  data-h2-padding="base(x1)"
-                  data-h2-border-left="base(x.5 solid primary)"
-                  data-h2-radius="base(0 rounded rounded 0)"
-                  data-h2-shadow="base(medium)"
-                >
-                  <p>{response.answer}</p>
-                </div>
-              </React.Fragment>
-            ))}
+            {snapshotCandidate?.generalQuestionResponses
+              ?.filter(notEmpty)
+              .map((response) => (
+                <React.Fragment key={response.id}>
+                  <Heading
+                    level="h5"
+                    size="h6"
+                    data-h2-margin-bottom="base(x.5)"
+                  >
+                    {getLocalizedName(
+                      response?.generalQuestion?.question,
+                      intl,
+                    )}
+                  </Heading>
+                  <div
+                    data-h2-background-color="base(white) base:dark(black)"
+                    data-h2-padding="base(x1)"
+                    data-h2-border-left="base(x.5 solid primary)"
+                    data-h2-radius="base(0 rounded rounded 0)"
+                    data-h2-shadow="base(medium)"
+                  >
+                    <p>{response.answer}</p>
+                  </div>
+                </React.Fragment>
+              ))}
           </TableOfContents.Section>
           <TableOfContents.Section id={sections.careerTimeline.id}>
             <TableOfContents.Heading
@@ -630,7 +599,7 @@ export const ViewPoolCandidate = ({
         })}
         subtitle={`${poolCandidate.user.firstName} ${
           poolCandidate.user.lastName
-        } / ${getShortPoolTitleLabel(intl, poolCandidate.pool)}`}
+        } / ${getFullPoolTitleLabel(intl, poolCandidate.pool)}`}
         nav={{
           mode: "subNav",
           items: Array.from(pages.values()).map((page) => ({
@@ -653,7 +622,7 @@ export const ViewPoolCandidate = ({
                 },
                 {
                   submittedAt: poolCandidate.submittedAt,
-                  poolName: getShortPoolTitleHtml(intl, poolCandidate.pool),
+                  poolName: getFullPoolTitleHtml(intl, poolCandidate.pool),
                 },
               )}
             </p>

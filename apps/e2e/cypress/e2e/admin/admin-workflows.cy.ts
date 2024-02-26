@@ -16,7 +16,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("textbox", { name: /search/i })
       .clear()
       .type(name);
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     // wait for table to rerender
     cy.contains(expectedEmail, { timeout: 10000 })
@@ -26,8 +26,8 @@ describe("Admin Workflow Tests", () => {
 
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "UsersPaginated");
-      aliasQuery(req, "UpdateUserData");
+      aliasQuery(req, "AllUsersPaginated");
+      aliasQuery(req, "User");
       aliasQuery(req, "UsersTable_SelectUsers");
       aliasMutation(req, "UpdateUserAsAdmin");
     });
@@ -38,7 +38,7 @@ describe("Admin Workflow Tests", () => {
   it("Searches for a user and reviews the profile", () => {
     // find the applicant user to review
     cy.findAllByRole("link", { name: /users/i }).eq(0).click();
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     searchForUser("Applicant", "applicant@test.com");
 
@@ -66,7 +66,7 @@ describe("Admin Workflow Tests", () => {
   it("Searches for a user and edits the phone number", () => {
     // find the applicant user to edit
     cy.findAllByRole("link", { name: /users/i }).eq(0).click();
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
     cy.findByRole("link", { name: /edit applicant/i })
@@ -74,7 +74,7 @@ describe("Admin Workflow Tests", () => {
       .should("be.visible")
       .click();
 
-    cy.wait("@gqlUpdateUserDataQuery");
+    cy.wait("@gqlUserQuery");
 
     // edit the user in a small way
     cy.findByRole("textbox", { name: /Telephone/i })
@@ -88,7 +88,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.expectToast(/User updated successfully/i);
 
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
     searchForUser("Applicant", "applicant@test.com");
 
     // show hidden telephone column
@@ -106,7 +106,7 @@ describe("Admin Workflow Tests", () => {
 
   it("Selects a user and downloads a CSV", () => {
     cy.findAllByRole("link", { name: /users/i }).eq(0).click();
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     searchForUser("Applicant", "applicant@test.com");
 
@@ -124,10 +124,10 @@ describe("Admin Workflow Tests", () => {
   it("Opens filter dialog and triggers GraphQL query", () => {
     // find the applicant user to review
     cy.findAllByRole("link", { name: /users/i }).eq(0).click();
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
 
     cy.findByRole("button", { name: /filters/i }).click();
     cy.findByRole("button", { name: /Show results/i }).click();
-    cy.wait("@gqlUsersPaginatedQuery");
+    cy.wait("@gqlAllUsersPaginatedQuery");
   });
 });

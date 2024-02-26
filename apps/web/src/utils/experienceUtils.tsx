@@ -11,15 +11,6 @@ import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIc
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { IconType } from "@gc-digital-talent/ui";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  Maybe,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
 
 import {
   AllExperienceFormValues,
@@ -32,6 +23,15 @@ import {
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";
+import {
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  Maybe,
+  PersonalExperience,
+  Skill,
+  WorkExperience,
+} from "../api/generated";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
 

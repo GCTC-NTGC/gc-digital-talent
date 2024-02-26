@@ -1,7 +1,8 @@
 import React from "react";
 
 import { TreeView } from "@gc-digital-talent/ui";
-import { Experience } from "@gc-digital-talent/graphql";
+
+import { Experience } from "~/api/generated";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 

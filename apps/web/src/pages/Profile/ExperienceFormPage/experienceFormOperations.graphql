@@ -1,0 +1,223 @@
+query getUserId {
+  me {
+    id
+  }
+}
+query getSkills {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    category
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+}
+
+query getMyExperiences {
+  me {
+    id
+    experiences {
+      id
+      details
+      user {
+        id
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+}
+
+mutation CreateAwardExperience(
+  $id: ID!
+  $awardExperience: AwardExperienceInput!
+) {
+  createAwardExperience(userId: $id, awardExperience: $awardExperience) {
+    id
+  }
+}
+
+mutation UpdateAwardExperience(
+  $id: ID!
+  $awardExperience: AwardExperienceInput!
+) {
+  updateAwardExperience(id: $id, awardExperience: $awardExperience) {
+    id
+  }
+}
+
+mutation CreateCommunityExperience(
+  $id: ID!
+  $communityExperience: CommunityExperienceInput!
+) {
+  createCommunityExperience(
+    userId: $id
+    communityExperience: $communityExperience
+  ) {
+    id
+  }
+}
+
+mutation UpdateCommunityExperience(
+  $id: ID!
+  $communityExperience: CommunityExperienceInput!
+) {
+  updateCommunityExperience(
+    id: $id
+    communityExperience: $communityExperience
+  ) {
+    id
+  }
+}
+
+mutation CreateEducationExperience(
+  $id: ID!
+  $educationExperience: EducationExperienceInput!
+) {
+  createEducationExperience(
+    userId: $id
+    educationExperience: $educationExperience
+  ) {
+    id
+  }
+}
+
+mutation UpdateEducationExperience(
+  $id: ID!
+  $educationExperience: EducationExperienceInput!
+) {
+  updateEducationExperience(
+    id: $id
+    educationExperience: $educationExperience
+  ) {
+    id
+  }
+}
+
+mutation CreatePersonalExperience(
+  $id: ID!
+  $personalExperience: PersonalExperienceInput!
+) {
+  createPersonalExperience(
+    userId: $id
+    personalExperience: $personalExperience
+  ) {
+    id
+  }
+}
+
+mutation UpdatePersonalExperience(
+  $id: ID!
+  $personalExperience: PersonalExperienceInput!
+) {
+  updatePersonalExperience(id: $id, personalExperience: $personalExperience) {
+    id
+  }
+}
+
+mutation CreateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
+  createWorkExperience(userId: $id, workExperience: $workExperience) {
+    id
+  }
+}
+
+mutation UpdateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
+  updateWorkExperience(id: $id, workExperience: $workExperience) {
+    id
+  }
+}
+
+mutation DeleteAwardExperience($id: ID!) {
+  deleteAwardExperience(id: $id) {
+    id
+  }
+}
+
+mutation DeleteCommunityExperience($id: ID!) {
+  deleteCommunityExperience(id: $id) {
+    id
+  }
+}
+mutation DeleteEducationExperience($id: ID!) {
+  deleteEducationExperience(id: $id) {
+    id
+  }
+}
+mutation DeletePersonalExperience($id: ID!) {
+  deletePersonalExperience(id: $id) {
+    id
+  }
+}
+mutation DeleteWorkExperience($id: ID!) {
+  deleteWorkExperience(id: $id) {
+    id
+  }
+}

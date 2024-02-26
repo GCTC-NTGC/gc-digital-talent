@@ -2,7 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, HeadingRank } from "@gc-digital-talent/ui";
-import { UserSkill } from "@gc-digital-talent/graphql";
+
+import { UserSkill } from "~/api/generated";
 
 import SkillRankCard from "../SkillRankCard/SkillRankCard";
 

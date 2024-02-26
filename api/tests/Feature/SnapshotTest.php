@@ -190,8 +190,6 @@ class SnapshotTest extends TestCase
      */
     public function testSnapshotQueryInSync()
     {
-        $this->markTestSkipped('profileOperations.graphql no longer exits. Fix in #9499.');
-
         $backendQuery = file(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), FILE_IGNORE_NEW_LINES);
         $frontendQuery = file(base_path('../apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql'), FILE_IGNORE_NEW_LINES);
 

@@ -7,7 +7,8 @@ import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeUsers, fakePools } from "@gc-digital-talent/fake-data";
-import { Pool, PoolLanguage, User } from "@gc-digital-talent/graphql";
+
+import { Pool, PoolLanguage, User } from "~/api/generated";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,

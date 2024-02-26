@@ -4,13 +4,14 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill, Experience, Scalars } from "@gc-digital-talent/graphql";
+
+import { Skill, Experience, Scalars } from "~/api/generated";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 
 type FormValues = {
-  experience?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  experience?: Scalars["ID"];
+  skill?: Scalars["ID"];
   details?: string;
 };
 

@@ -18,11 +18,8 @@ import {
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Classification,
-  Department,
-  GovEmployeeType,
-} from "@gc-digital-talent/graphql";
+
+import { Classification, Department, GovEmployeeType } from "~/api/generated";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";

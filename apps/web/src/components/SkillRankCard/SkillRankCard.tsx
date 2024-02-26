@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { SkillShowcase_UserSkillFragment } from "@gc-digital-talent/graphql";
+
+import { UserSkill } from "~/api/generated";
 
 import SkillRankListItem from "./SkillRankListItem";
 import NullMessage, { NullMessageProps } from "./NullMessage";
@@ -11,7 +12,7 @@ import NullMessage, { NullMessageProps } from "./NullMessage";
 interface SkillRankCardProps {
   title: React.ReactNode;
   description: React.ReactNode;
-  userSkills: readonly SkillShowcase_UserSkillFragment[];
+  userSkills: UserSkill[];
   titleAs?: HeadingLevel;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];

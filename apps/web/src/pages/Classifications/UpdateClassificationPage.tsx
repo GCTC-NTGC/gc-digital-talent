@@ -4,7 +4,6 @@ import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -14,15 +13,16 @@ import {
   commonMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  Classification,
-  Scalars,
-  UpdateClassificationInput,
-} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import {
+  Classification,
+  Scalars,
+  UpdateClassificationInput,
+  useGetClassificationQuery,
+  useUpdateClassificationMutation,
+} from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -32,12 +32,15 @@ import adminMessages from "~/messages/adminMessages";
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
   initialClassification: Classification;
-  onUpdateClassification: (id: string, data: FormValues) => Promise<FormValues>;
+  handleUpdateClassification: (
+    id: string,
+    data: FormValues,
+  ) => Promise<FormValues>;
 }
 
 export const UpdateClassificationForm = ({
   initialClassification,
-  onUpdateClassification,
+  handleUpdateClassification,
 }: UpdateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -61,7 +64,7 @@ export const UpdateClassificationForm = ({
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
     };
-    return onUpdateClassification(initialClassification.id, classification)
+    return handleUpdateClassification(initialClassification.id, classification)
       .then(() => {
         navigate(navigateTo);
         toast.success(
@@ -203,49 +206,20 @@ export const UpdateClassificationForm = ({
 };
 
 type RouteParams = {
-  classificationId: Scalars["ID"]["output"];
+  classificationId: Scalars["ID"];
 };
-
-const Classification_Query = graphql(/* GraphQL */ `
-  query Classification($id: UUID!) {
-    classification(id: $id) {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
-  }
-`);
-
-const UpdateClassification_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateClassification(
-    $id: ID!
-    $classification: UpdateClassificationInput!
-  ) {
-    updateClassification(id: $id, classification: $classification) {
-      id
-      level
-      group
-    }
-  }
-`);
 
 const UpdateClassification = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { classificationId } =
     useRequiredParams<RouteParams>("classificationId");
-  const [{ data: classificationData, fetching, error }] = useQuery({
-    query: Classification_Query,
-    variables: { id: classificationId },
-  });
+  const [{ data: classificationData, fetching, error }] =
+    useGetClassificationQuery({
+      variables: { id: classificationId },
+    });
 
-  const [, executeMutation] = useMutation(UpdateClassification_Mutation);
+  const [, executeMutation] = useUpdateClassificationMutation();
   const handleUpdateClassification = (
     id: string,
     data: UpdateClassificationInput,
@@ -258,7 +232,7 @@ const UpdateClassification = () => {
       classification: pick(data, ["name", "group", "minSalary", "maxSalary"]),
     }).then((result) => {
       if (result.data?.updateClassification) {
-        return Promise.resolve(result.data?.updateClassification);
+        return result.data?.updateClassification;
       }
       return Promise.reject(result.error);
     });
@@ -309,7 +283,7 @@ const UpdateClassification = () => {
           {classificationData?.classification ? (
             <UpdateClassificationForm
               initialClassification={classificationData?.classification}
-              onUpdateClassification={handleUpdateClassification}
+              handleUpdateClassification={handleUpdateClassification}
             />
           ) : (
             <NotFound

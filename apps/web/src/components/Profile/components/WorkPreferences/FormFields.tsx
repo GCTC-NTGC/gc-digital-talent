@@ -13,7 +13,8 @@ import {
   getOperationalRequirement,
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
-import { WorkRegion } from "@gc-digital-talent/graphql";
+
+import { WorkRegion } from "~/api/generated";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";

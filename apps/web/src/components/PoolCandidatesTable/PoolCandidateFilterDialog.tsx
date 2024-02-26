@@ -44,7 +44,7 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
 import adminMessages from "../../messages/adminMessages";
-import { getShortPoolTitleLabel } from "../../utils/poolUtils";
+import { getFullPoolTitleLabel } from "../../utils/poolUtils";
 import { FormValues } from "./types";
 
 const context: Partial<OperationContext> = {
@@ -134,7 +134,7 @@ const PoolCandidateFilterDialog = ({
               label={intl.formatMessage(adminMessages.pools)}
               options={pools.map((pool) => ({
                 value: pool.id,
-                label: getShortPoolTitleLabel(intl, pool),
+                label: getFullPoolTitleLabel(intl, pool),
               }))}
             />
           </div>

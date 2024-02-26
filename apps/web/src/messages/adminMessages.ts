@@ -11,11 +11,6 @@ const messages = defineMessages({
     id: "KjbjQU",
     description: "Title displayed for a tables View column.",
   },
-  assessmentResults: {
-    defaultMessage: "Assessment results",
-    id: "+Xn2ke",
-    description: "Title for assessment results",
-  },
   classifications: {
     defaultMessage: "Classifications",
     id: "kvpRgN",
@@ -129,11 +124,6 @@ const messages = defineMessages({
     id: "k4xm25",
     description:
       "Alert message displayed when a user attempts to print without selecting items first",
-  },
-  assessmentPlan: {
-    defaultMessage: "Assessment plan",
-    id: "fkYYe3",
-    description: "Title for the assessment plan builder",
   },
 });
 

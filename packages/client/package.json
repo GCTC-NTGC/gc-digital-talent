@@ -34,17 +34,17 @@
     "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.2",
+    "@swc/core": "^1.4.0",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.14.202",
-    "@types/react": "^18.2.57",
+    "@types/react": "^18.2.55",
     "eslint": "^8.56.0",
     "eslint-config-custom": "*",
     "jest": "^29.7.0",
     "jest-presets": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
-    "tsup": "^8.0.2",
+    "tsup": "^8.0.1",
     "typescript": "^5.3.3"
   }
 }

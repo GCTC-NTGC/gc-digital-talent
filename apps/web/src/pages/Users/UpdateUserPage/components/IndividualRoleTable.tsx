@@ -5,8 +5,8 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
+import { UpdateUserRolesInput, Role, User } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 

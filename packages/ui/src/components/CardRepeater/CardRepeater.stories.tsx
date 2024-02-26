@@ -73,41 +73,6 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
   );
 };
 
-type RemoveDialogProps = {
-  item: CardItem;
-  index: number;
-};
-
-const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
-  const { remove } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-
-  const Remove = () => {
-    action("Remove")(item);
-    remove(index);
-    setIsOpen(false);
-  };
-
-  return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
-        <CardRepeater.Remove>Remove {item.value}</CardRepeater.Remove>
-      </Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header>Remove an item</Dialog.Header>
-        <Dialog.Body>
-          Are you sure?
-          <Dialog.Footer>
-            <Button type="button" color="error" onClick={Remove}>
-              Remove
-            </Button>
-          </Dialog.Footer>
-        </Dialog.Body>
-      </Dialog.Content>
-    </Dialog.Root>
-  );
-};
-
 const AddDialog = () => {
   const { append } = useCardRepeaterContext();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -187,7 +152,6 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
                   key={item.id}
                   index={index}
                   edit={<EditDialog item={item} index={index} />}
-                  remove={<RemoveDialog item={item} index={index} />}
                 >
                   {item.value}
                 </CardRepeater.Card>

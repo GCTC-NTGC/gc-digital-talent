@@ -327,11 +327,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       {hasNoData || hasNoVisibleRows ? (
         <NullMessage {...(nullStateMessage ? { ...nullStateMessage } : {})} />
       ) : (
-        <>
-          <Table.Wrapper
-            data-h2-position="base(relative)"
-            aria-labelledby={captionId}
-          >
+        <div aria-labelledby={captionId}>
+          <Table.Wrapper data-h2-position="base(relative)">
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
               <Table.Head>
@@ -374,13 +371,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             )}
           </Table.Wrapper>
           {paginationAdjusted && (
-            <TablePagination
-              table={table}
-              pagination={paginationAdjusted}
-              label={caption?.toString() ?? ""}
-            />
+            <TablePagination table={table} pagination={paginationAdjusted} />
           )}
-        </>
+        </div>
       )}
     </>
   );

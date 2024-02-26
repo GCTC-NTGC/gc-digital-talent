@@ -7,7 +7,8 @@ import React from "react";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
+
+import { RoleAssignment } from "~/api/generated";
 
 import { TeamTable, TeamTableProps } from "./TeamTable";
 import { roleAssignmentsToRoleTeamArray } from "./helpers";

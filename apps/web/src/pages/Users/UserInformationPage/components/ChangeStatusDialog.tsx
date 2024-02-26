@@ -24,10 +24,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import {
-  getShortPoolTitleHtml,
-  getShortPoolTitleLabel,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 
 import AdminUpdatePoolCandidate_Mutation from "./mutation";
 
@@ -145,7 +142,7 @@ const ChangeStatusDialog = ({
               <ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
-                    {getShortPoolTitleHtml(intl, r.poolCandidate.pool, {
+                    {getFullPoolTitleHtml(intl, r.poolCandidate.pool, {
                       defaultTitle: r.poolCandidate.id,
                     })}
                   </li>
@@ -185,7 +182,7 @@ const ChangeStatusDialog = ({
                 status: intl.formatMessage(
                   getPoolCandidateStatus(selectedCandidate.status as string),
                 ),
-                poolName: getShortPoolTitleLabel(intl, selectedCandidate?.pool),
+                poolName: getFullPoolTitleLabel(intl, selectedCandidate?.pool),
               },
             )}
           </span>
@@ -220,7 +217,7 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            - {getShortPoolTitleHtml(intl, selectedCandidate?.pool)}
+            - {getFullPoolTitleHtml(intl, selectedCandidate?.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
@@ -296,7 +293,7 @@ const ChangeStatusDialog = ({
                     .map((pool) => {
                       return {
                         value: pool.id,
-                        label: getShortPoolTitleLabel(intl, pool),
+                        label: getFullPoolTitleLabel(intl, pool),
                       };
                     })}
                 />

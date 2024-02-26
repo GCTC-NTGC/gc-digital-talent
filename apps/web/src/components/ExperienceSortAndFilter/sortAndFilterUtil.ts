@@ -3,8 +3,8 @@ import { IntlShape } from "react-intl";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
-import { Experience } from "@gc-digital-talent/graphql";
 
+import { Experience } from "~/api/generated";
 import {
   compareByDate,
   getExperienceName,

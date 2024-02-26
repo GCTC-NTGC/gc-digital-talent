@@ -1,15 +1,15 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { OperationContext } from "urql";
 import { useLocation } from "react-router-dom";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
-import { Skill, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import { Skill, useAllSkillsQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -129,54 +129,22 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
   );
 };
 
-const SkillTableSkills_Query = graphql(/* GraphQL */ `
-  query SkillTableSkills {
-    skills {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
 const SkillTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({
-    query: SkillTableSkills_Query,
+  const [result] = useAllSkillsQuery({
     context,
   });
+  const { data, fetching, error } = result;
+
+  const skills = data?.skills.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillTable skills={unpackMaybes(data?.skills)} title={title} />
+      <SkillTable skills={skills || []} title={title} />
     </Pending>
   );
 };

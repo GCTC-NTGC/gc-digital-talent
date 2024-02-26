@@ -19,7 +19,6 @@ import {
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { AwardExperience } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -40,6 +39,7 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+import { AwardExperience } from "~/api/generated";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
@@ -329,9 +329,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           <StatusItem
             asListItem
             layout="hero"
-            title={intl.formatMessage(
-              navigationMessages.diversityEquityInclusion,
-            )}
+            title={intl.formatMessage({
+              defaultMessage: "Diversity, equity, inclusion",
+              id: "HAkMnl",
+              description:
+                "Title of the Diversity, equity and inclusion link section",
+            })}
             href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
             icon={UserGroupIcon}
           />

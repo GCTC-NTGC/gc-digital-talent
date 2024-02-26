@@ -193,7 +193,6 @@ export function isApplicationQualifiedRecruitment(a: Application): boolean {
     a.status === PoolCandidateStatus.QualifiedAvailable ||
     a.status === PoolCandidateStatus.QualifiedUnavailable ||
     a.status === PoolCandidateStatus.QualifiedWithdrew ||
-    a.status === PoolCandidateStatus.PlacedTentative ||
     a.status === PoolCandidateStatus.PlacedCasual ||
     a.status === PoolCandidateStatus.PlacedTerm ||
     a.status === PoolCandidateStatus.PlacedIndeterminate ||

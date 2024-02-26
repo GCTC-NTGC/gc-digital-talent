@@ -6,23 +6,25 @@ import {
   CellContext,
   Row,
 } from "@tanstack/react-table";
-import { useMutation } from "urql";
 
+import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Link } from "@gc-digital-talent/ui";
 import {
-  getLocalizedName,
   getBehaviouralSkillLevel,
   getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
+} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
 
+import {
+  Skill,
+  SkillLevel,
+  UserSkill,
+  useCreateUserSkillMutation,
+} from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import useRoutes from "~/hooks/useRoutes";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-
-import { CreateUserSkill_Mutation } from "../operations";
 
 type UserSkillCell = CellContext<UserSkill, unknown>;
 
@@ -75,7 +77,7 @@ const SkillLibraryTable = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
-  const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
+  const [, executeCreateMutation] = useCreateUserSkillMutation();
 
   const levelGetter = isTechnical
     ? getTechnicalSkillLevel

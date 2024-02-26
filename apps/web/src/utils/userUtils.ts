@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import { getEvaluatedLanguageAbility } from "@gc-digital-talent/i18n";
+
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -11,7 +12,7 @@ import {
   PoolCandidateStatus,
   PositionDuration,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 // convert string type to Enum types for various selections
 export function stringToEnumLanguage(

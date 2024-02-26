@@ -1,24 +1,14 @@
-import { graphql, Command_SkillsQuery } from "@gc-digital-talent/graphql";
+import {
+  AllSkillsQuery,
+  AllSkillsDocument,
+} from "@gc-digital-talent/web/src/api/generated";
 
-const commandSkillsDoc = /* GraphQL */ `
-  query Command_Skills {
-    skills {
-      id
-      category
-      name {
-        en
-        fr
-      }
-    }
-  }
-`;
-
-const Command_SkillsQuery = graphql(commandSkillsDoc);
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getSkills", () => {
-  cy.graphqlRequest<Command_SkillsQuery>({
-    operationName: "Command_Skills",
-    query: commandSkillsDoc,
+  cy.graphqlRequest<AllSkillsQuery>({
+    operationName: "AllSkills",
+    query: getGqlString(AllSkillsDocument),
     variables: {},
   }).then((data) => {
     cy.wrap(data.skills);

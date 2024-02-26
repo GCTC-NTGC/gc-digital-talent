@@ -4,10 +4,8 @@ namespace App\Services;
 
 use DateInterval;
 use Exception;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 // We're using two JWT management libraries here (Jose & Lcobucci), which each
 // offer different functionality related to constraints and JWKS.
@@ -59,17 +57,7 @@ class OpenIdBearerTokenService
     private function getConfigProperty(string $propertyName): string
     {
         $jsonString = Cache::remember('openid_config_json_string', 60, function () { // only get content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->get($this->configUri);
-
-            if ($response->failed()) {
-                Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
-            }
-
-            return $response->body();
+            return Http::get($this->configUri)->body();
         });
 
         $obj = json_decode($jsonString);
@@ -90,17 +78,7 @@ class OpenIdBearerTokenService
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
         $jsonString = Cache::remember('jwks_json_string', 60, function () use ($jwks_uri) { // only get jwks content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->get($jwks_uri);
-
-            if ($response->failed()) {
-                Log::error('Failed when GETting the JWKS in getConfiguration');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
-            }
-
-            return $response->body();
+            return Http::get($jwks_uri)->body();
         });
 
         // Uses web-token/jwt-core to generate public key from "e" and "n" in JWKS.
@@ -149,22 +127,13 @@ class OpenIdBearerTokenService
         } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->asForm()
+            $introspectionResponse = Http::asForm()
                 ->withToken($accessToken)
                 ->post($introspectionUri, [
                     'token' => $accessToken,
                 ]);
 
-            if ($response->failed()) {
-                Log::error('Failed when GETting the introspection verification in verifyJwtWithIntrospection');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get introspection');
-            }
-
-            $isTokenActive = boolval($response->json('active'));
-            // only cache active token
+            $isTokenActive = boolval($introspectionResponse->json('active'));
             if ($isTokenActive) {
                 Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
             }

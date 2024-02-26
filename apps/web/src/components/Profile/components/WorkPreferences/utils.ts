@@ -1,9 +1,6 @@
 import { IntlShape } from "react-intl";
 
-import {
-  PositionDuration,
-  UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
+import { PositionDuration, UpdateUserAsUserInput } from "~/api/generated";
 
 import { FormValues, PartialUser } from "./types";
 

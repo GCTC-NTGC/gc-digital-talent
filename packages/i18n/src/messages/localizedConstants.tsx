@@ -37,7 +37,6 @@ import {
   AssessmentDecision,
   AssessmentResultJustification,
   AssessmentDecisionLevel,
-  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -600,86 +599,80 @@ const poolCandidateStatuses = defineMessages({
     description: "The pool candidate's status is Draft.",
   },
   [PoolCandidateStatus.DraftExpired]: {
-    defaultMessage: "Draft expired",
-    id: "39grMX",
+    defaultMessage: "Draft Expired",
+    id: "ad4CnG",
     description: "The pool candidate's status is Expired Draft.",
   },
   [PoolCandidateStatus.NewApplication]: {
-    defaultMessage: "New application",
-    id: "kMh3VV",
+    defaultMessage: "New Application",
+    id: "OMmTA4",
     description: "The pool candidate's status is New Application.",
   },
   [PoolCandidateStatus.ApplicationReview]: {
-    defaultMessage: "Application review",
-    id: "U67zv6",
+    defaultMessage: "Application Review",
+    id: "Yq2EZj",
     description: "The pool candidate's status is Application Review.",
   },
   [PoolCandidateStatus.ScreenedIn]: {
-    defaultMessage: "Screened in",
-    id: "BwJ+5o",
+    defaultMessage: "Screened In",
+    id: "dnGlXQ",
     description: "The pool candidate's status is Screened In.",
   },
   [PoolCandidateStatus.ScreenedOutApplication]: {
-    defaultMessage: "Screened out - Application",
-    id: "jAeSU0",
+    defaultMessage: "Screened Out - Application",
+    id: "+J9x7H",
     description: "The pool candidate's status is Screened Out Application",
   },
   [PoolCandidateStatus.ScreenedOutNotInterested]: {
-    defaultMessage: "Screened out - No longer interested",
-    id: "Zdcq76",
+    defaultMessage: "Screened Out - No Longer Interested",
+    id: "TN8HIH",
     description:
       "The pool candidate's status is Screened Out because of no interest",
   },
   [PoolCandidateStatus.ScreenedOutNotResponsive]: {
-    defaultMessage: "Screened out - Not responsive",
-    id: "+/OGZ/",
+    defaultMessage: "Screened Out - Not Responsive",
+    id: "QCcpJr",
     description:
       "The pool candidate's status is Screened Out because no longer responding",
   },
   [PoolCandidateStatus.UnderAssessment]: {
-    defaultMessage: "Under assessment",
-    id: "YA9hQg",
+    defaultMessage: "Under Assessment",
+    id: "y5u8P0",
     description: "The pool candidate's status is Under Assessment.",
   },
   [PoolCandidateStatus.ScreenedOutAssessment]: {
-    defaultMessage: "Screened out - Assessment",
-    id: "YHAHcL",
+    defaultMessage: "Screened Out - Assessment",
+    id: "C2RURL",
     description: "The pool candidate's status is Screened Out Assessment.",
   },
   [PoolCandidateStatus.QualifiedAvailable]: {
-    defaultMessage: "Qualified available",
-    id: "o0wsIT",
+    defaultMessage: "Qualified Available",
+    id: "lx9NFI",
     description: "The pool candidate's status is Qualified Available",
   },
   [PoolCandidateStatus.QualifiedUnavailable]: {
-    defaultMessage: "Qualified unavailable",
-    id: "KhCk7Y",
+    defaultMessage: "Qualified Unavailable",
+    id: "LwZY5H",
     description: "The pool candidate's status is Qualified Unavailable.",
   },
   [PoolCandidateStatus.QualifiedWithdrew]: {
-    defaultMessage: "Qualified withdrew",
-    id: "MGug4K",
+    defaultMessage: "Qualified Withdrew",
+    id: "yRxy3a",
     description: "The pool candidate's status is Qualified Withdrew.",
   },
-  [PoolCandidateStatus.PlacedTentative]: {
-    defaultMessage: "Offer in progress",
-    id: "KUlql9",
-    description:
-      "The pool candidate's status is Offer in Progress, tentatively placed",
-  },
   [PoolCandidateStatus.PlacedCasual]: {
-    defaultMessage: "Placed casual",
-    id: "Fm6WXh",
+    defaultMessage: "Placed Casual",
+    id: "ACppq6",
     description: "The pool candidate's status is Placed Casual.",
   },
   [PoolCandidateStatus.PlacedTerm]: {
-    defaultMessage: "Placed term",
-    id: "+GcpQs",
+    defaultMessage: "Placed Term",
+    id: "6TqakV",
     description: "The pool candidate's status is Placed Term.",
   },
   [PoolCandidateStatus.PlacedIndeterminate]: {
-    defaultMessage: "Placed indeterminate",
-    id: "yn7hDB",
+    defaultMessage: "Placed Indeterminate",
+    id: "IANM2P",
     description: "The pool candidate's status is Placed Indeterminate.",
   },
   [PoolCandidateStatus.Expired]: {
@@ -2132,36 +2125,6 @@ export const getAssessmentDecision = (
     `Invalid Search Request Reason '${assessmentDecisionId}'`,
   );
 
-const tableAssessmentDecisions = defineMessages({
-  [AssessmentDecision.Successful]: {
-    defaultMessage: "Demonstrated",
-    id: "6pBOi2",
-    description:
-      "Table assessment decision when candidate has successful assessment.",
-  },
-  [AssessmentDecision.Hold]: {
-    defaultMessage: "Hold for further assessment",
-    id: "LyVI+p",
-    description:
-      "Table assessment decision when candidate has unsuccessful assessment but on hold.",
-  },
-  [AssessmentDecision.Unsuccessful]: {
-    defaultMessage: "Not demonstrated",
-    id: "EOzHrh",
-    description:
-      "Table assessment decision when candidate has unsuccessful assessment and been removed from the process.",
-  },
-});
-
-export const getTableAssessmentDecision = (
-  assessmentDecisionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    tableAssessmentDecisions,
-    assessmentDecisionId,
-    `Invalid Search Request Reason '${assessmentDecisionId}'`,
-  );
-
 const assessmentJustifications = defineMessages({
   [AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience]:
     {
@@ -2250,41 +2213,4 @@ export const getAssessmentDecisionLevel = (
     assessmentDecisionLevels,
     assessmentDecisionLevelId,
     `Invalid Search Request Reason '${assessmentDecisionLevelId}'`,
-  );
-
-const poolOpportunityLengths = defineMessages({
-  [PoolOpportunityLength.Indeterminate]: {
-    defaultMessage: "Indeterminate (Permanent)",
-    id: "261Ycu",
-    description: "Option for pool opportunity length",
-  },
-  [PoolOpportunityLength.TermOneYear]: {
-    defaultMessage: "Term (1 year)",
-    id: "BoTqZU",
-    description: "Option for pool opportunity length",
-  },
-  [PoolOpportunityLength.TermSixMonths]: {
-    defaultMessage: "Term (6 months)",
-    id: "MrQfby",
-    description: "Option for pool opportunity length",
-  },
-  [PoolOpportunityLength.TermTwoYears]: {
-    defaultMessage: "Term (2 years)",
-    id: "LldtPo",
-    description: "Option for pool opportunity length",
-  },
-  [PoolOpportunityLength.Various]: {
-    defaultMessage: "Various",
-    id: "9L4c8m",
-    description: "Option for pool opportunity length",
-  },
-});
-
-export const getPoolOpportunityLength = (
-  poolOpportunityLengthId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    poolOpportunityLengths,
-    poolOpportunityLengthId,
-    `Invalid Pool Opportunity Length '${poolOpportunityLengthId}'`,
   );

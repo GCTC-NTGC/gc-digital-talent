@@ -10,7 +10,6 @@ import {
   getEvaluatedLanguageAbility,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { User, PositionDuration } from "@gc-digital-talent/graphql";
 
 import {
   employeeTypeToString,
@@ -22,6 +21,7 @@ import {
   sanitizeCSVString,
   yesOrNo,
 } from "~/utils/csvUtils";
+import { User, PositionDuration } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
 export const getUserCsvData = (users: User[], intl: IntlShape) => {

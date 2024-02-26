@@ -19,7 +19,7 @@ import {
   UpdatePoolCandidateAsAdminInput,
 } from "@gc-digital-talent/graphql";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 import AdminUpdatePoolCandidate_Mutation from "./mutation";
@@ -132,7 +132,7 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            - {getShortPoolTitleHtml(intl, selectedCandidate.pool)}
+            - {getFullPoolTitleHtml(intl, selectedCandidate.pool)}
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>

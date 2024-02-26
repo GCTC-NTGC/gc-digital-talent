@@ -4,8 +4,8 @@ import { useIntl } from "react-intl";
 import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
 
+import { User } from "~/api/generated";
 import {
   anyCriteriaSelected,
   hasAllEmptyFields,

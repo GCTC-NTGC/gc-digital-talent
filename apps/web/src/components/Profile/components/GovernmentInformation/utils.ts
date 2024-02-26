@@ -3,12 +3,12 @@ import uniqBy from "lodash/uniqBy";
 
 import { empty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+
 import {
   Classification,
   GovEmployeeType,
   UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { splitAndJoin } from "~/utils/nameUtils";
 
 import { FormValues, PartialUser } from "./types";

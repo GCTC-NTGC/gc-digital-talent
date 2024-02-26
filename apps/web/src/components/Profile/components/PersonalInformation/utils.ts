@@ -2,12 +2,13 @@ import { IntlShape } from "react-intl";
 
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   UpdateUserAsUserInput,
   User,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 import { FormValues, PartialUser } from "./types";
 

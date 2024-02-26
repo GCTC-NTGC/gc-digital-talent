@@ -6,7 +6,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import { Pool } from "~/api/generated";
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 
 import { useEditPoolContext } from "./EditPoolContext";
@@ -32,7 +32,7 @@ const DuplicateDialog = ({ pool, onDuplicate }: DuplicateDialogProps) => {
     id: "DxvIPq",
     description: "Title to duplicate a job poster",
   });
-  const poolName = getShortPoolTitleHtml(intl, pool);
+  const poolName = getFullPoolTitleHtml(intl, pool);
 
   return (
     <>

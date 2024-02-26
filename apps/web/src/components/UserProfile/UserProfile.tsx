@@ -16,7 +16,8 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { User } from "@gc-digital-talent/graphql";
+
+import type { User } from "~/api/generated";
 
 import ExperienceSection from "./ExperienceSection";
 import AboutSection from "./ProfileSections/AboutSection";

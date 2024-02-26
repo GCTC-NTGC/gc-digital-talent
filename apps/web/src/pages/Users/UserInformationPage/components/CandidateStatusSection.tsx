@@ -31,14 +31,14 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
       <PoolStatusTable user={user} pools={pools} />
       {isAdmin && (
         <>
-          <h4 data-h2-margin="base(x2, 0, x1, 0)">
+          <h5 data-h2-margin="base(x2, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
               id: "jtEouE",
               description:
                 "Title of the 'Add user to pools' section of the view-user page",
             })}
-          </h4>
+          </h5>
           <AddToPoolDialog user={user} pools={pools} />
         </>
       )}

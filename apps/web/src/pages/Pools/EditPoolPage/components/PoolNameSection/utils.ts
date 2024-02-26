@@ -2,12 +2,7 @@ import { IntlShape } from "react-intl";
 
 import { Option, enumToOptions } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  getLocalizedName,
-  getPoolStream,
-  getPoolOpportunityLength,
-} from "@gc-digital-talent/i18n";
-import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
+import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
 
 import {
   Classification,
@@ -19,7 +14,6 @@ import {
   Scalars,
   UpdatePoolInput,
 } from "~/api/generated";
-import { sortedOpportunityLengths } from "~/utils/poolUtils";
 
 const firstId = (
   collection: Maybe<Maybe<Classification>[]> | undefined,
@@ -38,7 +32,6 @@ export type FormValues = {
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
   publishingGroup?: Maybe<PublishingGroup>;
-  opportunityLength?: Maybe<PoolOpportunityLength>;
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -48,17 +41,11 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
   specificTitleFr: initialData.name?.fr ?? "",
   processNumber: initialData.processNumber ?? "",
   publishingGroup: initialData.publishingGroup,
-  opportunityLength: initialData.opportunityLength,
 });
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
-  | "classifications"
-  | "name"
-  | "stream"
-  | "processNumber"
-  | "publishingGroup"
-  | "opportunityLength"
+  "classifications" | "name" | "stream" | "processNumber" | "publishingGroup"
 >;
 
 export const formValuesToSubmitData = (
@@ -76,9 +63,6 @@ export const formValuesToSubmitData = (
   publishingGroup: formValues.publishingGroup
     ? formValues.publishingGroup
     : undefined, // can't be set to null, assume not updating if empty
-  opportunityLength: formValues.opportunityLength
-    ? formValues.opportunityLength
-    : null, // can't be set to null, assume not updating if empty
 });
 
 export const getClassificationOptions = (
@@ -98,12 +82,5 @@ export const getStreamOptions = (intl: IntlShape): Option[] => {
   return enumToOptions(PoolStream).map(({ value }) => ({
     value,
     label: intl.formatMessage(getPoolStream(value)),
-  }));
-};
-
-export const getOpportunityLengthOptions = (intl: IntlShape): Option[] => {
-  return sortedOpportunityLengths.map((value) => ({
-    value,
-    label: intl.formatMessage(getPoolOpportunityLength(value)),
   }));
 };

@@ -17,8 +17,7 @@ import fakePools from "./fakePools";
 import fakeUsers from "./fakeUsers";
 
 const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
-  const pool = faker.helpers.arrayElement<Pool>(pools);
-  const user = faker.helpers.arrayElement<User>(users);
+  const pool = faker.helpers.arrayElement(pools);
   const generalQuestionResponses =
     pool.generalQuestions?.map((generalQuestion) => ({
       id: faker.string.uuid(),
@@ -35,7 +34,7 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
   return {
     id: faker.string.uuid(),
     pool,
-    user,
+    user: faker.helpers.arrayElement<User>(users),
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
     ),
@@ -59,7 +58,6 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
-    // assessmentResults,
   };
 };
 

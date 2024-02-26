@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
-import { useMutation } from "urql";
 
 import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
 import {
@@ -11,12 +10,10 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Team } from "@gc-digital-talent/graphql";
 
+import { Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
-
-import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface RemoveTeamMemberDialogProps {
   user: TeamMember;
@@ -28,9 +25,7 @@ const RemoveTeamMemberDialog = ({
   team,
 }: RemoveTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [{ fetching }, executeMutation] = useMutation(
-    UpdateUserTeamRoles_Mutation,
-  );
+  const [{ fetching }, executeMutation] = useUpdateUserTeamRolesMutation();
 
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 

@@ -1,7 +1,7 @@
 import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";
@@ -26,7 +26,15 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
       description: "Name of Work preferences page",
     }),
   ],
-  ["dei", defineMessage(navigationMessages.diversityEquityInclusion)],
+  [
+    "dei",
+    defineMessage({
+      defaultMessage: "Diversity, equity, and inclusion",
+      id: "u1N0nT",
+      description:
+        "Heading for the diversity, equity, and inclusion section on the application profile",
+    }),
+  ],
   [
     "government",
     defineMessage({

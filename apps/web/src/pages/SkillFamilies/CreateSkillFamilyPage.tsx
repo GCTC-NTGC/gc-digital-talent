@@ -3,23 +3,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
-import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
 import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pending, Heading } from "@gc-digital-talent/ui";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,
   SkillFamily,
   CreateSkillFamilyInput,
-  graphql,
   CreateSkillFamilyMutation,
-} from "@gc-digital-talent/graphql";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
+  useCreateSkillFamilyMutation,
+  useGetCreateSkillFamilyDataQuery,
+} from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -214,41 +214,14 @@ export const CreateSkillFamilyForm = ({
   );
 };
 
-const SkillFamilySkills_Query = graphql(/* GraphQL */ `
-  query SkillFamilySkills {
-    skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category
-    }
-  }
-`);
-
-const CreateSkillFamily_Mutation = graphql(/* GraphQL */ `
-  mutation CreateSkillFamily($skillFamily: CreateSkillFamilyInput!) {
-    createSkillFamily(skillFamily: $skillFamily) {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 const CreateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [{ data: lookupData, fetching, error }] = useQuery({
-    query: SkillFamilySkills_Query,
-  });
+  const [lookupResult] = useGetCreateSkillFamilyDataQuery();
+  const { data: lookupData, fetching, error } = lookupResult;
+  const skills = lookupData?.skills.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useMutation(CreateSkillFamily_Mutation);
+  const [, executeMutation] = useCreateSkillFamilyMutation();
   const handleCreateSkillFamily = (data: CreateSkillFamilyInput) =>
     executeMutation({ skillFamily: data }).then((result) => {
       if (result.data?.createSkillFamily) {
@@ -297,7 +270,7 @@ const CreateSkillFamilyPage = () => {
         <Pending fetching={fetching} error={error}>
           <CreateSkillFamilyForm
             handleCreateSkillFamily={handleCreateSkillFamily}
-            skills={unpackMaybes(lookupData?.skills)}
+            skills={skills}
           />
         </Pending>
       </AdminContentWrapper>

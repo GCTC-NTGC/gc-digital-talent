@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Team } from "@gc-digital-talent/graphql";
 
+import { Team } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
 interface ViewTeamProps {

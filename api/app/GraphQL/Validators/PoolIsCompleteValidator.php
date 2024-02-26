@@ -29,7 +29,6 @@ final class PoolIsCompleteValidator extends Validator
             'classifications' => ['required', 'array', 'size:1'],
             'classifications.*.id' => ['required', 'uuid', 'exists:classifications,id'],
             'stream' => ['required', 'string'],
-            'opportunity_length' => ['required', 'string'],
 
             // Closing date
             'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay],

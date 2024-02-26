@@ -2,21 +2,25 @@ import React from "react";
 import { useIntl } from "react-intl";
 import GlobeAmericasIcon from "@heroicons/react/24/outline/GlobeAmericasIcon";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
-import { OperationContext, useQuery } from "urql";
+import { OperationContext } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
+import {
+  Skill,
+  SkillCategory,
+  UserSkill,
+  useUserSkillsQuery,
+} from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import { categorizeSkill, categorizeUserSkill } from "~/utils/skillUtils";
 
 import SkillLibraryTable from "./components/SkillLibraryTable";
-import { UserSkills_Query } from "./operations";
 
 type PageSection = {
   id: string;
@@ -210,10 +214,7 @@ const context: Partial<OperationContext> = {
 };
 
 const SkillLibraryPage = () => {
-  const [{ data, fetching, error }] = useQuery({
-    query: UserSkills_Query,
-    context,
-  });
+  const [{ data, fetching, error }] = useUserSkillsQuery({ context });
 
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const skills = data?.skills.filter(notEmpty);

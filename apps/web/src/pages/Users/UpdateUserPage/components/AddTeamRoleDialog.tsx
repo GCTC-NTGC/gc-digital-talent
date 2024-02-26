@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
@@ -14,28 +13,16 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
   Role,
   User,
-  graphql,
-} from "@gc-digital-talent/graphql";
-
+  useListTeamsQuery,
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
-
-const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
-  query AddTeamRoleTeams {
-    teams {
-      id
-      displayName {
-        en
-        fr
-      }
-    }
-  }
-`);
 
 type FormValues = {
   roles: Array<string>;
@@ -118,9 +105,7 @@ const AddTeamRoleDialog = ({
     setValue("roles", activeRoleIds);
   }, [user?.authInfo?.roleAssignments, teamId, setValue]);
 
-  const [{ data: teamsData }] = useQuery({
-    query: AddTeamRoleTeams_Query,
-  });
+  const [{ data: teamsData }] = useListTeamsQuery();
 
   const teamOptions = teamsData?.teams.filter(notEmpty).map((team) => ({
     label: getLocalizedName(team.displayName, intl),

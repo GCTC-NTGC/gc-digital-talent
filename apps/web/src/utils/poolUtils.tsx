@@ -8,8 +8,6 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
 import {
-  Locales,
-  commonMessages,
   getLocalizedName,
   getPoolStatus,
   getPoolStream,
@@ -27,10 +25,9 @@ import {
   RoleAssignment,
   PoolStatus,
   Maybe,
+  PoolStream,
   Classification,
   Pool,
-  PoolStream,
-  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -43,7 +40,6 @@ import {
   SimpleClassification,
   SimplePool,
 } from "~/types/pool";
-import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
 
@@ -119,8 +115,7 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Classification> | undefined;
-  stream?: Maybe<PoolStream>;
-  short?: boolean;
+  stream: Maybe<PoolStream> | undefined;
   intl: IntlShape;
 }
 
@@ -128,7 +123,6 @@ export const formattedPoolPosterTitle = ({
   title,
   classification,
   stream,
-  short,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: React.ReactNode;
@@ -137,49 +131,32 @@ export const formattedPoolPosterTitle = ({
   const streamString = stream
     ? `${intl.formatMessage(getPoolStream(stream))}`
     : "";
+
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : null ?? "";
 
-  const genericTitle = short
-    ? `${groupAndLevel.trim()}${intl.formatMessage(
-        commonMessages.dividingColon,
-      )}`
-    : `${groupAndLevel} ${streamString}`.trim();
-  const hasGroupAndLevel = groupAndLevel.length > 0;
+  const genericTitle = `${groupAndLevel} ${streamString}`.trim();
 
   return {
-    html: short ? (
-      <>
-        {hasGroupAndLevel ? (
-          <>
-            {wrapAbbr(groupAndLevel, intl)}
-            {intl.formatMessage(commonMessages.dividingColon)}
-          </>
-        ) : null}
-        {title || ""}
-      </>
-    ) : (
+    html: (
       <>
         {title || ""} ({wrapAbbr(groupAndLevel, intl)}
         {streamString ? ` ${streamString}` : ""})
       </>
     ),
-    label: short
-      ? `${hasGroupAndLevel ? genericTitle : ""}${title || ""}`.trim()
-      : `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
+    label: `${title || ""} ${genericTitle ? `(${genericTitle})` : ""}`.trim(),
   };
 };
 
-interface PoolTitleOptions {
+interface FullPoolTitleOptions {
   defaultTitle?: React.ReactNode;
-  short?: boolean;
 }
 
-export const poolTitle = (
+export const fullPoolTitle = (
   intl: IntlShape,
   pool: Maybe<Pool>,
-  options?: PoolTitleOptions,
+  options?: FullPoolTitleOptions,
 ): { html: React.ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
@@ -208,8 +185,7 @@ export const poolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classifications?.[0],
-    stream: pool?.stream,
-    short: options?.short,
+    stream: pool.stream,
     intl,
   });
 
@@ -223,38 +199,17 @@ export const getFullPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => poolTitle(intl, pool, options).html;
+): React.ReactNode => fullPoolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): string => poolTitle(intl, pool, options).label;
-
-export const getShortPoolTitleHtml = (
-  intl: IntlShape,
-  pool: Maybe<Pool>,
-  options?: { defaultTitle?: string },
-): React.ReactNode =>
-  poolTitle(intl, pool, {
-    ...options,
-    short: true,
-  }).html;
-
-export const getShortPoolTitleLabel = (
-  intl: IntlShape,
-  pool: Maybe<Pool>,
-  options?: { defaultTitle?: string },
-): string =>
-  poolTitle(intl, pool, {
-    ...options,
-    short: true,
-  }).label;
+): string => fullPoolTitle(intl, pool, options).label;
 
 export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
   const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
-  const poolName = getFullPoolTitleLabel(intl, pool);
 
   return recordOfDecisionFlag
     ? new Map<PageNavKeys, PageNavInfo>([
@@ -284,72 +239,6 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolUpdate(pool.id),
             },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.poolUpdate(pool.id),
-                label: intl.formatMessage({
-                  defaultMessage: "Advertisement information",
-                  id: "yM04jy",
-                  description:
-                    "Title for advertisement information of a process",
-                }),
-              },
-            ],
-          },
-        ],
-        [
-          "plan",
-          {
-            title: intl.formatMessage(messages.assessmentPlan),
-            link: {
-              url: paths.assessmentPlanBuilder(pool.id),
-            },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.assessmentPlanBuilder(pool.id),
-                label: intl.formatMessage(messages.assessmentPlan),
-              },
-            ],
           },
         ],
         [
@@ -413,37 +302,6 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             link: {
               url: paths.poolUpdate(pool.id),
             },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.poolUpdate(pool.id),
-                label: intl.formatMessage({
-                  defaultMessage: "Advertisement information",
-                  id: "yM04jy",
-                  description:
-                    "Title for advertisement information of a process",
-                }),
-              },
-            ],
           },
         ],
         [
@@ -596,46 +454,3 @@ export const formatClosingDate = (
 
   return {};
 };
-
-export const getClassificationSalaryRangeUrl = (
-  locale: Locales,
-  classification: Maybe<Classification>,
-): string | null => {
-  let localizedUrl: Record<Locales, string> | null = null;
-  switch (classification?.group) {
-    case "CS":
-    case "IT":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
-      };
-      break;
-    case "AS":
-    case "PM":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    case "EC":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
-      };
-      break;
-    default:
-      break;
-  }
-
-  if (localizedUrl) return localizedUrl[locale];
-
-  return null;
-};
-
-export const sortedOpportunityLengths = [
-  PoolOpportunityLength.TermSixMonths,
-  PoolOpportunityLength.TermOneYear,
-  PoolOpportunityLength.TermTwoYears,
-  PoolOpportunityLength.Indeterminate,
-  PoolOpportunityLength.Various,
-];

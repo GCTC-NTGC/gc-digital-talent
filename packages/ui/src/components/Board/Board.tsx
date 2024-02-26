@@ -369,7 +369,6 @@ const Info = ({
         {counter && counter >= 0 ? (
           <Counter
             count={counter}
-            data-h2-color="base(black)"
             data-h2-radius="base(x.5)"
             data-h2-background="base(gray.lightest)"
             data-h2-padding="base(x.125 x.5)"

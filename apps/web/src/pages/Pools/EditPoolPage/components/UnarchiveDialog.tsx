@@ -5,7 +5,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import { Pool } from "~/api/generated";
-import { getShortPoolTitleLabel } from "~/utils/poolUtils";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 
 type UnarchiveDialogProps = {
   pool: Pool;
@@ -74,7 +74,7 @@ const UnarchiveDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x0.5)">
-            {getShortPoolTitleLabel(intl, pool)}
+            {getFullPoolTitleLabel(intl, pool)}
           </p>
           <p data-h2-margin-bottom="base(x0.5)">
             {intl.formatMessage({

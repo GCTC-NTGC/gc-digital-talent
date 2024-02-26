@@ -34,13 +34,16 @@ import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
-import messages from "~/messages/adminMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = defineMessage(messages.assessmentPlan);
+const pageTitle = defineMessage({
+  defaultMessage: "Assessment plan",
+  id: "fkYYe3",
+  description: "Title for the assessment plan builder",
+});
 
 const pageSubtitle = defineMessage({
   defaultMessage:

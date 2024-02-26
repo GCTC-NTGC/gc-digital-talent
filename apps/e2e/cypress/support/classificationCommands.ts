@@ -1,22 +1,14 @@
 import {
-  graphql,
-  Command_ClassificationsQuery,
-} from "@gc-digital-talent/graphql";
+  GetClassificationsQuery,
+  GetClassificationsDocument,
+} from "@gc-digital-talent/web/src/api/generated";
 
-const commandClassificationsDoc = /* GraphQL */ `
-  query Command_Classifications {
-    classifications {
-      id
-    }
-  }
-`;
-
-const Command_ClassificationsQuery = graphql(commandClassificationsDoc);
+import { getGqlString } from "./graphql-test-utils";
 
 Cypress.Commands.add("getClassifications", () => {
-  cy.graphqlRequest<Command_ClassificationsQuery>({
-    operationName: "Command_Classifications",
-    query: commandClassificationsDoc,
+  cy.graphqlRequest<GetClassificationsQuery>({
+    operationName: "GetClassifications",
+    query: getGqlString(GetClassificationsDocument),
     variables: {},
   }).then((data) => {
     cy.wrap(data.classifications);

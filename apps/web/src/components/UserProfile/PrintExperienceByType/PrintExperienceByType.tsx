@@ -1,8 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
-
+import { AwardExperience, Experience } from "~/api/generated";
 import {
   compareByDate,
   isAwardExperience,

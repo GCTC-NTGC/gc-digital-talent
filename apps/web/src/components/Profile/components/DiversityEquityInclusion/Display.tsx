@@ -8,7 +8,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
+
+import { IndigenousCommunity, User } from "~/api/generated";
 
 import CommunityIcon from "./CommunityIcon";
 

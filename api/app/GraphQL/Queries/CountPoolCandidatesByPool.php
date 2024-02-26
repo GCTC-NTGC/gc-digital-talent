@@ -29,7 +29,7 @@ final class CountPoolCandidatesByPool
             PoolCandidate::scopeAvailableInPools($queryBuilder, $pools);
         }
 
-        // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL, or PLACED_TENTATIVE)
+        // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL)
         PoolCandidate::scopeAvailable($queryBuilder);
 
         // Only display IT candidates

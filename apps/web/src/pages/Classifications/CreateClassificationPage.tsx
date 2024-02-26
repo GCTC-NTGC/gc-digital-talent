@@ -3,14 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
 
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
+import {
+  CreateClassificationInput,
+  useCreateClassificationMutation,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
@@ -183,25 +185,10 @@ export const CreateClassificationForm = ({
   );
 };
 
-const CreateClassification_Mutation = graphql(/* GraphQL */ `
-  mutation CreateClassification($classification: CreateClassificationInput!) {
-    createClassification(classification: $classification) {
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
-    }
-  }
-`);
-
 const CreateClassification = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [, executeMutation] = useMutation(CreateClassification_Mutation);
+  const [, executeMutation] = useCreateClassificationMutation();
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
       if (result.data?.createClassification) {

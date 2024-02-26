@@ -15,10 +15,8 @@ import {
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import {
-  BilingualEvaluation,
-  EvaluatedLanguageAbility,
-} from "@gc-digital-talent/graphql";
+
+import { BilingualEvaluation, EvaluatedLanguageAbility } from "~/api/generated";
 
 import {
   getBilingualEvaluationItems,

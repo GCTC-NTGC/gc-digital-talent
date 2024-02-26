@@ -32,7 +32,6 @@ import {
   classificationAccessor,
   classificationsCell,
   detailsCell,
-  jobTitleCell,
   notesCell,
   statusCell,
 } from "./components/helpers";
@@ -204,8 +203,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       meta: {
         isRowTitle: true,
       },
-      cell: ({ row: { original: searchRequest } }) =>
-        jobTitleCell(searchRequest, paths),
+      cell: ({ row: { original: searchRequest }, getValue }) =>
+        cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
     }),
     columnHelper.accessor(
       (row) =>

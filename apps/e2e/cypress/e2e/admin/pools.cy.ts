@@ -190,14 +190,6 @@ describe("Pools", () => {
       `${title} FR`,
     );
 
-    const opportunityLength = "Various";
-    cy.findByRole("combobox", { name: /length of opportunity/i }).select(
-      opportunityLength,
-    );
-    cy.findByRole("combobox", { name: /length of opportunity/i }).within(() => {
-      cy.get("option:selected").should("have.text", opportunityLength);
-    });
-
     const publishingGroup = "Other";
     cy.findByRole("combobox", { name: /publishing group/i }).select(
       publishingGroup,
@@ -294,7 +286,7 @@ describe("Pools", () => {
     expectUpdate();
 
     // Navigate to view pool page
-    cy.findAllByRole("link", { name: /test pool en/i })
+    cy.findAllByRole("link", { name: /Process information/i })
       .first()
       .click();
   });

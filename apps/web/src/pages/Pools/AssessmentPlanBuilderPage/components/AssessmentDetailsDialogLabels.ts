@@ -1,6 +1,4 @@
-import { defineMessages } from "react-intl";
-
-const labels = defineMessages({
+const labels = {
   typeOfAssessment: {
     defaultMessage: "Type of assessment",
     id: "3/AA3n",
@@ -33,10 +31,10 @@ const labels = defineMessages({
   },
   assessedSkills: {
     defaultMessage: "Assessed skills",
-    id: "7Jc8aA",
+    id: "OoZjap",
     description:
       "Label for 'assessed skills' input on the assessment details dialog",
   },
-});
+};
 
 export default labels;

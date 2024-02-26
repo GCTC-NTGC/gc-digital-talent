@@ -12,13 +12,13 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
   Role,
   User,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {

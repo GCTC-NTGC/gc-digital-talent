@@ -41,7 +41,7 @@ const GeneralQuestionDialog = ({
     const isDelete = values.action === "delete";
     const isAdd = values.id === "new";
     if (isDelete) {
-      if (typeof index !== "undefined") remove(index);
+      if (index) remove(index);
     } else if (values.id) {
       const newQuestion = {
         en: values.questionEn,

@@ -1,7 +1,8 @@
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Role } from "@gc-digital-talent/graphql";
+
+import { Role } from "~/api/generated";
 
 // eslint-disable-next-line import/prefer-default-export
 export const getTeamBasedRoleOptions = (

@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
-import { useClient, useQuery } from "urql";
+import { useClient } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -17,8 +17,12 @@ import {
   getLanguage,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
 
+import {
+  User,
+  UserFilterInput,
+  useAllUsersPaginatedQuery,
+} from "~/api/generated";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -70,59 +74,6 @@ const defaultState = {
     poolFilters: [],
   },
 };
-
-const UsersPaginated_Query = graphql(/* GraphQL */ `
-  query UsersPaginated(
-    $where: UserFilterInput
-    $first: Int
-    $page: Int
-    $orderBy: [OrderByClause!]
-  ) {
-    usersPaginated(
-      where: $where
-      first: $first
-      page: $page
-      orderBy: $orderBy
-    ) {
-      data {
-        id
-        email
-        firstName
-        lastName
-        telephone
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
-        createdDate
-        updatedDate
-        authInfo {
-          id
-          roleAssignments {
-            id
-            role {
-              id
-              name
-              displayName {
-                en
-                fr
-              }
-            }
-          }
-        }
-      }
-      paginatorInfo {
-        count
-        currentPage
-        firstItem
-        hasMorePages
-        lastItem
-        lastPage
-        perPage
-        total
-      }
-    }
-  }
-`);
 
 interface UserTableProps {
   title: React.ReactNode;
@@ -294,8 +245,7 @@ const UserTable = ({ title }: UserTableProps) => {
     }),
   ] as ColumnDef<User>[];
 
-  const [{ data, fetching }] = useQuery({
-    query: UsersPaginated_Query,
+  const [{ data, fetching }] = useAllUsersPaginatedQuery({
     variables: {
       where: transformUserInput(
         filterState,

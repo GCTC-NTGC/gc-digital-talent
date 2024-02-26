@@ -6,7 +6,7 @@ import { Link, Pill } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { Classification, LocalizedString, Maybe, Pool } from "~/api/generated";
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
@@ -29,7 +29,7 @@ export function poolCandidatesViewCell(
           id: "6R9N+h",
           description: "Text for a link to the Pool Candidates table",
         },
-        { label: getShortPoolTitleHtml(intl, pool) },
+        { label: getFullPoolTitleHtml(intl, pool) },
       )}
     </Link>
   );

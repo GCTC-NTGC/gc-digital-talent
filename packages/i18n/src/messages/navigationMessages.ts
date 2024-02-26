@@ -22,9 +22,9 @@ const navigationMessages = defineMessages({
     description: "Name of About me page",
   },
   diversityEquityInclusion: {
-    defaultMessage: "Diversity, equity, and inclusion",
-    id: "0ClMl1",
-    description: "Name of Diversity, equity, and inclusion page",
+    defaultMessage: "Diversity, equity and inclusion",
+    id: "ad4mTC",
+    description: "Name of Diversity, equity and inclusion page",
   },
   languageInformation: {
     defaultMessage: "Language information",

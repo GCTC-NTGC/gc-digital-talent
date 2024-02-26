@@ -2,6 +2,7 @@ import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
+import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { useQuery } from "urql";
 
@@ -17,7 +18,7 @@ import {
   Link,
   Pill,
 } from "@gc-digital-talent/ui";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   User,
@@ -28,7 +29,6 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -39,16 +39,12 @@ import { getCandidateStatusPill } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
-import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
-import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -108,144 +104,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
           }
         }
-        userSkills {
-          id
-          user {
-            id
-          }
-          skill {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category
-          }
-          skillLevel
-        }
-        experiences {
-          id
-          __typename
-          details
-          user {
-            id
-            email
-          }
-          skills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            category
-            experienceSkillRecord {
-              details
-            }
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo
-            awardedScope
-            details
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-            details
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type
-            status
-            details
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-            details
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-            details
-          }
-        }
       }
-      educationRequirementExperiences {
-        id
-        __typename
-        details
-        user {
-          id
-          email
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-          details
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-          details
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-          details
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-          details
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-          details
-        }
-      }
-      educationRequirementOption
       profileSnapshot
       notes
       signature
@@ -325,76 +184,16 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             type
           }
         }
-        poolSkills {
-          id
-          type
-          skill {
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            id
-            category
-            key
-          }
-        }
-        screeningQuestions {
-          id
-          question {
-            en
-            fr
-          }
-        }
         ...ApplicationInformation_PoolFragment
       }
       assessmentResults {
         id
-        poolCandidate {
-          id
-          pool {
-            id
-          }
-          user {
-            id
-            userSkills {
-              id
-              user {
-                id
-              }
-              skill {
-                id
-                key
-                name {
-                  en
-                  fr
-                }
-                category
-              }
-              skillLevel
-            }
-          }
-        }
         assessmentDecision
-        assessmentDecisionLevel
-        assessmentNotes
         assessmentResultType
         assessmentStep {
           id
           type
-          title {
-            en
-            fr
-          }
         }
-        justifications
-        otherJustificationNotes
-        assessmentDecisionLevel
-        skillDecisionNotes
-        assessmentNotes
         poolSkill {
           id
           type
@@ -406,18 +205,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
-            description {
-              en
-              fr
-            }
           }
-        }
-      }
-      screeningQuestionResponses {
-        id
-        answer
-        screeningQuestion {
-          id
         }
       }
     }
@@ -455,7 +243,6 @@ export const ViewPoolCandidate = ({
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
@@ -467,7 +254,6 @@ export const ViewPoolCandidate = ({
     poolCandidate,
     unpackMaybes(poolCandidate.pool.assessmentSteps),
     intl,
-    featureFlags.recordOfDecision,
   );
 
   const sections: Record<string, SectionContent> = {
@@ -555,7 +341,12 @@ export const ViewPoolCandidate = ({
     },
     dei: {
       id: "dei",
-      title: intl.formatMessage(navigationMessages.diversityEquityInclusion),
+      title: intl.formatMessage({
+        defaultMessage: "Diversity, equity, and inclusion",
+        id: "zLeH2i",
+        description:
+          "Title for the diversity, equity, and inclusion snapshot section",
+      }),
     },
     government: {
       id: "government",
@@ -636,7 +427,7 @@ export const ViewPoolCandidate = ({
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
     mainContent = (
-      <div data-h2-margin-top="base(x2)">
+      <>
         <ApplicationInformation
           poolQuery={poolCandidate.pool}
           snapshot={parsedSnapshot}
@@ -660,7 +451,7 @@ export const ViewPoolCandidate = ({
           </Accordion.Root>
         </div>
         <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-      </div>
+      </>
     );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
@@ -701,6 +492,7 @@ export const ViewPoolCandidate = ({
       <Pill
         mode="outline"
         color={statusPill.color}
+        icon={statusPill.icon}
         data-h2-font-weight="base(700)"
       >
         {statusPill.label}
@@ -807,23 +599,19 @@ export const ViewPoolCandidate = ({
                   poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
                 }
               />
-              {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
-              page (#9198) */}
-              {false && (
-                <Button
-                  icon={HandRaisedIcon}
-                  type="button"
-                  color="primary"
-                  mode="inline"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Remove candidate",
-                    id: "Aixzmb",
-                    description:
-                      "Button label for remove candidate on view pool candidate page",
-                  })}
-                </Button>
-              )}
+              <Button
+                icon={HandRaisedIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Remove candidate",
+                  id: "Aixzmb",
+                  description:
+                    "Button label for remove candidate on view pool candidate page",
+                })}
+              </Button>
               <NotesDialog
                 poolCandidateId={poolCandidate.id}
                 notes={poolCandidate.notes}
@@ -848,60 +636,30 @@ export const ViewPoolCandidate = ({
               data-h2-flex-direction="base(column)"
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"
-              data-h2-margin-bottom="base(x1)"
-              data-h2-padding="base(x1)"
-              data-h2-background-color="base(error.lightest.3)"
             >
-              <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+              <p data-h2-font-weight="base(700)">
                 {intl.formatMessage({
-                  defaultMessage: "Candidate status",
-                  id: "ETrCOq",
+                  defaultMessage: "Currently screening:",
+                  id: "h7l8Sd",
                   description:
-                    "Title for admin editing a pool candidates status",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These fields will only be available for migration purposes during a limited time.",
-                  id: "FXpcgW",
-                  description:
-                    "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time",
+                    "Label for currently screening section on view pool candidate page",
                 })}
               </p>
-              <p>
-                {intl.formatMessage(commonMessages.status)}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeStatusDialog
-                  selectedCandidate={poolCandidate}
-                  user={poolCandidate.user}
-                  pools={pools}
-                />
-              </p>
-              <p>
+              <p>Step 1: Screening Application (Replace with fetched value)</p>
+              <Link
+                href="#replace-with-link"
+                icon={ArrowRightCircleIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
                 {intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "WAO4vD",
+                  defaultMessage: "Go to next candidate",
+                  id: "oTNbp0",
                   description:
-                    "Label displayed on the date field of the change candidate expiry date dialog",
+                    "Link label to view next candidate on view pool candidate page",
                 })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeDateDialog
-                  selectedCandidate={poolCandidate}
-                  user={poolCandidate.user}
-                />
-              </p>
-            </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-            >
-              <CandidateNavigation
-                candidateId={poolCandidate.id}
-                poolId={poolCandidate.pool.id}
-              />
+              </Link>
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
@@ -913,7 +671,7 @@ export const ViewPoolCandidate = ({
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}
               </Heading>
-              <AssessmentResultsTable poolCandidate={poolCandidate} />
+              <div>Coming soon!</div>
             </div>
             {mainContent}
           </Sidebar.Content>

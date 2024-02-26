@@ -1,13 +1,12 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { useQuery } from "urql";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
-import { Scalars, Team, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
+import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -15,7 +14,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ViewTeam from "./components/ViewTeam";
 
 type RouteParams = {
-  teamId: Scalars["ID"]["output"];
+  teamId: Scalars["ID"];
 };
 
 interface ViewTeamContentProps {
@@ -45,39 +44,12 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
   );
 };
 
-const ViewTeam_Query = graphql(/* GraphQL */ `
-  query ViewTeam($id: UUID!) {
-    team(id: $id) {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
 const ViewTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
   const { teamId } = useRequiredParams<RouteParams>("teamId");
-  const [{ data, fetching, error }] = useQuery({
-    query: ViewTeam_Query,
+  const [{ data, fetching, error }] = useViewTeamQuery({
     variables: { id: teamId },
   });
 

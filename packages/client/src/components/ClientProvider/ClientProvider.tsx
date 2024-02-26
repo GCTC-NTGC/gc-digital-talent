@@ -19,7 +19,6 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
 
 import {
   buildValidationErrorMessageNode,
@@ -51,7 +50,6 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
@@ -83,7 +81,7 @@ const ClientProvider = ({
 
               const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
-                authRef.current.logout(`/${locale}/logged-out`);
+                authRef.current.logout("/logged-out");
               }
 
               let errorMessages = extractErrorMessages(error);
@@ -143,7 +141,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, locale, logger]);
+  }, [client, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

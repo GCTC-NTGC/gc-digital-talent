@@ -43,10 +43,6 @@ import {
   pageTitle as indexSkillFamilyPageTitle,
   pageSolidIcon as indexSkillFamilyPageIcon,
 } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
-import {
-  pageTitle as announcementsPageTitle,
-  pageSolidIcon as announcementsPageIcon,
-} from "~/pages/AnnouncementsPage/AnnouncementsPage";
 
 import LinkWell from "./components/LinkWell";
 
@@ -246,11 +242,6 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   }),
                   href: adminRoutes.classificationTable(),
                   icon: indexClassificationPageIcon,
-                },
-                {
-                  label: intl.formatMessage(announcementsPageTitle),
-                  href: adminRoutes.announcements(),
-                  icon: announcementsPageIcon,
                 },
               ]}
             />

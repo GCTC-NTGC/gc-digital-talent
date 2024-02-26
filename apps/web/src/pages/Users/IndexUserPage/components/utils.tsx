@@ -4,8 +4,9 @@ import { SortingState } from "@tanstack/react-table";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
+
 import {
-  graphql,
   InputMaybe,
   OrderByClause,
   PositionDuration,
@@ -13,8 +14,7 @@ import {
   SortOrder,
   Trashed,
   UserFilterInput,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import {
   durationToEnumPositionDuration,
   stringToEnumLanguage,

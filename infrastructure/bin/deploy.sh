@@ -7,41 +7,12 @@ set -o pipefail
 # Fail if using undefined variables
 set -o nounset
 
-Help()
-{
-  echo "Deploy the project from Azure Pipelines."
-  echo
-  echo "Syntax: deploy.sh [-h] [-d] [-r <ROOT_DIR>]"
-  echo "   -h   Show this help message."
-  echo "   -d   Setup the environment with dev dependencies."
-  echo "   -r   Absolute path to the root directory."
-  echo
-}
-
-GCDT_DEV=false
-
-while getopts "hdr:" option; do
-  case $option in
-    h) # display Help
-      Help
-      exit;;
-    d) # setup for dev
-      GCDT_DEV=true;;
-    r) # root directory
-      ROOT_DIR=${OPTARG};;
-    \?) # incorrect option
-      echo "Error: Invalid option"
-      exit;;
-  esac
-done
-
-if [ -z "${ROOT_DIR}" ]; then
+if [ -z "$1" ]; then
     echo "Must past abs path as argument."
     exit 1
 fi
 
-echo "GCDT_DEV = ${GCDT_DEV}"
-echo "ROOT_DIR = ${ROOT_DIR}"
+ROOT_DIR=$1
 
 sudo composer selfupdate
 
@@ -57,11 +28,7 @@ npm install -g npm@9.9.2
 
 cd $ROOT_DIR/api
 
-if [ "$GCDT_DEV" = true ]; then
-  composer install
-else
-  composer install --no-dev
-fi
+composer install --no-dev
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 php artisan lighthouse:print-schema --write

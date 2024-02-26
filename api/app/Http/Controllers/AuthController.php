@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Services\OpenIdBearerTokenService;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -71,7 +73,7 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $response = Http::retry(times: 3, sleepMilliseconds: 500, when: function (Exception $exception, PendingRequest $request) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()->post(config('oauth.token_uri'), [
             'grant_type' => 'authorization_code',
@@ -127,22 +129,13 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         $refreshToken = $request->query('refresh_token');
-        $response =
-        Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-            return $exception instanceof ConnectionException;
-        }, throw: false)->asForm()
+        $response = Http::asForm()
             ->post(config('oauth.token_uri'), [
                 'grant_type' => 'refresh_token',
                 'client_id' => config('oauth.client_id'),
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
-        if ($response->failed()) {
-            Log::error('Failed when POSTing to the token URI in refresh');
-            Log::debug((string) $response->getBody());
-
-            return response('Failed to get token', 400);
-        }
 
         return response($response)->header('Content-Type', 'application/json');
     }

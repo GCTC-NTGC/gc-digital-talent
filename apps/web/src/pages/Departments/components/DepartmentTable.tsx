@@ -2,13 +2,12 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { useQuery } from "urql";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
-import { graphql, Department } from "@gc-digital-talent/graphql";
 
+import { Department, useDepartmentsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -96,28 +95,15 @@ export const DepartmentTable = ({
   );
 };
 
-const Departments_Query = graphql(/* GraphQL */ `
-  query Departments {
-    departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 const DepartmentTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({ query: Departments_Query });
+  const [result] = useDepartmentsQuery();
+  const { data, fetching, error } = result;
+
+  const departments = data?.departments.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DepartmentTable
-        departments={unpackMaybes(data?.departments)}
-        title={title}
-      />
+      <DepartmentTable departments={departments || []} title={title} />
     </Pending>
   );
 };

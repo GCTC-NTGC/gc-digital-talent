@@ -37,7 +37,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $stream
  * @property string $process_number
  * @property string $publishing_group
- * @property string $opportunity_length
  * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -96,23 +95,6 @@ class Pool extends Model
         'archived_at',
     ];
 
-    // expose the required columns to be accessed via relationship tables
-    protected static $selectableColumns = [
-        'id',
-        'name',
-        'user_id',
-        'stream',
-        'publishing_group',
-        'published_at',
-        'archived_at',
-        'team_id',
-        'closing_date',
-        'is_remote',
-        'key_tasks',
-        'special_note',
-        'advertisement_language',
-    ];
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -123,9 +105,7 @@ class Pool extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns());
+        return $this->belongsTo(User::class);
     }
 
     public function team(): BelongsTo
@@ -227,7 +207,7 @@ class Pool extends Model
 
     public function generalQuestions(): HasMany
     {
-        return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
+        return $this->hasMany(GeneralQuestion::class);
     }
 
     public function screeningQuestions(): HasMany
@@ -351,10 +331,5 @@ class Pool extends Model
         });
 
         return $query;
-    }
-
-    public static function getSelectableColumns()
-    {
-        return self::$selectableColumns;
     }
 }

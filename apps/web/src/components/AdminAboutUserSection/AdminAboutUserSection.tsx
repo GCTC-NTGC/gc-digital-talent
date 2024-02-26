@@ -7,8 +7,8 @@ import {
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
 } from "@gc-digital-talent/i18n";
-import { User } from "@gc-digital-talent/graphql";
 
+import { User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 interface AdminAboutUserSectionProps {

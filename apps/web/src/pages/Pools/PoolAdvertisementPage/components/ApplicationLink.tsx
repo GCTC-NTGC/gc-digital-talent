@@ -6,12 +6,12 @@ import { Link, LinkProps } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import { Scalars } from "~/api/generated";
 
-export interface ApplicationLinkProps {
+interface ApplicationLinkProps {
   poolId: Scalars["ID"];
   applicationId?: Scalars["ID"];
   hasApplied?: boolean;
   canApply?: boolean;
-  linkProps?: Omit<LinkProps, "ref">;
+  linkProps?: Omit<LinkProps, "mode" | "ref">;
   linkText?: string;
 }
 
@@ -38,8 +38,8 @@ const ApplicationLink = ({
   let linkTextLabel;
   if (!linkText) {
     linkTextLabel = intl.formatMessage({
-      defaultMessage: "Apply now",
-      id: "KghI8A",
+      defaultMessage: "Apply for this process",
+      id: "W2YIEA",
       description: "Link text to apply for a pool advertisement",
     });
     if (applicationId) {
@@ -60,7 +60,7 @@ const ApplicationLink = ({
   }
 
   return (
-    <Link mode="solid" color="secondary" href={href} {...linkProps}>
+    <Link mode="solid" href={href} {...linkProps}>
       {linkTextLabel}
     </Link>
   );

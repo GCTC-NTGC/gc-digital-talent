@@ -9,9 +9,9 @@ import {
   getArmedForcesStatusesProfile,
   getLanguage,
 } from "@gc-digital-talent/i18n";
-import type { User } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import type { User } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/profile/about";
 
 interface AboutSectionProps {

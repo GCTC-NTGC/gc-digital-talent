@@ -4,7 +4,8 @@ import { IntlShape } from "react-intl";
 import { Link, Pill } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Role, User } from "@gc-digital-talent/graphql";
+
+import { Role, User } from "~/api/generated";
 
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";

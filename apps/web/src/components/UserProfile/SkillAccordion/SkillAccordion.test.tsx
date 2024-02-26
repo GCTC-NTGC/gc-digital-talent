@@ -9,8 +9,8 @@ import { screen, fireEvent } from "@testing-library/react";
 import { Accordion } from "@gc-digital-talent/ui";
 import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
-import { Maybe } from "@gc-digital-talent/graphql";
 
+import { Maybe } from "~/api/generated";
 import { getDateRange } from "~/utils/dateUtils";
 import { InvertedSkillExperience } from "~/utils/skillUtils";
 

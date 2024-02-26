@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  process: {
-    defaultMessage: "Process",
-    id: "WSMupE",
-    description: "Title for process sections",
-  },
   classification: {
     defaultMessage: "Classification",
     id: "YmWKlv",
@@ -15,11 +10,6 @@ const messages = defineMessages({
     defaultMessage: "Stream",
     id: "9pYlYz",
     description: "Label for a process' stream",
-  },
-  opportunityLength: {
-    defaultMessage: "Length of opportunity",
-    id: "08rkLr",
-    description: "Label for a process' opportunity employment duration",
   },
   titleEn: {
     defaultMessage: "Specific title (English)",

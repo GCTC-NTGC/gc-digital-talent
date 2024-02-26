@@ -172,7 +172,6 @@ const statusMap = new Map<PoolCandidateStatus, CombinedStatus>([
   [PoolCandidateStatus.QualifiedAvailable, "READY_TO_HIRE"],
   [PoolCandidateStatus.QualifiedUnavailable, "PAUSED"],
   [PoolCandidateStatus.QualifiedWithdrew, "WITHDREW"],
-  [PoolCandidateStatus.PlacedTentative, "READY_TO_HIRE"],
   [PoolCandidateStatus.PlacedCasual, "HIRED_CASUAL"],
   [PoolCandidateStatus.PlacedTerm, "HIRED_TERM"],
   [PoolCandidateStatus.PlacedIndeterminate, "HIRED_INDETERMINATE"],

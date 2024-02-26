@@ -23,14 +23,13 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import ProcessCard from "~/components/ProcessCard/ProcessCard";
 import {
   getAdvertisementStatus,
-  getShortPoolTitleHtml,
+  getFullPoolTitleHtml,
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
-import messages from "~/messages/adminMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -64,7 +63,7 @@ export const ViewPool = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
-  const poolName = getShortPoolTitleHtml(intl, pool);
+  const poolName = getFullPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);
@@ -198,7 +197,12 @@ export const ViewPool = ({
           <ProcessCard.Root>
             <ProcessCard.Header>
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
-                {intl.formatMessage(messages.assessmentPlan)}
+                {intl.formatMessage({
+                  defaultMessage: "Assessment plan",
+                  id: "eGNxdM",
+                  description:
+                    "Title for card for actions related to a process' assessment plan",
+                })}
               </Heading>
               {recordOfDecisionFlag && (
                 <Pill

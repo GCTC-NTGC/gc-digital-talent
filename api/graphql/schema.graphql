@@ -112,10 +112,10 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topTechnicalSkillsRanking: [UserSkill]
+  topBehaviouralSkillsRanking: [UserSkill]
+  improveTechnicalSkillsRanking: [UserSkill]
+  improveBehaviouralSkillsRanking: [UserSkill]
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -197,8 +197,6 @@ type Pool {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  opportunityLength: PoolOpportunityLength
-    @rename(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
   generalQuestions: [GeneralQuestion]
@@ -479,6 +477,11 @@ type UserSkill {
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
     @with(relation: "workExperiences") # All experiences that a user owns
+  awardExperiences: [AwardExperience!] @hasMany
+  communityExperiences: [CommunityExperience!] @hasMany
+  educationExperiences: [EducationExperience!] @hasMany
+  personalExperiences: [PersonalExperience!] @hasMany
+  workExperiences: [WorkExperience!] @hasMany
 }
 
 type SkillKeywords {
@@ -661,30 +664,9 @@ input PoolCandidateSearchRequestInput {
   generalSearch: String @scope
 }
 
-input PoolCandidatePoolNameOrderByInput {
-  locale: String!
-  order: SortOrder!
-}
-
 type CandidateSearchPoolResult {
   pool: Pool! @can(ability: "view", resolved: true)
   candidateCount: Int! @rename(attribute: "candidate_count")
-}
-
-type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
-  title: LocalizedString!
-  message: LocalizedString!
-}
-
-input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
-  title: LocalizedStringInput!
-  message: LocalizedStringInput!
 }
 
 type Query {
@@ -695,6 +677,14 @@ type Query {
     @softDeletes
     @guard
     @can(ability: "view", query: true)
+  users: [User]!
+    @all
+    @softDeletes
+    @guard
+    @can(ability: "viewAny")
+    @deprecated(
+      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
+    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -750,7 +740,6 @@ type Query {
     )
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -807,8 +796,6 @@ type Query {
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
-
-  sitewideAnnouncement: SitewideAnnouncement
 }
 
 input ClassificationBelongsTo {
@@ -1407,8 +1394,6 @@ input UpdatePoolInput {
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  opportunityLength: PoolOpportunityLength
-    @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
@@ -1874,10 +1859,6 @@ type Mutation {
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
-
-  updateSitewideAnnouncement(
-    sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
-  ): SitewideAnnouncement @guard
 }
 
 #import directiveForms.graphql

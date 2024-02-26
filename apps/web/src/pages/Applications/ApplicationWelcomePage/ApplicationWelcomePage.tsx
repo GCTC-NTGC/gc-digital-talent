@@ -11,7 +11,7 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { getFullPoolTitleHtml } from "~/utils/poolUtils";
 import applicationMessages from "~/messages/applicationMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
@@ -75,7 +75,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     stepOrdinal: currentStepOrdinal,
     RoDFlag: features.recordOfDecision,
   });
-  const poolName = getShortPoolTitleHtml(intl, application.pool);
+  const poolName = getFullPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);

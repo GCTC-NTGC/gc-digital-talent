@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OperationContext, useMutation, useQuery } from "urql";
+import { OperationContext } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { useNavigate } from "react-router-dom";
 
@@ -9,17 +9,19 @@ import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
+import {
+  Skill,
+  SkillCategory,
+  useUserSkillsQuery,
+  UserSkill,
+  useUpdateUserSkillRankingsMutation,
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import UpdateSkillShowcase, {
   FormValues,
 } from "./components/UpdateSkillShowcase";
-import {
-  UpdateUserSkillRankings_Mutation,
-  UserSkills_Query,
-} from "./operations";
 
 const MAX_SKILL_COUNT = 3;
 
@@ -39,7 +41,7 @@ const ImproveBehaviouralSkills = ({
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
   const { userAuthInfo } = useAuthorization();
-  const [, executeMutation] = useMutation(UpdateUserSkillRankings_Mutation);
+  const [, executeMutation] = useUpdateUserSkillRankingsMutation();
 
   const pageId = "improve-behavioural-skills";
 
@@ -185,10 +187,7 @@ const context: Partial<OperationContext> = {
 };
 
 const ImproveBehaviouralSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
-    query: UserSkills_Query,
-    context,
-  });
+  const [{ data, fetching, error }] = useUserSkillsQuery({ context });
 
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const behaviouralSkills = data?.skills

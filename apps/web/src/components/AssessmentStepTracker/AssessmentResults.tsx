@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link } from "@gc-digital-talent/ui";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -54,15 +54,11 @@ const Priority = ({ type }: PriorityProps) => {
 interface AssessmentResultProps {
   result: CandidateAssessmentResult & { ordinal: number };
   isApplicationStep: boolean;
-  stepName: string;
-  candidateIds: Scalars["UUID"]["output"][];
 }
 
 const AssessmentResult = ({
   result,
   isApplicationStep,
-  candidateIds,
-  stepName,
 }: AssessmentResultProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -109,7 +105,6 @@ const AssessmentResult = ({
             mode="text"
             color="black"
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
-            state={{ candidateIds, stepName }}
           >
             {result.ordinal}.{" "}
             {getFullNameLabel(
@@ -140,16 +135,10 @@ const AssessmentResult = ({
 interface AssessmentResultsProps {
   results: CandidateAssessmentResult[];
   stepType?: Maybe<AssessmentStepType>;
-  stepName: string;
 }
 
-const AssessmentResults = ({
-  results,
-  stepType,
-  stepName,
-}: AssessmentResultsProps) => {
+const AssessmentResults = ({ results, stepType }: AssessmentResultsProps) => {
   const sortedResults = sortResultsAndAddOrdinal(results);
-  const candidateIds = sortedResults.map((result) => result.poolCandidate.id);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
@@ -157,10 +146,8 @@ const AssessmentResults = ({
     <Board.List>
       {sortedResults.map((result) => (
         <AssessmentResult
-          candidateIds={candidateIds}
           key={result.poolCandidate.id}
           result={{ ...result }}
-          stepName={stepName}
           isApplicationStep={isApplicationStep}
         />
       ))}

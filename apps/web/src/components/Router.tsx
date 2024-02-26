@@ -733,16 +733,6 @@ const ViewSearchRequestPage = React.lazy(() =>
   ),
 );
 
-/** Announcements */
-const AnnouncementsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
-      ),
-  ),
-);
-
 /** Directive on Digital Talent */
 const DirectivePage = React.lazy(() =>
   lazyRetry(
@@ -1790,61 +1780,50 @@ const createRoute = (
                         },
                       ],
                     },
-                  ],
-                },
-                {
-                  path: "skill-families",
-                  children: [
                     {
-                      index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexSkillFamilyPage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateSkillFamilyPage />
-                        </RequireAuth>
-                      ),
-                    },
-                    {
-                      path: ":skillFamilyId",
+                      path: "families",
                       children: [
                         {
-                          path: "edit",
+                          index: true,
                           element: (
                             <RequireAuth
                               roles={[ROLE_NAME.PlatformAdmin]}
                               loginPath={loginPath}
                             >
-                              <UpdateSkillFamilyPage />
+                              <IndexSkillFamilyPage />
                             </RequireAuth>
                           ),
+                        },
+                        {
+                          path: "create",
+                          element: (
+                            <RequireAuth
+                              roles={[ROLE_NAME.PlatformAdmin]}
+                              loginPath={loginPath}
+                            >
+                              <CreateSkillFamilyPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: ":skillFamilyId",
+                          children: [
+                            {
+                              path: "edit",
+                              element: (
+                                <RequireAuth
+                                  roles={[ROLE_NAME.PlatformAdmin]}
+                                  loginPath={loginPath}
+                                >
+                                  <UpdateSkillFamilyPage />
+                                </RequireAuth>
+                              ),
+                            },
+                          ],
                         },
                       ],
                     },
                   ],
-                },
-                {
-                  path: "announcements",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <AnnouncementsPage />
-                    </RequireAuth>
-                  ),
                 },
               ],
             },

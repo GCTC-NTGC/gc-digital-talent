@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
-import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -16,7 +15,7 @@ import {
   Select,
   enumToOptions,
 } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
@@ -24,17 +23,18 @@ import {
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
+
+import SEO from "~/components/SEO/SEO";
 import {
   Skill,
   SkillFamily,
   UpdateSkillInput,
   UpdateSkillMutation,
+  useUpdateSkillMutation,
+  useGetUpdateSkillDataQuery,
   Scalars,
   SkillCategory,
-  graphql,
-} from "@gc-digital-talent/graphql";
-
-import SEO from "~/components/SEO/SEO";
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -278,85 +278,20 @@ export const UpdateSkillForm = ({
 };
 
 type RouteParams = {
-  skillId: Scalars["ID"]["output"];
+  skillId: Scalars["ID"];
 };
-
-const UpdateSkillData_Query = graphql(/* GraphQL */ `
-  query UpdateSkillData($id: UUID!) {
-    skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
-
-    skill(id: $id) {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      category
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
-const UpdateSkill_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateSkill($id: ID!, $skill: UpdateSkillInput!) {
-    updateSkill(id: $id, skill: $skill) {
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-    }
-  }
-`);
 
 export const UpdateSkill = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { skillId } = useRequiredParams<RouteParams>("skillId");
-  const [{ data: lookupData, fetching, error }] = useQuery({
-    query: UpdateSkillData_Query,
+  const [{ data: lookupData, fetching, error }] = useGetUpdateSkillDataQuery({
     variables: { id: skillId || "" },
   });
+  const families: SkillFamily[] | [] =
+    lookupData?.skillFamilies.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useMutation(UpdateSkill_Mutation);
+  const [, executeMutation] = useUpdateSkillMutation();
   const handleUpdateSkill = (id: string, formData: UpdateSkillInput) =>
     /* We must pick only the fields belonging to UpdateSkillFamilyInput, because its possible
        the data object contains other props at runtime, and this will cause the
@@ -422,7 +357,7 @@ export const UpdateSkill = () => {
           {lookupData?.skill ? (
             <UpdateSkillForm
               initialSkill={lookupData?.skill}
-              families={unpackMaybes(lookupData?.skillFamilies)}
+              families={families}
               handleUpdateSkill={handleUpdateSkill}
             />
           ) : (

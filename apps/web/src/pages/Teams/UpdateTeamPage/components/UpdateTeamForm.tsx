@@ -14,6 +14,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
+
 import {
   Scalars,
   Team,
@@ -22,8 +23,7 @@ import {
   LocalizedStringInput,
   Maybe,
   Department,
-} from "@gc-digital-talent/graphql";
-
+} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
@@ -34,8 +34,8 @@ const TEXT_AREA_MAX_WORDS = 200;
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
-  contactEmail?: Maybe<Scalars["Email"]["output"]>;
-  departments?: Array<Scalars["UUID"]["output"]>;
+  contactEmail?: Maybe<Scalars["Email"]>;
+  departments?: Array<Scalars["UUID"]>;
 };
 
 const dataToFormValues = (data: Team): FormValues => {
@@ -62,7 +62,7 @@ export interface UpdateTeamFormProps {
   team: Team;
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
   onSubmit: (
-    teamId: Scalars["UUID"]["output"],
+    teamId: Scalars["UUID"],
     data: UpdateTeamInput,
   ) => Promise<UpdateTeamMutation["updateTeam"]>;
 }

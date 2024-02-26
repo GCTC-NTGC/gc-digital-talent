@@ -4,12 +4,9 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import {
-  getShortPoolTitleHtml,
-  getShortPoolTitleLabel,
-} from "~/utils/poolUtils";
+import { PoolCandidate } from "~/api/generated";
+import { getFullPoolTitleHtml, getFullPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
@@ -47,7 +44,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getShortPoolTitleHtml(intl, pool),
+            name: getFullPoolTitleHtml(intl, pool),
           },
         )}
       </Link>
@@ -62,7 +59,7 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pool } = application;
-  const title = getShortPoolTitleLabel(intl, pool);
+  const title = getFullPoolTitleLabel(intl, pool);
   if (!show) {
     return null;
   }
@@ -108,7 +105,7 @@ const SeeAdvertisementAction = ({
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, advertisement);
+  const jobTitle = getFullPoolTitleLabel(intl, advertisement);
 
   if (!show || !advertisement) {
     return null;
@@ -151,7 +148,7 @@ interface SupportActionProps extends ActionProps {
 const SupportAction = ({ show, application }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
   if (!show) {
     return null;
   }
@@ -196,7 +193,7 @@ const CopyApplicationIdAction = ({
   if (!show) {
     return null;
   }
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
   return (
     <Button
       mode="inline"
@@ -260,7 +257,7 @@ const VisitCareerTimelineAction = ({
 }: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
+  const jobTitle = getFullPoolTitleLabel(intl, application.pool);
 
   if (!show) {
     return null;
@@ -310,7 +307,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
     return null;
   }
 
-  const name = getShortPoolTitleLabel(intl, application.pool);
+  const name = getFullPoolTitleLabel(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>

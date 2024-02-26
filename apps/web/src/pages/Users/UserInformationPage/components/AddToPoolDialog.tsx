@@ -23,10 +23,7 @@ import {
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
 
-import {
-  getShortPoolTitleLabel,
-  getShortPoolTitleHtml,
-} from "~/utils/poolUtils";
+import { getFullPoolTitleLabel, getFullPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
@@ -141,7 +138,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
               <ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
-                    {getShortPoolTitleHtml(intl, rejected.pool)}
+                    {getFullPoolTitleHtml(intl, rejected.pool)}
                   </li>
                 ))}
               </ul>
@@ -172,7 +169,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     .map((pool) => {
       return {
         value: pool.id,
-        label: getShortPoolTitleLabel(intl, pool),
+        label: getFullPoolTitleLabel(intl, pool),
       };
     });
 

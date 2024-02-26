@@ -16,8 +16,6 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
-
 export function classificationAccessor(
   classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
@@ -66,17 +64,6 @@ export function dateCell(
     </span>
   ) : null;
 }
-
-export const jobTitleCell = (
-  searchRequest: PoolCandidateSearchRequest,
-  paths: ReturnType<typeof useRoutes>,
-) => {
-  return (
-    <Link href={paths.searchRequestView(searchRequest.id)}>
-      {searchRequest.jobTitle}
-    </Link>
-  );
-};
 
 export const notesCell = (
   searchRequest: PoolCandidateSearchRequest,

@@ -8,7 +8,6 @@ import {
 
 const generateAssessmentStep = (
   amount: number,
-  sortOrder?: number,
   type?: Maybe<AssessmentStepType>,
 ): AssessmentStep => {
   return {
@@ -18,11 +17,9 @@ const generateAssessmentStep = (
       faker.helpers.arrayElement<AssessmentStepType>(
         Object.values(AssessmentStepType),
       ),
-    sortOrder:
-      sortOrder ??
-      faker.number.int({
-        max: amount,
-      }),
+    sortOrder: faker.number.int({
+      max: amount,
+    }),
     title: {
       en: `${faker.lorem.word()} EN`,
       fr: `${faker.lorem.word()} FR`,
@@ -37,31 +34,7 @@ export default (
 ): AssessmentStep[] => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate || 20;
-  const otherScreeningTypes = Object.values(AssessmentStepType).filter(
-    (stepType) =>
-      stepType !== AssessmentStepType.ApplicationScreening &&
-      stepType !== AssessmentStepType.ScreeningQuestionsAtApplication,
+  return [...Array(amountToGenerate)].map(() =>
+    generateAssessmentStep(amountToGenerate, type),
   );
-  return [...Array(amountToGenerate)].map((_, index) => {
-    switch (index) {
-      case 0:
-        return generateAssessmentStep(
-          amountToGenerate,
-          index,
-          type ?? AssessmentStepType.ApplicationScreening,
-        );
-      case 1:
-        return generateAssessmentStep(
-          amountToGenerate,
-          index,
-          type ?? AssessmentStepType.ScreeningQuestionsAtApplication,
-        );
-      default:
-        return generateAssessmentStep(
-          amountToGenerate,
-          index,
-          type ?? faker.helpers.arrayElement(otherScreeningTypes),
-        );
-    }
-  });
 };

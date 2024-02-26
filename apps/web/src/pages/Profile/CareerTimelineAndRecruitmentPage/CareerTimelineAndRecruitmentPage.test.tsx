@@ -1,9 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-import { User, Experience } from "@gc-digital-talent/graphql";
-
 import { compareByDate } from "~/utils/experienceUtils";
+import { User, Experience } from "~/api/generated";
 
 import { ExperienceForDate } from "./components/CareerTimelineAndRecruitment";
 

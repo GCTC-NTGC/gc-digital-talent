@@ -4,7 +4,6 @@ import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
-  Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
   getLanguage,
@@ -13,17 +12,15 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Pill, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
   PoolStream,
   PublishingGroup,
   Maybe,
-  Pool,
-  PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -36,12 +33,12 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
-  AssessmentStep,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getCandidateStatusPill,
+  getFinalDecisionPillColor,
+  statusToFinalDecision,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -52,9 +49,8 @@ import {
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
 } from "~/utils/userUtils";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import processMessages from "~/messages/processMessages";
 
+import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -127,29 +123,24 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <Link href={paths.poolCandidateApplication(candidate.id)}>
-      {candidateName}
-    </Link>
-  );
-};
-
-export const processCell = (
-  pool: Pool,
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-) => {
-  const poolName = getFullPoolTitleLabel(intl, pool);
-  return (
-    <Link
-      href={paths.poolView(pool.id)}
-      aria-label={
-        intl.formatMessage(processMessages.process) +
-        intl.formatMessage(commonMessages.dividingColon) +
-        poolName
-      }
-    >
-      {poolName}
-    </Link>
+    <span data-h2-font-weight="base(700)">
+      {cells.view(
+        paths.poolCandidateApplication(candidate.id),
+        candidateName,
+        undefined,
+        intl.formatMessage(
+          {
+            defaultMessage: "View {name}'s application",
+            id: "mzGMZC",
+            description:
+              "Link text to view a candidates application for assistive technologies",
+          },
+          {
+            name: candidateName,
+          },
+        ),
+      )}
+    </span>
   );
 };
 
@@ -230,19 +221,11 @@ export const currentLocationAccessor = (
 
 export const finalDecisionCell = (
   intl: IntlShape,
-  poolCandidate: PoolCandidate,
-  poolAssessmentSteps: AssessmentStep[],
-  recordOfDecisionFlag: boolean, // TODO: remove with #8415
+  status?: Maybe<PoolCandidateStatus>,
 ) => {
-  const { color, label } = getCandidateStatusPill(
-    poolCandidate,
-    unpackMaybes(poolAssessmentSteps),
-    intl,
-    recordOfDecisionFlag,
-  );
   return (
-    <Pill mode="outline" color={color}>
-      {label}
+    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
+      {intl.formatMessage(statusToFinalDecision(status))}
     </Pill>
   );
 };
@@ -387,7 +370,6 @@ export function getSortOrder(
   doNotUseBookmark?: boolean,
   recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
-  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
   return [
     ...(doNotUseBookmark
       ? []
@@ -405,25 +387,8 @@ export function getSortOrder(
             order: SortOrder.Asc,
           },
         ]),
-    // Do not apply other filters if we are sorting by process
-    ...(!hasProcess
-      ? [transformSortStateToOrderByClause(sortingRules, filterState)]
-      : []),
+    transformSortStateToOrderByClause(sortingRules, filterState),
   ];
-}
-
-export function getPoolNameSort(
-  sortingRules?: SortingState,
-  locale?: Locales,
-): PoolCandidatePoolNameOrderByInput | undefined {
-  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
-
-  if (!sortingRule) return undefined;
-
-  return {
-    locale: locale ?? "en",
-    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  };
 }
 
 export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(

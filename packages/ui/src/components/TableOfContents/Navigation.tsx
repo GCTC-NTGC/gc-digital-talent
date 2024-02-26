@@ -30,7 +30,6 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
       <nav
         aria-labelledby={`toc-heading-${id}`}
         data-h2-text-align="base:children[>button, >a](center)"
-        data-h2-margin-bottom="base(x3)"
       >
         {children}
       </nav>

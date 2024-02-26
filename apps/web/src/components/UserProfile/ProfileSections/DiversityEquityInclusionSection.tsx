@@ -7,8 +7,8 @@ import {
   getEmploymentEquityStatement,
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
-import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
+import { User, IndigenousCommunity } from "~/api/generated";
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";
 import inuitIcon from "~/assets/img/inuit-true.webp";
 import metisIcon from "~/assets/img/metis-true.webp";
@@ -53,10 +53,10 @@ const DiversityEquityInclusionSection = ({
               <Link href={editPath}>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Edit your diversity, equity, and inclusion options.",
-                  id: "P6EhD6",
+                    "Edit your diversity, equity and inclusion options.",
+                  id: "RggAL8",
                   description:
-                    "Link text to edit diversity, equity, and inclusion information on profile.",
+                    "Link text to edit diversity, equity and inclusion information on profile.",
                 })}
               </Link>
             </p>

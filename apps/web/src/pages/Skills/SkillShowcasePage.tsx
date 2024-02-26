@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useQuery } from "urql";
 
 import {
   TableOfContents,
@@ -10,10 +9,10 @@ import {
   Link,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
+import { UserSkill, useUserSkillShowcaseQuery } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
@@ -27,66 +26,21 @@ type PageSection = {
 };
 type PageSections = Record<string, PageSection>;
 
-export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
-  fragment SkillShowcase_UserSkill on UserSkill {
-    id
-    skillLevel
-    topSkillsRank
-    improveSkillsRank
-    user {
-      id
-    }
-    skill {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-export type UserSkillShowcaseFragment = FragmentType<
-  typeof SkillShowcase_UserSkillFragment
->[];
-
 interface SkillShowcaseProps {
-  topBehaviouralSkillsQuery: UserSkillShowcaseFragment;
-  topTechnicalSkillsQuery: UserSkillShowcaseFragment;
-  improveTechnicalSkillsQuery: UserSkillShowcaseFragment;
-  improveBehaviouralSkillsQuery: UserSkillShowcaseFragment;
+  topBehaviouralSkills: UserSkill[];
+  topTechnicalSkills: UserSkill[];
+  improveTechnicalSkills: UserSkill[];
+  improveBehaviouralSkills: UserSkill[];
 }
 
 export const SkillShowcase = ({
-  topBehaviouralSkillsQuery,
-  topTechnicalSkillsQuery,
-  improveTechnicalSkillsQuery,
-  improveBehaviouralSkillsQuery,
+  topBehaviouralSkills,
+  topTechnicalSkills,
+  improveTechnicalSkills,
+  improveBehaviouralSkills,
 }: SkillShowcaseProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const topBehaviouralSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    topBehaviouralSkillsQuery,
-  );
-  const topTechnicalSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    topTechnicalSkillsQuery,
-  );
-  const improveBehaviouralSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    improveBehaviouralSkillsQuery,
-  );
-  const improveTechnicalSkills = getFragment(
-    SkillShowcase_UserSkillFragment,
-    improveTechnicalSkillsQuery,
-  );
 
   const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
 
@@ -343,48 +297,30 @@ export const SkillShowcase = ({
   );
 };
 
-const UserSkillShowcase_Query = graphql(/* GraphQL */ `
-  query UserSkillShowcase {
-    me {
-      id
-      topTechnicalSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      topBehaviouralSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      improveTechnicalSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-      improveBehaviouralSkillsRanking {
-        ...SkillShowcase_UserSkill
-      }
-    }
-  }
-`);
-
 const SkillShowcasePage = () => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useQuery({
-    query: UserSkillShowcase_Query,
-  });
+
+  const [{ data, fetching, error }] = useUserSkillShowcaseQuery();
+
+  const topBehaviouralSkills =
+    data?.me?.topBehaviouralSkillsRanking?.filter(notEmpty) ?? [];
+  const topTechnicalSkills =
+    data?.me?.topTechnicalSkillsRanking?.filter(notEmpty) ?? [];
+  const improveBehaviouralSkills =
+    data?.me?.improveBehaviouralSkillsRanking?.filter(notEmpty) ?? [];
+  const improveTechnicalSkills =
+    data?.me?.improveTechnicalSkillsRanking?.filter(notEmpty) ?? [];
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <SkillShowcase
-          topBehaviouralSkillsQuery={unpackMaybes(
-            data?.me?.topBehaviouralSkillsRanking,
-          )}
-          topTechnicalSkillsQuery={unpackMaybes(
-            data?.me?.topTechnicalSkillsRanking,
-          )}
-          improveBehaviouralSkillsQuery={unpackMaybes(
-            data?.me?.improveBehaviouralSkillsRanking,
-          )}
-          improveTechnicalSkillsQuery={unpackMaybes(
-            data?.me?.improveTechnicalSkillsRanking,
-          )}
+          {...{
+            topBehaviouralSkills,
+            topTechnicalSkills,
+            improveBehaviouralSkills,
+            improveTechnicalSkills,
+          }}
         />
       ) : (
         <ThrowNotFound

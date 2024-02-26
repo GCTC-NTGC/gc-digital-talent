@@ -1,11 +1,7 @@
 import React from "react";
-import { useIntl } from "react-intl";
-
-import { formMessages } from "@gc-digital-talent/i18n";
 
 import useControllableState from "../../hooks/useControllableState";
 import { BaseItem, CardRepeaterContextProps, ItemWithId } from "./types";
-import { useAnnouncer } from "../Announcer/Announcer";
 
 const CardRepeaterContext = React.createContext<
   CardRepeaterContextProps | undefined
@@ -68,8 +64,6 @@ export const CardRepeaterProvider = <T extends BaseItem>({
 
 export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
   const ctx = React.useContext(CardRepeaterContext);
-  const { announce } = useAnnouncer();
-  const intl = useIntl();
   const total = ctx?.items.length ?? 0;
 
   const append = (newItem: ItemWithId<T>) => {
@@ -90,26 +84,12 @@ export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
     newItems.splice(newIndex, 0, newItems.splice(from, 1)[0]);
 
     ctx?.onUpdate?.(newItems);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceMove, {
-          // zero-based index to position
-          from: from + 1,
-          to: to + 1,
-        }),
-      );
-    }
   };
 
   const remove = (index: number) => {
     let newItems = [...(ctx?.items ?? [])];
     newItems = [...newItems.slice(0, index), ...newItems.slice(index + 1)];
     ctx?.onUpdate?.(newItems);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceRemove, { index }),
-      );
-    }
   };
 
   const update = (index: number, item: Partial<ItemWithId<T>>) => {

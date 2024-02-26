@@ -1,8 +1,10 @@
 import {
-  Command_AllTeamsQuery,
-  Command_CreateTeamMutation,
-  graphql,
-} from "@gc-digital-talent/graphql";
+  CreateTeamMutation,
+  CreateTeamDocument,
+} from "@gc-digital-talent/web/src/api/generated";
+
+import { Command_AllTeamsQuery, graphql } from "@gc-digital-talent/graphql";
+import { getGqlString } from "./graphql-test-utils";
 
 const commandAllTeamsDoc = /* GraphQL */ `
   query Command_AllTeams {
@@ -44,20 +46,10 @@ Cypress.Commands.add("getTeams", () => {
   });
 });
 
-const commandCreateTeamDoc = /* GraphQL */ `
-  mutation Command_CreateTeam($team: CreateTeamInput!) {
-    createTeam(team: $team) {
-      id
-    }
-  }
-`;
-
-const Command_CreateTeamMutation = graphql(commandAllTeamsDoc);
-
 Cypress.Commands.add("createTeam", (team) => {
-  cy.graphqlRequest<Command_CreateTeamMutation>({
-    operationName: "Command_CreateTeam",
-    query: commandCreateTeamDoc,
+  cy.graphqlRequest<CreateTeamMutation>({
+    operationName: "CreateTeam",
+    query: getGqlString(CreateTeamDocument),
     variables: {
       team,
     },

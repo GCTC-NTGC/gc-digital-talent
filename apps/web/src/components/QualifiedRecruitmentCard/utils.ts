@@ -14,7 +14,7 @@ import {
   PoolCandidateStatus,
 } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { poolTitle } from "~/utils/poolUtils";
+import { fullPoolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
 import {
   deriveCombinedStatus,
@@ -175,6 +175,6 @@ export const getQualifiedRecruitmentInfo = (
       intl,
     ),
     availability: getAvailabilityInfo(candidate, intl),
-    title: poolTitle(intl, candidate.pool),
+    title: fullPoolTitle(intl, candidate.pool),
   };
 };

@@ -4,6 +4,7 @@ import { OperationResult } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { FieldLabels } from "@gc-digital-talent/forms";
+
 import {
   AwardExperience,
   AwardExperienceInput,
@@ -29,7 +30,7 @@ import {
   WorkExperienceInput,
   Skill,
   WorkExperience,
-} from "@gc-digital-talent/graphql";
+} from "~/api/generated";
 
 export type ExperienceType =
   | "award"
@@ -73,8 +74,8 @@ export const flattenExperienceSkills = (
 };
 
 type FormValueDateRange = {
-  startDate: Scalars["Date"]["input"];
-  endDate?: Scalars["Date"]["input"];
+  startDate: Scalars["Date"];
+  endDate?: Scalars["Date"];
 };
 
 type AwardFormValues = {
@@ -82,16 +83,16 @@ type AwardFormValues = {
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
-  awardedDate: Scalars["Date"]["input"];
+  awardedDate: Scalars["Date"];
 };
 
 type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
-  startDate: Scalars["Date"]["input"];
+  startDate: Scalars["Date"];
   currentRole: boolean;
-  endDate?: Scalars["Date"]["input"];
+  endDate?: Scalars["Date"];
 };
 
 type EducationFormValues = FormValueDateRange & {
@@ -146,13 +147,13 @@ export type ExperienceDetailsSubmissionData = {
   details?: string;
   division?: string;
   currentRole?: boolean;
-  endDate?: Scalars["Date"]["input"] | null;
+  endDate?: Scalars["Date"] | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: Scalars["Date"];
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string;
@@ -210,13 +211,13 @@ export type ExperienceDetailsDefaultValues = {
   description?: string;
   details?: string;
   team?: string;
-  endDate?: Scalars["Date"]["input"];
+  endDate?: Scalars["Date"];
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: Scalars["Date"];
   educationStatus?: EducationStatus;
   thesisTitle?: string;
   title?: string;

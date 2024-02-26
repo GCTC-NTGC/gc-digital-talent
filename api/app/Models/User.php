@@ -84,47 +84,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     use Searchable;
     use SoftDeletes;
 
-    protected static $selectableColumns = [
-        'id',
-        'email',
-        'first_name',
-        'last_name',
-        'telephone',
-        'preferred_lang',
-        'current_province',
-        'current_city',
-        'looking_for_english',
-        'looking_for_french',
-        'looking_for_bilingual',
-        'bilingual_evaluation',
-        'comprehension_level',
-        'written_level',
-        'verbal_level',
-        'estimated_language_ability',
-        'is_gov_employee',
-        'has_priority_entitlement',
-        'priority_number',
-        'department',
-        'current_classification',
-        'citizenship',
-        'armed_forces_status',
-        'is_woman',
-        'has_disability',
-        'is_visible_minority',
-        'has_diploma',
-        'location_preferences',
-        'location_exemptions',
-        'position_duration',
-        'accepted_operational_requirements',
-        'gov_employee_type',
-        'priority_weight',
-        'indigenous_declaration_signature',
-        'indigenous_communities',
-        'preferred_language_for_interview',
-        'preferred_language_for_exam',
-        'deleted_at',
-    ];
-
     protected $keyType = 'string';
 
     protected $casts = [
@@ -143,11 +102,6 @@ class User extends Model implements Authenticatable, LaratrustUser
     protected $hidden = [
         'searchable',
     ];
-
-    public static function getSelectableColumns()
-    {
-        return self::$selectableColumns;
-    }
 
     /**
      * Get the indexable data array for the model.
@@ -479,7 +433,7 @@ class User extends Model implements Authenticatable, LaratrustUser
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
+                'statuses' => [PoolCandidateStatus::QUALIFIED_AVAILABLE->name, PoolCandidateStatus::PLACED_CASUAL->name],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
@@ -872,42 +826,54 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getTopTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        $sortedTechnicalUserSkills = $this->userSkills()
             ->whereNotNull('top_skills_rank')
-            ->where('skill.category', 'TECHNICAL')
-            ->sortBy('top_skills_rank');
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
     }
 
     public function getTopBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        $sortedBehaviouralUserSkills = $this->userSkills()
             ->whereNotNull('top_skills_rank')
-            ->where('skill.category', 'BEHAVIOURAL')
-            ->sortBy('top_skills_rank');
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('top_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
     }
 
     public function getImproveTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        $sortedTechnicalUserSkills = $this->userSkills()
             ->whereNotNull('improve_skills_rank')
-            ->where('skill.category', 'TECHNICAL')
-            ->sortBy('improve_skills_rank');
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'TECHNICAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedTechnicalUserSkills;
     }
 
     public function getImproveBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
-        return $this->userSkills
+        $sortedBehaviouralUserSkills = $this->userSkills()
             ->whereNotNull('improve_skills_rank')
-            ->where('skill.category', 'BEHAVIOURAL')
-            ->sortBy('improve_skills_rank');
+            ->whereHas('skill', function ($query) {
+                $query->where('category', 'BEHAVIOURAL');
+            })
+            ->orderBy('improve_skills_rank', 'asc')
+            ->get();
+
+        return $sortedBehaviouralUserSkills;
     }
 
     public function scopeAuthorizedToViewSpecific(Builder $query)

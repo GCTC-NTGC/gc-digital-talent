@@ -15,9 +15,7 @@ export interface ListProps extends React.HTMLProps<HTMLUListElement> {
 const List = ({ children, space = "lg", ...rest }: ListProps) => {
   return (
     <ul
-      data-h2-padding-left="base(x1)"
       data-h2-list-style-type="base(disc)"
-      data-h2-list-style-position="base(inside)"
       {...(space === "lg"
         ? {
             "data-h2-margin": "base(x1 0)",

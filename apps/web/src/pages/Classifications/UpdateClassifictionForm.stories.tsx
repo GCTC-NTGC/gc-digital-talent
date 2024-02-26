@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof UpdateClassificationForm> = (args) => {
   return (
     <UpdateClassificationForm
       initialClassification={initialClassification}
-      onUpdateClassification={async (id, data) => {
+      handleUpdateClassification={async (id, data) => {
         return new Promise((resolve) => {
           setTimeout(() => {
             action("Update Classification")({

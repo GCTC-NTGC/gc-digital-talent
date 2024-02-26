@@ -2,8 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CommunityExperience } from "@gc-digital-talent/graphql";
 
+import { CommunityExperience } from "~/api/generated";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";

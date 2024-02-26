@@ -13,33 +13,6 @@ updates:
       interval: "weekly"
       day: "thursday"
     open-pull-requests-limit: 50
-    groups:
-      storybook:
-        patterns:
-          - "@storybook*"
-          - "storybook*"
-        update-types:
-          - "major"
-          - "minor"
-          - "patch"
-      graphql-codegen:
-        patterns:
-          - "@graphql-codegen*"
-        update-types:
-          - "minor"
-          - "patch"
-      tiptap:
-        patterns:
-          - "@tiptap*"
-        update-types:
-          - "minor"
-          - "patch"
-      types:
-        patterns:
-          - "@types*"
-        update-types:
-          - "minor"
-          - "patch"
 
   # This ignores all updates to tc-report, since it's now served as a static website.
   #
