@@ -11,6 +11,7 @@ import {
   ID_TOKEN,
   POST_LOGOUT_URI_KEY,
 } from "../const";
+import useLogoutChannel from "../hooks/useLogoutChannel";
 
 export interface AuthenticationState {
   loggedIn: boolean;
@@ -39,6 +40,7 @@ const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
   postLogoutUri?: string,
+  postLogoutMessage?: () => void,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -68,6 +70,7 @@ const logoutAndRefreshPage = (
       authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
+  postLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
@@ -110,6 +113,11 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
+  const { postLogoutMessage } = useLogoutChannel(() => {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+      window.location.href = logoutRedirectUri;
+    }
+  });
 
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
@@ -138,7 +146,12 @@ const AuthenticationContainer = ({
       loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
       logout: localStorage.getItem(ACCESS_TOKEN)
         ? (postLogoutUri) =>
-            logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
+            logoutAndRefreshPage(
+              logoutUri,
+              logoutRedirectUri,
+              postLogoutUri,
+              postLogoutMessage,
+            )
         : () => {
             /* If not logged in, logout does nothing. */
           },
@@ -182,7 +195,13 @@ const AuthenticationContainer = ({
         }
       },
     };
-  }, [logoutUri, logoutRedirectUri, tokenRefreshPath, logger]);
+  }, [
+    logoutUri,
+    logoutRedirectUri,
+    postLogoutMessage,
+    tokenRefreshPath,
+    logger,
+  ]);
 
   return (
     <AuthenticationContext.Provider value={state}>
