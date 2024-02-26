@@ -1,5 +1,7 @@
 import { defineMessages } from "react-intl";
 
+import { commonMessages } from "@gc-digital-talent/i18n";
+
 const messages = defineMessages({
   qualified: {
     defaultMessage: "Qualified",
@@ -55,11 +57,6 @@ const messages = defineMessages({
     defaultMessage: "Disqualified",
     id: "/dy2CX",
     description: "Message displayed when candidate has been disqualified",
-  },
-  removed: {
-    defaultMessage: "Removed",
-    id: "NNWQdp",
-    description: "Message displayed when candidate has been removed",
   },
   notPlaced: {
     defaultMessage: "Not placed",
