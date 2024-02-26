@@ -70,6 +70,8 @@ const logoutAndRefreshPage = (
       authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
+  // Post a logout message to the broadcast channel
+  // so they know to logout as well
   postLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
