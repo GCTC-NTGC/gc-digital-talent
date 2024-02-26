@@ -96,6 +96,23 @@ class Pool extends Model
         'archived_at',
     ];
 
+    // expose the required columns to be accessed via relationship tables
+    protected static $selectableColumns = [
+        'id',
+        'name',
+        'user_id',
+        'stream',
+        'publishing_group',
+        'published_at',
+        'archived_at',
+        'team_id',
+        'closing_date',
+        'is_remote',
+        'key_tasks',
+        'special_note',
+        'advertisement_language',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -106,7 +123,9 @@ class Pool extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        // avoid selecting searchable column from user table
+        return $this->belongsTo(User::class)
+            ->select(User::getSelectableColumns());
     }
 
     public function team(): BelongsTo
@@ -208,7 +227,7 @@ class Pool extends Model
 
     public function generalQuestions(): HasMany
     {
-        return $this->hasMany(GeneralQuestion::class);
+        return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 
     public function screeningQuestions(): HasMany
@@ -332,5 +351,10 @@ class Pool extends Model
         });
 
         return $query;
+    }
+
+    public static function getSelectableColumns()
+    {
+        return self::$selectableColumns;
     }
 }

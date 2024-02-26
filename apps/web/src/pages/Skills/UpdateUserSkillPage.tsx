@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { useMutation, useQuery } from "urql";
 
 import {
   ThrowNotFound,
@@ -22,7 +23,6 @@ import {
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   Experience,
   Maybe,
@@ -32,11 +32,9 @@ import {
   SkillCategory,
   UserSkill,
   WhenSkillUsed,
-  useCreateUserSkillMutation,
-  useDeleteUserSkillMutation,
-  useUpdateUserSkillMutation,
-  useUserSkillQuery,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
@@ -44,6 +42,12 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+
+import {
+  CreateUserSkill_Mutation,
+  DeleteUserSkill_Mutation,
+  UpdateUserSkill_Mutation,
+} from "./operations";
 
 type PageSection = {
   id: string;
@@ -105,7 +109,7 @@ const NullExperienceMessage = ({
 };
 
 interface UpdateUserSkillFormProps {
-  userId: Scalars["UUID"];
+  userId: Scalars["UUID"]["output"];
   skill: Skill;
   experiences: Experience[];
   userSkill?: Maybe<UserSkill>;
@@ -139,12 +143,15 @@ export const UpdateUserSkillForm = ({
       ),
   );
 
-  const [{ fetching: creating }, executeCreateMutation] =
-    useCreateUserSkillMutation();
-  const [{ fetching: updating }, executeUpdateMutation] =
-    useUpdateUserSkillMutation();
-  const [{ fetching: deleting }, executeDeleteMutation] =
-    useDeleteUserSkillMutation();
+  const [{ fetching: creating }, executeCreateMutation] = useMutation(
+    CreateUserSkill_Mutation,
+  );
+  const [{ fetching: updating }, executeUpdateMutation] = useMutation(
+    UpdateUserSkill_Mutation,
+  );
+  const [{ fetching: deleting }, executeDeleteMutation] = useMutation(
+    DeleteUserSkill_Mutation,
+  );
   const mutating = creating || updating || deleting;
 
   const handleSuccess = (msg?: React.ReactNode) => {
@@ -573,14 +580,172 @@ export const UpdateUserSkillForm = ({
 };
 
 type RouteParams = {
-  skillId: Scalars["ID"];
+  skillId: Scalars["ID"]["output"];
 };
+
+const UpdateUserSkill_Query = graphql(/* GraphQL */ `
+  query UserSkill($skillId: UUID!) {
+    me {
+      id
+      userSkills(includeSkillIds: [$skillId]) {
+        id
+        whenSkillUsed
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        experiences {
+          id
+          __typename
+          details
+          user {
+            id
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+          }
+          skills {
+            id
+            key
+            category
+            name {
+              en
+              fr
+            }
+            experienceSkillRecord {
+              details
+            }
+          }
+        }
+      }
+      experiences {
+        id
+        id
+        __typename
+        details
+        user {
+          id
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+    }
+    skill(id: $skillId) {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 const UpdateUserSkillPage = () => {
   const intl = useIntl();
   const { skillId } = useRequiredParams<RouteParams>("skillId");
 
-  const [{ data, fetching, error }] = useUserSkillQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: UpdateUserSkill_Query,
     variables: {
       skillId,
     },
@@ -593,7 +758,7 @@ const UpdateUserSkillPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.skill ? (
         <UpdateUserSkillForm
-          userId={data.me?.id}
+          userId={data.me?.id ?? ""}
           skill={data.skill}
           userSkill={userSkill}
           experiences={userExperiences ?? []}

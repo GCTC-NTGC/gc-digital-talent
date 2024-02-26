@@ -22,6 +22,11 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "eIxShU",
       description: "IT-04 classification label including titles",
     },
+    "IT-05": {
+      defaultMessage: "IT-05: Director",
+      id: "qt8lB2",
+      description: "IT-05 classification label including titles",
+    },
     "PM-01": {
       defaultMessage: "PM-01: Junior Officer",
       id: "kfPc04",
@@ -65,6 +70,11 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Senior Advisor or Manager I T 4",
       id: "jAPSUd",
       description: "IT-04 classification aria label including titles",
+    },
+    "IT-05": {
+      defaultMessage: "Director I T 5",
+      id: "zbiumT",
+      description: "IT-05 classification aria label including titles",
     },
     "PM-01": {
       defaultMessage: "Junior Officer P M 1",

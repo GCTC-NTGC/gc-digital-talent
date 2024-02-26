@@ -1,4 +1,8 @@
 {
+  "+/OGZ/": {
+    "defaultMessage": "Éliminé à la présélection – non réactif",
+    "description": "The pool candidate's status is Screened Out because no longer responding"
+  },
   "+3THj+": {
     "defaultMessage": "Nettement supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
@@ -11,9 +15,9 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
-  "+J9x7H": {
-    "defaultMessage": "Éliminé à la présélection – candidature",
-    "description": "The pool candidate's status is Screened Out Application"
+  "+GcpQs": {
+    "defaultMessage": "Période déterminée",
+    "description": "The pool candidate's status is Placed Term."
   },
   "+U4KU4": {
     "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
@@ -54,6 +58,10 @@
   "/sSeis": {
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
+  },
+  "0ClMl1": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Name of Diversity, equity, and inclusion page"
   },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
@@ -175,6 +183,10 @@
     "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
   },
+  "39grMX": {
+    "defaultMessage": "Ébauche expirée",
+    "description": "The pool candidate's status is Expired Draft."
+  },
   "3I2Qke": {
     "defaultMessage": "S’ouvre dans un nouvel onglet",
     "description": "Label for setting a link to open in a new tab in the rich text editor"
@@ -267,10 +279,6 @@
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
   },
-  "6TqakV": {
-    "defaultMessage": "Période déterminée",
-    "description": "The pool candidate's status is Placed Term."
-  },
   "6fxO9t": {
     "defaultMessage": "Terre-Neuve-et-Labrador",
     "description": "Newfoundland and Labrador selection for province or territory input"
@@ -278,6 +286,10 @@
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
+  },
+  "6pBOi2": {
+    "defaultMessage": "Démontré",
+    "description": "Table assessment decision when candidate has successful assessment."
   },
   "6tekaa": {
     "defaultMessage": "Septembre",
@@ -391,10 +403,6 @@
     "defaultMessage": "erreur",
     "description": "Message for the error status"
   },
-  "ACppq6": {
-    "defaultMessage": "Placé Occasionnels",
-    "description": "The pool candidate's status is Placed Casual."
-  },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
@@ -423,6 +431,10 @@
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
   },
+  "BwJ+5o": {
+    "defaultMessage": "Accepté",
+    "description": "The pool candidate's status is Screened In."
+  },
   "C/mdCs": {
     "defaultMessage": "Ne s’applique pas",
     "description": "Not applicable, context or state does apply."
@@ -430,10 +442,6 @@
   "C/tnCE": {
     "defaultMessage": "Le profil est incomplet",
     "description": "Message displayed when user attempts to apply to a pool with an incomplete profile"
-  },
-  "C2RURL": {
-    "defaultMessage": "Éliminé à la présélection – évaluation",
-    "description": "The pool candidate's status is Screened Out Assessment."
   },
   "C7cFDV": {
     "defaultMessage": "Débutant",
@@ -483,6 +491,10 @@
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
   },
+  "EOzHrh": {
+    "defaultMessage": "Non démontré",
+    "description": "Table assessment decision when candidate has unsuccessful assessment and been removed from the process."
+  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -506,6 +518,10 @@
   "FYrmhH": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
     "description": "Message showing number of all available options in combobox menu"
+  },
+  "Fm6WXh": {
+    "defaultMessage": "Placé occasionnels",
+    "description": "The pool candidate's status is Placed Casual."
   },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
@@ -587,10 +603,6 @@
     "defaultMessage": "Intérêt général",
     "description": "Option for searching candidates for interest only"
   },
-  "IANM2P": {
-    "defaultMessage": "Période indéterminée",
-    "description": "The pool candidate's status is Placed Indeterminate."
-  },
   "IGl5IE": {
     "defaultMessage": "Entretien de suivi",
     "description": "Follow-up interview assessment."
@@ -659,6 +671,14 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
   },
+  "KUlql9": {
+    "defaultMessage": "Offre en cours",
+    "description": "The pool candidate's status is Offer in Progress, tentatively placed"
+  },
+  "KhCk7Y": {
+    "defaultMessage": "Qualifié non disponible",
+    "description": "The pool candidate's status is Qualified Unavailable."
+  },
   "Ko0JX/": {
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
     "description": "The behavioural skill level definition for expert"
@@ -699,9 +719,9 @@
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
   },
-  "LwZY5H": {
-    "defaultMessage": "Qualifié non disponible",
-    "description": "The pool candidate's status is Qualified Unavailable."
+  "LyVI+p": {
+    "defaultMessage": "En attente d’une évaluation plus approfondie",
+    "description": "Table assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
@@ -714,6 +734,10 @@
   "MBnBcY": {
     "defaultMessage": "Démonstration de compétences",
     "description": "Name of the skill showcase page"
+  },
+  "MGug4K": {
+    "defaultMessage": "Retrait qualifié",
+    "description": "The pool candidate's status is Qualified Withdrew."
   },
   "MMtY88": {
     "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
@@ -791,10 +815,6 @@
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
   },
-  "OMmTA4": {
-    "defaultMessage": "Nouvelle candidature",
-    "description": "The pool candidate's status is New Application."
-  },
   "OOVZSs": {
     "defaultMessage": "Ajouter un nouvel élément",
     "description": "Message displayed for add button on repeater component."
@@ -842,10 +862,6 @@
   "Q3Pc71": {
     "defaultMessage": "Il n’est pas possible de sauvegarder ce texte. Veillez à ce que le texte soit dépourvu de formatage ou de caractères spéciaux, et essayez de nouveau.",
     "description": "Error message that there might be a special character."
-  },
-  "QCcpJr": {
-    "defaultMessage": "Éliminé à la présélection – non réactif",
-    "description": "The pool candidate's status is Screened Out because no longer responding"
   },
   "QRXLf/": {
     "defaultMessage": "Chargement des résultats...",
@@ -967,10 +983,6 @@
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
   },
-  "TN8HIH": {
-    "defaultMessage": "Éliminé à la présélection – pas d’intérêt",
-    "description": "The pool candidate's status is Screened Out because of no interest"
-  },
   "TNmGTd": {
     "defaultMessage": "Local",
     "description": "The scope of the award was local."
@@ -1014,6 +1026,10 @@
   "U4Gfow": {
     "defaultMessage": "Prairies (Alb., Sask., Man.)",
     "description": "The work region of Canada described as Prairies."
+  },
+  "U67zv6": {
+    "defaultMessage": "Examen des candidatures",
+    "description": "The pool candidate's status is Application Review."
   },
   "UCGAzS": {
     "defaultMessage": "S.O.",
@@ -1131,6 +1147,14 @@
     "defaultMessage": "Démontrée, mais la constance varie considérablement selon le public et les circonstances. Démontrée par intermittence dans des situations quotidiennes et démontrée de façon inconstante auprès de certains publics ou dans des conditions de stress ou dans des situations modérément difficiles. Le potentiel est là, mais il reste encore beaucoup à apprendre.",
     "description": "The behavioural skill level definition for beginner"
   },
+  "YA9hQg": {
+    "defaultMessage": "En cours d’évaluation",
+    "description": "The pool candidate's status is Under Assessment."
+  },
+  "YHAHcL": {
+    "defaultMessage": "Éliminé à la présélection – évaluation",
+    "description": "The pool candidate's status is Screened Out Assessment."
+  },
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
@@ -1142,10 +1166,6 @@
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
-  },
-  "Yq2EZj": {
-    "defaultMessage": "Examen des candidatures",
-    "description": "The pool candidate's status is Application Review."
   },
   "Z+6NCp": {
     "defaultMessage": "Sous-organisationnel (direction)",
@@ -1162,6 +1182,10 @@
   "ZWR/F3": {
     "defaultMessage": "Français seulement",
     "description": "The language requirement is French only."
+  },
+  "Zdcq76": {
+    "defaultMessage": "Éliminé à la présélection – pas d’intérêt",
+    "description": "The pool candidate's status is Screened Out because of no interest"
   },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
@@ -1202,14 +1226,6 @@
   "aaJPpO": {
     "defaultMessage": "Au niveau requis",
     "description": "Option for skill assessment decision level."
-  },
-  "ad4CnG": {
-    "defaultMessage": "Ébauche expirée",
-    "description": "The pool candidate's status is Expired Draft."
-  },
-  "ad4mTC": {
-    "defaultMessage": "Diversité, équité et inclusion",
-    "description": "Name of Diversity, equity and inclusion page"
   },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
@@ -1294,10 +1310,6 @@
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
-  },
-  "dnGlXQ": {
-    "defaultMessage": "Accepté",
-    "description": "The pool candidate's status is Screened In."
   },
   "duwt+A": {
     "defaultMessage": "m'exige d'avoir un <strong>permis de conduire valide</strong> ou une mobilité personnelle dans la mesure normalement associée à la possession d'un permis de conduire valide.",
@@ -1455,6 +1467,10 @@
     "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
     "description": "Message for when user goes over word limit."
   },
+  "jAeSU0": {
+    "defaultMessage": "Éliminé à la présélection – candidature",
+    "description": "The pool candidate's status is Screened Out Application"
+  },
   "jHYaw8": {
     "defaultMessage": "possède un travail par quarts.",
     "description": "The operational requirement described as shift work."
@@ -1495,10 +1511,6 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
-  "k/+pcc": {
-    "defaultMessage": "Offre en cours",
-    "description": "The pool candidate's status is Offer in Progress, tentatively placed"
-  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1506,6 +1518,10 @@
   "kKdcZT": {
     "defaultMessage": "Bilingue avancé",
     "description": "The language requirement is bilingual advanced."
+  },
+  "kMh3VV": {
+    "defaultMessage": "Nouvelle candidature",
+    "description": "The pool candidate's status is New Application."
   },
   "kSQNt5": {
     "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
@@ -1555,10 +1571,6 @@
     "defaultMessage": "Aucune option",
     "description": "Message shown in options dropdown when Select field has no options."
   },
-  "lx9NFI": {
-    "defaultMessage": "Qualifié disponible",
-    "description": "The pool candidate's status is Qualified Available"
-  },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
@@ -1602,6 +1614,10 @@
   "o/6zAs": {
     "defaultMessage": "Chargement",
     "description": "Title displayed for a table initial loading state."
+  },
+  "o0wsIT": {
+    "defaultMessage": "Qualifié disponible",
+    "description": "The pool candidate's status is Qualified Available"
   },
   "o5J75O": {
     "defaultMessage": "IT-04 (conseiller principal)",
@@ -1951,10 +1967,6 @@
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
   },
-  "y5u8P0": {
-    "defaultMessage": "En cours d’évaluation",
-    "description": "The pool candidate's status is Under Assessment."
-  },
   "yBi2pM": {
     "defaultMessage": "Atlantique (N.-B., N.-É., Î.-P.-É. et T.-N.-L)",
     "description": "The work region of Canada described as Atlantic."
@@ -1967,13 +1979,13 @@
     "defaultMessage": "Saskatchewan",
     "description": "Saskatchewan selection for province or territory input"
   },
-  "yRxy3a": {
-    "defaultMessage": "Retrait qualifié",
-    "description": "The pool candidate's status is Qualified Withdrew."
-  },
   "ylHC90": {
     "defaultMessage": "Chargement...",
     "description": "Message shown in options dropdown when Select field is loading options."
+  },
+  "yn7hDB": {
+    "defaultMessage": "Période indéterminée",
+    "description": "The pool candidate's status is Placed Indeterminate."
   },
   "yrLV+n": {
     "defaultMessage": "Ébauche",

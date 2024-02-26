@@ -35,7 +35,7 @@ export type FormValuesToApiCreateInputArgs = {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
-  skillId: string;
+  poolSkillId: string;
   assessmentResultType: AssessmentResultType;
 };
 
@@ -45,11 +45,19 @@ export type FormValuesToApiUpdateInputArgs = {
   assessmentResultType: AssessmentResultType;
 };
 
+// If justification is for education requirement assessment, it is just a string, need to tuck it into an array
+const justificationsConverted = (
+  justifications: FormValues["justifications"],
+) =>
+  justifications && !Array.isArray(justifications)
+    ? [justifications]
+    : justifications;
+
 export function convertFormValuesToApiCreateInput({
   formValues,
   assessmentStepId,
   poolCandidateId,
-  skillId,
+  poolSkillId,
   assessmentResultType,
 }: FormValuesToApiCreateInputArgs): CreateAssessmentResultInput {
   const {
@@ -58,6 +66,7 @@ export function convertFormValuesToApiCreateInput({
     justifications,
     otherJustificationNotes,
     skillDecisionNotes,
+    assessmentNotes,
   } = formValues;
 
   return {
@@ -67,12 +76,11 @@ export function convertFormValuesToApiCreateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: Array.isArray(justifications)
-      ? [...justifications]
-      : justifications && [justifications],
+    justifications: justificationsConverted(justifications) ?? undefined,
     otherJustificationNotes,
-    poolSkillId: skillId,
+    poolSkillId,
     skillDecisionNotes,
+    assessmentNotes,
   };
 }
 export function convertFormValuesToApiUpdateInput({
@@ -88,15 +96,14 @@ export function convertFormValuesToApiUpdateInput({
     skillDecisionNotes,
     assessmentNotes,
   } = formValues;
+
   return {
     id: assessmentResultId,
     assessmentDecision:
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: Array.isArray(justifications)
-      ? [...justifications]
-      : justifications && [justifications],
+    justifications: justificationsConverted(justifications) ?? undefined,
     otherJustificationNotes,
     skillDecisionNotes,
     assessmentNotes,

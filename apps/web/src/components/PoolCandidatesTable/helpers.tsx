@@ -23,7 +23,7 @@ import {
   Pool,
   PoolCandidatePoolNameOrderByInput,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   OrderByRelationWithColumnAggregateFunction,
@@ -36,12 +36,12 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
+  AssessmentStep,
 } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getFinalDecisionPillColor,
-  statusToFinalDecision,
+  getCandidateStatusPill,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -55,7 +55,6 @@ import {
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import cells from "../Table/cells";
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -128,24 +127,9 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <span data-h2-font-weight="base(700)">
-      {cells.view(
-        paths.poolCandidateApplication(candidate.id),
-        candidateName,
-        undefined,
-        intl.formatMessage(
-          {
-            defaultMessage: "View {name}'s application",
-            id: "mzGMZC",
-            description:
-              "Link text to view a candidates application for assistive technologies",
-          },
-          {
-            name: candidateName,
-          },
-        ),
-      )}
-    </span>
+    <Link href={paths.poolCandidateApplication(candidate.id)}>
+      {candidateName}
+    </Link>
   );
 };
 
@@ -246,11 +230,19 @@ export const currentLocationAccessor = (
 
 export const finalDecisionCell = (
   intl: IntlShape,
-  status?: Maybe<PoolCandidateStatus>,
+  poolCandidate: PoolCandidate,
+  poolAssessmentSteps: AssessmentStep[],
+  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
+  const { color, label } = getCandidateStatusPill(
+    poolCandidate,
+    unpackMaybes(poolAssessmentSteps),
+    intl,
+    recordOfDecisionFlag,
+  );
   return (
-    <Pill mode="outline" color={getFinalDecisionPillColor(status)}>
-      {intl.formatMessage(statusToFinalDecision(status))}
+    <Pill mode="outline" color={color}>
+      {label}
     </Pill>
   );
 };

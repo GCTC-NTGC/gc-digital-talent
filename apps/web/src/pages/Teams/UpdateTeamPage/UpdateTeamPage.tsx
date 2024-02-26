@@ -1,14 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import {
   Scalars,
   UpdateTeamInput,
-  useDepartmentsQuery,
   useGetTeamQuery,
   useUpdateTeamMutation,
 } from "~/api/generated";
@@ -17,6 +18,19 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import UpdateTeamForm from "./components/UpdateTeamForm";
+
+const UpdateTeamDepartments_Query = graphql(/* GraphQL */ `
+  query UpdateTeamDepartments {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 type RouteParams = {
   teamId: string;
@@ -37,7 +51,7 @@ const EditTeamPage = () => {
       fetching: departmentsFetching,
       error: departmentsError,
     },
-  ] = useDepartmentsQuery();
+  ] = useQuery({ query: UpdateTeamDepartments_Query });
   const [, executeMutation] = useUpdateTeamMutation();
 
   const departments = departmentsData?.departments.filter(notEmpty);

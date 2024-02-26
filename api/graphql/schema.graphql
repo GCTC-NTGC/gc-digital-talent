@@ -112,10 +112,10 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill]
-  topBehaviouralSkillsRanking: [UserSkill]
-  improveTechnicalSkillsRanking: [UserSkill]
-  improveBehaviouralSkillsRanking: [UserSkill]
+  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -479,11 +479,6 @@ type UserSkill {
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
     @with(relation: "workExperiences") # All experiences that a user owns
-  awardExperiences: [AwardExperience!] @hasMany
-  communityExperiences: [CommunityExperience!] @hasMany
-  educationExperiences: [EducationExperience!] @hasMany
-  personalExperiences: [PersonalExperience!] @hasMany
-  workExperiences: [WorkExperience!] @hasMany
 }
 
 type SkillKeywords {
@@ -676,6 +671,22 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+type SitewideAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedString!
+  message: LocalizedString!
+}
+
+input SitewideAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
+  title: LocalizedStringInput!
+  message: LocalizedStringInput!
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -684,14 +695,6 @@ type Query {
     @softDeletes
     @guard
     @can(ability: "view", query: true)
-  users: [User]!
-    @all
-    @softDeletes
-    @guard
-    @can(ability: "viewAny")
-    @deprecated(
-      reason: "users is deprecated. Use usersPaginated instead. Remove in #7660."
-    )
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -804,6 +807,8 @@ type Query {
   team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
   teams: [Team]! @all @can(ability: "viewAny")
   roles: [Role]! @all @can(ability: "viewAny")
+
+  sitewideAnnouncement: SitewideAnnouncement
 }
 
 input ClassificationBelongsTo {
@@ -1869,6 +1874,10 @@ type Mutation {
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @can(ability: "update", find: "id")
+
+  updateSitewideAnnouncement(
+    sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
+  ): SitewideAnnouncement @guard
 }
 
 #import directiveForms.graphql
