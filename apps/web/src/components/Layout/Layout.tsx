@@ -27,7 +27,7 @@ import authMessages from "~/messages/authMessages";
 
 import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
-import MaintenanceBanner from "./MaintenanceBanner";
+import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 
 const Layout = () => {
@@ -135,7 +135,7 @@ const Layout = () => {
       >
         <div>
           <Header />
-          <MaintenanceBanner />
+          <SitewideBanner />
           {!iapPersonality ? (
             <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           ) : (

@@ -4,15 +4,16 @@ import { Outlet } from "react-router-dom";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
+import { User, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
 import AdminHero from "~/components/Hero/AdminHero";
 
@@ -117,11 +118,23 @@ type RouteParams = {
   userId: string;
 };
 
+const UserName_Query = graphql(/* GraphQL */ `
+  query UserName($userId: UUID!) {
+    user(id: $userId, trashed: WITH) {
+      id
+      firstName
+      lastName
+      deletedDate
+    }
+  }
+`);
+
 const UserLayout = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
-  const [{ data, fetching, error }] = useUserNameQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: UserName_Query,
     variables: {
-      userId: userId || "",
+      userId,
     },
   });
 

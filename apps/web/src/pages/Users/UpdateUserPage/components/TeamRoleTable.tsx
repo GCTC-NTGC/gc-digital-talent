@@ -5,14 +5,14 @@ import { useIntl } from "react-intl";
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-
 import {
   UpdateUserRolesInput,
   Role,
   Scalars,
   Team,
   User,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -34,7 +34,7 @@ type RoleTeamPair = {
 
 const columnHelper = createColumnHelper<TeamAssignment>();
 
-type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"];
+type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
 interface TeamRoleTableProps {
   user: User;
@@ -118,7 +118,7 @@ const TeamRoleTable = ({
       .filter(notEmpty);
 
     const pairsGroupedByTeam = groupBy<
-      Scalars["ID"],
+      Scalars["ID"]["output"],
       RoleTeamPair,
       GetRoleTeamIdFunc
     >(roleTeamPairs, (pair) => {

@@ -8,8 +8,7 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-
-import { UserSkill } from "~/api/generated";
+import { UserSkill } from "@gc-digital-talent/graphql";
 
 interface UserSkillListProps {
   technical: UserSkill[];

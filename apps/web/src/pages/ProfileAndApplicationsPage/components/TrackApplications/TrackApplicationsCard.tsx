@@ -1,19 +1,20 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
+  graphql,
   PoolCandidate,
   PoolCandidateStatus,
-  useDeleteApplicationMutation,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
-import { getFullPoolTitleHtml } from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
@@ -61,7 +62,7 @@ const TrackApplicationsCard = ({
     intl,
   );
   const { userAuthInfo } = useAuthorization();
-  const applicationTitle = getFullPoolTitleHtml(intl, application.pool);
+  const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
   return (
     <div
       data-h2-background-color="base(foreground)"
@@ -180,6 +181,15 @@ const TrackApplicationsCard = ({
     </div>
   );
 };
+
+const TrackApplicationsCardDelete_Mutation = graphql(/* GraphQL */ `
+  mutation TrackApplicationsCardDelete($id: ID!) {
+    deleteApplication(id: $id) {
+      id
+    }
+  }
+`);
+
 interface TrackApplicationsCardApiProps {
   application: Application;
 }
@@ -187,7 +197,9 @@ interface TrackApplicationsCardApiProps {
 const TrackApplicationsCardApi = ({
   application,
 }: TrackApplicationsCardApiProps) => {
-  const [, executeDeleteMutation] = useDeleteApplicationMutation();
+  const [, executeDeleteMutation] = useMutation(
+    TrackApplicationsCardDelete_Mutation,
+  );
   const intl = useIntl();
 
   const deleteApplication = () => {

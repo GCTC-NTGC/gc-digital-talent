@@ -1,6 +1,7 @@
 import React from "react";
 
-import { IndigenousCommunity } from "~/api/generated";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
+
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";
 import inuitIcon from "~/assets/img/inuit-true.webp";
 import metisIcon from "~/assets/img/metis-true.webp";

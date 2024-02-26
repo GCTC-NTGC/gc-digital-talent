@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -18,20 +19,19 @@ import {
   errorMessages,
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
-import { notEmpty, keyStringRegex } from "@gc-digital-talent/helpers";
+import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
 import {
   Skill,
   SkillFamily,
   CreateSkillInput,
   CreateSkillMutation,
-  useCreateSkillMutation,
-  useAllSkillFamiliesQuery,
   SkillCategory,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
@@ -286,14 +286,60 @@ export const CreateSkillForm = ({
   );
 };
 
+const CreateSkillSkillFamilies_Query = graphql(/* GraphQL */ `
+  query CreateSkillSkillFamilies {
+    skillFamilies {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+  }
+`);
+
+const CreateSkill_Mutation = graphql(/* GraphQL */ `
+  mutation CreateSkill($skill: CreateSkillInput!) {
+    createSkill(skill: $skill) {
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreateSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [lookupResult] = useAllSkillFamiliesQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-  const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: CreateSkillSkillFamilies_Query,
+  });
 
-  const [, executeMutation] = useCreateSkillMutation();
+  const [, executeMutation] = useMutation(CreateSkill_Mutation);
   const handleCreateSkill = (data: CreateSkillInput) =>
     executeMutation({ skill: data }).then((result) => {
       if (result.data?.createSkill) {
@@ -342,7 +388,7 @@ const CreateSkillPage = () => {
         <Pending fetching={fetching} error={error}>
           <CreateSkillForm
             handleCreateSkill={handleCreateSkill}
-            families={families}
+            families={unpackMaybes(lookupData?.skillFamilies)}
           />
         </Pending>
       </AdminContentWrapper>

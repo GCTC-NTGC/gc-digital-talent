@@ -34,6 +34,7 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
+  getOpportunityLengthOptions,
   getStreamOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
@@ -180,6 +181,17 @@ const PoolNameSection = ({
                 data-h2-gap="base(x1)"
                 data-h2-margin-bottom="base(x1)"
               >
+                <Select
+                  id="opportunityLength"
+                  name="opportunityLength"
+                  label={intl.formatMessage(processMessages.opportunityLength)}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={getOpportunityLengthOptions(intl)}
+                  disabled={formDisabled}
+                  doNotSort
+                />
                 <Input
                   id="processNumber"
                   name="processNumber"

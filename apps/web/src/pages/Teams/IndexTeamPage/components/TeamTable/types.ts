@@ -1,4 +1,4 @@
-import { LocalizedString } from "~/api/generated";
+import { LocalizedString } from "@gc-digital-talent/graphql";
 
 export type MyRoleTeam = {
   teamId: string;

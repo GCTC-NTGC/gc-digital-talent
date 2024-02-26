@@ -1,12 +1,12 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
-
 import {
-  GetMeQuery,
   Maybe,
   Pool,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
-} from "~/api/generated";
+  User,
+} from "@gc-digital-talent/graphql";
+
 import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
 export type SectionKey =
@@ -17,10 +17,8 @@ export type SectionKey =
   | "language"
   | "account";
 
-export type ApplicantProfileUser = NonNullable<GetMeQuery["me"]>;
-
 export interface SectionProps {
-  user: ApplicantProfileUser;
+  user: User;
   isUpdating?: boolean;
   application?: ApplicationPageProps["application"];
   onUpdate: (

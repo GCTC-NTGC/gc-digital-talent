@@ -7,7 +7,6 @@ import kebabCase from "lodash/kebabCase";
 import { Link } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   CreateTeamInput,
   CreateTeamMutation,
@@ -15,15 +14,16 @@ import {
   LocalizedStringInput,
   Maybe,
   Scalars,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "./CreateTeamFormFields";
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
-  contactEmail?: Maybe<Scalars["Email"]>;
-  departments?: Array<Scalars["UUID"]>;
+  contactEmail?: Maybe<Scalars["Email"]["output"]>;
+  departments?: Array<Scalars["UUID"]["output"]>;
 };
 
 const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {

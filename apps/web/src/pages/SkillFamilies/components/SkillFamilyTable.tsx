@@ -2,13 +2,14 @@ import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
+import { SkillFamily, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { SkillFamily, useAllSkillFamiliesQuery } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -112,15 +113,43 @@ export const SkillFamilyTable = ({
   );
 };
 
-const SkillFamilyTableApi = ({ title }: { title: string }) => {
-  const [result] = useAllSkillFamiliesQuery();
-  const { data, fetching, error } = result;
+const SkillFamilies_Query = graphql(/* GraphQL */ `
+  query SkillFamilies {
+    skillFamilies {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+  }
+`);
 
-  const skillFamilies = data?.skillFamilies.filter(notEmpty);
+const SkillFamilyTableApi = ({ title }: { title: string }) => {
+  const [{ data, fetching, error }] = useQuery({
+    query: SkillFamilies_Query,
+  });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillFamilyTable skillFamilies={skillFamilies || []} title={title} />
+      <SkillFamilyTable
+        skillFamilies={unpackMaybes(data?.skillFamilies)}
+        title={title}
+      />
     </Pending>
   );
 };

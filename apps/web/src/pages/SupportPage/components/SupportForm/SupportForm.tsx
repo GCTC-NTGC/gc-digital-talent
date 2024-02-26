@@ -4,15 +4,16 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
+import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { useGetMeQuery, User } from "~/api/generated";
 import {
   API_SUPPORT_ENDPOINT,
   TALENTSEARCH_SUPPORT_EMAIL,
@@ -285,6 +286,17 @@ const SupportForm = ({
   );
 };
 
+const SupportFormUser_Query = graphql(/* GraphQL */ `
+  query SupportFormUser {
+    me {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+`);
+
 const SupportFormApi = () => {
   const logger = useLogger();
   const handleCreateTicket = async (data: FormValues) => {
@@ -306,7 +318,9 @@ const SupportFormApi = () => {
     throw new Error(`${response.status} - ${response.statusText}`);
   };
 
-  const [{ data, fetching, error }] = useGetMeQuery();
+  const [{ data, fetching, error }] = useQuery({
+    query: SupportFormUser_Query,
+  });
   const [showSupportForm, setShowSupportForm] = React.useState(true);
 
   return (

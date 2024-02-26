@@ -7,8 +7,8 @@ import {
   getLanguageProficiency,
   commonMessages,
 } from "@gc-digital-talent/i18n";
+import { User, BilingualEvaluation } from "@gc-digital-talent/graphql";
 
-import { User, BilingualEvaluation } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,

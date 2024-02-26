@@ -321,3 +321,22 @@ export const getUserSkillLevelAndDefinition = (
     ),
   };
 };
+
+const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
+
+/**
+ * Sort skills by category
+ *
+ * Technical first, behavioural second
+ *
+ * @param skills Skill[]
+ * @returns Skill[]
+ */
+export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
+  return skills.sort((skillA, skillB) => {
+    return (
+      categoryOrder.indexOf(skillA.category) -
+      categoryOrder.indexOf(skillB.category)
+    );
+  });
+};

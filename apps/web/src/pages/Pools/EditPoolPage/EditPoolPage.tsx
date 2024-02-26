@@ -610,6 +610,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       stream
       processNumber
       publishingGroup
+      opportunityLength
       generalQuestions {
         id
         sortOrder
