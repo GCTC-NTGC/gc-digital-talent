@@ -2,8 +2,8 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { HeadingRank, Well } from "@gc-digital-talent/ui";
+import { Experience } from "@gc-digital-talent/graphql";
 
-import { Experience } from "~/api/generated";
 import AddExperienceDialog from "~/pages/Profile/CareerTimelineAndRecruitmentPage/components/AddExperienceDialog";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {

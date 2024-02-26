@@ -205,6 +205,16 @@ const commonMessages = defineMessages({
     id: "GLRLYT",
     description: "A decision has not been made",
   },
+  anyLanguage: {
+    defaultMessage: "Any language",
+    id: "sotCgD",
+    description: "Any language",
+  },
+  removed: {
+    defaultMessage: "Removed",
+    id: "tExKws",
+    description: "Removed",
+  },
 });
 
 export default commonMessages;

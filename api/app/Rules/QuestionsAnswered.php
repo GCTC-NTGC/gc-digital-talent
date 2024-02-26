@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Models\GeneralQuestion;
 use App\Models\PoolCandidate;
+use App\Models\ScreeningQuestion;
 use Closure;
 use Database\Helpers\ApiEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -27,17 +28,33 @@ class QuestionsAnswered implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $questions = GeneralQuestion::where('pool_id', $value)
+        $generalQuestions = GeneralQuestion::where('pool_id', $value)
             ->get()
             ->pluck('id');
 
-        if (count($questions)) {
+        if (count($generalQuestions)) {
             $responseCount = $this->application->generalQuestionResponses()
-                ->whereIn('general_question_id', $questions)
+                ->whereIn('general_question_id', $generalQuestions)
                 ->count();
 
-            if ($responseCount < count($questions)) {
+            if ($responseCount < count($generalQuestions)) {
                 $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
+            }
+        }
+
+        if (config('feature.record_of_decision')) {
+            $screeningQuestions = ScreeningQuestion::where('pool_id', $value)
+                ->get()
+                ->pluck('id');
+
+            if (count($screeningQuestions)) {
+                $responseCount = $this->application->screeningQuestionResponses()
+                    ->whereIn('screening_question_id', $screeningQuestions)
+                    ->count();
+
+                if ($responseCount < count($screeningQuestions)) {
+                    $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
+                }
             }
         }
     }

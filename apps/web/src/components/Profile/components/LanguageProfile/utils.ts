@@ -2,7 +2,10 @@ import { IntlShape } from "react-intl";
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
-import { BilingualEvaluation, EstimatedLanguageAbility } from "~/api/generated";
+import {
+  BilingualEvaluation,
+  EstimatedLanguageAbility,
+} from "@gc-digital-talent/graphql";
 
 import { FormValues, PartialUser } from "./types";
 

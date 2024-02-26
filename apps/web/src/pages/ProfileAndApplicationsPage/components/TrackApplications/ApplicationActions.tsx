@@ -4,8 +4,8 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import { PoolCandidate } from "~/api/generated";
 import {
   getShortPoolTitleHtml,
   getShortPoolTitleLabel,

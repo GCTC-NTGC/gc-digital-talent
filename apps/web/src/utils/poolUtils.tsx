@@ -30,6 +30,7 @@ import {
   Classification,
   Pool,
   PoolStream,
+  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -630,3 +631,11 @@ export const getClassificationSalaryRangeUrl = (
 
   return null;
 };
+
+export const sortedOpportunityLengths = [
+  PoolOpportunityLength.TermSixMonths,
+  PoolOpportunityLength.TermOneYear,
+  PoolOpportunityLength.TermTwoYears,
+  PoolOpportunityLength.Indeterminate,
+  PoolOpportunityLength.Various,
+];

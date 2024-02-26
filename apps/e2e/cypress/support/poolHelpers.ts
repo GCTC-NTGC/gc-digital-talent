@@ -1,4 +1,5 @@
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
 import {
   Classification,
   Skill,
@@ -52,6 +53,7 @@ export function createAndPublishPool({
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
+          opportunityLength: PoolOpportunityLength.Various,
         }).then((updatedPool) => {
           cy.publishPool(updatedPool.id).as(poolAlias);
         });

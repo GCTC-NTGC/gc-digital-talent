@@ -2,6 +2,7 @@ import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { PoolCandidateStatus, Maybe, PoolCandidate } from "~/api/generated";
 
@@ -110,12 +111,7 @@ const combinedStatusLabels = defineMessages<CombinedStatus>({
     description: "Expired status",
   }),
 
-  REMOVED: defineMessage({
-    defaultMessage: "Removed",
-    id: "vTyr7O",
-    description:
-      "Status for an application that has been removed from the recruitment",
-  }),
+  REMOVED: defineMessage(commonMessages.removed),
   HIRED_CASUAL: defineMessage({
     defaultMessage: "Hired (Casual)",
     id: "0YZeO0",

@@ -13,9 +13,9 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
-import { PoolCandidateStatus } from "~/api/generated";
 
 import TrackApplicationsCard, {
   TrackApplicationsCardProps,

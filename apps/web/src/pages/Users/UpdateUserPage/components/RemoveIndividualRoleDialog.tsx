@@ -10,8 +10,8 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Role, User } from "@gc-digital-talent/graphql";
 
-import { Role, User } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 import { UpdateUserRolesFunc } from "../types";

@@ -3,8 +3,8 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
-import { PoolCandidateStatus } from "~/api/generated";
 import { isExpired } from "~/utils/poolCandidate";
 
 import TrackApplicationsCard from "./TrackApplicationsCard";

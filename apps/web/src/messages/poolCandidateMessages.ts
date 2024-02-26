@@ -56,11 +56,6 @@ const messages = defineMessages({
     id: "/dy2CX",
     description: "Message displayed when candidate has been disqualified",
   },
-  removed: {
-    defaultMessage: "Removed",
-    id: "NNWQdp",
-    description: "Message displayed when candidate has been removed",
-  },
   notPlaced: {
     defaultMessage: "Not placed",
     id: "Qw+rrl",

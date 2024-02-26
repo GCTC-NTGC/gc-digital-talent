@@ -26,7 +26,6 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { enumToOptions } from "@gc-digital-talent/forms";
-
 import {
   GovEmployeeType,
   OperationalRequirement,
@@ -35,7 +34,8 @@ import {
   BilingualEvaluation,
   IndigenousCommunity,
   PoolCandidate,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";

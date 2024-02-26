@@ -12,8 +12,8 @@ import {
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Experience, Scalars } from "@gc-digital-talent/graphql";
 
-import { Experience, Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
   getExperienceName,
@@ -23,7 +23,7 @@ import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 const TEXT_AREA_MAX_WORDS = 160;
 
 const getSkillArgs = (
-  skillId: Scalars["ID"],
+  skillId: Scalars["ID"]["output"],
   experience?: Experience,
   details?: string,
   remove?: boolean,
@@ -46,8 +46,8 @@ const getSkillArgs = (
 type FormAction = "connect" | "remove";
 
 type FormValues = {
-  experience?: Scalars["ID"];
-  skill?: Scalars["ID"];
+  experience?: Scalars["ID"]["output"];
+  skill?: Scalars["ID"]["output"];
   details?: string;
   action?: FormAction;
 };

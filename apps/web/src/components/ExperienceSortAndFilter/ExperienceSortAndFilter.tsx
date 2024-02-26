@@ -4,15 +4,15 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
-
-import experienceMessages from "~/messages/experienceMessages";
 import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
   WorkExperience,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import experienceMessages from "~/messages/experienceMessages";
 
 type SortOptions = "date_desc" | "title_asc";
 type FilterOptions =

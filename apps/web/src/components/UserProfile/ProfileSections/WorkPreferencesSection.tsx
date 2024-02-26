@@ -7,12 +7,12 @@ import {
   commonMessages,
   getOperationalRequirement,
 } from "@gc-digital-talent/i18n";
-
 import {
   User,
   OperationalRequirement,
   PositionDuration,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,

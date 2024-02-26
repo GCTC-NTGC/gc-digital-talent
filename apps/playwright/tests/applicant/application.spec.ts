@@ -4,6 +4,7 @@ import {
   CitizenshipStatus,
   Pool,
   PoolLanguage,
+  PoolOpportunityLength,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
@@ -94,6 +95,7 @@ test.describe("Application", () => {
       },
       isRemote: true,
       publishingGroup: PublishingGroup.ItJobs,
+      opportunityLength: PoolOpportunityLength.Various,
       generalQuestions: {
         create: [
           {

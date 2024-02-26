@@ -7,6 +7,7 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -64,12 +65,14 @@ const ApplicationCareerTimelineAdd = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
 
   return (
