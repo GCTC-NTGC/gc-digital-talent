@@ -132,6 +132,21 @@ const AuthenticationContainer = ({
     }
   }
 
+  // Logout if the access token is removed in another way other than
+  // the user logging out manually
+  useEffect(() => {
+    const logoutOnAccessTokenRemoved = (event: StorageEvent) => {
+      if (event.key === ACCESS_TOKEN && event.newValue === null) {
+        window.location.href = logoutRedirectUri;
+      }
+    };
+
+    window.addEventListener("storage", logoutOnAccessTokenRemoved);
+
+    return () =>
+      window.removeEventListener("storage", logoutOnAccessTokenRemoved);
+  });
+
   // We have saved it in local storage , then clear query parameters.
   useEffect(() => {
     if (newTokens?.accessToken) {
