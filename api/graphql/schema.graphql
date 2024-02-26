@@ -192,8 +192,16 @@ type Pool {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
   status: PoolStatus @rename(attribute: "status")
-  essentialSkills: [Skill!] @belongsToMany
-  nonessentialSkills: [Skill!] @belongsToMany
+  essentialSkills: [Skill!]
+    @belongsToMany
+    @deprecated(
+      reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL"
+    )
+  nonessentialSkills: [Skill!]
+    @belongsToMany
+    @deprecated(
+      reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL"
+    )
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")

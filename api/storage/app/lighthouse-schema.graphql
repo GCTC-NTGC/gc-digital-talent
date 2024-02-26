@@ -312,8 +312,8 @@ type Pool {
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!]
-  nonessentialSkills: [Skill!]
+  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
+  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
