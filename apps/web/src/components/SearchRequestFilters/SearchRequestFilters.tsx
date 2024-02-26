@@ -142,11 +142,7 @@ const ApplicantFilters = ({
     );
   const languageAbility: string = applicantFilter?.languageAbility
     ? intl.formatMessage(getLanguageAbility(applicantFilter?.languageAbility))
-    : intl.formatMessage({
-        defaultMessage: "Any language",
-        id: "/jDW4V",
-        description: "Label for the any language option",
-      });
+    : intl.formatMessage(commonMessages.anyLanguage);
 
   const workLocationIds: string[] =
     (applicantFilter?.locationPreferences as string[]) ?? [];
@@ -401,11 +397,7 @@ const SearchRequestFilters = ({
     ? intl.formatMessage(
         getLanguageAbility(poolCandidateFilter?.languageAbility),
       )
-    : intl.formatMessage({
-        defaultMessage: "Any language",
-        id: "/jDW4V",
-        description: "Label for the any language option",
-      });
+    : intl.formatMessage(commonMessages.anyLanguage);
 
   return (
     <section data-h2-radius="base(s)">

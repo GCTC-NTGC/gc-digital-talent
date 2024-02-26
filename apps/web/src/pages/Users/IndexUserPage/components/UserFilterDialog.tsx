@@ -5,6 +5,7 @@ import { OperationContext, useQuery } from "urql";
 import {
   EmploymentDuration,
   OperationalRequirementV2,
+  commonMessages,
   getEmploymentDuration,
   getLanguageAbility,
   getLocalizedName,
@@ -141,11 +142,7 @@ const UserFilterDialog = ({
             id="languageAbility"
             name="languageAbility"
             enableNull
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Any language",
-              id: "qp68Mh",
-              description: "Option label for allowing any language",
-            })}
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
             label={intl.formatMessage({
               defaultMessage: "Languages",
               id: "iUAe/2",

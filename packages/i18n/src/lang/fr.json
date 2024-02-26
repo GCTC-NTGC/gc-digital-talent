@@ -1783,6 +1783,10 @@
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
   },
+  "sotCgD": {
+    "defaultMessage": "N'importe quelle langue",
+    "description": "Any language"
+  },
   "spP+Tz": {
     "defaultMessage": "Nunavut",
     "description": "Nunavut selection for province or territory input"
