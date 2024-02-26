@@ -1751,6 +1751,10 @@
     "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
     "description": "Telling users to email support team with any questions about errors"
   },
+  "sbmUVq": {
+    "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
+    "description": "Prompt text for a user selecting an employment equity group for their profile"
+  },
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
     "description": "Prefix when a step has an error."
