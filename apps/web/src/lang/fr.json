@@ -4807,6 +4807,10 @@
     "defaultMessage": "15 millions de dollars à 25 millions de dollars",
     "description": "Contract value range between fifteen-million and twenty-five-million"
   },
+  "PD7anu": {
+    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "description": "Title for the HR advisor email block in the manager info section of the single search request view."
+  },
   "PDbqFR": {
     "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
@@ -10465,10 +10469,6 @@
   "uWfG0e": {
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
-  },
-  "ufyoqJ": {
-    "defaultMessage": "Courriel du conseiller/ère en RH",
-    "description": "Title for the HR advisor email block in the manager info section of the single search request view."
   },
   "uiuMqi": {
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle compétence\" pour commencer.",
