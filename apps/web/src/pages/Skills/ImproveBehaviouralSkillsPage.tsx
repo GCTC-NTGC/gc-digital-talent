@@ -6,7 +6,6 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
@@ -21,6 +20,10 @@ import {
 } from "./operations";
 
 const MAX_SKILL_COUNT = 3;
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+};
 
 interface ImproveBehaviouralSkillsProps {
   skills: Skill[];
@@ -37,7 +40,9 @@ const ImproveBehaviouralSkills = ({
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
   const { userAuthInfo } = useAuthorization();
-  const [, executeMutation] = useMutation(UpdateUserSkillRankings_Mutation);
+  const [, executeUpdateUserSkillRankingsMutation] = useMutation(
+    UpdateUserSkillRankings_Mutation,
+  );
 
   const pageId = "improve-behavioural-skills";
 
@@ -98,7 +103,7 @@ const ImproveBehaviouralSkills = ({
     formValues: FormValues,
   ): Promise<void> =>
     new Promise((resolve, reject) => {
-      executeMutation({
+      executeUpdateUserSkillRankingsMutation({
         userId: userAuthInfo?.id,
         userSkillRanking: {
           improveBehaviouralSkillsRanked: [
@@ -116,36 +121,24 @@ const ImproveBehaviouralSkills = ({
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
     newSkillId: string,
-  ) => {
+  ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    executeMutation({
-      userId: userAuthInfo?.id,
-      userSkillRanking: {
-        improveBehaviouralSkillsRanked: mergedSkillIds,
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated improve behavioural skills",
-              id: "B6SS7l",
-              description:
-                "Success message displayed after updating improve behavioural skills",
-            }),
-          );
+    return new Promise((resolve, reject) => {
+      executeUpdateUserSkillRankingsMutation(
+        {
+          userId: userAuthInfo?.id,
+          userSkillRanking: {
+            improveBehaviouralSkillsRanked: mergedSkillIds,
+          },
+        },
+        context,
+      ).then((res) => {
+        if (res.data?.updateUserSkillRankings) {
+          resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating improve behavioural skills failed",
-            id: "O53DAg",
-            description:
-              "Message displayed to user after improve behavioural skills fails to update",
-          }),
-        );
+        reject();
       });
+    });
   };
 
   return (
@@ -161,10 +154,6 @@ const ImproveBehaviouralSkills = ({
       maxItems={MAX_SKILL_COUNT}
     />
   );
-};
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
 const ImproveBehaviouralSkillsPage = () => {

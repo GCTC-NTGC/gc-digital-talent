@@ -14,18 +14,20 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { ItemWithId } from "@gc-digital-talent/ui/src/components/CardRepeater/types";
 
 import { Skill, UserSkill, Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 
 import SkillShowcaseCard from "./SkillShowcaseCard";
 import {
   CreateUserSkill_Mutation,
   UpdateUserSkill_Mutation,
 } from "../operations";
+import SkillBrowserDialogInRepeater from "./SkillBrowserDialogInRepater";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -49,6 +51,10 @@ interface UpdateSkillShowcaseProps {
   onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
 }
 
+// To help the URQL cache work
+// Keep the reference stable.
+const context = { additionalTypenames: ["UserSkill"] };
+
 const UpdateSkillShowcase = ({
   userId,
   allSkills,
@@ -67,19 +73,20 @@ const UpdateSkillShowcase = ({
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
 
-  const initialUserSkills = initialData.userSkills
-    .filter((userSkillWithId) => !!userSkillWithId.skill)
-    .map((userSkill) => ({
-      id: userSkill.skill ?? "", // we just filtered out nullish, so this is just to make TS happy
-      ...userSkill,
-    }));
+  // an optimistically updated list of user skills
+  const [userSkills, setUserSkills] = React.useState<
+    SkillBrowserDialogFormValues[]
+  >(initialData.userSkills);
 
-  const [userSkills, setUserSkills] =
-    React.useState<SkillBrowserDialogFormValues[]>(initialUserSkills);
+  // sync the displayed user skills back to what's coming from the API
+  const resetUserSkills = React.useCallback(() => {
+    setUserSkills(initialData.userSkills);
+  }, [initialData.userSkills]);
 
-  const resetUserSkills = () => {
-    setUserSkills(initialUserSkills);
-  };
+  // sync back to the API data if the incoming user skills from the parent change
+  useDeepCompareEffect(() => {
+    setUserSkills(initialData.userSkills);
+  }, [initialData.userSkills]);
 
   const existingSkillsRanking = initialData.userSkills.map(
     (userSkill) => userSkill.skill,
@@ -98,6 +105,7 @@ const UpdateSkillShowcase = ({
   };
 
   const handleError = (msg?: React.ReactNode) => {
+    resetUserSkills();
     toast.error(
       msg ||
         intl.formatMessage({
@@ -109,24 +117,28 @@ const UpdateSkillShowcase = ({
     );
   };
 
-  const handleSave = async (values: SkillBrowserDialogFormValues) => {
+  const handleAdd = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
     const userHasSkill =
       allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
         .length > 0 ||
-      initialUserSkills.filter((userSkill) => userSkill.skill === values.skill)
-        .length > 0;
+      initialData.userSkills.filter(
+        (userSkill) => userSkill.skill === values.skill,
+      ).length > 0;
 
     if (userHasSkill) {
-      executeUpdateMutation({
-        id: allUserSkills.find(
-          (userSkill) => userSkill.skill.id === values.skill,
-        )?.id,
-        userSkill: {
-          skillLevel: values.skillLevel,
-          whenSkillUsed: values.whenSkillUsed,
+      executeUpdateMutation(
+        {
+          id: allUserSkills.find(
+            (userSkill) => userSkill.skill.id === values.skill,
+          )?.id,
+          userSkill: {
+            skillLevel: values.skillLevel,
+            whenSkillUsed: values.whenSkillUsed,
+          },
         },
-      })
+        context,
+      )
         .then((res) => {
           handleSuccess();
           if (res.data?.updateUserSkill?.skill.id) {
@@ -139,32 +151,38 @@ const UpdateSkillShowcase = ({
         })
         .catch(() => handleError());
     } else {
-      executeCreateMutation({
-        userId,
-        skillId,
-        userSkill: {
-          skillLevel: values.skillLevel,
-          whenSkillUsed: values.whenSkillUsed,
+      executeCreateMutation(
+        {
+          userId,
+          skillId,
+          userSkill: {
+            skillLevel: values.skillLevel,
+            whenSkillUsed: values.whenSkillUsed,
+          },
         },
-      })
+        context,
+      )
         .then((res) => {
-          handleSuccess();
           if (res.data?.createUserSkill?.skill.id) {
+            handleSuccess();
             onAddition(
               existingSkillsRankingFiltered,
               res.data.createUserSkill.skill.id,
             );
+          } else {
+            handleError();
           }
         })
         .catch(() => handleError());
     }
   };
 
-  const canAdd = initialUserSkills.length < pageInfo.maxSkillCount;
+  const canAdd = userSkills.length < pageInfo.maxSkillCount;
 
   const triggerProps = canAdd
     ? {
         id: addId,
+        block: true,
         mode: "placeholder" as ButtonLinkMode,
         label: intl.formatMessage(
           {
@@ -174,13 +192,14 @@ const UpdateSkillShowcase = ({
               "Label for skill dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: initialUserSkills.length,
+            numOfSkills: userSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
       }
     : {
         mode: "placeholder" as ButtonLinkMode,
+        block: true,
         label: intl.formatMessage(
           {
             defaultMessage:
@@ -190,7 +209,7 @@ const UpdateSkillShowcase = ({
               "Label for disabled dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: initialUserSkills.length,
+            numOfSkills: userSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
@@ -248,10 +267,13 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    items={initialUserSkills}
+                    items={userSkills.map((us) => ({
+                      id: us.skill ?? "unknown",
+                      ...us,
+                    }))}
                     max={maxItems}
                     add={
-                      <SkillBrowserDialog
+                      <SkillBrowserDialogInRepeater
                         inLibrary={allUserSkills
                           .map((userSkill) => userSkill.skill)
                           .filter(
@@ -259,14 +281,10 @@ const UpdateSkillShowcase = ({
                               !existingSkillsRankingFiltered.includes(skill.id),
                           )}
                         trigger={triggerProps}
-                        context="showcase"
                         skills={allSkills.filter(
                           (skill) =>
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
-                        onSave={handleSave}
-                        showCategory={false}
-                        noToast
                       />
                     }
                     onUpdate={(items) => {

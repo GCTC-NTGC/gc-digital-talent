@@ -6,7 +6,6 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
@@ -116,36 +115,21 @@ const TopBehaviouralSkills = ({
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
     newSkillId: string,
-  ) => {
+  ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    executeMutation({
-      userId: userAuthInfo?.id,
-      userSkillRanking: {
-        topBehaviouralSkillsRanked: mergedSkillIds,
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated top behavioural skills",
-              id: "GfjNqa",
-              description:
-                "Success message displayed after updating top behavioural skills",
-            }),
-          );
+    return new Promise((resolve, reject) => {
+      executeMutation({
+        userId: userAuthInfo?.id,
+        userSkillRanking: {
+          topBehaviouralSkillsRanked: mergedSkillIds,
+        },
+      }).then((res) => {
+        if (res.data?.updateUserSkillRankings) {
+          resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating top behavioural skills failed",
-            id: "+dmNpa",
-            description:
-              "Message displayed to user after top behavioural skills fails to update",
-          }),
-        );
+        reject();
       });
+    });
   };
 
   return (

@@ -17,7 +17,7 @@ import {
 } from "./utils";
 import { SkillBrowserDialogContext, FormValues } from "./types";
 
-interface SkillBrowserDialogProps {
+export interface SkillBrowserDialogProps {
   // All available skills
   skills: Skill[];
   // The context in which the dialog is being used

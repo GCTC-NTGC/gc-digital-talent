@@ -6,7 +6,6 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
@@ -120,36 +119,21 @@ const TopTechnicalSkills = ({
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
     newSkillId: string,
-  ) => {
+  ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    executeMutation({
-      userId: userAuthInfo?.id,
-      userSkillRanking: {
-        topTechnicalSkillsRanked: mergedSkillIds,
-      },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated top technical skills",
-              id: "iqmE+5",
-              description:
-                "Success message displayed after updating top technical skills",
-            }),
-          );
+    return new Promise((resolve, reject) => {
+      executeMutation({
+        userId: userAuthInfo?.id,
+        userSkillRanking: {
+          topTechnicalSkillsRanked: mergedSkillIds,
+        },
+      }).then((res) => {
+        if (res.data?.updateUserSkillRankings) {
+          resolve();
         }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating top technical skills failed",
-            id: "D1+SmE",
-            description:
-              "Message displayed to user after top technical skills fails to update",
-          }),
-        );
+        reject();
       });
+    });
   };
 
   return (
