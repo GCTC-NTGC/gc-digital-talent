@@ -43,9 +43,9 @@ export const test = base.extend<AppFixtures>({
     await context.close();
   },
 
-  makeAxeBuilder: async ({ page }, use, testInfo) => {
+  makeAxeBuilder: async ({ appPage }, use) => {
     const makeAxeBuilder = () =>
-      new AxeBuilder({ page }).withTags([
+      new AxeBuilder({ page: appPage.page }).withTags([
         "wcag21a",
         "wcag21a",
         "wcag2a",
