@@ -275,9 +275,9 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    items={userSkills.map((us) => ({
-                      id: us.skill ?? "unknown",
-                      ...us,
+                    items={userSkills.map((userSkill) => ({
+                      id: userSkill.skill ?? "unknown",
+                      ...userSkill,
                     }))}
                     max={maxItems}
                     add={
