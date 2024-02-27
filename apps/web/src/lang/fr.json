@@ -3099,6 +3099,10 @@
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
   },
+  "F6L/Rv": {
+    "defaultMessage": "Modifier {skillName}",
+    "description": "Edit a skill"
+  },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
     "description": "Description of the application process and the next step"
@@ -3746,10 +3750,6 @@
   "ImwOeT": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} =1 {1 expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
-  },
-  "InH7pD": {
-    "defaultMessage": "Supprimer la compétence<hidden>, {skillName}</hidden>",
-    "description": "Button text to remove a skill from a process"
   },
   "Iodi0/": {
     "defaultMessage": "Nos concepteurs prêtent une attention particulière aux éléments suivants : ",
@@ -7726,6 +7726,10 @@
     "defaultMessage": "Instruction",
     "description": "Heading for the Instructions section on the digital services contracting questionnaire"
   },
+  "eqX3mk": {
+    "defaultMessage": "Retirer {skillName}",
+    "description": "Remove a skill"
+  },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
@@ -10969,10 +10973,6 @@
   "yBXGo6": {
     "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 5 compétences comportementales ou relationnelles</strong> dans lesquelles ils excellent le plus.",
     "description": "Description of a users top behavioural skills"
-  },
-  "yBZaZy": {
-    "defaultMessage": "Supprimer",
-    "description": "Header for the remove column on a skill table"
   },
   "yBlzbT": {
     "defaultMessage": "Présenter sa candidature pour les opportunités gestionnaires et conseillers<hidden> {name}</hidden>",
