@@ -16,8 +16,8 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
-import { SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";

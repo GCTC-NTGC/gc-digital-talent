@@ -4,15 +4,15 @@ import IdentificationOutlineIcon from "@heroicons/react/24/outline/Identificatio
 import IdentificationSolidIcon from "@heroicons/react/24/solid/IdentificationIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
+import {
+  CandidateExpiryFilter,
+  CandidateSuspendedFilter,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import {
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-} from "~/api/generated";
 import AdminHero from "~/components/Hero/AdminHero";
 
 export const pageTitle: MessageDescriptor = defineMessage({

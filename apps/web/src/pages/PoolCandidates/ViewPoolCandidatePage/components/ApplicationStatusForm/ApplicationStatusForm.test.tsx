@@ -7,8 +7,7 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-
-import { PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import {
   ApplicationStatusForm,

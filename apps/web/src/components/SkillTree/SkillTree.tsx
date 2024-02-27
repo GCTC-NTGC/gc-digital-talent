@@ -11,8 +11,8 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { Experience, Skill } from "@gc-digital-talent/graphql";
 
-import { Experience, Skill } from "~/api/generated";
 import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";

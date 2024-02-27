@@ -13,10 +13,10 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import { Pool } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";

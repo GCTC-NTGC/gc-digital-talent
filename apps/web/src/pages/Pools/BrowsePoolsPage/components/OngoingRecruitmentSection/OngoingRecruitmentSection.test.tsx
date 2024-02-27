@@ -8,8 +8,12 @@ import { fromValue } from "wonka";
 import { screen, fireEvent } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-
-import { PoolStatus, Pool, PoolStream, PublishingGroup } from "~/api/generated";
+import {
+  PoolStatus,
+  Pool,
+  PoolStream,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
