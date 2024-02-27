@@ -2,10 +2,8 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
+import { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-
-import { Maybe } from "~/api/generated";
 
 import Actions, { ActionsProps } from "./Actions";
 import CommaList, { CommaListProps } from "./CommaList";

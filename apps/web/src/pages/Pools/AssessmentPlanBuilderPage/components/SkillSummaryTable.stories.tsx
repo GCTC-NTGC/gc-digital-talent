@@ -6,14 +6,13 @@ import {
   fakeSkillFamilies,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-
 import {
   AssessmentStep,
   AssessmentStepType,
   PoolSkill,
   PoolSkillType,
   SkillCategory,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import SkillSummaryTable from "./SkillSummaryTable";
 

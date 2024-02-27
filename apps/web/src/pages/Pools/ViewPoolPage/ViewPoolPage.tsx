@@ -13,9 +13,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-import { graphql, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import { graphql, Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -45,7 +44,7 @@ export interface ViewPoolProps {
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
   onArchive: () => Promise<void>;
   onDuplicate: () => Promise<void>;
   onUnarchive: () => Promise<void>;
@@ -401,7 +400,7 @@ export const ViewPool = ({
 };
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `

@@ -12,16 +12,16 @@ import {
   getPoolStream,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
   Classification,
   Maybe,
   Pool,
   PoolCandidateFilter,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
 

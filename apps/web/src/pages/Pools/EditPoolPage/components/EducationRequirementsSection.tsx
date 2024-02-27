@@ -4,8 +4,8 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
-import { PublishingGroup } from "~/api/generated";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { getClassificationGroup } from "~/utils/poolUtils";
 import { isInNullState } from "~/validators/process/classification";

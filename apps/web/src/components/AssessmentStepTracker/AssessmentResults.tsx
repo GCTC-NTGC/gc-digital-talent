@@ -2,9 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link } from "@gc-digital-talent/ui";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  Scalars,
+  ArmedForcesStatus,
+  AssessmentStepType,
+} from "@gc-digital-talent/graphql";
 
-import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";

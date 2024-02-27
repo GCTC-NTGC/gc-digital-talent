@@ -6,13 +6,13 @@ import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-
 import {
   PoolStatus,
   LocalizedString,
   Pool,
   UpdatePoolInput,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,

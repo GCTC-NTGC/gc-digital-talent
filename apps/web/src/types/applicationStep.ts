@@ -6,7 +6,8 @@ import {
   PoolCandidate,
   Scalars,
   User,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphqld";
+
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
@@ -14,7 +15,7 @@ import { PageNavInfo } from "./pages";
 type GetApplicationStepInfoArgs = {
   application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"];
+  resourceId?: Scalars["ID"]["output"];
   intl: IntlShape;
   stepOrdinal?: number;
   RoDFlag: boolean;

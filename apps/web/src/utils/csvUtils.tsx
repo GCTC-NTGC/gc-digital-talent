@@ -15,7 +15,6 @@ import {
   notEmpty,
   uniqueItems,
 } from "@gc-digital-talent/helpers";
-
 import {
   User,
   GovEmployeeType,
@@ -24,7 +23,8 @@ import {
   Maybe,
   Experience,
   GeneralQuestionResponse,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphqld";
+
 import {
   isAwardExperience,
   isCommunityExperience,

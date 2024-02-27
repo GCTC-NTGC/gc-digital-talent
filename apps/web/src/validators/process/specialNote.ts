@@ -1,4 +1,4 @@
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 export function hasAllEmptyFields({ specialNote }: Pool): boolean {
   return !!(!specialNote?.en && !specialNote?.fr);

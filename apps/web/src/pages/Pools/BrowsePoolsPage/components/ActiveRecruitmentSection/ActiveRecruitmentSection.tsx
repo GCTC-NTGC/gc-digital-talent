@@ -3,8 +3,8 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { Pool } from "@gc-digital-talent/graphql";
 
-import { Pool } from "~/api/generated";
 import PoolCard from "~/components/PoolCard/PoolCard";
 
 export interface ActiveRecruitmentSectionProps {

@@ -8,8 +8,8 @@ import {
   getLocalizedName,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
+import { Scalars, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
-import { Scalars, SkillCategory, UserSkill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {

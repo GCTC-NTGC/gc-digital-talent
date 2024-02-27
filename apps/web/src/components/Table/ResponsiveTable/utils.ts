@@ -6,7 +6,11 @@ import {
   SortingState,
 } from "@tanstack/react-table";
 
-import { InputMaybe, OrderByClause, SortOrder } from "~/api/generated";
+import {
+  InputMaybe,
+  OrderByClause,
+  SortOrder,
+} from "@gc-digital-talent/graphql";
 
 import { SearchState } from "./types";
 

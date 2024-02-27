@@ -1,4 +1,4 @@
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphqld";
 
 export function hasAllEmptyFields({
   language,

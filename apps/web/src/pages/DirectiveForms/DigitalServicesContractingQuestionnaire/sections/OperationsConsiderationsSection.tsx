@@ -5,8 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { Checklist, Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-
-import { OperationsConsideration, YesNo } from "~/api/generated";
+import { OperationsConsideration, YesNo } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";

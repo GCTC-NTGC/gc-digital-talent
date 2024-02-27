@@ -4,7 +4,7 @@ import {
   SkillCategory,
   SkillLevel,
   WhenSkillUsed,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 export type SkillBrowserDialogContext =
   | "pool"

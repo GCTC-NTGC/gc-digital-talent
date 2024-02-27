@@ -11,8 +11,12 @@ import {
   Well,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
+import {
+  AssessmentStep,
+  AssessmentStepType,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
-import { AssessmentStep, AssessmentStepType, Pool } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
 
 import { assessmentStepDisplayName } from "../utils";

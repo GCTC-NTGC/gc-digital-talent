@@ -13,8 +13,7 @@ import {
   convertDateTimeZone,
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
-
-import { Pool, Scalars } from "~/api/generated";
+import { Pool, Scalars } from "@gc-digital-talent/graphql";
 
 type FormValues = {
   expiryEndDate?: Pool["closingDate"];

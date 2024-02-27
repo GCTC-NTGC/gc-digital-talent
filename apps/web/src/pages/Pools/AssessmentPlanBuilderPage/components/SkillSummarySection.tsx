@@ -3,8 +3,7 @@ import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "../navigation";
 import SkillSummaryTable from "./SkillSummaryTable";
