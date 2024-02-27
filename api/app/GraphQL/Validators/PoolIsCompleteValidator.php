@@ -80,7 +80,6 @@ final class PoolIsCompleteValidator extends Validator
             'advertisement_location.*.required_with' => 'You must enter both french and english fields for the advertisement_location',
             'in' => ':attribute does not contain a valid value.',
             'essential_skills.required' => 'EssentialSkillRequired',
-            'essential_skills.required' => 'EssentialSkillRequired',
             'essential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::ESSENTIAL_SKILLS_CONTAINS_DELETED,
             'nonessential_skills.*.id.'.SkillNotDeleted::class => ApiErrorEnums::NONESSENTIAL_SKILLS_CONTAINS_DELETED,
             'key_tasks.en.required' => 'EnglishWorkTasksRequired',
