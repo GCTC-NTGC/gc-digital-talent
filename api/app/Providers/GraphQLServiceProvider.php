@@ -59,7 +59,6 @@ use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
-use App\Enums\SalaryRange;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
@@ -282,15 +281,6 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'OperationalRequirement',
                     'values' => array_column(OperationalRequirement::cases(), 'name'),
-                ]);
-            }
-        );
-        $typeRegistry->registerLazy(
-            'SalaryRange',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'SalaryRange',
-                    'values' => array_column(SalaryRange::cases(), 'name'),
                 ]);
             }
         );
