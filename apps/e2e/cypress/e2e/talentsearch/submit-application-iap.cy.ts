@@ -2,6 +2,7 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   PoolLanguage,
+  PoolOpportunityLength,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
@@ -10,12 +11,11 @@ import {
   WorkRegion,
   SkillCategory,
   User,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasQuery } from "../../support/graphql-test-utils";
-import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
