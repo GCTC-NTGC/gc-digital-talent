@@ -99,7 +99,12 @@ const combinedStatusLabels = defineMessages<CombinedStatus>({
     description:
       "Status for an application that where the recruitment has expired",
   }),
-  SCREENED_OUT: defineMessage(commonMessages.screenedOut),
+  SCREENED_OUT: defineMessage({
+    defaultMessage: "Screened out",
+    id: "njJCTd",
+    description:
+      "Status for an application that has been screened out of eligibility",
+  }),
   EXPIRED: defineMessage({
     defaultMessage: "Expired",
     id: "GIC6EK",

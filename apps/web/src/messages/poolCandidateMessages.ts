@@ -80,6 +80,12 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate has not passed an assessment step",
   },
+  screenedOut: {
+    defaultMessage: "Screened out",
+    id: "3xCX4b",
+    description:
+      "Message displayed when candidate has been screened out at a specific assessment step",
+  },
   onHold: {
     defaultMessage: "On hold",
     id: "qA8+f5",

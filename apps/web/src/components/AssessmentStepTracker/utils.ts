@@ -14,7 +14,6 @@ import {
   AssessmentStep,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -68,7 +67,7 @@ export const getDecisionInfo = (
         "data-h2-color": "base(error)",
       },
       name: isApplicationStep
-        ? intl.formatMessage(commonMessages.screenedOut)
+        ? intl.formatMessage(poolCandidateMessages.screenedOut)
         : intl.formatMessage(poolCandidateMessages.unsuccessful),
     };
   }
