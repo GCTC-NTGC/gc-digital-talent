@@ -4,8 +4,7 @@ import { useIntl } from "react-intl";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-
-import { YesNo } from "~/api/generated";
+import { YesNo } from "@gc-digital-talent/graphql";
 
 import { enumToOptions } from "../../util";
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";

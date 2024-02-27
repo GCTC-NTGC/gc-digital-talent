@@ -7,10 +7,8 @@ import {
   getPoolStream,
   getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
-import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
-import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
-
 import {
+  PoolOpportunityLength,
   Classification,
   LocalizedString,
   Maybe,
@@ -19,12 +17,14 @@ import {
   PublishingGroup,
   Scalars,
   UpdatePoolInput,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
+
 import { sortedOpportunityLengths } from "~/utils/poolUtils";
 
 const firstId = (
   collection: Maybe<Maybe<Classification>[]> | undefined,
-): Scalars["ID"] | undefined => {
+): Scalars["ID"]["output"] | undefined => {
   if (!collection) return undefined;
 
   if (collection.length < 1) return undefined;

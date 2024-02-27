@@ -28,10 +28,10 @@ import {
   Maybe,
   PoolSkill,
   ScreeningQuestion,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
 
-import { Scalars } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
 
 import labels from "./AssessmentDetailsDialogLabels";
@@ -86,22 +86,22 @@ type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
 type FormValues = {
-  id?: Maybe<Scalars["ID"]>;
-  poolId?: Maybe<Scalars["ID"]>;
+  id?: Maybe<Scalars["ID"]["output"]>;
+  poolId?: Maybe<Scalars["ID"]["output"]>;
   typeOfAssessment?: Maybe<AssessmentStepType>;
   assessmentTitleEn?: Maybe<string>;
   assessmentTitleFr?: Maybe<string>;
   screeningQuestionFieldArray?: Array<{
     id: string | null;
     screeningQuestion: {
-      id?: Maybe<Scalars["ID"]>;
+      id?: Maybe<Scalars["ID"]["output"]>;
       sortOrder?: Maybe<number>;
       en?: Maybe<string>;
       fr?: Maybe<string>;
     };
   }>;
-  assessedSkills?: Maybe<Array<Scalars["ID"]>>;
-  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]>>;
+  assessedSkills?: Maybe<Array<Scalars["ID"]["output"]>>;
+  assessedSkillsScreeningQuestions?: Maybe<Array<Scalars["ID"]["output"]>>;
 };
 
 type InitialValues = Omit<

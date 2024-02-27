@@ -1,4 +1,7 @@
-import { PoolCandidateSearchStatus, PoolStream } from "~/api/generated";
+import {
+  PoolCandidateSearchStatus,
+  PoolStream,
+} from "@gc-digital-talent/graphql";
 
 export function stringToEnumRequestStatus(
   selection: string,

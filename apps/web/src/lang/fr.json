@@ -1075,10 +1075,6 @@
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
   },
-  "3xCX4b": {
-    "defaultMessage": "Rejeté(e)",
-    "description": "Message displayed when candidate has been screened out at a specific assessment step"
-  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -3331,10 +3327,6 @@
     "defaultMessage": "Fournir quelques détails",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "GGPWwr": {
-    "defaultMessage": "Décision sur l’évaluation finale",
-    "description": "Final assessment decision input"
-  },
   "GHlK/f": {
     "defaultMessage": "Handicap",
     "description": "Message for disability option in the employment equity section of the request page."
@@ -4831,6 +4823,10 @@
     "defaultMessage": "15 millions de dollars à 25 millions de dollars",
     "description": "Contract value range between fifteen-million and twenty-five-million"
   },
+  "PD7anu": {
+    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "description": "Title for the HR advisor email block in the manager info section of the single search request view."
+  },
   "PDbqFR": {
     "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
@@ -6053,6 +6049,10 @@
   "VplMpm": {
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
+  },
+  "VrLfLw": {
+    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "description": "Input label asking for the HR advisor's email address."
   },
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
@@ -9398,10 +9398,6 @@
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
   },
-  "njJCTd": {
-    "defaultMessage": "Éliminé à la présélection",
-    "description": "Status for an application that has been screened out of eligibility"
-  },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
@@ -9885,10 +9881,6 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
-  },
-  "qqkQ/h": {
-    "defaultMessage": "Décision finale relative à l’évaluation",
-    "description": "Final assessment decision dialog header"
   },
   "qs/dFw": {
     "defaultMessage": "Exigences de fonctionnement acceptées",

@@ -5,11 +5,10 @@ import { useQuery } from "urql";
 
 import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, Pool } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
-import { Pool } from "~/api/generated";
 import {
   getAdvertisementStatus,
   getPoolCompletenessBadge,

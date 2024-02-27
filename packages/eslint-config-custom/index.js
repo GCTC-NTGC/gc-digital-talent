@@ -33,7 +33,6 @@ module.exports = {
     "index.js",
     ".eslintrc",
     ".eslintrc.js",
-    "generated.ts",
     "webpack.*.js",
     "tsconfig.json",
     "CssStub.js",

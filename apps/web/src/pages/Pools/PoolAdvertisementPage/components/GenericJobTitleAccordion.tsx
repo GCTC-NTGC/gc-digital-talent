@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-
-import { GenericJobTitle } from "~/api/generated";
+import { GenericJobTitle } from "@gc-digital-talent/graphql";
 
 import ClassificationDefinition from "./ClassificationDefinition";
 

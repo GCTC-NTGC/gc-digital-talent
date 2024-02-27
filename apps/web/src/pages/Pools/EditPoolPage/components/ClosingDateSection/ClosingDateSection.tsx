@@ -12,9 +12,9 @@ import {
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { PoolStatus, Pool, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
-import { PoolStatus, Pool, UpdatePoolInput } from "~/api/generated";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { hasEmptyRequiredFields } from "~/validators/process/closingDate";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";

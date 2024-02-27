@@ -6,13 +6,13 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-
 import {
   PoolCandidate,
   Department,
   Maybe,
   PoolCandidateStatus,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { poolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";

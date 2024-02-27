@@ -63,7 +63,7 @@ export const columnHeader = (
       ariaLabel =
         type === AssessmentStepType.ApplicationScreening ||
         type === AssessmentStepType.ScreeningQuestionsAtApplication
-          ? intl.formatMessage(poolCandidateMessages.screenedOut)
+          ? intl.formatMessage(commonMessages.screenedOut)
           : intl.formatMessage(poolCandidateMessages.unsuccessful);
       break;
     case "hold":

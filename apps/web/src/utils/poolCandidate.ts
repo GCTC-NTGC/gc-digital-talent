@@ -21,10 +21,12 @@ import {
   AssessmentStepType,
   PoolCandidate,
   PoolSkillType,
+  Maybe,
+  PoolCandidateStatus,
+  PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { Maybe, PoolCandidateStatus, PublishingGroup } from "~/api/generated";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
   QUALIFIED_STATUSES,

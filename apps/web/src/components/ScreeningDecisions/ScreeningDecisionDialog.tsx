@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
+import { useMutation } from "urql";
 
 import {
   AssessmentDecision,
@@ -18,6 +19,7 @@ import {
   SkillCategory,
   UpdateAssessmentResultInput,
   UserSkill,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import {
   Accordion,
@@ -45,10 +47,6 @@ import {
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
-import {
-  useCreateAssessmentResultMutation,
-  useUpdateAssessmentResultMutation,
-} from "~/api/generated";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
 import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -448,6 +446,26 @@ export const ScreeningDecisionDialog = ({
   );
 };
 
+const CreateAssessmentResult_Mutation = graphql(/* GraphQL */ `
+  mutation CreateAssessmentResult(
+    $createAssessmentResult: CreateAssessmentResultInput!
+  ) {
+    createAssessmentResult(createAssessmentResult: $createAssessmentResult) {
+      id
+    }
+  }
+`);
+
+const UpdateAssessmentResult_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateAssessmentResult(
+    $updateAssessmentResult: UpdateAssessmentResultInput!
+  ) {
+    updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
+      id
+    }
+  }
+`);
+
 const ScreeningDecisionDialogApi = ({
   assessmentStep,
   poolCandidate,
@@ -496,8 +514,12 @@ const ScreeningDecisionDialogApi = ({
     assessmentNotes: assessmentResult?.assessmentNotes,
   };
 
-  const [, executeCreateMutation] = useCreateAssessmentResultMutation();
-  const [, executeUpdateMutation] = useUpdateAssessmentResultMutation();
+  const [, executeCreateMutation] = useMutation(
+    CreateAssessmentResult_Mutation,
+  );
+  const [, executeUpdateMutation] = useMutation(
+    UpdateAssessmentResult_Mutation,
+  );
 
   const toastSuccess = () =>
     toast.success(

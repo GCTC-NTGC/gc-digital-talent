@@ -4,8 +4,7 @@ import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
-
-import { Department, Skill } from "~/api/generated";
+import { Department, Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import GeneralInformationSection from "./GeneralInformationSection";

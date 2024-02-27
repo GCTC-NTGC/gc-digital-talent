@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
-
-import { Maybe } from "~/api/generated";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 interface EditLinkProps {
   /** Id of the object in the table. */

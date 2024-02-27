@@ -2,6 +2,8 @@ import React from "react";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 
+import { useTheme } from "@gc-digital-talent/theme";
+
 export interface InstructionStepProps {
   image: string;
   imageDark?: string;
@@ -15,25 +17,8 @@ export const InstructionStep = ({
   includeArrow = true,
   children,
 }: InstructionStepProps) => {
-  let lightImage;
-  let darkImage;
-
-  if (image) {
-    lightImage = <img data-h2-display="base(block)" src={image} alt="" />;
-  }
-
-  if (imageDark) {
-    lightImage = (
-      <img data-h2-display="base(block) base:dark(none)" src={image} alt="" />
-    );
-    darkImage = (
-      <img
-        data-h2-display="base(none) base:dark(block)"
-        src={imageDark}
-        alt=""
-      />
-    );
-  }
+  const { mode } = useTheme();
+  const imgSrc = mode === "dark" && imageDark ? imageDark : image;
 
   return (
     <li
@@ -42,8 +27,7 @@ export const InstructionStep = ({
       data-h2-flex-item="base(1of1) p-tablet(1of4)"
     >
       <div data-h2-display="base(flex)" data-h2-flex-direction="base(row)">
-        {lightImage}
-        {darkImage}
+        <img src={imgSrc} alt="" />
         {includeArrow && (
           <ArrowRightCircleIcon
             data-h2-display="base(none) p-tablet(block)"

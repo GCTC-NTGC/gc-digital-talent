@@ -3,14 +3,14 @@ import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
-
 import {
+  Application_PoolCandidateFragment,
   PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
