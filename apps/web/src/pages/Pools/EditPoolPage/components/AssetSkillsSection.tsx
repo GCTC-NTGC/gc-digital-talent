@@ -8,9 +8,11 @@ import {
   PoolSkillType,
   SkillCategory,
   SkillLevel,
+  Pool,
+  PoolStatus,
+  Skill,
 } from "@gc-digital-talent/graphql";
 
-import { Pool, PoolStatus, Skill } from "~/api/generated";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { EditPoolSectionMetadata } from "~/types/pool";
 

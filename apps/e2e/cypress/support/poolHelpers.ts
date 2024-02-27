@@ -1,5 +1,4 @@
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
-import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
 import {
   Classification,
   Skill,
@@ -7,7 +6,8 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "@gc-digital-talent/web/src/api/generated";
+  PoolOpportunityLength,
+} from "@gc-digital-talent/graphql";
 
 type CreateAndPublishPoolArgs = {
   adminUserId: string;

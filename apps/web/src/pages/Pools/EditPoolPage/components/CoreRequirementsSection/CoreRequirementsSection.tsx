@@ -17,8 +17,12 @@ import {
   getLanguageRequirement,
   getSecurityClearance,
 } from "@gc-digital-talent/i18n";
+import {
+  PoolStatus,
+  PoolLanguage,
+  SecurityStatus,
+} from "@gc-digital-talent/graphql";
 
-import { PoolStatus, PoolLanguage, SecurityStatus } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,

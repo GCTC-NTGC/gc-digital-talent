@@ -1,6 +1,10 @@
 import { empty } from "@gc-digital-talent/helpers";
-
-import { LocalizedString, Maybe, Pool, UpdatePoolInput } from "~/api/generated";
+import {
+  LocalizedString,
+  Maybe,
+  Pool,
+  UpdatePoolInput,
+} from "@gc-digital-talent/graphql";
 
 export enum LocationOption {
   RemoteOptional = "REMOTE_OPTIONAL",

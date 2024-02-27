@@ -1,8 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import { GenericJobTitleKey } from "@gc-digital-talent/graphql";
+
 import { wrapAbbr } from "~/utils/nameUtils";
-import { GenericJobTitleKey } from "~/api/generated";
 
 import Text from "./Text";
 

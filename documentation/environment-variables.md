@@ -25,7 +25,7 @@ To check what variables have been set in the app, open the console of your brows
 
 Since run-time variables are used to maintain the current feature set and can be changed, tests should be run against both versions of a specific feature set. In order to do this, the feature flags must be overridden in the test specifications.
 
-When writing test specifications, run-time variables can be modified for the entire spec, or for specific tests using the `cy.overrideFeatureFlags(flags: Object): void` command.
+When writing test specifications, run-time variables can be modified for the entire spec, or for specific tests using the `cy.overrideFeatureFlags(flags)` command.
 
 ##### Override for entire spec
 

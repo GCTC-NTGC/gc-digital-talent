@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 
-import { Maybe } from "~/api/generated";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 interface FilterBlockProps {
   title: string;

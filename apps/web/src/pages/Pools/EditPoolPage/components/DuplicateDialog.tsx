@@ -4,8 +4,8 @@ import { useIntl } from "react-intl";
 import { Dialog, Button, Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { formMessages } from "@gc-digital-talent/i18n";
+import { Pool } from "@gc-digital-talent/graphql";
 
-import { Pool } from "~/api/generated";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { checkRole } from "~/utils/teamUtils";
 

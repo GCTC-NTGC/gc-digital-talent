@@ -2,20 +2,19 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "urql";
 
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { useLocale } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   Department,
   DigitalContractingQuestionnaireInput,
   Skill,
-  useCreateDigitalContractingQuestionnaireMutation,
-  useDigitalServicesContractingQuestionnairePageDataQuery,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
@@ -29,6 +28,10 @@ import PreambleSection from "./sections/PreambleSection";
 import QuestionnaireSection from "./sections/QuestionnaireSection";
 import { convertFormValuesToApiInput, FormValues } from "./formValues";
 import useLabels from "./useLabels";
+import {
+  CreateDigitalContractingQuestionnaire_Mutation,
+  DigitalServicesContractingQuestionnairePageData_Query,
+} from "./operations";
 
 export const pageTitle = defineMessage({
   defaultMessage: "Digital Services Contracting Questionnaire",
@@ -151,9 +154,12 @@ const DigitalServicesContractingQuestionnairePage = () => {
   const navigate = useNavigate();
   const [
     { data: initialData, fetching: initialFetching, error: initialError },
-  ] = useDigitalServicesContractingQuestionnairePageDataQuery();
-  const [{ fetching: isSubmitting }, executeMutation] =
-    useCreateDigitalContractingQuestionnaireMutation();
+  ] = useQuery({
+    query: DigitalServicesContractingQuestionnairePageData_Query,
+  });
+  const [{ fetching: isSubmitting }, executeMutation] = useMutation(
+    CreateDigitalContractingQuestionnaire_Mutation,
+  );
 
   const toastError = () =>
     toast.error(

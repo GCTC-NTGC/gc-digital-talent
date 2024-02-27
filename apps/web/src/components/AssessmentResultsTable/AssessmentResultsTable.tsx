@@ -7,23 +7,21 @@ import {
   commonMessages,
   getLocale,
   getLocalizedName,
-} from "@gc-digital-talent/i18n";
-import { AssessmentResult } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
   getAssessmentStepType,
   getPoolSkillType,
-} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import adminMessages from "~/messages/adminMessages";
+} from "@gc-digital-talent/i18n";
 import {
+  AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
   PoolCandidate,
   PoolSkill,
   PoolSkillType,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import adminMessages from "~/messages/adminMessages";
 import { getOrderedSteps } from "~/utils/poolCandidate";
 
 import cells from "../Table/cells";

@@ -58,10 +58,10 @@ declare global {
       /**
        * Override specific feature flags.
        * Note: Should be used in `before*`
-       * @param {Object} flags - Feature flags you want to override.
+       * @param {Record<string, boolean | null>} flags - Feature flags you want to override.
        * @example cy.overrideFeatureFlags({FEATURE_FLAG: false})
        */
-      overrideFeatureFlags(flags: Object): void;
+      overrideFeatureFlags(flags: Record<string, boolean | null>): void;
 
       /**
        * ======================================

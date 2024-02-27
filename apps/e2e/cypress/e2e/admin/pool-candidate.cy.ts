@@ -4,7 +4,7 @@ import {
   Pool,
   Skill,
   User,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";

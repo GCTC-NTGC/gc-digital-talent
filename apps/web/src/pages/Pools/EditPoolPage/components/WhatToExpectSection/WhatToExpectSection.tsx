@@ -6,13 +6,13 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-
 import {
   PoolStatus,
   LocalizedString,
   Pool,
   UpdatePoolInput,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { hasAllEmptyFields } from "~/validators/process/whatToExpect";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";

@@ -8,8 +8,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-
-import { Pool, PoolStatus, PublishingGroup } from "~/api/generated";
+import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
 import { BrowsePools } from "./BrowsePoolsPage";
 

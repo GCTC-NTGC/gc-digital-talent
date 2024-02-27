@@ -8,10 +8,11 @@ import {
   PoolSkillType,
   SkillCategory,
   SkillLevel,
+  PoolStatus,
+  Skill,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { PoolStatus, Skill } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { EditPoolSectionMetadata } from "~/types/pool";

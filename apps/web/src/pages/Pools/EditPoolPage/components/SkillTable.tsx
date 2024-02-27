@@ -6,9 +6,8 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { SkillCategory, SkillLevel } from "@gc-digital-talent/graphql";
+import { SkillCategory, SkillLevel, Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";

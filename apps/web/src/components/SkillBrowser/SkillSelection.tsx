@@ -14,8 +14,8 @@ import {
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import skillBrowserMessages from "./messages";
