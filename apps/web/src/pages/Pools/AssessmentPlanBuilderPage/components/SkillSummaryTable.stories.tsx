@@ -50,7 +50,6 @@ const behaviouralSkill4 = fakeSkills(
 const poolSkillsArray: PoolSkill[] = [
   {
     id: "poolSkill1",
-    pool: fakePool,
     skill: technicalSkill1,
     type: PoolSkillType.Essential,
     assessmentSteps: [
@@ -62,7 +61,6 @@ const poolSkillsArray: PoolSkill[] = [
   },
   {
     id: "poolSkill2",
-    pool: fakePool,
     skill: technicalSkill2,
     type: PoolSkillType.Essential,
     assessmentSteps: [
@@ -74,7 +72,6 @@ const poolSkillsArray: PoolSkill[] = [
   },
   {
     id: "poolSkill3",
-    pool: fakePool,
     skill: behaviouralSkill3,
     type: PoolSkillType.Nonessential,
     assessmentSteps: [
@@ -86,7 +83,6 @@ const poolSkillsArray: PoolSkill[] = [
   },
   {
     id: "orphanPoolSkill",
-    pool: fakePool,
     skill: behaviouralSkill4,
     type: PoolSkillType.Nonessential,
     assessmentSteps: [],
