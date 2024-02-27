@@ -232,6 +232,14 @@ const UpdateSkillShowcase = ({
       })
       .catch(() => {
         resetUserSkills(); // the client provider will pop a toast
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating skill failed",
+            id: "kfjmTt",
+            description:
+              "Message displayed to user after skill fails to be updated",
+          }),
+        );
       });
   };
 
