@@ -8,6 +8,7 @@ import {
   getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
 import { PoolOpportunityLength } from "@gc-digital-talent/graphql";
+import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
 
 import {
   Classification,
@@ -85,13 +86,12 @@ export const getClassificationOptions = (
   classifications: Maybe<Classification>[],
   intl: IntlShape,
 ): Option[] => {
-  return classifications
-    .filter(notEmpty)
-    .map(({ id, group, level, name }) => ({
+  return alphaSortOptions(
+    classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
       value: id,
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+    })),
+  );
 };
 
 export const getStreamOptions = (intl: IntlShape): Option[] => {

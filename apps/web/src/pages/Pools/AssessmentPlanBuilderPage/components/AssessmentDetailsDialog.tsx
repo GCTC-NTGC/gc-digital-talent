@@ -29,6 +29,7 @@ import {
   PoolSkill,
   ScreeningQuestion,
 } from "@gc-digital-talent/graphql";
+import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
 
 import { Scalars } from "~/api/generated";
 import processMessages from "~/messages/processMessages";
@@ -354,17 +355,14 @@ const AssessmentDetailsDialog = ({
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: CheckboxOption[] = allPoolSkills.map(
-    (poolSkill) => ({
+  const assessedSkillsItems: CheckboxOption[] = alphaSortOptions(
+    allPoolSkills.map((poolSkill) => ({
       value: poolSkill.id,
       label: poolSkill?.skill?.name
         ? getLocalizedName(poolSkill.skill.name, intl)
         : intl.formatMessage(commonMessages.nameNotLoaded),
-    }),
+    })),
   );
-  assessedSkillsItems.sort((a, b) => {
-    return (a.label ?? "") > (b.label ?? "") ? 1 : -1;
-  });
 
   const assessmentStepTypeOptions = [
     // can't manually choose or edit application screening step
