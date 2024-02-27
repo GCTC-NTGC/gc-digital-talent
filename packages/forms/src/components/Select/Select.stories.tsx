@@ -9,7 +9,8 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import Select, { OptGroup, Option } from "./Select";
+import Select from "./Select";
+import { OptGroup, Option } from "../../types";
 
 import type { SelectProps } from ".";
 
