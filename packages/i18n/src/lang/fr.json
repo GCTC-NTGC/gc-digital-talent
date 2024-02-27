@@ -231,6 +231,10 @@
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is being done."
   },
+  "4lV1Od": {
+    "defaultMessage": "Éliminé à la présélection",
+    "description": "Screened out"
+  },
   "4mMU7Q": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires occasionnelles.",
     "description": "The operational requirement described as occasional overtime."
