@@ -72,47 +72,69 @@ export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
   const intl = useIntl();
   const total = ctx?.items.length ?? 0;
 
-  const append = (newItem: ItemWithId<T>) => {
+  const append = (newItem: ItemWithId<T>): Promise<void> => {
     const newItems = [...(ctx?.items ?? []), newItem];
-    ctx?.onUpdate?.(newItems);
+    if (ctx?.onUpdate) {
+      return ctx.onUpdate(newItems);
+    }
+    return Promise.reject();
   };
 
-  const prepend = (newItem: ItemWithId<T>) => {
+  const prepend = (newItem: ItemWithId<T>): Promise<void> => {
     const newItems = [newItem, ...(ctx?.items ?? [])];
-    ctx?.onUpdate?.(newItems);
+    if (ctx?.onUpdate) {
+      return ctx.onUpdate(newItems);
+    }
+    return Promise.reject();
   };
 
-  const move = (from: number, to: number) => {
+  const move = (from: number, to: number): Promise<void> => {
+    console.debug("-> CardRepeaterProvider.move");
+    if (!ctx?.onUpdate) return Promise.reject();
+
     const newItems = [...(ctx?.items ?? [])];
     const newIndex =
       ((to % newItems.length) + newItems.length) % newItems.length;
 
     newItems.splice(newIndex, 0, newItems.splice(from, 1)[0]);
 
-    ctx?.onUpdate?.(newItems);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceMove, {
-          // zero-based index to position
-          from: from + 1,
-          to: to + 1,
-        }),
-      );
-    }
+    const updatePromise = ctx.onUpdate(newItems);
+    console.debug("updatePromise", updatePromise);
+    updatePromise.then(() => {
+      if (announce) {
+        announce(
+          intl.formatMessage(formMessages.repeaterAnnounceMove, {
+            // zero-based index to position
+            from: from + 1,
+            to: to + 1,
+          }),
+        );
+      }
+    });
+    return updatePromise;
   };
 
-  const remove = (index: number) => {
+  const remove = (index: number): Promise<void> => {
     let newItems = [...(ctx?.items ?? [])];
     newItems = [...newItems.slice(0, index), ...newItems.slice(index + 1)];
-    ctx?.onUpdate?.(newItems);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceRemove, { index }),
-      );
+    if (ctx?.onUpdate) {
+      const updatePromise = ctx.onUpdate(newItems);
+      updatePromise.then(() => {
+        if (announce) {
+          announce(
+            intl.formatMessage(formMessages.repeaterAnnounceRemove, { index }),
+          );
+        }
+      });
+      return updatePromise;
     }
+    return Promise.reject();
   };
 
-  const update = (index: number, item: Partial<ItemWithId<T>>) => {
+  const update = (
+    index: number,
+    item: Partial<ItemWithId<T>>,
+  ): Promise<void> => {
     let newItems = [...(ctx?.items ?? [])];
     newItems = [
       ...newItems.slice(0, index),
@@ -122,7 +144,10 @@ export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
       },
       ...newItems.slice(index + 1),
     ];
-    ctx?.onUpdate?.(newItems);
+    if (ctx?.onUpdate) {
+      return ctx.onUpdate(newItems);
+    }
+    return Promise.reject();
   };
 
   return {

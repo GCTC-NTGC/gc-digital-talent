@@ -100,8 +100,10 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
+    console.debug("-> usePoolMutation.update");
     return executeUpdateMutation({ id, pool })
       .then((result) => {
+        console.debug("mutation result", result);
         if (result.data?.updatePool) {
           toast.success(
             intl.formatMessage({

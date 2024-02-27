@@ -257,7 +257,7 @@ const OrganizeSection = ({
           moveDisabledIndexes={moveDisabledIndexes}
           editDisabledIndexes={disabledIndexes}
           removeDisabledIndexes={disabledIndexes}
-          onUpdate={setSteps}
+          onUpdate={(newItems) => Promise.resolve(setSteps(newItems))}
           add={
             <AssessmentDetailsDialog
               trigger={

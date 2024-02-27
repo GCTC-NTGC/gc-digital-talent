@@ -57,13 +57,16 @@ const GeneralQuestionsSection = ({
   // disabled unless status is draft
   const formDisabled = pool.status !== PoolStatus.Draft;
 
-  const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+  const handleUpdate = (newQuestions: GeneralQuestion[]): Promise<void> => {
+    console.debug("-> GeneralQuestionsSection.handleUpdate");
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
     setQuestions(newQuestions);
-    onSave({ generalQuestions }).catch(resetQuestions);
+    const savePromise = onSave({ generalQuestions }); // .catch(resetQuestions);
+    console.debug("savePromise", savePromise);
+    return savePromise;
   };
 
   return (

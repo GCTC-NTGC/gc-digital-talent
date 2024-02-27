@@ -14,5 +14,5 @@ export type CardRepeaterContextProps<T extends BaseItem = BaseItem> = {
   removeDisabledIndexes?: number[];
   max?: number;
   hideIndex?: boolean;
-  onUpdate?: (newItems: ItemWithId<T>[]) => void;
+  onUpdate?: (newItems: ItemWithId<T>[]) => Promise<void>;
 };
