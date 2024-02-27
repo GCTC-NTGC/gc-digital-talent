@@ -4,7 +4,7 @@ import { HTMLInputProps } from "../../types";
 
 export interface Option {
   /** The data used on form submission  */
-  value: string;
+  value: string | number;
   /** Text to display in the list of options */
   label: React.ReactNode;
 }

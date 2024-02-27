@@ -15,7 +15,8 @@ import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import { Node } from "./components/RichTextInput/types";
-import { Option } from "./components/Combobox/types";
+import { OptGroupOrOption } from "./types";
+
 /**
  * Filters out empty data from data response, and returns list of ids.
  * @param data
@@ -262,8 +263,13 @@ export function alphaSort(list: string[], locale?: Locales): string[] {
   return list.sort(Intl.Collator(locale).compare);
 }
 
-export function alphaSortOptions(list: Option[], locale?: Locales): Option[] {
-  return list.sort((a, b) =>
-    Intl.Collator(locale).compare(String(a.label), String(b.label)),
-  );
+export function alphaSortOptions(
+  list?: OptGroupOrOption[],
+  locale?: Locales,
+): OptGroupOrOption[] {
+  return list
+    ? list.sort((a, b) =>
+        Intl.Collator(locale).compare(String(a.label), String(b.label)),
+      )
+    : [];
 }
