@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->text('hr_advisor_email')->nullable()->default(null);
+            $table->string('hr_advisor_email')->nullable()->default(null);
         });
     }
 

@@ -241,6 +241,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     }
     jobTitle
     managerJobTitle
+    hrAdvisorEmail
     positionType
     reason
     wasEmpty
