@@ -4827,6 +4827,10 @@
     "defaultMessage": "15 millions de dollars à 25 millions de dollars",
     "description": "Contract value range between fifteen-million and twenty-five-million"
   },
+  "PD7anu": {
+    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "description": "Title for the HR advisor email block in the manager info section of the single search request view."
+  },
   "PDbqFR": {
     "defaultMessage": "« J’ai relu tout le contenu de ma candidature »",
     "description": "Review list item for sign and submit section of application review page."
@@ -6049,6 +6053,10 @@
   "VplMpm": {
     "defaultMessage": "Embauché (Période déterminée)",
     "description": "Status for an application that has been hired with a term contract"
+  },
+  "VrLfLw": {
+    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "description": "Input label asking for the HR advisor's email address."
   },
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
