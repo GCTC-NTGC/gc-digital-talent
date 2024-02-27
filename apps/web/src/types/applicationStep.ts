@@ -6,7 +6,7 @@ import {
   PoolCandidate,
   Scalars,
   User,
-} from "@gc-digital-talent/graphqld";
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 

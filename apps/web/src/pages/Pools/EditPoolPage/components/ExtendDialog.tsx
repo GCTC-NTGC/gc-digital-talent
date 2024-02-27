@@ -21,7 +21,7 @@ type FormValues = {
 
 type ExtendDialogProps = {
   closingDate: Pool["closingDate"];
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
 };
 
 const ExtendDialog = ({

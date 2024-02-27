@@ -13,7 +13,7 @@ import { Scalars, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {
-  id?: Scalars["ID"];
+  id?: Scalars["ID"]["output"];
   children: React.ReactNode;
 }
 

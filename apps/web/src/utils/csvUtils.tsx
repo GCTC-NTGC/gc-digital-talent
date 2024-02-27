@@ -23,7 +23,7 @@ import {
   Maybe,
   Experience,
   GeneralQuestionResponse,
-} from "@gc-digital-talent/graphqld";
+} from "@gc-digital-talent/graphql";
 
 import {
   isAwardExperience,
