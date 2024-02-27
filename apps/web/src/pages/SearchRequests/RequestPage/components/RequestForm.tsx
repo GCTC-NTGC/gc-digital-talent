@@ -64,6 +64,7 @@ type FormValues = {
   positionType?: boolean;
   reason: CreatePoolCandidateSearchRequestInput["reason"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
+  hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
@@ -140,6 +141,7 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
+      hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
@@ -349,6 +351,19 @@ export const RequestForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <Input
+                id="hrAdvisorEmail"
+                type="email"
+                name="hrAdvisorEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "HR advisor email",
+                  id: "VrLfLw",
+                  description:
+                    "Input label asking for the HR advisor's email address.",
+                })}
               />
             </div>
           </div>
@@ -574,6 +589,7 @@ const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
       }
       jobTitle
       additionalComments
+      hrAdvisorEmail
       poolCandidateFilter {
         id
       }

@@ -6,7 +6,6 @@
   "description": "",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "codegen": "graphql-codegen",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "webpack --config webpack.dev.js",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
@@ -27,7 +26,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "concurrently --kill-others-on-fail \"pnpm codegen -- --watch\" \"webpack watch --config webpack.dev.js\""
+    "watch": "webpack watch --config webpack.dev.js"
   },
   "sideEffects": [
     "**/*.css"
@@ -76,11 +75,6 @@
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/webpack-config": "workspace:*",
-    "@graphql-codegen/add": "^5.0.0",
-    "@graphql-codegen/cli": "5.0.2",
-    "@graphql-codegen/typescript": "^3.0.4",
-    "@graphql-codegen/typescript-operations": "^3.0.4",
-    "@graphql-codegen/typescript-urql": "^3.7.3",
     "@hydrogen-css/hydrogen": "2.0.3",
     "@parcel/watcher": "^2.4.0",
     "@storybook/addon-actions": "^7.6.17",
@@ -96,7 +90,6 @@
     "@types/react-dom": "^18.2.19",
     "@types/react-helmet": "^6.1.11",
     "babel-plugin-formatjs": "^10.5.13",
-    "concurrently": "^8.2.2",
     "core-js": "^3.36.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.56.0",

@@ -2,8 +2,12 @@ import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
-
-import { PoolCandidateStatus, Maybe, PoolCandidate } from "~/api/generated";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  PoolCandidateStatus,
+  Maybe,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
 
 // Status that represent the combination of pool candidate status and the suspendedAt timestamp
 type CombinedStatus =
@@ -98,24 +102,14 @@ const combinedStatusLabels = defineMessages<CombinedStatus>({
     description:
       "Status for an application that where the recruitment has expired",
   }),
-  SCREENED_OUT: defineMessage({
-    defaultMessage: "Screened out",
-    id: "njJCTd",
-    description:
-      "Status for an application that has been screened out of eligibility",
-  }),
+  SCREENED_OUT: defineMessage(commonMessages.screenedOut),
   EXPIRED: defineMessage({
     defaultMessage: "Expired",
     id: "GIC6EK",
     description: "Expired status",
   }),
 
-  REMOVED: defineMessage({
-    defaultMessage: "Removed",
-    id: "vTyr7O",
-    description:
-      "Status for an application that has been removed from the recruitment",
-  }),
+  REMOVED: defineMessage(commonMessages.removed),
   HIRED_CASUAL: defineMessage({
     defaultMessage: "Hired (Casual)",
     id: "0YZeO0",

@@ -4,7 +4,6 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import {
   FragmentType,
-  GeneralQuestionResponse,
   LocalizedString,
   Maybe,
   Pool,
@@ -87,14 +86,6 @@ type ScreeningQuestionResponse = {
   id: Scalars["ID"]["output"];
 };
 
-function isScreeningQuestionResponse(
-  response: ScreeningQuestionResponse | GeneralQuestionResponse,
-): response is ScreeningQuestionResponse {
-  return (
-    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
-  );
-}
-
 interface ApplicationInformationProps {
   poolQuery: FragmentType<typeof ApplicationInformation_PoolFragment>;
   application?:
@@ -129,11 +120,6 @@ const ApplicationInformation = ({
   const screeningQuestionResponses = unpackMaybes(
     application?.screeningQuestionResponses ?? [],
   );
-
-  const mergedQuestionResponses: (
-    | GeneralQuestionResponse
-    | ScreeningQuestionResponse
-  )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
 
   const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
   const technicalEssentialSkills = unpackMaybes(
@@ -234,13 +220,13 @@ const ApplicationInformation = ({
             <PersonalInformationDisplay user={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
-        {mergedQuestionResponses.length > 0 ? (
+        {screeningQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
             <Accordion.Trigger>
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {mergedQuestionResponses.map((response, index) => (
+              {screeningQuestionResponses.map((response, index) => (
                 <React.Fragment key={response.id}>
                   <Heading
                     level="h4"
@@ -251,11 +237,33 @@ const ApplicationInformation = ({
                     })}
                   >
                     {getLocalizedName(
-                      isScreeningQuestionResponse(response)
-                        ? response.screeningQuestion?.question
-                        : response.generalQuestion?.question,
+                      response.screeningQuestion?.question,
                       intl,
                     )}
+                  </Heading>
+                  <p>{response.answer}</p>
+                </React.Fragment>
+              ))}
+            </Accordion.Content>
+          </Accordion.Item>
+        ) : null}
+        {generalQuestionResponses.length > 0 ? (
+          <Accordion.Item value={SECTION_KEY.GENERAL}>
+            <Accordion.Trigger>
+              {intl.formatMessage(processMessages.generalQuestions)}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              {generalQuestionResponses.map((response, index) => (
+                <React.Fragment key={response.id}>
+                  <Heading
+                    level="h4"
+                    size="h6"
+                    data-h2-font-size="base(body)"
+                    {...(index === 0 && {
+                      "data-h2-margin-top": "base(0)",
+                    })}
+                  >
+                    {getLocalizedName(response.generalQuestion?.question, intl)}
                   </Heading>
                   <p>{response.answer}</p>
                 </React.Fragment>

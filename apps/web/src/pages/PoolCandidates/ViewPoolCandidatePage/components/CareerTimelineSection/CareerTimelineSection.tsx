@@ -5,8 +5,8 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, Well } from "@gc-digital-talent/ui";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { Experience } from "@gc-digital-talent/graphql";
 
-import { Experience } from "~/api/generated";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,

@@ -22,10 +22,6 @@ import {
   Maybe,
   Pool,
   PoolCandidatePoolNameOrderByInput,
-} from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-
-import {
   OrderByRelationWithColumnAggregateFunction,
   PoolCandidateSearchInput,
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
@@ -37,7 +33,9 @@ import {
   ProvinceOrTerritory,
   SortOrder,
   AssessmentStep,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {

@@ -2,8 +2,8 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
-import { SkillCategory } from "~/api/generated";
 import { filterSkillsByCategory } from "~/utils/skillUtils";
 
 import MissingSkills from "./MissingSkills";

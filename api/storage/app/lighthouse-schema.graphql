@@ -314,6 +314,7 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  opportunityLength: PoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
@@ -499,6 +500,7 @@ type PoolCandidateSearchRequest {
   department: Department
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: Email
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
@@ -705,6 +707,7 @@ input PoolCandidateSearchRequestInput {
   id: ID
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: String
   adminNotes: String
   generalSearch: String
 }
@@ -1005,6 +1008,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
+  hrAdvisorEmail: Email
   applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
   managerJobTitle: String!
@@ -1220,6 +1224,7 @@ input UpdatePoolInput {
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
+  opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
@@ -1986,6 +1991,14 @@ enum PoolLanguage {
   BILINGUAL_ADVANCED
 }
 
+enum PoolOpportunityLength {
+  TERM_SIX_MONTHS
+  TERM_ONE_YEAR
+  TERM_TWO_YEARS
+  INDETERMINATE
+  VARIOUS
+}
+
 enum PublishingGroup {
   IAP
   IT_JOBS
@@ -2038,15 +2051,6 @@ enum OperationalRequirement {
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
 }
 
 enum GenericJobTitleKey {

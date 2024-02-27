@@ -10,7 +10,6 @@ import {
   getEducationStatus,
   getEducationType,
 } from "@gc-digital-talent/i18n";
-
 import {
   Skill,
   PersonalExperience,
@@ -18,7 +17,8 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import {
   isAwardExperience,
   isCommunityExperience,

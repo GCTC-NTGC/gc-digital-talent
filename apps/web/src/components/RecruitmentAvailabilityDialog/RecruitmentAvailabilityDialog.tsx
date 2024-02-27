@@ -1,13 +1,14 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
-import { useChangeApplicationSuspendedAtMutation } from "~/api/generated";
 import { poolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
 
@@ -19,11 +20,24 @@ type FormValues = {
   isSuspended: "true" | "false"; // Note: RadioGroup only accepts strings
 };
 
+const RecruitmentAvailabilityChangeSuspendedAt_Mutation = graphql(
+  /* GraphQL */ `
+    mutation Name($id: ID!, $isSuspended: Boolean!) {
+      changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
+        id
+        suspendedAt
+      }
+    }
+  `,
+);
+
 const RecruitmentAvailabilityDialog = ({
   candidate,
 }: RecruitmentAvailabilityDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useChangeApplicationSuspendedAtMutation();
+  const [, executeMutation] = useMutation(
+    RecruitmentAvailabilityChangeSuspendedAt_Mutation,
+  );
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
   const title = poolTitle(intl, candidate.pool);

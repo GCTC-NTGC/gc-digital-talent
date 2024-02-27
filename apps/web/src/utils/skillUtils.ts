@@ -12,7 +12,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-
 import {
   UserSkill,
   SkillLevel,
@@ -21,7 +20,7 @@ import {
   Skill,
   SkillCategory,
   SkillFamily,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.

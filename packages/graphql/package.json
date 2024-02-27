@@ -19,7 +19,6 @@
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.2.4",
     "@graphql-codegen/client-preset-swc-plugin": "^0.2.0",
-    "@graphql-typed-document-node/core": "^3.2.0",
     "@parcel/watcher": "^2.4.0",
     "concurrently": "^8.2.2",
     "graphql": "16.8.1",

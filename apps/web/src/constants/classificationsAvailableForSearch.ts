@@ -1,4 +1,4 @@
-import { Classification } from "~/api/generated";
+import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Pick<Classification, "group" | "level">[] => {
   return [

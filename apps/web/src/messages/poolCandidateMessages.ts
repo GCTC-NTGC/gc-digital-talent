@@ -39,6 +39,12 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate has yet to be assessed at a specific assessment step",
   },
+  holdForAssessment: {
+    defaultMessage: "Hold for assessment",
+    id: "ndW6vI",
+    description:
+      "Message displayed when candidate is on hold at a specific assessment step",
+  },
   pendingDecision: {
     defaultMessage: "Pending decision",
     id: "Jzhd0N",
@@ -49,11 +55,6 @@ const messages = defineMessages({
     defaultMessage: "Disqualified",
     id: "/dy2CX",
     description: "Message displayed when candidate has been disqualified",
-  },
-  removed: {
-    defaultMessage: "Removed",
-    id: "NNWQdp",
-    description: "Message displayed when candidate has been removed",
   },
   notPlaced: {
     defaultMessage: "Not placed",
@@ -78,12 +79,6 @@ const messages = defineMessages({
     id: "TIAla1",
     description:
       "Message displayed when candidate has not passed an assessment step",
-  },
-  screenedOut: {
-    defaultMessage: "Screened out",
-    id: "3xCX4b",
-    description:
-      "Message displayed when candidate has been screened out at a specific assessment step",
   },
   onHold: {
     defaultMessage: "On hold",

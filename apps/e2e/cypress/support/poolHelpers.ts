@@ -6,7 +6,8 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "@gc-digital-talent/web/src/api/generated";
+  PoolOpportunityLength,
+} from "@gc-digital-talent/graphql";
 
 type CreateAndPublishPoolArgs = {
   adminUserId: string;
@@ -52,6 +53,7 @@ export function createAndPublishPool({
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
+          opportunityLength: PoolOpportunityLength.Various,
         }).then((updatedPool) => {
           cy.publishPool(updatedPool.id).as(poolAlias);
         });

@@ -49,6 +49,7 @@ const ManagerInfo = ({
     department,
     email,
     managerJobTitle,
+    hrAdvisorEmail,
     status,
     requestedDate,
     statusChangedAt,
@@ -153,6 +154,28 @@ const ManagerInfo = ({
                       : null
                   }
                 />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "HR advisor email",
+                    id: "PD7anu",
+                    description:
+                      "Title for the government email block in the manager info section of the single search request view.",
+                  })}
+                  content={
+                    hrAdvisorEmail ? (
+                      <Link external href={`mailto:${hrAdvisorEmail}`}>
+                        {hrAdvisorEmail}
+                      </Link>
+                    ) : (
+                      intl.formatMessage({
+                        defaultMessage: "N/A",
+                        id: "i9AjuX",
+                        description:
+                          "Text shown when the filter was not selected",
+                      })
+                    )
+                  }
+                />
               </div>
             </div>
             <div data-h2-flex-item="base(1of1) p-tablet(1of4)">
@@ -218,6 +241,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     }
     jobTitle
     managerJobTitle
+    hrAdvisorEmail
     positionType
     reason
     wasEmpty

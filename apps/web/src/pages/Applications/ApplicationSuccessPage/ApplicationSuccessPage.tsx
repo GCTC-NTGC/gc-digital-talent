@@ -4,6 +4,7 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -46,12 +47,14 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
 
   return (

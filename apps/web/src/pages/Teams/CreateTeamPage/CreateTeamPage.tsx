@@ -1,12 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { graphql, CreateTeamInput } from "@gc-digital-talent/graphql";
 
-import { CreateTeamInput, useCreateTeamMutation } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -28,6 +27,14 @@ const CreateTeamDepartments_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const CreateTeam_Mutation = graphql(/* GraphQL */ `
+  mutation CreateTeam($team: CreateTeamInput!) {
+    createTeam(team: $team) {
+      id
+    }
+  }
+`);
+
 const CreateTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -41,9 +48,9 @@ const CreateTeamPage = () => {
   ] = useQuery({
     query: CreateTeamDepartments_Query,
   });
-  const [, executeMutation] = useCreateTeamMutation();
+  const [, executeMutation] = useMutation(CreateTeam_Mutation);
 
-  const departments = departmentsData?.departments.filter(notEmpty);
+  const departments = unpackMaybes(departmentsData?.departments);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new team",
