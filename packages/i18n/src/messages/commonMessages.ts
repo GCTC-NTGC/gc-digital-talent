@@ -210,6 +210,11 @@ const commonMessages = defineMessages({
     id: "sotCgD",
     description: "Any language",
   },
+  screenedOut: {
+    defaultMessage: "Screened out",
+    id: "4lV1Od",
+    description: "Screened out",
+  },
   removed: {
     defaultMessage: "Removed",
     id: "tExKws",

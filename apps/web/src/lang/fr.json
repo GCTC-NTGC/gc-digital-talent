@@ -1075,10 +1075,6 @@
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
   },
-  "3xCX4b": {
-    "defaultMessage": "Rejeté(e)",
-    "description": "Message displayed when candidate has been screened out at a specific assessment step"
-  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -9401,10 +9397,6 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
-  },
-  "njJCTd": {
-    "defaultMessage": "Éliminé à la présélection",
-    "description": "Status for an application that has been screened out of eligibility"
   },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
