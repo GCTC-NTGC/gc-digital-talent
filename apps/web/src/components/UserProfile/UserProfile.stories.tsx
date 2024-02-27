@@ -2,8 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 
 import { fakeExperiences, fakeApplicants } from "@gc-digital-talent/fake-data";
-
-import { User, IndigenousCommunity } from "~/api/generated";
+import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import UserProfile from "./UserProfile";
 

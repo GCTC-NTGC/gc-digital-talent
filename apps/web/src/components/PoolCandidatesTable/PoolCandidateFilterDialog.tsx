@@ -288,11 +288,7 @@ const PoolCandidateFilterDialog = ({
             id="languageAbility"
             name="languageAbility"
             enableNull
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Any language",
-              id: "qp68Mh",
-              description: "Option label for allowing any language",
-            })}
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
             label={intl.formatMessage({
               defaultMessage: "Languages",
               id: "iUAe/2",

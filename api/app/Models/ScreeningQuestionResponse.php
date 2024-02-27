@@ -36,6 +36,8 @@ class ScreeningQuestionResponse extends Model
      * @var array
      */
     protected $fillable = [
+        'pool_candidate_id',
+        'screening_question_id',
         'answer',
     ];
 

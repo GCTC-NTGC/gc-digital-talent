@@ -396,22 +396,22 @@ const statusToPillMessageMapping: Record<
   [PoolCandidateStatus.PlacedTentative]: poolCandidateMessages.qualified,
 
   [PoolCandidateStatus.ScreenedOutNotInterested]: [
-    poolCandidateMessages.removed,
+    commonMessages.removed,
     commonMessages.dividingColon,
     poolCandidateMessages.toAssess,
   ],
   [PoolCandidateStatus.ScreenedOutNotResponsive]: [
-    poolCandidateMessages.removed,
+    commonMessages.removed,
     commonMessages.dividingColon,
     poolCandidateMessages.toAssess,
   ],
   [PoolCandidateStatus.QualifiedUnavailable]: [
-    poolCandidateMessages.removed,
+    commonMessages.removed,
     commonMessages.dividingColon,
     poolCandidateMessages.qualified,
   ],
   [PoolCandidateStatus.QualifiedWithdrew]: [
-    poolCandidateMessages.removed,
+    commonMessages.removed,
     commonMessages.dividingColon,
     poolCandidateMessages.qualified,
   ],
@@ -420,7 +420,7 @@ const statusToPillMessageMapping: Record<
     commonMessages.dividingColon,
     poolCandidateMessages.qualified,
   ],
-  [PoolCandidateStatus.Removed]: poolCandidateMessages.removed,
+  [PoolCandidateStatus.Removed]: commonMessages.removed,
 };
 
 /**

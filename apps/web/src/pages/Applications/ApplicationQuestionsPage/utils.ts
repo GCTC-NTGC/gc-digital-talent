@@ -2,19 +2,36 @@ import {
   CreateGeneralQuestionResponseInput,
   GeneralQuestion,
   GeneralQuestionResponse,
+  ScreeningQuestion,
+  ScreeningQuestionResponse,
   UpdateGeneralQuestionResponseInput,
+  CreateScreeningQuestionResponseInput,
+  UpdateScreeningQuestionResponseInput,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "./types";
 
 export const dataToFormValues = (
-  questions: Array<GeneralQuestion>,
-  responses: Array<GeneralQuestionResponse>,
+  screeningQuestions: Array<ScreeningQuestion>,
+  screeningResponses: Array<ScreeningQuestionResponse>,
+  generalQuestions: Array<GeneralQuestion>,
+  generalResponses: Array<GeneralQuestionResponse>,
 ): FormValues => {
   return {
     action: "continue",
-    answers: questions.map((question) => {
-      const foundResponse = responses.find(
+    screeningAnswers: screeningQuestions.map((question) => {
+      const foundResponse = screeningResponses.find(
+        (response) => response?.screeningQuestion?.id === question.id,
+      );
+
+      return {
+        id: foundResponse?.id || "new",
+        questionId: question.id,
+        answer: foundResponse?.answer || "",
+      };
+    }),
+    generalAnswers: generalQuestions.map((question) => {
+      const foundResponse = generalResponses.find(
         (response) => response?.generalQuestion?.id === question.id,
       );
 
@@ -29,27 +46,57 @@ export const dataToFormValues = (
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
-  existingResponses: Array<GeneralQuestionResponse>,
+  existingScreeningResponses: Array<ScreeningQuestionResponse>,
+  existingGeneralResponses: Array<GeneralQuestionResponse>,
 ) => {
-  let create: Array<CreateGeneralQuestionResponseInput> = [];
-  let update: Array<UpdateGeneralQuestionResponseInput> = [];
+  let screeningCreate: Array<CreateScreeningQuestionResponseInput> = [];
+  let screeningUpdate: Array<UpdateScreeningQuestionResponseInput> = [];
 
-  formValues.answers.forEach(({ id, questionId, answer }) => {
-    const existingResponse = existingResponses.find(
+  formValues.screeningAnswers.forEach(({ id, questionId, answer }) => {
+    const existingResponse = existingScreeningResponses.find(
       (response) =>
-        response.generalQuestion?.id === questionId && questionId !== "new",
+        response.screeningQuestion?.id === questionId && questionId !== "new",
     );
     if (existingResponse) {
-      update = [
-        ...update,
+      screeningUpdate = [
+        ...screeningUpdate,
         {
           id,
           answer,
         },
       ];
     } else {
-      create = [
-        ...create,
+      screeningCreate = [
+        ...screeningCreate,
+        {
+          answer,
+          screeningQuestion: {
+            connect: questionId,
+          },
+        },
+      ];
+    }
+  });
+
+  let generalCreate: Array<CreateGeneralQuestionResponseInput> = [];
+  let generalUpdate: Array<UpdateGeneralQuestionResponseInput> = [];
+
+  formValues.generalAnswers.forEach(({ id, questionId, answer }) => {
+    const existingResponse = existingGeneralResponses.find(
+      (response) =>
+        response.generalQuestion?.id === questionId && questionId !== "new",
+    );
+    if (existingResponse) {
+      generalUpdate = [
+        ...generalUpdate,
+        {
+          id,
+          answer,
+        },
+      ];
+    } else {
+      generalCreate = [
+        ...generalCreate,
         {
           answer,
           generalQuestion: {
@@ -61,9 +108,13 @@ export const formValuesToSubmitData = (
   });
 
   return {
+    screeningQuestionResponses: {
+      update: screeningUpdate,
+      create: screeningCreate,
+    },
     generalQuestionResponses: {
-      update,
-      create,
+      update: generalUpdate,
+      create: generalCreate,
     },
   };
 };

@@ -6,8 +6,8 @@ import kebabCase from "lodash/kebabCase";
 import { Input, Combobox } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Maybe, Department } from "@gc-digital-talent/graphql";
 
-import { Maybe, Department } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
 interface CreateTeamFormFieldsProps {
