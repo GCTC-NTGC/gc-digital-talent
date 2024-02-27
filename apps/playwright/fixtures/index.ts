@@ -1,10 +1,11 @@
-import { test as base } from "@playwright/test";
+import { Page, test as base } from "@playwright/test";
 
 import auth from "~/constants/auth";
 
 import { AppPage } from "./AppPage";
 import { AdminPage } from "./AdminPage";
 import { ApplicantPage } from "./ApplicantPage";
+import AxeBuilder from "@axe-core/playwright";
 
 type AppFixtures = {
   // Base unauthenticated page
@@ -13,6 +14,8 @@ type AppFixtures = {
   adminPage: AdminPage;
   // Authenticated as applicant page
   applicantPage: ApplicantPage;
+  // Axe test builder
+  makeAxeBuilder: () => AxeBuilder;
 };
 
 // Extend base text with our fixtures
@@ -38,6 +41,18 @@ export const test = base.extend<AppFixtures>({
     const admin = new ApplicantPage(await context.newPage());
     await use(admin);
     await context.close();
+  },
+
+  makeAxeBuilder: async ({ page }, use, testInfo) => {
+    const makeAxeBuilder = () =>
+      new AxeBuilder({ page }).withTags([
+        "wcag21a",
+        "wcag21a",
+        "wcag2a",
+        "wcag2aa",
+      ]);
+
+    await use(makeAxeBuilder);
   },
 });
 export { expect } from "@playwright/test";
