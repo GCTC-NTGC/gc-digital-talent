@@ -1,18 +1,112 @@
 import {
-  GetDigitalContractingQuestionnaireDocument,
-  GetDigitalContractingQuestionnaireQuery,
-} from "@gc-digital-talent/web/src/api/generated";
+  graphql,
+  DigitalContractQuestionnaire_Query,
+} from "@gc-digital-talent/graphql";
 
-import {
-  aliasMutation,
-  aliasQuery,
-  getGqlString,
-} from "../../support/graphql-test-utils";
+import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
+
+const digitalContractQuestionnaireDoc = /* GraphQL */ `
+  query DigitalContractQuestionnaire($id: UUID!) {
+    digitalContractingQuestionnaire(id: $id) {
+      department {
+        name {
+          en
+          fr
+        }
+      }
+      departmentOther
+      branchOther
+      businessOwnerName
+      businessOwnerJobTitle
+      businessOwnerEmail
+      financialAuthorityName
+      financialAuthorityJobTitle
+      financialAuthorityEmail
+      authoritiesInvolved
+      authorityInvolvedOther
+      contractBehalfOfGc
+      contractServiceOfGc
+      contractForDigitalInitiative
+      digitalInitiativeName
+      digitalInitiativePlanSubmitted
+      digitalInitiativePlanUpdated
+      digitalInitiativePlanComplemented
+      contractTitle
+      contractStartDate
+      contractEndDate
+      contractExtendable
+      contractAmendable
+      contractMultiyear
+      contractValue
+      contractFtes
+      contractResourcesStartTimeframe
+      commodityType
+      commodityTypeOther
+      instrumentType
+      instrumentTypeOther
+      methodOfSupply
+      methodOfSupplyOther
+      solicitationProcedure
+      subjectToTradeAgreement
+      workRequirementDescription
+      hasPersonnelRequirements
+      personnelRequirements {
+        resourceType
+        skillRequirements {
+          skill {
+            name {
+              en
+              fr
+            }
+          }
+          level
+        }
+        language
+        languageOther
+        security
+        securityOther
+        telework
+        quantity
+      }
+      qualificationRequirement
+      requirementAccessToSecure
+      requirementScreeningLevels
+      requirementScreeningLevelOther
+      requirementWorkLanguages
+      requirementWorkLanguageOther
+      requirementWorkLocations
+      requirementWorkLocationGcSpecific
+      requirementWorkLocationOffsiteSpecific
+      requirementOthers
+      requirementOtherOther
+      isTechnologicalChange
+      hasImpactOnYourDepartment
+      hasImmediateImpactOnOtherDepartments
+      hasFutureImpactOnOtherDepartments
+      operationsConsiderations
+      operationsConsiderationsOther
+      contractingRationalePrimary
+      contractingRationalePrimaryOther
+      contractingRationalesSecondary
+      contractingRationalesSecondaryOther
+      ocioConfirmedTalentShortage
+      talentSearchTrackingNumber
+      ongoingNeedForKnowledge
+      knowledgeTransferInContract
+      employeesHaveAccessToKnowledge
+      ocioEngagedForTraining
+    }
+  }
+`;
+
+const DigitalContractQuestionnaire_Query = graphql(
+  digitalContractQuestionnaireDoc,
+);
 
 describe("Directive Forms Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "GetDigitalContractingQuestionnaire");
+      aliasQuery(req, "DigitalContractQuestionnaire");
       aliasMutation(req, "CreateDigitalContractingQuestionnaire");
     });
   });
@@ -365,9 +459,9 @@ describe("Directive Forms Tests", () => {
     cy.expectToast(/Questionnaire successfully saved/i);
 
     cy.get("@questionnaireId").then((questionnaireId) => {
-      cy.graphqlRequest<GetDigitalContractingQuestionnaireQuery>({
-        operationName: "GetDigitalContractingQuestionnaire",
-        query: getGqlString(GetDigitalContractingQuestionnaireDocument),
+      cy.graphqlRequest<DigitalContractQuestionnaire_Query>({
+        operationName: "DigitalContractQuestionnaire",
+        query: digitalContractQuestionnaireDoc,
         variables: {
           id: questionnaireId,
         },
@@ -746,9 +840,9 @@ describe("Directive Forms Tests", () => {
     cy.expectToast(/Questionnaire successfully saved/i);
 
     cy.get("@questionnaireId").then((questionnaireId) => {
-      cy.graphqlRequest<GetDigitalContractingQuestionnaireQuery>({
-        operationName: "GetDigitalContractingQuestionnaire",
-        query: getGqlString(GetDigitalContractingQuestionnaireDocument),
+      cy.graphqlRequest<DigitalContractQuestionnaire_Query>({
+        operationName: "DigitalContractQuestionnaire",
+        query: digitalContractQuestionnaireDoc,
         variables: {
           id: questionnaireId,
         },
