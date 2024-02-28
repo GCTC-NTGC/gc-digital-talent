@@ -20,7 +20,7 @@
     "build:css": "h2-build",
     "build:project": "turbo run build",
     "build:intl-cli": "turbo run build --filter=@gc-digital-talent/i18n",
-    "codegen": "turbo run codegen",
+    "codegen": "turbo run codegen --filter=@gc-digital-talent/graphql",
     "check-intl:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml",
     "check-intl:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml",
     "check-intl-merge:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml --merge-fr ./packages/i18n/src/lang/newTranslations.json",
@@ -57,7 +57,7 @@
     "@hydrogen-css/hydrogen": "2.0.3",
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.2",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.5",
     "turbo": "^1.12.4"
   }
 }

@@ -6,8 +6,7 @@ import {
   getAssessmentStepType,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-
-import { AssessmentStep } from "~/api/generated";
+import { AssessmentStep } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
   assessmentStep: AssessmentStep,

@@ -1,8 +1,8 @@
 import { IntlShape } from "react-intl";
 
 import { Option } from "@gc-digital-talent/forms";
+import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
-import { Skill, SkillCategory, SkillFamily } from "~/api/generated";
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 
 import { FormValues, SkillBrowserDialogContext } from "./types";
@@ -267,20 +267,18 @@ export const getFilteredSkills: GetFilteredSkills = ({
 }) => {
   if (inLibrary && family && family === "library") {
     // If `inLibrary` was passed and selected, filter by those instead of family
-    return skills.filter(
-      (currentSkill) =>
-        inLibrary?.find(
-          (skillInLibrary) => skillInLibrary.id === currentSkill.id,
-        ),
+    return skills.filter((currentSkill) =>
+      inLibrary?.find(
+        (skillInLibrary) => skillInLibrary.id === currentSkill.id,
+      ),
     );
   }
 
   if (family && family !== "all") {
     // We only care about family if it is set
     // since we are filtering families by category
-    return skills.filter(
-      (currentSkill) =>
-        currentSkill.families?.some((skillFamily) => skillFamily.id === family),
+    return skills.filter((currentSkill) =>
+      currentSkill.families?.some((skillFamily) => skillFamily.id === family),
     );
   }
   if (category && category !== "all") {

@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
+import { PoolStatus, Skill, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
-import { PoolStatus, Skill, UpdatePoolInput } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 

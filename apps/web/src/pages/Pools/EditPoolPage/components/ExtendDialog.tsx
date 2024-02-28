@@ -13,8 +13,7 @@ import {
   convertDateTimeZone,
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
-
-import { Pool, Scalars } from "~/api/generated";
+import { Pool, Scalars } from "@gc-digital-talent/graphql";
 
 type FormValues = {
   expiryEndDate?: Pool["closingDate"];
@@ -22,7 +21,7 @@ type FormValues = {
 
 type ExtendDialogProps = {
   closingDate: Pool["closingDate"];
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
 };
 
 const ExtendDialog = ({

@@ -13,13 +13,13 @@ import {
   HeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import {
   categorizeSkill,
   differentiateMissingSkills,
   getMissingSkills,
 } from "~/utils/skillUtils";
-import type { Skill } from "~/api/generated";
 
 interface MissingSkillsBlockProps {
   pillType: { color: Color; mode: PillMode };

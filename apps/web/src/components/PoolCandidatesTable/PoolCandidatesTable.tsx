@@ -22,17 +22,17 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql, PoolCandidate } from "@gc-digital-talent/graphql";
-
 import {
+  graphql,
+  PoolCandidate,
   PoolCandidateSearchInput,
   InputMaybe,
   Pool,
   Maybe,
   PoolCandidateWithSkillCount,
-  useGetSkillsQuery,
   PublishingGroup,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 import {
   INITIAL_STATE,
@@ -81,6 +81,40 @@ import {
 } from "./poolCandidateCsv";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
+
+const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
+  query CandidatesTableSkills {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      category
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   query CandidatesTableCandidatesPaginated_Query(
@@ -394,9 +428,10 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
-  const [{ data: allSkillsData, fetching: fetchingSkills }] =
-    useGetSkillsQuery();
-  const allSkills = allSkillsData?.skills.filter(notEmpty);
+  const [{ data: allSkillsData, fetching: fetchingSkills }] = useQuery({
+    query: CandidatesTableSkills_Query,
+  });
+  const allSkills = unpackMaybes(allSkillsData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);

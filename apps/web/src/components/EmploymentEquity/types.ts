@@ -1,4 +1,7 @@
-import { IndigenousCommunity, UpdateUserAsUserMutation } from "~/api/generated";
+import {
+  IndigenousCommunity,
+  UpdateUserAsUserMutation,
+} from "@gc-digital-talent/graphql";
 
 export type EquityKeys =
   | "isWoman"

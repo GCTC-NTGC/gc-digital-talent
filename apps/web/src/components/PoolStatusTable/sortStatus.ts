@@ -1,6 +1,6 @@
 import { SortingFnOption } from "@tanstack/react-table";
 
-import { PoolCandidate, PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidate, PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 const sortOrder = [
   PoolCandidateStatus.PlacedIndeterminate,

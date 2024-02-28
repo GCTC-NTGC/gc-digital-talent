@@ -8,8 +8,12 @@ import {
   LocalizedArray,
   getLocalizedArray,
 } from "@gc-digital-talent/i18n/src/utils/localize";
-
-import { Maybe, Skill, SkillCategory, SkillFamily } from "~/api/generated";
+import {
+  Maybe,
+  Skill,
+  SkillCategory,
+  SkillFamily,
+} from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(
   category: Maybe<SkillCategory>,

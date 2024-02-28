@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Well, Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-
-import { Maybe, Skill } from "~/api/generated";
+import { Maybe, Skill } from "@gc-digital-talent/graphql";
 
 interface SkillDescriptionProps {
   skill?: Maybe<Skill>;

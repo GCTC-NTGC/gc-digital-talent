@@ -1,7 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { Pool, PoolCandidate } from "~/api/generated";
+import { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
 type PartialPoolCandidate = Pick<PoolCandidate, "generalQuestionResponses">;
 

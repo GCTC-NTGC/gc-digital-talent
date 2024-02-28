@@ -1,9 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import Well from "@gc-digital-talent/ui/src/components/Well";
+import { Well } from "@gc-digital-talent/ui";
+import { Experience, Skill } from "@gc-digital-talent/graphql";
 
-import { Experience, Skill } from "~/api/generated";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 

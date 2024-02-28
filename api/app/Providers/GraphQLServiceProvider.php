@@ -52,13 +52,13 @@ use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
-use App\Enums\SalaryRange;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
@@ -222,6 +222,15 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
         $typeRegistry->registerLazy(
+            'PoolOpportunityLength',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PoolOpportunityLength',
+                    'values' => array_column(PoolOpportunityLength::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
             'PublishingGroup',
             static function (): EnumType {
                 return new EnumType([
@@ -272,15 +281,6 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'OperationalRequirement',
                     'values' => array_column(OperationalRequirement::cases(), 'name'),
-                ]);
-            }
-        );
-        $typeRegistry->registerLazy(
-            'SalaryRange',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'SalaryRange',
-                    'values' => array_column(SalaryRange::cases(), 'name'),
                 ]);
             }
         );

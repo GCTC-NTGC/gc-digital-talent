@@ -23,9 +23,9 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   AssessmentPlanBuilderPageQuery,
   graphql,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
@@ -149,7 +149,7 @@ export const AssessmentPlanBuilder = ({
 };
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `

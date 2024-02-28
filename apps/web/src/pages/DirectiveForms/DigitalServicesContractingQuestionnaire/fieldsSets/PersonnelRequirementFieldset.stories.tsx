@@ -4,13 +4,12 @@ import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
-
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   SkillLevel,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import PersonnelRequirementFieldset, {
   PersonnelRequirementFieldsetProps,

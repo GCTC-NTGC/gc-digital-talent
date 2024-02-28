@@ -5,6 +5,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -78,6 +79,7 @@ const ApplicationCareerTimelineEdit = ({
 }: ApplicationCareerTimelineEditProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { experienceId } = useRequiredParams<RouteParams>("experienceId", true);
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -86,6 +88,7 @@ const ApplicationCareerTimelineEdit = ({
     application,
     resourceId: experienceId,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
 
   return (

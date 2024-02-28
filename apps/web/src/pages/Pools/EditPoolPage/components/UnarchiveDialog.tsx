@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
+import { Pool } from "@gc-digital-talent/graphql";
 
-import { Pool } from "~/api/generated";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 type UnarchiveDialogProps = {

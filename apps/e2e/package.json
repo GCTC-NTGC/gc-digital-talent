@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.11.19",
+    "@types/node": "^20.11.20",
     "axe-core": "^4.8.4",
     "cy-verify-downloads": "^0.2.3",
     "cypress": "^13.6.5",
@@ -23,7 +23,7 @@
     "dotenv": "^16.4.5",
     "eslint-plugin-cypress": "^2.15.1",
     "jwt-decode": "4.0.0",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.5",
     "tsconfig": "*",
     "typescript": "4.9.5"
   }

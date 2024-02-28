@@ -1,4 +1,4 @@
-import { PoolCandidateStatus } from "~/api/generated";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,

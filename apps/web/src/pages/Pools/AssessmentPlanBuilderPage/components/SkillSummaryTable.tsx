@@ -12,7 +12,6 @@ import {
   getPoolSkillType,
   getSkillCategory,
 } from "@gc-digital-talent/i18n";
-
 import {
   AssessmentStep,
   AssessmentStepType,
@@ -21,7 +20,8 @@ import {
   PoolSkillType,
   Skill,
   SkillCategory,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 
@@ -135,12 +135,10 @@ const plannedAssessmentCell = (
   poolSkill: PoolSkill,
   assessmentSteps: AssessmentStep[],
 ): JSX.Element | null => {
-  return assessmentSteps.some(
-    (assessmentStep) =>
-      assessmentStep.poolSkills?.some(
-        (assessmentStepPoolSkill) =>
-          assessmentStepPoolSkill?.id === poolSkill.id,
-      ),
+  return assessmentSteps.some((assessmentStep) =>
+    assessmentStep.poolSkills?.some(
+      (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
+    ),
   )
     ? CheckCircleIconElement(poolSkill.skill)
     : XCircleIconElement(poolSkill.skill);

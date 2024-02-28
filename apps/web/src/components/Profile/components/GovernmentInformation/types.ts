@@ -1,4 +1,9 @@
-import { User, Classification, GovEmployeeType, Maybe } from "~/api/generated";
+import {
+  User,
+  Classification,
+  GovEmployeeType,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 
 type PartialClassification = Pick<Classification, "group" | "level">;
 export type PartialUser = Pick<

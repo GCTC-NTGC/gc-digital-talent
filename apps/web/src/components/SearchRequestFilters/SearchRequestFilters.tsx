@@ -12,16 +12,16 @@ import {
   getPoolStream,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import { wrapAbbr } from "~/utils/nameUtils";
 import {
   ApplicantFilter,
   Classification,
   Maybe,
   Pool,
   PoolCandidateFilter,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import { wrapAbbr } from "~/utils/nameUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import processMessages from "~/messages/processMessages";
 
@@ -142,11 +142,7 @@ const ApplicantFilters = ({
     );
   const languageAbility: string = applicantFilter?.languageAbility
     ? intl.formatMessage(getLanguageAbility(applicantFilter?.languageAbility))
-    : intl.formatMessage({
-        defaultMessage: "Any language",
-        id: "/jDW4V",
-        description: "Label for the any language option",
-      });
+    : intl.formatMessage(commonMessages.anyLanguage);
 
   const workLocationIds: string[] =
     (applicantFilter?.locationPreferences as string[]) ?? [];
@@ -401,11 +397,7 @@ const SearchRequestFilters = ({
     ? intl.formatMessage(
         getLanguageAbility(poolCandidateFilter?.languageAbility),
       )
-    : intl.formatMessage({
-        defaultMessage: "Any language",
-        id: "/jDW4V",
-        description: "Label for the any language option",
-      });
+    : intl.formatMessage(commonMessages.anyLanguage);
 
   return (
     <section data-h2-radius="base(s)">

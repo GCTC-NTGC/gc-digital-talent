@@ -225,6 +225,13 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           }
         }
       }
+      screeningQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
       generalQuestions {
         id
         question {
@@ -285,6 +292,17 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
     }
     submittedSteps
+    screeningQuestionResponses {
+      id
+      answer
+      screeningQuestion {
+        id
+        question {
+          en
+          fr
+        }
+      }
+    }
     generalQuestionResponses {
       id
       answer

@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
+
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 export type DisplayProps = {

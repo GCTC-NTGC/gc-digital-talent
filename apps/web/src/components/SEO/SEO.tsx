@@ -33,7 +33,7 @@ const SEO = ({ title, description, type = "website" }: SEOProps) => {
   };
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags>
       <html lang={locale} />
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
