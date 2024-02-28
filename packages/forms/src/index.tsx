@@ -54,6 +54,7 @@ import {
   objectsToSortedOptions,
   htmlToRichTextJSON,
   flattenErrors,
+  alphaSortOptions,
 } from "./utils";
 import useInputStyles from "./hooks/useInputStyles";
 import { Option, OptGroup, OptGroupOrOption } from "./types";
@@ -127,4 +128,5 @@ export {
   useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
   flattenErrors,
+  alphaSortOptions,
 };
