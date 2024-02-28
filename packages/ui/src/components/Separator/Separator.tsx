@@ -26,13 +26,13 @@ const Separator = React.forwardRef<
     let spaceStyles: Record<string, string> = {};
     if (space !== "none") {
       if (space === "sm") {
-        spaceStyles = { "data-h2-margin": "base(x1)" };
+        spaceStyles = { "data-h2-margin": "base(x1 0)" };
       }
       if (space === "md") {
-        spaceStyles = { "data-h2-margin": "base(x2)" };
+        spaceStyles = { "data-h2-margin": "base(x2 0)" };
       }
       if (space === "lg") {
-        spaceStyles = { "data-h2-margin": "base(x3)" };
+        spaceStyles = { "data-h2-margin": "base(x3 0)" };
       }
     }
     return (
