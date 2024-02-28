@@ -15,9 +15,6 @@ services:
     restart: always
     environment:
       - ADMINER_DEFAULT_SERVER=postgres
-    volumes:
-      # Source: https://github.com/Niyko/Hydra-Dark-Theme-for-Adminer
-      - ./infrastructure/adminer-hydra-theme.css:/var/www/html/designs/hydra2/adminer.css
     links:
       - postgres
     ports:
