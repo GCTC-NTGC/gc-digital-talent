@@ -2,7 +2,7 @@
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -77,7 +77,7 @@ const SideMenu = ({
     >
       <AnimatePresence>
         {showMenu ? (
-          <motion.div
+          <m.div
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) p-tablet(static)"
             data-h2-location="base(0, auto, auto, auto) p-tablet(auto)"
@@ -149,12 +149,12 @@ const SideMenu = ({
                 </RemoveScroll>
               </FocusLock>
             </div>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
       <AnimatePresence>
         {showOverlay && (
-          <motion.div
+          <m.div
             data-h2-position="base(fixed)"
             data-h2-location="base(0, 0, 0, 0)"
             data-h2-background-color="base(black)"
