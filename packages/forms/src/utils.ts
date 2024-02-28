@@ -259,10 +259,6 @@ export function flattenErrors(
   return errorNames;
 }
 
-export function alphaSort(list: string[], locale?: Locales): string[] {
-  return list.sort(Intl.Collator(locale).compare);
-}
-
 export function alphaSortOptions(
   list?: OptGroupOrOption[],
   locale?: Locales,
