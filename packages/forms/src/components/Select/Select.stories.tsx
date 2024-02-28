@@ -96,6 +96,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     },
   ];
   const groupOptions: OptGroup[] = groups.map((group) => ({
+    value: group.id,
     label: getLocalizedName(group.label, intl),
     options: group.options,
   }));
