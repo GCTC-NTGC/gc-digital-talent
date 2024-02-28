@@ -47,7 +47,10 @@ interface UpdateSkillShowcaseProps {
     returnPath: string;
   };
   handleSubmit: (formValues: FormValues) => Promise<void>;
-  onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
+  onAddition: (
+    initialSkillRanking: string[],
+    newSkillId: string,
+  ) => Promise<void>;
   userSkillRanking: keyof UpdateUserSkillRankingsInput;
   disabled: boolean;
 }
@@ -323,7 +326,7 @@ const UpdateSkillShowcase = ({
                       navigate(pageInfo.returnPath);
                     }}
                   >
-                    {intl.formatMessage(commonMessages.cancel)}
+                    {intl.formatMessage(commonMessages.return)}
                   </Button>
                 </div>
               </div>

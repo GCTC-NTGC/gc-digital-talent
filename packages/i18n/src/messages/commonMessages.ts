@@ -230,6 +230,11 @@ const commonMessages = defineMessages({
     id: "6/U6rm",
     description: "Final assessment decision",
   },
+  return: {
+    defaultMessage: "Return",
+    id: "VV8TA5",
+    description: "An action to go back to a previous location",
+  },
 });
 
 export default commonMessages;
