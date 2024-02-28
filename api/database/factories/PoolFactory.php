@@ -221,9 +221,8 @@ class PoolFactory extends Factory
                 ->where('required_skill_level', null)
                 ->get();
             foreach ($poolSkills as $poolSkill) {
-                $poolSkill->update([
-                    'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
-                ]);
+                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
+                $poolSkill->save();
             }
         });
     }
