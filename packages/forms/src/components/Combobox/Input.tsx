@@ -144,7 +144,7 @@ const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
 
 const Separator = () => (
   <span data-h2-padding="base(x.25 0)">
-    <SeparatorPrimitive />
+    <SeparatorPrimitive orientation="vertical" space="none" decorative />
   </span>
 );
 

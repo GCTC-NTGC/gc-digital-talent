@@ -248,7 +248,7 @@ const PersonnelRequirementFieldset = ({
                   )}
                 </Button>
               </div>
-              <Separator space="sm" />
+              <Separator space="xs" />
             </div>
           </div>
         );

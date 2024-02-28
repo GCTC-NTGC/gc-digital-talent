@@ -4,7 +4,7 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator";
 type SeparatorProps = React.ComponentPropsWithoutRef<
   typeof SeparatorPrimitive.Root
 > & {
-  space?: "none" | "sm" | "md" | "lg";
+  space?: "none" | "xs" | "sm" | "md" | "lg";
 } & Omit<
     React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>,
     "ref"
@@ -25,6 +25,13 @@ const Separator = React.forwardRef<
   ) => {
     let spaceStyles: Record<string, string> = {};
     if (space !== "none") {
+      if (space === "xs") {
+        spaceStyles =
+          orientation === "vertical"
+            ? { "data-h2-margin": "base(0 x.5)" }
+            : { "data-h2-margin": "base(x.5 0)" };
+      }
+
       if (space === "sm") {
         spaceStyles =
           orientation === "vertical"
