@@ -34,7 +34,7 @@ import {
   Locales,
   getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
@@ -45,6 +45,9 @@ import {
   Pool,
   PublishingGroup,
   Maybe,
+  PoolSkillType,
+  PoolSkill,
+  Skill,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -61,7 +64,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { sortSkillsByCategory } from "~/utils/skillUtils";
+import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 
 import ApplicationLink, {
   ApplicationLinkProps,
@@ -72,7 +75,7 @@ import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
-// import SkillLevelDialog from "./components/SkillLevelDialog";
+import SkillLevelDialog from "./components/SkillLevelDialog";
 
 type SectionContent = {
   id: string;
@@ -170,12 +173,24 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.essentialSkills),
-  );
-  const nonEssentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.nonessentialSkills),
-  );
+  // filter and confirm poolSkill.skill truthy
+  const poolSkills = pool.poolSkills ?? [];
+  const filteredPoolSkills = poolSkills
+    .filter(notEmpty)
+    .filter(
+      (poolSkill) =>
+        poolSkill.skill && poolSkill.skill.category && poolSkill.skill.id,
+    );
+  const essentialPoolSkills = sortPoolSkillsBySkillCategory(
+    filteredPoolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+    ),
+  ) as (PoolSkill & { skill: Skill })[];
+  const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
+    filteredPoolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+    ),
+  ) as (PoolSkill & { skill: Skill })[];
 
   const contactEmail = pool.team?.contactEmail;
 
@@ -203,8 +218,12 @@ export const PoolPoster = ({
     if (skillsValue.length > 0) {
       setSkillsValue([]);
     } else {
-      const essentialIds = essentialSkills.map((skill) => skill.id);
-      const nonEssentialIds = nonEssentialSkills.map((skill) => skill.id);
+      const essentialIds = essentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill.id,
+      );
+      const nonEssentialIds = nonessentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill.id,
+      );
 
       setSkillsValue([...essentialIds, ...nonEssentialIds]);
     }
@@ -754,8 +773,7 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are used during the application process",
                 })}
               </Text>
-              {/** Uncomment in #8828 */}
-              {/** <SkillLevelDialog /> */}
+              <SkillLevelDialog />
               <Accordion.Root
                 type="multiple"
                 mode="card"
@@ -764,11 +782,15 @@ export const PoolPoster = ({
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >
-                {essentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} required />
+                {essentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion
+                    key={poolSkill.id}
+                    poolSkill={poolSkill}
+                    required
+                  />
                 ))}
-                {nonEssentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} />
+                {nonessentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion key={poolSkill.id} poolSkill={poolSkill} />
                 ))}
               </Accordion.Root>
             </TableOfContents.Section>
@@ -1121,53 +1143,33 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        requiredLevel
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
           description {
             en
             fr
           }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
           }
         }
       }
