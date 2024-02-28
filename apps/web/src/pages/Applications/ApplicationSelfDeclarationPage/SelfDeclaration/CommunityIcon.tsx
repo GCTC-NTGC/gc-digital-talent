@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 
 import firstNationsOn from "~/assets/img/first-nations-true.webp";
@@ -68,22 +68,17 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
       >
         <AnimatePresence>
           {isOn ? (
-            <motion.img
-              {...styles}
-              alt=""
-              key={`${community}-true`}
-              src={iconOn}
-            />
+            <m.img {...styles} alt="" key={`${community}-true`} src={iconOn} />
           ) : (
             <>
-              <motion.img
+              <m.img
                 {...styles}
                 data-h2-display="base(block) base:dark(none)"
                 alt=""
                 key={`${community}-false`}
                 src={iconOff}
               />
-              <motion.img
+              <m.img
                 {...styles}
                 data-h2-display="base(none) base:dark(block)"
                 alt=""
