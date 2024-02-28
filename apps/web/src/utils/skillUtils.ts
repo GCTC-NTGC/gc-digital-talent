@@ -20,6 +20,7 @@ import {
   Skill,
   SkillCategory,
   SkillFamily,
+  PoolSkill,
 } from "@gc-digital-talent/graphql";
 
 /**
@@ -337,5 +338,27 @@ export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
       categoryOrder.indexOf(skillA.category) -
       categoryOrder.indexOf(skillB.category)
     );
+  });
+};
+
+/**
+ * Sort poolSkills collection by category of attached skill
+ *
+ * Technical first, behavioural second
+ *
+ * @param poolSkills PoolSkill[]
+ * @returns PoolSkill[]
+ */
+export const sortPoolSkillsBySkillCategory = (
+  poolSkills: PoolSkill[],
+): PoolSkill[] => {
+  return poolSkills.sort((poolSkillA, poolSkillB) => {
+    if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
+      return (
+        categoryOrder.indexOf(poolSkillA.skill.category) -
+        categoryOrder.indexOf(poolSkillB.skill.category)
+      );
+    }
+    return 0;
   });
 };
