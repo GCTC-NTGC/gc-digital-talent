@@ -125,7 +125,7 @@ export class PoolPage extends AppPage {
       publishingGroup: PublishingGroup.ItJobs,
     });
 
-    const poolSkill = await this.createPoolSkill(pool.id, skill.id, {
+    await this.createPoolSkill(pool.id, skill.id, {
       type: PoolSkillType.Essential,
       requiredLevel: SkillLevel.Beginner,
     });
