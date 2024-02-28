@@ -79,21 +79,23 @@ module.exports = (basePath, appMeta) => {
         template: "./public/index.html",
         meta: {
           description: meta.description,
-          "og:url": { property: "og:url", content: meta.url },
-          "og:type": { property: "og:type", content: meta.type },
-          "og:title": { property: "og:title", content: meta.title },
+          "og:url": { property: "og:url", content: meta.url, "data-rh": "true" },
+          "og:type": { property: "og:type", content: meta.type, "data-rh": "true" },
+          "og:title": { property: "og:title", content: meta.title, "data-rh": "true" },
           "og:description": {
             property: "og:description",
             content: meta.description,
+            "data-rh": "true"
           },
-          "og:image": { property: "og:image", content: meta.image },
+          "og:image": { property: "og:image", content: meta.image, "data-rh": "true" },
           "twitter:domain": {
             property: "twitter:domain",
             content: meta.domain,
+            "data-rh": "true"
           },
-          "twitter:url": { property: "twitter:url", content: meta.url },
-          "twitter:title": { property: "twitter:title", content: meta.title },
-          "twitter:image": { property: "twitter:image", content: meta.image },
+          "twitter:url": { property: "twitter:url", content: meta.url, "data-rh": "true" },
+          "twitter:title": { property: "twitter:title", content: meta.title, "data-rh": "true" },
+          "twitter:image": { property: "twitter:image", content: meta.image, "data-rh": "true" },
         },
       }),
 

@@ -59,11 +59,10 @@ const makeAssessmentResult = (
 export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
   ...fakeCandidates[0],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step) =>
-        step.poolSkills?.map((poolSkill) =>
-          makeAssessmentResult(step, poolSkill, AssessmentDecision.Successful),
-        ),
+    ...fakePoolAssessmentSteps.flatMap((step) =>
+      step.poolSkills?.map((poolSkill) =>
+        makeAssessmentResult(step, poolSkill, AssessmentDecision.Successful),
+      ),
     ),
   ].filter(notEmpty),
 };
@@ -71,11 +70,10 @@ export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
 export const candidateFullyQualified: PoolCandidate = {
   ...fakeCandidates[1],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step) =>
-        step.poolSkills?.map((poolSkill) =>
-          makeAssessmentResult(step, poolSkill, AssessmentDecision.Successful),
-        ),
+    ...fakePoolAssessmentSteps.flatMap((step) =>
+      step.poolSkills?.map((poolSkill) =>
+        makeAssessmentResult(step, poolSkill, AssessmentDecision.Successful),
+      ),
     ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
@@ -89,17 +87,16 @@ export const candidateFullyQualified: PoolCandidate = {
 export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
   ...fakeCandidates[2],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step, index) =>
-        step.poolSkills?.map((poolSkill) =>
-          makeAssessmentResult(
-            step,
-            poolSkill,
-            index === 1 // Index 1 is the middle of three assessment steps
-              ? AssessmentDecision.Hold
-              : AssessmentDecision.Successful,
-          ),
+    ...fakePoolAssessmentSteps.flatMap((step, index) =>
+      step.poolSkills?.map((poolSkill) =>
+        makeAssessmentResult(
+          step,
+          poolSkill,
+          index === 1 // Index 1 is the middle of three assessment steps
+            ? AssessmentDecision.Hold
+            : AssessmentDecision.Successful,
         ),
+      ),
     ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
@@ -113,17 +110,16 @@ export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
 export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
   ...fakeCandidates[3],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step, index) =>
-        step.poolSkills?.map((poolSkill) =>
-          makeAssessmentResult(
-            step,
-            poolSkill,
-            index === 2 // Index 2 is the final of three assessment steps
-              ? AssessmentDecision.Hold
-              : AssessmentDecision.Successful,
-          ),
+    ...fakePoolAssessmentSteps.flatMap((step, index) =>
+      step.poolSkills?.map((poolSkill) =>
+        makeAssessmentResult(
+          step,
+          poolSkill,
+          index === 2 // Index 2 is the final of three assessment steps
+            ? AssessmentDecision.Hold
+            : AssessmentDecision.Successful,
         ),
+      ),
     ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
@@ -137,17 +133,16 @@ export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
 export const candidateUnfinishedFinalAssessment: PoolCandidate = {
   ...fakeCandidates[4],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step, stepIndex) =>
-        step.poolSkills?.map((poolSkill, skillIndex) =>
-          makeAssessmentResult(
-            step,
-            poolSkill,
-            stepIndex === 2 && skillIndex === 0 // Leave one skill on final step undecided
-              ? undefined
-              : AssessmentDecision.Successful,
-          ),
+    ...fakePoolAssessmentSteps.flatMap((step, stepIndex) =>
+      step.poolSkills?.map((poolSkill, skillIndex) =>
+        makeAssessmentResult(
+          step,
+          poolSkill,
+          stepIndex === 2 && skillIndex === 0 // Leave one skill on final step undecided
+            ? undefined
+            : AssessmentDecision.Successful,
         ),
+      ),
     ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
@@ -163,17 +158,16 @@ export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
   assessmentResults: [
     ...fakePoolAssessmentSteps
       .slice(0, 2)
-      .flatMap(
-        (step, index) =>
-          step.poolSkills?.map((poolSkill) =>
-            makeAssessmentResult(
-              step,
-              poolSkill,
-              index === 1
-                ? AssessmentDecision.Hold
-                : AssessmentDecision.Successful,
-            ),
+      .flatMap((step, index) =>
+        step.poolSkills?.map((poolSkill) =>
+          makeAssessmentResult(
+            step,
+            poolSkill,
+            index === 1
+              ? AssessmentDecision.Hold
+              : AssessmentDecision.Successful,
           ),
+        ),
       ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
@@ -187,17 +181,16 @@ export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
 export const candidateOneFailingAssessment: PoolCandidate = {
   ...fakeCandidates[6],
   assessmentResults: [
-    ...fakePoolAssessmentSteps.flatMap(
-      (step, stepIndex) =>
-        step.poolSkills?.map((poolSkill, skillIndex) =>
-          makeAssessmentResult(
-            step,
-            poolSkill,
-            stepIndex === 1 && skillIndex === 1
-              ? AssessmentDecision.Unsuccessful
-              : AssessmentDecision.Successful,
-          ),
+    ...fakePoolAssessmentSteps.flatMap((step, stepIndex) =>
+      step.poolSkills?.map((poolSkill, skillIndex) =>
+        makeAssessmentResult(
+          step,
+          poolSkill,
+          stepIndex === 1 && skillIndex === 1
+            ? AssessmentDecision.Unsuccessful
+            : AssessmentDecision.Successful,
         ),
+      ),
     ),
     // Add one more assessment result for Education requirement of Application Assessment step
     makeAssessmentResult(
