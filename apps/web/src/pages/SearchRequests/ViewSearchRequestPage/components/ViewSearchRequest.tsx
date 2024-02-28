@@ -449,11 +449,7 @@ export const ViewSearchRequest = ({
                 reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
               }
             />
-            <Separator
-              orientation="horizontal"
-              data-h2-background-color="base(black.2)"
-              data-h2-margin-bottom="base(x1)"
-            />
+            <Separator space="sm" />
             <SearchRequestFilters filters={abstractFilter} />
             <div
               data-h2-padding="base(x1, 0, 0, 0)"

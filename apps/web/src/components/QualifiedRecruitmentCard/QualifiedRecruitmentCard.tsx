@@ -240,9 +240,6 @@ const QualifiedRecruitmentCard = ({
         </Collapsible.Content>
       </Collapsible.Root>
       <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(gray)"
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
