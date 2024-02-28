@@ -18,7 +18,6 @@ import {
   Scalars,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
-import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
 
 import { sortedOpportunityLengths } from "~/utils/poolUtils";
 
@@ -86,12 +85,10 @@ export const getClassificationOptions = (
   classifications: Maybe<Classification>[],
   intl: IntlShape,
 ): Option[] => {
-  return alphaSortOptions(
-    classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
-      value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    })),
-  );
+  return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
+    value: id,
+    label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+  }));
 };
 
 export const getStreamOptions = (intl: IntlShape): Option[] => {

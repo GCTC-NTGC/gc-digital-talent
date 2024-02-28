@@ -19,6 +19,7 @@ import {
   CheckboxOption,
   Option,
   Field,
+  alphaSortOptions,
 } from "@gc-digital-talent/forms";
 import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
@@ -30,7 +31,6 @@ import {
   ScreeningQuestion,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
 
 import processMessages from "~/messages/processMessages";
 

@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit } from "@gc-digital-talent/forms";
+import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
@@ -22,8 +22,6 @@ import {
   Maybe,
   Team,
 } from "@gc-digital-talent/graphql";
-import { alphaSortOptions } from "@gc-digital-talent/forms/src/utils";
-import { Option } from "@gc-digital-talent/forms/src/components/Combobox/types";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
@@ -93,19 +91,17 @@ export const CreatePoolForm = ({
   };
 
   // recycled from EditPool
-  const classificationOptions: Option[] = alphaSortOptions(
-    classificationsArray.map(({ id, group, level, name }) => ({
+  const classificationOptions: Option[] = classificationsArray.map(
+    ({ id, group, level, name }) => ({
       value: id,
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    })),
+    }),
   );
 
-  const teamOptions: Option[] = alphaSortOptions(
-    teamsArray.map(({ id, displayName }) => ({
-      value: id,
-      label: getLocalizedName(displayName, intl),
-    })),
-  );
+  const teamOptions: Option[] = teamsArray.map(({ id, displayName }) => ({
+    value: id,
+    label: getLocalizedName(displayName, intl),
+  }));
 
   return (
     <div data-h2-container="base(left, small, 0)">
