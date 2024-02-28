@@ -267,20 +267,18 @@ export const getFilteredSkills: GetFilteredSkills = ({
 }) => {
   if (inLibrary && family && family === "library") {
     // If `inLibrary` was passed and selected, filter by those instead of family
-    return skills.filter(
-      (currentSkill) =>
-        inLibrary?.find(
-          (skillInLibrary) => skillInLibrary.id === currentSkill.id,
-        ),
+    return skills.filter((currentSkill) =>
+      inLibrary?.find(
+        (skillInLibrary) => skillInLibrary.id === currentSkill.id,
+      ),
     );
   }
 
   if (family && family !== "all") {
     // We only care about family if it is set
     // since we are filtering families by category
-    return skills.filter(
-      (currentSkill) =>
-        currentSkill.families?.some((skillFamily) => skillFamily.id === family),
+    return skills.filter((currentSkill) =>
+      currentSkill.families?.some((skillFamily) => skillFamily.id === family),
     );
   }
   if (category && category !== "all") {

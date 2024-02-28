@@ -135,12 +135,10 @@ const plannedAssessmentCell = (
   poolSkill: PoolSkill,
   assessmentSteps: AssessmentStep[],
 ): JSX.Element | null => {
-  return assessmentSteps.some(
-    (assessmentStep) =>
-      assessmentStep.poolSkills?.some(
-        (assessmentStepPoolSkill) =>
-          assessmentStepPoolSkill?.id === poolSkill.id,
-      ),
+  return assessmentSteps.some((assessmentStep) =>
+    assessmentStep.poolSkills?.some(
+      (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
+    ),
   )
     ? CheckCircleIconElement(poolSkill.skill)
     : XCircleIconElement(poolSkill.skill);
