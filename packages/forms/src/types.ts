@@ -47,3 +47,22 @@ export type InputFieldError =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | Merge<FieldError, FieldErrorsImpl<any>>
   | undefined;
+
+export type Option = {
+  label: React.ReactNode;
+  value: string | number;
+  disabled?: boolean;
+  options?: Option[];
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
+};
+export type OptGroup = {
+  label: React.ReactNode;
+  options: Option[];
+  disabled?: boolean;
+  value: string | number;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
+};
+
+export type OptGroupOrOption = OptGroup | Option;

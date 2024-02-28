@@ -85,13 +85,10 @@ export const getClassificationOptions = (
   classifications: Maybe<Classification>[],
   intl: IntlShape,
 ): Option[] => {
-  return classifications
-    .filter(notEmpty)
-    .map(({ id, group, level, name }) => ({
-      value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+  return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
+    value: id,
+    label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+  }));
 };
 
 export const getStreamOptions = (intl: IntlShape): Option[] => {
