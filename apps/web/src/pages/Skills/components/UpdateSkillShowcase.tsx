@@ -94,18 +94,6 @@ const UpdateSkillShowcase = ({
     );
   };
 
-  const handleError = (msg?: React.ReactNode) => {
-    toast.error(
-      msg ||
-        intl.formatMessage({
-          defaultMessage: "Error: updating skill failed",
-          id: "kfjmTt",
-          description:
-            "Message displayed to user after skill fails to be updated",
-        }),
-    );
-  };
-
   const handleAdd = (values: SkillBrowserDialogFormValues): Promise<void> => {
     setIsBusy(true);
     const skillId = values.skill;
@@ -117,7 +105,8 @@ const UpdateSkillShowcase = ({
       ).length > 0;
 
     const mutationPromise = userHasSkill
-      ? executeUpdateMutation(
+      ? // update existing userSkill
+        executeUpdateMutation(
           {
             id: allUserSkills.find(
               (userSkill) => userSkill.skill.id === values.skill,
@@ -128,20 +117,19 @@ const UpdateSkillShowcase = ({
             },
           },
           context,
-        )
-          .then((res) => {
+        ).then((res) => {
+          if (res.data?.updateUserSkill?.skill.id) {
             handleSuccess();
-            if (res.data?.updateUserSkill?.skill.id) {
-              // having claimed a user skill in the modal and the mutation successful, update the ranking
-              onAddition(
-                existingSkillsRankingFiltered,
-                res.data.updateUserSkill.skill.id,
-              );
-            }
-          })
-          .catch(() => handleError())
-          .finally(() => setIsBusy(false))
-      : executeCreateMutation(
+            // having claimed a user skill in the modal and the mutation successful, update the ranking
+            return onAddition(
+              existingSkillsRankingFiltered,
+              res.data.updateUserSkill.skill.id,
+            );
+          }
+          throw new Error("No data returned");
+        })
+      : // otherwise, create new userSkill
+        executeCreateMutation(
           {
             userId,
             skillId,
@@ -151,20 +139,29 @@ const UpdateSkillShowcase = ({
             },
           },
           context,
-        )
-          .then((res) => {
-            if (res.data?.createUserSkill?.skill.id) {
-              handleSuccess();
-              onAddition(
-                existingSkillsRankingFiltered,
-                res.data.createUserSkill.skill.id,
-              );
-            } else {
-              handleError();
-            }
-          })
-          .catch(() => handleError())
-          .finally(() => setIsBusy(false));
+        ).then((res) => {
+          if (res.data?.createUserSkill?.skill.id) {
+            handleSuccess();
+            return onAddition(
+              existingSkillsRankingFiltered,
+              res.data.createUserSkill.skill.id,
+            );
+          }
+          throw new Error("No data returned");
+        });
+
+    mutationPromise
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating skill failed",
+            id: "kfjmTt",
+            description:
+              "Message displayed to user after skill fails to be updated",
+          }),
+        );
+      })
+      .finally(() => setIsBusy(false));
 
     return mutationPromise;
   };
